@@ -1,0 +1,22 @@
+appId: fr.madness.desktop
+productName: Madness
+directories:
+  output: dist
+files:
+  - out/**
+  - resources/THIRD-PARTY-NOTICES.md
+  - package.json
+asar: true
+npmRebuild: false
+win:
+  executableName: Madness
+  target:
+    - target: nsis
+      arch: [x64]
+  signExecutable: false
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  deleteAppDataOnUninstall: false
+artifactName: Madness-${version}-${arch}-setup.${ext}

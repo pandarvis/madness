@@ -147,6 +147,8 @@ Les alias des exigences et contraintes désignent les fichiers suivants ; les se
 
 ## Notes
 
+- Decision: 2026-10-23 — Le porteur part se coucher et donne le feu vert pour avancer en autonomie avec BMad et valider les étapes nécessaires. Ce mandat autorise les décisions de réalisation, contrôles, revues, ajustements de livraison justifiés et commits locaux ; les preuves réellement humaines ou externes manquantes restent des blocages explicites. Le périmètre V1, les fournisseurs, la facturation et la licence restent ceux déjà décidés. L'agent ne transforme pas ce mandat en preuve de consentement OAuth ni en validation utilisateur de l'application intégrée.
+
 - Decision: 2026-10-23 — Le porteur autorise le commit local de la proposition présentée, avec 24 exigences et 6 contraintes ; A1/A2 et Q1–Q6 restent ouverts. Cet accord ne choisit aucune architecture et ne change pas le statut du brief source.
 
 - Decision: 2026-10-23 — Les réponses du porteur pendant Winston règlent Q1 (socle Electron/React/TypeScript, electron-vite et electron-builder), Q5/A2 (conservation locale projets, conversations et brouillons sans relance), Q6 (français/anglais et clair/sombre). Elles remplacent les mentions antérieures non décidées, sans modifier les companions UX adoptés ; Sally doit les réconcilier avant leurs extensions.

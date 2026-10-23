@@ -86,6 +86,12 @@ Un développeur dialogue réellement avec Codex dans un paquet Windows sur un pr
 
 ## Notes
 
+- Decision: 2026-10-23 — Replan sous mandat autonome explicite du porteur : le tour natif de 1 a réussi mais sa distribution et son nettoyage complet restent non qualifiés ; 1 reste bloqué, son plan et sa preuve historique sont préservés. Les exigences R1–R10 et les contraintes C1–C7 ne changent pas. G0 (2) ne consomme plus une connexion positive : il construit et vérifie fenêtre, contrats et persistance locaux avec un fournisseur indisponible, sans lancer Codex. Sa dépendance artificielle à 1 est retirée ; le tracer 3 attend désormais explicitement 1 et 2. Le profil de 1 est consommé au premier dialogue réel en 3, et non à la construction locale de 2 ; cette décision remplace cette seule mention du découpage historique. L'ordre de livraison fonctionnelle reste qualification + G0 avant tracer, puis 4–11 inchangés. Aucun gate Codex ni parcours humain n'est déclaré réussi par ce réordonnancement ; 11 entrées conservées, rien abandonné.
+
+- Decision: 2026-10-23 — Le mandat délègue les validations de plans et de réalisation réalisables par l'agent, avec revue et preuves, sans checkpoint conversationnel obligatoire. Les étapes hitl conservent leur signification : une authentification, un consentement ou un essai nécessitant réellement le porteur reste en attente. Les relectures et critères de fin ne sont pas supprimés. L'assemblage et les contrôles exécutables sur Windows peuvent être préparés et exécutés par l'agent ; l'absence d'un contrôle intégré est rapportée.
+
+- Decision: 2026-10-23 — Relecture indépendante Ticket/Set/Dependencies : deux corrections mécaniques appliquées avant validation autonome du découpage, handoff explicite de 1 vers 3 et hitl=false pour 2 dont le setup et les contrôles exécutables sont délégués. Aucun consentement OAuth ni essai humain intégré n'est retiré de 1 ou de G4. Le contrôle officiel status du parent réussit sans cycle, drift ni conflit de dépendances ; couverture et identifiants inchangés.
+
 - Decision: 2026-10-23 — Périmètre et position de premier epic validés par le porteur. Le socle et les contrats précèdent leurs consommateurs ; la première preuve porte sur une vraie boucle BMad/Codex et sur le profil de référence qu'elle utilise.
 
 - Decision: 2026-10-23 — Enveloppe créée sans raffinement ni stories. L'authentification Codex et le protocole réel restent à qualifier dans cet epic, selon Q2/G1 de l'initiative.

@@ -1,12 +1,13 @@
 # Decoupage Sofia approuve par le porteur le 2026-10-23 : 11 entrees.
 # Exception validee : qualification (1), G0 (2), puis tracer complet (3).
 # Commit local autorise ; le lancement d'une entree reste une etape distincte.
+# Mandat autonome du 2026-10-23 : G0 local (2) peut avancer sans auth ; le tracer (3) attend 1 et 2.
 
 [[entry]]
 id = 1
 type = "spike"
 title = "Qualifier la voie Codex distribuable et son authentification"
-description = "Établit sur la machine Windows de référence la voie officiellement utilisable par Madness, avec outils, versions, identité et limites ; le porteur réalise les étapes de connexion requises. Vérifie réseau et certificats du processus Codex avec cette connexion réelle. Un essai autorisé et des preuves de protocole produisent le profil consommé par le socle. Toute impossibilité ou capacité requise non disponible est expliquée sans substitution de facturation ni promesse d'intégration."
+description = "Établit sur la machine Windows de référence la voie officiellement utilisable par Madness, avec outils, versions, identité et limites ; le porteur réalise les étapes de connexion requises. Vérifie réseau et certificats du processus Codex avec cette connexion réelle. Un essai autorisé et des preuves de protocole produisent le profil consommé par le premier dialogue réel en 3. Toute impossibilité ou capacité requise non disponible est expliquée sans substitution de facturation ni promesse d'intégration."
 verify = "Le compte rendu établit une voie officiellement utilisable et montre un échange réel autorisé avec versions, réseau, certificats et limites observées ; si cette preuve positive échoue, consigner le blocage et réexaminer le découpage avant tout passage aux consommateurs. Une conclusion négative ne suffit pas à les débloquer."
 covers = ["R8"]
 after = []
@@ -18,11 +19,11 @@ references = ["_bmad-output/initiative-madness/architecture-madness/architecture
 id = 2
 type = "story"
 title = "Livrer le socle Windows, les contrats et le stockage local"
-description = "Consomme le profil positif de 1 ; le porteur réalise le setup du starter et les opérations nécessaires sur la machine cible. Qualifie assemblage Electron/React/TypeScript, minima Windows, runtime et acceptabilité proxy du paquet, sans présumer le réseau du processus Codex. Établit G0 avant consommateurs : pont métier sécurisé, contrats communs versionnés, contexte, corrélation, erreurs, capacités, cycle de vie et port de persistance. L'unité choisit stockage, schéma et migrations ; la fenêtre effectue une lecture/écriture locale réelle via le cœur."
+description = "Construit le socle local indépendamment de l'authentification Codex : le porteur délègue le setup et les validations exécutables sur la machine cible, les interventions humaines réellement requises restent explicites. Qualifie assemblage Electron/React/TypeScript, minima Windows, runtime et acceptabilité proxy du paquet, sans présumer le réseau du processus Codex. Établit G0 avant consommateurs : pont métier sécurisé, contrats communs versionnés, contexte, corrélation, erreurs, capacités, cycle de vie et port de persistance. L'unité choisit stockage, schéma et migrations ; la fenêtre effectue une lecture/écriture locale réelle via le cœur. Une connexion non qualifiée reste indisponible ; aucun processus fournisseur n'est lancé et aucune capacité G1 n'est annoncée."
 verify = "Installer et ouvrir le paquet sur la cible, consigner runtime, minima Windows et contrôle du proxy, enregistrer puis relire une donnée de contexte via l'interface ; les contrôles de frontières et de contrats passent, le renderer n'accède pas aux privilèges Node et les données sont hors du dossier installé et des artefacts BMad."
 covers = ["R9","R10"]
-after = [1]
-hitl = true
+after = []
+hitl = false
 risk = "high"
 references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
 
@@ -33,7 +34,7 @@ title = "Exécuter et retrouver la première boucle BMad réelle"
 description = "Réalise le tracer complet avec les contrats et le stockage de 2 et la voie Codex de 1. Avant invocation, qualifie dans un dossier d'essai dédié le profil BMad et un workflow réellement installé : empreinte, identité/invocation, contexte requis, interactions et effets annoncés. Son parcours textuel complet doit fonctionner sans les contrôles encore prévus en 5–7 ; sinon choisir une autre référence qualifiée ou bloquer et revoir le découpage, sans tronquer ni simuler les conditions natives. Vérifie le processus Codex lancé depuis le paquet, son environnement, réseau et certificats. Capture projet/initiative/fournisseur/connexion, affiche l'invocation et conserve dialogue réel, accusés et brouillon ; G1 reste partiel."
 verify = "Dans le paquet Windows installé, vérifier le profil et le parcours avant exécution, puis invoquer le workflow qualifié sur le dossier d'essai et accomplir son dialogue textuel complet ; fermer puis rouvrir retrouve échanges et brouillon sans lancement de moteur. Consigner versions, effets attendus/observés, contexte, événements et accès réseau/certificats du processus Codex réellement lancé ; toute interaction native non disponible impose un réexamen avant invocation."
 covers = ["R1","R2","R5","R8","R9"]
-after = [2]
+after = [1,2]
 hitl = false
 risk = "high"
 references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]

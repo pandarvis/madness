@@ -14,7 +14,7 @@ lenses_ran: ['quick']
 review_loop_iteration: 0
 context: ['{project-root}/_bmad-output/initiative-madness/tickets/epic-boucle-codex/epic-boucle-codex.md', '{project-root}/_bmad-output/initiative-madness/architecture-madness/architecture-madness.md']
 blocked_at: "2026-10-23"
-blocked_reason: "Distribution du nouveau client local gratuit : admissibilite de cette authentification native a etayer ; nettoyage apres une nouvelle session authentifiee complete a confirmer. Preuve technique partielle conservee, pas de passage a 1.2."
+blocked_reason: "Authentification native : distribution du nouveau client local gratuit a etayer et nettoyage complet a confirmer. Bloque le premier dialogue reel en 1.3 ; le socle local 1.2 est independant selon le replan autonome du 2026-10-23."
 ---
 
 <frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">

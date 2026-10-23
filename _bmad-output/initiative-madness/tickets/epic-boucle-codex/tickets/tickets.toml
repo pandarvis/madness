@@ -1,0 +1,135 @@
+# Decoupage Sofia approuve par le porteur le 2026-10-23 : 11 entrees.
+# Exception validee : qualification (1), G0 (2), puis tracer complet (3).
+# Commit local autorise ; le lancement d'une entree reste une etape distincte.
+
+[[entry]]
+id = 1
+type = "spike"
+title = "Qualifier la voie Codex distribuable et son authentification"
+description = "Établit sur la machine Windows de référence la voie officiellement utilisable par Madness, avec outils, versions, identité et limites ; le porteur réalise les étapes de connexion requises. Vérifie réseau et certificats du processus Codex avec cette connexion réelle. Un essai autorisé et des preuves de protocole produisent le profil consommé par le socle. Toute impossibilité ou capacité requise non disponible est expliquée sans substitution de facturation ni promesse d'intégration."
+verify = "Le compte rendu établit une voie officiellement utilisable et montre un échange réel autorisé avec versions, réseau, certificats et limites observées ; si cette preuve positive échoue, consigner le blocage et réexaminer le découpage avant tout passage aux consommateurs. Une conclusion négative ne suffit pas à les débloquer."
+covers = ["R8"]
+after = []
+hitl = true
+risk = "high"
+references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md","_bmad-output/initiative-madness/architecture-madness/.working/recherche-connecteurs.md"]
+
+[[entry]]
+id = 2
+type = "story"
+title = "Livrer le socle Windows, les contrats et le stockage local"
+description = "Consomme le profil positif de 1 ; le porteur réalise le setup du starter et les opérations nécessaires sur la machine cible. Qualifie assemblage Electron/React/TypeScript, minima Windows, runtime et acceptabilité proxy du paquet, sans présumer le réseau du processus Codex. Établit G0 avant consommateurs : pont métier sécurisé, contrats communs versionnés, contexte, corrélation, erreurs, capacités, cycle de vie et port de persistance. L'unité choisit stockage, schéma et migrations ; la fenêtre effectue une lecture/écriture locale réelle via le cœur."
+verify = "Installer et ouvrir le paquet sur la cible, consigner runtime, minima Windows et contrôle du proxy, enregistrer puis relire une donnée de contexte via l'interface ; les contrôles de frontières et de contrats passent, le renderer n'accède pas aux privilèges Node et les données sont hors du dossier installé et des artefacts BMad."
+covers = ["R9","R10"]
+after = [1]
+hitl = true
+risk = "high"
+references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
+
+[[entry]]
+id = 3
+type = "story"
+title = "Exécuter et retrouver la première boucle BMad réelle"
+description = "Réalise le tracer complet avec les contrats et le stockage de 2 et la voie Codex de 1. Avant invocation, qualifie dans un dossier d'essai dédié le profil BMad et un workflow réellement installé : empreinte, identité/invocation, contexte requis, interactions et effets annoncés. Son parcours textuel complet doit fonctionner sans les contrôles encore prévus en 5–7 ; sinon choisir une autre référence qualifiée ou bloquer et revoir le découpage, sans tronquer ni simuler les conditions natives. Vérifie le processus Codex lancé depuis le paquet, son environnement, réseau et certificats. Capture projet/initiative/fournisseur/connexion, affiche l'invocation et conserve dialogue réel, accusés et brouillon ; G1 reste partiel."
+verify = "Dans le paquet Windows installé, vérifier le profil et le parcours avant exécution, puis invoquer le workflow qualifié sur le dossier d'essai et accomplir son dialogue textuel complet ; fermer puis rouvrir retrouve échanges et brouillon sans lancement de moteur. Consigner versions, effets attendus/observés, contexte, événements et accès réseau/certificats du processus Codex réellement lancé ; toute interaction native non disponible impose un réexamen avant invocation."
+covers = ["R1","R2","R5","R8","R9"]
+after = [2]
+hitl = false
+risk = "high"
+references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
+
+[[entry]]
+id = 4
+type = "story"
+title = "Afficher les messages et l'activité corrélée de la conversation"
+description = "Étend les retours réels du tracer 3 à la réception progressive, à l'identité connue ou inconnue et aux états de tour. Le cœur ordonne et corrèle événements, conversation, tour et demande ; l'interface préserve le contexte et annonce les changements utiles sans alerte par fragment. Les échanges reçus sont enregistrés par le port de persistance existant."
+verify = "Lancer un tour réel et suivre les messages progressifs puis sa fin ; un événement d'un autre contexte n'est pas projeté dans la conversation, les états restent distincts d'une validation et les annonces accessibles ne suivent pas chaque fragment."
+covers = ["R2","R4","R9"]
+after = [3]
+hitl = false
+risk = "medium"
+references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
+
+[[entry]]
+id = 5
+type = "story"
+title = "Répondre aux questions actives et conserver le brouillon"
+description = "Consomme les messages corrélés de 4 et la persistance de 2 pour les questions structurées réellement exposées par Codex. Présente le destinataire et une attente répondable ; le cœur refuse vide et concurrence, conserve la saisie pendant navigation/interruption et attend l'accusé fiable. Une demande expirée invalide le contrôle sans perdre ni rediriger la réponse. Cette présentation d'attente sert à 6."
+verify = "Répondre à une question réelle puis tester un envoi vide, un double envoi et une réponse tardive après invalidation : seul l'envoi confirmé est annoncé envoyé, le texte tardif reste disponible au bon contexte et le brouillon survit à la réouverture."
+covers = ["R2","R4","R5","R9"]
+after = [4]
+hitl = false
+risk = "high"
+references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
+
+[[entry]]
+id = 6
+type = "story"
+title = "Traiter les approbations liées à l'opération annoncée"
+description = "Réutilise le contexte, les attentes actives et les gardes de 5 pour les approbations natives. Affiche opération, portée et effets/fichiers avant choix ; accord et refus répondent seulement à la demande active, l'ajustement poursuit le dialogue. Navigation, délai ou fermeture ne valent pas accord ; l'autorisation d'un effet ne valide pas un livrable."
+verify = "Sur une demande réelle concernant un dossier de test, inspecter la portée puis approuver, refuser et demander un ajustement ; après expiration ou fermeture, l'ancienne commande n'autorise aucun effet et la saisie reste conservée."
+covers = ["R3","R4","R5"]
+after = [5]
+hitl = false
+risk = "high"
+references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
+
+[[entry]]
+id = 7
+type = "story"
+title = "Interrompre et récupérer sans rejouer un effet incertain"
+description = "Étend le coordinateur et les demandes de 5–6 aux interruptions, coupures, erreurs et fermetures. Sépare demande d'arrêt et arrêt observé, puis succès/échec/inconnu. Le connecteur vérifie les prérequis frais et ses capacités avant reprise ; le cœur réconcilie un résultat inconnu avant réessai avec effet et invalide les questions/approbations concernées. La restauration reste sans relance automatique."
+verify = "Interrompre puis couper une session sur un dossier de test, restaurer le contexte et essayer de reprendre : aucune ancienne approbation ni opération incertaine n'est rejouée, la saisie est conservée et la récupération proposée correspond aux retours fiables du moteur."
+covers = ["R4","R5","R6","R8","R9"]
+after = [6]
+hitl = false
+risk = "high"
+references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
+
+[[entry]]
+id = 8
+type = "story"
+title = "Retrouver les attentes et le récapitulatif depuis accueil et projet"
+description = "Assemble une projection commune des messages, demandes et récupérations de 4–7 pour les surfaces projet et accueil. Une attente nommée renvoie au bon contrôle ; connexion indisponible et données anciennes sont expliquées. À la fin d'un tour, résultat proposé, accords connus, chemins et suite attendue restent distincts de clôture/validation ; une synthèse absente n'est pas inventée."
+verify = "Depuis l'accueil puis le projet, rejoindre la même attente, y répondre et retrouver la fin du tour avec fichiers et prochaine action ; hors ligne ou sans synthèse, les limites connues sont explicites et aucune décision humaine n'est fabriquée."
+covers = ["R4","R7","R8"]
+after = [7]
+hitl = false
+risk = "medium"
+references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
+
+[[entry]]
+id = 9
+type = "story"
+title = "Reconstruire et remplacer le programme sans perdre les données"
+description = "Vérifie la maintenance sur les données et états intégrés de 3–8 avec le stockage versionné de 2 : montée de dépendances/runtime, contrôles de contrats, reconstruction et republication du paquet Windows. Le porteur réalise le remplacement nécessaire sur Windows cible. Recontrôle les prérequis modifiés de runtime/proxy et, séparément, ceux de l'environnement/réseau/certificats du processus Codex. Teste migration, échec de sauvegarde et remplacement en préservant projets, rattachements, échanges, brouillons et préférences ; les secrets ne sont pas stockés dans les conversations."
+verify = "Suivre la procédure documentée sur deux versions de test, remplacer le programme puis rouvrir les mêmes projets, échanges et brouillons ; consigner les contrôles runtime/proxy et Codex après remplacement. Un échec de migration ou sauvegarde est expliqué et aucune donnée non enregistrée n'est annoncée durable."
+covers = ["R9","R10"]
+after = [8]
+hitl = true
+risk = "high"
+references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
+
+[[entry]]
+id = 10
+type = "story"
+title = "Refactor sweep"
+description = "Traite seulement le nettoyage identifié au démarrage de cette entrée dans les plans et revues des entrées 1–9. Conserve les autorités, contrats et comportements établis ; aucun besoin ou fonctionnalité différée d'une autre entrée n'est absorbé dans ce nettoyage."
+verify = "Exécuter les vérifications des entrées 1–9 et comparer les comportements observables avant/après : elles passent, sans modification fonctionnelle ni contournement des contrats."
+covers = []
+after = [1,2,3,4,5,6,7,8,9]
+hitl = false
+risk = "low"
+references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
+
+[[entry]]
+id = 11
+type = "story"
+title = "Vérifier de bout en bout le paquet Windows et clôturer G1"
+description = "Après le nettoyage 10, rassemble la suite finale sur le paquet installé et le profil réel qualifié : invocation BMad, messages, questions, approbations/refus/expiration, interruption, inconnu réconcilié, attentes, récapitulatif, restauration sans relance et remplacement. Le porteur participe à l'essai sur Windows cible et aux opérations humaines nécessaires. Chaque entrée garde ses propres tests ; cette suite fournit les preuves intégrées de G0/G1 et les limites observées, sans annoncer G4 ni la V1 complète."
+verify = "Sur Windows cible, lancer le scénario reproductible de bout en bout avec Codex réel et retrouver son rapport de versions, événements, résultats et limites ; un contrôle manquant ou une capacité requise non prouvée laisse le gate correspondant ouvert."
+covers = ["R1","R2","R3","R4","R5","R6","R7","R8","R9","R10"]
+after = [10]
+hitl = true
+risk = "high"
+references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]

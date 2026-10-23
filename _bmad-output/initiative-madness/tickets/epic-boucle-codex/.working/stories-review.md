@@ -1,0 +1,46 @@
+# Relecture Sofia — proposition de stories de l’epic 1
+
+Date : 2026-10-23. Périmètre : **Ticket, Set, Dependencies**, au niveau de 11 entrées planifiées, sans critères complets exigés, feuille extraite ni autorisation de build. Sources lues : guide rendu `validate-checks.md`, `ticket.md` et `slice.md` ; epic et manifeste ; proposition ; initiative et manifeste parent ; contrats architecture, DESIGN et EXPERIENCE ; recherche des connecteurs.
+
+**Verdict : proposition cohérente à discuter avec le porteur, avec une réserve méthodologique attendue et des précisions à apporter avant approbation. Aucun besoin de nouveau choix produit identifié. Ce verdict ne vaut ni conformité finale du Set ni départ autorisé.**
+
+## Constats
+
+1. **Réserve attendue — tracer en troisième position.** L’exception 1 qualification Codex → 2 G0 → 3 tracer est annoncée honnêtement dans la proposition, les Notes et `unknown` de 1. Le spike et G0 ne portent pas un faux label de tracer. Le Set ne satisfait donc pas encore la règle du tracer en tête ; l’accord explicite du porteur reste requis. Après cet accord seulement, conserver une `Decision:` datée désignant 3 et l’ordre accepté, puis régler l’`unknown`. Ne pas déduire cet accord du statut `planned`.
+
+2. **Précision technique — entrée 3 et conditions natives.** Le premier workflow reste désigné seulement comme « workflow court réellement installé ». La qualification est bien possédée par 3, mais la proposition doit expliciter que son choix et sa preuve précèdent son invocation : installation/empreinte, identité/invocation, contexte requis, formes d’interaction et effets prévus. Le trajet retenu doit réellement fonctionner avec le dialogue textuel livré en 3, sans dépendre des questions structurées de 5, approbations de 6 ou récupération de 7 ; sinon arrêter et revoir le découpage avant son exécution, sans affaiblir les conditions natives. Utiliser un dossier de référence dédié aux essais et annoncer les effets attendus. Il s’agit d’un bornage de la preuve existante, pas du choix arbitraire d’un workflow produit ni d’une exigence nouvelle. La capacité globale G1 demeure ouverte jusqu’à 11.
+
+3. **Précision de couverture — runtime Windows, proxy et réseaux.** C7, AD-9 et les Deferred imposent des contrôles distincts que les descriptions actuelles ne répartissent pas explicitement. Ajouter leur propriétaire dans les passages : 1 vérifie réseau/certificats du processus fournisseur avec sa connexion réelle ; 2 qualifie runtime/minima Windows et acceptabilité proxy du paquet, sans inférer le réseau du fournisseur de celui du renderer ; 9 recontrôle ce qui change après montée de version. Consigner versions et limites avant consommateurs. Le stockage a déjà son propriétaire correct en 2, son port exclusif, son emplacement hors binaires/artefacts, son schéma/migrations avant consommateurs et ses vérifications de remplacement en 9 : aucun nouveau choix de stockage n’est à demander au porteur ici.
+
+4. **Corrections mécaniques — interventions humaines et risques.** Les `hitl = true` sont justifiés par le dernier paragraphe de la proposition, mais `ticket.md` demande de nommer l’étape humaine dans la Description : expliciter le setup du starter/de la machine en 2, le remplacement Windows en 9 et l’essai cible en 11 ; 1 le fait déjà. Les niveaux de risque existent pour les 11 entrées, mais leur raison d’impact en une ligne manque pour permettre au porteur de les décider. La proposition peut porter ces raisons sans gonfler les descriptions. Les contrôles supplémentaires des futurs tickets à haut risque seront à préciser dans leurs Notes lors du raffinement ; aucune feuille à critères complets n’est exigée maintenant.
+
+## Résultat des autres contrôles
+
+- R1–R10 sont couverts ; les parts partagées sont expliquées dans la table et les passages. Aucun changement des `covers` parent, aucune extension anglaise/sombre/graphe absorbée et aucune fausse clôture de G4 ou de V1. Les résultats servent les six Done when de l’epic.
+- La voie ordonnée 1 → 2 → … → 9 traduit de vrais besoins partagés. G0 précède ses consommateurs ; 10 attend explicitement 1–9, 11 attend 10. Aucun travail produit parallèle sans dépendance ni collision laissée ouverte. Les transmissions 1/2/3/4/5/6/7/8/9 sont nommées. L’expiration de 5 et la caducité de 6 sont propres à ces entrées ; elles n’exigent pas la récupération générale de 7.
+- Questions tardives, accord limité à l’opération, fermeture sans accord, résultats inconnus à réconcilier, absence de rejeu et restauration historique sans relance sont présents. Questions/approbations réelles restent requises ; aucune simulation ne remplace leur preuve. Les essais à effets de 6–7 emploient déjà un dossier de test.
+- Chaque entrée possède description et vérification observable ; les contrats adoptés permettent de développer les critères au moment prévu. Les unités ont un résultat distinct. 2 est la plus chargée : garder sa réalisation au minimum de G0 et de persistance utile, et réexaminer le découpage si la qualification révèle plusieurs sessions, sans faire passer du périmètre manquant en nettoyage.
+- Tests portés par chaque entrée ; seul 11 est une suite de bout en bout finale. `Refactor sweep` reste un nettoyage défini à son démarrage à partir des plans/revues, sans besoin fonctionnel absorbé.
+
+Le parent a transmis un `tickets.py status` reconnaissant 11 entrées `planned`, sans problème, drift ou conflit d’ordre. Une tentative indépendante de la commande prescrite a échoué avant le script : `uv` ne peut persister son fichier temporaire d’inspection Python dans le Temp du sandbox (`Accès refusé`). Aucun résultat de validation supplémentaire n’est donc revendiqué ; le graphe a été relu directement. Aucun autre fichier n’a été modifié par cette relecture.
+
+Prochaine action : intégrer les précisions de réalisation et de présentation, puis soumettre le découpage, les risques et l’exception d’ordre au porteur. Fin de ce tour de relecture ; le workflow de planification reste ouvert.
+
+## Recontrôle ciblé après corrections — 2026-10-23
+
+Lecture limitée aux versions corrigées de `tickets/tickets.toml` et `.working/proposition-stories.md`. Les constats initiaux ci-dessus sont conservés ; aucune recherche élargie ni commande `uv` supplémentaire.
+
+| Constat initial | Résultat du recontrôle |
+|---|---|
+| 1 — Exception du tracer en 3 | **Réserve attendue maintenue.** La proposition et l’`unknown` de 1 réservent toujours l’accord explicite du porteur. Aucune conformité acquise, décision d’exception ni autorisation de départ n’est inférée. |
+| 2 — Workflow natif de 3 | **Correction vérifiée.** Qualification avant invocation, profil/empreinte, identité/invocation, contexte, interactions et effets annoncés sont explicites. Le parcours textuel complet réellement installé est indépendant des contrôles 5–7 ; autre référence qualifiée ou blocage/réexamen sont prévus, sans troncature ni simulation. Dossier d’essai dédié et effets attendus/observés sont demandés. Aucun workflow particulier n’est présenté comme déjà qualifié. |
+| 3 — Windows, proxy et réseaux | **Correction vérifiée.** 1 vérifie réseau/certificats Codex sur la cible et exige une preuve positive avant consommateurs. 2 qualifie minima Windows, runtime et acceptabilité proxy. 3 vérifie environnement, réseau et certificats du processus Codex effectivement lancé depuis le paquet installé. 9 recontrôle les prérequis modifiés en distinguant runtime/proxy Electron et environnement/réseau/certificats Codex. |
+| 4 — Interventions et risques | **Correction vérifiée.** Les descriptions de 2, 9 et 11 nomment maintenant l’intervention du porteur. La proposition fournit un niveau et une raison d’impact pour chacune des 11 entrées ; leur accord reste inclus dans l’approbation à obtenir. Les futurs contrôles détaillés ne sont pas confondus avec des critères complets déjà rédigés. |
+
+**Verdict actualisé : les trois précisions techniques et mécaniques sont corrigées ; aucun constat correctif restant dans ce périmètre ciblé.** La seule réserve demeure l’accord humain sur l’exception de séquencement et sur la proposition de découpage/risques. La preuve de qualification des capacités reste un travail futur. Le recontrôle n’autorise ni commit ni build et ne transforme pas les entrées planifiées en livraisons vérifiées.
+
+Fin du tour de recontrôle. Prochaine action : présenter la proposition corrigée au porteur et recueillir son arbitrage explicite sur l’exception avant de régler l’`unknown` et de consigner la décision.
+
+## Suivi par Sofia après accord du porteur — 2026-10-23
+
+Le porteur a répondu « Je valide » à la proposition corrigée des 11 entrées, incluant explicitement qualification Codex (1), G0 (2) avant tracer complet (3), puis commit local. Cette décision lève la réserve humaine décrite ci-dessus ; les constats et résultats de la relecture indépendante sont conservés comme historique. Aucun périmètre, risque ou ordre n'a changé après cette relecture. Le champ unknown de 1 est retiré et une Decision datée est ajoutée aux Notes de l'epic. Ce suivi ne constitue pas une nouvelle relecture indépendante ni une preuve de qualification technique. Les contrôles officiels sont relancés avant commit ; aucune entrée n'est démarrée.

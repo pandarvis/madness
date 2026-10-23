@@ -1,0 +1,39 @@
+{
+  "title": "Madness — choisir la composition du projet",
+  "question": "Même référence Codex Desktop, trois façons d'organiser le travail. Quelle composition te paraît la plus claire pour comprendre le projet et agir ?",
+  "options": [
+    {
+      "id": "guided",
+      "label": "Parcours guidé",
+      "thesis": "La prochaine action et sa raison occupent le centre, puis on ouvre le dialogue ou les fichiers selon le besoin.",
+      "palette": ["#f4f3f7", "#ffffff", "#25252b", "#6552ad"],
+      "materials": ["Navigation sobre", "Une tâche principale à la fois"],
+      "viewport": "Projets à gauche, état du projet et recommandation au centre, fichiers et contexte à droite.",
+      "risk": "Passer souvent d'un document à la conversation demande un changement d'onglet.",
+      "wireframe": {"cols": 12, "rows": 10, "regions": [{"label": "Projets", "x": 0, "y": 0, "w": 2, "h": 10}, {"label": "État du projet", "x": 2, "y": 0, "w": 7, "h": 2}, {"label": "Action conseillée", "x": 2, "y": 2, "w": 7, "h": 3, "accent": true}, {"label": "Parcours / Dialogue", "x": 2, "y": 5, "w": 7, "h": 5}, {"label": "Fichiers et contexte", "x": 9, "y": 0, "w": 3, "h": 10}]}
+    },
+    {
+      "id": "inbox",
+      "label": "Actions en attente",
+      "thesis": "La première lecture montre les décisions et les réponses attendues pour reprendre le travail sans parcourir les conversations.",
+      "palette": ["#f4f3f7", "#ffffff", "#25252b", "#6552ad"],
+      "materials": ["Liste de travail", "Contexte au clic"],
+      "viewport": "Projets à gauche, demandes et actions au centre, détail de la sélection et aperçu du livrable à droite.",
+      "risk": "La vision d'ensemble du parcours prend moins de place que les tâches du moment.",
+      "wireframe": {"cols": 12, "rows": 10, "regions": [{"label": "Projets", "x": 0, "y": 0, "w": 2, "h": 10}, {"label": "Projet et parcours", "x": 2, "y": 0, "w": 10, "h": 2}, {"label": "Réponses / décisions attendues", "x": 2, "y": 2, "w": 4, "h": 8, "accent": true}, {"label": "Dialogue de la sélection", "x": 6, "y": 2, "w": 6, "h": 4}, {"label": "Aperçu du document", "x": 6, "y": 6, "w": 6, "h": 4}]}
+    },
+    {
+      "id": "notebook",
+      "label": "Dossier du projet",
+      "thesis": "Les livrables et les décisions du projet sont le point d'entrée ; le dialogue accompagne le document sélectionné.",
+      "palette": ["#f4f3f7", "#ffffff", "#25252b", "#6552ad"],
+      "materials": ["Arborescence lisible", "Document au premier plan"],
+      "viewport": "Projets et livrables à gauche, document au centre, état et actions de l'agent dans un panneau latéral.",
+      "risk": "Le premier démarrage sans document nécessite un état d'accueil particulièrement guidé.",
+      "wireframe": {"cols": 12, "rows": 10, "regions": [{"label": "Projets", "x": 0, "y": 0, "w": 2, "h": 10}, {"label": "Livrables / parcours", "x": 2, "y": 0, "w": 2, "h": 10}, {"label": "Document sélectionné", "x": 4, "y": 0, "w": 5, "h": 10, "accent": true}, {"label": "État et actions", "x": 9, "y": 0, "w": 3, "h": 3}, {"label": "Dialogue", "x": 9, "y": 3, "w": 3, "h": 7}]}
+    }
+  ],
+  "reroll": true,
+  "steer": true,
+  "buildPath": {"value": "code", "toggle": true}
+}

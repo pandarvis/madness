@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-23T06:39:54Z",
+  "title": "Madness — capture du prototype",
+  "extensions": {
+    "captureMeta": {
+      "status": "draft",
+      "scope": "Capture du prototype Parcours guidé, à confirmer après prise en main. Ne remplace pas les spines BMad DESIGN.md et EXPERIENCE.md.",
+      "sourceFiles": ["../prototype/index.html", "../prototype/styles.css", "../prototype/app.js"],
+      "sourcePathBase": "dossier contenant DESIGN.md",
+      "limits": "Simulation sans connecteur Codex, accès aux dossiers ni exécution réelle. Aucun choix de stack ni système visuel final adopté.",
+      "provenance": "Aucun raster livré."
+    },
+    "colorMeta": {
+      "accent": {"role": "primary", "displayName": "Violet d’action"},
+      "accent-dark": {"role": "primary", "displayName": "Violet au survol"},
+      "accent-active": {"role": "primary", "displayName": "Violet pressé"},
+      "accent-soft": {"role": "primary", "displayName": "Violet pâle"},
+      "white": {"role": "neutral", "displayName": "Blanc"},
+      "navigation": {"role": "neutral", "displayName": "Gris lavande"},
+      "panel": {"role": "neutral", "displayName": "Blanc du panneau"},
+      "anthracite": {"role": "neutral", "displayName": "Anthracite"},
+      "muted": {"role": "neutral", "displayName": "Texte secondaire"},
+      "muted-lavender": {"role": "neutral", "displayName": "Texte gris lavande"},
+      "line": {"role": "neutral", "displayName": "Filet gris lavande"}
+    },
+    "typographyMeta": {
+      "headline": {"displayName": "Titre d’accueil", "purpose": "Base du titre principal ; variantes locales pour les projets."},
+      "title": {"displayName": "Titre de section", "purpose": "Titres de section, avec adaptations locales de la recommandation."},
+      "body": {"displayName": "Texte courant", "purpose": "Introductions et recommandation ; conversation à interligne plus ouvert."},
+      "label": {"displayName": "Libellé compact", "purpose": "Badges et petits états."},
+      "code": {"displayName": "Monospace", "purpose": "Base des invocations et chemins ; exceptions locales non généralisées."}
+    },
+    "shadows": [
+      {"name": "composer", "value": "0 3px 12px #42314908", "purpose": "Ombre légère du champ de réponse."},
+      {"name": "composer-focus", "value": "0 0 0 2px #eee6f7", "purpose": "Contour du champ de réponse lorsque son contenu a le focus."},
+      {"name": "dialog", "value": "0 18px 65px #24162f29", "purpose": "Séparation du dialogue sans bordure."},
+      {"name": "toast", "value": "0 6px 22px #24172d2b", "purpose": "Notification temporaire en bas de l’espace de travail."},
+      {"name": "files-overlay", "value": "-12px 0 36px #30223c14", "purpose": "Panneau de fichiers superposé jusqu’à 1 080 px."},
+      {"name": "sidebar-overlay", "value": "15px 0 45px #33273e33", "purpose": "Navigation superposée jusqu’à 720 px."}
+    ],
+    "motion": [
+      {"name": "stage-chevron", "value": "transform 180ms", "purpose": "Rotation de 90 degrés du chevron de l’étape ouverte."},
+      {"name": "notice", "value": "notice 180ms ease-out", "purpose": "Apparition de la notification : opacité de 0,5 à 1, translation verticale de 5 px à 0."},
+      {"name": "activity", "value": "animation: none", "purpose": "Indicateur de statut en cours, points de saisie et lignes de chargement statiques."},
+      {"name": "reduced-motion", "value": "@media (prefers-reduced-motion: reduce)", "purpose": "Animations et transitions désactivées ; scroll-behavior: auto."}
+    ],
+    "breakpoints": [
+      {"name": "large-window", "value": "min-width: 1600px"},
+      {"name": "compact-window", "value": "max-width: 1280px"},
+      {"name": "files-overlay", "value": "max-width: 1080px"},
+      {"name": "files-inline", "value": "min-width: 1081px"},
+      {"name": "narrow-window", "value": "max-width: 720px"}
+    ]
+  },
+  "components": [
+    {
+      "name": "Bouton principal",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Action principale observée dans la maquette.",
+      "html": "<button class=\"ds-primary\" type=\"button\">Ouvrir un projet</button>",
+      "css": ".ds-primary{font:500 14px/1.35 \"Segoe UI\",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;padding:8px 11px;border:1px solid var(--accent,#654bb0);border-radius:8px;background:var(--accent,#654bb0);color:#fff}.ds-primary:hover{background:var(--accent-dark,#51368f);border-color:var(--accent-dark,#51368f)}.ds-primary:active{background:#432b7a}.ds-primary:focus-visible{outline:2px solid var(--accent,#654bb0);outline-offset:3px}.ds-primary:disabled{cursor:not-allowed;opacity:.5}"
+    },
+    {
+      "name": "Bouton secondaire",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Action de retour ou d’accès aux fichiers.",
+      "html": "<button class=\"ds-secondary\" type=\"button\">Retour</button>",
+      "css": ".ds-secondary{font:400 14px/1.35 \"Segoe UI\",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;padding:8px 11px;border:1px solid #d9d5e0;border-radius:8px;background:#fff;color:#29282e}.ds-secondary:hover{background:#f7f5fa}.ds-secondary:active{background:#f7f5fa}.ds-secondary:focus-visible{outline:2px solid var(--accent,#654bb0);outline-offset:3px}.ds-secondary:disabled{cursor:not-allowed;opacity:.5}"
+    },
+    {
+      "name": "Bouton discret",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Base des actions compactes sans fond au repos.",
+      "html": "<button class=\"ds-ghost\" type=\"button\">Copier</button>",
+      "css": ".ds-ghost{font:400 14px/1.35 \"Segoe UI\",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;padding:8px 11px;border:1px solid transparent;border-radius:8px;background:none;color:#29282e}.ds-ghost:hover{background:#efedf3}.ds-ghost:active{background:#e7e3ee}.ds-ghost:focus-visible{outline:2px solid var(--accent,#654bb0);outline-offset:3px}.ds-ghost:disabled{cursor:not-allowed;opacity:.5}"
+    },
+    {
+      "name": "Recherche du catalogue",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "Champ réel de recherche avec loupe SVG intégrée.",
+      "html": "<div class=\"ds-search\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m16 16 5 5\"/></svg><input aria-label=\"Rechercher une compétence\" placeholder=\"Rechercher une compétence\" type=\"search\"></div>",
+      "css": ".ds-search{position:relative;width:100%}.ds-search svg{position:absolute;top:12px;left:12px;width:17px;height:17px;color:#75657f;stroke:currentColor;fill:none;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}.ds-search input{font:400 12px \"Segoe UI\",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;width:100%;max-width:100%;box-sizing:border-box;padding:11px 12px 11px 38px;border:1px solid #dbd4e4;border-radius:8px;background:#fff;color:#29282e;caret-color:var(--accent,#654bb0)}.ds-search input::placeholder{color:#75657f}.ds-search input:focus-visible{outline:2px solid var(--accent,#654bb0);outline-offset:3px}"
+    },
+    {
+      "name": "Navigation latérale",
+      "kind": "nav",
+      "refersTo": "sidebar-item",
+      "description": "Deux entrées de navigation, dont la sélection actuelle.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Navigation de démonstration\"><button class=\"ds-nav-item ds-nav-active\" aria-current=\"page\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z\"/></svg>Accueil</button><button class=\"ds-nav-item\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/></svg>Possibilités BMad</button></nav>",
+      "css": ".ds-nav{padding:12px;background:#f4f3f7;display:flex;flex-direction:column;gap:5px}.ds-nav-item{font:400 13px/1.35 \"Segoe UI\",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;width:100%;display:inline-flex;align-items:center;justify-content:flex-start;gap:7px;text-align:left;padding:10px;border:1px solid transparent;border-radius:8px;background:none;color:#29282e;cursor:pointer}.ds-nav-item svg{width:19px;height:19px;flex:none;stroke:currentColor;fill:none;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}.ds-nav-item:hover{background:#efedf3}.ds-nav-item:active{background:#e7e3ee}.ds-nav-active,.ds-nav-active:hover,.ds-nav-active:active{background:#e8e3f1;color:#533b80;font-weight:600}.ds-nav-item:focus-visible{outline:2px solid var(--accent,#654bb0);outline-offset:3px}"
+    },
+    {
+      "name": "Badge d’attente",
+      "kind": "chip",
+      "refersTo": "badge-amber",
+      "description": "Libellé d’état informatif, sans interaction.",
+      "html": "<span class=\"ds-badge\">À vous</span>",
+      "css": ".ds-badge{font:500 11px/1.4 \"Segoe UI\",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;padding:3px 6px;border-radius:5px;background:#fbf2df;color:#7b5519}.ds-dot{display:inline-block;flex:none;width:6px;height:6px;border-radius:50%;background:currentColor}"
+    },
+    {
+      "name": "Recommandation",
+      "kind": "card",
+      "refersTo": "recommendation",
+      "description": "Titre, explication et action de la recommandation observée ; texte de démonstration.",
+      "html": "<section class=\"ds-recommendation\"><h2>Rendre les trois parcours concrets</h2><p>Retrouver un projet, comprendre où il en est, puis agir et répondre.</p><div class=\"ds-rec-actions\"><button class=\"ds-rec-button\" type=\"button\">Concevoir les parcours avec Sally</button></div></section>",
+      "css": ".ds-recommendation{font-family:\"Segoe UI\",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;border:1px solid #ded7ea;border-radius:var(--radius,12px);padding:23px;background:#fcfbff;color:#29282e}.ds-recommendation h2{margin:0 0 9px;font-size:21px;font-weight:600;line-height:1.35;letter-spacing:-.015em}.ds-recommendation p{margin:0;max-width:68ch;font-size:13px;line-height:1.65;color:#655c6d}.ds-rec-actions{margin-top:20px;display:flex;gap:8px;flex-wrap:wrap}.ds-rec-button{font:500 14px/1.35 \"Segoe UI\",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;cursor:pointer;padding:10px 14px;border:1px solid var(--accent,#654bb0);border-radius:8px;background:var(--accent,#654bb0);color:#fff}.ds-rec-button:hover{background:var(--accent-dark,#51368f);border-color:var(--accent-dark,#51368f)}.ds-rec-button:active{background:#432b7a}.ds-rec-button:focus-visible{outline:2px solid var(--accent,#654bb0);outline-offset:3px}"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Madness — prototype du parcours guidé</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="demo-banner"><span class="demo-dot"></span><strong>Prototype</strong><span>Données de démonstration · Codex simulé</span><button type="button" id="reset-demo">Réinitialiser</button></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="project-sidebar" aria-label="Navigation des projets"></aside>
+    <div class="workspace">
+      <header class="topbar" id="topbar"></header>
+      <div class="workspace-body" id="workspace-body"><main id="main" tabindex="-1"></main><aside id="files-panel" class="files-panel" aria-label="Fichiers du projet" hidden></aside></div>
+    </div>
+  </div>
+  <dialog id="dialog"><div id="dialog-content"></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <div class="sr-only" id="announcement" role="status" aria-live="polite"></div>
+  <script src="catalogue.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

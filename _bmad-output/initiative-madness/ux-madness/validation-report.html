@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Validation UX — Madness</title>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --border: #e7e5e4;
+    --text: #1c1917;
+    --muted: #78716c;
+
+    --verdict-strong: #16a34a;
+    --verdict-adequate: #65a30d;
+    --verdict-thin: #d97706;
+    --verdict-broken: #dc2626;
+
+    --sev-low: #64748b;
+    --sev-medium: #ca8a04;
+    --sev-high: #ea580c;
+    --sev-critical: #dc2626;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  header.report-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .title h1 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  .title .subtitle { color: var(--muted); font-size: 13px; margin-top: 4px; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  .synthesis {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--muted);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    font-size: 15.5px;
+  }
+  .synthesis p { margin: 0 0 10px; }
+  .synthesis p:last-child { margin-bottom: 0; }
+
+  .dimension-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .dim-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .dim-card .dim-name { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .dim-card .dim-verdict { font-size: 14px; font-weight: 600; }
+
+  section.dimension, section.reviewer-section { margin-bottom: 14px; }
+  section.dimension details, section.reviewer-section details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  section summary {
+    padding: 14px 20px;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  section summary::-webkit-details-marker { display: none; }
+  section summary::before {
+    content: "▸";
+    display: inline-block;
+    color: var(--muted);
+    transition: transform 0.15s ease;
+  }
+  section details[open] summary::before { transform: rotate(90deg); }
+  section summary h2 {
+    display: inline;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    flex: 1;
+  }
+  .verdict-pill {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: white;
+  }
+  .verdict-strong { background: var(--verdict-strong); }
+  .verdict-adequate { background: var(--verdict-adequate); }
+  .verdict-thin { background: var(--verdict-thin); }
+  .verdict-broken { background: var(--verdict-broken); }
+
+  .dim-body { padding: 4px 20px 18px; }
+  .dim-judgment { color: var(--text); font-size: 14.5px; }
+  .dim-judgment p { margin: 0 0 10px; }
+
+  .findings-list { padding: 0 20px 4px; }
+  article.finding {
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+  }
+  article.finding:first-child { border-top: none; }
+  article.finding header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .badge {
+    font-size: 10.5px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+  .badge-sev-low { background: rgba(100, 116, 139, 0.12); color: var(--sev-low); }
+  .badge-sev-medium { background: rgba(202, 138, 4, 0.14); color: var(--sev-medium); }
+  .badge-sev-high { background: rgba(234, 88, 12, 0.14); color: var(--sev-high); }
+  .badge-sev-critical { background: rgba(220, 38, 38, 0.14); color: var(--sev-critical); }
+  .finding-title { margin: 0; font-size: 15px; font-weight: 500; flex: 1; min-width: 200px; }
+  .finding-location { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px; color: var(--muted); }
+  .finding-note, .finding-fix { margin-top: 6px; font-size: 14px; }
+  .finding-fix strong { color: var(--muted); font-weight: 500; }
+
+  .reviewer-source {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  .mechanical {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 24px;
+    font-size: 14px;
+  }
+  .mechanical h3 { margin: 0 0 10px; font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .mechanical ul { margin: 0; padding-left: 20px; }
+  .mechanical li { margin-bottom: 4px; color: var(--text); }
+
+  footer.report-footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  footer .meta { display: flex; gap: 24px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="container">
+<header class="report-header"><div class="title"><h1>Madness — rapport de validation UX</h1><div class="subtitle">DESIGN.md · EXPERIENCE.md · 2026-10-23T07:59:49Z</div></div></header>
+<div class="synthesis"><p>Les contrats forment une première base UX cohérente : trois parcours complets, 17 composants appariés, états explicites et distinction entre résultat proposé, autorisation d&#39;une opération et validation humaine. La revue initiale avait identifié un besoin du brief insuffisamment transmis : retrouver les initiatives d&#39;un projet. R1 est résolu après correction et contrôle ciblé.</p>
+<p>Une seule lentille a été exécutée : le contrôle de cohérence UX (rubric walker). Les verdicts par catégorie ci-dessous sont ceux de la revue initiale ; le contrôle de résolution R1 ne constitue pas une nouvelle revue complète. Aucune revue indépendante d&#39;accessibilité ni autre lentille experte n&#39;est incluse.</p>
+<p>Comptage initial dédupliqué : critical 0 · high 0 · medium 1 · low 0. R1 est l&#39;unique constat medium, cité dans les catégories 1 et 7 et compté une seule fois ; 1 résolu, 0 ouvert après contrôle ciblé.</p>
+<p>Les contrats sont finalisés pour la première base UX acceptée. A1/A2 et G1–G3 restent des hypothèses et écarts techniques à instruire dans les exigences et l'architecture. La couverture visuelle existante est conservée par hypothèse de travail : aucune maquette complémentaire n'a été demandée, sans réponse explicite à cette préférence optionnelle. Le workflow Sally est clos pour cette base.</p></div>
+<div class="dimension-summary">
+<div class="dim-card"><div class="dim-name">1. Couverture des parcours</div><div class="dim-verdict" style="color: var(--verdict-adequate)">adequate · initial</div></div>
+<div class="dim-card"><div class="dim-name">2. Complétude des tokens</div><div class="dim-verdict" style="color: var(--verdict-strong)">strong · initial</div></div>
+<div class="dim-card"><div class="dim-name">3. Couverture des composants</div><div class="dim-verdict" style="color: var(--verdict-strong)">strong · initial</div></div>
+<div class="dim-card"><div class="dim-name">4. Couverture des états</div><div class="dim-verdict" style="color: var(--verdict-strong)">strong · initial</div></div>
+<div class="dim-card"><div class="dim-name">5. Couverture des références visuelles</div><div class="dim-verdict" style="color: var(--verdict-strong)">strong · initial</div></div>
+<div class="dim-card"><div class="dim-name">6. Volume et surspécification</div><div class="dim-verdict" style="color: var(--verdict-strong)">strong · initial</div></div>
+<div class="dim-card"><div class="dim-name">7. Discipline d&#39;héritage</div><div class="dim-verdict" style="color: var(--verdict-adequate)">adequate · initial</div></div>
+<div class="dim-card"><div class="dim-name">8. Respect de la forme</div><div class="dim-verdict" style="color: var(--verdict-strong)">strong · initial</div></div>
+</div>
+<section class="dimension" id="categorie-1"><details><summary><h2>1. Couverture des parcours</h2><span class="verdict-pill verdict-adequate">adequate · initial</span></summary><div class="dim-body"><div class="dim-judgment"><p>Les trois noms de parcours sources sont conservés : Ouvrir et retrouver un projet ; Comprendre l&#39;état et ses preuves ; Lancer une action et poursuivre. Chacun met Sam en situation, avec étapes numérotées, moment décisif et chemin de récupération. Les critères du brief concernant diagnostic, guidage, catalogue, dialogue, résultats et modifications externes sont couverts.</p>
+<p>Le verdict initial adequate reflète R1, désormais résolu. L&#39;IA et les trois parcours transmettent maintenant le contexte d&#39;initiative, ses preuves et le lancement approprié. Le détail de la commande de changement d&#39;initiative reste à définir dans les exigences ; aucun nouvel écran ni sélecteur n&#39;est imposé.</p></div></div><div class="findings-list"><article class="finding"><header><span class="badge badge-sev-medium">medium · résolu</span><h3 class="finding-title">R1 — contexte d&#39;initiative dans le projet</h3><span class="finding-location">Source : brief-madness.md:24. Correction : DESIGN.md:196 ; EXPERIENCE.md:29, :40, :69, :75, :93, :136, :144 et :155.</span></header><div class="finding-note">Le besoin de retrouver les initiatives, leurs étapes et leurs fichiers associés n&#39;était pas transmis explicitement par l&#39;IA ou les parcours, ce qui pouvait conduire à un état unique pour tout le dossier.</div><div class="finding-fix"><strong>Correction vérifiée :</strong> L&#39;en-tête distingue projet et initiative ; l&#39;espace permet de retrouver les autres initiatives, rattache preuves et fichiers au bon niveau et rappelle le contexte avant lancement. L&#39;initiative inconnue est traitée sans rattachement silencieux, et les outils sans initiative restent accessibles.</div><div class="finding-note">Le contrôle est limité à cette correction documentaire. La commande précise de changement reste à instruire dans les exigences ; aucune limite à l&#39;initiative active, aucun nouvel écran ni sélecteur détaillé n&#39;est déclaré approuvé ou maquetté.</div></article></div></details></section>
+<section class="dimension" id="categorie-2"><details><summary><h2>2. Complétude des tokens</h2><span class="verdict-pill verdict-strong">strong · initial</span></summary><div class="dim-body"><div class="dim-judgment"><p>La revue initiale ne relève aucune référence non résolue. Le contrôle mécanique antérieur consigne 125 valeurs, 83 occurrences de références et 62 chemins distincts, ainsi que 28 couleurs hexadécimales. Les cibles de contraste nécessaires sont explicites ; seul le thème clair est conçu.</p>
+<p>Les références de prose aboutissent à des scalaires ; la référence typographique composite à l&#39;intérieur d&#39;un token de composant est permise. Le contrôle YAML antérieur utilise un lecteur du sous-ensemble présent, faute de parseur généraliste : cette limite demeure. Aucune nouvelle revue complète des tokens n&#39;a été effectuée après R1.</p></div></div></details></section>
+<section class="dimension" id="categorie-3"><details><summary><h2>3. Couverture des composants</h2><span class="verdict-pill verdict-strong">strong · initial</span></summary><div class="dim-body"><div class="dim-judgment"><p>Les 17 noms des tableaux DESIGN · Components et EXPERIENCE · Component Patterns s&#39;apparient exactement. Chaque composant reçoit une règle visuelle et une règle de comportement exploitable ; aucune ligne orpheline ou description réduite à un mot n&#39;a été identifiée.</p>
+<p>Navigation latérale couvre le rail et le tiroir ; Panneau de fichiers couvre l&#39;aperçu agrandi. Proposition d&#39;approbation et Récapitulatif de tour restent distincts. Le contrôle ciblé R1 confirme la portée projet ou initiative des fichiers et du lancement.</p></div></div></details></section>
+<section class="dimension" id="categorie-4"><details><summary><h2>4. Couverture des états</h2><span class="verdict-pill verdict-strong">strong · initial</span></summary><div class="dim-body"><div class="dim-judgment"><p>Les huit surfaces IA possèdent les états utiles à leur rôle : vide, lecture en cours, incompatibilité, refus d&#39;accès, absence de connexion, erreur, attente, interruption ou récupération selon le cas. Les règles communes couvrent focus, superposition, contexte et saisie conservés. Une attente durable ne dépend pas d&#39;une notification transitoire.</p>
+<p>La correction R1 décrit aussi l&#39;initiative non identifiée ou à choisir, sans rattachement silencieux et sans bloquer les outils qui n&#39;en ont pas besoin. Les états décrits seulement restent des règles de conception ; ils ne prouvent aucune capacité réelle du prototype.</p></div></div></details></section>
+<section class="dimension" id="categorie-5"><details><summary><h2>5. Couverture des références visuelles</h2><span class="verdict-pill verdict-strong">strong · initial</span></summary><div class="dim-body"><div class="dim-judgment"><p>L&#39;inventaire initial contient neuf fichiers dans mockups/ et imports/, tous liés inline avec leur objet ; wireframes/ est absent. Les contrats énoncent leur primauté en cas de conflit. Les deux réconciliations d&#39;imports n&#39;identifient aucune idée qualitative utile perdue.</p>
+<p>Le contexte d&#39;initiative ajouté reste décrit seulement. Les surfaces sans référence détaillée sont nommées ; leur couverture par les règles écrites est conservée comme hypothèse de travail, sans prétendre à une réponse utilisateur sur les maquettes complémentaires. Aucun navigateur ni nouvelle inspection du prototype n&#39;a été lancé pour le contrôle R1 ou cette synthèse.</p></div></div></details></section>
+<section class="dimension" id="categorie-6"><details><summary><h2>6. Volume et surspécification</h2><span class="verdict-pill verdict-strong">strong · initial</span></summary><div class="dim-body"><div class="dim-judgment"><p>La répartition des décisions reste lisible : apparence dans DESIGN, comportement dans EXPERIENCE. Les tableaux portent les règles répétitives ; les dimensions et seuils servent la composition acceptée. La revue initiale ne relève aucune surspécification gênante pour les consommateurs aval.</p>
+<p>Les limites de simulation évitent de faire croire à une intégration réelle. Aucun framework, packaging, écran d&#39;authentification détaillé ou nouveau parcours produit n&#39;est imposé avant la vérification technique.</p></div></div></details></section>
+<section class="dimension" id="categorie-7"><details><summary><h2>7. Discipline d&#39;héritage</h2><span class="verdict-pill verdict-adequate">adequate · initial</span></summary><div class="dim-body"><div class="dim-judgment"><p>Le ticket initiative est une enveloppe sans Requirements ; les besoins et noms de parcours viennent des sources citées par le journal, du brief et de PRODUCT. La revue initiale vérifie cinq entrées sources pour DESIGN et six pour EXPERIENCE, ainsi que les noms partagés des composants et des parcours.</p>
+<p>Le verdict initial adequate renvoie au même R1 que la catégorie 1, sans second constat. Sa résolution rétablit explicitement les initiatives, le rattachement des preuves et l&#39;action contextualisée. Les accords sur Parcours guidé et le rail n&#39;y deviennent ni validation d&#39;une stack, ni étude utilisateur, ni connexion réelle.</p></div></div></details></section>
+<section class="dimension" id="categorie-8"><details><summary><h2>8. Respect de la forme</h2><span class="verdict-pill verdict-strong">strong · initial</span></summary><div class="dim-body"><div class="dim-judgment"><p>Les huit sections DESIGN sont présentes dans l&#39;ordre canonique. EXPERIENCE contient ses huit sections obligatoires, plus Inspiration &amp; Anti-patterns et Responsive &amp; Platform justifiées par les références et adaptations de fenêtre. Aucun défaut de forme n&#39;a été identifié.</p>
+<p>La revue s&#39;appuie sur les trois exemples DESIGN et deux exemples EXPERIENCE de la personnalisation installée. Les propriétés de composants ouvertes par la spécification sont admises ; aucune ancienne liste de huit propriétés Impeccable n&#39;est imposée.</p></div></div></details></section>
+<div class="mechanical"><h3>Constats par sévérité</h3><p>Critical (0), High (0), Medium (1 initial, résolu), Low (0). Aucun constat ouvert après contrôle ciblé. R1 figure une seule fois dans la catégorie 1 ; la catégorie 7 y renvoie.</p><h3>Points déjà ouverts</h3><ul><li>A1 — cible WCAG 2.2 AA proposée, sans audit de conformité.</li>
+<li>A2 — retrouver le contexte vérifiable après redémarrage sans relance automatique ; niveau de sauvegarde des échanges et brouillons à confirmer.</li>
+<li>G1 — connexion et capacités Codex ; G2 — compatibilité BMad v7 et accès ; G3 — opérations réelles sur les fichiers. Ces écarts doivent être instruits avec l&#39;architecture.</li>
+<li>Couverture visuelle — états complémentaires décrits seulement, par hypothèse de travail. Une maquette dédiée pourra être ajoutée si le porteur en demande une ; aucun choix explicite sur cette préférence optionnelle n'est présumé.</li></ul><h3>Notes mécaniques et limites</h3><ul><li>Sources de cette synthèse : revue rubric initiale conservée, puis verdict ciblé de résolution R1. Les relectures rédactionnelles traitées séparément ne sont pas présentées comme une lentille UX experte.</li>
+<li>Le Pass 1 antérieur est une preuve partielle : 125 valeurs, 83 références, 17 composants appariés, 19 liens locaux, 11 entrées sources et neuf artefacts référencés. Les localisations de la revue historique décrivent l&#39;état antérieur à la correction ; celles du verdict ciblé décrivent les ajouts contrôlés.</li>
+<li>La limite du lecteur YAML antérieur demeure ; aucun parseur généraliste n&#39;a été installé. Le calcul de contraste antérieur sur onze couples n&#39;est pas un audit d&#39;accessibilité.</li>
+<li>Ce suivi et cette synthèse n&#39;ont lancé ni navigateur, ni réseau, ni sous-agent, ni test du prototype. Les données, dialogues et opérations du prototype restent simulés.</li></ul></div>
+<footer class="report-footer"><div class="meta"><span>Rubric : <a href="review-rubric.md">review-rubric.md</a></span><span>Généré : 2026-10-23T07:59:49Z</span><span>Contrats : <a href="DESIGN.md">DESIGN.md</a> · <a href="EXPERIENCE.md">EXPERIENCE.md</a></span></div><p>Sources et artefacts locaux</p><ul><li><a href="DESIGN.md">DESIGN.md</a> — DESIGN.md</li>
+<li><a href="EXPERIENCE.md">EXPERIENCE.md</a> — EXPERIENCE.md</li>
+<li><a href="review-rubric.md">Revue rubric initiale et note de suivi</a> — review-rubric.md</li>
+<li><a href=".working/review-rubric-r1-verdict.md">Verdict ciblé R1</a> — .working/review-rubric-r1-verdict.md</li>
+<li><a href=".working/coverage-check.md">Pass 1 mécanique antérieur</a> — .working/coverage-check.md</li>
+<li><a href=".memlog.md">Journal des décisions</a> — .memlog.md</li>
+<li><a href=".working/parcours-proposes.md">Parcours sources</a> — .working/parcours-proposes.md</li>
+<li><a href="../brief-madness/brief-madness.md">Brief produit</a> — ../brief-madness/brief-madness.md</li>
+<li><a href="../../../PRODUCT.md">Contexte produit</a> — ../../../PRODUCT.md</li>
+<li><a href="../initiative-madness.md">Ticket initiative</a> — ../initiative-madness.md</li>
+<li><a href="validation-report.md">Rapport Markdown</a> — validation-report.md</li>
+<li><a href="validation-report.html">Rapport HTML</a> — validation-report.html</li></ul></footer>
+</div>
+</body>
+</html>

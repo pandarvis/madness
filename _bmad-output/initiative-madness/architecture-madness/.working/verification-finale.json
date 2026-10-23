@@ -1,0 +1,144 @@
+{
+  "date": "2026-10-23",
+  "status": "final",
+  "scope": "Contrat d architecture, mise a jour Graphify incluse ; aucune integration executee",
+  "spine_sha256": "843d4c863ef59b308f70775a8ff1aeb0c2c7c31c313b56eabbf0cf4f43d1068f",
+  "lint": {
+    "ok": true,
+    "spine": "architecture-madness.md",
+    "total_findings": 0,
+    "by_severity": {},
+    "findings": []
+  },
+  "ad_count": 10,
+  "requirements_mapped": 24,
+  "extension_requirements_pending": "Sofia doit deriver les exigences Graphify sans inventer R25 dans le spine",
+  "qualification_gates": [
+    "G0",
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5"
+  ],
+  "reconciliations_initiales": 5,
+  "reviewer_gate_lenses_per_pass": 3,
+  "initial_review_result": {
+    "critical_or_high_open": 0,
+    "medium_initial": 3,
+    "medium_resolved": [
+      "RUB-1",
+      "RUB-2",
+      "RUB-3"
+    ],
+    "open_findings": 0
+  },
+  "graphify_review_result": {
+    "critical_or_high_open": 0,
+    "medium_initial": 2,
+    "medium_resolved": [
+      "RUB-G1",
+      "GT-1"
+    ],
+    "adversary_clarifications_resolved": 2,
+    "open_findings": 0
+  },
+  "reports": [
+    "reviews/reconcile-ticket.md",
+    "reviews/reconcile-product.md",
+    "reviews/reconcile-design.md",
+    "reviews/reconcile-experience.md",
+    "reviews/reconcile-dia.md",
+    "reviews/review-rubric.md",
+    "reviews/review-technology.md",
+    "reviews/review-adversary.md",
+    "reviews/review-graphify-rubric.md",
+    "reviews/review-graphify-technology.md",
+    "reviews/review-graphify-adversary.md"
+  ],
+  "baseline_verification": "verification-initiale-ad1-ad9.json",
+  "checked_sources": [
+    "_bmad-output/initiative-madness/initiative-madness.md",
+    "PRODUCT.md",
+    "_bmad-output/initiative-madness/ux-madness/DESIGN.md",
+    "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md"
+  ],
+  "checked_local_links": [
+    {
+      "file": "_bmad-output\\initiative-madness\\architecture-madness\\architecture-madness.md",
+      "target": ".working/versions-registre.json"
+    },
+    {
+      "file": "_bmad-output\\initiative-madness\\architecture-madness\\architecture-madness.md",
+      "target": ".working/starter-verifie.json"
+    },
+    {
+      "file": "_bmad-output\\initiative-madness\\architecture-madness\\architecture-madness.md",
+      "target": ".working/graphify-sources.json"
+    },
+    {
+      "file": "_bmad-output\\initiative-madness\\architecture-madness\\architecture-madness.md",
+      "target": ".working/recherche-connecteurs.md"
+    },
+    {
+      "file": "_bmad-output\\initiative-madness\\architecture-madness\\architecture-madness.md",
+      "target": ".working/recherche-graphify.md"
+    },
+    {
+      "file": "_bmad-output\\initiative-madness\\architecture-madness\\.working\\recherche-graphify.md",
+      "target": "../reviews/review-graphify-technology.md"
+    },
+    {
+      "file": "_bmad-output\\initiative-madness\\architecture-madness\\.working\\recherche-graphify.md",
+      "target": "graphify-sources.json"
+    },
+    {
+      "file": "README.md",
+      "target": "./_bmad-output/initiative-madness/brief-madness/brief-madness.md"
+    },
+    {
+      "file": "README.md",
+      "target": "./_bmad-output/initiative-madness/brief-madness/addendum.md"
+    },
+    {
+      "file": "README.md",
+      "target": "./PRODUCT.md"
+    },
+    {
+      "file": "README.md",
+      "target": "./_bmad-output/initiative-madness/ux-madness/DESIGN.md"
+    },
+    {
+      "file": "README.md",
+      "target": "./_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md"
+    },
+    {
+      "file": "README.md",
+      "target": "./_bmad-output/initiative-madness/ux-madness/ux-madness.md"
+    },
+    {
+      "file": "README.md",
+      "target": "./_bmad-output/initiative-madness/initiative-madness.md"
+    },
+    {
+      "file": "README.md",
+      "target": "./_bmad-output/initiative-madness/architecture-madness/architecture-madness.md"
+    }
+  ],
+  "git_diff_check": "passed",
+  "graphify_primary_sources": 10,
+  "graphify_execution": {
+    "installed": false,
+    "graph_generated": false,
+    "model_calls": false,
+    "project_instructions_modified": false
+  },
+  "limits": [
+    "Aucune application generee ou dependance applicative installee.",
+    "Aucun build Windows, login, tour Codex reel, initialisation BMad ni ouverture editeur testes.",
+    "Aucun Graphify installe ou execute ; sources, formats et comportements revus sans validation runtime.",
+    "G0-G5 restent des travaux de realisation ; G5 est requis pour cloturer le perimetre V1.",
+    "Sofia doit adopter le spine et actualiser exigences et decoupage ; Sally doit definir les extensions UX avant implementation."
+  ],
+  "extra_human_deliverable": "Non produit, conformement au choix utilisateur du seul contrat pour le developpement."
+}

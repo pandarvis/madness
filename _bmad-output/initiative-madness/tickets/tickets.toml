@@ -1,0 +1,34 @@
+# Découpage Sofia approuvé par le porteur le 23 octobre 2026.
+# Enveloppes créées ; chaque epic reste à raffiner avant ses stories.
+# L'ordre et les identifiants 1–4 sont conservés ; les identifiants ne sont pas réutilisés.
+
+[[epic]]
+id = 1
+slug = "epic-boucle-codex"
+title = "Dialoguer réellement avec Codex dans Madness"
+description = "Une première version Windows installable ouvre un dossier BMad de référence, lance un workflow avec Codex, permet questions et approbations, puis montre le résultat et les chemins produits. Elle qualifie G0/G1 et le profil BMad de référence nécessaire à cette preuve, possède les contrats partagés, la conservation locale et la procédure de reconstruction ; les capacités réelles et les limites sont visibles."
+covers = ["R12", "R13", "R14", "R15", "R16", "R17", "R18", "R22", "R25", "R27"]
+
+[[epic]]
+id = 2
+slug = "epic-projets-bmad"
+title = "Comprendre et piloter ses projets BMad existants"
+description = "Depuis le socle et le dialogue de l'epic 1, une version Windows installable retrouve plusieurs projets et leurs initiatives, qualifie le profil BMad G2, montre état et preuves, propose l'aide et tout le catalogue installé, puis rejoint la conversation réelle. Elle livre les aperçus et l'ouverture éditeur, la navigation accessible ainsi que français/anglais et clair/sombre après extension des contrats par Sally."
+covers = ["R1", "R2", "R3", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R19", "R20", "R21", "R26"]
+after = [{ epic = 1, needs = "paquet Windows et contrats de contexte, dialogue Codex, cycle de vie et persistance établis par G0/G1" }]
+
+[[epic]]
+id = 3
+slug = "epic-initialisation-bmad"
+title = "Initialiser un projet et qualifier les parcours Windows"
+description = "À partir du diagnostic, des projets et de l'interface de l'epic 2, une version Windows installable initialise BMad avec plan exact, accord, annulation et résultat vérifié. Elle réunit les preuves G3, dont l'ouverture éditeur fournie par l'epic 2, puis G4 sur machine cible : les trois parcours réels avec novice, restauration et remplacement du programme."
+covers = ["R4", "R23", "R24"]
+after = [{ epic = 2, needs = "diagnostic BMad qualifié, contexte projet, preuves, aperçu/éditeur et interface bilingue à deux thèmes" }]
+
+[[epic]]
+id = 4
+slug = "epic-graphe-projet"
+title = "Explorer le graphe du code et des dépendances"
+description = "Après la base Windows/Codex qualifiée par l'epic 3, le paquet Windows intègre le graphe Graphify à la demande : recherche et relations accessibles, ouverture du fichier, provenance, confiance et fraîcheur. Le port d'analyse précède ses consommateurs, Sally définit le parcours avec Impeccable, puis G5 qualifie runtime, effets confinés, format et comportement réel. Sa livraison clôt ce volet obligatoire de la V1 ; son usage reste optionnel."
+covers = ["R28", "R29", "R30", "R31"]
+after = [{ epic = 3, needs = "base BMad Windows/Codex vérifiée en G4, panneau de fichiers et infrastructure de paquet/contexte/lifecycle réutilisables" }]

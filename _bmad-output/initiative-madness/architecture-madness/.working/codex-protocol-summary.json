@@ -1,0 +1,146 @@
+{
+  "codexVersion": "0.144.6",
+  "scope": "Schema export only; no inference or authentication tested",
+  "schemaCount": 267,
+  "messages": {
+    "ThreadStartParams": {
+      "schema": "v2/ThreadStartParams.json",
+      "required": [],
+      "fields": [
+        "approvalPolicy",
+        "approvalsReviewer",
+        "baseInstructions",
+        "config",
+        "cwd",
+        "developerInstructions",
+        "ephemeral",
+        "model",
+        "modelProvider",
+        "personality",
+        "sandbox",
+        "serviceName",
+        "serviceTier",
+        "sessionStartSource",
+        "threadSource"
+      ]
+    },
+    "TurnStartParams": {
+      "schema": "v2/TurnStartParams.json",
+      "required": [
+        "input",
+        "threadId"
+      ],
+      "fields": [
+        "approvalPolicy",
+        "approvalsReviewer",
+        "clientUserMessageId",
+        "cwd",
+        "effort",
+        "input",
+        "model",
+        "outputSchema",
+        "personality",
+        "sandboxPolicy",
+        "serviceTier",
+        "summary",
+        "threadId"
+      ]
+    },
+    "TurnInterruptParams": {
+      "schema": "v2/TurnInterruptParams.json",
+      "required": [
+        "threadId",
+        "turnId"
+      ],
+      "fields": [
+        "threadId",
+        "turnId"
+      ]
+    },
+    "ThreadResumeParams": {
+      "schema": "v2/ThreadResumeParams.json",
+      "required": [
+        "threadId"
+      ],
+      "fields": [
+        "approvalPolicy",
+        "approvalsReviewer",
+        "baseInstructions",
+        "config",
+        "cwd",
+        "developerInstructions",
+        "model",
+        "modelProvider",
+        "personality",
+        "sandbox",
+        "serviceTier",
+        "threadId"
+      ]
+    },
+    "SkillsListParams": {
+      "schema": "v2/SkillsListParams.json",
+      "required": [],
+      "fields": [
+        "cwds",
+        "forceReload"
+      ]
+    },
+    "CommandExecutionRequestApprovalParams": {
+      "schema": "CommandExecutionRequestApprovalParams.json",
+      "required": [
+        "itemId",
+        "startedAtMs",
+        "threadId",
+        "turnId"
+      ],
+      "fields": [
+        "approvalId",
+        "command",
+        "commandActions",
+        "cwd",
+        "environmentId",
+        "itemId",
+        "networkApprovalContext",
+        "proposedExecpolicyAmendment",
+        "proposedNetworkPolicyAmendments",
+        "reason",
+        "startedAtMs",
+        "threadId",
+        "turnId"
+      ]
+    },
+    "FileChangeRequestApprovalParams": {
+      "schema": "FileChangeRequestApprovalParams.json",
+      "required": [
+        "itemId",
+        "startedAtMs",
+        "threadId",
+        "turnId"
+      ],
+      "fields": [
+        "grantRoot",
+        "itemId",
+        "reason",
+        "startedAtMs",
+        "threadId",
+        "turnId"
+      ]
+    },
+    "ToolRequestUserInputParams": {
+      "schema": "ToolRequestUserInputParams.json",
+      "required": [
+        "itemId",
+        "questions",
+        "threadId",
+        "turnId"
+      ],
+      "fields": [
+        "autoResolutionMs",
+        "itemId",
+        "questions",
+        "threadId",
+        "turnId"
+      ]
+    }
+  }
+}

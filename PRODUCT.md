@@ -6,15 +6,15 @@
 
 web
 
-L'interface utilisera une technologie web ; son hébergement dans Electron ou dans un navigateur avec service local reste à valider. `web` décrit ici la surface selon la nomenclature Impeccable, pas une décision de livrer un site hébergé.
+L'interface utilisera une technologie web dans une application Electron pour Windows, choix confirmé le 23 octobre 2026. `web` décrit ici la surface selon la nomenclature Impeccable.
 
 ## Stack
 
-À décider après examen technique. L'utilisateur demande de challenger le choix web/Electron. Proposition actuelle : Electron, interface web et moteur local séparé. Aucun framework UI ni packaging n'a été approuvé.
+Electron + TypeScript, retenu après comparaison avec un navigateur accompagné d'un service local et avec Tauri. Le porteur adopte ensuite React, le starter electron-vite et electron-builder pour le packaging. Interface commune, cœur local et connecteurs séparés constituent le découpage adopté. Les versions exactes seront qualifiées et conservées par livraison ; les versions preview sont autorisées si utiles. Le format de stockage et la diffusion finale restent à préciser dans les lots concernés.
 
 ## Users
 
-Développeurs travaillant sur un ou plusieurs projets locaux avec BMad. Le produit doit être distribuable à d'autres développeurs, pas limité à un outil personnel.
+Développeurs travaillant sur un ou plusieurs projets locaux avec BMad. Le produit doit être distribuable à d'autres développeurs, gratuitement pour commencer. C'est un projet personnel, utilisable dans un environnement professionnel ; aucune politique d'entreprise imposant uniquement des versions stables n'est demandée. La licence n'est pas encore décidée.
 
 ## Product Purpose
 
@@ -30,23 +30,28 @@ Ouverture de dossiers locaux ; un ou plusieurs projets ; première version distr
 
 La V1 accompagne aussi le premier démarrage dans un dossier qui ne contient pas BMad : diagnostic, explication des prérequis, présentation des changements et initialisation guidée de BMad v7 avec accord de l'utilisateur.
 
+Après fermeture et réouverture, retrouver les projets, les conversations et les brouillons conservés localement, sans relancer automatiquement un agent. Le porteur a confirmé ce comportement le 23 octobre 2026 ; le format de stockage reste à définir dans l'architecture et l'implémentation.
+
 ## Capabilities and Constraints
 
 - La V1 prend en charge BMad v7 uniquement. Les versions antérieures et leur migration sont hors périmètre ; la compatibilité de l'installation v7 reste à vérifier à l'ouverture du projet.
 - Inclure l'initialisation guidée de BMad v7 dans un projet local qui ne le contient pas encore.
+- Inclure dans la V1 un outil optionnel de graphe du projet ouvert fondé sur Graphify, après la base Windows/Codex : code, modules, fichiers et dépendances. Génération locale à la demande et vue intégrée sont en cadrage ; leur fonctionnement reste à qualifier. Les liens sémantiques vers les documents BMad sont reportés hors de ce premier profil.
 - Afficher les étapes BMad, leur état connu, les invocations associées et les fichiers produits.
 - Proposer « Que faire ensuite ? » à partir de la compétence `bmad`, de l'aide des modules v7 installés et du contexte du projet.
 - Donner accès à l'ensemble du catalogue BMad v7 installé et permettre son invocation via Codex dès la V1, en respectant les conditions propres à chaque workflow.
 - À chaque étape, recommander une action avec sa raison et proposer les alternatives pertinentes, y compris les outils transversaux. Montrer l'objectif, les entrées et les effets ou livrables attendus de chaque action. Aucun workflow particulier ne constitue le focus du produit ; `party-mode` est un exemple parmi les possibilités BMad.
 - Afficher les retours des agents et permettre à l'utilisateur de répondre dans l'interface.
-- Windows et Codex sont les premiers choix confirmés. GitHub Copilot et Claude Code avec Bedrock ou abonnement restent des fournisseurs cibles suivants.
+- L'architecture prévoit Codex, GitHub Copilot et Claude Code avec Bedrock ou abonnement direct ; la livraison sera progressive sur Windows, avec Codex d'abord. Chaque mode de connexion doit être qualifié avant d'être annoncé disponible.
 - Distinguer les capacités de chaque connexion et les états déduits des états explicitement confirmés.
 - Vérifier les interfaces officiellement disponibles, la compatibilité des versions et les voies d'authentification pour un produit distribué.
+- Prévoir une interface et un cœur local communs, avec un connecteur distinct par fournisseur ; chaque conversation garde son fournisseur et sa connexion d'origine.
+- Faciliter les mises à jour des dépendances et du runtime Electron, puis la reconstruction et la republication côté développeur. Le proxy accepte un runtime au-dessus d'un minimum ; la version minimale exacte reste à qualifier sur la machine cible. Une mise à jour automatique de l'application n'est pas requise par cette précision.
 - Les autres systèmes d'exploitation restent des extensions après Windows.
 
 ## Brand Commitments
 
-Nom de travail : Madness. Première interface inspirée de Codex Desktop, selon la capture fournie par l'utilisateur. Utiliser Impeccable pour le travail de conception. Le français est la langue de travail actuelle ; les langues du produit distribué restent à définir.
+Nom de travail : Madness. Première interface inspirée de Codex Desktop, selon la capture fournie par l'utilisateur. Utiliser Impeccable pour le travail de conception. Le français est la langue de travail ; le porteur choisit le français et l'anglais, avec thèmes clair et sombre, pour la première version distribuée. Les contrats UX acceptés couvrent la base française claire ; leurs extensions restent à concevoir et vérifier avec Sally.
 
 ## Evidence on Hand
 

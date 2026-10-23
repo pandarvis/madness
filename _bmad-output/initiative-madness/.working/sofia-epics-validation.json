@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-23",
+  "state": "approved_epics_created",
+  "approval": "Le porteur valide les quatre epics et autorise creation et commit local des documents.",
+  "requirements": 31,
+  "constraints": 8,
+  "epic_ids": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "epic_files": [
+    "_bmad-output/initiative-madness/tickets/epic-boucle-codex/epic-boucle-codex.md",
+    "_bmad-output/initiative-madness/tickets/epic-projets-bmad/epic-projets-bmad.md",
+    "_bmad-output/initiative-madness/tickets/epic-initialisation-bmad/epic-initialisation-bmad.md",
+    "_bmad-output/initiative-madness/tickets/epic-graphe-projet/epic-graphe-projet.md"
+  ],
+  "refined": false,
+  "stories_created": 0,
+  "execution_started": false,
+  "coverage": "R1-R31, un proprietaire principal par exigence ; aucune modification des covers approuves",
+  "order": "1 -> 2 -> 3 -> 4",
+  "whole_epic_gate": {
+    "epic": 4,
+    "waits_for": "epic-initialisation-bmad (G4)"
+  },
+  "tickets_status_result": {
+    "command": "uv run --no-cache .agents/skills/bmad-agent-po/scripts/tickets.py --project-root C:/Sources/madness status _bmad-output/initiative-madness",
+    "exit_code": 0,
+    "epic_folders": 4,
+    "all_unrefined": true,
+    "order_conflict": [],
+    "unpinned_after": [],
+    "undeclared_after": []
+  },
+  "tickets_next_result": {
+    "exit_code": 0,
+    "ready_to_start": [],
+    "in_progress": []
+  },
+  "document_checks": {
+    "frontmatter_inline_lists": true,
+    "coverage_31_of_31": true,
+    "epic_links_checked": 20,
+    "adopted_companions_unchanged": true,
+    "whitespace_findings": 0
+  },
+  "adopted_artifact_sha256": {
+    "_bmad-output\\initiative-madness\\ux-madness\\DESIGN.md": "2ec3555ddc63a6f1d6fad68e4e489665eb12758385d65ba920478c67efdbcd68",
+    "_bmad-output\\initiative-madness\\ux-madness\\EXPERIENCE.md": "b1038b55d522f8d5a2d5715948c38320e78d4cd2699a65f884258c9b801f4cc2",
+    "_bmad-output\\initiative-madness\\architecture-madness\\architecture-madness.md": "843d4c863ef59b308f70775a8ff1aeb0c2c7c31c313b56eabbf0cf4f43d1068f"
+  },
+  "independent_review": {
+    "verdict": "conforme",
+    "report": "_bmad-output/initiative-madness/.working/sofia-created-epics-review.md",
+    "corrections_required": 0
+  },
+  "local_commit": "Autorise ; identite du commit et fichiers enregistres portes par Git.",
+  "limits": [
+    "Aucun build, login ou tour Codex execute.",
+    "G0-G5 restent a realiser.",
+    "Les epics restent a raffiner avant planification de leurs stories.",
+    "La creation des epics ne marque pas l initiative ou les capacites comme terminees."
+  ]
+}

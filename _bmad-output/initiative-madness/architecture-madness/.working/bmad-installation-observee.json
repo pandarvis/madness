@@ -1,0 +1,471 @@
+{
+  "checked_at": "2026-10-23",
+  "modules": [
+    {
+      "folder": ".agents/skills/bmod-core-tools",
+      "code": "core-tools",
+      "version": "6.13.0-next",
+      "declared_skills": 8
+    },
+    {
+      "folder": ".agents/skills/bmod-method",
+      "code": "method",
+      "version": "6.13.0-next",
+      "declared_skills": 18
+    },
+    {
+      "folder": ".agents/skills/bmod-toolsmith",
+      "code": "toolsmith",
+      "version": "6.13.0-next",
+      "declared_skills": 2
+    }
+  ],
+  "knowledge": {
+    "roots": [
+      ".agents\\skills"
+    ],
+    "skills": [
+      {
+        "skill": "bmad",
+        "module": "core-tools",
+        "bmod": "bmod-core-tools",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-advanced-elicitation",
+        "module": "core-tools",
+        "bmod": "bmod-core-tools",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-agent-analyst",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-agent-architect",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-agent-dev",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-agent-pm",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-agent-po",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-agent-ux-designer",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-architecture",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-brainstorming",
+        "module": "core-tools",
+        "bmod": "bmod-core-tools",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-build",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-build-auto",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-code-review",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-customize",
+        "module": "core-tools",
+        "bmod": "bmod-core-tools",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-deep-recon",
+        "module": "core-tools",
+        "bmod": "bmod-core-tools",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-eval",
+        "module": "toolsmith",
+        "bmod": "bmod-toolsmith",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-forge-idea",
+        "module": "core-tools",
+        "bmod": "bmod-core-tools",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-party-mode",
+        "module": "core-tools",
+        "bmod": "bmod-core-tools",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-prd",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-prfaq",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-product-brief",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-project-context",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-qa-generate-e2e-tests",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-review",
+        "module": "core-tools",
+        "bmod": "bmod-core-tools",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-toolsmith",
+        "module": "toolsmith",
+        "bmod": "bmod-toolsmith",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-ux",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      },
+      {
+        "skill": "bmad-walkthrough",
+        "module": "method",
+        "bmod": "bmod-method",
+        "root": ".agents\\skills"
+      }
+    ],
+    "topics": [
+      {
+        "module": "core-tools",
+        "topic": "customization",
+        "path": "help/customization.md",
+        "file": ".agents\\skills\\bmod-core-tools\\help\\customization.md"
+      },
+      {
+        "module": "core-tools",
+        "topic": "modules",
+        "path": "help/modules.md",
+        "file": ".agents\\skills\\bmod-core-tools\\help\\modules.md"
+      },
+      {
+        "module": "core-tools",
+        "topic": "party-mode",
+        "path": "help/party-mode.md",
+        "file": ".agents\\skills\\bmod-core-tools\\help\\party-mode.md"
+      },
+      {
+        "module": "core-tools",
+        "topic": "research",
+        "path": "help/research.md",
+        "file": ".agents\\skills\\bmod-core-tools\\help\\research.md"
+      },
+      {
+        "module": "core-tools",
+        "topic": "team-adoption",
+        "path": "help/team-adoption.md",
+        "file": ".agents\\skills\\bmod-core-tools\\help\\team-adoption.md"
+      },
+      {
+        "module": "method",
+        "topic": "analysis-skills",
+        "path": "help/analysis-skills.md",
+        "file": ".agents\\skills\\bmod-method\\help\\analysis-skills.md"
+      },
+      {
+        "module": "method",
+        "topic": "artifact-lifetime",
+        "path": "help/artifact-lifetime.md",
+        "file": ".agents\\skills\\bmod-method\\help\\artifact-lifetime.md"
+      },
+      {
+        "module": "method",
+        "topic": "existing-codebase",
+        "path": "help/existing-codebase.md",
+        "file": ".agents\\skills\\bmod-method\\help\\existing-codebase.md"
+      },
+      {
+        "module": "method",
+        "topic": "implementation-skills",
+        "path": "help/implementation-skills.md",
+        "file": ".agents\\skills\\bmod-method\\help\\implementation-skills.md"
+      },
+      {
+        "module": "method",
+        "topic": "monorepo-and-polyrepo",
+        "path": "help/monorepo-and-polyrepo.md",
+        "file": ".agents\\skills\\bmod-method\\help\\monorepo-and-polyrepo.md"
+      },
+      {
+        "module": "method",
+        "topic": "planning-skills",
+        "path": "help/planning-skills.md",
+        "file": ".agents\\skills\\bmod-method\\help\\planning-skills.md"
+      },
+      {
+        "module": "method",
+        "topic": "preparing-a-repo-for-agents",
+        "path": "help/preparing-a-repo-for-agents.md",
+        "file": ".agents\\skills\\bmod-method\\help\\preparing-a-repo-for-agents.md"
+      },
+      {
+        "module": "method",
+        "topic": "project-context",
+        "path": "help/project-context.md",
+        "file": ".agents\\skills\\bmod-method\\help\\project-context.md"
+      },
+      {
+        "module": "method",
+        "topic": "prototyping",
+        "path": "help/prototyping.md",
+        "file": ".agents\\skills\\bmod-method\\help\\prototyping.md"
+      },
+      {
+        "module": "method",
+        "topic": "review-choices",
+        "path": "help/review-choices.md",
+        "file": ".agents\\skills\\bmod-method\\help\\review-choices.md"
+      },
+      {
+        "module": "method",
+        "topic": "ticketing-and-epics",
+        "path": "help/ticketing-and-epics.md",
+        "file": ".agents\\skills\\bmod-method\\help\\ticketing-and-epics.md"
+      },
+      {
+        "module": "method",
+        "topic": "ticketing-setup",
+        "path": "help/ticketing-setup.md",
+        "file": ".agents\\skills\\bmod-method\\help\\ticketing-setup.md"
+      },
+      {
+        "module": "method",
+        "topic": "unattended-builds",
+        "path": "help/unattended-builds.md",
+        "file": ".agents\\skills\\bmod-method\\help\\unattended-builds.md"
+      },
+      {
+        "module": "method",
+        "topic": "validation-skills",
+        "path": "help/validation-skills.md",
+        "file": ".agents\\skills\\bmod-method\\help\\validation-skills.md"
+      },
+      {
+        "module": "method",
+        "topic": "working-in-an-organization",
+        "path": "help/working-in-an-organization.md",
+        "file": ".agents\\skills\\bmod-method\\help\\working-in-an-organization.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "approaches",
+        "path": "help/approaches.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\approaches.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "craft-customization",
+        "path": "help/craft-customization.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\craft-customization.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "craft-description",
+        "path": "help/craft-description.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\craft-description.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "craft-progressive-disclosure",
+        "path": "help/craft-progressive-disclosure.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\craft-progressive-disclosure.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "craft-scripts",
+        "path": "help/craft-scripts.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\craft-scripts.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "evals",
+        "path": "help/evals.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\evals.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "how-to-add-to-module",
+        "path": "help/how-to-add-to-module.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\how-to-add-to-module.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "how-to-convert-external",
+        "path": "help/how-to-convert-external.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\how-to-convert-external.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "how-to-memory-agent",
+        "path": "help/how-to-memory-agent.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\how-to-memory-agent.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "how-to-personal-skill",
+        "path": "help/how-to-personal-skill.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\how-to-personal-skill.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "how-to-review",
+        "path": "help/how-to-review.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\how-to-review.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "modes",
+        "path": "help/modes.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\modes.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "naming",
+        "path": "help/naming.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\naming.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "references",
+        "path": "help/references.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\references.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "registration",
+        "path": "help/registration.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\registration.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "shape-agent",
+        "path": "help/shape-agent.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\shape-agent.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "shape-memory-agent",
+        "path": "help/shape-memory-agent.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\shape-memory-agent.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "shape-multi-skill-module",
+        "path": "help/shape-multi-skill-module.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\shape-multi-skill-module.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "shape-plain-skill",
+        "path": "help/shape-plain-skill.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\shape-plain-skill.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "shape-rendered-skill",
+        "path": "help/shape-rendered-skill.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\shape-rendered-skill.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "shape-script-utility",
+        "path": "help/shape-script-utility.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\shape-script-utility.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "shape-single-skill-module",
+        "path": "help/shape-single-skill-module.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\shape-single-skill-module.md"
+      },
+      {
+        "module": "toolsmith",
+        "topic": "shapes",
+        "path": "help/shapes.md",
+        "file": ".agents\\skills\\bmod-toolsmith\\help\\shapes.md"
+      }
+    ],
+    "problems": []
+  },
+  "help_documents": [
+    {
+      "module": "core-tools",
+      "path": "help/help.md"
+    },
+    {
+      "module": "method",
+      "path": "help/help.md"
+    },
+    {
+      "module": "toolsmith",
+      "path": "help/help.md"
+    }
+  ],
+  "limits": [
+    "Local installation observed only; not a supported range for all BMad v7 previews.",
+    "No installation, update, migration or skill invocation executed."
+  ]
+}

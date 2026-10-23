@@ -1,0 +1,34 @@
+{
+  "checked_at": "2026-10-23",
+  "repository": "alex8088/quick-start",
+  "ref": "master",
+  "files": [
+    {
+      "url": "https://github.com/alex8088/quick-start/blob/master/packages/create-electron/playground/react-ts/package.json",
+      "sha": "3f888ddd104ca95dcd8b7d004597e3da5cb9e0e3",
+      "path": "package.json",
+      "content": "{\n  \"name\": \"react-ts\",\n  \"version\": \"1.0.0\",\n  \"description\": \"An Electron application with React and TypeScript\",\n  \"main\": \"./out/main/index.js\",\n  \"author\": \"example.com\",\n  \"homepage\": \"https://electron-vite.org\",\n  \"scripts\": {\n    \"format\": \"prettier --write .\",\n    \"lint\": \"eslint --cache .\",\n    \"typecheck:node\": \"tsc --noEmit -p tsconfig.node.json --composite false\",\n    \"typecheck:web\": \"tsc --noEmit -p tsconfig.web.json --composite false\",\n    \"typecheck\": \"npm run typecheck:node && npm run typecheck:web\",\n    \"start\": \"electron-vite preview\",\n    \"dev\": \"electron-vite dev\",\n    \"build\": \"npm run typecheck && electron-vite build\",\n    \"postinstall\": \"install-electron && electron-builder install-app-deps\",\n    \"build:unpack\": \"npm run build && electron-builder --dir\",\n    \"build:win\": \"npm run build && electron-builder --win\",\n    \"build:mac\": \"electron-vite build && electron-builder --mac\",\n    \"build:linux\": \"electron-vite build && electron-builder --linux\"\n  },\n  \"dependencies\": {\n    \"@electron-toolkit/preload\": \"^3.0.2\",\n    \"@electron-toolkit/utils\": \"^4.0.0\"\n  },\n  \"devDependencies\": {\n    \"@electron-toolkit/eslint-config-prettier\": \"^3.0.1\",\n    \"@electron-toolkit/eslint-config-ts\": \"^4.0.0\",\n    \"@electron-toolkit/tsconfig\": \"^2.0.0\",\n    \"@types/node\": \"^24.19.2\",\n    \"@types/react\": \"^19.3.0\",\n    \"@types/react-dom\": \"^19.3.0\",\n    \"@vitejs/plugin-react\": \"^6.1.2\",\n    \"electron\": \"^44.7.2\",\n    \"electron-builder\": \"^26.15.3\",\n    \"electron-vite\": \"^6.0.0\",\n    \"eslint\": \"^9.39.5\",\n    \"eslint-plugin-react\": \"^7.37.5\",\n    \"eslint-plugin-react-hooks\": \"^7.1.1\",\n    \"eslint-plugin-react-refresh\": \"^0.5.7\",\n    \"prettier\": \"^3.9.10\",\n    \"react\": \"^19.3.0\",\n    \"react-dom\": \"^19.3.0\",\n    \"typescript\": \"^5.9.3\",\n    \"vite\": \"^8.3.4\"\n  }\n}\n"
+    },
+    {
+      "url": "https://github.com/alex8088/quick-start/blob/master/packages/create-electron/playground/react-ts/electron.vite.config.ts",
+      "sha": "cbe073593329715e760aa0d71bca77ef9d726d8f",
+      "path": "electron.vite.config.ts",
+      "content": "import { resolve } from 'path'\nimport { defineConfig } from 'electron-vite'\nimport react from '@vitejs/plugin-react'\n\nexport default defineConfig({\n  main: {},\n  preload: {},\n  renderer: {\n    resolve: {\n      alias: {\n        '@renderer': resolve('src/renderer/src')\n      }\n    },\n    plugins: [react()]\n  }\n})\n"
+    },
+    {
+      "url": "https://github.com/alex8088/quick-start/blob/master/packages/create-electron/playground/react-ts/src/main/index.ts",
+      "sha": "06e06b4c560fb3b1bb8be16485fe5eb1791e7b05",
+      "path": "index.ts",
+      "content": "import { app, shell, BrowserWindow, ipcMain } from 'electron'\nimport { join } from 'path'\nimport { electronApp, optimizer, is } from '@electron-toolkit/utils'\nimport icon from '../../resources/icon.png?asset'\n\nfunction createWindow(): void {\n  // Create the browser window.\n  const mainWindow = new BrowserWindow({\n    width: 900,\n    height: 670,\n    show: false,\n    autoHideMenuBar: true,\n    ...(process.platform === 'linux' ? { icon } : {}),\n    webPreferences: {\n      preload: join(__dirname, '../preload/index.js'),\n      sandbox: false\n    }\n  })\n\n  mainWindow.on('ready-to-show', () => {\n    mainWindow.show()\n  })\n\n  mainWindow.webContents.setWindowOpenHandler((details) => {\n    shell.openExternal(details.url)\n    return { action: 'deny' }\n  })\n\n  // HMR for renderer base on electron-vite cli.\n  // Load the remote URL for development or the local html file for production.\n  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {\n    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])\n  } else {\n    mainWindow.loadFile(join(__dirname, '../renderer/index.html'))\n  }\n}\n\n// This method will be called when Electron has finished\n// initialization and is ready to create browser windows.\n// Some APIs can only be used after this event occurs.\napp.whenReady().then(() => {\n  // Set app user model id for windows\n  electronApp.setAppUserModelId('com.electron')\n\n  // Default open or close DevTools by F12 in development\n  // and ignore CommandOrControl + R in production.\n  // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils\n  app.on('browser-window-created', (_, window) => {\n    optimizer.watchWindowShortcuts(window)\n  })\n\n  // IPC test\n  ipcMain.on('ping', () => console.log('pong'))\n\n  createWindow()\n\n  app.on('activate', function () {\n    // On macOS it's common to re-create a window in the app when the\n    // dock icon is clicked and there are no other windows open.\n    if (BrowserWindow.getAllWindows().length === 0) createWindow()\n  })\n})\n\n// Quit when all windows are closed, except on macOS. There, it's common\n// for applications and their menu bar to stay active until the user quits\n// explicitly with Cmd + Q.\napp.on('window-all-closed', () => {\n  if (process.platform !== 'darwin') {\n    app.quit()\n  }\n})\n\n// In this file you can include the rest of your app's specific main process\n// code. You can also put them in separate files and require them here.\n"
+    }
+  ],
+  "limits": [
+    "Source inspection only. No scaffold, dependency install, build or Windows packaging executed.",
+    "Starter dependencies must be refreshed and qualified; do not copy sandbox:false or arbitrary external URL handling."
+  ],
+  "preload_checked": {
+    "url": "https://github.com/alex8088/quick-start/blob/master/packages/create-electron/playground/react-ts/src/preload/index.ts",
+    "sha": "2d1852475c0367b48a094e2110b4d32bc40a8174",
+    "observed": "electronAPI exposed on window.electron through contextBridge; fallback when context isolation disabled. Must be replaced by the business-only bridge in AD-1."
+  }
+}

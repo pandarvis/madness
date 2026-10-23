@@ -1,0 +1,76 @@
+{
+  "checked_at": "2026-10-23",
+  "repository": "Graphify-Labs/graphify",
+  "branch": "v8",
+  "observed_package": {
+    "name": "graphifyy",
+    "version": "0.9.94",
+    "python": ">=3.10",
+    "license": "Apache-2.0"
+  },
+  "sources": [
+    {
+      "url": "https://github.com/Graphify-Labs/graphify/blob/v8/README.md",
+      "sha": "544af36d76762b66d8204bbd74254ba8377bda48",
+      "file": "README.md"
+    },
+    {
+      "url": "https://github.com/Graphify-Labs/graphify/blob/v8/pyproject.toml",
+      "sha": "ef5cc326d7f1e1276815bf11a36943d6fbceb504",
+      "file": "pyproject.toml"
+    },
+    {
+      "url": "https://github.com/Graphify-Labs/graphify/blob/v8/ARCHITECTURE.md",
+      "sha": "5584dc1474bb81579cb9bad67f29f73774b6f61c",
+      "file": "ARCHITECTURE.md"
+    },
+    {
+      "url": "https://github.com/Graphify-Labs/graphify/blob/v8/graphify/__main__.py",
+      "sha": "fa453e971c734d6e076e64430ebe41a4b7cb4a84",
+      "file": "__main__.py"
+    },
+    {
+      "url": "https://github.com/Graphify-Labs/graphify/blob/v8/graphify/export.py",
+      "sha": "ff21333641dcfd4350c65226d600dfacd192416a",
+      "file": "export.py"
+    },
+    {
+      "url": "https://github.com/Graphify-Labs/graphify/blob/v8/NOTICE",
+      "sha": "791bf88bb1e50572902dbbe9228153ea29846adf",
+      "file": "NOTICE"
+    },
+    {
+      "url": "https://github.com/Graphify-Labs/graphify/blob/v8/graphify/exporters/html.py",
+      "sha": "d0bba0112a461877c5abe9e123cdf9c494fa2fab",
+      "file": "html.py"
+    },
+    {
+      "url": "https://github.com/Graphify-Labs/graphify/blob/v8/tests/test_extract_cache_location.py",
+      "sha": "89acc9c0c7f48cbec552def6685a923f13e80687",
+      "file": "test_extract_cache_location.py"
+    },
+    {
+      "url": "https://github.com/Graphify-Labs/graphify/blob/v8/graphify/cli.py",
+      "sha": "6d65b1603858a4fef7a430728c9871308168a283",
+      "file": "graphify/cli.py",
+      "observed_by": "Reviewer Gate technology; source SHA and excerpts in reviews/review-graphify-technology.md"
+    },
+    {
+      "url": "https://github.com/Graphify-Labs/graphify/blob/v8/graphify/paths.py",
+      "sha": "0834fa001c51a5ef17cee9c90f96aa47828ea36b",
+      "file": "graphify/paths.py",
+      "observed_by": "Reviewer Gate technology; source SHA and excerpts in reviews/review-graphify-technology.md"
+    }
+  ],
+  "execution": {
+    "installed": false,
+    "graph_generated": false,
+    "model_calls": false,
+    "project_instructions_modified": false
+  },
+  "limits": [
+    "Source review only, no integration or packaging validated.",
+    "Branch v8 is not the package version.",
+    "CLI execution, caches, graph fidelity and Windows performance remain to qualify."
+  ]
+}

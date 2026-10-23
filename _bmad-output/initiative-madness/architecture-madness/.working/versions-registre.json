@@ -1,0 +1,91 @@
+{
+  "checked_at": "2026-10-23",
+  "source": "npm view (configured registry)",
+  "packages": [
+    {
+      "package": "electron",
+      "metadata": {
+        "version": "45.0.0",
+        "engines": {
+          "node": ">= 22.12.0"
+        }
+      }
+    },
+    {
+      "package": "electron-vite",
+      "metadata": {
+        "version": "6.0.0",
+        "engines": {
+          "node": "^20.19.0 || >=22.12.0"
+        },
+        "peerDependencies": {
+          "vite": "^6.0.0 || ^7.0.0 || ^8.0.0",
+          "@swc/core": "^1.0.0"
+        }
+      }
+    },
+    {
+      "package": "electron-builder",
+      "metadata": {
+        "version": "26.15.3",
+        "engines": {
+          "node": ">=14.0.0"
+        }
+      }
+    },
+    {
+      "package": "typescript",
+      "metadata": {
+        "version": "7.0.2",
+        "engines": {
+          "node": ">=16.20.0"
+        }
+      }
+    },
+    {
+      "package": "react",
+      "metadata": {
+        "version": "19.3.1",
+        "engines": {
+          "node": ">=0.10.0"
+        }
+      }
+    },
+    {
+      "package": "react-dom",
+      "metadata": {
+        "version": "19.3.1",
+        "peerDependencies": {
+          "react": "^19.3.1"
+        }
+      }
+    },
+    {
+      "package": "vite",
+      "metadata": {
+        "version": "8.3.5",
+        "engines": {
+          "node": "^20.19.0 || >=22.12.0"
+        },
+        "peerDependencies": {
+          "tsx": "^4.8.1",
+          "jiti": ">=1.21.0",
+          "less": "^4.0.0",
+          "sass": "^1.70.0",
+          "yaml": "^2.4.2",
+          "stylus": ">=0.54.8",
+          "terser": "^5.16.0",
+          "esbuild": "^0.27.0 || ^0.28.0",
+          "sugarss": "^5.0.0",
+          "@types/node": "^20.19.0 || >=22.12.0",
+          "sass-embedded": "^1.70.0",
+          "@vitejs/devtools": "^0.7.1 || ^0.8.0"
+        }
+      }
+    },
+    {
+      "package": "@quick-start/create-electron",
+      "metadata": "1.0.31"
+    }
+  ]
+}

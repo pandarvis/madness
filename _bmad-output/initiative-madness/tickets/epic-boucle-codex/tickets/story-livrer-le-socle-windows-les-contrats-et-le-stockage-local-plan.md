@@ -3,7 +3,7 @@ title: 'Livrer le socle Windows, les contrats et le stockage local'
 type: 'feature'
 ticket: 2
 created: '2026-10-23'
-status: 'built'
+status: blocked
 baseline_revision: 'ebc719c7fbbfdbe619a3c1347433cde76a0f277a'
 route: 'full'
 route_source: 'auto'
@@ -13,6 +13,8 @@ review_source: 'pinned'
 lenses_ran: ['quick']
 review_loop_iteration: 0
 context: ['{project-root}/_bmad-output/initiative-madness/architecture-madness/architecture-madness.md', '{project-root}/_bmad-output/initiative-madness/ux-madness/DESIGN.md', '{project-root}/_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md']
+blocked_at: "2026-10-23"
+blocked_reason: "Socle code et paquet verifies : 42 tests, types/build, dev et 14 controles Windows reussis. G0 reste partiel : installateur non execute, minima de compatibilite et proxy cible non qualifies. Aucun consommateur debloque ; le tracer 1.3 attend aussi la qualification Codex 1.1."
 ---
 
 <frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">

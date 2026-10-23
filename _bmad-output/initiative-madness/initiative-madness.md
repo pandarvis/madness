@@ -1,5 +1,6 @@
 ---
 type: initiative
+status: in-progress
 title: Madness
 parent: none
 risk: high

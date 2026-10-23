@@ -1,6 +1,6 @@
 # Madness — découpage approuvé avec Sofia
 
-État : découpage approuvé par le porteur le 23 octobre 2026, avec création des quatre enveloppes et commit local autorisés. Les epics sont créés et restent à raffiner ; aucun développement n'est démarré.
+État : découpage approuvé par le porteur le 23 octobre 2026, avec création des quatre enveloppes et commit local autorisés. Les epics sont créés ; le premier est raffiné, les trois autres restent à raffiner. Aucun développement n'est démarré.
 
 Le [ticket actualisé](../initiative-madness.md) contient 31 exigences et 8 contraintes. Le [contrat de Winston](../architecture-madness/architecture-madness.md) est adopté sans modification, comme les deux contrats UX. Les réponses confirmées règlent Q1, Q5, Q6 et A2 ; A1 reste une cible proposée et Q2–Q4/Q7 sont des qualifications de réalisation.
 
@@ -48,4 +48,4 @@ La chaîne approuvée est 1 → 2 → 3 → 4 : elle suit des contrats ou capaci
 
 Les décisions encore ouvertes de distribution et compatibilité nommées dans Deferred du contrat sont réglées avant les usages ou diffusions concernés. Gratuit ne fixe pas la licence ; preview autorisée ne prouve pas la compatibilité du proxy. Claude Code et Copilot restent les connecteurs suivants, déjà prévus par le contrat commun.
 
-Les quatre epics sont créés avec leur résultat, leurs limites et leurs références. Le commit local de ce cadrage est autorisé. La prochaine étape recommandée est le raffinement du premier epic pour préparer ses stories ; leur création et leur lancement restent des étapes distinctes.
+Les quatre epics sont créés avec leur résultat, leurs limites et leurs références. Le commit local de ce cadrage est autorisé. Le premier epic est raffiné depuis les seules exigences parent couvertes. La prochaine étape recommandée est de proposer ses stories ; leur création et leur lancement restent des étapes distinctes.

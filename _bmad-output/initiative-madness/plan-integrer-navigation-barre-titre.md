@@ -48,3 +48,5 @@ context: ['{project-root}/AGENTS.md', '{project-root}/_bmad-output/initiative-ma
 - Revue Quick, paquet, installation locale après sauvegarde/fermeture de la fenêtre utilisateur, puis commit local sans push. Les preuves BMad/Codex précédentes restent historiques et ne sont pas réécrites.
 
 Résultat technique : 112 tests, puis huit interactions UI après la dernière règle CSS, types/build/paquet, cinq contrôles compilés + cinq paquet et six contrôles natifs réussis. La capture groupée est inspectée ; aucune retouche supplémentaire ni correction différée. Le code est construit et relu. Le remplacement de l’installation personnelle reste en attente de la fermeture demandée au porteur ; ne pas présenter cette mise à jour comme déjà installée.
+
+Clôture de livraison : le porteur confirme la fermeture. L’installateur vérifié a remplacé l’application ; l’archive installée correspond à la preuve native. Les quatre contrôles de `qualification-barre-titre/installation.json` confirment la barre native, le chargement du compte et des données, l’absence de dialogue relancé et le snapshot inchangé après réouverture. Madness est rouverte pour le porteur.

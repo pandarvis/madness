@@ -1,0 +1,38 @@
+{
+  "SchemaVersion": 1,
+  "Status": "installed-reopen-confirmed",
+  "ObservedAt": "2026-10-24T14:28:28.266Z",
+  "InstallerExitCode": 0,
+  "InstalledArchiveSHA256": "917ece60f9d8b710819918e70a178b5dfc630e30a373bc88694d9bc2002774ba",
+  "SnapshotUnchanged": true,
+  "SnapshotSHA256": "fdf701bcfccd77795653d9e883f24158e7684b58d7cdaa0e6ae35662862bd7b4",
+  "Overlay": {
+    "visible": true,
+    "available": {
+      "x": 0,
+      "y": 0,
+      "width": 1184,
+      "height": 56,
+      "top": 0,
+      "right": 1184,
+      "bottom": 56,
+      "left": 0
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 1184,
+      "height": 56,
+      "top": 0,
+      "right": 1184,
+      "bottom": 56,
+      "left": 0
+    }
+  },
+  "Checks": [
+    "installed-native-overlay-and-navigation-same-row",
+    "current-data-loads-and-account-preserved",
+    "no-native-dialogue-restarted",
+    "snapshot-identical-after-installed-reopen"
+  ]
+}

@@ -6,4 +6,6 @@ Le banc Windows existant échouait sur l’ancien build (`overlay.visible=false`
 
 `profile.json` rapporte les six contrôles natifs complémentaires et leur nettoyage. `native-desktop.png` et `native-compact.png` capturent uniquement la fenêtre témoin possédée, avec ses vrais contrôles Windows ; aucun compte, projet personnel, réseau ou agent fournisseur n’est utilisé. Les états agrandi/restauré et réduit/restauré sont exercés via l’API Electron, puis la fermeture du processus est confirmée. Le déplacement physique et les boutons système n’ont pas été actionnés par une personne dans cet essai.
 
-Une inspection visuelle groupée a été réalisée, sans retouche de finition supplémentaire. La livraison est `dist/titlebar-pilot/Madness-0.1.0-x64-setup.exe`. Les preuves antérieures Codex/BMad restent historiques et inchangées. La mise à jour de l’application personnelle attend sa fermeture par le porteur, pour ne pas perdre de saisie non enregistrée.
+Une inspection visuelle groupée a été réalisée, sans retouche de finition supplémentaire. La livraison est `dist/titlebar-pilot/Madness-0.1.0-x64-setup.exe`. Les preuves antérieures Codex/BMad restent historiques et inchangées.
+
+Après confirmation de fermeture par le porteur, l’installation personnelle est mise à jour et rouverte. `installation.json` confirme l’archive identique au paquet qualifié, le snapshot strictement inchangé avant/après installation et réouverture, le compte conservé et l’overlay de la barre installée. Aucun dialogue natif n’a été relancé et aucune donnée de compte n’a été extraite.

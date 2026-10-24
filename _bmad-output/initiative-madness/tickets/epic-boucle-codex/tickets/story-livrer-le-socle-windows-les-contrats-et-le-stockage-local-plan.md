@@ -13,8 +13,8 @@ review_source: 'pinned'
 lenses_ran: ['quick']
 review_loop_iteration: 0
 context: ['{project-root}/_bmad-output/initiative-madness/architecture-madness/architecture-madness.md', '{project-root}/_bmad-output/initiative-madness/ux-madness/DESIGN.md', '{project-root}/_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md']
-blocked_at: "2026-10-23"
-blocked_reason: "Socle code et paquet verifies : 42 tests, types/build, dev et 14 controles Windows reussis. G0 reste partiel : installateur non execute, minima de compatibilite et proxy cible non qualifies. Aucun consommateur debloque ; le tracer 1.3 attend aussi la qualification Codex 1.1."
+blocked_at: "2026-10-24"
+blocked_reason: "Code G0 et correctif UX verifies : 42 tests, types/build, paquet et 15 controles Windows reussis. Le porteur confirme le 24 octobre avoir installe puis ouvert la livraison precedente. Restent les minima de compatibilite et le controle du proxy cible ; remplacement/desinstallation et installation du nouveau correctif non verifies. Aucun consommateur debloque ; 1.3 attend aussi la qualification Codex 1.1."
 ---
 
 <frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">

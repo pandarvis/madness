@@ -124,8 +124,13 @@ dd { margin: 6px 0 0; color: var(--muted) }
 .connection-error { color: var(--error-text); background: var(--error); border-radius: 8px; padding: 12px }
 .connection-cancelled { color: var(--neutral-text); background: var(--neutral); border-radius: 8px; padding: 12px }
 .connection-consumption { margin-top: 20px !important; color: var(--text); font-weight: 500 }
-.connection-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px }
-.connection-actions button { min-height: 40px; font-size: 13px }
+.connection-actions { display: grid; gap: 4px; margin-top: 18px }
+.connection-actions button { min-width: 0; min-height: 40px; justify-content: flex-start; gap: 10px; font-size: 13px; text-align: left }
+.connection-actions svg { width: 17px; height: 17px }
+.connection-check { color: var(--selected-text); background: var(--accent-soft); font-weight: 500 }
+.connection-check:hover { background: var(--selected) }
+.connection-check:active { background: var(--active) }
+.connection-disconnect { color: var(--muted); margin-top: 4px }
 .connection-scope { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted) }
 .connection-scope p { font-size: 12px }
 .text-button { padding: 6px 0; color: var(--accent); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; margin-top: 8px }

@@ -7,8 +7,8 @@ import { initialConnectionState } from '../../contracts/connection.ts'
 import type { ConnectionState, ConnectionBridge } from '../../contracts/connection.ts'
 import chatgptMark from './assets/chatgpt-mark.svg'
 
-function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message' | 'arrow' }): ReactNode {
-  const paths = { home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z', folder: 'M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z', panel: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM9 3v18m6-13-3 4 3 4', close: 'm6 6 12 12M6 18 18 6', message: 'M4 4h16v12H9l-5 4V4Z', arrow: 'M5 12h14m-5-5 5 5-5 5' }
+function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message' | 'arrow' | 'refresh' | 'external' | 'logout' }): ReactNode {
+  const paths = { home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z', folder: 'M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z', panel: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM9 3v18m6-13-3 4 3 4', close: 'm6 6 12 12M6 18 18 6', message: 'M4 4h16v12H9l-5 4V4Z', arrow: 'M5 12h14m-5-5 5 5-5 5', refresh: 'M20 7v5h-5M20 12a8 8 0 1 0-2 5', external: 'M14 4h6v6m0-6-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5', logout: 'M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4m4-12 4 4-4 4m-4-4h12' }
   return <svg aria-hidden="true" viewBox="0 0 24 24"><path d={paths[name]} /></svg>
 }
 
@@ -139,10 +139,10 @@ export function App(): ReactNode {
       {connectionBridgeError && <p className="connection-error" role="alert">Le pont de connexion ne répond pas. Rouvrez le panneau ou redémarrez Madness. Vos projets et brouillons sont conservés.</p>}
       <p className="connection-consumption">La vérification envoie un court message témoin et consomme votre forfait ChatGPT. Les limites de ce forfait s’appliquent.</p>
       <div className="connection-actions">
-        {connectionBusy ? <button className="secondary" type="button" onClick={() => void connectionAction('cancel')} disabled={connectionPending || ['stopping', 'closing'].includes(connection.status)}>Annuler la connexion</button> : <>
-          {connection.accountStored && <button className="primary" type="button" onClick={() => void connectionAction('verify')} disabled={connectionPending || connectionBlocked || connection.status === 'unknown'}>Vérifier la connexion</button>}
-          {!connectionBlocked && <button className={connection.accountStored ? 'secondary' : 'primary'} type="button" onClick={() => void connectionAction('connect')} disabled={connectionPending || connection.status === 'unknown'}>{connection.accountStored ? 'Reconnecter avec ChatGPT' : 'Continuer avec ChatGPT'}</button>}
-          {(connection.accountStored || connection.errorCode === 'VAULT_UNREADABLE') && <button className="secondary" type="button" onClick={() => void connectionAction('disconnect')} disabled={connectionPending}>Déconnecter localement</button>}
+        {connectionBusy ? <button className="secondary" type="button" onClick={() => void connectionAction('cancel')} disabled={connectionPending || ['stopping', 'closing'].includes(connection.status)}><Icon name="close" />Annuler la connexion</button> : <>
+          {connection.accountStored && <button className={connection.status === 'verified' ? 'connection-check' : 'primary'} type="button" onClick={() => void connectionAction('verify')} disabled={connectionPending || connectionBlocked || connection.status === 'unknown'}><Icon name="refresh" />Vérifier la connexion</button>}
+          {!connectionBlocked && <button className={connection.accountStored ? 'connection-reconnect' : 'primary'} type="button" onClick={() => void connectionAction('connect')} disabled={connectionPending || connection.status === 'unknown'}><Icon name="external" />{connection.accountStored ? 'Reconnecter avec ChatGPT' : 'Continuer avec ChatGPT'}</button>}
+          {(connection.accountStored || connection.errorCode === 'VAULT_UNREADABLE') && <button className="connection-disconnect" type="button" onClick={() => void connectionAction('disconnect')} disabled={connectionPending}><Icon name="logout" />Déconnecter localement</button>}
         </>}
       </div>
       <div className="connection-scope"><p>Ce contrôle vérifie uniquement la connexion locale au forfait. Le dialogue BMad reste indisponible ; vos brouillons ne sont jamais envoyés.</p><button className="text-button" type="button" onClick={() => void connectionAction('manageUsage')} disabled={connectionPending}>Gérer l’usage dans ChatGPT</button></div>

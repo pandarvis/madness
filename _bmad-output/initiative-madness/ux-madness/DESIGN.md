@@ -248,6 +248,8 @@ Les mêmes noms désignent les règles de comportement dans EXPERIENCE.md.
 
 Amendement connexion locale du 24 octobre 2026 : le statut textuel Codex de la barre est remplacé par une seule cible de 40 px contenant le signe officiel ChatGPT de 21 px, grisé à froid, avec nom accessible et infobulle « Connexion Codex : [état] ». Le résultat vérifié utilise les tokens succès avec sa portée textuelle dans le panneau. Le panneau non modal est ancré sous la barre, à droite, largeur maximale 420 px bornée à la fenêtre, retrait 22 px, rayon 12 px et ombre douce décalée. Son titre, état, récupération et actions suivent la hiérarchie existante ; la couleur ne remplace aucun libellé. La première autorisation du forfait est rappelée dans un dialogue acquittable de 480 px maximum. Aucun autre choix de composition, thème ou langue n’est rouvert.
 
+Retouche après essai du panneau : les actions sont alignées en une colonne, cibles de 40 px avec icônes de 17 px et libellés conservés. Une connexion déjà vérifiée propose la revérification sur un fond accent doux ; la reconnexion reste une ligne sans contour et la déconnexion utilise le texte atténué, avec un retrait vertical supplémentaire de 4 px. La première connexion et la vérification encore nécessaire gardent le bouton primaire. Les actions, leur ordre et leurs protections restent identiques.
+
 ## Do's and Don'ts
 
 | Faire | Éviter |

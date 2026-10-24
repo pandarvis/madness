@@ -1,0 +1,108 @@
+{
+  "fixture": "isolated source renderer; synthetic state; network blocked; no provider request",
+  "checks": "alignment, no overflow, 40px targets, keyboard order and focus, first connection primary, cancellation",
+  "views": [
+    {
+      "name": "desktop",
+      "width": 420,
+      "scrollWidth": 420,
+      "buttons": [
+        {
+          "label": "Vérifier la connexion",
+          "x": 898,
+          "y": 303.25,
+          "width": 376,
+          "height": 40,
+          "color": "rgb(83, 59, 128)",
+          "background": "rgb(240, 235, 250)"
+        },
+        {
+          "label": "Reconnecter avec ChatGPT",
+          "x": 898,
+          "y": 347.25,
+          "width": 376,
+          "height": 40,
+          "color": "rgb(41, 40, 46)",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "label": "Déconnecter localement",
+          "x": 898,
+          "y": 395.25,
+          "width": 376,
+          "height": 40,
+          "color": "rgb(102, 99, 111)",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ]
+    },
+    {
+      "name": "compact",
+      "width": 420,
+      "scrollWidth": 420,
+      "buttons": [
+        {
+          "label": "Vérifier la connexion",
+          "x": 184,
+          "y": 298.25,
+          "width": 380,
+          "height": 40,
+          "color": "rgb(83, 59, 128)",
+          "background": "rgb(240, 235, 250)"
+        },
+        {
+          "label": "Reconnecter avec ChatGPT",
+          "x": 184,
+          "y": 342.25,
+          "width": 380,
+          "height": 40,
+          "color": "rgb(41, 40, 46)",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "label": "Déconnecter localement",
+          "x": 184,
+          "y": 390.25,
+          "width": 380,
+          "height": 40,
+          "color": "rgb(102, 99, 111)",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ]
+    },
+    {
+      "name": "narrow",
+      "width": 388,
+      "scrollWidth": 388,
+      "buttons": [
+        {
+          "label": "Vérifier la connexion",
+          "x": 36,
+          "y": 319.70001220703125,
+          "width": 348,
+          "height": 40,
+          "color": "rgb(83, 59, 128)",
+          "background": "rgb(240, 235, 250)"
+        },
+        {
+          "label": "Reconnecter avec ChatGPT",
+          "x": 36,
+          "y": 363.70001220703125,
+          "width": 348,
+          "height": 40,
+          "color": "rgb(41, 40, 46)",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "label": "Déconnecter localement",
+          "x": 36,
+          "y": 411.70001220703125,
+          "width": 348,
+          "height": 40,
+          "color": "rgb(102, 99, 111)",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ]
+    }
+  ]
+}

@@ -48,7 +48,8 @@ nav { display: flex; flex-direction: column; gap: 4px }
 .project-glyph { width: 20px; height: 20px; border: 1px solid var(--control-line); border-radius: 5px; display: inline-grid; place-items: center; flex: none; font-size: 11px }
 .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
 .workspace { flex: 1; min-width: 0; display: flex; flex-direction: column; background: var(--surface) }
-.topbar { min-height: 56px; flex: none; padding: 8px 18px; border-bottom: 1px solid var(--line); background: var(--surface); display: flex; align-items: center; justify-content: space-between; gap: 12px }
+.topbar { height: env(titlebar-area-height, 56px); min-height: 56px; width: env(titlebar-area-width, 100%); margin-left: env(titlebar-area-x, 0px); flex: none; padding: 8px 18px; border-bottom: 1px solid var(--line); background: var(--surface); display: flex; align-items: center; justify-content: space-between; gap: 12px; app-region: drag; user-select: none }
+.topbar button, .skip-link, dialog, dialog::backdrop { app-region: no-drag }
 .topbar-actions { display: flex; align-items: center; gap: 16px; flex: none }
 .toolbar-toggle, .open-project { min-height: 40px }
 .toolbar-toggle { width: 40px; padding: 0; flex: none }
@@ -183,5 +184,5 @@ dd { margin: 6px 0 0; color: var(--muted) }
 @media (min-width: 1600px) { :root { --sidebar: 240px; --context-panel: 350px } .main-inner { padding-left: 52px; padding-right: 52px } }
 @media (max-width: 1280px) { :root { --sidebar: 194px; --context-panel: 278px } .main-inner { padding: 30px 26px 40px } .topbar { padding-inline: 22px } .project-heading h1 { font-size: 24px } }
 @media (max-width: 1080px) { :root { --sidebar: 184px } .context-panel { display: none } .page-intro { flex-direction: column; gap: 18px } }
-@media (max-width: 720px) { .sidebar, .desktop-menu, .open-label { display: none } .mobile-menu { display: inline-flex } .topbar { min-height: 57px; padding: 8px 14px } .topbar-actions { gap: 10px } .open-project { width: 40px; padding: 0 } .connection { font-size: 11px } .main-inner { padding: 25px 20px 40px } h1 { font-size: 24px } .welcome, .recommendation { padding: 18px } .project-tabs { gap: 20px } .composer-bottom { align-items: flex-start; flex-direction: column } .composer-bottom button { align-self: flex-end } }
+@media (max-width: 720px) { .sidebar, .desktop-menu, .open-label { display: none } .mobile-menu { display: inline-flex } .topbar { padding: 8px 14px } .topbar-actions { gap: 10px } .open-project { width: 40px; padding: 0 } .connection { font-size: 11px } .main-inner { padding: 25px 20px 40px } h1 { font-size: 24px } .welcome, .recommendation { padding: 18px } .project-tabs { gap: 20px } .composer-bottom { align-items: flex-start; flex-direction: column } .composer-bottom button { align-self: flex-end } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important } }

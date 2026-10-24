@@ -195,7 +195,7 @@ Sous une barre d’action commune à toute la largeur : Navigation latérale, co
 
 L'en-tête identifie le projet et l'initiative active lorsqu'elle est connue. Ces deux niveaux restent lisibles lorsque la navigation est repliée ; les fichiers et l'action proposée gardent le même contexte. La forme de présentation des autres initiatives reste à préciser dans les exigences, sans imposer de nouvel écran.
 
-Amendement du 24 octobre 2026, demandé après prise en main de l’application : la barre supérieure porte la bascule de navigation à gauche et une seule commande « Ouvrir un projet », accessible depuis l’accueil et le projet. Ces commandes ne sont pas répétées dans la colonne gauche ni dans le contenu d’accueil. En fenêtre étroite, la bascule ouvre le tiroir ; l’ouverture de projet garde son nom accessible lorsque seul son SVG est visible. Le cadre Windows natif est conservé. Les anciennes captures du prototype restent historiques ; cette règle prévaut pour l’application.
+Amendement du 24 octobre 2026, précisé après prise en main : la barre supérieure intègre la barre de titre Windows. La bascule de navigation à gauche et les contrôles natifs réduire, agrandir/restaurer et fermer sont sur la même ligne. Une seule commande « Ouvrir un projet » reste accessible depuis l’accueil et le projet ; ces commandes ne sont pas répétées dans la colonne gauche ni dans le contenu d’accueil. La zone native des contrôles est réservée par la géométrie Window Controls Overlay. Le fond libre permet de déplacer la fenêtre ; les boutons, dialogues et leur fond modal restent interactifs. En fenêtre étroite, la bascule ouvre le tiroir ; l’ouverture de projet garde son nom accessible lorsque seul son SVG est visible. Les anciennes captures restent historiques ; cette règle prévaut pour l’application.
 
 La [feuille de style de la maquette](mockups/parcours-guide/styles.css) conserve la composition observée et ses adaptations de fenêtre.
 
@@ -227,7 +227,7 @@ Les mêmes noms désignent les règles de comportement dans EXPERIENCE.md.
 
 | Composant | Spécification visuelle |
 |---|---|
-| Barre d’action supérieure | Surface blanche, filet inférieur, contexte et commandes globales ; hauteur minimale 56 px, 57 px en fenêtre étroite, cibles de navigation et d’ouverture d’au moins 40 px. |
+| Barre d’action et de titre commune | Surface blanche, filet inférieur, contexte et commandes globales ; bande de 56 px partagée avec les contrôles Windows natifs, cibles de navigation et d’ouverture d’au moins 40 px. |
 | Navigation latérale | Fond et dimensions du groupe `components.navigation` ; sélection lavande, graisse 600 ; rail à icônes, projets identifiables, infobulles sombres. |
 | Bouton | Principal violet/blanc, secondaire blanc avec `{colors.control-line}`, discret sans fond. Arrondi `{rounded.md}`, retrait `{components.button.padding}` ; survol, pression, focus visible ; indisponibilité observée par opacité 0,5 avec explication accessible. |
 | Ligne de projet ou d'attente | Liste plate, filets, libellé puis contexte et chemin ; repère de projet ou symbole d'attente, état à droite. La ligne entière exprime la même destination. |

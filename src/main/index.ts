@@ -133,6 +133,7 @@ else {
     window = new BrowserWindow({
       width: 1320, height: 860, minWidth: 520, minHeight: 520, show: false,
       title: 'Madness', backgroundColor: '#FFFFFF', autoHideMenuBar: true,
+      titleBarStyle: 'hidden', titleBarOverlay: { color: '#FFFFFF', symbolColor: '#29282e', height: 56 },
       webPreferences: { preload: join(__dirname, '../preload/index.js'), contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, allowRunningInsecureContent: false, webviewTag: false, spellcheck: false }
     })
     window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))

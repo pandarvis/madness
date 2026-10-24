@@ -22,6 +22,8 @@ Le point de départ est le starter officiel `@quick-start/create-electron@1.0.31
 
 ## Organisation et frontières
 
+La barre supérieure est intégrée à la barre de titre Windows avec `titleBarStyle:hidden` et `titleBarOverlay` natif de 56 px. Les variables CSS `titlebar-area-*` réservent l’espace des contrôles système ; le fond libre est `app-region:drag`, les boutons et dialogues sont `no-drag`. Aucun pont de contrôle de fenêtre n’est ajouté. Le banc ciblé vérifie la géométrie et les actions à 1320 et 600 px ; `--ui-regressions-only --executable=<chemin absolu>` permet de le lancer sur un paquet précis sans réécrire les preuves G0 historiques.
+
 `src/contracts` possède le schéma v1, les commandes, événements corrélés, résultats et capacités. `src/core` contient les cas d’usage, les ports de stockage/connexion et le coordinateur de cycle de vie. Ces modules n’importent ni Node, ni Electron, ni SDK fournisseur. L’adaptateur JSON et le main implémentent leurs ports ; le renderer reçoit `window.madness` et le pont dédié `window.madnessConnection`.
 
 Le pont expose lecture du contexte, choix du dossier, sélection d’un projet connu, sauvegarde du brouillon, préférence de navigation et abonnement aux événements métier. Main vérifie l’identité de la fenêtre, de sa frame principale, son URL exacte et la forme du payload avant délégation. Preload valide aussi les réponses et événements reçus. Aucune API IPC, fichiers, processus ou Electron générique n’est exposée. Le preload compilé contient son contrat et n’utilise que `require('electron')` comme dépendance externe.

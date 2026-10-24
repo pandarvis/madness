@@ -37,6 +37,8 @@ Les surfaces maquettées sont accessibles dans la [maquette commune](mockups/par
 
 Navigation globale : Accueil, projets récents, Possibilités BMad, Que faire ensuite ?. La barre d’action supérieure porte une seule commande « Ouvrir un projet », disponible depuis l’accueil et le projet, et la bascule de navigation. Le projet expose Parcours, Conversation et Toutes les possibilités ; les fichiers restent consultables à côté. Les regroupements Cadrage, Exigences, Expérience utilisateur, Architecture, Réalisation & qualité et Outils transversaux sont des repères, sans chaîne imposée ni étape à valider artificiellement pour accéder à la suivante.
 
+Précision du porteur le 24 octobre : la bascule de navigation partage la barre de titre avec les boutons Windows réduire, agrandir/restaurer et fermer. Les commandes natives restent disponibles, sans commandes HTML de remplacement. Le fond libre déplace la fenêtre ; les clics sur les commandes et sur le tiroir modal ne déclenchent pas de déplacement. Repli, tiroir et redimensionnement conservent la saisie et le contexte.
+
 Un projet peut contenir plusieurs initiatives. Son espace identifie l'initiative active, permet de retrouver les autres initiatives repérées et indique celle que concernent l'état, les preuves et l'action envisagée. Les fichiers transversaux restent rattachés au projet. Changer d'initiative ne réattribue pas les conversations et résultats antérieurs. La commande précise de changement reste à définir dans les exigences ; aucun sélecteur détaillé n'est considéré comme maquetté ou approuvé.
 
 ## Voice and Tone

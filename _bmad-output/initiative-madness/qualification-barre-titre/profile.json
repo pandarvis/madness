@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "status": "native-titlebar-verified",
+  "checks": [
+    "native-controls-overlay-aligned-desktop-compact",
+    "unsaved-draft-preserved-during-resize",
+    "owned-window-native-captures-only",
+    "native-maximize-restore-minimize-restore-lifecycle",
+    "no-account-no-provider-no-network",
+    "owned-window-close-confirmed"
+  ],
+  "geometry": [
+    {
+      "size": "desktop",
+      "viewport": 1320,
+      "available": {
+        "x": 0,
+        "y": 0,
+        "width": 1183,
+        "height": 56,
+        "top": 0,
+        "right": 1183,
+        "bottom": 56,
+        "left": 0
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1183,
+        "height": 56,
+        "top": 0,
+        "right": 1183,
+        "bottom": 56,
+        "left": 0
+      }
+    },
+    {
+      "size": "compact",
+      "viewport": 600,
+      "available": {
+        "x": 0,
+        "y": 0,
+        "width": 463,
+        "height": 56,
+        "top": 0,
+        "right": 463,
+        "bottom": 56,
+        "left": 0
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 463,
+        "height": 56,
+        "top": 0,
+        "right": 463,
+        "bottom": 56,
+        "left": 0
+      }
+    }
+  ],
+  "captures": [
+    "native-desktop.png",
+    "native-compact.png"
+  ],
+  "cleanup": true,
+  "artifact": {
+    "file": "dist/titlebar-pilot/win-unpacked/resources/app.asar",
+    "sha256": "917ece60f9d8b710819918e70a178b5dfc630e30a373bc88694d9bc2002774ba"
+  },
+  "observedAt": "2026-10-24T14:21:35.668Z"
+}

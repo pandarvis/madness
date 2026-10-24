@@ -1,0 +1,24 @@
+{
+  "SchemaVersion": 1,
+  "Status": "verified-awaiting-user-window-close",
+  "TestsPassed": 112,
+  "FinalUiTestsPassed": 8,
+  "CompiledWindowsChecks": 5,
+  "PackagedWindowsChecks": 5,
+  "NativeWindowChecks": 6,
+  "Review": "Quick: no corrective findings",
+  "DeferredFindings": 0,
+  "VisualInspection": "native desktop and compact inspected once",
+  "Artifacts": [
+    {
+      "File": "dist/titlebar-pilot/Madness-0.1.0-x64-setup.exe",
+      "Bytes": 112908201,
+      "SHA256": "9c5519894a3e815139aa0e81b64e02a7664e41a0bec5c322e56072f875113759"
+    },
+    {
+      "File": "dist/titlebar-pilot/win-unpacked/resources/app.asar",
+      "Bytes": 9257033,
+      "SHA256": "917ece60f9d8b710819918e70a178b5dfc630e30a373bc88694d9bc2002774ba"
+    }
+  ]
+}

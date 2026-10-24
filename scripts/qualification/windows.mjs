@@ -54,7 +54,7 @@ async function launch(executablePath, args, profile) {
   const actual = await running.evaluate(({ app }) => app.getPath('userData'))
   assert.equal(resolve(actual), resolve(profile))
   assert.equal(await page.evaluate(() => location.href), 'madness://app/index.html')
-  await page.waitForFunction(async () => (await window.madness.readState()).ok)
+  await page.waitForFunction(() => document.querySelector('.open-project')?.matches(':enabled'))
   return page
 }
 async function inspectRuntime(label, page) {
@@ -107,8 +107,19 @@ async function globalActions(page) {
   assert.equal(await header.getByRole('button', { name: 'Ouvrir un projet', exact: true }).count(), 1)
   assert.equal(await header.getByRole('button', { name: /^(Réduire|Déployer|Ouvrir) la navigation$/ }).count(), 1)
   const bounds = await header.boundingBox()
-  assert.equal(Math.round(bounds.x), 0)
-  assert.equal(Math.round(bounds.width), await page.evaluate(() => innerWidth))
+  const area = await page.evaluate(() => { const overlay = navigator.windowControlsOverlay, rect = overlay?.getTitlebarAreaRect(); return { visible: overlay?.visible ?? false, x:rect?.x, y:rect?.y, width:rect?.width, height:rect?.height, viewport:innerWidth } })
+  assert.equal(area.visible, true, 'La barre partage la ligne des contrôles Windows natifs')
+  assert.ok(area.width > 0 && area.width < area.viewport, 'La zone des contrôles Windows reste réservée')
+  assert.equal(Math.round(bounds.x), Math.round(area.x)); assert.equal(Math.round(bounds.y), Math.round(area.y))
+  assert.equal(Math.round(bounds.width), Math.round(area.width)); assert.equal(Math.round(bounds.height), Math.round(area.height))
+  assert.equal(await header.evaluate(element => getComputedStyle(element).getPropertyValue('app-region')), 'drag')
+  for (const button of await header.getByRole('button').all()) {
+    if (!await button.isVisible()) continue
+    const control = await button.boundingBox()
+    assert.ok(control.x >= area.x && control.x + control.width <= area.x + area.width + 1)
+    assert.ok(control.y >= area.y && control.y + control.height <= area.y + area.height + 1)
+    assert.equal(await button.evaluate(element => getComputedStyle(element).getPropertyValue('app-region')), 'no-drag')
+  }
 }
 async function main() {
   try {
@@ -122,9 +133,10 @@ async function main() {
     const sentinel = 'Dossier de test. Madness ne doit pas modifier ce fichier.\n'
     await writeFile(join(project, 'temoin.txt'), sentinel)
     if (!uiRegressionsOnly) await mkdir(output, { recursive: true })
-    const compiled = require('electron'), packaged = join(repository, 'dist/win-unpacked/Madness.exe')
+    const explicit = process.argv.find(value => value.startsWith('--executable='))
+    const compiled = explicit ? resolve(explicit.slice('--executable='.length)) : require('electron'), compiledArgs = explicit ? [] : [repository], packaged = join(repository, 'dist/win-unpacked/Madness.exe')
     if (!uiRegressionsOnly) await access(packaged)
-    let page = await launch(compiled, [repository], profile)
+    let page = await launch(compiled, compiledArgs, profile)
     await skipToMain(page)
     await globalActions(page)
     if (!uiRegressionsOnly) {
@@ -167,8 +179,25 @@ async function main() {
     if (uiRegressionsOnly) {
       assert.equal(await page.locator('.app-shell').evaluate((element) => element.classList.contains('nav-compact')), true)
       for (const marker of await page.locator('.sidebar .project-glyph').all()) assert.equal(await marker.isVisible(), true)
+      for (const size of [{width:1320,height:860},{width:600,height:800}]) {
+        await running.evaluate(({BrowserWindow},size) => BrowserWindow.getAllWindows()[0].setContentSize(size.width,size.height),size)
+        await page.waitForFunction(width => innerWidth === width && navigator.windowControlsOverlay.getTitlebarAreaRect().width > 0, size.width)
+        await globalActions(page)
+        if (size.width > 720) {
+          for (let count=0;count<2;count++) { await page.locator('.toolbar-toggle.desktop-menu').click(); await page.waitForFunction(() => document.querySelector('.toolbar-toggle.desktop-menu')?.getAttribute('aria-disabled') === 'false') }
+        } else {
+          await page.getByRole('button',{name:'Ouvrir la navigation',exact:true}).click()
+          assert.equal(await page.locator('#navigation-drawer').evaluate(element => getComputedStyle(element).getPropertyValue('app-region')),'no-drag')
+          await page.getByRole('button',{name:'Fermer la navigation',exact:true}).click()
+        }
+        await page.getByRole('button',{name:/^Connexion Codex :/}).click()
+        await page.getByRole('dialog',{name:'Connexion Codex',exact:true}).waitFor(); await page.keyboard.press('Escape')
+        assert.equal(await page.getByLabel('Brouillon pour',{exact:false}).inputValue(),'Brouillon témoin G0 — conservé après redémarrage.')
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),true)
+      }
+      passed('ui.native-titlebar-geometry-and-actions-desktop-compact')
       await stop()
-      page = await launch(compiled, [repository], profile)
+      page = await launch(compiled, compiledArgs, profile)
       assert.deepEqual(await projectMarkers(page), markersBefore)
       passed('ui.same-initial-project-markers-survive-reopen')
       report.status = 'focused-ui-regressions-passed'
@@ -190,7 +219,7 @@ async function main() {
     passed('ipc.foreign-window-rejected-before-dialog')
     assert.equal((await state(page)).capabilities.codex.available, false)
     await stop()
-    page = await launch(compiled, [repository], profile)
+    page = await launch(compiled, compiledArgs, profile)
     assert.equal((await state(page)).drafts[0].text, 'Brouillon témoin G0 — conservé après redémarrage.')
     assert.equal((await state(page)).preferences.navigationCollapsed, true)
     assert.deepEqual(await projectMarkers(page), markersBefore)

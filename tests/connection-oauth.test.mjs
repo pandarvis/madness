@@ -95,6 +95,26 @@ test('refresh tourne le jeton seulement à la demande et refuse une autre identi
   assert.equal(value.refreshToken, 'new-refresh'); assert.equal(previous.refreshToken, 'old-refresh'); assert.equal(form.get('grant_type'), 'refresh_token'); assert.equal(form.get('resource'), 'https://api.openai.com/v1')
   await assert.rejects(oauth.refreshCredentials(previous, { ...options, transport: async () => ({ access_token: 'new-access', token_type: 'Bearer', expires_in: 3600, id_token: await signed('unused', { sub: 'attacker' }) }) }), { code: 'IDENTITY_CHANGED' })
 })
+test('refresh charge les clés publiques avant la rotation puis les réutilise pour le nouvel ID token', async () => {
+  const previous = { version:1,clientId:'oaiapp_testclient',subject:'test-subject',accessToken:'old-access',refreshToken:'old-refresh',idToken:'old-id',expiresAt:1,scopes:scope.split(' '),planAcknowledged:true }
+  const requests=[]
+  const value=await oauth.refreshCredentials(previous,{signal:new AbortController().signal,transport:async(url,request)=>{
+    requests.push({url,method:request.method})
+    if(request.method==='GET') return {keys:[jwk]}
+    return {access_token:'new-access',refresh_token:'new-refresh',id_token:await signed('unused'),token_type:'Bearer',expires_in:3600}
+  }})
+  assert.deepEqual(requests,[{url:'https://auth.openai.com/.well-known/jwks.json',method:'GET'},{url:'https://auth.openai.com/api/accounts/oauth/token',method:'POST'}])
+  assert.equal(value.subject,'test-subject');assert.equal(value.refreshToken,'new-refresh');assert.equal(previous.refreshToken,'old-refresh')
+})
+for(const [label,keys,code] of [['réseau',null,'NETWORK_UNAVAILABLE'],['jeu vide',{keys:[]},'OAUTH_INVALID'],['clé RSA invalide',{keys:[{kty:'RSA',alg:'RS256',kid:'test-key',n:'invalid',e:'AQAB'}]},'OAUTH_INVALID']]) test(`échec JWKS ${label} avant refresh ne transmet aucun POST de rotation`,async()=>{
+  const previous={version:1,clientId:'oaiapp_testclient',subject:'test-subject',accessToken:'old-access',refreshToken:'old-refresh',idToken:'old-id',expiresAt:1,scopes:scope.split(' '),planAcknowledged:true}
+  let posts=0
+  await assert.rejects(oauth.refreshCredentials(previous,{signal:new AbortController().signal,transport:async(_url,request)=>{
+    if(request.method==='GET'){if(keys===null)throw Object.assign(Error('private-network-detail'),{code:'NETWORK_UNAVAILABLE'});return keys}
+    posts++;return {access_token:'new-access',refresh_token:'new-refresh',id_token:await signed('unused'),token_type:'Bearer',expires_in:3600}
+  }}),{code})
+  assert.equal(posts,0);assert.equal(previous.refreshToken,'old-refresh')
+})
 test('transport borne les tailles, refuse les destinations et les redirections', async () => {
   assert.ok(oauth)
   const signal = new AbortController().signal

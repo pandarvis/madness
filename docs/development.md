@@ -30,7 +30,7 @@ Les préférences `sandbox: true`, `contextIsolation: true`, `nodeIntegration: f
 
 ## Données locales
 
-Le chemin par défaut est `app.getPath('userData')/madness-state-v1.json`, hors installation et hors projet. `MADNESS_DATA_HOME`, chemin absolu, permet un profil de développement isolé ; le banc le définit avant le démarrage de l’application. Ne pas utiliser le profil personnel pour une qualification.
+Le chemin par défaut est `app.getPath('userData')/madness-state-v1.json`, hors installation et hors projet. `MADNESS_DATA_HOME`, chemin absolu, permet un profil de développement isolé ; les bancs hors fournisseur le définissent avant le démarrage de l’application. Ils ne doivent pas utiliser le profil personnel. L’essai réel explicitement autorisé du pilote ci-dessous utilise, séparément, le compte propre à Madness et un dossier témoin persistant.
 
 Le JSON v1 conserve projets, racines canoniques, projet actif, brouillons, préférence et enveloppes de conversations. G0 ne crée aucune conversation fournisseur. À la restauration, une activité ancienne devient historique/inconnue ; aucun moteur ni tour ne démarre. Les identifiants de contexte, de fournisseur et de connexion des conversations restent capturés par le contrat.
 
@@ -45,6 +45,8 @@ Un seul processus Madness possède un profil à la fois. Le contrôle de conflit
 Le logo grisé ouvre un panneau non modal accessible au clavier ; Échap ferme le panneau, annule une connexion en cours et rend le focus au logo. « Continuer avec ChatGPT » ouvre uniquement le navigateur système. Le panneau explique avant l’autorisation que le court témoin utilise le forfait. Après la première autorisation, une confirmation acquittable rappelle cet usage ; son acquittement est conservé dans le coffre. « Gérer l’usage dans ChatGPT » ouvre l’URL officielle fixe `https://chatgpt.com/settings/usage`, sans quota inventé.
 
 `src/adapters/codex/oauth.ts` implémente indépendamment le protocole SIWC documenté, sans code du DevKit : listener uniquement `127.0.0.1`/port éphémère, state/nonce/PKCE S256 neufs, client émis validé, signature RS256, issuer/audience/expiration/sub vérifiés avec JOSE 6.2.12. Les callbacks étrangers n’interrompent pas l’attente légitime ; un refus, des scopes insuffisants ou une autre identité n’entraînent aucun témoin. L’attente humaine dure dix minutes au maximum ; chaque requête Main est bornée à quinze secondes et 256 Kio, sans redirection ni affaiblissement TLS. Le réseau OAuth utilise `net.fetch` et les certificats/proxy d’Electron.
+
+En cas de `NETWORK_UNAVAILABLE`, le panneau conserve l’erreur et propose la page publique fixe `https://auth.openai.com/.well-known/jwks.json`. Sur un réseau d’entreprise, l’ouvrir peut aider à vérifier son accès, sans garantie de rétablissement. Les actions dédiées `open-public-keys` et `copy-public-keys` n’acceptent ni URL ni texte du renderer : Main ouvre uniquement cette constante dans le navigateur Windows, ou la copie via `clipboard.writeText`. Une copie n’est annoncée qu’après résolution ; un échec natif est expurgé et laisse une récupération locale. Ces utilitaires restent disponibles pendant une session, sans mutation des accès, vérification, modèle ou retry automatique. Les cookies, TLS et `redirect:error`/`credentials:omit` restent inchangés.
 
 Le coffre `userData/codex-connection-v1/credentials.bin` utilise uniquement `safeStorage` Windows ; aucun fallback clair. L’inscription non secrète est séparée dans `registration.json`. L’host ID et le client émis sont conservés après déconnexion locale. Une écriture synchronisée/atomique préserve l’ancien coffre en cas d’échec ; une corruption ou un changement externe empêche son remplacement. « Déconnecter localement » retire explicitement les accès enregistrés, sans révoquer les autorisations côté ChatGPT. Aucun secret, compte, URL OAuth ou retour natif n’est projeté dans le renderer ni enregistré dans les rapports.
 
@@ -71,7 +73,38 @@ Les résultats expurgés et les captures sont dans `_bmad-output/initiative-madn
 
 Le contrôle de l’installateur sur la machine cible, sa signature, le minimum Windows/proxy, les réseaux des connecteurs, un lecteur d’écran et les trois parcours avec une personne restent distincts. Le banc Codex est indépendant : `node --test scripts/qualification/codex.test.mjs` ne lance pas Codex ; sa qualification réelle n’est jamais déclenchée par les scripts G0.
 
-## Mettre à jour et reconstruire
+## Pilote personnel : premier dialogue Mary
+
+Le pilote du 24 octobre ouvre une vraie conversation Codex à partir de l’entrée native `skill` de `.agents/skills/bmad-agent-analyst/SKILL.md`. Il couvre l’accueil/menu de Mary puis la discussion libre, en français et en lecture seule. Les workflows documentaires proposés dans le menu, les approbations, questions structurées, installations et écritures ne sont pas pris en charge : une demande native correspondante refuse l’interaction et fait échouer le tour. Le pilote ne débloque ni 1.1/1.2 ni le tracer distribuable 1.3.
+
+Pré requis locaux explicites : installation Mary exacte du profil épinglé dans `src/adapters/bmad/profile.ts`, ses huit fichiers de compétence/scripts, configuration TOML lisible, Codex natif Windows x64 dans l’implantation npm déjà qualifiée, compte propre à Madness avec rappel forfait acquitté. Le runtime Python 3.12.14 fourni par Codex sous `%USERPROFILE%/.cache/codex-runtimes/codex-primary-runtime/dependencies/python` et UV 0.13.0 sous `%USERPROFILE%/scoop/apps/uv/current/uv.exe` doivent correspondre aux empreintes de `runtime.ts`. L’installateur Madness ne fournit pas ces deux outils. Une montée de version de BMad, Python ou UV impose de requalifier puis mettre à jour ces empreintes ; aucun téléchargement ou repli implicite n’est exécuté.
+
+Le qualificateur vérifie les fichiers et dépendances avant le forfait. Les surcharges d’agent non couvertes sont refusées ; les couches de configuration centrale sont lues et incluses dans l’empreinte. Les vrais resolvers s’exécutent avec `uv run --offline --no-project --no-config --python <runtime externe> -- <python externe> -B -I -S -c <chargeur contrôlé> ...`, depuis la racine du projet. Le chargeur exécute les scripts installés et leurs trois modules épinglés ; `-I -S` empêche un module ajouté au projet ou un `sitecustomize` de remplacer la bibliothèque standard, et `-B` interdit les caches Python. L’interpréteur `.venv` du projet n’est jamais exécuté. UV utilise son cache externe temporaire ; le `uv.toml` du dépôt reste intact.
+
+Le profil natif et son répertoire de travail sont créés hors du projet, sous `userData/codex-connection-v1/dialogues`. L’entrée native transmet le chemin réel du SKILL installé. Les outils dynamiques `bmad_resolve` et `bmad_read_file` exécutent réellement les resolvers et ne lisent que les fichiers du profil ; `bmad_unsupported` refuse toute capacité absente. Les sorties et demandes JSON-RPC restent bornées et corrélées à `threadId`, `turnId` et `callId`. Le shell, le web, les sous-agents, plugins et MCP hérités sont désactivés. Aucun journal natif brut n’entre dans les preuves. L’arrêt ne concerne que le processus possédé et le profil temporaire est retiré après fermeture confirmée.
+
+La référence de connexion est un identifiant opaque dérivé de l’inscription et du compte Madness ; l’initiative provient du resolver config. Une session native conserve ces références et sa conversation. La connexion refuse une reconnexion ou déconnexion concurrente. Le refresh n’a lieu qu’au lancement explicite ; une session dont le jeton expire demande un nouveau lancement après arrêt. L’arrêt incertain bloque un nouveau dialogue et un témoin de connexion pendant la session.
+
+Le contrat `madnessDialogue` est séparé du snapshot v1. Les échanges utilisent ses enveloppes existantes et la même file de sauvegarde que les projets/brouillons ; aucune propriété n’est ajoutée au schéma. Le réseau n’occupe jamais cette file. Avant chaque réponse, le renderer sauvegarde le texte capturé, puis attend l’accusé natif et sa sauvegarde avant d’afficher « envoi acquitté ». Une réponse finale n’est disponible qu’après une fin native corrélée et sa sauvegarde. Le brouillon reste disponible. Erreur réseau, interaction refusée, stockage défaillant et arrêt incertain gardent des états distincts et ne rejouent aucun tour. Au redémarrage, l’historique revient sans thread natif ni refresh.
+
+```powershell
+npm test
+npm run build
+# Sortie séparée pour préserver une ancienne fenêtre ou livraison encore ouverte.
+npx electron-builder --win --x64 '--config.directories.output=dist/dialogue-pilot'
+node scripts/qualification/dialogue.mjs --no-captures
+node scripts/qualification/dialogue.mjs --packaged
+```
+
+Le banc dialogue exerce le vrai main/preload, le refus de profil absent, les contextes étrangers, l’historique restauré, le brouillon, le repli et deux largeurs sur profil jetable, sans compte ni fournisseur. `--executable=<chemin absolu>` permet de viser une autre sortie avec `--packaged`. Preuves : `_bmad-output/initiative-madness/qualification-dialogue-local/`. La preuve réelle Mary → réponse libre → arrêt est distincte et doit utiliser la connexion Madness déjà autorisée ; les tests synthétiques ne la remplacent pas. Ne jamais copier de credentials d’un autre outil ou réécrire `qualification-connexion-codex/live-confirmed-profile.json`.
+
+L’essai réel du 24 octobre est confirmé dans `qualification-dialogue-local/live-profile.json` : entrée native Mary, deux resolvers réellement appelés, réponse libre et sortie de persona, trois tours conservés, arrêt natif puis réouverture identique sans relance. Les messages de test sont publics dans `live-transcript.md`, sans donnée d’un projet de travail. Les captures de l’aide réseau sont synthétiques et identifiées comme telles. La suite finale compte 112 tests réussis ; la relecture ne laisse aucun correctif différé.
+
+Le premier accès JWKS a été redirigé vers Zscaler. Après ouverture par le porteur de la page publique dans son navigateur habituel, Main a reçu directement HTTP 200, sans copie de contenu, cookies supplémentaires ni redirection suivie. Cela ne qualifie pas tous les environnements d’entreprise. Le refresh précharge désormais un jeu de clés utilisable avant le POST de rotation, puis le réutilise pour vérifier l’ID token ; un échec de ce GET n’échange aucun refresh token et reste visible dans le panneau de connexion.
+
+Le menu de Mary est conservé comme texte Markdown non interprété. Son rendu enrichi et le lancement des compétences du menu sont des suites distinctes ; les commandes proposées ne constituent pas une capacité déjà livrée.
+
+## Reconstruire après mise à jour
 
 Choisir explicitement les nouvelles versions, mettre à jour le manifeste et le lockfile, puis refaire types, tests, build, paquet et réouverture sur profil isolé. Conserver le profil hors des binaires et vérifier la reprise avec le nouveau programme avant diffusion. Les previews sont admises ; aucun repli silencieux de version ni patch local de dépendance n’est utilisé. Les avertissements de dépréciation transitifs remontés par npm sont à suivre lors des montées de version.
 

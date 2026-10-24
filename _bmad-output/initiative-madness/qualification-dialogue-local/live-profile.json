@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-24T13:53:18.461Z",
+  "mode": "live-personal-owned-profile",
+  "status": "live-dialogue-confirmed",
+  "checks": [
+    "real-bmad-profile-and-resolvers-before-inference",
+    "native-skill-welcome-and-both-tool-resolvers-completed",
+    "rendered-ui-explicit-response-same-native-conversation-and-durable-answer",
+    "persona-dismissal-and-owned-native-process-stop-confirmed",
+    "packaged-reopen-identical-history-and-draft-no-native-dialogue-restart"
+  ],
+  "credentialHandling": "existing application-owned encrypted vault; no credential copy or inspection",
+  "project": {
+    "referenceFolder": "C:\\Sources\\madness\\.g0-qualification\\mary-live-SVd68E",
+    "projectId": "91b25217-ddf9-4431-b723-47099b8b3819",
+    "conversationId": "bc73b3e2-b636-46c4-b859-99a5798515f6",
+    "initiativeId": null,
+    "providerId": "codex"
+  },
+  "messages": {
+    "user": 3,
+    "assistant": 3,
+    "sha256": "8da9549c33039423de2589ec93ae786237227c53415e6ab00c1a24dd468a78d1"
+  },
+  "artifact": {
+    "file": "dist/dialogue-pilot/win-unpacked/resources/app.asar",
+    "sha256": "2559a72778a4a26547e1e897384f872f0cddd1887fd4d3d865d49a0ac1bc980e"
+  }
+}

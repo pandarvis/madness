@@ -3,12 +3,14 @@ import type { ReactNode } from 'react'
 import type { AppState, Reply } from '../../contracts/index.ts'
 import { MAX_DRAFT_LENGTH } from '../../contracts/index.ts'
 import { fr } from './strings.ts'
-import { initialConnectionState } from '../../contracts/connection.ts'
+import { PUBLIC_KEYS_URL, initialConnectionState } from '../../contracts/connection.ts'
 import type { ConnectionState, ConnectionBridge } from '../../contracts/connection.ts'
 import chatgptMark from './assets/chatgpt-mark.svg'
+import { initialDialogueState } from '../../contracts/dialogue.ts'
+import type { DialogueState } from '../../contracts/dialogue.ts'
 
-function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message' | 'arrow' | 'refresh' | 'external' | 'logout' }): ReactNode {
-  const paths = { home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z', folder: 'M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z', panel: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM9 3v18m6-13-3 4 3 4', close: 'm6 6 12 12M6 18 18 6', message: 'M4 4h16v12H9l-5 4V4Z', arrow: 'M5 12h14m-5-5 5 5-5 5', refresh: 'M20 7v5h-5M20 12a8 8 0 1 0-2 5', external: 'M14 4h6v6m0-6-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5', logout: 'M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4m4-12 4 4-4 4m-4-4h12' }
+function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message' | 'arrow' | 'refresh' | 'external' | 'logout' | 'copy' }): ReactNode {
+  const paths = { home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z', folder: 'M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z', panel: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM9 3v18m6-13-3 4 3 4', close: 'm6 6 12 12M6 18 18 6', message: 'M4 4h16v12H9l-5 4V4Z', arrow: 'M5 12h14m-5-5 5 5-5 5', refresh: 'M20 7v5h-5M20 12a8 8 0 1 0-2 5', external: 'M14 4h6v6m0-6-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5', logout: 'M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4m4-12 4 4-4 4m-4-4h12',copy:'M9 9h12v12H9V9ZM5 15H3V3h12v2' }
   return <svg aria-hidden="true" viewBox="0 0 24 24"><path d={paths[name]} /></svg>
 }
 
@@ -30,6 +32,9 @@ export function App(): ReactNode {
   const [connectionOpen, setConnectionOpen] = useState(false)
   const [connectionPending, setConnectionPending] = useState(false)
   const [connectionBridgeError, setConnectionBridgeError] = useState(false)
+  const [supportPending, setSupportPending] = useState(false)
+  const [supportNotice, setSupportNotice] = useState<string | null>(null)
+  const [supportError, setSupportError] = useState<string | null>(null)
   const connectionTrigger = useRef<HTMLButtonElement>(null)
   const connectionPanel = useRef<HTMLElement>(null)
   const connectionHeading = useRef<HTMLHeadingElement>(null)
@@ -42,10 +47,20 @@ export function App(): ReactNode {
   const saved = state?.drafts.find((d) => d.projectId === project?.id)
   const text = project ? texts[project.id] ?? saved?.text ?? '' : ''
   const dirty = text !== (saved?.text ?? '')
+  const [dialogue, setDialogue] = useState<DialogueState>(initialDialogueState)
+  const [dialoguePending, setDialoguePending] = useState(false)
+  const [dialogueBridgeError, setDialogueBridgeError] = useState(false)
+  const sending = useRef(false)
+  const dialogueHere = dialogue.context.projectId === project?.id
+  const dialogueBusy = ['qualifying', 'starting', 'running', 'stopping'].includes(dialogue.status)
+  const sessionPresent = ['starting', 'running', 'ready', 'stopping'].includes(dialogue.status)
+  const projectConversations = state?.conversations.filter(c => c.context.projectId === project?.id) ?? []
+  const conversation = projectConversations.find(c => c.id === dialogue.context.conversationId) ?? projectConversations.at(-1)
+  const canReply = dialogueHere && dialogue.status === 'ready' && conversation?.id === dialogue.context.conversationId
 
   function accept(reply: Reply): boolean {
     if (!reply.ok) { setError(fr.errors[reply.error.messageKey]); setNotice(''); return false }
-    setState(reply.value.state)
+    setState(current => current && current.revision > reply.value.state.revision ? current : reply.value.state)
     setError(null)
     return true
   }
@@ -66,13 +81,49 @@ export function App(): ReactNode {
     })
   }
   useEffect(() => { void load() }, [])
+  useEffect(() => window.madness.onStateChanged?.(() => { void window.madness.readState().then(accept).catch(() => setError('Le contexte du dialogue ne peut pas être relu. Votre saisie reste disponible.')) }), [])
+  function acceptDialogue(next: DialogueState): void { setDialogue(current => next.sequence >= current.sequence ? next : current) }
+  useEffect(() => {
+    if (!window.madnessDialogue) { setDialogueBridgeError(true); return }
+    const unsubscribe = window.madnessDialogue.onChanged(acceptDialogue)
+    void window.madnessDialogue.read().then(acceptDialogue).catch(() => setDialogueBridgeError(true))
+    return unsubscribe
+  }, [])
+  async function dialogueAction(action: 'qualify' | 'launch' | 'stop'): Promise<void> {
+    if (dialoguePending) return
+    const projectId = project?.id
+    if (action !== 'stop' && !projectId) return
+    setDialoguePending(true)
+    try { const next = action === 'stop' ? await window.madnessDialogue.stop() : await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false); if (action === 'launch') setTab('conversation') }
+    catch { setDialogueBridgeError(true) }
+    finally { setDialoguePending(false) }
+  }
+  async function sendToMary(): Promise<void> {
+    if (!project || !conversation || !canReply || !text.trim() || sending.current) return
+    const projectId = project.id, conversationId = conversation.id, captured = text
+    sending.current = true; setDialoguePending(true)
+    try {
+      const savedReply = await window.madness.saveDraft(projectId, captured)
+      if (!accept(savedReply)) return
+      acceptDialogue(await window.madnessDialogue.send(projectId, conversationId, captured)); setDialogueBridgeError(false)
+    } catch { setDialogueBridgeError(true) }
+    finally { sending.current = false; setDialoguePending(false) }
+  }
   function acceptConnection(next: ConnectionState): void { setConnection((current) => next.sequence >= current.sequence ? next : current) }
-  async function connectionAction(action: keyof Omit<ConnectionBridge, 'onChanged'>): Promise<void> {
+  async function connectionAction(action: keyof Omit<ConnectionBridge, 'onChanged' | 'openPublicKeys' | 'copyPublicKeys'>): Promise<void> {
     setConnectionPending(true)
     try { acceptConnection((await window.madnessConnection[action]()).state); setConnectionBridgeError(false) }
     catch { setConnectionBridgeError(true) }
     finally { setConnectionPending(false) }
   }
+  async function connectionSupport(action: 'openPublicKeys' | 'copyPublicKeys'): Promise<void> {
+    if (supportPending) return
+    setSupportPending(true); setSupportNotice(null); setSupportError(null)
+    try { await window.madnessConnection[action](); setSupportNotice(action === 'copyPublicKeys' ? fr.networkHelp.copied : fr.networkHelp.opened) }
+    catch { setSupportError(action === 'copyPublicKeys' ? fr.networkHelp.copyFailed : fr.networkHelp.openFailed) }
+    finally { setSupportPending(false) }
+  }
+  useEffect(() => { if (connection.errorCode !== 'NETWORK_UNAVAILABLE') { setSupportNotice(null); setSupportError(null) } }, [connection.errorCode])
   useEffect(() => {
     const unsubscribe = window.madnessConnection.onChanged(acceptConnection)
     void connectionAction('read')
@@ -136,6 +187,13 @@ export function App(): ReactNode {
       {connection.status === 'verifying' && <p>Un petit tour de vérification est en cours. Le résultat attend la fin du tour et l’arrêt confirmé de Codex.</p>}
       {connection.status === 'stopping' && <p>Arrêt de l’attente et du processus possédé. Aucun nouveau témoin n’est envoyé.</p>}
       {connection.errorCode && <p className={connection.errorCode === 'CANCELLED' ? 'connection-cancelled' : 'connection-error'} role={connection.status === 'error' || connection.status === 'unknown' ? 'alert' : undefined}>{fr.connectionErrors[connection.errorCode]}</p>}
+      {connection.errorCode === 'NETWORK_UNAVAILABLE' && <section className="connection-network-help" aria-labelledby="network-help-title">
+        <h3 id="network-help-title">{fr.networkHelp.title}</h3><p>{fr.networkHelp.description}</p>
+        <div className="network-help-address"><code>{PUBLIC_KEYS_URL}</code><button className="copy-public-keys" type="button" aria-label={fr.networkHelp.copy} title={fr.networkHelp.copy} onClick={() => void connectionSupport('copyPublicKeys')} disabled={supportPending}><Icon name="copy" /></button></div>
+        <button className="text-button network-help-open" type="button" onClick={() => void connectionSupport('openPublicKeys')} disabled={supportPending}><Icon name="external" />{fr.networkHelp.open}</button>
+        {supportNotice && <p className="network-help-feedback" role="status">{supportNotice}</p>}
+        {supportError && <p className="network-help-feedback network-help-error" role="alert">{supportError}</p>}
+      </section>}
       {connectionBridgeError && <p className="connection-error" role="alert">Le pont de connexion ne répond pas. Rouvrez le panneau ou redémarrez Madness. Vos projets et brouillons sont conservés.</p>}
       <p className="connection-consumption">La vérification envoie un court message témoin et consomme votre forfait ChatGPT. Les limites de ce forfait s’appliquent.</p>
       <div className="connection-actions">
@@ -145,7 +203,7 @@ export function App(): ReactNode {
           {(connection.accountStored || connection.errorCode === 'VAULT_UNREADABLE') && <button className="connection-disconnect" type="button" onClick={() => void connectionAction('disconnect')} disabled={connectionPending}><Icon name="logout" />Déconnecter localement</button>}
         </>}
       </div>
-      <div className="connection-scope"><p>Ce contrôle vérifie uniquement la connexion locale au forfait. Le dialogue BMad reste indisponible ; vos brouillons ne sont jamais envoyés.</p><button className="text-button" type="button" onClick={() => void connectionAction('manageUsage')} disabled={connectionPending}>Gérer l’usage dans ChatGPT</button></div>
+      <div className="connection-scope"><p>Ce contrôle vérifie la connexion locale au forfait. Le pilote Mary se lance depuis un projet, après qualification de ses fichiers BMad. Vos brouillons attendent toujours un envoi explicite.</p><button className="text-button" type="button" onClick={() => void connectionAction('manageUsage')} disabled={connectionPending}>Gérer l’usage dans ChatGPT</button></div>
     </section>}
     <div className="app-body">
     <aside className="sidebar" aria-label="Navigation principale" onMouseLeave={() => setTooltipsDismissed(false)} onFocusCapture={() => setTooltipsDismissed(false)}>
@@ -165,15 +223,39 @@ export function App(): ReactNode {
             </> : <>
               <div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><span className="badge">Dossier connu</span></div>
               <p className="project-path"><code>{project.rootPath}</code></p>
-              <p className="context-note">Initiative non identifiée · aucun diagnostic BMad effectué</p>
+              <p className="context-note">{conversation?.context.initiativeId ? 'Initiative capturée : ' + conversation.context.initiativeId : 'Initiative non identifiée'} · pilote personnel local Mary</p>
               <div className="project-tabs" role="tablist" aria-label="Vues du projet">{(['parcours', 'conversation'] as const).map((item) => <button key={item} id={'tab-' + item} type="button" role="tab" aria-selected={tab === item} aria-controls={'panel-' + item} tabIndex={tab === item ? 0 : -1} onClick={() => setTab(item)} onKeyDown={(event) => { if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) { event.preventDefault(); const next = item === 'parcours' ? 'conversation' : 'parcours'; const selected = event.key === 'Home' ? 'parcours' : event.key === 'End' ? 'conversation' : next; setTab(selected); document.getElementById('tab-' + selected)?.focus() } }}>{item === 'parcours' ? 'Parcours' : 'Conversation'}</button>)}</div>
               <section id={'panel-' + tab} role="tabpanel" aria-labelledby={'tab-' + tab}>
-                {tab === 'parcours' ? <div className="recommendation"><h2>Préparez votre prochain échange</h2><p>Le contexte de ce dossier est enregistré. Vous pouvez rédiger et conserver un brouillon dès maintenant.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Vous retrouverez cette saisie à la prochaine ouverture, après son enregistrement explicite.</p><button className="primary" onClick={() => { setTab('conversation'); setTimeout(() => document.getElementById('draft')?.focus(), 0) }}><Icon name="message" />Préparer un brouillon</button></div> : <div className="conversation-empty"><h2>Aucune conversation ouverte</h2><p>{fr.codexReason}</p></div>}
+                {tab === 'parcours' && <div className="recommendation"><h2>Discuter de votre projet avec Mary</h2><p>Mary, l’analyste BMad installée dans ce dossier, peut vous accueillir puis échanger librement avec vous.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Un premier échange permet de préciser votre idée avant de choisir un workflow.</p><button className="secondary" onClick={() => { setTab('conversation'); setTimeout(() => document.getElementById('mary-launch')?.focus(), 0) }}><Icon name="message" />Préparer le dialogue</button></div>}
+                <div className="dialogue-launch" aria-labelledby="mary-title">
+                  <div className="dialogue-heading"><h2 id="mary-title">Mary <span>Analyste BMad · Codex</span></h2>{dialogueHere && <span className="badge" role="status">{fr.dialogueStatus[dialogue.status]}</span>}</div>
+                  <p><code>$bmad-agent-analyst</code></p>
+                  <p>Le lancement vérifie les vrais fichiers BMad puis demande l’accueil de Mary. Chaque tour utilise votre forfait ChatGPT. Le projet reste en lecture seule.</p>
+                  <p className="small muted">Pilote de discussion libre. Les workflows du menu, les écritures et les approbations ne sont pas pris en charge.</p>
+                  <div className="dialogue-actions">
+                    <button id="mary-launch" className="primary" type="button" onClick={() => void dialogueAction('launch')} disabled={dialoguePending || dialogueBusy || sessionPresent || dialogue.status === 'unknown' || !connection.accountStored || connection.needsPlanAcknowledgement || connectionBusy || dialogueBridgeError}><Icon name="message" />Lancer Mary avec Codex</button>
+                    <button className="secondary" type="button" onClick={() => void dialogueAction('qualify')} disabled={dialoguePending || dialogueBusy || sessionPresent || dialogue.status === 'unknown' || dialogueBridgeError}>Vérifier ce projet</button>
+                    {(sessionPresent || dialogueBusy) && <button className="secondary" type="button" onClick={() => void dialogueAction('stop')} disabled={dialoguePending || dialogue.status === 'stopping'}><Icon name="close" />Arrêter Codex</button>}
+                  </div>
+                  {!connection.accountStored && <p className="small">Connectez d’abord votre compte depuis le logo Codex dans la barre.</p>}
+                  {connection.needsPlanAcknowledgement && <p className="small">Acquittez le rappel du forfait dans le panneau Codex avant le lancement.</p>}
+                  {!dialogueHere && sessionPresent && <p className="small">Mary est active dans {state.projects.find(p => p.id === dialogue.context.projectId)?.name ?? 'un autre projet'}. Retrouvez ce projet pour lui répondre, ou arrêtez Codex.</p>}
+                  {(dialogueHere || dialogue.status === 'unknown') && dialogue.errorCode && <div className="connection-error" role="alert"><p>{fr.dialogueErrors[dialogue.errorCode]}</p>{!dialogueHere && dialogue.context.projectId && <button className="text-button" type="button" onClick={() => select(dialogue.context.projectId!)} disabled={pending}>Retrouver {state.projects.find(p => p.id === dialogue.context.projectId)?.name ?? 'le projet de la session'}</button>}</div>}
+                  {dialogueBridgeError && <p className="connection-error" role="alert">Le pont du dialogue ne répond pas. Votre brouillon est conservé ; redémarrez Madness après avoir vérifié l’arrêt de Codex.</p>}
+                  {dialogueHere && dialogue.profile && <details className="dialogue-proof"><summary>Profil BMad vérifié</summary><p><code>{dialogue.profile.skillPath}</code></p><p className="small">Empreinte : <code>{dialogue.profile.fingerprint}</code></p></details>}
+                </div>
+                {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label="Échanges avec Mary">
+                  {!canReply && !dialogueBusy && <p className="history-note">Historique conservé. Aucun moteur n’est relancé. Lancez Mary explicitement pour ouvrir une nouvelle conversation.</p>}
+                  {projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique">{c.messages.map(m => <article key={m.id} className={'dialogue-message ' + m.role}><h3>{m.role === 'user' ? 'Vous' : 'Mary · Codex'}</h3><div className="message-text">{m.text}</div></article>)}</section>)}</details>}
+                  {conversation.messages.map(m => <article key={m.id} className={'dialogue-message ' + m.role}><h3>{m.role === 'user' ? 'Vous' : 'Mary · Codex'}</h3><div className="message-text">{m.text}</div></article>)}
+                  {dialogueHere && <p className="turn-status" role="status">{fr.dialogueStatus[dialogue.status]}{dialogue.status === 'running' && (dialogue.acknowledged ? ' · envoi acquitté et enregistré' : ' · accusé d’envoi attendu')}{dialogue.status === 'ready' && ' · discussion ouverte, aucun fichier modifié'}</p>}
+                </div> : <div className="conversation-empty"><h2>Aucun échange enregistré</h2><p>Le lancement ci-dessus ouvre Mary sans envoyer votre brouillon.</p></div>)}
+                {dialogueHere && dialogue.activities.length > 0 && <details className="dialogue-activity"><summary>Activité du dialogue ({dialogue.activities.length})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{entry}</li>)}</ol></details>}
                 <form className="composer" onSubmit={(event) => { event.preventDefault(); const projectId = project.id; const value = text; void run(() => window.madness.saveDraft(projectId, value), () => setNotice(fr.saved)) }}>
-                  <label htmlFor="draft">Brouillon pour {project.name}</label>
+                  <label htmlFor="draft">{canReply || dialogueHere && sessionPresent ? 'Votre réponse à Mary' : 'Brouillon pour ' + project.name}</label>
                   <textarea id="draft" value={text} onChange={(event) => setTexts((current) => ({ ...current, [project.id]: event.target.value }))} maxLength={MAX_DRAFT_LENGTH} aria-describedby="draft-status draft-limit" placeholder="Notez ce que vous souhaitez reprendre dans ce projet…" />
-                  <div className="composer-bottom"><p id="draft-status">{dirty ? fr.unsaved : saved ? fr.saved : fr.noDraft}</p><button className="primary" type="submit" disabled={pending || !dirty}>{pending ? fr.saving : fr.save}</button></div>
-                  <p className="small muted" id="draft-limit">Brouillon local uniquement · aucun envoi à Codex · 100 000 caractères maximum</p>
+                  <div className="composer-bottom"><p id="draft-status">{dirty ? fr.unsaved : saved ? fr.saved : fr.noDraft}</p><div className="composer-actions"><button className="secondary" type="submit" disabled={pending || !dirty}>{pending ? fr.saving : fr.save}</button>{dialogueHere && sessionPresent && <button className="primary" type="button" onClick={() => void sendToMary()} disabled={!canReply || dialoguePending || !text.trim()}><Icon name="arrow" />Envoyer à Mary</button>}</div></div>
+                  <p className="small muted" id="draft-limit">{canReply ? 'Seul « Envoyer à Mary » transmet ce texte. Le brouillon est enregistré avant l’envoi et reste disponible.' : 'Saisie conservée localement · aucun envoi automatique'} · 100 000 caractères maximum</p>
                 </form>
               </section>
             </>}
@@ -181,7 +263,7 @@ export function App(): ReactNode {
             <p className="status-line" role="status" aria-live="polite">{notice}</p>
           </div>
         </main>
-        {page === 'project' && project && <aside className="context-panel" aria-label="Contexte du projet"><h2>Contexte du projet</h2><p>Source : dossier choisi via Windows.</p><dl><dt>Dossier canonique</dt><dd><code>{project.rootPath}</code></dd><dt>Conservation</dt><dd>Contexte et brouillon dans les données locales de Madness.</dd><dt>Activité</dt><dd>Aucun agent lancé.</dd><dt>Fichiers du projet</dt><dd>Aucune modification effectuée.</dd></dl><p className="small">Les preuves BMad et les échanges fournisseur seront disponibles après leurs qualifications respectives.</p></aside>}
+        {page === 'project' && project && <aside className="context-panel" aria-label="Contexte du projet"><h2>Contexte du projet</h2><p>Source : dossier choisi via Windows.</p><dl><dt>Dossier canonique</dt><dd><code>{project.rootPath}</code></dd><dt>Initiative capturée</dt><dd>{conversation?.context.initiativeId ?? 'Non identifiée'}</dd><dt>Conservation</dt><dd>Échanges et brouillon dans les données locales de Madness.</dd><dt>Activité</dt><dd>{dialogueHere ? fr.dialogueStatus[dialogue.status] : 'Aucun agent actif dans ce projet'}</dd><dt>Fournisseur</dt><dd>Codex · connexion propre à Madness</dd><dt>Fichiers du projet</dt><dd>Lecture seule · aucune écriture autorisée.</dd></dl><p className="small">Ce pilote ne qualifie ni la distribution ni les workflows documentaires BMad.</p></aside>}
       </div>
     </div>
     </div>

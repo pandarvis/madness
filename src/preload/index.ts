@@ -3,6 +3,8 @@ import { COMMAND_CHANNEL, EVENT_CHANNEL, isDomainEvent, isReply } from '../contr
 import type { Command, MadnessBridge, Reply } from '../contracts/index.ts'
 import { CONNECTION_COMMAND_CHANNEL, CONNECTION_EVENT_CHANNEL, isConnectionReply, isConnectionState } from '../contracts/connection.ts'
 import type { ConnectionAction, ConnectionBridge, ConnectionReply } from '../contracts/connection.ts'
+import { DIALOGUE_COMMAND_CHANNEL, DIALOGUE_EVENT_CHANNEL, isDialogueReply, isDialogueState } from '../contracts/dialogue.ts'
+import type { DialogueBridge, DialogueCommand, DialogueState } from '../contracts/dialogue.ts'
 const request = async (payload: Omit<Command, 'contractVersion' | 'correlationId'> | Record<string, unknown>): Promise<Reply> => {
   const correlationId = crypto.randomUUID()
   const reply: unknown = await ipcRenderer.invoke(COMMAND_CHANNEL, { ...payload, contractVersion: 1, correlationId })
@@ -32,7 +34,7 @@ const connectionRequest = async (action: ConnectionAction): Promise<ConnectionRe
   return reply
 }
 const connectionBridge: ConnectionBridge = {
-  read: () => connectionRequest('read'), connect: () => connectionRequest('connect'), verify: () => connectionRequest('verify'), cancel: () => connectionRequest('cancel'), disconnect: () => connectionRequest('disconnect'), acknowledgePlan: () => connectionRequest('acknowledge-plan'), manageUsage: () => connectionRequest('manage-usage'),
+  read: () => connectionRequest('read'), connect: () => connectionRequest('connect'), verify: () => connectionRequest('verify'), cancel: () => connectionRequest('cancel'), disconnect: () => connectionRequest('disconnect'), acknowledgePlan: () => connectionRequest('acknowledge-plan'), manageUsage: () => connectionRequest('manage-usage'), openPublicKeys: () => connectionRequest('open-public-keys'), copyPublicKeys: () => connectionRequest('copy-public-keys'),
   onChanged: (listener) => {
     const receive = (_event: Electron.IpcRendererEvent, value: unknown): void => { if (isConnectionState(value)) listener(value) }
     ipcRenderer.on(CONNECTION_EVENT_CHANNEL, receive)
@@ -40,3 +42,15 @@ const connectionBridge: ConnectionBridge = {
   }
 }
 contextBridge.exposeInMainWorld('madnessConnection', Object.freeze(connectionBridge))
+const dialogueRequest = async (payload: Omit<DialogueCommand, 'contractVersion' | 'correlationId'> | Record<string, unknown>): Promise<DialogueState> => {
+  const correlationId = crypto.randomUUID()
+  const reply: unknown = await ipcRenderer.invoke(DIALOGUE_COMMAND_CHANNEL, { ...payload, contractVersion: 1, correlationId })
+  if (!isDialogueReply(reply)) throw new Error('INVALID_DIALOGUE_REPLY')
+  if (reply.correlationId !== correlationId && (reply.correlationId !== 'rejected-request' || !['INVALID_COMMAND', 'UNTRUSTED_CALLER'].includes(reply.state.errorCode ?? ''))) throw new Error('UNRELATED_DIALOGUE_REPLY')
+  return reply.state
+}
+const dialogueBridge: DialogueBridge = {
+  read: () => dialogueRequest({ type: 'read' }), qualify: projectId => dialogueRequest({ type: 'qualify', projectId }), launch: projectId => dialogueRequest({ type: 'launch', projectId }), send: (projectId, conversationId, text) => dialogueRequest({ type: 'send', projectId, conversationId, text }), stop: () => dialogueRequest({ type: 'stop' }),
+  onChanged: listener => { const receive = (_event: Electron.IpcRendererEvent, value: unknown): void => { if (isDialogueState(value)) listener(value) }; ipcRenderer.on(DIALOGUE_EVENT_CHANNEL, receive); return () => ipcRenderer.removeListener(DIALOGUE_EVENT_CHANNEL, receive) }
+}
+contextBridge.exposeInMainWorld('madnessDialogue', Object.freeze(dialogueBridge))

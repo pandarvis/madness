@@ -2,6 +2,8 @@ import { connectionError, connectionFailure, initialConnectionState } from '../.
 import type { ConnectionAction, ConnectionState } from '../../contracts/connection.ts'
 import type { ConnectionPort } from '../../core/ports.ts'
 import type { Credentials, Registration, VaultPort } from './vault.ts'
+import { dialogueFailure } from '../../contracts/dialogue.ts'
+import { createHash } from 'node:crypto'
 export type ConnectionDependencies = {
   vault: VaultPort
   oauth(options: { registration: Registration; previous: Credentials | null; signal: AbortSignal }): Promise<Credentials>
@@ -9,6 +11,8 @@ export type ConnectionDependencies = {
   probe(value: Credentials, signal: AbortSignal): Promise<{ stopped: boolean; version: string }>
   now(): Date
   openUsage(): Promise<void>
+  openPublicKeys(): Promise<void>
+  copyPublicKeys(): Promise<void>
 }
 /** Travail long hors queue de persistance du cœur ; commandes IPC courtes et annulables. */
 export class CodexConnection implements ConnectionPort {
@@ -20,6 +24,7 @@ export class CodexConnection implements ConnectionPort {
   private closing = false
   private mutation: Promise<void> | null = null
   private stopUnconfirmed = false
+  private dialogueLease = false
   private deps: ConnectionDependencies
   constructor(deps: ConnectionDependencies) { this.deps = deps; this.ready = this.restore() }
   private async restore(): Promise<void> {
@@ -36,7 +41,12 @@ export class CodexConnection implements ConnectionPort {
   async command(action: ConnectionAction): Promise<ConnectionState> {
     await this.ready
     if (action === 'read') return this.read()
+    if (action === 'open-public-keys' || action === 'copy-public-keys') {
+      try { if (this.closing) throw Error(); await (action === 'open-public-keys' ? this.deps.openPublicKeys() : this.deps.copyPublicKeys()); return this.read() }
+      catch { throw new Error('PUBLIC_KEYS_SUPPORT_FAILED') }
+    }
     if (this.closing) return this.read()
+    if (this.dialogueLease && action !== 'manage-usage') return { ...this.state, status: 'error', errorCode: 'BUSY' }
     if (action === 'cancel') { if (this.active) { this.update({ status: 'stopping', verifiedAt: null }); this.active.controller.abort(connectionFailure('CANCELLED')) } return this.read() }
     if (this.active || this.mutation) return this.read()
     if (action === 'connect' || action === 'verify') {
@@ -89,6 +99,21 @@ export class CodexConnection implements ConnectionPort {
       if (code === 'STOP_UNCONFIRMED') this.stopUnconfirmed = true
       this.update({ status: code === 'STOP_UNCONFIRMED' ? 'unknown' : signal.aborted ? 'cancelled' : 'error', errorCode: code, verifiedAt: null })
     }
+  }
+  /** Accès interne à l’adaptateur : aucun jeton ne traverse le pont renderer. */
+  async acquireDialogue(signal: AbortSignal): Promise<{ credentials: Credentials; connectionId: string; release(stopped?: boolean): void }> {
+    await this.ready; signal.throwIfAborted()
+    if (this.closing) throw dialogueFailure('APP_CLOSING')
+    if (this.active || this.mutation || this.dialogueLease) throw dialogueFailure('CONNECTION_BUSY')
+    if (this.stopUnconfirmed) throw dialogueFailure('STOP_UNCONFIRMED')
+    if (!this.credentials) throw dialogueFailure('NO_ACCOUNT')
+    if (!this.credentials.planAcknowledged) throw dialogueFailure('PLAN_ACK_REQUIRED')
+    this.dialogueLease = true
+    try {
+      if (this.credentials.expiresAt <= this.deps.now().getTime() + 60000) { const value = await this.deps.refresh(this.credentials, signal); signal.throwIfAborted(); await this.deps.vault.write(value); this.credentials = value }
+      const connectionId = 'c-' + createHash('sha256').update(this.credentials.clientId + '\0' + this.credentials.subject).digest('hex')
+      return { credentials: structuredClone(this.credentials), connectionId, release: (stopped = true) => { this.dialogueLease = false; if (!stopped) { this.stopUnconfirmed = true; this.update({ status: 'unknown', errorCode: 'STOP_UNCONFIRMED', verifiedAt: null }) } } }
+    } catch (error) { this.dialogueLease = false; this.update({ status: 'error', errorCode: connectionError(error, 'PROBE_FAILED'), verifiedAt: null }); throw error }
   }
   async shutdown(): Promise<'stopped' | 'unknown'> {
     this.closing = true; this.update({ status: 'closing', verifiedAt: null })

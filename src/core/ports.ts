@@ -1,5 +1,7 @@
 import type { Snapshot } from '../contracts/index.ts'
 import type { ConnectionAction, ConnectionState } from '../contracts/connection.ts'
+export type BmadProfile = { rootPath: string; skillPath: string; fingerprint: string }
+export interface DialogueSession { context: { connectionId: string; initiativeId: string | null }; turn(text: string | null, accepted: () => Promise<void>): Promise<string>; stop(): Promise<'stopped' | 'unknown'> }
 export interface ConnectionPort {
   read(): Promise<ConnectionState>
   command(action: ConnectionAction): Promise<ConnectionState>

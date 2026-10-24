@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-24T13:49:39.450Z",
+  "mode": "isolated-no-provider",
+  "status": "isolated-checks-passed-live-missing",
+  "checks": [
+    "reopen-historical-running-becomes-unknown-no-engine",
+    "history-draft-and-missing-account-explained",
+    "missing-agent-blocks-before-provider-and-new-conversation",
+    "empty-and-foreign-context-rejected",
+    "foreign-window-rejected",
+    "draft-explicit-save-and-collapse-preserve-input",
+    "desktop-and-compact-no-horizontal-overflow",
+    "second-reopen-durable-history-draft-no-network-project-unchanged"
+  ],
+  "captures": [],
+  "cleanup": true,
+  "liveProof": "missing",
+  "limits": [
+    "Le paquet isolé utilise uniquement des historiques synthétiques, aucun compte ni modèle.",
+    "L’essai réel Mary et réponse libre est une preuve distincte.",
+    "Anciennes qualifications et gates distribuables inchangés."
+  ],
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": false
+  },
+  "artifact": {
+    "file": "out/main/index.js",
+    "sha256": "41e5625f9340160921ebc428f034a3e259843a296b38541bf6253d75243f0f06"
+  }
+}

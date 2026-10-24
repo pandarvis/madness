@@ -1,6 +1,6 @@
 import { createServer } from 'node:http'
 import { randomBytes, createHash, timingSafeEqual } from 'node:crypto'
-import { createLocalJWKSet, jwtVerify } from 'jose'
+import { createLocalJWKSet, importJWK, jwtVerify } from 'jose'
 import type { JWTVerifyGetKey, JSONWebKeySet } from 'jose'
 import { connectionError, connectionFailure } from '../../contracts/connection.ts'
 import { isRecord } from '../../contracts/index.ts'
@@ -56,7 +56,17 @@ async function getKeys(transport: Transport, signal: AbortSignal, provided?: JWT
   if (provided) return provided
   const keys = await transport(issuer + '/.well-known/jwks.json', { method: 'GET', signal })
   if (!isRecord(keys) || !Array.isArray(keys.keys) || keys.keys.length > 30) throw connectionFailure('OAUTH_INVALID')
-  try { return createLocalJWKSet(keys as unknown as JSONWebKeySet) } catch { throw connectionFailure('OAUTH_INVALID') }
+  try {
+    const set = keys as unknown as JSONWebKeySet
+    const resolveKey = createLocalJWKSet(set)
+    const signingKeys = set.keys.filter(key => key.kty === 'RSA' && (key.alg === undefined || key.alg === 'RS256') && (key.use === undefined || key.use === 'sig') && (key.key_ops === undefined || key.key_ops.includes('verify')))
+    if (!signingKeys.length) throw connectionFailure('OAUTH_INVALID')
+    for (const key of signingKeys) {
+      const imported = await importJWK(key, 'RS256')
+      if (imported instanceof Uint8Array || imported.type !== 'public' || !('modulusLength' in imported.algorithm) || Number(imported.algorithm.modulusLength) < 2048) throw connectionFailure('OAUTH_INVALID')
+    }
+    return resolveKey
+  } catch { throw connectionFailure('OAUTH_INVALID') }
 }
 async function credentialsFrom(value: unknown, options: { clientId: string; nonce?: string; previous: Credentials | null; transport: Transport; signal: AbortSignal; jwks?: JWTVerifyGetKey; refresh?: boolean }): Promise<Credentials> {
   if (!isRecord(value) || typeof value.access_token !== 'string' || value.token_type !== 'Bearer' || !Number.isSafeInteger(value.expires_in) || Number(value.expires_in) <= 0 || Number(value.expires_in) > 31536000) throw connectionFailure('OAUTH_INVALID')
@@ -122,8 +132,11 @@ export async function authorize(options: AuthorizeOptions): Promise<Credentials>
 /** Appel uniquement à la demande de vérification ; la rotation est sauvegardée par le service. */
 export async function refreshCredentials(previous: Credentials, options: { signal: AbortSignal; transport: Transport; jwks?: JWTVerifyGetKey }): Promise<Credentials> {
   options.signal.throwIfAborted()
+  // Une indisponibilité JWKS doit précéder toute rotation du refresh token.
+  const jwks = await getKeys(options.transport, options.signal, options.jwks)
+  options.signal.throwIfAborted()
   const body = new URLSearchParams({ grant_type: 'refresh_token', client_id: previous.clientId, refresh_token: previous.refreshToken, resource }).toString()
   const value = await options.transport(tokenEndpoint, { method: 'POST', body, signal: options.signal })
   options.signal.throwIfAborted()
-  return credentialsFrom(value, { clientId: previous.clientId, previous, ...options, refresh: true })
+  return credentialsFrom(value, { clientId: previous.clientId, previous, ...options, jwks, refresh: true })
 }

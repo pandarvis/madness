@@ -250,7 +250,11 @@ Amendement connexion locale du 24 octobre 2026 : le statut textuel Codex de la b
 
 Retouche après essai du panneau : les actions sont alignées en une colonne, cibles de 40 px avec icônes de 17 px et libellés conservés. Une connexion déjà vérifiée propose la revérification sur un fond accent doux ; la reconnexion reste une ligne sans contour et la déconnexion utilise le texte atténué, avec un retrait vertical supplémentaire de 4 px. La première connexion et la vérification encore nécessaire gardent le bouton primaire. Les actions, leur ordre et leurs protections restent identiques.
 
+Extension d’aide réseau du 24 octobre 2026 : lorsque le service est indisponible, une section sobre sous l’erreur conserve les tokens et la hiérarchie du panneau. Elle affiche la seule adresse publique des clés, en monospace et avec retour à la ligne possible, une cible de copie de 40 px avec SVG de 17 px, nom accessible/infobulle et focus visible, puis une ouverture textuelle dans le navigateur Windows. La confirmation accessible ou l’échec local reste près de l’adresse ; l’erreur réseau et l’aide ne disparaissent pas après copie. Aucun bloc n’est ajouté en état normal, aucune nouvelle carte ni modification des actions existantes.
+
 ## Do's and Don'ts
+
+Amendement pilote Mary du 24 octobre 2026 : la composition, la navigation et la palette restent celles de la base française claire. Dans le projet, un bloc sobre identifie Mary, Codex, l’invocation et la consommation du forfait avant « Lancer Mary avec Codex ». Qualification et arrêt sont des actions distinctes. La conversation reprend les messages humains sur fond lavande léger et les réponses de Mary en lecture centrale, avec une largeur de lecture bornée ; un état textuel montre l’accusé, le travail et la fin du tour. L’activité et l’empreinte du profil sont consultables dans des détails. Le champ conserve son action d’enregistrement et ajoute « Envoyer à Mary » seulement pour la session capturée. La réduction de navigation et la fenêtre compacte conservent saisie et contexte. Le pilote ne remplace ni le catalogue ni les extensions de langue/thème encore attendues.
 
 | Faire | Éviter |
 |---|---|

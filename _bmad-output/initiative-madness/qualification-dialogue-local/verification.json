@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-24T14:01:46.603Z",
+  "status": "personal-local-pilot-verified",
+  "tests": {
+    "command": "npm test",
+    "passed": 112,
+    "failed": 0,
+    "skipped": 0
+  },
+  "build": "npm run build : passed",
+  "packaging": "electron-builder --win --x64 --config.directories.output=dist/dialogue-pilot : passed",
+  "windowsFocused": {
+    "command": "node scripts/qualification/windows.mjs --ui-regressions-only",
+    "checks": 4,
+    "cleanup": true
+  },
+  "isolatedDialogue": {
+    "compiled": 8,
+    "packaged": 8,
+    "cleanup": true
+  },
+  "liveProof": {
+    "report": "live-profile.json",
+    "checks": 5,
+    "messages": {
+      "user": 3,
+      "assistant": 3,
+      "sha256": "8da9549c33039423de2589ec93ae786237227c53415e6ab00c1a24dd468a78d1"
+    },
+    "status": "live-dialogue-confirmed"
+  },
+  "installed": {
+    "report": "installed-profile.json",
+    "checks": 3,
+    "status": "installed-reopen-confirmed"
+  },
+  "visual": {
+    "initialInspection": [
+      "isolated-desktop.png",
+      "isolated-compact.png"
+    ],
+    "confirmation": [
+      "live-desktop.png",
+      "live-compact.png",
+      "support-desktop.png",
+      "support-compact.png"
+    ],
+    "supportCaptureMode": "synthetic-no-account-no-provider",
+    "supportFocusedTest": "1 passed after showing the hidden fixture window",
+    "detector": "one pass before network-help extension : []"
+  },
+  "review": {
+    "lens": "quick",
+    "passes": 2,
+    "correctedFindings": 5,
+    "remainingCorrectiveFindings": 0,
+    "deferredFindings": 0
+  },
+  "testRegistryCleanup": {
+    "emptyOwnedEntriesRemoved": 5,
+    "conversationsPreserved": true,
+    "projectDirectoriesDeleted": 0,
+    "credentialsReadOrCopied": false
+  },
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true
+  },
+  "networkRecovery": "Human opened official public JWKS URL in usual browser; direct Main GET then returned HTTP 200 without cookies or redirect relaxation. No browser content copied.",
+  "limits": [
+    "Pilote personnel local ; anciens plans 1.1/1.2 bloqués et story 1.3 non close.",
+    "Mary : accueil/menu et discussion libre uniquement ; workflows documentaires, écritures et catalogue complet hors pilote.",
+    "BMad, Python et UV épinglés sont des prérequis externes non embarqués.",
+    "Menu et réponses affichés en texte Markdown non interprété.",
+    "Résultat proxy constaté sur cette machine seulement ; aucun engagement de compatibilité universelle."
+  ],
+  "artifacts": [
+    {
+      "file": "dist/dialogue-pilot/Madness-0.1.0-x64-setup.exe",
+      "bytes": 112908162,
+      "sha256": "6fcd1cf55b4a3bfd7e8153f50795ec37d140b7f2f4616c09b03b10fc7e0bcc5c"
+    },
+    {
+      "file": "dist/dialogue-pilot/win-unpacked/Madness.exe",
+      "bytes": 249797632,
+      "sha256": "4af4d658e26a7a7c7c792708fa95fdffeb157095503c61722c58aec664b7fc9a"
+    },
+    {
+      "file": "dist/dialogue-pilot/win-unpacked/resources/app.asar",
+      "bytes": 9256696,
+      "sha256": "2559a72778a4a26547e1e897384f872f0cddd1887fd4d3d865d49a0ac1bc980e"
+    }
+  ]
+}

@@ -85,6 +85,26 @@ main { overflow-y: auto; min-width: 0; flex: 1 }
 .project-tabs button[aria-selected="true"] { border-bottom-color: var(--accent); font-weight: 600 }
 .conversation-empty h2 { font-size: 19px }
 .conversation-empty p { margin-top: 10px; color: var(--muted) }
+.dialogue-launch { margin-top: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--line) }
+.dialogue-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px }
+.dialogue-heading h2 span { display: block; color: var(--muted); font-size: 12px; font-weight: 400; letter-spacing: normal; margin-top: 5px }
+.dialogue-launch > p { margin-top: 12px }
+.dialogue-actions, .composer-actions { display: flex; gap: 8px; flex-wrap: wrap }
+.dialogue-actions { margin: 18px 0 12px }
+.dialogue-actions button, .composer-actions button { min-height: 40px; font-size: 13px }
+.dialogue-proof, .dialogue-activity, .previous-conversations { margin-top: 20px; font-size: 12px; color: var(--muted) }
+summary { cursor: pointer; padding-block: 6px; text-underline-offset: 3px }
+summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
+.dialogue-proof p { margin-top: 8px }
+.dialogue-activity ol { margin: 8px 0 0; padding-left: 22px; line-height: 1.8 }
+.conversation-history { margin-top: 24px }
+.dialogue-message { padding: 20px 0; max-width: 75ch }
+.dialogue-message.user { padding: 16px; border-radius: 9px; background: var(--navigation); margin-block: 14px }
+.dialogue-message h3 { font-size: 12px; font-weight: 600; margin: 0 0 10px; color: var(--muted-lavender) }
+.message-text { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; line-height: 1.75 }
+.history-note, .turn-status { font-size: 12px; color: var(--muted); margin-top: 18px }
+.turn-status { padding-block: 12px; border-top: 1px solid var(--line) }
+.conversation-empty { margin-top: 24px }
 .composer { margin-top: 24px; border: 1px solid var(--control-line); border-radius: 12px; padding: 12px; box-shadow: 0 3px 12px #42314908; background: var(--surface) }
 .composer:focus-within { border-color: var(--accent) }
 .composer label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 8px }
@@ -123,6 +143,15 @@ dd { margin: 6px 0 0; color: var(--muted) }
 .connection-state.is-verified { color: var(--success-text) }
 .connection-error { color: var(--error-text); background: var(--error); border-radius: 8px; padding: 12px }
 .connection-cancelled { color: var(--neutral-text); background: var(--neutral); border-radius: 8px; padding: 12px }
+.connection-network-help { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line) }
+.connection-network-help h3 { margin: 0 0 8px; font-size: 13px; font-weight: 600; line-height: 1.4 }
+.connection-network-help > p { font-size: 12px; color: var(--muted); margin-top: 8px }
+.network-help-address { display: flex; align-items: center; gap: 8px; margin-top: 12px; min-width: 0 }
+.network-help-address code { flex: 1; min-width: 0; overflow-wrap: anywhere }
+.copy-public-keys { width: 40px; min-height: 40px; padding: 0; flex: none }
+.copy-public-keys svg, .network-help-open svg { width: 17px; height: 17px }
+.network-help-open { min-height: 40px; text-align: left }
+.connection-network-help > .network-help-error { color: var(--error-text) }
 .connection-consumption { margin-top: 20px !important; color: var(--text); font-weight: 500 }
 .connection-actions { display: grid; gap: 4px; margin-top: 18px }
 .connection-actions button { min-width: 0; min-height: 40px; justify-content: flex-start; gap: 10px; font-size: 13px; text-align: left }

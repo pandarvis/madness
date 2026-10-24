@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "status": "installed-reopen-confirmed",
+  "checks": [
+    "installed-artifact-identical-to-live-tested-package",
+    "existing-account-and-live-history-preserved-no-engine-restart",
+    "working-repository-profile-qualified-without-model-or-network"
+  ],
+  "artifact": {
+    "file": "installed resources/app.asar",
+    "sha256": "2559a72778a4a26547e1e897384f872f0cddd1887fd4d3d865d49a0ac1bc980e"
+  },
+  "observedAt": "2026-10-24T14:00:33.682Z"
+}

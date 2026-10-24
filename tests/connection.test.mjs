@@ -11,7 +11,9 @@ test('le contrat connexion refuse secrets, URLs et commandes imprécises', () =>
   assert.equal(contracts.isConnectionState(initial), true)
   assert.equal(contracts.isConnectionState({ ...initial, accessToken: 'secret' }), false)
   assert.equal(contracts.isConnectionState({ ...initial, status: 'verified' }), false)
-  for (const action of ['read', 'connect', 'verify', 'cancel', 'disconnect', 'acknowledge-plan', 'manage-usage']) assert.equal(contracts.isConnectionCommand({ contractVersion: 1, correlationId: 'request-001', action }), true)
+  for (const action of ['read', 'connect', 'verify', 'cancel', 'disconnect', 'acknowledge-plan', 'manage-usage', 'open-public-keys', 'copy-public-keys']) assert.equal(contracts.isConnectionCommand({ contractVersion: 1, correlationId: 'request-001', action }), true)
+  assert.equal(contracts.PUBLIC_KEYS_URL, 'https://auth.openai.com/.well-known/jwks.json')
+  for (const action of ['open-public-keys','copy-public-keys']) for (const extra of [{url:'https://foreign.test'},{text:'private-token'}]) assert.equal(contracts.isConnectionCommand({contractVersion:1,correlationId:'request-001',action,...extra}),false)
   for (const input of [{ action: 'exec' }, { contractVersion: 1, correlationId: 'request-001', action: 'connect', url: 'https://evil.test' }, { contractVersion: 1, correlationId: 'request-001', action: 'connect', text: 'draft' }]) assert.equal(contracts.isConnectionCommand(input), false)
 })
 function fixture(overrides = {}) {
@@ -19,15 +21,90 @@ function fixture(overrides = {}) {
   let saved = null, oauthCalls = 0, probes = 0
   const events = []
   const vault = { read: async () => saved, write: async (value) => { saved = structuredClone(value) }, clear: async () => { saved = null }, registration: async () => ({ version: 1, hostId: 'urn:uuid:11111111-1111-4111-8111-111111111111', clientId: null }), saveClientId: async () => {} }
-  const connection = new service.CodexConnection({ vault, oauth: async () => { oauthCalls++; return structuredClone(credentials) }, refresh: async (value) => value, probe: async () => { probes++; return { stopped: true, version: '0.1.0' } }, now: () => new Date('2026-10-24T12:00:00.000Z'), openUsage: async () => {}, ...overrides })
+  const connection = new service.CodexConnection({ vault, oauth: async () => { oauthCalls++; return structuredClone(credentials) }, refresh: async (value) => value, probe: async () => { probes++; return { stopped: true, version: '0.1.0' } }, now: () => new Date('2026-10-24T12:00:00.000Z'), openUsage: async () => {}, openPublicKeys:async()=>{},copyPublicKeys:async()=>{}, ...overrides })
   connection.subscribe((event) => events.push(event))
   return { connection, events, vault, counts: () => ({ oauthCalls, probes }), saved: () => saved }
 }
 const settled = async (connection) => { for (let i = 0; i < 100; i++) { const s = await connection.read(); if (!['authorizing', 'verifying', 'stopping'].includes(s.status)) return s; await new Promise((r) => setTimeout(r, 5)) } throw Error('not settled') }
+test('ouvrir et copier les clés publiques restent des utilitaires sans argument pendant une lease',async()=>{
+  const calls=[]
+  const f=fixture({vault:{read:async()=>({...credentials,planAcknowledged:true})},probe:async()=>{throw Object.assign(Error(),{code:'NETWORK_UNAVAILABLE'})},openPublicKeys:async(...args)=>calls.push({action:'open',args}),copyPublicKeys:async(...args)=>calls.push({action:'copy',args})})
+  await f.connection.command('verify');await settled(f.connection)
+  const before=await f.connection.read(),eventCount=f.events.length
+  const lease=await f.connection.acquireDialogue(new AbortController().signal)
+  try {
+    assert.deepEqual(await f.connection.command('open-public-keys'),before)
+    assert.deepEqual(await f.connection.command('copy-public-keys'),before)
+    assert.deepEqual(calls,[{action:'open',args:[]},{action:'copy',args:[]}])
+    assert.equal(f.events.length,eventCount);assert.equal(lease.credentials.accessToken,'private-access')
+    await assert.rejects(f.connection.acquireDialogue(new AbortController().signal),{code:'CONNECTION_BUSY'})
+  } finally {lease.release()}
+  assert.deepEqual(await f.connection.read(),before)
+})
+for(const action of ['open-public-keys','copy-public-keys'])test(`échec expurgé de ${action} conserve erreur réseau, compte et lease`,async()=>{
+  const failed=async()=>{throw Error('private-native-output-with-url')}
+  const f=fixture({vault:{read:async()=>({...credentials,planAcknowledged:true})},probe:async()=>{throw Object.assign(Error(),{code:'NETWORK_UNAVAILABLE'})},openPublicKeys:failed,copyPublicKeys:failed})
+  await f.connection.command('verify');await settled(f.connection)
+  const before=await f.connection.read(),eventCount=f.events.length
+  const lease=await f.connection.acquireDialogue(new AbortController().signal)
+  try{
+    await assert.rejects(f.connection.command(action),{message:'PUBLIC_KEYS_SUPPORT_FAILED'})
+    assert.deepEqual(await f.connection.read(),before);assert.equal(f.events.length,eventCount)
+    assert.equal(lease.credentials.accessToken,'private-access')
+    await assert.rejects(f.connection.acquireDialogue(new AbortController().signal),{code:'CONNECTION_BUSY'})
+  }finally{lease.release()}
+})
+test('le dialogue utilise les credentials internes, exige le forfait acquitté et verrouille les mutations concurrentes', async () => {
+  const missing = fixture()
+  assert.equal(typeof missing.connection.acquireDialogue, 'function')
+  await assert.rejects(missing.connection.acquireDialogue(new AbortController().signal), { code: 'NO_ACCOUNT' })
+  const f = fixture({ vault: { read: async () => ({ ...credentials, planAcknowledged: true }) } })
+  const lease = await f.connection.acquireDialogue(new AbortController().signal)
+  assert.equal(lease.credentials.accessToken, 'private-access')
+  assert.match(lease.connectionId, /^c-[a-f0-9]{64}$/)
+  const other = fixture({ vault: { read: async () => ({ ...credentials, subject:'other-subject',planAcknowledged:true }) } })
+  const otherLease = await other.connection.acquireDialogue(new AbortController().signal)
+  assert.notEqual(otherLease.connectionId,lease.connectionId);otherLease.release()
+  assert.equal((await f.connection.command('disconnect')).errorCode, 'BUSY')
+  assert.equal((await f.connection.read()).accountStored, true)
+  assert.equal(JSON.stringify(await f.connection.read()).includes('private-'), false)
+  lease.release()
+  const denied = fixture({ vault: { read: async () => credentials } })
+  await assert.rejects(denied.connection.acquireDialogue(new AbortController().signal), { code: 'PLAN_ACK_REQUIRED' })
+})
 test('restaurer un compte ne lance aucun réseau et exige une vérification explicite', async () => {
   const f = fixture({ vault: { read: async () => credentials } })
   assert.equal((await f.connection.read()).status, 'registered')
   assert.deepEqual(f.counts(), { oauthCalls: 0, probes: 0 })
+})
+test('déconnexion refusée pendant le dialogue après témoin vérifié reste un état BUSY valide', async () => {
+  const f = fixture({ vault: { read: async () => ({ ...credentials, planAcknowledged:true }) } })
+  await f.connection.command('verify');await settled(f.connection)
+  const verified = await f.connection.read()
+  assert.equal(verified.status,'verified')
+  const lease = await f.connection.acquireDialogue(new AbortController().signal)
+  try {
+    const refused = await f.connection.command('disconnect')
+    assert.equal(refused.errorCode,'BUSY')
+    assert.equal(contracts.isConnectionState(refused),true)
+    assert.deepEqual(await f.connection.read(),verified)
+    assert.equal(lease.credentials.accessToken,'private-access')
+    await assert.rejects(f.connection.acquireDialogue(new AbortController().signal),{code:'CONNECTION_BUSY'})
+  } finally { lease.release() }
+})
+test('échec du refresh au lancement publie NETWORK_UNAVAILABLE, conserve le compte et libère la lease',async()=>{
+  const stored={...credentials,expiresAt:1,planAcknowledged:true}
+  let value=structuredClone(stored),writes=0,refreshes=0,clears=0
+  const f=fixture({vault:{read:async()=>value,write:async next=>{writes++;value=structuredClone(next)},clear:async()=>{clears++;value=null}},refresh:async()=>{refreshes++;throw Object.assign(Error('private-refresh-detail'),{code:'NETWORK_UNAVAILABLE'})}})
+  await f.connection.read()
+  await assert.rejects(f.connection.acquireDialogue(new AbortController().signal),{code:'NETWORK_UNAVAILABLE'})
+  const state=await f.connection.read()
+  assert.equal(state.status,'error');assert.equal(state.errorCode,'NETWORK_UNAVAILABLE');assert.equal(state.accountStored,true)
+  assert.equal(contracts.isConnectionState(state),true);assert.deepEqual(f.events.at(-1),state)
+  assert.equal(JSON.stringify(state).includes('private-'),false)
+  assert.deepEqual(value,stored);assert.equal(writes,0);assert.equal(clears,0);assert.equal(refreshes,1)
+  assert.equal((await f.connection.command('disconnect')).status,'disconnected')
+  assert.equal(clears,1);assert.equal(refreshes,1)
 })
 test('connexion courte, compte enregistré et témoin arrêté précèdent le succès sans secret', async () => {
   let release

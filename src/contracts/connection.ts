@@ -2,12 +2,13 @@ import { isCorrelationId, isRecord } from './index.ts'
 /** Surface dédiée : aucun secret ni identifiant de compte ne traverse ce contrat. */
 export const CONNECTION_COMMAND_CHANNEL = 'madness:connection:command:v1'
 export const CONNECTION_EVENT_CHANNEL = 'madness:connection:event:v1'
+export const PUBLIC_KEYS_URL = 'https://auth.openai.com/.well-known/jwks.json'
 export const connectionStatuses = ['disconnected', 'registered', 'authorizing', 'verifying', 'stopping', 'verified', 'error', 'cancelled', 'unknown', 'closing'] as const
 export const connectionErrors = ['INVALID_COMMAND', 'UNTRUSTED_CALLER', 'ENCRYPTION_UNAVAILABLE', 'VAULT_UNREADABLE', 'VAULT_WRITE_FAILED', 'REGISTRATION_INVALID', 'NETWORK_UNAVAILABLE', 'OAUTH_INVALID', 'CONSENT_DENIED', 'SCOPES_MISSING', 'IDENTITY_CHANGED', 'CANCELLED', 'TIMEOUT', 'BROWSER_UNAVAILABLE', 'CODEX_MISSING', 'CODEX_INVALID', 'PROBE_FAILED', 'STOP_UNCONFIRMED', 'APP_CLOSING', 'BUSY', 'NO_ACCOUNT'] as const
 export type ConnectionErrorCode = typeof connectionErrors[number]
 export type ConnectionStatus = typeof connectionStatuses[number]
 export type ConnectionState = { contractVersion: 1; sequence: number; status: ConnectionStatus; accountStored: boolean; verifiedAt: string | null; errorCode: ConnectionErrorCode | null; cliVersion: string | null; needsPlanAcknowledgement: boolean }
-export const connectionActions = ['read', 'connect', 'verify', 'cancel', 'disconnect', 'acknowledge-plan', 'manage-usage'] as const
+export const connectionActions = ['read', 'connect', 'verify', 'cancel', 'disconnect', 'acknowledge-plan', 'manage-usage', 'open-public-keys', 'copy-public-keys'] as const
 export type ConnectionAction = typeof connectionActions[number]
 export type ConnectionCommand = { contractVersion: 1; correlationId: string; action: ConnectionAction }
 export type ConnectionReply = { contractVersion: 1; correlationId: string; state: ConnectionState }
@@ -19,6 +20,8 @@ export interface ConnectionBridge {
   disconnect(): Promise<ConnectionReply>
   acknowledgePlan(): Promise<ConnectionReply>
   manageUsage(): Promise<ConnectionReply>
+  openPublicKeys(): Promise<ConnectionReply>
+  copyPublicKeys(): Promise<ConnectionReply>
   onChanged(listener: (state: ConnectionState) => void): () => void
 }
 const exact = (value: Record<string, unknown>, keys: string[]): boolean => Object.keys(value).length === keys.length && keys.every((key) => Object.hasOwn(value, key))

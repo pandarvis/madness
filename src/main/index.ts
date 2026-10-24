@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog, ipcMain, protocol, net, session, Menu, safeStorage, shell } from 'electron'
+import { app, BrowserWindow, clipboard, dialog, ipcMain, protocol, net, session, Menu, safeStorage, shell } from 'electron'
 import { realpath, stat, access } from 'node:fs/promises'
 import { constants } from 'node:fs'
 import { basename, isAbsolute, join, resolve, sep } from 'node:path'
@@ -7,8 +7,11 @@ import { pathToFileURL } from 'node:url'
 import { Application } from '../core/application.ts'
 import { JsonStore } from '../adapters/persistence/json-store.ts'
 import { COMMAND_CHANNEL, EVENT_CHANNEL, failure, isCommand, emptyContext } from '../contracts/index.ts'
-import { CONNECTION_COMMAND_CHANNEL, CONNECTION_EVENT_CHANNEL, initialConnectionState, isConnectionCommand, isConnectionState } from '../contracts/connection.ts'
-import type { ConnectionPort } from '../core/ports.ts'
+import { CONNECTION_COMMAND_CHANNEL, CONNECTION_EVENT_CHANNEL, PUBLIC_KEYS_URL, initialConnectionState, isConnectionCommand, isConnectionState } from '../contracts/connection.ts'
+import { DialogueCoordinator } from '../core/dialogue.ts'
+import { qualifyBmadProfile, resolveBmad } from '../adapters/bmad/profile.ts'
+import { openCodexDialogue } from '../adapters/codex/dialogue.ts'
+import { DIALOGUE_COMMAND_CHANNEL, DIALOGUE_EVENT_CHANNEL, initialDialogueState, isDialogueCommand, isDialogueState } from '../contracts/dialogue.ts'
 import { CodexVault } from '../adapters/codex/vault.ts'
 import { CodexConnection } from '../adapters/codex/connection.ts'
 import { authorize, createTransport, refreshCredentials } from '../adapters/codex/oauth.ts'
@@ -28,7 +31,8 @@ const devNonce = devUrl && /^[a-f0-9]{32}$/.test(process.env.MADNESS_DEV_CSP_NON
 const rendererUrl = devUrl ?? 'madness://app/index.html'
 let window: BrowserWindow | null = null
 let application: Application | null = null
-let connection: ConnectionPort | null = null
+let connection: CodexConnection | null = null
+let dialogueCoordinator: DialogueCoordinator | null = null
 let readyToQuit = false
 
 if (!app.requestSingleInstanceLock()) app.quit()
@@ -83,9 +87,30 @@ else {
       refresh: (value, signal) => refreshCredentials(value, { signal, transport }),
       probe: (value, signal) => probeCodex(value, signal, { root: join(connectionRoot, 'probes'), appData: app.getPath('appData'), repository: app.getAppPath(), environment: process.env }),
       now: () => new Date(),
-      openUsage: () => shell.openExternal('https://chatgpt.com/settings/usage')
+      openUsage: () => shell.openExternal('https://chatgpt.com/settings/usage'),
+      openPublicKeys: () => shell.openExternal(PUBLIC_KEYS_URL),
+      copyPublicKeys: async () => { clipboard.writeText(PUBLIC_KEYS_URL) }
     })
     application.lifecycle.register({ id: 'codex-connection', context: { ...emptyContext(), providerId: 'codex' }, stop: () => connection!.shutdown() })
+    dialogueCoordinator = new DialogueCoordinator({
+      application,
+      qualify: async (root, signal) => {
+        const profile = await qualifyBmadProfile(root)
+        await resolveBmad(profile, 'agent', signal); await resolveBmad(profile, 'config', signal)
+        return profile
+      },
+      open: (profile, signal, activity) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(), environment: process.env })
+    })
+    application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
+    ipcMain.handle(DIALOGUE_COMMAND_CHANNEL, async (event, input: unknown) => {
+      const rejected = (code: 'UNTRUSTED_CALLER' | 'INVALID_COMMAND') => ({ contractVersion: 1, correlationId: 'rejected-request', state: { ...initialDialogueState(), status: 'error', errorCode: code } })
+      if (!window || !isTrustedCaller(event, { webContents: window.webContents, mainFrame: window.webContents.mainFrame }, rendererUrl)) return rejected('UNTRUSTED_CALLER')
+      if (!isDialogueCommand(input)) return rejected('INVALID_COMMAND')
+      const state = await dialogueCoordinator!.execute(input)
+      if (!isDialogueState(state)) return rejected('INVALID_COMMAND')
+      return { contractVersion: 1, correlationId: input.correlationId, state }
+    })
+    dialogueCoordinator.subscribe((state) => { if (isDialogueState(state) && window && !window.isDestroyed() && window.webContents.mainFrame.url === rendererUrl) window.webContents.send(DIALOGUE_EVENT_CHANNEL, state) })
     ipcMain.handle(CONNECTION_COMMAND_CHANNEL, async (event, input: unknown) => {
       const rejected = (code: 'UNTRUSTED_CALLER' | 'INVALID_COMMAND') => ({ contractVersion: 1, correlationId: 'rejected-request', state: { ...initialConnectionState(), status: 'error', errorCode: code } })
       if (!window || !isTrustedCaller(event, { webContents: window.webContents, mainFrame: window.webContents.mainFrame }, rendererUrl)) return rejected('UNTRUSTED_CALLER')

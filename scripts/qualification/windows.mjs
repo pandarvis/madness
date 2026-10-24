@@ -74,7 +74,7 @@ async function inspectRuntime(label, page) {
 }
 async function choose(page, path) {
   await running.evaluate(({ dialog }, selected) => { dialog.showOpenDialog = async () => ({ canceled: selected === null, filePaths: selected === null ? [] : [selected] }) }, path)
-  await page.getByRole('button', { name: 'Ouvrir un projet', exact: true }).first().click()
+  await page.getByRole('button', { name: 'Ouvrir un projet', exact: true }).click()
 }
 async function state(page) { const reply = await page.evaluate(() => window.madness.readState()); assert.equal(reply.ok, true); return reply.value.state }
 async function save(page, value) {
@@ -95,6 +95,16 @@ async function projectMarkers(page) {
     label: button.getAttribute('aria-label'), title: button.getAttribute('title'), marker: button.querySelector('.project-glyph')?.textContent
   })))
 }
+async function globalActions(page) {
+  const header = page.locator('.app-shell > header.topbar')
+  assert.equal(await header.count(), 1, 'Les commandes globales sont au-dessus des colonnes')
+  assert.equal(await page.getByRole('button', { name: 'Ouvrir un projet', exact: true }).count(), 1)
+  assert.equal(await header.getByRole('button', { name: 'Ouvrir un projet', exact: true }).count(), 1)
+  assert.equal(await header.getByRole('button', { name: /^(Réduire|Déployer|Ouvrir) la navigation$/ }).count(), 1)
+  const bounds = await header.boundingBox()
+  assert.equal(Math.round(bounds.x), 0)
+  assert.equal(Math.round(bounds.width), await page.evaluate(() => innerWidth))
+}
 async function main() {
   try {
     assert.equal(process.platform, 'win32')
@@ -111,6 +121,7 @@ async function main() {
     if (!uiRegressionsOnly) await access(packaged)
     let page = await launch(compiled, [repository], profile)
     await skipToMain(page)
+    await globalActions(page)
     if (!uiRegressionsOnly) {
       await inspectRuntime('compiled', page)
       assert.equal((await state(page)).projects.length, 0)
@@ -135,8 +146,15 @@ async function main() {
     assert.ok(markersBefore.every((project) => project.title?.includes('projet-')))
     await page.evaluate(() => { window.qualificationEvents = []; window.madness.onStateChanged((event) => window.qualificationEvents.push(event)) })
     await save(page, 'Brouillon témoin G0 — conservé après redémarrage.')
-    await page.getByRole('button', { name: 'Réduire la navigation', exact: true }).click()
+    await page.getByLabel('Brouillon pour', { exact: false }).fill('Saisie conservée pendant le repli')
+    await page.getByRole('button', { name: 'Réduire la navigation', exact: true }).focus()
+    await page.keyboard.press('Enter')
     await page.waitForFunction(async () => (await window.madness.readState()).value.state.preferences.navigationCollapsed)
+    assert.equal(await page.getByLabel('Brouillon pour', { exact: false }).inputValue(), 'Saisie conservée pendant le repli')
+    assert.equal(await page.getByRole('button', { name: 'Déployer la navigation', exact: true }).evaluate((element) => element === document.activeElement), true)
+    await page.getByLabel('Brouillon pour', { exact: false }).fill('Brouillon témoin G0 — conservé après redémarrage.')
+    await globalActions(page)
+    passed('ui.global-toolbar-single-open')
     const events = await page.evaluate(() => window.qualificationEvents)
     assert.ok(events.length >= 2 && events.every((event, index) => event.contractVersion === 1 && typeof event.correlationId === 'string' && (index === 0 || event.sequence > events[index - 1].sequence)))
     passed('events.correlated-ordered')
@@ -176,12 +194,14 @@ async function main() {
     await stop()
     page = await launch(packaged, [], profile)
     await inspectRuntime('packaged', page)
+    await globalActions(page)
     assert.equal(report.runtime.packaged.packaged, true)
     assert.equal((await state(page)).drafts[0].text, 'Brouillon témoin G0 — conservé après redémarrage.')
     await save(page, 'Brouillon du paquet Windows — écriture par le vrai preload.')
     // Navigation et redimensionnement conservent aussi la saisie non enregistrée.
     await page.getByLabel('Brouillon pour', { exact: false }).fill('Saisie locale non enregistrée')
     await page.getByRole('button', { name: 'Accueil', exact: true }).first().click()
+    await globalActions(page)
     await page.getByRole('button', { name: 'Ouvrir le projet projet-essai', exact: true }).first().click()
     assert.equal(await page.getByLabel('Brouillon pour', { exact: false }).inputValue(), 'Saisie locale non enregistrée')
     await page.getByLabel('Brouillon pour', { exact: false }).fill('Brouillon du paquet Windows — écriture par le vrai preload.')
@@ -194,6 +214,7 @@ async function main() {
         await page.keyboard.press('Escape')
         assert.equal(await page.getByRole('button', { name: 'Ouvrir la navigation', exact: true }).evaluate((element) => element === document.activeElement), true)
       }
+      await globalActions(page)
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true)
       await page.mouse.move(size.width - 30, 20)
       await page.keyboard.press('Escape')

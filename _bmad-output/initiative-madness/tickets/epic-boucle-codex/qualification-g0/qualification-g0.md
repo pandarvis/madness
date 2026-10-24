@@ -1,6 +1,6 @@
 ---
 title: 'Qualification locale du socle Windows G0'
-date: '2026-10-23'
+date: '2026-10-24'
 status: 'preuves-techniques-locales-obtenues'
 scope: 'story 1.2 — socle, contrats et stockage local'
 ---
@@ -9,7 +9,7 @@ scope: 'story 1.2 — socle, contrats et stockage local'
 
 Le socle React fonctionne dans Electron compilé puis dans l’exécutable Windows empaqueté. Les opérations de lecture, choix du dossier, sauvegarde du brouillon et préférence passent par le vrai preload métier. Après fermeture, le contexte, le brouillon et la préférence sont retrouvés ; aucun fournisseur n’est lancé. Le [profil expurgé](profile.json) distingue les contrôles acquis des limites.
 
-Ce rapport n’installe pas le programme sur une machine cible et ne qualifie pas Codex, BMad, les opérations d’initialisation ou Graphify. Aucun passage de gate ni déblocage d’un lot consommateur n’est effectué automatiquement. Les qualifications humaines, d’installation et de réseau manquantes restent explicites.
+Le banc de ce rapport n’installe pas le programme sur une machine cible et ne qualifie pas Codex, BMad, les opérations d’initialisation ou Graphify. Le porteur confirme toutefois le 24 octobre avoir installé puis ouvert la livraison précédente, avant le correctif UX décrit ci-dessous. Aucun passage de gate ni déblocage d’un lot consommateur n’est effectué automatiquement ; les preuves humaines et réseau restantes sont explicites.
 
 ## Assemblage observé
 
@@ -37,7 +37,7 @@ Les versions du plan ont été installées sans repli. Le starter conservait Ele
 | Matrice automatique | 42 tests réussis | 16 tests G0 et 26 tests du banc Codex indépendant, sans lancement fournisseur ; aucun test ignoré |
 | Build | Réussi | Trois sorties autonomes main/preload/renderer |
 | Renderer de développement | Réussi | URL locale normalisée et HMR autorisé par nonce CSP de session, sans `unsafe-inline` ; vrai preload et profil jetable |
-| Paquet Windows x64 | Réussi | `dist/win-unpacked/Madness.exe` et installateur NSIS local |
+| Paquet Windows x64 | Réussi | `dist/win-unpacked/Madness.exe` et installateur NSIS local ; installation et ouverture de la livraison précédente confirmées par le porteur le 24 octobre |
 | Programme compilé puis empaqueté | Réussi | Les deux affichent React et exposent le pont métier réel |
 | Annulation du sélecteur | Réussi | Aucun projet ajouté, aucun snapshot créé ; retour OS contrôlé par le banc |
 | Contexte réel | Réussi | Racine canonique lue sur un dossier d’essai ; aucun contenu du projet modifié |
@@ -49,7 +49,7 @@ Les versions du plan ont été installées sans repli. Le starter conservait Ele
 | Saisie après erreur | Réussi dans le paquet | Une version future injectée dans le seul profil témoin reste intacte ; la saisie reste visible |
 | Cycle de vie | Réussi au périmètre G0 | Aucune reprise automatique ; états restaurés historiques ; arrêt limité aux opérations possédées, résultat inconnu conservé |
 | Navigation | Réussi au périmètre contrôlé | Repli, accueil/projet et redimensionnement conservent la saisie ; Échap ferme le tiroir et restitue le focus ; lien d’évitement clavier sans changement d’URL ; repères distincts de deux projets de même initiale conservés après réouverture |
-| Contrôle Impeccable | 0 constat au passage initial | [Sortie du détecteur](detection-impeccable.json) sur `src/renderer`, exécuté une fois avant les corrections de revue ; celles-ci ont une confirmation visuelle distincte. Ne vaut pas audit d’accessibilité |
+| Contrôle Impeccable | 0 constat au passage du 24 octobre | [Sortie du détecteur](detection-impeccable.json) sur `src/renderer`, exécuté une fois pour le correctif de barre supérieure. Ne vaut pas audit d’accessibilité |
 | Nettoyage | Réussi | Enfants du banc fermés et seul espace temporaire créé supprimé ; profils personnels non utilisés |
 
 Les tests de persistance atomique ont d’abord rencontré `EPERM` dans le répertoire temporaire virtualisé du sandbox des outils. Ils ont été exécutés dans Windows local autorisé et ont réussi sans changer la stratégie de remplacement. Le banc a également corrigé deux détails de son lanceur Windows : barre finale d’un argument et consultation du processus après destruction de son objet d’automatisation. Ces défauts du banc n’ont pas été présentés comme une preuve de succès.
@@ -61,7 +61,11 @@ La base française claire et les tokens de DESIGN.md sont repris : navigation la
 - [Fenêtre desktop](packaged-desktop.png), contenu de 1 320 × 860 CSS px.
 - [Fenêtre compacte](packaged-compact.png), contenu de 600 × 800 CSS px, tiroir de navigation accessible au clavier.
 
-L’échelle Windows peut produire des dimensions d’image supérieures aux dimensions CSS. Après l’inspection initiale et sa confirmation, une capture corrective bornée a vérifié les repères distincts demandés par la revue. Les fichiers présents correspondent au paquet corrigé (`captureMode: captured-this-run`) ; les chemins visibles sont ceux du dossier témoin jetable, jamais un projet métier.
+L’échelle Windows peut produire des dimensions d’image supérieures aux dimensions CSS. Les fichiers présents correspondent au paquet reconstruit le 24 octobre après le retour utilisateur sur la barre supérieure (`captureMode: captured-this-run`), inspecté en une passe desktop/compacte. Les chemins visibles sont ceux du dossier témoin jetable, jamais un projet métier.
+
+### Retour utilisateur du 24 octobre
+
+La bascule de navigation rejoint la barre d’action commune au-dessus des colonnes ; une seule commande « Ouvrir un projet » y reste disponible. Le banc vérifie placement, unicité depuis accueil/projet/rail et fenêtre étroite, repli au clavier sans perte de saisie ni de focus et préférence après réouverture. La désactivation native de la bascule pendant sauvegarde avait fait perdre le focus : le refus temporaire est désormais exposé par `aria-disabled`, sans retirer le focus. Les 42 tests, types, compilation et packaging passent ; le banc complet rapporte maintenant 15 contrôles réussis et nettoyage confirmé. Ces preuves actualisent le profil, sans transformer les captures utilisateur en validation d’installation ou de proxy.
 
 ## Revue et décision
 
@@ -90,7 +94,7 @@ Pour rejouer les vérifications techniques en conservant les captures déjà ins
 ## Limites et travail restant
 
 - Le sélecteur Windows est réellement appelé par l’adaptateur, mais son résultat est contrôlé par le banc ; aucun parcours humain de ce dialogue n’est revendiqué.
-- L’installateur NSIS est construit, non exécuté. Installation, désinstallation et préservation après remplacement par l’installateur restent à vérifier sur la cible. Aucun minimum Windows ou proxy n’est déduit d’un essai sur cette machine.
+- Le porteur confirme avoir exécuté l’installateur livré précédemment et ouvert l’application installée le 24 octobre. L’installation du nouveau correctif, la désinstallation et la préservation après remplacement par l’installateur ne sont pas encore vérifiées. Le banc conserve la limite de son propre périmètre (construction, sans installation) ; aucun minimum Windows ou contrôle du proxy n’est déduit de ce retour.
 - L’exécutable et l’installateur ne sont pas signés. L’icône du runtime est conservée en attendant une ressource de marque approuvée ; aucune publication distante n’a été effectuée.
 - Aucun réseau de fournisseur, login, identifiant Codex ou conversation réelle n’a été utilisé. G1 reste distinct ; G2/G3, les trois parcours humains G4 et G5 ne sont pas qualifiés ici.
 - Aucun audit WCAG, lecteur d’écran ou essai novice n’a été réalisé. A1 reste ouverte ; le français clair est la seule variante implémentée.

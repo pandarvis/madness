@@ -3,10 +3,12 @@ title: "Madness — conception des trois parcours"
 type: ux
 status: final
 created: 2026-10-22
-updated: 2026-10-23
+updated: 2026-10-24
 ---
 
 La première base UX est acceptée et le travail de Sally est clos le 23 octobre 2026. Les contrats de référence sont [DESIGN.md](DESIGN.md), pour l'apparence, et [EXPERIENCE.md](EXPERIENCE.md), pour les comportements, états et parcours.
+
+Amendement du 24 octobre 2026 après retour sur l’application réelle : bascule de navigation dans une barre supérieure commune et une seule commande « Ouvrir un projet ». Les contrats intègrent ce changement ciblé ; le prototype et ses captures conservent la conception historique. L’utilisateur indique que ses autres essais sont limités par l’absence de dialogue intégré ; aucune validation d’installation, de proxy ou de parcours BMad complet n’en est déduite.
 
 Les trois parcours couverts sont : ouvrir et retrouver un projet ; comprendre l'état et ses preuves ; lancer une action et poursuivre. Le [prototype « Parcours guidé »](mockups/parcours-guide/index.html) et sa navigation rétractable constituent la base acceptée. Ils restent simulés : aucun fournisseur connecté, accès réel aux dossiers ou choix de stack n'est validé.
 

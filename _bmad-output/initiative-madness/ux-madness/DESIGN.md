@@ -3,7 +3,7 @@ name: Madness
 description: "Parcours guidé pour comprendre et piloter BMad sur des projets locaux."
 status: final
 created: 2026-10-22
-updated: 2026-10-23
+updated: 2026-10-24
 sources:
   - ../initiative-madness.md
   - .memlog.md
@@ -191,9 +191,11 @@ Les textes fonctionnels ne descendent pas sous `{typography.label.fontSize}`. Ne
 
 ## Layout & Spacing
 
-Trois régions : Navigation latérale, contenu flexible, Panneau de fichiers. Le centre utilise `{spacing.content-max}`, l'accueil `{spacing.home-max}`, avec `{spacing.page-x}` sur les côtés et `{spacing.page-top}` en haut à la largeur de référence. L'échelle 4 / 8 / 12 / 16 / 20 / 24 px distingue relations proches et sections. Les régions défilent séparément sans masquer l'en-tête et ses commandes.
+Sous une barre d’action commune à toute la largeur : Navigation latérale, contenu flexible, Panneau de fichiers. Le centre utilise `{spacing.content-max}`, l'accueil `{spacing.home-max}`, avec `{spacing.page-x}` sur les côtés et `{spacing.page-top}` en haut à la largeur de référence. L'échelle 4 / 8 / 12 / 16 / 20 / 24 px distingue relations proches et sections. Les régions défilent séparément sans masquer l'en-tête et ses commandes.
 
 L'en-tête identifie le projet et l'initiative active lorsqu'elle est connue. Ces deux niveaux restent lisibles lorsque la navigation est repliée ; les fichiers et l'action proposée gardent le même contexte. La forme de présentation des autres initiatives reste à préciser dans les exigences, sans imposer de nouvel écran.
+
+Amendement du 24 octobre 2026, demandé après prise en main de l’application : la barre supérieure porte la bascule de navigation à gauche et une seule commande « Ouvrir un projet », accessible depuis l’accueil et le projet. Ces commandes ne sont pas répétées dans la colonne gauche ni dans le contenu d’accueil. En fenêtre étroite, la bascule ouvre le tiroir ; l’ouverture de projet garde son nom accessible lorsque seul son SVG est visible. Le cadre Windows natif est conservé. Les anciennes captures du prototype restent historiques ; cette règle prévaut pour l’application.
 
 La [feuille de style de la maquette](mockups/parcours-guide/styles.css) conserve la composition observée et ses adaptations de fenêtre.
 
@@ -225,6 +227,7 @@ Les mêmes noms désignent les règles de comportement dans EXPERIENCE.md.
 
 | Composant | Spécification visuelle |
 |---|---|
+| Barre d’action supérieure | Surface blanche, filet inférieur, contexte et commandes globales ; hauteur minimale 56 px, 57 px en fenêtre étroite, cibles de navigation et d’ouverture d’au moins 40 px. |
 | Navigation latérale | Fond et dimensions du groupe `components.navigation` ; sélection lavande, graisse 600 ; rail à icônes, projets identifiables, infobulles sombres. |
 | Bouton | Principal violet/blanc, secondaire blanc avec `{colors.control-line}`, discret sans fond. Arrondi `{rounded.md}`, retrait `{components.button.padding}` ; survol, pression, focus visible ; indisponibilité observée par opacité 0,5 avec explication accessible. |
 | Ligne de projet ou d'attente | Liste plate, filets, libellé puis contexte et chemin ; repère de projet ou symbole d'attente, état à droite. La ligne entière exprime la même destination. |

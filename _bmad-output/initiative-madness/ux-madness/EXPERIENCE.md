@@ -2,7 +2,7 @@
 title: "Madness — expérience utilisateur"
 status: final
 created: 2026-10-22
-updated: 2026-10-23
+updated: 2026-10-24
 sources:
   - ../initiative-madness.md
   - .memlog.md
@@ -35,7 +35,7 @@ Les versions antérieures à v7 et leur migration sont hors V1. Le suivi en dire
 
 Les surfaces maquettées sont accessibles dans la [maquette commune](mockups/parcours-guide/index.html). Connexion, refus d'accès, incompatibilité v7 et reprise après redémarrage seront construits à partir de ces règles et des décisions techniques à venir ; aucun écran détaillé n'a encore été approuvé pour eux.
 
-Navigation globale : Accueil, Ouvrir un projet, projets récents, Possibilités BMad, Que faire ensuite ?. Le projet expose Parcours, Conversation et Toutes les possibilités ; les fichiers restent consultables à côté. Les regroupements Cadrage, Exigences, Expérience utilisateur, Architecture, Réalisation & qualité et Outils transversaux sont des repères, sans chaîne imposée ni étape à valider artificiellement pour accéder à la suivante.
+Navigation globale : Accueil, projets récents, Possibilités BMad, Que faire ensuite ?. La barre d’action supérieure porte une seule commande « Ouvrir un projet », disponible depuis l’accueil et le projet, et la bascule de navigation. Le projet expose Parcours, Conversation et Toutes les possibilités ; les fichiers restent consultables à côté. Les regroupements Cadrage, Exigences, Expérience utilisateur, Architecture, Réalisation & qualité et Outils transversaux sont des repères, sans chaîne imposée ni étape à valider artificiellement pour accéder à la suivante.
 
 Un projet peut contenir plusieurs initiatives. Son espace identifie l'initiative active, permet de retrouver les autres initiatives repérées et indique celle que concernent l'état, les preuves et l'action envisagée. Les fichiers transversaux restent rattachés au projet. Changer d'initiative ne réattribue pas les conversations et résultats antérieurs. La commande précise de changement reste à définir dans les exigences ; aucun sélecteur détaillé n'est considéré comme maquetté ou approuvé.
 
@@ -59,7 +59,7 @@ Les noms ci-dessous correspondent exactement à DESIGN.md · Components.
 
 | Composant | Règles de comportement |
 |---|---|
-| Navigation latérale | Réduire/déployer conserve projet, onglet, conversation et saisie. Au-dessus de `{components.navigation.drawerBreakpoint}`, le rail mesure `{components.navigation.compactWidth}` ; chaque destination conserve un nom accessible et une infobulle au survol/focus. Bascule explicite avec état développé annoncé ; focus conservé sur la bascule. Seule cette préférence est mémorisée dans la maquette ; elle ne prouve aucune persistance des conversations. |
+| Navigation latérale | Réduire/déployer conserve projet, onglet, conversation et saisie. Au-dessus de `{components.navigation.drawerBreakpoint}`, le rail mesure `{components.navigation.compactWidth}` ; chaque destination conserve un nom accessible et une infobulle au survol/focus. Bascule explicite dans la barre supérieure, avec état développé annoncé et focus conservé pendant la sauvegarde de la préférence. En fenêtre étroite, la commande ouvre le tiroir ; sa fermeture rend le focus à ce déclencheur. Seule cette préférence est mémorisée dans la maquette ; elle ne prouve aucune persistance des conversations. |
 | Bouton | Libellé orienté action ; une action indisponible explique le prérequis. Pas de double lancement pendant une requête. Une approbation ne porte que sur le changement décrit. |
 | Ligne de projet ou d'attente | Ouvre le projet ou le point d'attente concerné. La raison reste nommée : question, livrable à relire, interruption ou erreur. Ne pas réduire l'information à un compteur. |
 | Onglets du projet | Changer de vue ne répond pas à l'agent et n'efface pas la saisie. L'attente reste signalée lorsqu'on quitte Conversation. |

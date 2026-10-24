@@ -66,6 +66,7 @@ export function App(): ReactNode {
     void run(() => window.madness.selectProject(projectId), () => { setPage('project'); setNotice('Projet retrouvé. Aucun agent n’a été relancé.'); setTimeout(() => heading.current?.focus(), 0) })
   }
   function toggleNavigation(): void {
+    if (pending || !state) return
     const next = !collapsed
     setCollapsed(next)
     setPreferenceUnsaved(true)
@@ -73,30 +74,36 @@ export function App(): ReactNode {
   }
   const navigation = <>
     <button className={'nav-button ' + (page === 'home' ? 'selected' : '')} aria-label={fr.home} aria-current={page === 'home' ? 'page' : undefined} title={fr.home} onClick={home}><Icon name="home" /><span className="nav-label">{fr.home}</span></button>
-    <button className="nav-button" aria-label={fr.open} title={fr.open} onClick={open} disabled={pending || !state}><Icon name="folder" /><span className="nav-label">{fr.open}</span></button>
     <h2 className="nav-section nav-label">{fr.recent}</h2>
     {state?.projects.map((p, index) => <button key={p.id} className={'nav-button project-link ' + (page === 'project' && p.id === project?.id ? 'selected' : '')} aria-label={'Ouvrir le projet ' + p.name} aria-current={page === 'project' && p.id === project?.id ? 'page' : undefined} title={p.name + '\n' + p.rootPath} disabled={pending} onClick={() => select(p.id)}><span className="project-glyph" aria-hidden="true">{(index + 1).toString(36).toUpperCase()}</span><span className="nav-label truncate">{p.name}</span></button>)}
     {!state?.projects.length && <p className="nav-note nav-label">Vos dossiers ouverts apparaîtront ici.</p>}
   </>
   return <div className={'app-shell ' + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onKeyDown={(event) => { if (event.key === 'Escape') setTooltipsDismissed(true) }}>
     <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>Aller au contenu</a>
+    <header className="topbar">
+      <div className="breadcrumb">
+        <button className="toolbar-toggle desktop-menu" type="button" aria-label={collapsed ? 'Déployer la navigation' : 'Réduire la navigation'} title={collapsed ? 'Déployer la navigation' : 'Réduire la navigation'} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><Icon name="panel" /></button>
+        <button className="toolbar-toggle mobile-menu" type="button" ref={drawerTrigger} aria-label="Ouvrir la navigation" title="Ouvrir la navigation" aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><Icon name="panel" /></button>
+        <span title={page === 'project' && project ? project.name : fr.home}>{page === 'project' && project ? project.name : fr.home}</span>
+      </div>
+      <div className="topbar-actions">
+        <span className="connection" title={fr.codexReason}>{fr.codexUnavailable}</span>
+        <button className="primary open-project" type="button" aria-label={fr.open} title={fr.open} onClick={open} disabled={pending || !state}><Icon name="folder" /><span className="open-label">{fr.open}</span></button>
+      </div>
+    </header>
+    <div className="app-body">
     <aside className="sidebar" aria-label="Navigation principale" onMouseLeave={() => setTooltipsDismissed(false)} onFocusCapture={() => setTooltipsDismissed(false)}>
       <div className="brand"><span className="brand-label">{fr.app}</span></div>
-      <button className="nav-button" aria-label={collapsed ? 'Déployer la navigation' : 'Réduire la navigation'} title={collapsed ? 'Déployer la navigation' : 'Réduire la navigation'} aria-expanded={!collapsed} onClick={toggleNavigation} disabled={pending || !state}><Icon name="panel" /><span className="nav-label">Réduire le menu</span></button>
-      <nav aria-label="Projets">{navigation}</nav>
+      <nav id="project-navigation" aria-label="Projets">{navigation}</nav>
       <p className="sidebar-bottom nav-label">Données locales<br />Français · thème clair</p>
     </aside>
     <div className="workspace">
-      <header className="topbar">
-        <div className="breadcrumb"><button className="mobile-menu" ref={drawerTrigger} aria-label="Ouvrir la navigation" onClick={() => drawer.current?.showModal()}><Icon name="panel" /></button><span>{page === 'project' && project ? project.name : fr.home}</span></div>
-        <span className="connection" title={fr.codexReason}>{fr.codexUnavailable}</span>
-      </header>
       <div className="workspace-body">
         <main id="main" tabIndex={-1}>
           <div className="main-inner">
             {error && <div className="error-message" role="alert"><strong>L’opération n’a pas abouti</strong><p>{error}</p>{!state && <button className="secondary" onClick={() => void load()} disabled={pending}>Relire le contexte local</button>}</div>}
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>Retrouver votre espace de travail</h1><p>{pending ? 'Lecture du contexte local…' : 'Le contexte local est indisponible. Utilisez le message ci-dessus pour réessayer.'}</p></section> : page === 'home' || !project ? <>
-              <div className="page-intro"><div><h1 ref={heading} tabIndex={-1}>Vos projets, au même endroit</h1><p>Retrouvez un dossier et préparez la suite de votre travail.</p></div><button className="primary" onClick={open} disabled={pending}><Icon name="folder" />{fr.open}</button></div>
+              <div className="page-intro"><div><h1 ref={heading} tabIndex={-1}>Vos projets, au même endroit</h1><p>Retrouvez un dossier et préparez la suite de votre travail.</p></div></div>
               {state.projects.length === 0 ? <section className="welcome"><h2>Commencez par un dossier</h2><p>Ouvrez un projet local pour conserver son contexte et y préparer un brouillon. Le dossier reste intact.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Madness doit connaître le projet auquel rattacher votre saisie.</p></section> : <section aria-labelledby="recent-heading"><h2 id="recent-heading">{fr.recent}</h2><div className="project-list">{state.projects.map((p, index) => <button className="project-row" key={p.id} onClick={() => select(p.id)} disabled={pending}><span className="project-avatar" aria-hidden="true">{(index + 1).toString(36).toUpperCase()}</span><span className="project-info"><strong>{p.name}</strong><code>{p.rootPath}</code><small>Contexte conservé localement</small></span><Icon name="arrow" /></button>)}</div></section>}
               <div className="home-note"><h2>La connexion viendra ensuite</h2><p>{fr.codexReason} L’analyse BMad, l’initialisation et le graphe ne sont pas disponibles dans ce socle.</p></div>
             </> : <>
@@ -121,7 +128,8 @@ export function App(): ReactNode {
         {page === 'project' && project && <aside className="context-panel" aria-label="Contexte du projet"><h2>Contexte du projet</h2><p>Source : dossier choisi via Windows.</p><dl><dt>Dossier canonique</dt><dd><code>{project.rootPath}</code></dd><dt>Conservation</dt><dd>Contexte et brouillon dans les données locales de Madness.</dd><dt>Activité</dt><dd>Aucun agent lancé.</dd><dt>Fichiers du projet</dt><dd>Aucune modification effectuée.</dd></dl><p className="small">Les preuves BMad et les échanges fournisseur seront disponibles après leurs qualifications respectives.</p></aside>}
       </div>
     </div>
-    <dialog className="navigation-drawer" ref={drawer} aria-labelledby="drawer-title" onClose={() => drawerTrigger.current?.focus()} onClick={(event) => { if (event.target === drawer.current) closeDrawer() }}>
+    </div>
+    <dialog id="navigation-drawer" className="navigation-drawer" ref={drawer} aria-labelledby="drawer-title" onClose={() => drawerTrigger.current?.focus()} onClick={(event) => { if (event.target === drawer.current) closeDrawer() }}>
       <div className="drawer-heading"><h2 id="drawer-title">{fr.app}</h2><button aria-label="Fermer la navigation" onClick={closeDrawer}><Icon name="close" /></button></div><nav aria-label="Projets en fenêtre compacte">{navigation}</nav>
     </dialog>
   </div>

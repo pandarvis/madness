@@ -15,7 +15,7 @@ button, textarea { font: inherit; color: inherit }
 button { cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid transparent; border-radius: 8px; padding: 8px 11px; background: transparent; line-height: 1.35 }
 button:hover { background: var(--hover) }
 button:active { background: var(--active) }
-button:disabled { cursor: not-allowed; opacity: .5 }
+button:disabled, button[aria-disabled="true"] { cursor: not-allowed; opacity: .5 }
 button:focus-visible, a:focus-visible, textarea:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
 svg { width: 19px; height: 19px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round }
 ::selection { color: var(--text); background: #ded4f3 }
@@ -33,7 +33,8 @@ code { font: 12px/1.65 Consolas, "Cascadia Code", monospace; overflow-wrap: anyw
 .secondary { background: var(--surface); border-color: var(--control-line) }
 .skip-link { position: fixed; top: -80px; left: 12px; z-index: 100; background: var(--surface); color: var(--accent); padding: 12px; text-underline-offset: 3px }
 .skip-link:focus { top: 12px }
-.app-shell { display: flex; height: 100dvh; min-height: 400px }
+.app-shell { display: flex; flex-direction: column; height: 100dvh; min-height: 400px }
+.app-body { display: flex; flex: 1; min-height: 0 }
 .sidebar { width: var(--sidebar); flex: none; background: var(--navigation); border-right: 1px solid var(--line); padding: 18px 12px 12px; display: flex; flex-direction: column; overflow-y: auto }
 .brand { height: 40px; padding: 0 10px; margin-bottom: 16px; display: flex; align-items: center; font-size: 18px; font-weight: 650; letter-spacing: -.025em }
 nav { display: flex; flex-direction: column; gap: 4px }
@@ -45,9 +46,12 @@ nav { display: flex; flex-direction: column; gap: 4px }
 .project-glyph { width: 20px; height: 20px; border: 1px solid var(--control-line); border-radius: 5px; display: inline-grid; place-items: center; flex: none; font-size: 11px }
 .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
 .workspace { flex: 1; min-width: 0; display: flex; flex-direction: column; background: var(--surface) }
-.topbar { min-height: 65px; flex: none; padding: 12px 25px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 12px }
+.topbar { min-height: 56px; flex: none; padding: 8px 18px; border-bottom: 1px solid var(--line); background: var(--surface); display: flex; align-items: center; justify-content: space-between; gap: 12px }
+.topbar-actions { display: flex; align-items: center; gap: 16px; flex: none }
+.toolbar-toggle, .open-project { min-height: 40px }
+.toolbar-toggle { width: 40px; padding: 0; flex: none }
 .breadcrumb { display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 13px }
-.breadcrumb span { overflow-wrap: anywhere }
+.breadcrumb span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
 .connection { color: var(--muted); font-size: 12px; flex: none }
 .workspace-body { display: flex; min-height: 0; flex: 1 }
 main { overflow-y: auto; min-width: 0; flex: 1 }
@@ -115,5 +119,5 @@ dd { margin: 6px 0 0; color: var(--muted) }
 @media (min-width: 1600px) { :root { --sidebar: 240px; --context-panel: 350px } .main-inner { padding-left: 52px; padding-right: 52px } }
 @media (max-width: 1280px) { :root { --sidebar: 194px; --context-panel: 278px } .main-inner { padding: 30px 26px 40px } .topbar { padding-inline: 22px } .project-heading h1 { font-size: 24px } }
 @media (max-width: 1080px) { :root { --sidebar: 184px } .context-panel { display: none } .page-intro { flex-direction: column; gap: 18px } }
-@media (max-width: 720px) { .sidebar { display: none } .mobile-menu { display: inline-flex } .topbar { min-height: 57px; padding: 8px 14px } .connection { font-size: 11px } .main-inner { padding: 25px 20px 40px } h1 { font-size: 24px } .welcome, .recommendation { padding: 18px } .project-tabs { gap: 20px } .composer-bottom { align-items: flex-start; flex-direction: column } .composer-bottom button { align-self: flex-end } }
+@media (max-width: 720px) { .sidebar, .desktop-menu, .open-label { display: none } .mobile-menu { display: inline-flex } .topbar { min-height: 57px; padding: 8px 14px } .topbar-actions { gap: 10px } .open-project { width: 40px; padding: 0 } .connection { font-size: 11px } .main-inner { padding: 25px 20px 40px } h1 { font-size: 24px } .welcome, .recommendation { padding: 18px } .project-tabs { gap: 20px } .composer-bottom { align-items: flex-start; flex-direction: column } .composer-bottom button { align-self: flex-end } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important } }

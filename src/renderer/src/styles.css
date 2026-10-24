@@ -194,9 +194,8 @@ dd { margin: 6px 0 0; color: var(--muted) }
 .drawer-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-left: 10px }
 @media (min-width: 721px) {
   .nav-compact .sidebar { width: 58px; padding-left: 8px; padding-right: 8px }
-  .nav-compact .nav-label, .nav-compact .brand-label { display: none }
-  .nav-compact .brand { padding: 0; justify-content: center }
-  .nav-compact .brand::before { content: "M"; font-weight: 600; font-size: 18px; color: var(--muted-lavender) }
+  .nav-compact .nav-label { display: none }
+  .nav-compact .brand { display: none }
   .nav-compact .sidebar .nav-button { width: 40px; min-height: 40px; justify-content: center; padding: 0 }
   .nav-compact .sidebar .project-link:first-of-type { margin-top: 16px }
   .nav-compact:not(.tooltips-dismissed) .sidebar .nav-button:is(:hover, :focus-visible)::after { content: attr(aria-label); position: fixed; left: 66px; z-index: 80; max-width: 260px; padding: 7px 10px; border-radius: 7px; background: var(--tooltip); color: var(--tooltip-text); font-size: 11px; font-weight: 400; line-height: 1.5; text-align: left; pointer-events: none; box-shadow: 0 4px 14px var(--tooltip-shadow) }

@@ -1,0 +1,37 @@
+{
+  "observedAt": "2026-10-24T17:04:48.9518674Z",
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0
+  },
+  "package": {
+    "exitCode": 0,
+    "archiveSha256": "16f895da48b105ea3a67608649fca1e762f59d3123ffc8f61a4bc2ed64f43267",
+    "path": "C:\\Sources\\madness\\dist\\navigation-cleanup\\Madness-0.1.0-x64-setup.exe",
+    "command": ".\\node_modules\\.bin\\electron-builder.cmd --win --x64 --config.directories.output=dist/navigation-cleanup",
+    "sha256": "1f2231cc8efed642b9ea27a48b21de3b768676bbfa6c140e9644f3cffc42dc68"
+  },
+  "compiledWindows": {
+    "mode": "ui-regressions-only",
+    "checksPassed": 5,
+    "cleanup": true,
+    "screenshots": false
+  },
+  "packagedWindows": {
+    "exitCode": 0,
+    "checksPassed": 5,
+    "cleanup": true,
+    "command": "node scripts/qualification/windows.mjs --ui-regressions-only --skip-screenshots --executable=C:/Sources/madness/dist/navigation-cleanup/win-unpacked/Madness.exe"
+  },
+  "visualInspection": {
+    "inspectedTogether": true,
+    "personalData": false,
+    "issuesRemaining": 0,
+    "captures": [
+      "rail-desktop.png",
+      "tiroir-compact.png"
+    ]
+  },
+  "personalInstallationChanged": false,
+  "ticketOrGateClosed": false
+}

@@ -252,6 +252,8 @@ La [feuille de style de la maquette](mockups/parcours-guide/styles.css) conserve
 
 Au-dessus de `{components.navigation.drawerBreakpoint}`, l'utilisateur peut réduire la navigation à `{components.navigation.compactWidth}`. Le rail conserve les icônes, les repères de projets distincts et l'attente ; ses cibles mesurent `{components.navigation.compactTarget}`. Les libellés deviennent des infobulles au survol et au focus, hors de la zone rognée. La [référence de navigation repliée](imports/reference-navigation-repliee.png) apporte ce gain de place ; les captures [rail](mockups/navigation-repliee.png), [menu déployé](mockups/navigation-deployee.png) et [tiroir étroit](mockups/navigation-mobile.png) en montrent les états Madness.
 
+Amendement du 24 octobre 2026 : à la demande du porteur, le monogramme de marque « M » et son emplacement sont retirés du rail replié de l’application. Le nom du projet reste dans la barre supérieure ; les repères distincts des projets et le nom Madness du menu déployé sont conservés. Les maquettes historiques ne sont pas réécrites pour ce correctif.
+
 ## Elevation & Depth
 
 Les fonds et filets portent la hiérarchie. Les ombres servent uniquement la séparation du Champ de réponse, du Dialogue, de la Notification et des panneaux superposés ; les valeurs réutilisables figurent dans les tokens de composants. Le Dialogue n'ajoute pas de bordure à son ombre. Éviter les ombres sur chaque ligne de liste.

@@ -162,7 +162,9 @@ components:
 
 ## Brand & Style
 
-Madness présente un espace de travail calme : navigation gris lavande, centre blanc, texte anthracite et violet réservé aux actions. Les listes plates et la hiérarchie typographique donnent la priorité au projet, à l'attente et à la prochaine action utile. Le parcours BMad reste un ensemble de possibilités explorables.
+La base claire acceptée de Madness présente un espace de travail calme : navigation gris lavande, centre blanc, texte anthracite et violet réservé aux actions. Les listes plates et la hiérarchie typographique donnent la priorité au projet, à l'attente et à la prochaine action utile. Le parcours BMad reste un ensemble de possibilités explorables.
+
+Décision du porteur le 24 octobre 2026 : le thème sombre sera le thème par défaut, avec un accent terracotta orangé et un bleu complémentaire. Cette direction conserve la composition acceptée et le thème clair comme alternative. Les valeurs `colors` de ce document décrivent encore la base claire ; les teintes sombres précises, leur répartition entre composants et leurs contrastes restent à concevoir et vérifier avec Sally et Impeccable avant application. Cette décision ne constitue pas une validation visuelle de la palette sombre ni une modification de l'application installée.
 
 La composition « Parcours guidé » et sa navigation rétractable constituent la base UX acceptée le 23 octobre 2026. Les deux contrats sont finalisés pour cette première base. Cette acceptation porte sur une simulation de conception ; aucun connecteur Codex, accès aux dossiers ou choix de stack n'est validé. DESIGN.md et EXPERIENCE.md font foi en cas de conflit avec les maquettes ou imports.
 

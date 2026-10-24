@@ -2,13 +2,15 @@
 # Exception validee : qualification (1), G0 (2), puis tracer complet (3).
 # Commit local autorise ; le lancement d'une entree reste une etape distincte.
 # Mandat autonome du 2026-10-23 : G0 local (2) peut avancer sans auth ; le tracer (3) attend 1 et 2.
+# Replan du 2026-10-24 : 12 qualifie le profil local effectivement livre avant 3.
+# 1 et 2 restent obligatoires pour le nettoyage final et la cloture/distribution ; plans historiques preserves.
 
 [[entry]]
 id = 1
 type = "spike"
 title = "Qualifier la voie Codex distribuable et son authentification"
-description = "Établit sur la machine Windows de référence la voie officiellement utilisable par Madness, avec outils, versions, identité et limites ; le porteur réalise les étapes de connexion requises. Vérifie réseau et certificats du processus Codex avec cette connexion réelle. Un essai autorisé et des preuves de protocole produisent le profil consommé par le premier dialogue réel en 3. Toute impossibilité ou capacité requise non disponible est expliquée sans substitution de facturation ni promesse d'intégration."
-verify = "Le compte rendu établit une voie officiellement utilisable et montre un échange réel autorisé avec versions, réseau, certificats et limites observées ; si cette preuve positive échoue, consigner le blocage et réexaminer le découpage avant tout passage aux consommateurs. Une conclusion négative ne suffit pas à les débloquer."
+description = "Établit sur la machine Windows de référence la voie officiellement utilisable par Madness pour distribution, avec outils, versions, identité et limites ; le porteur réalise les étapes de connexion requises. Vérifie réseau et certificats du processus Codex avec cette connexion réelle. Un essai autorisé et des preuves de protocole produisent le profil de distribution consommé par les contrôles intégrés 10/11 ; le profil personnel local utilisé par 3 est qualifié séparément en 12. Toute impossibilité ou capacité requise non disponible est expliquée sans substitution de facturation ni promesse d'intégration."
+verify = "Le compte rendu établit une voie officiellement utilisable pour distribution et montre un échange réel autorisé avec versions, réseau, certificats et limites observées ; si cette preuve positive échoue, consigner le blocage et réexaminer le découpage avant tout consommateur de cette voie distribuable. Une conclusion négative ne suffit pas à les débloquer ; le profil personnel local de 12 n'en tient pas lieu."
 covers = ["R8"]
 after = []
 hitl = true
@@ -28,13 +30,25 @@ risk = "high"
 references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
 
 [[entry]]
+id = 12
+type = "spike"
+title = "Qualifier le profil local livré avant les workflows BMad"
+description = "Établit ce que le premier workflow de 3 peut réellement consommer dans le pilote existant : socle et contrats G0, connexion SIWC indépendante avec coffre Madness, exécutable Codex, runtime Python/UV externe et installation BMad de référence. Lit les preuves acquises et recontrôle leurs empreintes, versions, frontières, persistance et conditions officielles d'usage personnel local. Produit dans qualification-profil-local/ un profil borné, ses limites et la liste des vérifications fraîches imposées à 3 ; distingue cet usage de l'authentification native historique de 1 et de toute distribution. Ne relance ni authentification ni tour fournisseur pour ce spike ; une preuve manquante bloque le consommateur. Aucun code produit, contrat public ou ancien plan n'est réécrit."
+verify = "Le rapport et son profil relient chaque prérequis local aux preuves consultées et aux contrôles reproductibles exécutés, identifient précisément outils, empreintes, schémas, modèle de connexion et conditions d'usage local, et concluent explicitement si 3 peut commencer dans ce périmètre. Le profil échoue fermé en cas d'écart ou d'inconnu ; il ne déclare ni G0/G1 complets, ni admissibilité de distribution, ni workflow documentaire déjà exécuté. Aucun processus fournisseur ou OAuth n'est lancé et les espaces temporaires sont nettoyés."
+covers = ["R8","R9","R10"]
+after = []
+hitl = false
+risk = "high"
+references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/connexion-codex-reference.md","_bmad-output/initiative-madness/qualification-connexion-codex/live-confirmed-profile.json","_bmad-output/initiative-madness/qualification-dialogue-local/live-profile.json","_bmad-output/initiative-madness/qualification-dialogue-local/installed-profile.json","_bmad-output/initiative-madness/qualification-theme/installation.json"]
+
+[[entry]]
 id = 3
 type = "story"
 title = "Exécuter et retrouver la première boucle BMad réelle"
-description = "Réalise le tracer complet avec les contrats et le stockage de 2 et la voie Codex de 1. Avant invocation, qualifie dans un dossier d'essai dédié le profil BMad et un workflow réellement installé : empreinte, identité/invocation, contexte requis, interactions et effets annoncés. Son parcours textuel complet doit fonctionner sans les contrôles encore prévus en 5–7 ; sinon choisir une autre référence qualifiée ou bloquer et revoir le découpage, sans tronquer ni simuler les conditions natives. Vérifie le processus Codex lancé depuis le paquet, son environnement, réseau et certificats. Capture projet/initiative/fournisseur/connexion, affiche l'invocation et conserve dialogue réel, accusés et brouillon ; G1 reste partiel."
-verify = "Dans le paquet Windows installé, vérifier le profil et le parcours avant exécution, puis invoquer le workflow qualifié sur le dossier d'essai et accomplir son dialogue textuel complet ; fermer puis rouvrir retrouve échanges et brouillon sans lancement de moteur. Consigner versions, effets attendus/observés, contexte, événements et accès réseau/certificats du processus Codex réellement lancé ; toute interaction native non disponible impose un réexamen avant invocation."
+description = "Complète le tracer local à partir du profil positif établi en 12, en conservant le socle, la connexion SIWC et la discussion Mary déjà acquis sans les réimplémenter. Avant invocation, qualifie dans un dossier d'essai dédié un workflow BMad réellement installé qui aboutit à un livrable : empreinte, identité/invocation, contexte requis, interactions et effets annoncés. Son parcours textuel complet doit fonctionner sans les contrôles encore prévus en 5–7 ; sinon choisir une autre référence qualifiée ou bloquer et revoir le découpage, sans tronquer ni simuler les conditions natives. Vérifie les prérequis frais, le processus Codex lancé depuis le paquet, son environnement, réseau et certificats. Capture le projet, l'initiative si le workflow l'exige, le fournisseur et la connexion ; affiche l'invocation, conserve dialogue réel, accusés et brouillon, puis indique le résultat et les chemins observés. L'aperçu de fichiers complet reste dans l'epic 2 ; G1 et la distribution restent non clos."
+verify = "Dans le paquet Windows installé pour essai personnel, contrôler le profil de 12 et les préconditions du workflow avant exécution, puis accomplir son parcours natif complet sur un dossier d'essai. Retrouver le livrable réellement produit, ses chemins et le contexte capturé ; une discussion libre seule ne suffit pas. Fermer puis rouvrir retrouve échanges et brouillon sans lancement de moteur. Consigner versions, effets attendus/observés, contexte, événements et accès réseau/certificats du processus Codex réellement lancé ; une interaction native non disponible bloque avant invocation. Aucune exécution ou approbation n'est déduite du seul retour final."
 covers = ["R1","R2","R5","R8","R9"]
-after = [1,2]
+after = [12]
 hitl = false
 risk = "high"
 references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
@@ -115,10 +129,10 @@ references = ["_bmad-output/initiative-madness/architecture-madness/architecture
 id = 10
 type = "story"
 title = "Refactor sweep"
-description = "Traite seulement le nettoyage identifié au démarrage de cette entrée dans les plans et revues des entrées 1–9. Conserve les autorités, contrats et comportements établis ; aucun besoin ou fonctionnalité différée d'une autre entrée n'est absorbé dans ce nettoyage."
-verify = "Exécuter les vérifications des entrées 1–9 et comparer les comportements observables avant/après : elles passent, sans modification fonctionnelle ni contournement des contrats."
+description = "Traite seulement le nettoyage identifié au démarrage de cette entrée dans les plans et revues des entrées 1–9 et 12. Conserve les autorités, contrats et comportements établis ; aucun besoin ou fonctionnalité différée d'une autre entrée n'est absorbé dans ce nettoyage."
+verify = "Exécuter les vérifications des entrées 1–9 et 12 et comparer les comportements observables avant/après : elles passent, sans modification fonctionnelle ni contournement des contrats."
 covers = []
-after = [1,2,3,4,5,6,7,8,9]
+after = [1,2,12,3,4,5,6,7,8,9]
 hitl = false
 risk = "low"
 references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]

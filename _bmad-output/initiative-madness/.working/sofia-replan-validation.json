@@ -1,0 +1,66 @@
+{
+  "observedAt": "2026-10-24T17:37:49.3520576Z",
+  "workflow": "bmad-agent-po / REPLAN",
+  "sourceCommit": "62e81a82a4cfedddc9fcaabce0957ee66b9d1331",
+  "scope": "Réconciliation de réalisation et séquencement ; aucune modification des exigences ou des contrats",
+  "entryCountBefore": 11,
+  "entryCountAfter": 12,
+  "readyToStart": [
+    "1.12"
+  ],
+  "inProgress": [],
+  "directHistoricalBlocks": [
+    "1.1",
+    "1.2"
+  ],
+  "tracerAfter": [
+    "1.12"
+  ],
+  "finalSweepAfter": [
+    1,
+    2,
+    12,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "e2eAfter": [
+    10
+  ],
+  "conflicts": [],
+  "integrity": {
+    "epicOrderUnchanged": true,
+    "contractsAndHistoricPlansUnchanged": true,
+    "requirementsAndConstraintsUnchanged": true,
+    "comparisonsNormalizeOnlyLineEndings": true,
+    "referencesResolved": 40,
+    "localRequirementsCovered": 10,
+    "existingIdsKept": true
+  },
+  "independentReview": {
+    "agent": "/root/validate_replan_sofia",
+    "scopes": [
+      "Ticket",
+      "Set",
+      "Dependencies",
+      "Tree ciblé"
+    ],
+    "outcome": "conforme après correction et recontrôle",
+    "fixes": [
+      "Handoff de 1.1 : profil distribuable transmis à 10/11 ; profil personnel de 1.12 transmis à 1.3."
+    ],
+    "outstandingFixes": 0,
+    "suggestions": 0,
+    "questions": 0,
+    "historicPlansEdited": false
+  },
+  "productTestsRerun": false,
+  "providerStarted": false,
+  "credentialsRead": false,
+  "productCodeChanged": false,
+  "publicDistributionOrGateClosed": false
+}

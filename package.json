@@ -17,6 +17,7 @@
     "postinstall": "install-electron && electron-builder install-app-deps"
   },
   "dependencies": {
+    "jose": "6.2.12",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },

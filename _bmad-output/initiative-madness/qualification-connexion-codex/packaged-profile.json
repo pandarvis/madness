@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-24T11:41:18.106Z",
+  "mode": "isolated-no-provider-network",
+  "status": "automated-checks-passed-live-missing",
+  "checks": [
+    "cold-start-single-icon-and-project-command",
+    "keyboard-panel-escape-focus-return",
+    "explicit-system-browser-only-and-cancel-without-provider-network",
+    "foreign-window-rejected-before-oauth",
+    "desktop-compact-and-panel-bounds",
+    "dpapi-restore-registered-without-probe-or-network",
+    "first-plan-confirmation-acknowledged-once",
+    "explicit-local-disconnect-clears-encrypted-credentials",
+    "corrupt-vault-preserved"
+  ],
+  "screenshots": [],
+  "liveProof": "missing",
+  "cleanup": true,
+  "limits": [
+    "Aucun parcours BMad, gate G1 distribué ou audit WCAG qualifié.",
+    "Le consentement réel est humain ; les fixtures ne prouvent pas le forfait."
+  ],
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true,
+    "encryptionAvailable": true
+  },
+  "visualChecks": {
+    "padding": "22px",
+    "radius": "12px",
+    "bodySize": "13px",
+    "titleSize": "19px",
+    "contrast": {
+      "body": 14.61,
+      "muted": 5.87,
+      "error": 5.95,
+      "primary": 6.59,
+      "focus": 6.59
+    }
+  },
+  "artifacts": [
+    {
+      "file": "dist/win-unpacked/Madness.exe",
+      "bytes": 249797632,
+      "sha256": "a3ef624cf02a74ad6a36a2efeb6b787386135ba6213734a1e4ba6b57fa573290"
+    },
+    {
+      "file": "dist/win-unpacked/resources/app.asar",
+      "bytes": 9186193,
+      "sha256": "6c8c7867d1832e1be633751ce402ec7bade5a7eab2ab9f969887a6ca0dd3f121"
+    }
+  ]
+}

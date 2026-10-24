@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-24T11:40:25.514Z",
+  "mode": "isolated-no-provider-network",
+  "status": "automated-checks-passed-live-missing",
+  "checks": [
+    "cold-start-single-icon-and-project-command",
+    "keyboard-panel-escape-focus-return",
+    "explicit-system-browser-only-and-cancel-without-provider-network",
+    "foreign-window-rejected-before-oauth",
+    "desktop-compact-and-panel-bounds",
+    "dpapi-restore-registered-without-probe-or-network",
+    "first-plan-confirmation-acknowledged-once",
+    "explicit-local-disconnect-clears-encrypted-credentials",
+    "corrupt-vault-preserved"
+  ],
+  "screenshots": [],
+  "liveProof": "missing",
+  "cleanup": true,
+  "limits": [
+    "Aucun parcours BMad, gate G1 distribué ou audit WCAG qualifié.",
+    "Le consentement réel est humain ; les fixtures ne prouvent pas le forfait."
+  ],
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": false,
+    "encryptionAvailable": true
+  },
+  "visualChecks": {
+    "padding": "22px",
+    "radius": "12px",
+    "bodySize": "13px",
+    "titleSize": "19px",
+    "contrast": {
+      "body": 14.61,
+      "muted": 5.87,
+      "error": 5.95,
+      "primary": 6.59,
+      "focus": 6.59
+    }
+  },
+  "artifacts": [
+    {
+      "file": "out/main/index.js",
+      "bytes": 62261,
+      "sha256": "00f3efafb371f352e3fccef78ffaa4c723230545dccc4eef88301f6674edee4e"
+    },
+    {
+      "file": "out/preload/index.js",
+      "bytes": 10326,
+      "sha256": "367115446ef87a7f2b48f158771e55b1c069ddcccea315f3b59110eee3f5f147"
+    }
+  ]
+}

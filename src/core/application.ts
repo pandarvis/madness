@@ -9,11 +9,13 @@ export class Application {
   private queue: Promise<unknown> = Promise.resolve()
   private listeners = new Set<(event: DomainEvent) => void>()
   private sequence = 0
+  private closing = false
   readonly lifecycle = new LifecycleCoordinator()
   constructor(dependencies: ApplicationDependencies) { this.deps = dependencies }
   subscribe(listener: (event: DomainEvent) => void): () => void { this.listeners.add(listener); return () => this.listeners.delete(listener) }
   execute(input: unknown): Promise<Reply> {
     if (!isCommand(input)) return Promise.resolve(failure('INVALID_COMMAND', 'invalid-request'))
+    if (this.closing || this.lifecycle.state === 'closing') return Promise.resolve(failure('APP_CLOSING', input.correlationId))
     const result = this.queue.then(() => this.handle(input))
     this.queue = result.catch(() => undefined)
     return result
@@ -25,7 +27,6 @@ export class Application {
     return { contractVersion: 1, correlationId: command.correlationId, ok: true, value: { state: this.projection(), effect } }
   }
   private async handle(command: Command): Promise<Reply> {
-    if (this.lifecycle.state === 'closing') return failure('APP_CLOSING', command.correlationId)
     if (!this.snapshot) {
       try {
         const restored = await this.deps.store.read()
@@ -76,5 +77,5 @@ export class Application {
     const code = typeof error === 'object' && error !== null && 'code' in error ? error.code : undefined
     return ['STORAGE_CORRUPT', 'STORAGE_VERSION_UNSUPPORTED', 'STORAGE_CONFLICT'].includes(String(code)) ? code as ErrorCode : fallback
   }
-  async shutdown(): Promise<void> { await this.queue; await this.lifecycle.shutdown() }
+  async shutdown(): Promise<void> { this.closing = true; const stopping = this.lifecycle.shutdown(); await this.queue; await stopping }
 }

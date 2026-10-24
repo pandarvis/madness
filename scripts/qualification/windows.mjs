@@ -69,6 +69,11 @@ async function inspectRuntime(label, page) {
   const surface = await page.evaluate(() => ({ process: typeof window.process, require: typeof window.require, bridge: Object.keys(window.madness).sort() }))
   assert.equal(surface.process, 'undefined'); assert.equal(surface.require, 'undefined')
   assert.deepEqual(surface.bridge, ['chooseDirectory', 'onStateChanged', 'readState', 'saveDraft', 'selectProject', 'setNavigation'])
+  const connection = await page.evaluate(async () => ({ methods: Object.keys(window.madnessConnection).sort(), state: (await window.madnessConnection.read()).state }))
+  assert.deepEqual(connection.methods, ['acknowledgePlan', 'cancel', 'connect', 'disconnect', 'manageUsage', 'onChanged', 'read', 'verify'])
+  assert.equal(connection.state.status, 'disconnected')
+  assert.equal(connection.state.accountStored, false)
+  assert.equal(connection.state.verifiedAt, null)
   report.runtime[label] = runtime
   passed(label + '.isolated-business-preload')
 }

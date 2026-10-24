@@ -104,6 +104,14 @@ Trois axes restent indépendants : situation du projet, activité de l'agent, ac
 
 Les détails de connexion/authentification Codex, les critères exacts de compatibilité v7 et les changements réels de l'initialisation doivent être instruits avec l'architecture. Ces inconnues ne sont pas des décisions UX déjà approuvées.
 
+Amendement connexion personnelle locale du 24 octobre 2026 : le logo Codex ouvre un panneau non modal au clavier ou au pointeur ; son titre reçoit le focus. Échap ou Fermer annulent une attente en cours et rendent le focus au logo. L’ouverture de projet unique et la navigation restent disponibles. Le panneau distingue déconnecté, compte enregistré à vérifier, autorisation navigateur, vérification du forfait, arrêt, succès daté, annulation, erreur et résultat inconnu. Aucun vert ne provient du seul OAuth ou du catalogue.
+
+« Continuer avec ChatGPT » explique puis ouvre le navigateur Windows ; aucune autorisation n’est intégrée au renderer. Le court témoin annoncé consomme le forfait. L’attente humaine est bornée à dix minutes, avec Annuler disponible ; fermer Madness arrête listener/requêtes/processus sans rejouer de tour. Une confirmation acquittable rappelle « Vous utilisez votre forfait ChatGPT » après la première autorisation ; son acquittement est conservé. « Gérer l’usage dans ChatGPT » ouvre les paramètres officiels, sans présenter de quota. Vérifier et Reconnecter restent des actions explicites. Déconnecter localement retire les accès de cet ordinateur, sans changer projets, brouillons ou inscription locale et sans prétendre révoquer le consentement distant.
+
+Après redémarrage, un compte enregistré attend un contrôle explicite ; aucun réseau, refresh ou moteur ne démarre spontanément. Coffre illisible ou chiffrement indisponible : erreur actionnable, aucune réinitialisation ni écriture claire. Un arrêt non confirmé reste inconnu et bloque un nouveau témoin pendant la session. Le succès ne promet que la connexion personnelle locale testée : dialogue BMad, voie distribuable et gates historiques restent à qualifier. La prise en main humaine du nouveau parcours et l’audit d’accessibilité ne sont pas acquis par les tests injectés.
+
+Après revue : le rappel forfait se ferme avec Échap ou Fermer même si son acquittement ne peut pas être enregistré ; l’erreur connue reste lisible et la récupération demeure accessible. Seul l’acquittement enregistré est durable. Échap respecte d’abord le tiroir modal actif. La fermeture d’application termine les sauvegardes déjà admises et les mutations du coffre, tout en refusant de nouvelles commandes ; une déconnexion locale conserve la visibilité d’un arrêt fournisseur encore inconnu.
+
 ## Interaction Primitives
 
 Le [script de la maquette](mockups/parcours-guide/app.js) conserve les interactions simulées ; ses délais et réponses écrites ne spécifient pas les performances ou retours d'une connexion réelle.

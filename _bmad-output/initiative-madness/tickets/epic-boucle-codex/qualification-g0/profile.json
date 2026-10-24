@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-10-24T09:44:36.155Z",
+  "observedAt": "2026-10-24T11:42:17.015Z",
   "gate": "G0",
   "status": "local-technical-checks-passed",
   "platform": {
@@ -72,25 +72,25 @@
   },
   "buildInputs": {
     "algorithm": "sha256-path-and-bytes",
-    "digest": "9c034353bd7a18a8c72b9b5a0ec6624e3c676e1b8efe5d7f578e75099c7d8ef8",
-    "fileCount": 23
+    "digest": "8d03e184788fb9b94ae10ac921b42d9578c42b09e10111beeb4c20f184b8a920",
+    "fileCount": 29
   },
-  "captureMode": "captured-this-run",
+  "captureMode": "existing-files-not-recaptured",
   "artifacts": [
     {
       "file": "Madness-0.1.0-x64-setup.exe",
-      "bytes": 112875226,
-      "sha256": "c148accc9c93882d63ca75297de1341164f18716c144299aabefc46742ab7cdf"
+      "bytes": 112896481,
+      "sha256": "c7085ed48ac1992525a854f289bf386a18bf1e54d8555efed8c06202b153ca02"
     },
     {
       "file": "win-unpacked/Madness.exe",
       "bytes": 249797632,
-      "sha256": "c039a29ee6b743f3e6a8ab4387edb27ce7bdb40d611751758f461f4fb94f0335"
+      "sha256": "a3ef624cf02a74ad6a36a2efeb6b787386135ba6213734a1e4ba6b57fa573290"
     },
     {
       "file": "win-unpacked/resources/app.asar",
-      "bytes": 8979467,
-      "sha256": "499d1064f13fc58553d28db54f048ca97ddea81825ec4bb1ef0751a27750d061"
+      "bytes": 9186193,
+      "sha256": "6c8c7867d1832e1be633751ce402ec7bade5a7eab2ab9f969887a6ca0dd3f121"
     }
   ]
 }

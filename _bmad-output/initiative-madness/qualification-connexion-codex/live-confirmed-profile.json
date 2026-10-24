@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-24T11:47:01.186Z",
+  "mode": "live-user-profile",
+  "liveProof": "signed-oauth-and-native-probe-confirmed",
+  "connection": {
+    "status": "verified",
+    "errorCode": null,
+    "accountStored": true,
+    "verifiedAt": "2026-10-24T11:46:51.773Z",
+    "cliVersion": "0.144.6",
+    "needsPlanAcknowledgement": false
+  },
+  "artifact": {
+    "file": "dist/win-unpacked/resources/app.asar",
+    "sha256": "6c8c7867d1832e1be633751ce402ec7bade5a7eab2ab9f969887a6ca0dd3f121"
+  },
+  "credentialHandling": "application-owned-windows-encrypted-vault",
+  "limits": [
+    "Pas de workflow BMad exécuté.",
+    "Éligibilité de distribution non établie.",
+    "Fenêtre laissée à l’utilisateur ; aucun credential lu par le banc."
+  ]
+}

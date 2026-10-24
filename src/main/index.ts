@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog, ipcMain, protocol, net, session, Menu } from 'electron'
+import { app, BrowserWindow, dialog, ipcMain, protocol, net, session, Menu, safeStorage, shell } from 'electron'
 import { realpath, stat, access } from 'node:fs/promises'
 import { constants } from 'node:fs'
 import { basename, isAbsolute, join, resolve, sep } from 'node:path'
@@ -6,7 +6,13 @@ import { randomUUID } from 'node:crypto'
 import { pathToFileURL } from 'node:url'
 import { Application } from '../core/application.ts'
 import { JsonStore } from '../adapters/persistence/json-store.ts'
-import { COMMAND_CHANNEL, EVENT_CHANNEL, failure, isCommand } from '../contracts/index.ts'
+import { COMMAND_CHANNEL, EVENT_CHANNEL, failure, isCommand, emptyContext } from '../contracts/index.ts'
+import { CONNECTION_COMMAND_CHANNEL, CONNECTION_EVENT_CHANNEL, initialConnectionState, isConnectionCommand, isConnectionState } from '../contracts/connection.ts'
+import type { ConnectionPort } from '../core/ports.ts'
+import { CodexVault } from '../adapters/codex/vault.ts'
+import { CodexConnection } from '../adapters/codex/connection.ts'
+import { authorize, createTransport, refreshCredentials } from '../adapters/codex/oauth.ts'
+import { probeCodex } from '../adapters/codex/probe.ts'
 import { isTrustedCaller } from './boundary.ts'
 
 protocol.registerSchemesAsPrivileged([{ scheme: 'madness', privileges: { standard: true, secure: true, supportFetchAPI: true } }])
@@ -22,6 +28,7 @@ const devNonce = devUrl && /^[a-f0-9]{32}$/.test(process.env.MADNESS_DEV_CSP_NON
 const rendererUrl = devUrl ?? 'madness://app/index.html'
 let window: BrowserWindow | null = null
 let application: Application | null = null
+let connection: ConnectionPort | null = null
 let readyToQuit = false
 
 if (!app.requestSingleInstanceLock()) app.quit()
@@ -62,6 +69,33 @@ else {
         await access(rootPath, constants.R_OK)
         return { rootPath, name: basename(rootPath) || rootPath }
       }
+    })
+    const connectionRoot = join(app.getPath('userData'), 'codex-connection-v1')
+    const vault = new CodexVault(connectionRoot, {
+      isEncryptionAvailable: () => process.platform === 'win32' && safeStorage.isEncryptionAvailable(),
+      encryptString: (value) => safeStorage.encryptString(value),
+      decryptString: (value) => safeStorage.decryptString(value)
+    })
+    const transport = createTransport(net.fetch.bind(net) as typeof fetch)
+    connection = new CodexConnection({
+      vault,
+      oauth: (options) => authorize({ ...options, transport, openExternal: (url) => shell.openExternal(url), saveClientId: (value) => vault.saveClientId(value) }),
+      refresh: (value, signal) => refreshCredentials(value, { signal, transport }),
+      probe: (value, signal) => probeCodex(value, signal, { root: join(connectionRoot, 'probes'), appData: app.getPath('appData'), repository: app.getAppPath(), environment: process.env }),
+      now: () => new Date(),
+      openUsage: () => shell.openExternal('https://chatgpt.com/settings/usage')
+    })
+    application.lifecycle.register({ id: 'codex-connection', context: { ...emptyContext(), providerId: 'codex' }, stop: () => connection!.shutdown() })
+    ipcMain.handle(CONNECTION_COMMAND_CHANNEL, async (event, input: unknown) => {
+      const rejected = (code: 'UNTRUSTED_CALLER' | 'INVALID_COMMAND') => ({ contractVersion: 1, correlationId: 'rejected-request', state: { ...initialConnectionState(), status: 'error', errorCode: code } })
+      if (!window || !isTrustedCaller(event, { webContents: window.webContents, mainFrame: window.webContents.mainFrame }, rendererUrl)) return rejected('UNTRUSTED_CALLER')
+      if (!isConnectionCommand(input)) return rejected('INVALID_COMMAND')
+      const state = await connection!.command(input.action)
+      if (!isConnectionState(state)) return rejected('INVALID_COMMAND')
+      return { contractVersion: 1, correlationId: input.correlationId, state }
+    })
+    connection.subscribe((state) => {
+      if (isConnectionState(state) && window && !window.isDestroyed() && window.webContents.mainFrame.url === rendererUrl) window.webContents.send(CONNECTION_EVENT_CHANNEL, state)
     })
     ipcMain.handle(COMMAND_CHANNEL, async (event, input: unknown) => {
       if (!window || !isTrustedCaller(event, { webContents: window.webContents, mainFrame: window.webContents.mainFrame }, rendererUrl)) return failure('UNTRUSTED_CALLER', 'untrusted-request')

@@ -1,6 +1,6 @@
 # Développer Madness sous Windows
 
-Le socle G0 ouvre un dossier par le dialogue Windows et conserve son contexte, un brouillon par projet et la préférence de navigation. Codex reste indisponible. Aucune commande ne lance un fournisseur, ne lit ses identifiants ou ne modifie le dossier ouvert.
+Le socle G0 ouvre un dossier par le dialogue Windows et conserve son contexte, un brouillon par projet et la préférence de navigation. Le logo Codex permet désormais une connexion locale explicite à ChatGPT puis un petit tour de vérification du forfait. Le dialogue BMad reste indisponible : aucun brouillon n’est envoyé et le dossier ouvert reste intact. Aucun identifiant d’un autre outil n’est lu ou copié.
 
 ## Reproduire l’assemblage
 
@@ -22,7 +22,7 @@ Le point de départ est le starter officiel `@quick-start/create-electron@1.0.31
 
 ## Organisation et frontières
 
-`src/contracts` possède le schéma v1, les commandes, événements corrélés, résultats et capacités. `src/core` contient les cas d’usage, le port de stockage et le coordinateur de cycle de vie. Ces modules n’importent ni Node, ni Electron, ni SDK fournisseur. L’adaptateur JSON et le main implémentent leurs ports ; le renderer ne reçoit que `window.madness`.
+`src/contracts` possède le schéma v1, les commandes, événements corrélés, résultats et capacités. `src/core` contient les cas d’usage, les ports de stockage/connexion et le coordinateur de cycle de vie. Ces modules n’importent ni Node, ni Electron, ni SDK fournisseur. L’adaptateur JSON et le main implémentent leurs ports ; le renderer reçoit `window.madness` et le pont dédié `window.madnessConnection`.
 
 Le pont expose lecture du contexte, choix du dossier, sélection d’un projet connu, sauvegarde du brouillon, préférence de navigation et abonnement aux événements métier. Main vérifie l’identité de la fenêtre, de sa frame principale, son URL exacte et la forme du payload avant délégation. Preload valide aussi les réponses et événements reçus. Aucune API IPC, fichiers, processus ou Electron générique n’est exposée. Le preload compilé contient son contrat et n’utilise que `require('electron')` comme dépendance externe.
 
@@ -39,6 +39,29 @@ Chaque écriture est sérialisée, validée, écrite dans un fichier temporaire 
 Un schéma inconnu, une corruption ou un changement externe du fichier connu empêchent son remplacement. Aucun reset, import ou migration automatique n’existe. Limites actuelles : snapshot de 16 Mio, 1 000 projets et 100 000 caractères par brouillon. Préserver une copie des octets existants avant une réparation ; utiliser une version compatible si le schéma est plus récent. Les erreurs affichées et transportées ont des codes fixes, sans texte natif ni secrets.
 
 Un seul processus Madness possède un profil à la fois. Le contrôle de conflit empêche le remplacement d’une modification externe déjà observée avant l’écriture ; il ne remplace pas une coordination avec un éditeur externe écrivant simultanément au même instant. Ne pas éditer manuellement le snapshot pendant son utilisation.
+
+## Connexion locale à ChatGPT
+
+Le logo grisé ouvre un panneau non modal accessible au clavier ; Échap ferme le panneau, annule une connexion en cours et rend le focus au logo. « Continuer avec ChatGPT » ouvre uniquement le navigateur système. Le panneau explique avant l’autorisation que le court témoin utilise le forfait. Après la première autorisation, une confirmation acquittable rappelle cet usage ; son acquittement est conservé dans le coffre. « Gérer l’usage dans ChatGPT » ouvre l’URL officielle fixe `https://chatgpt.com/settings/usage`, sans quota inventé.
+
+`src/adapters/codex/oauth.ts` implémente indépendamment le protocole SIWC documenté, sans code du DevKit : listener uniquement `127.0.0.1`/port éphémère, state/nonce/PKCE S256 neufs, client émis validé, signature RS256, issuer/audience/expiration/sub vérifiés avec JOSE 6.2.12. Les callbacks étrangers n’interrompent pas l’attente légitime ; un refus, des scopes insuffisants ou une autre identité n’entraînent aucun témoin. L’attente humaine dure dix minutes au maximum ; chaque requête Main est bornée à quinze secondes et 256 Kio, sans redirection ni affaiblissement TLS. Le réseau OAuth utilise `net.fetch` et les certificats/proxy d’Electron.
+
+Le coffre `userData/codex-connection-v1/credentials.bin` utilise uniquement `safeStorage` Windows ; aucun fallback clair. L’inscription non secrète est séparée dans `registration.json`. L’host ID et le client émis sont conservés après déconnexion locale. Une écriture synchronisée/atomique préserve l’ancien coffre en cas d’échec ; une corruption ou un changement externe empêche son remplacement. « Déconnecter localement » retire explicitement les accès enregistrés, sans révoquer les autorisations côté ChatGPT. Aucun secret, compte, URL OAuth ou retour natif n’est projeté dans le renderer ni enregistré dans les rapports.
+
+`probe.ts` cherche le binaire natif Windows x64 seulement dans les implantations npm standard `%APPDATA%/npm/node_modules/@openai/codex/node_modules/@openai/codex-win32-x64/` et `%APPDATA%/npm/node_modules/@openai/codex-win32-x64/` ; il vérifie manifeste, chemin et en-tête PE avant `spawn`, avec `shell:false` et `windowsHide:true`. Aucun téléchargement ou wrapper Node n’est lancé. Il crée un profil/CWD vides hors du dépôt et assainit l’environnement. L’access token est injecté uniquement dans l’environnement de ce child ; aucun API key, profil Codex, MCP ou option Node hérité. Le thread est éphémère, en lecture seule, avec approbation `never`, shell/web désactivés et demandes serveur refusées. Catalogue seul, OAuth seul ou accusé de tour ne suffisent pas : message assistant et fin de tour corrélés, puis arrêt natif confirmé, sont requis.
+
+L’arrêt ferme stdin puis termine uniquement le processus natif possédé si nécessaire ; l’attente est bornée. Un arrêt non confirmé reste `unknown` et interdit un autre témoin dans cette session. La fermeture demande l’arrêt du coordinateur avant de vider la queue de persistance. Aucun tour incertain n’est relancé. Au redémarrage, un compte conservé revient à « compte enregistré, à vérifier » sans réseau spontané, refresh ou processus. Le refresh ne survient que sur une demande explicite et sa rotation est sauvegardée atomiquement.
+
+La capacité historique `capabilities.codex.available:false` du snapshot v1 ne change pas : cette connexion personnelle locale ne valide ni l’éligibilité du produit fermé distribué, ni G1 complet, ni le tracer BMad 1.3. Réseau Main et réseau du processus Codex restent des qualifications distinctes. Le test live avec consentement réel reste manquant tant qu’un rapport dédié ne le prouve pas.
+
+```powershell
+node scripts/qualification/connection.mjs
+node scripts/qualification/connection.mjs --packaged --no-captures
+# Seulement sur demande explicite, après revue : consentement manuel dans le navigateur système.
+node scripts/qualification/connection.mjs --live --no-captures
+```
+
+Le banc par défaut substitue l’ouverture du navigateur, interdit le réseau fournisseur, exerce le vrai pont Electron/DPAPI sur un profil jetable et restaure un compte synthétique sans envoi. Le mode `--live` n’active aucun bouton à la place de l’humain ; il attend son action dans le panneau. Rapports expurgés et captures : `_bmad-output/initiative-madness/qualification-connexion-codex/`, distinct du banc natif historique. Les fixtures ne constituent aucune preuve d’usage réel du forfait. `--no-captures` évite une nouvelle passe visuelle après la paire bureau/compact.
 
 ## Qualification et limites
 

@@ -1,6 +1,6 @@
 {
   "observedAt": "2026-10-24T15:56:15.3549898Z",
-  "status": "built-and-packaged-not-installed",
+  "status": "installed-normal-window-reopened",
   "baselineRevision": "feb1ea4828df58c7b1c35fa13e4757fbbb0be543",
   "build": "passed",
   "tests": {
@@ -33,5 +33,6 @@
     "path": "dist/terracotta-pilot/win-unpacked/resources/app.asar",
     "sha256": "5c805e2d2fc465d11b01dca14fb58e39b5d83d0ee2df5de6becb3cda04c00aa4"
   },
-  "installed": false
+  "installed": true,
+  "installationReport": "installation.json"
 }

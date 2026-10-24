@@ -8,19 +8,34 @@ import type { ConnectionState, ConnectionBridge } from '../../contracts/connecti
 import chatgptMark from './assets/chatgpt-mark.svg'
 import { initialDialogueState } from '../../contracts/dialogue.ts'
 import type { DialogueState } from '../../contracts/dialogue.ts'
+import type { AppearanceState } from '../../contracts/appearance.ts'
 
-function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message' | 'arrow' | 'refresh' | 'external' | 'logout' | 'copy' }): ReactNode {
-  const paths = { home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z', folder: 'M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z', panel: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM9 3v18m6-13-3 4 3 4', close: 'm6 6 12 12M6 18 18 6', message: 'M4 4h16v12H9l-5 4V4Z', arrow: 'M5 12h14m-5-5 5 5-5 5', refresh: 'M20 7v5h-5M20 12a8 8 0 1 0-2 5', external: 'M14 4h6v6m0-6-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5', logout: 'M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4m4-12 4 4-4 4m-4-4h12',copy:'M9 9h12v12H9V9ZM5 15H3V3h12v2' }
+function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message' | 'arrow' | 'refresh' | 'external' | 'logout' | 'copy' | 'sun' | 'moon' }): ReactNode {
+  const paths = { home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z', folder: 'M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z', panel: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM9 3v18m6-13-3 4 3 4', close: 'm6 6 12 12M6 18 18 6', message: 'M4 4h16v12H9l-5 4V4Z', arrow: 'M5 12h14m-5-5 5 5-5 5', refresh: 'M20 7v5h-5M20 12a8 8 0 1 0-2 5', external: 'M14 4h6v6m0-6-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5', logout: 'M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4m4-12 4 4-4 4m-4-4h12',copy:'M9 9h12v12H9V9ZM5 15H3V3h12v2',sun:'M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5',moon:'M20.5 13.1A8.5 8.5 0 0 1 10.9 3.5a8.5 8.5 0 1 0 9.6 9.6Z' }
   return <svg aria-hidden="true" viewBox="0 0 24 24"><path d={paths[name]} /></svg>
 }
 
-export function App(): ReactNode {
+export function App({ initialAppearance = window.madnessAppearance.initial, appearanceReadFailed = false }: { initialAppearance?: AppearanceState; appearanceReadFailed?: boolean } = {}): ReactNode {
   const [state, setState] = useState<AppState | null>(null)
   const [page, setPage] = useState<'home' | 'project'>('home')
   const [tab, setTab] = useState<'parcours' | 'conversation'>('parcours')
   const [texts, setTexts] = useState<Record<string, string>>({})
   const [collapsed, setCollapsed] = useState(false)
   const [preferenceUnsaved, setPreferenceUnsaved] = useState(false)
+  const [appearance, setAppearance] = useState<AppearanceState>(initialAppearance)
+  const [appearancePending, setAppearancePending] = useState(false)
+  const [appearanceBridgeError, setAppearanceBridgeError] = useState<'read' | 'change' | null>(appearanceReadFailed ? 'read' : null)
+  const appearanceBusy = useRef(false)
+  const themeLabel = appearance.theme === 'dark' ? 'Passer au thème clair' : 'Passer au thème sombre'
+  useEffect(() => { document.documentElement.dataset.theme = appearance.theme }, [appearance.theme])
+  async function toggleTheme(): Promise<void> {
+    if (appearanceBusy.current) return
+    const theme = appearance.theme === 'dark' ? 'light' : 'dark'
+    appearanceBusy.current = true; setAppearancePending(true)
+    try { setAppearance(await window.madnessAppearance.setTheme(theme)); setAppearanceBridgeError(null) }
+    catch { setAppearanceBridgeError('change') }
+    finally { appearanceBusy.current = false; setAppearancePending(false) }
+  }
   const [error, setError] = useState<string | null>(null)
   const [notice, setNotice] = useState('Lecture du contexte local…')
   const [pending, setPending] = useState(false)
@@ -175,6 +190,7 @@ export function App(): ReactNode {
         <span title={page === 'project' && project ? project.name : fr.home}>{page === 'project' && project ? project.name : fr.home}</span>
       </div>
       <div className="topbar-actions">
+        <button className="toolbar-toggle theme-toggle" type="button" aria-label={themeLabel} title={themeLabel} aria-disabled={appearancePending} onClick={() => void toggleTheme()}><Icon name={appearance.theme === 'dark' ? 'sun' : 'moon'} /></button>
         <button className={'codex-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel} title={connectionLabel} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else setConnectionOpen(true) }}><img src={chatgptMark} alt="" /><span className="connection-tooltip" aria-hidden="true">{connectionLabel}</span></button>
         <button className="primary open-project" type="button" aria-label={fr.open} title={fr.open} onClick={open} disabled={pending || !state}><Icon name="folder" /><span className="open-label">{fr.open}</span></button>
       </div>
@@ -209,7 +225,7 @@ export function App(): ReactNode {
     <aside className="sidebar" aria-label="Navigation principale" onMouseLeave={() => setTooltipsDismissed(false)} onFocusCapture={() => setTooltipsDismissed(false)}>
       <div className="brand"><span className="brand-label">{fr.app}</span></div>
       <nav id="project-navigation" aria-label="Projets">{navigation}</nav>
-      <p className="sidebar-bottom nav-label">Données locales<br />Français · thème clair</p>
+      <p className="sidebar-bottom nav-label">Données locales<br />Français · thème {appearance.theme === 'dark' ? 'sombre' : 'clair'}</p>
     </aside>
     <div className="workspace">
       <div className="workspace-body">
@@ -260,6 +276,8 @@ export function App(): ReactNode {
               </section>
             </>}
             {preferenceUnsaved && <p className="preference-note">Le choix de navigation s’applique à cette session ; sa sauvegarde n’est pas confirmée.</p>}
+            {appearance.warning && <p className="appearance-warning" role="status" aria-live="polite">{appearance.warning === 'read-failed' ? 'La préférence de thème ne peut pas être lue. Le thème sombre est utilisé ; le fichier existant est conservé.' : 'Le thème choisi s’applique à cette session ; sa sauvegarde n’est pas confirmée. Le fichier existant est conservé.'}</p>}
+            {appearanceBridgeError && <p className="appearance-warning" role="status" aria-live="polite">{appearanceBridgeError === 'read' ? 'Le thème n’a pas pu être restauré. Réessayez avec la commande de thème ; votre contexte reste disponible.' : 'Le thème n’a pas pu être changé. Réessayez ; votre contexte et votre saisie sont conservés.'}</p>}
             <p className="status-line" role="status" aria-live="polite">{notice}</p>
           </div>
         </main>

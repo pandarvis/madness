@@ -11,6 +11,41 @@ sources:
   - ../brief-madness/brief-madness.md
   - .working/design-capture/DESIGN.md
 colors:
+  surface: '#211F1E'
+  navigation: '#191817'
+  panel: '#272423'
+  text: '#F1EBE6'
+  muted: '#BCB0A8'
+  muted-lavender: '#B5AAA2'
+  line: '#3A3430'
+  control-line: '#82766E'
+  hover: '#332E2A'
+  active: '#423830'
+  accent: '#E49B7A'
+  accent-hover: '#EEAE8F'
+  accent-active: '#CF896A'
+  accent-text: '#231A15'
+  accent-soft: '#392B25'
+  link: '#9DC7E1'
+  focus: '#9DC7E1'
+  navigation-selected: '#293842'
+  navigation-selected-text: '#B7D8EE'
+  recommendation: '#272321'
+  recommendation-line: '#5B4538'
+  neutral: '#342F2B'
+  neutral-text: '#D0C4BB'
+  context-text: '#B7D8EE'
+  waiting: '#40331F'
+  waiting-text: '#EAC78D'
+  success: '#24392E'
+  success-text: '#A5D6B1'
+  error: '#42262A'
+  error-text: '#F0AEB5'
+  selection: '#36576C'
+  selection-text: '#F1EBE6'
+  notification: '#EFE7E0'
+  notification-text: '#211F1E'
+light-colors:
   surface: '#FFFFFF'
   navigation: '#F4F3F7'
   panel: '#FDFCFE'
@@ -18,12 +53,15 @@ colors:
   muted: '#66636F'
   muted-lavender: '#75657F'
   line: '#E9E7EE'
-  control-line: '#D9D5E0'
+  control-line: '#8A8291'
   hover: '#EFEDF3'
   active: '#E7E3EE'
   accent: '#654BB0'
   accent-hover: '#51368F'
   accent-active: '#432B7A'
+  accent-text: '#FFFFFF'
+  link: '#654BB0'
+  focus: '#654BB0'
   accent-soft: '#F0EBFA'
   navigation-selected: '#E8E3F1'
   navigation-selected-text: '#533B80'
@@ -39,6 +77,7 @@ colors:
   error: '#FBECEE'
   error-text: '#9B3A43'
   notification: '#403348'
+  notification-text: '#FFFFFF'
 typography:
   headline:
     fontFamily: '"Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif'
@@ -123,7 +162,7 @@ components:
     selectedText: '{colors.navigation-selected-text}'
   button:
     background: '{colors.accent}'
-    text: '{colors.surface}'
+    text: '{colors.accent-text}'
     radius: '{rounded.md}'
     padding: '8px 11px'
     focusWidth: 2px
@@ -141,30 +180,30 @@ components:
     radius: '{rounded.lg}'
     padding: '{spacing.3}'
     minTextHeight: 71px
-    shadow: '0 3px 12px #42314908'
-    focusShadow: '0 0 0 2px #EEE6F7'
+    shadow: '0 3px 12px #0B090824'
+    focusBorder: '{colors.focus}'
   files:
     width: 318px
     overlayBreakpoint: 1080px
     mobileMaxWidth: 340px
     background: '{colors.panel}'
-    overlayShadow: '-12px 0 36px #30223C14'
+    overlayShadow: '-12px 0 36px #0B09085C'
   dialog:
     maxWidth: 590px
     radius: '{rounded.dialog}'
-    shadow: '0 18px 65px #24162F29'
+    shadow: '0 18px 65px #0B09085C'
   notification:
     background: '{colors.notification}'
-    text: '{colors.surface}'
+    text: '{colors.notification-text}'
     radius: '{rounded.group}'
-    shadow: '0 6px 22px #24172D2B'
+    shadow: '0 6px 22px #0B09085C'
 ---
 
 ## Brand & Style
 
 La base claire acceptée de Madness présente un espace de travail calme : navigation gris lavande, centre blanc, texte anthracite et violet réservé aux actions. Les listes plates et la hiérarchie typographique donnent la priorité au projet, à l'attente et à la prochaine action utile. Le parcours BMad reste un ensemble de possibilités explorables.
 
-Décision du porteur le 24 octobre 2026 : le thème sombre sera le thème par défaut, avec un accent terracotta orangé et un bleu complémentaire. Cette direction conserve la composition acceptée et le thème clair comme alternative. Les valeurs `colors` de ce document décrivent encore la base claire ; les teintes sombres précises, leur répartition entre composants et leurs contrastes restent à concevoir et vérifier avec Sally et Impeccable avant application. Cette décision ne constitue pas une validation visuelle de la palette sombre ni une modification de l'application installée.
+Décision du porteur le 24 octobre 2026 : thème sombre par défaut, accent terracotta orangé et bleu complémentaire, avec conservation de la composition acceptée et du clair en alternative. L’extension réalisée avec les références Impeccable Operate/Colorize propose une ambiance anthracite chaude, un accent terracotta réservé aux actions et un bleu de repérage pour liens, focus et sélection. Les valeurs `colors` décrivent cette proposition appliquée ; `light-colors` conserve la base claire, avec un contour de contrôle renforcé à `#8A8291` pour le contraste. L’inspection technique des captures et les contrastes calculés sont consignés dans [qualification-theme](../qualification-theme/README.md). La palette sombre n’a pas encore reçu d’acceptation visuelle humaine ; l’application personnelle ouverte n’a pas été remplacée.
 
 La composition « Parcours guidé » et sa navigation rétractable constituent la base UX acceptée le 23 octobre 2026. Les deux contrats sont finalisés pour cette première base. Cette acceptation porte sur une simulation de conception ; aucun connecteur Codex, accès aux dossiers ou choix de stack n'est validé. DESIGN.md et EXPERIENCE.md font foi en cas de conflit avec les maquettes ou imports.
 
@@ -176,7 +215,7 @@ La [référence Codex Desktop](imports/reference-codex-desktop.png) apporte la s
 |---|---|
 | Surfaces | `{colors.surface}` au centre, `{colors.navigation}` à gauche, `{colors.panel}` pour les fichiers. `{colors.line}` sépare les régions sans les enfermer dans des cartes. |
 | Lecture | `{colors.text}` pour le principal ; `{colors.muted}` et `{colors.muted-lavender}` pour les explications et métadonnées. Une information nécessaire ne devient pas illisible pour paraître secondaire. |
-| Action | `{colors.accent}`, `{colors.accent-hover}`, `{colors.accent-active}` pour action principale, liens et focus ; `{colors.accent-soft}` pour un contexte léger. |
+| Action et repérage | `{colors.accent}`, `{colors.accent-hover}`, `{colors.accent-active}` avec `{colors.accent-text}` pour les actions principales ; `{colors.link}` et `{colors.focus}` pour liens et focus ; `{colors.accent-soft}` pour un contexte léger. |
 | Sélection | `{colors.navigation-selected}` avec `{colors.navigation-selected-text}` ; `{colors.hover}` et `{colors.active}` rendent survol et pression visibles. |
 | Recommandation | `{colors.recommendation}` et `{colors.recommendation-line}` l'isolent doucement du parcours. |
 | États | Neutre `{colors.neutral}` / `{colors.neutral-text}` ; contexte `{colors.accent-soft}` / `{colors.context-text}` ; attente `{colors.waiting}` / `{colors.waiting-text}` ; diagnostic positif `{colors.success}` / `{colors.success-text}` ; erreur `{colors.error}` / `{colors.error-text}`. Toujours un libellé, jamais la couleur seule. |
@@ -184,6 +223,8 @@ La [référence Codex Desktop](imports/reference-codex-desktop.png) apporte la s
 Le vert exprime le résultat précis d'un diagnostic, jamais une validation humaine implicite. L'ambre signifie qu'une intervention est attendue, sans transformer tout brouillon en erreur.
 
 Objectifs d'implémentation : contraste de texte ≥ 4,5:1, grand texte ≥ 3:1 ; indicateurs nécessaires et focus ≥ 3:1 avec les couleurs adjacentes. Les filets pâles structurent le contenu mais ne suffisent pas seuls à identifier un contrôle. Ces cibles relèvent du socle d'accessibilité à vérifier, pas d'un audit déjà passé.
+
+Qualification de cette extension : 32 couples par thème sont calculés à partir des tokens du renderer compilé. Minimum mesuré pour le texte : 6,05:1 en sombre et 4,84:1 en clair ; pour focus/contours : 3,50:1 et 3,35:1. Sélection de texte, caret, logo Codex, arrière-plans modaux et ombres suivent le thème. Les états succès/erreur/attente conservent leurs libellés ; la sélection conserve `aria-current` ou `aria-selected`. Ces contrôles ciblés ne valent pas audit WCAG complet ni essai de lecteur d’écran.
 
 ## Typography
 
@@ -229,11 +270,11 @@ Les mêmes noms désignent les règles de comportement dans EXPERIENCE.md.
 
 | Composant | Spécification visuelle |
 |---|---|
-| Barre d’action et de titre commune | Surface blanche, filet inférieur, contexte et commandes globales ; bande de 56 px partagée avec les contrôles Windows natifs, cibles de navigation et d’ouverture d’au moins 40 px. |
+| Barre d’action et de titre commune | Surface du thème, filet inférieur, contexte et commandes globales ; bande de 56 px partagée avec les contrôles Windows natifs, cibles de navigation et d’ouverture d’au moins 40 px. Commande d’apparence de 40 px, soleil/lune SVG, nom accessible et infobulle « Passer au thème clair/sombre ». |
 | Navigation latérale | Fond et dimensions du groupe `components.navigation` ; sélection lavande, graisse 600 ; rail à icônes, projets identifiables, infobulles sombres. |
-| Bouton | Principal violet/blanc, secondaire blanc avec `{colors.control-line}`, discret sans fond. Arrondi `{rounded.md}`, retrait `{components.button.padding}` ; survol, pression, focus visible ; indisponibilité observée par opacité 0,5 avec explication accessible. |
+| Bouton | Principal accent/`{colors.accent-text}`, secondaire surface avec `{colors.control-line}`, discret sans fond. Arrondi `{rounded.md}`, retrait `{components.button.padding}` ; survol, pression, focus visible ; indisponibilité observée par opacité 0,5 avec explication accessible. |
 | Ligne de projet ou d'attente | Liste plate, filets, libellé puis contexte et chemin ; repère de projet ou symbole d'attente, état à droite. La ligne entière exprime la même destination. |
-| Onglets du projet | Parcours, Conversation, Toutes les possibilités ; sélection en graisse 600 et soulignement violet 2 px. Compteur compact uniquement lorsqu'une attente existe. |
+| Onglets du projet | Parcours, Conversation, Toutes les possibilités ; sélection en graisse 600 et soulignement accent 2 px. Compteur compact uniquement lorsqu'une attente existe. |
 | Recommandation | Titre, objectif, raison séparée par filet, action principale puis détails ; fond et retrait du groupe `components.recommendation`. Pas de surtitre décoratif avant le titre. |
 | Groupe d'intentions | Ligne extensible avec icône, intention, contexte et chevron ; liste d'actions dans le retrait du contenu. Ni barre de progression ni numérotation obligatoire. |
 | Catalogue des compétences | Champ de recherche bordé avec loupe, filtres compacts puis lignes plates ; nom, objectif et invocation monospace ; nombre de résultats textuel. |
@@ -245,7 +286,7 @@ Les mêmes noms désignent les règles de comportement dans EXPERIENCE.md.
 | Récapitulatif de tour | Bloc sobre : fin de tour, résultat proposé, décision humaine, fichiers et prochaine action ; statut du workflow distinct. |
 | Panneau de fichiers | Fond `{components.files.background}`, lignes sélectionnables, aperçu lisible, statut, provenance et chemin ; actions d'agrandissement et d'ouverture dans l'éditeur. |
 | Diagnostic et initialisation | Colonne bornée à 680 px ; résultat de diagnostic puis prérequis, changements prévus et action de confirmation ; mêmes états sémantiques que le projet. |
-| Dialogue | Largeur maximale `{components.dialog.maxWidth}` bornée par la fenêtre, fond blanc, rayon `{components.dialog.radius}` et ombre `{components.dialog.shadow}` ; titre et fermeture, contenu défilant, pied d'actions. |
+| Dialogue | Largeur maximale `{components.dialog.maxWidth}` bornée par la fenêtre, fond surface du thème, rayon `{components.dialog.radius}` et ombre `{components.dialog.shadow}` ; titre et fermeture, contenu défilant, pied d'actions. |
 | Notification | Fond `{components.notification.background}`, texte `{components.notification.text}`, rayon `{components.notification.radius}` et ombre `{components.notification.shadow}` ; message bref au bas du centre, sans recouvrir une décision durable. |
 
 Amendement connexion locale du 24 octobre 2026 : le statut textuel Codex de la barre est remplacé par une seule cible de 40 px contenant le signe officiel ChatGPT de 21 px, grisé à froid, avec nom accessible et infobulle « Connexion Codex : [état] ». Le résultat vérifié utilise les tokens succès avec sa portée textuelle dans le panneau. Le panneau non modal est ancré sous la barre, à droite, largeur maximale 420 px bornée à la fenêtre, retrait 22 px, rayon 12 px et ombre douce décalée. Son titre, état, récupération et actions suivent la hiérarchie existante ; la couleur ne remplace aucun libellé. La première autorisation du forfait est rappelée dans un dialogue acquittable de 480 px maximum. Aucun autre choix de composition, thème ou langue n’est rouvert.

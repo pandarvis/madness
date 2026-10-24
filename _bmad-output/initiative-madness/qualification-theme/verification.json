@@ -1,0 +1,37 @@
+{
+  "observedAt": "2026-10-24T15:56:15.3549898Z",
+  "status": "built-and-packaged-not-installed",
+  "baselineRevision": "feb1ea4828df58c7b1c35fa13e4757fbbb0be543",
+  "build": "passed",
+  "tests": {
+    "passed": 121,
+    "failed": 0,
+    "skipped": 0
+  },
+  "windowsRegressionChecks": 5,
+  "compiledChecks": 11,
+  "packagedChecks": 11,
+  "contrastPairsPerTheme": 32,
+  "review": {
+    "lens": "quick",
+    "passes": 2,
+    "findings": 2,
+    "resolved": 2,
+    "deferred": 0
+  },
+  "temporaryProfilesCleaned": true,
+  "visual": {
+    "captures": 3,
+    "rounds": 2,
+    "humanAcceptance": "pending"
+  },
+  "setup": {
+    "path": "dist/terracotta-pilot/Madness-0.1.0-x64-setup.exe",
+    "sha256": "8e74a71679cc4ec45dc2d953af3ba12ff23ddbc1314727676530e687d575c68f"
+  },
+  "archive": {
+    "path": "dist/terracotta-pilot/win-unpacked/resources/app.asar",
+    "sha256": "5c805e2d2fc465d11b01dca14fb58e39b5d83d0ee2df5de6becb3cda04c00aa4"
+  },
+  "installed": false
+}

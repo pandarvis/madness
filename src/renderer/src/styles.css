@@ -1,14 +1,33 @@
 :root {
   font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 14px; color: var(--text); background: var(--navigation); color-scheme: light;
+  font-size: 14px; color: var(--text); background: var(--navigation); color-scheme: dark;
+  --surface: #211f1e; --navigation: #191817; --panel: #272423; --text: #f1ebe6;
+  --muted: #bcb0a8; --muted-lavender: #b5aaa2; --line: #3a3430; --control-line: #82766e;
+  --hover: #332e2a; --active: #423830; --accent: #e49b7a; --accent-hover: #eeae8f; --accent-active: #cf896a;
+  --accent-text: #231a15; --accent-soft: #392b25; --selected: #293842; --selected-text: #b7d8ee;
+  --recommendation: #272321; --recommendation-line: #5b4538;
+  --neutral: #342f2b; --neutral-text: #d0c4bb; --error: #42262a; --error-text: #f0aeb5;
+  --success: #24392e; --success-text: #a5d6b1; --waiting: #40331f; --waiting-text: #eac78d;
+  --link: #9dc7e1; --focus: #9dc7e1; --selection: #36576c; --selection-text: #f1ebe6;
+  --tooltip: #efe7e0; --tooltip-text: #211f1e; --backdrop: #0b0908ad;
+  --composer-shadow: #0b090824; --panel-shadow: #0b09085c; --tooltip-shadow: #0b09083d;
+  --logo-filter: grayscale(1) invert(1); --logo-opacity: .72;
+  --sidebar: 222px; --context-panel: 318px;
+}
+:root:not([data-theme]) { background: transparent; color-scheme: normal }
+:root[data-theme="light"] {
+  color-scheme: light;
   --surface: #fff; --navigation: #f4f3f7; --panel: #fdfcfe; --text: #29282e;
-  --muted: #66636f; --muted-lavender: #75657f; --line: #e9e7ee; --control-line: #d9d5e0;
+  --muted: #66636f; --muted-lavender: #75657f; --line: #e9e7ee; --control-line: #8a8291;
   --hover: #efedf3; --active: #e7e3ee; --accent: #654bb0; --accent-hover: #51368f; --accent-active: #432b7a;
   --accent-soft: #f0ebfa; --selected: #e8e3f1; --selected-text: #533b80;
   --recommendation: #fcfbff; --recommendation-line: #ded7ea;
   --neutral: #f1f0f4; --neutral-text: #5e596a; --error: #fbecee; --error-text: #9b3a43;
-  --success: #edf5ef; --success-text: #366147;
-  --sidebar: 222px; --context-panel: 318px;
+  --success: #edf5ef; --success-text: #366147; --waiting: #fbf2df; --waiting-text: #7b5519;
+  --accent-text: #fff; --link: #654bb0; --focus: #654bb0; --selection: #ded4f3; --selection-text: #29282e;
+  --tooltip: #403348; --tooltip-text: #fff; --backdrop: #2f253a59;
+  --composer-shadow: #42314908; --panel-shadow: #24162f29; --tooltip-shadow: #24172d1f;
+  --logo-filter: grayscale(1); --logo-opacity: .52;
 }
 * { box-sizing: border-box }
 body { margin: 0 }
@@ -18,10 +37,10 @@ button { cursor: pointer; display: inline-flex; align-items: center; justify-con
 button:hover { background: var(--hover) }
 button:active { background: var(--active) }
 button:disabled, button[aria-disabled="true"] { cursor: not-allowed; opacity: .5 }
-button:focus-visible, a:focus-visible, textarea:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
+button:focus-visible, a:focus-visible, textarea:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px }
 svg { width: 19px; height: 19px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round }
-::selection { color: var(--text); background: #ded4f3 }
-textarea { caret-color: var(--accent) }
+::selection { color: var(--selection-text); background: var(--selection) }
+textarea { caret-color: var(--focus) }
 h1, h2, p { margin: 0 }
 h1 { font-size: 26px; font-weight: 600; line-height: 1.25; letter-spacing: -.025em; text-wrap: balance }
 h2 { font-size: 19px; font-weight: 600; line-height: 1.35; letter-spacing: -.015em }
@@ -29,11 +48,11 @@ p { font-size: 13px; line-height: 1.65; max-width: 70ch }
 code { font: 12px/1.65 Consolas, "Cascadia Code", monospace; overflow-wrap: anywhere }
 .small { font-size: 12px }
 .muted { color: var(--muted) }
-.primary { color: var(--surface); background: var(--accent); border-color: var(--accent); font-weight: 500 }
+.primary { color: var(--accent-text); background: var(--accent); border-color: var(--accent); font-weight: 500 }
 .primary:hover { background: var(--accent-hover); border-color: var(--accent-hover) }
-.primary:active { background: var(--accent-active) }
+.primary:active { background: var(--accent-active); border-color: var(--accent-active) }
 .secondary { background: var(--surface); border-color: var(--control-line) }
-.skip-link { position: fixed; top: -80px; left: 12px; z-index: 100; background: var(--surface); color: var(--accent); padding: 12px; text-underline-offset: 3px }
+.skip-link { position: fixed; top: -80px; left: 12px; z-index: 100; background: var(--surface); color: var(--link); padding: 12px; text-underline-offset: 3px }
 .skip-link:focus { top: 12px }
 .app-shell { display: flex; flex-direction: column; height: 100dvh; min-height: 400px }
 .app-body { display: flex; flex: 1; min-height: 0 }
@@ -95,7 +114,7 @@ main { overflow-y: auto; min-width: 0; flex: 1 }
 .dialogue-actions button, .composer-actions button { min-height: 40px; font-size: 13px }
 .dialogue-proof, .dialogue-activity, .previous-conversations { margin-top: 20px; font-size: 12px; color: var(--muted) }
 summary { cursor: pointer; padding-block: 6px; text-underline-offset: 3px }
-summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
+summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px }
 .dialogue-proof p { margin-top: 8px }
 .dialogue-activity ol { margin: 8px 0 0; padding-left: 22px; line-height: 1.8 }
 .conversation-history { margin-top: 24px }
@@ -106,8 +125,8 @@ summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
 .history-note, .turn-status { font-size: 12px; color: var(--muted); margin-top: 18px }
 .turn-status { padding-block: 12px; border-top: 1px solid var(--line) }
 .conversation-empty { margin-top: 24px }
-.composer { margin-top: 24px; border: 1px solid var(--control-line); border-radius: 12px; padding: 12px; box-shadow: 0 3px 12px #42314908; background: var(--surface) }
-.composer:focus-within { border-color: var(--accent) }
+.composer { margin-top: 24px; border: 1px solid var(--control-line); border-radius: 12px; padding: 12px; box-shadow: 0 3px 12px var(--composer-shadow); background: var(--surface) }
+.composer:focus-within { border-color: var(--focus) }
 .composer label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 8px }
 .composer textarea { width: 100%; min-height: 100px; max-height: 350px; resize: vertical; background: transparent; border: 0; border-radius: 5px; padding: 6px; font-size: 13px; line-height: 1.75 }
 .composer textarea::placeholder { color: var(--muted-lavender) }
@@ -126,15 +145,16 @@ dd { margin: 6px 0 0; color: var(--muted) }
 .empty-state p { margin-top: 12px; color: var(--muted) }
 .status-line, .preference-note { font-size: 12px; color: var(--muted); margin-top: 24px; min-height: 20px }
 .preference-note { color: var(--error-text) }
+.appearance-warning { color: var(--waiting-text); background: var(--waiting); margin-top: 24px; padding: 12px; border-radius: 8px; font-size: 12px }
 .mobile-menu { display: none }
 .codex-trigger { position: relative; width: 40px; height: 40px; padding: 9px; flex: none; color: var(--muted) }
-.codex-trigger img { width: 21px; height: 21px; opacity: .52; filter: grayscale(1) }
+.codex-trigger img { width: 21px; height: 21px; opacity: var(--logo-opacity); filter: var(--logo-filter) }
 .codex-trigger.codex-verified { background: var(--success); color: var(--success-text) }
 .codex-trigger.codex-verified img { opacity: .9 }
-.connection-tooltip { display: none; position: absolute; top: 48px; right: 0; z-index: 85; width: max-content; max-width: 260px; padding: 7px 10px; border-radius: 7px; background: #403348; color: #fff; font-size: 11px; font-weight: 400; line-height: 1.5; pointer-events: none }
+.connection-tooltip { display: none; position: absolute; top: 48px; right: 0; z-index: 85; width: max-content; max-width: 260px; padding: 7px 10px; border-radius: 7px; background: var(--tooltip); color: var(--tooltip-text); font-size: 11px; font-weight: 400; line-height: 1.5; pointer-events: none }
 .codex-trigger:is(:hover, :focus-visible) .connection-tooltip { display: block }
 .tooltips-dismissed .connection-tooltip { display: none !important }
-.connection-panel { position: fixed; top: 68px; right: 24px; z-index: 70; width: min(420px, calc(100vw - 32px)); max-height: calc(100dvh - 84px); overflow-y: auto; padding: 22px; border-radius: 12px; background: var(--surface); box-shadow: 0 12px 42px #24162f29 }
+.connection-panel { position: fixed; top: 68px; right: 24px; z-index: 70; width: min(420px, calc(100vw - 32px)); max-height: calc(100dvh - 84px); overflow-y: auto; padding: 22px; border-radius: 12px; background: var(--panel); box-shadow: 0 12px 42px var(--panel-shadow) }
 .connection-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px }
 .connection-heading h2 { font-size: 19px }
 .connection-heading button { min-width: 40px; min-height: 40px; padding: 8px }
@@ -163,14 +183,14 @@ dd { margin: 6px 0 0; color: var(--muted) }
 .connection-disconnect { color: var(--muted); margin-top: 4px }
 .connection-scope { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted) }
 .connection-scope p { font-size: 12px }
-.text-button { padding: 6px 0; color: var(--accent); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; margin-top: 8px }
-.plan-confirmation { color: var(--text); background: var(--surface); border: 0; border-radius: 15px; padding: 26px; width: min(480px, calc(100vw - 32px)); box-shadow: 0 18px 65px #24162f29 }
-.plan-confirmation::backdrop { background: #2f253a59 }
+.text-button { padding: 6px 0; color: var(--link); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; margin-top: 8px }
+.plan-confirmation { color: var(--text); background: var(--surface); border: 0; border-radius: 15px; padding: 26px; width: min(480px, calc(100vw - 32px)); box-shadow: 0 18px 65px var(--panel-shadow) }
+.plan-confirmation::backdrop { background: var(--backdrop) }
 .plan-confirmation p { margin-top: 14px }
 .plan-confirmation button { margin-top: 22px; min-height: 40px }
 @media (max-width: 720px) { .connection-panel { top: 65px; right: 16px; padding: 20px } }
-.navigation-drawer { position: fixed; inset: 0 auto 0 0; margin: 0; border: 0; width: min(240px, 100vw); height: 100dvh; max-height: none; background: var(--navigation); padding: 18px 12px; color: var(--text); box-shadow: 15px 0 45px #33273e33 }
-.navigation-drawer::backdrop { background: #2f253a59 }
+.navigation-drawer { position: fixed; inset: 0 auto 0 0; margin: 0; border: 0; width: min(240px, 100vw); height: 100dvh; max-height: none; background: var(--navigation); padding: 18px 12px; color: var(--text); box-shadow: 15px 0 45px var(--panel-shadow) }
+.navigation-drawer::backdrop { background: var(--backdrop) }
 .drawer-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-left: 10px }
 @media (min-width: 721px) {
   .nav-compact .sidebar { width: 58px; padding-left: 8px; padding-right: 8px }
@@ -179,7 +199,7 @@ dd { margin: 6px 0 0; color: var(--muted) }
   .nav-compact .brand::before { content: "M"; font-weight: 600; font-size: 18px; color: var(--muted-lavender) }
   .nav-compact .sidebar .nav-button { width: 40px; min-height: 40px; justify-content: center; padding: 0 }
   .nav-compact .sidebar .project-link:first-of-type { margin-top: 16px }
-  .nav-compact:not(.tooltips-dismissed) .sidebar .nav-button:is(:hover, :focus-visible)::after { content: attr(aria-label); position: fixed; left: 66px; z-index: 80; max-width: 260px; padding: 7px 10px; border-radius: 7px; background: #403348; color: #fff; font-size: 11px; font-weight: 400; line-height: 1.5; text-align: left; pointer-events: none; box-shadow: 0 4px 14px #24172d1f }
+  .nav-compact:not(.tooltips-dismissed) .sidebar .nav-button:is(:hover, :focus-visible)::after { content: attr(aria-label); position: fixed; left: 66px; z-index: 80; max-width: 260px; padding: 7px 10px; border-radius: 7px; background: var(--tooltip); color: var(--tooltip-text); font-size: 11px; font-weight: 400; line-height: 1.5; text-align: left; pointer-events: none; box-shadow: 0 4px 14px var(--tooltip-shadow) }
 }
 @media (min-width: 1600px) { :root { --sidebar: 240px; --context-panel: 350px } .main-inner { padding-left: 52px; padding-right: 52px } }
 @media (max-width: 1280px) { :root { --sidebar: 194px; --context-panel: 278px } .main-inner { padding: 30px 26px 40px } .topbar { padding-inline: 22px } .project-heading h1 { font-size: 24px } }

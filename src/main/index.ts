@@ -1,4 +1,4 @@
-import { app, BrowserWindow, clipboard, dialog, ipcMain, protocol, net, session, Menu, safeStorage, shell } from 'electron'
+import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, protocol, net, session, Menu, safeStorage, shell } from 'electron'
 import { realpath, stat, access } from 'node:fs/promises'
 import { constants } from 'node:fs'
 import { basename, isAbsolute, join, resolve, sep } from 'node:path'
@@ -17,6 +17,9 @@ import { CodexConnection } from '../adapters/codex/connection.ts'
 import { authorize, createTransport, refreshCredentials } from '../adapters/codex/oauth.ts'
 import { probeCodex } from '../adapters/codex/probe.ts'
 import { isTrustedCaller } from './boundary.ts'
+import { AppearanceStore } from '../adapters/persistence/appearance-store.ts'
+import { APPEARANCE_CHANNEL, isAppearanceCommand } from '../contracts/appearance.ts'
+import type { AppearanceState, AppearanceReply, Theme } from '../contracts/appearance.ts'
 
 protocol.registerSchemesAsPrivileged([{ scheme: 'madness', privileges: { standard: true, secure: true, supportFetchAPI: true } }])
 // Profils de développement/qualification isolés ; aucune lecture du profil usuel si défini.
@@ -34,6 +37,7 @@ let application: Application | null = null
 let connection: CodexConnection | null = null
 let dialogueCoordinator: DialogueCoordinator | null = null
 let readyToQuit = false
+let appearanceClosing = false
 
 if (!app.requestSingleInstanceLock()) app.quit()
 else {
@@ -73,6 +77,30 @@ else {
         await access(rootPath, constants.R_OK)
         return { rootPath, name: basename(rootPath) || rootPath }
       }
+    })
+    const appearanceStore = new AppearanceStore(join(app.getPath('userData'), 'appearance-v1.json'))
+    let appearance = await appearanceStore.restore()
+    let appearanceQueue: Promise<unknown> = Promise.resolve()
+    const nativeColors = (theme: Theme): { color: string; symbolColor: string; height: number } => ({ color: theme === 'dark' ? '#211F1E' : '#FFFFFF', symbolColor: theme === 'dark' ? '#F1EBE6' : '#29282E', height: 56 })
+    nativeTheme.themeSource = appearance.theme
+    application.lifecycle.register({ id: 'appearance', context: emptyContext(), stop: async () => { await appearanceQueue; return 'stopped' } })
+    ipcMain.handle(APPEARANCE_CHANNEL, (event, input: unknown): Promise<AppearanceReply> | AppearanceReply => {
+      const rejected = (error: 'UNTRUSTED_CALLER' | 'INVALID_COMMAND' | 'APP_CLOSING'): AppearanceReply => ({ contractVersion: 1, correlationId: 'rejected-request', ok: false, error, state: appearance })
+      if (!window || !isTrustedCaller(event, { webContents: window.webContents, mainFrame: window.webContents.mainFrame }, rendererUrl)) return rejected('UNTRUSTED_CALLER')
+      if (!isAppearanceCommand(input)) return rejected('INVALID_COMMAND')
+      if (appearanceClosing) return rejected('APP_CLOSING')
+      const result = appearanceQueue.then(async (): Promise<AppearanceReply> => {
+        // La lecture partage la file des changements, sans relire le fichier ni réappliquer l’amorce.
+        if ('theme' in input) {
+          const next: AppearanceState = await appearanceStore.save(input.theme)
+          appearance = next
+          nativeTheme.themeSource = next.theme
+          if (window && !window.isDestroyed()) { window.setBackgroundColor(nativeColors(next.theme).color); window.setTitleBarOverlay(nativeColors(next.theme)) }
+        }
+        return { contractVersion: 1, correlationId: input.correlationId, ok: true, state: appearance }
+      })
+      appearanceQueue = result.catch(() => undefined)
+      return result
     })
     const connectionRoot = join(app.getPath('userData'), 'codex-connection-v1')
     const vault = new CodexVault(connectionRoot, {
@@ -132,9 +160,9 @@ else {
     })
     window = new BrowserWindow({
       width: 1320, height: 860, minWidth: 520, minHeight: 520, show: false,
-      title: 'Madness', backgroundColor: '#FFFFFF', autoHideMenuBar: true,
-      titleBarStyle: 'hidden', titleBarOverlay: { color: '#FFFFFF', symbolColor: '#29282e', height: 56 },
-      webPreferences: { preload: join(__dirname, '../preload/index.js'), contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, allowRunningInsecureContent: false, webviewTag: false, spellcheck: false }
+      title: 'Madness', backgroundColor: nativeColors(appearance.theme).color, autoHideMenuBar: true,
+      titleBarStyle: 'hidden', titleBarOverlay: nativeColors(appearance.theme),
+      webPreferences: { preload: join(__dirname, '../preload/index.js'), additionalArguments: ['--madness-theme=' + appearance.theme, '--madness-appearance-warning=' + (appearance.warning ?? 'none')], contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, allowRunningInsecureContent: false, webviewTag: false, spellcheck: false }
     })
     window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
     window.webContents.on('will-navigate', (event) => event.preventDefault())
@@ -151,6 +179,7 @@ else {
   app.on('before-quit', (event) => {
     if (readyToQuit) return
     event.preventDefault()
+    appearanceClosing = true
     void (application?.shutdown() ?? Promise.resolve()).finally(() => { readyToQuit = true; app.quit() })
   })
   app.on('window-all-closed', () => app.quit())

@@ -5,6 +5,22 @@ import { CONNECTION_COMMAND_CHANNEL, CONNECTION_EVENT_CHANNEL, isConnectionReply
 import type { ConnectionAction, ConnectionBridge, ConnectionReply } from '../contracts/connection.ts'
 import { DIALOGUE_COMMAND_CHANNEL, DIALOGUE_EVENT_CHANNEL, isDialogueReply, isDialogueState } from '../contracts/dialogue.ts'
 import type { DialogueBridge, DialogueCommand, DialogueState } from '../contracts/dialogue.ts'
+import { APPEARANCE_CHANNEL, appearanceFromArguments, isAppearanceReply } from '../contracts/appearance.ts'
+import type { AppearanceBridge, AppearanceState, Theme } from '../contracts/appearance.ts'
+const appearanceRequest = async (action: { theme: Theme } | { type: 'read' }): Promise<AppearanceState> => {
+  const correlationId = crypto.randomUUID()
+  const reply: unknown = await ipcRenderer.invoke(APPEARANCE_CHANNEL, { contractVersion: 1, correlationId, ...action })
+  if (!isAppearanceReply(reply)) throw new Error('INVALID_APPEARANCE_REPLY')
+  if (reply.correlationId !== correlationId && (reply.ok || reply.correlationId !== 'rejected-request')) throw new Error('UNRELATED_APPEARANCE_REPLY')
+  if (!reply.ok) throw new Error(reply.error)
+  return reply.state
+}
+const appearanceBridge: AppearanceBridge = {
+  initial: Object.freeze(appearanceFromArguments(process.argv)),
+  read: () => appearanceRequest({ type: 'read' }),
+  setTheme: (theme) => appearanceRequest({ theme })
+}
+contextBridge.exposeInMainWorld('madnessAppearance', Object.freeze(appearanceBridge))
 const request = async (payload: Omit<Command, 'contractVersion' | 'correlationId'> | Record<string, unknown>): Promise<Reply> => {
   const correlationId = crypto.randomUUID()
   const reply: unknown = await ipcRenderer.invoke(COMMAND_CHANNEL, { ...payload, contractVersion: 1, correlationId })

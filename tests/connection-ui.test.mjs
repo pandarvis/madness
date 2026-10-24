@@ -19,6 +19,7 @@ before(async () => {
   await writeFile(join(root, 'main.cjs'), `const {app,BrowserWindow,session}=require('electron'); app.setPath('userData',${JSON.stringify(join(root, 'profile'))}); app.whenReady().then(()=>{session.defaultSession.webRequest.onBeforeRequest({urls:['http://*/*','https://*/*']},(_details,callback)=>callback({cancel:true})); const w=new BrowserWindow({show:false,width:600,height:800,webPreferences:{preload:${JSON.stringify(join(root, 'preload.cjs'))},contextIsolation:true,sandbox:true,nodeIntegration:false}});w.loadFile(${JSON.stringify(join(root, 'index.html'))});});`)
   await writeFile(join(root, 'index.html'), '<!doctype html><html lang="fr"><meta charset="utf-8"><div id="root"></div></html>')
   await writeFile(join(root, 'preload.cjs'), `const {contextBridge}=require('electron');
+    let appearanceFailure=false;contextBridge.exposeInMainWorld('madnessAppearance',{initial:{theme:'dark',warning:null},setTheme:async(theme)=>{if(appearanceFailure==='bridge')throw Error('BRIDGE_UNAVAILABLE');return {theme,warning:appearanceFailure?'save-failed':null}}});
     let state={contractVersion:1,sequence:0,status:'disconnected',accountStored:false,verifiedAt:null,errorCode:null,cliVersion:null,needsPlanAcknowledgement:false}, listeners=[],supportCalls=[],supportFailure=null,supportDeferred=false,finishSupport=null,verifies=0;
     const reply=()=>Promise.resolve({contractVersion:1,correlationId:'ui-fixture',state});
     const support=async(action)=>{supportCalls.push(action);if(supportFailure===action)throw Error('PUBLIC_KEYS_SUPPORT_FAILED');if(supportDeferred)await new Promise(resolve=>{finishSupport=resolve});return reply()};
@@ -29,7 +30,7 @@ before(async () => {
     const notifyDialogue=()=>dialogueListeners.forEach(listener=>listener(dialogue));
     contextBridge.exposeInMainWorld('madnessDialogue',{read:()=>Promise.resolve(dialogue),qualify:async(projectId)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:'qualified',context:{...dialogue.context,projectId}};notifyDialogue();return dialogue},launch:async(projectId)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:'ready',acknowledged:true,context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-1',providerId:'codex',connectionId:'account-1'},activities:['Tour terminé']};snapshot={...snapshot,revision:snapshot.revision+1,conversations:[{id:'conversation-1',context:dialogue.context,lastKnownActivity:'idle',messages:[{id:'hello',role:'assistant',text:'📊 Bonjour, je suis Mary. Voici mon menu.'}]}]};stateListeners.forEach(listener=>listener({}));notifyDialogue();return dialogue},send:async(projectId,conversationId,text)=>{sent.push({projectId,conversationId,text});dialogue={...dialogue,sequence:dialogue.sequence+1,status:'running',acknowledged:true};notifyDialogue();return dialogue},stop:async()=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:unknownOnStop?'unknown':'stopped',errorCode:unknownOnStop?'STOP_UNCONFIRMED':null};notifyDialogue();return dialogue},onChanged:listener=>{dialogueListeners.push(listener);return()=>{}}});
     contextBridge.exposeInMainWorld('madnessConnection',{read:reply,connect:reply,verify:()=>{verifies++;return reply()},cancel:reply,disconnect:reply,manageUsage:reply,openPublicKeys:()=>support('openPublicKeys'),copyPublicKeys:()=>support('copyPublicKeys'),acknowledgePlan:()=>{state={...state,sequence:state.sequence+1,status:'error',errorCode:'VAULT_UNREADABLE'};listeners.forEach(listener=>listener(state));return reply()},onChanged:listener=>{listeners.push(listener);return()=>{listeners=listeners.filter(value=>value!==listener)}}});
-    contextBridge.exposeInMainWorld('connectionUIFixture',{setState:value=>{state={...state,...value,sequence:state.sequence+1};listeners.forEach(listener=>listener(state))},setSnapshot:value=>{snapshot={...snapshot,...value};stateListeners.forEach(listener=>listener({}))},sent:()=>sent,unknownOnStop:()=>{unknownOnStop=true},supportCalls:()=>supportCalls,verifies:()=>verifies,failSupport:action=>{supportFailure=action},deferSupport:()=>{supportDeferred=true},finishSupport:()=>{supportDeferred=false;finishSupport?.()}});
+    contextBridge.exposeInMainWorld('connectionUIFixture',{failAppearance:value=>{appearanceFailure=value},setState:value=>{state={...state,...value,sequence:state.sequence+1};listeners.forEach(listener=>listener(state))},setSnapshot:value=>{snapshot={...snapshot,...value};stateListeners.forEach(listener=>listener({}))},sent:()=>sent,unknownOnStop:()=>{unknownOnStop=true},supportCalls:()=>supportCalls,verifies:()=>verifies,failSupport:action=>{supportFailure=action},deferSupport:()=>{supportDeferred=true},finishSupport:()=>{supportDeferred=false;finishSupport?.()}});
   `)
 })
 after(async () => { if (app) await app.close(); if (root) await rm(root, { recursive: true, force: true }) })
@@ -44,6 +45,29 @@ async function launch(state = {}) {
   await page.addScriptTag({ content: bundle })
   await page.getByRole('heading', { name: 'Vos projets, au même endroit', exact: true }).waitFor()
 }
+test('le thème change au clavier sans perdre le brouillon ni le contexte en fenêtre compacte', async () => {
+  await launch()
+  await page.evaluate(() => window.connectionUIFixture.setSnapshot({ projects:[{id:'project-theme',name:'Projet Thème',rootPath:'C:/theme',openedAt:new Date().toISOString()}] }))
+  await page.locator('.project-row').click()
+  await page.getByLabel('Brouillon pour Projet Thème').fill('Une saisie à conserver')
+  const toggle = page.getByRole('button', { name:'Passer au thème clair',exact:true })
+  await toggle.focus(); await page.keyboard.press('Enter')
+  await page.waitForFunction(() => document.documentElement.dataset.theme === 'light')
+  assert.equal(await page.getByRole('button',{name:'Passer au thème sombre',exact:true}).evaluate(element=>element===document.activeElement),true)
+  assert.equal(await page.getByLabel('Brouillon pour Projet Thème').inputValue(),'Une saisie à conserver')
+  await page.getByRole('button',{name:'Ouvrir la navigation',exact:true}).click()
+  await page.keyboard.press('Escape')
+  assert.equal(await page.getByLabel('Brouillon pour Projet Thème').inputValue(),'Une saisie à conserver')
+  assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+})
+for (const failure of [true,'bridge']) test(`un thème non sauvegardé garde un avertissement accessible et la saisie (${failure})`, async () => {
+  await launch()
+  await page.evaluate(value=>window.connectionUIFixture.failAppearance(value),failure)
+  await page.getByRole('button',{name:'Passer au thème clair',exact:true}).click()
+  await page.getByRole('status').filter({hasText:failure==='bridge'?'Le thème n’a pas pu être changé':'Le thème choisi s’applique à cette session'}).waitFor({timeout:2000})
+  assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),failure==='bridge'?'dark':'light')
+  assert.equal(await page.getByRole('heading',{name:'Vos projets, au même endroit',exact:true}).isVisible(),true)
+})
 test('le rappel forfait affiche l’erreur connue et reste fermable après un échec durable', async () => {
   await launch({ status: 'registered', accountStored: true, needsPlanAcknowledgement: true })
   const confirmation = page.getByRole('dialog', { name: 'Vous utilisez votre forfait ChatGPT', exact: true })

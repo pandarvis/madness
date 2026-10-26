@@ -1,0 +1,571 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T06:38:15.497Z",
+  "purpose": "local-build-prerequisites",
+  "baselineRevision": "31c309e79a92419be712a11a4190c5387818f072",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "nodeUsedForQualification": "v24.13.0"
+  },
+  "fresh": {
+    "buildInputs": {
+      "algorithm": "sha256-path-and-bytes",
+      "digest": "65dac4939d8e8fc0b0e11e9a2f0ecb420e3819f1a48df63c206ba3b14eb173ce",
+      "fileCount": 50
+    },
+    "bmad": {
+      "status": "passed",
+      "fingerprint": "170d70ddf8c43ce1549b86ae79616ef1d474664eb1514694379e260dc4161f0e",
+      "skillPath": "C:\\Sources\\madness\\.agents\\skills\\bmad-agent-analyst\\SKILL.md"
+    },
+    "runtime": {
+      "status": "passed",
+      "python": "C:\\Users\\UP60066553\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "uv": "C:\\Users\\UP60066553\\scoop\\apps\\uv\\0.13.0\\uv.exe",
+      "treeFingerprint": "0f3ef35995160c8db3b4892d9bb3bd9ea0eba75634d4fc4505eef13e7ce56f92",
+      "pythonVersion": "3.12.14",
+      "uvVersion": "0.13.0",
+      "versionEvidence": "historical version labels plus fresh pinned runtime fingerprints; no --version execution",
+      "excludes": [
+        "site-packages",
+        "__pycache__",
+        "test",
+        "tests"
+      ]
+    },
+    "resolvers": {
+      "status": "passed",
+      "agent": "Mary",
+      "outputFolder": "{project-root}/_bmad-output",
+      "initiative": "initiative-madness"
+    },
+    "codex": {
+      "status": "declared-version-coherent",
+      "versionDeclared": "0.144.6-win32-x64",
+      "versionExecutedFreshly": false,
+      "path": "C:\\Users\\UP60066553\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+      "packageRoot": "C:\\Users\\UP60066553\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64",
+      "protocolHistoryVersion": "0.144.6",
+      "currentProtocolProven": false,
+      "nativePackageVersion": "0.144.6-win32-x64",
+      "wrapperVersion": "0.144.6",
+      "historicalBinaryByteIdentityProven": false
+    },
+    "packages": {
+      "terracottaArchiveMatchesHistory": true,
+      "preparedArchiveMatchesHistory": true,
+      "preparedInstallerMatchesHistory": true,
+      "preparedInstalled": false
+    },
+    "checks": {
+      "types": {
+        "command": "npm run typecheck",
+        "exitCode": 0
+      },
+      "targetedTests": {
+        "command": "node --test tests/foundation.test.mjs tests/lifecycle.test.mjs tests/json-store-utf8.test.mjs tests/appearance.test.mjs tests/dialogue-profile.test.mjs tests/dialogue-runtime.test.mjs",
+        "exitCode": 0,
+        "passed": 24,
+        "failed": 0
+      },
+      "packagedWindows": {
+        "command": "node scripts/qualification/windows.mjs --ui-regressions-only --skip-screenshots --executable=C:/Sources/madness/dist/navigation-cleanup/win-unpacked/Madness.exe",
+        "exitCode": 0,
+        "passed": 5,
+        "cleanup": true,
+        "screenshots": false,
+        "scope": "five focused UI regressions, not the complete historical G0 suite"
+      },
+      "failurePaths": {
+        "passed": 3,
+        "cases": [
+          "hash",
+          "scope",
+          "internal-traversal"
+        ],
+        "cleanup": true
+      }
+    }
+  },
+  "files": [
+    {
+      "scope": "repository",
+      "path": "electron-builder.yml",
+      "sha256": "170b85dac0e5e72b7232aa0ba0b8447bf17197586c9f5aa21acc2082125652f9"
+    },
+    {
+      "scope": "repository",
+      "path": "electron.vite.config.ts",
+      "sha256": "30d5a13ac2a05badad558bab10ff72a8af7f8a16dc53a746586fc22db69f6172"
+    },
+    {
+      "scope": "repository",
+      "path": "package-lock.json",
+      "sha256": "e393e43edb7593da5b1554ed14f800b1e493417637816e0df0b52dc3eaaae376"
+    },
+    {
+      "scope": "repository",
+      "path": "package.json",
+      "sha256": "799cead6f72f4756170887f5622d631c6bc9ee444ea3780b3107645e03810580"
+    },
+    {
+      "scope": "repository",
+      "path": "resources/THIRD-PARTY-NOTICES.md",
+      "sha256": "0dd414e4d1ab08468ae7a8deb4f1f80d5bdc65ee4e16050d1d971aca972e08bf"
+    },
+    {
+      "scope": "repository",
+      "path": "src/adapters/bmad/profile.ts",
+      "sha256": "7f1cb5a7b876e24c135ce0cd4b3417d2018952843d5ae18a86d63da5d1063787"
+    },
+    {
+      "scope": "repository",
+      "path": "src/adapters/bmad/runtime.ts",
+      "sha256": "18f76e5a0436f9c9cbab539c57d6a4aaf40a0db33b94865caeade5cf7eae5d91"
+    },
+    {
+      "scope": "repository",
+      "path": "src/adapters/codex/connection.ts",
+      "sha256": "19b6677eb7a737d02afd77924a06fab98ff3ba859acfe63a18e24b65ba71e058"
+    },
+    {
+      "scope": "repository",
+      "path": "src/adapters/codex/dialogue.ts",
+      "sha256": "aa4ef28aaaf8672bab1e6a234dd581cde444f7807f44a55e8b3e41b698e8ef07"
+    },
+    {
+      "scope": "repository",
+      "path": "src/adapters/codex/oauth.ts",
+      "sha256": "f1a2d05b14bf1db96af5ac06bb172f953e3b50a2593b5706d21596409a0ff29e"
+    },
+    {
+      "scope": "repository",
+      "path": "src/adapters/codex/probe.ts",
+      "sha256": "0199ae3a8ec08b92268dc58ffe2d37a9dfd47171230c3cd0b577e96fe9ab5dca"
+    },
+    {
+      "scope": "repository",
+      "path": "src/adapters/codex/vault.ts",
+      "sha256": "20cdba04dd0401e8df833985f7323348d7c9790002220f750b92b87583029057"
+    },
+    {
+      "scope": "repository",
+      "path": "src/adapters/persistence/appearance-store.ts",
+      "sha256": "d9fba482074090f51902fbfee0297c7a5c3fe02b1cd0e52394f76010497841dc"
+    },
+    {
+      "scope": "repository",
+      "path": "src/adapters/persistence/json-store.ts",
+      "sha256": "0bbdc33eec873bad41588711d2c35aafbf6b48840c527a63883571611bb33ec7"
+    },
+    {
+      "scope": "repository",
+      "path": "src/contracts/appearance.ts",
+      "sha256": "c330b4de18bc6d8ad7bbbc1fef427250d7f42cd5a04dd43c02211ceee3c50880"
+    },
+    {
+      "scope": "repository",
+      "path": "src/contracts/connection.ts",
+      "sha256": "ccd3cb5ee134807fd0a0e6555f4b2288bc8819f9c35c75bc5285b0147089aaf2"
+    },
+    {
+      "scope": "repository",
+      "path": "src/contracts/dialogue.ts",
+      "sha256": "f10440d6173a22fc8ded1503ae139b4b13b1472719f856cb0b16d375a83c68a0"
+    },
+    {
+      "scope": "repository",
+      "path": "src/contracts/index.ts",
+      "sha256": "336faf25ca0e0d90da87b71cac401c6abaf6f25dfc6313b2332e3484795d29d0"
+    },
+    {
+      "scope": "repository",
+      "path": "src/core/application.ts",
+      "sha256": "fdfd5c14495034154a9ebcd6aba50ec96131fc485d435ace19608fd521025e24"
+    },
+    {
+      "scope": "repository",
+      "path": "src/core/dialogue.ts",
+      "sha256": "931a52b80a025ceb6ce53fd0a494ee577b7a1e75c625a898b76fa08a5b5d8168"
+    },
+    {
+      "scope": "repository",
+      "path": "src/core/lifecycle.ts",
+      "sha256": "8f3d41e6964055441245f505830f1aefd2d56632d7ab43552d5cf3ef94a9e10e"
+    },
+    {
+      "scope": "repository",
+      "path": "src/core/ports.ts",
+      "sha256": "43571d3a4daa1440a4a8fbf398b19052389f9f56c71d011034b2d4494de24f3a"
+    },
+    {
+      "scope": "repository",
+      "path": "src/main/boundary.ts",
+      "sha256": "84803089232f729a1ee4eff278996f56541de401dbd7bbf170ce38c17b9a9f3f"
+    },
+    {
+      "scope": "repository",
+      "path": "src/main/index.ts",
+      "sha256": "b2c4bef585e612a535406a33156f01bcb66ddfc191a37e90573a32cf54ebcbe0"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/_metadata.json",
+      "sha256": "77c769171fbed780ad2027cd1970f70a5b1043e05125efd1f389d4b312e12cac"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/package.json",
+      "sha256": "3ca9d4afd21425087cf31893b8f9f63c81b0b8408db5e343ca76e5f8aa26ab9a"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/react-DgVJeC5g.js",
+      "sha256": "3c18eca841add53dd9b8454b3a444291ed2b160a899b13512b2a22bf4a92d768"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/react-DgVJeC5g.js.map",
+      "sha256": "1b5dc909e56fe2d3df42ffc9c46b784cb36123181fbfe1a5c90e68a9d71b0ceb"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/react-dom-CFuoV50Q.js",
+      "sha256": "071792cd74ed6589f5a90e4a485b331d2610f0a579f57eadc20453d52d22d1c6"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/react-dom-CFuoV50Q.js.map",
+      "sha256": "e06cb5bf6e67babd9a572d49711a959932ca7a254caeb9b6da40e6b38da29ac4"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/react-dom.js",
+      "sha256": "a2dfa74a3c87b5d80a4981bfe0bfc1831057d8c8ff07ba70fbc228b036035593"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/react-dom_client.js",
+      "sha256": "7dff7f1b25377220c70e4ca8cc9ffb42fea9b7561b63fd9278610fbb2dc089ff"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/react-dom_client.js.map",
+      "sha256": "9eb7821ad1f335dadf5500dee7526d9d7cf5e89f7a2667598025e7a4aa925ae6"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/react.js",
+      "sha256": "a59e03eb14bfbe1e60b58550c3edbe3d7044c1d1370a51338612381aef3519b8"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/react_jsx-dev-runtime.js",
+      "sha256": "0fdec6304c67db5f1a3ef4bec895f57b7b1e424635eeb7dc386da66c740e1a90"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/react_jsx-dev-runtime.js.map",
+      "sha256": "999d2e02d96239f7911da7edbaad974622e6f71d15ad81ec11b117ac9d6bfec9"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/react_jsx-runtime.js",
+      "sha256": "bdd489cc3266584ab2bab029b2de5b2ed7c9b61cd74b2c1f5319d15139be78ac"
+    },
+    {
+      "scope": "repository",
+      "path": "src/node_modules/.vite/deps/react_jsx-runtime.js.map",
+      "sha256": "63777f7300167b1fde9f58359017c9b1641fe5ca807f40c390060ce926bcabcc"
+    },
+    {
+      "scope": "repository",
+      "path": "src/package.json",
+      "sha256": "5a065fe7d8eab2a582f428e11c2ea63aaf70607a54f69cfd5c711b5c53d91b32"
+    },
+    {
+      "scope": "repository",
+      "path": "src/preload/index.ts",
+      "sha256": "ab75272b58c052345be94a4c6a06567baddf1adf5b90568020e6b1cb7e58a238"
+    },
+    {
+      "scope": "repository",
+      "path": "src/renderer/index.html",
+      "sha256": "189d632933119a73aa4da29672517090596f00e46cab5bc119b61db2948f4bef"
+    },
+    {
+      "scope": "repository",
+      "path": "src/renderer/src/App.tsx",
+      "sha256": "435390bb8d386518f0e1aea41bb4319981b7234f00041f1a69c28e49c0980ffa"
+    },
+    {
+      "scope": "repository",
+      "path": "src/renderer/src/assets/chatgpt-mark.svg",
+      "sha256": "b8b9aba7ba591f54bf1805f422bc23f32c44ee993643cc378cc77f766061f7a1"
+    },
+    {
+      "scope": "repository",
+      "path": "src/renderer/src/env.d.ts",
+      "sha256": "c48f25f8fdd2b914e8fb900323f4402f43a26fe6ba922d4a4d9eb707d9d2c70b"
+    },
+    {
+      "scope": "repository",
+      "path": "src/renderer/src/main.tsx",
+      "sha256": "9447f6dd9d682042b49ce061f8c82c9cee980f6fefa0ca1b0ae4c6696965c90b"
+    },
+    {
+      "scope": "repository",
+      "path": "src/renderer/src/strings.ts",
+      "sha256": "45a9fd93fbe04d96a1d7c248a774f318a2a67ff62764ee9db455aef5140f9210"
+    },
+    {
+      "scope": "repository",
+      "path": "src/renderer/src/styles.css",
+      "sha256": "95dc583ca8a648db3bc2de9c8149362855c17040b94116b4290b9c68825f221c"
+    },
+    {
+      "scope": "repository",
+      "path": "tsconfig.json",
+      "sha256": "3983835feac8cd22927398f66367953cbe99d53ef5a27a33fe35267f62560a8c"
+    },
+    {
+      "scope": "repository",
+      "path": "tsconfig.node.json",
+      "sha256": "e2174b7408fe8ee5a55b7adbc48be7e6557c065cdabbd1c7e23245515c886815"
+    },
+    {
+      "scope": "repository",
+      "path": "tsconfig.web.json",
+      "sha256": "37ba00f02ce8b80c40b7161f2a84c817b35734b5f7fafb9b2bb91eb988c8adf1"
+    },
+    {
+      "scope": "repository",
+      "path": ".agents/skills/bmad-agent-analyst/SKILL.md",
+      "sha256": "6484b18e36a2c5c40bfdaa3c820b7251dad20b97624dd7d43cc629cd33d61e2a"
+    },
+    {
+      "scope": "repository",
+      "path": ".agents/skills/bmad-agent-analyst/customize.toml",
+      "sha256": "eaed9efbff9cc115b83d5d263b19b9e0202b5b30fa9c4321d18f8c401cbfe85e"
+    },
+    {
+      "scope": "repository",
+      "path": ".agents/skills/bmad-agent-analyst/bmod.toml",
+      "sha256": "ec2117eafcb40f25457ff4667750e0e98824b4255ca83f3af8d4f8724b851f6c"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad/scripts/resolve_customization.py",
+      "sha256": "ba379892dea849bdf2bbf7183556dc1030a8aa775ff083d3b89db47b18bf367f"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad/scripts/resolve_config.py",
+      "sha256": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad/scripts/config_utils.py",
+      "sha256": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad/scripts/setup_check.py",
+      "sha256": "1c59560aba5f3daed3ab64a04bfb15e0f88a2982f63cd541725ac46a4eca033f"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad/scripts/setup.py",
+      "sha256": "1de76dce0b4ba702da927d6dc83fd620ec0774aa1c1ab0cc5739167c135f64f8"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad/config.toml",
+      "sha256": "2ce3e066d9b22526f6abe97581ffe25a6090536c12bd6e2496f1ad48b3d13928"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad/custom/config.user.toml",
+      "sha256": "aa876c2d08a664736be94750e6715501876dbf6555a7bea6cedffdf6dceae7b4"
+    },
+    {
+      "scope": "codexPackage",
+      "path": "package.json",
+      "sha256": "8e55431148bb2ffc633a7aff1870ee213627f56357138fa0cb86d8a2e42f7106"
+    },
+    {
+      "scope": "codexPackage",
+      "path": "vendor/x86_64-pc-windows-msvc/bin/codex.exe",
+      "sha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-g0/profile.json",
+      "sha256": "03d6f5860255fd45b43434fa96b2fd6bca2870349d55ce35745289d42ada8c5a"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad-output/initiative-madness/qualification-connexion-codex/live-confirmed-profile.json",
+      "sha256": "d231f1e7bc1a0a7d4cfc09efc20813372cee2bf1727d55de6ed54731e15b1946"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad-output/initiative-madness/qualification-dialogue-local/live-profile.json",
+      "sha256": "18efe9895f33ab1774e751a09e303f0b60edd0cb889b8822a2622c3769e3e0bd"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad-output/initiative-madness/qualification-dialogue-local/installed-profile.json",
+      "sha256": "6b30bf3ad4f38be9049e078d3843aab8aee881975ed86b11d63ee968be925b97"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad-output/initiative-madness/qualification-theme/installation.json",
+      "sha256": "4a5a8dac91e819778dd9d9858b54b54cc8e7970dfbaa7193154afa0515617e74"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad-output/initiative-madness/qualification-theme/verification.json",
+      "sha256": "cdc25f138aae030b01d18fff165754e7a723d44e44a72998385eb6c10d8305de"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad-output/initiative-madness/qualification-navigation-marque/verification.json",
+      "sha256": "535a9b37d69a63aee2f20aeb8df19e442134107d3ad3d1eab0f8f1dda6b50613"
+    },
+    {
+      "scope": "repository",
+      "path": "dist/terracotta-pilot/win-unpacked/resources/app.asar",
+      "sha256": "5c805e2d2fc465d11b01dca14fb58e39b5d83d0ee2df5de6becb3cda04c00aa4"
+    },
+    {
+      "scope": "repository",
+      "path": "dist/terracotta-pilot/Madness-0.1.0-x64-setup.exe",
+      "sha256": "8e74a71679cc4ec45dc2d953af3ba12ff23ddbc1314727676530e687d575c68f"
+    },
+    {
+      "scope": "repository",
+      "path": "dist/navigation-cleanup/win-unpacked/resources/app.asar",
+      "sha256": "16f895da48b105ea3a67608649fca1e762f59d3123ffc8f61a4bc2ed64f43267"
+    },
+    {
+      "scope": "repository",
+      "path": "dist/navigation-cleanup/win-unpacked/Madness.exe",
+      "sha256": "e5dafb03e863ee46904e42af67757c21c2aa69d2be01c434e3fc662ab08424b1"
+    },
+    {
+      "scope": "repository",
+      "path": "dist/navigation-cleanup/Madness-0.1.0-x64-setup.exe",
+      "sha256": "1f2231cc8efed642b9ea27a48b21de3b768676bbfa6c140e9644f3cffc42dc68"
+    },
+    {
+      "scope": "codexWrapper",
+      "path": "package.json",
+      "sha256": "b701b7d7b7683263e5612e612c468c526d78c3deb1360741e976dc40e0456919"
+    },
+    {
+      "scope": "repository",
+      "path": "dist/win-unpacked/resources/app.asar",
+      "sha256": "6c8c7867d1832e1be633751ce402ec7bade5a7eab2ab9f969887a6ca0dd3f121"
+    },
+    {
+      "scope": "repository",
+      "path": "dist/dialogue-pilot/win-unpacked/resources/app.asar",
+      "sha256": "2559a72778a4a26547e1e897384f872f0cddd1887fd4d3d865d49a0ac1bc980e"
+    },
+    {
+      "scope": "repository",
+      "path": "_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-profil-local/sources-officielles.md",
+      "sha256": "0fcb19581abfc62de62ece480c30cf756071a7adefd458644be04ebe3f50596b"
+    }
+  ],
+  "historicalEvidence": [
+    {
+      "file": "_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-g0/profile.json",
+      "observedAt": "2026-10-24T11:42:17.015Z",
+      "status": "local-technical-checks-passed",
+      "freshlyReexecuted": false
+    },
+    {
+      "file": "_bmad-output/initiative-madness/qualification-connexion-codex/live-confirmed-profile.json",
+      "observedAt": "2026-10-24T11:47:01.186Z",
+      "status": "see-source",
+      "freshlyReexecuted": false
+    },
+    {
+      "file": "_bmad-output/initiative-madness/qualification-dialogue-local/live-profile.json",
+      "observedAt": "2026-10-24T13:53:18.461Z",
+      "status": "live-dialogue-confirmed",
+      "freshlyReexecuted": false
+    },
+    {
+      "file": "_bmad-output/initiative-madness/qualification-dialogue-local/installed-profile.json",
+      "observedAt": "2026-10-24T14:00:33.682Z",
+      "status": "installed-reopen-confirmed",
+      "freshlyReexecuted": false
+    },
+    {
+      "file": "_bmad-output/initiative-madness/qualification-theme/installation.json",
+      "observedAt": "2026-10-24T16:08:18.5277898Z",
+      "status": "installed-normal-window-reopened",
+      "freshlyReexecuted": false
+    },
+    {
+      "file": "_bmad-output/initiative-madness/qualification-theme/verification.json",
+      "observedAt": "2026-10-24T15:56:15.3549898Z",
+      "status": "installed-normal-window-reopened",
+      "freshlyReexecuted": false
+    },
+    {
+      "file": "_bmad-output/initiative-madness/qualification-navigation-marque/verification.json",
+      "observedAt": "2026-10-24T17:04:48.9518674Z",
+      "status": "see-source",
+      "freshlyReexecuted": false
+    }
+  ],
+  "capabilities": {
+    "freeMaryDiscussion": "historically-proven",
+    "documentaryWorkflow": "not-implemented",
+    "documentaryInvocationAllowed": false,
+    "currentAccountValidated": false,
+    "distributionQualified": false,
+    "fullG0": false,
+    "fullG1": false
+  },
+  "currentPersonalInstallation": {
+    "status": "not-located-by-targeted-read-only-inspection",
+    "freshlyVerified": false,
+    "uninstalled": null
+  },
+  "conclusion": {
+    "canStartStory13": true,
+    "scope": "implementation-only",
+    "canInvokeDocumentaryWorkflow": false,
+    "reason": "La base locale est vérifiée pour commencer la réalisation de1.3 ; le pilote actuel ne peut pas exécuter son workflow documentaire."
+  },
+  "executionBoundaries": {
+    "providerStarted": false,
+    "oauthStarted": false,
+    "credentialsRead": false,
+    "personalProfileChanged": false,
+    "historicalReportsRewritten": false
+  },
+  "officialDocumentation": {
+    "consultedAt": "2026-10-26",
+    "record": "sources-officielles.md",
+    "localUsage": "documented local-hosted scope; not a general distribution approval",
+    "urls": [
+      "https://developers.openai.com/siwc/token-sharing-open-source",
+      "https://developers.openai.com/siwc/token-sharing-open-source/codex-app-server",
+      "https://developers.openai.com/siwc/token-sharing-open-source/preview-limitations"
+    ]
+  },
+  "beforeStory13Invocation": [
+    "Identifier et qualifier le workflow installé et son parcours intégral, sans amputer ses demandes natives.",
+    "Mettre en œuvre et vérifier les lectures/outils/écritures nécessaires dans les limites du workflow ; Mary actuel les refuse.",
+    "Revérifier empreintes, environnement, paquet installé, compte/permission forfait et réseau/certificats du processus réellement lancé.",
+    "Capturer projet et initiative requise ; la preuve historique Mary a initiativeId:null et ne qualifie pas le multi-initiative.",
+    "Effectuer explicitement l essai complet sur un dossier dédié ; observer livrable, effets, contexte, accusés, arrêt, restauration et chemins."
+  ]
+}

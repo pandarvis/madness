@@ -1,0 +1,9 @@
+# Sources officielles — consultation du 26 octobre 2026
+
+Ces sources documentent le profil local ; elles ne constituent pas une validation du compte, du réseau ou de la distribution de Madness.
+
+- [SIWC — Overview](https://developers.openai.com/siwc/token-sharing-open-source) : décrit l'utilisation du forfait pour applications open source ou hébergées localement, avec consentement distinct et identité d'hôte persistante. Le cas personnel local de ce spike entre dans cette portée documentaire ; cette lecture ne tranche pas l'admissibilité du produit gratuit fermé distribué. Aucun changement de licence n'est décidé.
+- [SIWC — Codex app-server](https://developers.openai.com/siwc/token-sharing-open-source/codex-app-server) : décrit le fournisseur Responses avec access token propre à l'application dans l'environnement enfant, sans connexion Codex supplémentaire. Une réponse d'inférence terminée fait preuve pour cette demande ; un catalogue seul ne suffit pas. L'application gère le renouvellement de ses jetons.
+- [SIWC — Preview limitations](https://developers.openai.com/siwc/token-sharing-open-source/preview-limitations) : distingue outils locaux et outils hébergés, impose le transport HTTP/SSE de cette configuration et précise les limites d'historique et de renouvellement. Une documentation de capacité ne démontre pas son implémentation dans Madness.
+
+Les deux resolvers BMad frais ne passent pas par OpenAI. Le tour SIWC et les trois tours Mary du 24 octobre restent des preuves historiques de leurs versions et scénarios. Aucun nouveau forfait, scope, modèle accessible ou quota n'est inféré de cette consultation. Le traitement du réseau actuel et du renouvellement sera vérifié sur une demande explicitement lancée pendant 1.3, après qualification de son workflow et de ses effets.

@@ -1,0 +1,11 @@
+{
+  "observedAt": "2026-10-26T09:06:41.6765418Z",
+  "processId": 46252,
+  "parentProcessId": 35320,
+  "executable": "C:\\Users\\UP60066553\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+  "sha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+  "appServer": true,
+  "stdio": true,
+  "sandboxEvidence": "Le contrôle thread/start exige readOnly avant le tour ; les appels natifs observés montrent que ce contrôle a été franchi. Ce fait ne provient pas des métadonnées Windows.",
+  "credentialHandling": "Le code spawn transmet le jeton par environnement interne ; aucun argument ni environnement natif n’est exporté dans cette preuve."
+}

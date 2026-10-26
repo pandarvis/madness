@@ -26,11 +26,13 @@ before(async () => {
     let snapshot={schemaVersion:1,revision:0,projects:[],activeProjectId:null,drafts:[],preferences:{navigationCollapsed:false},conversations:[],capabilities:{codex:{available:false,reasonKey:'codex.unqualified'}},lifecycle:'idle'}, stateListeners=[];
     const appReply=()=>Promise.resolve({ok:true,contractVersion:1,correlationId:'ui-fixture',value:{state:snapshot,effect:'read'}});
     contextBridge.exposeInMainWorld('madness',{readState:appReply,onStateChanged:listener=>{stateListeners.push(listener);return()=>{}},selectProject:async(projectId)=>{snapshot={...snapshot,revision:snapshot.revision+1,activeProjectId:projectId};return appReply()},saveDraft:async(projectId,text)=>{snapshot={...snapshot,revision:snapshot.revision+1,drafts:[{projectId,text,savedAt:new Date().toISOString()}]};return appReply()},setNavigation:async(collapsed)=>{snapshot={...snapshot,revision:snapshot.revision+1,preferences:{navigationCollapsed:collapsed}};return appReply()}});
-    let dialogue={contractVersion:1,sequence:0,status:'idle',context:{projectId:null,initiativeId:null,conversationId:null,providerId:null,connectionId:null},invocation:'$bmad-agent-analyst',profile:null,acknowledged:false,errorCode:null,activities:[]},dialogueListeners=[],sent=[],unknownOnStop=false;
+    let dialogue={contractVersion:1,sequence:0,status:'idle',context:{projectId:null,initiativeId:null,conversationId:null,providerId:null,connectionId:null},invocation:'$bmad-agent-analyst',profile:null,acknowledged:false,errorCode:null,activities:[],workflows:[]},dialogueListeners=[],sent=[],copies=[],unknownOnStop=false;
     const notifyDialogue=()=>dialogueListeners.forEach(listener=>listener(dialogue));
-    contextBridge.exposeInMainWorld('madnessDialogue',{read:()=>Promise.resolve(dialogue),qualify:async(projectId)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:'qualified',context:{...dialogue.context,projectId}};notifyDialogue();return dialogue},launch:async(projectId)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:'ready',acknowledged:true,context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-1',providerId:'codex',connectionId:'account-1'},activities:['Tour terminé']};snapshot={...snapshot,revision:snapshot.revision+1,conversations:[{id:'conversation-1',context:dialogue.context,lastKnownActivity:'idle',messages:[{id:'hello',role:'assistant',text:'📊 Bonjour, je suis Mary. Voici mon menu.'}]}]};stateListeners.forEach(listener=>listener({}));notifyDialogue();return dialogue},send:async(projectId,conversationId,text)=>{sent.push({projectId,conversationId,text});dialogue={...dialogue,sequence:dialogue.sequence+1,status:'running',acknowledged:true};notifyDialogue();return dialogue},stop:async()=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:unknownOnStop?'unknown':'stopped',errorCode:unknownOnStop?'STOP_UNCONFIRMED':null};notifyDialogue();return dialogue},onChanged:listener=>{dialogueListeners.push(listener);return()=>{}}});
+    const qualifyForge=async(projectId)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:'qualified',invocation:'$bmad-forge-idea',context:{...dialogue.context,projectId},profile:{fingerprint:'a'.repeat(64),skillPath:'C:/forge/.agents/skills/bmad-forge-idea/SKILL.md',outputBase:'C:/forge/_bmad-output/initiative-test'}};notifyDialogue();return dialogue};
+    const launchForge=async(projectId)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:'ready',invocation:'$bmad-forge-idea',context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-forge',providerId:'codex',connectionId:'account-1'},workflows:[{schemaVersion:1,conversationId:'conversation-forge',context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-forge',providerId:'codex',connectionId:'account-1'},invocation:'$bmad-forge-idea',capturedAt:new Date().toISOString(),rootPath:'C:/forge',outputBase:'C:/forge/_bmad-output/initiative-test',contextDigest:'b'.repeat(64),fingerprint:'a'.repeat(64),skillPath:'C:/forge/.agents/skills/bmad-forge-idea/SKILL.md',workspace:'C:/forge/_bmad-output/initiative-test/forge-ui-test',outcome:'open',observations:[]}]};snapshot={...snapshot,revision:snapshot.revision+1,conversations:[{id:'conversation-forge',context:dialogue.context,lastKnownActivity:'idle',messages:[{id:'invocation-forge',role:'user',text:'$bmad-forge-idea'},{id:'welcome-forge',role:'assistant',text:'Quelle idée souhaitez-vous éprouver ? Fin du tour.'}]}]};stateListeners.forEach(listener=>listener({}));notifyDialogue();return dialogue};
+    contextBridge.exposeInMainWorld('madnessDialogue',{qualifyForge,launchForge,copyWorkflow:async(conversationId,target)=>{copies.push({conversationId,target});return dialogue},read:()=>Promise.resolve(dialogue),qualify:async(projectId)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:'qualified',context:{...dialogue.context,projectId}};notifyDialogue();return dialogue},launch:async(projectId)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:'ready',invocation:'$bmad-agent-analyst',acknowledged:true,context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-1',providerId:'codex',connectionId:'account-1'},activities:['Tour terminé']};snapshot={...snapshot,revision:snapshot.revision+1,conversations:[...snapshot.conversations.filter(c=>c.id!=='conversation-1'),{id:'conversation-1',context:dialogue.context,lastKnownActivity:'idle',messages:[{id:'hello',role:'assistant',text:'📊 Bonjour, je suis Mary. Voici mon menu.'}]}]};stateListeners.forEach(listener=>listener({}));notifyDialogue();return dialogue},send:async(projectId,conversationId,text)=>{sent.push({projectId,conversationId,text});dialogue={...dialogue,sequence:dialogue.sequence+1,status:'running',acknowledged:true};notifyDialogue();return dialogue},stop:async()=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:unknownOnStop?'unknown':'stopped',errorCode:unknownOnStop?'STOP_UNCONFIRMED':null};notifyDialogue();return dialogue},onChanged:listener=>{dialogueListeners.push(listener);return()=>{}}});
     contextBridge.exposeInMainWorld('madnessConnection',{read:reply,connect:reply,verify:()=>{verifies++;return reply()},cancel:reply,disconnect:reply,manageUsage:reply,openPublicKeys:()=>support('openPublicKeys'),copyPublicKeys:()=>support('copyPublicKeys'),acknowledgePlan:()=>{state={...state,sequence:state.sequence+1,status:'error',errorCode:'VAULT_UNREADABLE'};listeners.forEach(listener=>listener(state));return reply()},onChanged:listener=>{listeners.push(listener);return()=>{listeners=listeners.filter(value=>value!==listener)}}});
-    contextBridge.exposeInMainWorld('connectionUIFixture',{failAppearance:value=>{appearanceFailure=value},setState:value=>{state={...state,...value,sequence:state.sequence+1};listeners.forEach(listener=>listener(state))},setSnapshot:value=>{snapshot={...snapshot,...value};stateListeners.forEach(listener=>listener({}))},sent:()=>sent,unknownOnStop:()=>{unknownOnStop=true},supportCalls:()=>supportCalls,verifies:()=>verifies,failSupport:action=>{supportFailure=action},deferSupport:()=>{supportDeferred=true},finishSupport:()=>{supportDeferred=false;finishSupport?.()}});
+    contextBridge.exposeInMainWorld('connectionUIFixture',{failAppearance:value=>{appearanceFailure=value},setState:value=>{state={...state,...value,sequence:state.sequence+1};listeners.forEach(listener=>listener(state))},setSnapshot:value=>{snapshot={...snapshot,...value};stateListeners.forEach(listener=>listener({}))},setDialogue:value=>{dialogue={...dialogue,...value,sequence:dialogue.sequence+1};notifyDialogue()},sent:()=>sent,copies:()=>copies,unknownOnStop:()=>{unknownOnStop=true},supportCalls:()=>supportCalls,verifies:()=>verifies,failSupport:action=>{supportFailure=action},deferSupport:()=>{supportDeferred=true},finishSupport:()=>{supportDeferred=false;finishSupport?.()}});
   `)
 })
 after(async () => { if (app) await app.close(); if (root) await rm(root, { recursive: true, force: true }) })
@@ -59,6 +61,93 @@ test('le thème change au clavier sans perdre le brouillon ni le contexte en fen
   await page.keyboard.press('Escape')
   assert.equal(await page.getByLabel('Brouillon pour Projet Thème').inputValue(),'Une saisie à conserver')
   assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+})
+test('Forge prépare la portée inline, exige qualification et lancement explicites puis conserve le brouillon et le destinataire',async()=>{
+ await launch({status:'registered',accountStored:true,needsPlanAcknowledgement:false})
+ await page.evaluate(()=>window.connectionUIFixture.setSnapshot({projects:[{id:'project-forge',name:'Projet Forge',rootPath:'C:/forge',openedAt:new Date().toISOString()}]}))
+ await page.locator('.project-row').click();await page.locator('#draft').fill('Brouillon à conserver')
+ await page.getByRole('button',{name:'Préparer Forge',exact:true}).click()
+ const start=page.getByRole('button',{name:'Lancer Forge avec Codex',exact:true});assert.equal(await start.isDisabled(),true)
+ await page.getByRole('button',{name:'Vérifier le profil Forge',exact:true}).click();assert.equal(await start.isEnabled(),true)
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+ await page.getByText('C:/forge/_bmad-output/initiative-test',{exact:true}).waitFor()
+ await start.click();await page.getByLabel('Votre réponse à Forge',{exact:true}).waitFor()
+ assert.equal(await page.locator('#draft').inputValue(),'Brouillon à conserver');assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+ await page.getByRole('heading',{name:'Résultat observé de Forge',exact:true}).waitFor()
+ await page.getByRole('button',{name:'Copier l’invocation',exact:true}).click();await page.getByRole('status').filter({hasText:'Invocation copiée.'}).waitFor()
+ await page.getByRole('button',{name:'Envoyer à Forge',exact:true}).click()
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[{projectId:'project-forge',conversationId:'conversation-forge',text:'Brouillon à conserver'}])
+})
+for(const recipient of ['Forge','Mary'])test('les contrôles partagés sont attribués à la session '+recipient,async()=>{
+ await launch({status:'registered',accountStored:true,needsPlanAcknowledgement:false})
+ await page.evaluate(()=>window.connectionUIFixture.setSnapshot({projects:[{id:'project-session',name:'Projet Session',rootPath:'C:/session',openedAt:new Date().toISOString()}]}))
+ await page.locator('.project-row').click()
+ if(recipient==='Forge'){await page.getByRole('button',{name:'Préparer Forge',exact:true}).click();await page.getByRole('button',{name:'Vérifier le profil Forge',exact:true}).click()}
+ await page.getByRole('button',{name:'Lancer '+recipient+' avec Codex',exact:true}).click()
+ const skillPath='C:/session/.agents/skills/'+(recipient==='Forge'?'bmad-forge-idea':'bmad-agent-analyst')+'/SKILL.md'
+ await page.evaluate(profile=>window.connectionUIFixture.setDialogue({profile}),{fingerprint:'a'.repeat(64),skillPath})
+ const session=page.getByRole('region',{name:'Session '+recipient+' · Codex',exact:true}),mary=page.locator('[aria-labelledby="mary-title"]')
+ assert.equal(await session.count(),1)
+ assert.equal(await session.getByRole('button',{name:'Arrêter Codex',exact:true}).isVisible(),true)
+ assert.equal(await mary.getByRole('button',{name:'Arrêter Codex',exact:true}).count(),0)
+ await session.locator('.dialogue-proof > summary').click();assert.equal(await session.getByText(skillPath,{exact:true}).isVisible(),true)
+ assert.equal(await mary.locator('.dialogue-proof').count(),0)
+ for(const errorCode of ['BUSY','PROFILE_ABSENT','PLAN_ACK_REQUIRED','CONNECTION_BUSY']){
+  await page.evaluate(errorCode=>window.connectionUIFixture.setDialogue({errorCode}),errorCode)
+  const text=await session.getByRole('alert').textContent();assert.doesNotMatch(text,/lancer Mary|nécessaires à Mary/)
+  assert.equal(await mary.getByRole('alert').count(),0)
+ }
+ await session.getByRole('button',{name:'Arrêter Codex',exact:true}).click()
+ assert.equal((await page.evaluate(()=>window.madnessDialogue.read())).status,'stopped')
+ assert.equal(await session.locator('.dialogue-proof').isVisible(),true)
+})
+for(const prerequisite of ['account','plan'])test('la préparation Forge explique le prérequis '+prerequisite+' et sa récupération en fenêtre compacte',async()=>{
+ await launch({status:prerequisite==='account'?'disconnected':'registered',accountStored:prerequisite!=='account',needsPlanAcknowledgement:prerequisite==='plan'})
+ if(prerequisite==='plan')await page.keyboard.press('Escape')
+ await page.evaluate(()=>window.connectionUIFixture.setSnapshot({projects:[{id:'project-prerequisite',name:'Projet Prérequis',rootPath:'C:/prerequisite',openedAt:new Date().toISOString()}]}))
+ await page.locator('.project-row').click();await page.getByRole('button',{name:'Préparer Forge',exact:true}).click();await page.getByRole('button',{name:'Vérifier le profil Forge',exact:true}).click()
+ const preparation=page.locator('#forge-preparation'),start=preparation.getByRole('button',{name:'Lancer Forge avec Codex',exact:true})
+ await page.getByRole('tab',{name:'Conversation',exact:true}).click()
+ assert.equal(await page.locator('.conversation-empty').getByText('Un lancement explicite ouvre une session sans envoyer votre brouillon.',{exact:true}).isVisible(),true)
+ assert.equal(await start.isDisabled(),true)
+ assert.equal(await preparation.locator('#forge-launch-prerequisite').count(),1)
+ assert.equal(await start.getAttribute('aria-describedby'),'forge-launch-prerequisite')
+ assert.match(await preparation.locator('#forge-launch-prerequisite').textContent(),prerequisite==='account'?/Connectez d’abord votre compte/:/Acquittez le rappel du forfait/)
+ assert.equal(await page.evaluate(()=>innerWidth<=720),true);assert.equal(await preparation.evaluate(element=>element.scrollWidth<=element.clientWidth),true)
+ if(prerequisite==='account'){
+  await preparation.getByRole('button',{name:'Ouvrir le panneau Codex',exact:true}).click()
+  await page.getByRole('dialog',{name:'Connexion Codex',exact:true}).getByRole('button',{name:'Continuer avec ChatGPT',exact:true}).waitFor()
+ }else{
+  await preparation.getByRole('button',{name:'Relire le rappel du forfait',exact:true}).click()
+  await page.getByRole('dialog',{name:'Vous utilisez votre forfait ChatGPT',exact:true}).getByRole('button',{name:'J’ai compris',exact:true}).waitFor()
+ }
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+ assert.equal((await page.evaluate(()=>window.madness.readState())).value.state.conversations.length,0)
+})
+test('Forge historique après Mary conserve résultat, contexte, observations et copie du chemin correspondant',async()=>{
+ await launch({status:'registered',accountStored:true,needsPlanAcknowledgement:false})
+ await page.evaluate(()=>window.connectionUIFixture.setSnapshot({projects:[{id:'project-forge',name:'Projet Forge',rootPath:'C:/forge',openedAt:new Date().toISOString()}]}))
+ await page.locator('.project-row').click();await page.getByRole('button',{name:'Préparer Forge',exact:true}).click()
+ await page.getByRole('button',{name:'Vérifier le profil Forge',exact:true}).click();await page.getByRole('button',{name:'Lancer Forge avec Codex',exact:true}).click()
+ await page.evaluate(async()=>{const w=(await window.madnessDialogue.read()).workflows[0],id='conversation-forge-older',older={...w,conversationId:id,context:{...w.context,conversationId:id},workspace:'C:/forge/_bmad-output/initiative-test/forge-older'};window.connectionUIFixture.setDialogue({workflows:[older,{...w,outcome:'CLARIFIED',observations:[{id:'observed-report',turnId:'turn-forge',operation:'write',phase:'observed',at:w.capturedAt,path:w.workspace+'/forge-report.html',sha256:'c'.repeat(64),bytes:123}]}]});const s=(await window.madness.readState()).value.state;window.connectionUIFixture.setSnapshot({conversations:[{id,context:older.context,lastKnownActivity:'idle',messages:[{id:'older-message',role:'assistant',text:'Historique Forge antérieur distinct.'}]},...s.conversations]})})
+ await page.getByRole('button',{name:'Arrêter Codex',exact:true}).click();await page.getByRole('button',{name:'Lancer Mary avec Codex',exact:true}).click()
+ await page.getByLabel('Votre réponse à Mary',{exact:true}).fill('Brouillon après Mary, à conserver')
+ await page.locator('.previous-conversations > summary').click()
+ const history=page.locator('.previous-conversations > section').filter({hasText:'Quelle idée souhaitez-vous éprouver ? Fin du tour.'}),result=history.locator('.workflow-observations')
+ assert.equal(await result.count(),1)
+ assert.equal(await result.getByRole('heading',{name:'Résultat observé de Forge',exact:true}).isVisible(),true)
+ assert.equal(await result.getByText('Clôture native observée : CLARIFIED.',{exact:false}).isVisible(),true)
+ assert.match(await result.textContent(),/initiative-test.*account-1/)
+ await result.locator('details > summary').click()
+ assert.equal(await result.getByText('C:/forge/_bmad-output/initiative-test/forge-ui-test/forge-report.html',{exact:true}).isVisible(),true)
+ await result.getByRole('button',{name:'Copier le chemin',exact:true}).click()
+ assert.equal(await result.getByRole('status').textContent(),'Chemin copié.')
+ const older=page.locator('.previous-conversations > section').filter({hasText:'Historique Forge antérieur distinct.'}).locator('.workflow-observations')
+ assert.equal(await older.count(),1);assert.equal(await older.getByRole('status').textContent(),'')
+ const titles=await page.locator('.workflow-observations h2').evaluateAll(elements=>elements.map(element=>element.id));assert.equal(new Set(titles).size,titles.length)
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.copies()),[{conversationId:'conversation-forge',target:'workspace'}])
+ assert.equal(await page.getByLabel('Votre réponse à Mary',{exact:true}).inputValue(),'Brouillon après Mary, à conserver')
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
 })
 for (const failure of [true,'bridge']) test(`un thème non sauvegardé garde un avertissement accessible et la saisie (${failure})`, async () => {
   await launch()

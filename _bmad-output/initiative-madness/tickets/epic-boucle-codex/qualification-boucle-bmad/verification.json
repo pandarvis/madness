@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T08:10:57.308Z",
+  "status": "implementation-verified-installed-live-pending",
+  "source": {
+    "algorithm": "sha256-sorted-relative-path-nul-bytes-nul",
+    "files": 73,
+    "sha256": "a3ae013764cf7098b8ace902f783a4e6f9865ae850451a5737c642bdf4a735e5"
+  },
+  "artifacts": [
+    {
+      "path": "C:\\Sources\\madness\\dist\\forge-pilot\\Madness-0.1.0-x64-setup.exe",
+      "bytes": 112922678,
+      "sha256": "85e9d066e585ed84660e9fed110057d6cd1896d30b030efa1ffc5389b1eeeaf7"
+    },
+    {
+      "path": "C:\\Sources\\madness\\dist\\forge-pilot\\win-unpacked\\resources\\app.asar",
+      "bytes": 9327913,
+      "sha256": "3b04d46110dfe897ed4c07ed97ad0af4702e6408354efdeeb41accd00494bb65"
+    },
+    {
+      "path": "C:\\Sources\\madness\\dist\\forge-pilot\\win-unpacked\\resources\\bmad-script-runner.py",
+      "bytes": 3088,
+      "sha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5"
+    }
+  ],
+  "commands": [
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "tests": 134,
+      "pass": 134,
+      "fail": 0,
+      "durationMs": 149577.9812
+    },
+    {
+      "command": "npm run build:win -- --config.directories.output=dist/forge-pilot",
+      "exitCode": 0
+    },
+    {
+      "command": "node scripts/qualification/forge.mjs",
+      "exitCode": 0,
+      "checks": 8,
+      "status": "checks-passed-live-installed-missing",
+      "cleanup": true
+    },
+    {
+      "command": "node scripts/qualification/forge.mjs --packaged",
+      "exitCode": 0,
+      "checks": 8,
+      "status": "checks-passed-live-installed-missing",
+      "cleanup": true
+    },
+    {
+      "command": "node scripts/qualification/windows.mjs --ui-regressions-only --skip-screenshots",
+      "exitCode": 0,
+      "checks": 5,
+      "cleanup": true
+    },
+    {
+      "command": "impeccable.cmd detect --json src/renderer/src/App.tsx src/renderer/src/styles.css src/renderer/src/strings.ts",
+      "exitCode": 0,
+      "findings": []
+    }
+  ],
+  "visual": {
+    "initial": [
+      "compiled-desktop.png",
+      "compiled-compact.png"
+    ],
+    "correction": "Libellé de contexte Mary/Forge et erreurs partagées, sans changement de composition.",
+    "confirmation": [
+      "packaged-desktop.png",
+      "packaged-compact.png"
+    ],
+    "humanAcceptance": "unknown"
+  },
+  "ownership": {
+    "sourceFrozen": true,
+    "noFurtherUiFromImplementationAgent": true,
+    "personalInstallationModified": false,
+    "credentialsCopied": false
+  },
+  "pending": [
+    "Preuve live du workflow natif dans le paquet installé, conduite séparément par le parent.",
+    "Revues BMad/UX fraîches et traitement de leurs constats, conduits par le parent."
+  ],
+  "limits": [
+    "Bancs compilé/paquet synthétiques sans compte ni modèle.",
+    "Aucune installation personnelle modifiée par l’agent d’implémentation.",
+    "Les tickets, anciennes preuves et gates historiques restent inchangés."
+  ]
+}

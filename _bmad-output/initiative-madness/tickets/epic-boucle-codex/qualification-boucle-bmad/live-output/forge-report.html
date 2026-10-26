@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Forge — Carnet de lecture local — CLARIFIED</title>
+<style>
+:root{--ink:#28231f;--muted:#6d655e;--paper:#f7f1e6;--card:#fffdf8;--line:#d8cbbb;--blue:#315f72;--blue2:#dcecf0;--rust:#9a4935}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 Georgia,"Times New Roman",serif}
+main{width:min(900px,calc(100% - 32px));margin:38px auto 64px}.top{display:grid;grid-template-columns:1fr 190px;gap:28px;align-items:center;border-bottom:2px solid var(--ink);padding-bottom:28px}
+.eyebrow{font:700 12px/1.2 Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--blue)}
+h1{font-size:clamp(34px,6vw,62px);line-height:.98;margin:.25em 0}.lead{font-size:20px;max-width:650px;margin:0;color:#49413b}
+.seal{width:180px;height:180px;filter:drop-shadow(0 5px 5px #0002)}section{background:var(--card);border:1px solid var(--line);padding:24px 28px;margin-top:22px;border-radius:3px}
+h2{font:700 15px/1.2 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:0 0 14px}
+p{margin:.5em 0}ul{margin:.4em 0 0;padding-left:1.2em}li+li{margin-top:.45em}.scope{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.tag{display:inline-block;font:700 12px Arial,sans-serif;padding:5px 9px;margin:3px 4px 3px 0;border-radius:99px;background:var(--blue2);color:#244b5b}
+.out{background:#eee7df;color:#65493f}.warning{border-left:6px solid var(--rust)}
+.persona{display:grid;grid-template-columns:44px 1fr;gap:10px;margin-top:15px}.icon{font-size:30px}.voice{color:var(--muted);font-style:italic}
+footer{margin-top:28px;color:var(--muted);font:13px/1.5 Arial,sans-serif;text-align:center}
+@media(max-width:650px){.top{grid-template-columns:1fr}.seal{width:145px;height:145px}.scope{grid-template-columns:1fr}section{padding:20px}}
+</style>
+</head>
+<body>
+<main>
+<header class="top">
+<div>
+<div class="eyebrow">BMad Forge Idea · Rapport de clarification</div>
+<h1>Carnet de lecture local</h1>
+<p class="lead">Une hypothèse volontairement minimale, rendue compréhensible sans être durcie, validée ni engagée en construction.</p>
+</div>
+<svg class="seal" viewBox="0 0 200 200" role="img" aria-label="Sceau CLARIFIED">
+<defs><filter id="rough"><feTurbulence baseFrequency=".035" numOctaves="2" seed="8" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/></filter></defs>
+<circle cx="100" cy="100" r="88" fill="#315f72" opacity=".13"/>
+<circle cx="100" cy="100" r="78" fill="none" stroke="#315f72" stroke-width="7" filter="url(#rough)"/>
+<circle cx="100" cy="100" r="65" fill="none" stroke="#315f72" stroke-width="2" stroke-dasharray="4 5"/>
+<path d="M54 76h92M54 124h92" stroke="#315f72" stroke-width="2"/>
+<text x="100" y="104" text-anchor="middle" fill="#315f72" font-family="Arial,sans-serif" font-weight="900" font-size="22" letter-spacing="2">CLARIFIED</text>
+<text x="100" y="65" text-anchor="middle" fill="#315f72" font-family="Arial,sans-serif" font-size="10" letter-spacing="3">HYPOTHÈSE</text>
+<text x="100" y="143" text-anchor="middle" fill="#315f72" font-family="Arial,sans-serif" font-size="9" letter-spacing="2">SANS ENGAGEMENT</text>
+</svg>
+</header>
+
+<section>
+<h2>Résultat</h2>
+<p><strong>CLARIFIED.</strong> L’idée désigne un carnet strictement local pour une seule personne. Il garde exactement une entrée : le titre du livre courant et la dernière page lue, afin de retrouver cette place lors de la reprise de lecture.</p>
+<p>Cette formulation décrit une hypothèse de portée. Elle ne démontre pas un besoin, ne valide pas une solution et ne vaut pas décision de construire.</p>
+</section>
+
+<section class="scope">
+<div>
+<h2>Dans l’hypothèse</h2>
+<span class="tag">une personne</span><span class="tag">un livre courant</span><span class="tag">local</span>
+<ul>
+<li>Le titre est saisi par la personne.</li>
+<li>La page est un entier saisi manuellement.</li>
+<li>Un nouveau titre remplace l’entrée précédente.</li>
+<li>Le lendemain, l’entrée courante permet de retrouver la page.</li>
+</ul>
+</div>
+<div>
+<h2>Explicitement écarté</h2>
+<span class="tag out">compte</span><span class="tag out">cloud</span><span class="tag out">partage</span><span class="tag out">statistiques</span><span class="tag out">IA</span>
+<ul>
+<li>Aucune bibliothèque de plusieurs titres.</li>
+<li>Aucune liste ni mémoire des livres terminés.</li>
+<li>Aucun historique de l’entrée remplacée.</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2>Décision de portée qui a levé l’ambiguïté</h2>
+<p>« Carnet » pouvait signifier une collection durable. Ici, il signifie seulement un repère courant : lorsque la personne commence un autre livre, le nouveau titre et sa page prennent la place des valeurs précédentes. Le scénario du lendemain porte donc sur ce seul livre courant.</p>
+</section>
+
+<section class="warning">
+<h2>Faiblesses et incertitudes conservées</h2>
+<ul>
+<li>L’utilité réelle et la fréquence d’usage n’ont pas été vérifiées auprès d’une personne utilisatrice.</li>
+<li>Le contexte concret d’usage reste inconnu : appareil, moment de saisie et habitudes de reprise.</li>
+<li>Les cas de saisie vide, de page invalide, de correction ou de remise à zéro ne sont pas définis.</li>
+<li>« Local » fixe l’absence de cloud, mais pas encore le support ni les modalités précises de conservation.</li>
+<li>Aucune validation humaine, étude, expérimentation ou preuve d’adoption n’a été produite.</li>
+</ul>
+</section>
+
+<section>
+<h2>Voix ayant exercé la clarification</h2>
+<div class="persona">
+<div class="icon" aria-hidden="true">🎨</div>
+<div><strong>Sally — UX Designer native</strong><div class="voice">A mis en scène le lendemain et isolé l’ambiguïté centrale : reprendre un livre unique ou choisir parmi plusieurs lectures.</div></div>
+</div>
+<div class="persona">
+<div class="icon" aria-hidden="true">📚</div>
+<div><strong>Lucie — lectrice alternant roman et essai</strong><div class="voice">Voix extérieure générée : a montré que garder plusieurs titres ferait glisser le repère minimal vers une bibliothèque.</div></div>
+</div>
+</section>
+
+<section>
+<h2>Statut de décision</h2>
+<p><strong>Compréhensible, mais hypothétique.</strong> La portée est suffisamment claire pour être discutée sans confusion. Elle n’est pas « HARDENED » : aucun verrou de conception, aucune acceptation humaine et aucune décision de construire ne sont revendiqués.</p>
+</section>
+
+<footer>Forge « carnet-lecture-local » · Issue CLARIFIED · Rapport autonome de fin de session</footer>
+</main>
+</body>
+</html>

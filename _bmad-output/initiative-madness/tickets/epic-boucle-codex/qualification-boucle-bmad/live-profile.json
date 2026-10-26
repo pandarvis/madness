@@ -1,0 +1,652 @@
+{
+  "schemaVersion": 1,
+  "mode": "installed-normal-madness-account-synthetic-workflow",
+  "status": "live-installed-checks-passed",
+  "observedAt": "2026-10-26T11:00:39.692Z",
+  "checks": [
+    "qualified-package-installed-identical-asar-and-runner-user-data-preserved",
+    "installed-profile-qualified-before-model",
+    "native-skill-started-without-sending-draft",
+    "native-resolvers-personas-memlog-report-and-finish-observed-bytes-reread",
+    "native-codex-process-stop-confirmed",
+    "installed-reopen-preserves-context-invocation-observations-history-draft-without-engine"
+  ],
+  "witness": {
+    "root": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c",
+    "synthetic": true,
+    "profileFiles": 96
+  },
+  "priorEvidence": "avant-revues/",
+  "limits": [
+    "Scénario synthétique du banc, aucune acceptation humaine inférée.",
+    "Gates historiques et distribution inchangés."
+  ],
+  "installation": {
+    "at": "2026-10-26T11:03:24.8720436Z",
+    "exitCode": 0,
+    "installerSha256": "fe151a5f9b770ce59962c3cab470dae5c0ff4bdb16fee9482c29d83da05ce26d",
+    "previousAsar": "8f875f02fc3edbdb4eb2a1b19a930550398eaf810e4e27045050ec05a73106b0",
+    "installedAsar": "0ac73f5943520b7a6c3a5087c51beb8c219fb4336eb1f80eee267d53a7e998a8",
+    "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5",
+    "before": {
+      "madness-state-v1.json": "c09bf3d968fa1698bcd9d4285deadf05309f08d7a242bbb4e228e8e99a31c4a6",
+      "appearance-v1.json": null,
+      "codex-connection-v1\\credentials.bin": "c787daef3381ea5ab315b8d61775667844d6211f761a2309344aa0f7b26e9f20",
+      "workflows-v1\\5359fb9d-4c4e-494e-97f1-d6ea39bb03e2.json": "001c6f56e9da0a681c77377381f4040f84be55ad1d1858b686a34e7f47424dc5",
+      "workflows-v1\\674a7414-018b-45e8-a2cf-f2ed7fd1c888.json": "c32afb19daa28d2504ff6785134695dd079f794e657a9efdadfb975b98f675b7",
+      "workflows-v1\\832ab0d8-d5ac-4ddf-a671-bd04de02bcca.json": "5b7f1325a324caef2066485cf77e880be44deb5c3158bfbd504beacacb8a66fe",
+      "workflows-v1\\d82a91b1-c30d-4c2b-947f-63111a5755aa.json": "0f8c2d8ff8e87cc7ec1b808f023d8963481b73b6fe14bd6ba42ea4a9a115b89d",
+      "workflows-v1\\f487cdf6-64e4-466a-b6a8-7a0d84647eff.json": "558e642425a3a34d579bed1ca786cb4551c801d28f92765ca7b35f49097d04ed"
+    },
+    "after": {
+      "madness-state-v1.json": "c09bf3d968fa1698bcd9d4285deadf05309f08d7a242bbb4e228e8e99a31c4a6",
+      "appearance-v1.json": null,
+      "codex-connection-v1\\credentials.bin": "c787daef3381ea5ab315b8d61775667844d6211f761a2309344aa0f7b26e9f20",
+      "workflows-v1\\5359fb9d-4c4e-494e-97f1-d6ea39bb03e2.json": "001c6f56e9da0a681c77377381f4040f84be55ad1d1858b686a34e7f47424dc5",
+      "workflows-v1\\674a7414-018b-45e8-a2cf-f2ed7fd1c888.json": "c32afb19daa28d2504ff6785134695dd079f794e657a9efdadfb975b98f675b7",
+      "workflows-v1\\832ab0d8-d5ac-4ddf-a671-bd04de02bcca.json": "5b7f1325a324caef2066485cf77e880be44deb5c3158bfbd504beacacb8a66fe",
+      "workflows-v1\\d82a91b1-c30d-4c2b-947f-63111a5755aa.json": "0f8c2d8ff8e87cc7ec1b808f023d8963481b73b6fe14bd6ba42ea4a9a115b89d",
+      "workflows-v1\\f487cdf6-64e4-466a-b6a8-7a0d84647eff.json": "558e642425a3a34d579bed1ca786cb4551c801d28f92765ca7b35f49097d04ed"
+    },
+    "preservation": "byte-identical-snapshot-appearance-ciphertext-workflows"
+  },
+  "runtime": {
+    "packaged": true,
+    "userData": "C:/Users/UP60066553\\AppData\\Roaming\\madness",
+    "appPath": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\resources\\app.asar",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48"
+  },
+  "transportEnvironment": {
+    "HTTP_PROXY": true,
+    "HTTPS_PROXY": true,
+    "ALL_PROXY": false,
+    "NO_PROXY": false,
+    "SSL_CERT_FILE": false,
+    "SSL_CERT_DIR": false
+  },
+  "connectionPreflight": {
+    "status": "registered",
+    "errorCode": null
+  },
+  "transitions": [
+    {
+      "sequence": 2,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 4,
+      "status": "qualified",
+      "errorCode": null
+    },
+    {
+      "sequence": 5,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 8,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 9,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 11,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 13,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 14,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 15,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 16,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 17,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 18,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 20,
+      "status": "ready",
+      "errorCode": null
+    },
+    {
+      "sequence": 21,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 23,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 24,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 25,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 26,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 27,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 28,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 29,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 30,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 32,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 33,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 35,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 36,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 38,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 39,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 40,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 42,
+      "status": "ready",
+      "errorCode": null
+    },
+    {
+      "sequence": 43,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 45,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 46,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 47,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 49,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 50,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 52,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 53,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 55,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 56,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 58,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 59,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 60,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 61,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 62,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 63,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 64,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 65,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 66,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 68,
+      "status": "ready",
+      "errorCode": null
+    },
+    {
+      "sequence": 69,
+      "status": "stopping",
+      "errorCode": null
+    },
+    {
+      "sequence": 71,
+      "status": "stopped",
+      "errorCode": null
+    }
+  ],
+  "profile": {
+    "fingerprint": "d5316ba106a077decb6eb06d2add504aa5b87d6c5314ea4b02449bb96febc0ed",
+    "skillPath": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\.agents\\skills\\bmad-forge-idea\\SKILL.md",
+    "outputBase": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin"
+  },
+  "visualSession": {
+    "captures": [
+      "review-session-desktop.png",
+      "review-session-compact.png"
+    ],
+    "source": "Actual native Forge session on the synthetic witness, final installed package; no fixture state or model response invented.",
+    "conversationId": "38aadb9f-1af6-4d0a-8b6c-73dae4ab886d"
+  },
+  "workflow": {
+    "schemaVersion": 1,
+    "conversationId": "38aadb9f-1af6-4d0a-8b6c-73dae4ab886d",
+    "context": {
+      "projectId": "54330e20-df34-43eb-93ad-7a1e542eb5c0",
+      "initiativeId": "initiative-temoin",
+      "conversationId": "38aadb9f-1af6-4d0a-8b6c-73dae4ab886d",
+      "providerId": "codex",
+      "connectionId": "c-f63e1dd54eecf9e94c5e96f477758f1319f216ec0c8328d440d51d16b7fa6056"
+    },
+    "invocation": "$bmad-forge-idea",
+    "capturedAt": "2026-10-26T11:07:06.727Z",
+    "rootPath": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c",
+    "outputBase": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin",
+    "contextDigest": "81834f0484d4baf7d6a602deaf3c27aa00b35df6189584ec3bb6892ab54b7703",
+    "fingerprint": "d5316ba106a077decb6eb06d2add504aa5b87d6c5314ea4b02449bb96febc0ed",
+    "skillPath": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\.agents\\skills\\bmad-forge-idea\\SKILL.md",
+    "workspace": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local",
+    "outcome": "CLARIFIED",
+    "observations": [
+      {
+        "id": "exec-6b5159a3-1c85-4a66-96b5-d22899e3769c",
+        "turnId": "01a177e4-9ed4-7bd1-8154-ef379923cc0c",
+        "operation": "resolve-workflow",
+        "phase": "observed",
+        "at": "2026-10-26T11:07:40.008Z",
+        "path": null,
+        "sha256": "c86b3d7d09f6646405783f87e75632092f68637f30e3f1f726898f10373ed864",
+        "bytes": 261
+      },
+      {
+        "id": "exec-3bb81129-1262-4626-8e9a-93fa6dd4daac",
+        "turnId": "01a177e4-9ed4-7bd1-8154-ef379923cc0c",
+        "operation": "resolve-config",
+        "phase": "observed",
+        "at": "2026-10-26T11:07:55.669Z",
+        "path": null,
+        "sha256": "9bd5c4f8ba045eb06ab762bf7cdfaa3b12d7c6563544bd982d3d6b6d71e469af",
+        "bytes": 111
+      },
+      {
+        "id": "exec-57e28687-0c56-465a-b171-f823b8fd747c",
+        "turnId": "01a177e6-714a-78b0-8d9f-bbd4694db8a0",
+        "operation": "init",
+        "phase": "pending",
+        "at": "2026-10-26T11:09:25.122Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-57e28687-0c56-465a-b171-f823b8fd747c",
+        "turnId": "01a177e6-714a-78b0-8d9f-bbd4694db8a0",
+        "operation": "init",
+        "phase": "observed",
+        "at": "2026-10-26T11:09:31.418Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": "98adb98b9d53bb4790d98fc8cbe8023ae06ac802f4daa47edcef4b0f7c44ec4f",
+        "bytes": 356
+      },
+      {
+        "id": "exec-d94fed5f-35cb-4752-953d-9aa05b46a5cf",
+        "turnId": "01a177e6-714a-78b0-8d9f-bbd4694db8a0",
+        "operation": "resolve-personas",
+        "phase": "observed",
+        "at": "2026-10-26T11:09:49.388Z",
+        "path": null,
+        "sha256": "f8f0d060e08194b7d60420298f68ce4eda69eb6259d6edfee496e7e0614ea17c",
+        "bytes": 15712
+      },
+      {
+        "id": "exec-60189c7d-547e-49c6-a382-8c2440e3481d",
+        "turnId": "01a177e6-714a-78b0-8d9f-bbd4694db8a0",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T11:09:59.031Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-60189c7d-547e-49c6-a382-8c2440e3481d",
+        "turnId": "01a177e6-714a-78b0-8d9f-bbd4694db8a0",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T11:10:05.631Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": "ea608e8800826ee3ad2cfe208cc39f519691c11bec395f73fb562712bd0d5222",
+        "bytes": 492
+      },
+      {
+        "id": "exec-43a05f8d-e2c8-4a5e-b0d2-0016f39b0e82",
+        "turnId": "01a177e6-714a-78b0-8d9f-bbd4694db8a0",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T11:10:06.664Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-43a05f8d-e2c8-4a5e-b0d2-0016f39b0e82",
+        "turnId": "01a177e6-714a-78b0-8d9f-bbd4694db8a0",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T11:10:12.438Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": "b73bcd82bd44120c731c3d030ed573be5cb94c5f95bf259cc4d50657382a61cc",
+        "bytes": 586
+      },
+      {
+        "id": "exec-92ac03c2-6539-495a-bb69-a53acd2b7a4a",
+        "turnId": "01a177e6-714a-78b0-8d9f-bbd4694db8a0",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T11:10:13.528Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-92ac03c2-6539-495a-bb69-a53acd2b7a4a",
+        "turnId": "01a177e6-714a-78b0-8d9f-bbd4694db8a0",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T11:10:19.554Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": "4f521322d97eddc031944af2abe0cae5114bcaf58af7182dcc22135c70030525",
+        "bytes": 710
+      },
+      {
+        "id": "exec-53e52eda-8fc8-4dba-bbe9-a79ffe62d9e3",
+        "turnId": "01a177e6-714a-78b0-8d9f-bbd4694db8a0",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T11:10:20.487Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-53e52eda-8fc8-4dba-bbe9-a79ffe62d9e3",
+        "turnId": "01a177e6-714a-78b0-8d9f-bbd4694db8a0",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T11:10:26.107Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": "92054e3e812856aa3b42b3c8ed4b88e0b199668256a639c7cbecaae3e34843a5",
+        "bytes": 789
+      },
+      {
+        "id": "exec-1ba16531-3942-46a5-a81a-9c495a7c8ab2",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T11:11:35.445Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-1ba16531-3942-46a5-a81a-9c495a7c8ab2",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T11:11:40.351Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": "95be5011a04605638df0144c97f461a294ca09b4af511471c9c8be1b4236e7df",
+        "bytes": 945
+      },
+      {
+        "id": "exec-e0ce2478-83f1-4f31-a5cd-6e242fc46878",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T11:11:41.160Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-e0ce2478-83f1-4f31-a5cd-6e242fc46878",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T11:11:46.402Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": "59c88051a0dc0f3c8de2151020e43223a88c1743175a4c7a2ca1c78ed5cb887e",
+        "bytes": 1015
+      },
+      {
+        "id": "exec-a3e47849-542d-47ee-8e44-9999df35fead",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T11:11:47.403Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-a3e47849-542d-47ee-8e44-9999df35fead",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T11:11:52.865Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": "f9dc3c8ded3f04e3c82ddc8616c5bcb4f3dcfce66363fbfb44306e5627ea0c59",
+        "bytes": 1169
+      },
+      {
+        "id": "exec-d043e71d-1a04-48a7-a827-b79b6a051fa6",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T11:11:53.672Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-d043e71d-1a04-48a7-a827-b79b6a051fa6",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T11:11:58.883Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": "bd1e7c0aee6bd28e5b2f98d5b55ced04f786793b0e369950511da269ef8e4a7d",
+        "bytes": 1400
+      },
+      {
+        "id": "exec-f9635671-782d-46dd-a06b-3dfa58d69464",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T11:11:59.809Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-f9635671-782d-46dd-a06b-3dfa58d69464",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T11:12:04.653Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": "c063c9a57464e8aabe3f505c9816b880d4cdb089a2b192866c4673c1d964bbcf",
+        "bytes": 1512
+      },
+      {
+        "id": "exec-2611313d-8b3f-4eeb-97f9-a1f0455405ee",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "write",
+        "phase": "pending",
+        "at": "2026-10-26T11:12:55.284Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\forge-report.html",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-2611313d-8b3f-4eeb-97f9-a1f0455405ee",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "write",
+        "phase": "observed",
+        "at": "2026-10-26T11:12:56.241Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\forge-report.html",
+        "sha256": "8aecac9ebc8bfc19e9da3d1bdc8186276d8cc642cb73939a9966300cef980a8c",
+        "bytes": 6720
+      },
+      {
+        "id": "exec-f7cfe6a2-fa80-475f-8cc5-564e686dded8",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "finish",
+        "phase": "pending",
+        "at": "2026-10-26T11:13:05.757Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-f7cfe6a2-fa80-475f-8cc5-564e686dded8",
+        "turnId": "01a177e8-6a71-7373-ab0a-3a9ee4857732",
+        "operation": "finish",
+        "phase": "observed",
+        "at": "2026-10-26T11:13:12.016Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+        "sha256": "636569e6f9bf23ab276e2c16c0f58f5e52eef758830cc8b5f514718fc9a9ec0d",
+        "bytes": 1528
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\.memlog.md",
+      "sha256": "636569e6f9bf23ab276e2c16c0f58f5e52eef758830cc8b5f514718fc9a9ec0d",
+      "bytes": 1528
+    },
+    {
+      "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-lecture-local\\forge-report.html",
+      "sha256": "8aecac9ebc8bfc19e9da3d1bdc8186276d8cc642cb73939a9966300cef980a8c",
+      "bytes": 6720
+    }
+  ],
+  "completedAt": "2026-10-26T11:14:24.074Z"
+}

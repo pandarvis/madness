@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-26",
+  "purpose": "Vérifier le mauvais résultat allégué par Quick-3 avec le vrai couple UV/Python, sans compte ni réseau.",
+  "method": "UV externe épinglé lance Python -I -S ; Python annonce son PID puis dort neuf secondes. Le banc termine son seul wrapper UV, appelle le vrai stopNative et observe le descendant jusqu'à sa fin naturelle.",
+  "exitCode": 0,
+  "wrapperStopConfirmed": false,
+  "pythonStillAliveAtReturn": true,
+  "pythonEventuallyStopped": true,
+  "callersChecked": "runForgeScript finally transforme false en STOP_UNCONFIRMED ; DialogueCoordinator.schedule conserve unknown et bloque une nouvelle session. Les appels subprocess.run du profil sont synchrones.",
+  "conclusion": "Aucun arrêt confirmé n'est annoncé dans ce cas. Les descendants ne sont pas tous tués immédiatement ; le résultat reste explicitement inconnu tant que leur fin n'est pas établie.",
+  "cleanup": "Aucun fichier témoin créé ; le seul descendant bénin est terminé. Aucun compte, modèle ou environnement natif sensible lu."
+}

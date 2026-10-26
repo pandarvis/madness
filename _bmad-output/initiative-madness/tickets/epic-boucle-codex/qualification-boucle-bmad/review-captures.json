@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Recapture demandée par la finition Impeccable",
+  "synthetic": true,
+  "checks": [
+    "six-requested-preparation-result-and-restored-history-views",
+    "no-horizontal-overflow",
+    "draft-restored-no-engine-or-network"
+  ],
+  "captures": [
+    "review-result-desktop.png",
+    "review-result-compact.png",
+    "review-history-desktop.png",
+    "review-history-compact.png",
+    "review-preparation-desktop.png",
+    "review-preparation-compact.png"
+  ],
+  "cleanup": true,
+  "providerStarted": false,
+  "status": "captured-for-full-review",
+  "source": "Same renderer as final package; paths/messages adapted synthetic fixtures, no new file-observation proof inferred."
+}

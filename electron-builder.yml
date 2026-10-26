@@ -7,6 +7,9 @@ files:
   - resources/THIRD-PARTY-NOTICES.md
   - package.json
 asar: true
+extraResources:
+  - from: resources/bmad-script-runner.py
+    to: bmad-script-runner.py
 npmRebuild: false
 win:
   executableName: Madness

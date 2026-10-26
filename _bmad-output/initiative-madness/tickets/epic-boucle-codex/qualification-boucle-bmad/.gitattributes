@@ -1,0 +1,5 @@
+# Conserver les octets et accepter les terminaisons CRLF des journaux Python natifs.
+# Les vrais espaces en fin de ligne et les autres contrôles usuels restent vérifiés.
+live-output/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+synthetic-output/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+avant-revues/live-output/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

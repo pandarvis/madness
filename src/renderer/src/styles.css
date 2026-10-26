@@ -205,3 +205,12 @@ dd { margin: 6px 0 0; color: var(--muted) }
 @media (max-width: 1080px) { :root { --sidebar: 184px } .context-panel { display: none } .page-intro { flex-direction: column; gap: 18px } }
 @media (max-width: 720px) { .sidebar, .desktop-menu, .open-label { display: none } .mobile-menu { display: inline-flex } .topbar { padding: 8px 14px } .topbar-actions { gap: 10px } .open-project { width: 40px; padding: 0 } .connection { font-size: 11px } .main-inner { padding: 25px 20px 40px } h1 { font-size: 24px } .welcome, .recommendation { padding: 18px } .project-tabs { gap: 20px } .composer-bottom { align-items: flex-start; flex-direction: column } .composer-bottom button { align-self: flex-end } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important } }
+.forge-launch,.workflow-observations{margin-block:24px;padding-block:20px;border-block:1px solid var(--line);max-width:75ch}
+.forge-launch h2,.workflow-observations h2{margin-top:0}
+.forge-preparation{margin-top:16px}
+.forge-preparation dl{margin-block:16px}
+.forge-preparation dt{font-weight:600;margin-top:12px}
+.forge-preparation dd{margin:4px 0 0}
+.forge-preparation code,.workflow-observations code{overflow-wrap:anywhere;white-space:normal}
+.workflow-observations li{margin-block:12px}
+.workflow-observations .text-button{margin-inline-start:8px}

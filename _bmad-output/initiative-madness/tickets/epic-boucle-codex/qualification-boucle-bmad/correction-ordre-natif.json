@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-26",
+  "status": "corrected-and-packaged-installed-live-pending",
+  "problem": "Le skill natif initialise le journal après idée/but et avant personas. La garde protocole exigeait à tort personas avant init.",
+  "scope": ["src/adapters/codex/dialogue.ts", "tests/forge-protocol.test.mjs"],
+  "change": {
+    "initPrerequisite": "config, précédée de workflow par la garde existante",
+    "finishPrerequisite": "personas native résolue avec succès",
+    "additionalToolsOrPermissions": false,
+    "installedSkillsModified": false,
+    "uiModified": false
+  },
+  "red": {
+    "command": "node --test tests/forge-protocol.test.mjs",
+    "exitCode": 1,
+    "passed": 5,
+    "failed": 2,
+    "observed": "init→personas échoue avec UNSUPPORTED_INTERACTION ; init ne parvient pas à l’hôte dans le scénario sans personas."
+  },
+  "green": {
+    "command": "node --test tests/forge-protocol.test.mjs tests/dialogue-protocol.test.mjs tests/dialogue.test.mjs",
+    "exitCode": 0,
+    "passed": 18,
+    "failed": 0,
+    "newCoverage": ["init après config puis personas avant finish", "finish sans personas refusé avant l’hôte", "init avant config refusé"]
+  },
+  "build": {
+    "command": "npm run build:win -- --config.directories.output=dist/forge-pilot",
+    "exitCode": 0,
+    "types": "passed",
+    "compiled": "passed",
+    "nsis": "passed"
+  },
+  "packageBench": {
+    "command": "node scripts/qualification/forge.mjs --packaged --no-captures",
+    "exitCode": 0,
+    "checks": 8,
+    "status": "checks-passed-live-installed-missing",
+    "cleanup": true,
+    "capturesReused": ["packaged-desktop.png", "packaged-compact.png"],
+    "rendererAsset": "index-BCMLKHwQ.js",
+    "rendererSha256": "45339943d30db224c4b947777f09c4dae355c473258b760523547441ae3e6496",
+    "archiveGuardsInspected": true
+  },
+  "artifacts": [
+    {"path": "C:/Sources/madness/dist/forge-pilot/Madness-0.1.0-x64-setup.exe", "bytes": 112922708, "sha256": "8cdae2e03ac398a65281354505d392c0fac85f14d31f270c57c0895b9fb67192"},
+    {"path": "C:/Sources/madness/dist/forge-pilot/win-unpacked/resources/app.asar", "bytes": 9327939, "sha256": "8f875f02fc3edbdb4eb2a1b19a930550398eaf810e4e27045050ec05a73106b0"},
+    {"path": "C:/Sources/madness/dist/forge-pilot/win-unpacked/resources/bmad-script-runner.py", "bytes": 3088, "sha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5"}
+  ],
+  "preservation": "verification.json conserve la baseline antérieure. Les preuves live, conversations, plan et captures sont préservés. Aucun compte copié, modèle ou programme installé lancé par l’agent de correction.",
+  "remaining": "Essai natif installé après correction, revue et commit sous ownership du parent. Aucun banc UI de correction ne reste actif."
+}

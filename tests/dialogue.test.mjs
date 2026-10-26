@@ -90,3 +90,45 @@ for (const stopOutcome of ['stopped', 'unknown']) test(`arrêter pendant l’éc
   assert.equal(f.stored().conversations[0].messages.at(-1).text,'Réponse finale')
   assert.equal(f.stored().conversations[0].lastKnownActivity,stopOutcome==='unknown'?'unknown':'idle')
 })
+test('Forge conserve invocation, contexte et observations avant effets ; restauration sans moteur et copie confirmée',async()=>{
+ const f=fixture();await f.app.execute(command('choose-directory'));await f.app.execute(command('save-draft',{projectId:'id-1',text:'Ne jamais envoyer au lancement'}))
+ let stored=[],observer,copied='',opens=0
+ const workflows={read:async()=>structuredClone(stored),write:async r=>{stored=[...stored.filter(w=>w.conversationId!==r.conversationId),structuredClone(r)]}}
+ const profile={rootPath:'C:/project',skillPath:'C:/project/.agents/skills/bmad-forge-idea/SKILL.md',fingerprint:'a'.repeat(64),kind:'forge',forge:{outputBase:'C:/project/_bmad-output/initiative-test',initiativeId:'initiative-test',contextDigest:'b'.repeat(64)}}
+ const deps={application:f.app,workflows,copyText:async v=>{copied=v},qualify:async()=>profile,qualifyForge:async()=>profile,open:async()=>{opens++;return{context:{connectionId:'account-1',initiativeId:'initiative-test'},workflow:{outputBase:profile.forge.outputBase,contextDigest:profile.forge.contextDigest,bind:fn=>{observer=fn}},turn:async(text,accepted)=>{assert.equal(text,null);assert.equal(stored[0].invocation,'$bmad-forge-idea');await accepted();await observer({id:'call-1',turnId:'turn-1',operation:'init',phase:'observed',at:new Date().toISOString(),path:'C:/project/_bmad-output/initiative-test/forge-test/.memlog.md',sha256:'c'.repeat(64),bytes:42},'C:/project/_bmad-output/initiative-test/forge-test');return 'Prochaine action : répondre.'},stop:async()=>'stopped'}}}
+ const dialogue=new core.DialogueCoordinator(deps)
+ await dialogue.execute(command('qualify-forge',{projectId:'id-1'}));await dialogue.settled()
+ await dialogue.execute(command('launch-forge',{projectId:'id-1'}));await dialogue.settled()
+ assert.equal(dialogue.read().status,'ready');assert.equal(stored[0].observations[0].id,'call-1');assert.equal(f.stored().drafts[0].text,'Ne jamais envoyer au lancement');assert.equal(f.stored().conversations[0].messages[0].text,'$bmad-forge-idea')
+ await dialogue.shutdown();const restored=new core.DialogueCoordinator(deps);const state=await restored.execute(command('read'));assert.equal(state.status,'idle');assert.equal(opens,1);assert.equal(state.workflows[0].workspace,stored[0].workspace)
+ const copy=await restored.execute(command('copy-workflow',{conversationId:stored[0].conversationId,target:'workspace'}));assert.equal(copy.errorCode,null);assert.equal(copied,stored[0].workspace)
+ assert.equal((await restored.execute(command('copy-workflow',{conversationId:'foreign',target:'workspace'}))).errorCode,'INVALID_COMMAND')
+})
+const forgeProfile=()=>({rootPath:'C:/project',skillPath:'C:/project/.agents/skills/bmad-forge-idea/SKILL.md',fingerprint:'a'.repeat(64),kind:'forge',forge:{outputBase:'C:/project/_bmad-output/initiative-test',initiativeId:'initiative-test',contextDigest:'b'.repeat(64)}})
+for(const change of ['missing','fingerprint','skillPath','outputBase','initiativeId','contextDigest','rootPath'])test('Forge refuse un profil préparé absent ou changé avant fournisseur : '+change,async()=>{
+ const f=fixture();await f.app.execute(command('choose-directory'))
+ let current=forgeProfile(),opens=0,writes=0
+ const dialogue=new core.DialogueCoordinator({application:f.app,workflows:{read:async()=>[],write:async()=>{writes++}},qualify:async()=>current,qualifyForge:async()=>current,open:async()=>{opens++;throw Error('ne doit pas ouvrir')}})
+ if(change!=='missing'){await dialogue.execute(command('qualify-forge',{projectId:'id-1'}));await dialogue.settled();assert.equal(dialogue.read().status,'qualified')}
+ const shown=dialogue.read().profile
+ if(['fingerprint','skillPath','rootPath'].includes(change))current={...current,[change]:change==='fingerprint'?'c'.repeat(64):'C:/project/changed'}
+ if(['outputBase','initiativeId','contextDigest'].includes(change))current={...current,forge:{...current.forge,[change]:change==='contextDigest'?'c'.repeat(64):change==='initiativeId'?'initiative-other':'C:/project/_bmad-output/initiative-other'}}
+ await dialogue.execute(command('launch-forge',{projectId:'id-1'}));await dialogue.settled()
+ assert.equal(dialogue.read().errorCode,change==='missing'?'PROFILE_UNRECOGNIZED':'PROFILE_CHANGED')
+ assert.deepEqual(dialogue.read().profile,shown)
+ assert.equal(opens,0);assert.equal(writes,0);assert.equal(f.stored().conversations.length,0)
+})
+test('la limite de 200 workflows bloque Forge avant le fournisseur et permet restauration et Mary',async()=>{
+ const f=fixture();await f.app.execute(command('choose-directory'));const profile=forgeProfile()
+ const records=Array.from({length:200},(_,i)=>{const conversationId='workflow-'+i;return {schemaVersion:1,conversationId,context:{projectId:'id-1',initiativeId:'initiative-test',conversationId,providerId:'codex',connectionId:'account-1'},invocation:'$bmad-forge-idea',capturedAt:'2026-10-26T00:00:00Z',rootPath:profile.rootPath,outputBase:profile.forge.outputBase,contextDigest:profile.forge.contextDigest,fingerprint:profile.fingerprint,skillPath:profile.skillPath,workspace:null,outcome:'open',observations:[]}})
+ let opens=0,writes=0
+ const deps={application:f.app,workflows:{read:async()=>structuredClone(records),write:async()=>{writes++}},qualify:async()=>({rootPath:'C:/project',skillPath:'Mary',fingerprint:'a'.repeat(64)}),qualifyForge:async()=>profile,open:async p=>{opens++;assert.notEqual(p.kind,'forge');return {context:{connectionId:'account-1',initiativeId:null},turn:async(_,accepted)=>{await accepted();return 'Mary'},stop:async()=>'stopped'}}}
+ const dialogue=new core.DialogueCoordinator(deps)
+ await dialogue.execute(command('qualify-forge',{projectId:'id-1'}));await dialogue.settled()
+ await dialogue.execute(command('launch-forge',{projectId:'id-1'}));await dialogue.settled()
+ assert.equal(dialogue.read().errorCode,'OUTPUT_REFUSED');assert.equal(opens,0);assert.equal(writes,0);assert.equal(f.stored().conversations.length,0)
+ assert.equal(contracts.isDialogueState(dialogue.read()),true)
+ const restored=new core.DialogueCoordinator(deps);const state=await restored.execute(command('read'));assert.equal(state.workflows.length,200);assert.equal(contracts.isDialogueState(state),true);assert.equal(contracts.isDialogueState({...state,workflows:[...state.workflows,records[0]]}),false)
+ await restored.execute(command('launch',{projectId:'id-1'}));await restored.settled();assert.equal(restored.read().status,'ready');assert.equal(opens,1);assert.equal(writes,0)
+ await restored.shutdown()
+})

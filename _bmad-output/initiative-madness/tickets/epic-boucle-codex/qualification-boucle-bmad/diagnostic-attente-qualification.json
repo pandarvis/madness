@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-26",
+  "type": "diagnostic-du-banc",
+  "premiersPassages": {
+    "modes": ["compiled-isolated-no-provider", "packaged-isolated-no-provider"],
+    "status": "partial",
+    "controlesPasses": 3,
+    "echec": "Le banc a comparé qualifying à qualified après son ancienne attente navigateur.",
+    "nettoyage": true,
+    "interpretation": "Ces premiers rapports ne valident pas le paquet. Ce constat ne démontre pas à lui seul un défaut produit."
+  },
+  "controleCorrige": {
+    "exigence": "Qualification native réellement terminale, status qualified et errorCode null ; aucun modèle lancé.",
+    "methode": "Sondage séquentiel de madnessDialogue.read avec conservation sequence/status/errorCode, délai borné et assertion finale inchangée.",
+    "transitionCompileObservee": [
+      {"sequence": 2, "status": "qualifying", "errorCode": null},
+      {"sequence": 4, "status": "qualified", "errorCode": null}
+    ],
+    "resultatCompile": "8 contrôles passés, nettoyage confirmé. Les rapports compilé/paquet finaux conservent leurs propres transitions."
+  },
+  "autresIncidentsDeBanc": [
+    "Le premier npm test en bac à sable ne permettait pas les renommages atomiques Windows, listeners loopback et fenêtres Electron. Les contrôles pertinents ont été réexécutés hors bac à sable.",
+    "Une fixture UI historique omettait le nouveau champ workflows : son schéma et son scénario Forge ont été actualisés puis contrôlés.",
+    "Une passe avec bancs Electron simultanés a échoué sur le focus clavier de la bascule thème ; les passages UI sont ensuite restés séquentiels.",
+    "Une construction finale a rencontré un verrouillage Windows de Madness.exe pendant la retouche de ressources ; le réemballage a été relancé et son succès contrôlé."
+  ],
+  "limite": "Aucune de ces observations ne remplace la preuve modèle réelle dans l’application installée."
+}

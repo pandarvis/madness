@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T10:13:13.662Z",
+  "mode": "compiled-isolated-no-provider",
+  "status": "checks-passed-live-installed-missing",
+  "checks": [
+    "real-customization-config-personas-and-isolated-subprocesses-qualified",
+    "real-memlog-init-append-set-html-and-markdown-bytes-reread",
+    "historical-invocation-context-observations-and-draft-restored-without-engine",
+    "compiled-or-packaged-forge-profile-qualifies-without-account-network-or-model",
+    "foreign-conversation-refused-no-replay",
+    "theme-navigation-and-explicit-draft-save-preserve-context",
+    "desktop-and-compact-preparation-no-horizontal-overflow",
+    "second-reopen-exact-workflow-record-and-draft-no-provider"
+  ],
+  "captures": [],
+  "cleanup": true,
+  "liveProof": "missing",
+  "limits": [
+    "Sorties synthétiques du banc produites par les vrais scripts et outils hôte ; aucun dialogue modèle exécuté.",
+    "Aucun compte ni coffre copié ; authentification et workflow natif live installé sont des preuves distinctes.",
+    "Les gates et réserves distribuables historiques restent inchangés."
+  ],
+  "profile": {
+    "fingerprint": "d5316ba106a077decb6eb06d2add504aa5b87d6c5314ea4b02449bb96febc0ed",
+    "contextDigest": "81834f0484d4baf7d6a602deaf3c27aa00b35df6189584ec3bb6892ab54b7703",
+    "files": 96
+  },
+  "observations": [
+    {
+      "id": "resolver-workflow",
+      "turnId": "synthetic-turn-1",
+      "operation": "resolve-workflow",
+      "phase": "observed",
+      "at": "2026-10-26T10:13:48.951Z",
+      "path": null,
+      "sha256": "c86b3d7d09f6646405783f87e75632092f68637f30e3f1f726898f10373ed864",
+      "bytes": 261
+    },
+    {
+      "id": "resolver-config",
+      "turnId": "synthetic-turn-1",
+      "operation": "resolve-config",
+      "phase": "observed",
+      "at": "2026-10-26T10:13:55.119Z",
+      "path": null,
+      "sha256": "9bd5c4f8ba045eb06ab762bf7cdfaa3b12d7c6563544bd982d3d6b6d71e469af",
+      "bytes": 111
+    },
+    {
+      "id": "resolver-personas",
+      "turnId": "synthetic-turn-1",
+      "operation": "resolve-personas",
+      "phase": "observed",
+      "at": "2026-10-26T10:14:06.381Z",
+      "path": null,
+      "sha256": "f8f0d060e08194b7d60420298f68ce4eda69eb6259d6edfee496e7e0614ea17c",
+      "bytes": 15712
+    },
+    {
+      "id": "init",
+      "turnId": "synthetic-turn-1",
+      "operation": "init",
+      "phase": "pending",
+      "at": "2026-10-26T10:14:08.650Z",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-qualification-JMScUS\\project\\_bmad-output\\initiative-temoin\\forge-qualification\\.memlog.md",
+      "sha256": null,
+      "bytes": null
+    },
+    {
+      "id": "init",
+      "turnId": "synthetic-turn-1",
+      "operation": "init",
+      "phase": "observed",
+      "at": "2026-10-26T10:14:16.226Z",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-qualification-JMScUS\\project\\_bmad-output\\initiative-temoin\\forge-qualification\\.memlog.md",
+      "sha256": "7adf4208760110c1c7a9d11af1c070d626481d6e1b8d6c9c5bb73dfd178fc9fd",
+      "bytes": 127
+    },
+    {
+      "id": "append",
+      "turnId": "synthetic-turn-2",
+      "operation": "append",
+      "phase": "pending",
+      "at": "2026-10-26T10:14:18.141Z",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-qualification-JMScUS\\project\\_bmad-output\\initiative-temoin\\forge-qualification\\.memlog.md",
+      "sha256": null,
+      "bytes": null
+    },
+    {
+      "id": "append",
+      "turnId": "synthetic-turn-2",
+      "operation": "append",
+      "phase": "observed",
+      "at": "2026-10-26T10:14:26.362Z",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-qualification-JMScUS\\project\\_bmad-output\\initiative-temoin\\forge-qualification\\.memlog.md",
+      "sha256": "a9a8c6b629228885f505a8b2ea8a51ad8e6050077c2d75d14410af710ea80b2a",
+      "bytes": 207
+    },
+    {
+      "id": "html",
+      "turnId": "synthetic-turn-3",
+      "operation": "write",
+      "phase": "pending",
+      "at": "2026-10-26T10:14:29.699Z",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-qualification-JMScUS\\project\\_bmad-output\\initiative-temoin\\forge-qualification\\forge-report.html",
+      "sha256": null,
+      "bytes": null
+    },
+    {
+      "id": "html",
+      "turnId": "synthetic-turn-3",
+      "operation": "write",
+      "phase": "observed",
+      "at": "2026-10-26T10:14:31.920Z",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-qualification-JMScUS\\project\\_bmad-output\\initiative-temoin\\forge-qualification\\forge-report.html",
+      "sha256": "d1e12eb6ae83f035130f8990e5dcd78f671597e9bfe6a6e1c77bbc09c6c3901a",
+      "bytes": 380
+    },
+    {
+      "id": "markdown",
+      "turnId": "synthetic-turn-3",
+      "operation": "write",
+      "phase": "pending",
+      "at": "2026-10-26T10:14:33.787Z",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-qualification-JMScUS\\project\\_bmad-output\\initiative-temoin\\forge-qualification\\forge-qualification.md",
+      "sha256": null,
+      "bytes": null
+    },
+    {
+      "id": "markdown",
+      "turnId": "synthetic-turn-3",
+      "operation": "write",
+      "phase": "observed",
+      "at": "2026-10-26T10:14:35.471Z",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-qualification-JMScUS\\project\\_bmad-output\\initiative-temoin\\forge-qualification\\forge-qualification.md",
+      "sha256": "e1fe0777a2f626edf20fe8a4ed4012e169a3646fc8399f11d7898f0a548cf9e6",
+      "bytes": 108
+    },
+    {
+      "id": "finish",
+      "turnId": "synthetic-turn-3",
+      "operation": "finish",
+      "phase": "pending",
+      "at": "2026-10-26T10:14:37.382Z",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-qualification-JMScUS\\project\\_bmad-output\\initiative-temoin\\forge-qualification\\.memlog.md",
+      "sha256": null,
+      "bytes": null
+    },
+    {
+      "id": "finish",
+      "turnId": "synthetic-turn-3",
+      "operation": "finish",
+      "phase": "observed",
+      "at": "2026-10-26T10:14:44.172Z",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-qualification-JMScUS\\project\\_bmad-output\\initiative-temoin\\forge-qualification\\.memlog.md",
+      "sha256": "fb338d4d0630008a44dde583508c3d3720a0871a41aac8056f868b42e8c83f2a",
+      "bytes": 223
+    }
+  ],
+  "qualificationStates": [
+    {
+      "sequence": 2,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 4,
+      "status": "qualified",
+      "errorCode": null
+    }
+  ],
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": false
+  },
+  "artifact": {
+    "file": "out/main/index.js",
+    "sha256": "d8f4b310eb4a2f6e16e773f37f432f44c5d69daa29ea6b8ee0528628fa972e44"
+  }
+}

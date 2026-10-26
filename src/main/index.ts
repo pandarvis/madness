@@ -18,6 +18,8 @@ import { authorize, createTransport, refreshCredentials } from '../adapters/code
 import { probeCodex } from '../adapters/codex/probe.ts'
 import { isTrustedCaller } from './boundary.ts'
 import { AppearanceStore } from '../adapters/persistence/appearance-store.ts'
+import { WorkflowStore } from '../adapters/persistence/workflow-store.ts'
+import { qualifyForge } from '../adapters/bmad/forge.ts'
 import { APPEARANCE_CHANNEL, isAppearanceCommand } from '../contracts/appearance.ts'
 import type { AppearanceState, AppearanceReply, Theme } from '../contracts/appearance.ts'
 
@@ -122,12 +124,15 @@ else {
     application.lifecycle.register({ id: 'codex-connection', context: { ...emptyContext(), providerId: 'codex' }, stop: () => connection!.shutdown() })
     dialogueCoordinator = new DialogueCoordinator({
       application,
+      workflows:new WorkflowStore(join(app.getPath('userData'),'workflows-v1')),
+      copyText:async text=>{await clipboard.writeText(text);if(await clipboard.readText()!==text)throw Error('COPY_FAILED')},
+      qualifyForge:(root,signal)=>qualifyForge(root,signal,app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py')),
       qualify: async (root, signal) => {
         const profile = await qualifyBmadProfile(root)
         await resolveBmad(profile, 'agent', signal); await resolveBmad(profile, 'config', signal)
         return profile
       },
-      open: (profile, signal, activity) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(), environment: process.env })
+      open: (profile, signal, activity) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(), environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
     ipcMain.handle(DIALOGUE_COMMAND_CHANNEL, async (event, input: unknown) => {

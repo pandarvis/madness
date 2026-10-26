@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-26",
+  "status": "verification-passed-review-pending",
+  "tests": {"command": "npm test", "exitCode": 0, "tests": 137, "passed": 137, "failed": 0, "skipped": 0, "durationMs": 127587.3457},
+  "delivery": {
+    "installerSha256": "8cdae2e03ac398a65281354505d392c0fac85f14d31f270c57c0895b9fb67192",
+    "installedAsarSha256": "8f875f02fc3edbdb4eb2a1b19a930550398eaf810e4e27045050ec05a73106b0",
+    "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5",
+    "evidence": ["correction-ordre-natif.json", "packaged-profile.json", "live-profile.json"]
+  },
+  "matrixAudit": [
+    {"row": "Nouveau Forge", "tests": ["Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED", "ordre natif installé : init après config, puis personas avant la clôture sur le même thread"], "live": "live-profile.json : activation puis dialogue natif CLARIFIED, journal et HTML relus", "result": "passed"},
+    {"row": "Profil altéré ou session à reprendre", "tests": ["profil Forge refuse dépendance modifiée, hooks, sortie hors projet et reprise avant invocation", "init reste refusé avant la résolution de configuration native"], "result": "passed"},
+    {"row": "Écriture", "tests": ["sorties bornées : traversée, liens, collision, modification externe et stockage refusé", "échec de sauvegarde après effet reste inconnu et ne permet aucun replay", "version future, UTF-8 invalide, conflit et erreur disque préservent les octets"], "result": "passed"},
+    {"row": "Réouverture", "tests": ["annexe atomique par conversation restaure contexte et preuves sans migration Snapshot", "Forge conserve invocation, contexte et observations avant effets ; restauration sans moteur et copie confirmée"], "live": "live-profile.json : arrêt confirmé puis réouverture exacte de l'historique, des observations et du brouillon, sans moteur", "result": "passed"}
+  ],
+  "runtime": {
+    "electron": "45.0.0", "chromium": "156.0.8078.48", "codexVersionFromMatchingReference": "0.144.6-win32-x64",
+    "nativeCodexSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+    "pythonQualifiedVersion": "3.12.14", "uvQualifiedVersion": "0.13.0",
+    "evidence": "native-process.json et empreinte identique dans ../qualification-profil-local/profile.json ; runtime Python/UV revérifié par le profil et chaque tour"
+  },
+  "network": {
+    "providerEndpoint": "https://api.openai.com/v1/responses",
+    "oauthPublicKeys": "https://auth.openai.com/.well-known/jwks.json",
+    "systemBrowserJsonConfirmedByHuman": true,
+    "nativeProviderSucceeded": true,
+    "proxyVariablesPresent": ["HTTP_PROXY", "HTTPS_PROXY"],
+    "explicitCaFileOrDirectory": false,
+    "tlsValidationDisabled": false,
+    "certificateChainCaptured": false,
+    "scope": "Succès du processus Codex réellement lancé, avec les variables proxy habituelles et la validation par défaut. Aucun certificat, cookie ou réglage réseau n'a été modifié ; cela ne qualifie pas tous les environnements professionnels."
+  },
+  "humanAcceptance": "unknown",
+  "limits": ["Scénario synthétique conduit par le banc avec le compte Madness existant ; aucune validation produit humaine inférée.", "G0/G1, distribution et tickets historiques bloqués restent inchangés.", "Revue BMad et relecture UX encore à terminer."]
+}

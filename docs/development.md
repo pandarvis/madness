@@ -106,6 +106,28 @@ Le premier accès JWKS a été redirigé vers Zscaler. Après ouverture par le p
 
 Le menu de Mary est conservé comme texte Markdown non interprété. Son rendu enrichi et le lancement des compétences du menu sont des suites distinctes ; les commandes proposées ne constituent pas une capacité déjà livrée.
 
+## Pilote Forge : nouvelle idée et sorties observées
+
+L’action « Mettre une idée à l’épreuve » prépare `$bmad-forge-idea` installé, sans envoyer le brouillon. Vérifier le profil ne lance aucun modèle. Le lancement explicite utilise ensuite le compte propre à Madness et le forfait annoncé. Mary reste disponible pour la discussion libre.
+
+Le profil Forge épingle 96 fichiers BMad dans `src/adapters/bmad/forge-manifest.ts` : compétence, scripts et dépendances, roster et métadonnées des compétences installées. Les configurations et personnalisations présentes sont capturées dans l’empreinte de session. Hooks, faits persistants et instructions de fin non vides, sortie extérieure au projet, dépendance modifiée et session Forge inachevée bloquent avant invocation. Les profils locaux épinglés ne qualifient pas une distribution générale.
+
+Le modèle reçoit la référence native au skill. Codex reste dans un dossier isolé, en `read-only`, avec shell, plugins, apps et sous-agents désactivés. Les outils hôte exécutent réellement customization/config/personas et `memlog.py init/append/set` ; `resources/bmad-script-runner.py` réapplique `-I -S -B` aux sous-processus Python des personas et vérifie leurs octets avant chargement. Python 3.12.14 et UV 0.13.0 restent des prérequis externes épinglés ; seul ce lanceur est ajouté aux ressources de l’installateur.
+
+Les écritures sont limitées à un nouveau `forge-{slug}` sous la sortie BMad et l’initiative résolues. Aucun chemin libre ni reprise n’est disponible. Le journal natif, le HTML intégral obligatoire et le Markdown si `HARDENED` sont relus ; chemins, tailles et SHA-256 sont enregistrés avec leur date et la corrélation du tour/appel. Les fichiers déjà présents, liens, octets modifiés ou sauvegardes refusées ne deviennent pas des succès. Une opération commencée sans confirmation reste inconnue et bloque son rejeu. Madness n’exécute ni ne prévisualise le HTML.
+
+L’annexe `userData/workflows-v1/{conversationId}.json` conserve atomiquement invocation, contexte, empreintes, sortie et observations ; Snapshot v1 reste inchangé. Les échanges restent dans le Snapshot existant. À la réouverture, l’annexe est historique, les activités interrompues deviennent inconnues et aucun moteur ne reprend. Une clôture native observée ne vaut pas acceptation humaine. Les copies d’invocation/chemin sont confirmées après le retour du presse-papiers Windows ; le texte reste sélectionnable en cas d’échec.
+
+```powershell
+npm test
+npm run build:win -- --config.directories.output=dist/forge-pilot
+node scripts/qualification/forge.mjs
+node scripts/qualification/forge.mjs --packaged
+node scripts/qualification/windows.mjs --ui-regressions-only --skip-screenshots
+```
+
+Le banc Forge copie le profil BMad dans un projet jetable, exécute les vrais outils hôte sur des données synthétiques, puis vérifie main/preload, préparation, restauration, brouillon, thèmes et navigation sur compilé/paquet. Il nettoie son espace même après échec. Ses preuves sont distinctes sous `tickets/epic-boucle-codex/qualification-boucle-bmad/`. La preuve d’un workflow modèle réel dans une application installée reste séparée : elle exige le compte Madness autorisé, sans copie de coffre, un projet témoin, activation/resolvers/personas, journal et rapport observés, puis arrêt/réouverture. Les bancs synthétiques ne satisfont pas cette preuve et ne ferment aucun gate historique.
+
 ## Reconstruire après mise à jour
 
 Choisir explicitement les nouvelles versions, mettre à jour le manifeste et le lockfile, puis refaire types, tests, build, paquet et réouverture sur profil isolé. Conserver le profil hors des binaires et vérifier la reprise avec le nouveau programme avant diffusion. Les previews sont admises ; aucun repli silencieux de version ni patch local de dépendance n’est utilisé. Les avertissements de dépréciation transitifs remontés par npm sont à suivre lors des montées de version.

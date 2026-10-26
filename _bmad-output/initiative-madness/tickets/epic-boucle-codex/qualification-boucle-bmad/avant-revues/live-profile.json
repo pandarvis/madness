@@ -1,0 +1,552 @@
+{
+  "schemaVersion": 1,
+  "mode": "installed-normal-madness-account-synthetic-workflow",
+  "status": "live-installed-checks-passed",
+  "observedAt": "2026-10-26T08:52:45.529373Z",
+  "checks": [
+    "qualified-package-installed-identical-asar-and-runner-user-data-preserved",
+    "installed-profile-qualified-before-model",
+    "native-skill-started-without-sending-draft",
+    "native-resolvers-personas-memlog-report-and-finish-observed-bytes-reread",
+    "native-codex-process-stop-confirmed",
+    "installed-reopen-preserves-context-invocation-observations-history-draft-without-engine"
+  ],
+  "witness": {
+    "root": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c",
+    "synthetic": true,
+    "profileFiles": 96
+  },
+  "priorInstallation": {
+    "before": {
+      "madness-state-v1.json": "f27bca4a6cfd3df946396a7e3d020dbecc87e032d39561d436fbb1efc01c1a09",
+      "appearance-v1.json": null,
+      "codex-connection-v1/credentials.bin": "b0603ebfe1b78a298381bc864b7bdc5cfc7c432f82a853abf55fa227507ad9ef"
+    },
+    "previousAsar": "5c805e2d2fc465d11b01dca14fb58e39b5d83d0ee2df5de6becb3cda04c00aa4",
+    "previousWorkflowFiles": [],
+    "previousSnapshotCounts": {
+      "projects": 3,
+      "conversations": 1,
+      "drafts": 1
+    },
+    "after": {
+      "madness-state-v1.json": "f27bca4a6cfd3df946396a7e3d020dbecc87e032d39561d436fbb1efc01c1a09",
+      "appearance-v1.json": null,
+      "codex-connection-v1/credentials.bin": "b0603ebfe1b78a298381bc864b7bdc5cfc7c432f82a853abf55fa227507ad9ef"
+    },
+    "installedAsar": "3b04d46110dfe897ed4c07ed97ad0af4702e6408354efdeeb41accd00494bb65",
+    "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5"
+  },
+  "diagnosticReference": "live-attempts-before-order-fix.json",
+  "limits": [
+    "Idée et réponses synthétiques de qualification, pas une validation du porteur.",
+    "Compte propre à Madness ; aucun coffre déchiffré ou copié par le banc.",
+    "Aucun gate de distribution déduit."
+  ],
+  "installation": {
+    "at": "2026-10-26T09:00:11.0425282Z",
+    "exitCode": 0,
+    "installerSha256": "8cdae2e03ac398a65281354505d392c0fac85f14d31f270c57c0895b9fb67192",
+    "installedAsar": "8f875f02fc3edbdb4eb2a1b19a930550398eaf810e4e27045050ec05a73106b0",
+    "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5",
+    "before": {
+      "madness-state-v1.json": "08dc56de72be24c87cfd878cd3f1af5e2e77847f214ec1c0607e0249915a7dec",
+      "appearance-v1.json": null,
+      "codex-connection-v1\\credentials.bin": "c787daef3381ea5ab315b8d61775667844d6211f761a2309344aa0f7b26e9f20",
+      "workflows-v1\\5359fb9d-4c4e-494e-97f1-d6ea39bb03e2.json": "001c6f56e9da0a681c77377381f4040f84be55ad1d1858b686a34e7f47424dc5",
+      "workflows-v1\\832ab0d8-d5ac-4ddf-a671-bd04de02bcca.json": "5b7f1325a324caef2066485cf77e880be44deb5c3158bfbd504beacacb8a66fe",
+      "workflows-v1\\d82a91b1-c30d-4c2b-947f-63111a5755aa.json": "0f8c2d8ff8e87cc7ec1b808f023d8963481b73b6fe14bd6ba42ea4a9a115b89d",
+      "workflows-v1\\f487cdf6-64e4-466a-b6a8-7a0d84647eff.json": "558e642425a3a34d579bed1ca786cb4551c801d28f92765ca7b35f49097d04ed"
+    },
+    "after": {
+      "madness-state-v1.json": "08dc56de72be24c87cfd878cd3f1af5e2e77847f214ec1c0607e0249915a7dec",
+      "appearance-v1.json": null,
+      "codex-connection-v1\\credentials.bin": "c787daef3381ea5ab315b8d61775667844d6211f761a2309344aa0f7b26e9f20",
+      "workflows-v1\\5359fb9d-4c4e-494e-97f1-d6ea39bb03e2.json": "001c6f56e9da0a681c77377381f4040f84be55ad1d1858b686a34e7f47424dc5",
+      "workflows-v1\\832ab0d8-d5ac-4ddf-a671-bd04de02bcca.json": "5b7f1325a324caef2066485cf77e880be44deb5c3158bfbd504beacacb8a66fe",
+      "workflows-v1\\d82a91b1-c30d-4c2b-947f-63111a5755aa.json": "0f8c2d8ff8e87cc7ec1b808f023d8963481b73b6fe14bd6ba42ea4a9a115b89d",
+      "workflows-v1\\f487cdf6-64e4-466a-b6a8-7a0d84647eff.json": "558e642425a3a34d579bed1ca786cb4551c801d28f92765ca7b35f49097d04ed"
+    }
+  },
+  "runtime": {
+    "packaged": true,
+    "userData": "C:/Users/UP60066553\\AppData\\Roaming\\madness",
+    "appPath": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\resources\\app.asar",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48"
+  },
+  "transportEnvironment": {
+    "HTTP_PROXY": true,
+    "HTTPS_PROXY": true,
+    "ALL_PROXY": false,
+    "NO_PROXY": false,
+    "SSL_CERT_FILE": false,
+    "SSL_CERT_DIR": false
+  },
+  "connectionPreflight": {
+    "status": "registered",
+    "errorCode": null
+  },
+  "transitions": [
+    {
+      "sequence": 2,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 4,
+      "status": "qualified",
+      "errorCode": null
+    },
+    {
+      "sequence": 5,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 8,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 9,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 11,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 13,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 14,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 15,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 16,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 17,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 18,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 20,
+      "status": "ready",
+      "errorCode": null
+    },
+    {
+      "sequence": 21,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 23,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 24,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 25,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 26,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 27,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 28,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 29,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 30,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 31,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 33,
+      "status": "ready",
+      "errorCode": null
+    },
+    {
+      "sequence": 34,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 36,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 37,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 38,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 39,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 40,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 41,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 42,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 43,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 44,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 45,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 46,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 47,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 48,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 50,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 51,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 52,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 53,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 54,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 56,
+      "status": "ready",
+      "errorCode": null
+    },
+    {
+      "sequence": 57,
+      "status": "stopping",
+      "errorCode": null
+    },
+    {
+      "sequence": 59,
+      "status": "stopped",
+      "errorCode": null
+    }
+  ],
+  "profile": {
+    "fingerprint": "d5316ba106a077decb6eb06d2add504aa5b87d6c5314ea4b02449bb96febc0ed",
+    "skillPath": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\.agents\\skills\\bmad-forge-idea\\SKILL.md",
+    "outputBase": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin"
+  },
+  "workflow": {
+    "schemaVersion": 1,
+    "conversationId": "674a7414-018b-45e8-a2cf-f2ed7fd1c888",
+    "context": {
+      "projectId": "54330e20-df34-43eb-93ad-7a1e542eb5c0",
+      "initiativeId": "initiative-temoin",
+      "conversationId": "674a7414-018b-45e8-a2cf-f2ed7fd1c888",
+      "providerId": "codex",
+      "connectionId": "c-f63e1dd54eecf9e94c5e96f477758f1319f216ec0c8328d440d51d16b7fa6056"
+    },
+    "invocation": "$bmad-forge-idea",
+    "capturedAt": "2026-10-26T09:03:10.968Z",
+    "rootPath": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c",
+    "outputBase": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin",
+    "contextDigest": "81834f0484d4baf7d6a602deaf3c27aa00b35df6189584ec3bb6892ab54b7703",
+    "fingerprint": "d5316ba106a077decb6eb06d2add504aa5b87d6c5314ea4b02449bb96febc0ed",
+    "skillPath": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\.agents\\skills\\bmad-forge-idea\\SKILL.md",
+    "workspace": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes",
+    "outcome": "CLARIFIED",
+    "observations": [
+      {
+        "id": "exec-0725a0f2-0457-433c-be1d-9c0f55fb2c3f",
+        "turnId": "01a17773-1597-7972-9b39-bc13c18dc80c",
+        "operation": "resolve-workflow",
+        "phase": "observed",
+        "at": "2026-10-26T09:03:29.114Z",
+        "path": null,
+        "sha256": "c86b3d7d09f6646405783f87e75632092f68637f30e3f1f726898f10373ed864",
+        "bytes": 261
+      },
+      {
+        "id": "exec-fe8efaf1-e5b6-4c59-9534-d9f7877ea2e1",
+        "turnId": "01a17773-1597-7972-9b39-bc13c18dc80c",
+        "operation": "resolve-config",
+        "phase": "observed",
+        "at": "2026-10-26T09:03:36.344Z",
+        "path": null,
+        "sha256": "9bd5c4f8ba045eb06ab762bf7cdfaa3b12d7c6563544bd982d3d6b6d71e469af",
+        "bytes": 111
+      },
+      {
+        "id": "exec-f2820f89-8821-4258-a2cf-8c0798563c7a",
+        "turnId": "01a17773-eb57-7880-a716-4071d679300b",
+        "operation": "resolve-personas",
+        "phase": "observed",
+        "at": "2026-10-26T09:04:20.462Z",
+        "path": null,
+        "sha256": "f8f0d060e08194b7d60420298f68ce4eda69eb6259d6edfee496e7e0614ea17c",
+        "bytes": 15712
+      },
+      {
+        "id": "exec-7c1dda22-c8dc-4df4-b5b0-e93f2baa3c4d",
+        "turnId": "01a17773-eb57-7880-a716-4071d679300b",
+        "operation": "init",
+        "phase": "pending",
+        "at": "2026-10-26T09:04:27.170Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-7c1dda22-c8dc-4df4-b5b0-e93f2baa3c4d",
+        "turnId": "01a17773-eb57-7880-a716-4071d679300b",
+        "operation": "init",
+        "phase": "observed",
+        "at": "2026-10-26T09:04:30.293Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": "f60829569c3c574519be6a7dcae9acd992bf8aa1b7e83573e1e574b60af87067",
+        "bytes": 242
+      },
+      {
+        "id": "exec-31a44711-7221-4000-98c3-315f03885ca1",
+        "turnId": "01a17773-eb57-7880-a716-4071d679300b",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T09:04:36.230Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-31a44711-7221-4000-98c3-315f03885ca1",
+        "turnId": "01a17773-eb57-7880-a716-4071d679300b",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T09:04:39.706Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": "2147d3897256d41f97b768e861fb51ecf5f58d9386dc6b9920c3521c2d7f70fd",
+        "bytes": 446
+      },
+      {
+        "id": "exec-ca340626-bf8f-4e24-b9a0-7552805870fe",
+        "turnId": "01a17775-6eea-7570-8254-86f05726ad45",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T09:05:55.997Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-ca340626-bf8f-4e24-b9a0-7552805870fe",
+        "turnId": "01a17775-6eea-7570-8254-86f05726ad45",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T09:05:58.973Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": "b492dc7685b81cda0899f4d9564b0d223bf3e9ed94142ab744f4c7ef027510dd",
+        "bytes": 603
+      },
+      {
+        "id": "exec-b4f172b3-63ed-4fab-897a-81b0f6074d57",
+        "turnId": "01a17775-6eea-7570-8254-86f05726ad45",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T09:06:04.533Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-b4f172b3-63ed-4fab-897a-81b0f6074d57",
+        "turnId": "01a17775-6eea-7570-8254-86f05726ad45",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T09:06:07.540Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": "afe31bc9cb19fcd77a3d8ec539f2fff2c24972636f93af3f352dbf4229c95511",
+        "bytes": 737
+      },
+      {
+        "id": "exec-2fe02f72-e511-4560-9fb0-80095edf6168",
+        "turnId": "01a17775-6eea-7570-8254-86f05726ad45",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T09:06:12.751Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-2fe02f72-e511-4560-9fb0-80095edf6168",
+        "turnId": "01a17775-6eea-7570-8254-86f05726ad45",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T09:06:16.470Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": "419849874c42360f61ae4e8ba9e5b9a8c00f3f3a4d5136f2a8ab3612a4881fbb",
+        "bytes": 854
+      },
+      {
+        "id": "exec-67da10dd-fcb2-43d2-97af-e35f16891ef6",
+        "turnId": "01a17775-6eea-7570-8254-86f05726ad45",
+        "operation": "append",
+        "phase": "pending",
+        "at": "2026-10-26T09:06:21.841Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-67da10dd-fcb2-43d2-97af-e35f16891ef6",
+        "turnId": "01a17775-6eea-7570-8254-86f05726ad45",
+        "operation": "append",
+        "phase": "observed",
+        "at": "2026-10-26T09:06:25.526Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": "fff408387d563044addf2669eb0049679d41de03e1a94acd4d17c467e668329c",
+        "bytes": 1028
+      },
+      {
+        "id": "exec-76527c45-ba38-4db1-bfbb-ed67d5680b48",
+        "turnId": "01a17775-6eea-7570-8254-86f05726ad45",
+        "operation": "write",
+        "phase": "pending",
+        "at": "2026-10-26T09:07:10.489Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\forge-report.html",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-76527c45-ba38-4db1-bfbb-ed67d5680b48",
+        "turnId": "01a17775-6eea-7570-8254-86f05726ad45",
+        "operation": "write",
+        "phase": "observed",
+        "at": "2026-10-26T09:07:10.958Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\forge-report.html",
+        "sha256": "13d98a4affd145e41338b10813634b9d1aecd50f5d8c70429a18fd1cfc96721d",
+        "bytes": 5920
+      },
+      {
+        "id": "exec-0ca86a73-038c-42bc-9e24-1b80dbea2386",
+        "turnId": "01a17775-6eea-7570-8254-86f05726ad45",
+        "operation": "finish",
+        "phase": "pending",
+        "at": "2026-10-26T09:07:15.966Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": null,
+        "bytes": null
+      },
+      {
+        "id": "exec-0ca86a73-038c-42bc-9e24-1b80dbea2386",
+        "turnId": "01a17775-6eea-7570-8254-86f05726ad45",
+        "operation": "finish",
+        "phase": "observed",
+        "at": "2026-10-26T09:07:20.119Z",
+        "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+        "sha256": "1840b650dd058d47e4891acbe9334b0867b19e4fd3ada7a045f073392e0d668e",
+        "bytes": 1044
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\.memlog.md",
+      "sha256": "1840b650dd058d47e4891acbe9334b0867b19e4fd3ada7a045f073392e0d668e",
+      "bytes": 1044
+    },
+    {
+      "path": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin\\forge-carnet-local-arrosage-plantes\\forge-report.html",
+      "sha256": "13d98a4affd145e41338b10813634b9d1aecd50f5d8c70429a18fd1cfc96721d",
+      "bytes": 5920
+    }
+  ],
+  "completedAt": "2026-10-26T09:09:34.038Z"
+}

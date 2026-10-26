@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-26",
+  "completedAt": "2026-10-26T11:16:47.486Z",
+  "status": "built-reviewed-verified-installed",
+  "tests": {
+    "command": "npm test",
+    "exitCode": 0,
+    "tests": 151,
+    "passed": 151,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 281424.2779
+  },
+  "build": {
+    "command": "npm run build:win -- --config.directories.output=dist/forge-pilot",
+    "exitCode": 0,
+    "typecheck": "passed",
+    "compiled": "passed",
+    "nsis": "passed",
+    "signed": false
+  },
+  "delivery": {
+    "installerSha256": "fe151a5f9b770ce59962c3cab470dae5c0ff4bdb16fee9482c29d83da05ce26d",
+    "installedAsarSha256": "0ac73f5943520b7a6c3a5087c51beb8c219fb4336eb1f80eee267d53a7e998a8",
+    "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5",
+    "evidence": [
+      "packaged-profile.json",
+      "live-profile.json",
+      "native-process.json"
+    ]
+  },
+  "qualification": {
+    "compiled": {
+      "checks": 8,
+      "cleanup": true,
+      "mainSha256": "d8f4b310eb4a2f6e16e773f37f432f44c5d69daa29ea6b8ee0528628fa972e44",
+      "scope": "Après les corrections core Quick ; Main/preload inchangés par les corrections UX, empreinte Main identique au build final."
+    },
+    "packaged": {
+      "checks": 8,
+      "cleanup": true,
+      "scope": "Archive finale, vrais scripts BMad sur données synthétiques sans moteur."
+    },
+    "windows": {
+      "command": "node scripts/qualification/windows.mjs --ui-regressions-only --skip-screenshots",
+      "exitCode": 0,
+      "checks": 5,
+      "cleanup": true,
+      "evidenceOrigin": "Sortie du banc observée par le parent après le build final ; le mode ciblé préserve les anciennes preuves G0.",
+      "checksPassed": [
+        "ui.global-toolbar-single-open",
+        "events.correlated-ordered",
+        "ui.skip-link-keyboard-keeps-ipc-and-events",
+        "ui.native-titlebar-geometry-and-actions-desktop-compact",
+        "ui.same-initial-project-markers-survive-reopen"
+      ]
+    },
+    "live": {
+      "checks": 6,
+      "outcome": "CLARIFIED",
+      "observations": 27,
+      "files": 2,
+      "conversationId": "38aadb9f-1af6-4d0a-8b6c-73dae4ab886d",
+      "source": "Dialogue natif installé, compte Madness existant, idée et réponses synthétiques du banc.",
+      "stop": "confirmed",
+      "reopen": "exact-history-context-observations-draft-no-engine-or-network",
+      "referencedWitness": "preserved",
+      "observationPhases": {
+        "pending": 12,
+        "observed": 15,
+        "failed": 0,
+        "unknown": 0
+      }
+    }
+  },
+  "matrixAudit": [
+    {
+      "row": "Nouveau Forge",
+      "evidence": [
+        "tests/forge.test.mjs : vrais resolvers, personas, memlog et sorties HARDENED",
+        "tests/forge-protocol.test.mjs : protocole et ordre natif",
+        "live-profile.json : nouvelle idée CLARIFIED, journal et HTML relus"
+      ],
+      "result": "passed"
+    },
+    {
+      "row": "Profil altéré ou session à reprendre",
+      "evidence": [
+        "tests/dialogue.test.mjs : absence ou changement du profil préparé, sortie/initiative/contexte/empreinte refusés avant fournisseur",
+        "tests/forge.test.mjs : hooks, dépendances, reprise et sorties non qualifiés refusés"
+      ],
+      "result": "passed"
+    },
+    {
+      "row": "Écriture",
+      "evidence": [
+        "tests/forge.test.mjs : traversée, liens, collision, modification externe et erreur disque",
+        "tests/forge-protocol.test.mjs : corrélation et effet incertain sans replay",
+        "tests/workflow-store.test.mjs : 200 annexes admises, 201e refusée avant écriture, octets préservés"
+      ],
+      "result": "passed"
+    },
+    {
+      "row": "Réouverture",
+      "evidence": [
+        "tests/workflow-store.test.mjs : restauration sans migration Snapshot v1",
+        "tests/connection-ui.test.mjs : observations et copie dans chaque historique Forge après Mary",
+        "live-profile.json : arrêt puis réouverture exacte sans moteur/réseau"
+      ],
+      "result": "passed"
+    }
+  ],
+  "review": {
+    "bmad": {
+      "lens": "quick",
+      "findings": 4,
+      "patched": 3,
+      "rejectedWithEvidence": 1,
+      "deferred": 0,
+      "plan": "../tickets/story-executer-et-retrouver-la-premiere-boucle-bmad-reelle-plan.md",
+      "stopEvidence": "review-stop-check.json"
+    },
+    "impeccable": {
+      "fullReview": "fix",
+      "codeFixBatches": 1,
+      "materialFixes": 2,
+      "resolved": 2,
+      "finalDisposition": "ship",
+      "scope": "Passe de verdict sur les deux corrections, après compléments de captures ; aucune acceptation humaine inférée.",
+      "evidence": "impeccable-review.md",
+      "roleSubstitution": "Types spécialisés non exposés ; agents techniques frais chargeant eux-mêmes les définitions officielles."
+    },
+    "documentation": {
+      "status": "completed-incumbent-preserved",
+      "evidence": "impeccable-documentation-check.md",
+      "preexistingDrift": "Consigné sans réparation ni canonisation."
+    }
+  },
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "codexVersionFromMatchingReference": "0.144.6-win32-x64",
+    "nativeCodexSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+    "pythonQualifiedVersion": "3.12.14",
+    "uvQualifiedVersion": "0.13.0"
+  },
+  "network": {
+    "providerEndpoint": "https://api.openai.com/v1/responses",
+    "oauthPublicKeys": "https://auth.openai.com/.well-known/jwks.json",
+    "systemBrowserJsonConfirmedByHuman": true,
+    "nativeProviderSucceeded": true,
+    "proxyVariablesPresent": [
+      "HTTP_PROXY",
+      "HTTPS_PROXY"
+    ],
+    "explicitCaFileOrDirectory": false,
+    "tlsValidationDisabled": false,
+    "certificateChainCaptured": false,
+    "scope": "Succès du Codex réellement lancé avec les variables proxy habituelles et validation par défaut ; aucun certificat, cookie ni réglage proxy modifié. Ne qualifie pas tous les environnements professionnels."
+  },
+  "humanAcceptance": "unknown",
+  "limits": [
+    "Pilote personnel BMad v7 épinglé, nouvelle idée Forge seulement ; pas de catalogue complet ni reprise.",
+    "G0/G1, distribution, tickets 1.1/1.2 bloqués et périmètre intégré 1.10/1.11 inchangés.",
+    "Python/UV/BMad externes épinglés ; installateur non signé, icône Electron par défaut.",
+    "Sorties HTML relues comme octets, jamais exécutées. Témoins liés à l’historique préservés.",
+    "Preuves historiques avant revues conservées sous avant-revues ; seuls ces résultats finaux qualifient l’archive actuelle."
+  ],
+  "cleanup": {
+    "ownedOneOffFilesRemoved": 7,
+    "uniqueReviewTempDirectoryRemoved": true,
+    "disposableProfilesCleaned": true,
+    "automatedRepositoryTests": "preserved",
+    "referencedWitnessAndPersonalData": "preserved"
+  },
+  "versionControl": {
+    "scope": "65 task files explicitly staged; pre-existing installations and caches excluded",
+    "diffCheck": "passed-with-native-CRLF-recognized",
+    "nativeArtifactsByteIdenticalInIndex": 7
+  },
+  "userHandoff": {
+    "normalAppReopened": true,
+    "windowResponding": true,
+    "debuggerLaunched": false,
+    "providerChildren": 0,
+    "initialWindowCheck": "early-before-window-visible",
+    "recheck": "passed-without-relaunch"
+  }
+}

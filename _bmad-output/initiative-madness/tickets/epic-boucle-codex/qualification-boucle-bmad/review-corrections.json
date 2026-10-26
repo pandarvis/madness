@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-26",
+  "status": "quick-patches-verified-final-evidence-completed",
+  "triage": [
+    {
+      "id": "Quick-1",
+      "verdict": "high",
+      "route": "patch",
+      "resolution": "Le profil préparé est cloné et comparé avant ouverture : projet, racine, empreinte, skill, sortie, initiative et contexte ; absence/changement refusés."
+    },
+    {
+      "id": "Quick-2",
+      "verdict": "medium",
+      "route": "patch",
+      "resolution": "WorkflowResult est rendu aussi dans chaque historique Forge ; son message de copie est local et sa cible est la conversation concernée."
+    },
+    {
+      "id": "Quick-3",
+      "verdict": "false",
+      "route": "rejected",
+      "evidence": "review-stop-check.json : un descendant encore vivant produit false puis STOP_UNCONFIRMED/unknown ; aucun arrêt réussi n'est annoncé."
+    },
+    {
+      "id": "Quick-4",
+      "verdict": "medium",
+      "route": "patch",
+      "resolution": "MAX_WORKFLOWS=200 partagé ; ajout supplémentaire refusé avant fichier et fournisseur ; les 200 enregistrements restent restaurables/modifiables, Mary utilisable."
+    }
+  ],
+  "targeted": {
+    "coreAndStoragePassed": 19,
+    "uiPassed": 2,
+    "redReproduced": true
+  },
+  "fullTests": {
+    "command": "npm test",
+    "exitCode": 0,
+    "tests": 147,
+    "passed": 147,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 199446.3414
+  },
+  "build": {
+    "typecheck": "passed",
+    "compiled": "passed",
+    "firstPackage": "UNKNOWN while opening Madness.exe for resource editing",
+    "retry": "npx electron-builder --win --x64 --config.directories.output=dist/forge-pilot",
+    "retryExitCode": 0,
+    "sourceChangedForRetry": false
+  },
+  "delivery": {
+    "installerSha256": "6a87fec9ffabe2e9db587ee99ac4bd22f06d738c433f2b4074e4ffd8743a1365",
+    "asarSha256": "714f267cc40f84bf71300c57ccc3df091189477ff686f0e11d241f0a081b5a86",
+    "renderer": "index-5P3y3CPT.js",
+    "rendererSha256": "b95ee2e08c45c002e9c8f5f46199ae4efe54f2990073ae0e943eb078c1728c68"
+  },
+  "limits": [
+    "Les digests et les 147 tests ci-dessus décrivent la phase après Quick, avant les deux corrections UX ; la preuve finale est distincte.",
+    "Aucun gate, ticket bloqué ou intention figée modifié."
+  ],
+  "historicalPendingAtCreation": [
+    "Bancs compilé/paquet et régressions Windows après corrections",
+    "Quatre captures demandées et revue UX complète",
+    "Essai installé de cette archive et documentation de finition"
+  ],
+  "finalResolution": "final-verification.json"
+}

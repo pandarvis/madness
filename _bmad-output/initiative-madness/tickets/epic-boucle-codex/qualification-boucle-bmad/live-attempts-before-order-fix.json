@@ -1,0 +1,499 @@
+{
+  "schemaVersion": 1,
+  "mode": "installed-normal-madness-account-synthetic-workflow",
+  "status": "installed-preflight",
+  "observedAt": "2026-10-26T07:56:16.998Z",
+  "checks": [
+    "qualified-package-installed-identical-asar-and-runner-user-data-preserved",
+    "installed-profile-qualified-before-model",
+    "native-skill-started-without-sending-draft"
+  ],
+  "limits": [
+    "Idée et réponses synthétiques de qualification, pas une validation du porteur.",
+    "Compte propre à Madness ; aucun coffre copié.",
+    "Aucun gate de distribution déduit."
+  ],
+  "installation": {
+    "before": {
+      "madness-state-v1.json": "f27bca4a6cfd3df946396a7e3d020dbecc87e032d39561d436fbb1efc01c1a09",
+      "appearance-v1.json": null,
+      "codex-connection-v1/credentials.bin": "b0603ebfe1b78a298381bc864b7bdc5cfc7c432f82a853abf55fa227507ad9ef"
+    },
+    "previousAsar": "5c805e2d2fc465d11b01dca14fb58e39b5d83d0ee2df5de6becb3cda04c00aa4",
+    "previousWorkflowFiles": [],
+    "previousSnapshotCounts": {
+      "projects": 3,
+      "conversations": 1,
+      "drafts": 1
+    },
+    "after": {
+      "madness-state-v1.json": "f27bca4a6cfd3df946396a7e3d020dbecc87e032d39561d436fbb1efc01c1a09",
+      "appearance-v1.json": null,
+      "codex-connection-v1/credentials.bin": "b0603ebfe1b78a298381bc864b7bdc5cfc7c432f82a853abf55fa227507ad9ef"
+    },
+    "installedAsar": "3b04d46110dfe897ed4c07ed97ad0af4702e6408354efdeeb41accd00494bb65",
+    "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5"
+  },
+  "witness": {
+    "root": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c",
+    "synthetic": true,
+    "profileFiles": 96
+  },
+  "runtime": {
+    "packaged": true,
+    "userData": "C:/Users/UP60066553\\AppData\\Roaming\\madness",
+    "appPath": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\resources\\app.asar",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48"
+  },
+  "connectionPreflight": {
+    "status": "registered",
+    "errorCode": null
+  },
+  "transitions": [
+    {
+      "sequence": 2,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 4,
+      "status": "qualified",
+      "errorCode": null
+    },
+    {
+      "sequence": 2,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 4,
+      "status": "qualified",
+      "errorCode": null
+    },
+    {
+      "sequence": 5,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 8,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 9,
+      "status": "error",
+      "errorCode": "PROVIDER_FAILED"
+    },
+    {
+      "sequence": 2,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 4,
+      "status": "qualified",
+      "errorCode": null
+    },
+    {
+      "sequence": 5,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 8,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 9,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 11,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 13,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 14,
+      "status": "error",
+      "errorCode": "PROVIDER_FAILED"
+    },
+    {
+      "sequence": 2,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 4,
+      "status": "qualified",
+      "errorCode": null
+    },
+    {
+      "sequence": 5,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 8,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 9,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 11,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 13,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 14,
+      "status": "error",
+      "errorCode": "PROVIDER_FAILED"
+    },
+    {
+      "sequence": 2,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 4,
+      "status": "qualified",
+      "errorCode": null
+    },
+    {
+      "sequence": 5,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 8,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 9,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 11,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 13,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 14,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 15,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 16,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 17,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 18,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 20,
+      "status": "ready",
+      "errorCode": null
+    },
+    {
+      "sequence": 21,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 23,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 24,
+      "status": "error",
+      "errorCode": "UNSUPPORTED_INTERACTION"
+    },
+    {
+      "sequence": 2,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 4,
+      "status": "qualified",
+      "errorCode": null
+    },
+    {
+      "sequence": 5,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 8,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 9,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 11,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 13,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 14,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 15,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 16,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 17,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 18,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 20,
+      "status": "ready",
+      "errorCode": null
+    },
+    {
+      "sequence": 21,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 23,
+      "status": "running",
+      "errorCode": null
+    },
+    {
+      "sequence": 24,
+      "status": "error",
+      "errorCode": "UNSUPPORTED_INTERACTION"
+    }
+  ],
+  "profile": {
+    "fingerprint": "d5316ba106a077decb6eb06d2add504aa5b87d6c5314ea4b02449bb96febc0ed",
+    "skillPath": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\.agents\\skills\\bmad-forge-idea\\SKILL.md",
+    "outputBase": "C:\\Sources\\madness\\.g0-qualification\\forge-live-c4f2f59c\\_bmad-output\\initiative-temoin"
+  },
+  "failure": "Expected values to be strictly equal:\n\n'error' !== 'ready'\n",
+  "nativeDiagnosticAttempts": [
+    {
+      "at": "2026-10-26T08:37:00.611Z",
+      "errors": [
+        {
+          "method": "error",
+          "code": null,
+          "message": "stream disconnected before completion: error sending request for url (https://api.openai.com/v1/responses)",
+          "info": "other"
+        },
+        {
+          "method": "turn/completed",
+          "code": null,
+          "message": "stream disconnected before completion: error sending request for url (https://api.openai.com/v1/responses)",
+          "info": "other"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-26T08:44:27.182Z",
+      "errors": []
+    },
+    {
+      "at": "2026-10-26T08:49:43.090Z",
+      "errors": [],
+      "trace": [
+        {
+          "method": "item/started",
+          "itemType": "userMessage"
+        },
+        {
+          "method": "item/completed",
+          "itemType": "userMessage"
+        },
+        {
+          "method": "item/started",
+          "itemType": "agentMessage"
+        },
+        {
+          "method": "item/completed",
+          "itemType": "agentMessage"
+        },
+        {
+          "method": "item/started",
+          "itemType": "dynamicToolCall"
+        },
+        {
+          "method": "item/tool/call",
+          "tool": "bmad_read_file",
+          "argumentKeys": [
+            "path"
+          ]
+        },
+        {
+          "method": "item/completed",
+          "itemType": "dynamicToolCall"
+        },
+        {
+          "method": "item/started",
+          "itemType": "reasoning"
+        },
+        {
+          "method": "item/completed",
+          "itemType": "reasoning"
+        },
+        {
+          "method": "item/started",
+          "itemType": "dynamicToolCall"
+        },
+        {
+          "method": "item/tool/call",
+          "tool": "bmad_forge_resolve",
+          "argumentKeys": [
+            "kind"
+          ]
+        },
+        {
+          "method": "item/completed",
+          "itemType": "dynamicToolCall"
+        },
+        {
+          "method": "item/started",
+          "itemType": "dynamicToolCall"
+        },
+        {
+          "method": "item/tool/call",
+          "tool": "bmad_forge_resolve",
+          "argumentKeys": [
+            "kind"
+          ]
+        },
+        {
+          "method": "item/completed",
+          "itemType": "dynamicToolCall"
+        },
+        {
+          "method": "item/started",
+          "itemType": "reasoning"
+        },
+        {
+          "method": "item/completed",
+          "itemType": "reasoning"
+        },
+        {
+          "method": "item/started",
+          "itemType": "agentMessage"
+        },
+        {
+          "method": "item/completed",
+          "itemType": "agentMessage"
+        },
+        {
+          "method": "item/started",
+          "itemType": "userMessage"
+        },
+        {
+          "method": "item/completed",
+          "itemType": "userMessage"
+        },
+        {
+          "method": "item/started",
+          "itemType": "reasoning"
+        },
+        {
+          "method": "item/completed",
+          "itemType": "reasoning"
+        },
+        {
+          "method": "item/started",
+          "itemType": "agentMessage"
+        },
+        {
+          "method": "item/completed",
+          "itemType": "agentMessage"
+        },
+        {
+          "method": "item/started",
+          "itemType": "dynamicToolCall"
+        },
+        {
+          "method": "item/tool/call",
+          "tool": "bmad_forge_init",
+          "argumentKeys": [
+            "idea",
+            "goal",
+            "slug"
+          ]
+        },
+        {
+          "method": "item/completed",
+          "itemType": "dynamicToolCall"
+        }
+      ]
+    }
+  ],
+  "transportEnvironment": {
+    "HTTP_PROXY": true,
+    "HTTPS_PROXY": true,
+    "ALL_PROXY": false,
+    "NO_PROXY": false,
+    "SSL_CERT_FILE": false,
+    "SSL_CERT_DIR": false
+  }
+}

@@ -9,6 +9,8 @@ import type { BmadProfile, DialogueSession } from '../../core/ports.ts'
 import type { CodexConnection } from './connection.ts'
 import { findNativeExecutable, probeEnvironment, stopNative } from './probe.ts'
 import { assertBmadProfile, readBmadFile, resolveBmad } from '../bmad/profile.ts'
+import { ForgeHost, qualifyForge } from '../bmad/forge.ts'
+import type { ForgeOperation } from '../bmad/forge.ts'
 type Message = { id?: string | number; method?: string; params?: any; result?: any; error?: unknown }
 /** RPC de dialogue séparé du témoin : valide et refuse les demandes natives avant projection. */
 export class DialogueRpc {
@@ -83,14 +85,23 @@ const dynamicTools = [
   { type: 'function', name: 'bmad_read_file', description: 'Lire un fichier du profil BMad qualifié : SKILL.md, customize.toml, bmod.toml, resolvers et configuration. Aucun fichier arbitraire, secret, workflow documentaire ou écriture.', inputSchema: { type: 'object', properties: { path: { type: 'string' } }, required: ['path'], additionalProperties: false } },
   { type: 'function', name: 'bmad_unsupported', description: 'Signaler puis arrêter le tour si la demande nécessite un workflow documentaire, une écriture, une approbation, une question structurée ou une autre capacité absente du pilote.', inputSchema: { type: 'object', properties: {}, additionalProperties: false } }
 ]
-type ProtocolOptions = { cwd: string; profile: Pick<BmadProfile, 'rootPath' | 'skillPath'>; signal: AbortSignal; activity(text: string): void; resolve(kind: 'agent' | 'config'): Promise<string>; read(path: string): Promise<string> }
+const forgeTools = [
+  {type:'function',name:'bmad_forge_resolve',description:'Exécuter les vrais scripts natifs : workflow=customization --key workflow ; config=configuration centrale ; personas=resolve_personas, y compris roster et sous-processus isolés.',inputSchema:{type:'object',properties:{kind:{type:'string',enum:['workflow','config','personas']}},required:['kind'],additionalProperties:false}},
+  {type:'function',name:'bmad_forge_init',description:'Créer une nouvelle session forge-{slug}, avec le vrai memlog.py init. Seulement quand idée/objectif connus. Jamais de reprise.',inputSchema:{type:'object',properties:{slug:{type:'string'},idea:{type:'string'},goal:{type:'string'}},required:['slug','idea','goal'],additionalProperties:false}},
+  {type:'function',name:'bmad_forge_append',description:'Vrai memlog.py append dans la seule session capturée.',inputSchema:{type:'object',properties:{type:{type:'string',enum:['decision','assumption','crack','kill','direction','lock','note']},text:{type:'string'}},required:['type','text'],additionalProperties:false}},
+  {type:'function',name:'bmad_forge_write',description:'Écrire intégralement une seule fois forge-report.html (HTML autonome, CSS et SVG inline) ou idea (Markdown natif forge-{slug}.md). Chemins imposés, octets relus, aucun aperçu exécuté.',inputSchema:{type:'object',properties:{name:{type:'string',enum:['forge-report.html','idea']},text:{type:'string'}},required:['name','text'],additionalProperties:false}},
+  {type:'function',name:'bmad_forge_finish',description:'Après sorties complètes et observées, vrai memlog.py set status=complete. HTML toujours obligatoire, Markdown aussi pour HARDENED. Ne signifie aucune acceptation humaine.',inputSchema:{type:'object',properties:{outcome:{type:'string',enum:['HARDENED','KILLED','CLARIFIED']}},required:['outcome'],additionalProperties:false}},
+  dynamicTools[1],{...dynamicTools[2],description:'Arrêter explicitement une interaction indisponible : approbation native, question structurée, sous-agent, autre skill, reprise ou commande/écriture hors session.'}
+]
+type ProtocolOptions = { cwd: string; profile: Pick<BmadProfile, 'rootPath' | 'skillPath'>; forge?: ForgeHost; signal: AbortSignal; activity(text: string): void; resolve(kind: 'agent' | 'config'): Promise<string>; read(path: string): Promise<string> }
 export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolOptions, timeout = 180000): Promise<Pick<DialogueSession, 'turn'>> {
   await rpc.call('initialize', { clientInfo: { name: 'madness', title: 'Madness', version: '0.1.0' }, capabilities: { experimentalApi: true } }); rpc.notify('initialized')
   const catalog = await rpc.call('model/list', {})
   const model = catalog.data?.find((value: any) => value.isDefault === true && value.hidden === false && typeof value.model === 'string')
   if (!model || !/^[a-zA-Z0-9._:/-]{1,100}$/.test(model.model)) throw dialogueFailure('PROVIDER_FAILED')
   const instructions = `Pilote personnel Madness. Le projet BMad capturé est ${options.profile.rootPath}. Le processus travaille dans un répertoire isolé ; {project-root} désigne toujours le projet capturé et {skill-root} le dossier de ${options.profile.skillPath}. Exécute l'agent installé fourni par l'entrée native skill, sans l'imiter. Pour ses commandes uv run utilise réellement bmad_resolve(kind=agent) puis bmad_resolve(kind=config), dans l'ordre du SKILL.md. Pour les lectures utilise bmad_read_file. Aucun shell, réseau d'outil, écriture, sous-agent, installation ou autre compétence n'est disponible. Ne remplace jamais un resolver par une réponse inventée. Le pilote autorise l'accueil/menu natif puis la discussion libre uniquement, en français. Une demande de workflow documentaire, approbation, effets, question structurée ou autre outil doit appeler bmad_unsupported ; ne prétends jamais l'avoir réalisée. Les propositions et le menu ne valent aucune approbation. Termine chaque tour par son résultat et la prochaine action attendue, sans déclarer le workflow clos.`
-  const thread = await rpc.call('thread/start', { cwd: options.cwd, model: model.model, modelProvider: 'openai_chatgpt_plan', sandbox: 'read-only', approvalPolicy: 'never', ephemeral: true, dynamicTools, developerInstructions: instructions, multiAgentMode: 'explicitRequestOnly' })
+  const forgeInstructions=`Madness intègre le skill natif $bmad-forge-idea pour une NOUVELLE idée seulement. {project-root}=${options.profile.rootPath}, {skill-root}=${dirname(options.profile.skillPath)}. Le processus Codex reste read-only dans un dossier isolé. Respecte intégralement le SKILL.md injecté ; ne l'imite pas, ne résume pas ses sorties obligatoires. Pour les commandes natives uv run utilise bmad_forge_resolve : workflow puis config à l'activation, personas dès que le but est connu. Les commandes sont réellement exécutées, y compris roster/personas dans des subprocess isolés. bmad_read_file lit uniquement le profil qualifié. Ne prétends jamais avoir exécuté un script sans résultat de l'outil. Reprise/hooks/autres skills/sous-agents et interactions structurées sont indisponibles : appelle bmad_unsupported, ne simule rien. Pose tes questions dans le dialogue libre. Aucun brouillon n'est envoyé par le lancement. Après but connu, bmad_forge_init crée la SEULE sortie autorisée sous ${options.forge?.profile.forge?.outputBase}; aucun chemin arbitraire. Utilise bmad_forge_append pour les décisions et faits. À la sortie, produis le HTML INTÉGRAL et autonome avec CSS et sceau SVG inline via bmad_forge_write(name=forge-report.html). Si HARDENED, écris aussi le Markdown extrêmement court via name=idea. Puis appelle bmad_forge_finish et cite les chemins réellement observés. Jamais de faux journal/livrable, shell, outil générique, installation, réseau d'outil ou exécution HTML. Termine chaque tour en indiquant sa fin et la prochaine action attendue ; distingue fin de tour, clôture du workflow et acceptation humaine inconnue. Le forfait ChatGPT propre à Madness est utilisé.`
+  const thread = await rpc.call('thread/start', { cwd: options.cwd, model: model.model, modelProvider: 'openai_chatgpt_plan', sandbox: 'read-only', approvalPolicy: 'never', ephemeral: true, dynamicTools:options.forge?forgeTools:dynamicTools, developerInstructions: options.forge?forgeInstructions:instructions, multiAgentMode: 'explicitRequestOnly' })
   if (thread.modelProvider !== 'openai_chatgpt_plan' || thread.model !== model.model || thread.sandbox?.type !== 'readOnly' || thread.approvalPolicy !== 'never' || typeof thread.thread?.id !== 'string') throw dialogueFailure('PROVIDER_FAILED')
   const threadId = thread.thread.id
   let turnId: string | null = null, gate: Promise<void> = Promise.resolve(), first = true, busy = false
@@ -101,11 +112,22 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
     if (request.method !== 'item/tool/call') throw dialogueFailure('UNSUPPORTED_INTERACTION')
     if (!p || p.threadId !== threadId || p.turnId !== turnId || typeof p.callId !== 'string' || calls.has(p.callId)) throw dialogueFailure('CONTEXT_MISMATCH')
     calls.add(p.callId)
-    if (calls.size > 80) throw dialogueFailure('UNSUPPORTED_INTERACTION')
+    if (calls.size > (options.forge?300:80)) throw dialogueFailure('UNSUPPORTED_INTERACTION')
     const args = p.arguments
     if (!isRecord(args)) throw dialogueFailure('UNSUPPORTED_INTERACTION')
     let output: string
-    if (p.tool === 'bmad_resolve' && Object.keys(args).length === 1 && ['agent', 'config'].includes(String(args.kind))) {
+    if(options.forge && typeof p.tool==='string' && p.tool.startsWith('bmad_forge_')){
+      const exact=(keys:string[]):boolean=>Object.keys(args).length===keys.length&&keys.every(k=>Object.hasOwn(args,k))
+      let operation:ForgeOperation
+      if(p.tool==='bmad_forge_resolve'&&exact(['kind'])&&['workflow','config','personas'].includes(String(args.kind))){if(args.kind!=='workflow'&&!resolved.has('workflow')||args.kind==='personas'&&!resolved.has('config'))throw dialogueFailure('UNSUPPORTED_INTERACTION');operation={kind:args.kind as 'workflow'|'config'|'personas'}}
+      else if(p.tool==='bmad_forge_init'&&exact(['slug','idea','goal'])&&[args.slug,args.idea,args.goal].every(v=>typeof v==='string')&&resolved.has('config'))operation={kind:'init',slug:args.slug as string,idea:args.idea as string,goal:args.goal as string}
+      else if(p.tool==='bmad_forge_append'&&exact(['type','text'])&&typeof args.type==='string'&&typeof args.text==='string')operation={kind:'append',type:args.type,text:args.text}
+      else if(p.tool==='bmad_forge_write'&&exact(['name','text'])&&['forge-report.html','idea'].includes(String(args.name))&&typeof args.text==='string')operation={kind:'write',name:args.name as 'forge-report.html'|'idea',text:args.text}
+      else if(p.tool==='bmad_forge_finish'&&exact(['outcome'])&&['HARDENED','KILLED','CLARIFIED'].includes(String(args.outcome))&&resolved.has('personas'))operation={kind:'finish',outcome:args.outcome as 'HARDENED'|'KILLED'|'CLARIFIED'}
+      else throw dialogueFailure('UNSUPPORTED_INTERACTION')
+      options.activity('Forge natif · '+operation.kind)
+      output=await options.forge.execute(operation,p.callId,turnId!);if(['workflow','config','personas'].includes(operation.kind))resolved.add(operation.kind)
+    }else if (!options.forge && p.tool === 'bmad_resolve' && Object.keys(args).length === 1 && ['agent', 'config'].includes(String(args.kind))) {
       const kind = args.kind as 'agent' | 'config'
       if (kind === 'config' && !resolved.has('agent')) throw dialogueFailure('UNSUPPORTED_INTERACTION')
       options.activity(kind === 'agent' ? 'uv run · resolve_customization.py --key agent' : 'uv run · resolve_config.py --key core.output_folder --key core.active_initiative')
@@ -120,7 +142,8 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
     let release!: () => void; gate = new Promise(resolve => { release = resolve })
     try {
       options.signal.throwIfAborted()
-      const input = first ? [{ type: 'skill', name: 'bmad-agent-analyst', path: options.profile.skillPath }, { type: 'text', text: '$bmad-agent-analyst' }] : [{ type: 'text', text }]
+      const name=options.forge?'bmad-forge-idea':'bmad-agent-analyst'
+      const input = first ? [{ type: 'skill', name, path: options.profile.skillPath }, { type: 'text', text: '$'+name }] : [{ type: 'text', text }]
       const started = await rpc.call('turn/start', { threadId, cwd: options.cwd, input })
       if (typeof started.turn?.id !== 'string') throw dialogueFailure('PROVIDER_FAILED')
       turnId = started.turn.id; await accepted(); release()
@@ -131,7 +154,7 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
         if (event.method === 'turn/completed') {
           if (p.turn?.id !== turnId) continue
           await rpc.drainRequests()
-          if (p.turn.status !== 'completed' || p.turn.error || !messages.length || first && (!resolved.has('agent') || !resolved.has('config'))) throw dialogueFailure('PROVIDER_FAILED')
+          if (p.turn.status !== 'completed' || p.turn.error || !messages.length || first && (!resolved.has(options.forge?'workflow':'agent') || !resolved.has('config'))) throw dialogueFailure('PROVIDER_FAILED')
           first = false; turnId = null; return messages.join('\n\n')
         }
         if (p?.turnId !== turnId) continue
@@ -142,12 +165,17 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
     } finally { release(); busy = false }
   } }
 }
-export async function openCodexDialogue(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, connection: CodexConnection, options: { root: string; appData: string; repository: string; environment: NodeJS.ProcessEnv }): Promise<DialogueSession> {
+export async function openCodexDialogue(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, connection: CodexConnection, options: { root: string; appData: string; repository: string; environment: NodeJS.ProcessEnv; runner?:string }): Promise<DialogueSession> {
   // Les resolvers doivent fonctionner avant de demander le moindre appel au forfait.
-  await assertBmadProfile(profile)
-  await resolveBmad(profile, 'agent', signal)
-  const configuration = JSON.parse(await resolveBmad(profile, 'config', signal))
-  const initiative = configuration['core.active_initiative'] ?? null
+  let forge:ForgeHost|undefined,initiative:string|null
+  if(profile.kind==='forge'){
+    const current=await qualifyForge(profile.rootPath,signal,options.runner)
+    if(current.fingerprint!==profile.fingerprint||current.forge?.contextDigest!==profile.forge?.contextDigest)throw dialogueFailure('PROFILE_CHANGED')
+    forge=new ForgeHost(profile,signal,options.runner);initiative=profile.forge!.initiativeId
+  }else{
+    await assertBmadProfile(profile);await resolveBmad(profile,'agent',signal)
+    const configuration=JSON.parse(await resolveBmad(profile,'config',signal));initiative=configuration['core.active_initiative']??null
+  }
   if (initiative !== null && (typeof initiative !== 'string' || !/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(initiative))) throw dialogueFailure('PROFILE_UNRECOGNIZED')
   const lease = await connection.acquireDialogue(signal)
   let root: string | undefined, child: ChildProcessWithoutNullStreams | undefined, rpc: DialogueRpc | undefined, stopped = false
@@ -169,7 +197,7 @@ export async function openCodexDialogue(profile: BmadProfile, signal: AbortSigna
     signal.throwIfAborted(); activity('Codex app-server · forfait ChatGPT · profil isolé · lecture seule')
     child = spawn(executable, ['app-server', '--listen', 'stdio://', ...settings.flatMap(setting => ['-c', setting])], { cwd: work, env: probeEnvironment(options.environment, isolated, lease.credentials.accessToken), shell: false, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] })
     rpc = new DialogueRpc(child, signal)
-    const protocol = await startDialogueProtocol(rpc, { cwd: work, profile, signal, activity, resolve: kind => resolveBmad(profile, kind, signal), read: path => readBmadFile(profile, path) })
-    return { context: { connectionId: lease.connectionId, initiativeId: initiative }, turn: async (text, accepted) => { await assertBmadProfile(profile); if (lease.credentials.expiresAt <= Date.now() + 30000) throw dialogueFailure('NO_ACCOUNT'); return protocol.turn(text, accepted) }, stop: cleanup }
+    const protocol = await startDialogueProtocol(rpc, { cwd: work, profile, forge, signal, activity, resolve: kind => resolveBmad(profile, kind, signal), read: path => forge?forge.read(path):readBmadFile(profile, path) })
+    return { context: { connectionId: lease.connectionId, initiativeId: initiative }, ...(forge?{workflow:{outputBase:profile.forge!.outputBase,contextDigest:profile.forge!.contextDigest,bind:forge.bind.bind(forge)}}:{}), turn: async (text, accepted) => { if(forge)await forge.assertForTurn();else await assertBmadProfile(profile); if (lease.credentials.expiresAt <= Date.now() + 30000) throw dialogueFailure('NO_ACCOUNT'); return protocol.turn(text, accepted) }, stop: cleanup }
   } catch (error) { const outcome = await cleanup(); if (outcome === 'unknown') throw dialogueFailure('STOP_UNCONFIRMED'); throw error }
 }

@@ -10,6 +10,63 @@ function fixture(options = {}) {
   return { app, stored: () => stored }
 }
 const command = (type, extra = {}) => ({ contractVersion: 1, correlationId: 'request-' + type, type, ...extra })
+
+test('progression stable, stockage groupé, identité figée et demande réelle ; texte partiel gardé sur coupure',async()=>{
+ let writes=0,release,observed
+ const waiting=new Promise(r=>release=r),started=new Promise(r=>observed=r)
+ const f=fixture({beforeWrite:async()=>{writes++}});await f.app.execute(command('choose-directory'))
+ const correlations=[];f.app.subscribe(event=>correlations.push(event.correlationId))
+ const dialogue=new core.DialogueCoordinator({application:f.app,qualify:async()=>({rootPath:'C:/project',skillPath:'Mary',fingerprint:'a'.repeat(64)}),open:async()=>({context:{connectionId:'account-1',initiativeId:null},turn:async(_,accepted,progress)=>{await accepted();for(let i=1;i<=1000;i++)progress({id:'local-1',order:1,text:'a'.repeat(i),completed:false,identity:i===1?{kind:'unknown'}:{kind:'attested',name:'Mary',source:'bmad_resolve(agent)'}});observed();await waiting;throw Object.assign(Error(),{code:'PROVIDER_FAILED'})},stop:async()=>'stopped'})})
+ await dialogue.execute({...command('launch',{projectId:'id-1'}),correlationId:'real-launch-request'});await started
+ const shown=dialogue.read().messages[0]
+ assert.equal(shown.text.length,1000);assert.equal(shown.identity.kind,'unknown');assert.equal(shown.storage,'pending')
+ assert.equal(shown.requestId,'real-launch-request');assert.equal(shown.context.conversationId,dialogue.read().context.conversationId)
+ assert.equal(contracts.isDialogueState(dialogue.read()),true)
+ release();await dialogue.settled()
+ assert.equal(f.stored().conversations[0].messages.at(-1).text,'a'.repeat(1000))
+ assert.equal(dialogue.read().messages[0].phase,'interrupted');assert.equal(dialogue.read().messages[0].storage,'stored')
+ assert.ok(writes<12,'aucune écriture par fragment');assert.ok(correlations.includes('real-launch-request'))
+ assert.equal(contracts.isDialogueState({...dialogue.read(),messages:[{...shown,nativeId:'leak'}]}),false)
+})
+
+test('un refus disque garde le texte visible avec conservation non confirmée',async()=>{
+ let fail=false,release,observed
+ const waiting=new Promise(r=>release=r),started=new Promise(r=>observed=r)
+ const f=fixture({failWrite:()=>fail});await f.app.execute(command('choose-directory'))
+ const dialogue=new core.DialogueCoordinator({application:f.app,qualify:async()=>({rootPath:'C:/project',skillPath:'Mary',fingerprint:'a'.repeat(64)}),open:async()=>({context:{connectionId:'account-1',initiativeId:null},turn:async(_,accepted,progress)=>{await accepted();progress({id:'local-1',order:1,text:'Texte reçu',completed:true,identity:{kind:'unknown'}});observed();await waiting;return 'Texte reçu'},stop:async()=>'stopped'})})
+ await dialogue.execute(command('launch',{projectId:'id-1'}));await started;fail=true;release();await dialogue.settled()
+ assert.equal(dialogue.read().errorCode,'STORAGE_WRITE_FAILED');assert.notEqual(dialogue.read().status,'ready')
+ assert.equal(dialogue.read().messages[0].text,'Texte reçu');assert.equal(dialogue.read().messages[0].storage,'failed')
+ assert.equal(f.stored().conversations[0].messages.some(m=>m.text==='Texte reçu'),false)
+})
+
+test('la projection refuse un volume cumulé excessif sans étendre Snapshot v1',()=>{
+ const context={projectId:'p',initiativeId:null,conversationId:'c',providerId:'codex',connectionId:'account'}
+ const messages=Array.from({length:21},(_,i)=>({id:'message-'+i,context,requestId:'real-request',turnId:'turn-'+i,order:1,revision:1,text:'x'.repeat(100000),phase:'complete',storage:'stored',identity:{kind:'unknown'}}))
+ assert.equal(contracts.isDialogueState({...contracts.initialDialogueState(),messages}),false)
+})
+
+test('arrêt pendant un lot en écriture draine le partiel et le brouillon admis sans état ready',async()=>{
+ let writeStarted,releaseWrite
+ const writing=new Promise(r=>writeStarted=r),held=new Promise(r=>releaseWrite=r)
+ const f=fixture({beforeWrite:async value=>{if(value.conversations[0]?.messages.at(-1)?.text==='Partiel connu'){writeStarted();await held}}});await f.app.execute(command('choose-directory'))
+ let turns=0
+ const dialogue=new core.DialogueCoordinator({application:f.app,qualify:async()=>({rootPath:'C:/project',skillPath:'Mary',fingerprint:'a'.repeat(64)}),open:async(_,signal)=>({context:{connectionId:'account-1',initiativeId:null},turn:async(_,accepted,progress)=>{turns++;await accepted();progress({id:'one',order:1,text:'Partiel connu',completed:false,identity:{kind:'unknown'}});await new Promise((_,reject)=>signal.addEventListener('abort',()=>reject(Object.assign(Error(),{code:'CANCELLED'})),{once:true}));return ''},stop:async()=>'stopped'})})
+ await dialogue.execute(command('launch',{projectId:'id-1'}));await writing
+ const saving=f.app.execute(command('save-draft',{projectId:'id-1',text:'Saisie pendant écriture'})),statuses=[];dialogue.subscribe(s=>statuses.push(s.status))
+ assert.equal((await dialogue.execute(command('stop'))).status,'stopping');releaseWrite();assert.equal((await saving).ok,true);await dialogue.settled()
+ assert.equal(dialogue.read().status,'stopped');assert.equal(statuses.includes('ready'),false);assert.equal(turns,1)
+ assert.equal(f.stored().conversations[0].messages.at(-1).text,'Partiel connu');assert.equal(f.stored().drafts[0].text,'Saisie pendant écriture')
+})
+test('un acquittement en écriture ne réannonce pas running après une demande d’arrêt',async()=>{
+ let writingAck,release
+ const writing=new Promise(r=>writingAck=r),held=new Promise(r=>release=r)
+ const f=fixture({beforeWrite:async value=>{if(value.conversations[0]?.messages.at(-1)?.role==='user'){writingAck();await held}}});await f.app.execute(command('choose-directory'))
+ const dialogue=new core.DialogueCoordinator({application:f.app,qualify:async()=>({rootPath:'C:/project',skillPath:'Mary',fingerprint:'a'.repeat(64)}),open:async(_,signal)=>({context:{connectionId:'account-1',initiativeId:null},turn:async(_,accepted)=>{await accepted();signal.throwIfAborted();return 'Réponse'},stop:async()=>'stopped'})})
+ await dialogue.execute(command('launch',{projectId:'id-1'}));await writing
+ const statuses=[];dialogue.subscribe(state=>statuses.push(state.status));await dialogue.execute(command('stop'));release();await dialogue.settled()
+ assert.equal(dialogue.read().status,'stopped');assert.equal(statuses.includes('running'),false);assert.equal(f.stored().conversations[0].messages[0].role,'user')
+})
 test('contrat dialogue refuse propriétés natives, chemins, texte vide et effets implicites', () => {
   assert.ok(contracts, 'Le contrat métier dialogue doit exister')
   assert.equal(contracts.isDialogueCommand(command('launch', { projectId: 'id-1' })), true)

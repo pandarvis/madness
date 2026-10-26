@@ -118,6 +118,11 @@ summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px }
 .dialogue-proof p { margin-top: 8px }
 .dialogue-activity ol { margin: 8px 0 0; padding-left: 22px; line-height: 1.8 }
 .conversation-history { margin-top: 24px }
+.conversation-messages { max-height: min(60vh, 720px); overflow-y: auto; overflow-anchor: none; scrollbar-gutter: stable; padding-inline: 4px 12px }
+.conversation-messages:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 5px }
+.message-state, .message-provenance { font-size: 12px; line-height: 1.65; color: var(--muted); margin: -4px 0 12px }
+.message-provenance { margin: 12px 0 0 }
+.message-storage-failed { color: var(--error-text) }
 .dialogue-message { padding: 20px 0; max-width: 75ch }
 .dialogue-message.user { padding: 16px; border-radius: 9px; background: var(--navigation); margin-block: 14px }
 .dialogue-message h3 { font-size: 12px; font-weight: 600; margin: 0 0 10px; color: var(--muted-lavender) }

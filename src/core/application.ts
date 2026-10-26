@@ -1,6 +1,7 @@
 import { emptyContext, failure, isCommand, isSnapshot } from '../contracts/index.ts'
 import type { AppState, Command, Conversation, DomainEvent, ErrorCode, ProjectContext, Reply, Snapshot } from '../contracts/index.ts'
 import type { ApplicationDependencies } from './ports.ts'
+import { MAX_TURN_MESSAGES } from '../contracts/dialogue.ts'
 import { LifecycleCoordinator } from './lifecycle.ts'
 
 export class Application {
@@ -85,7 +86,7 @@ export class Application {
     if (!project) throw Object.assign(new Error('PROJECT_NOT_FOUND'), { code: 'PROJECT_NOT_FOUND' })
     return project
   }
-  dialoguePersist(projectId: string, conversationId: string | null, update: (conversation: Conversation) => void, captured?: { connectionId: string; initiativeId: string | null }): Promise<Conversation> {
+  dialoguePersist(projectId: string, conversationId: string | null, update: (conversation: Conversation) => void, captured?: { connectionId: string; initiativeId: string | null }, requestId = 'dialogue-persist'): Promise<Conversation> {
     const result = this.queue.then(async () => {
       if (!this.snapshot || !this.snapshot.projects.some(p => p.id === projectId)) throw Object.assign(new Error('PROJECT_NOT_FOUND'), { code: 'PROJECT_NOT_FOUND' })
       const next = structuredClone(this.snapshot)
@@ -101,12 +102,20 @@ export class Application {
       if (!isSnapshot(next)) throw Object.assign(new Error('STORAGE_WRITE_FAILED'), { code: 'STORAGE_WRITE_FAILED' })
       try { await this.deps.store.write(next) } catch { throw Object.assign(new Error('STORAGE_WRITE_FAILED'), { code: 'STORAGE_WRITE_FAILED' }) }
       this.snapshot = next
-      const event: DomainEvent = { contractVersion: 1, correlationId: 'dialogue-persist', type: 'state-changed', sequence: ++this.sequence, context: conversation.context, revision: next.revision }
+      const event: DomainEvent = { contractVersion: 1, correlationId: requestId, type: 'state-changed', sequence: ++this.sequence, context: conversation.context, revision: next.revision }
       for (const listener of this.listeners) { try { listener(event) } catch { /* L’accusé durable appartient au cœur. */ } }
       return structuredClone(conversation)
     })
     this.queue = result.catch(() => undefined)
     return result
+  }
+  /** Upsert d’un lot coalescé ; même file que les brouillons, aucun fragment sur disque. */
+  dialogueUpsert(projectId: string, conversationId: string, messages: Conversation['messages'], requestId: string): Promise<Conversation> {
+    const captured=structuredClone(messages)
+    if(!captured.length||captured.length>MAX_TURN_MESSAGES||new Set(captured.map(m=>m.id)).size!==captured.length)return Promise.reject(Object.assign(new Error('STORAGE_WRITE_FAILED'),{code:'STORAGE_WRITE_FAILED'}))
+    return this.dialoguePersist(projectId,conversationId,value=>{
+      for(const message of captured){const current=value.messages.find(m=>m.id===message.id);if(current){if(current.role!==message.role)throw Object.assign(new Error('CONTEXT_MISMATCH'),{code:'CONTEXT_MISMATCH'});current.text=message.text}else value.messages.push(message)}
+    },undefined,requestId)
   }
   async shutdown(): Promise<void> { this.closing = true; const stopping = this.lifecycle.shutdown(); await this.queue; await stopping }
 }

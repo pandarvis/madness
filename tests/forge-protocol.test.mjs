@@ -18,7 +18,9 @@ test('Forge utilise référence skill native, commandes strictes corrélées et 
  const s=server(),signal=new AbortController().signal,rpc=new DialogueRpc(s.child,signal,300),operations=[]
  const forge={profile:{forge:{outputBase:'C:/project/_bmad-output/initiative-test'}},execute:async(op,call,turn)=>{operations.push({op,call,turn});return '{}'}}
  const session=await startDialogueProtocol(rpc,{cwd:'C:/isolated',profile:{rootPath:'C:/project',skillPath:'C:/project/.agents/skills/bmad-forge-idea/SKILL.md'},forge,signal,activity:()=>{},read:async()=>'',resolve:async()=>{throw Error('Mary ne doit pas être utilisée')}},1000)
- await session.turn(null,async()=>{});await session.turn('Ma réponse explicite',async()=>{})
+ const progress=[]
+ await session.turn(null,async()=>{},message=>progress.push(message));await session.turn('Ma réponse explicite',async()=>{},message=>progress.push(message))
+ assert.equal(progress.length,2);assert.equal(progress.every(m=>m.completed&&m.identity.kind==='unknown'),true)
  const start=s.requests.find(r=>r.method==='thread/start').params,turns=s.requests.filter(r=>r.method==='turn/start')
  assert.equal(start.sandbox,'read-only');assert.equal(start.approvalPolicy,'never');assert.equal(start.dynamicTools.some(t=>t.name==='shell'),false)
  assert.deepEqual(turns[0].params.input,[{type:'skill',name:'bmad-forge-idea',path:'C:/project/.agents/skills/bmad-forge-idea/SKILL.md'},{type:'text',text:'$bmad-forge-idea'}])

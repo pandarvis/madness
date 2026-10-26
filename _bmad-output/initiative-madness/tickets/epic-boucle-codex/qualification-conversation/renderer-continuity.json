@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-26T17:40:52.946Z",
+  "status": "identical-renderer-after-adapter-review-patches",
+  "sourceCaptureAsar": "c75733ccaf5b2826500947bbeaf0caca568c0a98b3968545b08f137b08027c8f",
+  "finalAsar": "3f7186d6122e412bafbbb5c5027b4c9d5daee756442ecc49e36d92b631f0c97b",
+  "files": [
+    {
+      "path": "assets/chatgpt-mark-BSM5F-kM.svg",
+      "sha256": "b8b9aba7ba591f54bf1805f422bc23f32c44ee993643cc378cc77f766061f7a1"
+    },
+    {
+      "path": "assets/index-BXWnzVhQ.css",
+      "sha256": "10dcf461092c634eed09aa9277edcd956f64ef86d528e289320a8d0e88a7e1a4"
+    },
+    {
+      "path": "assets/index-SzKHY6Lp.js",
+      "sha256": "9fbc7231bfce6e9ea627f031a582401d0c08c441796404810c9946291a1706fd"
+    },
+    {
+      "path": "index.html",
+      "sha256": "e20dabacd8c6fea88c047edc981f0c30de7b9c7db3fe33e2c880fd888f237b4b"
+    }
+  ],
+  "scope": "Les quatre captures compilées restent représentatives : renderer byte-identical ; seul adaptateur modifié. Aucun succès natif ni accord visuel global déduit."
+}

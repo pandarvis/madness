@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T14:42:08.187Z",
+  "mode": "compiled-isolated-synthetic",
+  "status": "isolated-checks-passed-native-proof-separate",
+  "checks": [
+    "real-main-preload-start-without-turn-or-provider",
+    "typed-synthetic-progress-visible-before-terminal-with-unknown-identity",
+    "stable-article-input-focus-and-transition-only-announcement",
+    "reading-anchor-and-draft-survive-progress-and-tab-navigation",
+    "visible-bottom-follows-and-new-identity-keeps-older-message-unknown",
+    "partial-text-and-unconfirmed-storage-remain-visible-without-success",
+    "desktop-and-compact-history-no-horizontal-overflow",
+    "source-core-coalesces-real-snapshot-v1-upserts-without-text-deduplication",
+    "forge-historical-annex-observations-and-human-acceptance-distinction-preserved",
+    "compiled-or-packaged-reopen-exact-text-draft-unknown-identity-no-engine-network"
+  ],
+  "captures": [
+    "compiled-compact.png",
+    "compiled-progress.png",
+    "compiled-desktop.png",
+    "compiled-forge-history.png"
+  ],
+  "cleanup": true,
+  "liveProof": "separate",
+  "limits": [
+    "Flux synthétique injecté par le banc Main dans le vrai preload/renderer ; aucun fournisseur ni compte.",
+    "Persistance du cœur source exercée séparément sur le même profil, application fermée ; aucun faux flux modèle revendiqué.",
+    "La preuve native installée, les validations humaines et les gates historiques restent distincts."
+  ],
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": false
+  },
+  "artifact": {
+    "file": "out/main/index.js",
+    "sha256": "30c87f826a424adef3350587c1d54400de8099e56bd11b6b0edc4a44cefbe433"
+  },
+  "snapshot": {
+    "schemaVersion": 1,
+    "messages": 3,
+    "sha256": "5560ac0bd75908b29c59573b58b9d024baa3620c17abb4336bbf22e9283997fd"
+  }
+}

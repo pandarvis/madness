@@ -3,9 +3,9 @@ import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 import { mkdir, mkdtemp, realpath, rm } from 'node:fs/promises'
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { isRecord, MAX_DRAFT_LENGTH } from '../../contracts/index.ts'
-import { dialogueError, dialogueFailure } from '../../contracts/dialogue.ts'
-import type { DialogueErrorCode } from '../../contracts/dialogue.ts'
-import type { BmadProfile, DialogueSession } from '../../core/ports.ts'
+import { dialogueError, dialogueFailure, MAX_TURN_MESSAGES } from '../../contracts/dialogue.ts'
+import type { DialogueErrorCode, MessageIdentity } from '../../contracts/dialogue.ts'
+import type { BmadProfile, DialogueMessageUpdate, DialogueSession } from '../../core/ports.ts'
 import type { CodexConnection } from './connection.ts'
 import { findNativeExecutable, probeEnvironment, stopNative } from './probe.ts'
 import { assertBmadProfile, readBmadFile, resolveBmad } from '../bmad/profile.ts'
@@ -26,6 +26,7 @@ export class DialogueRpc {
   private error: Error | null = null
   private handler: ((value: Message) => Promise<unknown>) | null = null
   private requests: Promise<void> = Promise.resolve()
+  private requestIds = new Set<string>()
   constructor(child: ChildProcessWithoutNullStreams, signal: AbortSignal, timeout = 15000) {
     this.child = child; this.signal = signal; this.timeout = timeout
     child.stdout.setEncoding('utf8'); child.stdout.on('data', this.data); child.stderr.on('data', this.stderr)
@@ -47,17 +48,29 @@ export class DialogueRpc {
   }
   private receive(value: Message): void {
     if (value.method && Object.hasOwn(value, 'id')) {
+      if(!(typeof value.id==='string'&&value.id.length>0&&value.id.length<=200||typeof value.id==='number'&&Number.isSafeInteger(value.id)))return this.fail('PROVIDER_FAILED')
+      const key=typeof value.id+':'+String(value.id)
+      if(this.requestIds.has(key))return this.fail('CONTEXT_MISMATCH')
+      this.requestIds.add(key)
       this.requests = this.requests.then(async () => {
         try { if (this.error) throw this.error; if (!this.handler) throw dialogueFailure('UNSUPPORTED_INTERACTION'); const result = await this.handler(value); this.write({ id: value.id, result }) }
         catch (error) { const code = dialogueError(error, 'UNSUPPORTED_INTERACTION'); this.write({ id: value.id, error: { code: -32601, message: code } }); this.fail(code) }
+        finally{this.requestIds.delete(key)}
       })
       return
     }
-    if (Object.hasOwn(value, 'id')) { const pending = this.pending.get(Number(value.id)); if (!pending) return; this.pending.delete(Number(value.id)); if (value.error || !Object.hasOwn(value, 'result')) pending.reject(dialogueFailure('PROVIDER_FAILED')); else pending.resolve(value.result); return }
+    if (Object.hasOwn(value, 'id')) { if(typeof value.id!=='number'||!Number.isSafeInteger(value.id))return this.fail('PROVIDER_FAILED'); const pending = this.pending.get(value.id); if (!pending) return; this.pending.delete(value.id); if (value.error || !Object.hasOwn(value, 'result')) pending.reject(dialogueFailure('PROVIDER_FAILED')); else pending.resolve(value.result); return }
     if (!value.method) return this.fail('PROVIDER_FAILED')
     if (value.method === 'error') return this.fail('PROVIDER_FAILED')
-    if (!['item/started', 'item/completed', 'turn/completed'].includes(value.method)) return
-    if (this.waiter) { const waiter = this.waiter; this.waiter = null; waiter.resolve(value) } else { this.queue.push(value); if (this.queue.length > 512) this.fail('PROVIDER_FAILED') }
+    if (!['item/started', 'item/completed', 'item/agentMessage/delta', 'turn/completed'].includes(value.method)) return
+    if (this.waiter) { const waiter = this.waiter; this.waiter = null; waiter.resolve(value) } else {
+      const last=this.queue.at(-1),p=value.params,q=last?.params
+      // Compacter seulement les deltas adjacents du même item : ordre et répétitions sont conservés.
+      if(value.method==='item/agentMessage/delta'&&last?.method===value.method&&p?.threadId===q?.threadId&&p?.turnId===q?.turnId&&p?.itemId===q?.itemId&&typeof p?.delta==='string'&&typeof q?.delta==='string'&&q.delta.length+p.delta.length<=MAX_DRAFT_LENGTH){
+        q.delta+=p.delta
+      }else this.queue.push(value)
+      if (this.queue.length > 512) this.fail('PROVIDER_FAILED')
+    }
   }
   private write(value: unknown): void { if (!this.child.stdin.destroyed) this.child.stdin.write(JSON.stringify(value) + '\n') }
   private fail(code: DialogueErrorCode): void { this.error ??= dialogueFailure(code); for (const pending of this.pending.values()) pending.reject(this.error); this.pending.clear(); this.waiter?.reject(this.error) }
@@ -70,9 +83,10 @@ export class DialogueRpc {
   }
   notify(method: string): void { if (this.error) throw this.error; this.write({ method, params: {} }) }
   async next(timeout: number): Promise<Message> {
+    // Les notifications déjà admises gardent leur texte ; drainRequests refuse ensuite un terminal en échec.
+    const queued = this.queue.shift(); if (queued) return queued
     if (this.error) throw this.error
     if (timeout <= 0) throw dialogueFailure('PROVIDER_FAILED')
-    const queued = this.queue.shift(); if (queued) return queued
     let timer: ReturnType<typeof setTimeout> | undefined
     try { return await new Promise<Message>((resolve, reject) => { this.waiter = { resolve, reject }; timer = setTimeout(() => { this.fail('PROVIDER_FAILED'); reject(this.error) }, timeout) }) }
     finally { clearTimeout(timer); this.waiter = null }
@@ -106,11 +120,12 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
   const threadId = thread.thread.id
   let turnId: string | null = null, gate: Promise<void> = Promise.resolve(), first = true, busy = false
   const resolved = new Set<string>(), calls = new Set<string>()
+  let identity:MessageIdentity={kind:'unknown'}
   rpc.onRequest(async request => {
     await gate
     const p = request.params
     if (request.method !== 'item/tool/call') throw dialogueFailure('UNSUPPORTED_INTERACTION')
-    if (!p || p.threadId !== threadId || p.turnId !== turnId || typeof p.callId !== 'string' || calls.has(p.callId)) throw dialogueFailure('CONTEXT_MISMATCH')
+    if (!p || p.threadId !== threadId || p.turnId !== turnId || typeof p.callId !== 'string' || !p.callId.length || p.callId.length>200 || calls.has(p.callId)) throw dialogueFailure('CONTEXT_MISMATCH')
     calls.add(p.callId)
     if (calls.size > (options.forge?300:80)) throw dialogueFailure('UNSUPPORTED_INTERACTION')
     const args = p.arguments
@@ -132,13 +147,18 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
       if (kind === 'config' && !resolved.has('agent')) throw dialogueFailure('UNSUPPORTED_INTERACTION')
       options.activity(kind === 'agent' ? 'uv run · resolve_customization.py --key agent' : 'uv run · resolve_config.py --key core.output_folder --key core.active_initiative')
       output = await options.resolve(kind); resolved.add(kind)
+      if(kind==='agent'){
+        try{const value:unknown=JSON.parse(output);if(isRecord(value)&&isRecord(value.agent)&&value.agent.name==='Mary')identity={kind:'attested',name:'Mary',source:'bmad_resolve(agent)'}}catch{/* Une prose ou un JSON absent n’atteste aucune identité. */}
+      }
     } else if (p.tool === 'bmad_read_file' && Object.keys(args).length === 1 && typeof args.path === 'string' && args.path.length <= 32767) { options.activity('Lecture d’un fichier du profil BMad qualifié'); output = await options.read(args.path) }
     else throw dialogueFailure('UNSUPPORTED_INTERACTION')
     options.signal.throwIfAborted()
     return { success: true, contentItems: [{ type: 'inputText', text: output }] }
   })
-  return { turn: async (text, accepted) => {
+  return { turn: async (text, accepted, observe) => {
     if (busy) throw dialogueFailure('BUSY'); busy = true
+    // Le chargement observé d’un rôle n’atteste pas une réponse future après une sortie de rôle.
+    identity={kind:'unknown'}
     let release!: () => void; gate = new Promise(resolve => { release = resolve })
     try {
       options.signal.throwIfAborted()
@@ -147,20 +167,40 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
       const started = await rpc.call('turn/start', { threadId, cwd: options.cwd, input })
       if (typeof started.turn?.id !== 'string') throw dialogueFailure('PROVIDER_FAILED')
       turnId = started.turn.id; await accepted(); release()
-      const deadline = Date.now() + timeout, messages: string[] = [], ids = new Set<string>()
+      const deadline = Date.now() + timeout, messages = new Map<string,DialogueMessageUpdate>()
+      const itemMessage=(nativeId:unknown):DialogueMessageUpdate=>{
+        if(typeof nativeId!=='string'||!nativeId.length||nativeId.length>200)throw dialogueFailure('PROVIDER_FAILED')
+        let message=messages.get(nativeId)
+        if(!message){if(messages.size>=MAX_TURN_MESSAGES)throw dialogueFailure('PROVIDER_FAILED');message={id:'message-'+(messages.size+1),order:messages.size+1,text:'',completed:false,identity:structuredClone(identity)};messages.set(nativeId,message)}
+        return message
+      }
+      const project=(message:DialogueMessageUpdate):void=>{if([...messages.values()].reduce((n,m)=>n+m.text.length,0)>MAX_DRAFT_LENGTH)throw dialogueFailure('PROVIDER_FAILED');observe?.(structuredClone(message))}
       for (;;) {
         const event = await rpc.next(deadline - Date.now()), p = event.params
         if (p?.threadId !== threadId) continue
         if (event.method === 'turn/completed') {
           if (p.turn?.id !== turnId) continue
           await rpc.drainRequests()
-          if (p.turn.status !== 'completed' || p.turn.error || !messages.length || first && (!resolved.has(options.forge?'workflow':'agent') || !resolved.has('config'))) throw dialogueFailure('PROVIDER_FAILED')
-          first = false; turnId = null; return messages.join('\n\n')
+          if (p.turn.status !== 'completed' || p.turn.error || !messages.size || [...messages.values()].some(m=>!m.completed) || first && (!resolved.has(options.forge?'workflow':'agent') || !resolved.has('config'))) throw dialogueFailure('PROVIDER_FAILED')
+          const text=[...messages.values()].map(m=>m.text).join('\n\n');if(!text.trim()||text.length>MAX_DRAFT_LENGTH)throw dialogueFailure('PROVIDER_FAILED')
+          first = false; turnId = null; return text
         }
         if (p?.turnId !== turnId) continue
+        if(event.method==='item/agentMessage/delta'){
+          if(typeof p.delta!=='string')throw dialogueFailure('PROVIDER_FAILED')
+          const message=itemMessage(p.itemId);if(message.completed)throw dialogueFailure('PROVIDER_FAILED')
+          message.text+=p.delta;project(message);continue
+        }
         const item = p.item
         if (!item || !['userMessage', 'agentMessage', 'reasoning', 'dynamicToolCall'].includes(item.type)) throw dialogueFailure('UNSUPPORTED_INTERACTION')
-        if (event.method === 'item/completed' && item.type === 'agentMessage' && typeof item.text === 'string' && !ids.has(item.id)) { ids.add(item.id); messages.push(item.text); if (messages.join('\n\n').length > MAX_DRAFT_LENGTH) throw dialogueFailure('PROVIDER_FAILED') }
+        if(item.type==='agentMessage'){
+          const message=itemMessage(item.id)
+          if(event.method==='item/completed'){
+            if(typeof item.text!=='string'||!item.text.startsWith(message.text)||message.completed&&item.text!==message.text)throw dialogueFailure('PROVIDER_FAILED')
+            if(message.completed)continue
+            message.text=item.text;message.completed=true;project(message)
+          }else if(typeof item.text==='string'){if(message.text&&!item.text.startsWith(message.text))throw dialogueFailure('PROVIDER_FAILED');message.text=item.text;project(message)}
+        }
       }
     } finally { release(); busy = false }
   } }
@@ -198,6 +238,6 @@ export async function openCodexDialogue(profile: BmadProfile, signal: AbortSigna
     child = spawn(executable, ['app-server', '--listen', 'stdio://', ...settings.flatMap(setting => ['-c', setting])], { cwd: work, env: probeEnvironment(options.environment, isolated, lease.credentials.accessToken), shell: false, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] })
     rpc = new DialogueRpc(child, signal)
     const protocol = await startDialogueProtocol(rpc, { cwd: work, profile, forge, signal, activity, resolve: kind => resolveBmad(profile, kind, signal), read: path => forge?forge.read(path):readBmadFile(profile, path) })
-    return { context: { connectionId: lease.connectionId, initiativeId: initiative }, ...(forge?{workflow:{outputBase:profile.forge!.outputBase,contextDigest:profile.forge!.contextDigest,bind:forge.bind.bind(forge)}}:{}), turn: async (text, accepted) => { if(forge)await forge.assertForTurn();else await assertBmadProfile(profile); if (lease.credentials.expiresAt <= Date.now() + 30000) throw dialogueFailure('NO_ACCOUNT'); return protocol.turn(text, accepted) }, stop: cleanup }
+    return { context: { connectionId: lease.connectionId, initiativeId: initiative }, ...(forge?{workflow:{outputBase:profile.forge!.outputBase,contextDigest:profile.forge!.contextDigest,bind:forge.bind.bind(forge)}}:{}), turn: async (text, accepted, observe) => { if(forge)await forge.assertForTurn();else await assertBmadProfile(profile); if (lease.credentials.expiresAt <= Date.now() + 30000) throw dialogueFailure('NO_ACCOUNT'); return protocol.turn(text, accepted, observe) }, stop: cleanup }
   } catch (error) { const outcome = await cleanup(); if (outcome === 'unknown') throw dialogueFailure('STOP_UNCONFIRMED'); throw error }
 }

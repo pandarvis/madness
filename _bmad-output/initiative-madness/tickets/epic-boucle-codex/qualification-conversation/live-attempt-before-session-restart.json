@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "mode": "installed-normal-madness-account-synthetic-conversation",
+  "status": "final-package-installed-awaiting-native-conversation",
+  "createdAt": "2026-10-26T14:12:02.072Z",
+  "checks": [
+    "qualified-package-installed-identical-asar-and-runner-user-data-preserved",
+    "installed-mary-profile-qualified-before-model"
+  ],
+  "witness": {
+    "root": "C:\\Sources\\madness\\.g0-qualification\\conversation-live-4259ad02",
+    "synthetic": true,
+    "profileFiles": 96,
+    "dedicatedNewProject": true
+  },
+  "limits": [
+    "Ce fichier préparatoire ne prouve aucune réussite native1.4.",
+    "Compte Madness normal sans copie ; toutes les anciennes données doivent être préservées.",
+    "Gates et distribution inchangés."
+  ],
+  "installation": {
+    "at": "2026-10-26T15:17:12.5275004Z",
+    "exitCode": 0,
+    "installerSha256": "b667886c81f7e109221667fc5ecb2fd514e1904a1afd0ac48f08d9925334863a",
+    "previousAsar": "0ac73f5943520b7a6c3a5087c51beb8c219fb4336eb1f80eee267d53a7e998a8",
+    "installedAsar": "c75733ccaf5b2826500947bbeaf0caca568c0a98b3968545b08f137b08027c8f",
+    "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5",
+    "before": {
+      "madness-state-v1.json": "7cfdf8dd4c37fbbdfffff323842df39298fbf3bcbf9f51b29fe5c2513ca98e18",
+      "appearance-v1.json": "01776479430aa2a1196efe8e1bb96453a3c89ba845d803c7728ab59654d47b18",
+      "codex-connection-v1\\credentials.bin": "5092018c4961d6b52a815ef7623fb6c9fa280cb77d0bf6ff703a2d7936784d84",
+      "workflows-v1\\38aadb9f-1af6-4d0a-8b6c-73dae4ab886d.json": "245123e7566d4f31dedde0fb0a834b4d4d5a5132558413a39c3e97aff7413aa2",
+      "workflows-v1\\5359fb9d-4c4e-494e-97f1-d6ea39bb03e2.json": "001c6f56e9da0a681c77377381f4040f84be55ad1d1858b686a34e7f47424dc5",
+      "workflows-v1\\674a7414-018b-45e8-a2cf-f2ed7fd1c888.json": "c32afb19daa28d2504ff6785134695dd079f794e657a9efdadfb975b98f675b7",
+      "workflows-v1\\832ab0d8-d5ac-4ddf-a671-bd04de02bcca.json": "5b7f1325a324caef2066485cf77e880be44deb5c3158bfbd504beacacb8a66fe",
+      "workflows-v1\\d82a91b1-c30d-4c2b-947f-63111a5755aa.json": "0f8c2d8ff8e87cc7ec1b808f023d8963481b73b6fe14bd6ba42ea4a9a115b89d",
+      "workflows-v1\\f487cdf6-64e4-466a-b6a8-7a0d84647eff.json": "558e642425a3a34d579bed1ca786cb4551c801d28f92765ca7b35f49097d04ed"
+    },
+    "after": {
+      "madness-state-v1.json": "7cfdf8dd4c37fbbdfffff323842df39298fbf3bcbf9f51b29fe5c2513ca98e18",
+      "appearance-v1.json": "01776479430aa2a1196efe8e1bb96453a3c89ba845d803c7728ab59654d47b18",
+      "codex-connection-v1\\credentials.bin": "5092018c4961d6b52a815ef7623fb6c9fa280cb77d0bf6ff703a2d7936784d84",
+      "workflows-v1\\38aadb9f-1af6-4d0a-8b6c-73dae4ab886d.json": "245123e7566d4f31dedde0fb0a834b4d4d5a5132558413a39c3e97aff7413aa2",
+      "workflows-v1\\5359fb9d-4c4e-494e-97f1-d6ea39bb03e2.json": "001c6f56e9da0a681c77377381f4040f84be55ad1d1858b686a34e7f47424dc5",
+      "workflows-v1\\674a7414-018b-45e8-a2cf-f2ed7fd1c888.json": "c32afb19daa28d2504ff6785134695dd079f794e657a9efdadfb975b98f675b7",
+      "workflows-v1\\832ab0d8-d5ac-4ddf-a671-bd04de02bcca.json": "5b7f1325a324caef2066485cf77e880be44deb5c3158bfbd504beacacb8a66fe",
+      "workflows-v1\\d82a91b1-c30d-4c2b-947f-63111a5755aa.json": "0f8c2d8ff8e87cc7ec1b808f023d8963481b73b6fe14bd6ba42ea4a9a115b89d",
+      "workflows-v1\\f487cdf6-64e4-466a-b6a8-7a0d84647eff.json": "558e642425a3a34d579bed1ca786cb4551c801d28f92765ca7b35f49097d04ed"
+    },
+    "preservation": "byte-identical-snapshot-appearance-ciphertext-workflows"
+  },
+  "runtime": {
+    "packaged": true,
+    "userData": "C:/Users/UP60066553\\AppData\\Roaming\\madness",
+    "appPath": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\resources\\app.asar",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48"
+  },
+  "transportEnvironment": {
+    "HTTP_PROXY": true,
+    "HTTPS_PROXY": true,
+    "ALL_PROXY": false,
+    "NO_PROXY": false,
+    "SSL_CERT_FILE": false,
+    "SSL_CERT_DIR": false
+  },
+  "transitions": [
+    {
+      "sequence": 2,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 4,
+      "status": "qualified",
+      "errorCode": null
+    },
+    {
+      "sequence": 5,
+      "status": "qualifying",
+      "errorCode": null
+    },
+    {
+      "sequence": 8,
+      "status": "starting",
+      "errorCode": null
+    },
+    {
+      "sequence": 9,
+      "status": "error",
+      "errorCode": "PROVIDER_FAILED"
+    }
+  ],
+  "profile": {
+    "fingerprint": "e1c53c7ba238e458f679f85f0712a7f1987483c9f4120b17976aee5e1038c1bf",
+    "skillPath": "C:\\Sources\\madness\\.g0-qualification\\conversation-live-4259ad02\\.agents\\skills\\bmad-agent-analyst\\SKILL.md"
+  },
+  "failure": "page.evaluate: Target page, context or browser has been closed",
+  "nativeErrors": [],
+  "nativeNotifications": {
+    "spawns": 0,
+    "deltas": 0,
+    "itemsCompleted": 0,
+    "turnsCompleted": 0,
+    "tools": 0
+  }
+}

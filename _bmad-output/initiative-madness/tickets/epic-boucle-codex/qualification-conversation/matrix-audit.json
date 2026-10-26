@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T15:32:20.358Z",
+  "status": "automated-matrix-and-required-native-plan-checks-passed",
+  "tests": {
+    "passed": 173,
+    "failed": 0,
+    "skipped": 0,
+    "log": "tests-confirmed.log"
+  },
+  "rows": [
+    {
+      "row": "Réception",
+      "tests": [
+        "les deltas corrélés sont projetés après acquittement",
+        "flux incohérent ou hors borne refusé : mismatch",
+        "flux incohérent ou hors borne refusé : incomplete",
+        "flux incohérent ou hors borne refusé : overflow",
+        "flux incohérent ou hors borne refusé : invalid-id"
+      ],
+      "result": "passed-automated"
+    },
+    {
+      "row": "Corrélation",
+      "tests": [
+        "événements avant réponse RPC et tardifs sont filtrés",
+        "les identifiants des réponses RPC ne sont pas convertis",
+        "progression stable, stockage groupé, identité figée et demande réelle"
+      ],
+      "result": "passed-automated"
+    },
+    {
+      "row": "Identité",
+      "tests": [
+        "une identité attestée dans un tour ne réattribue pas les tours suivants",
+        "les articles progressifs gardent leur nœud, identité sourcée"
+      ],
+      "result": "passed-automated"
+    },
+    {
+      "row": "Défaillance",
+      "tests": [
+        "progression stable, stockage groupé, identité figée et demande réelle",
+        "un refus disque garde le texte visible",
+        "arrêt pendant un lot en écriture",
+        "un acquittement en écriture ne réannonce pas running"
+      ],
+      "result": "passed-automated"
+    },
+    {
+      "row": "Réouverture",
+      "tests": [
+        "annexe atomique par conversation restaure contexte et preuves sans migration Snapshot"
+      ],
+      "benchChecks": [
+        "compiled-or-packaged-reopen-exact-text-draft-unknown-identity-no-engine-network",
+        "source-core-coalesces-real-snapshot-v1-upserts-without-text-deduplication"
+      ],
+      "result": "passed-automated"
+    }
+  ],
+  "benches": {
+    "compiled": 10,
+    "packaged": 10,
+    "cleanup": true
+  },
+  "nativeProof": "live-profile.json : distincte, encore en cours ; aucune réussite déduite des fixtures",
+  "native": {
+    "status": "required-native-plan-checks-passed-followup-measurement-limits",
+    "turnsCompleted": 3,
+    "progressTurnsMeasured": 1,
+    "reopenWithoutEngine": true,
+    "artifact": "3f7186d6122e412bafbbb5c5027b4c9d5daee756442ecc49e36d92b631f0c97b",
+    "limits": [
+      "Progression visible avant fin mesurée sur le premier vrai tour uniquement ; suivis2/3 terminés et conservés, progression non conclue par ce banc.",
+      "État du tour et identité restaurés inconnus selon Snapshotv1 ; aucune migration.",
+      "Les anciens plans1.1/1.2,gates,distribution et acceptation humaine restent inchangés.",
+      "Apparence générale non acceptée par le porteur ; point Sally+Impeccable aprèsepic1avant2."
+    ]
+  },
+  "finalizedAt": "2026-10-26T17:56:49.081Z"
+}

@@ -1,14 +1,43 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import type { AppState, Reply } from '../../contracts/index.ts'
+import type { AppState, Conversation, Reply } from '../../contracts/index.ts'
 import { MAX_DRAFT_LENGTH } from '../../contracts/index.ts'
 import { fr } from './strings.ts'
 import { PUBLIC_KEYS_URL, initialConnectionState } from '../../contracts/connection.ts'
 import type { ConnectionState, ConnectionBridge } from '../../contracts/connection.ts'
 import chatgptMark from './assets/chatgpt-mark.svg'
 import { initialDialogueState } from '../../contracts/dialogue.ts'
-import type { DialogueState, WorkflowRecord } from '../../contracts/dialogue.ts'
+import type { DialogueMessage, DialogueState, WorkflowRecord } from '../../contracts/dialogue.ts'
 import type { AppearanceState } from '../../contracts/appearance.ts'
+
+function MessageArticle({message,projection}:{message:Conversation['messages'][number];projection?:DialogueMessage}):ReactNode {
+  const identity=projection?.identity
+  const name=identity?.kind==='attested'?identity.name:fr.conversation.unknownAgent
+  const phase=projection?.phase==='streaming'?fr.conversation.streaming:projection?.phase==='complete'?fr.conversation.complete:projection?.phase==='interrupted'?fr.conversation.partial:fr.conversation.unknownPhase
+  const storage=projection?.storage==='pending'||projection?.storage==='failed'?fr.conversation.notStored:fr.conversation.stored
+  return <article data-message-id={message.id} className={'dialogue-message '+message.role}>
+    <h3>{message.role==='user'?'Vous':name+' · Codex'}</h3>
+    {message.role==='assistant'&&<p className={'message-state '+(projection?.storage==='failed'?'message-storage-failed':'')}>{projection?phase+' · '+storage:fr.conversation.historical}</p>}
+    <div className="message-text">{message.text}</div>
+    {message.role==='assistant'&&identity?.kind==='attested'&&<p className="message-provenance">Identité attestée · source : <code>{identity.source}</code></p>}
+  </article>
+}
+type ReadingPosition={top:number;follow:boolean}
+function ConversationMessages({conversation,projections,positions}:{conversation:Conversation;projections:DialogueMessage[];positions:Map<string,ReadingPosition>}):ReactNode {
+  const container=useRef<HTMLDivElement>(null),reading=useRef<ReadingPosition>(positions.get(conversation.id)??{top:0,follow:true})
+  const merged=conversation.messages.map(m=>({...m})),byId=new Map(merged.map((m,i)=>[m.id,i]))
+  const current=projections.filter(m=>m.context.conversationId===conversation.id),metadata=new Map(current.map(m=>[m.id,m]))
+  for(const message of current){const index=byId.get(message.id),value={id:message.id,role:'assistant' as const,text:message.text};if(index===undefined){byId.set(message.id,merged.length);merged.push(value)}else merged[index]=value}
+  useLayoutEffect(()=>{
+    const element=container.current;if(!element)return
+    element.scrollTop=reading.current.follow?element.scrollHeight:reading.current.top
+    reading.current.top=element.scrollTop
+  })
+  useLayoutEffect(()=>()=>{positions.set(conversation.id,{...reading.current})},[conversation.id,positions])
+  return <div className="conversation-messages" ref={container} tabIndex={0} aria-label="Messages de la conversation" onScroll={event=>{const e=event.currentTarget;reading.current={top:e.scrollTop,follow:e.scrollHeight-e.clientHeight-e.scrollTop<=24};positions.set(conversation.id,{...reading.current})}}>
+    {merged.map(message=><MessageArticle key={message.id} message={message} projection={metadata.get(message.id)}/>)}
+  </div>
+}
 
 function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message' | 'arrow' | 'refresh' | 'external' | 'logout' | 'copy' | 'sun' | 'moon' }): ReactNode {
   const paths = { home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z', folder: 'M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z', panel: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM9 3v18m6-13-3 4 3 4', close: 'm6 6 12 12M6 18 18 6', message: 'M4 4h16v12H9l-5 4V4Z', arrow: 'M5 12h14m-5-5 5 5-5 5', refresh: 'M20 7v5h-5M20 12a8 8 0 1 0-2 5', external: 'M14 4h6v6m0-6-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5', logout: 'M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4m4-12 4 4-4 4m-4-4h12',copy:'M9 9h12v12H9V9ZM5 15H3V3h12v2',sun:'M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5',moon:'M20.5 13.1A8.5 8.5 0 0 1 10.9 3.5a8.5 8.5 0 1 0 9.6 9.6Z' }
@@ -83,6 +112,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [dialogue, setDialogue] = useState<DialogueState>(initialDialogueState)
   const [dialoguePending, setDialoguePending] = useState(false)
   const [dialogueBridgeError, setDialogueBridgeError] = useState(false)
+  const readingPositions=useRef(new Map<string,ReadingPosition>())
   const [forgePreparation,setForgePreparation]=useState(false)
   const sending = useRef(false)
   const dialogueHere = dialogue.context.projectId === project?.id
@@ -95,7 +125,6 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const recipient=dialogue.invocation==='$bmad-forge-idea'?'Forge':'Mary'
   const forgePrerequisite=!connection.accountStored?'account':connection.needsPlanAcknowledgement?'plan':null
   const sessionFeedback=!!(sessionPresent||dialogueBusy||((dialogueHere||dialogue.status==='unknown')&&dialogue.errorCode)||dialogueBridgeError||(dialogueHere&&dialogue.profile))
-  const conversationAgent=(id:string):string=>dialogue.workflows.some(w=>w.conversationId===id)?'Forge · Codex':'Mary · Codex'
   useEffect(()=>{setForgePreparation(false)},[project?.id])
 
   function accept(reply: Reply): boolean {
@@ -306,8 +335,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                 {workflow&&<WorkflowResult key={workflow.conversationId} workflow={workflow} onCopy={copyWorkflow}/>}
                 {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label="Échanges BMad">
                   {!canReply && !dialogueBusy && <p className="history-note">Historique conservé. Aucun moteur n’est relancé. Un lancement explicite ouvre une nouvelle conversation ; la reprise Forge est indisponible.</p>}
-                  {projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique">{c.messages.map(m => <article key={m.id} className={'dialogue-message ' + m.role}><h3>{m.role === 'user' ? 'Vous' : conversationAgent(c.id)}</h3><div className="message-text">{m.text}</div></article>)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
-                  {conversation.messages.map(m => <article key={m.id} className={'dialogue-message ' + m.role}><h3>{m.role === 'user' ? 'Vous' : conversationAgent(conversation.id)}</h3><div className="message-text">{m.text}</div></article>)}
+                  {projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current}/>{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
+                  <ConversationMessages key={conversation.id} conversation={conversation} projections={dialogue.messages??[]} positions={readingPositions.current}/>
                   {dialogueHere && <p className="turn-status" role="status">{recipient} · {fr.dialogueStatus[dialogue.status]}{dialogue.status === 'running' && (dialogue.acknowledged ? ' · envoi acquitté et enregistré' : ' · accusé d’envoi attendu')}{dialogue.status === 'ready' && ' · tour terminé, prochaine action : votre réponse. La fin du tour ne valide aucun livrable.'}</p>}
                 </div> : <div className="conversation-empty"><h2>Aucun échange enregistré</h2><p>Un lancement explicite ouvre une session sans envoyer votre brouillon.</p></div>)}
                 {dialogueHere && dialogue.activities.length > 0 && <details className="dialogue-activity"><summary>Activité du dialogue ({dialogue.activities.length})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{entry}</li>)}</ol></details>}

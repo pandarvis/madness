@@ -128,6 +128,26 @@ node scripts/qualification/windows.mjs --ui-regressions-only --skip-screenshots
 
 Le banc Forge copie le profil BMad dans un projet jetable, exécute les vrais outils hôte sur des données synthétiques, puis vérifie main/preload, préparation, restauration, brouillon, thèmes et navigation sur compilé/paquet. Il nettoie son espace même après échec. Ses preuves sont distinctes sous `tickets/epic-boucle-codex/qualification-boucle-bmad/`. La preuve d’un workflow modèle réel dans une application installée reste séparée : elle exige le compte Madness autorisé, sans copie de coffre, un projet témoin, activation/resolvers/personas, journal et rapport observés, puis arrêt/réouverture. Les bancs synthétiques ne satisfont pas cette preuve et ne ferment aucun gate historique.
 
+## Messages progressifs et activité corrélée (1.4)
+
+Le connecteur reçoit `item/agentMessage/delta`, les items complets et la fin du tour. Il corrèle `threadId`, `turnId` et `itemId` en interne puis émet des identifiants locaux ; les identifiants natifs ne passent pas le port de dialogue. Les deltas adjacents sont coalescés, les items complets réconciliés par identifiant et préfixe. Deux items ayant le même texte restent deux messages. Une incohérence, un item incomplet au terminal, une limite dépassée ou une demande étrangère échoue sans replay. Les réponses RPC gardent leur type d’identifiant ; les appels natifs ont leur propre `callId`.
+
+Le cœur capture le contexte, la vraie demande, un tour local et l’ordre de chaque message. Il publie au plus une projection par tranche de 32 ms et regroupe les upserts après 100 ms ; il ne sauvegarde pas chaque fragment. Les lots utilisent la même file que les brouillons et sont drainés avant le terminal ou l’arrêt. Un accusé n’est annoncé qu’après son retour natif et l’enregistrement du message envoyé. Le texte reçu reste visible pendant la sauvegarde, avec « conservation non confirmée » jusqu’au retour du disque. Un échec garde ce texte en mémoire, arrête le fournisseur et ne devient jamais une réponse durable ou un tour réussi.
+
+Bornes de projection : 200 items et 100 000 caractères par tour, 2 000 messages et 2 000 000 caractères pour les métadonnées de la session. La réserve d’un tour est vérifiée avant un nouvel envoi ou lancement. Le transport garde ses bornes de 512 événements en attente, 1 Mio de ligne et 8 Mio de sortie de processus. Les articles sont stables et le défilement suit le bas seulement lorsqu’il était visible ; remonter pour lire et changer d’onglet garde l’ancrage. Les fragments ne sont pas des annonces live.
+
+L’identité est figée à la première observation de chaque item. Un JSON structuré `bmad_resolve(agent)` attestant `Mary` peut sourcer les nouveaux messages de ce tour ; il ne réattribue ni les items déjà commencés ni les tours suivants. Une prose, le texte de l’invocation et les personas de Forge ne suffisent pas. Sans attestation structurée, l’interface affiche « Agent non identifié ». Snapshot v1 conserve strictement `id/role/text` : après réouverture les textes et brouillons reviennent, l’identité et l’état du tour sont inconnus et aucun moteur ne reprend. Les annexes et observations Forge restent indépendantes.
+
+```powershell
+npm test
+npm run build:win -- --config.directories.output=dist/conversation-pilot
+node scripts/qualification/conversation.mjs
+node scripts/qualification/conversation.mjs --packaged
+node scripts/qualification/windows.mjs --ui-regressions-only --skip-screenshots
+```
+
+Le banc conversation utilise un profil jetable sans compte : les événements synthétiques traversent le vrai preload et renderer compilés ou empaquetés ; le cœur source vérifie séparément les upserts et la réouverture exacte pendant que l’application est fermée. Ces deux contrôles ne prétendent pas exécuter un dialogue modèle. Le réseau est bloqué et l’espace est nettoyé même après échec. Les rapports et captures sont sous `tickets/epic-boucle-codex/qualification-conversation/`. Le protocole de preuve native installée y reste distinct ; les bancs isolés ne qualifient ni cette preuve, ni l’acceptation humaine, ni les gates historiques.
+
 ## Reconstruire après mise à jour
 
 Choisir explicitement les nouvelles versions, mettre à jour le manifeste et le lockfile, puis refaire types, tests, build, paquet et réouverture sur profil isolé. Conserver le profil hors des binaires et vérifier la reprise avec le nouveau programme avant diffusion. Les previews sont admises ; aucun repli silencieux de version ni patch local de dépendance n’est utilisé. Les avertissements de dépréciation transitifs remontés par npm sont à suivre lors des montées de version.

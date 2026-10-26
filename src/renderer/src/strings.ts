@@ -3,6 +3,7 @@ import type { ConnectionErrorCode, ConnectionStatus } from '../../contracts/conn
 import type { DialogueErrorCode, DialogueStatus } from '../../contracts/dialogue.ts'
 /** Base française acceptée. Les variantes attendent les contrats de Sally. */
 export const fr = {
+  conversation:{unknownAgent:'Agent non identifié',streaming:'Réponse en cours',complete:'Message terminé',partial:'Réponse partielle',unknownPhase:'État du message inconnu',notStored:'conservation non confirmée',stored:'texte conservé',historical:'Historique conservé · identité et état du tour inconnus'},
   app: 'Madness', home: 'Accueil', open: 'Ouvrir un projet', recent: 'Projets récents',
   save: 'Enregistrer le brouillon', saving: 'Enregistrement…', saved: 'Brouillon enregistré localement.',
   unsaved: 'Modification non enregistrée.', noDraft: 'Aucun brouillon enregistré.',

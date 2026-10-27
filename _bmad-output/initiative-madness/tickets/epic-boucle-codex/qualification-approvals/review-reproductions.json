@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T09:10:53.533Z",
+  "results": [
+    {
+      "finding": "Q1-root-junction",
+      "assertUnchangedWronglyAllows": true,
+      "outsideFileCreated": false
+    },
+    {
+      "finding": "Q3-result-size",
+      "oversizeProposalAccepted": false,
+      "exactEffectCannotBeRead": false
+    }
+  ],
+  "limits": [
+    "Fonctions de production réelles ; données/propositions synthétiques et aucune autorisation native ni modèle.",
+    "Q2/Q4 vérifiés séparément par les chemins de commande et leurs gardes."
+  ]
+}

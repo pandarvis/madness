@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T12:28:59.679Z",
+  "status": "partial-no-success-claimed",
+  "phase": "stop-unanswered-final-request",
+  "checks": [
+    "qualified-normal-profile-existing-account-and-read-only-default",
+    "native-mary-greeting-with-explicit-captured-file-mode",
+    "real-mixed-add-update-delete-explicit-single-approval-native-result-and-bytes",
+    "new-patch-requires-own-decision-decline-confirmed-no-effect",
+    "separate-adjustment-draft-decline-explicit-new-turn-fresh-proposal-and-approval"
+  ],
+  "decisions": [
+    {
+      "id": "approval-79dcf015-24c7-45e2-8091-d5e48d1ba8ff",
+      "decision": "accept"
+    },
+    {
+      "id": "approval-5b0bf1f0-6d5e-4215-b3cd-a7b39a8f10d9",
+      "decision": "decline"
+    },
+    {
+      "id": "approval-eed11ae1-5cf5-4136-82d6-53b4d386cc2c",
+      "decision": "decline"
+    },
+    {
+      "id": "approval-acca76b8-9920-44d8-9dfc-473db1b10a26",
+      "decision": "accept"
+    }
+  ],
+  "cleanup": {
+    "stopped": true,
+    "selection": true,
+    "navigation": true,
+    "bounds": true,
+    "closed": true,
+    "noLiveNativeSession": true,
+    "productStopStatus": "stopped"
+  },
+  "limits": [
+    "Sélecteur de dossier Main contrôlé ; G4 humain non déduit.",
+    "Compte personnel existant ; aucune copie du coffre ni capture privée. Comparaisons privées en mémoire.",
+    "Instrumentation passive : aucune modification des arguments/env/stdio ; période antérieure au hook non couverte.",
+    "Expiration, erreurs disque et chemins adverses qualifiés séparément par tests isolés.",
+    "Aucun gate de distribution ou acceptation visuelle humaine déduit."
+  ],
+  "artifact": {
+    "asarSha256": "e955f579b98bdfa3d14acc778c3fd286e62c02751217d62ca08e183d0c2a137e",
+    "loadedMainSha256": "4501dd030624593998ade6d6f615565f10eb20081f24f074e11010968530b40c",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true
+  },
+  "connectionDiagnostic": {
+    "status": "registered",
+    "errorCode": null,
+    "accountStored": true
+  },
+  "failureCode": "FREE_DRAFT_TIMEOUT",
+  "failureClass": "FREE_DRAFT_TIMEOUT",
+  "finalObservation": {
+    "spawns": 9,
+    "network": 2,
+    "runnerHash": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+    "requests": [
+      {
+        "index": 1,
+        "grantRoot": null,
+        "resolved": 0,
+        "nativeStatus": "completed",
+        "rawKind": null
+      },
+      {
+        "index": 2,
+        "grantRoot": null,
+        "resolved": 0,
+        "nativeStatus": "declined",
+        "rawKind": null
+      },
+      {
+        "index": 3,
+        "grantRoot": null,
+        "resolved": 0,
+        "nativeStatus": "declined",
+        "rawKind": null
+      },
+      {
+        "index": 4,
+        "grantRoot": null,
+        "resolved": 0,
+        "nativeStatus": "completed",
+        "rawKind": null
+      },
+      {
+        "index": 5,
+        "grantRoot": null,
+        "resolved": 0,
+        "nativeStatus": null,
+        "rawKind": null
+      }
+    ],
+    "activeChildren": 0
+  },
+  "finishedAt": "2026-10-27T12:31:44.399Z",
+  "lastPhaseElapsedMs": 32537
+}

@@ -1,3 +1,7 @@
+import {captureFileProposal} from './file-proposals.ts'
+import type {CapturedFileProposal} from './file-proposals.ts'
+import {APPROVAL_TIMEOUT_MS} from '../../contracts/approvals.ts'
+import type {ApprovalDecision,ApprovalResult} from '../../contracts/approvals.ts'
 import { spawn } from 'node:child_process'
 import {isDeepStrictEqual} from 'node:util'
 import {createHash} from 'node:crypto'
@@ -7,7 +11,7 @@ import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { isRecord, MAX_DRAFT_LENGTH } from '../../contracts/index.ts'
 import { dialogueError, dialogueFailure, MAX_TURN_MESSAGES } from '../../contracts/dialogue.ts'
 import type { DialogueErrorCode, MessageIdentity } from '../../contracts/dialogue.ts'
-import type { BmadProfile, DialogueMessageUpdate, DialogueSession,QuestionObserver } from '../../core/ports.ts'
+import type { BmadProfile, DialogueMessageUpdate, DialogueSession,QuestionObserver,ApprovalObserver } from '../../core/ports.ts'
 import {isQuestionFields,validQuestionValues} from '../../contracts/questions.ts'
 import type {QuestionField,QuestionValues} from '../../contracts/questions.ts'
 import type { CodexConnection } from './connection.ts'
@@ -36,6 +40,7 @@ export class DialogueRpc {
   private handler: ((value: Message) => Promise<unknown>) | null = null
   private requests: Promise<void> = Promise.resolve()
   private requestIds = new Set<string>()
+  private responseWaiters=new Map<string,{resolve():void;reject(error:unknown):void}>()
   private questionRequest=false
   private retiredQuestionTurns=new Set<string>()
   private paused=false
@@ -67,19 +72,19 @@ export class DialogueRpc {
       if(this.isRetiredQuestion(value))return
       const key=typeof value.id+':'+String(value.id)
       if(this.requestIds.has(key))return this.fail('CONTEXT_MISMATCH')
-      if(value.method==='item/tool/requestUserInput'){if(this.questionRequest)return this.fail('CONTEXT_MISMATCH');this.questionRequest=true}
+      if(['item/tool/requestUserInput','item/fileChange/requestApproval'].includes(value.method!)){this.pauseWait(true);if(this.questionRequest)return this.fail('CONTEXT_MISMATCH');this.questionRequest=true}
       this.requestIds.add(key)
       this.requests = this.requests.then(async () => {
-        try { if(this.isRetiredQuestion(value))return; if (this.error) throw this.error; if (!this.handler) throw dialogueFailure('UNSUPPORTED_INTERACTION'); const result = await this.handler(value);if(this.error)throw this.error; this.write({ id: value.id, result }) }
+        try { if(this.isRetiredQuestion(value))return; if (this.error) throw this.error; if (!this.handler) throw dialogueFailure('UNSUPPORTED_INTERACTION'); const result = await this.handler(value);if(this.error)throw this.error; this.write({ id: value.id, result },()=>{const waiter=this.responseWaiters.get(key);this.responseWaiters.delete(key);waiter?.resolve()}) }
         catch (error) { const code = dialogueError(error, 'UNSUPPORTED_INTERACTION');if(!this.error)this.write({ id: value.id, error: { code: -32601, message: code } }); this.fail(code) }
-        finally{this.requestIds.delete(key);if(value.method==='item/tool/requestUserInput')this.questionRequest=false}
+        finally{this.requestIds.delete(key);if(['item/tool/requestUserInput','item/fileChange/requestApproval'].includes(value.method!))this.questionRequest=false}
       })
       return
     }
     if (Object.hasOwn(value, 'id')) { if(typeof value.id!=='number'||!Number.isSafeInteger(value.id))return this.fail('PROVIDER_FAILED'); const pending = this.pending.get(value.id); if (!pending) return; this.pending.delete(value.id); if (value.error || !Object.hasOwn(value, 'result')) pending.reject(dialogueFailure('PROVIDER_FAILED')); else pending.resolve(value.result); return }
     if (!value.method) return this.fail('PROVIDER_FAILED')
     if (value.method === 'error') return this.fail('PROVIDER_FAILED')
-    if (!['item/started', 'item/completed', 'item/agentMessage/delta', 'turn/completed','rawResponseItem/completed','serverRequest/resolved'].includes(value.method)) return
+    if (!['item/started', 'item/completed', 'item/agentMessage/delta', 'turn/completed','rawResponseItem/completed','serverRequest/resolved','item/fileChange/patchUpdated'].includes(value.method)) return
     if (this.waiter) { const waiter = this.waiter; this.waiter = null; waiter.resolve(value) } else {
       const last=this.queue.at(-1),p=value.params,q=last?.params
       // Compacter seulement les deltas adjacents du même item : ordre et répétitions sont conservés.
@@ -89,11 +94,12 @@ export class DialogueRpc {
       if (this.queue.length > 512) this.fail('PROVIDER_FAILED')
     }
   }
-  private write(value: unknown): void { if (!this.child.stdin.destroyed) this.child.stdin.write(JSON.stringify(value) + '\n') }
-  private fail(code: DialogueErrorCode): void { this.error ??= dialogueFailure(code); for (const pending of this.pending.values()) pending.reject(this.error); this.pending.clear(); this.waiter?.reject(this.error) }
+  private write(value: unknown,written?:()=>void): void { if (!this.child.stdin.destroyed) this.child.stdin.write(JSON.stringify(value) + '\n',error=>{if(error)this.fail('PROVIDER_FAILED');else written?.()}) }
+  responseWritten(id:string|number):Promise<void>{const key=typeof id+':'+String(id);return new Promise((resolve,reject)=>this.responseWaiters.set(key,{resolve,reject}))}
+  private fail(code: DialogueErrorCode): void { this.error ??= dialogueFailure(code); for (const pending of this.pending.values()) pending.reject(this.error); this.pending.clear();for(const waiter of this.responseWaiters.values())waiter.reject(this.error);this.responseWaiters.clear(); this.waiter?.reject(this.error) }
   cancel(code:DialogueErrorCode):void{this.fail(code)}
-  private isRetiredQuestion(value:Message):boolean{return value.method==='item/tool/requestUserInput'&&this.retiredQuestionTurns.has(JSON.stringify([value.params?.threadId,value.params?.turnId]))}
-  retireQuestions(threadId:string,turnId:string):void{this.retiredQuestionTurns.add(JSON.stringify([threadId,turnId]))}
+  private isRetiredQuestion(value:Message):boolean{return ['item/tool/requestUserInput','item/fileChange/requestApproval'].includes(value.method!)&&this.retiredQuestionTurns.has(JSON.stringify([value.params?.threadId,value.params?.turnId]))}
+  retireQuestions(threadId:string,turnId:string):void{this.retiredQuestionTurns.add(JSON.stringify([threadId,turnId]));this.pauseWait(false)}
   /** Le délai machine ne consomme pas le temps de lecture et de saisie humaine. */
   pauseWait(paused:boolean):void{if(paused===this.paused)return;this.paused=paused;if(paused){if(this.nextTimer){this.nextRemaining=Math.max(1,this.nextDeadline-Date.now());clearTimeout(this.nextTimer);this.nextTimer=undefined}}else if(this.waiter)this.armNext(this.nextRemaining)}
   private armNext(timeout:number):void{this.nextRemaining=timeout;this.nextDeadline=Date.now()+timeout;if(!this.paused)this.nextTimer=setTimeout(()=>this.fail('PROVIDER_FAILED'),timeout)}
@@ -129,7 +135,7 @@ const forgeTools = [
   {type:'function',name:'bmad_forge_finish',description:'Après sorties complètes et observées, vrai memlog.py set status=complete. HTML toujours obligatoire, Markdown aussi pour HARDENED. Ne signifie aucune acceptation humaine.',inputSchema:{type:'object',properties:{outcome:{type:'string',enum:['HARDENED','KILLED','CLARIFIED']}},required:['outcome'],additionalProperties:false}},
   dynamicTools[1],{...dynamicTools[2],description:'Arrêter explicitement une interaction indisponible : approbation native, sous-agent, autre skill, reprise ou commande/écriture hors session.'}
 ]
-type ProtocolOptions = { cwd: string; profile: Pick<BmadProfile, 'rootPath' | 'skillPath'>; forge?: ForgeHost; signal: AbortSignal; activity(text: string): void; resolve(kind: 'agent' | 'config'): Promise<string>; read(path: string): Promise<string> }
+type ProtocolOptions = { cwd: string; profile: Pick<BmadProfile, 'rootPath' | 'skillPath'|'mode'>; protectedRoots?:string[]; forge?: ForgeHost; signal: AbortSignal; activity(text: string): void; resolve(kind: 'agent' | 'config'): Promise<string>; read(path: string): Promise<string> }
 export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolOptions, timeout = 180000): Promise<Pick<DialogueSession, 'turn'>> {
   await rpc.call('initialize', { clientInfo: { name: 'madness', title: 'Madness', version: '0.1.0' }, capabilities: { experimentalApi: true } }); rpc.notify('initialized')
   const catalog = await rpc.call('model/list', {})
@@ -137,9 +143,11 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
   if (!model || !/^[a-zA-Z0-9._:/-]{1,100}$/.test(model.model)) throw dialogueFailure('PROVIDER_FAILED')
   const instructions = `Pilote personnel Madness. Le projet BMad capturé est ${options.profile.rootPath}. Le processus travaille dans un répertoire isolé ; {project-root} désigne toujours le projet capturé et {skill-root} le dossier de ${options.profile.skillPath}. Exécute l'agent installé fourni par l'entrée native skill, sans l'imiter. Pour ses commandes uv run utilise réellement bmad_resolve(kind=agent) puis bmad_resolve(kind=config), dans l'ordre du SKILL.md. Pour les lectures utilise bmad_read_file. Aucun shell, réseau d'outil, écriture, sous-agent, installation ou autre compétence n'est disponible. Ne remplace jamais un resolver par une réponse inventée. Le pilote autorise l'accueil/menu natif puis la discussion libre uniquement, en français. Une demande de workflow documentaire, approbation, effets ou autre outil doit appeler bmad_unsupported ; ne prétends jamais l'avoir réalisée. Les propositions et le menu ne valent aucune approbation. Termine chaque tour par son résultat et la prochaine action attendue, sans déclarer le workflow clos.`
   const forgeInstructions=`Madness intègre le skill natif $bmad-forge-idea pour une NOUVELLE idée seulement. {project-root}=${options.profile.rootPath}, {skill-root}=${dirname(options.profile.skillPath)}. Le processus Codex reste read-only dans un dossier isolé. Respecte intégralement le SKILL.md injecté ; ne l'imite pas, ne résume pas ses sorties obligatoires. Pour les commandes natives uv run utilise bmad_forge_resolve : workflow puis config à l'activation, personas dès que le but est connu. Les commandes sont réellement exécutées, y compris roster/personas dans des subprocess isolés. bmad_read_file lit uniquement le profil qualifié. Ne prétends jamais avoir exécuté un script sans résultat de l'outil. Reprise/hooks/autres skills/sous-agents et approbations sont indisponibles : appelle bmad_unsupported, ne simule rien. Pose tes questions dans le dialogue libre ou avec request_user_input. Aucun brouillon n'est envoyé par le lancement. Après but connu, bmad_forge_init crée la SEULE sortie autorisée sous ${options.forge?.profile.forge?.outputBase}; aucun chemin arbitraire. Utilise bmad_forge_append pour les décisions et faits. À la sortie, produis le HTML INTÉGRAL et autonome avec CSS et sceau SVG inline via bmad_forge_write(name=forge-report.html). Si HARDENED, écris aussi le Markdown extrêmement court via name=idea. Puis appelle bmad_forge_finish et cite les chemins réellement observés. Jamais de faux journal/livrable, shell, outil générique, installation, réseau d'outil ou exécution HTML. Termine chaque tour en indiquant sa fin et la prochaine action attendue ; distingue fin de tour, clôture du workflow et acceptation humaine inconnue. Le forfait ChatGPT propre à Madness est utilisé.`
+  const approvalMode=options.profile.mode==='file-approval'&&!options.forge
+  const approvalInstructions=`Pilote Mary Madness avec propositions de fichiers opt-in. {project-root}=${options.profile.rootPath}, {skill-root}=${dirname(options.profile.skillPath)}. Exécute l’agent installé et bmad_resolve(agent) puis bmad_resolve(config) comme dans le SKILL.md, bmad_read_file pour le profil. Le lancement ne transmet aucun brouillon. Après demande explicite, tu peux proposer apply_patch natif add/update/delete dans le projet ; chaque patch complet attend un accord ponctuel de l’utilisateur. Aucun mouvement, chemin .git/.agents/_bmad/.codex/.aws ni donnée Madness. Aucun shell, commande, réseau d’outil, sous-agent ou permission globale/session. Ne contourne jamais un refus. Un ajustement est un refus puis un nouveau tour explicite. N’annonce aucun effet sans résultat natif observé ; distingue accord, exécution et acceptation du livrable. Termine chaque tour par sa fin et la prochaine action attendue.`
   const questionInstructions=' Les questions natives request_user_input sont disponibles dans le mode Default. Pose seulement des questions non secrètes ; les choix appartiennent toujours à l’utilisateur. Les approbations restent indisponibles.'
-  const thread = await rpc.call('thread/start', { cwd: options.cwd, model: model.model, modelProvider: 'openai_chatgpt_plan', sandbox: 'read-only', approvalPolicy: 'never', ephemeral: true,experimentalRawEvents:true, dynamicTools:options.forge?forgeTools:dynamicTools, developerInstructions: (options.forge?forgeInstructions:instructions)+questionInstructions, multiAgentMode: 'explicitRequestOnly' })
-  if (thread.modelProvider !== 'openai_chatgpt_plan' || thread.model !== model.model || thread.sandbox?.type !== 'readOnly' || thread.approvalPolicy !== 'never' || typeof thread.thread?.id !== 'string') throw dialogueFailure('PROVIDER_FAILED')
+  const thread = await rpc.call('thread/start', { cwd: options.cwd, model: model.model, modelProvider: 'openai_chatgpt_plan', sandbox: 'read-only', approvalPolicy: approvalMode?'on-request':'never',...(approvalMode?{approvalsReviewer:'user'}:{}), ephemeral: true,experimentalRawEvents:true, dynamicTools:options.forge?forgeTools:dynamicTools, developerInstructions: (options.forge?forgeInstructions:approvalMode?approvalInstructions:instructions)+questionInstructions.replace(' Les approbations restent indisponibles.',approvalMode?' Les seules approbations possibles portent sur un patch natif complet.':' Les approbations restent indisponibles.'), multiAgentMode: 'explicitRequestOnly' })
+  if (thread.modelProvider !== 'openai_chatgpt_plan' || thread.model !== model.model || thread.sandbox?.type !== 'readOnly' || thread.approvalPolicy !== (approvalMode?'on-request':'never') || typeof thread.thread?.id !== 'string') throw dialogueFailure('PROVIDER_FAILED')
   const threadId = thread.thread.id
   let turnId: string | null = null, gate: Promise<void> = Promise.resolve(), first = true, busy = false
   const resolved = new Set<string>(), calls = new Set<string>()
@@ -148,13 +156,46 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
   type PendingQuestion={rpcId:string|number;callId:string;fields:QuestionField[];nativeFields:string[];choose(value:unknown):void;rejectChoice(error:unknown):void;confirm():void;rejectAck(error:unknown):void;invalidate():void;submitted:unknown;timer:ReturnType<typeof setTimeout>|undefined;ackTimer:ReturnType<typeof setTimeout>|undefined;started:number}
   let pendingQuestion:PendingQuestion|null=null
   const invalidateQuestion=(code:DialogueErrorCode):void=>{const question=pendingQuestion;if(!question)return;pendingQuestion=null;clearTimeout(question.timer);clearTimeout(question.ackTimer);deadline+=Date.now()-question.started;rpc.pauseWait(false);const error=dialogueFailure(code);question.invalidate();question.rejectChoice(error);question.rejectAck(error);rpc.cancel(code)}
-  const abortedQuestion=():void=>invalidateQuestion('CANCELLED')
+  let approvalObserver:ApprovalObserver|undefined
+  const announcements=new Map<string,{proposal:CapturedFileProposal;identity:MessageIdentity}>(),announcementWaiters=new Map<string,(value:{proposal:CapturedFileProposal;identity:MessageIdentity})=>void>()
+  type PendingApproval={settlement:Promise<ApprovalResult>;rpcId:string|number;itemId:string;proposal:CapturedFileProposal|null;choose(value:unknown):void;rejectChoice(error:unknown):void;invalidate():void;resolveResult(result:ApprovalResult):void;rejectResult(error:unknown):void;decision:ApprovalDecision|null;transmitted:boolean;nativeStatus:ApprovalResult['nativeStatus']|null;raw:string|null;started:number;timer:ReturnType<typeof setTimeout>|undefined}
+  let pendingApproval:PendingApproval|null=null
+  const invalidateApproval=(code:DialogueErrorCode):void=>{const approval=pendingApproval;if(!approval)return;pendingApproval=null;clearTimeout(approval.timer);deadline+=Date.now()-approval.started;rpc.pauseWait(false);const error=dialogueFailure(code);approval.invalidate();approval.rejectChoice(error);approval.rejectResult(error);announcementWaiters.delete(approval.itemId);rpc.cancel(code)}
+  const finishApproval=async():Promise<void>=>{
+    const a=pendingApproval;if(!a||!a.proposal||!a.decision||!a.transmitted||!a.nativeStatus)return
+    const effects=await a.proposal.inspectEffects(a.decision)
+    if(pendingApproval!==a||options.signal.aborted)throw dialogueFailure('CANCELLED')
+    if(!effects.matches||a.nativeStatus==='completed'&&a.decision!=='accept'||a.nativeStatus==='declined'&&a.decision!=='decline')throw dialogueFailure('EFFECT_UNKNOWN')
+    clearTimeout(a.timer);pendingApproval=null;deadline+=Date.now()-a.started;rpc.pauseWait(false);a.resolveResult({nativeStatus:a.nativeStatus,raw:a.raw??'',files:effects.files})
+  }
+  const abortedQuestion=():void=>{invalidateQuestion('CANCELLED');invalidateApproval('CANCELLED')}
   options.signal.addEventListener('abort',abortedQuestion)
   rpc.onRequest(async request => {
     await gate
     const p = request.params
+    if(request.method==='item/fileChange/requestApproval'){
+      if(pendingApproval?.decision!==null&&pendingApproval)await pendingApproval.settlement
+      if(!approvalMode||!approvalObserver||!p||p.threadId!==threadId||p.turnId!==turnId||typeof p.itemId!=='string'||!p.itemId.length||p.itemId.length>200||calls.has(p.itemId)||pendingApproval||pendingQuestion||p.grantRoot!=null||!Number.isSafeInteger(p.startedAtMs)||p.reason!=null&&(typeof p.reason!=='string'||p.reason.length>10000)||p.environmentId!=null||Object.keys(p).some(k=>!['threadId','turnId','itemId','startedAtMs','reason','grantRoot','environmentId'].includes(k)))throw dialogueFailure('UNSUPPORTED_INTERACTION')
+      calls.add(p.itemId);rpc.pauseWait(true)
+      let choose!:(value:unknown)=>void,rejectChoice!:(error:unknown)=>void,invalidate!:()=>void,resolveResult!:(result:ApprovalResult)=>void,rejectResult!:(error:unknown)=>void
+      const choice=new Promise((resolve,reject)=>{choose=resolve;rejectChoice=reject}),invalidated=new Promise<void>(resolve=>invalidate=resolve),result=new Promise<ApprovalResult>((resolve,reject)=>{resolveResult=resolve;rejectResult=reject})
+      void choice.catch(()=>{});void result.catch(()=>{})
+      const approval:PendingApproval={settlement:result,rpcId:request.id!,itemId:p.itemId,proposal:null,choose,rejectChoice,invalidate,resolveResult,rejectResult,decision:null,transmitted:false,nativeStatus:null,raw:null,started:Date.now(),timer:undefined};pendingApproval=approval
+      approval.timer=setTimeout(()=>invalidateApproval('CANCELLED'),APPROVAL_TIMEOUT_MS)
+      let joinTimer:ReturnType<typeof setTimeout>|undefined
+      try{
+        const announcement=announcements.get(p.itemId)??await Promise.race([new Promise<{proposal:CapturedFileProposal;identity:MessageIdentity}>(resolve=>announcementWaiters.set(p.itemId,resolve)),new Promise<never>((_,reject)=>joinTimer=setTimeout(()=>reject(dialogueFailure('UNSUPPORTED_INTERACTION')),Math.min(timeout,15000)))])
+        clearTimeout(joinTimer);if(pendingApproval!==approval||options.signal.aborted)throw dialogueFailure('CANCELLED');approval.proposal=announcement.proposal
+        await approvalObserver({files:structuredClone(announcement.proposal.files),identity:structuredClone(announcement.identity),expiresAt:approval.started+APPROVAL_TIMEOUT_MS},{invalidated,result,decide:async decision=>{
+          if(pendingApproval!==approval||approval.decision!==null||options.signal.aborted||Date.now()>=approval.started+APPROVAL_TIMEOUT_MS||!['accept','decline'].includes(decision))throw dialogueFailure('CONTEXT_MISMATCH')
+          try{await announcement.proposal.assertUnchanged();if(pendingApproval!==approval||options.signal.aborted)throw dialogueFailure('CANCELLED');approval.decision=decision;const sent=rpc.responseWritten(request.id!);approval.choose({decision});await sent;approval.transmitted=true;await finishApproval()}catch(error){invalidateApproval(dialogueError(error,'EFFECT_UNKNOWN'));throw error}
+        }})
+        if(pendingApproval!==approval||options.signal.aborted)throw dialogueFailure('CANCELLED')
+        return await choice
+      }catch(error){clearTimeout(joinTimer);invalidateApproval(dialogueError(error,'PROVIDER_FAILED'));throw error}
+    }
     if(request.method==='item/tool/requestUserInput'){
-      if(!questionObserver||!p||p.threadId!==threadId||p.turnId!==turnId||typeof p.itemId!=='string'||!p.itemId.length||p.itemId.length>200||calls.has(p.itemId)||pendingQuestion)throw dialogueFailure('CONTEXT_MISMATCH')
+      if(!questionObserver||!p||p.threadId!==threadId||p.turnId!==turnId||typeof p.itemId!=='string'||!p.itemId.length||p.itemId.length>200||calls.has(p.itemId)||pendingQuestion||pendingApproval)throw dialogueFailure('CONTEXT_MISMATCH')
       if(!Array.isArray(p.questions)||!p.questions.length||p.questions.length>3||p.questions.some((q:any)=>!isRecord(q)||typeof q.id!=='string'||!q.id.length||q.id.length>200||q.isSecret!==undefined&&q.isSecret!==false||q.isOther!==undefined&&typeof q.isOther!=='boolean'||Object.keys(q).some(k=>!['id','header','question','options','isOther','isSecret'].includes(k)))||new Set(p.questions.map((q:any)=>q.id)).size!==p.questions.length||p.autoResolutionMs!=null&&(!Number.isSafeInteger(p.autoResolutionMs)||p.autoResolutionMs<1||p.autoResolutionMs>240000))throw dialogueFailure('UNSUPPORTED_INTERACTION')
       const fields:QuestionField[]=p.questions.map((q:any,i:number)=>({id:'field-'+(i+1),header:q.header,prompt:q.question,options:q.options??[],allowOther:q.isOther??false}))
       if(!isQuestionFields(fields))throw dialogueFailure('UNSUPPORTED_INTERACTION')
@@ -206,11 +247,11 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
     options.signal.throwIfAborted()
     return { success: true, contentItems: [{ type: 'inputText', text: output }] }
   })
-  return { turn: async (text, accepted, observe,onQuestion) => {
+  return { turn: async (text, accepted, observe,onQuestion,onApproval) => {
     if (busy) throw dialogueFailure('BUSY'); busy = true
     // Le chargement observé d’un rôle n’atteste pas une réponse future après une sortie de rôle.
     identity={kind:'unknown'}
-    questionObserver=onQuestion
+    questionObserver=onQuestion;approvalObserver=onApproval;announcements.clear();announcementWaiters.clear()
     let release!: () => void; gate = new Promise(resolve => { release = resolve })
     try {
       options.signal.throwIfAborted()
@@ -228,13 +269,15 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
       }
       const project=(message:DialogueMessageUpdate):void=>{if([...messages.values()].reduce((n,m)=>n+m.text.length,0)>MAX_DRAFT_LENGTH)throw dialogueFailure('PROVIDER_FAILED');observe?.(structuredClone(message))}
       for (;;) {
-        const event = await rpc.next(pendingQuestion?timeout:deadline - Date.now()), p = event.params
+        const event = await rpc.next(pendingQuestion||pendingApproval?timeout:deadline - Date.now()), p = event.params
         if (p?.threadId !== threadId) continue
         if(event.method==='serverRequest/resolved'){
+          if(pendingApproval&&p.requestId===pendingApproval.rpcId&&pendingApproval.decision===null)invalidateApproval('CANCELLED')
           if(pendingQuestion&&p.requestId===pendingQuestion.rpcId&&pendingQuestion.submitted===null)invalidateQuestion('CANCELLED')
           continue
         }
         if(event.method==='rawResponseItem/completed'){
+          const a=pendingApproval;if(a&&p.turnId===turnId&&p.item?.type==='custom_tool_call_output'&&p.item.call_id===a.itemId){if(typeof p.item.output==='string'&&p.item.output.length<=MAX_DRAFT_LENGTH)a.raw??=p.item.output;continue}
           const question=pendingQuestion,item=p.item
           if(!question||p.turnId!==turnId||item?.type!=='function_call_output'||item.call_id!==question.callId)continue
           let output:unknown;try{output=JSON.parse(item.output)}catch{invalidateQuestion('PROVIDER_FAILED');continue}
@@ -246,6 +289,8 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
           // Retirer les questions déjà en file et leurs notifications tardives,
           // avant le drain d’un éventuel outil encore asynchrone.
           rpc.retireQuestions(threadId,turnId!)
+          if(pendingApproval?.transmitted&&pendingApproval.nativeStatus!==null)await pendingApproval.settlement
+          if(pendingApproval){invalidateApproval('EFFECT_UNKNOWN');throw dialogueFailure('EFFECT_UNKNOWN')}
           if(pendingQuestion){invalidateQuestion('PROVIDER_FAILED');throw dialogueFailure('PROVIDER_FAILED')}
           await rpc.drainRequests()
           if (p.turn.status !== 'completed' || p.turn.error || !messages.size || [...messages.values()].some(m=>!m.completed) || first && (!resolved.has(options.forge?'workflow':'agent') || !resolved.has('config'))) throw dialogueFailure('PROVIDER_FAILED')
@@ -258,6 +303,18 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
           const message=itemMessage(p.itemId);if(message.completed)throw dialogueFailure('PROVIDER_FAILED')
           message.text+=p.delta;project(message);continue
         }
+        if(event.method==='item/fileChange/patchUpdated'){if(pendingApproval){invalidateApproval('OUTPUT_CONFLICT');throw dialogueFailure('OUTPUT_CONFLICT')}throw dialogueFailure('UNSUPPORTED_INTERACTION')}
+        if(p.item?.type==='fileChange'){
+          const item=p.item;if(!approvalMode||typeof item.id!=='string'||!item.id.length||item.id.length>200||!Array.isArray(item.changes))throw dialogueFailure('UNSUPPORTED_INTERACTION')
+          const previous=announcements.get(item.id)
+          if(previous&&!previous.proposal.same(item.changes)){invalidateApproval('OUTPUT_CONFLICT');throw dialogueFailure('OUTPUT_CONFLICT')}
+          if(!previous){const announcement={proposal:await captureFileProposal(options.profile.rootPath,item.changes,options.protectedRoots),identity:structuredClone(identity)};announcements.set(item.id,announcement);announcementWaiters.get(item.id)?.(announcement);announcementWaiters.delete(item.id)}
+          if(event.method==='item/completed'){
+            if(!pendingApproval||pendingApproval.itemId!==item.id||!['completed','failed','declined'].includes(item.status)||pendingApproval.decision===null)throw dialogueFailure('CONTEXT_MISMATCH')
+            pendingApproval.nativeStatus=item.status;await finishApproval()
+          }
+          continue
+        }
         const item = p.item
         if (!item || !['userMessage', 'agentMessage', 'reasoning', 'dynamicToolCall'].includes(item.type)) throw dialogueFailure('UNSUPPORTED_INTERACTION')
         if(item.type==='agentMessage'){
@@ -269,10 +326,10 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
           }else if(typeof item.text==='string'){if(message.text&&!item.text.startsWith(message.text))throw dialogueFailure('PROVIDER_FAILED');message.text=item.text;project(message)}
         }
       }
-    } finally {invalidateQuestion('CANCELLED');questionObserver=undefined; release(); busy = false }
+    } finally {invalidateQuestion('CANCELLED');invalidateApproval('CANCELLED');questionObserver=undefined;approvalObserver=undefined; release(); busy = false }
   } }
 }
-export async function openCodexDialogue(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, connection: CodexConnection, options: { root: string; appData: string; repository: string; environment: NodeJS.ProcessEnv; runner?:string }): Promise<DialogueSession> {
+export async function openCodexDialogue(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, connection: CodexConnection, options: { root: string; appData: string; repository: string;dataRoot?:string; environment: NodeJS.ProcessEnv; runner?:string }): Promise<DialogueSession> {
   // Les resolvers doivent fonctionner avant de demander le moindre appel au forfait.
   let forge:ForgeHost|undefined,initiative:string|null
   if(profile.kind==='forge'){
@@ -305,7 +362,7 @@ export async function openCodexDialogue(profile: BmadProfile, signal: AbortSigna
     signal.throwIfAborted(); activity('Codex app-server · forfait ChatGPT · profil isolé · lecture seule')
     child = spawn(executable, ['app-server', '--listen', 'stdio://', ...settings.flatMap(setting => ['-c', setting])], { cwd: work, env: probeEnvironment(options.environment, isolated, lease.credentials.accessToken), shell: false, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] })
     rpc = new DialogueRpc(child, signal)
-    const protocol = await startDialogueProtocol(rpc, { cwd: work, profile, forge, signal, activity, resolve: kind => resolveBmad(profile, kind, signal), read: path => forge?forge.read(path):readBmadFile(profile, path) })
-    return { context: { connectionId: lease.connectionId, initiativeId: initiative }, ...(forge?{workflow:{outputBase:profile.forge!.outputBase,contextDigest:profile.forge!.contextDigest,bind:forge.bind.bind(forge)}}:{}), turn: async (text, accepted, observe,onQuestion) => { if(forge)await forge.assertForTurn();else await assertBmadProfile(profile); if (lease.credentials.expiresAt <= Date.now() + 30000) throw dialogueFailure('NO_ACCOUNT'); return protocol.turn(text, accepted, observe,onQuestion) }, stop: cleanup }
+    const protocol = await startDialogueProtocol(rpc, { cwd: profile.mode==='file-approval'&&!forge?profile.rootPath:work, profile, forge,protectedRoots:[options.root,options.dataRoot??join(options.appData,'Madness')], signal, activity, resolve: kind => resolveBmad(profile, kind, signal), read: path => forge?forge.read(path):readBmadFile(profile, path) })
+    return { context: { connectionId: lease.connectionId, initiativeId: initiative }, ...(forge?{workflow:{outputBase:profile.forge!.outputBase,contextDigest:profile.forge!.contextDigest,bind:forge.bind.bind(forge)}}:{}), turn: async (text, accepted, observe,onQuestion,onApproval) => { if(forge)await forge.assertForTurn();else await assertBmadProfile(profile); if (lease.credentials.expiresAt <= Date.now() + 30000) throw dialogueFailure('NO_ACCOUNT'); return protocol.turn(text, accepted, observe,onQuestion,onApproval) }, stop: cleanup }
   } catch (error) { const outcome = await cleanup(); if (outcome === 'unknown') throw dialogueFailure('STOP_UNCONFIRMED'); throw error }
 }

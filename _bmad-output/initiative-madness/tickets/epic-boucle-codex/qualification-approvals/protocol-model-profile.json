@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T10:54:34.487Z",
+  "purpose": "Two native profiles, default model from same catalog predicate; only local simulated responses, no tool call, no OAuth/account",
+  "scenarios": [
+    {
+      "name": "incumbent-default",
+      "hostOff": false,
+      "requests": [
+        {
+          "model": "gpt-5.6-sol",
+          "tools": [],
+          "applyPatchSpec": null
+        }
+      ],
+      "completed": true,
+      "nativeStopped": true,
+      "defaultModel": "gpt-5.6-sol"
+    },
+    {
+      "name": "only-host-off",
+      "hostOff": true,
+      "requests": [
+        {
+          "model": "gpt-5.6-sol",
+          "tools": [],
+          "applyPatchSpec": null
+        }
+      ],
+      "completed": true,
+      "nativeStopped": true,
+      "defaultModel": "gpt-5.6-sol"
+    }
+  ],
+  "cleanup": true,
+  "finishedAt": "2026-10-27T10:54:37.363Z"
+}

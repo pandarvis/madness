@@ -243,3 +243,22 @@ dd { margin: 6px 0 0; color: var(--muted) }
 .forge-preparation code,.workflow-observations code{overflow-wrap:anywhere;white-space:normal}
 .workflow-observations li{margin-block:12px}
 .workflow-observations .text-button{margin-inline-start:8px}
+
+/* Une opération complète dans le flux de conversation, sans choix implicite. */
+.approval-panel { margin-block: 24px; padding-block: 24px; border-block: 1px solid var(--line); min-width: 0; }
+.approval-panel h2 { margin: 0 0 12px; }
+.approval-recipient { font-size: 14px; margin: 0 0 8px; }
+.approval-status { color: var(--waiting-text); background: var(--waiting); padding: 12px; border-radius: 12px; }
+.approval-files { margin-block: 20px 24px; }
+.approval-file + .approval-file { margin-top: 24px; }
+.approval-file h3 { font-size: 14px; margin-bottom: 8px; overflow-wrap: anywhere; }
+.approval-file h3 code { display: block; margin-top: 4px; font-weight: 400; }
+.approval-file pre, .approval-result pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 320px; overflow-y: auto; background: var(--panel); color: var(--text); padding: 16px; border-radius: 12px; line-height: 1.6; }
+.approval-adjustment label { display: block; font-weight: 600; margin-bottom: 8px; }
+.approval-adjustment textarea { width: 100%; resize: vertical; min-height: 84px; padding: 12px; border: 1px solid var(--control-line); border-radius: 12px; background: var(--surface); color: var(--text); font: inherit; }
+.approval-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; margin-top: 16px; }
+.approval-mode { display: flex; align-items: center; gap: 10px; margin-block: 16px 8px; font-size: 14px; }
+.approval-mode input { accent-color: var(--accent); width: 18px; height: 18px; flex-shrink: 0; }
+.approval-result { margin-top: 20px; }
+.approval-result li { overflow-wrap: anywhere; margin-block: 8px; }
+@media (max-width: 700px) { .approval-actions { align-items: stretch; flex-direction: column; } .approval-actions button { width: 100%; } }

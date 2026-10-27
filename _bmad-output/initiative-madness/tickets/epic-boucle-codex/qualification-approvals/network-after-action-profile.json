@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T12:28:49.297Z",
+  "purpose": "Fixed public JWKS GET only; no refresh, account mutation or model",
+  "checks": [
+    {
+      "phase": "direct-before-browser",
+      "status": 200,
+      "ok": true,
+      "validPublicJwks": true
+    }
+  ],
+  "cleanup": true,
+  "status": "public-key-endpoint-reachable",
+  "finishedAt": "2026-10-27T12:28:58.152Z"
+}

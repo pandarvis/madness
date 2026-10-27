@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-24T11:42:17.015Z",
+  "gate": "G0",
+  "status": "local-technical-checks-passed",
+  "platform": {
+    "os": "win32",
+    "architecture": "x64",
+    "release": "10.0.26200",
+    "node": "24.13.0"
+  },
+  "runtime": {
+    "compiled": {
+      "electron": "45.0.0",
+      "chromium": "156.0.8078.48",
+      "node": "24.22.0",
+      "packaged": false,
+      "sandbox": true,
+      "rendererSandboxed": true,
+      "contextIsolation": true,
+      "nodeIntegration": false,
+      "webSecurity": true
+    },
+    "packaged": {
+      "electron": "45.0.0",
+      "chromium": "156.0.8078.48",
+      "node": "24.22.0",
+      "packaged": true,
+      "sandbox": true,
+      "rendererSandboxed": true,
+      "contextIsolation": true,
+      "nodeIntegration": false,
+      "webSecurity": true
+    }
+  },
+  "checks": {
+    "compiled.isolated-business-preload": true,
+    "cancel.no-snapshot-or-project": true,
+    "ui.global-toolbar-single-open": true,
+    "events.correlated-ordered": true,
+    "ui.skip-link-keyboard-keeps-ipc-and-events": true,
+    "ipc.invalid-payload-and-scope-rejected": true,
+    "ipc.foreign-window-rejected-before-dialog": true,
+    "ui.same-initial-project-markers-survive-reopen": true,
+    "compiled.reopen-context-draft-preference": true,
+    "packaged.isolated-business-preload": true,
+    "ui.navigation-draft-focus-and-responsive": true,
+    "packaged.future-schema-kept-and-input-retained": true,
+    "packaged.reopen-without-provider": true,
+    "project.unchanged": true,
+    "installer.built-not-installed": true
+  },
+  "screenshots": [
+    "packaged-desktop.png",
+    "packaged-compact.png"
+  ],
+  "cleanup": true,
+  "limits": [
+    "Sélection du dialogue OS contrôlée par le banc ; aucun parcours humain revendiqué.",
+    "Installateur construit mais non installé. Signature et proxy non qualifiés.",
+    "Aucun fournisseur lancé ; G1, G2, G3, G4 et G5 non qualifiés.",
+    "Aucun audit WCAG ni lecteur d’écran effectué."
+  ],
+  "snapshot": {
+    "schemaVersion": 1,
+    "revision": 7,
+    "projectCount": 2,
+    "draftCount": 1,
+    "navigationCollapsed": true,
+    "textMatchesExpected": true,
+    "pathsRedacted": true
+  },
+  "buildInputs": {
+    "algorithm": "sha256-path-and-bytes",
+    "digest": "8d03e184788fb9b94ae10ac921b42d9578c42b09e10111beeb4c20f184b8a920",
+    "fileCount": 29
+  },
+  "captureMode": "existing-files-not-recaptured",
+  "artifacts": [
+    {
+      "file": "Madness-0.1.0-x64-setup.exe",
+      "bytes": 112896481,
+      "sha256": "c7085ed48ac1992525a854f289bf386a18bf1e54d8555efed8c06202b153ca02"
+    },
+    {
+      "file": "win-unpacked/Madness.exe",
+      "bytes": 249797632,
+      "sha256": "a3ef624cf02a74ad6a36a2efeb6b787386135ba6213734a1e4ba6b57fa573290"
+    },
+    {
+      "file": "win-unpacked/resources/app.asar",
+      "bytes": 9186193,
+      "sha256": "6c8c7867d1832e1be633751ce402ec7bade5a7eab2ab9f969887a6ca0dd3f121"
+    }
+  ]
+}

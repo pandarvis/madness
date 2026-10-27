@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T11:05:34.885Z",
+  "decline": {
+    "nativeStatus": "declined",
+    "ownFileHashBefore": "43594838959d67ed3ec12dc726b444e504d435ce74f036c544bed588ba230980",
+    "ownFileHashAfter": "43594838959d67ed3ec12dc726b444e504d435ce74f036c544bed588ba230980",
+    "unchanged": true
+  },
+  "probeHarness": {
+    "status": "probe-partial",
+    "failure": "PRIVATE_DRAFT_CHANGED",
+    "reason": "Le projet témoin existant avait un brouillon initial ; la sonde modifie volontairement ce même brouillon. Comparaison trop large du témoin avec les données privées ; la sonde ne qualifie pas la conservation globale.",
+    "closed": true,
+    "nativeStopped": true
+  }
+}

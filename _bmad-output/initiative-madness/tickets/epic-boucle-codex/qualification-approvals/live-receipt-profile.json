@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T12:09:40.109Z",
+  "status": "partial-no-success-claimed",
+  "phase": "explicit-opt-in-and-native-mary",
+  "checks": [
+    "qualified-normal-profile-existing-account-and-read-only-default"
+  ],
+  "decisions": [],
+  "cleanup": {
+    "stopped": false,
+    "selection": true,
+    "navigation": true,
+    "bounds": true,
+    "closed": true,
+    "noLiveNativeSession": true,
+    "nativeNeverSpawned": true
+  },
+  "limits": [
+    "Sélecteur de dossier Main contrôlé ; G4 humain non déduit.",
+    "Compte personnel existant ; aucune copie du coffre ni capture privée. Comparaisons privées en mémoire.",
+    "Instrumentation passive : aucune modification des arguments/env/stdio ; période antérieure au hook non couverte.",
+    "Expiration, erreurs disque et chemins adverses qualifiés séparément par tests isolés.",
+    "Aucun gate de distribution ou acceptation visuelle humaine déduit."
+  ],
+  "artifact": {
+    "asarSha256": "e955f579b98bdfa3d14acc778c3fd286e62c02751217d62ca08e183d0c2a137e",
+    "loadedMainSha256": "4501dd030624593998ade6d6f615565f10eb20081f24f074e11010968530b40c",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true
+  },
+  "diagnostic": {
+    "status": "error",
+    "errorCode": "PROVIDER_FAILED",
+    "approvals": []
+  },
+  "connectionDiagnostic": {
+    "status": "error",
+    "errorCode": "NETWORK_UNAVAILABLE",
+    "accountStored": true
+  },
+  "failureCode": "GREETING_STATE_FAILED",
+  "failureClass": "GREETING_STATE_FAILED",
+  "finalObservation": {
+    "spawns": 6,
+    "network": 1,
+    "runnerHash": null,
+    "requests": [],
+    "activeChildren": 0
+  },
+  "finishedAt": "2026-10-27T12:10:02.997Z",
+  "lastPhaseElapsedMs": 17310
+}

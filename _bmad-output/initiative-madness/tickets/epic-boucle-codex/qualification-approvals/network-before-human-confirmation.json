@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T09:43:00.316Z",
+  "purpose": "Fixed public JWKS GET only; no refresh, account mutation or model",
+  "checks": [
+    {
+      "phase": "direct-before-browser",
+      "status": null,
+      "ok": false,
+      "validPublicJwks": false,
+      "message": "Attempted to redirect, but redirect policy was 'error'",
+      "events": [],
+      "errorClass": "Error",
+      "networkError": "unclassified"
+    }
+  ],
+  "cleanup": true,
+  "status": "public-key-endpoint-unreachable",
+  "finishedAt": "2026-10-27T09:43:06.360Z"
+}

@@ -1,3 +1,6 @@
+import {isApprovalRecord,isApprovalFiles,isApprovalResult,MAX_APPROVALS} from '../contracts/approvals.ts'
+import type {ApprovalRecord} from '../contracts/approvals.ts'
+import type {ApprovalPort,ApprovalResponder,ApprovalObserver} from './ports.ts'
 import { dialogueError, dialogueFailure, initialDialogueState, isDialogueCommand, isMessageIdentity, MAX_WORKFLOWS, MAX_TURN_MESSAGES, MAX_SESSION_MESSAGES, MAX_SESSION_TEXT } from '../contracts/dialogue.ts'
 import type { DialogueCommand, DialogueMessage, DialogueState, WorkflowRecord } from '../contracts/dialogue.ts'
 import { MAX_DRAFT_LENGTH } from '../contracts/index.ts'
@@ -7,7 +10,7 @@ import {randomUUID} from 'node:crypto'
 import {isQuestionFields,isQuestionRecord,MAX_QUESTIONS,validQuestionValues} from '../contracts/questions.ts'
 import type {QuestionRecord} from '../contracts/questions.ts'
 import type {QuestionPort,QuestionResponder,QuestionObserver} from './ports.ts'
-type Dependencies = { application: Application; workflows?: WorkflowPort;questions?:QuestionPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void): Promise<DialogueSession> }
+type Dependencies = { application: Application; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void): Promise<DialogueSession> }
 /** Une seule session native possédée. Les travaux longs ne monopolisent jamais la queue disque. */
 export class DialogueCoordinator {
   private state = initialDialogueState()
@@ -24,28 +27,35 @@ export class DialogueCoordinator {
   private questionLocks=new Set<string>()
   private answerSettlements=new Map<string,Promise<void>>()
   private questionResponders=new Map<string,QuestionResponder>()
+  private approvalWrites:Promise<unknown>=Promise.resolve()
+  private approvalLocks=new Set<string>()
+  private approvalSettlements=new Map<string,Promise<void>>()
+  private approvalEffects=new Set<Promise<void>>()
+  private approvalResponders=new Map<string,ApprovalResponder>()
   private restoration:Promise<void>|null=null
   private deps: Dependencies
-  constructor(deps: Dependencies) { this.deps = deps }
+  constructor(deps: Dependencies) { this.deps = deps;deps.application.subscribe(()=>{if(this.approvalResponders.size)void deps.application.execute({contractVersion:1,correlationId:'approval-context-check',type:'read-state'}).then(reply=>{if(reply.ok&&reply.value.state.activeProjectId!==this.state.context.projectId){this.invalidateApprovals('changed');this.controller?.abort()}})}) }
   read(): DialogueState { return structuredClone(this.state) }
+  private outputFull():boolean{return this.state.messages.length>MAX_SESSION_MESSAGES-MAX_TURN_MESSAGES||this.state.messages.reduce((n,m)=>n+m.text.length,0)>MAX_SESSION_TEXT-MAX_DRAFT_LENGTH}
   subscribe(listener: (state: DialogueState) => void): () => void { this.listeners.add(listener); return () => this.listeners.delete(listener) }
   private update(change: Partial<DialogueState>): void { this.state = { ...this.state, ...change, sequence: this.state.sequence + 1 }; for (const listener of this.listeners) { try { listener(this.read()) } catch { /* Observer sans posséder le travail. */ } } }
   private activity = (text: string): void => { this.update({ activities: [...this.state.activities, text.slice(0, 500)].slice(-80) }) }
   async execute(input: unknown): Promise<DialogueState> {
     if (!isDialogueCommand(input)) return { ...this.read(), errorCode: 'INVALID_COMMAND' }
-    if(!this.restored){try{this.restoration??=(async()=>{const workflows=await this.deps.workflows?.read()??[],questions=await this.deps.questions?.read()??[];if(workflows.length>MAX_WORKFLOWS||questions.length>MAX_QUESTIONS||!questions.every(isQuestionRecord))throw dialogueFailure('STORAGE_READ_FAILED');this.update({workflows,questions:questions.map(q=>q.status==='sent'?q:{...q,status:q.status==='sending'||q.status==='unknown'?'unknown':'inactive',reason:'reopened'})});this.restored=true})();await this.restoration}catch{this.restoration=null;return {...this.read(),errorCode:'STORAGE_READ_FAILED'}}}
+    if(!this.restored){try{this.restoration??=(async()=>{const workflows=await this.deps.workflows?.read()??[],questions=await this.deps.questions?.read()??[],approvals=await this.deps.approvals?.read()??[];if(approvals.length>MAX_APPROVALS||!approvals.every(isApprovalRecord))throw dialogueFailure('STORAGE_READ_FAILED');if(workflows.length>MAX_WORKFLOWS||questions.length>MAX_QUESTIONS||!questions.every(isQuestionRecord))throw dialogueFailure('STORAGE_READ_FAILED');this.update({workflows,approvals:approvals.map(a=>({...a,status:a.effect==='unknown'||a.effect==='pending'&&a.decision!==null||a.status==='unknown'?'unknown' as const:'inactive' as const,reason:'reopened' as const,effect:a.effect==='pending'&&a.decision!==null?'unknown' as const:a.effect,adjustmentStatus:a.adjustmentStatus==='sending'?'unknown' as const:a.adjustmentStatus})),questions:questions.map(q=>q.status==='sent'?q:{...q,status:q.status==='sending'||q.status==='unknown'?'unknown':'inactive',reason:'reopened'})});this.restored=true})();await this.restoration}catch{this.restoration=null;return {...this.read(),errorCode:'STORAGE_READ_FAILED'}}}
     if (input.type === 'read') return this.read()
     if (this.closing) return { ...this.read(), errorCode: 'APP_CLOSING' }
+    if(input.type==='save-approval'||input.type==='decide-approval'||input.type==='send-adjustment')return this.approvalCommand(input)
     if(input.type==='save-question'||input.type==='answer-question')return this.questionCommand(input)
     if(input.type==='copy-workflow'){
       const record=this.state.workflows.find(w=>w.conversationId===input.conversationId),text=input.target==='invocation'?record?.invocation:record?.workspace
       if(!text||!this.deps.copyText)return {...this.read(),errorCode:'INVALID_COMMAND'}
       try{await this.deps.copyText(text);this.update({errorCode:null});this.activity(input.target==='invocation'?'Invocation copiée.':'Chemin copié.');return this.read()}catch{return {...this.read(),errorCode:'OUTPUT_REFUSED'}}
     }
-    if (input.type === 'stop') { if (!this.active && !this.session) return this.read();this.invalidateQuestions('stopped'); this.controller?.abort(); this.update({ status: 'stopping' }); if (!this.active) this.schedule(() => this.stop()); return this.read() }
+    if (input.type === 'stop') { if (!this.active && !this.session) return this.read();this.invalidateQuestions('stopped');this.invalidateApprovals('stopped'); this.controller?.abort(); this.update({ status: 'stopping' }); if (!this.active) this.schedule(() => this.stop()); return this.read() }
     if (this.blocked) return { ...this.read(), errorCode: 'STOP_UNCONFIRMED' }
     if (this.active) return { ...this.read(), errorCode: 'BUSY' }
-    if ((input.type==='send'||input.type==='launch'||input.type==='launch-forge')&&(this.state.messages.length>MAX_SESSION_MESSAGES-MAX_TURN_MESSAGES||this.state.messages.reduce((n,m)=>n+m.text.length,0)>MAX_SESSION_TEXT-MAX_DRAFT_LENGTH))return {...this.read(),errorCode:'OUTPUT_REFUSED'}
+    if ((input.type==='send'||input.type==='launch'||input.type==='launch-forge')&&this.outputFull())return {...this.read(),errorCode:'OUTPUT_REFUSED'}
     if (input.type === 'send') {
       if (!this.session || input.projectId !== this.state.context.projectId || input.conversationId !== this.state.context.conversationId || this.state.status !== 'ready') return { ...this.read(), errorCode: 'CONTEXT_MISMATCH' }
       this.update({ status: 'running', acknowledged: false, errorCode: null })
@@ -54,10 +64,66 @@ export class DialogueCoordinator {
       if (this.session) return { ...this.read(), errorCode: 'BUSY' }
       if(input.type!=='launch-forge')this.qualifiedForge=null
       this.controller = new AbortController()
-      this.update({ status: 'qualifying', context: { ...initialDialogueState().context, projectId: input.projectId }, invocation:input.type.endsWith('forge')?'$bmad-forge-idea':'$bmad-agent-analyst', acknowledged: false, errorCode: null, profile: input.type==='launch-forge'?this.state.profile:null, activities: [], turn:null })
+      this.update({ status: 'qualifying', context: { ...initialDialogueState().context, projectId: input.projectId }, mode:input.type==='launch'?(input.mode??'read-only'):'read-only',invocation:input.type.endsWith('forge')?'$bmad-forge-idea':'$bmad-agent-analyst', acknowledged: false, errorCode: null, profile: input.type==='launch-forge'?this.state.profile:null, activities: [], turn:null })
       this.schedule(() => this.launch(input))
     }
     return this.read()
+  }
+  private approval(id:string):ApprovalRecord|undefined{return this.state.approvals.find(a=>a.id===id)}
+  private projectApproval(record:ApprovalRecord):void{this.update({approvals:this.state.approvals.some(a=>a.id===record.id)?this.state.approvals.map(a=>a.id===record.id?record:a):[...this.state.approvals,record]})}
+  private writeApproval(record:ApprovalRecord):Promise<void>{
+    const candidate={...structuredClone(record),storage:'stored' as const}
+    const result=this.approvalWrites.then(async()=>{if(!this.deps.approvals)throw dialogueFailure('STORAGE_WRITE_FAILED');await this.deps.approvals.write(candidate);const current=this.approval(record.id);if(current?.revision===candidate.revision)this.projectApproval({...current,storage:'stored'})})
+    this.approvalWrites=result.catch(()=>{});return result
+  }
+  private invalidateApproval(id:string,reason:ApprovalRecord['reason']):void{
+    this.approvalResponders.delete(id);const current=this.approval(id)
+    if(!current||!['waiting','sending','decided'].includes(current.status)||!['pending','unknown'].includes(current.effect))return
+    const next={...current,status:current.decision===null?'inactive' as const:'unknown' as const,reason,effect:'unknown' as const,revision:current.revision+1,storage:'pending' as const};this.projectApproval(next)
+    void this.writeApproval(next).catch(()=>{const latest=this.approval(id);if(latest)this.projectApproval({...latest,storage:'failed'});this.update({errorCode:'STORAGE_WRITE_FAILED'})})
+  }
+  private invalidateApprovals(reason:ApprovalRecord['reason']):void{for(const id of this.approvalResponders.keys())this.invalidateApproval(id,reason)}
+  private async approvalCommand(input:Extract<DialogueCommand,{approvalId:string}>):Promise<DialogueState>{
+    const current=this.approval(input.approvalId);if(!current)return {...this.read(),errorCode:'INVALID_COMMAND'}
+    if(this.approvalLocks.has(current.id))return {...this.read(),errorCode:'BUSY'}
+    const responder=this.approvalResponders.get(current.id)
+    if(input.type==='send-adjustment'&&this.outputFull())return {...this.read(),errorCode:'OUTPUT_REFUSED'}
+    if(input.type==='save-approval'&&current.adjustmentStatus!=='draft')return {...this.read(),errorCode:'CONTEXT_MISMATCH'}
+    if(input.type==='decide-approval'&&(!responder||current.status!=='waiting'||current.turnId!==this.state.turn?.id||JSON.stringify(current.context)!==JSON.stringify(this.state.context)||this.controller?.signal.aborted||Date.now()>=current.expiresAt))return {...this.read(),errorCode:'CONTEXT_MISMATCH'}
+    if(input.type==='send-adjustment'&&(!this.session||this.active||this.state.status!=='ready'||current.decision!=='decline'||current.effect!=='declined'||current.transmission!=='sent'||!current.adjustment.trim()||current.adjustmentStatus!=='draft'||JSON.stringify(current.context)!==JSON.stringify(this.state.context)))return {...this.read(),errorCode:'CONTEXT_MISMATCH'}
+    const controller=this.controller,context=JSON.stringify(this.state.context),ownsSession=():boolean=>this.controller===controller&&JSON.stringify(this.state.context)===context
+    // Verrou et settlement installés avant le premier await (disque ou contexte).
+    const previousAcknowledged=this.state.acknowledged
+    this.approvalLocks.add(current.id);let settled=():void=>{};if(input.type==='decide-approval')this.approvalSettlements.set(current.id,new Promise<void>(r=>settled=r))
+    if(input.type==='send-adjustment')this.update({status:'running',acknowledged:false,errorCode:null})
+    const next:ApprovalRecord={...current,...(input.type==='save-approval'?{adjustment:input.adjustment}:input.type==='decide-approval'?{status:'sending',decision:input.decision,transmission:'pending'}:{adjustmentStatus:'sending'}),revision:current.revision+1,storage:'pending'};this.projectApproval(next)
+    try{
+      await this.writeApproval(next)
+      if(input.type!=='save-approval'){
+        const active=await this.deps.application.execute({contractVersion:1,correlationId:'approval-context-check',type:'read-state'})
+        if(!ownsSession()||!active.ok||active.value.state.activeProjectId!==current.context.projectId||controller?.signal.aborted)throw dialogueFailure('CONTEXT_MISMATCH')
+      }
+      if(input.type==='decide-approval'){
+        if(!ownsSession()||this.approvalResponders.get(current.id)!==responder||this.approval(current.id)?.status!=='sending'||Date.now()>=current.expiresAt)throw dialogueFailure('CONTEXT_MISMATCH')
+        await responder!.decide(input.decision)
+        const latest=this.approval(current.id)!;if(!ownsSession()||latest.status!=='sending'||this.approvalResponders.get(current.id)!==responder||controller?.signal.aborted)throw dialogueFailure('CONTEXT_MISMATCH')
+        const sent={...latest,status:'decided' as const,transmission:'sent' as const,revision:latest.revision+1,storage:'pending' as const};this.projectApproval(sent);await this.writeApproval(sent)
+      }else if(input.type==='send-adjustment'){
+        if(!ownsSession()||this.state.status!=='running'||this.active||!this.session||controller?.signal.aborted)throw dialogueFailure('CONTEXT_MISMATCH')
+        this.schedule(async()=>{try{await this.turn({contractVersion:1,correlationId:input.correlationId,type:'send',projectId:current.context.projectId!,conversationId:current.context.conversationId!,text:current.adjustment});const latest=this.approval(current.id)!;const sent={...latest,adjustmentStatus:'sent' as const,revision:latest.revision+1,storage:'pending' as const};this.projectApproval(sent);await this.writeApproval(sent)}catch(error){const latest=this.approval(current.id)!;const unknown={...latest,adjustmentStatus:'unknown' as const,revision:latest.revision+1,storage:'pending' as const};this.projectApproval(unknown);await this.writeApproval(unknown);throw error}})
+      }
+      if(ownsSession()&&this.state.errorCode==='STORAGE_WRITE_FAILED')this.update({errorCode:null})
+      return this.read()
+    }catch(error){
+      const latest=this.approval(current.id)!,code=dialogueError(error,'STORAGE_WRITE_FAILED')
+      if(input.type==='decide-approval'){this.approvalResponders.delete(current.id);const unknown={...latest,status:'unknown' as const,transmission:latest.transmission==='sent'?'sent' as const:'unknown' as const,effect:'unknown' as const,reason:'failed' as const,revision:latest.revision+1,storage:'pending' as const};this.projectApproval(unknown);try{await this.writeApproval(unknown)}catch{this.projectApproval({...unknown,storage:'failed'})}if(ownsSession())controller?.abort()}
+      else if(input.type==='send-adjustment'){
+        const draft={...latest,adjustmentStatus:'draft' as const,revision:latest.revision+1,storage:'pending' as const};this.projectApproval(draft)
+        try{await this.writeApproval(draft)}catch{this.projectApproval({...draft,storage:'failed'})}
+        if(ownsSession()&&this.state.status==='running'&&!controller?.signal.aborted&&this.session)this.update({status:'ready',acknowledged:previousAcknowledged})
+      }else this.projectApproval({...latest,storage:'failed'})
+      if(ownsSession())this.update({errorCode:code});return this.read()
+    }finally{this.approvalLocks.delete(current.id);this.approvalSettlements.delete(current.id);settled()}
   }
   private question(id:string):QuestionRecord|undefined{return this.state.questions.find(q=>q.id===id)}
   private projectQuestion(record:QuestionRecord):void{this.update({questions:this.state.questions.some(q=>q.id===record.id)?this.state.questions.map(q=>q.id===record.id?record:q):[...this.state.questions,record]})}
@@ -129,7 +195,7 @@ export class DialogueCoordinator {
     const project = await this.deps.application.dialogueProject(input.projectId)
     const qualify=input.type.endsWith('forge')?this.deps.qualifyForge:this.deps.qualify
     if(!qualify)throw dialogueFailure('UNSUPPORTED_INTERACTION')
-    const profile = await qualify(project.rootPath, this.controller!.signal)
+    const profile = {...await qualify(project.rootPath, this.controller!.signal),mode:this.state.mode}
     this.controller!.signal.throwIfAborted()
     if(input.type==='launch-forge'){
       const previous=prepared!.profile
@@ -174,6 +240,25 @@ export class DialogueCoordinator {
       void responder.invalidated.then(()=>this.invalidateQuestion(record.id,record.expiresAt!==null&&Date.now()>=record.expiresAt?'expired':'resolved'))
       try{await this.writeQuestion(record)}catch(error){this.invalidateQuestion(record.id,'failed');this.controller?.abort();throw error}
     }
+    const onApproval:ApprovalObserver=async(approval,responder)=>{
+      await Promise.all(this.approvalSettlements.values());await Promise.all(this.approvalEffects)
+      if(closed||!acknowledged||this.state.mode!=='file-approval'||this.state.invocation!=='$bmad-agent-analyst'||this.controller?.signal.aborted||!isApprovalFiles(approval.files)||!isMessageIdentity(approval.identity)||this.state.approvals.length>=MAX_APPROVALS||this.approvalResponders.size||this.questionResponders.size)throw dialogueFailure('UNSUPPORTED_INTERACTION')
+      const record:ApprovalRecord={schemaVersion:1,id:'approval-'+randomUUID(),context,requestId,turnId,identity:structuredClone(approval.identity),mode:'file-approval',files:structuredClone(approval.files),reason:null,adjustment:'',adjustmentStatus:'draft',status:'waiting',decision:null,transmission:'none',effect:'pending',result:null,createdAt:new Date().toISOString(),expiresAt:approval.expiresAt,revision:1,storage:'pending'}
+      if(!isApprovalRecord(record))throw dialogueFailure('UNSUPPORTED_INTERACTION')
+      this.approvalResponders.set(record.id,responder);this.projectApproval(record);this.update({status:'waiting-approval'})
+      void responder.invalidated.then(()=>this.invalidateApproval(record.id,Date.now()>=record.expiresAt?'expired':'resolved'))
+      const effects=responder.result.then(async result=>{
+        await Promise.all(this.approvalSettlements.values())
+        if(!isApprovalResult(result))throw dialogueFailure('PROVIDER_FAILED')
+        const current=this.approval(record.id);if(!current||current.status!=='decided'||current.transmission!=='sent')return
+        const effect=result.files.every(f=>f.matches)?current.decision==='accept'&&result.nativeStatus==='completed'?'succeeded':current.decision==='decline'&&result.nativeStatus==='declined'?'declined':'failed':'unknown'
+        const next={...current,effect,result,revision:current.revision+1,storage:'pending' as const} satisfies ApprovalRecord
+        this.projectApproval(next);await this.writeApproval(next);this.approvalResponders.delete(record.id)
+        if(this.state.status==='waiting-approval')this.update({status:'running'})
+      }).catch(async error=>{const latest=this.approval(record.id);if(latest){this.approvalResponders.delete(record.id);const unknown={...latest,status:'unknown' as const,effect:'unknown' as const,reason:'failed' as const,revision:latest.revision+1,storage:'pending' as const};this.projectApproval(unknown);try{await this.writeApproval(unknown)}catch{this.projectApproval({...unknown,storage:'failed'})}}this.update({errorCode:dialogueError(error,'EFFECT_UNKNOWN')});this.controller?.abort()})
+      this.approvalEffects.add(effects);void effects.finally(()=>this.approvalEffects.delete(effects))
+      try{await this.writeApproval(record)}catch(error){this.invalidateApproval(record.id,'failed');this.controller?.abort();throw error}
+    }
     let timer:ReturnType<typeof setTimeout>|undefined,projectionTimer:ReturnType<typeof setTimeout>|undefined,writing:Promise<void>=Promise.resolve(),storageError:unknown=null,acknowledged=false,closed=false
     this.update({turn:{id:turnId,requestId,context,phase:'awaiting-ack'}})
     const project=():void=>{
@@ -215,8 +300,8 @@ export class DialogueCoordinator {
         if(acknowledged)throw dialogueFailure('CONTEXT_MISMATCH')
         await this.deps.application.dialoguePersist(projectId, conversationId, value => { value.messages.push({ id:turnId+'-request', role: 'user', text: input?.text ?? this.state.invocation }) },undefined,requestId)
         acknowledged=true;this.update({ status:this.controller?.signal.aborted?'stopping':'running', acknowledged: true,turn:{id:turnId,requestId,context,phase:this.controller?.signal.aborted?'interrupted':'streaming'} }); this.activity('Envoi acquitté par Codex · conversation capturée')
-      },observe,onQuestion)
-      await Promise.all(this.answerSettlements.values())
+      },observe,onQuestion,onApproval)
+      await Promise.all(this.answerSettlements.values());await Promise.all(this.approvalSettlements.values());await Promise.all(this.approvalEffects)
       if(!acknowledged||!text.trim())throw dialogueFailure('PROVIDER_FAILED')
       // Compatibilité du port : un adaptateur sans flux peut fournir un unique item final.
       if(!updates.size)observe({id:'final',order:1,text,completed:true,identity:{kind:'unknown'}})
@@ -232,11 +317,11 @@ export class DialogueCoordinator {
       for(const message of updates.values())if(message.phase==='streaming')message.phase='interrupted'
       project();this.update({turn:{id:turnId,requestId,context,phase:'interrupted'}})
       throw storageError??error
-    }finally{closed=true;this.invalidateQuestions('stopped');clearTimeout(timer);clearTimeout(projectionTimer);await writing;await this.questionWrites}
+    }finally{closed=true;this.invalidateQuestions('stopped');this.invalidateApprovals('stopped');clearTimeout(timer);clearTimeout(projectionTimer);await writing;await this.questionWrites;await this.approvalWrites}
   }
   private async persistActivity(activity: 'idle' | 'interrupted' | 'unknown'): Promise<void> { const { projectId, conversationId } = this.state.context; if (projectId && conversationId) await this.deps.application.dialoguePersist(projectId, conversationId, value => { value.lastKnownActivity = activity },undefined,this.state.turn?.requestId??'dialogue-lifecycle') }
   private async stopSession(): Promise<'stopped' | 'unknown'> { const session = this.session; this.session = null; let outcome: 'stopped' | 'unknown' = this.blocked ? 'unknown' : 'stopped'; try { if (session) outcome = await session.stop() } catch { outcome = 'unknown' } if (outcome === 'unknown') this.blocked = true; return outcome }
   private async stop(): Promise<void> { const outcome = await this.stopSession(); await this.persistActivity(outcome === 'stopped' ? 'idle' : 'unknown'); this.update({ status: outcome, errorCode: outcome === 'unknown' ? 'STOP_UNCONFIRMED' : null,...(this.state.turn&&this.state.turn.phase!=='completed'?{turn:{...this.state.turn,phase:outcome==='unknown'?'unknown' as const:'interrupted' as const}}:{}) }); this.activity(outcome === 'stopped' ? 'Processus Codex arrêté' : 'Arrêt Codex non confirmé') }
   async settled(): Promise<void> { await this.active }
-  async shutdown(): Promise<'stopped' | 'unknown'> { this.closing = true;this.invalidateQuestions('stopped'); this.controller?.abort(); await this.active;await this.questionWrites; await this.stop(); return this.blocked ? 'unknown' : 'stopped' }
+  async shutdown(): Promise<'stopped' | 'unknown'> { this.closing = true;this.invalidateQuestions('stopped');this.invalidateApprovals('stopped'); this.controller?.abort(); await this.active;await this.questionWrites;await this.approvalWrites; await this.stop(); return this.blocked ? 'unknown' : 'stopped' }
 }

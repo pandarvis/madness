@@ -1,3 +1,5 @@
+import {ApprovalPanel} from './ApprovalPanel.tsx'
+import type {ApprovalRecord,ApprovalDecision,DialogueMode} from '../../contracts/approvals.ts'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { AppState, Conversation, Reply } from '../../contracts/index.ts'
@@ -115,6 +117,11 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [dialogue, setDialogue] = useState<DialogueState>(initialDialogueState)
   const [dialoguePending, setDialoguePending] = useState(false)
   const [dialogueBridgeError, setDialogueBridgeError] = useState(false)
+  const [maryMode,setMaryMode]=useState<DialogueMode>('read-only')
+  const [approvalDrafts,setApprovalDrafts]=useState<Record<string,string>>({})
+  const [approvalFailures,setApprovalFailures]=useState<Record<string,boolean>>({})
+  const approvalWrites=useRef(new Map<string,Promise<void>>())
+  const sendingApprovals=useRef(new Set<string>())
   const [questionDrafts,setQuestionDrafts]=useState<Record<string,QuestionValues>>({})
   const [questionFailures,setQuestionFailures]=useState<Record<string,boolean>>({})
   const sendingQuestions=useRef(new Set<string>())
@@ -122,16 +129,17 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [forgePreparation,setForgePreparation]=useState(false)
   const sending = useRef(false)
   const dialogueHere = dialogue.context.projectId === project?.id
-  const dialogueBusy = ['qualifying', 'starting', 'running','waiting-question', 'stopping'].includes(dialogue.status)
-  const sessionPresent = ['starting', 'running','waiting-question', 'ready', 'stopping'].includes(dialogue.status)
+  const dialogueBusy = ['qualifying', 'starting', 'running','waiting-question','waiting-approval', 'stopping'].includes(dialogue.status)
+  const sessionPresent = ['starting', 'running','waiting-question','waiting-approval', 'ready', 'stopping'].includes(dialogue.status)
   const projectConversations = state?.conversations.filter(c => c.context.projectId === project?.id) ?? []
   const conversation = projectConversations.find(c => c.id === dialogue.context.conversationId) ?? projectConversations.at(-1)
   const canReply = dialogueHere && dialogue.status === 'ready' && conversation?.id === dialogue.context.conversationId
   const workflow=dialogue.workflows.find(w=>w.conversationId===conversation?.id)
   const recipient=dialogue.invocation==='$bmad-forge-idea'?'Forge':'Mary'
   const activeQuestion=dialogue.questions.find(q=>(q.status==='waiting'||q.status==='sending')&&q.context.conversationId===dialogue.context.conversationId)
-  const displayedRecipient=activeQuestion?questionRecipient(activeQuestion):recipient
-  const displayedDialogueStatus=activeQuestion?(activeQuestion.status==='sending'?fr.questions.sending:fr.questions.title):fr.dialogueStatus[dialogue.status]
+  const activeApproval=dialogue.approvals.find(a=>['waiting','sending'].includes(a.status)&&a.context.conversationId===dialogue.context.conversationId)
+  const displayedRecipient=activeApproval?(activeApproval.identity.kind==='attested'?activeApproval.identity.name:fr.conversation.unknownAgent):activeQuestion?questionRecipient(activeQuestion):recipient
+  const displayedDialogueStatus=activeApproval?(activeApproval.status==='sending'?fr.approvals.status.sending:fr.approvals.title):activeQuestion?(activeQuestion.status==='sending'?fr.questions.sending:fr.questions.title):fr.dialogueStatus[dialogue.status]
   const forgePrerequisite=!connection.accountStored?'account':connection.needsPlanAcknowledgement?'plan':null
   const sessionFeedback=!!(sessionPresent||dialogueBusy||((dialogueHere||dialogue.status==='unknown')&&dialogue.errorCode)||dialogueBridgeError||(dialogueHere&&dialogue.profile))
   useEffect(()=>{setForgePreparation(false)},[project?.id])
@@ -161,6 +169,17 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   useEffect(() => { void load() }, [])
   useEffect(() => window.madness.onStateChanged?.(() => { void window.madness.readState().then(accept).catch(() => setError('Le contexte du dialogue ne peut pas être relu. Votre saisie reste disponible.')) }), [])
   function acceptDialogue(next: DialogueState): void { setDialogue(current => next.sequence >= current.sequence ? next : current) }
+  function changeApproval(approval:ApprovalRecord,adjustment:string):void{
+    const id=approval.id;setApprovalDrafts(current=>({...current,[id]:adjustment}))
+    const previous=approvalWrites.current.get(id)??Promise.resolve()
+    const saving=previous.catch(()=>{}).then(async()=>{try{const next=await window.madnessDialogue.saveApproval(id,adjustment);acceptDialogue(next);setApprovalFailures(current=>({...current,[id]:!!next.errorCode}))}catch{setApprovalFailures(current=>({...current,[id]:true}))}})
+    approvalWrites.current.set(id,saving)
+  }
+  async function approvalAction(approval:ApprovalRecord,decision?:ApprovalDecision):Promise<void>{
+    const id=approval.id;if(sendingApprovals.current.has(id))return;sendingApprovals.current.add(id)
+    try{await approvalWrites.current.get(id);const next=decision?await window.madnessDialogue.decideApproval(id,decision):await window.madnessDialogue.sendAdjustment(id);acceptDialogue(next);setApprovalFailures(current=>({...current,[id]:!!next.errorCode}))}catch{setApprovalFailures(current=>({...current,[id]:true}))}finally{sendingApprovals.current.delete(id)}
+  }
+  function approvalPanel(a:ApprovalRecord):ReactNode{return <ApprovalPanel key={a.id} approval={a} adjustment={approvalDrafts[a.id]??a.adjustment} projectName={project?.name??'Projet capturé'} onChange={text=>changeApproval(a,text)} onDecide={decision=>void approvalAction(a,decision)} onSendAdjustment={()=>void approvalAction(a)} canAdjust={dialogueHere&&dialogue.status==='ready'&&a.context.conversationId===dialogue.context.conversationId} bridgeFailed={approvalFailures[a.id]??false}/>}
   function changeQuestion(question:QuestionRecord,values:QuestionValues):void{
     const id=question.id;setQuestionDrafts(current=>({...current,[id]:values}))
     void window.madnessDialogue.saveQuestion(id,values).then(next=>{acceptDialogue(next);setQuestionFailures(current=>({...current,[id]:!!next.errorCode}))}).catch(()=>setQuestionFailures(current=>({...current,[id]:true})))
@@ -184,7 +203,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     const projectId = project?.id
     if (action !== 'stop' && !projectId) return
     setDialoguePending(true)
-    try { const next = action === 'stop' ? await window.madnessDialogue.stop() : await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false); if (action === 'launch'||action==='launchForge') setTab('conversation') }
+    try { const next = action === 'stop' ? await window.madnessDialogue.stop() : action==='launch'?await window.madnessDialogue.launch(projectId!,maryMode):await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false); if (action === 'launch'||action==='launchForge') setTab('conversation') }
     catch { setDialogueBridgeError(true) }
     finally { setDialoguePending(false) }
   }
@@ -310,6 +329,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         <main id="main" tabIndex={-1}>
           <div className="main-inner">
             {error && <div className="error-message" role="alert"><strong>L’opération n’a pas abouti</strong><p>{error}</p>{!state && <button className="secondary" onClick={() => void load()} disabled={pending}>Relire le contexte local</button>}</div>}
+            {dialogue.approvals.filter(a=>a.status==='waiting'||a.status==='sending').map(a=><div className="question-return" key={a.id} role="status"><p>Une opération attend votre décision dans {state?.projects.find(p=>p.id===a.context.projectId)?.name??'son projet capturé'}.</p>{(page!=='project'||project?.id!==a.context.projectId||tab!=='conversation')&&<button className="text-button" type="button" onClick={()=>{select(a.context.projectId!);setTab('conversation')}}>Retrouver l’opération</button>}</div>)}
             {dialogue.questions.filter(q=>q.status==='waiting'||q.status==='sending').map(q=><div className="question-return" key={q.id} role="status"><p>{q.status==='sending'?<>Réponse à {questionRecipient(q)} dans {state?.projects.find(p=>p.id===q.context.projectId)?.name??'son projet capturé'}. {fr.questions.sending}</>:<>{questionRecipient(q)} attend votre réponse dans {state?.projects.find(p=>p.id===q.context.projectId)?.name??'son projet capturé'}.</>}</p>{(page!=='project'||project?.id!==q.context.projectId||tab!=='conversation')&&<button className="text-button" type="button" onClick={()=>{select(q.context.projectId!);setTab('conversation')}}>Retrouver la question</button>}</div>)}
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>Retrouver votre espace de travail</h1><p>{pending ? 'Lecture du contexte local…' : 'Le contexte local est indisponible. Utilisez le message ci-dessus pour réessayer.'}</p></section> : page === 'home' || !project ? <>
               <div className="page-intro"><div><h1 ref={heading} tabIndex={-1}>Vos projets, au même endroit</h1><p>Retrouvez un dossier et préparez la suite de votre travail.</p></div></div>
@@ -337,8 +357,10 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                 <div className="dialogue-launch" aria-labelledby="mary-title">
                   <div className="dialogue-heading"><h2 id="mary-title">Mary <span>Analyste BMad · Codex</span></h2>{dialogueHere&&dialogue.invocation==='$bmad-agent-analyst' && <span className="badge" role="status">Mary · {displayedDialogueStatus}</span>}</div>
                   <p><code>$bmad-agent-analyst</code></p>
-                  <p>Le lancement vérifie les vrais fichiers BMad puis demande l’accueil de Mary. Chaque tour utilise votre forfait ChatGPT. Le projet reste en lecture seule.</p>
-                  <p className="small muted">Pilote de discussion libre. Les workflows du menu, les écritures et les approbations ne sont pas pris en charge.</p>
+                  <p>Le lancement vérifie les vrais fichiers BMad puis demande l’accueil de Mary. Chaque tour utilise votre forfait ChatGPT.</p>
+                  <label className="approval-mode"><input type="checkbox" checked={sessionPresent&&dialogueHere&&dialogue.invocation==='$bmad-agent-analyst'?dialogue.mode==='file-approval':maryMode==='file-approval'} disabled={dialoguePending||dialogueBusy||sessionPresent} onChange={event=>setMaryMode(event.target.checked?'file-approval':'read-only')}/>Proposer des modifications avec approbation</label>
+                  <p className="small">{sessionPresent&&dialogueHere?'Mode capturé : '+(dialogue.mode==='file-approval'?'fichiers avec accord ponctuel.':'lecture seule.') : maryMode==='file-approval'?'Mary pourra proposer un patch complet à autoriser ou refuser. Shell désactivé ; aucun accord global.':'Lecture seule par défaut ; aucune écriture native autorisée.'}</p>
+                  <p className="small muted">Les workflows du menu restent indisponibles dans ce pilote. Le mode fichiers ajoute seulement des patches natifs avec accord ponctuel ; chaque nouvelle proposition demande un nouveau choix.</p>
                   <div className="dialogue-actions">
                     <button id="mary-launch" className="primary" type="button" onClick={() => void dialogueAction('launch')} disabled={dialoguePending || dialogueBusy || sessionPresent || dialogue.status === 'unknown' || !connection.accountStored || connection.needsPlanAcknowledgement || connectionBusy || dialogueBridgeError}><Icon name="message" />Lancer Mary avec Codex</button>
                     <button className="secondary" type="button" onClick={() => void dialogueAction('qualify')} disabled={dialoguePending || dialogueBusy || sessionPresent || dialogue.status === 'unknown' || dialogueBridgeError}>Vérifier ce projet</button>
@@ -357,10 +379,11 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                 {workflow&&<WorkflowResult key={workflow.conversationId} workflow={workflow} onCopy={copyWorkflow}/>}
                 {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label="Échanges BMad">
                   {!canReply && !dialogueBusy && <p className="history-note">Historique conservé. Aucun moteur n’est relancé. Un lancement explicite ouvre une nouvelle conversation ; la reprise Forge est indisponible.</p>}
-                  {projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} values={questionDrafts[q.id]??q.values} projectName={project.name} onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
+                  {projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} values={questionDrafts[q.id]??q.values} projectName={project.name} onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.approvals.filter(a=>a.context.conversationId===c.id).map(approvalPanel)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
                   <ConversationMessages key={conversation.id} conversation={conversation} projections={dialogue.messages??[]} positions={readingPositions.current}/>
-                  {dialogue.questions.filter(q=>q.context.conversationId===conversation.id).map(q=><QuestionPanel key={q.id} question={q} values={questionDrafts[q.id]??q.values} projectName={project.name} onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}
-                  {dialogueHere && <p className="turn-status" role="status">{displayedRecipient} · {displayedDialogueStatus}{dialogue.status === 'running' && !activeQuestion && (dialogue.acknowledged ? ' · envoi acquitté et enregistré' : ' · accusé d’envoi attendu')}{dialogue.status === 'ready' && ' · tour terminé, prochaine action : votre réponse. La fin du tour ne valide aucun livrable.'}</p>}
+            {dialogue.questions.filter(q=>q.context.conversationId===conversation.id).map(q=><QuestionPanel key={q.id} question={q} values={questionDrafts[q.id]??q.values} projectName={project.name} onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}
+                  {dialogue.approvals.filter(a=>a.context.conversationId===conversation.id).map(approvalPanel)}
+                  {dialogueHere && <p className="turn-status" role="status">{displayedRecipient} · {displayedDialogueStatus}{dialogue.status === 'running' && !activeQuestion && !activeApproval && (dialogue.acknowledged ? ' · envoi acquitté et enregistré' : ' · accusé d’envoi attendu')}{dialogue.status === 'ready' && ' · tour terminé, prochaine action : votre réponse. La fin du tour ne valide aucun livrable.'}</p>}
                 </div> : <div className="conversation-empty"><h2>Aucun échange enregistré</h2><p>Un lancement explicite ouvre une session sans envoyer votre brouillon.</p></div>)}
                 {dialogueHere && dialogue.activities.length > 0 && <details className="dialogue-activity"><summary>Activité du dialogue ({dialogue.activities.length})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{entry}</li>)}</ol></details>}
                 <form className="composer" onSubmit={(event) => { event.preventDefault(); const projectId = project.id; const value = text; void run(() => window.madness.saveDraft(projectId, value), () => setNotice(fr.saved)) }}>
@@ -377,7 +400,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
             <p className="status-line" role="status" aria-live="polite">{notice}</p>
           </div>
         </main>
-        {page === 'project' && project && <aside className="context-panel" aria-label="Contexte du projet"><h2>Contexte du projet</h2><p>Source : dossier choisi via Windows.</p><dl><dt>Dossier canonique</dt><dd><code>{project.rootPath}</code></dd><dt>Initiative capturée</dt><dd>{conversation?.context.initiativeId ?? 'Non identifiée'}</dd><dt>Conservation</dt><dd>Échanges, observations et brouillon dans les données locales de Madness.</dd><dt>Activité</dt><dd>{dialogueHere ? displayedDialogueStatus : 'Aucun agent actif dans ce projet'}</dd><dt>Fournisseur</dt><dd>Codex · connexion propre à Madness</dd><dt>Fichiers du projet</dt><dd>{workflow?'Écritures bornées à la nouvelle session Forge capturée.':'Mary en lecture seule ; Forge exige une préparation explicite.'}</dd></dl><p className="small">Pilote local ; la distribution et les gates historiques restent à qualifier.</p></aside>}
+        {page === 'project' && project && <aside className="context-panel" aria-label="Contexte du projet"><h2>Contexte du projet</h2><p>Source : dossier choisi via Windows.</p><dl><dt>Dossier canonique</dt><dd><code>{project.rootPath}</code></dd><dt>Initiative capturée</dt><dd>{conversation?.context.initiativeId ?? 'Non identifiée'}</dd><dt>Conservation</dt><dd>Échanges, observations et brouillon dans les données locales de Madness.</dd><dt>Activité</dt><dd>{dialogueHere ? displayedDialogueStatus : 'Aucun agent actif dans ce projet'}</dd><dt>Fournisseur</dt><dd>Codex · connexion propre à Madness</dd><dt>Fichiers du projet</dt><dd>{workflow?'Écritures bornées à la nouvelle session Forge capturée.':'Mary en lecture seule par défaut ; mode fichiers avec approbation à activer avant lancement.'}</dd></dl><p className="small">Pilote local ; la distribution et les gates historiques restent à qualifier.</p></aside>}
       </div>
     </div>
     </div>

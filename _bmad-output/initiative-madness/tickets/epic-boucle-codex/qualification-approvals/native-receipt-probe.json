@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T10:46:04.734Z",
+  "status": "probe-partial",
+  "phase": "single-new-proposal-decline-only",
+  "checks": [],
+  "decisions": [
+    {
+      "id": "approval-c0295984-c69a-4e58-8814-ad61b2ed028f",
+      "decision": "decline"
+    }
+  ],
+  "cleanup": {
+    "stopped": true,
+    "selection": true,
+    "navigation": true,
+    "bounds": true,
+    "closed": true,
+    "restoreUnconfirmed": true
+  },
+  "limits": [
+    "Probe distinct : un nouveau tour synthétique, décision decline seulement.",
+    "Observation passive des types et reçus d’outil du seul tour témoin ; aucun token, prompt privé ou cookie.",
+    "Aucune réussite complète1.6 déduite de ce diagnostic."
+  ],
+  "artifact": {
+    "asarSha256": "143fdb2a1278867722994a13e2dd38e47d52b15902a2c00a87b3693223bd76fe",
+    "loadedMainSha256": "f299fc6166f20710ab54859fd3f962726107c3566ff049f747a5317f4108c904",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true
+  },
+  "product": {
+    "status": "waiting-approval",
+    "errorCode": "EFFECT_UNKNOWN",
+    "approval": {
+      "schemaVersion": 1,
+      "id": "approval-c0295984-c69a-4e58-8814-ad61b2ed028f",
+      "context": {
+        "projectId": "a0edad5f-b0e4-48be-b541-36131d9a4571",
+        "initiativeId": "initiative-temoin-1-6",
+        "conversationId": "d94a38d4-c081-4899-8760-413a2a2c6040",
+        "providerId": "codex",
+        "connectionId": "c-f63e1dd54eecf9e94c5e96f477758f1319f216ec0c8328d440d51d16b7fa6056"
+      },
+      "requestId": "6b7dafed-0b39-4987-a783-60297a606dbe",
+      "turnId": "turn-2",
+      "identity": {
+        "kind": "unknown"
+      },
+      "mode": "file-approval",
+      "files": [
+        {
+          "path": "C:\\Sources\\madness\\.g0-qualification\\approvals-live-2f2f0e70\\_bmad-output\\initiative-temoin-1-6\\essais\\refus.md",
+          "kind": "update",
+          "diff": "@@ -2,2 +2,2 @@\n \n-Version initiale R0.\n+Version diagnostic e5e3e449-21b7-4cf5-9389-c76866772334.\n",
+          "beforeSha256": "43594838959d67ed3ec12dc726b444e504d435ce74f036c544bed588ba230980",
+          "afterSha256": "b1b2e103a1d024c3b8d29a7c9b80215981bfe89e00060a49298811692a8a0ad2"
+        }
+      ],
+      "reason": "failed",
+      "adjustment": "",
+      "adjustmentStatus": "draft",
+      "status": "unknown",
+      "decision": "decline",
+      "transmission": "sent",
+      "effect": "unknown",
+      "result": null,
+      "createdAt": "2026-10-27T10:47:12.006Z",
+      "expiresAt": 1793098631994,
+      "revision": 5,
+      "storage": "stored"
+    }
+  },
+  "observed": {
+    "spawns": 7,
+    "network": 0,
+    "runnerHash": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+    "rawRecords": [
+      {
+        "type": "message",
+        "keys": [
+          "type",
+          "role",
+          "content",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "message",
+        "keys": [
+          "type",
+          "role",
+          "content",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "message",
+        "keys": [
+          "type",
+          "role",
+          "content",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "message",
+        "keys": [
+          "type",
+          "role",
+          "content",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "message",
+        "keys": [
+          "type",
+          "role",
+          "content",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "message",
+        "keys": [
+          "type",
+          "role",
+          "content",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "message",
+        "keys": [
+          "type",
+          "id",
+          "role",
+          "content",
+          "phase",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "custom_tool_call",
+        "keys": [
+          "type",
+          "id",
+          "status",
+          "call_id",
+          "name",
+          "input",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": "56344e22b40affba8e3652e3cdb9d90f557286a91fc5c6fd6a9e95ebdbd44455",
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "custom_tool_call_output",
+        "keys": [
+          "type",
+          "call_id",
+          "output",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": "56344e22b40affba8e3652e3cdb9d90f557286a91fc5c6fd6a9e95ebdbd44455",
+        "approvalHashes": [],
+        "outputType": "object"
+      },
+      {
+        "type": "custom_tool_call",
+        "keys": [
+          "type",
+          "id",
+          "status",
+          "call_id",
+          "name",
+          "input",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": "b4353d6a3899653d8615f8a407cafa556fa56e368d623d97ea56f4e5134872c6",
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "custom_tool_call_output",
+        "keys": [
+          "type",
+          "call_id",
+          "output",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": "b4353d6a3899653d8615f8a407cafa556fa56e368d623d97ea56f4e5134872c6",
+        "approvalHashes": [],
+        "outputType": "object"
+      },
+      {
+        "type": "custom_tool_call",
+        "keys": [
+          "type",
+          "id",
+          "status",
+          "call_id",
+          "name",
+          "input",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": "1122109e72ef5c97981a4efe6c68b6508ed2c6abaeacf06a51e5b7e62bffd48d",
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "custom_tool_call_output",
+        "keys": [
+          "type",
+          "call_id",
+          "output",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": "1122109e72ef5c97981a4efe6c68b6508ed2c6abaeacf06a51e5b7e62bffd48d",
+        "approvalHashes": [],
+        "outputType": "object"
+      },
+      {
+        "type": "reasoning",
+        "keys": [
+          "type",
+          "id",
+          "summary",
+          "encrypted_content",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "message",
+        "keys": [
+          "type",
+          "id",
+          "role",
+          "content",
+          "phase",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "message",
+        "keys": [
+          "type",
+          "role",
+          "content",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "reasoning",
+        "keys": [
+          "type",
+          "id",
+          "summary",
+          "encrypted_content",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "message",
+        "keys": [
+          "type",
+          "id",
+          "role",
+          "content",
+          "phase",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "custom_tool_call",
+        "keys": [
+          "type",
+          "id",
+          "status",
+          "call_id",
+          "name",
+          "input",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": "50dd5ff042f1cfe751a34aa288324a98f4f071c3ca3b48b9144ffebf64312d81",
+        "approvalHashes": [],
+        "outputType": "undefined"
+      },
+      {
+        "type": "custom_tool_call_output",
+        "keys": [
+          "type",
+          "call_id",
+          "output",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": "50dd5ff042f1cfe751a34aa288324a98f4f071c3ca3b48b9144ffebf64312d81",
+        "approvalHashes": [
+          "008a8abc413f955c7d908ed7f9d7572bc1db813f6ac199b80b72945b2ae33e20"
+        ],
+        "outputType": "object",
+        "output": [
+          {
+            "type": "input_text",
+            "text": "Script failed\nWall time 0.3 seconds\nOutput:\n"
+          },
+          {
+            "type": "input_text",
+            "text": "Script error:\npatch rejected by user"
+          }
+        ]
+      },
+      {
+        "type": "message",
+        "keys": [
+          "type",
+          "id",
+          "role",
+          "content",
+          "phase",
+          "internal_chat_message_metadata_passthrough"
+        ],
+        "callHash": null,
+        "approvalHashes": [
+          "008a8abc413f955c7d908ed7f9d7572bc1db813f6ac199b80b72945b2ae33e20"
+        ],
+        "outputType": "undefined"
+      }
+    ],
+    "requests": [
+      {
+        "index": 1,
+        "grantRoot": null,
+        "resolved": 0,
+        "nativeStatus": "declined",
+        "rawKind": null
+      }
+    ],
+    "activeChildren": 0
+  },
+  "failureCode": "PRIVATE_DRAFT_CHANGED",
+  "finishedAt": "2026-10-27T10:47:19.103Z"
+}

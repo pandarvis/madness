@@ -1,3 +1,4 @@
+import {ApprovalStore} from '../adapters/persistence/approval-store.ts'
 import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, protocol, net, session, Menu, safeStorage, shell } from 'electron'
 import { realpath, stat, access } from 'node:fs/promises'
 import { constants } from 'node:fs'
@@ -126,6 +127,7 @@ else {
     dialogueCoordinator = new DialogueCoordinator({
       application,
       workflows:new WorkflowStore(join(app.getPath('userData'),'workflows-v1')),
+      approvals:new ApprovalStore(join(app.getPath('userData'),'approvals-v1')),
       questions:new QuestionStore(join(app.getPath('userData'),'questions-v1')),
       copyText:async text=>{await clipboard.writeText(text);if(await clipboard.readText()!==text)throw Error('COPY_FAILED')},
       qualifyForge:(root,signal)=>qualifyForge(root,signal,app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py')),
@@ -134,7 +136,7 @@ else {
         await resolveBmad(profile, 'agent', signal); await resolveBmad(profile, 'config', signal)
         return profile
       },
-      open: (profile, signal, activity) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(), environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
+      open: (profile, signal, activity) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'), environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
     ipcMain.handle(DIALOGUE_COMMAND_CHANNEL, async (event, input: unknown) => {

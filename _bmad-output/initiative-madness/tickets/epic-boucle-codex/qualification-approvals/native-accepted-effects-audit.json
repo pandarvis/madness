@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T11:12:23.571Z",
+  "nativeStatus": "completed",
+  "decision": "accept",
+  "transmission": "sent",
+  "files": [
+    {
+      "path": "C:\\Sources\\madness\\.g0-qualification\\approvals-live-2f2f0e70\\_bmad-output\\initiative-temoin-1-6\\essais\\accord.md",
+      "kind": "update",
+      "before": "5fc59480ebe2c6ee3a91ef939026c56dc7bea7ed77d7889cab6d62c40d66a148",
+      "expectedAfter": "ecafc113f39d34c2591d064a511fa0df069dd0ddd988cd5ab26e2433bb7276ea",
+      "actual": "ecafc113f39d34c2591d064a511fa0df069dd0ddd988cd5ab26e2433bb7276ea",
+      "matches": true
+    },
+    {
+      "path": "C:\\Sources\\madness\\.g0-qualification\\approvals-live-2f2f0e70\\_bmad-output\\initiative-temoin-1-6\\essais\\creation.md",
+      "kind": "add",
+      "before": null,
+      "expectedAfter": "a0b6a2b526876792be44d93b12a5f92d5c0cabf8bee1fa2a84d14f5d3192cc2a",
+      "actual": "a0b6a2b526876792be44d93b12a5f92d5c0cabf8bee1fa2a84d14f5d3192cc2a",
+      "matches": true
+    },
+    {
+      "path": "C:\\Sources\\madness\\.g0-qualification\\approvals-live-2f2f0e70\\_bmad-output\\initiative-temoin-1-6\\essais\\suppression.md",
+      "kind": "delete",
+      "before": "9c0ab73e2dd999df467a17f259f945d484bc2fd546574182dd99e61ff9344228",
+      "expectedAfter": null,
+      "actual": null,
+      "matches": true
+    }
+  ],
+  "applicationHistoricalState": "unknown",
+  "note": "Observation externe de fichiers synthétiques ; aucune réécriture de l’ancienne annexe inconnue et aucun accord rejoué."
+}

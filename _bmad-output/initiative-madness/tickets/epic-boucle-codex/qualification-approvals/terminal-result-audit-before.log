@@ -1,0 +1,20 @@
+✖ reçu déjà transmis et fileChange terminé : terminal pendant relecture ne doit pas annuler le résultat (63.22ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 370.8362
+
+✖ failing tests:
+
+test at tests\.story16-native-terminal-audit.mjs:30:1
+✖ reçu déjà transmis et fileChange terminé : terminal pendant relecture ne doit pas annuler le résultat (63.22ms)
+  Error: EFFECT_UNKNOWN
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:59:112)
+      at invalidateApproval (file:///C:/Sources/madness/src/adapters/codex/dialogue.ts:163:232)
+      at Object.turn (file:///C:/Sources/madness/src/adapters/codex/dialogue.ts:292:31) {
+    code: 'EFFECT_UNKNOWN'
+  }

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T12:46:30.293Z",
+  "status": "personal-qualified-and-installed",
+  "baseline": "c3a161185baaef574a6cb7508cfe8d2f028072a9",
+  "planStatus": "built",
+  "verification": {
+    "tests": 243,
+    "passed": 243,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 345641.8359,
+    "concurrency": 2,
+    "compiled": 11,
+    "packaged": 11,
+    "windows": 5,
+    "nativeCodeMode": 9,
+    "profilesCleaned": true,
+    "asarMembersMatchCompiled": true,
+    "defaultConcurrencyFailure": "242/243, historical normal-exit assertion; isolated8/8; deferred for1.10"
+  },
+  "artifacts": {
+    "schemaVersion": 1,
+    "observedAt": "2026-10-27T12:09:00.243Z",
+    "asarSha256": "e955f579b98bdfa3d14acc778c3fd286e62c02751217d62ca08e183d0c2a137e",
+    "installerSha256": "e927c984620f64387685f2c189fccd2743d52d627558aa7a9ed005172bcf409b",
+    "members": [
+      {
+        "path": "out/main/index.js",
+        "sha256": "4501dd030624593998ade6d6f615565f10eb20081f24f074e11010968530b40c",
+        "archiveMatches": true
+      },
+      {
+        "path": "out/preload/index.js",
+        "sha256": "6cccc91c5883c37fb2a4bb57029bceadbe95580ffc7bc7b49b46aca96827cde1",
+        "archiveMatches": true
+      },
+      {
+        "path": "out/renderer/assets/index-SrgEygvQ.js",
+        "sha256": "3160529fff5dbf5cd354d70dba48ebdcba39d3f237ffbd33533550586fdbd608",
+        "archiveMatches": true
+      }
+    ],
+    "rendererUnchanged": true
+  },
+  "review": {
+    "quick": "Q1-Q4 and N1-N3 resolved",
+    "impeccable": "ship scoped; same renderer",
+    "deferred": "Pre-existing connection-probe normal-exit assertion, for1.10; default242/243, isolated8/8, controlled243/243"
+  },
+  "real": {
+    "source": "live-completed-profile.json",
+    "nativeInteraction": 5,
+    "explicitDecisions": 4,
+    "requests": 5,
+    "localSave": 7,
+    "freshReopen": 7,
+    "stopConfirmed": true,
+    "noOperationReplay": true
+  },
+  "installation": {
+    "source": "installation.json",
+    "identicalFiles": 10,
+    "restorationChecks": 5,
+    "accountStored": true
+  },
+  "cleanup": {
+    "source": "personal-cleanup.json",
+    "remainingProjects": [
+      "MIA",
+      "madness"
+    ],
+    "archive": "C:\\Users\\UP60066553\\AppData\\Roaming\\madness\\test-project-archives\\2026-10-27T12-43-08.371Z"
+  },
+  "limits": [
+    "Arrêt réel observé via le pont pendant nettoyage du premier contrôleur ; bouton testé séparément.",
+    "Premier contrôleur incomplet FREE_DRAFT_TIMEOUT conservé ; compléments locaux ajoutent la sauvegarde explicitement omise, sans moteur.",
+    "Expiration par horloge contrôlée ; observation passive après hook seulement.",
+    "Gates1.1/1.2 et distribution non clos ; refonte Sally/experts après implémentation epic1, graphe epic4."
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T09:50:59.877Z",
+  "status": "real-personal-run-in-progress",
+  "baseline": "c3a161185baaef574a6cb7508cfe8d2f028072a9",
+  "planStatus": "in-review",
+  "verification": {
+    "tests": 224,
+    "passed": 224,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 336741.6472,
+    "compiled": 11,
+    "packaged": 11,
+    "windows": 5,
+    "profilesCleaned": true,
+    "asarMembersMatchCompiled": true,
+    "matrix": [
+      {
+        "row": "Portée",
+        "tests": [
+          "patch mixte : tous les contenus natifs, empreintes et effets ; précondition modifiée refuse tout",
+          "une racine remplacée par une jonction extérieure retire un ajout absent avant tout accord",
+          "un petit diff sur la dernière ligne est refusé si son résultat dépasse la capacité de relecture"
+        ]
+      },
+      {
+        "row": "Décision",
+        "tests": [
+          "décision verrouillée avant await, transmission distincte des effets puis ajustement explicite",
+          "deux patches rapprochés du même fichier demandent deux choix sans étendre le premier accord"
+        ]
+      },
+      {
+        "row": "Ajustement",
+        "tests": [
+          "un ajustement réserve la session avant le disque et refuse un autre ajustement ou un envoi libre",
+          "un ajustement respecte la réserve de session messages et garde lecture, saisie et arrêt disponibles",
+          "un ajustement respecte la réserve de session text et garde lecture, saisie et arrêt disponibles"
+        ]
+      },
+      {
+        "row": "Invalidation",
+        "tests": [
+          "le terminal retire l’approbation encore en file derrière un outil avant le drain",
+          "le délai local dix minutes retire une commande sans choix implicite (horloge contrôlée)",
+          "arrêt pendant sauvegarde retire la commande et conserve la saisie sans transmission"
+        ]
+      },
+      {
+        "row": "Conservation",
+        "tests": [
+          "annexe approbation atomique conserve conflit/version inconnue et toutes les saisies",
+          "un reçu conservé attend le résultat, et un refus disque ultérieur reste inconnu",
+          "restauration sans moteur garde un accord incertain et retire toute commande"
+        ]
+      }
+    ]
+  },
+  "reviews": {
+    "quick": "Q1-Q4 resolved by same reviewer after patches",
+    "impeccable": "ship scoped; renderer unchanged; no new visual loop",
+    "deferredCorrections": 0
+  },
+  "artifacts": {
+    "asarSha256": "143fdb2a1278867722994a13e2dd38e47d52b15902a2c00a87b3693223bd76fe",
+    "installerSha256": "92ff4bbb79d693a37450b95ccb04beb6d5656590325fe1d6bc15a7062a78f308",
+    "mainSha256": "f299fc6166f20710ab54859fd3f962726107c3566ff049f747a5317f4108c904",
+    "preloadSha256": "6cccc91c5883c37fb2a4bb57029bceadbe95580ffc7bc7b49b46aca96827cde1",
+    "rendererSha256": "3160529fff5dbf5cd354d70dba48ebdcba39d3f237ffbd33533550586fdbd608"
+  },
+  "personal": {
+    "attempt": "live-profile.json",
+    "nativeAppServerObserved": false,
+    "approvalDecisions": 0,
+    "normalProfileClosed": true,
+    "networkStatus": 307,
+    "redirectHostClass": "zscaler",
+    "redirectFollowed": false,
+    "latestStrictCheck": "network-final-profile.json",
+    "pendingQuestion": false,
+    "installed": false,
+    "committed": false,
+    "previousBlockingNetworkStatus": 307,
+    "currentNetworkStatus": 200
+  },
+  "limits": [
+    "Tests de contrat/coeur/UI et vrai runner avec modèle loopback ne remplacent pas le parcours personnel réel dans Madness.",
+    "Les captures synthétiques précèdent les corrections de coeur ; renderer identique confirmé.",
+    "Aucune distribution, clôture G0/G1 ou acceptation visuelle humaine déduite.",
+    "Installation personnelle1.5 inchangée ; témoin1.6 référencé préservé."
+  ]
+}

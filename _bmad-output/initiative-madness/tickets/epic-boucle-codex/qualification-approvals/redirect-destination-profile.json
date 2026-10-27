@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T09:21:29.986Z",
+  "purpose": "Fixed public GET; net.request manual redirect callback; never follow, no cookies/model/token",
+  "cleanup": true,
+  "observed": {
+    "kind": "redirect",
+    "status": 307,
+    "method": "GET",
+    "target": {
+      "protocol": "https:",
+      "hostClass": "zscaler",
+      "pathClass": "other",
+      "hasQuery": true
+    },
+    "followed": false
+  },
+  "finishedAt": "2026-10-27T09:21:46.402Z"
+}

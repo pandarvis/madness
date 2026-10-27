@@ -15,3 +15,9 @@ Les succès personnels déjà observés restent valables dans leur périmètre. 
 La qualification1.1 reste donc ouverte. Lors de sa réconciliation, examiner la voie officiellement adaptée au client privé et les preuves requises, en préservant le plan historique et ses réserves de nettoyage. Une demande externe peut être préparée, mais aucune soumission, publication ou acceptation de nouvelles conditions n’a été effectuée. Les développements locaux5–9 et la préparation UX peuvent continuer indépendamment.
 
 Le choix privé ne modifie ni le contrat d’architecture adopté ni les limites des autres fournisseurs. Aucun gate ni ticket n’est clôturé par ce document.
+
+## Autre voie à réexaminer dans1.1
+
+La page officielle [Codex App Server — Auth endpoints](https://learn.chatgpt.com/docs/app-server#auth-endpoints), relue le27 octobre, décrit une authentification gérée par Codex pour des applications locales ou open source existantes, et recommande SIWC. Elle exclut les services commerciaux ou hébergés. Cette voie gérée par le CLI est distincte du SIWC propre à Madness déjà livré.
+
+L’app-server est aussi présenté comme une interface pour intégrer Codex dans son produit, avec authentification et approbations. Cela justifie de réexaminer la voie native et les réserves historiques de1.1 avant de conclure qu’un code privé impose une seule solution. La documentation ne qualifie ni le nettoyage de l’ancien essai, ni une nouvelle implémentation de connexion distribuée dans Madness. Aucune bascule d’authentification, nouvelle connexion ou facturation n’a été effectuée pendant cette lecture. La qualification/replan appropriée reste nécessaire ; ne pas transformer cette piste en autorisation déjà acquise.

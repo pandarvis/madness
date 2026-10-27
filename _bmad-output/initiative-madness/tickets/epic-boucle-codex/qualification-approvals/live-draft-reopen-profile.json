@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T12:37:57.195Z",
+  "status": "restoration-only-checks-passed",
+  "checks": [
+    "exact-snapshot-and-annexes-restored-without-active-approval",
+    "encrypted-account-retained-without-provider-command",
+    "historical-scope-five-approvals-and-independent-drafts-visible",
+    "late-historical-approval-rejected-and-all-final-effects-reread",
+    "fresh-reopen-restores-explicitly-saved-free-draft",
+    "three-seconds-zero-spawn-zero-network-after-hook",
+    "after-close-contents-and-all-annexes-preserved"
+  ],
+  "cleanup": {
+    "selection": true,
+    "closed": true
+  },
+  "limits": [
+    "Restauration seule, sans authentification ni tour fournisseur.",
+    "Observation passive après instrumentation ; la période antérieure au hook n’est pas couverte.",
+    "Contenus privés comparés uniquement en mémoire ; ni coffre copié ni capture privée.",
+    "Le changement explicite de sélection peut augmenter la révision du Snapshot."
+  ],
+  "witness": {
+    "projectId": "f43ebdbd-29b2-465f-a57b-8aa8364c98f3",
+    "conversationId": "c6d49292-f600-42e4-8541-585678180152",
+    "approvals": 5,
+    "conversationSha256": "f953d8c7f90bdc30fa425ff4962328e6b1baf59f0116c5e15dbcf0cf93168eda",
+    "draftSha256": "4c74a9898c3de759b8236bad3184a196ac23f1beba6a0889db9b278792bd3d0d"
+  },
+  "packageAsarSha256": "e955f579b98bdfa3d14acc778c3fd286e62c02751217d62ca08e183d0c2a137e",
+  "loadedMainSha256": "4501dd030624593998ade6d6f615565f10eb20081f24f074e11010968530b40c",
+  "lateApprovalRejected": true,
+  "verifiedFileEffects": 5,
+  "observed": {
+    "spawns": 0,
+    "network": 0
+  },
+  "finishedAt": "2026-10-27T12:38:12.974Z"
+}

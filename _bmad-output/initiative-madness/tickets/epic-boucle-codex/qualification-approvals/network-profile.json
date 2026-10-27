@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T08:49:39.059Z",
+  "purpose": "Fixed public JWKS GET only; no refresh, account mutation or model",
+  "checks": [
+    {
+      "phase": "direct-before-browser",
+      "status": null,
+      "ok": false,
+      "validPublicJwks": false,
+      "errorClass": "Error"
+    },
+    {
+      "phase": "direct-after-fixed-system-browser-open",
+      "status": null,
+      "ok": false,
+      "validPublicJwks": false,
+      "errorClass": "Error"
+    }
+  ],
+  "cleanup": true,
+  "browserOpenedViaFixedProductCommand": true,
+  "status": "public-key-endpoint-unreachable",
+  "finishedAt": "2026-10-27T08:49:48.312Z"
+}

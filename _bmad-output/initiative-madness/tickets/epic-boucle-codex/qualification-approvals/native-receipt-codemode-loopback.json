@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T12:08:44.097Z",
+  "scope": "Vrai runner0.144.6, exec -> tools.apply_patch ; fournisseur loopback entièrement simulé, sans OAuth/compte/modèle externe.",
+  "scriptSha256": "405ca93690ade56688d8abd54c1bb8ec7425157fd184df45d07c5d208a6b1ec5",
+  "requests": [
+    {
+      "index": 1,
+      "model": "gpt-5.6-sol",
+      "authorizationPresent": false,
+      "toolNames": [
+        "exec",
+        "wait",
+        "request_user_input",
+        "collaboration"
+      ],
+      "inputSha256": "173b8a0faa3266bb375156de116e11243456b8dc13ccd56819941168d3ad0f7b"
+    },
+    {
+      "index": 2,
+      "model": "gpt-5.6-sol",
+      "authorizationPresent": false,
+      "toolNames": [
+        "exec",
+        "wait",
+        "request_user_input",
+        "collaboration"
+      ],
+      "inputSha256": "8f90c1adbc767d2ad6c840f8afbe437ee7960aafd004a5ac6234db78b1b1cfb3"
+    },
+    {
+      "index": 3,
+      "model": "gpt-5.6-sol",
+      "authorizationPresent": false,
+      "toolNames": [
+        "exec",
+        "wait",
+        "request_user_input",
+        "collaboration"
+      ],
+      "inputSha256": "c3e10f75947eb07a6fef61d8338d4741bc05492bb971d188e0bf5b53f19821c0"
+    }
+  ],
+  "events": [
+    {
+      "method": "item/started",
+      "params": {
+        "item": {
+          "type": "fileChange",
+          "id": "exec-5def89e0-4088-4d42-9cb9-d2f7e286daa5",
+          "changes": [
+            {
+              "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-receipt-loopback-EmXP7D\\project\\effect\\operation.txt",
+              "kind": {
+                "type": "update",
+                "move_path": null
+              },
+              "diff": "@@ -1 +1 @@\n-avant\n+accepté-bf4d1b39-9af3-4853-84b1-492aeb4593c4\n"
+            }
+          ],
+          "status": "inProgress"
+        },
+        "threadId": "01a17d43-516c-7cb0-a9e3-34e891ff9fea",
+        "turnId": "01a17d43-526c-7ba2-8a21-f727021d6c98",
+        "startedAtMs": 1793102926895
+      }
+    },
+    {
+      "method": "item/fileChange/requestApproval",
+      "id": 2,
+      "params": {
+        "threadId": "01a17d43-516c-7cb0-a9e3-34e891ff9fea",
+        "turnId": "01a17d43-526c-7ba2-8a21-f727021d6c98",
+        "itemId": "exec-5def89e0-4088-4d42-9cb9-d2f7e286daa5",
+        "startedAtMs": 1793102926895,
+        "reason": null,
+        "grantRoot": null
+      }
+    },
+    {
+      "method": "item/completed",
+      "params": {
+        "item": {
+          "type": "fileChange",
+          "id": "exec-5def89e0-4088-4d42-9cb9-d2f7e286daa5",
+          "changes": [
+            {
+              "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-receipt-loopback-EmXP7D\\project\\effect\\operation.txt",
+              "kind": {
+                "type": "update",
+                "move_path": null
+              },
+              "diff": "@@ -1 +1 @@\n-avant\n+accepté-bf4d1b39-9af3-4853-84b1-492aeb4593c4\n"
+            }
+          ],
+          "status": "completed"
+        },
+        "threadId": "01a17d43-516c-7cb0-a9e3-34e891ff9fea",
+        "turnId": "01a17d43-526c-7ba2-8a21-f727021d6c98",
+        "completedAtMs": 1793102926936
+      }
+    },
+    {
+      "method": "rawResponseItem/completed",
+      "params": {
+        "threadId": "01a17d43-516c-7cb0-a9e3-34e891ff9fea",
+        "turnId": "01a17d43-526c-7ba2-8a21-f727021d6c98",
+        "item": {
+          "type": "custom_tool_call_output",
+          "call_id": "exec_outer_1",
+          "output": [
+            {
+              "type": "input_text",
+              "text": "Script completed\nWall time 0.4 seconds\nOutput:\n"
+            },
+            {
+              "type": "input_text",
+              "text": "{}"
+            }
+          ],
+          "internal_chat_message_metadata_passthrough": {
+            "turn_id": "01a17d43-526c-7ba2-8a21-f727021d6c98"
+          }
+        }
+      }
+    },
+    {
+      "method": "item/started",
+      "params": {
+        "item": {
+          "type": "fileChange",
+          "id": "exec-71a5eaef-4059-41a7-8d95-ca9f15f289f9",
+          "changes": [
+            {
+              "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-receipt-loopback-EmXP7D\\project\\effect\\operation.txt",
+              "kind": {
+                "type": "update",
+                "move_path": null
+              },
+              "diff": "@@ -1 +1 @@\n-accepté-bf4d1b39-9af3-4853-84b1-492aeb4593c4\n+refusé-4d100034-c223-4fd8-9fc3-efa588ed708a\n"
+            }
+          ],
+          "status": "inProgress"
+        },
+        "threadId": "01a17d43-516c-7cb0-a9e3-34e891ff9fea",
+        "turnId": "01a17d43-526c-7ba2-8a21-f727021d6c98",
+        "startedAtMs": 1793102927080
+      }
+    },
+    {
+      "method": "item/fileChange/requestApproval",
+      "id": 3,
+      "params": {
+        "threadId": "01a17d43-516c-7cb0-a9e3-34e891ff9fea",
+        "turnId": "01a17d43-526c-7ba2-8a21-f727021d6c98",
+        "itemId": "exec-71a5eaef-4059-41a7-8d95-ca9f15f289f9",
+        "startedAtMs": 1793102927080,
+        "reason": null,
+        "grantRoot": null
+      }
+    },
+    {
+      "method": "item/completed",
+      "params": {
+        "item": {
+          "type": "fileChange",
+          "id": "exec-71a5eaef-4059-41a7-8d95-ca9f15f289f9",
+          "changes": [
+            {
+              "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-receipt-loopback-EmXP7D\\project\\effect\\operation.txt",
+              "kind": {
+                "type": "update",
+                "move_path": null
+              },
+              "diff": "@@ -1 +1 @@\n-accepté-bf4d1b39-9af3-4853-84b1-492aeb4593c4\n+refusé-4d100034-c223-4fd8-9fc3-efa588ed708a\n"
+            }
+          ],
+          "status": "declined"
+        },
+        "threadId": "01a17d43-516c-7cb0-a9e3-34e891ff9fea",
+        "turnId": "01a17d43-526c-7ba2-8a21-f727021d6c98",
+        "completedAtMs": 1793102927107
+      }
+    },
+    {
+      "method": "rawResponseItem/completed",
+      "params": {
+        "threadId": "01a17d43-516c-7cb0-a9e3-34e891ff9fea",
+        "turnId": "01a17d43-526c-7ba2-8a21-f727021d6c98",
+        "item": {
+          "type": "custom_tool_call_output",
+          "call_id": "exec_outer_2",
+          "output": [
+            {
+              "type": "input_text",
+              "text": "Script failed\nWall time 0.2 seconds\nOutput:\n"
+            },
+            {
+              "type": "input_text",
+              "text": "Script error:\npatch rejected by user"
+            }
+          ],
+          "internal_chat_message_metadata_passthrough": {
+            "turn_id": "01a17d43-526c-7ba2-8a21-f727021d6c98"
+          }
+        }
+      }
+    }
+  ],
+  "operations": [
+    {
+      "decision": "accept",
+      "announcedFiles": [
+        {
+          "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-receipt-loopback-EmXP7D\\project\\effect\\operation.txt",
+          "kind": "update",
+          "diff": "@@ -1 +1 @@\n-avant\n+accepté-bf4d1b39-9af3-4853-84b1-492aeb4593c4\n",
+          "beforeSha256": "69074a989e250b1a2d47ab820c76989fe0d34bb32dd8df405def3d0fc18407a8",
+          "afterSha256": "1e0424a692ea7fa1065e6000ad38a51810ab5119763b5894fb172110c884c850"
+        }
+      ],
+      "transmitted": true,
+      "result": {
+        "nativeStatus": "completed",
+        "raw": "",
+        "files": [
+          {
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-receipt-loopback-EmXP7D\\project\\effect\\operation.txt",
+            "sha256": "1e0424a692ea7fa1065e6000ad38a51810ab5119763b5894fb172110c884c850",
+            "matches": true
+          }
+        ]
+      },
+      "actualSha256": "1e0424a692ea7fa1065e6000ad38a51810ab5119763b5894fb172110c884c850"
+    },
+    {
+      "decision": "decline",
+      "announcedFiles": [
+        {
+          "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-receipt-loopback-EmXP7D\\project\\effect\\operation.txt",
+          "kind": "update",
+          "diff": "@@ -1 +1 @@\n-accepté-bf4d1b39-9af3-4853-84b1-492aeb4593c4\n+refusé-4d100034-c223-4fd8-9fc3-efa588ed708a\n",
+          "beforeSha256": "1e0424a692ea7fa1065e6000ad38a51810ab5119763b5894fb172110c884c850",
+          "afterSha256": "8266a6f3a4fe6f19d7b1c762a53f05b3270913e07413453c1a255dc776152fce"
+        }
+      ],
+      "transmitted": true,
+      "result": {
+        "nativeStatus": "declined",
+        "raw": "",
+        "files": [
+          {
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-receipt-loopback-EmXP7D\\project\\effect\\operation.txt",
+            "sha256": "1e0424a692ea7fa1065e6000ad38a51810ab5119763b5894fb172110c884c850",
+            "matches": true
+          }
+        ]
+      },
+      "actualSha256": "1e0424a692ea7fa1065e6000ad38a51810ab5119763b5894fb172110c884c850"
+    }
+  ],
+  "checks": {
+    "productionProtocolSucceeded": true,
+    "twoDistinctNativeRequests": true,
+    "acceptedNativeAndDeclinedNative": true,
+    "noGrant": true,
+    "everyFileReread": true,
+    "outerRawArrayDifferentCallId": true,
+    "noFabricatedRaw": true,
+    "noAuthorization": true,
+    "acceptedEffectPreservedAfterDecline": true
+  },
+  "cleanup": true,
+  "nativeStopped": true,
+  "nativeSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+  "profile": {
+    "sandbox": "read-only",
+    "approvalPolicy": "on-request",
+    "approvalsReviewer": "user",
+    "shellEnabled": false,
+    "credentialsInherited": false
+  },
+  "fixture": {
+    "project": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-receipt-loopback-EmXP7D\\project",
+    "target": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-receipt-loopback-EmXP7D\\project\\effect\\operation.txt",
+    "initialSha256": "69074a989e250b1a2d47ab820c76989fe0d34bb32dd8df405def3d0fc18407a8",
+    "acceptedSha256": "1e0424a692ea7fa1065e6000ad38a51810ab5119763b5894fb172110c884c850",
+    "refusedSha256": "8266a6f3a4fe6f19d7b1c762a53f05b3270913e07413453c1a255dc776152fce"
+  },
+  "finalText": "Fin du témoin synthétique : deux choix distincts, aucun accord étendu.",
+  "status": "passed",
+  "stderrSha256": "894f682fe2622f8ccc5a532ad8209f5f27987e7d33600f728817f6ee1392235d",
+  "endedAt": "2026-10-27T12:08:47.304Z"
+}

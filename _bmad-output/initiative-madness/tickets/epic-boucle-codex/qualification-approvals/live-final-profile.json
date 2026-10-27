@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T10:35:30.674Z",
+  "status": "partial-no-success-claimed",
+  "phase": "native-mixed-patch-accept-once",
+  "checks": [
+    "qualified-normal-profile-existing-account-and-read-only-default",
+    "native-mary-greeting-with-explicit-captured-file-mode"
+  ],
+  "decisions": [
+    {
+      "id": "approval-0a431515-5cfe-47ab-bbcb-4113ec5fcf62",
+      "decision": "accept"
+    }
+  ],
+  "cleanup": {
+    "stopped": false,
+    "selection": true,
+    "navigation": true,
+    "bounds": true,
+    "closed": true,
+    "stopUnconfirmed": true
+  },
+  "limits": [
+    "Sélecteur de dossier Main contrôlé ; G4 humain non déduit.",
+    "Compte personnel existant ; aucune copie du coffre ni capture privée. Comparaisons privées en mémoire.",
+    "Instrumentation passive : aucune modification des arguments/env/stdio ; période antérieure au hook non couverte.",
+    "Expiration, erreurs disque et chemins adverses qualifiés séparément par tests isolés.",
+    "Aucun gate de distribution ou acceptation visuelle humaine déduit."
+  ],
+  "artifact": {
+    "asarSha256": "143fdb2a1278867722994a13e2dd38e47d52b15902a2c00a87b3693223bd76fe",
+    "loadedMainSha256": "f299fc6166f20710ab54859fd3f962726107c3566ff049f747a5317f4108c904",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true
+  },
+  "diagnostic": {
+    "status": "waiting-approval",
+    "errorCode": "EFFECT_UNKNOWN",
+    "approvals": [
+      {
+        "status": "unknown",
+        "effect": "unknown",
+        "storage": "stored"
+      }
+    ]
+  },
+  "connectionDiagnostic": {
+    "status": "registered",
+    "errorCode": null,
+    "accountStored": true
+  },
+  "failureCode": "DECISION_RESULT_STATE_FAILED",
+  "failureClass": "DECISION_RESULT_STATE_FAILED",
+  "finalObservation": {
+    "spawns": 9,
+    "network": 2,
+    "runnerHash": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+    "requests": [
+      {
+        "index": 1,
+        "grantRoot": null,
+        "resolved": 0,
+        "nativeStatus": "completed",
+        "rawKind": null
+      }
+    ],
+    "activeChildren": 0
+  },
+  "finishedAt": "2026-10-27T10:38:20.681Z",
+  "lastPhaseElapsedMs": 53940
+}

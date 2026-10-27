@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-27T08:24:06.729Z",
+  "status": "prepared-no-madness-approval-run",
+  "witness": {
+    "root": "C:\\Sources\\madness\\.g0-qualification\\approvals-live-4c9c2a13",
+    "synthetic": true,
+    "bmadFiles": 96
+  },
+  "files": [
+    {
+      "path": "C:\\Sources\\madness\\.g0-qualification\\approvals-live-4c9c2a13\\_bmad-output\\initiative-temoin-1-6\\essais\\accord.md",
+      "sha256": "5fc59480ebe2c6ee3a91ef939026c56dc7bea7ed77d7889cab6d62c40d66a148"
+    },
+    {
+      "path": "C:\\Sources\\madness\\.g0-qualification\\approvals-live-4c9c2a13\\_bmad-output\\initiative-temoin-1-6\\essais\\refus.md",
+      "sha256": "43594838959d67ed3ec12dc726b444e504d435ce74f036c544bed588ba230980"
+    },
+    {
+      "path": "C:\\Sources\\madness\\.g0-qualification\\approvals-live-4c9c2a13\\_bmad-output\\initiative-temoin-1-6\\essais\\ajustement.md",
+      "sha256": "ab2fa2ae42a1d52027614232f977a4a89bc6b1a43b534e17bb2ed5784db70f26"
+    },
+    {
+      "path": "C:\\Sources\\madness\\.g0-qualification\\approvals-live-4c9c2a13\\_bmad-output\\initiative-temoin-1-6\\essais\\suppression.md",
+      "sha256": "9c0ab73e2dd999df467a17f259f945d484bc2fd546574182dd99e61ff9344228"
+    },
+    {
+      "path": "C:\\Sources\\madness\\.g0-qualification\\approvals-live-4c9c2a13\\_bmad-output\\initiative-temoin-1-6\\essais\\creation.md",
+      "expected": "absent"
+    }
+  ],
+  "limits": [
+    "Aucun compte, modele ou approbation Madness lance par cette preparation.",
+    "Temoin reserve au parent, portee a verifier dans le vrai formulaire avant chaque choix."
+  ]
+}

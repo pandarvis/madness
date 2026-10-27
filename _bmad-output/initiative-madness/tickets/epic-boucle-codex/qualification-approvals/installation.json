@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T12:41:25.807Z",
+  "status": "installed-qualified-data-preserved",
+  "installerExitCode": 0,
+  "installedAsarSha256": "e955f579b98bdfa3d14acc778c3fd286e62c02751217d62ca08e183d0c2a137e",
+  "preservation": {
+    "files": 10,
+    "beforeDigest": "2190659c641e4af97599867bc65304905430fd74967e76447a5d346f4a9b2abe",
+    "afterDigest": "2190659c641e4af97599867bc65304905430fd74967e76447a5d346f4a9b2abe",
+    "identical": true,
+    "includes": [
+      "snapshot",
+      "appearance",
+      "Local State",
+      "encrypted-vault",
+      "registration",
+      "questions",
+      "workflows",
+      "approvals"
+    ]
+  },
+  "limits": [
+    "Empreintes contrôlées avant toute réouverture ; restauration installée vérifiée séparément.",
+    "Ce remplacement personnel ne clôt pas les qualifications1.1/1.2/1.9 ni la distribution."
+  ],
+  "installedRestoration": {
+    "source": "installed-reopen-profile.json",
+    "checks": 5,
+    "observed": {
+      "spawns": 0,
+      "network": 0
+    },
+    "closed": true,
+    "loadedMainSha256": "4501dd030624593998ade6d6f615565f10eb20081f24f074e11010968530b40c"
+  },
+  "personalCleanup": "personal-cleanup.json"
+}

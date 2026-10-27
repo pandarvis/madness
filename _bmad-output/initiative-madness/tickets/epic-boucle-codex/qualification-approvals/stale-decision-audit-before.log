@@ -1,0 +1,35 @@
+AUDIT decision-await-held
+AUDIT before-stop
+AUDIT after-stop
+AUDIT before-first-settled
+AUDIT after-first-settled
+AUDIT rejecting-native-result
+AUDIT before-relaunch
+✖ une décision retardée d’une ancienne session ne doit pas arrêter la nouvelle conversation (19.146ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 380.5608
+
+✖ failing tests:
+
+test at tests\.story16-stale-decision-audit.mjs:27:1
+✖ une décision retardée d’une ancienne session ne doit pas arrêter la nouvelle conversation (19.146ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'stopped' !== 'ready'
+  
+      at TestContext.<anonymous> (file:///C:/Sources/madness/tests/.story16-stale-decision-audit.mjs:33:141)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'stopped',
+    expected: 'ready',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

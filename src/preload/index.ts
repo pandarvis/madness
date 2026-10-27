@@ -66,9 +66,10 @@ const dialogueRequest = async (payload: Omit<DialogueCommand, 'contractVersion' 
   return reply.state
 }
 const dialogueBridge: DialogueBridge = {
+  saveApproval:(approvalId,adjustment)=>dialogueRequest({type:'save-approval',approvalId,adjustment}),decideApproval:(approvalId,decision)=>dialogueRequest({type:'decide-approval',approvalId,decision}),sendAdjustment:approvalId=>dialogueRequest({type:'send-adjustment',approvalId}),
   saveQuestion:(questionId,values)=>dialogueRequest({type:'save-question',questionId,values}),answerQuestion:(questionId,values)=>dialogueRequest({type:'answer-question',questionId,values}),
   qualifyForge:projectId=>dialogueRequest({type:'qualify-forge',projectId}),launchForge:projectId=>dialogueRequest({type:'launch-forge',projectId}),copyWorkflow:(conversationId,target)=>dialogueRequest({type:'copy-workflow',conversationId,target}),
-  read: () => dialogueRequest({ type: 'read' }), qualify: projectId => dialogueRequest({ type: 'qualify', projectId }), launch: projectId => dialogueRequest({ type: 'launch', projectId }), send: (projectId, conversationId, text) => dialogueRequest({ type: 'send', projectId, conversationId, text }), stop: () => dialogueRequest({ type: 'stop' }),
+  read: () => dialogueRequest({ type: 'read' }), qualify: projectId => dialogueRequest({ type: 'qualify', projectId }), launch: (projectId,mode) => dialogueRequest({ type: 'launch', projectId,...(mode?{mode}:{}) }), send: (projectId, conversationId, text) => dialogueRequest({ type: 'send', projectId, conversationId, text }), stop: () => dialogueRequest({ type: 'stop' }),
   onChanged: listener => { const receive = (_event: Electron.IpcRendererEvent, value: unknown): void => { if (isDialogueState(value)) listener(value) }; ipcRenderer.on(DIALOGUE_EVENT_CHANNEL, receive); return () => ipcRenderer.removeListener(DIALOGUE_EVENT_CHANNEL, receive) }
 }
 contextBridge.exposeInMainWorld('madnessDialogue', Object.freeze(dialogueBridge))

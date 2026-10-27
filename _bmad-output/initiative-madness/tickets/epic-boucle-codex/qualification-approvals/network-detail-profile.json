@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T08:51:13.885Z",
+  "purpose": "Fixed public JWKS GET only; no refresh, account mutation or model",
+  "checks": [
+    {
+      "phase": "direct-before-browser",
+      "status": null,
+      "ok": false,
+      "validPublicJwks": false,
+      "errorClass": "Error",
+      "networkError": "unclassified"
+    }
+  ],
+  "cleanup": true,
+  "status": "public-key-endpoint-unreachable",
+  "finishedAt": "2026-10-27T08:51:22.652Z"
+}

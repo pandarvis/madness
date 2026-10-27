@@ -5,6 +5,7 @@ import { PassThrough } from 'node:stream'
 import { Application } from '../src/core/application.ts'
 import { DialogueCoordinator } from '../src/core/dialogue.ts'
 import { emptySnapshot } from '../src/contracts/index.ts'
+import {releaseVersion} from '../src/adapters/release-version.ts'
 const native = await import('../src/adapters/codex/dialogue.ts').catch(() => null)
 function server(options = {}) {
   const child = new EventEmitter(); child.stdin = new PassThrough(); child.stdout = new PassThrough(); child.stderr = new PassThrough()
@@ -15,7 +16,7 @@ function server(options = {}) {
     while (data.includes('\n')) {
       const end = data.indexOf('\n'), message = JSON.parse(data.slice(0, end)); data = data.slice(end + 1); requests.push(message)
       const reply = result => emit({ id: message.id, result })
-      if (message.method === 'initialize') reply({})
+      if (message.method === 'initialize') { assert.equal(message.params.clientInfo.version,releaseVersion); reply({}) }
       if (message.method === 'model/list') reply({ data: [{ model: 'test-model', isDefault: true, hidden: false }] })
       if (message.method === 'thread/start') reply({ thread: { id: 'thread-1' }, modelProvider: 'openai_chatgpt_plan', model: 'test-model', sandbox: { type: 'readOnly' }, approvalPolicy: 'never' })
       if (message.method === 'turn/start') {

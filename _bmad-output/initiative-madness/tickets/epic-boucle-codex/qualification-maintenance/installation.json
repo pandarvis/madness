@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "startedAt": "2026-10-27T22:52:01.9835179Z",
+  "installedPath": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\Madness.exe",
+  "profile": "C:\\Users\\UP60066553\\AppData\\Roaming\\Madness",
+  "phaseACommand": "node scripts/qualification/maintenance.mjs --phase=a --executable=C:/Users/UP60066553/AppData/Local/Programs/Madness/Madness.exe --label=installed-a",
+  "phaseAReceipt": "installed-a.json",
+  "phaseAPathEvidence": "Chemin exact fourni par la commande parent ; appPath non capture par le rapport A historique.",
+  "asarBefore": "072623b1b64be3eaecd72152f48d276c5f377dddd7b1893070458e1a668c91c1",
+  "installerSha256": "8e3fc5145cd8c4bb19341c4c9be53b8df5b4d9f9f2032a4e9ee90c380b4ecb3a",
+  "installerExitCode": 0,
+  "asarAfter": "bbac088b9dd9a6c3ad66871dc2db27956378f3a29967df2a734b1e14d007b639",
+  "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5",
+  "personalCriticalFiles": 27,
+  "personalBytesIdentical": true,
+  "finishedAt": "2026-10-27T22:53:09.9152302Z",
+  "personalBaseline": {
+    "source": "Releve prive story19-personal-before.json, fige avant NSIS et relu sans modification par les deux controles parent.",
+    "sourceSha256": "fd2f1a58846896d5859528012f39d541d1d801c2a7f094d3ce6e2fde199624f8",
+    "digest": "4821a02c986cddc917e4076db7639c0a16981ce341d3d715af830a0a4a5060b3",
+    "entries": 27,
+    "method": "SHA-256 du JSON ordonne des chemins relatifs et de leurs empreintes ; marqueur explicite pour absence.",
+    "nsisChecks": "Avant et apres NSIS, chacun des 27 chemins est compare a cette baseline. Ce sont des comparaisons par fichier, pas un second calcul de digest global dans PowerShell.",
+    "reopenChecks": "Le controle personnel relit cette meme baseline puis recalcule la liste complete et son digest avant et apres reouverture normale."
+  }
+}

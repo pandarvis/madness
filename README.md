@@ -16,11 +16,17 @@ Le porteur inclut également une vue « Graphe du projet » fondée sur Graphify
 
 La branche officielle `main` est présentée comme la v7 preview ; ses métadonnées internes indiquent encore `6.13.0-next`. Ce dépôt utilise cette branche, pas l'installateur npm stable v6. Les copies installées et leurs empreintes dans `skills-lock.json` permettent de conserver l'état actuel dans Git.
 
-## État de réalisation — 24 octobre 2026
+## Livraison courante — 27 octobre 2026
+
+Le paquet préparé pour la story1.9 est `dist/maintenance-pilot/Madness-0.1.1-x64-setup.exe`, avec l’exécutable `dist/maintenance-pilot/win-unpacked/Madness.exe` et son manifeste `dist/maintenance-pilot/release-manifest.json`. Il conserve les formats v1, garde Electron45.0.0 et adopte explicitement electron-builder26.18.0/JOSE6.2.13. La [procédure de reconstruction et de remplacement](docs/releasing.md) détaille les commandes, les refus de stockage et la conservation A0.1.0 → B0.1.1. Les [preuves maintenance](_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-maintenance/README.md) distinguent paquets unpacked, installation NSIS et contrôles personnels.
+
+Les stories1.3–1.8 livrent le dialogue Mary/Forge, la progression, les questions, accords ponctuels, récupération et récapitulatifs. La restauration conserve les historiques sans moteur ni rejeu. L’installation personnelle0.1.1 et ses empreintes finales restent à qualifier séparément ; les gates1.1/1.2/1.10/1.11, R32 dans l’epic2, Loop, graphe et refonte globale gardent leur portée. Les sections ci-dessous décrivent les pilotes datés qui ont précédé cette livraison.
+
+### Pilote du 24 octobre 2026
 
 Le premier dialogue personnel BMad est vérifié dans le paquet Windows : lancer Mary depuis son installation locale, recevoir son accueil/menu, répondre librement puis arrêter Codex. Trois messages de test et trois réponses sont conservés après réouverture, avec le brouillon et sans relance. La [preuve du pilote](./_bmad-output/initiative-madness/qualification-dialogue-local/README.md) distingue cet essai réel des fixtures ; 112 tests, types/build/paquet, 8 contrôles compilés, 8 du paquet et 4 régressions Windows passent après revue.
 
-La livraison actuelle est `dist/dialogue-pilot/Madness-0.1.0-x64-setup.exe` ; l’exécutable sans installation est `dist/dialogue-pilot/win-unpacked/Madness.exe`. Dans un projet équipé de la version BMad qualifiée : « Vérifier ce projet », puis « Lancer Mary avec Codex ». Le panneau Codex propose une URL publique à ouvrir/copier lorsqu’un refus réseau est signalé. Les prérequis exacts sont décrits dans le [guide développeur](docs/development.md).
+La livraison de ce pilote était `dist/dialogue-pilot/Madness-0.1.0-x64-setup.exe` ; son exécutable sans installation était `dist/dialogue-pilot/win-unpacked/Madness.exe`. Dans un projet équipé de la version BMad qualifiée : « Vérifier ce projet », puis « Lancer Mary avec Codex ». Le panneau Codex propose une URL publique à ouvrir/copier lorsqu’un refus réseau est signalé. Les prérequis exacts sont décrits dans le [guide développeur](docs/development.md).
 
 Ce pilote personnel couvre la discussion libre en lecture seule. Le menu reste affiché en texte Markdown ; ses workflows documentaires, le catalogue complet, l’initialisation et le graphe restent à implémenter. Les tickets 1.1 et 1.2 gardent leurs réserves de distribution, compatibilité et proxy ; le pilote ne clôt pas la story 1.3.
 

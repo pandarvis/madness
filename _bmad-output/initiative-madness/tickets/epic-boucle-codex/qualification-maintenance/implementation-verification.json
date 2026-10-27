@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T20:06:43.672Z",
+  "scope": "Implémentation seulement ; NSIS et compte personnel réservés au parent",
+  "node": "24.13.0",
+  "version": "0.1.1",
+  "manifestSha256": "e6c31b7f3450aee2a2d1badc287cf95236453972a67bddb26a952377716da5a1",
+  "inputs": 113,
+  "artifacts": [
+    {
+      "path": "Madness-0.1.1-x64-setup.exe",
+      "bytes": 122063280,
+      "sha256": "8e3fc5145cd8c4bb19341c4c9be53b8df5b4d9f9f2032a4e9ee90c380b4ecb3a"
+    },
+    {
+      "path": "win-unpacked/resources/app.asar",
+      "bytes": 9512116,
+      "sha256": "bbac088b9dd9a6c3ad66871dc2db27956378f3a29967df2a734b1e14d007b639"
+    },
+    {
+      "path": "win-unpacked/resources/bmad-script-runner.py",
+      "bytes": 3088,
+      "sha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5"
+    }
+  ],
+  "commands": {
+    "dependencies": {
+      "owner": "parent",
+      "install": "npm ci",
+      "logs": [
+        "npm-lock-parent.log",
+        "npm-ci-parent.log"
+      ]
+    },
+    "build": {
+      "command": "npm run build:win -- --config.directories.output=dist/maintenance-pilot",
+      "exitCode": 0,
+      "log": "build-final.log",
+      "embeddedNoticeEqualsSource": true,
+      "joseVersionCorrect": true,
+      "mitLicenseTextUnchanged": true
+    },
+    "suite": {
+      "command": "node --test --test-concurrency=2 tests/*.test.mjs scripts/qualification/codex.test.mjs",
+      "log": "unit-tests-stable.log",
+      "passed": 297,
+      "failed": 0,
+      "skipped": 0
+    },
+    "unpacked": {
+      "reports": [
+        "final-a.json",
+        "final-b.json"
+      ],
+      "checks": [
+        6,
+        7
+      ],
+      "durableFiles": 12,
+      "cleanup": true
+    },
+    "saveFailure": {
+      "command": "node scripts/qualification/maintenance.mjs --phase=save-failure --executable=C:/Sources/madness/dist/maintenance-pilot/win-unpacked/Madness.exe",
+      "report": "save-failure.json",
+      "checks": 4
+    },
+    "windows": {
+      "command": "node scripts/qualification/windows.mjs --ui-regressions-only --executable=C:/Sources/madness/dist/maintenance-pilot/win-unpacked/Madness.exe",
+      "log": "windows-final.log",
+      "passed": 5,
+      "cleanup": true
+    },
+    "native": {
+      "report": "native-loopback-profile.json",
+      "clientVersion": "0.1.1",
+      "runnerVersion": "0.144.6",
+      "passed": 4,
+      "limits": {
+        "target": "127.0.0.1",
+        "proxy": "désactivé pour ce seul processus loopback",
+        "externalConnectivity": "non mesurée",
+        "electronNetwork": "contrôle séparé"
+      }
+    }
+  },
+  "limits": [
+    "Paquets unpacked distincts ; aucune installation NSIS déduite.",
+    "Compte inventé chiffré, aucune copie de coffre personnel.",
+    "Instrumentation Main post-démarrage ; GET public Main réel réservé au parent.",
+    "Runner loopback sans modèle externe ; aucune connectivité fournisseur fraîche déduite."
+  ]
+}

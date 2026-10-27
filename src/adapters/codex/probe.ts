@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process'
+import { releaseVersion } from '../release-version.ts'
 import type {OwnedRun} from './owned-run.ts'
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 import { mkdir, mkdtemp, readFile, realpath, lstat, open, rm } from 'node:fs/promises'
@@ -110,7 +111,7 @@ export class ProbeRpc {
   dispose(): void { this.signal.removeEventListener('abort', this.aborted); this.abort(); this.child.stdout.off('data', this.data); this.child.stderr.off('data', this.stderr); this.child.off('error', this.closed); this.child.off('close', this.closed); this.child.stdin.off('error', this.closed) }
 }
 export async function runProbeProtocol(rpc: ProbeRpc, cwd: string, timeout = 45000): Promise<true> {
-  await rpc.call('initialize', { clientInfo: { name: 'madness', title: 'Madness', version: '0.1.0' } }); rpc.notify('initialized')
+  await rpc.call('initialize', { clientInfo: { name: 'madness', title: 'Madness', version: releaseVersion } }); rpc.notify('initialized')
   const catalog = await rpc.call('model/list', {})
   const model = catalog.data?.find((value: any) => value.isDefault === true && value.hidden === false && typeof value.model === 'string')
   if (!model || !/^[a-zA-Z0-9._:/-]{1,100}$/.test(model.model)) throw connectionFailure('PROBE_FAILED')

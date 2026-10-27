@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "startedAt": "2026-10-27T22:54:12.385Z",
+  "checks": [
+    "installed-asar-and-external-runner-match-qualified-manifest",
+    "personal-critical-bytes-identical-before-reopen",
+    "actual-main-version-and-normal-personal-profile-identified",
+    "personal-data-and-encrypted-account-restored-without-provider-action",
+    "no-automatic-child-or-network-after-hook",
+    "explicit-main-public-get-observed-separately-from-native-loopback",
+    "personal-critical-bytes-identical-after-owned-close"
+  ],
+  "limits": [
+    "Profil personnel fermé avant lancement possédé ; aucune navigation, saisie ou capture personnelle.",
+    "Compteurs automatiques mesurés après hooks seulement.",
+    "Le GET public explicite est séparé de la restauration et du runner ; aucun modèle, refresh, OAuth ou contrôle facturable.",
+    "Un échec réseau est rapporté sans invalider la conservation ni déduire une connexion Codex vérifiée."
+  ],
+  "asarSha256": "bbac088b9dd9a6c3ad66871dc2db27956378f3a29967df2a734b1e14d007b639",
+  "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5",
+  "runtime": {
+    "pid": 31192,
+    "exe": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\Madness.exe",
+    "data": "C:\\Users\\UP60066553\\AppData\\Roaming\\madness",
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\resources\\app.asar",
+    "version": "0.1.1",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0"
+  },
+  "restored": {
+    "schemaVersion": 1,
+    "projects": [
+      "MIA",
+      "madness"
+    ],
+    "conversations": 0,
+    "drafts": 0,
+    "accountStored": true,
+    "accountError": null,
+    "turn": null,
+    "waiting": false,
+    "stop": "clear"
+  },
+  "automaticAfterHook": {
+    "children": 0,
+    "requests": 0,
+    "httpStatus": null
+  },
+  "mainPublicGet": {
+    "url": "https://auth.openai.com/.well-known/jwks.json",
+    "status": "accessible",
+    "checkedAt": "2026-10-27T22:54:23.648Z",
+    "errorCode": null,
+    "httpStatus": 200,
+    "observedRequests": 1,
+    "providerVerified": false
+  },
+  "closed": true,
+  "preservation": {
+    "files": 27,
+    "beforeDigest": "4821a02c986cddc917e4076db7639c0a16981ce341d3d715af830a0a4a5060b3",
+    "afterDigest": "4821a02c986cddc917e4076db7639c0a16981ce341d3d715af830a0a4a5060b3",
+    "identical": true
+  },
+  "finishedAt": "2026-10-27T22:54:26.863Z"
+}

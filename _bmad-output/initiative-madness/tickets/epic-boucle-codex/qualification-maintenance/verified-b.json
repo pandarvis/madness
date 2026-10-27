@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "phase": "b",
+  "startedAt": "2026-10-27T19:52:05.143Z",
+  "status": "passed",
+  "checks": [
+    "same-complete-durable-bytes-before-navigation",
+    "distinct-versions-runtime-and-asar",
+    "same-context-and-historical-projections",
+    "historical-question-and-approval-inactive-owner-still-unknown",
+    "synthetic-vault-readable-with-same-local-state",
+    "no-network-or-provider-process-after-instrumentation",
+    "exact-durable-bytes-after-navigation-and-close"
+  ],
+  "cleanup": true,
+  "limits": [
+    "Profil synthétique uniquement ; compte chiffré inventé, aucun consentement ni modèle.",
+    "Les conversations/annexes sont des fixtures identifiées ; A sérialise le snapshot complet par les ponts de projets, brouillons et préférences.",
+    "Instrumentation réseau/processus installée après démarrage ; aucune connectivité fournisseur fraîche n’est déduite.",
+    "L’exécutable est observé ; la preuve de remplacement NSIS doit être jointe séparément par le parent."
+  ],
+  "manifestSha256": "3b7e17abe7aa993f6dbde668fca7de104647da83639ff502a4347646290fcf93",
+  "runtime": {
+    "version": "0.1.1",
+    "name": "madness",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true,
+    "userData": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-OZV33Q\\profile",
+    "sessionData": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-OZV33Q\\profile\\chromium"
+  },
+  "artifactSha256": "c0e43dc1278930fa4f3dc813078e220aa656030ea8b4ca9b7e543577a1e07746",
+  "observedAfterStartup": {
+    "network": 0,
+    "spawn": 0
+  },
+  "durable": [
+    {
+      "path": "profile/appearance-v1.json",
+      "sha256": "01776479430aa2a1196efe8e1bb96453a3c89ba845d803c7728ab59654d47b18",
+      "bytes": 36
+    },
+    {
+      "path": "profile/approvals-v1/approval-history.json",
+      "sha256": "cbc842ba45c7229b2911df0feb78f439df26b0fa2612b39f65837aac18ebe48f",
+      "bytes": 1068
+    },
+    {
+      "path": "profile/chromium/Local State",
+      "sha256": "29d230a792bc1e47226d6705fd2867eda3b9b35c4573e973cb940ab5bf5ced88",
+      "bytes": 490
+    },
+    {
+      "path": "profile/codex-connection-v1/credentials.bin",
+      "sha256": "ab26910157abb2a6d648655e6e556ab4b86e0e6539909a9fc2beb05604244e99",
+      "bytes": 273
+    },
+    {
+      "path": "profile/codex-connection-v1/registration.json",
+      "sha256": "6d0434dce6b7d3b5edaee757043b08f5d2ce4908af31c7b09fb4ceaed6a731d6",
+      "bytes": 102
+    },
+    {
+      "path": "profile/codex-owned-run-v1.json",
+      "sha256": "a40565b78c992180f1352b071894db37c71de219a7a71423d9f003552c3f6bfa",
+      "bytes": 79
+    },
+    {
+      "path": "profile/madness-state-v1.json",
+      "sha256": "315202d660688e997f1258389669aa6d45967414fcdeebcace63300e6d462083",
+      "bytes": 1691
+    },
+    {
+      "path": "profile/questions-v1/question-history.json",
+      "sha256": "697811923c2daf67d1052742daf835af3f2b3e5f4a87a788f65eb12f66d9488b",
+      "bytes": 765
+    },
+    {
+      "path": "profile/workflows-v1/conversation-history.json",
+      "sha256": "d46a3874885a6a41e4f38319da5e0d5318530ade5f814d7cf84246a291c5a454",
+      "bytes": 1555
+    },
+    {
+      "path": "project/_bmad-output/initiative-temoin/forge-temoin/.memlog.md",
+      "sha256": "572cfdae0c56015d92e47f77ffb97da3aa79abb6215ea7a447c3c7722606657d",
+      "bytes": 28
+    },
+    {
+      "path": "project/_bmad-output/initiative-temoin/forge-temoin/index.html",
+      "sha256": "8e11719d53936c9b9e81ef4d41eb20db0cd032455c76f09313ba3f7b6ec6630d",
+      "bytes": 69
+    },
+    {
+      "path": "project/livrable.md",
+      "sha256": "091ed7a5551d58401403ef36c2d3952844e1b9c302bf0dd931304b2134481e7b",
+      "bytes": 33
+    }
+  ],
+  "projection": {
+    "schemaVersion": 1,
+    "revision": 6,
+    "projects": [
+      {
+        "id": "project-history",
+        "name": "Projet maintenance synthétique",
+        "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-OZV33Q\\project",
+        "openedAt": "2026-10-27T19:50:28.746Z"
+      },
+      {
+        "id": "project-other",
+        "name": "Second projet synthétique",
+        "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-OZV33Q\\other-project",
+        "openedAt": "2026-10-27T19:50:28.689Z"
+      }
+    ],
+    "activeProjectId": "project-history",
+    "drafts": [
+      {
+        "projectId": "project-other",
+        "text": "Second brouillon enregistré sous A.",
+        "savedAt": "2026-10-27T19:50:28.719Z"
+      },
+      {
+        "projectId": "project-history",
+        "text": "Brouillon enregistré sous A : été 日本語.\nAucun envoi.",
+        "savedAt": "2026-10-27T19:50:28.767Z"
+      }
+    ],
+    "preferences": {
+      "navigationCollapsed": true
+    },
+    "conversations": [
+      {
+        "id": "conversation-history",
+        "context": {
+          "projectId": "project-history",
+          "initiativeId": "initiative-temoin",
+          "conversationId": "conversation-history",
+          "providerId": "codex",
+          "connectionId": "synthetic-account"
+        },
+        "lastKnownActivity": "unknown",
+        "messages": [
+          {
+            "id": "invocation-history",
+            "role": "user",
+            "text": "$bmad-forge-idea"
+          },
+          {
+            "id": "assistant-history",
+            "role": "assistant",
+            "text": "Résultat synthétique exact.\nÉté 日本語 ; acceptation humaine inconnue."
+          }
+        ]
+      }
+    ],
+    "capabilities": {
+      "codex": {
+        "available": false,
+        "reasonKey": "codex.unqualified"
+      }
+    },
+    "lifecycle": "idle"
+  },
+  "dialogueProjection": {
+    "contractVersion": 1,
+    "recovery": {
+      "stop": "unconfirmed",
+      "observations": [],
+      "capabilities": {
+        "resume": false,
+        "newConversation": true,
+        "inspectFiles": true
+      }
+    },
+    "sequence": 3,
+    "status": "unknown",
+    "context": {
+      "projectId": null,
+      "initiativeId": null,
+      "conversationId": null,
+      "providerId": null,
+      "connectionId": null
+    },
+    "invocation": "$bmad-agent-analyst",
+    "profile": null,
+    "acknowledged": false,
+    "errorCode": "STOP_UNCONFIRMED",
+    "activities": [],
+    "workflows": [
+      {
+        "schemaVersion": 1,
+        "conversationId": "conversation-history",
+        "context": {
+          "projectId": "project-history",
+          "initiativeId": "initiative-temoin",
+          "conversationId": "conversation-history",
+          "providerId": "codex",
+          "connectionId": "synthetic-account"
+        },
+        "invocation": "$bmad-forge-idea",
+        "capturedAt": "2026-10-27T12:00:00.000Z",
+        "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-OZV33Q\\project",
+        "outputBase": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-OZV33Q\\project\\_bmad-output\\initiative-temoin",
+        "contextDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "skillPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-OZV33Q\\project\\.agents\\skills\\bmad-forge-idea\\SKILL.md",
+        "workspace": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-OZV33Q\\project\\_bmad-output\\initiative-temoin\\forge-temoin",
+        "outcome": "CLARIFIED",
+        "observations": [
+          {
+            "id": "observation-history",
+            "turnId": "old-turn",
+            "operation": "write",
+            "phase": "observed",
+            "at": "2026-10-27T12:00:00.000Z",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-OZV33Q\\project\\livrable.md",
+            "sha256": "091ed7a5551d58401403ef36c2d3952844e1b9c302bf0dd931304b2134481e7b",
+            "bytes": 33
+          }
+        ]
+      }
+    ],
+    "turn": null,
+    "messages": [],
+    "questions": [
+      {
+        "schemaVersion": 1,
+        "id": "question-history",
+        "context": {
+          "projectId": "project-history",
+          "initiativeId": "initiative-temoin",
+          "conversationId": "conversation-history",
+          "providerId": "codex",
+          "connectionId": "synthetic-account"
+        },
+        "requestId": "request-history",
+        "turnId": "old-turn",
+        "identity": {
+          "kind": "unknown"
+        },
+        "fields": [
+          {
+            "id": "answer",
+            "header": "Direction",
+            "prompt": "Quelle direction synthétique ?",
+            "options": [],
+            "allowOther": true
+          }
+        ],
+        "values": {
+          "answer": "Saisie de question conservée sans envoi."
+        },
+        "status": "inactive",
+        "reason": "reopened",
+        "createdAt": "2026-10-27T12:00:00.000Z",
+        "expiresAt": null,
+        "revision": 1,
+        "storage": "stored"
+      }
+    ],
+    "approvals": [
+      {
+        "schemaVersion": 1,
+        "id": "approval-history",
+        "context": {
+          "projectId": "project-history",
+          "initiativeId": "initiative-temoin",
+          "conversationId": "conversation-history",
+          "providerId": "codex",
+          "connectionId": "synthetic-account"
+        },
+        "requestId": "request-approval",
+        "turnId": "old-turn",
+        "identity": {
+          "kind": "unknown"
+        },
+        "mode": "file-approval",
+        "files": [
+          {
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-OZV33Q\\project\\livrable.md",
+            "kind": "add",
+            "diff": "Livrable synthétique conservé.\n",
+            "beforeSha256": null,
+            "afterSha256": "091ed7a5551d58401403ef36c2d3952844e1b9c302bf0dd931304b2134481e7b"
+          }
+        ],
+        "reason": "reopened",
+        "adjustment": "Ajustement historique distinct.",
+        "adjustmentStatus": "draft",
+        "status": "unknown",
+        "decision": "accept",
+        "transmission": "sent",
+        "effect": "unknown",
+        "result": null,
+        "createdAt": "2026-10-27T12:00:00.000Z",
+        "expiresAt": 1793103000000,
+        "revision": 3,
+        "storage": "stored"
+      }
+    ],
+    "mode": "read-only"
+  },
+  "workspace": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-OZV33Q",
+  "finishedAt": "2026-10-27T19:52:12.246Z"
+}

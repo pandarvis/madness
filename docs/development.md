@@ -1,20 +1,21 @@
 # Développer Madness sous Windows
 
-Le socle G0 ouvre un dossier par le dialogue Windows et conserve son contexte, un brouillon par projet et la préférence de navigation. Le logo Codex permet désormais une connexion locale explicite à ChatGPT puis un petit tour de vérification du forfait. Le dialogue BMad reste indisponible : aucun brouillon n’est envoyé et le dossier ouvert reste intact. Aucun identifiant d’un autre outil n’est lu ou copié.
+Le programme courant 0.1.1 conserve projets, rattachements, conversations, brouillons et préférences hors installation. Mary/Forge, progression, questions, accords ponctuels, récupération et récapitulatifs des stories 1.3–1.8 sont disponibles dans leurs profils qualifiés. La restauration garde les demandes historiques inactives et ne relance aucun moteur. Aucun identifiant d’un autre outil n’est lu ou copié. La [procédure de livraison](releasing.md) porte reconstruction, manifeste et contrôles A → B ; les sections de pilotes ci-dessous conservent leurs preuves et limites datées.
 
 ## Reproduire l’assemblage
 
-Utiliser Windows x64 et Node.js 24.13.0 ou une version compatible avec les exigences des paquets. Les versions exactes font foi dans `package-lock.json` ; Electron 45.0.0, electron-vite 6.0.0, electron-builder 26.15.3, TypeScript 7.0.2, React/react-dom 19.3.1 et Vite 8.3.5 ont été construits ensemble. `npm ci` télécharge Electron et prépare ses dépendances ; aucune installation globale n’est requise.
+Utiliser Windows x64 et Node.js 24.13.0 ou une version compatible avec les exigences des paquets. Les versions exactes font foi dans `package-lock.json` ; la livraison 0.1.1 retient Electron 45.0.0, electron-vite 6.0.0, electron-builder 26.18.0, JOSE 6.2.13, TypeScript 7.0.2, React/react-dom 19.3.1 et Vite 8.3.5. `npm ci` télécharge Electron et prépare ses dépendances ; aucune installation globale n’est requise.
 
 ```powershell
 npm ci
-npm test
+node --test --test-concurrency=2 tests/*.test.mjs scripts/qualification/codex.test.mjs
 npm run build
-npm run build:win
-node scripts/qualification/windows.mjs
+npm run build:win -- --config.directories.output=dist/maintenance-pilot
+node scripts/release/manifest.mjs --directory=dist/maintenance-pilot
+node scripts/qualification/windows.mjs --ui-regressions-only --executable=C:/Sources/madness/dist/maintenance-pilot/win-unpacked/Madness.exe
 ```
 
-`npm run dev` démarre le serveur local du renderer et Electron. `npm start` ouvre les ressources déjà compilées. `npm run build:unpack` produit l’exécutable sans installateur ; `npm run build:win` produit aussi `dist/Madness-0.1.0-x64-setup.exe`. Aucun script ne publie de livraison distante. Le paquet est autonome et charge `madness://app/index.html`, sans serveur dev ni police distante.
+`npm run dev` démarre le serveur local du renderer et Electron. `npm start` ouvre les ressources déjà compilées. `npm run build:unpack` produit l’exécutable sans installateur ; `npm run build:win` produit aussi `Madness-0.1.1-x64-setup.exe` dans le répertoire de sortie choisi. Aucun script ne publie de livraison distante. Le paquet est autonome et charge `madness://app/index.html`, sans serveur dev ni police distante. Les versions 0.1.0 des preuves historiques restent celles des paquets alors exécutés.
 
 `node scripts/qualification/development.mjs` vérifie le renderer dev avec le vrai preload sur profil jetable, sans capture supplémentaire. L’URL locale est normalisée avant sa comparaison exacte. Le préambule React HMR et les styles Vite reçoivent un nonce CSP aléatoire par session ; `unsafe-inline` n’est pas nécessaire. Ce nonce et la connexion locale de HMR ne sont pas activés dans le paquet.
 
@@ -46,7 +47,7 @@ Un seul processus Madness possède un profil à la fois. Le contrôle de conflit
 
 Le logo grisé ouvre un panneau non modal accessible au clavier ; Échap ferme le panneau, annule une connexion en cours et rend le focus au logo. « Continuer avec ChatGPT » ouvre uniquement le navigateur système. Le panneau explique avant l’autorisation que le court témoin utilise le forfait. Après la première autorisation, une confirmation acquittable rappelle cet usage ; son acquittement est conservé dans le coffre. « Gérer l’usage dans ChatGPT » ouvre l’URL officielle fixe `https://chatgpt.com/settings/usage`, sans quota inventé.
 
-`src/adapters/codex/oauth.ts` implémente indépendamment le protocole SIWC documenté, sans code du DevKit : listener uniquement `127.0.0.1`/port éphémère, state/nonce/PKCE S256 neufs, client émis validé, signature RS256, issuer/audience/expiration/sub vérifiés avec JOSE 6.2.12. Les callbacks étrangers n’interrompent pas l’attente légitime ; un refus, des scopes insuffisants ou une autre identité n’entraînent aucun témoin. L’attente humaine dure dix minutes au maximum ; chaque requête Main est bornée à quinze secondes et 256 Kio, sans redirection ni affaiblissement TLS. Le réseau OAuth utilise `net.fetch` et les certificats/proxy d’Electron.
+`src/adapters/codex/oauth.ts` implémente indépendamment le protocole SIWC documenté, sans code du DevKit : listener uniquement `127.0.0.1`/port éphémère, state/nonce/PKCE S256 neufs, client émis validé, signature RS256, issuer/audience/expiration/sub vérifiés avec JOSE 6.2.13. Les callbacks étrangers n’interrompent pas l’attente légitime ; un refus, des scopes insuffisants ou une autre identité n’entraînent aucun témoin. L’attente humaine dure dix minutes au maximum ; chaque requête Main est bornée à quinze secondes et 256 Kio, sans redirection ni affaiblissement TLS. Le réseau OAuth utilise `net.fetch` et les certificats/proxy d’Electron.
 
 En cas de `NETWORK_UNAVAILABLE`, le panneau conserve l’erreur et propose la page publique fixe `https://auth.openai.com/.well-known/jwks.json`. Sur un réseau d’entreprise, l’ouvrir peut aider à vérifier son accès, sans garantie de rétablissement. Les actions dédiées `open-public-keys` et `copy-public-keys` n’acceptent ni URL ni texte du renderer : Main ouvre uniquement cette constante dans le navigateur Windows, ou la copie via `clipboard.writeText`. Une copie n’est annoncée qu’après résolution ; un échec natif est expurgé et laisse une récupération locale. Ces utilitaires restent disponibles pendant une session, sans mutation des accès, vérification, modèle ou retry automatique. Les cookies, TLS et `redirect:error`/`credentials:omit` restent inchangés.
 

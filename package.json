@@ -1,6 +1,6 @@
 {
   "name": "madness",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Espace de travail local BMad pour Windows — socle G0",
   "author": "Madness",
@@ -17,7 +17,7 @@
     "postinstall": "install-electron && electron-builder install-app-deps"
   },
   "dependencies": {
-    "jose": "6.2.12",
+    "jose": "6.2.13",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
@@ -27,7 +27,7 @@
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.1.2",
     "electron": "45.0.0",
-    "electron-builder": "26.15.3",
+    "electron-builder": "26.18.0",
     "electron-vite": "6.0.0",
     "playwright-core": "1.64.1",
     "typescript": "7.0.2",

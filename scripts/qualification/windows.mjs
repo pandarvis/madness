@@ -6,6 +6,7 @@ import { tmpdir, release } from 'node:os'
 import { basename, dirname, join, resolve, relative, sep, isAbsolute } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createRequire } from 'node:module'
+import { releaseVersion } from '../../src/adapters/release-version.ts'
 const require = createRequire(import.meta.url)
 const repository = resolve(fileURLToPath(new URL('../../', import.meta.url)))
 const output = join(repository, '_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-g0')
@@ -279,12 +280,12 @@ async function main() {
     assert.equal(hash(await readFile(join(project, 'temoin.txt'))), hash(sentinel))
     passed('project.unchanged')
     report.snapshot = { schemaVersion: restored.schemaVersion, revision: restored.revision, projectCount: restored.projects.length, draftCount: restored.drafts.length, navigationCollapsed: restored.preferences.navigationCollapsed, textMatchesExpected: true, pathsRedacted: true }
-    await access(join(repository, 'dist/Madness-0.1.0-x64-setup.exe'))
+    await access(join(repository, `dist/Madness-${releaseVersion}-x64-setup.exe`))
     passed('installer.built-not-installed')
     report.buildInputs = await buildInputsDigest()
     report.captureMode = skipScreenshots ? 'existing-files-not-recaptured' : 'captured-this-run'
     report.artifacts = []
-    for (const file of ['Madness-0.1.0-x64-setup.exe', 'win-unpacked/Madness.exe', 'win-unpacked/resources/app.asar']) {
+    for (const file of [`Madness-${releaseVersion}-x64-setup.exe`, 'win-unpacked/Madness.exe', 'win-unpacked/resources/app.asar']) {
       const bytes = await readFile(join(repository, 'dist', file))
       report.artifacts.push({ file, bytes: bytes.byteLength, sha256: hash(bytes) })
     }

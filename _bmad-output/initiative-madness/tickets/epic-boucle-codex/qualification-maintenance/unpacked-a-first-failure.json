@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "phase": "a",
+  "startedAt": "2026-10-27T19:37:49.417Z",
+  "status": "failed",
+  "checks": [],
+  "cleanup": true,
+  "limits": [
+    "Profil synthétique uniquement ; compte chiffré inventé, aucun consentement ni modèle.",
+    "Les conversations/annexes sont des fixtures identifiées ; A sérialise le snapshot complet par les ponts de projets, brouillons et préférences.",
+    "Instrumentation réseau/processus installée après démarrage ; aucune connectivité fournisseur fraîche n’est déduite.",
+    "L’exécutable est observé ; la preuve de remplacement NSIS doit être jointe séparément par le parent."
+  ],
+  "failure": "electronApplication.evaluate: ReferenceError: require is not defined\n    at eval (eval at evaluate (:370:30), <anonymous>:4:13)\n    at UtilityScript.evaluate (<anonymous>:372:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at launch (C:\\Sources\\madness\\scripts\\qualification\\maintenance.mjs:97:13)\n    at async runPhase (C:\\Sources\\madness\\scripts\\qualification\\maintenance.mjs:175:12)\n    at async file:///C:/Sources/madness/scripts/qualification/maintenance.mjs:231:64",
+  "workspace": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-3rbgoX",
+  "finishedAt": "2026-10-27T19:37:55.195Z"
+}

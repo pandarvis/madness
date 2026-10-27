@@ -1,4 +1,5 @@
 import {captureFileProposal} from './file-proposals.ts'
+import {releaseVersion} from '../release-version.ts'
 import type {CapturedFileProposal} from './file-proposals.ts'
 import {APPROVAL_TIMEOUT_MS} from '../../contracts/approvals.ts'
 import type {ApprovalDecision,ApprovalResult} from '../../contracts/approvals.ts'
@@ -138,7 +139,7 @@ const forgeTools = [
 ]
 type ProtocolOptions = { cwd: string; profile: Pick<BmadProfile, 'rootPath' | 'skillPath'|'mode'>; protectedRoots?:string[]; forge?: ForgeHost; signal: AbortSignal; activity(text: string): void; resolve(kind: 'agent' | 'config'): Promise<string>; read(path: string): Promise<string> }
 export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolOptions, timeout = 180000): Promise<Pick<DialogueSession, 'turn'>> {
-  await rpc.call('initialize', { clientInfo: { name: 'madness', title: 'Madness', version: '0.1.0' }, capabilities: { experimentalApi: true } }); rpc.notify('initialized')
+  await rpc.call('initialize', { clientInfo: { name: 'madness', title: 'Madness', version: releaseVersion }, capabilities: { experimentalApi: true } }); rpc.notify('initialized')
   const catalog = await rpc.call('model/list', {})
   const model = catalog.data?.find((value: any) => value.isDefault === true && value.hidden === false && typeof value.model === 'string')
   if (!model || !/^[a-zA-Z0-9._:/-]{1,100}$/.test(model.model)) throw dialogueFailure('PROVIDER_FAILED')

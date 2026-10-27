@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url'
 import { createRequire, syncBuiltinESMExports } from 'node:module'
 import { mock } from 'node:test'
 const probe = await import('../src/adapters/codex/probe.ts').catch(() => null)
+const {releaseVersion}=await import('../src/adapters/release-version.ts')
 function child() { const p = new EventEmitter(); p.stdin = new PassThrough(); p.stdout = new PassThrough(); p.stderr = new PassThrough(); return p }
 function rpcServer(handler) {
   assert.ok(probe, 'Le témoin natif doit exister')
@@ -28,7 +29,7 @@ test('environnement témoin supprime les credentials et profils hérités', () =
 function sequence({ marker = true, completed = true, tool = false } = {}) {
   return (message, emit) => {
     const reply = (result) => emit({ id: message.id, result })
-    if (message.method === 'initialize') reply({})
+    if (message.method === 'initialize') { assert.equal(message.params.clientInfo.version,releaseVersion); reply({}) }
     if (message.method === 'model/list') reply({ data: [{ model: 'test-model', isDefault: true, hidden: false }] })
     if (message.method === 'thread/start') reply({ thread: { id: 'thread-1' }, modelProvider: 'openai_chatgpt_plan', model: 'test-model', sandbox: { type: 'readOnly' }, approvalPolicy: 'never' })
     if (message.method === 'turn/start') {

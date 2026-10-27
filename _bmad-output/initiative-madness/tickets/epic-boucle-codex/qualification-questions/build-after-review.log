@@ -1,0 +1,32 @@
+
+> madness@0.1.0 build
+> npm run typecheck && electron-vite build
+
+
+> madness@0.1.0 typecheck
+> tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json
+
+vite v8.3.5 building ssr environment for production...
+transforming...
+✓ 24 modules transformed.
+rendering chunks...
+out/main/index.js  189.42 kB
+
+✓ built in 150ms
+vite v8.3.5 building ssr environment for production...
+transforming...
+✓ 7 modules transformed.
+rendering chunks...
+out/preload/index.js  23.90 kB
+
+✓ built in 76ms
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 22 modules transformed.
+rendering chunks...
+out/renderer/index.html                          0.44 kB
+out/renderer/assets/chatgpt-mark-BSM5F-kM.svg    4.21 kB
+out/renderer/assets/index-akjOEpkO.css          22.22 kB
+out/renderer/assets/index-Ccfod1Na.js          656.70 kB
+
+✓ built in 256ms

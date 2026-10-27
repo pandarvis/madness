@@ -1,0 +1,2639 @@
+{
+  "kind": "investigation-native-model-simulation",
+  "startedAt": "2026-10-26T20:10:52.627Z",
+  "noRealModel": true,
+  "noOAuth": true,
+  "noBillableAccount": true,
+  "nativeVersion": "codex-cli 0.144.6",
+  "nativeSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+  "schema": {
+    "v2/ThreadStartParams.json": {
+      "sha256": "4f30cb90cae47ff01adba8d863228b2aa198232df895dbfc996d594270326744",
+      "properties": {
+        "experimentalRawEvents": {
+          "description": "If true, opt into emitting raw Responses API items on the event stream. This is for internal use only (e.g. Codex Cloud).",
+          "type": "boolean"
+        }
+      }
+    },
+    "v2/TurnStartParams.json": {
+      "sha256": "a28f74287e18b8a18c7aa6966ee7552a8ed2ae13c03f4ba12e9af48f7370f19d",
+      "properties": {
+        "collaborationMode": {
+          "description": "EXPERIMENTAL - Set a pre-set collaboration mode. Takes precedence over model, reasoning_effort, and developer instructions if set.\n\nFor `collaboration_mode.settings.developer_instructions`, `null` means \"use the built-in instructions for the selected mode\".",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/CollaborationMode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "threadId": {
+          "type": "string"
+        }
+      },
+      "collaborationMode": {
+        "description": "Collaboration mode for a Codex session.",
+        "type": "object",
+        "required": [
+          "mode",
+          "settings"
+        ],
+        "properties": {
+          "mode": {
+            "$ref": "#/definitions/ModeKind"
+          },
+          "settings": {
+            "$ref": "#/definitions/Settings"
+          }
+        }
+      },
+      "settings": {
+        "description": "Settings for a collaboration mode.",
+        "type": "object",
+        "required": [
+          "model"
+        ],
+        "properties": {
+          "developer_instructions": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "model": {
+            "type": "string"
+          },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/ReasoningEffort"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "v2/ServerRequestResolvedNotification.json": {
+      "sha256": "7cc32a834be009c7a45dda01b80ae01bb522c642eb0e886c6d4bd7ee89fde643",
+      "properties": {
+        "requestId": {
+          "$ref": "#/definitions/RequestId"
+        },
+        "threadId": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "answer-no-expiry",
+      "mode": "answer",
+      "autoResolutionMs": null,
+      "requests": [
+        {
+          "ms": 1181,
+          "number": 1,
+          "method": "POST",
+          "url": "/v1/responses",
+          "authorizationPresent": false,
+          "body": {
+            "model": "gpt-5.4",
+            "tool_choice": "auto",
+            "tools": [
+              {
+                "type": "function",
+                "name": "request_user_input",
+                "description": "Request user input for one to three short questions and wait for the response. Set autoResolutionMs, from 60000 to 240000 milliseconds, only when the question is useful but non-blocking and continuing with best judgment is acceptable if the user does not answer; omit it when explicit user input is required. This tool is only available in Default or Plan mode.",
+                "strict": false,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "autoResolutionMs": {
+                      "type": "number",
+                      "description": "Optional auto-resolution window in milliseconds, from 60000 to 240000. Include this only when the question is useful but non-blocking and continuing with best judgment is acceptable if the user does not answer; omit it when explicit user input is required before continuing. Use 60000 for lightly helpful context and up to 240000 when the answer would materially unblock better work."
+                    },
+                    "questions": {
+                      "type": "array",
+                      "description": "Questions to show the user. Prefer 1 and do not exceed 3",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "header": {
+                            "type": "string",
+                            "description": "Short header label shown in the UI (12 or fewer chars)."
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "Stable identifier for mapping answers (snake_case)."
+                          },
+                          "options": {
+                            "type": "array",
+                            "description": "Provide 2-3 mutually exclusive choices. Put the recommended option first and suffix its label with \"(Recommended)\". Do not include an \"Other\" option in this list; the client will add a free-form \"Other\" option automatically.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "description": {
+                                  "type": "string",
+                                  "description": "One short sentence explaining impact/tradeoff if selected."
+                                },
+                                "label": {
+                                  "type": "string",
+                                  "description": "User-facing label (1-5 words)."
+                                }
+                              },
+                              "required": [
+                                "label",
+                                "description"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "question": {
+                            "type": "string",
+                            "description": "Single-sentence prompt shown to the user."
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "header",
+                          "question",
+                          "options"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "questions"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ],
+            "input": [],
+            "otherInputSha256": "b8e3aea67b00f69e1dfaffbc3670cbe835e9bc28ab5103581477c02674c6797b"
+          }
+        },
+        {
+          "ms": 1195,
+          "number": 2,
+          "method": "POST",
+          "url": "/v1/responses",
+          "authorizationPresent": false,
+          "body": {
+            "model": "gpt-5.4",
+            "tool_choice": "auto",
+            "tools": [
+              {
+                "type": "function",
+                "name": "request_user_input",
+                "description": "Request user input for one to three short questions and wait for the response. Set autoResolutionMs, from 60000 to 240000 milliseconds, only when the question is useful but non-blocking and continuing with best judgment is acceptable if the user does not answer; omit it when explicit user input is required. This tool is only available in Default or Plan mode.",
+                "strict": false,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "autoResolutionMs": {
+                      "type": "number",
+                      "description": "Optional auto-resolution window in milliseconds, from 60000 to 240000. Include this only when the question is useful but non-blocking and continuing with best judgment is acceptable if the user does not answer; omit it when explicit user input is required before continuing. Use 60000 for lightly helpful context and up to 240000 when the answer would materially unblock better work."
+                    },
+                    "questions": {
+                      "type": "array",
+                      "description": "Questions to show the user. Prefer 1 and do not exceed 3",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "header": {
+                            "type": "string",
+                            "description": "Short header label shown in the UI (12 or fewer chars)."
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "Stable identifier for mapping answers (snake_case)."
+                          },
+                          "options": {
+                            "type": "array",
+                            "description": "Provide 2-3 mutually exclusive choices. Put the recommended option first and suffix its label with \"(Recommended)\". Do not include an \"Other\" option in this list; the client will add a free-form \"Other\" option automatically.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "description": {
+                                  "type": "string",
+                                  "description": "One short sentence explaining impact/tradeoff if selected."
+                                },
+                                "label": {
+                                  "type": "string",
+                                  "description": "User-facing label (1-5 words)."
+                                }
+                              },
+                              "required": [
+                                "label",
+                                "description"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "question": {
+                            "type": "string",
+                            "description": "Single-sentence prompt shown to the user."
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "header",
+                          "question",
+                          "options"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "questions"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ],
+            "input": [
+              {
+                "type": "function_call",
+                "name": "request_user_input",
+                "arguments": "{\"questions\":[{\"id\":\"route\",\"header\":\"Direction\",\"question\":\"Quelle direction synthétique choisir ?\",\"options\":[{\"label\":\"Alpha-cdce55df-0357-4f19-ae11-11a68aff8b16\",\"description\":\"Direction de test Alpha avec nonce synthétique.\"},{\"label\":\"Beta\",\"description\":\"Direction de test Beta.\"}]}]}",
+                "call_id": "call_answer-no-expiry"
+              },
+              {
+                "type": "function_call_output",
+                "call_id": "call_answer-no-expiry",
+                "output": "{\"answers\":{\"route\":{\"answers\":[\"Alpha-cdce55df-0357-4f19-ae11-11a68aff8b16\"]}}}"
+              }
+            ],
+            "otherInputSha256": "b8e3aea67b00f69e1dfaffbc3670cbe835e9bc28ab5103581477c02674c6797b"
+          }
+        }
+      ],
+      "events": [
+        {
+          "ms": 799,
+          "id": 1,
+          "result": {
+            "userAgent": "madness-protocol-spike/0.144.6 (Windows 10.0.26200; x86_64) unknown (madness-protocol-spike; 1.5.0)",
+            "codexHome": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\answer-no-expiry\\codex-home",
+            "platformFamily": "windows",
+            "platformOs": "windows"
+          }
+        },
+        {
+          "ms": 800,
+          "method": "remoteControl/status/changed",
+          "params": {
+            "status": "disabled",
+            "serverName": "WL0036861",
+            "installationId": "e7261b78-5c6e-431f-933b-c6d86c8c383a",
+            "environmentId": null
+          }
+        },
+        {
+          "ms": 1135,
+          "id": 2,
+          "result": {
+            "thread": {
+              "id": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+              "extra": null,
+              "sessionId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045456,
+              "updatedAt": 1793045456,
+              "recencyAt": 1793045456,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\answer-no-expiry",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            },
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "serviceTier": null,
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\answer-no-expiry",
+            "runtimeWorkspaceRoots": [
+              "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\answer-no-expiry"
+            ],
+            "instructionSources": [],
+            "approvalPolicy": "never",
+            "approvalsReviewer": "user",
+            "sandbox": {
+              "type": "readOnly",
+              "networkAccess": false
+            },
+            "activePermissionProfile": null,
+            "reasoningEffort": null,
+            "multiAgentMode": "explicitRequestOnly"
+          }
+        },
+        {
+          "ms": 1135,
+          "method": "thread/started",
+          "params": {
+            "thread": {
+              "id": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+              "extra": null,
+              "sessionId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045456,
+              "updatedAt": 1793045456,
+              "recencyAt": 1793045456,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\answer-no-expiry",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            }
+          }
+        },
+        {
+          "ms": 1135,
+          "method": "warning",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "message": "Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\answer-no-expiry\\codex-home\\config.toml."
+          }
+        },
+        {
+          "ms": 1136,
+          "id": 3,
+          "result": {
+            "turn": {
+              "id": "01a179d6-64e8-7e51-b604-d002cd365a01",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1165,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "status": {
+              "type": "active",
+              "activeFlags": []
+            }
+          }
+        },
+        {
+          "ms": 1165,
+          "method": "turn/started",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turn": {
+              "id": "01a179d6-64e8-7e51-b604-d002cd365a01",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": 1793045456,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1166,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "item": {
+              "type": "message",
+              "role": "developer",
+              "contentSha256": "e50f31425d9004e3f3c5ad589db7ae36b439d359d2894032113dd1a54a536b14"
+            }
+          }
+        },
+        {
+          "ms": 1166,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "7fb052b1c6ade2c630a5a01f0ec4968d5dead41352f2ad1f6ac3f9162ab9ce73"
+            }
+          }
+        },
+        {
+          "ms": 1168,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "4a26c1f75f3e5512071ed27b09d29a1587720bd4dbddf18bdfe6e0f4eefd42ef"
+            }
+          }
+        },
+        {
+          "ms": 1168,
+          "method": "item/started",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d6-6507-7c11-9523-b086a29f6163",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "startedAtMs": 1793045456135
+          }
+        },
+        {
+          "ms": 1168,
+          "method": "item/completed",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d6-6507-7c11-9523-b086a29f6163",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "completedAtMs": 1793045456135
+          }
+        },
+        {
+          "ms": 1185,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "item": {
+              "type": "function_call",
+              "id": "fc_answer-no-expiry",
+              "name": "request_user_input",
+              "arguments": "{\"questions\":[{\"id\":\"route\",\"header\":\"Direction\",\"question\":\"Quelle direction synthétique choisir ?\",\"options\":[{\"label\":\"Alpha-cdce55df-0357-4f19-ae11-11a68aff8b16\",\"description\":\"Direction de test Alpha avec nonce synthétique.\"},{\"label\":\"Beta\",\"description\":\"Direction de test Beta.\"}]}]}",
+              "call_id": "call_answer-no-expiry",
+              "internal_chat_message_metadata_passthrough": {
+                "turn_id": "01a179d6-64e8-7e51-b604-d002cd365a01"
+              }
+            }
+          }
+        },
+        {
+          "ms": 1185,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "status": {
+              "type": "active",
+              "activeFlags": [
+                "waitingOnUserInput"
+              ]
+            }
+          }
+        },
+        {
+          "ms": 1185,
+          "method": "item/tool/requestUserInput",
+          "id": 0,
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "itemId": "call_answer-no-expiry",
+            "questions": [
+              {
+                "id": "route",
+                "header": "Direction",
+                "question": "Quelle direction synthétique choisir ?",
+                "isOther": true,
+                "isSecret": false,
+                "options": [
+                  {
+                    "label": "Alpha-cdce55df-0357-4f19-ae11-11a68aff8b16",
+                    "description": "Direction de test Alpha avec nonce synthétique."
+                  },
+                  {
+                    "label": "Beta",
+                    "description": "Direction de test Beta."
+                  }
+                ]
+              }
+            ],
+            "autoResolutionMs": null
+          }
+        },
+        {
+          "ms": 1186,
+          "method": "serverRequest/resolved",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "requestId": 0
+          }
+        },
+        {
+          "ms": 1186,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "status": {
+              "type": "active",
+              "activeFlags": []
+            }
+          }
+        },
+        {
+          "ms": 1187,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "item": {
+              "type": "function_call_output",
+              "call_id": "call_answer-no-expiry",
+              "output": "{\"answers\":{\"route\":{\"answers\":[\"Alpha-cdce55df-0357-4f19-ae11-11a68aff8b16\"]}}}",
+              "internal_chat_message_metadata_passthrough": {
+                "turn_id": "01a179d6-64e8-7e51-b604-d002cd365a01"
+              }
+            }
+          }
+        },
+        {
+          "ms": 1187,
+          "method": "thread/tokenUsage/updated",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "tokenUsage": {
+              "total": {
+                "totalTokens": 2,
+                "inputTokens": 1,
+                "cachedInputTokens": 0,
+                "outputTokens": 1,
+                "reasoningOutputTokens": 0
+              },
+              "last": {
+                "totalTokens": 2,
+                "inputTokens": 1,
+                "cachedInputTokens": 0,
+                "outputTokens": 1,
+                "reasoningOutputTokens": 0
+              },
+              "modelContextWindow": 258400
+            }
+          }
+        },
+        {
+          "ms": 1187,
+          "method": "account/rateLimits/updated",
+          "params": {
+            "rateLimits": {
+              "limitId": "codex",
+              "limitName": null,
+              "primary": null,
+              "secondary": null,
+              "credits": null,
+              "individualLimit": null,
+              "planType": null,
+              "rateLimitReachedType": null
+            }
+          }
+        },
+        {
+          "ms": 1198,
+          "method": "item/started",
+          "params": {
+            "item": {
+              "type": "agentMessage",
+              "id": "msg_answer-no-expiry",
+              "text": "Fin synthétique de la qualification de transport.",
+              "phase": "final_answer",
+              "memoryCitation": null
+            },
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "startedAtMs": 1793045456165
+          }
+        },
+        {
+          "ms": 1198,
+          "method": "item/completed",
+          "params": {
+            "item": {
+              "type": "agentMessage",
+              "id": "msg_answer-no-expiry",
+              "text": "Fin synthétique de la qualification de transport.",
+              "phase": "final_answer",
+              "memoryCitation": null
+            },
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "completedAtMs": 1793045456166
+          }
+        },
+        {
+          "ms": 1199,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "item": {
+              "type": "message",
+              "id": "msg_answer-no-expiry",
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "Fin synthétique de la qualification de transport."
+                }
+              ],
+              "phase": "final_answer",
+              "internal_chat_message_metadata_passthrough": {
+                "turn_id": "01a179d6-64e8-7e51-b604-d002cd365a01"
+              }
+            }
+          }
+        },
+        {
+          "ms": 1199,
+          "method": "thread/tokenUsage/updated",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+            "tokenUsage": {
+              "total": {
+                "totalTokens": 4,
+                "inputTokens": 2,
+                "cachedInputTokens": 0,
+                "outputTokens": 2,
+                "reasoningOutputTokens": 0
+              },
+              "last": {
+                "totalTokens": 2,
+                "inputTokens": 1,
+                "cachedInputTokens": 0,
+                "outputTokens": 1,
+                "reasoningOutputTokens": 0
+              },
+              "modelContextWindow": 258400
+            }
+          }
+        },
+        {
+          "ms": 1199,
+          "method": "account/rateLimits/updated",
+          "params": {
+            "rateLimits": {
+              "limitId": "codex",
+              "limitName": null,
+              "primary": null,
+              "secondary": null,
+              "credits": null,
+              "individualLimit": null,
+              "planType": null,
+              "rateLimitReachedType": null
+            }
+          }
+        },
+        {
+          "ms": 1199,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "status": {
+              "type": "idle"
+            }
+          }
+        },
+        {
+          "ms": 1199,
+          "method": "turn/completed",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "turn": {
+              "id": "01a179d6-64e8-7e51-b604-d002cd365a01",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "completed",
+              "error": null,
+              "startedAt": 1793045456,
+              "completedAt": 1793045456,
+              "durationMs": 34
+            }
+          }
+        }
+      ],
+      "sends": [
+        {
+          "ms": 292,
+          "id": 1,
+          "method": "initialize",
+          "params": {
+            "clientInfo": {
+              "name": "madness-protocol-spike",
+              "version": "1.5.0"
+            },
+            "capabilities": {
+              "experimentalApi": true
+            }
+          }
+        },
+        {
+          "ms": 800,
+          "method": "initialized",
+          "params": {}
+        },
+        {
+          "ms": 800,
+          "id": 2,
+          "method": "thread/start",
+          "params": {
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\answer-no-expiry",
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "sandbox": "read-only",
+            "approvalPolicy": "never",
+            "ephemeral": true,
+            "experimentalRawEvents": true,
+            "developerInstructions": "Qualification de transport locale uniquement. Aucun fichier, shell, réseau externe ou compte."
+          }
+        },
+        {
+          "ms": 1135,
+          "id": 3,
+          "method": "turn/start",
+          "params": {
+            "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+            "input": [
+              {
+                "type": "text",
+                "text": "Question synthétique de qualification."
+              }
+            ]
+          }
+        },
+        {
+          "ms": 1185,
+          "id": 0,
+          "result": {
+            "answers": {
+              "route": {
+                "answers": [
+                  "Alpha-cdce55df-0357-4f19-ae11-11a68aff8b16"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "checks": {
+        "inboundHttp": [
+          {
+            "method": "GET",
+            "url": "/health",
+            "contentEncoding": null
+          },
+          {
+            "method": "POST",
+            "url": "/v1/responses",
+            "contentEncoding": null
+          },
+          {
+            "method": "POST",
+            "url": "/v1/responses",
+            "contentEncoding": null
+          }
+        ],
+        "loopbackSelfCheck": "loopback-only",
+        "feature": "default_mode_request_user_input      under development  true",
+        "question": {
+          "id": 0,
+          "itemId": "call_answer-no-expiry",
+          "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+          "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+          "autoResolutionMs": null
+        },
+        "nativeQuestionObserved": true,
+        "syntheticAnswer": "Alpha-cdce55df-0357-4f19-ae11-11a68aff8b16",
+        "stdinResponseWritten": true,
+        "resolved": [
+          {
+            "ms": 1186,
+            "method": "serverRequest/resolved",
+            "params": {
+              "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+              "requestId": 0
+            }
+          }
+        ],
+        "rawFunctionOutputs": [
+          {
+            "ms": 1187,
+            "method": "rawResponseItem/completed",
+            "params": {
+              "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+              "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+              "item": {
+                "type": "function_call_output",
+                "call_id": "call_answer-no-expiry",
+                "output": "{\"answers\":{\"route\":{\"answers\":[\"Alpha-cdce55df-0357-4f19-ae11-11a68aff8b16\"]}}}",
+                "internal_chat_message_metadata_passthrough": {
+                  "turn_id": "01a179d6-64e8-7e51-b604-d002cd365a01"
+                }
+              }
+            }
+          }
+        ],
+        "legacyRawOutputs": [],
+        "functionOutputsSentToSimulatedModel": [
+          {
+            "type": "function_call_output",
+            "call_id": "call_answer-no-expiry",
+            "output": "{\"answers\":{\"route\":{\"answers\":[\"Alpha-cdce55df-0357-4f19-ae11-11a68aff8b16\"]}}}"
+          }
+        ],
+        "itemTypes": [
+          "userMessage",
+          "agentMessage"
+        ],
+        "completed": [
+          "completed"
+        ],
+        "nativeStopped": true,
+        "questionParams": {
+          "threadId": "01a179d6-63a4-7cd3-b48d-ff14bb306126",
+          "turnId": "01a179d6-64e8-7e51-b604-d002cd365a01",
+          "itemId": "call_answer-no-expiry",
+          "questions": [
+            {
+              "id": "route",
+              "header": "Direction",
+              "question": "Quelle direction synthétique choisir ?",
+              "isOther": true,
+              "isSecret": false,
+              "options": [
+                {
+                  "label": "Alpha-cdce55df-0357-4f19-ae11-11a68aff8b16",
+                  "description": "Direction de test Alpha avec nonce synthétique."
+                },
+                {
+                  "label": "Beta",
+                  "description": "Direction de test Beta."
+                }
+              ]
+            }
+          ],
+          "autoResolutionMs": null
+        },
+        "authorizationPresent": false,
+        "positiveNativeConsumptionWitness": true,
+        "positiveWitnessAlsoInNextProviderPost": true
+      },
+      "stderr": [
+        "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-33BuWQ\\\\answer-no-expiry\\\\\" (codex_home: AbsolutePathBuf(\"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-33BuWQ\\\\answer-no-expiry\\\\codex-home\"))\n"
+      ],
+      "failure": null
+    },
+    {
+      "name": "interrupt-no-answer",
+      "mode": "interrupt",
+      "autoResolutionMs": null,
+      "requests": [
+        {
+          "ms": 1142,
+          "number": 1,
+          "method": "POST",
+          "url": "/v1/responses",
+          "authorizationPresent": false,
+          "body": {
+            "model": "gpt-5.4",
+            "tool_choice": "auto",
+            "tools": [
+              {
+                "type": "function",
+                "name": "request_user_input",
+                "description": "Request user input for one to three short questions and wait for the response. Set autoResolutionMs, from 60000 to 240000 milliseconds, only when the question is useful but non-blocking and continuing with best judgment is acceptable if the user does not answer; omit it when explicit user input is required. This tool is only available in Default or Plan mode.",
+                "strict": false,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "autoResolutionMs": {
+                      "type": "number",
+                      "description": "Optional auto-resolution window in milliseconds, from 60000 to 240000. Include this only when the question is useful but non-blocking and continuing with best judgment is acceptable if the user does not answer; omit it when explicit user input is required before continuing. Use 60000 for lightly helpful context and up to 240000 when the answer would materially unblock better work."
+                    },
+                    "questions": {
+                      "type": "array",
+                      "description": "Questions to show the user. Prefer 1 and do not exceed 3",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "header": {
+                            "type": "string",
+                            "description": "Short header label shown in the UI (12 or fewer chars)."
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "Stable identifier for mapping answers (snake_case)."
+                          },
+                          "options": {
+                            "type": "array",
+                            "description": "Provide 2-3 mutually exclusive choices. Put the recommended option first and suffix its label with \"(Recommended)\". Do not include an \"Other\" option in this list; the client will add a free-form \"Other\" option automatically.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "description": {
+                                  "type": "string",
+                                  "description": "One short sentence explaining impact/tradeoff if selected."
+                                },
+                                "label": {
+                                  "type": "string",
+                                  "description": "User-facing label (1-5 words)."
+                                }
+                              },
+                              "required": [
+                                "label",
+                                "description"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "question": {
+                            "type": "string",
+                            "description": "Single-sentence prompt shown to the user."
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "header",
+                          "question",
+                          "options"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "questions"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ],
+            "input": [],
+            "otherInputSha256": "e8a19d737108c4b268fde59666baf6b2e397b934f8e77ef55d7602add81d9c7a"
+          }
+        }
+      ],
+      "events": [
+        {
+          "ms": 736,
+          "id": 1,
+          "result": {
+            "userAgent": "madness-protocol-spike/0.144.6 (Windows 10.0.26200; x86_64) unknown (madness-protocol-spike; 1.5.0)",
+            "codexHome": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\interrupt-no-answer\\codex-home",
+            "platformFamily": "windows",
+            "platformOs": "windows"
+          }
+        },
+        {
+          "ms": 736,
+          "method": "remoteControl/status/changed",
+          "params": {
+            "status": "disabled",
+            "serverName": "WL0036861",
+            "installationId": "37324c14-9f30-4dd4-b1b5-728dff8e51b2",
+            "environmentId": null
+          }
+        },
+        {
+          "ms": 1093,
+          "id": 2,
+          "result": {
+            "thread": {
+              "id": "01a179d6-6896-7a43-a175-556477812fe7",
+              "extra": null,
+              "sessionId": "01a179d6-6896-7a43-a175-556477812fe7",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045457,
+              "updatedAt": 1793045457,
+              "recencyAt": 1793045457,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\interrupt-no-answer",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            },
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "serviceTier": null,
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\interrupt-no-answer",
+            "runtimeWorkspaceRoots": [
+              "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\interrupt-no-answer"
+            ],
+            "instructionSources": [],
+            "approvalPolicy": "never",
+            "approvalsReviewer": "user",
+            "sandbox": {
+              "type": "readOnly",
+              "networkAccess": false
+            },
+            "activePermissionProfile": null,
+            "reasoningEffort": null,
+            "multiAgentMode": "explicitRequestOnly"
+          }
+        },
+        {
+          "ms": 1093,
+          "method": "thread/started",
+          "params": {
+            "thread": {
+              "id": "01a179d6-6896-7a43-a175-556477812fe7",
+              "extra": null,
+              "sessionId": "01a179d6-6896-7a43-a175-556477812fe7",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045457,
+              "updatedAt": 1793045457,
+              "recencyAt": 1793045457,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\interrupt-no-answer",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            }
+          }
+        },
+        {
+          "ms": 1093,
+          "method": "warning",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "message": "Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\interrupt-no-answer\\codex-home\\config.toml."
+          }
+        },
+        {
+          "ms": 1094,
+          "id": 3,
+          "result": {
+            "turn": {
+              "id": "01a179d6-69ef-7881-9204-caef68c76908",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1124,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "status": {
+              "type": "active",
+              "activeFlags": []
+            }
+          }
+        },
+        {
+          "ms": 1124,
+          "method": "turn/started",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turn": {
+              "id": "01a179d6-69ef-7881-9204-caef68c76908",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": 1793045457,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1125,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+            "item": {
+              "type": "message",
+              "role": "developer",
+              "contentSha256": "ad18a5444dc4e5daea2ea50c9b83878f929110561b0785f9d80215a283736cb0"
+            }
+          }
+        },
+        {
+          "ms": 1125,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "aba13ab91f7e78030df87f80579bddd67a42cda3506a358d79a8ce3db2c461fc"
+            }
+          }
+        },
+        {
+          "ms": 1126,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "4a26c1f75f3e5512071ed27b09d29a1587720bd4dbddf18bdfe6e0f4eefd42ef"
+            }
+          }
+        },
+        {
+          "ms": 1126,
+          "method": "item/started",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d6-6a0f-7c10-85c9-bef858f2d814",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+            "startedAtMs": 1793045457423
+          }
+        },
+        {
+          "ms": 1126,
+          "method": "item/completed",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d6-6a0f-7c10-85c9-bef858f2d814",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+            "completedAtMs": 1793045457423
+          }
+        },
+        {
+          "ms": 1145,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+            "item": {
+              "type": "function_call",
+              "id": "fc_interrupt-no-answer",
+              "name": "request_user_input",
+              "arguments": "{\"questions\":[{\"id\":\"route\",\"header\":\"Direction\",\"question\":\"Quelle direction synthétique choisir ?\",\"options\":[{\"label\":\"Alpha-07922dad-d37d-4132-8653-53eb3678ca23\",\"description\":\"Direction de test Alpha avec nonce synthétique.\"},{\"label\":\"Beta\",\"description\":\"Direction de test Beta.\"}]}]}",
+              "call_id": "call_interrupt-no-answer",
+              "internal_chat_message_metadata_passthrough": {
+                "turn_id": "01a179d6-69ef-7881-9204-caef68c76908"
+              }
+            }
+          }
+        },
+        {
+          "ms": 1146,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "status": {
+              "type": "active",
+              "activeFlags": [
+                "waitingOnUserInput"
+              ]
+            }
+          }
+        },
+        {
+          "ms": 1146,
+          "method": "item/tool/requestUserInput",
+          "id": 0,
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+            "itemId": "call_interrupt-no-answer",
+            "questions": [
+              {
+                "id": "route",
+                "header": "Direction",
+                "question": "Quelle direction synthétique choisir ?",
+                "isOther": true,
+                "isSecret": false,
+                "options": [
+                  {
+                    "label": "Alpha-07922dad-d37d-4132-8653-53eb3678ca23",
+                    "description": "Direction de test Alpha avec nonce synthétique."
+                  },
+                  {
+                    "label": "Beta",
+                    "description": "Direction de test Beta."
+                  }
+                ]
+              }
+            ],
+            "autoResolutionMs": null
+          }
+        },
+        {
+          "ms": 1147,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+            "item": {
+              "type": "function_call_output",
+              "call_id": "call_interrupt-no-answer",
+              "output": "aborted by user after 0.1s",
+              "internal_chat_message_metadata_passthrough": {
+                "turn_id": "01a179d6-69ef-7881-9204-caef68c76908"
+              }
+            }
+          }
+        },
+        {
+          "ms": 1147,
+          "method": "thread/tokenUsage/updated",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+            "tokenUsage": {
+              "total": {
+                "totalTokens": 2,
+                "inputTokens": 1,
+                "cachedInputTokens": 0,
+                "outputTokens": 1,
+                "reasoningOutputTokens": 0
+              },
+              "last": {
+                "totalTokens": 2,
+                "inputTokens": 1,
+                "cachedInputTokens": 0,
+                "outputTokens": 1,
+                "reasoningOutputTokens": 0
+              },
+              "modelContextWindow": 258400
+            }
+          }
+        },
+        {
+          "ms": 1147,
+          "method": "account/rateLimits/updated",
+          "params": {
+            "rateLimits": {
+              "limitId": "codex",
+              "limitName": null,
+              "primary": null,
+              "secondary": null,
+              "credits": null,
+              "individualLimit": null,
+              "planType": null,
+              "rateLimitReachedType": null
+            }
+          }
+        },
+        {
+          "ms": 1148,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "6d4593d4a169626ce6cc5dcf406c6c8c8f0ef75faad5fb9beb09c4c3070f92d1"
+            }
+          }
+        },
+        {
+          "ms": 1148,
+          "id": 4,
+          "result": {}
+        },
+        {
+          "ms": 1148,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "status": {
+              "type": "idle"
+            }
+          }
+        },
+        {
+          "ms": 1148,
+          "method": "turn/completed",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turn": {
+              "id": "01a179d6-69ef-7881-9204-caef68c76908",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "interrupted",
+              "error": null,
+              "startedAt": 1793045457,
+              "completedAt": 1793045457,
+              "durationMs": 24
+            }
+          }
+        },
+        {
+          "ms": 1148,
+          "method": "serverRequest/resolved",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "requestId": 0
+          }
+        }
+      ],
+      "sends": [
+        {
+          "ms": 234,
+          "id": 1,
+          "method": "initialize",
+          "params": {
+            "clientInfo": {
+              "name": "madness-protocol-spike",
+              "version": "1.5.0"
+            },
+            "capabilities": {
+              "experimentalApi": true
+            }
+          }
+        },
+        {
+          "ms": 736,
+          "method": "initialized",
+          "params": {}
+        },
+        {
+          "ms": 736,
+          "id": 2,
+          "method": "thread/start",
+          "params": {
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\interrupt-no-answer",
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "sandbox": "read-only",
+            "approvalPolicy": "never",
+            "ephemeral": true,
+            "experimentalRawEvents": true,
+            "developerInstructions": "Qualification de transport locale uniquement. Aucun fichier, shell, réseau externe ou compte."
+          }
+        },
+        {
+          "ms": 1093,
+          "id": 3,
+          "method": "turn/start",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "input": [
+              {
+                "type": "text",
+                "text": "Question synthétique de qualification."
+              }
+            ]
+          }
+        },
+        {
+          "ms": 1146,
+          "id": 4,
+          "method": "turn/interrupt",
+          "params": {
+            "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+            "turnId": "01a179d6-69ef-7881-9204-caef68c76908"
+          }
+        }
+      ],
+      "checks": {
+        "inboundHttp": [
+          {
+            "method": "GET",
+            "url": "/health",
+            "contentEncoding": null
+          },
+          {
+            "method": "POST",
+            "url": "/v1/responses",
+            "contentEncoding": null
+          }
+        ],
+        "loopbackSelfCheck": "loopback-only",
+        "feature": "default_mode_request_user_input      under development  true",
+        "question": {
+          "id": 0,
+          "itemId": "call_interrupt-no-answer",
+          "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+          "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+          "autoResolutionMs": null
+        },
+        "nativeQuestionObserved": true,
+        "resolved": [
+          {
+            "ms": 1148,
+            "method": "serverRequest/resolved",
+            "params": {
+              "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+              "requestId": 0
+            }
+          }
+        ],
+        "rawFunctionOutputs": [
+          {
+            "ms": 1147,
+            "method": "rawResponseItem/completed",
+            "params": {
+              "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+              "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+              "item": {
+                "type": "function_call_output",
+                "call_id": "call_interrupt-no-answer",
+                "output": "aborted by user after 0.1s",
+                "internal_chat_message_metadata_passthrough": {
+                  "turn_id": "01a179d6-69ef-7881-9204-caef68c76908"
+                }
+              }
+            }
+          }
+        ],
+        "legacyRawOutputs": [],
+        "functionOutputsSentToSimulatedModel": [],
+        "itemTypes": [
+          "userMessage"
+        ],
+        "completed": [
+          "interrupted"
+        ],
+        "nativeStopped": true,
+        "questionParams": {
+          "threadId": "01a179d6-6896-7a43-a175-556477812fe7",
+          "turnId": "01a179d6-69ef-7881-9204-caef68c76908",
+          "itemId": "call_interrupt-no-answer",
+          "questions": [
+            {
+              "id": "route",
+              "header": "Direction",
+              "question": "Quelle direction synthétique choisir ?",
+              "isOther": true,
+              "isSecret": false,
+              "options": [
+                {
+                  "label": "Alpha-07922dad-d37d-4132-8653-53eb3678ca23",
+                  "description": "Direction de test Alpha avec nonce synthétique."
+                },
+                {
+                  "label": "Beta",
+                  "description": "Direction de test Beta."
+                }
+              ]
+            }
+          ],
+          "autoResolutionMs": null
+        },
+        "authorizationPresent": false
+      },
+      "stderr": [
+        "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-33BuWQ\\\\interrupt-no-answer\\\\\" (codex_home: AbsolutePathBuf(\"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-33BuWQ\\\\interrupt-no-answer\\\\codex-home\"))\n"
+      ],
+      "failure": null
+    },
+    {
+      "name": "auto-expiry-no-answer",
+      "mode": "expiry",
+      "autoResolutionMs": 1000,
+      "requests": [
+        {
+          "ms": 1257,
+          "number": 1,
+          "method": "POST",
+          "url": "/v1/responses",
+          "authorizationPresent": false,
+          "body": {
+            "model": "gpt-5.4",
+            "tool_choice": "auto",
+            "tools": [
+              {
+                "type": "function",
+                "name": "request_user_input",
+                "description": "Request user input for one to three short questions and wait for the response. Set autoResolutionMs, from 60000 to 240000 milliseconds, only when the question is useful but non-blocking and continuing with best judgment is acceptable if the user does not answer; omit it when explicit user input is required. This tool is only available in Default or Plan mode.",
+                "strict": false,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "autoResolutionMs": {
+                      "type": "number",
+                      "description": "Optional auto-resolution window in milliseconds, from 60000 to 240000. Include this only when the question is useful but non-blocking and continuing with best judgment is acceptable if the user does not answer; omit it when explicit user input is required before continuing. Use 60000 for lightly helpful context and up to 240000 when the answer would materially unblock better work."
+                    },
+                    "questions": {
+                      "type": "array",
+                      "description": "Questions to show the user. Prefer 1 and do not exceed 3",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "header": {
+                            "type": "string",
+                            "description": "Short header label shown in the UI (12 or fewer chars)."
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "Stable identifier for mapping answers (snake_case)."
+                          },
+                          "options": {
+                            "type": "array",
+                            "description": "Provide 2-3 mutually exclusive choices. Put the recommended option first and suffix its label with \"(Recommended)\". Do not include an \"Other\" option in this list; the client will add a free-form \"Other\" option automatically.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "description": {
+                                  "type": "string",
+                                  "description": "One short sentence explaining impact/tradeoff if selected."
+                                },
+                                "label": {
+                                  "type": "string",
+                                  "description": "User-facing label (1-5 words)."
+                                }
+                              },
+                              "required": [
+                                "label",
+                                "description"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "question": {
+                            "type": "string",
+                            "description": "Single-sentence prompt shown to the user."
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "header",
+                          "question",
+                          "options"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "questions"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ],
+            "input": [],
+            "otherInputSha256": "13d4e17c2e106f05453ff2c4c9654790ccb993de33566d96e68bfe7b010ec420"
+          }
+        }
+      ],
+      "events": [
+        {
+          "ms": 829,
+          "id": 1,
+          "result": {
+            "userAgent": "madness-protocol-spike/0.144.6 (Windows 10.0.26200; x86_64) unknown (madness-protocol-spike; 1.5.0)",
+            "codexHome": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\auto-expiry-no-answer\\codex-home",
+            "platformFamily": "windows",
+            "platformOs": "windows"
+          }
+        },
+        {
+          "ms": 829,
+          "method": "remoteControl/status/changed",
+          "params": {
+            "status": "disabled",
+            "serverName": "WL0036861",
+            "installationId": "9b7f5058-1d71-4a1c-8689-d56ed2dfb144",
+            "environmentId": null
+          }
+        },
+        {
+          "ms": 1215,
+          "id": 2,
+          "result": {
+            "thread": {
+              "id": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+              "extra": null,
+              "sessionId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045458,
+              "updatedAt": 1793045458,
+              "recencyAt": 1793045458,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\auto-expiry-no-answer",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            },
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "serviceTier": null,
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\auto-expiry-no-answer",
+            "runtimeWorkspaceRoots": [
+              "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\auto-expiry-no-answer"
+            ],
+            "instructionSources": [],
+            "approvalPolicy": "never",
+            "approvalsReviewer": "user",
+            "sandbox": {
+              "type": "readOnly",
+              "networkAccess": false
+            },
+            "activePermissionProfile": null,
+            "reasoningEffort": null,
+            "multiAgentMode": "explicitRequestOnly"
+          }
+        },
+        {
+          "ms": 1215,
+          "method": "thread/started",
+          "params": {
+            "thread": {
+              "id": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+              "extra": null,
+              "sessionId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045458,
+              "updatedAt": 1793045458,
+              "recencyAt": 1793045458,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\auto-expiry-no-answer",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            }
+          }
+        },
+        {
+          "ms": 1216,
+          "method": "warning",
+          "params": {
+            "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+            "message": "Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\auto-expiry-no-answer\\codex-home\\config.toml."
+          }
+        },
+        {
+          "ms": 1216,
+          "id": 3,
+          "result": {
+            "turn": {
+              "id": "01a179d6-6f6a-7f90-b281-88db790e5562",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1240,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+            "status": {
+              "type": "active",
+              "activeFlags": []
+            }
+          }
+        },
+        {
+          "ms": 1240,
+          "method": "turn/started",
+          "params": {
+            "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+            "turn": {
+              "id": "01a179d6-6f6a-7f90-b281-88db790e5562",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": 1793045458,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1241,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+            "turnId": "01a179d6-6f6a-7f90-b281-88db790e5562",
+            "item": {
+              "type": "message",
+              "role": "developer",
+              "contentSha256": "db9c0c2b5dfc783c5765ca1ccf4df7d0a8207d5610bc04d05c9b93bb3691af32"
+            }
+          }
+        },
+        {
+          "ms": 1241,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+            "turnId": "01a179d6-6f6a-7f90-b281-88db790e5562",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "5abd2d5255d64cbd915599d4a7feb813d6e2b87b9fd43d242f37fb45a5c31a94"
+            }
+          }
+        },
+        {
+          "ms": 1242,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+            "turnId": "01a179d6-6f6a-7f90-b281-88db790e5562",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "4a26c1f75f3e5512071ed27b09d29a1587720bd4dbddf18bdfe6e0f4eefd42ef"
+            }
+          }
+        },
+        {
+          "ms": 1242,
+          "method": "item/started",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d6-6f83-70b2-bd39-e07c12dc770b",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+            "turnId": "01a179d6-6f6a-7f90-b281-88db790e5562",
+            "startedAtMs": 1793045458819
+          }
+        },
+        {
+          "ms": 1242,
+          "method": "item/completed",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d6-6f83-70b2-bd39-e07c12dc770b",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+            "turnId": "01a179d6-6f6a-7f90-b281-88db790e5562",
+            "completedAtMs": 1793045458819
+          }
+        },
+        {
+          "ms": 1261,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+            "turnId": "01a179d6-6f6a-7f90-b281-88db790e5562",
+            "item": {
+              "type": "function_call",
+              "id": "fc_auto-expiry-no-answer",
+              "name": "request_user_input",
+              "arguments": "{\"questions\":[{\"id\":\"route\",\"header\":\"Direction\",\"question\":\"Quelle direction synthétique choisir ?\",\"options\":[{\"label\":\"Alpha-92b4b5a5-080b-459e-9695-c189a3c0db3f\",\"description\":\"Direction de test Alpha avec nonce synthétique.\"},{\"label\":\"Beta\",\"description\":\"Direction de test Beta.\"}]}],\"autoResolutionMs\":1000}",
+              "call_id": "call_auto-expiry-no-answer",
+              "internal_chat_message_metadata_passthrough": {
+                "turn_id": "01a179d6-6f6a-7f90-b281-88db790e5562"
+              }
+            }
+          }
+        },
+        {
+          "ms": 1261,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+            "status": {
+              "type": "active",
+              "activeFlags": [
+                "waitingOnUserInput"
+              ]
+            }
+          }
+        },
+        {
+          "ms": 1261,
+          "method": "item/tool/requestUserInput",
+          "id": 0,
+          "params": {
+            "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+            "turnId": "01a179d6-6f6a-7f90-b281-88db790e5562",
+            "itemId": "call_auto-expiry-no-answer",
+            "questions": [
+              {
+                "id": "route",
+                "header": "Direction",
+                "question": "Quelle direction synthétique choisir ?",
+                "isOther": true,
+                "isSecret": false,
+                "options": [
+                  {
+                    "label": "Alpha-92b4b5a5-080b-459e-9695-c189a3c0db3f",
+                    "description": "Direction de test Alpha avec nonce synthétique."
+                  },
+                  {
+                    "label": "Beta",
+                    "description": "Direction de test Beta."
+                  }
+                ]
+              }
+            ],
+            "autoResolutionMs": 60000
+          }
+        },
+        {
+          "ms": 1386,
+          "method": "skills/changed",
+          "params": {}
+        },
+        {
+          "ms": 11388,
+          "method": "skills/changed",
+          "params": {}
+        }
+      ],
+      "sends": [
+        {
+          "ms": 243,
+          "id": 1,
+          "method": "initialize",
+          "params": {
+            "clientInfo": {
+              "name": "madness-protocol-spike",
+              "version": "1.5.0"
+            },
+            "capabilities": {
+              "experimentalApi": true
+            }
+          }
+        },
+        {
+          "ms": 829,
+          "method": "initialized",
+          "params": {}
+        },
+        {
+          "ms": 829,
+          "id": 2,
+          "method": "thread/start",
+          "params": {
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\auto-expiry-no-answer",
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "sandbox": "read-only",
+            "approvalPolicy": "never",
+            "ephemeral": true,
+            "experimentalRawEvents": true,
+            "developerInstructions": "Qualification de transport locale uniquement. Aucun fichier, shell, réseau externe ou compte."
+          }
+        },
+        {
+          "ms": 1215,
+          "id": 3,
+          "method": "turn/start",
+          "params": {
+            "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+            "input": [
+              {
+                "type": "text",
+                "text": "Question synthétique de qualification."
+              }
+            ]
+          }
+        }
+      ],
+      "checks": {
+        "inboundHttp": [
+          {
+            "method": "GET",
+            "url": "/health",
+            "contentEncoding": null
+          },
+          {
+            "method": "POST",
+            "url": "/v1/responses",
+            "contentEncoding": null
+          }
+        ],
+        "loopbackSelfCheck": "loopback-only",
+        "feature": "default_mode_request_user_input      under development  true",
+        "question": {
+          "id": 0,
+          "itemId": "call_auto-expiry-no-answer",
+          "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+          "turnId": "01a179d6-6f6a-7f90-b281-88db790e5562",
+          "autoResolutionMs": 60000
+        },
+        "nativeQuestionObserved": true,
+        "nativeStopped": true,
+        "resolved": [],
+        "rawFunctionOutputs": [],
+        "completed": [],
+        "functionOutputsSentToSimulatedModel": [],
+        "questionParams": {
+          "threadId": "01a179d6-6df5-77d2-96d8-efe5eff2c6af",
+          "turnId": "01a179d6-6f6a-7f90-b281-88db790e5562",
+          "itemId": "call_auto-expiry-no-answer",
+          "questions": [
+            {
+              "id": "route",
+              "header": "Direction",
+              "question": "Quelle direction synthétique choisir ?",
+              "isOther": true,
+              "isSecret": false,
+              "options": [
+                {
+                  "label": "Alpha-92b4b5a5-080b-459e-9695-c189a3c0db3f",
+                  "description": "Direction de test Alpha avec nonce synthétique."
+                },
+                {
+                  "label": "Beta",
+                  "description": "Direction de test Beta."
+                }
+              ]
+            }
+          ],
+          "autoResolutionMs": 60000
+        },
+        "authorizationPresent": false
+      },
+      "stderr": [
+        "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-33BuWQ\\\\auto-expiry-no-answer\\\\\" (codex_home: AbsolutePathBuf(\"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-33BuWQ\\\\auto-expiry-no-answer\\\\codex-home\"))\n"
+      ],
+      "failure": "Error: event-timeout\n    at Timeout._onTimeout (file:///C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-questions/protocol-spike.mjs:68:232)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)"
+    },
+    {
+      "name": "stop-no-answer",
+      "mode": "stop",
+      "autoResolutionMs": null,
+      "requests": [
+        {
+          "ms": 1251,
+          "number": 1,
+          "method": "POST",
+          "url": "/v1/responses",
+          "authorizationPresent": false,
+          "body": {
+            "model": "gpt-5.4",
+            "tool_choice": "auto",
+            "tools": [
+              {
+                "type": "function",
+                "name": "request_user_input",
+                "description": "Request user input for one to three short questions and wait for the response. Set autoResolutionMs, from 60000 to 240000 milliseconds, only when the question is useful but non-blocking and continuing with best judgment is acceptable if the user does not answer; omit it when explicit user input is required. This tool is only available in Default or Plan mode.",
+                "strict": false,
+                "parameters": {
+                  "type": "object",
+                  "properties": {
+                    "autoResolutionMs": {
+                      "type": "number",
+                      "description": "Optional auto-resolution window in milliseconds, from 60000 to 240000. Include this only when the question is useful but non-blocking and continuing with best judgment is acceptable if the user does not answer; omit it when explicit user input is required before continuing. Use 60000 for lightly helpful context and up to 240000 when the answer would materially unblock better work."
+                    },
+                    "questions": {
+                      "type": "array",
+                      "description": "Questions to show the user. Prefer 1 and do not exceed 3",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "header": {
+                            "type": "string",
+                            "description": "Short header label shown in the UI (12 or fewer chars)."
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "Stable identifier for mapping answers (snake_case)."
+                          },
+                          "options": {
+                            "type": "array",
+                            "description": "Provide 2-3 mutually exclusive choices. Put the recommended option first and suffix its label with \"(Recommended)\". Do not include an \"Other\" option in this list; the client will add a free-form \"Other\" option automatically.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "description": {
+                                  "type": "string",
+                                  "description": "One short sentence explaining impact/tradeoff if selected."
+                                },
+                                "label": {
+                                  "type": "string",
+                                  "description": "User-facing label (1-5 words)."
+                                }
+                              },
+                              "required": [
+                                "label",
+                                "description"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "question": {
+                            "type": "string",
+                            "description": "Single-sentence prompt shown to the user."
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "header",
+                          "question",
+                          "options"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "questions"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ],
+            "input": [],
+            "otherInputSha256": "5a6ddf76a39e68aac574ada85bd2107cb95ac8540be67ae3a8b3deb02a74dac3"
+          }
+        }
+      ],
+      "events": [
+        {
+          "ms": 775,
+          "id": 1,
+          "result": {
+            "userAgent": "madness-protocol-spike/0.144.6 (Windows 10.0.26200; x86_64) unknown (madness-protocol-spike; 1.5.0)",
+            "codexHome": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\stop-no-answer\\codex-home",
+            "platformFamily": "windows",
+            "platformOs": "windows"
+          }
+        },
+        {
+          "ms": 775,
+          "method": "remoteControl/status/changed",
+          "params": {
+            "status": "disabled",
+            "serverName": "WL0036861",
+            "installationId": "72d7e0b2-c653-4a50-afae-e909c70ca635",
+            "environmentId": null
+          }
+        },
+        {
+          "ms": 1199,
+          "id": 2,
+          "result": {
+            "thread": {
+              "id": "01a179d7-7100-73c0-aec1-040687f1da67",
+              "extra": null,
+              "sessionId": "01a179d7-7100-73c0-aec1-040687f1da67",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045525,
+              "updatedAt": 1793045525,
+              "recencyAt": 1793045525,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\stop-no-answer",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            },
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "serviceTier": null,
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\stop-no-answer",
+            "runtimeWorkspaceRoots": [
+              "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\stop-no-answer"
+            ],
+            "instructionSources": [],
+            "approvalPolicy": "never",
+            "approvalsReviewer": "user",
+            "sandbox": {
+              "type": "readOnly",
+              "networkAccess": false
+            },
+            "activePermissionProfile": null,
+            "reasoningEffort": null,
+            "multiAgentMode": "explicitRequestOnly"
+          }
+        },
+        {
+          "ms": 1199,
+          "method": "thread/started",
+          "params": {
+            "thread": {
+              "id": "01a179d7-7100-73c0-aec1-040687f1da67",
+              "extra": null,
+              "sessionId": "01a179d7-7100-73c0-aec1-040687f1da67",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045525,
+              "updatedAt": 1793045525,
+              "recencyAt": 1793045525,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\stop-no-answer",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            }
+          }
+        },
+        {
+          "ms": 1199,
+          "method": "warning",
+          "params": {
+            "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+            "message": "Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\stop-no-answer\\codex-home\\config.toml."
+          }
+        },
+        {
+          "ms": 1200,
+          "id": 3,
+          "result": {
+            "turn": {
+              "id": "01a179d7-729c-7a12-a0e7-86f7adbdd064",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1208,
+          "method": "skills/changed",
+          "params": {}
+        },
+        {
+          "ms": 1233,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+            "status": {
+              "type": "active",
+              "activeFlags": []
+            }
+          }
+        },
+        {
+          "ms": 1233,
+          "method": "turn/started",
+          "params": {
+            "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+            "turn": {
+              "id": "01a179d7-729c-7a12-a0e7-86f7adbdd064",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": 1793045525,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1234,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+            "turnId": "01a179d7-729c-7a12-a0e7-86f7adbdd064",
+            "item": {
+              "type": "message",
+              "role": "developer",
+              "contentSha256": "ecca2d9a9d27b260d560dd84d7d7c7c5a5ebb48c0bb0a53e53a96504bedb3b26"
+            }
+          }
+        },
+        {
+          "ms": 1234,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+            "turnId": "01a179d7-729c-7a12-a0e7-86f7adbdd064",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "cdeacb5f2990530408e115eb3a9e1e8b059b3488d8e4defb1bacffeedcaa8a7e"
+            }
+          }
+        },
+        {
+          "ms": 1236,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+            "turnId": "01a179d7-729c-7a12-a0e7-86f7adbdd064",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "4a26c1f75f3e5512071ed27b09d29a1587720bd4dbddf18bdfe6e0f4eefd42ef"
+            }
+          }
+        },
+        {
+          "ms": 1236,
+          "method": "item/started",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d7-72bf-7ce3-9320-c2948e78b91e",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+            "turnId": "01a179d7-729c-7a12-a0e7-86f7adbdd064",
+            "startedAtMs": 1793045525183
+          }
+        },
+        {
+          "ms": 1236,
+          "method": "item/completed",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d7-72bf-7ce3-9320-c2948e78b91e",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+            "turnId": "01a179d7-729c-7a12-a0e7-86f7adbdd064",
+            "completedAtMs": 1793045525183
+          }
+        },
+        {
+          "ms": 1254,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+            "turnId": "01a179d7-729c-7a12-a0e7-86f7adbdd064",
+            "item": {
+              "type": "function_call",
+              "id": "fc_stop-no-answer",
+              "name": "request_user_input",
+              "arguments": "{\"questions\":[{\"id\":\"route\",\"header\":\"Direction\",\"question\":\"Quelle direction synthétique choisir ?\",\"options\":[{\"label\":\"Alpha-0069d11b-8934-4624-b21f-3cc793262c72\",\"description\":\"Direction de test Alpha avec nonce synthétique.\"},{\"label\":\"Beta\",\"description\":\"Direction de test Beta.\"}]}]}",
+              "call_id": "call_stop-no-answer",
+              "internal_chat_message_metadata_passthrough": {
+                "turn_id": "01a179d7-729c-7a12-a0e7-86f7adbdd064"
+              }
+            }
+          }
+        },
+        {
+          "ms": 1254,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+            "status": {
+              "type": "active",
+              "activeFlags": [
+                "waitingOnUserInput"
+              ]
+            }
+          }
+        },
+        {
+          "ms": 1254,
+          "method": "item/tool/requestUserInput",
+          "id": 0,
+          "params": {
+            "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+            "turnId": "01a179d7-729c-7a12-a0e7-86f7adbdd064",
+            "itemId": "call_stop-no-answer",
+            "questions": [
+              {
+                "id": "route",
+                "header": "Direction",
+                "question": "Quelle direction synthétique choisir ?",
+                "isOther": true,
+                "isSecret": false,
+                "options": [
+                  {
+                    "label": "Alpha-0069d11b-8934-4624-b21f-3cc793262c72",
+                    "description": "Direction de test Alpha avec nonce synthétique."
+                  },
+                  {
+                    "label": "Beta",
+                    "description": "Direction de test Beta."
+                  }
+                ]
+              }
+            ],
+            "autoResolutionMs": null
+          }
+        }
+      ],
+      "sends": [
+        {
+          "ms": 236,
+          "id": 1,
+          "method": "initialize",
+          "params": {
+            "clientInfo": {
+              "name": "madness-protocol-spike",
+              "version": "1.5.0"
+            },
+            "capabilities": {
+              "experimentalApi": true
+            }
+          }
+        },
+        {
+          "ms": 775,
+          "method": "initialized",
+          "params": {}
+        },
+        {
+          "ms": 775,
+          "id": 2,
+          "method": "thread/start",
+          "params": {
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-33BuWQ\\stop-no-answer",
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "sandbox": "read-only",
+            "approvalPolicy": "never",
+            "ephemeral": true,
+            "experimentalRawEvents": true,
+            "developerInstructions": "Qualification de transport locale uniquement. Aucun fichier, shell, réseau externe ou compte."
+          }
+        },
+        {
+          "ms": 1199,
+          "id": 3,
+          "method": "turn/start",
+          "params": {
+            "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+            "input": [
+              {
+                "type": "text",
+                "text": "Question synthétique de qualification."
+              }
+            ]
+          }
+        }
+      ],
+      "checks": {
+        "inboundHttp": [
+          {
+            "method": "GET",
+            "url": "/health",
+            "contentEncoding": null
+          },
+          {
+            "method": "POST",
+            "url": "/v1/responses",
+            "contentEncoding": null
+          }
+        ],
+        "loopbackSelfCheck": "loopback-only",
+        "feature": "default_mode_request_user_input      under development  true",
+        "question": {
+          "id": 0,
+          "itemId": "call_stop-no-answer",
+          "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+          "turnId": "01a179d7-729c-7a12-a0e7-86f7adbdd064",
+          "autoResolutionMs": null
+        },
+        "nativeQuestionObserved": true,
+        "resolved": [],
+        "rawFunctionOutputs": [],
+        "legacyRawOutputs": [],
+        "functionOutputsSentToSimulatedModel": [],
+        "itemTypes": [
+          "userMessage"
+        ],
+        "completed": [],
+        "nativeStopped": true,
+        "questionParams": {
+          "threadId": "01a179d7-7100-73c0-aec1-040687f1da67",
+          "turnId": "01a179d7-729c-7a12-a0e7-86f7adbdd064",
+          "itemId": "call_stop-no-answer",
+          "questions": [
+            {
+              "id": "route",
+              "header": "Direction",
+              "question": "Quelle direction synthétique choisir ?",
+              "isOther": true,
+              "isSecret": false,
+              "options": [
+                {
+                  "label": "Alpha-0069d11b-8934-4624-b21f-3cc793262c72",
+                  "description": "Direction de test Alpha avec nonce synthétique."
+                },
+                {
+                  "label": "Beta",
+                  "description": "Direction de test Beta."
+                }
+              ]
+            }
+          ],
+          "autoResolutionMs": null
+        },
+        "authorizationPresent": false
+      },
+      "stderr": [
+        "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-33BuWQ\\\\stop-no-answer\\\\\" (codex_home: AbsolutePathBuf(\"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-33BuWQ\\\\stop-no-answer\\\\codex-home\"))\n"
+      ],
+      "failure": null
+    }
+  ],
+  "limits": [
+    "Modèle entièrement simulé : aucune preuve de déclenchement naturel ni de parcours UI Madness ni de modèle/compte réels.",
+    "experimentalRawEvents est expérimental et décrit par le schéma comme internal use only. Le contrat observé est épinglé à0.144.6.",
+    "autoResolutionMs=1000 est normalisé60000; aucune résolution autonome observée avant la borne65s. Ne pas prétendre qualifier auto-expiration.",
+    "Reprise avec frontière et diagnostics modifiés ensemble : ne pas attribuer la réussite à une variable unique (sandbox/proxy/compression).",
+    "isSecret=true non exercé; aucune politique de stockage de secret qualifiée."
+  ],
+  "temporaryProfileCleaned": true,
+  "endedAt": "2026-10-26T20:12:05.888Z",
+  "scriptSha256": "b5714451690cf9c99661d010eca77e0cba0cbc344b2815c0b38970375222e005",
+  "executionBoundary": {
+    "execCommandSandbox": "require_escalated",
+    "requireEscalated": true,
+    "autoReviewApproved": true,
+    "externalModel": false,
+    "externalProvider": false,
+    "providerBoundTo": "127.0.0.1",
+    "globalOrProductionSettingsChanged": false
+  },
+  "outcome": "Question et réponse native avec témoin positif exact qualifiées sur runner0.144.6, fournisseur/model simulé loopback. resolved seul non discriminant; raw function_call_output exact distingue réponse soumise et interruption. Auto-expiration non confirmée.",
+  "scriptSha256Scope": "Fichier protocol-spike.mjs effectivement exécuté dans cette unique reprise hors bac à sable; SHA calculé en fin de mesure, aucune modification concurrente de ce fichier pendant cette passe."
+}

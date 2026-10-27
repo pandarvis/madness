@@ -1,0 +1,16 @@
+{
+  "scope": "isolated-no-account-no-model",
+  "checks": [
+    {
+      "kind": "bundle",
+      "ok": true,
+      "length": 188660
+    },
+    {
+      "kind": "archive",
+      "ok": false,
+      "code": "ENOENT"
+    }
+  ],
+  "cleanup": true
+}

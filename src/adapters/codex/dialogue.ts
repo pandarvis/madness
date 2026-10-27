@@ -1,17 +1,26 @@
 import { spawn } from 'node:child_process'
+import {isDeepStrictEqual} from 'node:util'
+import {createHash} from 'node:crypto'
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
-import { mkdir, mkdtemp, realpath, rm } from 'node:fs/promises'
+import { mkdir, mkdtemp, realpath, rm,readFile } from 'node:fs/promises'
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { isRecord, MAX_DRAFT_LENGTH } from '../../contracts/index.ts'
 import { dialogueError, dialogueFailure, MAX_TURN_MESSAGES } from '../../contracts/dialogue.ts'
 import type { DialogueErrorCode, MessageIdentity } from '../../contracts/dialogue.ts'
-import type { BmadProfile, DialogueMessageUpdate, DialogueSession } from '../../core/ports.ts'
+import type { BmadProfile, DialogueMessageUpdate, DialogueSession,QuestionObserver } from '../../core/ports.ts'
+import {isQuestionFields,validQuestionValues} from '../../contracts/questions.ts'
+import type {QuestionField,QuestionValues} from '../../contracts/questions.ts'
 import type { CodexConnection } from './connection.ts'
 import { findNativeExecutable, probeEnvironment, stopNative } from './probe.ts'
 import { assertBmadProfile, readBmadFile, resolveBmad } from '../bmad/profile.ts'
 import { ForgeHost, qualifyForge } from '../bmad/forge.ts'
 import type { ForgeOperation } from '../bmad/forge.ts'
 type Message = { id?: string | number; method?: string; params?: any; result?: any; error?: unknown }
+/** Le reçu raw expérimental n’est qualifié que sur ce binaire 0.144.6. */
+export async function assertQuestionRuntime(executable:string):Promise<void>{
+  const actual=createHash('sha256').update(await readFile(executable)).digest('hex')
+  if(actual!=='4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7')throw dialogueFailure('PROFILE_UNRECOGNIZED')
+}
 /** RPC de dialogue séparé du témoin : valide et refuse les demandes natives avant projection. */
 export class DialogueRpc {
   private child: ChildProcessWithoutNullStreams
@@ -27,6 +36,12 @@ export class DialogueRpc {
   private handler: ((value: Message) => Promise<unknown>) | null = null
   private requests: Promise<void> = Promise.resolve()
   private requestIds = new Set<string>()
+  private questionRequest=false
+  private retiredQuestionTurns=new Set<string>()
+  private paused=false
+  private nextTimer:ReturnType<typeof setTimeout>|undefined
+  private nextDeadline=0
+  private nextRemaining=0
   constructor(child: ChildProcessWithoutNullStreams, signal: AbortSignal, timeout = 15000) {
     this.child = child; this.signal = signal; this.timeout = timeout
     child.stdout.setEncoding('utf8'); child.stdout.on('data', this.data); child.stderr.on('data', this.stderr)
@@ -49,20 +64,22 @@ export class DialogueRpc {
   private receive(value: Message): void {
     if (value.method && Object.hasOwn(value, 'id')) {
       if(!(typeof value.id==='string'&&value.id.length>0&&value.id.length<=200||typeof value.id==='number'&&Number.isSafeInteger(value.id)))return this.fail('PROVIDER_FAILED')
+      if(this.isRetiredQuestion(value))return
       const key=typeof value.id+':'+String(value.id)
       if(this.requestIds.has(key))return this.fail('CONTEXT_MISMATCH')
+      if(value.method==='item/tool/requestUserInput'){if(this.questionRequest)return this.fail('CONTEXT_MISMATCH');this.questionRequest=true}
       this.requestIds.add(key)
       this.requests = this.requests.then(async () => {
-        try { if (this.error) throw this.error; if (!this.handler) throw dialogueFailure('UNSUPPORTED_INTERACTION'); const result = await this.handler(value); this.write({ id: value.id, result }) }
-        catch (error) { const code = dialogueError(error, 'UNSUPPORTED_INTERACTION'); this.write({ id: value.id, error: { code: -32601, message: code } }); this.fail(code) }
-        finally{this.requestIds.delete(key)}
+        try { if(this.isRetiredQuestion(value))return; if (this.error) throw this.error; if (!this.handler) throw dialogueFailure('UNSUPPORTED_INTERACTION'); const result = await this.handler(value);if(this.error)throw this.error; this.write({ id: value.id, result }) }
+        catch (error) { const code = dialogueError(error, 'UNSUPPORTED_INTERACTION');if(!this.error)this.write({ id: value.id, error: { code: -32601, message: code } }); this.fail(code) }
+        finally{this.requestIds.delete(key);if(value.method==='item/tool/requestUserInput')this.questionRequest=false}
       })
       return
     }
     if (Object.hasOwn(value, 'id')) { if(typeof value.id!=='number'||!Number.isSafeInteger(value.id))return this.fail('PROVIDER_FAILED'); const pending = this.pending.get(value.id); if (!pending) return; this.pending.delete(value.id); if (value.error || !Object.hasOwn(value, 'result')) pending.reject(dialogueFailure('PROVIDER_FAILED')); else pending.resolve(value.result); return }
     if (!value.method) return this.fail('PROVIDER_FAILED')
     if (value.method === 'error') return this.fail('PROVIDER_FAILED')
-    if (!['item/started', 'item/completed', 'item/agentMessage/delta', 'turn/completed'].includes(value.method)) return
+    if (!['item/started', 'item/completed', 'item/agentMessage/delta', 'turn/completed','rawResponseItem/completed','serverRequest/resolved'].includes(value.method)) return
     if (this.waiter) { const waiter = this.waiter; this.waiter = null; waiter.resolve(value) } else {
       const last=this.queue.at(-1),p=value.params,q=last?.params
       // Compacter seulement les deltas adjacents du même item : ordre et répétitions sont conservés.
@@ -74,6 +91,12 @@ export class DialogueRpc {
   }
   private write(value: unknown): void { if (!this.child.stdin.destroyed) this.child.stdin.write(JSON.stringify(value) + '\n') }
   private fail(code: DialogueErrorCode): void { this.error ??= dialogueFailure(code); for (const pending of this.pending.values()) pending.reject(this.error); this.pending.clear(); this.waiter?.reject(this.error) }
+  cancel(code:DialogueErrorCode):void{this.fail(code)}
+  private isRetiredQuestion(value:Message):boolean{return value.method==='item/tool/requestUserInput'&&this.retiredQuestionTurns.has(JSON.stringify([value.params?.threadId,value.params?.turnId]))}
+  retireQuestions(threadId:string,turnId:string):void{this.retiredQuestionTurns.add(JSON.stringify([threadId,turnId]))}
+  /** Le délai machine ne consomme pas le temps de lecture et de saisie humaine. */
+  pauseWait(paused:boolean):void{if(paused===this.paused)return;this.paused=paused;if(paused){if(this.nextTimer){this.nextRemaining=Math.max(1,this.nextDeadline-Date.now());clearTimeout(this.nextTimer);this.nextTimer=undefined}}else if(this.waiter)this.armNext(this.nextRemaining)}
+  private armNext(timeout:number):void{this.nextRemaining=timeout;this.nextDeadline=Date.now()+timeout;if(!this.paused)this.nextTimer=setTimeout(()=>this.fail('PROVIDER_FAILED'),timeout)}
   onRequest(handler: (value: Message) => Promise<unknown>): void { this.handler = handler }
   async call(method: string, params: unknown): Promise<any> {
     if (this.error) throw this.error
@@ -87,9 +110,8 @@ export class DialogueRpc {
     const queued = this.queue.shift(); if (queued) return queued
     if (this.error) throw this.error
     if (timeout <= 0) throw dialogueFailure('PROVIDER_FAILED')
-    let timer: ReturnType<typeof setTimeout> | undefined
-    try { return await new Promise<Message>((resolve, reject) => { this.waiter = { resolve, reject }; timer = setTimeout(() => { this.fail('PROVIDER_FAILED'); reject(this.error) }, timeout) }) }
-    finally { clearTimeout(timer); this.waiter = null }
+    try { return await new Promise<Message>((resolve, reject) => { this.waiter = { resolve, reject };this.armNext(timeout) }) }
+    finally { clearTimeout(this.nextTimer);this.nextTimer=undefined; this.waiter = null }
   }
   async drainRequests(): Promise<void> { await this.requests; if (this.error) throw this.error }
   dispose(): void { this.signal.removeEventListener('abort', this.aborted); this.fail('CANCELLED'); this.child.stdout.off('data', this.data); this.child.stderr.off('data', this.stderr); this.child.off('close', this.closed); this.child.off('error', this.closed); this.child.stdin.off('error', this.closed) }
@@ -97,7 +119,7 @@ export class DialogueRpc {
 const dynamicTools = [
   { type: 'function', name: 'bmad_resolve', description: 'Exécuter réellement la commande uv run BMad de résolution. kind agent = resolve_customization.py --key agent ; kind config = resolve_config.py --key core.output_folder --key core.active_initiative. Aucun autre programme.', inputSchema: { type: 'object', properties: { kind: { type: 'string', enum: ['agent', 'config'] } }, required: ['kind'], additionalProperties: false } },
   { type: 'function', name: 'bmad_read_file', description: 'Lire un fichier du profil BMad qualifié : SKILL.md, customize.toml, bmod.toml, resolvers et configuration. Aucun fichier arbitraire, secret, workflow documentaire ou écriture.', inputSchema: { type: 'object', properties: { path: { type: 'string' } }, required: ['path'], additionalProperties: false } },
-  { type: 'function', name: 'bmad_unsupported', description: 'Signaler puis arrêter le tour si la demande nécessite un workflow documentaire, une écriture, une approbation, une question structurée ou une autre capacité absente du pilote.', inputSchema: { type: 'object', properties: {}, additionalProperties: false } }
+  { type: 'function', name: 'bmad_unsupported', description: 'Signaler puis arrêter le tour si la demande nécessite un workflow documentaire, une écriture, une approbation ou une autre capacité absente du pilote.', inputSchema: { type: 'object', properties: {}, additionalProperties: false } }
 ]
 const forgeTools = [
   {type:'function',name:'bmad_forge_resolve',description:'Exécuter les vrais scripts natifs : workflow=customization --key workflow ; config=configuration centrale ; personas=resolve_personas, y compris roster et sous-processus isolés.',inputSchema:{type:'object',properties:{kind:{type:'string',enum:['workflow','config','personas']}},required:['kind'],additionalProperties:false}},
@@ -105,7 +127,7 @@ const forgeTools = [
   {type:'function',name:'bmad_forge_append',description:'Vrai memlog.py append dans la seule session capturée.',inputSchema:{type:'object',properties:{type:{type:'string',enum:['decision','assumption','crack','kill','direction','lock','note']},text:{type:'string'}},required:['type','text'],additionalProperties:false}},
   {type:'function',name:'bmad_forge_write',description:'Écrire intégralement une seule fois forge-report.html (HTML autonome, CSS et SVG inline) ou idea (Markdown natif forge-{slug}.md). Chemins imposés, octets relus, aucun aperçu exécuté.',inputSchema:{type:'object',properties:{name:{type:'string',enum:['forge-report.html','idea']},text:{type:'string'}},required:['name','text'],additionalProperties:false}},
   {type:'function',name:'bmad_forge_finish',description:'Après sorties complètes et observées, vrai memlog.py set status=complete. HTML toujours obligatoire, Markdown aussi pour HARDENED. Ne signifie aucune acceptation humaine.',inputSchema:{type:'object',properties:{outcome:{type:'string',enum:['HARDENED','KILLED','CLARIFIED']}},required:['outcome'],additionalProperties:false}},
-  dynamicTools[1],{...dynamicTools[2],description:'Arrêter explicitement une interaction indisponible : approbation native, question structurée, sous-agent, autre skill, reprise ou commande/écriture hors session.'}
+  dynamicTools[1],{...dynamicTools[2],description:'Arrêter explicitement une interaction indisponible : approbation native, sous-agent, autre skill, reprise ou commande/écriture hors session.'}
 ]
 type ProtocolOptions = { cwd: string; profile: Pick<BmadProfile, 'rootPath' | 'skillPath'>; forge?: ForgeHost; signal: AbortSignal; activity(text: string): void; resolve(kind: 'agent' | 'config'): Promise<string>; read(path: string): Promise<string> }
 export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolOptions, timeout = 180000): Promise<Pick<DialogueSession, 'turn'>> {
@@ -113,17 +135,46 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
   const catalog = await rpc.call('model/list', {})
   const model = catalog.data?.find((value: any) => value.isDefault === true && value.hidden === false && typeof value.model === 'string')
   if (!model || !/^[a-zA-Z0-9._:/-]{1,100}$/.test(model.model)) throw dialogueFailure('PROVIDER_FAILED')
-  const instructions = `Pilote personnel Madness. Le projet BMad capturé est ${options.profile.rootPath}. Le processus travaille dans un répertoire isolé ; {project-root} désigne toujours le projet capturé et {skill-root} le dossier de ${options.profile.skillPath}. Exécute l'agent installé fourni par l'entrée native skill, sans l'imiter. Pour ses commandes uv run utilise réellement bmad_resolve(kind=agent) puis bmad_resolve(kind=config), dans l'ordre du SKILL.md. Pour les lectures utilise bmad_read_file. Aucun shell, réseau d'outil, écriture, sous-agent, installation ou autre compétence n'est disponible. Ne remplace jamais un resolver par une réponse inventée. Le pilote autorise l'accueil/menu natif puis la discussion libre uniquement, en français. Une demande de workflow documentaire, approbation, effets, question structurée ou autre outil doit appeler bmad_unsupported ; ne prétends jamais l'avoir réalisée. Les propositions et le menu ne valent aucune approbation. Termine chaque tour par son résultat et la prochaine action attendue, sans déclarer le workflow clos.`
-  const forgeInstructions=`Madness intègre le skill natif $bmad-forge-idea pour une NOUVELLE idée seulement. {project-root}=${options.profile.rootPath}, {skill-root}=${dirname(options.profile.skillPath)}. Le processus Codex reste read-only dans un dossier isolé. Respecte intégralement le SKILL.md injecté ; ne l'imite pas, ne résume pas ses sorties obligatoires. Pour les commandes natives uv run utilise bmad_forge_resolve : workflow puis config à l'activation, personas dès que le but est connu. Les commandes sont réellement exécutées, y compris roster/personas dans des subprocess isolés. bmad_read_file lit uniquement le profil qualifié. Ne prétends jamais avoir exécuté un script sans résultat de l'outil. Reprise/hooks/autres skills/sous-agents et interactions structurées sont indisponibles : appelle bmad_unsupported, ne simule rien. Pose tes questions dans le dialogue libre. Aucun brouillon n'est envoyé par le lancement. Après but connu, bmad_forge_init crée la SEULE sortie autorisée sous ${options.forge?.profile.forge?.outputBase}; aucun chemin arbitraire. Utilise bmad_forge_append pour les décisions et faits. À la sortie, produis le HTML INTÉGRAL et autonome avec CSS et sceau SVG inline via bmad_forge_write(name=forge-report.html). Si HARDENED, écris aussi le Markdown extrêmement court via name=idea. Puis appelle bmad_forge_finish et cite les chemins réellement observés. Jamais de faux journal/livrable, shell, outil générique, installation, réseau d'outil ou exécution HTML. Termine chaque tour en indiquant sa fin et la prochaine action attendue ; distingue fin de tour, clôture du workflow et acceptation humaine inconnue. Le forfait ChatGPT propre à Madness est utilisé.`
-  const thread = await rpc.call('thread/start', { cwd: options.cwd, model: model.model, modelProvider: 'openai_chatgpt_plan', sandbox: 'read-only', approvalPolicy: 'never', ephemeral: true, dynamicTools:options.forge?forgeTools:dynamicTools, developerInstructions: options.forge?forgeInstructions:instructions, multiAgentMode: 'explicitRequestOnly' })
+  const instructions = `Pilote personnel Madness. Le projet BMad capturé est ${options.profile.rootPath}. Le processus travaille dans un répertoire isolé ; {project-root} désigne toujours le projet capturé et {skill-root} le dossier de ${options.profile.skillPath}. Exécute l'agent installé fourni par l'entrée native skill, sans l'imiter. Pour ses commandes uv run utilise réellement bmad_resolve(kind=agent) puis bmad_resolve(kind=config), dans l'ordre du SKILL.md. Pour les lectures utilise bmad_read_file. Aucun shell, réseau d'outil, écriture, sous-agent, installation ou autre compétence n'est disponible. Ne remplace jamais un resolver par une réponse inventée. Le pilote autorise l'accueil/menu natif puis la discussion libre uniquement, en français. Une demande de workflow documentaire, approbation, effets ou autre outil doit appeler bmad_unsupported ; ne prétends jamais l'avoir réalisée. Les propositions et le menu ne valent aucune approbation. Termine chaque tour par son résultat et la prochaine action attendue, sans déclarer le workflow clos.`
+  const forgeInstructions=`Madness intègre le skill natif $bmad-forge-idea pour une NOUVELLE idée seulement. {project-root}=${options.profile.rootPath}, {skill-root}=${dirname(options.profile.skillPath)}. Le processus Codex reste read-only dans un dossier isolé. Respecte intégralement le SKILL.md injecté ; ne l'imite pas, ne résume pas ses sorties obligatoires. Pour les commandes natives uv run utilise bmad_forge_resolve : workflow puis config à l'activation, personas dès que le but est connu. Les commandes sont réellement exécutées, y compris roster/personas dans des subprocess isolés. bmad_read_file lit uniquement le profil qualifié. Ne prétends jamais avoir exécuté un script sans résultat de l'outil. Reprise/hooks/autres skills/sous-agents et approbations sont indisponibles : appelle bmad_unsupported, ne simule rien. Pose tes questions dans le dialogue libre ou avec request_user_input. Aucun brouillon n'est envoyé par le lancement. Après but connu, bmad_forge_init crée la SEULE sortie autorisée sous ${options.forge?.profile.forge?.outputBase}; aucun chemin arbitraire. Utilise bmad_forge_append pour les décisions et faits. À la sortie, produis le HTML INTÉGRAL et autonome avec CSS et sceau SVG inline via bmad_forge_write(name=forge-report.html). Si HARDENED, écris aussi le Markdown extrêmement court via name=idea. Puis appelle bmad_forge_finish et cite les chemins réellement observés. Jamais de faux journal/livrable, shell, outil générique, installation, réseau d'outil ou exécution HTML. Termine chaque tour en indiquant sa fin et la prochaine action attendue ; distingue fin de tour, clôture du workflow et acceptation humaine inconnue. Le forfait ChatGPT propre à Madness est utilisé.`
+  const questionInstructions=' Les questions natives request_user_input sont disponibles dans le mode Default. Pose seulement des questions non secrètes ; les choix appartiennent toujours à l’utilisateur. Les approbations restent indisponibles.'
+  const thread = await rpc.call('thread/start', { cwd: options.cwd, model: model.model, modelProvider: 'openai_chatgpt_plan', sandbox: 'read-only', approvalPolicy: 'never', ephemeral: true,experimentalRawEvents:true, dynamicTools:options.forge?forgeTools:dynamicTools, developerInstructions: (options.forge?forgeInstructions:instructions)+questionInstructions, multiAgentMode: 'explicitRequestOnly' })
   if (thread.modelProvider !== 'openai_chatgpt_plan' || thread.model !== model.model || thread.sandbox?.type !== 'readOnly' || thread.approvalPolicy !== 'never' || typeof thread.thread?.id !== 'string') throw dialogueFailure('PROVIDER_FAILED')
   const threadId = thread.thread.id
   let turnId: string | null = null, gate: Promise<void> = Promise.resolve(), first = true, busy = false
   const resolved = new Set<string>(), calls = new Set<string>()
   let identity:MessageIdentity={kind:'unknown'}
+  let questionObserver:QuestionObserver|undefined,questionSequence=0,deadline=0
+  type PendingQuestion={rpcId:string|number;callId:string;fields:QuestionField[];nativeFields:string[];choose(value:unknown):void;rejectChoice(error:unknown):void;confirm():void;rejectAck(error:unknown):void;invalidate():void;submitted:unknown;timer:ReturnType<typeof setTimeout>|undefined;ackTimer:ReturnType<typeof setTimeout>|undefined;started:number}
+  let pendingQuestion:PendingQuestion|null=null
+  const invalidateQuestion=(code:DialogueErrorCode):void=>{const question=pendingQuestion;if(!question)return;pendingQuestion=null;clearTimeout(question.timer);clearTimeout(question.ackTimer);deadline+=Date.now()-question.started;rpc.pauseWait(false);const error=dialogueFailure(code);question.invalidate();question.rejectChoice(error);question.rejectAck(error);rpc.cancel(code)}
+  const abortedQuestion=():void=>invalidateQuestion('CANCELLED')
+  options.signal.addEventListener('abort',abortedQuestion)
   rpc.onRequest(async request => {
     await gate
     const p = request.params
+    if(request.method==='item/tool/requestUserInput'){
+      if(!questionObserver||!p||p.threadId!==threadId||p.turnId!==turnId||typeof p.itemId!=='string'||!p.itemId.length||p.itemId.length>200||calls.has(p.itemId)||pendingQuestion)throw dialogueFailure('CONTEXT_MISMATCH')
+      if(!Array.isArray(p.questions)||!p.questions.length||p.questions.length>3||p.questions.some((q:any)=>!isRecord(q)||typeof q.id!=='string'||!q.id.length||q.id.length>200||q.isSecret!==undefined&&q.isSecret!==false||q.isOther!==undefined&&typeof q.isOther!=='boolean'||Object.keys(q).some(k=>!['id','header','question','options','isOther','isSecret'].includes(k)))||new Set(p.questions.map((q:any)=>q.id)).size!==p.questions.length||p.autoResolutionMs!=null&&(!Number.isSafeInteger(p.autoResolutionMs)||p.autoResolutionMs<1||p.autoResolutionMs>240000))throw dialogueFailure('UNSUPPORTED_INTERACTION')
+      const fields:QuestionField[]=p.questions.map((q:any,i:number)=>({id:'field-'+(i+1),header:q.header,prompt:q.question,options:q.options??[],allowOther:q.isOther??false}))
+      if(!isQuestionFields(fields))throw dialogueFailure('UNSUPPORTED_INTERACTION')
+      calls.add(p.itemId);rpc.pauseWait(true)
+      let choose!:(value:unknown)=>void,rejectChoice!:(error:unknown)=>void,confirm!:()=>void,rejectAck!:(error:unknown)=>void,invalidate!:()=>void
+      const choice=new Promise((resolve,reject)=>{choose=resolve;rejectChoice=reject}),ack=new Promise<void>((resolve,reject)=>{confirm=resolve;rejectAck=reject}),invalidated=new Promise<void>(resolve=>invalidate=resolve)
+      void ack.catch(()=>{});void choice.catch(()=>{})
+      const question:PendingQuestion={rpcId:request.id!,callId:p.itemId,fields,nativeFields:p.questions.map((q:any)=>q.id),choose,rejectChoice,confirm,rejectAck,invalidate,submitted:null,timer:undefined,ackTimer:undefined,started:Date.now()}
+      pendingQuestion=question
+      if(p.autoResolutionMs!=null)question.timer=setTimeout(()=>invalidateQuestion('CANCELLED'),p.autoResolutionMs)
+      try{
+        await questionObserver({id:'question-'+ ++questionSequence,fields,identity:structuredClone(identity),expiresAt:p.autoResolutionMs==null?null:question.started+p.autoResolutionMs},{invalidated,answer:async(values:QuestionValues)=>{
+          if(pendingQuestion!==question||question.submitted!==null||!validQuestionValues(fields,values,true)||options.signal.aborted)throw dialogueFailure('CONTEXT_MISMATCH')
+          const answers=Object.fromEntries(fields.map((f,i)=>[question.nativeFields[i],{answers:[values[f.id]]}]))
+          question.submitted={answers};question.ackTimer=setTimeout(()=>invalidateQuestion('PROVIDER_FAILED'),Math.min(timeout,15000));question.choose(question.submitted);await ack
+        }})
+        if(pendingQuestion!==question||options.signal.aborted)throw dialogueFailure('CANCELLED')
+        return await choice
+      }catch(error){invalidateQuestion(dialogueError(error,'PROVIDER_FAILED'));throw error}
+    }
     if (request.method !== 'item/tool/call') throw dialogueFailure('UNSUPPORTED_INTERACTION')
     if (!p || p.threadId !== threadId || p.turnId !== turnId || typeof p.callId !== 'string' || !p.callId.length || p.callId.length>200 || calls.has(p.callId)) throw dialogueFailure('CONTEXT_MISMATCH')
     calls.add(p.callId)
@@ -155,10 +206,11 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
     options.signal.throwIfAborted()
     return { success: true, contentItems: [{ type: 'inputText', text: output }] }
   })
-  return { turn: async (text, accepted, observe) => {
+  return { turn: async (text, accepted, observe,onQuestion) => {
     if (busy) throw dialogueFailure('BUSY'); busy = true
     // Le chargement observé d’un rôle n’atteste pas une réponse future après une sortie de rôle.
     identity={kind:'unknown'}
+    questionObserver=onQuestion
     let release!: () => void; gate = new Promise(resolve => { release = resolve })
     try {
       options.signal.throwIfAborted()
@@ -167,7 +219,7 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
       const started = await rpc.call('turn/start', { threadId, cwd: options.cwd, input })
       if (typeof started.turn?.id !== 'string') throw dialogueFailure('PROVIDER_FAILED')
       turnId = started.turn.id; await accepted(); release()
-      const deadline = Date.now() + timeout, messages = new Map<string,DialogueMessageUpdate>()
+      deadline = Date.now() + timeout;const messages = new Map<string,DialogueMessageUpdate>()
       const itemMessage=(nativeId:unknown):DialogueMessageUpdate=>{
         if(typeof nativeId!=='string'||!nativeId.length||nativeId.length>200)throw dialogueFailure('PROVIDER_FAILED')
         let message=messages.get(nativeId)
@@ -176,10 +228,25 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
       }
       const project=(message:DialogueMessageUpdate):void=>{if([...messages.values()].reduce((n,m)=>n+m.text.length,0)>MAX_DRAFT_LENGTH)throw dialogueFailure('PROVIDER_FAILED');observe?.(structuredClone(message))}
       for (;;) {
-        const event = await rpc.next(deadline - Date.now()), p = event.params
+        const event = await rpc.next(pendingQuestion?timeout:deadline - Date.now()), p = event.params
         if (p?.threadId !== threadId) continue
+        if(event.method==='serverRequest/resolved'){
+          if(pendingQuestion&&p.requestId===pendingQuestion.rpcId&&pendingQuestion.submitted===null)invalidateQuestion('CANCELLED')
+          continue
+        }
+        if(event.method==='rawResponseItem/completed'){
+          const question=pendingQuestion,item=p.item
+          if(!question||p.turnId!==turnId||item?.type!=='function_call_output'||item.call_id!==question.callId)continue
+          let output:unknown;try{output=JSON.parse(item.output)}catch{invalidateQuestion('PROVIDER_FAILED');continue}
+          if(question.submitted===null||!isDeepStrictEqual(output,question.submitted)){invalidateQuestion('PROVIDER_FAILED');continue}
+          clearTimeout(question.timer);clearTimeout(question.ackTimer);pendingQuestion=null;deadline+=Date.now()-question.started;rpc.pauseWait(false);question.confirm();continue
+        }
         if (event.method === 'turn/completed') {
           if (p.turn?.id !== turnId) continue
+          // Retirer les questions déjà en file et leurs notifications tardives,
+          // avant le drain d’un éventuel outil encore asynchrone.
+          rpc.retireQuestions(threadId,turnId!)
+          if(pendingQuestion){invalidateQuestion('PROVIDER_FAILED');throw dialogueFailure('PROVIDER_FAILED')}
           await rpc.drainRequests()
           if (p.turn.status !== 'completed' || p.turn.error || !messages.size || [...messages.values()].some(m=>!m.completed) || first && (!resolved.has(options.forge?'workflow':'agent') || !resolved.has('config'))) throw dialogueFailure('PROVIDER_FAILED')
           const text=[...messages.values()].map(m=>m.text).join('\n\n');if(!text.trim()||text.length>MAX_DRAFT_LENGTH)throw dialogueFailure('PROVIDER_FAILED')
@@ -202,7 +269,7 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
           }else if(typeof item.text==='string'){if(message.text&&!item.text.startsWith(message.text))throw dialogueFailure('PROVIDER_FAILED');message.text=item.text;project(message)}
         }
       }
-    } finally { release(); busy = false }
+    } finally {invalidateQuestion('CANCELLED');questionObserver=undefined; release(); busy = false }
   } }
 }
 export async function openCodexDialogue(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, connection: CodexConnection, options: { root: string; appData: string; repository: string; environment: NodeJS.ProcessEnv; runner?:string }): Promise<DialogueSession> {
@@ -217,6 +284,8 @@ export async function openCodexDialogue(profile: BmadProfile, signal: AbortSigna
     const configuration=JSON.parse(await resolveBmad(profile,'config',signal));initiative=configuration['core.active_initiative']??null
   }
   if (initiative !== null && (typeof initiative !== 'string' || !/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(initiative))) throw dialogueFailure('PROFILE_UNRECOGNIZED')
+  const executable=await findNativeExecutable(options.appData)
+  await assertQuestionRuntime(executable);signal.throwIfAborted()
   const lease = await connection.acquireDialogue(signal)
   let root: string | undefined, child: ChildProcessWithoutNullStreams | undefined, rpc: DialogueRpc | undefined, stopped = false
   const outsideRepository = (value: string): boolean => { const distance = relative(resolve(options.repository), value); return !!distance && (isAbsolute(distance) || distance === '..' || distance.startsWith('..' + sep)) }
@@ -232,12 +301,11 @@ export async function openCodexDialogue(profile: BmadProfile, signal: AbortSigna
     await mkdir(options.root, { recursive: true }); if (!outsideRepository(await realpath(options.root))) throw dialogueFailure('PROVIDER_FAILED')
     root = await mkdtemp(join(options.root, 'dialogue-'))
     const work = join(root, 'work'), isolated = join(root, 'profile'); await mkdir(work); await mkdir(join(isolated, 'codex-home'), { recursive: true })
-    const executable = await findNativeExecutable(options.appData)
-    const settings = ['cli_auth_credentials_store="file"', 'model_provider="openai_chatgpt_plan"', 'model_providers.openai_chatgpt_plan.name="ChatGPT plan"', 'model_providers.openai_chatgpt_plan.base_url="https://api.openai.com/v1"', 'model_providers.openai_chatgpt_plan.env_key="ACCESS_TOKEN"', 'model_providers.openai_chatgpt_plan.wire_api="responses"', 'model_providers.openai_chatgpt_plan.requires_openai_auth=false', 'model_providers.openai_chatgpt_plan.supports_websockets=false', 'model_providers.openai_chatgpt_plan.request_max_retries=0', 'model_providers.openai_chatgpt_plan.stream_max_retries=0', 'web_search="disabled"', 'features.shell_tool=false', 'features.multi_agent=false', 'features.apps=false', 'features.plugins=false', 'mcp_servers={}', 'shell_environment_policy.inherit="none"']
+    const settings = ['cli_auth_credentials_store="file"', 'model_provider="openai_chatgpt_plan"', 'model_providers.openai_chatgpt_plan.name="ChatGPT plan"', 'model_providers.openai_chatgpt_plan.base_url="https://api.openai.com/v1"', 'model_providers.openai_chatgpt_plan.env_key="ACCESS_TOKEN"', 'model_providers.openai_chatgpt_plan.wire_api="responses"', 'model_providers.openai_chatgpt_plan.requires_openai_auth=false', 'model_providers.openai_chatgpt_plan.supports_websockets=false', 'model_providers.openai_chatgpt_plan.request_max_retries=0', 'model_providers.openai_chatgpt_plan.stream_max_retries=0', 'web_search="disabled"', 'features.shell_tool=false', 'features.multi_agent=false', 'features.apps=false', 'features.plugins=false', 'features.default_mode_request_user_input=true', 'mcp_servers={}', 'shell_environment_policy.inherit="none"']
     signal.throwIfAborted(); activity('Codex app-server · forfait ChatGPT · profil isolé · lecture seule')
     child = spawn(executable, ['app-server', '--listen', 'stdio://', ...settings.flatMap(setting => ['-c', setting])], { cwd: work, env: probeEnvironment(options.environment, isolated, lease.credentials.accessToken), shell: false, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] })
     rpc = new DialogueRpc(child, signal)
     const protocol = await startDialogueProtocol(rpc, { cwd: work, profile, forge, signal, activity, resolve: kind => resolveBmad(profile, kind, signal), read: path => forge?forge.read(path):readBmadFile(profile, path) })
-    return { context: { connectionId: lease.connectionId, initiativeId: initiative }, ...(forge?{workflow:{outputBase:profile.forge!.outputBase,contextDigest:profile.forge!.contextDigest,bind:forge.bind.bind(forge)}}:{}), turn: async (text, accepted, observe) => { if(forge)await forge.assertForTurn();else await assertBmadProfile(profile); if (lease.credentials.expiresAt <= Date.now() + 30000) throw dialogueFailure('NO_ACCOUNT'); return protocol.turn(text, accepted, observe) }, stop: cleanup }
+    return { context: { connectionId: lease.connectionId, initiativeId: initiative }, ...(forge?{workflow:{outputBase:profile.forge!.outputBase,contextDigest:profile.forge!.contextDigest,bind:forge.bind.bind(forge)}}:{}), turn: async (text, accepted, observe,onQuestion) => { if(forge)await forge.assertForTurn();else await assertBmadProfile(profile); if (lease.credentials.expiresAt <= Date.now() + 30000) throw dialogueFailure('NO_ACCOUNT'); return protocol.turn(text, accepted, observe,onQuestion) }, stop: cleanup }
   } catch (error) { const outcome = await cleanup(); if (outcome === 'unknown') throw dialogueFailure('STOP_UNCONFIRMED'); throw error }
 }

@@ -19,6 +19,7 @@ import { probeCodex } from '../adapters/codex/probe.ts'
 import { isTrustedCaller } from './boundary.ts'
 import { AppearanceStore } from '../adapters/persistence/appearance-store.ts'
 import { WorkflowStore } from '../adapters/persistence/workflow-store.ts'
+import {QuestionStore} from '../adapters/persistence/question-store.ts'
 import { qualifyForge } from '../adapters/bmad/forge.ts'
 import { APPEARANCE_CHANNEL, isAppearanceCommand } from '../contracts/appearance.ts'
 import type { AppearanceState, AppearanceReply, Theme } from '../contracts/appearance.ts'
@@ -125,6 +126,7 @@ else {
     dialogueCoordinator = new DialogueCoordinator({
       application,
       workflows:new WorkflowStore(join(app.getPath('userData'),'workflows-v1')),
+      questions:new QuestionStore(join(app.getPath('userData'),'questions-v1')),
       copyText:async text=>{await clipboard.writeText(text);if(await clipboard.readText()!==text)throw Error('COPY_FAILED')},
       qualifyForge:(root,signal)=>qualifyForge(root,signal,app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py')),
       qualify: async (root, signal) => {

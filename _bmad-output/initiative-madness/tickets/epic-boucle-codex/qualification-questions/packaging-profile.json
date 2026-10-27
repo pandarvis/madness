@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T20:59:00.406Z",
+  "status": "packaged-final-check-not-run",
+  "currentCompiledArtifacts": {
+    "out/main/index.js": "af26291ad9acb7374b7a1e48b08b47938794ea344c1edcfd3da9ad684202d891",
+    "out/preload/index.js": "562436318eadf75d02e5282985944420a9cc9437bb1e74379e331c79ec3ee1b0",
+    "out/renderer/assets/index-DuqTdY-Z.js": "77232352518be48bdff607cea0146c337812193cda9c37f5c8c12bdad89dac42"
+  },
+  "attempts": [
+    {
+      "output": "dist/questions-pilot",
+      "escalated": true,
+      "outcome": "installer-created-before-final-source-corrections",
+      "usableAsFinalProof": false
+    },
+    {
+      "output": "dist/questions-pilot",
+      "escalated": true,
+      "outcome": "failed",
+      "phase": "editWindowsResources",
+      "code": "UNKNOWN",
+      "message": "UNKNOWN: unknown error, open 'C:\\Sources\\madness\\dist\\questions-pilot\\win-unpacked\\Madness.exe'"
+    },
+    {
+      "output": "dist/questions-pilot-final",
+      "escalated": true,
+      "outcome": "failed",
+      "phase": "editWindowsResources",
+      "code": "UNKNOWN",
+      "message": "UNKNOWN: unknown error, open 'C:\\Sources\\madness\\dist\\questions-pilot-final\\win-unpacked\\Madness.exe'"
+    }
+  ],
+  "inspection": {
+    "ownedCompiledHarnessExited": true,
+    "temporaryProfilesCleaned": true,
+    "targetExecutableReadOnly": false,
+    "targetExecutableBytes": 249797632,
+    "madnessProcessesAtInspection": [],
+    "configurationChanges": [],
+    "cause": "Échec Windows à l’ouverture en écriture du PE ; cause OS précise non établie."
+  },
+  "next": "Le parent reprend le diagnostic OS puis construit et qualifie le paquet final. Ne pas installer les sorties partielles."
+}

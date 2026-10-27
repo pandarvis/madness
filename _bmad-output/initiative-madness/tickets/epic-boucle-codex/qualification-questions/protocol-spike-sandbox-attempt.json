@@ -1,0 +1,1516 @@
+{
+  "kind": "investigation-native-model-simulation",
+  "startedAt": "2026-10-26T20:05:11.059Z",
+  "noRealModel": true,
+  "noOAuth": true,
+  "noBillableAccount": true,
+  "nativeVersion": "codex-cli 0.144.6",
+  "nativeSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+  "schema": {
+    "v2/ThreadStartParams.json": {
+      "sha256": "4f30cb90cae47ff01adba8d863228b2aa198232df895dbfc996d594270326744",
+      "properties": {
+        "experimentalRawEvents": {
+          "description": "If true, opt into emitting raw Responses API items on the event stream. This is for internal use only (e.g. Codex Cloud).",
+          "type": "boolean"
+        }
+      }
+    },
+    "v2/TurnStartParams.json": {
+      "sha256": "a28f74287e18b8a18c7aa6966ee7552a8ed2ae13c03f4ba12e9af48f7370f19d",
+      "properties": {
+        "collaborationMode": {
+          "description": "EXPERIMENTAL - Set a pre-set collaboration mode. Takes precedence over model, reasoning_effort, and developer instructions if set.\n\nFor `collaboration_mode.settings.developer_instructions`, `null` means \"use the built-in instructions for the selected mode\".",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/CollaborationMode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "threadId": {
+          "type": "string"
+        }
+      },
+      "collaborationMode": {
+        "description": "Collaboration mode for a Codex session.",
+        "type": "object",
+        "required": [
+          "mode",
+          "settings"
+        ],
+        "properties": {
+          "mode": {
+            "$ref": "#/definitions/ModeKind"
+          },
+          "settings": {
+            "$ref": "#/definitions/Settings"
+          }
+        }
+      },
+      "settings": {
+        "description": "Settings for a collaboration mode.",
+        "type": "object",
+        "required": [
+          "model"
+        ],
+        "properties": {
+          "developer_instructions": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "model": {
+            "type": "string"
+          },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/ReasoningEffort"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "v2/ServerRequestResolvedNotification.json": {
+      "sha256": "7cc32a834be009c7a45dda01b80ae01bb522c642eb0e886c6d4bd7ee89fde643",
+      "properties": {
+        "requestId": {
+          "$ref": "#/definitions/RequestId"
+        },
+        "threadId": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "answer-no-expiry",
+      "mode": "answer",
+      "autoResolutionMs": null,
+      "requests": [],
+      "events": [
+        {
+          "ms": 749,
+          "id": 1,
+          "result": {
+            "userAgent": "madness-protocol-spike/0.144.6 (Windows 10.0.26200; x86_64) unknown (madness-protocol-spike; 1.5.0)",
+            "codexHome": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\answer-no-expiry\\codex-home",
+            "platformFamily": "windows",
+            "platformOs": "windows"
+          }
+        },
+        {
+          "ms": 749,
+          "method": "remoteControl/status/changed",
+          "params": {
+            "status": "disabled",
+            "serverName": "WL0036861",
+            "installationId": "a8c172e9-258b-4aff-a274-ad54585a8407",
+            "environmentId": null
+          }
+        },
+        {
+          "ms": 1454,
+          "id": 2,
+          "result": {
+            "thread": {
+              "id": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+              "extra": null,
+              "sessionId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045114,
+              "updatedAt": 1793045114,
+              "recencyAt": 1793045114,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\answer-no-expiry",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            },
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "serviceTier": null,
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\answer-no-expiry",
+            "runtimeWorkspaceRoots": [
+              "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\answer-no-expiry"
+            ],
+            "instructionSources": [],
+            "approvalPolicy": "never",
+            "approvalsReviewer": "user",
+            "sandbox": {
+              "type": "readOnly",
+              "networkAccess": false
+            },
+            "activePermissionProfile": null,
+            "reasoningEffort": null,
+            "multiAgentMode": "explicitRequestOnly"
+          }
+        },
+        {
+          "ms": 1454,
+          "method": "thread/started",
+          "params": {
+            "thread": {
+              "id": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+              "extra": null,
+              "sessionId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045114,
+              "updatedAt": 1793045114,
+              "recencyAt": 1793045114,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\answer-no-expiry",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            }
+          }
+        },
+        {
+          "ms": 1454,
+          "method": "warning",
+          "params": {
+            "threadId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+            "message": "Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\answer-no-expiry\\codex-home\\config.toml."
+          }
+        },
+        {
+          "ms": 1455,
+          "id": 3,
+          "result": {
+            "turn": {
+              "id": "01a179d1-2fd4-7ac2-a17f-df96e3f1e5ad",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1487,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+            "status": {
+              "type": "active",
+              "activeFlags": []
+            }
+          }
+        },
+        {
+          "ms": 1487,
+          "method": "turn/started",
+          "params": {
+            "threadId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+            "turn": {
+              "id": "01a179d1-2fd4-7ac2-a17f-df96e3f1e5ad",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": 1793045114,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1488,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+            "turnId": "01a179d1-2fd4-7ac2-a17f-df96e3f1e5ad",
+            "item": {
+              "type": "message",
+              "role": "developer",
+              "contentSha256": "22187000bd0a52aa12d4b98751d25775ee597bcdbd4be8ffb1edcf0c1f6c93e8"
+            }
+          }
+        },
+        {
+          "ms": 1488,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+            "turnId": "01a179d1-2fd4-7ac2-a17f-df96e3f1e5ad",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "dac405f5c94241a0b9280ed03a3e92ed6be7d757ca61cf1b172c68c09829cd9f"
+            }
+          }
+        },
+        {
+          "ms": 1491,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+            "turnId": "01a179d1-2fd4-7ac2-a17f-df96e3f1e5ad",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "4a26c1f75f3e5512071ed27b09d29a1587720bd4dbddf18bdfe6e0f4eefd42ef"
+            }
+          }
+        },
+        {
+          "ms": 1491,
+          "method": "item/started",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d1-2ff8-73d1-a2c0-60b6de5805b4",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+            "turnId": "01a179d1-2fd4-7ac2-a17f-df96e3f1e5ad",
+            "startedAtMs": 1793045114872
+          }
+        },
+        {
+          "ms": 1491,
+          "method": "item/completed",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d1-2ff8-73d1-a2c0-60b6de5805b4",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+            "turnId": "01a179d1-2fd4-7ac2-a17f-df96e3f1e5ad",
+            "completedAtMs": 1793045114872
+          }
+        },
+        {
+          "ms": 1503,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+            "status": {
+              "type": "systemError"
+            }
+          }
+        },
+        {
+          "ms": 1503,
+          "method": "error",
+          "params": {
+            "error": {
+              "message": "stream disconnected before completion: error sending request for url (http://127.0.0.1:53178/v1/responses)",
+              "codexErrorInfo": "other",
+              "additionalDetails": null
+            },
+            "willRetry": false,
+            "threadId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+            "turnId": "01a179d1-2fd4-7ac2-a17f-df96e3f1e5ad"
+          }
+        },
+        {
+          "ms": 1504,
+          "method": "turn/completed",
+          "params": {
+            "threadId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+            "turn": {
+              "id": "01a179d1-2fd4-7ac2-a17f-df96e3f1e5ad",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "failed",
+              "error": {
+                "message": "stream disconnected before completion: error sending request for url (http://127.0.0.1:53178/v1/responses)",
+                "codexErrorInfo": "other",
+                "additionalDetails": null
+              },
+              "startedAt": 1793045114,
+              "completedAt": 1793045114,
+              "durationMs": 17
+            }
+          }
+        }
+      ],
+      "sends": [
+        {
+          "ms": 228,
+          "id": 1,
+          "method": "initialize",
+          "params": {
+            "clientInfo": {
+              "name": "madness-protocol-spike",
+              "version": "1.5.0"
+            },
+            "capabilities": {
+              "experimentalApi": true
+            }
+          }
+        },
+        {
+          "ms": 749,
+          "method": "initialized",
+          "params": {}
+        },
+        {
+          "ms": 750,
+          "id": 2,
+          "method": "thread/start",
+          "params": {
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\answer-no-expiry",
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "sandbox": "read-only",
+            "approvalPolicy": "never",
+            "ephemeral": true,
+            "experimentalRawEvents": true,
+            "developerInstructions": "Qualification de transport locale uniquement. Aucun fichier, shell, réseau externe ou compte."
+          }
+        },
+        {
+          "ms": 1454,
+          "id": 3,
+          "method": "turn/start",
+          "params": {
+            "threadId": "01a179d1-2d25-76a2-87a6-32ad38785bc1",
+            "input": [
+              {
+                "type": "text",
+                "text": "Question synthétique de qualification."
+              }
+            ]
+          }
+        }
+      ],
+      "checks": {
+        "feature": "default_mode_request_user_input      under development  true",
+        "nativeStopped": true
+      },
+      "stderr": [
+        "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-vtCx8u\\\\answer-no-expiry\\\\\" (codex_home: AbsolutePathBuf(\"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-vtCx8u\\\\answer-no-expiry\\\\codex-home\"))\n"
+      ],
+      "failure": "Error: event-timeout\n    at Timeout._onTimeout (file:///C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-questions/protocol-spike.mjs:67:232)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)"
+    },
+    {
+      "name": "interrupt-no-answer",
+      "mode": "interrupt",
+      "autoResolutionMs": null,
+      "requests": [],
+      "events": [
+        {
+          "ms": 905,
+          "id": 1,
+          "result": {
+            "userAgent": "madness-protocol-spike/0.144.6 (Windows 10.0.26200; x86_64) unknown (madness-protocol-spike; 1.5.0)",
+            "codexHome": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\interrupt-no-answer\\codex-home",
+            "platformFamily": "windows",
+            "platformOs": "windows"
+          }
+        },
+        {
+          "ms": 905,
+          "method": "remoteControl/status/changed",
+          "params": {
+            "status": "disabled",
+            "serverName": "WL0036861",
+            "installationId": "7daafc0e-a696-43c7-bcad-a544acdb4745",
+            "environmentId": null
+          }
+        },
+        {
+          "ms": 1566,
+          "id": 2,
+          "result": {
+            "thread": {
+              "id": "01a179d1-6271-7c80-8446-5220a994c312",
+              "extra": null,
+              "sessionId": "01a179d1-6271-7c80-8446-5220a994c312",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045128,
+              "updatedAt": 1793045128,
+              "recencyAt": 1793045128,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\interrupt-no-answer",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            },
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "serviceTier": null,
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\interrupt-no-answer",
+            "runtimeWorkspaceRoots": [
+              "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\interrupt-no-answer"
+            ],
+            "instructionSources": [],
+            "approvalPolicy": "never",
+            "approvalsReviewer": "user",
+            "sandbox": {
+              "type": "readOnly",
+              "networkAccess": false
+            },
+            "activePermissionProfile": null,
+            "reasoningEffort": null,
+            "multiAgentMode": "explicitRequestOnly"
+          }
+        },
+        {
+          "ms": 1566,
+          "method": "thread/started",
+          "params": {
+            "thread": {
+              "id": "01a179d1-6271-7c80-8446-5220a994c312",
+              "extra": null,
+              "sessionId": "01a179d1-6271-7c80-8446-5220a994c312",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045128,
+              "updatedAt": 1793045128,
+              "recencyAt": 1793045128,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\interrupt-no-answer",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            }
+          }
+        },
+        {
+          "ms": 1566,
+          "method": "warning",
+          "params": {
+            "threadId": "01a179d1-6271-7c80-8446-5220a994c312",
+            "message": "Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\interrupt-no-answer\\codex-home\\config.toml."
+          }
+        },
+        {
+          "ms": 1567,
+          "id": 3,
+          "result": {
+            "turn": {
+              "id": "01a179d1-64f2-7371-8774-4a9b14bb1b85",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1597,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d1-6271-7c80-8446-5220a994c312",
+            "status": {
+              "type": "active",
+              "activeFlags": []
+            }
+          }
+        },
+        {
+          "ms": 1597,
+          "method": "turn/started",
+          "params": {
+            "threadId": "01a179d1-6271-7c80-8446-5220a994c312",
+            "turn": {
+              "id": "01a179d1-64f2-7371-8774-4a9b14bb1b85",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": 1793045128,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1598,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d1-6271-7c80-8446-5220a994c312",
+            "turnId": "01a179d1-64f2-7371-8774-4a9b14bb1b85",
+            "item": {
+              "type": "message",
+              "role": "developer",
+              "contentSha256": "f53594c365824d4428ad3f63c318cf3fc5172b7c45c16734da93a035f1794a81"
+            }
+          }
+        },
+        {
+          "ms": 1598,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d1-6271-7c80-8446-5220a994c312",
+            "turnId": "01a179d1-64f2-7371-8774-4a9b14bb1b85",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "ed6637034c316d663270f227933af9740d07bef75529d8a0f7be1a7cf085aaad"
+            }
+          }
+        },
+        {
+          "ms": 1601,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d1-6271-7c80-8446-5220a994c312",
+            "turnId": "01a179d1-64f2-7371-8774-4a9b14bb1b85",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "4a26c1f75f3e5512071ed27b09d29a1587720bd4dbddf18bdfe6e0f4eefd42ef"
+            }
+          }
+        },
+        {
+          "ms": 1601,
+          "method": "item/started",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d1-6514-74b0-a980-6ba5cb613444",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d1-6271-7c80-8446-5220a994c312",
+            "turnId": "01a179d1-64f2-7371-8774-4a9b14bb1b85",
+            "startedAtMs": 1793045128468
+          }
+        },
+        {
+          "ms": 1602,
+          "method": "item/completed",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d1-6514-74b0-a980-6ba5cb613444",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d1-6271-7c80-8446-5220a994c312",
+            "turnId": "01a179d1-64f2-7371-8774-4a9b14bb1b85",
+            "completedAtMs": 1793045128468
+          }
+        },
+        {
+          "ms": 1612,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d1-6271-7c80-8446-5220a994c312",
+            "status": {
+              "type": "systemError"
+            }
+          }
+        },
+        {
+          "ms": 1612,
+          "method": "error",
+          "params": {
+            "error": {
+              "message": "stream disconnected before completion: error sending request for url (http://127.0.0.1:50765/v1/responses)",
+              "codexErrorInfo": "other",
+              "additionalDetails": null
+            },
+            "willRetry": false,
+            "threadId": "01a179d1-6271-7c80-8446-5220a994c312",
+            "turnId": "01a179d1-64f2-7371-8774-4a9b14bb1b85"
+          }
+        },
+        {
+          "ms": 1612,
+          "method": "turn/completed",
+          "params": {
+            "threadId": "01a179d1-6271-7c80-8446-5220a994c312",
+            "turn": {
+              "id": "01a179d1-64f2-7371-8774-4a9b14bb1b85",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "failed",
+              "error": {
+                "message": "stream disconnected before completion: error sending request for url (http://127.0.0.1:50765/v1/responses)",
+                "codexErrorInfo": "other",
+                "additionalDetails": null
+              },
+              "startedAt": 1793045128,
+              "completedAt": 1793045128,
+              "durationMs": 15
+            }
+          }
+        }
+      ],
+      "sends": [
+        {
+          "ms": 243,
+          "id": 1,
+          "method": "initialize",
+          "params": {
+            "clientInfo": {
+              "name": "madness-protocol-spike",
+              "version": "1.5.0"
+            },
+            "capabilities": {
+              "experimentalApi": true
+            }
+          }
+        },
+        {
+          "ms": 905,
+          "method": "initialized",
+          "params": {}
+        },
+        {
+          "ms": 906,
+          "id": 2,
+          "method": "thread/start",
+          "params": {
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\interrupt-no-answer",
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "sandbox": "read-only",
+            "approvalPolicy": "never",
+            "ephemeral": true,
+            "experimentalRawEvents": true,
+            "developerInstructions": "Qualification de transport locale uniquement. Aucun fichier, shell, réseau externe ou compte."
+          }
+        },
+        {
+          "ms": 1566,
+          "id": 3,
+          "method": "turn/start",
+          "params": {
+            "threadId": "01a179d1-6271-7c80-8446-5220a994c312",
+            "input": [
+              {
+                "type": "text",
+                "text": "Question synthétique de qualification."
+              }
+            ]
+          }
+        }
+      ],
+      "checks": {
+        "feature": "default_mode_request_user_input      under development  true",
+        "nativeStopped": true
+      },
+      "stderr": [
+        "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-vtCx8u\\\\interrupt-no-answer\\\\\" (codex_home: AbsolutePathBuf(\"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-vtCx8u\\\\interrupt-no-answer\\\\codex-home\"))\n"
+      ],
+      "failure": "Error: event-timeout\n    at Timeout._onTimeout (file:///C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-questions/protocol-spike.mjs:67:232)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)"
+    },
+    {
+      "name": "auto-expiry-no-answer",
+      "mode": "expiry",
+      "autoResolutionMs": 1000,
+      "requests": [],
+      "events": [
+        {
+          "ms": 945,
+          "id": 1,
+          "result": {
+            "userAgent": "madness-protocol-spike/0.144.6 (Windows 10.0.26200; x86_64) unknown (madness-protocol-spike; 1.5.0)",
+            "codexHome": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\auto-expiry-no-answer\\codex-home",
+            "platformFamily": "windows",
+            "platformOs": "windows"
+          }
+        },
+        {
+          "ms": 945,
+          "method": "remoteControl/status/changed",
+          "params": {
+            "status": "disabled",
+            "serverName": "WL0036861",
+            "installationId": "c4f8cb81-8eaf-4920-b371-f45dc88c9476",
+            "environmentId": null
+          }
+        },
+        {
+          "ms": 1769,
+          "id": 2,
+          "result": {
+            "thread": {
+              "id": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+              "extra": null,
+              "sessionId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045142,
+              "updatedAt": 1793045142,
+              "recencyAt": 1793045142,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\auto-expiry-no-answer",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            },
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "serviceTier": null,
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\auto-expiry-no-answer",
+            "runtimeWorkspaceRoots": [
+              "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\auto-expiry-no-answer"
+            ],
+            "instructionSources": [],
+            "approvalPolicy": "never",
+            "approvalsReviewer": "user",
+            "sandbox": {
+              "type": "readOnly",
+              "networkAccess": false
+            },
+            "activePermissionProfile": null,
+            "reasoningEffort": null,
+            "multiAgentMode": "explicitRequestOnly"
+          }
+        },
+        {
+          "ms": 1770,
+          "method": "thread/started",
+          "params": {
+            "thread": {
+              "id": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+              "extra": null,
+              "sessionId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045142,
+              "updatedAt": 1793045142,
+              "recencyAt": 1793045142,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\auto-expiry-no-answer",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            }
+          }
+        },
+        {
+          "ms": 1770,
+          "method": "warning",
+          "params": {
+            "threadId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+            "message": "Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\auto-expiry-no-answer\\codex-home\\config.toml."
+          }
+        },
+        {
+          "ms": 1770,
+          "id": 3,
+          "result": {
+            "turn": {
+              "id": "01a179d1-9ae0-77b1-90a8-aed42a0044e5",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1812,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+            "status": {
+              "type": "active",
+              "activeFlags": []
+            }
+          }
+        },
+        {
+          "ms": 1812,
+          "method": "turn/started",
+          "params": {
+            "threadId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+            "turn": {
+              "id": "01a179d1-9ae0-77b1-90a8-aed42a0044e5",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": 1793045142,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1813,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+            "turnId": "01a179d1-9ae0-77b1-90a8-aed42a0044e5",
+            "item": {
+              "type": "message",
+              "role": "developer",
+              "contentSha256": "708b1ec50671402379e860b3e3645b110246b1eccf00dcc3890a6fd6ce14cc00"
+            }
+          }
+        },
+        {
+          "ms": 1813,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+            "turnId": "01a179d1-9ae0-77b1-90a8-aed42a0044e5",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "b7bc3e7f06c2115477433f27092a1636bdff5058e0c0e2e0afa4f70b59d37c12"
+            }
+          }
+        },
+        {
+          "ms": 1815,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+            "turnId": "01a179d1-9ae0-77b1-90a8-aed42a0044e5",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "4a26c1f75f3e5512071ed27b09d29a1587720bd4dbddf18bdfe6e0f4eefd42ef"
+            }
+          }
+        },
+        {
+          "ms": 1816,
+          "method": "item/started",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d1-9b0d-7632-a08a-7439a95fe154",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+            "turnId": "01a179d1-9ae0-77b1-90a8-aed42a0044e5",
+            "startedAtMs": 1793045142285
+          }
+        },
+        {
+          "ms": 1816,
+          "method": "item/completed",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d1-9b0d-7632-a08a-7439a95fe154",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+            "turnId": "01a179d1-9ae0-77b1-90a8-aed42a0044e5",
+            "completedAtMs": 1793045142285
+          }
+        },
+        {
+          "ms": 1819,
+          "method": "skills/changed",
+          "params": {}
+        },
+        {
+          "ms": 1826,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+            "status": {
+              "type": "systemError"
+            }
+          }
+        },
+        {
+          "ms": 1826,
+          "method": "error",
+          "params": {
+            "error": {
+              "message": "stream disconnected before completion: error sending request for url (http://127.0.0.1:50783/v1/responses)",
+              "codexErrorInfo": "other",
+              "additionalDetails": null
+            },
+            "willRetry": false,
+            "threadId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+            "turnId": "01a179d1-9ae0-77b1-90a8-aed42a0044e5"
+          }
+        },
+        {
+          "ms": 1826,
+          "method": "turn/completed",
+          "params": {
+            "threadId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+            "turn": {
+              "id": "01a179d1-9ae0-77b1-90a8-aed42a0044e5",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "failed",
+              "error": {
+                "message": "stream disconnected before completion: error sending request for url (http://127.0.0.1:50783/v1/responses)",
+                "codexErrorInfo": "other",
+                "additionalDetails": null
+              },
+              "startedAt": 1793045142,
+              "completedAt": 1793045142,
+              "durationMs": 14
+            }
+          }
+        }
+      ],
+      "sends": [
+        {
+          "ms": 287,
+          "id": 1,
+          "method": "initialize",
+          "params": {
+            "clientInfo": {
+              "name": "madness-protocol-spike",
+              "version": "1.5.0"
+            },
+            "capabilities": {
+              "experimentalApi": true
+            }
+          }
+        },
+        {
+          "ms": 946,
+          "method": "initialized",
+          "params": {}
+        },
+        {
+          "ms": 946,
+          "id": 2,
+          "method": "thread/start",
+          "params": {
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\auto-expiry-no-answer",
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "sandbox": "read-only",
+            "approvalPolicy": "never",
+            "ephemeral": true,
+            "experimentalRawEvents": true,
+            "developerInstructions": "Qualification de transport locale uniquement. Aucun fichier, shell, réseau externe ou compte."
+          }
+        },
+        {
+          "ms": 1770,
+          "id": 3,
+          "method": "turn/start",
+          "params": {
+            "threadId": "01a179d1-97c3-7513-8b89-0cd713dd20c6",
+            "input": [
+              {
+                "type": "text",
+                "text": "Question synthétique de qualification."
+              }
+            ]
+          }
+        }
+      ],
+      "checks": {
+        "feature": "default_mode_request_user_input      under development  true",
+        "nativeStopped": true
+      },
+      "stderr": [
+        "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-vtCx8u\\\\auto-expiry-no-answer\\\\\" (codex_home: AbsolutePathBuf(\"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-vtCx8u\\\\auto-expiry-no-answer\\\\codex-home\"))\n"
+      ],
+      "failure": "Error: event-timeout\n    at Timeout._onTimeout (file:///C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-questions/protocol-spike.mjs:67:232)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)"
+    },
+    {
+      "name": "stop-no-answer",
+      "mode": "stop",
+      "autoResolutionMs": null,
+      "requests": [],
+      "events": [
+        {
+          "ms": 936,
+          "id": 1,
+          "result": {
+            "userAgent": "madness-protocol-spike/0.144.6 (Windows 10.0.26200; x86_64) unknown (madness-protocol-spike; 1.5.0)",
+            "codexHome": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\stop-no-answer\\codex-home",
+            "platformFamily": "windows",
+            "platformOs": "windows"
+          }
+        },
+        {
+          "ms": 936,
+          "method": "remoteControl/status/changed",
+          "params": {
+            "status": "disabled",
+            "serverName": "WL0036861",
+            "installationId": "74bb5db8-9ba5-48e1-9212-cd5a6f7c5c70",
+            "environmentId": null
+          }
+        },
+        {
+          "ms": 1839,
+          "id": 2,
+          "result": {
+            "thread": {
+              "id": "01a179d1-cdad-7160-a0d7-994eab27af89",
+              "extra": null,
+              "sessionId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045156,
+              "updatedAt": 1793045156,
+              "recencyAt": 1793045156,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\stop-no-answer",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            },
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "serviceTier": null,
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\stop-no-answer",
+            "runtimeWorkspaceRoots": [
+              "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\stop-no-answer"
+            ],
+            "instructionSources": [],
+            "approvalPolicy": "never",
+            "approvalsReviewer": "user",
+            "sandbox": {
+              "type": "readOnly",
+              "networkAccess": false
+            },
+            "activePermissionProfile": null,
+            "reasoningEffort": null,
+            "multiAgentMode": "explicitRequestOnly"
+          }
+        },
+        {
+          "ms": 1839,
+          "method": "thread/started",
+          "params": {
+            "thread": {
+              "id": "01a179d1-cdad-7160-a0d7-994eab27af89",
+              "extra": null,
+              "sessionId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+              "forkedFromId": null,
+              "parentThreadId": null,
+              "preview": "",
+              "ephemeral": true,
+              "historyMode": "legacy",
+              "modelProvider": "protocol_spike",
+              "createdAt": 1793045156,
+              "updatedAt": 1793045156,
+              "recencyAt": 1793045156,
+              "status": {
+                "type": "idle"
+              },
+              "path": null,
+              "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\stop-no-answer",
+              "cliVersion": "0.144.6",
+              "source": "vscode",
+              "threadSource": null,
+              "agentNickname": null,
+              "agentRole": null,
+              "gitInfo": null,
+              "name": null,
+              "turns": []
+            }
+          }
+        },
+        {
+          "ms": 1839,
+          "method": "warning",
+          "params": {
+            "threadId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+            "message": "Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\stop-no-answer\\codex-home\\config.toml."
+          }
+        },
+        {
+          "ms": 1840,
+          "id": 3,
+          "result": {
+            "turn": {
+              "id": "01a179d1-d11b-7710-8668-b7b70e4ef8d0",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1916,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+            "status": {
+              "type": "active",
+              "activeFlags": []
+            }
+          }
+        },
+        {
+          "ms": 1916,
+          "method": "turn/started",
+          "params": {
+            "threadId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+            "turn": {
+              "id": "01a179d1-d11b-7710-8668-b7b70e4ef8d0",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "inProgress",
+              "error": null,
+              "startedAt": 1793045156,
+              "completedAt": null,
+              "durationMs": null
+            }
+          }
+        },
+        {
+          "ms": 1918,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+            "turnId": "01a179d1-d11b-7710-8668-b7b70e4ef8d0",
+            "item": {
+              "type": "message",
+              "role": "developer",
+              "contentSha256": "006fce51461a0b338a2e502cfb67aaae6a2be5772f30751f4b66633666af0206"
+            }
+          }
+        },
+        {
+          "ms": 1918,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+            "turnId": "01a179d1-d11b-7710-8668-b7b70e4ef8d0",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "69ba1cd8b3a9c65b5d865cd9068b3b5302843dde44f50017e82dfc00026952e5"
+            }
+          }
+        },
+        {
+          "ms": 1921,
+          "method": "rawResponseItem/completed",
+          "params": {
+            "threadId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+            "turnId": "01a179d1-d11b-7710-8668-b7b70e4ef8d0",
+            "item": {
+              "type": "message",
+              "role": "user",
+              "contentSha256": "4a26c1f75f3e5512071ed27b09d29a1587720bd4dbddf18bdfe6e0f4eefd42ef"
+            }
+          }
+        },
+        {
+          "ms": 1921,
+          "method": "item/started",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d1-d16c-79a1-be2b-6ff1fa54713f",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+            "turnId": "01a179d1-d11b-7710-8668-b7b70e4ef8d0",
+            "startedAtMs": 1793045156204
+          }
+        },
+        {
+          "ms": 1921,
+          "method": "item/completed",
+          "params": {
+            "item": {
+              "type": "userMessage",
+              "id": "01a179d1-d16c-79a1-be2b-6ff1fa54713f",
+              "clientId": null,
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Question synthétique de qualification.",
+                  "text_elements": []
+                }
+              ]
+            },
+            "threadId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+            "turnId": "01a179d1-d11b-7710-8668-b7b70e4ef8d0",
+            "completedAtMs": 1793045156204
+          }
+        },
+        {
+          "ms": 1933,
+          "method": "thread/status/changed",
+          "params": {
+            "threadId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+            "status": {
+              "type": "systemError"
+            }
+          }
+        },
+        {
+          "ms": 1933,
+          "method": "error",
+          "params": {
+            "error": {
+              "message": "stream disconnected before completion: error sending request for url (http://127.0.0.1:54201/v1/responses)",
+              "codexErrorInfo": "other",
+              "additionalDetails": null
+            },
+            "willRetry": false,
+            "threadId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+            "turnId": "01a179d1-d11b-7710-8668-b7b70e4ef8d0"
+          }
+        },
+        {
+          "ms": 1933,
+          "method": "turn/completed",
+          "params": {
+            "threadId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+            "turn": {
+              "id": "01a179d1-d11b-7710-8668-b7b70e4ef8d0",
+              "items": [],
+              "itemsView": "notLoaded",
+              "status": "failed",
+              "error": {
+                "message": "stream disconnected before completion: error sending request for url (http://127.0.0.1:54201/v1/responses)",
+                "codexErrorInfo": "other",
+                "additionalDetails": null
+              },
+              "startedAt": 1793045156,
+              "completedAt": 1793045156,
+              "durationMs": 17
+            }
+          }
+        }
+      ],
+      "sends": [
+        {
+          "ms": 272,
+          "id": 1,
+          "method": "initialize",
+          "params": {
+            "clientInfo": {
+              "name": "madness-protocol-spike",
+              "version": "1.5.0"
+            },
+            "capabilities": {
+              "experimentalApi": true
+            }
+          }
+        },
+        {
+          "ms": 936,
+          "method": "initialized",
+          "params": {}
+        },
+        {
+          "ms": 937,
+          "id": 2,
+          "method": "thread/start",
+          "params": {
+            "cwd": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-questions\\protocol-spike-temp-vtCx8u\\stop-no-answer",
+            "model": "gpt-5.4",
+            "modelProvider": "protocol_spike",
+            "sandbox": "read-only",
+            "approvalPolicy": "never",
+            "ephemeral": true,
+            "experimentalRawEvents": true,
+            "developerInstructions": "Qualification de transport locale uniquement. Aucun fichier, shell, réseau externe ou compte."
+          }
+        },
+        {
+          "ms": 1839,
+          "id": 3,
+          "method": "turn/start",
+          "params": {
+            "threadId": "01a179d1-cdad-7160-a0d7-994eab27af89",
+            "input": [
+              {
+                "type": "text",
+                "text": "Question synthétique de qualification."
+              }
+            ]
+          }
+        }
+      ],
+      "checks": {
+        "feature": "default_mode_request_user_input      under development  true",
+        "nativeStopped": true
+      },
+      "stderr": [
+        "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-vtCx8u\\\\stop-no-answer\\\\\" (codex_home: AbsolutePathBuf(\"C:\\\\Sources\\\\madness\\\\_bmad-output\\\\initiative-madness\\\\tickets\\\\epic-boucle-codex\\\\qualification-questions\\\\protocol-spike-temp-vtCx8u\\\\stop-no-answer\\\\codex-home\"))\n"
+      ],
+      "failure": "Error: event-timeout\n    at Timeout._onTimeout (file:///C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-questions/protocol-spike.mjs:67:232)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)"
+    }
+  ],
+  "limits": [
+    "Aucun événement question, réponse, auto-expiry ou interrupt-pending exercé : tous les scénarios échouent avant question.",
+    "Le serveur ne comptait les POST qu’après JSON.parse dans la version exécutée; zéro POST capturé ne prouve pas absence de connexion ou de requête non décodable.",
+    "La désactivation du proxy est strictement locale aux processus éphémères dont le seul fournisseur configuré est127.0.0.1. Aucune configuration globale/production modifiée.",
+    "Deux passes lancées dans le bac à sable par défaut de exec_command; frontière d’exécution plausible, non testée."
+  ],
+  "temporaryProfileCleaned": true,
+  "endedAt": "2026-10-26T20:06:08.872Z",
+  "scriptSha256": "88961f7c7dc70827f8c7a1d1626da607a938f0624124106f3e5b53a1d10587ff",
+  "scriptSha256Scope": "Empreinte de la version effectivement chargée, confirmée identique au fichier protocol-spike.executed.mjs reconstruit. Les enrichissements du fichier réutilisable sont postérieurs et non exécutés.",
+  "executedScriptReconstruction": {
+    "path": "protocol-spike.executed.mjs",
+    "sha256": "88961f7c7dc70827f8c7a1d1626da607a938f0624124106f3e5b53a1d10587ff",
+    "note": "Version exacte chargée au début de la seconde mesure, reconstruite par retrait des seuls enrichissements ultérieurs identifiés. Aucun résultat ne repose sur les enrichissements non exécutés."
+  },
+  "reusableScript": {
+    "path": "protocol-spike.mjs",
+    "sha256": "ac586ec697d67aede965d36621710c2a93acd386d15920e46812413bbd958b61",
+    "diagnosticEnrichmentExecuted": false
+  },
+  "outcome": "Indéterminé pour question/response/ack : aucune question native. Flag actif et raw messages observés. Zéro POST JSON décodé/capturé; instrumentation initiale insuffisante pour affirmer absence de connexion.",
+  "executionBoundary": {
+    "execCommandSandbox": "use_default",
+    "requireEscalated": false,
+    "autoReviewRejection": false,
+    "loopbackBoundaryHypothesis": "Possible, non testé hors bac à sable"
+  }
+}

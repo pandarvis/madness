@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T07:09:27.638Z",
+  "phase": "inspect-real-historical-ui",
+  "status": "restoration-only-checks-passed",
+  "checks": [
+    "durable-witness-texts-questions-draft-match-prior-live-transcript",
+    "snapshot-exact-and-annexes-unchanged-before-navigation",
+    "existing-encrypted-account-readable-without-provider-action",
+    "three-seconds-zero-spawn-zero-network-after-hook",
+    "real-ui-historical-questions-fields-context-values-and-free-draft-exact",
+    "after-close-private-contents-and-annex-bytes-preserved"
+  ],
+  "observed": {
+    "spawns": 0,
+    "network": 0
+  },
+  "cleanup": {
+    "selection": true,
+    "navigation": true,
+    "bounds": true,
+    "closed": true
+  },
+  "limits": [
+    "Restauration seule : aucune commande fournisseur, aucune reprise de tour.",
+    "Compteurs passifs mesurés pendant trois secondes après instrumentation ; la période antérieure au hook n’est pas couverte.",
+    "Comparaisons des données privées uniquement en mémoire ; aucune copie du coffre ni capture d’écran.",
+    "La navigation autorisée peut augmenter la révision du Snapshot ; ses autres champs doivent rester identiques."
+  ],
+  "transcriptSha256": "09d69fce7a243c6110be9177ef3ac5818586c738e2945d65b4fdf78776f8dc4b",
+  "asarSha256": "3762c7decc4ea044024eaf8e7e6aed94c21bd76a36889632257f694e54c0c99b",
+  "asarHashOrigin": "external-controller-readFile",
+  "loadedBundleSha256": "ccb1513373d2641ec852da3b19260f72f73fc9afddd288128c7761dc76716830",
+  "bundleHashOrigin": "owned-Main-read-member",
+  "account": {
+    "stored": true,
+    "planAcknowledged": true
+  },
+  "observationDurationMs": 3048,
+  "finishedAt": "2026-10-27T07:09:41.875Z"
+}

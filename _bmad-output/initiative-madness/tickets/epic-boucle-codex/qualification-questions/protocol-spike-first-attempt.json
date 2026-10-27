@@ -1,0 +1,111 @@
+{
+  "kind": "first-attempt-no-loopback-request-received",
+  "startedAt": "2026-10-26T20:02:47.845Z",
+  "endedAt": "2026-10-26T20:03:48.379Z",
+  "nativeVersion": "codex-cli 0.144.6",
+  "nativeSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+  "scriptSha256": "aaa411ae8e2c2f17a5ed0469fff89a8b38604bb35b56d3b4cc12c6b6dd47c8ac",
+  "temporaryProfileCleaned": true,
+  "scenarios": [
+    {
+      "name": "answer-no-expiry",
+      "checks": {
+        "feature": "default_mode_request_user_input      under development  true",
+        "nativeStopped": true
+      },
+      "failure": "Error: event-timeout\n    at Timeout._onTimeout (file:///C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-questions/protocol-spike.mjs:65:232)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)",
+      "requests": 0,
+      "errors": [
+        {
+          "ms": 1818,
+          "method": "error",
+          "params": {
+            "error": {
+              "message": "stream disconnected before completion: error sending request for url (http://127.0.0.1:51963/v1/responses)",
+              "codexErrorInfo": "other",
+              "additionalDetails": null
+            },
+            "willRetry": false,
+            "threadId": "01a179cf-0165-7b13-8ef9-cb2c664a76f1",
+            "turnId": "01a179cf-04f1-74c3-8e18-9b6ee07e2aad"
+          }
+        }
+      ]
+    },
+    {
+      "name": "interrupt-no-answer",
+      "checks": {
+        "feature": "default_mode_request_user_input      under development  true",
+        "nativeStopped": true
+      },
+      "failure": "Error: event-timeout\n    at Timeout._onTimeout (file:///C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-questions/protocol-spike.mjs:65:232)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)",
+      "requests": 0,
+      "errors": [
+        {
+          "ms": 2426,
+          "method": "error",
+          "params": {
+            "error": {
+              "message": "stream disconnected before completion: error sending request for url (http://127.0.0.1:51990/v1/responses)",
+              "codexErrorInfo": "other",
+              "additionalDetails": null
+            },
+            "willRetry": false,
+            "threadId": "01a179cf-3937-7cb0-bb83-f4150aeff067",
+            "turnId": "01a179cf-3d52-7eb0-9b6a-428f88e954ed"
+          }
+        }
+      ]
+    },
+    {
+      "name": "auto-expiry-no-answer",
+      "checks": {
+        "feature": "default_mode_request_user_input      under development  true",
+        "nativeStopped": true
+      },
+      "failure": "Error: event-timeout\n    at Timeout._onTimeout (file:///C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-questions/protocol-spike.mjs:65:232)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)",
+      "requests": 0,
+      "errors": [
+        {
+          "ms": 2127,
+          "method": "error",
+          "params": {
+            "error": {
+              "message": "stream disconnected before completion: error sending request for url (http://127.0.0.1:55853/v1/responses)",
+              "codexErrorInfo": "other",
+              "additionalDetails": null
+            },
+            "willRetry": false,
+            "threadId": "01a179cf-7054-7cd1-b777-9397fc137d7d",
+            "turnId": "01a179cf-7458-7e52-9aea-43cdc2341b01"
+          }
+        }
+      ]
+    },
+    {
+      "name": "stop-no-answer",
+      "checks": {
+        "feature": "default_mode_request_user_input      under development  true",
+        "nativeStopped": true
+      },
+      "failure": "Error: event-timeout\n    at Timeout._onTimeout (file:///C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-questions/protocol-spike.mjs:65:232)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)",
+      "requests": 0,
+      "errors": [
+        {
+          "ms": 2240,
+          "method": "error",
+          "params": {
+            "error": {
+              "message": "stream disconnected before completion: error sending request for url (http://127.0.0.1:55883/v1/responses)",
+              "codexErrorInfo": "other",
+              "additionalDetails": null
+            },
+            "willRetry": false,
+            "threadId": "01a179cf-a7a2-7150-b0fb-1e16b7e6a202",
+            "turnId": "01a179cf-abd2-7ee3-b073-9351b71d57de"
+          }
+        }
+      ]
+    }
+  ]
+}

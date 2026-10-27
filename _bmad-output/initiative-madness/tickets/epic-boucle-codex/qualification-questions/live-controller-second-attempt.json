@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-26T21:52:35.662Z",
+  "status": "failed-no-replay",
+  "phase": "launch-qualified-package",
+  "checks": [],
+  "diagnostics": [],
+  "native": null,
+  "cleanup": {
+    "stopConfirmed": false,
+    "selectionRestored": false,
+    "navigationRestored": false,
+    "windowRestored": false,
+    "firstCloseConfirmed": false,
+    "finalCloseConfirmed": true,
+    "nativeStopNotNeededForCurrentProcess": true,
+    "initialSelectionUntouched": true,
+    "initialNavigationUntouched": true,
+    "exitEvidence": "owned-main-pid-absent"
+  },
+  "limits": [
+    "Sélection dossier contrôlée dans le Main possédé ; OS picker non qualifié, G4 ouvert.",
+    "Aucun screenshot personnel ni copie du coffre. Les données privées sont comparées uniquement en mémoire.",
+    "Deux demandes de question au maximum, une seule réponse soumise ; aucun rejeu automatique.",
+    "Les mesures passives de réseau/processus commencent à la connexion Playwright au Main ; aucune capture antérieure au démarrage de cette instrumentation n’est prétendue.",
+    "Aucun gate historique ni accord visuel humain déduit de ce parcours."
+  ],
+  "subphase": "main-builtin-artifact-read",
+  "launchStages": [
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "launch-process",
+      "at": "2026-10-26T21:52:35.688Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "main-bootstrap-with-electron-argument",
+      "at": "2026-10-26T21:52:41.245Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "main-builtin-artifact-read",
+      "at": "2026-10-26T21:52:41.256Z"
+    }
+  ],
+  "execution": {
+    "providerLaunchRequested": false,
+    "freePromptCount": 0,
+    "formSubmissionCount": 0
+  },
+  "mainModuleAccess": "process.getBuiltinModule",
+  "windowsLaunchWrapperObserved": true,
+  "failureCode": "CONTROLLER_STEP_FAILED",
+  "failureContext": {
+    "phase": "launch-qualified-package",
+    "subphase": "main-builtin-artifact-read",
+    "errorClass": "automation-or-main-evaluation",
+    "ownedApplicationAvailable": true,
+    "rendererPageAvailable": false,
+    "providerLaunchRequested": false,
+    "freePromptCount": 0,
+    "formSubmissionCount": 0
+  },
+  "finishedAt": "2026-10-26T21:52:41.843Z"
+}

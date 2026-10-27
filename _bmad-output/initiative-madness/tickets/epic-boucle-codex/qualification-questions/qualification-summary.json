@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T07:14:12.409Z",
+  "status": "qualified-personal-installed",
+  "artifact": {
+    "asar": "3762c7decc4ea044024eaf8e7e6aed94c21bd76a36889632257f694e54c0c99b",
+    "mainSha256": "ccb1513373d2641ec852da3b19260f72f73fc9afddd288128c7761dc76716830",
+    "archiveHashOrigin": "controller-native-fs",
+    "mainHashOrigin": "loaded-main-fs"
+  },
+  "automated": {
+    "source": "tests-final-after-review.log",
+    "tests": 196,
+    "failed": 0,
+    "skipped": 0,
+    "typecheckAndBuild": true,
+    "compiledChecks": 10,
+    "packagedChecks": 10,
+    "windowsRegressions": 5
+  },
+  "reviews": {
+    "quick": {
+      "findings": 2,
+      "resolved": 2
+    },
+    "impeccable": {
+      "finding": "F1 état/provenance",
+      "resolved": true,
+      "disposition": "ship",
+      "correctionRounds": 1,
+      "documentation": "impeccable-finish.md"
+    },
+    "deferredCorrectiveFindings": 0
+  },
+  "native": {
+    "source": "live-final-profile.json",
+    "checks": [
+      "normal-packaged-profile-and-existing-account-read-only-preflight",
+      "real-mary-qualified-launched-and-greeting-durable",
+      "first-native-question-real-context-fields-and-unknown-or-attested-recipient",
+      "single-explicit-form-answer-native-ack-durable-and-real-turn-continues",
+      "second-distinct-native-question-structured-draft-and-free-draft-stored-separately",
+      "confirmed-native-stop-keeps-drafts-and-rejects-late-answer-without-native-send",
+      "first-owned-app-exit-confirmed-with-private-data-kept-only-in-memory",
+      "exact-context-texts-drafts-forge-and-inactive-questions-restored-without-provider-action"
+    ],
+    "questions": 2,
+    "explicitAnswers": 1,
+    "exactPositiveReceipts": 1,
+    "unsubmittedAnswers": 0,
+    "cleanup": {
+      "stopConfirmed": true,
+      "selectionRestored": true,
+      "navigationRestored": true,
+      "windowRestored": true,
+      "firstCloseConfirmed": true,
+      "finalCloseConfirmed": true,
+      "passiveHookRestored": true,
+      "exitEvidence": "owned-main-pid-absent"
+    },
+    "reopenObservation": {
+      "attached": true,
+      "startedAt": 1793084662002,
+      "esmBindingSynchronized": true,
+      "spawns": 0,
+      "closed": 0,
+      "questions": 0,
+      "rawOutputs": 0,
+      "answerOutputs": 0,
+      "exactSubmittedReceipts": 0,
+      "interruptions": 0,
+      "unsubmittedAnswerOutputs": 0,
+      "otherOutputs": 0,
+      "httpRequests": 0,
+      "runnerHash": null,
+      "activeChildren": 0,
+      "questionReceipts": [],
+      "ownedNativePids": []
+    }
+  },
+  "installation": {
+    "source": "installation.json",
+    "installedReadOnlySource": "installed-reopen-profile.json",
+    "restorationChecks": 6,
+    "encryptedAccountReadable": true,
+    "preservation": {
+      "files": 15,
+      "beforeDigest": "a966222b1c9473895f0c4900bf894cd72166921d9f5ece5e9d98c3cf8d731f9f",
+      "afterDigest": "a966222b1c9473895f0c4900bf894cd72166921d9f5ece5e9d98c3cf8d731f9f",
+      "identical": true,
+      "includes": [
+        "snapshot",
+        "appearance",
+        "Local State",
+        "encrypted-vault",
+        "registration",
+        "questions",
+        "workflows"
+      ]
+    },
+    "firstReplacementBaselineMissing": true
+  },
+  "history": {
+    "initialNative": "live-profile.json",
+    "initialRestoration": "reopen-profile.json",
+    "initialControllerFailures": [
+      "live-controller-first-attempt.json",
+      "live-controller-second-attempt.json"
+    ],
+    "note": "Les preuves initiales et leurs échecs gardent leur statut ; le parcours final emploie un nouveau témoin, sans replay."
+  },
+  "limits": [
+    "Usage personnel local seulement ; aucune admissibilité de distribution ni clôture G0/G1 déduite.",
+    "Pas d’acceptation humaine visuelle globale ; refonte Sally + experts après l’epic1 à faire.",
+    "Premier remplacement sans relevé avant/après ; second remplacement du même paquet contrôlé sur15 fichiers, distinct de la qualification à deux versions1.9.",
+    "Observation de restauration sans spawn/réseau limitée à la période après hook."
+  ],
+  "remaining": []
+}

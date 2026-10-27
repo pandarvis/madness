@@ -1,0 +1,14 @@
+  • electron-builder  version=26.15.3 os=10.0.26200
+  • loaded configuration  file=C:\Sources\madness\electron-builder.yml
+  • skipped dependencies rebuild  reason=npmRebuild is set to false
+  • packaging       platform=win32 arch=x64 electron=45.0.0 appOutDir=dist\questions-pilot-final\win-unpacked
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=C:\Sources\madness\dist\questions-pilot-final\win-unpacked
+  • searching for node modules  pm=npm searchDir=C:\Sources\madness
+  • updating asar integrity executable resource  executablePath=dist\questions-pilot-final\win-unpacked\Madness.exe
+  • default Electron icon is used  reason=application icon is not set
+  • file signing skipped via signExecutable configuration  file=dist\questions-pilot-final\win-unpacked\Madness.exe
+  • building        target=nsis file=dist\questions-pilot-final\Madness-0.1.0-x64-setup.exe archs=x64 oneClick=false perMachine=false
+  • file signing skipped via signExecutable configuration  file=dist\questions-pilot-final\Madness-0.1.0-x64-setup.__uninstaller.exe
+  • file signing skipped via signExecutable configuration  file=dist\questions-pilot-final\Madness-0.1.0-x64-setup.exe
+  • building block map  blockMapFile=dist\questions-pilot-final\Madness-0.1.0-x64-setup.exe.blockmap

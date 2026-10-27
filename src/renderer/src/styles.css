@@ -14,6 +14,30 @@
   --logo-filter: grayscale(1) invert(1); --logo-opacity: .72;
   --sidebar: 222px; --context-panel: 318px;
 }
+.question-panel { margin-block: 24px; padding-block: 22px; border-block: 1px solid var(--control-line); min-width: 0; overflow-wrap: anywhere }
+.question-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap }
+.question-heading h2 { font-size: 18px }
+.question-context { margin-block-start: 5px; color: var(--muted); font-size: 12px }
+.question-status { color: var(--waiting-text); margin-block: 12px 18px }
+.question-field { padding: 0; margin: 0 0 22px; min-width: 0; border: 0 }
+.question-field legend { font-weight: 600; font-size: 14px; margin-block-end: 5px }
+.question-field > p { margin-block-end: 10px; font-size: 14px }
+.question-options { display: flex; flex-direction: column; gap: 4px }
+.question-option { display: flex; align-items: flex-start; gap: 10px; padding: 10px 8px; border-radius: 6px; cursor: pointer }
+.question-option:has(input:checked) { background: var(--selected); color: var(--selected-text) }
+.question-option:hover { background: var(--hover) }
+.question-option input { margin: 4px 0 0; flex: none; accent-color: var(--accent); width: 16px; height: 16px }
+.question-option input:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px }
+.question-option strong { display: block; font-weight: 500; font-size: 14px }
+.question-option small { display: block; color: var(--muted); margin-block-start: 3px; font-size: 12px; line-height: 1.5 }
+.question-other { display: flex; flex-direction: column; gap: 6px; margin-block-start: 12px }
+.question-other label { font-size: 13px; font-weight: 500 }
+.question-other textarea { resize: vertical; width: 100%; min-height: 72px; border: 1px solid var(--control-line); border-radius: 8px; padding: 10px; background: var(--surface); color: var(--text); font: inherit; line-height: 1.5 }
+.question-other textarea[readonly] { color: var(--muted) }
+.question-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-block: 8px 12px; flex-wrap: wrap }
+.question-footer p { flex: 1; min-width: min(100%, 180px); color: var(--muted) }
+.question-footer button { flex: none; max-width: 100%; white-space: normal }
+.question-return { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding-block: 10px; margin-block-end: 18px; border-block-end: 1px solid var(--line); color: var(--waiting-text) }
 :root:not([data-theme]) { background: transparent; color-scheme: normal }
 :root[data-theme="light"] {
   color-scheme: light;

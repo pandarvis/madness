@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-26T21:40:31.044Z",
+  "status": "failed-no-replay",
+  "phase": "launch-qualified-package",
+  "checks": [],
+  "diagnostics": [],
+  "native": null,
+  "cleanup": {
+    "stopConfirmed": false,
+    "selectionRestored": false,
+    "navigationRestored": false,
+    "windowRestored": false,
+    "firstCloseConfirmed": false,
+    "finalCloseConfirmed": false,
+    "closeFailure": "OWNED_APP_EXIT_UNCONFIRMED"
+  },
+  "limits": [
+    "Sélection dossier contrôlée dans le Main possédé ; OS picker non qualifié, G4 ouvert.",
+    "Aucun screenshot personnel ni copie du coffre. Les données privées sont comparées uniquement en mémoire.",
+    "Deux demandes de question au maximum, une seule réponse soumise ; aucun rejeu automatique.",
+    "Les mesures passives de réseau/processus commencent à la connexion Playwright au Main ; aucune capture antérieure au démarrage de cette instrumentation n’est prétendue.",
+    "Aucun gate historique ni accord visuel humain déduit de ce parcours."
+  ],
+  "failureCode": "CONTROLLER_STEP_FAILED",
+  "finishedAt": "2026-10-26T21:41:06.218Z"
+}

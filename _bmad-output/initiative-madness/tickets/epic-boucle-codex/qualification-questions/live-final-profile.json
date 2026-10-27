@@ -1,0 +1,209 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T07:02:45.708Z",
+  "status": "live-question-and-durable-draft-checks-passed",
+  "phase": "restore-initial-selection-and-close",
+  "checks": [
+    "normal-packaged-profile-and-existing-account-read-only-preflight",
+    "real-mary-qualified-launched-and-greeting-durable",
+    "first-native-question-real-context-fields-and-unknown-or-attested-recipient",
+    "single-explicit-form-answer-native-ack-durable-and-real-turn-continues",
+    "second-distinct-native-question-structured-draft-and-free-draft-stored-separately",
+    "confirmed-native-stop-keeps-drafts-and-rejects-late-answer-without-native-send",
+    "first-owned-app-exit-confirmed-with-private-data-kept-only-in-memory",
+    "exact-context-texts-drafts-forge-and-inactive-questions-restored-without-provider-action"
+  ],
+  "diagnostics": [],
+  "native": {
+    "attached": true,
+    "startedAt": 1793084571074,
+    "esmBindingSynchronized": true,
+    "spawns": 1,
+    "closed": 1,
+    "questions": 2,
+    "rawOutputs": 1,
+    "answerOutputs": 1,
+    "exactSubmittedReceipts": 1,
+    "interruptions": 0,
+    "unsubmittedAnswerOutputs": 0,
+    "otherOutputs": 0,
+    "httpRequests": 0,
+    "runnerHash": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+    "activeChildren": 0,
+    "questionReceipts": [
+      {
+        "index": 1,
+        "nonSecret": true,
+        "expectedSubmission": true,
+        "rawOutputs": 1,
+        "answerOutputs": 1,
+        "exactSubmittedReceipt": true,
+        "interruptions": 0,
+        "otherOutputs": 0
+      },
+      {
+        "index": 2,
+        "nonSecret": true,
+        "expectedSubmission": false,
+        "rawOutputs": 0,
+        "answerOutputs": 0,
+        "exactSubmittedReceipt": false,
+        "interruptions": 0,
+        "otherOutputs": 0
+      }
+    ],
+    "ownedNativePids": []
+  },
+  "cleanup": {
+    "stopConfirmed": true,
+    "selectionRestored": true,
+    "navigationRestored": true,
+    "windowRestored": true,
+    "firstCloseConfirmed": true,
+    "finalCloseConfirmed": true,
+    "passiveHookRestored": true,
+    "exitEvidence": "owned-main-pid-absent"
+  },
+  "limits": [
+    "Sélection dossier contrôlée dans le Main possédé ; OS picker non qualifié, G4 ouvert.",
+    "Aucun screenshot personnel ni copie du coffre. Les données privées sont comparées uniquement en mémoire.",
+    "Deux demandes de question au maximum, une seule réponse soumise ; aucun rejeu automatique.",
+    "Les mesures passives de réseau/processus commencent à la connexion Playwright au Main ; aucune capture antérieure au démarrage de cette instrumentation n’est prétendue.",
+    "Aucun gate historique ni accord visuel humain déduit de ce parcours."
+  ],
+  "subphase": "operation",
+  "launchStages": [
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "launch-process",
+      "at": "2026-10-27T07:02:45.745Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "main-bootstrap-with-electron-argument",
+      "at": "2026-10-27T07:02:51.021Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "main-builtin-artifact-read",
+      "at": "2026-10-27T07:02:51.037Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "validate-loaded-artifact",
+      "at": "2026-10-27T07:02:51.067Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "install-passive-main-observer",
+      "at": "2026-10-27T07:02:51.067Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "wait-first-owned-window",
+      "at": "2026-10-27T07:02:51.076Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "wait-real-preload-bridges",
+      "at": "2026-10-27T07:02:51.076Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "capture-owned-window-bounds",
+      "at": "2026-10-27T07:02:51.263Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "capture-initial-state-in-memory",
+      "at": "2026-10-27T07:02:51.271Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "read-existing-account-metadata",
+      "at": "2026-10-27T07:02:51.409Z"
+    },
+    {
+      "phase": "reopen-same-package-no-work",
+      "subphase": "reopen-process",
+      "at": "2026-10-27T07:04:15.425Z"
+    },
+    {
+      "phase": "reopen-same-package-no-work",
+      "subphase": "main-bootstrap-with-electron-argument",
+      "at": "2026-10-27T07:04:21.944Z"
+    },
+    {
+      "phase": "reopen-same-package-no-work",
+      "subphase": "main-builtin-artifact-read",
+      "at": "2026-10-27T07:04:21.958Z"
+    },
+    {
+      "phase": "reopen-same-package-no-work",
+      "subphase": "validate-loaded-artifact",
+      "at": "2026-10-27T07:04:21.989Z"
+    },
+    {
+      "phase": "reopen-same-package-no-work",
+      "subphase": "install-passive-main-observer",
+      "at": "2026-10-27T07:04:21.989Z"
+    },
+    {
+      "phase": "reopen-same-package-no-work",
+      "subphase": "wait-first-owned-window",
+      "at": "2026-10-27T07:04:22.003Z"
+    },
+    {
+      "phase": "reopen-same-package-no-work",
+      "subphase": "wait-real-preload-bridges",
+      "at": "2026-10-27T07:04:22.005Z"
+    },
+    {
+      "phase": "reopen-same-package-no-work",
+      "subphase": "capture-owned-window-bounds",
+      "at": "2026-10-27T07:04:22.237Z"
+    }
+  ],
+  "execution": {
+    "providerLaunchRequested": true,
+    "freePromptCount": 2,
+    "formSubmissionCount": 1
+  },
+  "mainModuleAccess": "process.getBuiltinModule",
+  "windowsLaunchWrapperObserved": true,
+  "observerSetupCode": null,
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true
+  },
+  "artifact": {
+    "asar": "3762c7decc4ea044024eaf8e7e6aed94c21bd76a36889632257f694e54c0c99b",
+    "mainSha256": "ccb1513373d2641ec852da3b19260f72f73fc9afddd288128c7761dc76716830",
+    "archiveHashOrigin": "controller-native-fs",
+    "mainHashOrigin": "loaded-main-fs"
+  },
+  "nativeObservationAvailable": true,
+  "spawnBinding": "cjs-property",
+  "reopenObservation": {
+    "attached": true,
+    "startedAt": 1793084662002,
+    "esmBindingSynchronized": true,
+    "spawns": 0,
+    "closed": 0,
+    "questions": 0,
+    "rawOutputs": 0,
+    "answerOutputs": 0,
+    "exactSubmittedReceipts": 0,
+    "interruptions": 0,
+    "unsubmittedAnswerOutputs": 0,
+    "otherOutputs": 0,
+    "httpRequests": 0,
+    "runnerHash": null,
+    "activeChildren": 0,
+    "questionReceipts": [],
+    "ownedNativePids": []
+  },
+  "completedAt": "2026-10-27T07:04:26.623Z",
+  "finishedAt": "2026-10-27T07:04:26.623Z"
+}

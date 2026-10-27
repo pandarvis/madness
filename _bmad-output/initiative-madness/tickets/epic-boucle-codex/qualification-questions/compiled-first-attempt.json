@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T20:44:47.965Z",
+  "mode": "compiled-isolated-synthetic",
+  "status": "partial",
+  "checks": [
+    "real-main-restores-question-fields-values-as-inactive-without-engine",
+    "snapshot-v1-and-six-madness-methods-preserved",
+    "real-preload-rejects-empty-and-historical-answer-without-replay",
+    "real-main-atomic-annex-save-keeps-original-demand-and-free-draft",
+    "synthetic-active-question-real-options-no-default-and-empty-send-disabled",
+    "waiting-point-return-across-navigation-preserves-free-draft",
+    "synthetic-sending-never-claims-ack-before-native-and-storage",
+    "desktop-compact-question-no-horizontal-overflow",
+    "inactive-keeps-values-and-controls-disabled-in-both-themes"
+  ],
+  "captures": [
+    "compiled-desktop.png",
+    "compiled-compact.png",
+    "compiled-inactive-light.png"
+  ],
+  "cleanup": true,
+  "limits": [
+    "Main/preload/renderer réels, données et notifications synthétiques ; aucun compte, fournisseur ou modèle.",
+    "Les reçus natifs sont exercés par les tests protocole et le spike distinct ; la preuve avec vrai modèle reste séparée.",
+    "Aucune acceptation humaine, distribution ni gate historique déduite de ce banc."
+  ],
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": false
+  },
+  "artifact": {
+    "file": "out/main/index.js",
+    "sha256": "eecf460a9854682ab8c198327ccf1d1a18f97117eb0ab4a66b2369f4b76b9c16"
+  },
+  "failure": "Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n+ Buffer(1134) [Uint8Array] [\n- Buffer(850) [Uint8Array] [\n    123,\n+   10,\n+   32,\n+   32,\n    34,\n    115,\n    99,\n    104,\n    101,\n...\n    58,\n+   32,\n    49,\n    44,\n+   10,\n+   32,\n+   32,\n    34,\n    114,\n    101,\n    118,\n    105,\n...\n    58,\n+   32,\n+   51,\n-   50,\n    44,\n+   10,\n+   32,\n+   32,\n    34,\n    112,\n    114,\n    111,\n    106,\n...\n    58,\n+   32,\n    91,\n+   10,\n+   32,\n+   32,\n+   32,\n+   32,\n    123,\n+   10,\n+   32,\n+   32,\n+   32,\n+   32,\n+   32,\n+   32,\n    34,\n    105,\n    100,\n    34,\n    58,\n+   32,\n    34,\n    112,\n    114,\n    111,\n    106,\n...\n    44,\n+   10,\n+   32,\n+   32,\n+   32,\n+   32,\n+   32,\n+   32,\n    34,\n    110,\n    97,\n    109,\n    101,\n    34,\n    58,\n+   32,\n    34,\n    80,\n    114,\n    111,\n    106,\n...\n    44,\n+   10,\n+   32,\n+   32,\n+   32,\n+   32,\n+   32,\n+   32,\n    34,\n    114,\n    111,\n    111,\n    116,\n...\n    58,\n+   32,\n    34,\n    67,\n    58,\n    92"
+}

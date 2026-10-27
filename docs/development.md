@@ -77,6 +77,8 @@ Le contrôle de l’installateur sur la machine cible, sa signature, le minimum 
 
 ## Pilote personnel : premier dialogue Mary
 
+Amendement du 26 octobre, story 1.5 : les questions natives non secrètes sont désormais prises en charge dans Mary et Forge. Les limites historiques ci-dessous décrivent la livraison du 24 octobre ; les approbations restent hors de cette extension.
+
 Le pilote du 24 octobre ouvre une vraie conversation Codex à partir de l’entrée native `skill` de `.agents/skills/bmad-agent-analyst/SKILL.md`. Il couvre l’accueil/menu de Mary puis la discussion libre, en français et en lecture seule. Les workflows documentaires proposés dans le menu, les approbations, questions structurées, installations et écritures ne sont pas pris en charge : une demande native correspondante refuse l’interaction et fait échouer le tour. Le pilote ne débloque ni 1.1/1.2 ni le tracer distribuable 1.3.
 
 Pré requis locaux explicites : installation Mary exacte du profil épinglé dans `src/adapters/bmad/profile.ts`, ses huit fichiers de compétence/scripts, configuration TOML lisible, Codex natif Windows x64 dans l’implantation npm déjà qualifiée, compte propre à Madness avec rappel forfait acquitté. Le runtime Python 3.12.14 fourni par Codex sous `%USERPROFILE%/.cache/codex-runtimes/codex-primary-runtime/dependencies/python` et UV 0.13.0 sous `%USERPROFILE%/scoop/apps/uv/current/uv.exe` doivent correspondre aux empreintes de `runtime.ts`. L’installateur Madness ne fournit pas ces deux outils. Une montée de version de BMad, Python ou UV impose de requalifier puis mettre à jour ces empreintes ; aucun téléchargement ou repli implicite n’est exécuté.
@@ -153,3 +155,25 @@ Le banc conversation utilise un profil jetable sans compte : les événements sy
 Choisir explicitement les nouvelles versions, mettre à jour le manifeste et le lockfile, puis refaire types, tests, build, paquet et réouverture sur profil isolé. Conserver le profil hors des binaires et vérifier la reprise avec le nouveau programme avant diffusion. Les previews sont admises ; aucun repli silencieux de version ni patch local de dépendance n’est utilisé. Les avertissements de dépréciation transitifs remontés par npm sont à suivre lors des montées de version.
 
 Le programme et son installateur restent non signés ; l’icône Electron par défaut est conservée en attendant une ressource de marque approuvée. Aucun auto-updater n’est livré. Les licences des ressources embarquées sont dans `resources/THIRD-PARTY-NOTICES.md` et les notices du runtime distribué. Les livrables BMad, les preuves et les fichiers non suivis préexistants ne sont pas inclus dans l’archive applicative.
+
+## Questions natives et brouillons liés — story 1.5
+
+Le profil expérimental est borné au vrai binaire Codex 0.144.6, SHA-256 `4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7`. Une autre empreinte est refusée avant acquisition du compte. `features.default_mode_request_user_input=true` et `experimentalRawEvents=true` ne concernent que le processus isolé de dialogue. Aucun réglage global n’est modifié.
+
+`item/tool/requestUserInput` est normalisé en une demande locale immuable : projet, initiative, conversation, connexion, demande de lancement, tour et identité attestée ou inconnue. Les IDs RPC, thread, tour, appel et champs natifs restent dans le connecteur. Le profil accepte un à trois champs non secrets, choix réels ou texte libre ; aucun choix par défaut. Une demande secrète, incohérente ou concurrente arrête le tour sans réponse automatique.
+
+Le formulaire inline dispose de sa propre saisie, enregistrée par demande dans `userData/questions-v1/{questionId}.json`, avec version et remplacement atomique. Snapshot v1, les six méthodes `madness`, les annexes Forge et le brouillon libre ne changent pas. L’attente reste nommée pendant la navigation et donne un retour vers sa conversation. Envoi explicite seulement ; le verrou est pris avant toute attente, puis la saisie est conservée avant l’écriture RPC.
+
+Le résultat est écrit au RPC original (y compris l’ID numérique zéro). « Réponse envoyée et enregistrée » exige ensuite un `rawResponseItem/completed` corrélé au thread, au tour et au call_id, dont le JSON décodé est structurellement égal à la réponse réellement soumise, puis l’écriture atomique de cet état. L’ordre des clés d’objet est ignoré, l’ordre des valeurs conservé. Un `serverRequest/resolved`, un callback stdin, un terminal seul ou `aborted…` ne suffit jamais. Reçu absent ou discordant : résultat inconnu, arrêt, aucun rejeu.
+
+Le délai machine du tour est suspendu pendant la saisie et l’attente du reçu. Un délai connu de la question est appliqué localement : invalidation et arrêt sans choisir de réponse. L’expiration autonome du runner n’est pas prétendue qualifiée. Arrêt, résolution avant choix, collision et terminal libèrent les attentes avant le drain RPC. Une invalidation pendant la sauvegarde conserve la saisie mais interdit sa transmission. À la réouverture, les demandes deviennent historiques et non répondables ; un ancien envoi en cours reste inconnu. Aucun moteur ou réseau ne reprend.
+
+```powershell
+npm test
+npm run build
+npx electron-builder --win --x64 '--config.directories.output=dist/questions-pilot-final'
+node scripts/qualification/questions.mjs
+node scripts/qualification/questions.mjs --packaged --executable=dist/questions-pilot-final/win-unpacked/Madness.exe
+```
+
+Les tests couvrent contrat, RPC zéro, ACK exact/retardé/absent, délai, terminal, collision, arrêt, sauvegarde refusée et saisie séparée. Le banc compilé/paquet utilise Main, preload et renderer réels avec données synthétiques, sans compte ni fournisseur, puis vérifie la réouverture exacte et nettoie ses seuls profils jetables. Les notifications actives injectées servent uniquement à vérifier les états visuels. Les preuves sont sous `tickets/epic-boucle-codex/qualification-questions/`. Le spike loopback, le parcours avec vrai modèle, l’installation personnelle, l’acceptation visuelle et les gates restent des preuves distinctes.

@@ -9,6 +9,9 @@ import chatgptMark from './assets/chatgpt-mark.svg'
 import { initialDialogueState } from '../../contracts/dialogue.ts'
 import type { DialogueMessage, DialogueState, WorkflowRecord } from '../../contracts/dialogue.ts'
 import type { AppearanceState } from '../../contracts/appearance.ts'
+import {QuestionPanel} from './QuestionPanel.tsx'
+import type {QuestionRecord,QuestionValues} from '../../contracts/questions.ts'
+const questionRecipient=(question:QuestionRecord):string=>question.identity.kind==='attested'?question.identity.name:fr.conversation.unknownAgent
 
 function MessageArticle({message,projection}:{message:Conversation['messages'][number];projection?:DialogueMessage}):ReactNode {
   const identity=projection?.identity
@@ -112,17 +115,23 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [dialogue, setDialogue] = useState<DialogueState>(initialDialogueState)
   const [dialoguePending, setDialoguePending] = useState(false)
   const [dialogueBridgeError, setDialogueBridgeError] = useState(false)
+  const [questionDrafts,setQuestionDrafts]=useState<Record<string,QuestionValues>>({})
+  const [questionFailures,setQuestionFailures]=useState<Record<string,boolean>>({})
+  const sendingQuestions=useRef(new Set<string>())
   const readingPositions=useRef(new Map<string,ReadingPosition>())
   const [forgePreparation,setForgePreparation]=useState(false)
   const sending = useRef(false)
   const dialogueHere = dialogue.context.projectId === project?.id
-  const dialogueBusy = ['qualifying', 'starting', 'running', 'stopping'].includes(dialogue.status)
-  const sessionPresent = ['starting', 'running', 'ready', 'stopping'].includes(dialogue.status)
+  const dialogueBusy = ['qualifying', 'starting', 'running','waiting-question', 'stopping'].includes(dialogue.status)
+  const sessionPresent = ['starting', 'running','waiting-question', 'ready', 'stopping'].includes(dialogue.status)
   const projectConversations = state?.conversations.filter(c => c.context.projectId === project?.id) ?? []
   const conversation = projectConversations.find(c => c.id === dialogue.context.conversationId) ?? projectConversations.at(-1)
   const canReply = dialogueHere && dialogue.status === 'ready' && conversation?.id === dialogue.context.conversationId
   const workflow=dialogue.workflows.find(w=>w.conversationId===conversation?.id)
   const recipient=dialogue.invocation==='$bmad-forge-idea'?'Forge':'Mary'
+  const activeQuestion=dialogue.questions.find(q=>(q.status==='waiting'||q.status==='sending')&&q.context.conversationId===dialogue.context.conversationId)
+  const displayedRecipient=activeQuestion?questionRecipient(activeQuestion):recipient
+  const displayedDialogueStatus=activeQuestion?(activeQuestion.status==='sending'?fr.questions.sending:fr.questions.title):fr.dialogueStatus[dialogue.status]
   const forgePrerequisite=!connection.accountStored?'account':connection.needsPlanAcknowledgement?'plan':null
   const sessionFeedback=!!(sessionPresent||dialogueBusy||((dialogueHere||dialogue.status==='unknown')&&dialogue.errorCode)||dialogueBridgeError||(dialogueHere&&dialogue.profile))
   useEffect(()=>{setForgePreparation(false)},[project?.id])
@@ -152,6 +161,18 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   useEffect(() => { void load() }, [])
   useEffect(() => window.madness.onStateChanged?.(() => { void window.madness.readState().then(accept).catch(() => setError('Le contexte du dialogue ne peut pas être relu. Votre saisie reste disponible.')) }), [])
   function acceptDialogue(next: DialogueState): void { setDialogue(current => next.sequence >= current.sequence ? next : current) }
+  function changeQuestion(question:QuestionRecord,values:QuestionValues):void{
+    const id=question.id;setQuestionDrafts(current=>({...current,[id]:values}))
+    void window.madnessDialogue.saveQuestion(id,values).then(next=>{acceptDialogue(next);setQuestionFailures(current=>({...current,[id]:!!next.errorCode}))}).catch(()=>setQuestionFailures(current=>({...current,[id]:true})))
+  }
+  async function answerQuestion(question:QuestionRecord):Promise<void>{
+    if(sendingQuestions.current.has(question.id))return
+    sendingQuestions.current.add(question.id)
+    const values=structuredClone(questionDrafts[question.id]??question.values)
+    try{const next=await window.madnessDialogue.answerQuestion(question.id,values);acceptDialogue(next);setQuestionFailures(current=>({...current,[question.id]:!!next.errorCode}))}
+    catch{setQuestionFailures(current=>({...current,[question.id]:true}))}
+    finally{sendingQuestions.current.delete(question.id)}
+  }
   useEffect(() => {
     if (!window.madnessDialogue) { setDialogueBridgeError(true); return }
     const unsubscribe = window.madnessDialogue.onChanged(acceptDialogue)
@@ -289,6 +310,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         <main id="main" tabIndex={-1}>
           <div className="main-inner">
             {error && <div className="error-message" role="alert"><strong>L’opération n’a pas abouti</strong><p>{error}</p>{!state && <button className="secondary" onClick={() => void load()} disabled={pending}>Relire le contexte local</button>}</div>}
+            {dialogue.questions.filter(q=>q.status==='waiting'||q.status==='sending').map(q=><div className="question-return" key={q.id} role="status"><p>{q.status==='sending'?<>Réponse à {questionRecipient(q)} dans {state?.projects.find(p=>p.id===q.context.projectId)?.name??'son projet capturé'}. {fr.questions.sending}</>:<>{questionRecipient(q)} attend votre réponse dans {state?.projects.find(p=>p.id===q.context.projectId)?.name??'son projet capturé'}.</>}</p>{(page!=='project'||project?.id!==q.context.projectId||tab!=='conversation')&&<button className="text-button" type="button" onClick={()=>{select(q.context.projectId!);setTab('conversation')}}>Retrouver la question</button>}</div>)}
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>Retrouver votre espace de travail</h1><p>{pending ? 'Lecture du contexte local…' : 'Le contexte local est indisponible. Utilisez le message ci-dessus pour réessayer.'}</p></section> : page === 'home' || !project ? <>
               <div className="page-intro"><div><h1 ref={heading} tabIndex={-1}>Vos projets, au même endroit</h1><p>Retrouvez un dossier et préparez la suite de votre travail.</p></div></div>
               {state.projects.length === 0 ? <section className="welcome"><h2>Commencez par un dossier</h2><p>Ouvrez un projet local pour conserver son contexte et y préparer un brouillon. Le dossier reste intact.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Madness doit connaître le projet auquel rattacher votre saisie.</p></section> : <section aria-labelledby="recent-heading"><h2 id="recent-heading">{fr.recent}</h2><div className="project-list">{state.projects.map((p, index) => <button className="project-row" key={p.id} onClick={() => select(p.id)} disabled={pending}><span className="project-avatar" aria-hidden="true">{(index + 1).toString(36).toUpperCase()}</span><span className="project-info"><strong>{p.name}</strong><code>{p.rootPath}</code><small>Contexte conservé localement</small></span><Icon name="arrow" /></button>)}</div></section>}
@@ -301,19 +323,19 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
               <section id={'panel-' + tab} role="tabpanel" aria-labelledby={'tab-' + tab}>
                 {tab === 'parcours' && <div className="recommendation"><h2>Discuter de votre projet avec Mary</h2><p>Mary, l’analyste BMad installée dans ce dossier, peut vous accueillir puis échanger librement avec vous.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Un premier échange permet de préciser votre idée avant de choisir un workflow.</p><button className="secondary" onClick={() => { setTab('conversation'); setTimeout(() => document.getElementById('mary-launch')?.focus(), 0) }}><Icon name="message" />Préparer le dialogue</button></div>}
                 <section className="forge-launch" aria-labelledby="forge-title">
-                  <div className="dialogue-heading"><h2 id="forge-title">Mettre une idée à l’épreuve</h2>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&<span className="badge" role="status">Forge · {fr.dialogueStatus[dialogue.status]}</span>}</div>
+                  <div className="dialogue-heading"><h2 id="forge-title">Mettre une idée à l’épreuve</h2>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&<span className="badge" role="status">Forge · {displayedDialogueStatus}</span>}</div>
                   <p>Forge confronte une nouvelle idée à plusieurs points de vue, puis conserve un journal et un rapport. Chaque tour utilise votre forfait ChatGPT.</p>
                   <button className="secondary" type="button" aria-expanded={forgePreparation} aria-controls="forge-preparation" onClick={()=>setForgePreparation(v=>!v)}>Préparer Forge</button>
                   {forgePreparation&&<div id="forge-preparation" className="forge-preparation">
                     <p><code>$bmad-forge-idea</code> · Forge natif installé · Codex</p>
                     <dl><dt>Projet destinataire</dt><dd>{project.name} · <code>{project.rootPath}</code></dd><dt>Effets autorisés</dt><dd>Une nouvelle session <code>forge-{'{slug}'}</code> dans la sortie BMad résolue de ce projet. Journal natif et HTML obligatoires ; Markdown supplémentaire si l’idée est renforcée (HARDENED).</dd><dt>Sortie vérifiée</dt><dd>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&dialogue.profile?.outputBase?<code>{dialogue.profile.outputBase}</code>:'Vérifiez le profil pour connaître le chemin exact.'}</dd></dl>
-                    <p className="small muted">Le lancement transmet uniquement l’invocation, jamais votre brouillon. Codex reste en lecture seule ; seules les commandes de cette session peuvent écrire. Hooks, reprise, autres workflows et interactions structurées indisponibles bloquent l’action. Le HTML reste un fichier, sans exécution dans Madness.</p>
+                    <p className="small muted">Le lancement transmet uniquement l’invocation, jamais votre brouillon. Codex reste en lecture seule ; seules les commandes de cette session peuvent écrire. Hooks, reprise, autres workflows et approbations indisponibles bloquent l’action. Le HTML reste un fichier, sans exécution dans Madness.</p>
                     <div className="dialogue-actions"><button className="secondary" type="button" onClick={()=>void dialogueAction('qualifyForge')} disabled={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'||dialogueBridgeError}>Vérifier le profil Forge</button><button id="forge-launch" className="primary" type="button" aria-describedby={forgePrerequisite?'forge-launch-prerequisite':undefined} onClick={()=>void dialogueAction('launchForge')} disabled={dialoguePending||dialogueBusy||sessionPresent||dialogue.status!=='qualified'||!dialogueHere||dialogue.invocation!=='$bmad-forge-idea'||!connection.accountStored||connection.needsPlanAcknowledgement||connectionBusy||dialogueBridgeError}>Lancer Forge avec Codex</button></div>
                     {forgePrerequisite&&<p id="forge-launch-prerequisite" className="small">{fr.dialoguePrerequisites[forgePrerequisite]}{' '}{forgePrerequisite==='account'?<button className="text-button" type="button" onClick={()=>setConnectionOpen(true)}>Ouvrir le panneau Codex</button>:<button className="text-button" type="button" onClick={()=>planConfirmation.current?.showModal()}>Relire le rappel du forfait</button>}</p>}
                   </div>}
                 </section>
                 <div className="dialogue-launch" aria-labelledby="mary-title">
-                  <div className="dialogue-heading"><h2 id="mary-title">Mary <span>Analyste BMad · Codex</span></h2>{dialogueHere&&dialogue.invocation==='$bmad-agent-analyst' && <span className="badge" role="status">Mary · {fr.dialogueStatus[dialogue.status]}</span>}</div>
+                  <div className="dialogue-heading"><h2 id="mary-title">Mary <span>Analyste BMad · Codex</span></h2>{dialogueHere&&dialogue.invocation==='$bmad-agent-analyst' && <span className="badge" role="status">Mary · {displayedDialogueStatus}</span>}</div>
                   <p><code>$bmad-agent-analyst</code></p>
                   <p>Le lancement vérifie les vrais fichiers BMad puis demande l’accueil de Mary. Chaque tour utilise votre forfait ChatGPT. Le projet reste en lecture seule.</p>
                   <p className="small muted">Pilote de discussion libre. Les workflows du menu, les écritures et les approbations ne sont pas pris en charge.</p>
@@ -325,9 +347,9 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   {connection.needsPlanAcknowledgement && <p className="small">{fr.dialoguePrerequisites.plan}</p>}
                 </div>
                 {sessionFeedback&&<section className="dialogue-session" aria-labelledby="dialogue-session-title">
-                  <h2 id="dialogue-session-title">Session {dialogue.context.projectId?recipient:'BMad'} · Codex</h2>
+                  <h2 id="dialogue-session-title">Session {dialogue.context.projectId?displayedRecipient:'BMad'} · Codex</h2>
                   {(sessionPresent||dialogueBusy)&&<div className="dialogue-actions"><button className="secondary" type="button" onClick={()=>void dialogueAction('stop')} disabled={dialoguePending||dialogue.status==='stopping'}><Icon name="close"/>Arrêter Codex</button></div>}
-                  {!dialogueHere && sessionPresent && <p className="small">{recipient} est active dans {state.projects.find(p => p.id === dialogue.context.projectId)?.name ?? 'un autre projet'}. Retrouvez ce projet pour lui répondre, ou arrêtez Codex.</p>}
+                  {!dialogueHere && sessionPresent && <p className="small">{displayedRecipient} · {displayedDialogueStatus} dans {state.projects.find(p => p.id === dialogue.context.projectId)?.name ?? 'un autre projet'}. Retrouvez ce projet pour consulter la session, ou arrêtez Codex.</p>}
                   {(dialogueHere || dialogue.status === 'unknown') && dialogue.errorCode && <div className="connection-error" role="alert"><p>{fr.dialogueErrors[dialogue.errorCode]}</p>{!dialogueHere && dialogue.context.projectId && <button className="text-button" type="button" onClick={() => select(dialogue.context.projectId!)} disabled={pending}>Retrouver {state.projects.find(p => p.id === dialogue.context.projectId)?.name ?? 'le projet de la session'}</button>}</div>}
                   {dialogueBridgeError && <p className="connection-error" role="alert">Le pont du dialogue ne répond pas. Votre brouillon est conservé ; redémarrez Madness après avoir vérifié l’arrêt de Codex.</p>}
                   {dialogueHere && dialogue.profile && <details className="dialogue-proof"><summary>Profil BMad vérifié</summary><p><code>{dialogue.profile.skillPath}</code></p><p className="small">Empreinte : <code>{dialogue.profile.fingerprint}</code></p></details>}
@@ -335,9 +357,10 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                 {workflow&&<WorkflowResult key={workflow.conversationId} workflow={workflow} onCopy={copyWorkflow}/>}
                 {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label="Échanges BMad">
                   {!canReply && !dialogueBusy && <p className="history-note">Historique conservé. Aucun moteur n’est relancé. Un lancement explicite ouvre une nouvelle conversation ; la reprise Forge est indisponible.</p>}
-                  {projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current}/>{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
+                  {projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} values={questionDrafts[q.id]??q.values} projectName={project.name} onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
                   <ConversationMessages key={conversation.id} conversation={conversation} projections={dialogue.messages??[]} positions={readingPositions.current}/>
-                  {dialogueHere && <p className="turn-status" role="status">{recipient} · {fr.dialogueStatus[dialogue.status]}{dialogue.status === 'running' && (dialogue.acknowledged ? ' · envoi acquitté et enregistré' : ' · accusé d’envoi attendu')}{dialogue.status === 'ready' && ' · tour terminé, prochaine action : votre réponse. La fin du tour ne valide aucun livrable.'}</p>}
+                  {dialogue.questions.filter(q=>q.context.conversationId===conversation.id).map(q=><QuestionPanel key={q.id} question={q} values={questionDrafts[q.id]??q.values} projectName={project.name} onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}
+                  {dialogueHere && <p className="turn-status" role="status">{displayedRecipient} · {displayedDialogueStatus}{dialogue.status === 'running' && !activeQuestion && (dialogue.acknowledged ? ' · envoi acquitté et enregistré' : ' · accusé d’envoi attendu')}{dialogue.status === 'ready' && ' · tour terminé, prochaine action : votre réponse. La fin du tour ne valide aucun livrable.'}</p>}
                 </div> : <div className="conversation-empty"><h2>Aucun échange enregistré</h2><p>Un lancement explicite ouvre une session sans envoyer votre brouillon.</p></div>)}
                 {dialogueHere && dialogue.activities.length > 0 && <details className="dialogue-activity"><summary>Activité du dialogue ({dialogue.activities.length})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{entry}</li>)}</ol></details>}
                 <form className="composer" onSubmit={(event) => { event.preventDefault(); const projectId = project.id; const value = text; void run(() => window.madness.saveDraft(projectId, value), () => setNotice(fr.saved)) }}>
@@ -354,7 +377,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
             <p className="status-line" role="status" aria-live="polite">{notice}</p>
           </div>
         </main>
-        {page === 'project' && project && <aside className="context-panel" aria-label="Contexte du projet"><h2>Contexte du projet</h2><p>Source : dossier choisi via Windows.</p><dl><dt>Dossier canonique</dt><dd><code>{project.rootPath}</code></dd><dt>Initiative capturée</dt><dd>{conversation?.context.initiativeId ?? 'Non identifiée'}</dd><dt>Conservation</dt><dd>Échanges, observations et brouillon dans les données locales de Madness.</dd><dt>Activité</dt><dd>{dialogueHere ? fr.dialogueStatus[dialogue.status] : 'Aucun agent actif dans ce projet'}</dd><dt>Fournisseur</dt><dd>Codex · connexion propre à Madness</dd><dt>Fichiers du projet</dt><dd>{workflow?'Écritures bornées à la nouvelle session Forge capturée.':'Mary en lecture seule ; Forge exige une préparation explicite.'}</dd></dl><p className="small">Pilote local ; la distribution et les gates historiques restent à qualifier.</p></aside>}
+        {page === 'project' && project && <aside className="context-panel" aria-label="Contexte du projet"><h2>Contexte du projet</h2><p>Source : dossier choisi via Windows.</p><dl><dt>Dossier canonique</dt><dd><code>{project.rootPath}</code></dd><dt>Initiative capturée</dt><dd>{conversation?.context.initiativeId ?? 'Non identifiée'}</dd><dt>Conservation</dt><dd>Échanges, observations et brouillon dans les données locales de Madness.</dd><dt>Activité</dt><dd>{dialogueHere ? displayedDialogueStatus : 'Aucun agent actif dans ce projet'}</dd><dt>Fournisseur</dt><dd>Codex · connexion propre à Madness</dd><dt>Fichiers du projet</dt><dd>{workflow?'Écritures bornées à la nouvelle session Forge capturée.':'Mary en lecture seule ; Forge exige une préparation explicite.'}</dd></dl><p className="small">Pilote local ; la distribution et les gates historiques restent à qualifier.</p></aside>}
       </div>
     </div>
     </div>

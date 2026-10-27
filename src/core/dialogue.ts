@@ -3,7 +3,11 @@ import type { DialogueCommand, DialogueMessage, DialogueState, WorkflowRecord } 
 import { MAX_DRAFT_LENGTH } from '../contracts/index.ts'
 import type { BmadProfile, DialogueMessageUpdate, DialogueSession, WorkflowPort } from './ports.ts'
 import type { Application } from './application.ts'
-type Dependencies = { application: Application; workflows?: WorkflowPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void): Promise<DialogueSession> }
+import {randomUUID} from 'node:crypto'
+import {isQuestionFields,isQuestionRecord,MAX_QUESTIONS,validQuestionValues} from '../contracts/questions.ts'
+import type {QuestionRecord} from '../contracts/questions.ts'
+import type {QuestionPort,QuestionResponder,QuestionObserver} from './ports.ts'
+type Dependencies = { application: Application; workflows?: WorkflowPort;questions?:QuestionPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void): Promise<DialogueSession> }
 /** Une seule session native possédée. Les travaux longs ne monopolisent jamais la queue disque. */
 export class DialogueCoordinator {
   private state = initialDialogueState()
@@ -16,6 +20,11 @@ export class DialogueCoordinator {
   private restored = false
   private qualifiedForge: { projectId: string; profile: BmadProfile } | null = null
   private turnSequence = 0
+  private questionWrites:Promise<unknown>=Promise.resolve()
+  private questionLocks=new Set<string>()
+  private answerSettlements=new Map<string,Promise<void>>()
+  private questionResponders=new Map<string,QuestionResponder>()
+  private restoration:Promise<void>|null=null
   private deps: Dependencies
   constructor(deps: Dependencies) { this.deps = deps }
   read(): DialogueState { return structuredClone(this.state) }
@@ -24,15 +33,16 @@ export class DialogueCoordinator {
   private activity = (text: string): void => { this.update({ activities: [...this.state.activities, text.slice(0, 500)].slice(-80) }) }
   async execute(input: unknown): Promise<DialogueState> {
     if (!isDialogueCommand(input)) return { ...this.read(), errorCode: 'INVALID_COMMAND' }
-    if (!this.restored) { try { const workflows=await this.deps.workflows?.read()??[];if(workflows.length>MAX_WORKFLOWS)throw dialogueFailure('STORAGE_READ_FAILED');this.update({workflows});this.restored=true } catch { return {...this.read(),errorCode:'STORAGE_READ_FAILED'} } }
+    if(!this.restored){try{this.restoration??=(async()=>{const workflows=await this.deps.workflows?.read()??[],questions=await this.deps.questions?.read()??[];if(workflows.length>MAX_WORKFLOWS||questions.length>MAX_QUESTIONS||!questions.every(isQuestionRecord))throw dialogueFailure('STORAGE_READ_FAILED');this.update({workflows,questions:questions.map(q=>q.status==='sent'?q:{...q,status:q.status==='sending'||q.status==='unknown'?'unknown':'inactive',reason:'reopened'})});this.restored=true})();await this.restoration}catch{this.restoration=null;return {...this.read(),errorCode:'STORAGE_READ_FAILED'}}}
     if (input.type === 'read') return this.read()
     if (this.closing) return { ...this.read(), errorCode: 'APP_CLOSING' }
+    if(input.type==='save-question'||input.type==='answer-question')return this.questionCommand(input)
     if(input.type==='copy-workflow'){
       const record=this.state.workflows.find(w=>w.conversationId===input.conversationId),text=input.target==='invocation'?record?.invocation:record?.workspace
       if(!text||!this.deps.copyText)return {...this.read(),errorCode:'INVALID_COMMAND'}
       try{await this.deps.copyText(text);this.update({errorCode:null});this.activity(input.target==='invocation'?'Invocation copiée.':'Chemin copié.');return this.read()}catch{return {...this.read(),errorCode:'OUTPUT_REFUSED'}}
     }
-    if (input.type === 'stop') { if (!this.active && !this.session) return this.read(); this.controller?.abort(); this.update({ status: 'stopping' }); if (!this.active) this.schedule(() => this.stop()); return this.read() }
+    if (input.type === 'stop') { if (!this.active && !this.session) return this.read();this.invalidateQuestions('stopped'); this.controller?.abort(); this.update({ status: 'stopping' }); if (!this.active) this.schedule(() => this.stop()); return this.read() }
     if (this.blocked) return { ...this.read(), errorCode: 'STOP_UNCONFIRMED' }
     if (this.active) return { ...this.read(), errorCode: 'BUSY' }
     if ((input.type==='send'||input.type==='launch'||input.type==='launch-forge')&&(this.state.messages.length>MAX_SESSION_MESSAGES-MAX_TURN_MESSAGES||this.state.messages.reduce((n,m)=>n+m.text.length,0)>MAX_SESSION_TEXT-MAX_DRAFT_LENGTH))return {...this.read(),errorCode:'OUTPUT_REFUSED'}
@@ -48,6 +58,58 @@ export class DialogueCoordinator {
       this.schedule(() => this.launch(input))
     }
     return this.read()
+  }
+  private question(id:string):QuestionRecord|undefined{return this.state.questions.find(q=>q.id===id)}
+  private projectQuestion(record:QuestionRecord):void{this.update({questions:this.state.questions.some(q=>q.id===record.id)?this.state.questions.map(q=>q.id===record.id?record:q):[...this.state.questions,record]})}
+  private writeQuestion(record:QuestionRecord):Promise<void>{
+    const candidate={...structuredClone(record),storage:'stored' as const}
+    const result=this.questionWrites.then(async()=>{if(!this.deps.questions)throw dialogueFailure('STORAGE_WRITE_FAILED');await this.deps.questions.write(candidate);const current=this.question(record.id);if(current?.revision===candidate.revision&&current.status===candidate.status)this.projectQuestion({...current,storage:'stored'})})
+    this.questionWrites=result.catch(()=>{});return result
+  }
+  private invalidateQuestion(id:string,reason:QuestionRecord['reason']):void{
+    this.questionResponders.delete(id);const current=this.question(id)
+    if(!current||!['waiting','sending'].includes(current.status))return
+    const next={...current,status:'inactive' as const,reason,revision:current.revision+1,storage:'pending' as const};this.projectQuestion(next)
+    void this.writeQuestion(next).catch(()=>{const latest=this.question(id);if(latest)this.projectQuestion({...latest,storage:'failed'});this.update({errorCode:'STORAGE_WRITE_FAILED'})})
+  }
+  private invalidateQuestions(reason:QuestionRecord['reason']):void{for(const id of this.questionResponders.keys())this.invalidateQuestion(id,reason)}
+  private async questionCommand(input:Extract<DialogueCommand,{questionId:string}>):Promise<DialogueState>{
+    const current=this.question(input.questionId)
+    if(!current||!validQuestionValues(current.fields,input.values,input.type==='answer-question'))return {...this.read(),errorCode:'INVALID_COMMAND'}
+    if(this.questionLocks.has(current.id))return {...this.read(),errorCode:'BUSY'}
+    const responder=this.questionResponders.get(current.id)
+    if(input.type==='answer-question'&&(!responder||current.status!=='waiting'||current.turnId!==this.state.turn?.id||current.context.conversationId!==this.state.context.conversationId||this.controller?.signal.aborted))return {...this.read(),errorCode:'CONTEXT_MISMATCH'}
+    if(current.status==='sent')return {...this.read(),errorCode:'CONTEXT_MISMATCH'}
+    let settled=():void=>{}
+    if(input.type==='answer-question'){this.questionLocks.add(current.id);this.answerSettlements.set(current.id,new Promise<void>(resolve=>settled=resolve))}
+    const next={...current,values:structuredClone(input.values),status:input.type==='answer-question'?'sending' as const:current.status,revision:current.revision+1,storage:'pending' as const};this.projectQuestion(next)
+    try{
+      await this.writeQuestion(next)
+      if(input.type==='answer-question'){
+        if(this.questionResponders.get(current.id)!==responder||this.question(current.id)?.status!=='sending'||this.controller?.signal.aborted||current.expiresAt!==null&&Date.now()>=current.expiresAt){this.invalidateQuestion(current.id,current.expiresAt!==null&&Date.now()>=current.expiresAt?'expired':'resolved');return {...this.read(),errorCode:'CONTEXT_MISMATCH'}}
+        await responder!.answer(structuredClone(input.values))
+        // Le reçu natif atteste l’envoi ; l’UI attend encore l’écriture atomique.
+        const latest=this.question(current.id)!
+        if(latest.status!=='sending'||this.controller?.signal.aborted)return {...this.read(),errorCode:'CONTEXT_MISMATCH'}
+        const sent={...latest,status:'sent' as const,reason:null,revision:latest.revision+1,storage:'pending' as const}
+        await this.writeQuestion(sent)
+        const afterWrite=this.question(current.id)
+        if(afterWrite?.status!=='sending'||afterWrite.revision!==latest.revision||this.questionResponders.get(current.id)!==responder||this.controller?.signal.aborted){await this.questionWrites;return {...this.read(),errorCode:this.state.errorCode??'CONTEXT_MISMATCH'}}
+        this.projectQuestion({...sent,storage:'stored'});this.questionResponders.delete(current.id)
+        if(this.state.status==='waiting-question')this.update({status:'running',errorCode:null})
+      }
+      if(this.state.errorCode==='STORAGE_WRITE_FAILED'||this.state.errorCode==='OUTPUT_CONFLICT')this.update({errorCode:null})
+      return this.read()
+    }catch(error){
+      const latest=this.question(current.id)!;let code=dialogueError(error,'STORAGE_WRITE_FAILED')
+      if(input.type==='answer-question'){
+        const unknown={...latest,status:'unknown' as const,reason:'failed' as const,revision:latest.revision+1,storage:'pending' as const}
+        this.projectQuestion(unknown);this.questionResponders.delete(current.id);this.controller?.abort()
+        try{await this.writeQuestion(unknown)}catch(storageError){code=dialogueError(storageError,'STORAGE_WRITE_FAILED');this.projectQuestion({...unknown,storage:'failed'})}
+      }else this.projectQuestion({...latest,storage:'failed'})
+      this.update({errorCode:code})
+      return {...this.read(),errorCode:code}
+    }finally{this.questionLocks.delete(current.id);this.answerSettlements.delete(current.id);settled()}
   }
   private schedule(work: () => Promise<void>): void { this.active = Promise.resolve().then(async () => { await work(); if (this.controller?.signal.aborted && this.session) await this.stop() }).catch(async error => {
     const code = dialogueError(error, this.controller?.signal.aborted ? 'CANCELLED' : 'PROVIDER_FAILED')
@@ -103,6 +165,15 @@ export class DialogueCoordinator {
     if (!projectId || !conversationId || !this.session) throw dialogueFailure('CONTEXT_MISMATCH')
     const requestId=input?.correlationId??launchRequest!,turnId='turn-'+ ++this.turnSequence,updates=new Map<string,DialogueMessage>(),dirty=new Set<string>()
     const sourceIds=new Map<string,string>()
+    const onQuestion:QuestionObserver=async(question,responder)=>{
+      await Promise.all(this.answerSettlements.values())
+      if(closed||!acknowledged||this.controller?.signal.aborted||!isQuestionFields(question.fields)||!isMessageIdentity(question.identity)||this.state.questions.length>=MAX_QUESTIONS||this.questionResponders.size)throw dialogueFailure('UNSUPPORTED_INTERACTION')
+      const record:QuestionRecord={schemaVersion:1,id:'question-'+randomUUID(),context,requestId,turnId,identity:structuredClone(question.identity),fields:structuredClone(question.fields),values:{},status:'waiting',reason:null,createdAt:new Date().toISOString(),expiresAt:question.expiresAt,revision:1,storage:'pending'}
+      if(!isQuestionRecord(record))throw dialogueFailure('UNSUPPORTED_INTERACTION')
+      this.questionResponders.set(record.id,responder);this.projectQuestion(record);this.update({status:'waiting-question'})
+      void responder.invalidated.then(()=>this.invalidateQuestion(record.id,record.expiresAt!==null&&Date.now()>=record.expiresAt?'expired':'resolved'))
+      try{await this.writeQuestion(record)}catch(error){this.invalidateQuestion(record.id,'failed');this.controller?.abort();throw error}
+    }
     let timer:ReturnType<typeof setTimeout>|undefined,projectionTimer:ReturnType<typeof setTimeout>|undefined,writing:Promise<void>=Promise.resolve(),storageError:unknown=null,acknowledged=false,closed=false
     this.update({turn:{id:turnId,requestId,context,phase:'awaiting-ack'}})
     const project=():void=>{
@@ -144,7 +215,8 @@ export class DialogueCoordinator {
         if(acknowledged)throw dialogueFailure('CONTEXT_MISMATCH')
         await this.deps.application.dialoguePersist(projectId, conversationId, value => { value.messages.push({ id:turnId+'-request', role: 'user', text: input?.text ?? this.state.invocation }) },undefined,requestId)
         acknowledged=true;this.update({ status:this.controller?.signal.aborted?'stopping':'running', acknowledged: true,turn:{id:turnId,requestId,context,phase:this.controller?.signal.aborted?'interrupted':'streaming'} }); this.activity('Envoi acquitté par Codex · conversation capturée')
-      },observe)
+      },observe,onQuestion)
+      await Promise.all(this.answerSettlements.values())
       if(!acknowledged||!text.trim())throw dialogueFailure('PROVIDER_FAILED')
       // Compatibilité du port : un adaptateur sans flux peut fournir un unique item final.
       if(!updates.size)observe({id:'final',order:1,text,completed:true,identity:{kind:'unknown'}})
@@ -160,11 +232,11 @@ export class DialogueCoordinator {
       for(const message of updates.values())if(message.phase==='streaming')message.phase='interrupted'
       project();this.update({turn:{id:turnId,requestId,context,phase:'interrupted'}})
       throw storageError??error
-    }finally{closed=true;clearTimeout(timer);clearTimeout(projectionTimer);await writing}
+    }finally{closed=true;this.invalidateQuestions('stopped');clearTimeout(timer);clearTimeout(projectionTimer);await writing;await this.questionWrites}
   }
   private async persistActivity(activity: 'idle' | 'interrupted' | 'unknown'): Promise<void> { const { projectId, conversationId } = this.state.context; if (projectId && conversationId) await this.deps.application.dialoguePersist(projectId, conversationId, value => { value.lastKnownActivity = activity },undefined,this.state.turn?.requestId??'dialogue-lifecycle') }
   private async stopSession(): Promise<'stopped' | 'unknown'> { const session = this.session; this.session = null; let outcome: 'stopped' | 'unknown' = this.blocked ? 'unknown' : 'stopped'; try { if (session) outcome = await session.stop() } catch { outcome = 'unknown' } if (outcome === 'unknown') this.blocked = true; return outcome }
   private async stop(): Promise<void> { const outcome = await this.stopSession(); await this.persistActivity(outcome === 'stopped' ? 'idle' : 'unknown'); this.update({ status: outcome, errorCode: outcome === 'unknown' ? 'STOP_UNCONFIRMED' : null,...(this.state.turn&&this.state.turn.phase!=='completed'?{turn:{...this.state.turn,phase:outcome==='unknown'?'unknown' as const:'interrupted' as const}}:{}) }); this.activity(outcome === 'stopped' ? 'Processus Codex arrêté' : 'Arrêt Codex non confirmé') }
   async settled(): Promise<void> { await this.active }
-  async shutdown(): Promise<'stopped' | 'unknown'> { this.closing = true; this.controller?.abort(); await this.active; await this.stop(); return this.blocked ? 'unknown' : 'stopped' }
+  async shutdown(): Promise<'stopped' | 'unknown'> { this.closing = true;this.invalidateQuestions('stopped'); this.controller?.abort(); await this.active;await this.questionWrites; await this.stop(); return this.blocked ? 'unknown' : 'stopped' }
 }

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T07:11:41.939Z",
+  "status": "controlled-replacement-data-preserved",
+  "installerExitCode": 0,
+  "installedAsarSha256": "3762c7decc4ea044024eaf8e7e6aed94c21bd76a36889632257f694e54c0c99b",
+  "preservation": {
+    "files": 15,
+    "beforeDigest": "a966222b1c9473895f0c4900bf894cd72166921d9f5ece5e9d98c3cf8d731f9f",
+    "afterDigest": "a966222b1c9473895f0c4900bf894cd72166921d9f5ece5e9d98c3cf8d731f9f",
+    "identical": true,
+    "includes": [
+      "snapshot",
+      "appearance",
+      "Local State",
+      "encrypted-vault",
+      "registration",
+      "questions",
+      "workflows"
+    ]
+  },
+  "installedReadOnlyRestoration": "installed-reopen-profile.json",
+  "firstReplacement": {
+    "installerExitCode": 0,
+    "baselineCaptured": false,
+    "reason": "Le relevé initial a refusé les sous-dossiers dialogues/probes, mais le shell n’a pas interrompu l’installateur ; absence de preuve avant/après pour ce premier remplacement conservée explicitement."
+  },
+  "limits": [
+    "Le remplacement contrôlé est une réinstallation du même paquet qualifié ; ce n’est pas la qualification à deux versions de1.9.",
+    "Aucune acceptation humaine ni distribution déduite. Aucun coffre copié ou déchiffré par le contrôleur."
+  ]
+}

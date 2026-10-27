@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T06:13:22.500Z",
+  "status": "failed-no-replay",
+  "phase": "first-close-and-durable-capture",
+  "checks": [
+    "normal-packaged-profile-and-existing-account-read-only-preflight",
+    "real-mary-qualified-launched-and-greeting-durable",
+    "first-native-question-real-context-fields-and-unknown-or-attested-recipient",
+    "single-explicit-form-answer-native-ack-durable-and-real-turn-continues",
+    "second-distinct-native-question-structured-draft-and-free-draft-stored-separately",
+    "confirmed-native-stop-keeps-drafts-and-rejects-late-answer-without-native-send"
+  ],
+  "diagnostics": [],
+  "native": {
+    "attached": true,
+    "startedAt": 1793081606555,
+    "esmBindingSynchronized": true,
+    "spawns": 1,
+    "closed": 1,
+    "questions": 2,
+    "rawOutputs": 1,
+    "answerOutputs": 1,
+    "exactSubmittedReceipts": 1,
+    "interruptions": 0,
+    "unsubmittedAnswerOutputs": 0,
+    "otherOutputs": 0,
+    "httpRequests": 2,
+    "runnerHash": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+    "activeChildren": 0,
+    "questionReceipts": [
+      {
+        "index": 1,
+        "nonSecret": true,
+        "expectedSubmission": true,
+        "rawOutputs": 1,
+        "answerOutputs": 1,
+        "exactSubmittedReceipt": true,
+        "interruptions": 0,
+        "otherOutputs": 0
+      },
+      {
+        "index": 2,
+        "nonSecret": true,
+        "expectedSubmission": false,
+        "rawOutputs": 0,
+        "answerOutputs": 0,
+        "exactSubmittedReceipt": false,
+        "interruptions": 0,
+        "otherOutputs": 0
+      }
+    ],
+    "ownedNativePids": []
+  },
+  "cleanup": {
+    "stopConfirmed": true,
+    "selectionRestored": true,
+    "navigationRestored": true,
+    "windowRestored": true,
+    "firstCloseConfirmed": true,
+    "finalCloseConfirmed": false,
+    "passiveHookRestored": true,
+    "exitEvidence": "owned-main-pid-absent"
+  },
+  "limits": [
+    "Sélection dossier contrôlée dans le Main possédé ; OS picker non qualifié, G4 ouvert.",
+    "Aucun screenshot personnel ni copie du coffre. Les données privées sont comparées uniquement en mémoire.",
+    "Deux demandes de question au maximum, une seule réponse soumise ; aucun rejeu automatique.",
+    "Les mesures passives de réseau/processus commencent à la connexion Playwright au Main ; aucune capture antérieure au démarrage de cette instrumentation n’est prétendue.",
+    "Aucun gate historique ni accord visuel humain déduit de ce parcours."
+  ],
+  "subphase": "operation",
+  "launchStages": [
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "launch-process",
+      "at": "2026-10-27T06:13:22.537Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "main-bootstrap-with-electron-argument",
+      "at": "2026-10-27T06:13:26.522Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "main-builtin-artifact-read",
+      "at": "2026-10-27T06:13:26.531Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "validate-loaded-artifact",
+      "at": "2026-10-27T06:13:26.551Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "install-passive-main-observer",
+      "at": "2026-10-27T06:13:26.551Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "wait-first-owned-window",
+      "at": "2026-10-27T06:13:26.556Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "wait-real-preload-bridges",
+      "at": "2026-10-27T06:13:26.557Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "capture-owned-window-bounds",
+      "at": "2026-10-27T06:13:26.705Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "capture-initial-state-in-memory",
+      "at": "2026-10-27T06:13:26.716Z"
+    },
+    {
+      "phase": "launch-qualified-package",
+      "subphase": "read-existing-account-metadata",
+      "at": "2026-10-27T06:13:26.776Z"
+    }
+  ],
+  "execution": {
+    "providerLaunchRequested": true,
+    "freePromptCount": 2,
+    "formSubmissionCount": 1
+  },
+  "mainModuleAccess": "process.getBuiltinModule",
+  "windowsLaunchWrapperObserved": true,
+  "observerSetupCode": null,
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true
+  },
+  "artifact": {
+    "asar": "b9383fe88ede47775b356cddf9414ec5620ea3c0ff5c8e08971eb6a94740583e",
+    "mainSha256": "60dd6e2cf0d527dfc50b30b2243605f3450270add335e5ade91667a5b40d360a",
+    "archiveHashOrigin": "controller-native-fs",
+    "mainHashOrigin": "loaded-main-fs"
+  },
+  "nativeObservationAvailable": true,
+  "spawnBinding": "cjs-property",
+  "failureCode": "CONVERSATION_CHANGED_DURING_CLOSE",
+  "failureContext": {
+    "phase": "first-close-and-durable-capture",
+    "subphase": "operation",
+    "errorClass": "controlled-check",
+    "ownedApplicationAvailable": false,
+    "rendererPageAvailable": false,
+    "providerLaunchRequested": true,
+    "freePromptCount": 2,
+    "formSubmissionCount": 1
+  },
+  "finishedAt": "2026-10-27T06:14:44.626Z"
+}

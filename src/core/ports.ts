@@ -3,6 +3,7 @@ import type { Snapshot } from '../contracts/index.ts'
 import type { ConnectionAction, ConnectionState } from '../contracts/connection.ts'
 import type { MessageIdentity, WorkflowRecord, WorkflowObservation } from '../contracts/dialogue.ts'
 import type {QuestionField,QuestionRecord,QuestionValues} from '../contracts/questions.ts'
+export interface RunRecoveryPort {status():Promise<'stopped'|'unknown'>;observeStop():Promise<'stopped'|'unknown'>}
 export interface ApprovalPort {read():Promise<ApprovalRecord[]>;write(record:ApprovalRecord):Promise<void>}
 export type ApprovalResponder={decide(decision:ApprovalDecision):Promise<void>;invalidated:Promise<void>;result:Promise<ApprovalResult>}
 export type ApprovalObserver=(approval:{files:ApprovalFile[];identity:MessageIdentity;expiresAt:number},responder:ApprovalResponder)=>Promise<void>

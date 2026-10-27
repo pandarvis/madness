@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process'
+import type {OwnedRun} from './owned-run.ts'
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 import { mkdir, mkdtemp, readFile, realpath, lstat, open, rm } from 'node:fs/promises'
 import { join, relative, isAbsolute, sep, dirname, basename, resolve } from 'node:path'
@@ -146,20 +147,25 @@ export async function stopNative(child: ChildProcessWithoutNullStreams): Promise
     return closed
   } finally { child.off('close', observe) }
 }
-async function nativeVersion(path: string, env: NodeJS.ProcessEnv, cwd: string, signal: AbortSignal): Promise<string> {
+async function nativeVersion(path: string, env: NodeJS.ProcessEnv, cwd: string, signal: AbortSignal,ownedRun?:OwnedRun): Promise<string> {
   signal.throwIfAborted()
+  const runId=await ownedRun?.begin()
+  if(signal.aborted){if(runId)await ownedRun!.closed(runId,true);signal.throwIfAborted()}
   const child = spawn(path, ['--version'], { cwd, env, shell: false, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] })
   let output = ''; child.stdout.on('data', (data) => { if (output.length < 4096) output += data }); child.stderr.resume()
   let timer: ReturnType<typeof setTimeout> | undefined
   const abort = (): void => { child.kill('SIGTERM') }; signal.addEventListener('abort', abort, { once: true })
+  const exited=new Promise<number|null>((resolve,reject)=>{child.once('close',resolve);child.once('error',()=>reject(connectionFailure('CODEX_INVALID')))})
+  void exited.catch(()=>{})
   try {
-    const code = await Promise.race([new Promise<number | null>((resolve, reject) => { child.once('close', resolve); child.once('error', () => reject(connectionFailure('CODEX_INVALID'))) }), new Promise<never>((_, reject) => { timer = setTimeout(() => reject(connectionFailure('CODEX_INVALID')), 5000) })])
+    if(runId)try{await ownedRun!.capture(runId,child.pid!,path)}catch(error){if(child.exitCode===null&&child.signalCode===null)throw error}
+    const code = await Promise.race([exited, new Promise<never>((_, reject) => { timer = setTimeout(() => reject(connectionFailure('CODEX_INVALID')), 5000) })])
     const match = /^codex-cli (\d+\.\d+\.\d+(?:[-.a-zA-Z0-9]+)?)\s*$/.exec(output.trim())
     if (code !== 0 || !match || output.length >= 4096) throw connectionFailure('CODEX_INVALID')
     return match[1]
-  } finally { clearTimeout(timer); signal.removeEventListener('abort', abort); if (!await stopNative(child)) throw connectionFailure('STOP_UNCONFIRMED') }
+  } finally { clearTimeout(timer); signal.removeEventListener('abort', abort);const stopped=await stopNative(child);try{if(runId)await ownedRun!.closed(runId,stopped)}catch{throw connectionFailure('STOP_UNCONFIRMED')} if (!stopped) throw connectionFailure('STOP_UNCONFIRMED') }
 }
-export async function probeCodex(credentials: Credentials, signal: AbortSignal, options: { root: string; appData: string; repository: string; environment: NodeJS.ProcessEnv }): Promise<{ stopped: boolean; version: string }> {
+export async function probeCodex(credentials: Credentials, signal: AbortSignal, options: { root: string; appData: string; repository: string;ownedRun?:OwnedRun; environment: NodeJS.ProcessEnv }): Promise<{ stopped: boolean; version: string }> {
   const withinRepository = (path: string): boolean => { const distance = relative(resolve(options.repository), path); return !distance || !isAbsolute(distance) && distance !== '..' && !distance.startsWith('..' + sep) }
   if (withinRepository(resolve(options.root))) throw connectionFailure('CODEX_INVALID')
   const executable = await findNativeExecutable(options.appData)
@@ -170,14 +176,16 @@ export async function probeCodex(credentials: Credentials, signal: AbortSignal, 
   const distance = relative(resolve(options.repository), await realpath(root))
   if (!distance || !isAbsolute(distance) && distance !== '..' && !distance.startsWith('..' + sep)) throw connectionFailure('CODEX_INVALID')
   const work = join(root, 'work'), isolated = join(root, 'profile')
-  let child: ChildProcessWithoutNullStreams | undefined, rpc: ProbeRpc | undefined, stopped = true
+  let child: ChildProcessWithoutNullStreams | undefined, rpc: ProbeRpc | undefined, stopped = true,runId:string|undefined
   try {
     await mkdir(work); await mkdir(join(isolated, 'codex-home'), { recursive: true })
-    const version = await nativeVersion(executable, probeEnvironment(options.environment, isolated), work, signal)
+    const version = await nativeVersion(executable, probeEnvironment(options.environment, isolated), work, signal,options.ownedRun)
     signal.throwIfAborted()
     const settings = ['cli_auth_credentials_store="file"', 'model_provider="openai_chatgpt_plan"', 'model_providers.openai_chatgpt_plan.name="ChatGPT plan"', 'model_providers.openai_chatgpt_plan.base_url="https://api.openai.com/v1"', 'model_providers.openai_chatgpt_plan.env_key="ACCESS_TOKEN"', 'model_providers.openai_chatgpt_plan.wire_api="responses"', 'model_providers.openai_chatgpt_plan.requires_openai_auth=false', 'model_providers.openai_chatgpt_plan.supports_websockets=false', 'model_providers.openai_chatgpt_plan.request_max_retries=0', 'model_providers.openai_chatgpt_plan.stream_max_retries=0', 'web_search="disabled"', 'features.shell_tool=false', 'features.multi_agent=false', 'mcp_servers={}', 'shell_environment_policy.inherit="none"']
+    runId=await options.ownedRun?.begin();signal.throwIfAborted()
     child = spawn(executable, ['app-server', '--listen', 'stdio://', ...settings.flatMap((setting) => ['-c', setting])], { cwd: work, env: probeEnvironment(options.environment, isolated, credentials.accessToken), shell: false, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] })
     rpc = new ProbeRpc(child, signal)
+    if(runId)await options.ownedRun!.capture(runId,child.pid!,executable)
     await runProbeProtocol(rpc, work)
     stopped = await stopNative(child)
     if (!stopped) throw connectionFailure('STOP_UNCONFIRMED')
@@ -190,6 +198,7 @@ export async function probeCodex(credentials: Credentials, signal: AbortSignal, 
   }
   finally {
     if (child) { stopped = await stopNative(child); rpc?.dispose() }
+    if(runId)try{await options.ownedRun!.closed(runId,stopped)}catch{stopped=false}
     if (stopped) {
       const actual = await realpath(root), parent = await realpath(options.root)
       if (dirname(actual) === parent && basename(actual).startsWith('attempt-') && !(await lstat(root)).isSymbolicLink()) await rm(root, { recursive: true, force: true }).catch(() => {})

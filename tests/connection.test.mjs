@@ -4,7 +4,7 @@ import { Application } from '../src/core/application.ts'
 import { emptyContext, emptySnapshot } from '../src/contracts/index.ts'
 const contracts = await import('../src/contracts/connection.ts').catch(() => null)
 const service = await import('../src/adapters/codex/connection.ts').catch(() => null)
-const initial = { contractVersion: 1, sequence: 0, status: 'disconnected', accountStored: false, verifiedAt: null, errorCode: null, cliVersion: null, needsPlanAcknowledgement: false }
+const initial = {network:{status:'idle',checkedAt:null,errorCode:null}, contractVersion: 1, sequence: 0, status: 'disconnected', accountStored: false, verifiedAt: null, errorCode: null, cliVersion: null, needsPlanAcknowledgement: false }
 const credentials = { version: 1, clientId: 'oaiapp_testclient', subject: 'test-subject', accessToken: 'private-access', refreshToken: 'private-refresh', idToken: 'private-id', expiresAt: Date.now() + 600000, scopes: ['openid', 'profile', 'email', 'offline_access', 'resource.invoke', 'chatgpt.tokens.use.direct'], planAcknowledged: false }
 test('le contrat connexion refuse secrets, URLs et commandes imprécises', () => {
   assert.ok(contracts, 'Le contrat de connexion doit exister')

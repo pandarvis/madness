@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T15:08:31.280Z",
+  "mode": "compiled-isolated",
+  "status": "passed",
+  "checks": [
+    "restored-owned-run-blocks-without-engine",
+    "explicit-owned-exit-observation-no-foreign-target",
+    "keyboard-inspection-real-files-native-outcome-unchanged",
+    "prepare-focus-and-draft-without-message-or-approval-replay",
+    "network-help-visible-at-launch-failure-in-project",
+    "network-only-check-does-not-verify-codex-or-send-draft",
+    "unique-aria-identifiers-with-two-network-help-surfaces",
+    "desktop-compact-dark-light-no-overflow",
+    "exact-reopen-no-engine-network-replay-and-observations-expire"
+  ],
+  "captures": [],
+  "cleanup": true,
+  "limits": [
+    "États synthétiques ; Main, preload, renderer et lectures projet réels. Aucun compte ni modèle.",
+    "La qualification du vrai runner loopback est séparée. Aucun gate distribué ni accord visuel humain déduit."
+  ],
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": false
+  },
+  "artifactSha256": "08319b7601f412a18bcad5f2c17898452959b69315afc846df7e7895c1d3cf91",
+  "finishedAt": "2026-10-27T15:08:46.554Z"
+}

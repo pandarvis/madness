@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T14:20:16.191Z",
+  "files": [
+    {
+      "file": "out/main/index.js",
+      "bytes": 249036,
+      "sha256": "2df39d3559f748b80ab8e106f455a6713ef9b4ee327bd3b566770ff1b3692376"
+    },
+    {
+      "file": "out/preload/index.js",
+      "bytes": 30519,
+      "sha256": "896b68593af676e783f4d87a0b72393ac9f5d022c4e906122da29bd2dfc11ea4"
+    },
+    {
+      "file": "out/renderer/assets/index-DoUeKjXC.js",
+      "bytes": 679570,
+      "sha256": "4fe8b766a601077859364d5ddcd0b7d661a93722ea0be1fa887e973196789259"
+    },
+    {
+      "file": "dist/recovery-pilot/win-unpacked/resources/app.asar",
+      "bytes": 9478805,
+      "sha256": "5849641a3b1bcfa11de43a057ea481ec1702e9ba957030322ed51761e7d4c8d7"
+    },
+    {
+      "file": "dist/recovery-pilot/Madness-0.1.0-x64-setup.exe",
+      "bytes": 112944824,
+      "sha256": "1b1df4a0cfd93bd68cabb06b4d6080c5d52b75279c174387a3a7258942f67798"
+    }
+  ],
+  "validation": {
+    "compiled": "passed",
+    "packaged": "passed",
+    "native": "passed",
+    "visualRounds": 2,
+    "detectRuns": 1
+  }
+}

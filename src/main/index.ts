@@ -1,4 +1,7 @@
 import {ApprovalStore} from '../adapters/persistence/approval-store.ts'
+import {RecoveryStore} from '../adapters/persistence/recovery-store.ts'
+import {OwnedRun} from '../adapters/codex/owned-run.ts'
+import {inspectApprovalFiles} from '../adapters/codex/file-proposals.ts'
 import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, protocol, net, session, Menu, safeStorage, shell } from 'electron'
 import { realpath, stat, access } from 'node:fs/promises'
 import { constants } from 'node:fs'
@@ -15,7 +18,7 @@ import { openCodexDialogue } from '../adapters/codex/dialogue.ts'
 import { DIALOGUE_COMMAND_CHANNEL, DIALOGUE_EVENT_CHANNEL, initialDialogueState, isDialogueCommand, isDialogueState } from '../contracts/dialogue.ts'
 import { CodexVault } from '../adapters/codex/vault.ts'
 import { CodexConnection } from '../adapters/codex/connection.ts'
-import { authorize, createTransport, refreshCredentials } from '../adapters/codex/oauth.ts'
+import { authorize, createTransport, refreshCredentials,checkPublicKeysAccess } from '../adapters/codex/oauth.ts'
 import { probeCodex } from '../adapters/codex/probe.ts'
 import { isTrustedCaller } from './boundary.ts'
 import { AppearanceStore } from '../adapters/persistence/appearance-store.ts'
@@ -113,19 +116,24 @@ else {
       decryptString: (value) => safeStorage.decryptString(value)
     })
     const transport = createTransport(net.fetch.bind(net) as typeof fetch)
+    const ownedRun=new OwnedRun(new RecoveryStore(join(app.getPath('userData'),'codex-owned-run-v1.json')))
     connection = new CodexConnection({
+      recovery:ownedRun,
       vault,
       oauth: (options) => authorize({ ...options, transport, openExternal: (url) => shell.openExternal(url), saveClientId: (value) => vault.saveClientId(value) }),
       refresh: (value, signal) => refreshCredentials(value, { signal, transport }),
-      probe: (value, signal) => probeCodex(value, signal, { root: join(connectionRoot, 'probes'), appData: app.getPath('appData'), repository: app.getAppPath(), environment: process.env }),
+      probe: (value, signal) => probeCodex(value, signal, { root: join(connectionRoot, 'probes'),ownedRun, appData: app.getPath('appData'), repository: app.getAppPath(), environment: process.env }),
       now: () => new Date(),
       openUsage: () => shell.openExternal('https://chatgpt.com/settings/usage'),
       openPublicKeys: () => shell.openExternal(PUBLIC_KEYS_URL),
-      copyPublicKeys: async () => { clipboard.writeText(PUBLIC_KEYS_URL) }
+      copyPublicKeys: async () => { await clipboard.writeText(PUBLIC_KEYS_URL);if(await clipboard.readText()!==PUBLIC_KEYS_URL)throw Error('COPY_FAILED') },
+      checkPublicKeys:signal=>checkPublicKeysAccess(transport,signal)
     })
     application.lifecycle.register({ id: 'codex-connection', context: { ...emptyContext(), providerId: 'codex' }, stop: () => connection!.shutdown() })
     dialogueCoordinator = new DialogueCoordinator({
       application,
+      recovery:{status:()=>ownedRun.status(),observeStop:async()=>{const result=await ownedRun.observeStop();if(result==='stopped')connection!.confirmRecoveryStop();return result}},
+      inspectApproval:(root,files)=>inspectApprovalFiles(root,files,[connectionRoot,app.getPath('userData')]),
       workflows:new WorkflowStore(join(app.getPath('userData'),'workflows-v1')),
       approvals:new ApprovalStore(join(app.getPath('userData'),'approvals-v1')),
       questions:new QuestionStore(join(app.getPath('userData'),'questions-v1')),
@@ -136,7 +144,7 @@ else {
         await resolveBmad(profile, 'agent', signal); await resolveBmad(profile, 'config', signal)
         return profile
       },
-      open: (profile, signal, activity) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'), environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
+      open: (profile, signal, activity) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
     ipcMain.handle(DIALOGUE_COMMAND_CHANNEL, async (event, input: unknown) => {

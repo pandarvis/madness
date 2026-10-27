@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T15:12:44.362Z",
+  "status": "passed",
+  "checks": [
+    "installed-asar-and-loaded-main-match-qualified-artifact",
+    "snapshot-projects-conversations-drafts-preferences-exact-with-no-test-recents",
+    "recovery-clear-and-historical-controls-inactive-without-replay",
+    "encrypted-account-readable-without-verification-refresh-or-network-check",
+    "no-spawn-or-network-after-passive-hook",
+    "critical-private-file-bytes-identical-after-owned-close"
+  ],
+  "asarSha256": "9a11c3a722b5cacaa1cb4d12eff3defc7a22be67c82930af78dfa3ebc4dc09f6",
+  "closed": true,
+  "limits": [
+    "Restauration seule ; aucune commande fournisseur, navigation, saisie ou capture personnelle.",
+    "Compteurs passifs depuis leur installation ; démarrage antérieur non couvert.",
+    "Empreintes des données privées seulement, aucun texte ou secret exporté."
+  ],
+  "passive": {
+    "spawns": 0,
+    "network": 0
+  },
+  "finishedAt": "2026-10-27T15:12:57.585Z"
+}

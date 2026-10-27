@@ -262,3 +262,11 @@ dd { margin: 6px 0 0; color: var(--muted) }
 .approval-result { margin-top: 20px; }
 .approval-result li { overflow-wrap: anywhere; margin-block: 8px; }
 @media (max-width: 700px) { .approval-actions { align-items: stretch; flex-direction: column; } .approval-actions button { width: 100%; } }
+.recovery-panel { margin-block: 24px; padding-block: 20px; border-block: 1px solid var(--line); }
+.recovery-panel h2 { margin-block: 0 12px; }
+.recovery-operation { margin-block: 20px; }
+.recovery-operation h3 { margin-block: 0 8px; font-size: 1rem; }
+.recovery-observation { margin-block-start: 12px; }
+.recovery-panel code, .recovery-observation li { overflow-wrap: anywhere; }
+.recovery-observation li { margin-block: 12px; }
+.network-help-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T15:12:43.375Z",
+  "status": "replacement-data-identical-before-reopen",
+  "installerExitCode": 0,
+  "installedAsarSha256": "9a11c3a722b5cacaa1cb4d12eff3defc7a22be67c82930af78dfa3ebc4dc09f6",
+  "preservation": {
+    "files": 27,
+    "beforeDigest": "9331b899d9362f8c6b0e13cb137d070c762dd3b248741594eeb9a7f1909710f0",
+    "afterDigest": "9331b899d9362f8c6b0e13cb137d070c762dd3b248741594eeb9a7f1909710f0",
+    "identical": true,
+    "includes": [
+      "snapshot",
+      "appearance",
+      "Local State",
+      "encrypted-vault",
+      "annexes",
+      "owned-run-guard",
+      "private-test-archives"
+    ]
+  },
+  "limits": [
+    "Vérification avant toute réouverture ; restauration installée distincte.",
+    "Aucun modèle, compte, refresh ou moteur exécuté par ce relevé.",
+    "Qualification personnelle, aucun gate de distribution déduit."
+  ]
+}

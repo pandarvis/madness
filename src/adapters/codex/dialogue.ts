@@ -19,6 +19,7 @@ import { findNativeExecutable, probeEnvironment, stopNative } from './probe.ts'
 import { assertBmadProfile, readBmadFile, resolveBmad } from '../bmad/profile.ts'
 import { ForgeHost, qualifyForge } from '../bmad/forge.ts'
 import type { ForgeOperation } from '../bmad/forge.ts'
+import type {OwnedRun} from './owned-run.ts'
 type Message = { id?: string | number; method?: string; params?: any; result?: any; error?: unknown }
 /** Le reçu raw expérimental n’est qualifié que sur ce binaire 0.144.6. */
 export async function assertQuestionRuntime(executable:string):Promise<void>{
@@ -329,7 +330,7 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
     } finally {invalidateQuestion('CANCELLED');invalidateApproval('CANCELLED');questionObserver=undefined;approvalObserver=undefined; release(); busy = false }
   } }
 }
-export async function openCodexDialogue(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, connection: CodexConnection, options: { root: string; appData: string; repository: string;dataRoot?:string; environment: NodeJS.ProcessEnv; runner?:string }): Promise<DialogueSession> {
+export async function openCodexDialogue(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, connection: CodexConnection, options: { root: string; appData: string; repository: string;dataRoot?:string;ownedRun?:OwnedRun; environment: NodeJS.ProcessEnv; runner?:string }): Promise<DialogueSession> {
   // Les resolvers doivent fonctionner avant de demander le moindre appel au forfait.
   let forge:ForgeHost|undefined,initiative:string|null
   if(profile.kind==='forge'){
@@ -344,12 +345,16 @@ export async function openCodexDialogue(profile: BmadProfile, signal: AbortSigna
   const executable=await findNativeExecutable(options.appData)
   await assertQuestionRuntime(executable);signal.throwIfAborted()
   const lease = await connection.acquireDialogue(signal)
-  let root: string | undefined, child: ChildProcessWithoutNullStreams | undefined, rpc: DialogueRpc | undefined, stopped = false
+  let root: string | undefined, child: ChildProcessWithoutNullStreams | undefined, rpc: DialogueRpc | undefined, stopped = false,runId:string|undefined
   const outsideRepository = (value: string): boolean => { const distance = relative(resolve(options.repository), value); return !!distance && (isAbsolute(distance) || distance === '..' || distance.startsWith('..' + sep)) }
   const cleanup = async (): Promise<'stopped' | 'unknown'> => {
     if (stopped) return 'stopped'
     const confirmed = child ? await stopNative(child) : true
-    rpc?.dispose(); lease.release(confirmed); stopped = confirmed
+    rpc?.dispose()
+    // Le reçu d'arrêt n'est durable qu'après écriture du propriétaire privé.
+    let stillOwned=true
+    try{if(runId)stillOwned=await options.ownedRun!.closed(runId,confirmed)}catch{lease.release(false);return 'unknown'}
+    lease.release(confirmed);if(confirmed&&stillOwned)connection.confirmDialogueStop();stopped = confirmed
     if (root && confirmed) { const actual = await realpath(root), parent = await realpath(options.root); if (dirname(actual) === parent) await rm(root, { recursive: true, force: true }).catch(() => {}) }
     return confirmed ? 'stopped' : 'unknown'
   }
@@ -360,8 +365,10 @@ export async function openCodexDialogue(profile: BmadProfile, signal: AbortSigna
     const work = join(root, 'work'), isolated = join(root, 'profile'); await mkdir(work); await mkdir(join(isolated, 'codex-home'), { recursive: true })
     const settings = ['cli_auth_credentials_store="file"', 'model_provider="openai_chatgpt_plan"', 'model_providers.openai_chatgpt_plan.name="ChatGPT plan"', 'model_providers.openai_chatgpt_plan.base_url="https://api.openai.com/v1"', 'model_providers.openai_chatgpt_plan.env_key="ACCESS_TOKEN"', 'model_providers.openai_chatgpt_plan.wire_api="responses"', 'model_providers.openai_chatgpt_plan.requires_openai_auth=false', 'model_providers.openai_chatgpt_plan.supports_websockets=false', 'model_providers.openai_chatgpt_plan.request_max_retries=0', 'model_providers.openai_chatgpt_plan.stream_max_retries=0', 'web_search="disabled"', 'features.shell_tool=false', 'features.multi_agent=false', 'features.apps=false', 'features.plugins=false', 'features.default_mode_request_user_input=true', 'mcp_servers={}', 'shell_environment_policy.inherit="none"']
     signal.throwIfAborted(); activity('Codex app-server · forfait ChatGPT · profil isolé · lecture seule')
+    runId=await options.ownedRun?.begin();signal.throwIfAborted()
     child = spawn(executable, ['app-server', '--listen', 'stdio://', ...settings.flatMap(setting => ['-c', setting])], { cwd: work, env: probeEnvironment(options.environment, isolated, lease.credentials.accessToken), shell: false, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] })
     rpc = new DialogueRpc(child, signal)
+    if(runId)await options.ownedRun!.capture(runId,child.pid!,executable)
     const protocol = await startDialogueProtocol(rpc, { cwd: profile.mode==='file-approval'&&!forge?profile.rootPath:work, profile, forge,protectedRoots:[options.root,options.dataRoot??join(options.appData,'Madness')], signal, activity, resolve: kind => resolveBmad(profile, kind, signal), read: path => forge?forge.read(path):readBmadFile(profile, path) })
     return { context: { connectionId: lease.connectionId, initiativeId: initiative }, ...(forge?{workflow:{outputBase:profile.forge!.outputBase,contextDigest:profile.forge!.contextDigest,bind:forge.bind.bind(forge)}}:{}), turn: async (text, accepted, observe,onQuestion,onApproval) => { if(forge)await forge.assertForTurn();else await assertBmadProfile(profile); if (lease.credentials.expiresAt <= Date.now() + 30000) throw dialogueFailure('NO_ACCOUNT'); return protocol.turn(text, accepted, observe,onQuestion,onApproval) }, stop: cleanup }
   } catch (error) { const outcome = await cleanup(); if (outcome === 'unknown') throw dialogueFailure('STOP_UNCONFIRMED'); throw error }

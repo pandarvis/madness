@@ -50,6 +50,7 @@ const connectionRequest = async (action: ConnectionAction): Promise<ConnectionRe
   return reply
 }
 const connectionBridge: ConnectionBridge = {
+  checkPublicKeys:()=>connectionRequest('check-public-keys'),cancelPublicKeys:()=>connectionRequest('cancel-public-keys'),
   read: () => connectionRequest('read'), connect: () => connectionRequest('connect'), verify: () => connectionRequest('verify'), cancel: () => connectionRequest('cancel'), disconnect: () => connectionRequest('disconnect'), acknowledgePlan: () => connectionRequest('acknowledge-plan'), manageUsage: () => connectionRequest('manage-usage'), openPublicKeys: () => connectionRequest('open-public-keys'), copyPublicKeys: () => connectionRequest('copy-public-keys'),
   onChanged: (listener) => {
     const receive = (_event: Electron.IpcRendererEvent, value: unknown): void => { if (isConnectionState(value)) listener(value) }
@@ -66,6 +67,7 @@ const dialogueRequest = async (payload: Omit<DialogueCommand, 'contractVersion' 
   return reply.state
 }
 const dialogueBridge: DialogueBridge = {
+  inspectApproval:approvalId=>dialogueRequest({type:'inspect-approval',approvalId}),observeStop:()=>dialogueRequest({type:'observe-stop'}),
   saveApproval:(approvalId,adjustment)=>dialogueRequest({type:'save-approval',approvalId,adjustment}),decideApproval:(approvalId,decision)=>dialogueRequest({type:'decide-approval',approvalId,decision}),sendAdjustment:approvalId=>dialogueRequest({type:'send-adjustment',approvalId}),
   saveQuestion:(questionId,values)=>dialogueRequest({type:'save-question',questionId,values}),answerQuestion:(questionId,values)=>dialogueRequest({type:'answer-question',questionId,values}),
   qualifyForge:projectId=>dialogueRequest({type:'qualify-forge',projectId}),launchForge:projectId=>dialogueRequest({type:'launch-forge',projectId}),copyWorkflow:(conversationId,target)=>dialogueRequest({type:'copy-workflow',conversationId,target}),

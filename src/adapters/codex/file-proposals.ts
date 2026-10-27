@@ -6,6 +6,8 @@ import {isDeepStrictEqual} from 'node:util'
 import {isRecord,MAX_DRAFT_LENGTH} from '../../contracts/index.ts'
 import {dialogueFailure} from '../../contracts/dialogue.ts'
 import type {ApprovalFile} from '../../contracts/approvals.ts'
+import {isApprovalFiles} from '../../contracts/approvals.ts'
+import type {FileInspection} from '../../contracts/recovery.ts'
 const hash=(bytes:Buffer|string):string=>createHash('sha256').update(bytes).digest('hex')
 const inside=(root:string,path:string):boolean=>{const r=relative(root,path);return !!r&&!isAbsolute(r)&&r!=='..'&&!r.startsWith('..'+sep)}
 const exact=(v:Record<string,unknown>,keys:string[]):boolean=>Object.keys(v).length===keys.length&&keys.every(k=>Object.hasOwn(v,k))
@@ -32,18 +34,30 @@ function patched(before:string,diff:string):string{
  return output.join('\n')+(newline&&output.length?'\n':'')
 }
 export type CapturedFileProposal={files:ApprovalFile[];assertUnchanged():Promise<void>;inspectEffects(decision?:'accept'|'decline'):Promise<{matches:boolean;files:{path:string;sha256:string|null;matches:boolean}[]}>;same(changes:unknown):boolean}
-export async function captureFileProposal(rootPath:string,changes:unknown,protectedRoots:string[]=[]):Promise<CapturedFileProposal>{
- const root=await realpath(rootPath),rootIdentity=await lstat(root,{bigint:true}),declaredRoot=resolve(rootPath),protectedPaths=await Promise.all(protectedRoots.map(async p=>realpath(p).catch(()=>resolve(p)))),snapshots:{path:string;before:Buffer|null;after:Buffer|null}[]=[],files:ApprovalFile[]=[]
- if(!Array.isArray(changes)||!changes.length||changes.length>50)throw dialogueFailure('OUTPUT_REFUSED')
- const normalize=(value:unknown):unknown=>Array.isArray(value)?[...value].sort((a,b)=>String(a.path).localeCompare(String(b.path))):value
- const native=structuredClone(normalize(changes))
+async function safeReader(rootPath:string,protectedRoots:string[]):Promise<{root:string;declaredRoot:string;bytes(path:string):Promise<Buffer|null>}>{
+ const root=await realpath(rootPath),rootIdentity=await lstat(root,{bigint:true}),declaredRoot=resolve(rootPath),protectedPaths=await Promise.all(protectedRoots.map(async p=>realpath(p).catch(()=>resolve(p))))
  async function safePath(path:string):Promise<void>{
   try{const currentRoot=await lstat(root,{bigint:true});if(currentRoot.isSymbolicLink()||!currentRoot.isDirectory()||currentRoot.dev!==rootIdentity.dev||currentRoot.ino!==rootIdentity.ino||await realpath(root)!==root||await realpath(declaredRoot)!==root)throw Error()}catch{throw dialogueFailure('OUTPUT_REFUSED')}
   if(!inside(root,path)||protectedPaths.some(p=>path.toLowerCase()===p.toLowerCase()||inside(p,path)))throw dialogueFailure('OUTPUT_REFUSED')
   const parts=relative(root,path).split(sep);if(parts.some(p=>['.git','.agents','_bmad','.codex','.aws'].includes(p.toLowerCase())||p.includes(':')||/[. ]$/.test(p)||/^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(p)))throw dialogueFailure('OUTPUT_REFUSED')
   let current=root;for(let i=0;i<parts.length;i++){current=resolve(current,parts[i]);try{const stat=await lstat(current);if(stat.isSymbolicLink()||i<parts.length-1&&!stat.isDirectory()||i===parts.length-1&&!stat.isFile())throw dialogueFailure('OUTPUT_REFUSED');if(await realpath(current)!==current)throw dialogueFailure('OUTPUT_REFUSED')}catch(error){if((error as NodeJS.ErrnoException).code==='ENOENT'&&i===parts.length-1)return;throw error}}
  }
- async function bytes(path:string):Promise<Buffer|null>{await safePath(path);try{const stat=await lstat(path);if(stat.size>MAX_DRAFT_LENGTH||stat.nlink!==1)throw dialogueFailure('OUTPUT_REFUSED');return await readFile(path)}catch(error){if((error as NodeJS.ErrnoException).code==='ENOENT')return null;throw error}}
+ async function bytes(path:string):Promise<Buffer|null>{await safePath(path);try{const stat=await lstat(path);if(stat.size>MAX_DRAFT_LENGTH||stat.nlink!==1)throw dialogueFailure('OUTPUT_REFUSED');const bytes=await readFile(path);if(bytes.length>MAX_DRAFT_LENGTH)throw dialogueFailure('OUTPUT_REFUSED');await safePath(path);return bytes}catch(error){if((error as NodeJS.ErrnoException).code==='ENOENT')return null;throw error}}
+ return {root,declaredRoot,bytes}
+}
+/** Lecture seule : comparer l'ensemble du patch historique, sans reconstruire ni appliquer ses diffs. */
+export async function inspectApprovalFiles(rootPath:string,files:ApprovalFile[],protectedRoots:string[]=[]):Promise<FileInspection>{
+ if(!isApprovalFiles(files))throw dialogueFailure('OUTPUT_REFUSED')
+ const reader=await safeReader(rootPath,protectedRoots),observations:FileInspection['files']=[]
+ for(const file of files){const current=await reader.bytes(file.path),sha256=current===null?null:hash(current),before=sha256===file.beforeSha256,after=sha256===file.afterSha256;observations.push({path:file.path,sha256,position:before&&after?'identical':before?'before':after?'after':'diverged'})}
+ const outcome=observations.some(f=>f.position==='diverged')?'diverged':observations.every(f=>f.position==='identical')?'identical':observations.every(f=>f.position==='before'||f.position==='identical')?'before':observations.every(f=>f.position==='after'||f.position==='identical')?'after':'mixed'
+ return {outcome,files:observations}
+}
+export async function captureFileProposal(rootPath:string,changes:unknown,protectedRoots:string[]=[]):Promise<CapturedFileProposal>{
+ const {root,declaredRoot,bytes}=await safeReader(rootPath,protectedRoots),snapshots:{path:string;before:Buffer|null;after:Buffer|null}[]=[],files:ApprovalFile[]=[]
+ if(!Array.isArray(changes)||!changes.length||changes.length>50)throw dialogueFailure('OUTPUT_REFUSED')
+ const normalize=(value:unknown):unknown=>Array.isArray(value)?[...value].sort((a,b)=>String(a.path).localeCompare(String(b.path))):value
+ const native=structuredClone(normalize(changes))
  for(const change of changes){
   if(!isRecord(change)||!exact(change,['path','kind','diff'])||typeof change.path!=='string'||!change.path.length||change.path.includes('\0')||typeof change.diff!=='string'||change.diff.length>MAX_DRAFT_LENGTH||!isRecord(change.kind))throw dialogueFailure('OUTPUT_REFUSED')
   const kind=change.kind.type;if(!['add','update','delete'].includes(String(kind))||!exact(change.kind,kind==='update'?['type','move_path']:['type'])||kind==='update'&&change.kind.move_path!==null)throw dialogueFailure('OUTPUT_REFUSED')

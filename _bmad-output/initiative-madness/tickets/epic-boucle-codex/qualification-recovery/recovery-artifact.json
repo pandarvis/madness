@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T15:11:15.410Z",
+  "mainSha256": "08319b7601f412a18bcad5f2c17898452959b69315afc846df7e7895c1d3cf91",
+  "preloadSha256": "896b68593af676e783f4d87a0b72393ac9f5d022c4e906122da29bd2dfc11ea4",
+  "asarSha256": "9a11c3a722b5cacaa1cb4d12eff3defc7a22be67c82930af78dfa3ebc4dc09f6",
+  "installer": "dist/recovery-pilot/Madness-0.1.0-x64-setup.exe",
+  "installerSha256": "9a5a1bc0931e12926acebfb43dcb949f81b8f806d43eba40b6bfb94fc3e320b5",
+  "checks": {
+    "compiled": 9,
+    "packaged": 9,
+    "native-loopback": 7
+  },
+  "tests": {
+    "passed": 270,
+    "failed": 0
+  },
+  "windows": 5,
+  "limits": [
+    "Modèle Responses simulé sur loopback, aucun compte ou modèle externe dans les bancs.",
+    "Deux tours visuels antérieurs préservés, aucun nouveau passage de polish après corrections fonctionnelles Quick.",
+    "Installation personnelle distincte ; aucun gate distribué déduit."
+  ]
+}

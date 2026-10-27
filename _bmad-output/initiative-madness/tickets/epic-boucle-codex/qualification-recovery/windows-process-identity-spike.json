@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T13:17:14.816Z",
+  "purpose": "Processus Node témoin uniquement ; aucun compte, moteur fournisseur ni réseau",
+  "checks": {
+    "ownedIdentityReadable": true,
+    "ownedExitObserved": true,
+    "wrongStartIsDifferent": true
+  },
+  "cleanup": true,
+  "status": "passed",
+  "finishedAt": "2026-10-27T13:17:18.064Z",
+  "limits": [
+    "Prouve lecture de identité OS et disparition du seul processus Node témoin.",
+    "La date différente a été comparée localement par le banc ; aucune garde produit ni récupération après redémarrage nest encore testée.",
+    "Aucun processus tiers na été ciblé ; aucun compte, fournisseur ou réseau."
+  ]
+}

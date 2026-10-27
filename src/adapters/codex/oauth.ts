@@ -3,6 +3,7 @@ import { randomBytes, createHash, timingSafeEqual } from 'node:crypto'
 import { createLocalJWKSet, importJWK, jwtVerify } from 'jose'
 import type { JWTVerifyGetKey, JSONWebKeySet } from 'jose'
 import { connectionError, connectionFailure } from '../../contracts/connection.ts'
+import {PUBLIC_KEYS_URL} from '../../contracts/connection.ts'
 import { isRecord } from '../../contracts/index.ts'
 import { isIssuedClientId, isCredentials } from './vault.ts'
 import type { Credentials, Registration } from './vault.ts'
@@ -29,6 +30,11 @@ export function createTransport(fetcher: typeof fetch): Transport {
     } catch { throw connectionFailure(options.signal.aborted ? 'CANCELLED' : signal.aborted ? 'TIMEOUT' : 'NETWORK_UNAVAILABLE') }
     finally { if (reader) { await reader.cancel().catch(() => {}); reader.releaseLock() } else await body?.cancel().catch(() => {}) }
   }
+}
+/** Réseau seul : aucun coffre, OAuth, rotation, probe ni modèle. */
+export async function checkPublicKeysAccess(transport:Transport,signal:AbortSignal):Promise<void>{
+ const value=await transport(PUBLIC_KEYS_URL,{method:'GET',signal});signal.throwIfAborted()
+ if(!isRecord(value)||!Array.isArray(value.keys)||value.keys.length>30||!value.keys.every(isRecord))throw connectionFailure('NETWORK_UNAVAILABLE')
 }
 function same(left: string, right: string): boolean { const a = Buffer.from(left), b = Buffer.from(right); return a.length === b.length && timingSafeEqual(a, b) }
 async function abortable<T>(promise: Promise<T>, signal: AbortSignal): Promise<T> {

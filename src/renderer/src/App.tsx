@@ -1,3 +1,5 @@
+import {NetworkHelp} from './NetworkHelp.tsx'
+import {RecoveryPanel} from './RecoveryPanel.tsx'
 import {ApprovalPanel} from './ApprovalPanel.tsx'
 import type {ApprovalRecord,ApprovalDecision,DialogueMode} from '../../contracts/approvals.ts'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
@@ -5,7 +7,7 @@ import type { ReactNode } from 'react'
 import type { AppState, Conversation, Reply } from '../../contracts/index.ts'
 import { MAX_DRAFT_LENGTH } from '../../contracts/index.ts'
 import { fr } from './strings.ts'
-import { PUBLIC_KEYS_URL, initialConnectionState } from '../../contracts/connection.ts'
+import { initialConnectionState } from '../../contracts/connection.ts'
 import type { ConnectionState, ConnectionBridge } from '../../contracts/connection.ts'
 import chatgptMark from './assets/chatgpt-mark.svg'
 import { initialDialogueState } from '../../contracts/dialogue.ts'
@@ -99,9 +101,6 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [connectionOpen, setConnectionOpen] = useState(false)
   const [connectionPending, setConnectionPending] = useState(false)
   const [connectionBridgeError, setConnectionBridgeError] = useState(false)
-  const [supportPending, setSupportPending] = useState(false)
-  const [supportNotice, setSupportNotice] = useState<string | null>(null)
-  const [supportError, setSupportError] = useState<string | null>(null)
   const connectionTrigger = useRef<HTMLButtonElement>(null)
   const connectionPanel = useRef<HTMLElement>(null)
   const connectionHeading = useRef<HTMLHeadingElement>(null)
@@ -129,7 +128,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [forgePreparation,setForgePreparation]=useState(false)
   const sending = useRef(false)
   const dialogueHere = dialogue.context.projectId === project?.id
-  const dialogueBusy = ['qualifying', 'starting', 'running','waiting-question','waiting-approval', 'stopping'].includes(dialogue.status)
+  const dialogueBusy = ['qualifying', 'inspecting', 'starting', 'running','waiting-question','waiting-approval', 'stopping'].includes(dialogue.status)
   const sessionPresent = ['starting', 'running','waiting-question','waiting-approval', 'ready', 'stopping'].includes(dialogue.status)
   const projectConversations = state?.conversations.filter(c => c.context.projectId === project?.id) ?? []
   const conversation = projectConversations.find(c => c.id === dialogue.context.conversationId) ?? projectConversations.at(-1)
@@ -198,15 +197,16 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     void window.madnessDialogue.read().then(acceptDialogue).catch(() => setDialogueBridgeError(true))
     return unsubscribe
   }, [])
-  async function dialogueAction(action: 'qualify' | 'launch' | 'stop' | 'qualifyForge' | 'launchForge'): Promise<void> {
+  async function dialogueAction(action: 'qualify' | 'launch' | 'stop' | 'observeStop' | 'qualifyForge' | 'launchForge'): Promise<void> {
     if (dialoguePending) return
     const projectId = project?.id
-    if (action !== 'stop' && !projectId) return
+    if (action !== 'stop' && action !== 'observeStop' && !projectId) return
     setDialoguePending(true)
-    try { const next = action === 'stop' ? await window.madnessDialogue.stop() : action==='launch'?await window.madnessDialogue.launch(projectId!,maryMode):await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false); if (action === 'launch'||action==='launchForge') setTab('conversation') }
+    try { const next = action === 'stop'||action==='observeStop' ? await window.madnessDialogue[action]() : action==='launch'?await window.madnessDialogue.launch(projectId!,maryMode):await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false); if (action === 'launch'||action==='launchForge') setTab('conversation') }
     catch { setDialogueBridgeError(true) }
     finally { setDialoguePending(false) }
   }
+  async function inspectApproval(id:string):Promise<void>{if(dialoguePending)return;setDialoguePending(true);try{acceptDialogue(await window.madnessDialogue.inspectApproval(id));setDialogueBridgeError(false)}catch{setDialogueBridgeError(true)}finally{setDialoguePending(false)}}
   async function copyWorkflow(conversationId:string,target:'invocation'|'workspace'):Promise<DialogueState>{
     const next=await window.madnessDialogue.copyWorkflow(conversationId,target);acceptDialogue(next);return next
   }
@@ -228,14 +228,6 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     catch { setConnectionBridgeError(true) }
     finally { setConnectionPending(false) }
   }
-  async function connectionSupport(action: 'openPublicKeys' | 'copyPublicKeys'): Promise<void> {
-    if (supportPending) return
-    setSupportPending(true); setSupportNotice(null); setSupportError(null)
-    try { await window.madnessConnection[action](); setSupportNotice(action === 'copyPublicKeys' ? fr.networkHelp.copied : fr.networkHelp.opened) }
-    catch { setSupportError(action === 'copyPublicKeys' ? fr.networkHelp.copyFailed : fr.networkHelp.openFailed) }
-    finally { setSupportPending(false) }
-  }
-  useEffect(() => { if (connection.errorCode !== 'NETWORK_UNAVAILABLE') { setSupportNotice(null); setSupportError(null) } }, [connection.errorCode])
   useEffect(() => {
     const unsubscribe = window.madnessConnection.onChanged(acceptConnection)
     void connectionAction('read')
@@ -298,18 +290,13 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       {connection.status === 'verified' ? <p>Un tour témoin Codex a réussi et son processus est arrêté.{connection.verifiedAt && <> Vérifié le {new Date(connection.verifiedAt).toLocaleString('fr-FR')}.</>}{connection.cliVersion && <> Codex {connection.cliVersion}.</>}</p> : connection.accountStored ? <p>Votre compte est enregistré dans le coffre chiffré Windows. Il reste à vérifier pour cet usage ; aucune conversation n’est relancée.</p> : <p>Connectez votre compte ChatGPT dans le navigateur Windows. Madness conserve ses propres accès chiffrés sur cet ordinateur.</p>}
       {connection.status === 'authorizing' && <p>Terminez l’autorisation dans votre navigateur. L’attente expire après dix minutes.</p>}
       {connection.status === 'verifying' && <p>Un petit tour de vérification est en cours. Le résultat attend la fin du tour et l’arrêt confirmé de Codex.</p>}
-      {connection.status === 'stopping' && <p>Arrêt de l’attente et du processus possédé. Aucun nouveau témoin n’est envoyé.</p>}
+      {connection.status === 'stopping' && <p>Arrêt de l’attente et du moteur Codex lancé par Madness. Aucun nouveau témoin n’est envoyé.</p>}
       {connection.errorCode && <p className={connection.errorCode === 'CANCELLED' ? 'connection-cancelled' : 'connection-error'} role={connection.status === 'error' || connection.status === 'unknown' ? 'alert' : undefined}>{fr.connectionErrors[connection.errorCode]}</p>}
-      {connection.errorCode === 'NETWORK_UNAVAILABLE' && <section className="connection-network-help" aria-labelledby="network-help-title">
-        <h3 id="network-help-title">{fr.networkHelp.title}</h3><p>{fr.networkHelp.description}</p>
-        <div className="network-help-address"><code>{PUBLIC_KEYS_URL}</code><button className="copy-public-keys" type="button" aria-label={fr.networkHelp.copy} title={fr.networkHelp.copy} onClick={() => void connectionSupport('copyPublicKeys')} disabled={supportPending}><Icon name="copy" /></button></div>
-        <button className="text-button network-help-open" type="button" onClick={() => void connectionSupport('openPublicKeys')} disabled={supportPending}><Icon name="external" />{fr.networkHelp.open}</button>
-        {supportNotice && <p className="network-help-feedback" role="status">{supportNotice}</p>}
-        {supportError && <p className="network-help-feedback network-help-error" role="alert">{supportError}</p>}
-      </section>}
+      {connection.errorCode === 'NETWORK_UNAVAILABLE' && <NetworkHelp connection={connection} onChanged={acceptConnection}/>}
       {connectionBridgeError && <p className="connection-error" role="alert">Le pont de connexion ne répond pas. Rouvrez le panneau ou redémarrez Madness. Vos projets et brouillons sont conservés.</p>}
       <p className="connection-consumption">La vérification envoie un court message témoin et consomme votre forfait ChatGPT. Les limites de ce forfait s’appliquent.</p>
       <div className="connection-actions">
+        {connection.errorCode==='STOP_UNCONFIRMED'&&<button className="secondary" type="button" onClick={()=>void dialogueAction('observeStop')} disabled={dialoguePending||dialogueBusy||connectionBusy}>{fr.recovery.observeStop}</button>}
         {connectionBusy ? <button className="secondary" type="button" onClick={() => void connectionAction('cancel')} disabled={connectionPending || ['stopping', 'closing'].includes(connection.status)}><Icon name="close" />Annuler la connexion</button> : <>
           {connection.accountStored && <button className={connection.status === 'verified' ? 'connection-check' : 'primary'} type="button" onClick={() => void connectionAction('verify')} disabled={connectionPending || connectionBlocked || connection.status === 'unknown'}><Icon name="refresh" />Vérifier la connexion</button>}
           {!connectionBlocked && <button className={connection.accountStored ? 'connection-reconnect' : 'primary'} type="button" onClick={() => void connectionAction('connect')} disabled={connectionPending || connection.status === 'unknown'}><Icon name="external" />{connection.accountStored ? 'Reconnecter avec ChatGPT' : 'Continuer avec ChatGPT'}</button>}
@@ -355,7 +342,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   </div>}
                 </section>
                 <div className="dialogue-launch" aria-labelledby="mary-title">
-                  <div className="dialogue-heading"><h2 id="mary-title">Mary <span>Analyste BMad · Codex</span></h2>{dialogueHere&&dialogue.invocation==='$bmad-agent-analyst' && <span className="badge" role="status">Mary · {displayedDialogueStatus}</span>}</div>
+                  <div className="dialogue-heading"><h2 id="mary-title" tabIndex={-1}>Mary <span>Analyste BMad · Codex</span></h2>{dialogueHere&&dialogue.invocation==='$bmad-agent-analyst' && <span className="badge" role="status">Mary · {displayedDialogueStatus}</span>}</div>
                   <p><code>$bmad-agent-analyst</code></p>
                   <p>Le lancement vérifie les vrais fichiers BMad puis demande l’accueil de Mary. Chaque tour utilise votre forfait ChatGPT.</p>
                   <label className="approval-mode"><input type="checkbox" checked={sessionPresent&&dialogueHere&&dialogue.invocation==='$bmad-agent-analyst'?dialogue.mode==='file-approval':maryMode==='file-approval'} disabled={dialoguePending||dialogueBusy||sessionPresent} onChange={event=>setMaryMode(event.target.checked?'file-approval':'read-only')}/>Proposer des modifications avec approbation</label>
@@ -368,6 +355,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   {!connection.accountStored && <p className="small">{fr.dialoguePrerequisites.account}</p>}
                   {connection.needsPlanAcknowledgement && <p className="small">{fr.dialoguePrerequisites.plan}</p>}
                 </div>
+                <RecoveryPanel state={dialogue} projectId={project.id} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={id=>void inspectApproval(id)} onPrepare={()=>{setTab('conversation');document.getElementById('mary-title')?.focus()}}/>
+                {((dialogueHere&&dialogue.errorCode==='NETWORK_UNAVAILABLE')||dialogue.errorCode==='NETWORK_UNAVAILABLE'&&dialogue.context.projectId===null)&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}
                 {sessionFeedback&&<section className="dialogue-session" aria-labelledby="dialogue-session-title">
                   <h2 id="dialogue-session-title">Session {dialogue.context.projectId?displayedRecipient:'BMad'} · Codex</h2>
                   {(sessionPresent||dialogueBusy)&&<div className="dialogue-actions"><button className="secondary" type="button" onClick={()=>void dialogueAction('stop')} disabled={dialoguePending||dialogue.status==='stopping'}><Icon name="close"/>Arrêter Codex</button></div>}

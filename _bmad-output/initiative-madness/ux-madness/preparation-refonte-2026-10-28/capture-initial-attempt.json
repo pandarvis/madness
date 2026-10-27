@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Observation preparatoire de la version livree, donnees synthetiques seulement ; aucune refonte appliquee.",
+  "captures": [
+    "home-dark-expanded.png",
+    "project-dark-collapsed.png",
+    "conversation-dark-top.png",
+    "conversation-dark-history.png",
+    "connection-light-compact.png"
+  ],
+  "cleanup": true,
+  "limits": [
+    "Fixtures historiques avec proprietaire inconnu ; aucun etat actif ni session fournisseur simulee comme reelle.",
+    "Captures du contenu Electron ; glyphes natifs Windows hors contenu non juges visuellement.",
+    "Une seule ronde groupee, aucune modification UI ni clic fournisseur."
+  ],
+  "runtime": {
+    "pid": 30288,
+    "version": "0.1.1",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48"
+  },
+  "observedAfterHook": {
+    "network": 0,
+    "spawn": 0
+  },
+  "status": "captured",
+  "closed": true,
+  "workspace": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-R2kXrD",
+  "captureValidity": "Premier lot ecarte : le demarrage rejoint automatiquement le projet actif ; premiere image donc mal nommee accueil. Le clic sur onglet a aussi deplace le scroll. Aucune correction produit deduite."
+}

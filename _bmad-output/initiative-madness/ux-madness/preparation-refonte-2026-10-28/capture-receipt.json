@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Observation preparatoire de la version livree, donnees synthetiques seulement ; aucune refonte appliquee.",
+  "captures": [
+    "home-dark-expanded.png",
+    "project-dark-collapsed.png",
+    "conversation-dark-top.png",
+    "conversation-dark-history.png",
+    "connection-light-compact.png"
+  ],
+  "cleanup": true,
+  "limits": [
+    "Fixtures historiques avec proprietaire inconnu ; aucun etat actif ni session fournisseur simulee comme reelle.",
+    "Captures du contenu Electron ; glyphes natifs Windows hors contenu non juges visuellement.",
+    "Un lot final valide apres un premier lot ecarte pour nommage/scroll, sans correction produit ni polissage."
+  ],
+  "runtime": {
+    "pid": 17180,
+    "version": "0.1.1",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48"
+  },
+  "observedAfterHook": {
+    "network": 0,
+    "spawn": 0
+  },
+  "status": "captured",
+  "closed": true,
+  "workspace": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-maintenance-qualification-5My2cl",
+  "capturePositions": {
+    "home-dark-expanded.png": "Accueil, debut du scroller, navigation deployee, sombre ; la recuperation historique occupe le haut.",
+    "project-dark-collapsed.png": "Projet/Parcours, debut du scroller, rail replie, sombre.",
+    "conversation-dark-top.png": "Projet/Conversation, debut du meme scroller ; le contenu de session reste sous la synthese et la recuperation.",
+    "conversation-dark-history.png": "Projet/Conversation, section historique rejointe par defilement, sombre.",
+    "connection-light-compact.png": "Panneau connexion, fenetre720x820 CSS, clair ; aucun bouton fournisseur active."
+  },
+  "cssViewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 920
+    },
+    "compact": {
+      "width": 720,
+      "height": 820
+    }
+  },
+  "sourceInputs": [
+    {
+      "path": "src/renderer/src/App.tsx",
+      "sha256": "6f04215a0150ad912ba9d7a5b5d4d1d12a02fdd1e58d3c63fd007019331a569d"
+    },
+    {
+      "path": "src/renderer/src/styles.css",
+      "sha256": "2e3bbaecb749b42570594e82ac8c253a1f24b4162a720636b0344802b5145f52"
+    },
+    {
+      "path": "src/renderer/src/WorkOverview.tsx",
+      "sha256": "a5a0006bbea19e065b61c26c855464183b093392ee48fd5e3ca8840b8505e161"
+    },
+    {
+      "path": "src/renderer/src/strings.ts",
+      "sha256": "6e21fb0c71213cc3c5685c55b459244c06c6fcf8ba05d49a360af496b9080095"
+    }
+  ]
+}

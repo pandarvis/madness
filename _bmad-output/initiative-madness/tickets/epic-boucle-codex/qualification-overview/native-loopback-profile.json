@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T19:02:50.974Z",
+  "scope": "Vrai runner épinglé, protocole et cœur produit ; fournisseur Responses simulé uniquement sur loopback. Aucun compte/OAuth/modèle externe.",
+  "checks": [
+    "real-native-question-in-common-projection-with-captured-context",
+    "explicit-answer-exact-native-receipt-and-durable-question-values",
+    "resolved-wait-removed-result-exact-no-workflow-or-acceptance-invented",
+    "restored-exact-text-no-new-engine-or-request"
+  ],
+  "requests": 3,
+  "cleanup": true,
+  "executableSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+  "exactReceipt": {
+    "answers": {
+      "route": {
+        "answers": [
+          "Alpha-99507e92-eac9-4644-8f87-a3977a05e561"
+        ]
+      }
+    }
+  },
+  "status": "passed",
+  "nativeStopped": true,
+  "finishedAt": "2026-10-27T19:02:53.274Z"
+}

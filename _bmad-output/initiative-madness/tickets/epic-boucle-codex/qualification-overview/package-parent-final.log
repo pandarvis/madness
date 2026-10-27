@@ -1,0 +1,50 @@
+
+> madness@0.1.0 build:win
+> npm run build && electron-builder --win --x64 --config.directories.output=dist/overview-pilot
+
+
+> madness@0.1.0 build
+> npm run typecheck && electron-vite build
+
+
+> madness@0.1.0 typecheck
+> tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json
+
+vite v8.3.5 building ssr environment for production...
+transforming...
+✓ 30 modules transformed.
+rendering chunks...
+out/main/index.js  249.12 kB
+
+✓ built in 112ms
+vite v8.3.5 building ssr environment for production...
+transforming...
+✓ 9 modules transformed.
+rendering chunks...
+out/preload/index.js  30.51 kB
+
+✓ built in 67ms
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 29 modules transformed.
+rendering chunks...
+out/renderer/index.html                          0.44 kB
+out/renderer/assets/chatgpt-mark-BSM5F-kM.svg    4.21 kB
+out/renderer/assets/index-p0Vi8hx1.css          26.21 kB
+out/renderer/assets/index-DjarI5D3.js          707.96 kB
+
+✓ built in 184ms
+  • electron-builder  version=26.15.3 os=10.0.26200
+  • loaded configuration  file=C:\Sources\madness\electron-builder.yml
+  • skipped dependencies rebuild  reason=npmRebuild is set to false
+  • packaging       platform=win32 arch=x64 electron=45.0.0 appOutDir=dist\overview-pilot\win-unpacked
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=C:\Sources\madness\dist\overview-pilot\win-unpacked
+  • searching for node modules  pm=npm searchDir=C:\Sources\madness
+  • updating asar integrity executable resource  executablePath=dist\overview-pilot\win-unpacked\Madness.exe
+  • default Electron icon is used  reason=application icon is not set
+  • file signing skipped via signExecutable configuration  file=dist\overview-pilot\win-unpacked\Madness.exe
+  • building        target=nsis file=dist\overview-pilot\Madness-0.1.0-x64-setup.exe archs=x64 oneClick=false perMachine=false
+  • file signing skipped via signExecutable configuration  file=dist\overview-pilot\Madness-0.1.0-x64-setup.__uninstaller.exe
+  • file signing skipped via signExecutable configuration  file=dist\overview-pilot\Madness-0.1.0-x64-setup.exe
+  • building block map  blockMapFile=dist\overview-pilot\Madness-0.1.0-x64-setup.exe.blockmap

@@ -1,4 +1,7 @@
 import {NetworkHelp} from './NetworkHelp.tsx'
+import {WorkOverview} from './WorkOverview.tsx'
+import {projectWorkOverview,sameContext} from '../../core/work-overview.ts'
+import type {OverviewTarget} from '../../core/work-overview.ts'
 import {RecoveryPanel} from './RecoveryPanel.tsx'
 import {ApprovalPanel} from './ApprovalPanel.tsx'
 import type {ApprovalRecord,ApprovalDecision,DialogueMode} from '../../contracts/approvals.ts'
@@ -72,6 +75,11 @@ function WorkflowResult({workflow,onCopy}:{workflow:WorkflowRecord;onCopy:(conve
 export function App({ initialAppearance = window.madnessAppearance.initial, appearanceReadFailed = false }: { initialAppearance?: AppearanceState; appearanceReadFailed?: boolean } = {}): ReactNode {
   const [state, setState] = useState<AppState | null>(null)
   const [page, setPage] = useState<'home' | 'project'>('home')
+  const navigationToken=useRef(0)
+  const pendingLaunch=useRef<{token:number;projectId:string;previousConversationId:string|null;sequence:number}|null>(null)
+  const [conversationSelections,setConversationSelections]=useState<Record<string,string>>({})
+  const [focusTarget,setFocusTarget]=useState<{token:number;target:OverviewTarget}|null>(null)
+  const [overviewClock,setOverviewClock]=useState(0)
   const [tab, setTab] = useState<'parcours' | 'conversation'>('parcours')
   const [texts, setTexts] = useState<Record<string, string>>({})
   const [collapsed, setCollapsed] = useState(false)
@@ -131,17 +139,40 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const dialogueBusy = ['qualifying', 'inspecting', 'starting', 'running','waiting-question','waiting-approval', 'stopping'].includes(dialogue.status)
   const sessionPresent = ['starting', 'running','waiting-question','waiting-approval', 'ready', 'stopping'].includes(dialogue.status)
   const projectConversations = state?.conversations.filter(c => c.context.projectId === project?.id) ?? []
-  const conversation = projectConversations.find(c => c.id === dialogue.context.conversationId) ?? projectConversations.at(-1)
-  const canReply = dialogueHere && dialogue.status === 'ready' && conversation?.id === dialogue.context.conversationId
+  const conversation = projectConversations.find(c=>c.id===conversationSelections[project?.id??'']) ?? projectConversations.find(c => c.id === dialogue.context.conversationId) ?? projectConversations.at(-1)
+  const dialogueConversationHere=!!conversation&&sameContext(conversation.context,dialogue.context)
+  const overview=state?projectWorkOverview(state,dialogue,connection,Date.now()):null
+  const respondable=(kind:'question'|'approval',id:string):boolean=>!!overview?.entries.some(e=>e.target.kind===kind&&e.target.id===id&&e.state==='waiting')
+  const canReply = dialogueConversationHere && dialogue.status === 'ready'
   const workflow=dialogue.workflows.find(w=>w.conversationId===conversation?.id)
   const recipient=dialogue.invocation==='$bmad-forge-idea'?'Forge':'Mary'
-  const activeQuestion=dialogue.questions.find(q=>(q.status==='waiting'||q.status==='sending')&&q.context.conversationId===dialogue.context.conversationId)
-  const activeApproval=dialogue.approvals.find(a=>['waiting','sending'].includes(a.status)&&a.context.conversationId===dialogue.context.conversationId)
+  const activeQuestion=dialogue.questions.find(q=>overview?.entries.some(e=>e.target.kind==='question'&&e.target.id===q.id)&&sameContext(q.context,dialogue.context))
+  const activeApproval=dialogue.approvals.find(a=>overview?.entries.some(e=>e.target.kind==='approval'&&e.target.id===a.id)&&sameContext(a.context,dialogue.context))
   const displayedRecipient=activeApproval?(activeApproval.identity.kind==='attested'?activeApproval.identity.name:fr.conversation.unknownAgent):activeQuestion?questionRecipient(activeQuestion):recipient
-  const displayedDialogueStatus=activeApproval?(activeApproval.status==='sending'?fr.approvals.status.sending:fr.approvals.title):activeQuestion?(activeQuestion.status==='sending'?fr.questions.sending:fr.questions.title):fr.dialogueStatus[dialogue.status]
+  const displayedDialogueStatus=activeApproval?(activeApproval.status==='sending'?fr.approvals.status.sending:fr.approvals.title):activeQuestion?(activeQuestion.status==='sending'?fr.questions.sending:fr.questions.title):['waiting-question','waiting-approval'].includes(dialogue.status)?fr.overview.requestInactive:fr.dialogueStatus[dialogue.status]
   const forgePrerequisite=!connection.accountStored?'account':connection.needsPlanAcknowledgement?'plan':null
   const sessionFeedback=!!(sessionPresent||dialogueBusy||((dialogueHere||dialogue.status==='unknown')&&dialogue.errorCode)||dialogueBridgeError||(dialogueHere&&dialogue.profile))
   useEffect(()=>{setForgePreparation(false)},[project?.id])
+  useEffect(()=>{
+    const launch=pendingLaunch.current;if(!launch)return
+    if(dialogue.sequence<=launch.sequence)return
+    if(launch.token!==navigationToken.current||dialogue.errorCode||['error','unknown','stopped'].includes(dialogue.status)){pendingLaunch.current=null;return}
+    const context=dialogue.context
+    if(context.projectId!==launch.projectId||!context.conversationId||context.conversationId===launch.previousConversationId||!(dialogue.status==='ready'||dialogue.acknowledged&&['running','waiting-question','waiting-approval'].includes(dialogue.status)))return
+    if(!state?.conversations.some(c=>c.id===context.conversationId&&sameContext(c.context,context)))return
+    pendingLaunch.current=null
+    setConversationSelections(current=>({...current,[launch.projectId]:context.conversationId!}));setTab('conversation')
+  },[dialogue,state])
+  useEffect(()=>{const now=Date.now(),expiry=[...dialogue.questions,...dialogue.approvals].filter(q=>q.status==='waiting'||q.status==='sending').map(q=>q.expiresAt).filter((v):v is number=>v!==null&&v>now).sort((a,b)=>a-b)[0];if(!expiry)return;const timer=setTimeout(()=>setOverviewClock(v=>v+1),Math.min(2147483647,Math.max(1,expiry-now)));return()=>clearTimeout(timer)},[dialogue,overviewClock])
+  useLayoutEffect(()=>{
+    if(!focusTarget||focusTarget.token!==navigationToken.current)return
+    const target=focusTarget.target
+    if(target.context.projectId!==null&&(page!=='project'||project?.id!==target.context.projectId||tab!=='conversation'||target.context.conversationId!==null&&(!conversation||!sameContext(conversation.context,target.context))))return
+    const element=target.kind==='question'?document.getElementById(target.id+'-title'):target.kind==='approval'?document.getElementById(target.id+'-title'):target.kind==='recovery'?document.getElementById('recovery-'+target.id):target.kind==='session'?document.getElementById(target.id==='activity'||target.context.projectId!==null&&dialogue.recovery.stop==='clear'?'dialogue-session-title':'overview-session-recovery'):document.getElementById('conversation-heading')
+    if(!element)return
+    if((target.kind==='question'||target.kind==='approval')&&!overview?.entries.some(e=>e.target.kind===target.kind&&e.target.id===target.id))setNotice(fr.overview.targetGone)
+    element.focus();element.scrollIntoView({block:'center'});setFocusTarget(null)
+  })
 
   function accept(reply: Reply): boolean {
     if (!reply.ok) { setError(fr.errors[reply.error.messageKey]); setNotice(''); return false }
@@ -178,7 +209,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     const id=approval.id;if(sendingApprovals.current.has(id))return;sendingApprovals.current.add(id)
     try{await approvalWrites.current.get(id);const next=decision?await window.madnessDialogue.decideApproval(id,decision):await window.madnessDialogue.sendAdjustment(id);acceptDialogue(next);setApprovalFailures(current=>({...current,[id]:!!next.errorCode}))}catch{setApprovalFailures(current=>({...current,[id]:true}))}finally{sendingApprovals.current.delete(id)}
   }
-  function approvalPanel(a:ApprovalRecord):ReactNode{return <ApprovalPanel key={a.id} approval={a} adjustment={approvalDrafts[a.id]??a.adjustment} projectName={project?.name??'Projet capturé'} onChange={text=>changeApproval(a,text)} onDecide={decision=>void approvalAction(a,decision)} onSendAdjustment={()=>void approvalAction(a)} canAdjust={dialogueHere&&dialogue.status==='ready'&&a.context.conversationId===dialogue.context.conversationId} bridgeFailed={approvalFailures[a.id]??false}/>}
+  function approvalPanel(a:ApprovalRecord):ReactNode{return <ApprovalPanel key={a.id} approval={a} respondable={respondable('approval',a.id)} adjustment={approvalDrafts[a.id]??a.adjustment} projectName={project?.name??'Projet capturé'} onChange={text=>changeApproval(a,text)} onDecide={decision=>void approvalAction(a,decision)} onSendAdjustment={()=>void approvalAction(a)} canAdjust={dialogueHere&&dialogue.status==='ready'&&sameContext(a.context,dialogue.context)} bridgeFailed={approvalFailures[a.id]??false}/>}
   function changeQuestion(question:QuestionRecord,values:QuestionValues):void{
     const id=question.id;setQuestionDrafts(current=>({...current,[id]:values}))
     void window.madnessDialogue.saveQuestion(id,values).then(next=>{acceptDialogue(next);setQuestionFailures(current=>({...current,[id]:!!next.errorCode}))}).catch(()=>setQuestionFailures(current=>({...current,[id]:true})))
@@ -201,9 +232,12 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     if (dialoguePending) return
     const projectId = project?.id
     if (action !== 'stop' && action !== 'observeStop' && !projectId) return
+    const launching=action==='launch'||action==='launchForge'
+    const launch=launching?{token:++navigationToken.current,projectId:projectId!,previousConversationId:dialogue.context.conversationId,sequence:dialogue.sequence}:null
+    if(launch){pendingLaunch.current=launch;setFocusTarget(null)}
     setDialoguePending(true)
-    try { const next = action === 'stop'||action==='observeStop' ? await window.madnessDialogue[action]() : action==='launch'?await window.madnessDialogue.launch(projectId!,maryMode):await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false); if (action === 'launch'||action==='launchForge') setTab('conversation') }
-    catch { setDialogueBridgeError(true) }
+    try { const next = action === 'stop'||action==='observeStop' ? await window.madnessDialogue[action]() : action==='launch'?await window.madnessDialogue.launch(projectId!,maryMode):await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false) }
+    catch { if(launch&&pendingLaunch.current===launch)pendingLaunch.current=null;setDialogueBridgeError(true) }
     finally { setDialoguePending(false) }
   }
   async function inspectApproval(id:string):Promise<void>{if(dialoguePending)return;setDialoguePending(true);try{acceptDialogue(await window.madnessDialogue.inspectApproval(id));setDialogueBridgeError(false)}catch{setDialogueBridgeError(true)}finally{setDialoguePending(false)}}
@@ -244,18 +278,36 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     if (!connection.needsPlanAcknowledgement && planConfirmation.current?.open) { planConfirmation.current.close(); if (connectionOpen) connectionHeading.current?.focus(); else connectionTrigger.current?.focus() }
   }, [connection.needsPlanAcknowledgement, connection.accountStored, connection.status, connectionOpen])
   function closeDrawer(): void { drawer.current?.close(); drawerTrigger.current?.focus() }
-  function home(): void { setPage('home'); closeDrawer(); setTimeout(() => heading.current?.focus(), 0) }
+  function home(): void { const token=++navigationToken.current;setPending(false);setFocusTarget(null);setPage('home'); closeDrawer(); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) }
   function open(): void {
+    const token=++navigationToken.current;setFocusTarget(null)
     closeDrawer()
     void run(() => window.madness.chooseDirectory(), (reply) => {
-      if (!reply.ok) return
+      if (!reply.ok||token!==navigationToken.current) return
       if (reply.value.effect === 'cancelled') setNotice('Ouverture annulée. Aucun projet ajouté.')
-      else { setPage('project'); setNotice('Contexte du dossier enregistré localement.'); setTimeout(() => heading.current?.focus(), 0) }
+      else { setPage('project'); setNotice('Contexte du dossier enregistré localement.'); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) }
     })
   }
   function select(projectId: string): void {
+    const token=++navigationToken.current;setFocusTarget(null)
     closeDrawer()
-    void run(() => window.madness.selectProject(projectId), () => { setPage('project'); setNotice('Projet retrouvé. Aucun agent n’a été relancé.'); setTimeout(() => heading.current?.focus(), 0) })
+    void run(() => window.madness.selectProject(projectId), () => { if(token!==navigationToken.current)return;setPage('project'); setNotice('Projet retrouvé. Aucun agent n’a été relancé.'); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) })
+  }
+  async function navigateOverview(target:OverviewTarget):Promise<void>{
+    const token=++navigationToken.current;setFocusTarget(null);closeDrawer()
+    if(target.context.projectId===null){setPage('home');setFocusTarget({token,target});return}
+    setPending(true)
+    try{
+      const reply=await window.madness.selectProject(target.context.projectId)
+      if(token!==navigationToken.current)return
+      if(!reply.ok){accept(reply);setNotice(fr.overview.selectionFailed);return}
+      const captured=target.context.conversationId===null||reply.value.state.conversations.some(c=>c.id===target.context.conversationId&&sameContext(c.context,target.context))
+      if(!captured||reply.value.state.activeProjectId!==target.context.projectId){setNotice(fr.overview.selectionFailed);return}
+      accept(reply);setPage('project');setTab('conversation')
+      if(target.context.conversationId)setConversationSelections(current=>({...current,[target.context.projectId!]:target.context.conversationId!}))
+      setFocusTarget({token,target});setNotice('Contexte capturé retrouvé. Aucun message ni accord transmis.')
+    }catch{if(token===navigationToken.current)setNotice(fr.overview.selectionFailed)}
+    finally{if(token===navigationToken.current)setPending(false)}
   }
   function toggleNavigation(): void {
     if (pending || !state) return
@@ -264,6 +316,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     setPreferenceUnsaved(true)
     void run(() => window.madness.setNavigation(next), () => { setPreferenceUnsaved(false); setNotice('Préférence de navigation enregistrée.') })
   }
+  function chooseTab(value:'parcours'|'conversation'):void {navigationToken.current++;setFocusTarget(null);setPending(false);setTab(value)}
   const navigation = <>
     <button className={'nav-button ' + (page === 'home' ? 'selected' : '')} aria-label={fr.home} aria-current={page === 'home' ? 'page' : undefined} title={fr.home} onClick={home}><Icon name="home" /><span className="nav-label">{fr.home}</span></button>
     <h2 className="nav-section nav-label">{fr.recent}</h2>
@@ -316,8 +369,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         <main id="main" tabIndex={-1}>
           <div className="main-inner">
             {error && <div className="error-message" role="alert"><strong>L’opération n’a pas abouti</strong><p>{error}</p>{!state && <button className="secondary" onClick={() => void load()} disabled={pending}>Relire le contexte local</button>}</div>}
-            {dialogue.approvals.filter(a=>a.status==='waiting'||a.status==='sending').map(a=><div className="question-return" key={a.id} role="status"><p>Une opération attend votre décision dans {state?.projects.find(p=>p.id===a.context.projectId)?.name??'son projet capturé'}.</p>{(page!=='project'||project?.id!==a.context.projectId||tab!=='conversation')&&<button className="text-button" type="button" onClick={()=>{select(a.context.projectId!);setTab('conversation')}}>Retrouver l’opération</button>}</div>)}
-            {dialogue.questions.filter(q=>q.status==='waiting'||q.status==='sending').map(q=><div className="question-return" key={q.id} role="status"><p>{q.status==='sending'?<>Réponse à {questionRecipient(q)} dans {state?.projects.find(p=>p.id===q.context.projectId)?.name??'son projet capturé'}. {fr.questions.sending}</>:<>{questionRecipient(q)} attend votre réponse dans {state?.projects.find(p=>p.id===q.context.projectId)?.name??'son projet capturé'}.</>}</p>{(page!=='project'||project?.id!==q.context.projectId||tab!=='conversation')&&<button className="text-button" type="button" onClick={()=>{select(q.context.projectId!);setTab('conversation')}}>Retrouver la question</button>}</div>)}
+            {overview&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} onNavigate={target=>void navigateOverview(target)} onConnection={()=>setConnectionOpen(true)}/>}
+            {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<section id="overview-session-recovery" tabIndex={-1} aria-label="Récupération globale"><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section>}
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>Retrouver votre espace de travail</h1><p>{pending ? 'Lecture du contexte local…' : 'Le contexte local est indisponible. Utilisez le message ci-dessus pour réessayer.'}</p></section> : page === 'home' || !project ? <>
               <div className="page-intro"><div><h1 ref={heading} tabIndex={-1}>Vos projets, au même endroit</h1><p>Retrouvez un dossier et préparez la suite de votre travail.</p></div></div>
               {state.projects.length === 0 ? <section className="welcome"><h2>Commencez par un dossier</h2><p>Ouvrez un projet local pour conserver son contexte et y préparer un brouillon. Le dossier reste intact.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Madness doit connaître le projet auquel rattacher votre saisie.</p></section> : <section aria-labelledby="recent-heading"><h2 id="recent-heading">{fr.recent}</h2><div className="project-list">{state.projects.map((p, index) => <button className="project-row" key={p.id} onClick={() => select(p.id)} disabled={pending}><span className="project-avatar" aria-hidden="true">{(index + 1).toString(36).toUpperCase()}</span><span className="project-info"><strong>{p.name}</strong><code>{p.rootPath}</code><small>Contexte conservé localement</small></span><Icon name="arrow" /></button>)}</div></section>}
@@ -326,7 +379,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
               <div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><span className="badge">Dossier connu</span></div>
               <p className="project-path"><code>{project.rootPath}</code></p>
               <p className="context-note">{conversation?.context.initiativeId ? 'Initiative capturée : ' + conversation.context.initiativeId : 'Initiative non identifiée'} · pilotes locaux Mary et Forge</p>
-              <div className="project-tabs" role="tablist" aria-label="Vues du projet">{(['parcours', 'conversation'] as const).map((item) => <button key={item} id={'tab-' + item} type="button" role="tab" aria-selected={tab === item} aria-controls={'panel-' + item} tabIndex={tab === item ? 0 : -1} onClick={() => setTab(item)} onKeyDown={(event) => { if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) { event.preventDefault(); const next = item === 'parcours' ? 'conversation' : 'parcours'; const selected = event.key === 'Home' ? 'parcours' : event.key === 'End' ? 'conversation' : next; setTab(selected); document.getElementById('tab-' + selected)?.focus() } }}>{item === 'parcours' ? 'Parcours' : 'Conversation'}</button>)}</div>
+              <div className="project-tabs" role="tablist" aria-label="Vues du projet">{(['parcours', 'conversation'] as const).map((item) => <button key={item} id={'tab-' + item} type="button" role="tab" aria-selected={tab === item} aria-controls={'panel-' + item} tabIndex={tab === item ? 0 : -1} onClick={() => chooseTab(item)} onKeyDown={(event) => { if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) { event.preventDefault(); const next = item === 'parcours' ? 'conversation' : 'parcours'; const selected = event.key === 'Home' ? 'parcours' : event.key === 'End' ? 'conversation' : next; chooseTab(selected); document.getElementById('tab-' + selected)?.focus() } }}>{item === 'parcours' ? 'Parcours' : 'Conversation'}</button>)}</div>
               <section id={'panel-' + tab} role="tabpanel" aria-labelledby={'tab-' + tab}>
                 {tab === 'parcours' && <div className="recommendation"><h2>Discuter de votre projet avec Mary</h2><p>Mary, l’analyste BMad installée dans ce dossier, peut vous accueillir puis échanger librement avec vous.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Un premier échange permet de préciser votre idée avant de choisir un workflow.</p><button className="secondary" onClick={() => { setTab('conversation'); setTimeout(() => document.getElementById('mary-launch')?.focus(), 0) }}><Icon name="message" />Préparer le dialogue</button></div>}
                 <section className="forge-launch" aria-labelledby="forge-title">
@@ -355,10 +408,10 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   {!connection.accountStored && <p className="small">{fr.dialoguePrerequisites.account}</p>}
                   {connection.needsPlanAcknowledgement && <p className="small">{fr.dialoguePrerequisites.plan}</p>}
                 </div>
-                <RecoveryPanel state={dialogue} projectId={project.id} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={id=>void inspectApproval(id)} onPrepare={()=>{setTab('conversation');document.getElementById('mary-title')?.focus()}}/>
+                <div id={dialogue.context.projectId!==null?"overview-session-recovery":undefined} tabIndex={-1}><RecoveryPanel state={dialogue} projectId={project.id} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={id=>void inspectApproval(id)} onPrepare={()=>{setTab('conversation');document.getElementById('mary-title')?.focus()}}/></div>
                 {((dialogueHere&&dialogue.errorCode==='NETWORK_UNAVAILABLE')||dialogue.errorCode==='NETWORK_UNAVAILABLE'&&dialogue.context.projectId===null)&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}
                 {sessionFeedback&&<section className="dialogue-session" aria-labelledby="dialogue-session-title">
-                  <h2 id="dialogue-session-title">Session {dialogue.context.projectId?displayedRecipient:'BMad'} · Codex</h2>
+                  <h2 id="dialogue-session-title" tabIndex={-1}>Session {dialogue.context.projectId?displayedRecipient:'BMad'} · Codex</h2>
                   {(sessionPresent||dialogueBusy)&&<div className="dialogue-actions"><button className="secondary" type="button" onClick={()=>void dialogueAction('stop')} disabled={dialoguePending||dialogue.status==='stopping'}><Icon name="close"/>Arrêter Codex</button></div>}
                   {!dialogueHere && sessionPresent && <p className="small">{displayedRecipient} · {displayedDialogueStatus} dans {state.projects.find(p => p.id === dialogue.context.projectId)?.name ?? 'un autre projet'}. Retrouvez ce projet pour consulter la session, ou arrêtez Codex.</p>}
                   {(dialogueHere || dialogue.status === 'unknown') && dialogue.errorCode && <div className="connection-error" role="alert"><p>{fr.dialogueErrors[dialogue.errorCode]}</p>{!dialogueHere && dialogue.context.projectId && <button className="text-button" type="button" onClick={() => select(dialogue.context.projectId!)} disabled={pending}>Retrouver {state.projects.find(p => p.id === dialogue.context.projectId)?.name ?? 'le projet de la session'}</button>}</div>}
@@ -366,19 +419,19 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   {dialogueHere && dialogue.profile && <details className="dialogue-proof"><summary>Profil BMad vérifié</summary><p><code>{dialogue.profile.skillPath}</code></p><p className="small">Empreinte : <code>{dialogue.profile.fingerprint}</code></p></details>}
                 </section>}
                 {workflow&&<WorkflowResult key={workflow.conversationId} workflow={workflow} onCopy={copyWorkflow}/>}
-                {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label="Échanges BMad">
+                {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label="Échanges BMad"><h2 id="conversation-heading" tabIndex={-1}>Conversation <code>{conversation.id}</code></h2>
                   {!canReply && !dialogueBusy && <p className="history-note">Historique conservé. Aucun moteur n’est relancé. Un lancement explicite ouvre une nouvelle conversation ; la reprise Forge est indisponible.</p>}
-                  {projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} values={questionDrafts[q.id]??q.values} projectName={project.name} onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.approvals.filter(a=>a.context.conversationId===c.id).map(approvalPanel)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
+                  {projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.approvals.filter(a=>a.context.conversationId===c.id).map(approvalPanel)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
                   <ConversationMessages key={conversation.id} conversation={conversation} projections={dialogue.messages??[]} positions={readingPositions.current}/>
-            {dialogue.questions.filter(q=>q.context.conversationId===conversation.id).map(q=><QuestionPanel key={q.id} question={q} values={questionDrafts[q.id]??q.values} projectName={project.name} onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}
-                  {dialogue.approvals.filter(a=>a.context.conversationId===conversation.id).map(approvalPanel)}
-                  {dialogueHere && <p className="turn-status" role="status">{displayedRecipient} · {displayedDialogueStatus}{dialogue.status === 'running' && !activeQuestion && !activeApproval && (dialogue.acknowledged ? ' · envoi acquitté et enregistré' : ' · accusé d’envoi attendu')}{dialogue.status === 'ready' && ' · tour terminé, prochaine action : votre réponse. La fin du tour ne valide aucun livrable.'}</p>}
+            {dialogue.questions.filter(q=>sameContext(q.context,conversation.context)).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}
+                  {dialogue.approvals.filter(a=>sameContext(a.context,conversation.context)).map(approvalPanel)}
+                  {dialogueConversationHere && <p className="turn-status" role="status">{displayedRecipient} · {displayedDialogueStatus}{dialogue.status === 'running' && !activeQuestion && !activeApproval && (dialogue.acknowledged ? ' · envoi acquitté et enregistré' : ' · accusé d’envoi attendu')}{dialogue.status === 'ready' && ' · tour terminé, prochaine action : votre réponse. La fin du tour ne valide aucun livrable.'}</p>}
                 </div> : <div className="conversation-empty"><h2>Aucun échange enregistré</h2><p>Un lancement explicite ouvre une session sans envoyer votre brouillon.</p></div>)}
                 {dialogueHere && dialogue.activities.length > 0 && <details className="dialogue-activity"><summary>Activité du dialogue ({dialogue.activities.length})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{entry}</li>)}</ol></details>}
                 <form className="composer" onSubmit={(event) => { event.preventDefault(); const projectId = project.id; const value = text; void run(() => window.madness.saveDraft(projectId, value), () => setNotice(fr.saved)) }}>
-                  <label htmlFor="draft">{canReply || dialogueHere && sessionPresent ? 'Votre réponse à '+recipient : 'Brouillon pour ' + project.name}</label>
+                  <label htmlFor="draft">{canReply || dialogueConversationHere && sessionPresent ? 'Votre réponse à '+recipient : 'Brouillon pour ' + project.name}</label>
                   <textarea id="draft" value={text} onChange={(event) => setTexts((current) => ({ ...current, [project.id]: event.target.value }))} maxLength={MAX_DRAFT_LENGTH} aria-describedby="draft-status draft-limit" placeholder="Notez ce que vous souhaitez reprendre dans ce projet…" />
-                  <div className="composer-bottom"><p id="draft-status">{dirty ? fr.unsaved : saved ? fr.saved : fr.noDraft}</p><div className="composer-actions"><button className="secondary" type="submit" disabled={pending || !dirty}>{pending ? fr.saving : fr.save}</button>{dialogueHere && sessionPresent && <button className="primary" type="button" onClick={() => void sendToMary()} disabled={!canReply || dialoguePending || !text.trim()}><Icon name="arrow" />Envoyer à {recipient}</button>}</div></div>
+                  <div className="composer-bottom"><p id="draft-status">{dirty ? fr.unsaved : saved ? fr.saved : fr.noDraft}</p><div className="composer-actions"><button className="secondary" type="submit" disabled={pending || !dirty}>{pending ? fr.saving : fr.save}</button>{dialogueConversationHere && sessionPresent && <button className="primary" type="button" onClick={() => void sendToMary()} disabled={!canReply || dialoguePending || !text.trim()}><Icon name="arrow" />Envoyer à {recipient}</button>}</div></div>
                   <p className="small muted" id="draft-limit">{canReply ? 'Seul « Envoyer à '+recipient+' » transmet ce texte. Le brouillon est enregistré avant l’envoi et reste disponible.' : 'Saisie conservée localement · aucun envoi automatique'} · 100 000 caractères maximum</p>
                 </form>
               </section>

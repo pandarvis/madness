@@ -21,7 +21,7 @@ claims:
 
 **Garder BMad Builder comme outil de création de modules**, utile si un pont spécifique Madness/BMad devient nécessaire. Le corpus inspecté décrit une fabrique de skills et de modules, sans établir un moteur applicatif prêt à intégrer. Sa compatibilité avec notre installation v7 n’est pas prouvée. [10][11]
 
-Ces recommandations reposent sur la documentation et le code amont lus aux révisions figées ci-dessous. **Aucune intégration, installation, authentification, exécution d’agent ou qualification Windows n’a été réalisée pendant l’étude.** Tous les constats restent sans corroboration par un éditeur indépendant ; leur exactitude documentaire a été examinée, leur fonctionnement dans Madness reste à vérifier.
+Ces recommandations reposent sur la documentation et le code amont lus aux révisions figées ci-dessous, par trois sous-agents de recherche. **Aucune intégration, installation, authentification, exécution d’un agent par Loop ou qualification Windows n’a été réalisée pendant l’étude.** Tous les constats restent sans corroboration par un éditeur indépendant ; leur exactitude documentaire a été examinée, leur fonctionnement dans Madness reste à vérifier.
 
 ## Ce que Loop apporterait
 

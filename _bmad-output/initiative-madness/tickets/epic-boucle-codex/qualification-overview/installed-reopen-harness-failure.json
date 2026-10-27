@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T19:09:40.356Z",
+  "status": "failed",
+  "checks": [
+    "installed-asar-equals-qualified-package",
+    "actual-installed-main-and-personal-profile-identified",
+    "snapshot-and-overview-restored-without-navigation-or-send",
+    "historical-requests-not-reactivated"
+  ],
+  "limits": [
+    "Profil personnel déjà fermé avant le lancement de contrôle. Aucune capture ni copie du contenu des échanges ou du coffre.",
+    "Compteurs de processus et de réseau observés après instrumentation Main, pas une mesure antérieure au hook.",
+    "Aucun modèle, contrôle facturable, refresh, OAuth ou dialogue demandé ; aucun gate de distribution déduit."
+  ],
+  "asarSha256": "072623b1b64be3eaecd72152f48d276c5f377dddd7b1893070458e1a668c91c1",
+  "main": {
+    "executable": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\Madness.exe",
+    "appPath": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\resources\\app.asar",
+    "userData": "C:/Users/UP60066553/AppData/Roaming/Madness",
+    "pid": 34344
+  },
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///C:/Sources/madness/_bmad-output/initiative-madness/.working/story18-installed-reopen.mjs:30:9",
+  "finishedAt": "2026-10-27T19:09:50.687Z"
+}

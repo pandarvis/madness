@@ -10,7 +10,7 @@ export function RecoveryPanel({state,projectId,busy,sessionPresent,onObserveStop
   <h2 id={id+'-title'}>{fr.recovery.title}</h2>
   {blocked?<><p role="status">{fr.recovery.stopUnknown}</p><button className="secondary" type="button" onClick={onObserveStop} disabled={busy}>{fr.recovery.observeStop}</button></>:<p className="small">{fr.recovery.stopClear}</p>}
   {uncertain.map(a=>{const observation=state.recovery.observations.find(o=>o.approvalId===a.id);return <div className="recovery-operation" key={a.id}>
-   <h3>{fr.recovery.operation} · {a.files.length} fichier{a.files.length>1?'s':''}</h3><p className="small">{fr.recovery.nativeUnknown}</p>
+   <h3 id={'recovery-'+a.id} tabIndex={-1}>{fr.recovery.operation} · {a.files.length} fichier{a.files.length>1?'s':''}</h3><p className="small">{fr.recovery.nativeUnknown}</p>
    <button className="text-button" type="button" disabled={busy||sessionPresent||blocked||!state.recovery.capabilities.inspectFiles} onClick={()=>onInspect(a.id)}>{observation?fr.recovery.inspectAgain:fr.recovery.inspect}</button>
    {observation&&<div role="status" className="recovery-observation"><p>{fr.recovery.outcomes[observation.outcome]} · {new Date(observation.observedAt).toLocaleString('fr-FR')}</p><details><summary>{fr.recovery.files}</summary><ul>{observation.files.map(f=><li key={f.path}><code>{f.path}</code><br/>{fr.recovery.positions[f.position]} · <code>{f.sha256??'absent'}</code></li>)}</ul></details></div>}
   </div>})}

@@ -6,6 +6,8 @@ created: '2026-10-26'
 
 # Mandat autonome — epic 1 puis refonte UX
 
+État courant au27octobre après1.8 : built, paquet overview-pilot installé et restauré6/6, compte conservé et27 empreintes identiques.287 tests, compilé8, paquet8, natif4 et Windows5 réussis après patches Quick/Impeccable tous résolus. Prochaine entrée1.9 ; les états de travail historiques ci-dessous ne doivent pas relancer1.5–1.8. Détails `tickets/epic-boucle-codex/qualification-overview/parent-verification.md`. Aucun seuil de longueur des plans en tokens : consigne humaine persistée dans AGENTS et la personnalisation Build. R32 temps/coût produit cadré dans l’epic2, étude Loop/Builder terminée sans adoption. Gates1.1/1.2, puis1.10/1.11 inchangés ; refonte globale après implémentation toujours à exécuter.
+
 Le porteur demande explicitement `bmad-build` sur 1.5, puis l’enchaînement du processus BMad jusqu’à la fin de l’epic 1, en autonomie. Les validations exécutables, revues et commits locaux sont délégués. Aucun push, consentement OAuth nouveau ou preuve humaine ne se déduit de ce mandat. Le27 octobre, il choisit explicitement de garder le code privé ; aucune publication open source ni licence commerciale précise n’est déduite de ce choix.
 
 ## Ordre de travail

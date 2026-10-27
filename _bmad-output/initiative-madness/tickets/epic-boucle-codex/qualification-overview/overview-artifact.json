@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "baseline": "cb3a8442c7a2372cd015c56b86e2862fc1eebbdb",
+  "frozenSha256": "4a84d62ae0c87d7c1ec943fd34e47fc08b5fa2da3c9a371205358527e439deaa",
+  "asarSha256": "072623b1b64be3eaecd72152f48d276c5f377dddd7b1893070458e1a668c91c1",
+  "installerSha256": "9ccca8286cdb616784d545616dee3c0123fc9dd05a6d43974666318eb1449e0e",
+  "verification": {
+    "tests": 287,
+    "compiled": 8,
+    "packaged": 8,
+    "nativeLoopback": 4,
+    "windows": 5,
+    "installedReopen": 6
+  },
+  "preservation": {
+    "identical": true,
+    "beforeDigest": "4821a02c986cddc917e4076db7639c0a16981ce341d3d715af830a0a4a5060b3",
+    "files": 27,
+    "afterDigest": "4821a02c986cddc917e4076db7639c0a16981ce341d3d715af830a0a4a5060b3"
+  },
+  "review": {
+    "quick": "Q1/Q2 resolved",
+    "impeccable": "F1/F2/F3 resolved; ship targeted",
+    "deferred": []
+  },
+  "limits": [
+    "Aucune qualification de distribution déduite.",
+    "Réseau/processus mesurés après hook seulement.",
+    "Aucune acceptation visuelle humaine globale."
+  ]
+}

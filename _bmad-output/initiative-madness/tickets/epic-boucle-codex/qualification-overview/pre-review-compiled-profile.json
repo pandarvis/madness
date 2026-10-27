@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-27T18:31:23.072Z",
+  "mode": "compiled-isolated",
+  "status": "passed",
+  "checks": [
+    "restored-question-inactive-no-turn-no-fabricated-wait",
+    "historical-recap-separates-transmission-effect-acceptance-and-exact-context",
+    "keyboard-wait-link-selects-exact-conversation-and-focus-after-mount",
+    "expired-request-has-no-action-and-shared-wait-disappears",
+    "choices-retain-their-own-turn-separate-from-current-turn",
+    "desktop-compact-dark-light-long-text-unique-targets-no-overflow",
+    "unscoped-stop-remains-global-and-accessible-from-home",
+    "reopen-exact-snapshot-annexes-no-engine-network-replay"
+  ],
+  "captures": [],
+  "cleanup": true,
+  "limits": [
+    "Attentes actives injectées pour qualifier leur affichage ; aucun reçu natif déduit de cette fixture.",
+    "Main, preload et restauration réels sans compte. Le vrai reçu runner loopback est qualifié séparément.",
+    "Aucun gate distribué ni accord visuel humain déduit."
+  ],
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": false
+  },
+  "artifactSha256": "08319b7601f412a18bcad5f2c17898452959b69315afc846df7e7895c1d3cf91",
+  "finishedAt": "2026-10-27T18:31:52.276Z"
+}

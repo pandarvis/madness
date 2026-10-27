@@ -224,3 +224,22 @@ node scripts/qualification/windows.mjs --ui-regressions-only --skip-screenshots
 ```
 
 Les tests `recovery*.test.mjs` couvrent stockage futur/concurrent, propriétaire inconnu, callbacks tardifs, frontières des commandes, inspections groupées, mélange/divergence, changement pendant lecture/ouverture et nouveau départ sans rejeu. Le banc Electron compilé/paquet utilise un profil synthétique sans compte ; ses contrôles de réseau n’appellent que l’URL publique, bloquée par le banc. Le banc natif utilise le vrai runner épinglé0.144.6, `exec → tools.apply_patch` et un fournisseur Responses simulé sur127.0.0.1 : il retire volontairement le terminal fichier après l’effet, restaure le propriétaire puis exerce arrêt, inspection et nouveau départ distinct. Aucun modèle externe n’est contacté. Rapports dans `tickets/epic-boucle-codex/qualification-recovery/`. Les seuls profils témoins créés sont nettoyés après fermeture confirmée. Snapshot v1, les six méthodes `madness`, les comptes et les pilotes antérieurs gardent leurs formats. Installation personnelle, validation humaine et gates distribués restent distincts.
+
+## Attentes communes et récapitulatifs — story 1.8
+
+`src/core/work-overview.ts` construit une projection pure des snapshots locaux, du dialogue natif et de la connexion réelle, avec horloge injectée. L’accueil et le projet lisent les mêmes entrées : question, approbation, transmission en cours, activité native et récupération. Une attente active exige la conversation et les cinq identifiants de contexte capturés, le tour et la requête corrélés, une phase native encore active et une échéance non dépassée. Le renderer retire le contrôle à cette échéance ; le cœur conserve ses propres gardes avant transmission. Les capacités historiques G0 ne représentent pas la connexion personnelle. Son dernier témoin daté reste distinct de la lecture locale et ne déclenche aucun contrôle réseau.
+
+Un lien sélectionne le projet puis la conversation exacte et donne le focus au contrôle existant après montage. Un jeton de navigation écarte les retours anciens, les clics concurrents et les changements de destination. Les brouillons libres, réponses et ajustements restent dans leurs maps séparées. Une demande devenue inactive pendant la sélection reste lisible avec explication et sans action d’envoi. Un arrêt restauré sans contexte garde sa portée globale ; il n’est jamais attribué au projet affiché.
+
+Le récapitulatif conserve le texte reçu exact, sans interpréter une décision dans sa prose. Une fin de tour exige sa corrélation native. Les choix conservés dans la conversation portent chacun leur tour d’origine, leur transmission et leur effet distinct ; aucun accord ponctuel ne valide un livrable. Les chemins annoncés des patches et de Forge restent séparés des relectures natives et de leurs empreintes. Résultat Forge, clôture, acceptation humaine et suite structurée inconnue sont explicités séparément. Après réouverture, le texte et les annexes reviennent, avec tour/identité historiques inconnus et aucune ancienne attente réactivée.
+
+```powershell
+node --test --test-concurrency=2 tests/*.test.mjs scripts/qualification/codex.test.mjs
+npm run build:win -- --config.directories.output=dist/overview-pilot
+node scripts/qualification/overview.mjs --no-captures
+node scripts/qualification/overview.mjs --packaged --no-captures
+node scripts/qualification/overview-native.mjs
+node scripts/qualification/windows.mjs --ui-regressions-only --skip-screenshots
+```
+
+`overview.mjs` utilise les vrais Main/preload/stockage et des profils isolés sans compte ; ses attentes actives sont injectées pour qualifier l’affichage, la navigation, les thèmes et les limites d’action. Ce banc ne prouve aucun reçu natif. `overview-native.mjs` exerce séparément le vrai runner épinglé, le protocole produit et le coordinateur : résolutions BMad, question native, réponse explicite, reçu brut exact observé dans le corps Responses, conservation et récapitulatif corrélés. Son fournisseur HTTP simulé écoute exclusivement sur127.0.0.1 ; aucun compte, OAuth ou modèle externe. Les rapports et captures sont dans `tickets/epic-boucle-codex/qualification-overview/`. Les profils sont nettoyés après fermeture confirmée. La seconde passe visuelle est réservée à la confirmation après revues ; utiliser `--no-captures` pour les vérifications intermédiaires. Snapshot v1 et les six méthodes `madness` ne changent pas. R32 temps/coût, Loop, graphe, catalogue, refonte globale et gates historiques restent hors de ce lot.

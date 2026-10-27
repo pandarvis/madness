@@ -1,0 +1,14 @@
+✔ accueil rejoint la conversation exacte par clavier, préserve les saisies et retire l’attente résolue (28049.7532ms)
+✔ deux destinations concurrentes et retour tardif gardent le dernier contexte et focus demandés (19849.0087ms)
+✔ une attente expirée pendant la sélection conserve sa saisie et explique l’absence d’envoi (13814.1734ms)
+✔ activité native reste nommée à l’accueil et un échec de sélection ne déplace ni contexte ni focus (13646.6004ms)
+✔ les indicateurs de question distinguent saisie et envoi et utilisent son destinataire réel (23682.4423ms)
+✔ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (24673.3743ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 141286.0646

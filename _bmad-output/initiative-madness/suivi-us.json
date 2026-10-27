@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-27T15:18:53.946Z",
+  "updatedAt": "2026-10-27T15:20:39.465Z",
   "purpose": "Relevé demandé par le porteur : temps et coût par user story du développement de Madness.",
   "method": {
     "elapsed": "Temps calendaire entre bornes prouvées ; comprend travail, contrôles et attentes. Ce n'est pas du temps actif humain ou agent.",
@@ -98,6 +98,35 @@
         }
       },
       "commit": "3e636aeb696bbbec3be715844fe8f74c40ea2c83"
+    },
+    {
+      "id": "1.8",
+      "status": "in-progress",
+      "recordedStart": "2026-10-27T15:20:39.465Z",
+      "recordedEnd": null,
+      "observedAt": "2026-10-27T15:20:39.465Z",
+      "elapsedSeconds": 0,
+      "activeSeconds": null,
+      "waitingSeconds": null,
+      "boundary": "Borne enregistrée avant la lecture du skill et le démarrage du workflow ; fin à relever au commit. Temps calendaire, coordination incluse.",
+      "rootUsageDelta": null,
+      "usageFirstSample": null,
+      "usageLastSample": null,
+      "usageCounterResets": null,
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "basis": "abonnement ; coût par US indisponible"
+      },
+      "evidence": [
+        ".working/story18-state.json"
+      ],
+      "milestones": [
+        {
+          "at": "2026-10-27T15:20:39.465Z",
+          "phase": "Démarrage bmad-build sur1.8 sous mandat autonome."
+        }
+      ]
     }
   ],
   "productRequest": {

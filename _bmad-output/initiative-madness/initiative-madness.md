@@ -25,6 +25,8 @@ Une interface graphique locale distribuable permet à un développeur peu famili
 
 ## Outcome
 
+Le suivi du temps et du coût par US fait aussi partie du produit, avec des mesures sourcées et les indisponibilités explicites ; son cadrage précède ses consommateurs dans l’epic 2.
+
 Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et retrouver un projet », « Comprendre l'état et ses preuves » et « Lancer une action et poursuivre » dans une version Windows installable ; elle choisit sans mémoriser les commandes, explique les preuves, dialogue et retrouve le résultat. Elle retrouve ensuite son travail sauvegardé et peut explorer les dépendances de son projet avec un graphe dont la provenance et la fraîcheur sont compréhensibles.
 
 ## Requirements
@@ -91,6 +93,8 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 
 - R31 (architecture § Qualification Gates, G5) : Vérifier le graphe dans le paquet Windows sur un dépôt représentatif : génération sans modèle implicite, isolation des effets, fidélité des relations, recherche et accès au fichier, projets multiples, modifications de sources, interruption, erreurs et contrôles accessibles ; consigner performances et limites observées avant de déclarer le périmètre V1 complet.
 
+- R32 (contexte § Capabilities and Constraints et Evidence on Hand, demande du 27 octobre 2026) : Consulter dans Madness le temps et le coût associés à une user story du projet ouvert, avec un rattachement identifiable à cette US et une indication explicite lorsqu’une mesure ou un montant n’est pas disponible.
+
 ## Constraints
 
 - C1 (brief § Priorité : l’expérience utilisateur ; contexte § Product Principles) : L'expérience utilisateur est le premier critère d'arbitrage du périmètre, de l'architecture et des interactions ; les décisions doivent préserver compréhension, guidage et contrôle par un développeur qui découvre BMad.
@@ -112,7 +116,7 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 ## Done when
 
 1. Sur Windows, un projet BMad existant est repris sans réinitialisation et un dossier non équipé est initialisé après changements compris et acceptés ; annulation, préconditions modifiées, diagnostic incompatible ou inaccessible sont démontrés (R1–R5 ; G2–G3).
-2. La personne explique l'état, les déductions et les validations, consulte leurs preuves et retrouve un fichier modifié hors de Madness sans fausse conversation d'origine (R6–R8, R19).
+2. La personne explique l'état, les déductions et les validations, consulte leurs preuves et retrouve un fichier modifié hors de Madness sans fausse conversation d'origine. Elle consulte aussi le temps et le coût rattachés à une US du projet ouvert, avec provenance et indisponibilité explicites, sans inventer un montant absent (R6–R8, R19, R32).
 3. Elle choisit une action expliquée ou une alternative dans le catalogue réel, consulte l'invocation et ses conditions, puis dialogue avec Codex ; questions, approbations, interruption, résultat inconnu et fin de tour aboutissent à un état compréhensible, avec fichiers et suite attendue (R9–R18, R22 ; G1).
 4. Navigation rétractable, fichiers, redimensionnement et contrôles accessibles préservent le contexte et la saisie en français/anglais et clair/sombre ; après réouverture, projets, conversations et brouillons sont retrouvés sans relance automatique, selon les contrats étendus de Sally (R19–R21, R25–R26).
 5. Une version Windows est reconstruite et installée sur une machine cible ; le remplacement préserve les données, les prérequis réseau/runtime sont vérifiés et les trois parcours avec une personne peu familière de BMad sont consignés, au-delà du prototype (R23–R24, R27 ; G0, G4).
@@ -126,6 +130,7 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 - Les possibilités BMad ne deviennent pas des étapes obligatoires ; party-mode n'est pas un axe privilégié. Les conditions des workflows et les décisions de l'utilisateur restent respectées.
 - Touch point : dossiers et artefacts BMad — diagnostic, lecture et preuves ; propriétaire : epic-projets-bmad, avec extension d'initialisation par epic-initialisation-bmad après son diagnostic.
 - Touch point : connexion Codex — invocation, événements, dialogue et autorisations ; propriétaire : epic-boucle-codex.
+- Touch point : temps et coût par US — propriétaire : epic-projets-bmad, qui établit les règles de rattachement à une US et les extensions versionnées des contrats de mesure, connecteur et persistance avant leurs consommateurs. Le socle et ses contrats existants restent ceux d’epic-boucle-codex ; leurs plans built ne sont pas réécrits. Ce besoin produit ne crée aucun journal de notre développement.
 - Touch point : interface et contrats UX Madness — guidage, navigation, variantes et fichiers ; propriétaire : epic-projets-bmad. La conversation initiale appartient à epic-boucle-codex, la nouvelle vue Graphe à epic-graphe-projet, selon les mêmes contrats.
 - Touch point : runtime et distribution Windows — paquet et procédure de reconstruction ; propriétaire : epic-boucle-codex. Vérification intégrée de la base G4 par epic-initialisation-bmad, module et paquet final G5 par epic-graphe-projet.
 - Touch point : contrats du cœur, cycle de vie et stockage local — propriétaire : epic-boucle-codex avant consommateurs ; epic-graphe-projet ajoute le contrat d'analyse sous la même autorité du cœur.
@@ -147,6 +152,12 @@ Les alias des exigences et contraintes désignent les fichiers suivants ; les se
 - architecture — [Contrat d'architecture adopté](architecture-madness/architecture-madness.md), `_bmad-output/initiative-madness/architecture-madness/architecture-madness.md` ; AD-1 à AD-10, Consistency Conventions, Qualification Gates G0–G5 et Deferred. Companion conservé sans modification ; les versions et interfaces candidates restent à qualifier. Les décisions du 23 octobre remplacent les anciens choix encore ouverts dans le brief et l'addendum, sans valoir approbation globale de ces sources.
 
 ## Notes
+
+- Decision: 2026-10-27 — Le porteur précise que le suivi temps/coût par US est une fonctionnalité de Madness uniquement. Sofia ajoute R32 et le rattache à l’epic 2 sous le mandat autonome : cet epic possède le contexte BMad/US et établira les extensions des contrats et leur qualification avant affichage. Les quatre epics, leurs identifiants et leur ordre restent conservés ; aucune story built ni plan en cours n’est modifié. La 1.8 n’a encore ni plan ni code et conserve son objectif. Les données transitoires de suivi de notre développement sont retirées. Les gates G0–G5 et réserves de distribution restent intacts.
+
+- Open question: Q8 — Quel temps afficher par US : durée écoulée, activité agent ou autre mesure, et avec quelles règles pour attentes, interruptions, exécutions simultanées, rattachement de plusieurs conversations et changements d’US ? À cadrer au raffinement de l’epic 2 avant les consommateurs ; aucune mesure n’est inférée des délais techniques existants.
+
+- Open question: Q9 — Quelles données d’usage et de coût sont réellement exposées par chaque connexion, avec quelle provenance, devise, granularité, couverture et gestion des doublons ? Un coût inconnu reste indisponible ; les tarifs API ne sont pas assimilés à un coût d’abonnement. Qualification avant affichage dans l’epic 2.
 
 - Decision: 2026-10-24 — REPLAN Sofia demandé par le porteur et exécuté sous son mandat autonome : les preuves personnelles du 24 octobre sont rapprochées du tableau, sans changer R1–R31, C1–C8, les quatre epics ou leurs couvertures. L'epic 1 ajoute une qualification 1.12 du profil local effectivement livré avant la suite du tracer 1.3 ; les plans 1.1/1.2 restent bloqués et intacts, obligatoires avant nettoyage final et clôture. La connexion SIWC et la conversation Mary sont acquises sur le poste pour leurs scénarios précis ; le dialogue libre ne prouve ni workflow documentaire, ni distribution. La diffusion publique reste soumise à l'admissibilité du connecteur, aux prérequis Windows/runtime et aux gates applicables, dont G4 selon AD-9 ; la V1 complète exige aussi G5. Les epics 2–4 restent non raffinés, aucun nouveau Build n'est lancé par ce replan.
 

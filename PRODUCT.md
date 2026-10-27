@@ -38,6 +38,7 @@ Après fermeture et réouverture, retrouver les projets, les conversations et le
 - Inclure l'initialisation guidée de BMad v7 dans un projet local qui ne le contient pas encore.
 - Inclure dans la V1 un outil optionnel de graphe du projet ouvert fondé sur Graphify, après la base Windows/Codex : code, modules, fichiers et dépendances. Génération locale à la demande et vue intégrée sont en cadrage ; leur fonctionnement reste à qualifier. Les liens sémantiques vers les documents BMad sont reportés hors de ce premier profil.
 - Afficher les étapes BMad, leur état connu, les invocations associées et les fichiers produits.
+- Afficher dans Madness le temps et le coût associés aux user stories des projets ouverts, avec un rattachement identifiable à l’US et une indication explicite des mesures ou montants indisponibles. La définition du temps et les données réellement fournies restent à cadrer ; un abonnement ne devient pas un coût par US calculé aux tarifs API.
 - Proposer « Que faire ensuite ? » à partir de la compétence `bmad`, de l'aide des modules v7 installés et du contexte du projet.
 - Donner accès à l'ensemble du catalogue BMad v7 installé et permettre son invocation via Codex dès la V1, en respectant les conditions propres à chaque workflow.
 - À chaque étape, recommander une action avec sa raison et proposer les alternatives pertinentes, y compris les outils transversaux. Montrer l'objectif, les entrées et les effets ou livrables attendus de chaque action. Aucun workflow particulier ne constitue le focus du produit ; `party-mode` est un exemple parmi les possibilités BMad.
@@ -56,6 +57,8 @@ Nom de travail : Madness. Première interface inspirée de Codex Desktop, selon 
 Décision du porteur le 24 octobre 2026 : thème sombre par défaut, accent terracotta orangé et bleu complémentaire, avec clair en alternative. L’extension réalisée propose le fond `#211F1E`, la navigation `#191817`, les panneaux `#272423`, l’accent d’action `#E49B7A` et le bleu liens/focus `#9DC7E1`. La composition acceptée est conservée. Le choix local est mémorisé séparément du Snapshot métier et synchronise les contrôles Windows. Les deux palettes et leurs contrastes ont reçu une vérification technique sur données témoins ([preuves](./_bmad-output/initiative-madness/qualification-theme/README.md)) ; leur acceptation visuelle humaine reste à recueillir. Après confirmation de fermeture, la version personnelle est installée et rouverte, avec données et compte chiffré inchangés.
 
 ## Evidence on Hand
+
+Le 27 octobre 2026, le porteur demande « Il faut timer les US / et le cout », puis précise « Fonctionnalité dans Madness uniquement ». Cette demande concerne le produit, sans suivi de notre travail de développement ; elle ne confirme aucun mode de mesure ni montant disponible.
 
 Besoin et réponses utilisateur des 22 et 23 octobre 2026 ; deux captures de Codex Desktop fournies dans le chat ; installation réelle BMad v7 preview dans ce dépôt ; recherche documentaire et brief sous `_bmad-output/initiative-madness/brief-madness/`.
 

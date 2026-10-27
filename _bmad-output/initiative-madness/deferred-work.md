@@ -1,4 +1,9 @@
 
+- demande_du_porteur: 2026-10-27
+  sujet: Étudier bmad-builder et surtout bmad-loop
+  resultat: Étude terminée dans `research-bmad-loop-et-builder-pour-madness/research-bmad-loop-et-builder-pour-madness.md`. Loop candidat pour le développement autonome, Builder complément éventuel de création de modules ; aucune adoption, installation ou intégration effectuée.
+  suite_proposee: Sofia peut cadrer un spike de qualification du profil v7/Windows, des mutations graphiques, de la confiance et des mesures ; Winston intervient avant modification des contrats partagés. Ce candidat ne modifie ni la 1.8 ni les dépendances existantes, et n’est pas un correctif du Refactor sweep.
+
 - source_plan: `_bmad-output/initiative-madness/tickets/epic-boucle-codex/tickets/story-afficher-les-messages-et-l-activite-correlee-de-la-conversat-plan.md`
   summary: Après la clôture de l’epic 1, organiser un passage UX avec Sally et Impeccable, avant l’epic 2, à partir des retours du porteur et de l’application réelle comparée au prototype.
   evidence: Retour humain du 26 octobre 2026 : nombreux retours UI/UX annoncés et apparence actuelle jugée peu satisfaisante. La validation technique des lots ne constitue pas une acceptation visuelle globale ; aucun redesign n’est ajouté à la story1.4.

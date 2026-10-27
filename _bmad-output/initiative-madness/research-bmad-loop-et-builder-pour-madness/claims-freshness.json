@@ -1,0 +1,25 @@
+{
+  "dateBasis": "Dates des commits pour les claims de snapshots, pas dates de publication individuelles des fichiers.",
+  "claims": [
+    {
+      "claim": "Loop : profil Codex et compatibilité v7 au snapshot observé",
+      "class": "versions/compatibility",
+      "pub_date": "2026-10-26"
+    },
+    {
+      "claim": "Builder : version et formats au snapshot observé",
+      "class": "versions/compatibility",
+      "pub_date": "2026-09-25"
+    },
+    {
+      "claim": "Loop : maturité déclarée au snapshot",
+      "class": "ecosystem",
+      "pub_date": "2026-10-26"
+    },
+    {
+      "claim": "Loop : séparation orchestration / sessions au snapshot",
+      "class": "patterns",
+      "pub_date": "2026-10-26"
+    }
+  ]
+}

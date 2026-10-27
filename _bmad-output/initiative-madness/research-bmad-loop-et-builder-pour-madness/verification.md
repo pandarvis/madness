@@ -1,0 +1,8 @@
+# Vérifications de l’étude du 27 octobre 2026
+
+- Collecte : trois chercheurs techniques distincts, sources amont uniquement, SHA figés ; digests relus par le parent. Aucun chercheur n’incarne Sally, Sofia ou Winston.
+- Contrôle mécanique : `recon_kit.py citations` ; seize références, aucun marqueur sans source ni source orpheline. `tally` : six claims suivis, tous `unverified` faute de corroboration indépendante ; ce statut ne signifie pas que le texte primaire ne les soutient pas. `staleness` : une alerte conservatrice sur le snapshot Builder, conservée au rapport.
+- Relecture sémantique fraîche : `/root/research_semantic_check`, six récupérations primaires ciblées. Aucun mismatch matériel sur v7/Sofia, JSON, sessions propres au run, Codex/profil, formule des tokens et livrables Builder. Minima exacts psmux/pwsh, choix WSL et événements temporels n’ont pas été récupérés à nouveau ; leur preuve reste celle des digests. Aucun résultat d’exécution n’en est déduit.
+- `bmad-review`, demandé par les standards de Deep Recon : structure indépendante puis prose sur son résultat. Structure : aucun constat. Prose : accord « arrêts durs » et espaces de dates/durées corrigés ; vérification parent des remplacements. Aucun changement du fond demandé.
+- Aucune installation de Loop/Builder, aucun test de programme amont, aucun moteur ni compte fournisseur lancé. Les essais futurs restent des critères proposés.
+- Orientation BMad : aide des trois modules installés consultée. Sofia peut cadrer un spike à partir de ce rapport ; Winston est pertinent si le profil d’exécution modifie une décision partagée. La prochaine story existante reste 1.8, pas une adoption implicite de Loop.

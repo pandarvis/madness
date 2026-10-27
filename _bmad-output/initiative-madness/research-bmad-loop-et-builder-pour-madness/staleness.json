@@ -1,0 +1,36 @@
+{
+  "today": "2026-10-27",
+  "claims": [
+    {
+      "claim": "Loop : profil Codex et compatibilité v7 au snapshot observé",
+      "class": "versions/compatibility",
+      "pub_date": "2026-10-26",
+      "recheck": "2026-11-26",
+      "stale": false
+    },
+    {
+      "claim": "Builder : version et formats au snapshot observé",
+      "class": "versions/compatibility",
+      "pub_date": "2026-09-25",
+      "recheck": "2026-10-25",
+      "stale": true
+    },
+    {
+      "claim": "Loop : maturité déclarée au snapshot",
+      "class": "ecosystem",
+      "pub_date": "2026-10-26",
+      "recheck": "2027-04-26",
+      "stale": false
+    },
+    {
+      "claim": "Loop : séparation orchestration / sessions au snapshot",
+      "class": "patterns",
+      "pub_date": "2026-10-26",
+      "recheck": "2028-10-26",
+      "stale": false
+    }
+  ],
+  "stale_count": 1,
+  "earliest_recheck": "2026-10-25",
+  "no_window_classes": []
+}

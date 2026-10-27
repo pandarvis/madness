@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-27T15:06:54.422Z",
+  "updatedAt": "2026-10-27T15:18:53.946Z",
   "purpose": "Relevé demandé par le porteur : temps et coût par user story du développement de Madness.",
   "method": {
     "elapsed": "Temps calendaire entre bornes prouvées ; comprend travail, contrôles et attentes. Ce n'est pas du temps actif humain ou agent.",
     "activeAndWaiting": "Non chronométrés séparément avant la demande ; aucune ventilation rétroactive inventée.",
-    "usage": "Différences des compteurs token_count du seul fil racine entre échantillons horodatés. Attribution partielle : inclusion des sous-agents et appels exécutés par Madness non établie. Les entrées en cache sont incluses dans input_tokens ; le raisonnement est inclus dans output_tokens. Ne pas additionner ces sous-catégories.",
+    "usage": "Différences des compteurs token_count du seul fil racine entre échantillons horodatés. Attribution partielle : inclusion des sous-agents et appels exécutés par Madness non établie. Les entrées en cache sont incluses dans input_tokens ; le raisonnement est inclus dans output_tokens. Ne pas additionner ces sous-catégories. Les échantillons proches des bornes et les échanges annexes de la fenêtre ne donnent pas une attribution exacte à la seule US.",
     "money": "Coût exact non exposé pour ces tâches sur abonnement ChatGPT. null signifie inconnu et non gratuit. Aucune conversion au tarif API.",
     "future": "Enregistrer une borne au démarrage de chaque nouvelle US, les transitions et blocages observés, puis figer la fin au commit. Mettre à jour la story courante lors des jalons."
   },
@@ -38,27 +38,28 @@
         ".working/story16-state.json",
         ".working/us-metadata-observations.json",
         "git:2f1bfbfa52aa6a548990790e5329210df524f3fc"
-      ]
+      ],
+      "observedAt": "2026-10-27T15:18:53.946Z"
     },
     {
       "id": "1.7",
-      "status": "in-progress",
+      "status": "built",
       "recordedStart": "2026-10-27T13:22:57.293Z",
-      "recordedEnd": null,
-      "observedAt": "2026-10-27T14:37:14.660Z",
-      "elapsedSeconds": 4457,
+      "recordedEnd": "2026-10-27T15:17:39.000Z",
+      "observedAt": "2026-10-27T15:18:53.946Z",
+      "elapsedSeconds": 6881,
       "activeSeconds": null,
       "waitingSeconds": null,
-      "boundary": "Fenêtre partielle : première borne du fichier story17-state. Préparation antérieure non couverte. Travail toujours en cours.",
+      "boundary": "Fenêtre partielle : première borne story17-state, fin au commit de livraison. Préparation antérieure non couverte ; discussions et coordination annexes de la fenêtre incluses.",
       "rootUsageDelta": {
-        "input_tokens": 15881029,
-        "cached_input_tokens": 15737856,
-        "output_tokens": 67583,
-        "reasoning_output_tokens": 55658,
-        "total_tokens": 15948612
+        "input_tokens": 26279617,
+        "cached_input_tokens": 26010112,
+        "output_tokens": 113672,
+        "reasoning_output_tokens": 82492,
+        "total_tokens": 26393289
       },
       "usageFirstSample": "2026-10-27T13:21:42.705Z",
-      "usageLastSample": "2026-10-27T14:36:39.670Z",
+      "usageLastSample": "2026-10-27T15:17:06.932Z",
       "usageCounterResets": 0,
       "cost": {
         "amount": null,
@@ -81,6 +82,10 @@
         {
           "at": "2026-10-27T15:00:57.000Z",
           "phase": "Suite globale parent lancée après corrections Q1-Q3 ; borne issue de la création du journal de test."
+        },
+        {
+          "at": "2026-10-27T15:17:39.000Z",
+          "phase": "Story built et commit local après installation/restauration vérifiées."
         }
       ],
       "verification": {
@@ -91,7 +96,8 @@
           "durationMilliseconds": 276094.7134,
           "evidence": "tickets/epic-boucle-codex/qualification-recovery/tests-parent-final.log"
         }
-      }
+      },
+      "commit": "3e636aeb696bbbec3be715844fe8f74c40ea2c83"
     }
   ],
   "productRequest": {

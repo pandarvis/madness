@@ -1,0 +1,35 @@
+✔ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (11817.4771ms)
+✔ une approbation corrélée montre sa portée et son patch avant tout ancien formulaire (7369.8165ms)
+✔ un historique simple avec nom long garde le point de saisie libre repérable au premier écran (6569.1486ms)
+✔ le focus de réponse reste neutre pendant envoi puis historique, sans détourner une autre saisie (6756.2492ms)
+✔ expiration et décision retirent leurs contrôles vers un titre neutre dans l’historique (8505.858ms)
+✔ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (4727.7772ms)
+✔ accueil rejoint la conversation exacte par clavier, préserve les saisies et retire l’attente résolue (16558.9241ms)
+✔ deux destinations concurrentes et retour tardif gardent le dernier contexte et focus demandés (13603.9297ms)
+✔ une attente expirée pendant la sélection conserve sa saisie et explique l’absence d’envoi (9005.9437ms)
+✔ les articles progressifs gardent leur nœud, identité sourcée, lecture et saisie sans annoncer chaque fragment (6670.141ms)
+✔ le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (24792.9678ms)
+✔ les indicateurs de question distinguent saisie et envoi et utilisent son destinataire réel (11223.4751ms)
+✔ un arrêt inconnu depuis un autre projet garde le motif du blocage et le retour au propriétaire (20736.308ms)
+✖ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (40007.2504ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 13
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 189711.2621
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:546:1
+✖ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (40007.2504ms)
+  locator.click: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for locator('[data-approval-id="approval-ui"]').getByRole('button', { name: 'Envoyer cet ajustement à Mary', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Sources\madness\tests\connection-ui.test.mjs:560:84) {
+    name: 'TimeoutError',
+    log: [ `  - waiting for locator('[data-approval-id="approval-ui"]').getByRole('button', { name: 'Envoyer cet ajustement à Mary', exact: true })` ]
+  }

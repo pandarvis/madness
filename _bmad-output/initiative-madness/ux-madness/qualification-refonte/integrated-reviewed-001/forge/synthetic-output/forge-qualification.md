@@ -1,0 +1,2 @@
+- Témoin synthétique : journal natif et sorties observées.
+- Aucun résultat produit ou humain inféré.

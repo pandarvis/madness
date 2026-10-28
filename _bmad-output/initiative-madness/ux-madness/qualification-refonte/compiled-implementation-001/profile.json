@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-28T13:50:05.607Z",
+  "status": "failed",
+  "mode": "compiled-isolated",
+  "checks": [],
+  "measurements": [],
+  "captures": [],
+  "cleanup": true,
+  "limits": [
+    "Données et demandes actives synthétiques ; aucun reçu fournisseur, compte ou accord humain déduit.",
+    "Contrôles du contenu Electron ; glyphes Windows, mise à l’échelle du système, lecteur d’écran et conformité WCAG non certifiés.",
+    "Aucune installation personnelle, clôture G1 ni acceptation visuelle humaine.",
+    "Réseau bloqué et compté après instrumentation ; aucune activité antérieure au hook revendiquée."
+  ],
+  "failure": "Error: STORAGE_WRITE_FAILED\n    at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)\n    at file:///C:/Sources/madness/src/adapters/persistence/approval-store.ts:38:26",
+  "finishedAt": "2026-10-28T13:50:05.673Z"
+}

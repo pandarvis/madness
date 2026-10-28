@@ -2,14 +2,14 @@ import type {ReactNode} from 'react'
 import type {ApprovalRecord,ApprovalDecision} from '../../contracts/approvals.ts'
 import {MAX_DRAFT_LENGTH} from '../../contracts/index.ts'
 import {fr} from './strings.ts'
-export function ApprovalPanel({approval,adjustment,projectName,onChange,onDecide,onSendAdjustment,canAdjust=false,bridgeFailed=false,respondable=true}:{approval:ApprovalRecord;adjustment:string;projectName:string;onChange:(text:string)=>void;onDecide:(decision:ApprovalDecision)=>void;onSendAdjustment:()=>void;canAdjust?:boolean;bridgeFailed?:boolean;respondable?:boolean}):ReactNode{
+export function ApprovalPanel({approval,adjustment,projectName,onChange,onDecide,onSendAdjustment,canAdjust=false,bridgeFailed=false,respondable=true,compactContext=false}:{approval:ApprovalRecord;adjustment:string;projectName:string;onChange:(text:string)=>void;onDecide:(decision:ApprovalDecision)=>void;onSendAdjustment:()=>void;canAdjust?:boolean;bridgeFailed?:boolean;respondable?:boolean;compactContext?:boolean}):ReactNode{
  const active=approval.status==='waiting'&&respondable,editable=active||approval.status==='decided',id=approval.id
  const identity=approval.identity.kind==='attested'?approval.identity.name:fr.conversation.unknownAgent
  const effect=fr.approvals.effects[approval.effect],status=approval.status==='waiting'&&!respondable?fr.overview.targetGone:fr.approvals.status[approval.status]
  return <section className="approval-panel" data-approval-id={id} aria-labelledby={id+'-title'}>
   <h2 id={id+'-title'} tabIndex={-1}>{active?fr.approvals.title:fr.approvals.history}</h2>
   <h3 className="approval-recipient">{identity} · Codex</h3>
-  <p className="small">{projectName} · {approval.context.initiativeId??'sans initiative identifiée'} · mode fichiers capturé</p>
+  <p className="small">{compactContext?<span title={projectName}>Ce projet</span>:projectName} · {approval.context.initiativeId??'sans initiative identifiée'} · mode fichiers capturé</p>
   <p role="status" className="approval-status">{status}{approval.status==='decided'?' '+effect:''}{approval.reason==='expired'?' Le délai local de dix minutes est dépassé.':approval.reason==='reopened'?' Historique inactif : aucun moteur ni accord relancé.':''}</p>
   <p>{fr.approvals.scope}</p>
   {active&&<p className="small">Échéance locale : {new Date(approval.expiresAt).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}. À l’échéance, le tour sera arrêté sans transmettre de choix.</p>}

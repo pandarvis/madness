@@ -1,0 +1,17 @@
+✔ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (9476.6312ms)
+✔ une approbation corrélée montre sa portée et son patch avant tout ancien formulaire (9371.4569ms)
+✔ un historique simple avec nom long garde le point de saisie libre repérable au premier écran (8358.7795ms)
+ℹ {"requested":{"width":1440,"height":920},"top":634.1500244140625,"bottom":705.1500244140625,"width":1440,"height":920,"mainScroll":0,"requests":0}
+ℹ {"requested":{"width":720,"height":820},"top":629.1500244140625,"bottom":700.1500244140625,"width":720,"height":820,"mainScroll":0,"requests":0}
+✔ le focus de réponse reste neutre pendant envoi puis historique, sans détourner une autre saisie (8561.9559ms)
+✔ expiration et décision retirent leurs contrôles vers un titre neutre dans l’historique (10158.9738ms)
+✔ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (5734.6906ms)
+✔ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (14599.6153ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 67448.9178

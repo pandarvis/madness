@@ -1,0 +1,81 @@
+✖ ouvrir Codex depuis la projection ferme le contexte et focalise le panneau visible (39030.0321ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 40244.0157
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:77:1
+✖ ouvrir Codex depuis la projection ferme le contexte et focalise le panneau visible (39030.0321ms)
+  locator.click: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for locator('.overview-details > summary')[22m
+  [2m    - locator resolved to <summary>Connexion et récapitulatifs</summary>[22m
+  [2m  - attempting click action[22m
+  [2m    2 × waiting for element to be visible, enabled and stable[22m
+  [2m      - element is visible, enabled and stable[22m
+  [2m      - scrolling into view if needed[22m
+  [2m      - done scrolling[22m
+  [2m      - <dl>…</dl> from <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> subtree intercepts pointer events[22m
+  [2m    - retrying click action[22m
+  [2m    - waiting 20ms[22m
+  [2m    - waiting for element to be visible, enabled and stable[22m
+  [2m    - element is visible, enabled and stable[22m
+  [2m    - scrolling into view if needed[22m
+  [2m    - done scrolling[22m
+  [2m    - <dl>…</dl> from <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> subtree intercepts pointer events[22m
+  [2m  2 × retrying click action[22m
+  [2m      - waiting 100ms[22m
+  [2m      - waiting for element to be visible, enabled and stable[22m
+  [2m      - element is visible, enabled and stable[22m
+  [2m      - scrolling into view if needed[22m
+  [2m      - done scrolling[22m
+  [2m      - <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> intercepts pointer events[22m
+  [2m  2 × retrying click action[22m
+  [2m      - waiting 500ms[22m
+  [2m      - waiting for element to be visible, enabled and stable[22m
+  [2m      - element is visible, enabled and stable[22m
+  [2m      - scrolling into view if needed[22m
+  [2m      - done scrolling[22m
+  [2m      - <dl>…</dl> from <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> subtree intercepts pointer events[22m
+  [2m    - retrying click action[22m
+  [2m      - waiting 500ms[22m
+  [2m      - waiting for element to be visible, enabled and stable[22m
+  [2m      - element is visible, enabled and stable[22m
+  [2m      - scrolling into view if needed[22m
+  [2m      - done scrolling[22m
+  [2m      - <dl>…</dl> from <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> subtree intercepts pointer events[22m
+  [2m    - retrying click action[22m
+  [2m      - waiting 500ms[22m
+  [2m      - waiting for element to be visible, enabled and stable[22m
+  [2m      - element is visible, enabled and stable[22m
+  [2m      - scrolling into view if needed[22m
+  [2m      - done scrolling[22m
+  [2m      - <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> intercepts pointer events[22m
+  [2m    - retrying click action[22m
+  [2m      - waiting 500ms[22m
+  [2m      - waiting for element to be visible, enabled and stable[22m
+  [2m      - element is visible, enabled and stable[22m
+  [2m      - scrolling into view if needed[22m
+  [2m      - done scrolling[22m
+  [2m      - <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> intercepts pointer events[22m
+  [2m  - retrying click action[22m
+  [2m    - waiting 500ms[22m
+  [2m    - waiting for element to be visible, enabled and stable[22m
+  [2m    - element is visible, enabled and stable[22m
+  [2m    - scrolling into view if needed[22m
+  [2m    - done scrolling[22m
+  [2m    - <dl>…</dl> from <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> subtree intercepts pointer events[22m
+  [2m  - retrying click action[22m
+  [2m    - waiting 500ms[22m
+  [2m    - waiting for element to be visible, enabled and stable[22m
+  
+      at TestContext.<anonymous> (C:\Sources\madness\tests\connection-ui.test.mjs:82:52) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for locator('.overview-details > summary')", '    - locator resolved to <summary>Connexion et récapitulatifs</summary>', '  - attempting click action', '    2 × waiting for element to be visible, enabled and stable', '      - element is visible, enabled and stable', '      - scrolling into view if needed', '      - done scrolling', '      - <dl>…</dl> from <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> subtree intercepts pointer events', '    - retrying click action', '    - waiting 20ms', '    - waiting for element to be visible, enabled and stable', '    - element is visible, enabled and stable', '    - scrolling into view if needed', '    - done scrolling', '    - <dl>…</dl> from <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> subtree intercepts pointer events', '  2 × retrying click action', '      - waiting 100ms', '      - waiting for element to be visible, enabled and stable', '      - element is visible, enabled and stable', '      - scrolling into view if needed', '      - done scrolling', '      - <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> intercepts pointer events', '  2 × retrying click action', '      - waiting 500ms', '      - waiting for element to be visible, enabled and stable', '      - element is visible, enabled and stable', '      - scrolling into view if needed', '      - done scrolling', '      - <dl>…</dl> from <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> subtree intercepts pointer events', '    - retrying click action', '      - waiting 500ms', '      - waiting for element to be visible, enabled and stable', '      - element is visible, enabled and stable', '      - scrolling into view if needed', '      - done scrolling', '      - <dl>…</dl> from <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> subtree intercepts pointer events', '    - retrying click action', '      - waiting 500ms', '      - waiting for element to be visible, enabled and stable', '      - element is visible, enabled and stable', '      - scrolling into view if needed', '      - done scrolling', '      - <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> intercepts pointer events', '    - retrying click action', '      - waiting 500ms', '      - waiting for element to be visible, enabled and stable', '      - element is visible, enabled and stable', '      - scrolling into view if needed', '      - done scrolling', '      - <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> intercepts pointer events', '  - retrying click action', '    - waiting 500ms', '    - waiting for element to be visible, enabled and stable', '    - element is visible, enabled and stable', '    - scrolling into view if needed', '    - done scrolling', '    - <dl>…</dl> from <section role="dialog" aria-modal="false" class="context-panel" id="project-context-panel" aria-labelledby="project-context-title">…</section> subtree intercepts pointer events', '  - retrying click action', '    - waiting 500ms', '    - waiting for element to be visible, enabled and stable' ]
+  }

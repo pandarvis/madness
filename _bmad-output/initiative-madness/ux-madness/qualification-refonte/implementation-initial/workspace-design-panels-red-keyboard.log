@@ -1,0 +1,28 @@
+✖ ouvrir Codex depuis la projection ferme le contexte et focalise le panneau visible (9169.659ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10468.7301
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:77:1
+✖ ouvrir Codex depuis la projection ferme le contexte et focalise le panneau visible (9169.659ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Sources/madness/tests/connection-ui.test.mjs:85:9)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

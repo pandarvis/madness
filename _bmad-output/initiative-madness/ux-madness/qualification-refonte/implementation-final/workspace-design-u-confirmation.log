@@ -1,0 +1,34 @@
+✔ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (9349.5162ms)
+✔ une approbation corrélée montre sa portée et son patch avant tout ancien formulaire (8912.5376ms)
+✖ un historique simple avec nom long garde le point de saisie libre repérable au premier écran (6937.0178ms)
+✔ le focus de réponse reste neutre pendant envoi puis historique, sans détourner une autre saisie (8402.1286ms)
+✔ expiration et décision retirent leurs contrôles vers un titre neutre dans l’historique (8623.4558ms)
+✔ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (4720.1329ms)
+✔ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (12426.8398ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 60299.4291
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:89:1
+✖ un historique simple avec nom long garde le point de saisie libre repérable au premier écran (6937.0178ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Sources/madness/tests/connection-ui.test.mjs:91:254)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

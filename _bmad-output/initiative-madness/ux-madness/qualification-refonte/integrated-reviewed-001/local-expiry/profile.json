@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "cleanup": true,
+  "transmitted": 0,
+  "inactiveAfterReopen": true,
+  "checks": [
+    "controlled-local-clock-expiry-no-native-response",
+    "inactive-after-restore-late-command-rejected"
+  ],
+  "limits": [
+    "Cœur source et horloge contrôlée synthétiques ; aucun runner ni expiration autonome du runner prétendue."
+  ]
+}

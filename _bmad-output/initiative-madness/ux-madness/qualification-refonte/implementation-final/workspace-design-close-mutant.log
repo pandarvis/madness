@@ -1,0 +1,47 @@
+✖ la fermeture du wrapper ne prouve pas la disparition du vrai Main Windows (6.3054ms)
+✖ la fermeture exige événement close, Main absent et observation complète sans app-server (1.0826ms)
+✔ le compteur passif transmet spawn inchangé sans conserver args, env ni transport (2.132ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 1
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1247.3342
+
+✖ failing tests:
+
+test at tests\workspace-design-qualification.test.mjs:15:1
+✖ la fermeture du wrapper ne prouve pas la disparition du vrai Main Windows (6.3054ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Sources/madness/tests/workspace-design-qualification.test.mjs:18:118)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\workspace-design-qualification.test.mjs:20:1
+✖ la fermeture exige événement close, Main absent et observation complète sans app-server (1.0826ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Sources/madness/tests/workspace-design-qualification.test.mjs:23:46)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "previousAsar": "367bc8842b56b8ffe28f0b303ea6dbab9c5b458e65de7cc5fd639c6b308e96cc",
+  "currentAsar": "6664da10ba09364dd5e7584ad812848d48b7bb8f4c48508507434825770684c8",
+  "records": [
+    {
+      "path": "out/main/index.js",
+      "before": "1764d9554a76b2f70b543e1ba20e4743f125c6f32a28df66e96645226dd6c1d4",
+      "after": "1764d9554a76b2f70b543e1ba20e4743f125c6f32a28df66e96645226dd6c1d4",
+      "identical": true
+    },
+    {
+      "path": "out/preload/index.js",
+      "before": "896b68593af676e783f4d87a0b72393ac9f5d022c4e906122da29bd2dfc11ea4",
+      "after": "896b68593af676e783f4d87a0b72393ac9f5d022c4e906122da29bd2dfc11ea4",
+      "identical": true
+    },
+    {
+      "path": "out/renderer/assets/index-ro9ZzzgC.css",
+      "before": "843463920dcc7b250592be463ab0378cecb2fb9d1f5698bf6dd2fb1fb1c79faa",
+      "after": "843463920dcc7b250592be463ab0378cecb2fb9d1f5698bf6dd2fb1fb1c79faa",
+      "identical": true
+    },
+    {
+      "path": "out/renderer/assets/chatgpt-mark-BSM5F-kM.svg",
+      "before": "b8b9aba7ba591f54bf1805f422bc23f32c44ee993643cc378cc77f766061f7a1",
+      "after": "b8b9aba7ba591f54bf1805f422bc23f32c44ee993643cc378cc77f766061f7a1",
+      "identical": true
+    }
+  ],
+  "renderer": {
+    "beforePath": "/out/renderer/assets/index-h2-Ljs0W.js",
+    "afterPath": "/out/renderer/assets/index-DTur5RXN.js",
+    "difference": {
+      "before": "",
+      "after": "Pending(false);\n\t\tset"
+    }
+  },
+  "htmlIdenticalAfterBundleReferenceNormalization": true,
+  "limits": [
+    "Comparaison de code embarqué, pas une nouvelle capture ni une acceptation visuelle humaine."
+  ]
+}

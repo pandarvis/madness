@@ -1,0 +1,5 @@
+
+> madness@0.1.2 typecheck
+> tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json
+
+src/renderer/src/App.tsx(484,244): error TS18048: 'conversation' is possibly 'undefined'.

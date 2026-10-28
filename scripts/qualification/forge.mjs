@@ -60,6 +60,7 @@ try{
  await page.getByRole('heading',{name:'Résultat observé de Forge',exact:true}).waitFor()
  assert.equal(await page.getByText('Acceptation humaine inconnue.',{exact:false}).isVisible(),true)
  assert.equal(await page.locator('#draft').inputValue(),snapshot.drafts[0].text);pass('historical-invocation-context-observations-and-draft-restored-without-engine')
+ await page.getByRole('tab',{name:'Parcours',exact:true}).click()
  await page.getByRole('button',{name:'Préparer Forge',exact:true}).click()
  await page.getByRole('button',{name:'Vérifier le profil Forge',exact:true}).click()
  const qualificationStates=[],deadline=Date.now()+90000
@@ -76,6 +77,7 @@ try{
  assert.equal((await page.evaluate(()=>window.madness.readState())).value.state.conversations.length,1)
  assert.equal(await running.evaluate(()=>globalThis.__forgeRequests),0);pass('compiled-or-packaged-forge-profile-qualifies-without-account-network-or-model')
  assert.equal((await page.evaluate(()=>window.madnessDialogue.send('foreign','conversation-forge','Ne pas envoyer'))).errorCode,'CONTEXT_MISMATCH');pass('foreign-conversation-refused-no-replay')
+ await page.getByRole('tab',{name:'Conversation',exact:true}).click()
  await page.locator('#draft').fill('Brouillon Forge conservé après navigation et réouverture.')
  await page.getByRole('button',{name:'Enregistrer le brouillon',exact:true}).click()
  await page.waitForFunction(async()=>(await window.madness.readState()).value.state.drafts[0].text==='Brouillon Forge conservé après navigation et réouverture.')
@@ -83,6 +85,7 @@ try{
  await page.getByRole('button',{name:'Passer au thème clair',exact:true}).click()
  assert.equal(await page.locator('#draft').inputValue(),'Brouillon Forge conservé après navigation et réouverture.');pass('theme-navigation-and-explicit-draft-save-preserve-context')
  await page.getByRole('button',{name:'Passer au thème sombre',exact:true}).click()
+ await page.getByRole('tab',{name:'Parcours',exact:true}).click()
  for(const size of [{width:1320,height:860,name:'desktop'},{width:600,height:800,name:'compact'}]){
   await running.evaluate(({BrowserWindow},s)=>BrowserWindow.getAllWindows()[0].setContentSize(s.width,s.height),size)
   await page.getByRole('heading',{name:'Mettre une idée à l’épreuve',exact:true}).scrollIntoViewIfNeeded()

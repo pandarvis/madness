@@ -1,0 +1,1081 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-28T16:18:07.302Z",
+  "status": "passed",
+  "mode": "packaged-isolated",
+  "checks": [
+    "no-account-restored-request-inactive",
+    "context-complete-keyboard-escape-return-focus",
+    "prepare-mount-focus-no-implicit-launch-and-draft-preserved",
+    "four-widths-two-themes-expanded-collapsed-drawer-long-names-no-overflow-targets-axis-native-exclusion",
+    "actual-electron-zoom-200-percent-keyboard-edit-retract-context-return-no-overflow",
+    "keyboard-help-escape-reduced-motion-static-folder",
+    "exact-active-question-focus-context-visible-field-and-explicit-response",
+    "active-approval-visible-complete-patch-before-textual-choices-no-default",
+    "global-stop-visible-exact-access-home-no-replay",
+    "real-windows-main-absent-close-observed-no-app-server-launch-1",
+    "explicit-save-close-reopen-exact-draft-history-preferences-annexes-no-network-or-app-server-after-hook",
+    "real-windows-main-absent-close-observed-no-app-server-launch-2"
+  ],
+  "measurements": [
+    {
+      "label": "1440-dark",
+      "viewport": {
+        "width": 1440,
+        "height": 920
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 1303,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 1303,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Réduire la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 1159,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème clair",
+          "x": 1207,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 1255,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 1287.800048828125,
+          "y": 92.5,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "1440-dark-collapsed",
+      "viewport": {
+        "width": 1440,
+        "height": 920
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 1303,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 1303,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": {
+        "x": 8,
+        "y": 74,
+        "width": 40,
+        "height": 40
+      },
+      "commands": [
+        {
+          "label": "Déployer la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 1159,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème clair",
+          "x": 1207,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 1255,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 1205.800048828125,
+          "y": 92.5,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "1440-light",
+      "viewport": {
+        "width": 1440,
+        "height": 920
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 1303,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 1303,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Réduire la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 1159,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème clair",
+          "x": 1207,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 1255,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 1287.800048828125,
+          "y": 92.5,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "1440-light-collapsed",
+      "viewport": {
+        "width": 1440,
+        "height": 920
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 1303,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 1303,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": {
+        "x": 8,
+        "y": 74,
+        "width": 40,
+        "height": 40
+      },
+      "commands": [
+        {
+          "label": "Déployer la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 1159,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème sombre",
+          "x": 1207,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 1255,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 1205.800048828125,
+          "y": 92.5,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "1320-dark",
+      "viewport": {
+        "width": 1320,
+        "height": 900
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 1183,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 1183,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Réduire la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 1039,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème sombre",
+          "x": 1087,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 1135,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 1227.800048828125,
+          "y": 92.5,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "1320-dark-collapsed",
+      "viewport": {
+        "width": 1320,
+        "height": 900
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 1183,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 1183,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": {
+        "x": 8,
+        "y": 74,
+        "width": 40,
+        "height": 40
+      },
+      "commands": [
+        {
+          "label": "Déployer la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 1039,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème clair",
+          "x": 1087,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 1135,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 1145.800048828125,
+          "y": 92.5,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "1320-light",
+      "viewport": {
+        "width": 1320,
+        "height": 900
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 1183,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 1183,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Réduire la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 1039,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème clair",
+          "x": 1087,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 1135,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 1227.800048828125,
+          "y": 92.5,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "1320-light-collapsed",
+      "viewport": {
+        "width": 1320,
+        "height": 900
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 1183,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 1183,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": {
+        "x": 8,
+        "y": 74,
+        "width": 40,
+        "height": 40
+      },
+      "commands": [
+        {
+          "label": "Déployer la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 1039,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème sombre",
+          "x": 1087,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 1135,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 1145.800048828125,
+          "y": 92.5,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "720-dark",
+      "viewport": {
+        "width": 720,
+        "height": 820
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 583,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 583,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Ouvrir la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 439,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème sombre",
+          "x": 487,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 535,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 649.6000366210938,
+          "y": 90,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "720-light",
+      "viewport": {
+        "width": 720,
+        "height": 820
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 583,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 583,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Ouvrir la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 439,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème clair",
+          "x": 487,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 535,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 649.6000366210938,
+          "y": 90,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "600-dark",
+      "viewport": {
+        "width": 600,
+        "height": 820
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 463,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 463,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Ouvrir la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 319,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème sombre",
+          "x": 367,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 415,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 529.6000366210938,
+          "y": 105,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "600-light",
+      "viewport": {
+        "width": 600,
+        "height": 820
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 463,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 463,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Ouvrir la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 319,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème clair",
+          "x": 367,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 415,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 529.6000366210938,
+          "y": 105,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "zoom-200-percent",
+      "viewport": {
+        "width": 660,
+        "height": 460
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 592,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 592,
+        "height": 28
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7.599999904632568,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Ouvrir la navigation",
+          "x": 8,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 448,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème sombre",
+          "x": 496,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 544,
+          "y": 7.599999904632568,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 594.7999877929688,
+          "y": 90,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "overflow": false
+    }
+  ],
+  "workPositions": [
+    {
+      "label": "historical-draft-1440-dark",
+      "selector": "#draft",
+      "top": 610.5499877929688,
+      "bottom": 681.5499877929688,
+      "height": 71,
+      "viewportHeight": 920,
+      "mainScroll": 0
+    },
+    {
+      "label": "historical-draft-720-dark",
+      "selector": "#draft",
+      "top": 605.5499877929688,
+      "bottom": 676.5499877929688,
+      "height": 71,
+      "viewportHeight": 820,
+      "mainScroll": 0
+    },
+    {
+      "label": "historical-draft-720-light",
+      "selector": "#draft",
+      "top": 605.5499877929688,
+      "bottom": 676.5499877929688,
+      "height": 71,
+      "viewportHeight": 820,
+      "mainScroll": 0
+    },
+    {
+      "label": "active-question-first-screen",
+      "selector": "[data-question-id=\"question-workspace\"] textarea",
+      "top": 676.2000122070312,
+      "bottom": 748.2000122070312,
+      "height": 72,
+      "viewportHeight": 920,
+      "mainScroll": 0
+    },
+    {
+      "label": "active-approval-first-screen",
+      "selector": "[data-approval-id=\"approval-workspace\"] .approval-file pre",
+      "top": 756.4000244140625,
+      "bottom": 810.8000259399414,
+      "height": 54.400001525878906,
+      "viewportHeight": 920,
+      "mainScroll": 0
+    }
+  ],
+  "captures": [],
+  "launches": [
+    {
+      "main": {
+        "pid": 36160,
+        "startedAt": "639288010874126485",
+        "executable": "C:\\Sources\\madness\\dist\\workspace-design-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 44572,
+      "observationPath": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\ux-madness\\qualification-refonte\\reviewed-layout-001\\native-observation-1.json",
+      "observationStartedAt": "2026-10-28T16:18:13.467Z"
+    },
+    {
+      "main": {
+        "pid": 48680,
+        "startedAt": "639288010976645264",
+        "executable": "C:\\Sources\\madness\\dist\\workspace-design-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 58448,
+      "observationPath": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\ux-madness\\qualification-refonte\\reviewed-layout-001\\native-observation-2.json",
+      "observationStartedAt": "2026-10-28T16:18:25.620Z"
+    }
+  ],
+  "closeReceipts": [
+    {
+      "main": {
+        "pid": 36160,
+        "startedAt": "639288010874126485",
+        "executable": "C:\\Sources\\madness\\dist\\workspace-design-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 44572,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-10-28T16:18:13.467Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 48680,
+        "startedAt": "639288010976645264",
+        "executable": "C:\\Sources\\madness\\dist\\workspace-design-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 58448,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-10-28T16:18:25.620Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Données et demandes actives synthétiques ; aucun reçu fournisseur, compte ou accord humain déduit.",
+    "Contrôles du contenu Electron ; glyphes Windows, mise à l’échelle du système, lecteur d’écran et conformité WCAG non certifiés.",
+    "Aucune installation personnelle, clôture G1 ni acceptation visuelle humaine.",
+    "Réseau bloqué et app-server comptés seulement après installation du hook ; aucune absence d’activité antérieure au hook revendiquée.",
+    "Une identité Main, une fermeture observable ou un compteur incomplet interdit le nettoyage du profil. Aucun processus tué par le banc."
+  ],
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true
+  },
+  "artifact": {
+    "path": "C:\\Sources\\madness\\dist\\workspace-design-reviewed\\win-unpacked\\resources\\app.asar",
+    "sha256": "6664da10ba09364dd5e7584ad812848d48b7bb8f4c48508507434825770684c8"
+  },
+  "finishedAt": "2026-10-28T16:18:26.940Z"
+}

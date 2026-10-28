@@ -2,7 +2,7 @@
 title: "Madness — expérience utilisateur"
 status: final
 created: 2026-10-22
-updated: 2026-10-24
+updated: 2026-10-28
 sources:
   - ../initiative-madness.md
   - .memlog.md
@@ -10,189 +10,177 @@ sources:
   - ../brief-madness/brief-madness.md
   - .working/parcours-proposes.md
   - .working/verification-prototype.md
+  - ../tickets/epic-boucle-codex/epic-boucle-codex.md
+  - ../decision-personnelle-locale-2026-10-28.md
+  - ../deferred-work.md
+  - preparation-refonte-2026-10-28/preparation-refonte.md
 ---
 
 ## Foundation
 
-Madness aide un développeur peu familier de BMad à retrouver un projet local, comprendre ses preuves et choisir une action, puis dialoguer avec l'agent. La priorité UX est la compréhension de ce qui se passe et de ce qui est attendu. La V1 cible Windows, Codex et BMad v7 ; elle doit pouvoir être distribuée à d'autres développeurs. Aucun framework UI, packaging Electron ou mode d'intégration Codex n'est choisi ici. [DESIGN.md](DESIGN.md) porte l'identité visuelle.
+Madness aide le porteur, développeur peu familier de BMad, à retrouver ses projets locaux et dialoguer avec un agent en comprenant ce qui se passe et ce qui attend sa décision. L’usage courant est personnel sous Windows, code privé, Codex avec son abonnement ChatGPT et BMad v7. La connexion SIWC propre à Madness et ses protections sont conservées, selon la [décision du 28 octobre](../decision-personnelle-locale-2026-10-28.md). Electron, React et TypeScript constituent le socle adopté ; [DESIGN.md](DESIGN.md) porte les règles visuelles.
 
-Le [prototype Parcours guidé](mockups/parcours-guide/index.html) a été accepté comme première base le 23 octobre 2026, après l'approbation explicite de sa navigation rétractable. Il reste une simulation avec deux projets et des dialogues écrits : aucune lecture de dossier, invocation Codex, installation BMad ou ouverture d'éditeur réelle. Les [vérifications consignées](.working/verification-prototype.md) portent sur cette simulation. Le retour du porteur de projet n'est pas une étude utilisateur ni une validation des intégrations.
+La base « Parcours guidé » et sa navigation rétractable ont été acceptées le 23 octobre. Leur [prototype](mockups/parcours-guide/index.html) reste une simulation ; ses [vérifications](.working/verification-prototype.md) ne qualifient aucune intégration. La [préparation Sally et trois expertises](preparation-refonte-2026-10-28/preparation-refonte.md) fonde la recomposition présente : projet et onglets d’abord, Conversation orientée vers l’échange, préparation secondaire et récupération condensée. Cette mise à jour finalise le contrat ; l’implémentation et la qualification de la refonte restent distinctes de son acceptation visuelle humaine, encore inconnue.
 
-Les versions antérieures à v7 et leur migration sont hors V1. Le suivi en direct ou la synchronisation de conversations lancées dans d'autres outils reste une extension. Une modification de fichier externe ne permet pas de reconstruire sa conversation d'origine.
+Les projets, conversations et brouillons sont conservés localement ; la sauvegarde évoquée en A2/Q6 n’est plus à définir. La restauration n’ouvre ni réseau ni moteur et ne reprend aucune conversation native. Les gates et résultats des lots restent ceux de leurs preuves : cette mise à jour ne clôt pas G1 ou la qualification intégrée 1.11. Versions antérieures à v7, migration et reconstruction de conversations externes restent hors du présent parcours.
 
 ## Information Architecture
 
-| Surface | Accès et finalité | Parcours | Référence |
+| Surface | Accès et finalité | Parcours | Portée courante |
 |---|---|---|---|
-| Accueil | Ouverture de Madness ou Navigation latérale ; projets récents et attentes nommées, ouverture d'un dossier. | 1 | Maquetté |
-| Diagnostic et initialisation | Après choix d'un dossier ; compatibilité v7, prérequis, accès et changements proposés avant accord. | 1 | Absence puis initialisation simulées ; autres diagnostics décrits seulement |
-| Projet · Parcours | Ouverture d'un projet ; initiative active et autres initiatives repérées, état et preuves dans ce contexte, recommandation expliquée, intentions et alternatives. | 1, 2 | Maquetté au niveau projet ; contexte d'initiative décrit seulement |
-| Projet · Conversation | Lancement d'une action ou reprise d'une attente ; invocation, dialogue et décisions du tour. | 3 | Maquetté, dont interruption et erreur |
-| Catalogue | Navigation « Possibilités BMad » ou onglet « Toutes les possibilités » ; recherche de toutes les compétences installées. | 2, 3 | Maquetté |
-| Fiche compétence | Depuis recommandation, intention ou Catalogue ; objectif, invocation, entrées, effets et condition de lancement. | 2, 3 | Maquetté dans un Dialogue |
-| Panneau de fichiers et aperçu agrandi | Depuis preuve, résultat ou bouton Fichiers ; lire statut, provenance, chemin et contenu. | 2, 3 | Maquetté avec extraits figés |
-| Connexion Codex et accès | En-tête et diagnostic avant lancement ; rendre capacité disponible ou problème de connexion compréhensible. | 1, 3 | Décrit seulement ; détail d'intégration à instruire |
+| Accueil | Ouverture ou navigation ; récents, activités et attentes corrélées ; accès à la commande unique d’ouverture. | 1 | Livré ; hiérarchie à recomposer. |
+| Projet · Parcours | Projet ouvert ; contexte connu, synthèse factuelle, attentes et possibilités livrées. | 1, 2 | Livré ; Mary et Forge seulement, sans recommandation `bmad` calculée. |
+| Projet · Conversation | Échange sélectionné, demande pertinente, saisie et décisions ; préparation d’un nouvel échange sur action explicite. | 3 | Livré ; priorité visuelle à recomposer. |
+| Connexion Codex et accès | Commande de barre ; compte, contrôle explicite, indisponibilité et aide réseau. | 1, 3 | Livré ; panneau et arrêt inconnu restent accessibles sans projet. |
+| Diagnostic et initialisation | Dossier choisi ; compatibilité, prérequis et changements avant accord. | 1 | Profil borné actuel ; diagnostic complet et qualification G2 futurs, epic 2 ; initialisation future, epic 3, consommatrice du diagnostic. |
+| Catalogue et Fiche compétence | Possibilités BMad, recherche et explication des conditions de lancement. | 2, 3 | Simulation historique ; guidage et catalogue complet epic 2. |
+| Panneau de fichiers et aperçu agrandi | Depuis preuve ou résultat ; lire contenu, statut, provenance et chemin. | 2, 3 | Simulation historique ; panneau et éditeur epic 2. Les chemins observés restent consultables dès maintenant. |
 
-Les surfaces maquettées sont accessibles dans la [maquette commune](mockups/parcours-guide/index.html). Connexion, refus d'accès, incompatibilité v7 et reprise après redémarrage seront construits à partir de ces règles et des décisions techniques à venir ; aucun écran détaillé n'a encore été approuvé pour eux.
+Le projet identifie son nom, le contexte d’initiative connu et ses onglets avant les états détaillés. Conversation commence par l’échange ou son état vide ; la demande et son point de réponse ne sont pas précédés de grands blocs de préparation Mary/Forge. Une bande courte garde le motif principal de récupération et sa portée. Contexte technique, empreinte et historique détaillé se consultent à la demande ; les informations nécessaires à une décision restent présentées avant ses choix.
 
-Navigation globale : Accueil, projets récents, Possibilités BMad, Que faire ensuite ?. La barre d’action supérieure porte une seule commande « Ouvrir un projet », disponible depuis l’accueil et le projet, et la bascule de navigation. Le projet expose Parcours, Conversation et Toutes les possibilités ; les fichiers restent consultables à côté. Les regroupements Cadrage, Exigences, Expérience utilisateur, Architecture, Réalisation & qualité et Outils transversaux sont des repères, sans chaîne imposée ni étape à valider artificiellement pour accéder à la suivante.
-
-Précision du porteur le 24 octobre : la bascule de navigation partage la barre de titre avec les boutons Windows réduire, agrandir/restaurer et fermer. Les commandes natives restent disponibles, sans commandes HTML de remplacement. Le fond libre déplace la fenêtre ; les clics sur les commandes et sur le tiroir modal ne déclenchent pas de déplacement. Repli, tiroir et redimensionnement conservent la saisie et le contexte.
-
-Un projet peut contenir plusieurs initiatives. Son espace identifie l'initiative active, permet de retrouver les autres initiatives repérées et indique celle que concernent l'état, les preuves et l'action envisagée. Les fichiers transversaux restent rattachés au projet. Changer d'initiative ne réattribue pas les conversations et résultats antérieurs. La commande précise de changement reste à définir dans les exigences ; aucun sélecteur détaillé n'est considéré comme maquetté ou approuvé.
+La navigation rétractable conserve Accueil et les projets récents. Les destinations futures « Possibilités BMad », « Que faire ensuite ? » et « Toutes les possibilités » ne sont pas annoncées comme exécutables. Les futurs regroupements d’intentions restent explorables sans chaîne obligatoire. Plusieurs initiatives peuvent exister : afficher celle réellement connue et ne pas réattribuer un échange lors d’un changement de contexte. La commande détaillée de choix d’initiative reste à définir avec l’epic 2.
 
 ## Voice and Tone
 
-Le texte nomme l'objet, sa portée et l'action attendue. Il explique BMad au moment utile sans exiger de mémoriser les noms techniques. Les identifiants et invocations restent exacts.
+Nommer l’objet, sa portée et l’action attendue ; expliquer BMad au moment utile. Les identifiants et invocations restent exacts. Une phrase fixe présentant Mary ou Forge décrit leur objectif ; elle ne prétend pas analyser les besoins du projet.
 
-| Situation | Formulation à retenir | Règle |
-|---|---|---|
-| État déduit | « État fondé sur les fichiers : le brief est en brouillon. Sa validation reste à confirmer. » | Relier la lecture à sa preuve ; signaler l'inconnu. |
-| Recommandation | « Pourquoi maintenant ? » puis une raison liée au projet. | Expliquer l'utilité avant les détails techniques. |
-| Question | « Sally attend votre réponse. » | Nommer l'attente, le projet et son point de retour. |
-| Approbation | « Créer les brouillons » et « Demander un ajustement ». | Le libellé dit ce que l'accord autorise ; il ne valide pas le contenu à venir. |
-| Fin de tour | « Ce tour est terminé. Le workflow reste ouvert. » | Résumer résultats, décisions, fichiers et prochaine action. |
-| Changement externe | « Le fichier a été modifié hors de Madness. La session d'origine est inconnue. » | Aucun agent ni état de conversation inventé. |
-| Erreur | Nommer le problème connu puis l'action de récupération. | Éviter un succès anticipé et les erreurs techniques sans explication. |
+| Situation | Formulation et règle |
+|---|---|
+| Activité et historique | « Aucune activité en cours » peut coexister avec « Ancien arrêt non confirmé — nouveaux échanges bloqués ». Ne pas confondre ces faits. |
+| Provenance | Agent, invocation et contexte connus, sinon « Identité non attestée » ou valeur inconnue. Aucun rôle déduit du style de réponse. |
+| Question | « Mary attend votre réponse » seulement si la demande corrélée est active ; nommer projet et destination. Sinon « Question conservée, inactive ». |
+| Approbation | « Autoriser tout le patch une fois » et « Refuser tout le patch » ; l’ajustement ouvre un nouvel échange explicite. |
+| Résultat | « Ce tour est terminé » ; distinguer résultat observé, décision humaine, clôture du workflow et prochaine action connue ou inconnue. |
+| Erreur | Problème connu, portée, récupération disponible. Aucun diagnostic de proxy ou succès anticipé sans preuve. |
+| Capacité future | Expliquer sa disponibilité réelle ; aucune lecture de document ou recommandation calculée fictive. |
 
 ## Component Patterns
 
-Les noms ci-dessous correspondent exactement à DESIGN.md · Components.
+Les noms correspondent à DESIGN.md · Components. Les composants futurs restent contractuels ; ils n’élargissent pas les profils livrés.
 
 | Composant | Règles de comportement |
 |---|---|
-| Navigation latérale | Réduire/déployer conserve projet, onglet, conversation et saisie. Au-dessus de `{components.navigation.drawerBreakpoint}`, le rail mesure `{components.navigation.compactWidth}` ; chaque destination conserve un nom accessible et une infobulle au survol/focus. Bascule explicite dans la barre supérieure, avec état développé annoncé et focus conservé pendant la sauvegarde de la préférence. En fenêtre étroite, la commande ouvre le tiroir ; sa fermeture rend le focus à ce déclencheur. Seule cette préférence est mémorisée dans la maquette ; elle ne prouve aucune persistance des conversations. |
-| Bouton | Libellé orienté action ; une action indisponible explique le prérequis. Pas de double lancement pendant une requête. Une approbation ne porte que sur le changement décrit. |
-| Ligne de projet ou d'attente | Ouvre le projet ou le point d'attente concerné. La raison reste nommée : question, livrable à relire, interruption ou erreur. Ne pas réduire l'information à un compteur. |
-| Onglets du projet | Changer de vue ne répond pas à l'agent et n'efface pas la saisie. L'attente reste signalée lorsqu'on quitte Conversation. |
-| Recommandation | Expose objectif et raison ; invocation, entrées et résultat accessibles à la demande. Issue de `bmad`, de l'aide des modules installés et des preuves du projet. Propose les alternatives pertinentes et un accès au catalogue complet, y compris les outils transversaux. |
-| Groupe d'intentions | Déplier révèle les compétences utiles et leur objectif. L'état d'un groupe ne verrouille pas les autres ; une suggestion n'est pas un ordre de passage. |
-| Catalogue des compétences | Recherche par intention, agent ou identifiant et filtres par intention ; résultat vide avec possibilité d'enlever les filtres. Le [catalogue de démonstration](mockups/parcours-guide/catalogue.js) contient 27 compétences invocables de cette installation, pas un quota produit. Le produit reflète le catalogue effectivement installé ; métadonnées `bmod-*` exclues et absence/incompatibilité expliquée, dont `bmad-retrospective` ici. |
-| Fiche compétence | Affiche l'invocation Codex réelle sous la forme `$bmad-ux` ou `$<identifiant>`, copiable, avec conditions, entrées et effets attendus. Le lancement rappelle projet, initiative concernée si nécessaire, compétence et fournisseur, respecte les conditions du workflow et rejoint Conversation. Les dialogues génériques du prototype ne remplacent pas les workflows réels. |
-| Indicateur d'état | Distingue état du projet, état de l'agent et validation humaine. Un libellé et une preuve accompagnent les états importants ; les transitions sont annoncées sans prendre le focus. |
-| Conversation | Affiche l'identité de l'agent, le projet, le fournisseur, l'invocation et les échanges. Permet réponse, approbation, interruption et récupération selon la capacité réelle de la connexion. Aucune session connue : le dire, puis proposer une action adaptée au projet. |
-| Champ de réponse | Préserve la saisie pendant la navigation et une interruption ; envoi explicite, texte vide non envoyé. Une réponse ne devient « envoyée » qu'après retour fiable de l'intégration. Le libellé indique l'agent destinataire. |
-| Proposition d'approbation | Présente le changement, sa portée et les fichiers/effets concernés avant le choix. Accepter autorise cette opération ; demander un ajustement poursuit le dialogue. L'approbation d'une production n'est jamais la validation du livrable produit. |
-| Récapitulatif de tour | Annonce la fin du tour, les résultats proposés, les décisions prises, les fichiers concernés et la prochaine action attendue. Le statut du workflow reste distinct de l'état du tour et des validations humaines. |
-| Panneau de fichiers | Sélectionner ouvre un aperçu avec statut connu, provenance, portée projet ou initiative et chemin ; agrandir préserve le contexte. « Ouvrir dans l'éditeur » est une intégration future : tant qu'elle n'existe pas, expliquer la limite et permettre de copier le chemin sans annoncer une ouverture réussie. |
-| Diagnostic et initialisation | Vérifier installation, compatibilité et prérequis avant toute écriture. Installation absente : expliquer BMad v7 et les changements exacts proposés, puis obtenir l'accord. Annuler laisse le dossier intact. Le succès exige une vérification après opération ; l'installation seule ne signifie pas que le produit est cadré. |
-| Dialogue | Une décision à la fois ; titre, retour ou fermeture explicite, focus contenu pendant l'ouverture puis rendu au déclencheur. Fermer sans accepter ne confirme rien. |
-| Notification | Feedback bref et non bloquant, annoncé poliment. Une attente, une erreur persistante ou une décision reste aussi visible dans la surface concernée ; elle ne dépend pas d'un message qui disparaît. |
+| Barre d’action et de titre commune | Une seule commande « Ouvrir un projet », présente sur accueil et projet, dossier SVG avec nom et aide au focus/survol. Bascule sur l’axe du rail et sur la ligne native Windows. Réserver les contrôles natifs ; commandes et modales hors drag. Thème et connexion restent accessibles. |
+| Navigation latérale | Réduire/déployer conserve projet, onglet, conversation et saisie. Préférence mémorisée ; échec annoncé sans perdre le choix de session. Rail au-dessus de `{components.navigation.drawerBreakpoint}`, noms et infobulles au focus/survol ; en dessous, tiroir à libellés et retour de focus au déclencheur. |
+| Bouton | Action explicite ; indisponibilité expliquée, pas de double lancement. Navigation, ouverture ou fermeture ne vaut jamais accord. Cible `{components.titlebar.target}` au minimum pour les commandes compactes et décisions. |
+| Ligne de projet ou d’attente | Ouvre la destination exacte corrélée, y compris autre projet. Raison, portée et possibilité réelle de répondre restent nommées. Une ancienne demande ne redevient pas active. |
+| Onglets du projet | Changer de vue conserve saisie et contexte sans répondre ni lancer. L’attente reste visible hors Conversation. Sélection et panneau associé annoncés au clavier. |
+| Recommandation | Future suggestion fondée sur `bmad`, aide installée et preuves, raison et alternatives accessibles. Le présent décrit seulement les objectifs Mary/Forge. |
+| Groupe d’intentions | Futur dépliage de possibilités, sans étape imposée ; ouvrir un groupe ne lance rien. |
+| Catalogue des compétences | Futur catalogue effectivement installé, recherche par intention/agent/identifiant et filtres ; distinguer filtre vide, absence et incompatibilité. Les 27 entrées du [catalogue simulé](mockups/parcours-guide/catalogue.js) ne sont pas un quota produit ; métadonnées `bmod-*` exclues. |
+| Fiche compétence | Future invocation exacte et copiable, entrées, effets et conditions ; lancement explicite dans le projet et l’initiative concernés, puis Conversation. Une fiche ne vaut pas autorisation. |
+| Indicateur d’état | Sépare situation du projet, activité et décision humaine. Transition annoncée sans déplacement de focus ; aucune progression calculée sur les fichiers. |
+| Bande de récupération | Un motif principal avec portée projet ou globale et action disponible. Un arrêt inconnu reste durablement visible et bloque les nouveaux échanges concernés. Une inspection nécessaire reste indiquée ; un rappel court mène aux détails sans masquer la garde. |
+| Détails de contexte | Consultation à la demande des informations connues, invocations, chemins intégraux et provenance. Cette compacité ne replie pas les effets ou préconditions nécessaires à une autorisation active. |
+| Préparation d’un échange | Présente Mary et Forge avec objectif ; qualification sans modèle, lancement natif et option fichiers séparés. Une nouvelle conversation est explicite ; aucun brouillon transmis au lancement. Forge respecte la recherche native de sessions existantes avant le premier terminal, sans reprise implicite. |
+| Conversation | Affiche échange sélectionné, agent connu ou inconnu, fournisseur, contexte et invocation. Messages progressifs corrélés ; provenance figée par item selon ce qui est attesté. Aucun échange sélectionné : état vide et action de préparation, sans lancement automatique. |
+| Question de l’agent | Demande active corrélée seulement ; brouillon propre à la demande, choix non secrets et envoi explicite. Après expiration, passage à un état terminal ou restauration : texte conservé et inactif, sans action de réponse. |
+| Champ de réponse | Brouillon libre distinct des réponses aux questions ; sauvegarder et envoyer restent séparés. Refuser texte vide et double envoi ; transmettre la copie capturée au clic à la bonne session. « Envoyé » exige le reçu fiable ; échec de conservation signalé sans succès durable inventé. |
+| Proposition d’approbation | Lecture seule par défaut, mode fichiers opt-in. Présenter opération, portée intégrale, préconditions et patch complet avant autoriser/refuser. Accord ponctuel pour l’opération exacte ; navigation et fermeture ne l’accordent pas. Ajustement dans un nouveau tour, sans rejeu. |
+| Récapitulatif de tour | Projection factuelle des résultats, décisions humaines identifiables, chemins et prochaine action lorsqu’ils sont connus ; conserver les inconnus. Fin de tour, clôture du workflow et validation du livrable restent indépendantes. |
+| Connexion Codex | Panneau non modal au clavier/pointeur, titre focalisé et fermeture rendant le focus au logo. OAuth dans le navigateur Windows, forfait annoncé et témoin explicite. Compte enregistré à vérifier, succès daté et borné ; Vérifier, Reconnecter et Déconnecter restent distincts. |
+| Panneau de fichiers | Futur aperçu avec statut, provenance, portée et chemin ; agrandir conserve le contexte. L’ouverture dans un éditeur exige une intégration réelle ; chemin copiable sans fausse confirmation d’ouverture. |
+| Diagnostic et initialisation | Vérifier prérequis et compatibilité avant écriture. Future initialisation : changements exacts et accord, annulation sans effet, contrôle après opération. Installation seule ne signifie pas produit cadré. |
+| Dialogue | Décision unique, fermeture visible et Échap ; focus maintenu dans le dialogue, puis rendu au déclencheur à la fermeture. Fermer n’accepte rien ; aucun empilement de confirmations. |
+| Notification | Retour bref annoncé poliment ; attente, erreur durable et décision restent dans leur surface et ne dépendent pas de sa durée. |
 
 ## State Patterns
 
-Trois axes restent indépendants : situation du projet, activité de l'agent, acceptation humaine. « Connu » désigne un fait observé et sa source ; « déduit » une interprétation explicite ; « proposé » un résultat soumis à discussion ; « validé » une décision humaine identifiable. Aucun nombre de fichiers ni fin d'exécution ne fait passer automatiquement de l'un à l'autre.
+« Connu » repose sur une observation sourcée ; « déduit » reste une interprétation ; « proposé » attend discussion ; « validé » exige une décision humaine identifiable. Ces axes ne fusionnent pas à la fin d’une exécution.
 
-| Surface / état | Traitement et récupération | Couverture |
-|---|---|---|
-| Accueil sans projet ou sans attente | Expliquer ce qui manque ; offrir Ouvrir un projet. Une liste sans attente ne dit pas que tous les livrables sont validés. | Décrit seulement |
-| Lecture initiale du dossier | Indiquer le diagnostic en cours et ce qui est déjà connu, sans afficher un succès provisoire. | Décrit seulement, besoin sourcé |
-| BMad absent | Prérequis et changements avant confirmation ; annulation sans écriture ; retour à l'accueil possible. | Maquetté |
-| Installation incompatible | Distinguer ancienne version hors V1 et installation v7 dont les compétences/formats ne conviennent pas ; expliquer le problème et orienter vers le diagnostic. Pas de migration implicite. | Décrit seulement, détail à instruire |
-| Accès refusé au dossier ou à une opération | Nommer la ressource et le droit manquant quand ils sont connus ; conserver le contexte et proposer de corriger l'accès ou de choisir un dossier accessible. Ne pas annoncer l'opération réussie. | Décrit seulement, besoin de diagnostic sourcé |
-| Connexion indisponible / hors ligne | État de connexion explicite ; ne pas lancer une action impossible. Garder les informations déjà connues avec leur portée ; expliquer ce qui peut être réessayé après rétablissement. Ne pas promettre une exécution locale autonome. | Erreur simulée ; connexion réelle non maquettée |
-| Projet connu, état partiellement déduit | Présenter les artefacts trouvés, leur statut et les preuves ; marquer validation inconnue et session externe inconnue. | Maquetté |
-| Initiative non identifiée ou à choisir | Nommer le contexte manquant. Si une action exige une initiative, guider l'utilisateur pour la choisir ou la créer ; les outils qui n'en exigent pas restent accessibles. Ne pas rattacher silencieusement un résultat à une initiative déduite. | Décrit seulement |
-| Catalogue vide, recherche sans résultat, compétence indisponible | Distinguer absence d'installation et filtre sans résultat ; retirer filtre ou diagnostiquer. Une compétence absente n'est pas lançable. | Recherche et absence expliquées ; catalogue entièrement vide décrit seulement |
-| Fichiers absents / aperçu inaccessible | Dossier initialisé sans livrable : expliquer la prochaine action. Fichier inaccessible : montrer la limite connue et permettre de réessayer sans effacer la sélection. | Absence maquettée ; erreur de lecture décrite seulement |
-| Modification externe | Signaler le fichier à examiner et actualiser les preuves sans attribuer une session, un auteur ou une validation non observés. La saisie courante reste intacte. | Maquetté en simulation |
-| Agent en cours | Statut textuel et interruption explicite ; aucun faux pourcentage. | Maquetté |
-| Réponse attendue | Question et Champ de réponse ; attente visible dans le projet et à l'accueil. Consulter une preuve conserve la saisie. | Maquetté |
-| Approbation attendue | Changement et choix explicites ; aucune approbation par défaut ou par simple navigation. | Maquetté |
-| Interrompu / erreur récupérable | Conserver dernier point connu et saisie ; proposer Reprendre ou Réessayer si l'intégration le permet. Ne pas rejouer silencieusement une opération dont le résultat est inconnu. | Maquetté, reprise réelle à démontrer |
-| Tour terminé | Récapitulatif et prochaine action ; résultats encore proposés si aucun accord sur leur contenu. | Maquetté |
-| Après redémarrage | [ASSUMPTION A2] Retrouver le dernier contexte vérifiable et signaler l'activité devenue inconnue, sans reprendre automatiquement. Le niveau de sauvegarde des échanges et brouillons reste à confirmer. | Décrit seulement |
-| Focus et superposition, toute surface | Ordre de lecture cohérent, focus visible, fermeture accessible et retour au déclencheur. | Partie visible dans la maquette ; vérification complète à faire |
+| Surface / état | Traitement et récupération |
+|---|---|
+| Accueil vide / sans attente | Expliquer l’absence ; pointer la commande unique d’ouverture. Aucune attente ne signifie pas tous les livrables validés. |
+| Chargement local / accès refusé | Montrer ce qui est en cours ou la ressource inaccessible ; conserver le contexte sans succès provisoire. Diagnostic ou autre dossier selon la capacité réelle. |
+| BMad absent / incompatible | Limite explicite ; pas de migration ou initialisation implicite. Distinguer ancienne version hors V1 et profil v7 non pris en charge. |
+| Initiative inconnue | Nommer le manque ; ne pas rattacher silencieusement un résultat à une initiative déduite. Les actions qui ne l’exigent pas restent disponibles. |
+| Conversation vide / historique | Montrer l’état vide ou l’échange sélectionné, puis préparation secondaire. Historique consultable, demande inactive sans bouton répondable. |
+| Agent en cours / réponse attendue | État textuel, question corrélée et réponse explicite, interruption disponible ; attente visible dans projet et accueil, sans faux pourcentage. |
+| Approbation attendue | Portée complète et choix textuels avant décision ; aucun accord par défaut. La demande passée à un état terminal ou restaurée reste inactive. |
+| Erreur / interruption confirmée | Dernier contexte et saisie conservés ; actions selon les capacités réelles. Un nouveau lancement crée une nouvelle conversation, sans reprise native promise. |
+| Arrêt inconnu / effet incertain | Bande durable, portée globale si concernée, nouveau lancement bloqué. Réobservation seulement sur identité possédée prouvée ; tous les effets incertains sont inspectés localement avant de proposer une nouvelle tentative explicite. |
+| Tour terminé | Récapitulatif factuel ; documents encore proposés si aucune validation humaine n’est connue. |
+| Après redémarrage / remplacement | Projets, échanges et brouillons locaux retrouvés ; activité historique ou inconnue, demandes inactives. Aucun moteur, réseau, refresh ou relance automatique. Le remplacement personnel conserve ces données selon les preuves de maintenance. |
+| Compte enregistré / coffre indisponible | Contrôle explicite avant usage ; erreur actionnable si coffre illisible ou chiffrement impossible, sans réinitialisation ni stockage clair. |
+| Connexion indisponible / hors ligne | Conserver les informations connues avec leur portée. Aide et contrôle réseau explicites ; ni exécution autonome promise ni rejeu de tour. |
+| Recherche future vide / fichiers inaccessibles | Distinguer filtre et absence réelle ; enlever filtre ou diagnostiquer. Limite de lecture connue sans effacer la sélection. |
+| Modification externe | Actualiser la preuve observée sans inventer auteur, session ou validation ; saisie intacte. |
+| Focus / superposition | Ordre de lecture cohérent, focus visible, fermeture accessible et retour au déclencheur. |
 
-Les détails de connexion/authentification Codex, les critères exacts de compatibilité v7 et les changements réels de l'initialisation doivent être instruits avec l'architecture. Ces inconnues ne sont pas des décisions UX déjà approuvées.
+Connexion personnelle : l’autorisation navigateur est annulable et bornée à dix minutes. Le rappel « Vous utilisez votre forfait ChatGPT » est acquittable et son acquittement conservé ; Échap/Fermer fonctionnent même si son enregistrement échoue. « Gérer l’usage dans ChatGPT » ouvre les paramètres officiels, sans quota inventé. Déconnecter retire les accès locaux sans modifier projets ou brouillons et sans prétendre révoquer un consentement distant.
 
-Amendement connexion personnelle locale du 24 octobre 2026 : le logo Codex ouvre un panneau non modal au clavier ou au pointeur ; son titre reçoit le focus. Échap ou Fermer annulent une attente en cours et rendent le focus au logo. L’ouverture de projet unique et la navigation restent disponibles. Le panneau distingue déconnecté, compte enregistré à vérifier, autorisation navigateur, vérification du forfait, arrêt, succès daté, annulation, erreur et résultat inconnu. Aucun vert ne provient du seul OAuth ou du catalogue.
-
-« Continuer avec ChatGPT » explique puis ouvre le navigateur Windows ; aucune autorisation n’est intégrée au renderer. Le court témoin annoncé consomme le forfait. L’attente humaine est bornée à dix minutes, avec Annuler disponible ; fermer Madness arrête listener/requêtes/processus sans rejouer de tour. Une confirmation acquittable rappelle « Vous utilisez votre forfait ChatGPT » après la première autorisation ; son acquittement est conservé. « Gérer l’usage dans ChatGPT » ouvre les paramètres officiels, sans présenter de quota. Vérifier et Reconnecter restent des actions explicites. Déconnecter localement retire les accès de cet ordinateur, sans changer projets, brouillons ou inscription locale et sans prétendre révoquer le consentement distant.
-
-Après redémarrage, un compte enregistré attend un contrôle explicite ; aucun réseau, refresh ou moteur ne démarre spontanément. Coffre illisible ou chiffrement indisponible : erreur actionnable, aucune réinitialisation ni écriture claire. Un arrêt non confirmé reste inconnu et bloque un nouveau témoin pendant la session. Le succès ne promet que la connexion personnelle locale testée : dialogue BMad, voie distribuable et gates historiques restent à qualifier. La prise en main humaine du nouveau parcours et l’audit d’accessibilité ne sont pas acquis par les tests injectés.
-
-Après revue : le rappel forfait se ferme avec Échap ou Fermer même si son acquittement ne peut pas être enregistré ; l’erreur connue reste lisible et la récupération demeure accessible. Seul l’acquittement enregistré est durable. Échap respecte d’abord le tiroir modal actif. La fermeture d’application termine les sauvegardes déjà admises et les mutations du coffre, tout en refusant de nouvelles commandes ; une déconnexion locale conserve la visibilité d’un arrêt fournisseur encore inconnu.
-
-Extension d’aide réseau demandée le 24 octobre 2026 : pour une erreur `NETWORK_UNAVAILABLE`, le panneau propose conditionnellement de vérifier l’accès à la page publique `https://auth.openai.com/.well-known/jwks.json` dans le navigateur Windows, ou d’en copier l’adresse. L’explication mentionne un éventuel réseau d’entreprise sans attribuer tous les refus à un proxy précis ni garantir une résolution. Chaque action est explicite et limitée à cette adresse publique ; aucune URL d’autorisation, cookie ou donnée de compte n’est affichée ou transmise. « Adresse copiée » est annoncé par un statut après réussite seulement. Un échec local permet de copier ou ouvrir manuellement ; l’erreur réseau et l’aide restent visibles. Ouvrir/copier ne vérifie pas le forfait, ne lance aucun modèle et ne réessaie pas la connexion, même pendant une session native active.
+L’aide réseau affiche uniquement l’adresse publique `https://auth.openai.com/.well-known/jwks.json`, avec Ouvrir, Copier et contrôle d’accès explicite par GET seul. Copier n’annonce un succès qu’après réussite ; ouverture et copie ne lancent ni vérification du forfait ni modèle. Le clic Zscaler déjà connu n’est pas une nouvelle connexion OpenAI : un nouveau refus mesuré peut nécessiter un nouvel acquittement, sans redemander si la page est un JSON ni inventer sa durée de validité. Un contrôle réseau réussi n’envoie aucun message, accord ou tour.
 
 ## Interaction Primitives
 
-Amendement pilote personnel Mary du 24 octobre 2026 : l’utilisateur peut vérifier le profil BMad installé sans appeler le modèle, puis lancer explicitement Mary avec le compte propre à Madness et le forfait annoncé. Le lancement natif ne transmet jamais le brouillon. L’accueil/menu de l’agent installé et la discussion libre sont le périmètre ; un workflow documentaire, une approbation, une question structurée ou une écriture non prise en charge refuse le tour, sans réussite implicite. Le contexte du projet, de l’initiative résolue, de la conversation et de la connexion est capturé au lancement.
+- Activer au clic ou au clavier ; navigation, dépliage et lecture ne lancent aucun fournisseur et n’accordent aucune opération.
+- Garder les brouillons, contexte et historique lors du changement de projet, d’onglet, de thème, de largeur ou de navigation. Un changement de projet ne réattribue pas la session capturée.
+- Infobulle : même aide au survol/focus, hors rognage, nom accessible indépendant ; Échap la ferme selon la surface active. Une info nécessaire à décider reste visible sans survol.
+- Copie : annoncer la réussite réelle ; sinon texte sélectionnable et erreur locale. Aucun token, cookie, donnée de compte ou callback d’autorisation exposé.
+- Après envoi, expiration ou retrait d’une demande, conserver le focus sur la surface de travail appropriée ; s’il faut le rétablir, choisir un repère neutre, jamais Autoriser par défaut.
+- Interruption : seulement les ressources possédées ; résultat confirmé ou inconnu explicite. Toute nouvelle tentative ou conversation est volontaire et ne rejoue aucun effet incertain.
 
-« Envoyer à Mary » sauvegarde d’abord le texte présent au clic, puis transmet uniquement cette copie à la session correspondante. Le brouillon reste visible et éditable ; une autre saisie, un changement de projet ou le repli n’envoie rien. L’interface distingue accusé attendu, envoi acquitté/enregistré, réponse durable et tour terminé. La fin d’un tour laisse la discussion ouverte et rend la réponse à l’utilisateur ; elle ne valide ni document ni workflow. « Arrêter Codex » permet de quitter le moteur et conserve l’historique. Une erreur connue ou un arrêt incertain reste visible avec sa récupération, sans répétition automatique.
+Fermer Madness termine les sauvegardes admises et les mutations du coffre, refuse de nouvelles commandes et arrête ses ressources possédées ; un arrêt non confirmé reste inconnu. Échap respecte d’abord la surface modale active.
 
-A2 est précisée pour ce pilote : échanges et brouillon sont conservés dans les données locales de Madness. Au redémarrage ils redeviennent des historiques ; aucune conversation native ne reprend. Un nouveau lancement crée une nouvelle conversation et garde les échanges précédents consultables. Les autres hypothèses, gates et limites d’accessibilité restent explicites ; un essai réel distinct doit qualifier la première discussion native.
-
-Le [script de la maquette](mockups/parcours-guide/app.js) conserve les interactions simulées ; ses délais et réponses écrites ne spécifient pas les performances ou retours d'une connexion réelle.
-
-- Clic ou activation clavier pour agir ; les possibilités restent disponibles sans survol. Une action réelle n'est pas déclenchée par le seul affichage de sa fiche.
-- Navigation rétractable : mémoriser la préférence seule ; si ce stockage est indisponible, conserver le choix pour la visite sans bloquer le travail. Le repli ne recrée pas la conversation et ne vide pas le Champ de réponse.
-- Infobulles : même libellé au survol et au focus, position hors du rail, disparition à la sortie ou avec Échap. Les noms accessibles existent même sans infobulle.
-- Dialogues et panneaux superposés : fermeture par commande visible et Échap, focus ramené au déclencheur ; pas d'empilement de confirmations.
-- Copie d'invocation ou de chemin : confirmer seulement une copie réussie ; si indisponible, proposer une sélection manuelle du texte.
-- Interruption et réessai : résultat connu, inconnu ou échec explicités avant de proposer la suite. L'utilisateur conserve le contrôle sur les approbations.
+Les délais et réponses du [script du prototype](mockups/parcours-guide/app.js) restent simulés ; ils ne définissent pas les performances du connecteur.
 
 ## Accessibility Floor
 
-[ASSUMPTION A1] Viser WCAG 2.2 AA pour la surface web de l'application ; ce niveau n'a pas encore été validé par un audit. Les contrastes visuels et le focus sont définis dans DESIGN.md.
+[ASSUMPTION A1] Viser WCAG 2.2 AA pour la surface web ; aucun audit de conformité n’est acquis. Contrastes et focus visuels : DESIGN.md.
 
-- Toutes les actions au clavier ; ordre de focus conforme à la lecture. Les Onglets du projet exposent sélection et panneau associé ; la Navigation latérale expose destination courante et état développé.
-- Noms explicites pour bascule, boutons d'icône, projets, champs et fermeture. L'indication colorée d'attente a un équivalent textuel.
-- Annonces de transition d'agent, résultat d'envoi et notification dans une région de statut ; éviter d'annoncer chaque fragment de texte comme une nouvelle alerte.
-- Le zoom et l'agrandissement du texte doivent préserver commandes, lecture et saisie. Les cibles compactes de `{components.navigation.compactTarget}` restent utilisables et espacées ; les libellés ne dépendent pas de leur taille visuelle.
-- Respecter la réduction de mouvement ; aucun indicateur pulsant. Tester contraste, lecteur d'écran, parcours clavier et focus des panneaux dans l'application intégrée.
+- Actions au clavier, ordre de focus conforme à la lecture, rôles et états des onglets, navigation, tiroir et demandes exposés.
+- Icônes 19 px et cibles d’au moins `{components.titlebar.target}` ; texte conservé pour décisions de question, patch et récupération. Nom, aide au focus et portée textuelle ne dépendent pas de la couleur.
+- Transitions, reçus et notifications annoncés par statut ; ne pas transformer chaque delta en alerte.
+- Zoom, texte agrandi, chemins et noms longs préservent lecture, commandes et saisie. Aucun débordement de fenêtre nécessaire pour répondre.
+- Mouvement réduit : dossier statique, aucune animation pulsante ni défilement imposé. Vérifier clavier, lecteur d’écran, focus et deux thèmes dans l’application intégrée ; les anciennes vérifications ne valent pas audit de la refonte.
 
 ## Key Flows
 
-Sam est le protagoniste de conception des trois parcours, développeur qui découvre BMad ; il ne représente pas une persona validée par recherche utilisateur. Les noms reprennent exactement les [parcours sources](.working/parcours-proposes.md).
+Sam reste le protagoniste de conception des trois [parcours initiaux](.working/parcours-proposes.md), développeur qui découvre BMad ; aucune persona validée par recherche utilisateur n’est ajoutée.
 
 ### 1. Ouvrir et retrouver un projet
 
-1. Sam rouvre Madness après une interruption. L'Accueil présente les projets récents et les attentes nommées.
-2. Il ouvre un récent ou choisit un dossier. Madness diagnostique présence de BMad, compatibilité v7, prérequis et accès connus.
-3. Si le projet existe, il repère l'initiative active et les autres initiatives connues, puis retrouve leurs artefacts et preuves ; une session externe reste inconnue. L'absence d'initiative est signalée et traitée selon l'action choisie.
-4. Si BMad manque, il lit les changements et prérequis, puis accepte ou annule l'initialisation guidée. Après succès vérifié, le projet est prêt à explorer BMad, sans faux état « cadré ».
-5. **Moment décisif :** Sam retrouve une prochaine action expliquée et sait s'il doit choisir, répondre ou corriger l'installation.
+1. Sam ouvre Madness, éventuellement après remplacement personnel. Il retrouve ses récents, échanges et brouillons conservés, sans agent relancé.
+2. Il ouvre un récent ou utilise le dossier de la barre ; projet et initiative connue apparaissent avant les états détaillés.
+3. Il distingue activité actuelle, attentes répondables et demandes historiques inactives. Un ancien arrêt inconnu garde sa portée et son accès à la récupération, même sans projet.
+4. Un dossier absent, inaccessible ou incompatible mène à la limite connue ; initialisation et diagnostic complet restent futurs. Aucun écran ne les présente comme exécutés.
+5. **Moment décisif :** Sam retrouve son travail et sait s’il doit répondre, préparer un nouvel échange ou résoudre un blocage ; sa saisie n’a pas été transmise.
 
-**Échec et récupération :** dossier inaccessible ou installation incompatible → diagnostic compréhensible, contexte conservé, correction ou autre dossier ; aucun contournement ni migration automatique. Annuler l'initialisation ne modifie pas le dossier. La branche BMad absent est simulée ; les autres diagnostics restent décrits seulement.
+**Échec et récupération :** accès refusé → contexte conservé et correction ou autre dossier ; données ou compte illisibles → erreur explicite sans remise à zéro. Les mécanismes de conservation et les limites du remplacement restent ceux de la qualification réelle.
 
-### 2. Comprendre l'état et ses preuves
+### 2. Comprendre l’état et ses preuves
 
-1. Sam ouvre Parcours, identifie le projet et l'initiative concernés, puis distingue leur situation, l'activité de l'agent et la validation humaine.
-2. Il consulte la raison de la recommandation, puis l'invocation Codex, les entrées et le résultat attendu.
-3. Il explore les groupes d'intentions sans devoir les suivre dans l'ordre ; alternatives et catalogue complet restent accessibles.
-4. Il ouvre le brief dans le Panneau de fichiers, lit statut, provenance et chemin ; l'ouverture dans son éditeur sera disponible avec l'intégration future.
-5. Il peut comparer une autre compétence et ses conditions, ou demander une orientation avec `$bmad`.
-6. **Moment décisif :** Sam peut expliquer ce qui est connu, ce qui est déduit et ce qui attend une décision, avec un fichier ou un événement identifiable.
+1. Sam ouvre Parcours et identifie projet, contexte et activité.
+2. Il lit les attentes et le récapitulatif factuel ; il distingue résultat observé, décision connue et donnée inconnue.
+3. Il ouvre les détails pour retrouver invocation, provenance et chemin intégral ; aucune lecture de document n’est inventée.
+4. Il peut préparer Mary ou Forge selon leurs objectifs. Le futur guidage `bmad`, les intentions, le catalogue et l’aperçu restent des extensions de ce parcours ; leurs simulations n’en prouvent pas la livraison.
+5. **Moment décisif :** Sam peut expliquer ce qui est connu, ce qui attend sa décision et à quel événement ou chemin cela se rattache.
 
-**Échec et récupération :** recherche sans résultat → enlever un filtre ou reformuler ; fichier manquant/inaccessible → limite affichée, autre preuve ou nouvel essai. Une modification externe mène à l'examen du fichier ; elle n'invente ni conversation ni validation.
+**Échec et récupération :** preuve absente ou inaccessible → limite affichée ; modification externe → examiner ce qui a été observé sans inventer conversation ou validation. Le futur catalogue distingue filtre vide et compétence indisponible.
 
 ### 3. Lancer une action et poursuivre
 
-1. Sam choisit une action et vérifie projet, initiative concernée si nécessaire, compétence, fournisseur, invocation et effets attendus avant lancement.
-2. Conversation affiche l'invocation et l'agent. Sam voit « En cours », puis « Réponse attendue » lorsqu'une question lui est posée.
-3. Il rédige sa réponse, consulte un fichier et revient sans perdre sa saisie ; l'attente reste visible ailleurs dans Madness.
-4. Sam envoie sa réponse. Si une approbation est nécessaire, il examine le changement et choisit de l'autoriser ou de demander un ajustement.
-5. Il retrouve les fichiers rattachés au résultat ; leur statut n'est pas déduit de la réussite de l'exécution.
-6. **Moment décisif :** « Ce tour est terminé » résume proposition, décision humaine, fichiers et prochaine action ; Sam sait que le workflow peut rester ouvert.
+1. Sam prépare explicitement Mary ou Forge ; projet, contexte, invocation, compte et forfait sont annoncés. Qualification et lancement restent deux actions ; le mode fichiers exige son choix.
+2. Conversation rend immédiatement identifiable l’échange sélectionné. Une question active affiche sa demande et son propre brouillon ; le brouillon libre reste séparé.
+3. Sam consulte le contexte ou change de vue, puis revient sans perdre sa saisie. Il envoie explicitement et lit le reçu réel.
+4. Si une approbation survient, il examine opération, patch complet, portée et préconditions ; il autorise une fois ou refuse. Un ajustement exige un nouveau tour.
+5. Il retrouve résultats et chemins observés ; leur validation humaine ne découle pas du succès technique.
+6. **Moment décisif :** le récapitulatif annonce la fin du tour, les faits et décisions connus et l’action attendue, sans fermer fictivement le workflow.
 
-**Échec et récupération :** interruption ou erreur → dernier contexte connu et saisie conservés, reprise/réessai explicite selon les capacités réelles. Si le résultat d'une opération est inconnu, il faut le vérifier avant de la relancer. Le prototype simule ce chemin ; la continuité réelle Codex reste à démontrer.
+**Échec et récupération :** réseau indisponible → aide et nouveau contrôle GET explicite, sans rejeu ; arrêt inconnu → garde globale et inspection des effets incertains. Une nouvelle conversation ne reprend pas l’historique natif. Fermer/réouvrir retrouve l’historique et les brouillons, sans rendre une ancienne question répondable.
 
 ## Inspiration & Anti-patterns
 
-La [référence Codex Desktop](imports/reference-codex-desktop.png) inspire la conversation centrale et le contexte visible à côté. La [référence de navigation repliée](imports/reference-navigation-repliee.png) inspire le gain de place sans perdre les destinations. Madness y ajoute le guidage BMad, ses preuves et la distinction entre propositions et décisions.
+ChatGPT Desktop inspire le chrome discret, les commandes compactes et la conversation au centre. Les références historiques [Codex Desktop](imports/reference-codex-desktop.png) et [navigation repliée](imports/reference-navigation-repliee.png) servent ce gain de place. Madness conserve ses preuves, son guidage BMad prévu et la distinction entre propositions et décisions.
 
-Éviter les étapes obligatoires qui remplaceraient le choix, les pourcentages d'avancement calculés sur la présence de fichiers et les fins de tour confondues avec la clôture d'un workflow. Party-mode reste une possibilité transversale parmi les autres compétences installées.
+Éviter les grandes préparations avant l’échange, les répétitions de blocages, le catalogue fictif et la validation déduite d’un compteur. Party-mode reste une possibilité transversale future parmi les compétences, sans place privilégiée dans les profils livrés. Loop n’est pas adopté ; le graphe relève de l’epic 4.
 
 ## Responsive & Platform
 
-Le bureau Windows est la cible V1 ; l'adaptation étroite sert la robustesse d'une fenêtre redimensionnable, sans engagement de livrer une application mobile native. Les seuils de DESIGN.md définissent le passage du panneau de fichiers intégré au panneau sur demande, puis de la navigation au tiroir.
+Windows est la cible ; la fenêtre étroite ne constitue pas une application mobile. Les seuils de DESIGN.md règlent rail, tiroir et futur panneau de fichiers. Les captures historiques [déployée](mockups/navigation-deployee.png), [rail](mockups/navigation-repliee.png) et [tiroir](mockups/navigation-mobile.png) illustrent leur base. Repli, largeur et thème conservent la saisie, l’échange et le contexte.
 
-Les captures [menu déployé](mockups/navigation-deployee.png), [rail 58 px](mockups/navigation-repliee.png) et [tiroir étroit](mockups/navigation-mobile.png) montrent les trois états de navigation. Le tiroir conserve ses libellés complets ; la préférence desktop ne force pas un rail en petite fenêtre. Changer la largeur, ouvrir les fichiers ou replier la navigation ne doit ni envoyer une réponse ni perdre le projet actif et la saisie.
+La refonte se vérifie notamment à 1440 × 920, 1280 px de large et 720 × 820, avec noms longs, zoom et mise à l’échelle Windows. En Conversation, échange ou état vide, demande pertinente et point de réponse restent repérables au premier écran de référence ; le défilement nécessaire à un long patch ou historique ne masque pas sa nature ni ses gardes.
 
-Le français et le thème clair constituent la première base conçue et acceptée. Le français et l’anglais, ainsi que les thèmes clair et sombre, sont prévus pour la V1 distribuée. L’extension du 24 octobre 2026 applique le sombre terracotta/bleu par défaut et conserve le clair en alternative. La commande soleil/lune de la barre nomme l’action « Passer au thème clair/sombre » ; elle conserve le focus, le projet, l’onglet, l’historique et la saisie. La barre et les contrôles Windows suivent ce choix.
+Le français est livré ; français/anglais reste une exigence V1, avec extension anglaise en epic 2. Sombre terracotta/bleu par défaut et clair alternatif sont conservés. La commande soleil/lune nomme « Passer au thème clair/sombre » et préserve focus et travail ; les contrôles Windows suivent le thème.
 
-La préférence est enregistrée séparément des données métier. Profil neuf : sombre dès l’ouverture. Choix explicite : retrouvé à la relance, sans agent. Préférence illisible ou de version inconnue : sombre de secours et avertissement annoncé, sans remplacer le fichier. Sauvegarde refusée : choix maintenu pour cette session et avertissement accessible persistant. Pont indisponible : thème conservé et invitation à réessayer ; aucun succès annoncé. L’échec d’apparence ne modifie ni conversations ni brouillons.
-
-Les captures natives bureau/compact et clair, le clavier et 32 couples de contraste par palette ont été vérifiés sur un profil synthétique sans compte. Les preuves sont dans [qualification-theme](../qualification-theme/README.md). L’installation personnelle est ensuite effectuée après confirmation de fermeture : archive identique au paquet qualifié, données et compte chiffré conservés, fenêtre rouverte normalement avec configuration sombre par défaut. L’acceptation visuelle humaine, l’extension anglaise et l’audit d’accessibilité complet restent à réaliser.
+La préférence d’apparence reste distincte des données métier. Profil neuf : sombre. Choix explicite retrouvé sans agent ; fichier illisible ou d’une version future : sombre de secours et avertissement sans écraser le fichier. Sauvegarde refusée : choix maintenu pour la session et erreur accessible. Les [preuves historiques de thème](../qualification-theme/README.md) et d’installation ne valent ni contrôle de la nouvelle composition, ni acceptation visuelle humaine, ni audit d’accessibilité complet.

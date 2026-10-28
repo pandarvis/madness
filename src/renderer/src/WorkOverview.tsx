@@ -29,7 +29,7 @@ function Recap({value,onNavigate}:{value:ConversationOverview;onNavigate:(target
  </details>
 }
 
-export function WorkOverview({overview,projectId,onNavigate,onConnection}:{overview:WorkOverviewState;projectId:string|null;onNavigate:(target:OverviewTarget)=>void;onConnection:()=>void}):ReactNode {
+export function WorkOverview({overview,projectId,onNavigate,onConnection,compact=false,stopUnconfirmed=false}:{overview:WorkOverviewState;projectId:string|null;onNavigate:(target:OverviewTarget)=>void;onConnection:()=>void;compact?:boolean;stopUnconfirmed?:boolean}):ReactNode {
  const id=useId(),words=fr.overview
  const [announcement,setAnnouncement]=useState('')
  const previousWaits=useRef(new Map<string,{state:string;projectName:string|null;kind:string}>())
@@ -44,14 +44,26 @@ export function WorkOverview({overview,projectId,onNavigate,onConnection}:{overv
   if(changes.length)setAnnouncement(changes.join(' '))
  },[waitSignature])
  const recaps=overview.conversations.filter(c=>projectId===null||c.context.projectId===projectId).slice().reverse()
- return <section className="work-overview" aria-labelledby={id+'-title'}>
-  <h2 id={id+'-title'}>{words.title}</h2>
+ const scope=(entry:WorkOverviewState['entries'][number]):string=>compact&&projectId!==null&&entry.target.context.projectId===projectId?'ce projet':entry.projectName??words.globalScope
+ function compactReason(entry:WorkOverviewState['entries'][number]):string{
+  if(entry.target.kind==='session'&&entry.state==='recovery'&&stopUnconfirmed)return 'Arrêt Codex non confirmé · portée globale · nouveaux échanges bloqués'
+  if(entry.state==='working')return 'Codex · '+fr.dialogueStatus[entry.activity!]+' · '+scope(entry)
+  if(entry.target.kind==='question')return entry.state==='sending'?'Réponse en cours d’envoi · '+scope(entry):(entry.identity??fr.conversation.unknownAgent)+' attend votre réponse · '+scope(entry)
+  if(entry.target.kind==='approval')return (entry.state==='sending'?'Décision en cours de transmission':'Opération à examiner')+' · '+scope(entry)
+  if(entry.target.kind==='recovery')return 'Effet incertain · inspection nécessaire · '+scope(entry)
+  return (entry.error==='NETWORK_UNAVAILABLE'?'Accès réseau indisponible':'Erreur ou arrêt à examiner')+' · '+scope(entry)
+ }
+ return <section className={'work-overview'+(compact?' is-compact':'')} aria-labelledby={id+'-title'}>
+  <h2 id={id+'-title'} className="overview-heading">{overview.entries.length?words.title:'Activité'}</h2>
   <p className="overview-announcement" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
-  {overview.entries.length===0?<p className="small">{words.noWaiting}</p>:<ul className="overview-list">{overview.entries.map(entry=><li className="question-return" key={entry.id} data-overview-id={entry.id}>
-   <div><p>{entry.state==='working'?<>Codex · {fr.dialogueStatus[entry.activity!]} · {entry.projectName??words.globalScope}</>:entry.target.kind==='question'?(entry.state==='sending'?<>Réponse à {entry.identity??fr.conversation.unknownAgent} dans {entry.projectName??words.missingProject}. {fr.questions.sending}</>:<>{entry.identity??fr.conversation.unknownAgent} attend votre réponse dans {entry.projectName??words.missingProject}.</>):entry.target.kind==='approval'?(entry.state==='sending'?fr.approvals.status.sending:words.approvalWaiting+' '+entry.projectName+'.'):entry.target.kind==='recovery'?words.uncertainEffect+' · '+entry.projectName:entry.projectName?words.sessionRecovery+' · '+entry.projectName:words.globalRecovery}</p>{entry.prompt&&<p className="small">{entry.prompt}</p>}{entry.target.context.conversationId&&<p className="small">{words.conversation} <code>{entry.target.context.conversationId}</code></p>}</div>
+  {overview.entries.length===0?<p className="small">{compact?'Aucune demande active connue.':words.noWaiting}</p>:<ul className="overview-list">{overview.entries.map(entry=><li className="question-return" key={entry.id} data-overview-id={entry.id}>
+   <div><p>{compact||entry.target.kind==='session'&&entry.state==='recovery'&&stopUnconfirmed?compactReason(entry):entry.state==='working'?<>Codex · {fr.dialogueStatus[entry.activity!]} · {entry.projectName??words.globalScope}</>:entry.target.kind==='question'?(entry.state==='sending'?<>Réponse à {entry.identity??fr.conversation.unknownAgent} dans {entry.projectName??words.missingProject}. {fr.questions.sending}</>:<>{entry.identity??fr.conversation.unknownAgent} attend votre réponse dans {entry.projectName??words.missingProject}.</>):entry.target.kind==='approval'?(entry.state==='sending'?fr.approvals.status.sending:words.approvalWaiting+' '+entry.projectName+'.'):entry.target.kind==='recovery'?words.uncertainEffect+' · '+entry.projectName:entry.projectName?words.sessionRecovery+' · '+entry.projectName:words.globalRecovery}</p>{!compact&&entry.prompt&&<p className="small">{entry.prompt}</p>}{!compact&&entry.target.context.conversationId&&<p className="small">{words.conversation} <code>{entry.target.context.conversationId}</code></p>}</div>
    <button className="text-button" type="button" onClick={()=>onNavigate(entry.target)}>{entry.state==='working'?words.openActivity:entry.target.kind==='question'?'Retrouver la question':entry.target.kind==='approval'?'Retrouver l’opération':words.openRecovery}</button>
   </li>)}</ul>}
-  <div className="overview-connection"><p className="small">{words.connection} : {fr.connectionStatus[overview.connection.status]}. {overview.connection.verifiedAt?words.verifiedAt+' '+new Date(overview.connection.verifiedAt).toLocaleString('fr-FR')+'.':words.noVerification} {words.localRead}</p><button className="text-button" type="button" onClick={onConnection}>{words.connectionPanel}</button></div>
-  {recaps.length>0&&<div className="overview-recaps">{recaps.map(value=><Recap key={value.id} value={value} onNavigate={onNavigate}/>)}</div>}
+  <details className="overview-details"><summary>Connexion et récapitulatifs{recaps.length>0?' ('+recaps.length+')':''}</summary>
+   {compact&&overview.entries.length>0&&<dl className="overview-destinations">{overview.entries.map(entry=><div key={entry.id}><dt>{entry.projectName??words.globalScope}</dt><dd>{entry.target.context.conversationId&&<code>{entry.target.context.conversationId}</code>}{entry.prompt&&<p>{entry.prompt}</p>}</dd></div>)}</dl>}
+   <div className="overview-connection"><p className="small">{words.connection} : {fr.connectionStatus[overview.connection.status]}. {overview.connection.verifiedAt?words.verifiedAt+' '+new Date(overview.connection.verifiedAt).toLocaleString('fr-FR')+'.':words.noVerification} {words.localRead}</p><button className="text-button" type="button" onClick={onConnection}>{words.connectionPanel}</button></div>
+   {recaps.length>0&&<div className="overview-recaps">{recaps.map(value=><Recap key={value.id} value={value} onNavigate={onNavigate}/>)}</div>}
+  </details>
  </section>
 }

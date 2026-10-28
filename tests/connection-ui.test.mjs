@@ -51,15 +51,134 @@ async function launch(state = {}) {
   await page.addScriptTag({ content: bundle })
   await page.getByRole('heading', { name: 'Vos projets, au même endroit', exact: true }).waitFor()
 }
+async function workspaceRequestFixture({longHistory=false}={}){
+ await launch({status:'registered',accountStored:true,needsPlanAcknowledgement:false})
+ const context={projectId:'p-priority',initiativeId:'initiative-test',conversationId:'c-priority',providerId:'codex',connectionId:'account-1'}
+ const question={schemaVersion:1,id:'q-priority',context,requestId:'request-priority',turnId:'turn-priority',identity:{kind:'unknown'},fields:[{id:'answer',header:'Direction',prompt:'Quelle direction pour cette demande précise ?',allowOther:true,options:[]}],values:{answer:'Réponse propre à la demande'},status:'waiting',reason:null,createdAt:new Date().toISOString(),expiresAt:Date.now()+600000,revision:1,storage:'stored'}
+ const approval={schemaVersion:1,id:'a-priority',context,requestId:question.requestId,turnId:question.turnId,identity:{kind:'unknown'},mode:'file-approval',files:[{path:'C:/priority/proposition.md',kind:'add',diff:'Patch natif complet à examiner.',beforeSha256:null,afterSha256:'a'.repeat(64)}],reason:null,adjustment:'Ajustement conservé',adjustmentStatus:'draft',status:'waiting',decision:null,transmission:'none',effect:'pending',result:null,createdAt:new Date().toISOString(),expiresAt:Date.now()+600000,revision:1,storage:'stored'}
+ await page.evaluate(({context,question,approval,longHistory})=>{window.connectionUIFixture.setSnapshot({projects:[{id:context.projectId,name:'Projet personnel de qualification avec un nom réellement très long pour garder le contexte visible',rootPath:'C:/priority',openedAt:new Date().toISOString()}],conversations:[{id:context.conversationId,context,lastKnownActivity:'running',messages:[{id:'history-priority',role:'assistant',text:longHistory?'Ancien échange conservé.\n'.repeat(150):'Une phrase historique conservée.'}]}]});window.connectionUIFixture.setDialogue({status:'waiting-question',context,acknowledged:true,turn:{id:question.turnId,requestId:question.requestId,context,phase:'streaming'},questions:[{...question,id:'q-old',requestId:'old-request',turnId:'old-turn',status:'inactive',reason:'reopened'},question],approvals:[{...approval,id:'a-old',requestId:'old-request',turnId:'old-turn',status:'inactive',reason:'reopened',adjustment:'Ancien ajustement exact'}]})},{context,question,approval,longHistory})
+ await page.locator('.project-row').click();await page.getByRole('tab',{name:'Conversation',exact:true}).click()
+ return {context,question,approval}
+}
+test('une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange',async()=>{
+ const {question}=await workspaceRequestFixture({longHistory:true})
+ for(const size of [{width:1320,height:920},{width:720,height:820}]){
+  await app.evaluate(({BrowserWindow},size)=>BrowserWindow.getAllWindows()[0].setContentSize(size.width,size.height),size)
+  await page.locator('main').evaluate(e=>{e.scrollTop=0})
+  const field=page.locator('[data-question-id="q-priority"] textarea')
+  assert.equal(await field.evaluate(e=>{const r=e.getBoundingClientRect();return r.top>=56&&r.bottom<=innerHeight-12}),true)
+  assert.equal(await page.locator('[data-question-id="q-old"]').isVisible(),false)
+  assert.equal(await page.locator('[data-approval-id="a-old"]').isVisible(),false)
+ }
+ await page.getByLabel('Brouillon libre pour ce projet',{exact:true}).fill('Brouillon libre indépendant')
+ assert.equal(await page.getByRole('button',{name:'Envoyer à Mary',exact:true}).isDisabled(),true)
+ assert.match(await page.locator('#draft-limit').textContent(),/formulaire.*demande|demande.*formulaire/)
+ await page.locator('.request-history > summary').click();assert.equal(await page.locator('[data-question-id="q-old"] textarea').inputValue(),question.values.answer);assert.equal(await page.locator('[data-approval-id="a-old"] textarea').inputValue(),'Ancien ajustement exact')
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+})
+test('une approbation corrélée montre sa portée et son patch avant tout ancien formulaire',async()=>{
+ const {approval}=await workspaceRequestFixture({longHistory:true});await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(1320,920))
+ await page.evaluate(approval=>window.connectionUIFixture.setDialogue({status:'waiting-approval',questions:([]),approvals:[{...approval,id:'a-old',status:'inactive',reason:'reopened'},approval]}),approval)
+ await page.locator('main').evaluate(e=>{e.scrollTop=0})
+ const panel=page.locator('[data-approval-id="a-priority"]'),patch=panel.locator('pre').first()
+ assert.equal(await patch.evaluate(e=>{const r=e.getBoundingClientRect();return r.top>=56&&r.top<innerHeight-40}),true)
+ assert.equal(await panel.getByRole('button',{name:'Autoriser tout le patch une fois',exact:true}).evaluate((e,patchBottom)=>e.getBoundingClientRect().top>=patchBottom,await patch.evaluate(e=>e.getBoundingClientRect().bottom)),true)
+ assert.equal(await page.locator('[data-approval-id="a-old"]').isVisible(),false)
+ assert.equal(await page.getByLabel('Brouillon libre pour ce projet',{exact:true}).count(),1)
+})
+test('un historique simple avec nom long garde le point de saisie libre repérable au premier écran',async t=>{
+ await workspaceRequestFixture();await page.evaluate(()=>window.connectionUIFixture.setDialogue({status:'idle',questions:[],approvals:[]}))
+ await page.locator('[data-question-id="q-priority"]').waitFor({state:'detached'})
+ for(const size of [{width:1440,height:920},{width:720,height:820}]){await app.evaluate(({BrowserWindow},size)=>BrowserWindow.getAllWindows()[0].setContentSize(size.width,size.height),size);await page.waitForFunction(size=>innerWidth===size.width&&innerHeight===size.height,size);await page.locator('main').evaluate(e=>{e.scrollTop=0});const position=await page.locator('#draft').evaluate(e=>{const r=e.getBoundingClientRect();return {top:r.top,bottom:r.bottom,width:innerWidth,height:innerHeight,mainScroll:document.querySelector('main').scrollTop,requests:document.querySelectorAll('.conversation-history [data-question-id]').length}});t.diagnostic(JSON.stringify({requested:size,...position}));assert.equal(position.top>=56&&position.bottom<=position.height-12,true,JSON.stringify({requested:size,...position}))}
+})
+test('le focus de réponse reste neutre pendant envoi puis historique, sans détourner une autre saisie',async()=>{
+ const {question}=await workspaceRequestFixture()
+ const panel=page.locator('[data-question-id="q-priority"]');await panel.getByRole('button',{name:'Envoyer cette réponse',exact:true}).focus();await page.keyboard.press('Enter')
+ await page.waitForFunction(()=>document.activeElement?.id==='q-priority-title')
+ await page.evaluate(question=>window.connectionUIFixture.setDialogue({status:'ready',questions:[{...question,status:'sent'}]}),question)
+ await page.waitForFunction(()=>document.activeElement?.id==='q-priority-title');assert.equal(await panel.isVisible(),true)
+ await page.locator('#draft').focus();await page.evaluate(question=>window.connectionUIFixture.setDialogue({status:'waiting-question',questions:[{...question,status:'waiting',expiresAt:Date.now()-1}]}),question)
+ assert.equal(await page.evaluate(()=>document.activeElement?.id),'draft')
+})
+test('expiration et décision retirent leurs contrôles vers un titre neutre dans l’historique',async()=>{
+ const {question,approval}=await workspaceRequestFixture()
+ await page.locator('[data-question-id="q-priority"] textarea').focus();await page.evaluate(question=>window.connectionUIFixture.setDialogue({questions:[{...question,expiresAt:Date.now()+250}]}),question)
+ await page.waitForFunction(()=>document.activeElement?.id==='q-priority-title');assert.equal(await page.locator('[data-question-id="q-priority"] button[type="submit"]').count(),0)
+ await page.evaluate(approval=>window.connectionUIFixture.setDialogue({status:'waiting-approval',questions:[],approvals:[approval]}),approval)
+ const panel=page.locator('[data-approval-id="a-priority"]');await panel.getByRole('button',{name:'Refuser tout le patch',exact:true}).focus();await page.keyboard.press('Enter')
+ await page.waitForFunction(()=>document.activeElement?.id==='a-priority-title')
+ await page.evaluate(approval=>window.connectionUIFixture.setDialogue({status:'ready',approvals:[{...approval,status:'decided',decision:'decline',effect:'declined',transmission:'sent'}]}),approval)
+ await page.waitForFunction(()=>document.activeElement?.id==='a-priority-title');assert.equal(await panel.isVisible(),true);assert.equal(await panel.getByRole('button',{name:'Autoriser tout le patch une fois',exact:true}).count(),0)
+ await page.evaluate(approval=>window.connectionUIFixture.setDialogue({status:'waiting-approval',approvals:[approval]}),approval);await panel.getByRole('button',{name:'Autoriser tout le patch une fois',exact:true}).focus();await page.evaluate(approval=>window.connectionUIFixture.setDialogue({approvals:[{...approval,status:'inactive',reason:'expired'}]}),approval);await page.waitForFunction(()=>document.activeElement?.id==='a-priority-title')
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.approvalDecisions()),[{approvalId:'a-priority',decision:'decline'}])
+})
+
+test('la conversation donne accès au travail avant la préparation et conserve la saisie en consultant le contexte',async()=>{
+ await launch()
+ await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(1320,900))
+ const context={projectId:'p-workspace',initiativeId:'initiative-connue',conversationId:'c-workspace',providerId:'codex',connectionId:'account'}
+ await page.evaluate(context=>window.connectionUIFixture.setSnapshot({projects:[{id:context.projectId,name:'Projet de travail',rootPath:'C:/workspace/contexte-complet',openedAt:new Date().toISOString()}],conversations:[{id:context.conversationId,context,lastKnownActivity:'idle',messages:[{id:'work-message',role:'assistant',text:'Échange sélectionné conservé.'}]}]}),context)
+ await page.locator('.project-row').click();await page.getByRole('tab',{name:'Conversation',exact:true}).click()
+ await page.locator('main').evaluate(e=>{e.scrollTop=0})
+ assert.equal(await page.locator('#draft').evaluate(e=>e.getBoundingClientRect().bottom<=innerHeight),true)
+ assert.equal(await page.getByText('Échange sélectionné conservé.',{exact:true}).isVisible(),true)
+ assert.equal(await page.getByRole('button',{name:'Lancer Mary avec Codex',exact:true}).count(),0)
+ await page.locator('#draft').fill('Saisie avant consultation et préparation')
+ const contextButton=page.getByRole('button',{name:'Contexte du projet',exact:true});await contextButton.focus();await page.keyboard.press('Enter')
+ await page.getByRole('dialog',{name:'Contexte du projet',exact:true}).getByText('C:/workspace/contexte-complet',{exact:true}).waitFor()
+ await page.keyboard.press('Escape');assert.equal(await contextButton.evaluate(e=>e===document.activeElement),true)
+ assert.equal(await page.locator('#draft').inputValue(),'Saisie avant consultation et préparation')
+ await page.getByRole('button',{name:'Préparer un échange',exact:true}).click();await page.waitForFunction(()=>document.activeElement?.id==='mary-title')
+ assert.equal(await page.getByRole('tab',{name:'Parcours',exact:true}).getAttribute('aria-selected'),'true')
+ assert.equal((await page.evaluate(()=>window.madnessDialogue.read())).status,'idle')
+ await page.getByRole('tab',{name:'Conversation',exact:true}).click();assert.equal(await page.locator('#draft').inputValue(),'Saisie avant consultation et préparation')
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.approvalDecisions()),[])
+})
+
+test('ouvrir Codex depuis la projection ferme le contexte et focalise le panneau visible',async()=>{
+ await launch()
+ await page.evaluate(()=>window.connectionUIFixture.setSnapshot({projects:[{id:'p-panels',name:'Projet panneaux',rootPath:'C:/panels',openedAt:new Date().toISOString()}]}))
+ await page.locator('.project-row').click();await page.getByRole('button',{name:'Contexte du projet',exact:true}).click()
+ await page.waitForFunction(()=>document.activeElement?.id==='project-context-title')
+ await page.locator('.overview-details > summary').focus();await page.keyboard.press('Enter')
+ await page.getByRole('button',{name:'Ouvrir le panneau Codex',exact:true}).focus();await page.keyboard.press('Enter')
+ await page.waitForFunction(()=>document.activeElement?.id==='codex-connection-title')
+ assert.equal(await page.getByRole('dialog',{name:'Contexte du projet',exact:true}).count(),0)
+ assert.equal(await page.getByRole('dialog',{name:'Connexion Codex',exact:true}).isVisible(),true)
+ assert.equal(await page.evaluate(()=>window.connectionUIFixture.verifies()),0)
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+})
+
+test('la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier',async()=>{
+ await launch();await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(1320,900))
+ await page.evaluate(()=>{window.connectionUIFixture.setSnapshot({projects:[{id:'p-global',name:'Projet courant',rootPath:'C:/global',openedAt:new Date().toISOString()}]});window.connectionUIFixture.setDialogue({status:'unknown',errorCode:'STOP_UNCONFIRMED',recovery:{stop:'unconfirmed',observations:[],capabilities:{resume:false,newConversation:true,inspectFiles:true}}})})
+ await page.locator('.project-row').click()
+ const tabs=page.getByRole('tablist'),band=page.locator('[data-overview-id="session-recovery"]')
+ assert.equal(await band.evaluate((e,tabBottom)=>e.getBoundingClientRect().top>=tabBottom,await tabs.evaluate(e=>e.getBoundingClientRect().bottom)),true)
+ assert.equal(await band.isVisible(),true)
+ assert.equal(await band.getByText(/Arrêt Codex non confirmé.*portée globale.*nouveaux échanges bloqués/).isVisible(),true)
+ const open=page.getByRole('button',{name:'Ouvrir un projet',exact:true});assert.equal(await open.count(),1)
+ await open.focus();assert.equal(await open.locator('.command-tooltip').isVisible(),true)
+ await page.keyboard.press('Escape');assert.equal(await open.locator('.command-tooltip').isVisible(),false)
+ assert.equal(await open.evaluate(e=>e.getBoundingClientRect().width),40)
+ const toggle=page.getByRole('button',{name:'Réduire la navigation',exact:true});assert.equal(await toggle.evaluate(e=>e.getBoundingClientRect().x+e.getBoundingClientRect().width/2),28)
+ assert.equal((await page.evaluate(()=>window.madnessDialogue.read())).recovery.stop,'unconfirmed')
+ await page.evaluate(()=>window.connectionUIFixture.setDialogue({status:'error',errorCode:'NETWORK_UNAVAILABLE',recovery:{stop:'clear',observations:[],capabilities:{resume:false,newConversation:true,inspectFiles:true}}}));await page.getByText(/Arrêt Codex non confirmé.*nouveaux échanges bloqués/).waitFor({state:'detached'});assert.equal(await page.getByText(/Arrêt Codex non confirmé.*nouveaux échanges bloqués/).count(),0)
+})
+async function revealRecaps(){const details=page.locator('.overview-details');if(!await details.evaluate(e=>e.open))await details.locator(':scope > summary').click()}
 for(const recipient of ['Mary','Forge'])test('un lancement '+recipient+' rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec',async()=>{
  await launch({status:'registered',accountStored:true,needsPlanAcknowledgement:false})
  const context={projectId:'p-launch',initiativeId:'initiative-test',conversationId:'c-history',providerId:'codex',connectionId:'account-1'}
  await page.evaluate(context=>window.connectionUIFixture.setSnapshot({projects:[{id:context.projectId,name:'Projet lancement',rootPath:'C:/launch',openedAt:new Date().toISOString()}],conversations:[{id:context.conversationId,context,lastKnownActivity:'idle',messages:[{id:'old-message',role:'assistant',text:'Ancienne conversation conservée.'}]}]}),context)
- const recap=page.locator('[data-recap-id="c-history"]');await recap.locator(':scope > summary').click();await recap.getByRole('button',{name:'Retrouver la conversation',exact:true}).click();await page.waitForFunction(()=>document.getElementById('conversation-heading')?.textContent==='Conversation c-history')
+ await revealRecaps();const recap=page.locator('[data-recap-id="c-history"]');await recap.locator(':scope > summary').click();await recap.getByRole('button',{name:'Retrouver la conversation',exact:true}).click();await page.waitForFunction(()=>document.getElementById('conversation-heading')?.textContent==='Conversation c-history')
  await page.locator('#draft').fill('Saisie conservée avant lancement')
+ await page.getByRole('button',{name:'Préparer un échange',exact:true}).click()
  if(recipient==='Forge'){await page.getByRole('button',{name:'Préparer Forge',exact:true}).click();await page.getByRole('button',{name:'Vérifier le profil Forge',exact:true}).click()}
  await page.evaluate(()=>window.connectionUIFixture.failLaunch(true));await page.getByRole('button',{name:'Lancer '+recipient+' avec Codex',exact:true}).click();await page.waitForFunction(async()=>(await window.madnessDialogue.read()).status==='error')
+ await page.getByRole('tab',{name:'Conversation',exact:true}).click()
  assert.equal(await page.locator('#conversation-heading').textContent(),'Conversation c-history');assert.equal(await page.locator('#draft').inputValue(),'Saisie conservée avant lancement')
+ await page.getByRole('tab',{name:'Parcours',exact:true}).click()
  await page.evaluate(()=>window.connectionUIFixture.failLaunch(false));if(recipient==='Forge')await page.getByRole('button',{name:'Vérifier le profil Forge',exact:true}).click()
  await page.getByRole('button',{name:'Lancer '+recipient+' avec Codex',exact:true}).click();const expected=recipient==='Forge'?'conversation-forge':'conversation-1'
  await page.waitForFunction(expected=>document.getElementById('conversation-heading')?.textContent==='Conversation '+expected,expected)
@@ -82,7 +201,7 @@ test('les annonces polies de l’accueil couvrent arrivée, envoi et résolution
 test('les récapitulatifs repliés nomment le fait du tour et gardent leur identifiant secondaire',async()=>{
  await launch();const context={projectId:'p-recaps',initiativeId:null,conversationId:'c-current',providerId:'codex',connectionId:'account'},historical={...context,conversationId:'c-historical'}
  await page.evaluate(({context,historical})=>window.connectionUIFixture.setSnapshot({projects:[{id:context.projectId,name:'Projet récapitulatifs',rootPath:'C:/recaps',openedAt:new Date().toISOString()}],conversations:[{id:context.conversationId,context,lastKnownActivity:'idle',messages:[]},{id:historical.conversationId,context:historical,lastKnownActivity:'idle',messages:[]}]}),{context,historical})
- const summary=page.locator('[data-recap-id="c-current"] > summary');await page.locator('[data-recap-id="c-historical"] > summary').getByText(/Historique · état du tour inconnu/).waitFor()
+ await revealRecaps();const summary=page.locator('[data-recap-id="c-current"] > summary');await page.locator('[data-recap-id="c-historical"] > summary').getByText(/Historique · état du tour inconnu/).waitFor()
  for(const [phase,label] of [['awaiting-ack','Envoi du tour en attente d’accusé'],['streaming','Fin de tour non confirmée'],['completed','Tour terminé'],['interrupted','Tour interrompu'],['unknown','État du tour inconnu']]){await page.evaluate(({context,phase})=>window.connectionUIFixture.setDialogue({context,turn:{id:'turn',requestId:'request',context,phase}}),{context,phase});await summary.getByText('Récapitulatif · Projet récapitulatifs · '+label,{exact:true}).waitFor();assert.equal(await summary.locator('.recap-reference').textContent(),'c-current');assert.equal(await summary.locator('.recap-reference').evaluate(e=>getComputedStyle(e).display),'block');assert.equal(await page.locator('[data-recap-id="c-current"]').evaluate(e=>e.open),false)}
  const expired={schemaVersion:1,id:'q-recap-expired',context,requestId:'request',turnId:'turn',identity:{kind:'unknown'},fields:[{id:'answer',header:'Réponse',prompt:'Demande expirée conservée',allowOther:true,options:[]}],values:{answer:'Saisie conservée'},status:'inactive',reason:'expired',createdAt:new Date().toISOString(),expiresAt:Date.now()-1,revision:1,storage:'stored'}
  await page.evaluate(({context,expired})=>window.connectionUIFixture.setDialogue({status:'waiting-question',context,turn:{id:'turn',requestId:'request',context,phase:'streaming'},questions:[expired]}),{context,expired})
@@ -110,11 +229,28 @@ test('deux destinations concurrentes et retour tardif gardent le dernier context
  await launch()
  const one={projectId:'p-one',initiativeId:null,conversationId:'c-one',providerId:'codex',connectionId:'account'},two={...one,projectId:'p-two',conversationId:'c-two'}
  await page.evaluate(({one,two})=>{window.connectionUIFixture.setSnapshot({projects:[{id:'p-one',name:'Premier',rootPath:'C:/one',openedAt:new Date().toISOString()},{id:'p-two',name:'Second',rootPath:'C:/two',openedAt:new Date().toISOString()}],conversations:[{id:'c-one',context:one,lastKnownActivity:'idle',messages:[]},{id:'c-two',context:two,lastKnownActivity:'idle',messages:[]}]});window.connectionUIFixture.deferSelections()}, {one,two})
- for(const id of ['c-one','c-two']){await page.locator('[data-recap-id="'+id+'"] > summary').click();await page.locator('[data-recap-id="'+id+'"]').getByRole('button',{name:'Retrouver la conversation',exact:true}).click()}
+ await revealRecaps();for(const id of ['c-one','c-two']){await page.locator('[data-recap-id="'+id+'"] > summary').click();await page.locator('[data-recap-id="'+id+'"]').getByRole('button',{name:'Retrouver la conversation',exact:true}).click()}
  await page.waitForFunction(()=>window.connectionUIFixture.selectionCount()===2)
  await page.evaluate(()=>window.connectionUIFixture.finishSelection(1));await page.waitForFunction(()=>document.activeElement?.id==='conversation-heading'&&document.activeElement.textContent==='Conversation c-two')
  await page.evaluate(()=>window.connectionUIFixture.finishSelection(0));assert.equal(await page.locator('#conversation-heading').textContent(),'Conversation c-two');assert.equal(await page.evaluate(()=>document.activeElement?.textContent),'Conversation c-two')
  assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+})
+
+test('préparer un échange annule une sélection différée et libère les commandes sans détour tardif',async()=>{
+ await launch();await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(1320,920));await page.waitForFunction(()=>innerWidth===1320)
+ const one={projectId:'p-prepare-one',initiativeId:null,conversationId:'c-prepare-one',providerId:'codex',connectionId:'account'},two={...one,projectId:'p-prepare-two',conversationId:'c-prepare-two'}
+ const question={schemaVersion:1,id:'q-prepare-two',context:two,requestId:'request-prepare',turnId:'turn-prepare',identity:{kind:'unknown'},fields:[{id:'answer',header:'Réponse',prompt:'Question dans le second projet',allowOther:true,options:[]}],values:{},status:'waiting',reason:null,createdAt:new Date().toISOString(),expiresAt:null,revision:1,storage:'stored'}
+ await page.evaluate(({one,two,question})=>{window.connectionUIFixture.setSnapshot({projects:[{id:one.projectId,name:'Premier projet préparation',rootPath:'C:/prepare-one',openedAt:new Date().toISOString()},{id:two.projectId,name:'Second projet préparation',rootPath:'C:/prepare-two',openedAt:new Date().toISOString()}],conversations:[{id:one.conversationId,context:one,lastKnownActivity:'idle',messages:[]},{id:two.conversationId,context:two,lastKnownActivity:'running',messages:[]}]});window.connectionUIFixture.setDialogue({status:'waiting-question',context:two,turn:{id:question.turnId,requestId:question.requestId,context:two,phase:'streaming'},questions:[question]})},{one,two,question})
+ await page.locator('.project-row').first().click();await page.getByRole('tab',{name:'Conversation',exact:true}).click();await page.locator('#draft').fill('Saisie du premier projet conservée')
+ await page.evaluate(()=>window.connectionUIFixture.deferSelections());await page.getByRole('button',{name:'Retrouver la question',exact:true}).click();await page.waitForFunction(()=>window.connectionUIFixture.selectionCount()===1)
+ const open=page.getByRole('button',{name:'Ouvrir un projet',exact:true}),toggle=page.getByRole('button',{name:'Réduire la navigation',exact:true}),projectLink=page.locator('.sidebar').getByRole('button',{name:'Ouvrir le projet Second projet préparation',exact:true})
+ assert.equal(await open.isDisabled(),true);assert.equal(await toggle.getAttribute('aria-disabled'),'true');assert.equal(await projectLink.isDisabled(),true)
+ await page.getByRole('button',{name:'Préparer un échange',exact:true}).click();await page.waitForFunction(()=>document.activeElement?.id==='mary-title')
+ assert.equal(await open.isEnabled(),true);assert.equal(await toggle.getAttribute('aria-disabled'),'false');assert.equal(await projectLink.isEnabled(),true)
+ await page.evaluate(()=>window.connectionUIFixture.finishSelection(0));await page.waitForFunction(async()=>(await window.madness.readState()).value.state.activeProjectId==='p-prepare-two');await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(resolve)))
+ assert.equal(await page.getByRole('heading',{name:'Premier projet préparation',exact:true}).isVisible(),true);assert.equal(await page.getByRole('tab',{name:'Parcours',exact:true}).getAttribute('aria-selected'),'true');assert.equal(await page.evaluate(()=>document.activeElement?.id),'mary-title');assert.equal(await open.isEnabled(),true)
+ await page.getByRole('tab',{name:'Conversation',exact:true}).click();assert.equal(await page.locator('#draft').inputValue(),'Saisie du premier projet conservée')
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[]);assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.approvalDecisions()),[])
 })
 
 test('une attente expirée pendant la sélection conserve sa saisie et explique l’absence d’envoi',async()=>{
@@ -177,7 +313,7 @@ test('le formulaire conserve chaque demande, annonce l’attente ailleurs et att
  assert.equal(await panel.getByLabel('Autre réponse',{exact:true}).inputValue(),'Une autre voie explicite');assert.equal(await panel.getByLabel('Autre réponse',{exact:true}).getAttribute('readonly'),'')
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true)
  await page.evaluate(async context=>{const previous=(await window.madness.readState()).value.state.conversations,newContext={...context,conversationId:'conversation-new'};window.connectionUIFixture.setSnapshot({conversations:[...previous,{id:'conversation-new',context:newContext,lastKnownActivity:'idle',messages:[{id:'new-message',role:'assistant',text:'Nouvelle conversation indépendante.'}]}]});const questions=(await window.madnessDialogue.read()).questions.map(q=>({...q,status:'inactive',reason:'stopped'}));window.connectionUIFixture.setDialogue({context:newContext,status:'ready',questions})},context)
- await page.locator('[data-recap-id="conversation-new"] > summary').click();await page.locator('[data-recap-id="conversation-new"]').getByRole('button',{name:'Retrouver la conversation',exact:true}).click();await page.locator('.previous-conversations > summary').click();assert.equal(await page.locator('.previous-conversations [data-question-id="question-first"]').getByLabel('Autre réponse',{exact:true}).inputValue(),'Une autre voie explicite')
+ await revealRecaps();await page.locator('[data-recap-id="conversation-new"] > summary').click();await page.locator('[data-recap-id="conversation-new"]').getByRole('button',{name:'Retrouver la conversation',exact:true}).click();await page.locator('.previous-conversations > summary').click();assert.equal(await page.locator('.previous-conversations [data-question-id="question-first"]').getByLabel('Autre réponse',{exact:true}).inputValue(),'Une autre voie explicite')
 })
 
 test('les indicateurs de question distinguent saisie et envoi et utilisent son destinataire réel',async()=>{
@@ -186,13 +322,15 @@ test('les indicateurs de question distinguent saisie et envoi et utilisent son d
  const q={schemaVersion:1,id:'question-state',context,requestId:'question-state-request',turnId:'turn-state',identity:{kind:'unknown'},fields:[{id:'field-1',header:'Voie',prompt:'Quelle voie ?',allowOther:true,options:[{label:'Alpha',description:'Voie A'},{label:'Beta',description:'Voie B'}]}],values:{},status:'waiting',reason:null,createdAt:new Date().toISOString(),expiresAt:null,revision:1,storage:'stored'}
  await page.evaluate(({context,q})=>{window.connectionUIFixture.setSnapshot({projects:[{id:context.projectId,name:'Projet attente',rootPath:'C:/question-state',openedAt:new Date().toISOString()}],conversations:[{id:context.conversationId,context,lastKnownActivity:'running',messages:[]}]});window.connectionUIFixture.setDialogue({invocation:'$bmad-forge-idea',status:'waiting-question',context,turn:{id:q.turnId,requestId:q.requestId,context,phase:'streaming'},questions:[q]})},{context,q})
  await page.locator('.project-row').click();await page.getByRole('tab',{name:'Conversation',exact:true}).click()
- await page.locator('.question-return').filter({hasText:'Agent non identifié attend votre réponse dans Projet attente.'}).waitFor()
+ await page.locator('.question-return').filter({hasText:'Agent non identifié attend votre réponse · ce projet'}).waitFor()
  assert.equal(await page.locator('.turn-status').textContent(),'Agent non identifié · Réponse attendue')
  await page.evaluate(q=>window.connectionUIFixture.setDialogue({questions:[{...q,status:'sending',values:{'field-1':'Alpha'}}]}),q)
- await page.locator('.question-return').filter({hasText:'Accusé natif et conservation attendus'}).waitFor()
+ await page.locator('.question-return').filter({hasText:'Réponse en cours d’envoi · ce projet'}).waitFor()
  assert.equal((await page.locator('.question-return').textContent()).includes('attend votre réponse'),false)
  assert.equal(await page.locator('.turn-status').textContent(),'Agent non identifié · Accusé natif et conservation attendus…')
+ await page.getByRole('button',{name:'Contexte du projet',exact:true}).click()
  assert.equal(await page.locator('.context-panel dt').filter({hasText:'Activité'}).evaluate(element=>element.nextElementSibling.textContent),'Accusé natif et conservation attendus…')
+ await page.keyboard.press('Escape')
  await page.evaluate(q=>window.connectionUIFixture.setDialogue({questions:[{...q,id:'question-attested',identity:{kind:'attested',name:'Sally',source:'source-question-test'}}]}),q)
  await page.locator('.question-return').filter({hasText:'Sally attend votre réponse'}).waitFor();assert.equal(await page.locator('.turn-status').textContent(),'Sally · Réponse attendue')
  await page.evaluate(q=>window.connectionUIFixture.setDialogue({status:'ready',questions:[{...q,status:'sent'}]}),q)
@@ -205,6 +343,7 @@ test('le thème change au clavier sans perdre le brouillon ni le contexte en fen
   await page.evaluate(() => window.connectionUIFixture.setSnapshot({ projects:[{id:'project-theme',name:'Projet Thème',rootPath:'C:/theme',openedAt:new Date().toISOString()}] }))
   await page.locator('.project-row').click()
   await page.waitForFunction(() => document.activeElement?.matches('h1') && document.activeElement.textContent === 'Projet Thème')
+  await page.getByRole('tab',{name:'Conversation',exact:true}).click()
   await page.getByLabel('Brouillon pour Projet Thème').fill('Une saisie à conserver')
   const toggle = page.getByRole('button', { name:'Passer au thème clair',exact:true })
   await toggle.focus()
@@ -221,7 +360,7 @@ test('le thème change au clavier sans perdre le brouillon ni le contexte en fen
 test('Forge prépare la portée inline, exige qualification et lancement explicites puis conserve le brouillon et le destinataire',async()=>{
  await launch({status:'registered',accountStored:true,needsPlanAcknowledgement:false})
  await page.evaluate(()=>window.connectionUIFixture.setSnapshot({projects:[{id:'project-forge',name:'Projet Forge',rootPath:'C:/forge',openedAt:new Date().toISOString()}]}))
- await page.locator('.project-row').click();await page.locator('#draft').fill('Brouillon à conserver')
+ await page.locator('.project-row').click();await page.getByRole('tab',{name:'Conversation',exact:true}).click();await page.locator('#draft').fill('Brouillon à conserver');await page.getByRole('tab',{name:'Parcours',exact:true}).click()
  await page.getByRole('button',{name:'Préparer Forge',exact:true}).click()
  const start=page.getByRole('button',{name:'Lancer Forge avec Codex',exact:true});assert.equal(await start.isDisabled(),true)
  await page.getByRole('button',{name:'Vérifier le profil Forge',exact:true}).click();assert.equal(await start.isEnabled(),true)
@@ -265,6 +404,7 @@ for(const prerequisite of ['account','plan'])test('la préparation Forge expliqu
  const preparation=page.locator('#forge-preparation'),start=preparation.getByRole('button',{name:'Lancer Forge avec Codex',exact:true})
  await page.getByRole('tab',{name:'Conversation',exact:true}).click()
  assert.equal(await page.locator('.conversation-empty').getByText('Un lancement explicite ouvre une session sans envoyer votre brouillon.',{exact:true}).isVisible(),true)
+ await page.getByRole('tab',{name:'Parcours',exact:true}).click()
  assert.equal(await start.isDisabled(),true)
  assert.equal(await preparation.locator('#forge-launch-prerequisite').count(),1)
  assert.equal(await start.getAttribute('aria-describedby'),'forge-launch-prerequisite')
@@ -286,7 +426,7 @@ test('Forge historique après Mary conserve résultat, contexte, observations et
  await page.locator('.project-row').click();await page.getByRole('button',{name:'Préparer Forge',exact:true}).click()
  await page.getByRole('button',{name:'Vérifier le profil Forge',exact:true}).click();await page.getByRole('button',{name:'Lancer Forge avec Codex',exact:true}).click()
  await page.evaluate(async()=>{const w=(await window.madnessDialogue.read()).workflows[0],id='conversation-forge-older',older={...w,conversationId:id,context:{...w.context,conversationId:id},workspace:'C:/forge/_bmad-output/initiative-test/forge-older'};window.connectionUIFixture.setDialogue({workflows:[older,{...w,outcome:'CLARIFIED',observations:[{id:'observed-report',turnId:'turn-forge',operation:'write',phase:'observed',at:w.capturedAt,path:w.workspace+'/forge-report.html',sha256:'c'.repeat(64),bytes:123}]}]});const s=(await window.madness.readState()).value.state;window.connectionUIFixture.setSnapshot({conversations:[{id,context:older.context,lastKnownActivity:'idle',messages:[{id:'older-message',role:'assistant',text:'Historique Forge antérieur distinct.'}]},...s.conversations]})})
- await page.getByRole('button',{name:'Arrêter Codex',exact:true}).click();await page.getByRole('button',{name:'Lancer Mary avec Codex',exact:true}).click()
+ await page.getByRole('button',{name:'Arrêter Codex',exact:true}).click();await page.getByRole('tab',{name:'Parcours',exact:true}).click();await page.getByRole('button',{name:'Lancer Mary avec Codex',exact:true}).click()
  await page.getByLabel('Votre réponse à Mary',{exact:true}).fill('Brouillon après Mary, à conserver')
  await page.locator('.previous-conversations > summary').click()
  const history=page.locator('.previous-conversations > section').filter({hasText:'Quelle idée souhaitez-vous éprouver ? Fin du tour.'}),result=history.locator('.workflow-observations')
@@ -358,8 +498,10 @@ test('un arrêt inconnu depuis un autre projet garde le motif du blocage et le r
   await page.getByRole('heading',{name:'Projet B',exact:true}).waitFor()
   await page.evaluate(()=>window.connectionUIFixture.unknownOnStop())
   await page.getByRole('button',{name:'Arrêter Codex',exact:true}).click()
+  await page.getByRole('tab',{name:'Parcours',exact:true}).click()
   const recovery=page.getByRole('alert').filter({hasText:'L’arrêt de Codex reste à confirmer'})
   await recovery.waitFor({timeout:1000})
+  await page.getByRole('tab',{name:'Parcours',exact:true}).click()
   assert.equal(await page.getByRole('button',{name:'Lancer Mary avec Codex',exact:true}).isDisabled(),true)
   assert.equal(await page.getByRole('button',{name:'Vérifier ce projet',exact:true}).isDisabled(),true)
   await page.getByRole('button',{name:'Retrouver Projet A',exact:true}).click()
@@ -433,6 +575,7 @@ test('approbation expose tout le patch sans choix présélectionné et sépare r
  await panel.getByRole('button',{name:'Refuser tout le patch',exact:true}).dblclick();assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.approvalDecisions()),[{approvalId:'approval-ui',decision:'decline'}])
  await panel.getByRole('status').filter({hasText:'Transmission et conservation attendues'}).waitFor();assert.equal(await panel.getByText('Effets vérifiés',{exact:true}).count(),0)
  await page.evaluate(a=>window.connectionUIFixture.setDialogue({status:'ready',approvals:[{...a,decision:'decline',status:'decided',transmission:'sent',effect:'declined',adjustment:'Créer seulement un résumé.'}]}),a)
+ const history=page.locator('.request-history');await history.waitFor({state:'attached'});if(!await history.evaluate(e=>e.open))await history.locator(':scope > summary').click()
  await panel.getByRole('button',{name:'Envoyer cet ajustement à Mary',exact:true}).click();assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.adjustmentSends()),['approval-ui']);assert.equal(await page.locator('#draft').inputValue(),'Brouillon libre intact')
  await page.evaluate(a=>window.connectionUIFixture.setDialogue({status:'idle',mode:'read-only',approvals:[{...a,status:'inactive',reason:'reopened',adjustment:'Créer seulement un résumé.'}]}),a)
  assert.equal(await panel.getByRole('button',{name:'Autoriser tout le patch une fois',exact:true}).count(),0);assert.equal(await panel.getByLabel('Ajustement demandé',{exact:true}).inputValue(),'Créer seulement un résumé.');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true)

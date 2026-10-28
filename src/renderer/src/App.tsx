@@ -133,7 +133,12 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [questionFailures,setQuestionFailures]=useState<Record<string,boolean>>({})
   const sendingQuestions=useRef(new Set<string>())
   const readingPositions=useRef(new Map<string,ReadingPosition>())
+  const requestFocus=useRef<{kind:'question'|'approval';id:string;element:HTMLElement;live:boolean;respondable:boolean}|null>(null)
   const [forgePreparation,setForgePreparation]=useState(false)
+  const [preparationFocus,setPreparationFocus]=useState<{token:number;projectId:string}|null>(null)
+  const [contextOpen,setContextOpen]=useState(false)
+  const contextTrigger=useRef<HTMLButtonElement>(null)
+  const contextHeading=useRef<HTMLHeadingElement>(null)
   const sending = useRef(false)
   const dialogueHere = dialogue.context.projectId === project?.id
   const dialogueBusy = ['qualifying', 'inspecting', 'starting', 'running','waiting-question','waiting-approval', 'stopping'].includes(dialogue.status)
@@ -143,6 +148,12 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const dialogueConversationHere=!!conversation&&sameContext(conversation.context,dialogue.context)
   const overview=state?projectWorkOverview(state,dialogue,connection,Date.now()):null
   const respondable=(kind:'question'|'approval',id:string):boolean=>!!overview?.entries.some(e=>e.target.kind===kind&&e.target.id===id&&e.state==='waiting')
+  const currentRequest=(kind:'question'|'approval',id:string):boolean=>!!overview?.entries.some(e=>e.target.kind===kind&&e.target.id===id&&(e.state==='waiting'||e.state==='sending'))
+  const conversationQuestions=dialogue.questions.filter(q=>conversation&&sameContext(q.context,conversation.context))
+  const conversationApprovals=dialogue.approvals.filter(a=>conversation&&sameContext(a.context,conversation.context))
+  const historicalQuestions=conversationQuestions.filter(q=>!currentRequest('question',q.id))
+  const historicalApprovals=conversationApprovals.filter(a=>!currentRequest('approval',a.id))
+  const nativeAwaiting=dialogueConversationHere&&['waiting-question','waiting-approval'].includes(dialogue.status)
   const canReply = dialogueConversationHere && dialogue.status === 'ready'
   const workflow=dialogue.workflows.find(w=>w.conversationId===conversation?.id)
   const recipient=dialogue.invocation==='$bmad-forge-idea'?'Forge':'Mary'
@@ -153,6 +164,14 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const forgePrerequisite=!connection.accountStored?'account':connection.needsPlanAcknowledgement?'plan':null
   const sessionFeedback=!!(sessionPresent||dialogueBusy||((dialogueHere||dialogue.status==='unknown')&&dialogue.errorCode)||dialogueBridgeError||(dialogueHere&&dialogue.profile))
   useEffect(()=>{setForgePreparation(false)},[project?.id])
+  useEffect(()=>{setContextOpen(false)},[project?.id,page])
+  useEffect(()=>{if(contextOpen)contextHeading.current?.focus()},[contextOpen])
+  useLayoutEffect(()=>{
+    if(!preparationFocus||preparationFocus.token!==navigationToken.current)return
+    if(page!=='project'||project?.id!==preparationFocus.projectId||tab!=='parcours')return
+    const element=document.getElementById('mary-title');if(!element)return
+    element.focus();element.scrollIntoView({block:'center'});setPreparationFocus(null)
+  })
   useEffect(()=>{
     const launch=pendingLaunch.current;if(!launch)return
     if(dialogue.sequence<=launch.sequence)return
@@ -171,7 +190,27 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     const element=target.kind==='question'?document.getElementById(target.id+'-title'):target.kind==='approval'?document.getElementById(target.id+'-title'):target.kind==='recovery'?document.getElementById('recovery-'+target.id):target.kind==='session'?document.getElementById(target.id==='activity'||target.context.projectId!==null&&dialogue.recovery.stop==='clear'?'dialogue-session-title':'overview-session-recovery'):document.getElementById('conversation-heading')
     if(!element)return
     if((target.kind==='question'||target.kind==='approval')&&!overview?.entries.some(e=>e.target.kind===target.kind&&e.target.id===target.id))setNotice(fr.overview.targetGone)
+    let parent=element.parentElement
+    while(parent){if(parent instanceof HTMLDetailsElement)parent.open=true;parent=parent.parentElement}
     element.focus();element.scrollIntoView({block:'center'});setFocusTarget(null)
+  })
+  function captureRequestFocus(target:EventTarget|null):void{
+    if(!(target instanceof HTMLElement)){requestFocus.current=null;return}
+    const panel=target.closest<HTMLElement>('[data-question-id],[data-approval-id]')
+    if(!panel){requestFocus.current=null;return}
+    const kind=panel.dataset.questionId?'question':'approval',id=panel.dataset.questionId??panel.dataset.approvalId!
+    requestFocus.current={kind,id,element:target,live:currentRequest(kind,id),respondable:respondable(kind,id)}
+  }
+  useLayoutEffect(()=>{
+    const previous=requestFocus.current;if(!previous)return
+    const focused=document.activeElement
+    if(focused!==previous.element&&focused!==document.body&&focused!==null){requestFocus.current=null;return}
+    const changed=!previous.element.isConnected||previous.element.matches(':disabled')||previous.respondable&&!respondable(previous.kind,previous.id)||previous.live&&!currentRequest(previous.kind,previous.id)
+    if(!changed)return
+    const target=document.getElementById(previous.id+'-title')??document.getElementById('conversation-heading')
+    if(!target){requestFocus.current=null;return}
+    let parent=target.parentElement;while(parent){if(parent instanceof HTMLDetailsElement)parent.open=true;parent=parent.parentElement}
+    target.focus()
   })
 
   function accept(reply: Reply): boolean {
@@ -209,7 +248,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     const id=approval.id;if(sendingApprovals.current.has(id))return;sendingApprovals.current.add(id)
     try{await approvalWrites.current.get(id);const next=decision?await window.madnessDialogue.decideApproval(id,decision):await window.madnessDialogue.sendAdjustment(id);acceptDialogue(next);setApprovalFailures(current=>({...current,[id]:!!next.errorCode}))}catch{setApprovalFailures(current=>({...current,[id]:true}))}finally{sendingApprovals.current.delete(id)}
   }
-  function approvalPanel(a:ApprovalRecord):ReactNode{return <ApprovalPanel key={a.id} approval={a} respondable={respondable('approval',a.id)} adjustment={approvalDrafts[a.id]??a.adjustment} projectName={project?.name??'Projet capturé'} onChange={text=>changeApproval(a,text)} onDecide={decision=>void approvalAction(a,decision)} onSendAdjustment={()=>void approvalAction(a)} canAdjust={dialogueHere&&dialogue.status==='ready'&&sameContext(a.context,dialogue.context)} bridgeFailed={approvalFailures[a.id]??false}/>}
+  function approvalPanel(a:ApprovalRecord):ReactNode{return <ApprovalPanel key={a.id} approval={a} respondable={respondable('approval',a.id)} adjustment={approvalDrafts[a.id]??a.adjustment} projectName={project?.name??'Projet capturé'} compactContext onChange={text=>changeApproval(a,text)} onDecide={decision=>void approvalAction(a,decision)} onSendAdjustment={()=>void approvalAction(a)} canAdjust={dialogueHere&&dialogue.status==='ready'&&sameContext(a.context,dialogue.context)} bridgeFailed={approvalFailures[a.id]??false}/>}
   function changeQuestion(question:QuestionRecord,values:QuestionValues):void{
     const id=question.id;setQuestionDrafts(current=>({...current,[id]:values}))
     void window.madnessDialogue.saveQuestion(id,values).then(next=>{acceptDialogue(next);setQuestionFailures(current=>({...current,[id]:!!next.errorCode}))}).catch(()=>setQuestionFailures(current=>({...current,[id]:true})))
@@ -271,6 +310,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     if (connectionBusy && !['stopping', 'closing'].includes(connection.status)) void connectionAction('cancel')
     setConnectionOpen(false); connectionTrigger.current?.focus()
   }
+  function openConnection():void {setContextOpen(false);setConnectionOpen(true)}
   useEffect(() => { if (connectionOpen) connectionHeading.current?.focus() }, [connectionOpen])
   useEffect(() => {
     if (!connection.needsPlanAcknowledgement || !connection.accountStored) planConfirmationDismissed.current = false
@@ -317,24 +357,26 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     void run(() => window.madness.setNavigation(next), () => { setPreferenceUnsaved(false); setNotice('Préférence de navigation enregistrée.') })
   }
   function chooseTab(value:'parcours'|'conversation'):void {navigationToken.current++;setFocusTarget(null);setPending(false);setTab(value)}
+  function prepareExchange():void {if(!project)return;const token=++navigationToken.current;setFocusTarget(null);setPending(false);setTab('parcours');setPreparationFocus({token,projectId:project.id})}
+  function closeContext():void {setContextOpen(false);contextTrigger.current?.focus()}
   const navigation = <>
     <button className={'nav-button ' + (page === 'home' ? 'selected' : '')} aria-label={fr.home} aria-current={page === 'home' ? 'page' : undefined} title={fr.home} onClick={home}><Icon name="home" /><span className="nav-label">{fr.home}</span></button>
     <h2 className="nav-section nav-label">{fr.recent}</h2>
     {state?.projects.map((p, index) => <button key={p.id} className={'nav-button project-link ' + (page === 'project' && p.id === project?.id ? 'selected' : '')} aria-label={'Ouvrir le projet ' + p.name} aria-current={page === 'project' && p.id === project?.id ? 'page' : undefined} title={p.name + '\n' + p.rootPath} disabled={pending} onClick={() => select(p.id)}><span className="project-glyph" aria-hidden="true">{(index + 1).toString(36).toUpperCase()}</span><span className="nav-label truncate">{p.name}</span></button>)}
     {!state?.projects.length && <p className="nav-note nav-label">Vos dossiers ouverts apparaîtront ici.</p>}
   </>
-  return <div className={'app-shell ' + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open) return; if (connectionOpen && !planConfirmation.current?.open) { event.preventDefault(); closeConnection() } } }}>
+  return <div className={'app-shell ' + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>captureRequestFocus(event.target)} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open) return; if(contextOpen){event.preventDefault();closeContext()}else if (connectionOpen) { event.preventDefault(); closeConnection() } } }}>
     <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>Aller au contenu</a>
-    <header className="topbar">
+    <header className="topbar" onMouseLeave={()=>setTooltipsDismissed(false)} onFocusCapture={()=>setTooltipsDismissed(false)}>
       <div className="breadcrumb">
-        <button className="toolbar-toggle desktop-menu" type="button" aria-label={collapsed ? 'Déployer la navigation' : 'Réduire la navigation'} title={collapsed ? 'Déployer la navigation' : 'Réduire la navigation'} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><Icon name="panel" /></button>
-        <button className="toolbar-toggle mobile-menu" type="button" ref={drawerTrigger} aria-label="Ouvrir la navigation" title="Ouvrir la navigation" aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><Icon name="panel" /></button>
+        <button className="toolbar-toggle command-control desktop-menu" type="button" aria-label={collapsed ? 'Déployer la navigation' : 'Réduire la navigation'} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><Icon name="panel" /><span className="command-tooltip" aria-hidden="true">{collapsed ? 'Déployer la navigation' : 'Réduire la navigation'}</span></button>
+        <button className="toolbar-toggle command-control mobile-menu" type="button" ref={drawerTrigger} aria-label="Ouvrir la navigation" aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><Icon name="panel" /><span className="command-tooltip" aria-hidden="true">Ouvrir la navigation</span></button>
         <span title={page === 'project' && project ? project.name : fr.home}>{page === 'project' && project ? project.name : fr.home}</span>
       </div>
       <div className="topbar-actions">
-        <button className="toolbar-toggle theme-toggle" type="button" aria-label={themeLabel} title={themeLabel} aria-disabled={appearancePending} onClick={() => void toggleTheme()}><Icon name={appearance.theme === 'dark' ? 'sun' : 'moon'} /></button>
-        <button className={'codex-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel} title={connectionLabel} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else setConnectionOpen(true) }}><img src={chatgptMark} alt="" /><span className="connection-tooltip" aria-hidden="true">{connectionLabel}</span></button>
-        <button className="primary open-project" type="button" aria-label={fr.open} title={fr.open} onClick={open} disabled={pending || !state}><Icon name="folder" /><span className="open-label">{fr.open}</span></button>
+        <button className="toolbar-toggle command-control open-project" type="button" aria-label={fr.open} onClick={open} disabled={pending || !state}><Icon name="folder" /><span className="command-tooltip" aria-hidden="true">{fr.open}</span></button>
+        <button className="toolbar-toggle command-control theme-toggle" type="button" aria-label={themeLabel} aria-disabled={appearancePending} onClick={() => void toggleTheme()}><Icon name={appearance.theme === 'dark' ? 'sun' : 'moon'} /><span className="command-tooltip" aria-hidden="true">{themeLabel}</span></button>
+        <button className={'codex-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel} title={connectionLabel} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><img src={chatgptMark} alt="" /><span className="connection-tooltip" aria-hidden="true">{connectionLabel}</span></button>
       </div>
     </header>
     {connectionOpen && <section id="codex-connection-panel" className="connection-panel" role="dialog" aria-modal="false" aria-labelledby="codex-connection-title" ref={connectionPanel}>
@@ -369,20 +411,19 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         <main id="main" tabIndex={-1}>
           <div className="main-inner">
             {error && <div className="error-message" role="alert"><strong>L’opération n’a pas abouti</strong><p>{error}</p>{!state && <button className="secondary" onClick={() => void load()} disabled={pending}>Relire le contexte local</button>}</div>}
-            {overview&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} onNavigate={target=>void navigateOverview(target)} onConnection={()=>setConnectionOpen(true)}/>}
-            {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<section id="overview-session-recovery" tabIndex={-1} aria-label="Récupération globale"><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section>}
+            {state&&(page==='home'||!project?<div className="page-intro"><div><h1 ref={heading} tabIndex={-1}>Vos projets, au même endroit</h1><p>Retrouvez un dossier et préparez la suite de votre travail.</p></div></div>:<>              <div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><button className="toolbar-toggle command-control context-trigger" type="button" ref={contextTrigger} aria-label="Contexte du projet" aria-expanded={contextOpen} aria-controls="project-context-panel" aria-haspopup="dialog" onFocus={()=>setTooltipsDismissed(false)} onMouseLeave={()=>setTooltipsDismissed(false)} onClick={()=>{if(contextOpen)closeContext();else{setConnectionOpen(false);setContextOpen(true)}}}><Icon name="panel"/><span className="command-tooltip" aria-hidden="true">Contexte du projet</span></button></div>
+              <p className="context-note">{conversation?.context.initiativeId ? 'Initiative capturée : ' + conversation.context.initiativeId : 'Initiative non identifiée'}</p>
+              <div className="project-tabs" role="tablist" aria-label="Vues du projet">{(['parcours', 'conversation'] as const).map((item) => <button key={item} id={'tab-' + item} type="button" role="tab" aria-selected={tab === item} aria-controls={'panel-' + item} tabIndex={tab === item ? 0 : -1} onClick={() => chooseTab(item)} onKeyDown={(event) => { if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) { event.preventDefault(); const next = item === 'parcours' ? 'conversation' : 'parcours'; const selected = event.key === 'Home' ? 'parcours' : event.key === 'End' ? 'conversation' : next; chooseTab(selected); document.getElementById('tab-' + selected)?.focus() } }}>{item === 'parcours' ? 'Parcours' : 'Conversation'}</button>)}</div>
+</>)}
+            {overview&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} compact={page==='project'&&tab==='conversation'} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} onNavigate={target=>void navigateOverview(target)} onConnection={openConnection}/>}
+            {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<details className="recovery-details global-recovery"><summary>Détails de la récupération globale</summary><section id="overview-session-recovery" tabIndex={-1} aria-label="Récupération globale"><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section></details>}
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>Retrouver votre espace de travail</h1><p>{pending ? 'Lecture du contexte local…' : 'Le contexte local est indisponible. Utilisez le message ci-dessus pour réessayer.'}</p></section> : page === 'home' || !project ? <>
-              <div className="page-intro"><div><h1 ref={heading} tabIndex={-1}>Vos projets, au même endroit</h1><p>Retrouvez un dossier et préparez la suite de votre travail.</p></div></div>
+
               {state.projects.length === 0 ? <section className="welcome"><h2>Commencez par un dossier</h2><p>Ouvrez un projet local pour conserver son contexte et y préparer un brouillon. Le dossier reste intact.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Madness doit connaître le projet auquel rattacher votre saisie.</p></section> : <section aria-labelledby="recent-heading"><h2 id="recent-heading">{fr.recent}</h2><div className="project-list">{state.projects.map((p, index) => <button className="project-row" key={p.id} onClick={() => select(p.id)} disabled={pending}><span className="project-avatar" aria-hidden="true">{(index + 1).toString(36).toUpperCase()}</span><span className="project-info"><strong>{p.name}</strong><code>{p.rootPath}</code><small>Contexte conservé localement</small></span><Icon name="arrow" /></button>)}</div></section>}
               <div className="home-note"><h2>Connectez votre compte depuis le logo Codex</h2><p>{fr.codexReason} L’analyse BMad, l’initialisation et le graphe ne sont pas disponibles dans ce socle.</p></div>
             </> : <>
-              <div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><span className="badge">Dossier connu</span></div>
-              <p className="project-path"><code>{project.rootPath}</code></p>
-              <p className="context-note">{conversation?.context.initiativeId ? 'Initiative capturée : ' + conversation.context.initiativeId : 'Initiative non identifiée'} · pilotes locaux Mary et Forge</p>
-              <div className="project-tabs" role="tablist" aria-label="Vues du projet">{(['parcours', 'conversation'] as const).map((item) => <button key={item} id={'tab-' + item} type="button" role="tab" aria-selected={tab === item} aria-controls={'panel-' + item} tabIndex={tab === item ? 0 : -1} onClick={() => chooseTab(item)} onKeyDown={(event) => { if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) { event.preventDefault(); const next = item === 'parcours' ? 'conversation' : 'parcours'; const selected = event.key === 'Home' ? 'parcours' : event.key === 'End' ? 'conversation' : next; chooseTab(selected); document.getElementById('tab-' + selected)?.focus() } }}>{item === 'parcours' ? 'Parcours' : 'Conversation'}</button>)}</div>
               <section id={'panel-' + tab} role="tabpanel" aria-labelledby={'tab-' + tab}>
-                {tab === 'parcours' && <div className="recommendation"><h2>Discuter de votre projet avec Mary</h2><p>Mary, l’analyste BMad installée dans ce dossier, peut vous accueillir puis échanger librement avec vous.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Un premier échange permet de préciser votre idée avant de choisir un workflow.</p><button className="secondary" onClick={() => { setTab('conversation'); setTimeout(() => document.getElementById('mary-launch')?.focus(), 0) }}><Icon name="message" />Préparer le dialogue</button></div>}
-                <section className="forge-launch" aria-labelledby="forge-title">
+                {tab === 'parcours' && <div className="exchange-preparation"><p className="preparation-intro">Préparez un échange avec Mary pour préciser votre projet, ou avec Forge pour éprouver une nouvelle idée. Qualification et lancement restent explicites.</p><section className="forge-launch" aria-labelledby="forge-title">
                   <div className="dialogue-heading"><h2 id="forge-title">Mettre une idée à l’épreuve</h2>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&<span className="badge" role="status">Forge · {displayedDialogueStatus}</span>}</div>
                   <p>Forge confronte une nouvelle idée à plusieurs points de vue, puis conserve un journal et un rapport. Chaque tour utilise votre forfait ChatGPT.</p>
                   <button className="secondary" type="button" aria-expanded={forgePreparation} aria-controls="forge-preparation" onClick={()=>setForgePreparation(v=>!v)}>Préparer Forge</button>
@@ -391,7 +432,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                     <dl><dt>Projet destinataire</dt><dd>{project.name} · <code>{project.rootPath}</code></dd><dt>Effets autorisés</dt><dd>Une nouvelle session <code>forge-{'{slug}'}</code> dans la sortie BMad résolue de ce projet. Journal natif et HTML obligatoires ; Markdown supplémentaire si l’idée est renforcée (HARDENED).</dd><dt>Sortie vérifiée</dt><dd>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&dialogue.profile?.outputBase?<code>{dialogue.profile.outputBase}</code>:'Vérifiez le profil pour connaître le chemin exact.'}</dd></dl>
                     <p className="small muted">Le lancement transmet uniquement l’invocation, jamais votre brouillon. Codex reste en lecture seule ; seules les commandes de cette session peuvent écrire. Hooks, reprise, autres workflows et approbations indisponibles bloquent l’action. Le HTML reste un fichier, sans exécution dans Madness.</p>
                     <div className="dialogue-actions"><button className="secondary" type="button" onClick={()=>void dialogueAction('qualifyForge')} disabled={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'||dialogueBridgeError}>Vérifier le profil Forge</button><button id="forge-launch" className="primary" type="button" aria-describedby={forgePrerequisite?'forge-launch-prerequisite':undefined} onClick={()=>void dialogueAction('launchForge')} disabled={dialoguePending||dialogueBusy||sessionPresent||dialogue.status!=='qualified'||!dialogueHere||dialogue.invocation!=='$bmad-forge-idea'||!connection.accountStored||connection.needsPlanAcknowledgement||connectionBusy||dialogueBridgeError}>Lancer Forge avec Codex</button></div>
-                    {forgePrerequisite&&<p id="forge-launch-prerequisite" className="small">{fr.dialoguePrerequisites[forgePrerequisite]}{' '}{forgePrerequisite==='account'?<button className="text-button" type="button" onClick={()=>setConnectionOpen(true)}>Ouvrir le panneau Codex</button>:<button className="text-button" type="button" onClick={()=>planConfirmation.current?.showModal()}>Relire le rappel du forfait</button>}</p>}
+                    {forgePrerequisite&&<p id="forge-launch-prerequisite" className="small">{fr.dialoguePrerequisites[forgePrerequisite]}{' '}{forgePrerequisite==='account'?<button className="text-button" type="button" onClick={openConnection}>Ouvrir le panneau Codex</button>:<button className="text-button" type="button" onClick={()=>planConfirmation.current?.showModal()}>Relire le rappel du forfait</button>}</p>}
                   </div>}
                 </section>
                 <div className="dialogue-launch" aria-labelledby="mary-title">
@@ -408,9 +449,10 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   {!connection.accountStored && <p className="small">{fr.dialoguePrerequisites.account}</p>}
                   {connection.needsPlanAcknowledgement && <p className="small">{fr.dialoguePrerequisites.plan}</p>}
                 </div>
-                <div id={dialogue.context.projectId!==null?"overview-session-recovery":undefined} tabIndex={-1}><RecoveryPanel state={dialogue} projectId={project.id} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={id=>void inspectApproval(id)} onPrepare={()=>{setTab('conversation');document.getElementById('mary-title')?.focus()}}/></div>
+                </div>}
+
                 {((dialogueHere&&dialogue.errorCode==='NETWORK_UNAVAILABLE')||dialogue.errorCode==='NETWORK_UNAVAILABLE'&&dialogue.context.projectId===null)&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}
-                {sessionFeedback&&<section className="dialogue-session" aria-labelledby="dialogue-session-title">
+                {sessionFeedback&&!(tab==='conversation'&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED')&&!sessionPresent&&!dialogueBusy)&&<section className="dialogue-session" aria-labelledby="dialogue-session-title">
                   <h2 id="dialogue-session-title" tabIndex={-1}>Session {dialogue.context.projectId?displayedRecipient:'BMad'} · Codex</h2>
                   {(sessionPresent||dialogueBusy)&&<div className="dialogue-actions"><button className="secondary" type="button" onClick={()=>void dialogueAction('stop')} disabled={dialoguePending||dialogue.status==='stopping'}><Icon name="close"/>Arrêter Codex</button></div>}
                   {!dialogueHere && sessionPresent && <p className="small">{displayedRecipient} · {displayedDialogueStatus} dans {state.projects.find(p => p.id === dialogue.context.projectId)?.name ?? 'un autre projet'}. Retrouvez ce projet pour consulter la session, ou arrêtez Codex.</p>}
@@ -418,22 +460,30 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   {dialogueBridgeError && <p className="connection-error" role="alert">Le pont du dialogue ne répond pas. Votre brouillon est conservé ; redémarrez Madness après avoir vérifié l’arrêt de Codex.</p>}
                   {dialogueHere && dialogue.profile && <details className="dialogue-proof"><summary>Profil BMad vérifié</summary><p><code>{dialogue.profile.skillPath}</code></p><p className="small">Empreinte : <code>{dialogue.profile.fingerprint}</code></p></details>}
                 </section>}
-                {workflow&&<WorkflowResult key={workflow.conversationId} workflow={workflow} onCopy={copyWorkflow}/>}
-                {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label="Échanges BMad"><h2 id="conversation-heading" tabIndex={-1}>Conversation <code>{conversation.id}</code></h2>
+
+                {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label="Échanges BMad"><h2 id="conversation-heading" tabIndex={-1}>Conversation <code className="conversation-reference">{conversation.id}</code></h2>
                   {!canReply && !dialogueBusy && <p className="history-note">Historique conservé. Aucun moteur n’est relancé. Un lancement explicite ouvre une nouvelle conversation ; la reprise Forge est indisponible.</p>}
-                  {projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.approvals.filter(a=>a.context.conversationId===c.id).map(approvalPanel)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
+
+                  {conversationQuestions.filter(q=>currentRequest('question',q.id)).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}
+                  {conversationApprovals.filter(a=>currentRequest('approval',a.id)).map(approvalPanel)}
                   <ConversationMessages key={conversation.id} conversation={conversation} projections={dialogue.messages??[]} positions={readingPositions.current}/>
-            {dialogue.questions.filter(q=>sameContext(q.context,conversation.context)).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}
-                  {dialogue.approvals.filter(a=>sameContext(a.context,conversation.context)).map(approvalPanel)}
+
+
                   {dialogueConversationHere && <p className="turn-status" role="status">{displayedRecipient} · {displayedDialogueStatus}{dialogue.status === 'running' && !activeQuestion && !activeApproval && (dialogue.acknowledged ? ' · envoi acquitté et enregistré' : ' · accusé d’envoi attendu')}{dialogue.status === 'ready' && ' · tour terminé, prochaine action : votre réponse. La fin du tour ne valide aucun livrable.'}</p>}
                 </div> : <div className="conversation-empty"><h2>Aucun échange enregistré</h2><p>Un lancement explicite ouvre une session sans envoyer votre brouillon.</p></div>)}
-                {dialogueHere && dialogue.activities.length > 0 && <details className="dialogue-activity"><summary>Activité du dialogue ({dialogue.activities.length})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{entry}</li>)}</ol></details>}
-                <form className="composer" onSubmit={(event) => { event.preventDefault(); const projectId = project.id; const value = text; void run(() => window.madness.saveDraft(projectId, value), () => setNotice(fr.saved)) }}>
-                  <label htmlFor="draft">{canReply || dialogueConversationHere && sessionPresent ? 'Votre réponse à '+recipient : 'Brouillon pour ' + project.name}</label>
+
+                {tab==='conversation'&&<form className="composer" onSubmit={(event) => { event.preventDefault(); const projectId = project.id; const value = text; void run(() => window.madness.saveDraft(projectId, value), () => setNotice(fr.saved)) }}>
+                  <label htmlFor="draft">{nativeAwaiting?'Brouillon libre pour ce projet':canReply || dialogueConversationHere && sessionPresent ? 'Votre réponse à '+recipient : 'Brouillon pour ' + project.name}</label>
                   <textarea id="draft" value={text} onChange={(event) => setTexts((current) => ({ ...current, [project.id]: event.target.value }))} maxLength={MAX_DRAFT_LENGTH} aria-describedby="draft-status draft-limit" placeholder="Notez ce que vous souhaitez reprendre dans ce projet…" />
                   <div className="composer-bottom"><p id="draft-status">{dirty ? fr.unsaved : saved ? fr.saved : fr.noDraft}</p><div className="composer-actions"><button className="secondary" type="submit" disabled={pending || !dirty}>{pending ? fr.saving : fr.save}</button>{dialogueConversationHere && sessionPresent && <button className="primary" type="button" onClick={() => void sendToMary()} disabled={!canReply || dialoguePending || !text.trim()}><Icon name="arrow" />Envoyer à {recipient}</button>}</div></div>
-                  <p className="small muted" id="draft-limit">{canReply ? 'Seul « Envoyer à '+recipient+' » transmet ce texte. Le brouillon est enregistré avant l’envoi et reste disponible.' : 'Saisie conservée localement · aucun envoi automatique'} · 100 000 caractères maximum</p>
-                </form>
+                  <p className="small muted" id="draft-limit">{nativeAwaiting?'La réponse ou la décision se donne dans le formulaire de la demande corrélée lorsqu’elle est active. Ce brouillon libre se sauvegarde séparément, sans envoi.':canReply ? 'Seul « Envoyer à '+recipient+' » transmet ce texte. Le brouillon est enregistré avant l’envoi et reste disponible.' : 'Saisie conservée localement · aucun envoi automatique'} · 100 000 caractères maximum</p>
+                </form>}
+                {tab==='conversation'&&<button className="text-button prepare-exchange" type="button" onClick={prepareExchange}>Préparer un échange</button>}
+                {(dialogue.recovery.stop==='unconfirmed'||dialogue.approvals.some(a=>a.context.projectId===project.id&&a.decision==='accept'&&(['unknown','pending'].includes(a.effect)||a.storage!=='stored')))&&<details className="recovery-details"><summary>Détails de récupération et inspection</summary><div id={dialogue.context.projectId!==null?"overview-session-recovery":undefined} tabIndex={-1}><RecoveryPanel state={dialogue} projectId={project.id} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={id=>void inspectApproval(id)} onPrepare={prepareExchange}/></div></details>}
+                {tab==='conversation'&&(historicalQuestions.length>0||historicalApprovals.length>0)&&<details className="request-history"><summary>Demandes conservées · inactives ({historicalQuestions.length+historicalApprovals.length})</summary>{historicalQuestions.map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{historicalApprovals.map(approvalPanel)}</details>}
+                  {tab==='conversation'&&conversation&&projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.approvals.filter(a=>a.context.conversationId===c.id).map(approvalPanel)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
+                {workflow&&<WorkflowResult key={workflow.conversationId} workflow={workflow} onCopy={copyWorkflow}/>}
+                {dialogueHere && dialogue.activities.length > 0 && <details className="dialogue-activity"><summary>Activité du dialogue ({dialogue.activities.length})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{entry}</li>)}</ol></details>}
               </section>
             </>}
             {preferenceUnsaved && <p className="preference-note">Le choix de navigation s’applique à cette session ; sa sauvegarde n’est pas confirmée.</p>}
@@ -442,10 +492,11 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
             <p className="status-line" role="status" aria-live="polite">{notice}</p>
           </div>
         </main>
-        {page === 'project' && project && <aside className="context-panel" aria-label="Contexte du projet"><h2>Contexte du projet</h2><p>Source : dossier choisi via Windows.</p><dl><dt>Dossier canonique</dt><dd><code>{project.rootPath}</code></dd><dt>Initiative capturée</dt><dd>{conversation?.context.initiativeId ?? 'Non identifiée'}</dd><dt>Conservation</dt><dd>Échanges, observations et brouillon dans les données locales de Madness.</dd><dt>Activité</dt><dd>{dialogueHere ? displayedDialogueStatus : 'Aucun agent actif dans ce projet'}</dd><dt>Fournisseur</dt><dd>Codex · connexion propre à Madness</dd><dt>Fichiers du projet</dt><dd>{workflow?'Écritures bornées à la nouvelle session Forge capturée.':'Mary en lecture seule par défaut ; mode fichiers avec approbation à activer avant lancement.'}</dd></dl><p className="small">Pilote local ; la distribution et les gates historiques restent à qualifier.</p></aside>}
+
       </div>
     </div>
     </div>
+        {contextOpen && page === 'project' && project && <section id="project-context-panel" className="context-panel" role="dialog" aria-modal="false" aria-labelledby="project-context-title"><div className="connection-heading"><h2 id="project-context-title" ref={contextHeading} tabIndex={-1}>Contexte du projet</h2><button type="button" aria-label="Fermer le contexte du projet" onClick={closeContext}><Icon name="close"/></button></div><p>Source : dossier choisi via Windows.</p><dl><dt>Dossier canonique</dt><dd><code>{project.rootPath}</code></dd><dt>Conversation sélectionnée</dt><dd><code>{conversation?.id??'Aucune'}</code></dd><dt>Initiative capturée</dt><dd>{conversation?.context.initiativeId ?? 'Non identifiée'}</dd><dt>Conservation</dt><dd>Échanges, observations et brouillon dans les données locales de Madness.</dd><dt>Activité</dt><dd>{dialogueHere ? displayedDialogueStatus : 'Aucun agent actif dans ce projet'}</dd><dt>Fournisseur</dt><dd>Codex · connexion propre à Madness</dd><dt>Fichiers du projet</dt><dd>{workflow?'Écritures bornées à la nouvelle session Forge capturée.':'Mary en lecture seule par défaut ; mode fichiers avec approbation à activer avant lancement.'}</dd></dl></section>}
     <dialog id="navigation-drawer" className="navigation-drawer" ref={drawer} aria-labelledby="drawer-title" onClose={() => drawerTrigger.current?.focus()} onClick={(event) => { if (event.target === drawer.current) closeDrawer() }}>
       <div className="drawer-heading"><h2 id="drawer-title">{fr.app}</h2><button aria-label="Fermer la navigation" onClick={closeDrawer}><Icon name="close" /></button></div><nav aria-label="Projets en fenêtre compacte">{navigation}</nav>
     </dialog>

@@ -56,6 +56,7 @@ async function launch(executablePath, args, profile) {
   assert.equal(resolve(actual), resolve(profile))
   assert.equal(await page.evaluate(() => location.href), 'madness://app/index.html')
   await page.waitForFunction(() => document.querySelector('.open-project')?.matches(':enabled'))
+  if(await page.getByRole('tab',{name:'Conversation',exact:true}).count())await page.getByRole('tab',{name:'Conversation',exact:true}).click()
   return page
 }
 async function inspectRuntime(label, page) {
@@ -81,9 +82,11 @@ async function inspectRuntime(label, page) {
 async function choose(page, path) {
   await running.evaluate(({ dialog }, selected) => { dialog.showOpenDialog = async () => ({ canceled: selected === null, filePaths: selected === null ? [] : [selected] }) }, path)
   await page.getByRole('button', { name: 'Ouvrir un projet', exact: true }).click()
+  if(await page.getByRole('tab',{name:'Conversation',exact:true}).count())await page.getByRole('tab',{name:'Conversation',exact:true}).click()
 }
 async function state(page) { const reply = await page.evaluate(() => window.madness.readState()); assert.equal(reply.ok, true); return reply.value.state }
 async function save(page, value) {
+  if(!await page.locator('#draft').count())await page.getByRole('tab',{name:'Conversation',exact:true}).click()
   await page.getByLabel('Brouillon pour', { exact: false }).fill(value)
   await page.getByRole('button', { name: 'Enregistrer le brouillon', exact: true }).click()
   await page.waitForFunction((text) => document.getElementById('draft-status')?.textContent === 'Brouillon enregistré localement.' && document.querySelector('textarea')?.value === text, value)

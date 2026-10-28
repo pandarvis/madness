@@ -1,0 +1,22 @@
+# Audit de la matrice figée — refonte
+
+La matrice du plan est conservée. Le parent a lu les 1 925 lignes du diff de code, tests, bancs et contrats, y compris les nouveaux fichiers, dans `C:/Users/UP6006~1/AppData/Local/Temp/madness-refonte-review-FRkzs1/changes.diff` : 303 302 octets, SHA256 `4a89d73a68e989da84e4ae8f6c5c1e0c8f99fb99f3ca47aa32750e74e1867b3c`. La préparation Sofia de l’epic 2, déjà committée séparément, et les caches gérés préexistants ne font pas partie du changement UI. Les preuves de qualification sont consultées séparément du diff de source.
+
+| Ligne figée | Tests et contrôles effectivement exécutés | Résultat et limites |
+|---|---|---|
+| Accueil et projet | Banc dédié : accueil multi-récents, nom long, retour exact au projet ; ciblé « la portée globale… » : une seule ouverture à cible40 ; état vide du renderer exercé par les tests UI. | Banc compilé final12/12 et candidat12/12. Le titre et les destinations des douze captures sont inspectés ; absence/erreur ne produit aucun diagnostic BMad fictif. |
+| Barre native et rail | `four-widths-two-themes-expanded-collapsed-drawer-long-names-no-overflow-targets-axis-native-exclusion` ; clavier aide/Échap/mouvement réduit. |1440/1320/720/600px, deux thèmes, rail/tiroir ; centres28px et cibles40px, espace overlay Windows et absence de débordement mesurés. Glyphes Windows et échelle du système non certifiés. |
+| Conversation | Ciblés « les articles progressifs… », « deux destinations concurrentes… », « la conversation donne accès au travail… », « un historique simple avec nom long… » ; banc sauvegarde/saisie et changement d’onglet/contexte/thème. |13 contrôles positifs du ciblé élargi puis confirmation7/7. Le premier contrôle intermittent de visibilité est conservé ; synchronisation sur retrait DOM et dimensions réelles, seuil de visibilité inchangé. Les positions finales sont dans `workPositions` du banc. |
+| Préparation explicite | Banc `prepare-mount-focus-no-implicit-launch-and-draft-preserved` ; ciblés navigation concurrente/retour tardif et préparation explicite. | Bonne vue montée puis titre Mary focalisé ; saisie préservée, aucun lancement ou envoi par navigation. Le banc final compte zéro app-server et zéro requête après hook. |
+| Attentes et récupération | Ciblés question/patch avant historique, focus neutre, expiration/décision, portée globale, accès exact ; confirmation de l’approbation/refus/ajustement. | Tous les tests nommés sont passés. Le ciblé élargi13/14 avait rencontré un détail historique replié ; le scénario ouvre désormais explicitement ce détail et le contrôle intégral passe dans7/7. Assertions de décision/transmission conservées. Patch complet avant choix textuels, aucune présélection. |
+| Détails et fenêtres | Banc contexte complet, Échap/retour focus ; quatre largeurs/deux thèmes ; zoom Electron2 avec insertion/retrait réels au clavier, contexte et valeur retrouvée ; mouvement réduit. |12/12 candidat. Aucun défaut de capture : les douze PNG sont ouverts par le parent, top du contenu0 et état correspondant au nom. À200%, le défilement est permis et la saisie est exercée ; aucun essai NVDA/WCAG ou mise à l’échelle Windows déduit. |
+| Conservation | Banc `explicit-save-close-reopen-exact-draft-history-preferences-annexes-no-network-or-app-server-after-hook` ; trois tests de propriété/fermeture du banc. | Snapshot, brouillon, annexes et apparence exacts à la réouverture ; deux Main observés fermés/absents, profils nettoyés. Compteurs limités à la fenêtre instrumentée après hook. Échec/incertitude interdit le nettoyage, sans arrêt forcé par nom. |
+
+## Sorties de référence
+
+- [Banc compilé final](compiled-u1-u4-001/profile.json),12contrôles, aucune capture.
+- [Banc candidat et douze captures](packaged-visual-round-2/profile.json),12contrôles, nettoyage confirmé ; ASAR `367bc8842b56b8ffe28f0b303ea6dbab9c5b458e65de7cc5fd639c6b308e96cc`.
+- [Ciblé élargi13/14](implementation-final/workspace-design-u-targeted.log) et [confirmation7/7](implementation-final/workspace-design-u-confirmation-final.log), avec échecs initiaux conservés.
+- [Détecteur unique](detector.json) : liste vide. Deux tours visuels groupés, pas de seconde détection.
+
+La suite complète finale reste une vérification supplémentaire en cours au moment de cet audit ; sa réussite n’est pas encore revendiquée ici. Revue de finition et revue BMad distinctes, installation personnelle non effectuée, qualification native1.11 et G1 non déduites.

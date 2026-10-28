@@ -32,6 +32,7 @@ async function launch(profile) {
     const w=BrowserWindow.getAllWindows()[0],setOverlay=w.setTitleBarOverlay.bind(w)
     w.setTitleBarOverlay=options=>{setOverlay(options);w.qualificationOverlay=options;w.qualificationOverlayCalls=(w.qualificationOverlayCalls??0)+1}
   })
+  if(await page.getByRole('tab',{name:'Conversation',exact:true}).count())await page.getByRole('tab',{name:'Conversation',exact:true}).click()
   return page
 }
 async function nativeState(page, theme) {
@@ -127,6 +128,7 @@ async function main() {
     await running.evaluate(({dialog},selected)=>{dialog.showOpenDialog=async()=>({canceled:false,filePaths:[selected]})},project)
     await page.getByRole('button',{name:'Ouvrir un projet',exact:true}).click()
     await page.getByRole('heading',{name:'Projet témoin',exact:true}).waitFor()
+    await page.getByRole('tab',{name:'Conversation',exact:true}).click()
     await page.getByLabel('Brouillon pour Projet témoin').fill('Brouillon témoin — conservé avec le thème.')
     await page.getByRole('button',{name:'Enregistrer le brouillon',exact:true}).click()
     await page.waitForFunction(()=>document.getElementById('draft-status')?.textContent==='Brouillon enregistré localement.')
@@ -151,6 +153,7 @@ async function main() {
     const nativeCalls=await running.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].qualificationOverlayCalls)
     await page.reload()
     await page.getByRole('button',{name:'Passer au thème sombre',exact:true}).waitFor({timeout:3000})
+    await page.getByRole('tab',{name:'Conversation',exact:true}).click()
     await page.getByLabel('Brouillon pour Projet témoin').waitFor()
     await nativeState(page,'light')
     assert.deepEqual(await readFile(join(profile,'appearance-v1.json')),lightPreference)

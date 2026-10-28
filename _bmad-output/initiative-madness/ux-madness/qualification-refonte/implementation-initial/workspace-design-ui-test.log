@@ -1,0 +1,64 @@
+✔ la conversation donne accès au travail avant la préparation et conserve la saisie en consultant le contexte (11905.1648ms)
+✔ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (5239.8561ms)
+✔ un lancement Mary rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec (21653.666ms)
+✔ un lancement Forge rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec (27678.9261ms)
+✔ les annonces polies de l’accueil couvrent arrivée, envoi et résolution sans annoncer les fragments (7334.0369ms)
+✔ les récapitulatifs repliés nomment le fait du tour et gardent leur identifiant secondaire (8650.7549ms)
+✔ accueil rejoint la conversation exacte par clavier, préserve les saisies et retire l’attente résolue (15821.7325ms)
+✔ deux destinations concurrentes et retour tardif gardent le dernier contexte et focus demandés (15698.7715ms)
+✔ une attente expirée pendant la sélection conserve sa saisie et explique l’absence d’envoi (8137.2007ms)
+✔ activité native reste nommée à l’accueil et un échec de sélection ne déplace ni contexte ni focus (7176.0155ms)
+✔ les articles progressifs gardent leur nœud, identité sourcée, lecture et saisie sans annoncer chaque fragment (9525.1787ms)
+✔ le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (24212.7988ms)
+✖ les indicateurs de question distinguent saisie et envoi et utilisent son destinataire réel (38430.6131ms)
+✖ le thème change au clavier sans perdre le brouillon ni le contexte en fenêtre compacte (37564.8508ms)
+✔ Forge prépare la portée inline, exige qualification et lancement explicites puis conserve le brouillon et le destinataire (21855.0024ms)
+✔ les contrôles partagés sont attribués à la session Forge (15841.1215ms)
+✔ les contrôles partagés sont attribués à la session Mary (13937.7845ms)
+✔ la préparation Forge explique le prérequis account et sa récupération en fenêtre compacte (16831.0494ms)
+✔ la préparation Forge explique le prérequis plan et sa récupération en fenêtre compacte (16967.018ms)
+✔ Forge historique après Mary conserve résultat, contexte, observations et copie du chemin correspondant (23828.1407ms)
+✔ un thème non sauvegardé garde un avertissement accessible et la saisie (true) (3069.4622ms)
+✔ un thème non sauvegardé garde un avertissement accessible et la saisie (bridge) (5442.9313ms)
+✔ le rappel forfait affiche l’erreur connue et reste fermable après un échec durable (8366.8305ms)
+✔ Échap ferme le tiroir compact actif et conserve le panneau Codex en arrière-plan (7640.007ms)
+✔ Mary expose son invocation et son forfait puis envoie uniquement le brouillon capturé (9914.123ms)
+✔ un arrêt inconnu depuis un autre projet garde le motif du blocage et le retour au propriétaire (20387.4519ms)
+✔ l’aide aux clés publiques est absente sans erreur réseau (6006.6005ms)
+✔ l’aide réseau ouvre ou copie l’unique URL publique sans masquer l’erreur ni relancer Codex (9308.8088ms)
+✔ l’aide réseau garde une récupération locale après échec copyPublicKeys (5424.4962ms)
+✔ l’aide réseau garde une récupération locale après échec openPublicKeys (8123.5123ms)
+✔ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (12322.0203ms)
+✔ un arrêt du témoin connexion non confirmé expose la récupération explicite sans projet (5271.1087ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 30
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 450580.8097
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:224:1
+✖ les indicateurs de question distinguent saisie et envoi et utilisent son destinataire réel (38430.6131ms)
+  locator.evaluate: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for locator('.context-panel dt').filter({ hasText: 'Activité' })[22m
+  
+      at TestContext.<anonymous> (C:\Sources\madness\tests\connection-ui.test.mjs:236:84) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for locator('.context-panel dt').filter({ hasText: 'Activité' })" ]
+  }
+
+test at tests\connection-ui.test.mjs:244:1
+✖ le thème change au clavier sans perdre le brouillon ni le contexte en fenêtre compacte (37564.8508ms)
+  locator.fill: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByLabel('Brouillon pour Projet Thème')[22m
+  
+      at TestContext.<anonymous> (C:\Sources\madness\tests\connection-ui.test.mjs:249:56) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByLabel('Brouillon pour Projet Thème')" ]
+  }

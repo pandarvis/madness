@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-28T16:20:32.814Z",
+  "status": "passed",
+  "inputs": 122,
+  "allManifestInputsUnchanged": true,
+  "artifacts": [
+    {
+      "path": "Madness-0.1.2-x64-setup.exe",
+      "bytes": 122065861,
+      "sha256": "8f0b4d3ce5591f04723ea70c5acb07f27ea5194df3c260a819766aca57e51539",
+      "unchanged": true
+    },
+    {
+      "path": "win-unpacked/resources/app.asar",
+      "bytes": 9530665,
+      "sha256": "6664da10ba09364dd5e7584ad812848d48b7bb8f4c48508507434825770684c8",
+      "unchanged": true
+    },
+    {
+      "path": "win-unpacked/resources/bmad-script-runner.py",
+      "bytes": 3088,
+      "sha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5",
+      "unchanged": true
+    }
+  ],
+  "installedAsarUnchanged": "9249bdc081c2b3ceeae4465fcc7a3c53af5dca325889cae8fa0b118479f974b4",
+  "frozenIntentUnchanged": "31af9e7986590080d94ec4c002491848305107bce2580fb32f0cc31f746bbe2f",
+  "sourceChanges": [
+    "src/renderer/src/App.tsx",
+    "src/renderer/src/ApprovalPanel.tsx",
+    "src/renderer/src/QuestionPanel.tsx",
+    "src/renderer/src/WorkOverview.tsx",
+    "src/renderer/src/styles.css"
+  ],
+  "tests": {
+    "pass": 355,
+    "fail": 0,
+    "skip": 0
+  },
+  "windowsChecks": 5,
+  "integratedChecks": 75,
+  "packagedChecks": 12,
+  "currentCaptures": 0,
+  "visualReference": {
+    "asar": "367bc8842b56b8ffe28f0b303ea6dbab9c5b458e65de7cc5fd639c6b308e96cc",
+    "captures": 12,
+    "scope": "Rendu inchangé et Q1 selon finish-verdict-q1 ; captures non réattribuées."
+  },
+  "bankCleanup": true,
+  "limits": [
+    "Vérification technique du candidat séparé ; aucune installation ni acceptation humaine ou clôture G1 nouvelle.",
+    "Les observations réseau et processus du banc commencent après instrumentation et restent synthétiques."
+  ]
+}

@@ -13,7 +13,7 @@ risk: high
 
 ## Description
 
-Une première version Windows installable ouvre un dossier BMad de référence, lance un workflow avec Codex, permet questions et approbations, puis montre le résultat et les chemins produits. Elle qualifie G0/G1 et le profil BMad de référence nécessaire à cette preuve, possède les contrats partagés, la conservation locale et la procédure de reconstruction ; les capacités réelles et les limites sont visibles.
+Une première version Windows personnelle installable ouvre un dossier BMad de référence, lance un workflow avec Codex et l’abonnement ChatGPT du porteur, permet questions et approbations, puis montre le résultat et les chemins produits. Elle qualifie G0/G1 et le profil BMad de référence nécessaire à cette preuve, possède les contrats partagés, la conservation locale et la procédure de reconstruction ; les capacités réelles et les limites sont visibles.
 
 ## Outcome
 
@@ -39,7 +39,7 @@ Un développeur dialogue réellement avec Codex dans un paquet Windows sur un pr
 
 - R9 (parent R25) : Après fermeture et réouverture de Madness, retrouver les projets, conversations et brouillons conservés localement, sans relance automatique d'un agent ; présenter les activités et demandes restaurées comme historiques ou inconnues tant qu'elles ne sont pas vérifiées.
 
-- R10 (parent R27) : Pouvoir mettre à jour les dépendances et le runtime, reconstruire puis republier une version Windows par une procédure vérifiable ; le remplacement du programme conserve les données locales, avec les versions et limites réellement testées consignées.
+- R10 (parent R27) : Pouvoir mettre à jour les dépendances et le runtime, reconstruire puis réinstaller une version Windows pour son usage personnel par une procédure vérifiable ; le remplacement du programme conserve les données locales, avec les versions et limites réellement testées consignées.
 
 ## Constraints
 
@@ -49,22 +49,22 @@ Un développeur dialogue réellement avec Codex dans un paquet Windows sur un pr
 
 - C3 (parent C3) : Les projets et leurs artefacts BMad locaux existants restent exploitables ; la reprise ne requiert ni migration d'une ancienne version ni reconstruction supposée de conversations externes.
 
-- C4 (parent C4) : L'intégration retenue doit être vérifiée contre les interfaces, versions, capacités et modes d'authentification officiellement disponibles pour un produit distribué ; le choix d'un connecteur et sa preuve réelle restent à faire.
+- C4 (parent C4) : L’intégration retenue doit être vérifiée contre les interfaces, versions, capacités et modes d’authentification officiellement disponibles pour un projet personnel exécuté localement. La connexion SIWC propre à Madness déjà livrée et l’abonnement ChatGPT sont conservés, sans changement implicite d’authentification ni de facturation.
 
 - C5 (parent C5) : DESIGN.md et EXPERIENCE.md sont les contrats visuel et comportemental adoptés et prévalent sur les maquettes ; la base française claire reste acceptée. Sally complète les contrats pour l'anglais, le sombre et la vue Graphe avec Impeccable avant les implémentations concernées ; leurs hypothèses et limites restent explicites, sans preuve d'intégration déduite de la simulation.
 
 - C6 (parent C6) : Le socle retenu est Electron + React + TypeScript, starter electron-vite et packaging electron-builder. Le contrat d'architecture adopté gouverne les frontières, contrats partagés, autorités et profils qualifiés des lots ; ses décisions AD-1 à AD-10 gardent leurs identifiants. Les versions candidates restent à qualifier avant leurs consommateurs.
 
-- C7 (parent C7) : La distribution est gratuite pour commencer, sans licence open source présumée. Projet personnel utilisable en environnement professionnel : les previews sont autorisées si choisies et signalées ; le runtime doit être acceptable par le proxy cible, sans exigence du tout dernier Chromium exact. La reconstruction et la republication doivent rester simples ; l'auto-updater n'est pas requis pour la V1.
+- C7 (parent C7) : Madness est réservé au porteur, en local sous Windows, avec code privé ; aucune distribution à d’autres développeurs ni publication du code n’est requise. L’usage en environnement professionnel reste possible : les previews sont autorisées si choisies et signalées ; le runtime doit être acceptable par le proxy cible, sans exigence du tout dernier Chromium exact. La reconstruction et la réinstallation doivent rester simples ; l’auto-updater n’est pas requis pour la V1.
 
 ## Done when
 
 1. Un paquet Windows construit à partir du socle retenu démarre ; G0 établit les contrats de contexte, commandes/événements, cycle de vie et persistance avant leurs consommateurs, avec les frontières Electron d'AD-1 (R10 ; C6-C7).
-2. G1 démontre une voie Codex officiellement utilisable par Madness, avec authentification et versions observées. Le profil BMad de référence requis pour ce premier workflow est qualifié ici ; une fenêtre, un login seul ou un export de schémas ne remplace pas cette preuve (R1, R2, R8 ; C2, C4).
+2. G1 démontre de bout en bout la voie Codex personnelle de Madness avec le SIWC conservé, l’abonnement ChatGPT et les versions observées. Le profil BMad de référence requis pour ce premier workflow est qualifié ici ; une fenêtre, un login seul ou un export de schémas ne remplace pas cette preuve (R1, R2, R8 ; C2, C4).
 3. Dans l'application installée, un workflow BMad réel est invoqué au bon contexte avec invocation visible ; messages, question/réponse et approbation limitée à l'opération sont vérifiés, selon les conditions du workflow. Le résultat et les chemins concernés sont retrouvés (R1-R3, R5).
 4. Travail, attente, interruption, échec, fin de tour et résultat inconnu sont compréhensibles ; envoi et réessai suivent les confirmations réelles du connecteur, sans accord inventé ni rejeu automatique d'un effet incertain (R4-R8).
 5. Projets, conversations et brouillons restent conservés localement après fermeture/réouverture, sans relance d'agent. Les activités et demandes historiques ne deviennent pas des attentes actives sans vérification (R5, R9).
-6. Une procédure de montée de version, reconstruction et republication est vérifiée ; le remplacement du programme préserve ses données locales. Le paquet et les capacités qualifiées sont disponibles avec leurs limites explicites (R9-R10 ; C7).
+6. Une procédure de montée de version, reconstruction et réinstallation personnelle est vérifiée ; le remplacement du programme préserve ses données locales. Le paquet et les capacités qualifiées sont disponibles avec leurs limites explicites (R9-R10 ; C7).
 
 ## Boundaries
 
@@ -88,6 +88,14 @@ Un développeur dialogue réellement avec Codex dans un paquet Windows sur un pr
 - ordre — [Découpage approuvé](../tickets.toml) ; identifiant 1 et prérequis de capacités à reporter sur les stories qui les consommeront.
 
 ## Notes
+
+- Decision: 2026-10-28 — Le porteur réserve Madness à son usage personnel local Windows, code privé et abonnement ChatGPT, selon `../../decision-personnelle-locale-2026-10-28.md`. La distribution sort du besoin courant ; la connexion SIWC propre à Madness et toutes ses protections sont conservées. SPEC répercute seulement parent R27 en R10 et parent C4/C7 ; les autres exigences, couvertures et plans built restent inchangés. Cette décision remplace les anciennes obligations de distribution et de passage par 1.1 ci-dessous, sans déclarer l’ancienne voie native réussie.
+
+- Dropped: 2026-10-28 — La 1.1 « Qualifier la voie Codex distribuable et son authentification » est devenue hors périmètre par la décision explicite du porteur. Entrée, corps du plan, ancien profil natif unknown/cleanup false et preuves restent conservés. Aucun Build n’est actif sur ce ticket ; BOARD le passe de blocked à dropped, sans le déclarer built/done ni réécrire son contrat figé.
+
+- Decision: 2026-10-28 — La 1.10 attend maintenant les neuf entrées built 1.2, 1.12 et 1.3–1.9 ; son nettoyage garde notamment l’assertion historique d’arrêt relevée pendant 1.6. La dépendance à la distribution abandonnée 1.1 est retirée. La 1.11 attend toujours 1.10 et qualifie le paquet personnel/SIWC : arrêt et nettoyage des processus/espaces possédés, réseau/certificats du vrai processus Codex et boucle intégrée restent à démontrer, sans nouvelle admission distribuée. 1.10 devient prête, sans être démarrée ; 1.11 reste en attente. G0/G1 et l’epic ne sont pas clôturés par ce replan.
+
+- Decision: 2026-10-28 — L’architecture et les contrats UX adoptés restent intacts ; leurs seules mentions historiques de distribution sont à réconcilier avec la décision personnelle lors de leur prochaine mise à jour. Les mécanismes, protections et preuves techniques restent exigés, sans nouveau gate administratif. Le tracer accompli reste 1.3 après le profil personnel 1.12 ; aucune nouvelle voie de modification ni réimplémentation des lots built n’est ajoutée.
 
 - Decision: 2026-10-28 — Sous le mandat autonome renouvelé, Sofia réconcilie les réserves techniques de1.2 avec les preuves acquises, sans changer exigences, contraintes, découpage ni dépendances. Qualification1.9 committée dans25d54a10f6981c57e95453214d43164565d28768 : NSIS réel0.1.0→0.1.1, données et compte conservés, GETMain200 borné. Le minimum amont Electron45 (Windows10+) est documenté séparément du seul profil Madness testé : Windows11Entreprise25H2x64, build26200.9711. Relecture fraîche Ticket et reçus favorable, aucun écart bloquant. Complément qualification-g0/complement-compatibilite-2026-10-28.md ; ancien corps du plan1.2 intact, statut built réconcilié par BOARD. Aucune désinstallation ni politique proxy générale annoncée, aucun nouveau code ni test requis pour ce complément.1.1 etG1 restent ouverts pour la voie distribuable et l’ancien essai natif ;1.10/1.11 ne démarrent pas par le seul passage1.2.
 

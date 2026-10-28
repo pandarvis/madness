@@ -1,6 +1,8 @@
 # Récapitulatif du travail autonome — 28 octobre2026
 
-**Madness 0.1.1 est installé, avec données et compte conservés. La 1.9 est terminée, la réserve technique1.2 est levée. L’epic 1 reste ouvert à cause de 1.1 ; ses deux dernières entrées ne sont pas exécutées.**
+**Madness 0.1.1 est installé, avec données et compte conservés. La 1.9 est terminée, la réserve technique1.2 est levée. Après la clarification du porteur le 28 octobre, le besoin est personnel et local avec son abonnement ChatGPT : la qualification de distribution1.1 sort du périmètre. Les deux dernières entrées techniques1.10/1.11 restent à exécuter.**
+
+Ce récapitulatif est actualisé par la [décision personnelle locale](decision-personnelle-locale-2026-10-28.md). Le cadrage antérieur de distribution, qui avait motivé le blocage annoncé, ne s’applique plus. La connexion SIWC déjà livrée est conservée ; aucune publication du code, demande d’admission ou bascule de facturation n’est nécessaire au périmètre personnel retenu.
 
 ## Ce qui a été terminé
 
@@ -22,13 +24,11 @@ Commits locaux, sans push :
 | Entrées | État |
 |---|---|
 | 1.2, 1.12, 1.3–1.9 | Built : réalisation et vérifications techniques disponibles ; cela ne fabrique pas une acceptation humaine globale. |
-| 1.1 — voie Codex distribuable | Toujours bloquée : admissibilité officielle du nouveau client privé distribué non établie et ancien essai natif authentifié sans conclusion positive d’arrêt/nettoyage. |
-| 1.10 — Refactor sweep | Attend1.1. La réserve historique du test d’arrêt reste pour cette entrée. |
+| 1.1 — voie Codex distribuable | Abandonnée comme hors du besoin personnel actuel. Ancien essai et issue inconnue conservés ; aucune réussite technique inventée. |
+| 1.10 — Refactor sweep | Les neuf entrées techniques préalables sont built ; la distribution abandonnée n’est plus une dépendance. La réserve historique du test d’arrêt reste pour cette entrée. |
 | 1.11 — E2E etG1 | Attend1.10 puis son parcours intégré réel. Non exécutée. |
 
-Le tableau BMad ne présente plus d’entrée prête. Je n’ai ni supprimé les dépendances approuvées ni déclaré l’epic clos par le seul succès des tests. La connexion personnelle actuelle fonctionne dans son périmètre acquis ; cela ne suffit pas à qualifier sa distribution à d’autres développeurs avec code privé.
-
-Pour débloquer1.1, il reste à établir une voie officiellement applicable à ce produit privé distribué puis obtenir la preuve native exigée, ou faire arbitrer explicitement son découpage. Aucun changement de fournisseur, de facturation, de licence ou de périmètre n’est décidé à ta place. Aucun contact externe envoyé. Il ne s’agit pas de te redemander le JSON public ni un token.
+Sofia a appliqué le changement explicite de périmètre aux exigences et dépendances ; relecture fraîche Ticket/Set/Tree/Dependencies conforme, sans constat, couverture32/32 et status/next réussis. La1.10 est seule prête, non démarrée ; la1.11 attend10. Le travail restant porte sur le nettoyage et les vérifications intégrées de la voie personnelle : fonctionnement réel, arrêt, restauration et conservation des données. Aucun contact externe, nouvelle authentification ou échange de token n’est demandé pour cette correction de cadrage. L’epic n’est pas déclaré clos par le seul succès des tests précédents. Le [reçu du replan personnel](.working/sofia-personnel-local-validation.json) conserve ces contrôles et les treize empreintes inchangées.
 
 ## Travail UX effectué en attendant
 
@@ -44,4 +44,4 @@ L’objectif reste un orchestrateur BMad visible et compréhensible. Aujourd’h
 
 Le travail, les limites et les prochaines entrées sont sauvegardés. Tu peux redémarrer ou mettre à jour l’application desktop sans perdre ces livrables locaux.
 
-Preuves principales : [maintenance1.9](tickets/epic-boucle-codex/qualification-maintenance/parent-verification.md), [complément1.2](tickets/epic-boucle-codex/qualification-g0/complement-compatibilite-2026-10-28.md), [tableau après réconciliation](tickets/epic-boucle-codex/qualification-g0/board-after-compatibility.json).
+Preuves principales : [maintenance1.9](tickets/epic-boucle-codex/qualification-maintenance/parent-verification.md), [complément1.2](tickets/epic-boucle-codex/qualification-g0/complement-compatibilite-2026-10-28.md), [tableau historique avant le changement de périmètre personnel](tickets/epic-boucle-codex/qualification-g0/board-after-compatibility.json).

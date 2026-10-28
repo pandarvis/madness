@@ -11,6 +11,7 @@ sources:
   - _bmad-output/initiative-madness/ux-madness/DESIGN.md
   - _bmad-output/initiative-madness/ux-madness/EXPERIENCE.md
   - _bmad-output/initiative-madness/architecture-madness/architecture-madness.md
+  - _bmad-output/initiative-madness/decision-personnelle-locale-2026-10-28.md
 companions:
   - _bmad-output/initiative-madness/ux-madness/DESIGN.md
   - _bmad-output/initiative-madness/ux-madness/EXPERIENCE.md
@@ -21,7 +22,7 @@ companions:
 
 ## Description
 
-Une interface graphique locale distribuable permet à un développeur peu familier de BMad d'ouvrir ses projets, comprendre leur état et leurs preuves, choisir une possibilité expliquée et poursuivre le travail des agents. La V1 vise Windows, Codex et BMad v7 ; elle reprend les projets existants et accompagne l'initialisation d'un dossier non équipé. Elle conserve les projets, conversations et brouillons, propose français/anglais et clair/sombre, puis inclut le graphe Graphify du code et des dépendances après la base Windows/Codex. Les contrats UX et d'architecture adoptés portent les détails ; leurs qualifications restent à réaliser.
+Une interface graphique personnelle locale permet au porteur peu familier de BMad d'ouvrir ses projets, comprendre leur état et leurs preuves, choisir une possibilité expliquée et poursuivre le travail des agents avec son abonnement ChatGPT. La V1 vise Windows, Codex et BMad v7 ; elle reprend les projets existants et accompagne l'initialisation d'un dossier non équipé. Elle conserve les projets, conversations et brouillons, propose français/anglais et clair/sombre, puis inclut le graphe Graphify du code et des dépendances après la base Windows/Codex. Les contrats UX et d'architecture adoptés portent les détails ; leurs qualifications restent à réaliser.
 
 ## Outcome
 
@@ -75,7 +76,7 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 
 - R22 (contexte § Capabilities and Constraints ; experience § Connexion indisponible / hors ligne) : Identifier la connexion Codex, ses capacités réelles et son indisponibilité ; expliquer une opération impossible, conserver les informations déjà connues avec leur portée et proposer une récupération sans annoncer d'exécution autonome ou de reprise non prise en charge.
 
-- R23 (brief § Intention et utilisateurs ; contexte § Users ; contexte § Operating Context) : Distribuer une première version utilisable sur Windows à d'autres développeurs ; vérifier installation, prérequis et parcours sur une machine cible, avec de vrais projets et une connexion Codex, au-delà de la simulation HTML.
+- R23 (personnel § Décision du porteur ; contexte § Users et Operating Context) : Utiliser une première version Windows pour les projets personnels locaux du porteur, avec son abonnement ChatGPT ; vérifier installation, prérequis et parcours sur sa machine cible, avec de vrais projets et une connexion Codex, au-delà de la simulation HTML.
 
 - R24 (brief § Parcours de référence et critères de réussite ; experience § Key Flows) : Vérifier les trois parcours avec une personne peu familière de BMad : ouvrir ou initialiser, expliquer état et preuves, choisir sans mémoriser les commandes, dialoguer et approuver, comprendre problème ou fin de tour et retrouver les fichiers ; distinguer prise en main du prototype et validation de l'application intégrée.
 
@@ -83,7 +84,7 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 
 - R26 (contexte § Brand Commitments ; architecture AD-8) : Utiliser la V1 en français ou en anglais et en thème clair ou sombre, en conservant contexte et saisie lors d'un changement ; les identifiants techniques, invocations, chemins et artefacts du projet gardent leur contenu et leur langue propres.
 
-- R27 (contexte § Capabilities and Constraints ; architecture AD-9) : Pouvoir mettre à jour les dépendances et le runtime, reconstruire puis republier une version Windows par une procédure vérifiable ; le remplacement du programme conserve les données locales, avec les versions et limites réellement testées consignées.
+- R27 (personnel § Réconciliation des exigences et tickets ; contexte § Capabilities and Constraints ; architecture AD-9) : Pouvoir mettre à jour les dépendances et le runtime, reconstruire puis réinstaller une version Windows pour son usage personnel par une procédure vérifiable ; le remplacement du programme conserve les données locales, avec les versions et limites réellement testées consignées.
 
 - R28 (contexte § Capabilities and Constraints ; architecture AD-10) : Depuis un projet ouvert, générer ou actualiser à la demande un graphe local du code, des modules, fichiers et dépendances, rattaché explicitement au projet et au périmètre analysé ; cet outil est livré dans la V1 après la base Windows/Codex, son utilisation reste optionnelle.
 
@@ -103,13 +104,13 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 
 - C3 (brief § Périmètre confirmé de la V1 ; contexte § Operating Context ; experience § Foundation) : Les projets et leurs artefacts BMad locaux existants restent exploitables ; la reprise ne requiert ni migration d'une ancienne version ni reconstruction supposée de conversations externes.
 
-- C4 (contexte § Capabilities and Constraints ; addendum § Fournisseurs et modes de connexion) : L'intégration retenue doit être vérifiée contre les interfaces, versions, capacités et modes d'authentification officiellement disponibles pour un produit distribué ; le choix d'un connecteur et sa preuve réelle restent à faire.
+- C4 (personnel § Décision du porteur et Appui documentaire et portée ; contexte § Capabilities and Constraints) : L’intégration retenue doit être vérifiée contre les interfaces, versions, capacités et modes d’authentification officiellement disponibles pour un projet personnel exécuté localement. La connexion SIWC propre à Madness déjà livrée et l’abonnement ChatGPT sont conservés, sans changement implicite d’authentification ni de facturation.
 
 - C5 (design § Brand & Style ; experience § Foundation ; architecture AD-8) : DESIGN.md et EXPERIENCE.md sont les contrats visuel et comportemental adoptés et prévalent sur les maquettes ; la base française claire reste acceptée. Sally complète les contrats pour l'anglais, le sombre et la vue Graphe avec Impeccable avant les implémentations concernées ; leurs hypothèses et limites restent explicites, sans preuve d'intégration déduite de la simulation.
 
 - C6 (contexte § Platform et Stack ; architecture AD-1, AD-2, AD-5, AD-7–AD-10) : Le socle retenu est Electron + React + TypeScript, starter electron-vite et packaging electron-builder. Le contrat d'architecture adopté gouverne les frontières, contrats partagés, autorités et profils qualifiés des lots ; ses décisions AD-1 à AD-10 gardent leurs identifiants. Les versions candidates restent à qualifier avant leurs consommateurs.
 
-- C7 (contexte § Users et Capabilities and Constraints ; architecture AD-9) : La distribution est gratuite pour commencer, sans licence open source présumée. Projet personnel utilisable en environnement professionnel : les previews sont autorisées si choisies et signalées ; le runtime doit être acceptable par le proxy cible, sans exigence du tout dernier Chromium exact. La reconstruction et la republication doivent rester simples ; l'auto-updater n'est pas requis pour la V1.
+- C7 (personnel § Décision du porteur ; contexte § Users et Capabilities and Constraints ; architecture AD-9) : Madness est réservé au porteur, en local sous Windows, avec code privé ; aucune distribution à d’autres développeurs ni publication du code n’est requise. L’usage en environnement professionnel reste possible : les previews sont autorisées si choisies et signalées ; le runtime doit être acceptable par le proxy cible, sans exigence du tout dernier Chromium exact. La reconstruction et la réinstallation doivent rester simples ; l’auto-updater n’est pas requis pour la V1.
 
 - C8 (architecture AD-10 et G5) : Le premier profil Graphify analyse seulement le code et les dépendances, sans enrichissement sémantique ni modèle implicite, sans modifier les sources ou les instructions, skills, hooks, plugins et configurations du projet ou de l'utilisateur. Le confinement, les formats et le packaging sont qualifiés avant disponibilité ; les documents BMad sémantiques et l'intégration agent/MCP sont hors de ce premier profil.
 
@@ -119,7 +120,7 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 2. La personne explique l'état, les déductions et les validations, consulte leurs preuves et retrouve un fichier modifié hors de Madness sans fausse conversation d'origine. Elle consulte aussi le temps et le coût rattachés à une US du projet ouvert, avec provenance et indisponibilité explicites, sans inventer un montant absent (R6–R8, R19, R32).
 3. Elle choisit une action expliquée ou une alternative dans le catalogue réel, consulte l'invocation et ses conditions, puis dialogue avec Codex ; questions, approbations, interruption, résultat inconnu et fin de tour aboutissent à un état compréhensible, avec fichiers et suite attendue (R9–R18, R22 ; G1).
 4. Navigation rétractable, fichiers, redimensionnement et contrôles accessibles préservent le contexte et la saisie en français/anglais et clair/sombre ; après réouverture, projets, conversations et brouillons sont retrouvés sans relance automatique, selon les contrats étendus de Sally (R19–R21, R25–R26).
-5. Une version Windows est reconstruite et installée sur une machine cible ; le remplacement préserve les données, les prérequis réseau/runtime sont vérifiés et les trois parcours avec une personne peu familière de BMad sont consignés, au-delà du prototype (R23–R24, R27 ; G0, G4).
+5. Une version Windows personnelle est reconstruite et installée sur la machine cible du porteur avec son abonnement ChatGPT ; le remplacement préserve les données, les prérequis réseau/runtime sont vérifiés et les trois parcours avec une personne peu familière de BMad sont consignés, au-delà du prototype (R23–R24, R27 ; G0, G4).
 6. Après la base Windows/Codex, le graphe réel permet génération, exploration/recherche et accès au fichier ; fraîcheur, limites, échec et interruption sont compréhensibles, les effets restent confinés, performances et accessibilité sont vérifiées sur dépôt représentatif. La V1 complète exige aussi G5 (R28–R31).
 
 ## Boundaries
@@ -132,16 +133,18 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 - Touch point : connexion Codex — invocation, événements, dialogue et autorisations ; propriétaire : epic-boucle-codex.
 - Touch point : temps et coût par US — propriétaire : epic-projets-bmad, qui établit les règles de rattachement à une US et les extensions versionnées des contrats de mesure, connecteur et persistance avant leurs consommateurs. Le socle et ses contrats existants restent ceux d’epic-boucle-codex ; leurs plans built ne sont pas réécrits. Ce besoin produit ne crée aucun journal de notre développement.
 - Touch point : interface et contrats UX Madness — guidage, navigation, variantes et fichiers ; propriétaire : epic-projets-bmad. La conversation initiale appartient à epic-boucle-codex, la nouvelle vue Graphe à epic-graphe-projet, selon les mêmes contrats.
-- Touch point : runtime et distribution Windows — paquet et procédure de reconstruction ; propriétaire : epic-boucle-codex. Vérification intégrée de la base G4 par epic-initialisation-bmad, module et paquet final G5 par epic-graphe-projet.
+- Touch point : runtime et installation personnelle Windows — paquet et procédure de reconstruction ; propriétaire : epic-boucle-codex. Vérification intégrée de la base G4 par epic-initialisation-bmad, module et paquet final G5 par epic-graphe-projet.
 - Touch point : contrats du cœur, cycle de vie et stockage local — propriétaire : epic-boucle-codex avant consommateurs ; epic-graphe-projet ajoute le contrat d'analyse sous la même autorité du cœur.
 - Touch point : Graphify et runtime Python consommés — propriétaire : epic-graphe-projet ; confinement et profil qualifiés avant disponibilité, sans installation implicite de skills/hooks.
 - Chemin de démonstration transversal : ouvrir un projet réel → diagnostiquer v7 → obtenir l'aide contextualisée → choisir une compétence → dialoguer avec Codex et traiter une demande → retrouver le fichier et la suite attendue.
 - Hors premier profil Graphe : analyse sémantique des documents BMad, recherche par modèle, installation de skills/hooks ou intégration agent/MCP. Le graphe ne détermine aucune validation BMad.
-- Livraison : versions Windows intermédiaires installables à capacités qualifiées et limites explicites ; leur existence ne clôt pas la V1 complète, qui exige aussi le graphe G5. Reconstruction/republication côté développeur incluse ; auto-updater non requis.
+- Livraison : versions Windows personnelles intermédiaires installables à capacités qualifiées et limites explicites ; leur existence ne clôt pas la V1 complète, qui exige aussi le graphe G5. Reconstruction/réinstallation personnelle incluse ; auto-updater non requis. Distribution à d’autres développeurs et publication du code hors du besoin courant.
 
 ## References
 
 Les alias des exigences et contraintes désignent les fichiers suivants ; les sections sont celles nommées dans chaque ligne.
+
+- personnel — [Décision du porteur du 28 octobre 2026](decision-personnelle-locale-2026-10-28.md), `_bmad-output/initiative-madness/decision-personnelle-locale-2026-10-28.md` ; Décision du porteur, Appui documentaire et portée, Réconciliation des exigences et tickets, Contrats et suite. Cette décision remplace les mentions historiques de distribution dans les sources, sans modifier les companions adoptés ni les mécanismes déjà réalisés.
 
 - brief — [Brief produit](brief-madness/brief-madness.md), `_bmad-output/initiative-madness/brief-madness/brief-madness.md` ; Intention et utilisateurs, Priorité : l'expérience utilisateur, Périmètre confirmé de la V1, Parcours de référence et critères de réussite, Extensions et décisions pour les étapes suivantes. Source en brouillon ; aucune approbation globale du brief n'est inférée de l'accord sur le prototype.
 - contexte — [Contexte produit](../../PRODUCT.md), `PRODUCT.md` ; Platform, Stack, Users, Operating Context, Capabilities and Constraints, Product Principles, Evidence on Hand.
@@ -152,6 +155,12 @@ Les alias des exigences et contraintes désignent les fichiers suivants ; les se
 - architecture — [Contrat d'architecture adopté](architecture-madness/architecture-madness.md), `_bmad-output/initiative-madness/architecture-madness/architecture-madness.md` ; AD-1 à AD-10, Consistency Conventions, Qualification Gates G0–G5 et Deferred. Companion conservé sans modification ; les versions et interfaces candidates restent à qualifier. Les décisions du 23 octobre remplacent les anciens choix encore ouverts dans le brief et l'addendum, sans valoir approbation globale de ces sources.
 
 ## Notes
+
+- Decision: 2026-10-28 — Le porteur précise « cette app n’est que pour moi : je veux juste brancher mon abo ChatGPT dessus point final ». Sofia REPLAN recadre R23/R27 et C4/C7, identifiants R1–R32 conservés, vers l’usage personnel local Windows, code privé et abonnement ChatGPT. La connexion SIWC propre à Madness reste celle livrée ; l’admission d’un client privé distribué, la publication du code et une bascule API sont hors du besoin courant. La source datée `decision-personnelle-locale-2026-10-28.md` prévaut sur les mentions de distribution historiques, dont les décisions du 24 octobre ci-dessous.
+
+- Decision: 2026-10-28 — La 1.1 distribuable est abandonnée sans succès technique déclaré ; son ancien essai natif unknown/cleanup false reste historique, distinct du SIWC personnel. La 1.10 attend 1.2, 1.12 et 1.3–1.9 built ; la 1.11 attend toujours 1.10 et garde les contrôles techniques intégrés sur la voie personnelle, dont arrêt/fermeture, nettoyage possédé et réseau/certificats du processus Codex. Ni Build ni clôture de G0/G1 ne sont lancés par ce replan. Les epics 1–4, leurs couvertures et leur ordre sont conservés ; l’epic 3 applique R23 à la machine personnelle cible sans retirer G4 ni les trois parcours.
+
+- Decision: 2026-10-28 — Les contrats architecture AD-1 à AD-10 et UX adoptés restent intacts ; seules leurs mentions historiques de distribution sont remplacées dans le périmètre courant par la décision personnelle locale. Réconciliation documentaire à leur prochaine mise à jour, sans mécanisme différent ni nouveau gate administratif. Les protections, qualifications techniques G0–G5, langues/thèmes, graphe, temps/coût et fournisseurs cibles ne changent pas. La refonte Sally/experts/Impeccable reste à réaliser selon le mandat existant ; aucune acceptation visuelle humaine n’est déduite.
 
 - Decision: 2026-10-27 — Le porteur précise que le suivi temps/coût par US est une fonctionnalité de Madness uniquement. Sofia ajoute R32 et le rattache à l’epic 2 sous le mandat autonome : cet epic possède le contexte BMad/US et établira les extensions des contrats et leur qualification avant affichage. Les quatre epics, leurs identifiants et leur ordre restent conservés ; aucune story built ni plan en cours n’est modifié. La 1.8 n’a encore ni plan ni code et conserve son objectif. Les données transitoires de suivi de notre développement sont retirées. Les gates G0–G5 et réserves de distribution restent intacts.
 
@@ -175,7 +184,7 @@ Les alias des exigences et contraintes désignent les fichiers suivants ; les se
 
 - Assumption: A1 — Cible WCAG 2.2 AA pour la surface web, reprise de EXPERIENCE § Accessibility Floor ; niveau de conformité proposé, non confirmé par un audit. R21 conserve les comportements d'accessibilité déjà décrits sans prétendre à une conformité acquise.
 
-- Open question: Q2 / G1 — Quelle voie officielle Codex, quelle authentification et quelles versions permettent un dialogue distribué réel, avec événements, questions, approbations, interruption et reprise ? La piste app-server est documentée, mais l'éligibilité et le parcours intégré restent à prouver dans le premier epic.
+- Open question: Q2 / G1 — Le paquet Windows final démontre-t-il de bout en bout les capacités requises avec la connexion SIWC personnelle conservée : workflow BMad réel, événements, questions, approbations, interruption, arrêt et nettoyage possédés, résultat inconnu, restauration et remplacement ? Les preuves personnelles des lots built sont acquises dans leurs profils ; leur contrôle intégré final reste à effectuer en 1.11 après 1.10. L’admission d’un client distribué est hors du besoin courant.
 
 - Open question: Q3 / G2 — Quel profil d'installation BMad et quelles fonctions sont effectivement supportés ? Qualifier structures, modules, racines et empreintes, catalogue partiel, contexte multi-initiative et changements externes ; les métadonnées locales 6.13.0-next ne permettent pas un contrôle limité au major « 7 ».
 

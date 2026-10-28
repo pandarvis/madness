@@ -1,0 +1,929 @@
+{
+  "date": "2026-10-28",
+  "scope": "REPLAN personnel local uniquement",
+  "preserved_before": [
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\tickets\\spike-qualifier-le-profil-local-livre-avant-les-workflows-bmad-plan.md",
+      "sha256": "cf9abe14e58b1d58b1d23fb39f2c1f5bd599523489469f52024ab4b285a093b0"
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\tickets\\story-afficher-les-messages-et-l-activite-correlee-de-la-conversat-plan.md",
+      "sha256": "15535db08de313bda53b2f14a7852d02b79e0753c97d39a7e1ff052e854b41fa"
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\tickets\\story-executer-et-retrouver-la-premiere-boucle-bmad-reelle-plan.md",
+      "sha256": "0b9e53c0225fc15ebd44f1fe1f21860220276d06ff38ea8e5501fa851b106fa0"
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\tickets\\story-interrompre-et-recuperer-sans-rejouer-un-effet-incertain-plan.md",
+      "sha256": "1d14034487f3252d87cb06961b67a9fb2ecf3ff7f3755a44526c5b9ab7e7c342"
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\tickets\\story-livrer-le-socle-windows-les-contrats-et-le-stockage-local-plan.md",
+      "sha256": "12df37cfe4242f591c896fc0be95306427de45cc701ce7a2459d8f2004f783d7"
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\tickets\\story-reconstruire-et-remplacer-le-programme-sans-perdre-les-donne-plan.md",
+      "sha256": "6d9930a87b01d7dfa24aa162214cc410e92fd008b0524629acc348643b6795a5"
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\tickets\\story-repondre-aux-questions-actives-et-conserver-le-brouillon-plan.md",
+      "sha256": "c34bc7fdd7095af070806485626d31531a11ee12f0cb9fc4de0a412f8b4c33a1"
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\tickets\\story-retrouver-les-attentes-et-le-recapitulatif-depuis-accueil-et-plan.md",
+      "sha256": "c6881af6ff7084b891f0339de880f9fe7913f87eded9d2680a9b8527aaed4f1a"
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\tickets\\story-traiter-les-approbations-liees-a-l-operation-annoncee-plan.md",
+      "sha256": "727d0fbdb79d92454ff40c3a9aca525812f61b1e021e0a93336945a9c13eb401"
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\architecture-madness\\architecture-madness.md",
+      "sha256": "843d4c863ef59b308f70775a8ff1aeb0c2c7c31c313b56eabbf0cf4f43d1068f"
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\ux-madness\\DESIGN.md",
+      "sha256": "1333aca6f1659e4a3c91980c8fbf2bf2166dace3eac800f6a520d5c9d664f1f4"
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\ux-madness\\EXPERIENCE.md",
+      "sha256": "a69e10c330ba6867a9871d41676dba91ad090ca033c9b6334f5ae1dc08ddc72b"
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-codex\\profile.json",
+      "sha256": "960ab05181655cf92dd0ede18fa6d0f9e76d8a3aaca5c5c697c7a2355220bce6"
+    }
+  ],
+  "historical_plan_body_sha256": "a87d0f59dab0b8719e9b563eb23407750614ef440b8eac1200f4093ca57ef176",
+  "checks": [
+    "SPEC cohérence",
+    "SPEC préservation",
+    "Dependencies Sofia",
+    "status initiative exit0 sans conflit",
+    "next initiative exit0, 1.10 seule prête",
+    "git diff --check exit0"
+  ],
+  "review": {
+    "agent": "review_personal_replan",
+    "context": "fresh",
+    "sections": [
+      "Ticket",
+      "Set",
+      "Tree",
+      "Dependencies"
+    ],
+    "verdict": "conforme",
+    "fix": [],
+    "suggest": [],
+    "ask": [],
+    "read_only": true
+  },
+  "changed_requirements": [
+    "R23",
+    "R27"
+  ],
+  "changed_constraints": [
+    "C4",
+    "C7"
+  ],
+  "requirements_count": 32,
+  "constraints_count": 8,
+  "parent_coverage": "32 exigences couvertes exactement une fois par quatre epics, identifiants et propriétaires conservés",
+  "parent_child_derivation": "10 exigences et 7 contraintes de l’epic 1 identiques aux lignes parent",
+  "preserved_after": "13 fichiers identiques : neuf plans built, trois companions adoptés, ancien profil natif",
+  "historical_plan_body_preserved": true,
+  "historical_native_profile": {
+    "outcome": "unknown",
+    "cleanup": false
+  },
+  "status": {
+    "store": "repo",
+    "folder": "initiative-madness",
+    "tickets": [
+      {
+        "epic": "epic-boucle-codex",
+        "id": 1,
+        "file": null,
+        "type": "spike",
+        "tracker_id": "",
+        "title": "Qualifier la voie Codex distribuable et son authentification",
+        "status": "dropped",
+        "tracker_status": "",
+        "state": "dropped",
+        "assignee": "",
+        "hitl": true,
+        "risk": "high",
+        "covers": [
+          "R8"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.1",
+        "after": [],
+        "blocks": []
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 2,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Livrer le socle Windows, les contrats et le stockage local",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "high",
+        "covers": [
+          "R9",
+          "R10"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.2",
+        "after": [],
+        "blocks": [
+          10
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 12,
+        "file": null,
+        "type": "spike",
+        "tracker_id": "",
+        "title": "Qualifier le profil local livré avant les workflows BMad",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "high",
+        "covers": [
+          "R8",
+          "R9",
+          "R10"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.12",
+        "after": [],
+        "blocks": [
+          3,
+          10
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 3,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Exécuter et retrouver la première boucle BMad réelle",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "high",
+        "covers": [
+          "R1",
+          "R2",
+          "R5",
+          "R8",
+          "R9"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.3",
+        "after": [
+          12
+        ],
+        "blocks": [
+          4,
+          10
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 4,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Afficher les messages et l'activité corrélée de la conversation",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "medium",
+        "covers": [
+          "R2",
+          "R4",
+          "R9"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.4",
+        "after": [
+          3
+        ],
+        "blocks": [
+          5,
+          10
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 5,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Répondre aux questions actives et conserver le brouillon",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "high",
+        "covers": [
+          "R2",
+          "R4",
+          "R5",
+          "R9"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.5",
+        "after": [
+          4
+        ],
+        "blocks": [
+          6,
+          10
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 6,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Traiter les approbations liées à l'opération annoncée",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "high",
+        "covers": [
+          "R3",
+          "R4",
+          "R5"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.6",
+        "after": [
+          5
+        ],
+        "blocks": [
+          7,
+          10
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 7,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Interrompre et récupérer sans rejouer un effet incertain",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "high",
+        "covers": [
+          "R4",
+          "R5",
+          "R6",
+          "R8",
+          "R9"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.7",
+        "after": [
+          6
+        ],
+        "blocks": [
+          8,
+          10
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 8,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Retrouver les attentes et le récapitulatif depuis accueil et projet",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "medium",
+        "covers": [
+          "R4",
+          "R7",
+          "R8"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.8",
+        "after": [
+          7
+        ],
+        "blocks": [
+          9,
+          10
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 9,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Reconstruire et remplacer le programme sans perdre les données",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": true,
+        "risk": "high",
+        "covers": [
+          "R9",
+          "R10"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.9",
+        "after": [
+          8
+        ],
+        "blocks": [
+          10
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 10,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Refactor sweep",
+        "status": "",
+        "tracker_status": "",
+        "state": "planned",
+        "assignee": "",
+        "hitl": false,
+        "risk": "low",
+        "covers": [],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.10",
+        "after": [
+          2,
+          12,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "blocks": [
+          11
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 11,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Vérifier de bout en bout le paquet Windows et clôturer G1",
+        "status": "",
+        "tracker_status": "",
+        "state": "planned",
+        "assignee": "",
+        "hitl": true,
+        "risk": "high",
+        "covers": [
+          "R1",
+          "R2",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8",
+          "R9",
+          "R10"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.11",
+        "after": [
+          10
+        ],
+        "blocks": []
+      }
+    ],
+    "counts": {
+      "total": 12,
+      "dropped": 1,
+      "review": 9,
+      "planned": 2
+    },
+    "longest_remaining_chain": [
+      "1.12",
+      "1.3",
+      "1.4",
+      "1.5",
+      "1.6",
+      "1.7",
+      "1.8",
+      "1.9",
+      "1.10",
+      "1.11"
+    ],
+    "unpinned_after": [],
+    "undeclared_after": [],
+    "order_conflict": [],
+    "epics": [
+      {
+        "slug": "epic-boucle-codex",
+        "id": 1,
+        "after": [],
+        "folder": "epic-boucle-codex",
+        "status": "in-progress",
+        "refined": true,
+        "gated_by": [],
+        "blocks": [],
+        "next_id": 13
+      },
+      {
+        "slug": "epic-projets-bmad",
+        "id": 2,
+        "after": [
+          {
+            "epic": "epic-boucle-codex",
+            "needs": "paquet Windows et contrats de contexte, dialogue Codex, cycle de vie et persistance établis par G0/G1"
+          }
+        ],
+        "folder": "epic-projets-bmad",
+        "status": "",
+        "refined": false,
+        "gated_by": [],
+        "blocks": [],
+        "next_id": 1
+      },
+      {
+        "slug": "epic-initialisation-bmad",
+        "id": 3,
+        "after": [
+          {
+            "epic": "epic-projets-bmad",
+            "needs": "diagnostic BMad qualifié, contexte projet, preuves, aperçu/éditeur et interface bilingue à deux thèmes"
+          }
+        ],
+        "folder": "epic-initialisation-bmad",
+        "status": "",
+        "refined": false,
+        "gated_by": [],
+        "blocks": [],
+        "next_id": 1
+      },
+      {
+        "slug": "epic-graphe-projet",
+        "id": 4,
+        "after": [
+          {
+            "epic": "epic-initialisation-bmad",
+            "needs": "base BMad Windows/Codex vérifiée en G4, panneau de fichiers et infrastructure de paquet/contexte/lifecycle réutilisables"
+          }
+        ],
+        "folder": "epic-graphe-projet",
+        "status": "",
+        "refined": false,
+        "gated_by": [
+          "epic-initialisation-bmad"
+        ],
+        "blocks": [],
+        "next_id": 1
+      }
+    ]
+  },
+  "next": {
+    "store": "repo",
+    "folder": "initiative-madness",
+    "ready_to_refine": [],
+    "ready_to_start": [
+      {
+        "epic": "epic-boucle-codex",
+        "id": 10,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Refactor sweep",
+        "status": "",
+        "tracker_status": "",
+        "state": "planned",
+        "assignee": "",
+        "hitl": false,
+        "risk": "low",
+        "covers": [],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.10",
+        "after": [
+          2,
+          12,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      }
+    ],
+    "in_progress": [
+      {
+        "epic": "epic-boucle-codex",
+        "id": 2,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Livrer le socle Windows, les contrats et le stockage local",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "high",
+        "covers": [
+          "R9",
+          "R10"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.2",
+        "after": []
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 12,
+        "file": null,
+        "type": "spike",
+        "tracker_id": "",
+        "title": "Qualifier le profil local livré avant les workflows BMad",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "high",
+        "covers": [
+          "R8",
+          "R9",
+          "R10"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.12",
+        "after": []
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 3,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Exécuter et retrouver la première boucle BMad réelle",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "high",
+        "covers": [
+          "R1",
+          "R2",
+          "R5",
+          "R8",
+          "R9"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.3",
+        "after": [
+          12
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 4,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Afficher les messages et l'activité corrélée de la conversation",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "medium",
+        "covers": [
+          "R2",
+          "R4",
+          "R9"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.4",
+        "after": [
+          3
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 5,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Répondre aux questions actives et conserver le brouillon",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "high",
+        "covers": [
+          "R2",
+          "R4",
+          "R5",
+          "R9"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.5",
+        "after": [
+          4
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 6,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Traiter les approbations liées à l'opération annoncée",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "high",
+        "covers": [
+          "R3",
+          "R4",
+          "R5"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.6",
+        "after": [
+          5
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 7,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Interrompre et récupérer sans rejouer un effet incertain",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "high",
+        "covers": [
+          "R4",
+          "R5",
+          "R6",
+          "R8",
+          "R9"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.7",
+        "after": [
+          6
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 8,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Retrouver les attentes et le récapitulatif depuis accueil et projet",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": false,
+        "risk": "medium",
+        "covers": [
+          "R4",
+          "R7",
+          "R8"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.8",
+        "after": [
+          7
+        ]
+      },
+      {
+        "epic": "epic-boucle-codex",
+        "id": 9,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Reconstruire et remplacer le programme sans perdre les données",
+        "status": "built",
+        "tracker_status": "",
+        "state": "review",
+        "assignee": "",
+        "hitl": true,
+        "risk": "high",
+        "covers": [
+          "R9",
+          "R10"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.9",
+        "after": [
+          8
+        ]
+      }
+    ],
+    "blocked": [
+      {
+        "epic": "epic-boucle-codex",
+        "id": 11,
+        "file": null,
+        "type": "story",
+        "tracker_id": "",
+        "title": "Vérifier de bout en bout le paquet Windows et clôturer G1",
+        "status": "",
+        "tracker_status": "",
+        "state": "planned",
+        "assignee": "",
+        "hitl": true,
+        "risk": "high",
+        "covers": [
+          "R1",
+          "R2",
+          "R3",
+          "R4",
+          "R5",
+          "R6",
+          "R7",
+          "R8",
+          "R9",
+          "R10"
+        ],
+        "estimate": "",
+        "refine": false,
+        "refined": false,
+        "blocked_at": "",
+        "blocked_reason": "",
+        "ref": "1.11",
+        "after": [
+          10
+        ],
+        "waiting_on": [
+          10
+        ]
+      }
+    ],
+    "unpinned_after": [],
+    "undeclared_after": [],
+    "order_conflict": []
+  },
+  "limits": [
+    "Pas de Build 1.10/1.11 démarré",
+    "Aucun gate G0–G5 déclaré satisfait",
+    "Aucun code, test, paquet, fournisseur, OAuth, coffre ou profil utilisateur modifié ou lancé",
+    "Éligibilité de distribution hors du besoin courant",
+    "Mentions de périmètre des contrats adoptés à réconcilier lors de leur prochaine mise à jour sans nouveau mécanisme"
+  ],
+  "changed_files": [
+    "PRODUCT.md",
+    "_bmad-output/initiative-madness/initiative-madness.md",
+    "_bmad-output/initiative-madness/.memlog.md",
+    "_bmad-output/initiative-madness/decision-personnelle-locale-2026-10-28.md",
+    "_bmad-output/initiative-madness/.working/sofia-personnel-local-validation.json",
+    "_bmad-output/initiative-madness/tickets/tickets.toml",
+    "_bmad-output/initiative-madness/tickets/epic-boucle-codex/epic-boucle-codex.md",
+    "_bmad-output/initiative-madness/tickets/epic-boucle-codex/tickets/tickets.toml",
+    "_bmad-output/initiative-madness/tickets/epic-boucle-codex/tickets/spike-qualifier-la-voie-codex-distribuable-et-son-authentification-plan.md",
+    "_bmad-output/initiative-madness/tickets/epic-initialisation-bmad/epic-initialisation-bmad.md"
+  ],
+  "new_files": [
+    "_bmad-output/initiative-madness/decision-personnelle-locale-2026-10-28.md",
+    "_bmad-output/initiative-madness/.working/sofia-personnel-local-validation.json"
+  ]
+}

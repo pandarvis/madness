@@ -10,11 +10,11 @@ L'interface utilisera une technologie web dans une application Electron pour Win
 
 ## Stack
 
-Electron + TypeScript, retenu après comparaison avec un navigateur accompagné d'un service local et avec Tauri. Le porteur adopte ensuite React, le starter electron-vite et electron-builder pour le packaging. Interface commune, cœur local et connecteurs séparés constituent le découpage adopté. Les versions exactes seront qualifiées et conservées par livraison ; les versions preview sont autorisées si utiles. Le format de stockage et la diffusion finale restent à préciser dans les lots concernés.
+Electron + TypeScript, retenu après comparaison avec un navigateur accompagné d'un service local et avec Tauri. Le porteur adopte ensuite React, le starter electron-vite et electron-builder pour le packaging. Interface commune, cœur local et connecteurs séparés constituent le découpage adopté. Les versions exactes seront qualifiées et conservées par livraison ; les versions preview sont autorisées si utiles. Le format de stockage et l’installation restent à préciser dans les lots concernés.
 
 ## Users
 
-Développeurs travaillant sur un ou plusieurs projets locaux avec BMad. Le produit doit être distribuable à d'autres développeurs, gratuitement pour commencer. C'est un projet personnel, utilisable dans un environnement professionnel ; aucune politique d'entreprise imposant uniquement des versions stables n'est demandée. La licence n'est pas encore décidée.
+Le seul porteur, travaillant sur un ou plusieurs projets locaux avec BMad sous Windows et son abonnement ChatGPT. Décision du 28 octobre 2026 : Madness est personnel, local et son code reste privé ; la distribution à d’autres développeurs ne fait plus partie du besoin courant. L’usage dans un environnement professionnel reste possible ; aucune politique d’entreprise imposant uniquement des versions stables n’est demandée. Aucune licence ni publication du code n’est décidée.
 
 ## Product Purpose
 
@@ -26,7 +26,7 @@ Une interface de suivi et de pilotage centrée sur les workflows BMad et leurs l
 
 ## Operating Context
 
-Ouverture de dossiers locaux ; un ou plusieurs projets ; première version distribuée sur Windows avec Codex. La V1 reprend un projet BMad déjà en cours, guide le développeur parmi toutes les possibilités installées et permet de lancer les workflows et de dialoguer dans Madness. Le suivi en direct des sessions créées dans VS Code ou ChatGPT Desktop/Codex reste une cible complémentaire dont les modalités sont à démontrer.
+Ouverture de dossiers locaux ; un ou plusieurs projets ; première version personnelle sur Windows avec Codex et l’abonnement ChatGPT du porteur. La V1 reprend un projet BMad déjà en cours, guide le développeur parmi toutes les possibilités installées et permet de lancer les workflows et de dialoguer dans Madness. Le suivi en direct des sessions créées dans VS Code ou ChatGPT Desktop/Codex reste une cible complémentaire dont les modalités sont à démontrer.
 
 La V1 accompagne aussi le premier démarrage dans un dossier qui ne contient pas BMad : diagnostic, explication des prérequis, présentation des changements et initialisation guidée de BMad v7 avec accord de l'utilisateur.
 
@@ -45,18 +45,20 @@ Après fermeture et réouverture, retrouver les projets, les conversations et le
 - Afficher les retours des agents et permettre à l'utilisateur de répondre dans l'interface.
 - L'architecture prévoit Codex, GitHub Copilot et Claude Code avec Bedrock ou abonnement direct ; la livraison sera progressive sur Windows, avec Codex d'abord. Chaque mode de connexion doit être qualifié avant d'être annoncé disponible.
 - Distinguer les capacités de chaque connexion et les états déduits des états explicitement confirmés.
-- Vérifier les interfaces officiellement disponibles, la compatibilité des versions et les voies d'authentification pour un produit distribué.
+- Vérifier les interfaces officiellement disponibles, la compatibilité des versions et les voies d’authentification pour l’usage personnel local. Conserver la connexion SIWC propre à Madness déjà livrée, l’abonnement ChatGPT et leurs protections ; aucun changement implicite d’authentification ou de facturation API, ni admission comme client privé distribué, n’est demandé.
 - Prévoir une interface et un cœur local communs, avec un connecteur distinct par fournisseur ; chaque conversation garde son fournisseur et sa connexion d'origine.
-- Faciliter les mises à jour des dépendances et du runtime Electron, puis la reconstruction et la republication côté développeur. Le proxy accepte un runtime au-dessus d'un minimum ; la version minimale exacte reste à qualifier sur la machine cible. Une mise à jour automatique de l'application n'est pas requise par cette précision.
+- Faciliter les mises à jour des dépendances et du runtime Electron, puis la reconstruction et la réinstallation personnelles. Le proxy accepte un runtime au-dessus d'un minimum ; la version minimale exacte reste à qualifier sur la machine cible. Une mise à jour automatique de l'application n'est pas requise par cette précision.
 - Les autres systèmes d'exploitation restent des extensions après Windows.
 
 ## Brand Commitments
 
-Nom de travail : Madness. Première interface inspirée de Codex Desktop, selon la capture fournie par l'utilisateur. Utiliser Impeccable pour le travail de conception. Le français est la langue de travail ; le porteur choisit le français et l'anglais, avec thèmes clair et sombre, pour la première version distribuée.
+Nom de travail : Madness. Première interface inspirée de Codex Desktop, selon la capture fournie par l'utilisateur. Utiliser Impeccable pour le travail de conception. Le français est la langue de travail ; le porteur choisit le français et l'anglais, avec thèmes clair et sombre, pour la première version personnelle.
 
 Décision du porteur le 24 octobre 2026 : thème sombre par défaut, accent terracotta orangé et bleu complémentaire, avec clair en alternative. L’extension réalisée propose le fond `#211F1E`, la navigation `#191817`, les panneaux `#272423`, l’accent d’action `#E49B7A` et le bleu liens/focus `#9DC7E1`. La composition acceptée est conservée. Le choix local est mémorisé séparément du Snapshot métier et synchronise les contrôles Windows. Les deux palettes et leurs contrastes ont reçu une vérification technique sur données témoins ([preuves](./_bmad-output/initiative-madness/qualification-theme/README.md)) ; leur acceptation visuelle humaine reste à recueillir. Après confirmation de fermeture, la version personnelle est installée et rouverte, avec données et compte chiffré inchangés.
 
 ## Evidence on Hand
+
+Le 28 octobre 2026, le porteur précise : « cette app n’est que pour moi : je veux juste brancher mon abo ChatGPT dessus point final ». La [décision personnelle locale](./_bmad-output/initiative-madness/decision-personnelle-locale-2026-10-28.md) remplace les anciennes mentions de distribution ; elle conserve le SIWC déjà livré et les contrôles techniques restants. Le [cookbook officiel SIWC](https://developers.openai.com/cookbook/articles/sign-in-with-chatgpt#usage-policy-and-terms), consulté ce jour, couvre explicitement les projets personnels exécutés localement ; aucune admissibilité de distribution n’est déduite.
 
 Le 27 octobre 2026, le porteur demande « Il faut timer les US / et le cout », puis précise « Fonctionnalité dans Madness uniquement ». Cette demande concerne le produit, sans suivi de notre travail de développement ; elle ne confirme aucun mode de mesure ni montant disponible.
 

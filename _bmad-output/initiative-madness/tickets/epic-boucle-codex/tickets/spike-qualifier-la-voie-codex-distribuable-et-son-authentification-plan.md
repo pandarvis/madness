@@ -3,7 +3,7 @@ title: 'Qualifier la voie Codex distribuable et son authentification'
 type: 'chore'
 ticket: 1
 created: '2026-10-23'
-status: blocked
+status: dropped
 baseline_revision: '136e8af405ef9b259f58aa150cf72aa4b3073edd'
 route: 'full'
 route_source: 'auto'
@@ -13,8 +13,6 @@ review_source: 'pinned'
 lenses_ran: ['quick']
 review_loop_iteration: 0
 context: ['{project-root}/_bmad-output/initiative-madness/tickets/epic-boucle-codex/epic-boucle-codex.md', '{project-root}/_bmad-output/initiative-madness/architecture-madness/architecture-madness.md']
-blocked_at: "2026-10-23"
-blocked_reason: "Authentification native : distribution du nouveau client local gratuit a etayer et nettoyage complet a confirmer. Bloque le premier dialogue reel en 1.3 ; le socle local 1.2 est independant selon le replan autonome du 2026-10-23."
 ---
 
 <frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">

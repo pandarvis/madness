@@ -24,7 +24,7 @@ Un développeur initialise un dossier non équipé en comprenant les changements
 2. G3 vérifie accord lié au plan, annulation laissant le dossier intact, préconditions modifiées, application et contrôle du résultat ; échec et résultat inconnu ne sont pas annoncés comme succès.
 3. Les preuves d'aperçu et d'ouverture éditeur produites par epic-projets-bmad sont réunies aux opérations d'initialisation, avec leurs retours observables et leur récupération.
 4. G4 consigne sur machine Windows cible les trois parcours avec une personne peu familière de BMad : ouvrir ou initialiser, comprendre état et preuves, choisir puis dialoguer/approuver, retrouver fichiers et prochaine action ; les variantes et les états difficiles restent utilisables.
-5. Le paquet Windows est installable et utilisable à périmètre explicite ; reprise après fermeture, conservation des données après remplacement et prérequis du runtime et de chaque connexion sont vérifiés. Ces preuves qualifient la base Windows/Codex ; la V1 complète exige encore le graphe G5.
+5. Le paquet Windows personnel est installable et utilisable sur la machine cible du porteur avec son abonnement ChatGPT ; reprise après fermeture, conservation des données après remplacement et prérequis du runtime et de chaque connexion sont vérifiés. Ces preuves qualifient la base Windows/Codex ; la V1 complète exige encore le graphe G5.
 
 ## Boundaries
 
@@ -43,6 +43,8 @@ Un développeur initialise un dossier non équipé en comprenant les changements
 - ordre — [Découpage approuvé](../tickets.toml) ; identifiant 3 et prérequis de capacités à reporter sur les stories qui les consommeront.
 
 ## Notes
+
+- Decision: 2026-10-28 — Le porteur réserve Madness à son usage personnel local Windows avec abonnement ChatGPT et code privé ; la distribution à d’autres développeurs sort du besoin courant selon `../../decision-personnelle-locale-2026-10-28.md`. R23 couvert ici garde installation, prérequis et parcours sur la machine personnelle cible ; R4/R24, G3/G4, les trois parcours et les dépendances restent inchangés. Le porteur peu familier de BMad reste le participant visé. Enveloppe non raffinée, aucun nouveau ticket ni essai lancé ; contrats adoptés intacts et mentions historiques de distribution à réconcilier lors de leur prochaine mise à jour.
 
 - Decision: 2026-10-23 — Périmètre et position après les projets existants validés par le porteur ; enveloppe non raffinée, aucune story créée.
 

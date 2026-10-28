@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "scope": "Vérification de l’implémenteur, sans parcours personnel ni commit",
+  "typecheck": {"command": "npm run typecheck", "exitCode": 0},
+  "initialFullSuite": {
+    "command": "node --test --test-concurrency=2 tests/*.test.mjs scripts/qualification/codex.test.mjs",
+    "passed": 312, "failed": 0, "skipped": 0, "durationMs": 393003.6447,
+    "limit": "Chargée avant l’ajout du contrôle local d’expiration et les gardes finales A1/A2 ; ne pas présenter ce reçu comme une suite globale finale."
+  },
+  "targetedAfterA1A2": {
+    "command": "node --test tests/epic-one-qualification.test.mjs",
+    "passed": 14, "failed": 0, "skipped": 0,
+    "realOsOtherCopy": "Copie possédée de Node nommée Madness.exe dans un autre chemin temporaire : archivage refusé avant lecture/mutation, octets intacts, enfant fermé et dossier supprimé.",
+    "redEvidence": ["Version future de snapshot acceptée avant JsonStore : Missing expected rejection.", "A1 avant correction : autre copie acceptée, Missing expected rejection.", "A2 avant correction : raw vide autorisé par le produit rejeté avec APPROVAL_RESULT_UNPROVEN ; garde corrigée, tests négatifs conservés."],
+    "approvalRaw": "NativeStatus corrélé et tous effets relus obligatoires ; raw exact s’il existe, indisponibilité explicite sinon. Le reçu brut des questions reste obligatoire."
+  },
+  "syntheticAttemptA": {
+    "receipt": "C:/Sources/madness/.g0-qualification/epic-one-implementation-20261028-a/report.json",
+    "status": "failed",
+    "cause": "Sélecteur du banc recovery ambigu entre régions globale et Conversation dans le paquet courant.",
+    "cleanup": true,
+    "historicalUnchanged": true
+  },
+  "recoveryRecheck": {
+    "receipt": "C:/Sources/madness/.g0-qualification/epic-one-recovery-selector-20261028/packaged-profile.json",
+    "passed": 9, "cleanup": true,
+    "change": "Sélecteur borné au tabpanel Conversation ; scénario et produit inchangés."
+  },
+  "syntheticFinalB": {
+    "command": "node scripts/qualification/epic-one.mjs --mode=synthetic --executable=C:/Users/UP60066553/AppData/Local/Programs/Madness/Madness.exe --output=C:/Sources/madness/.g0-qualification/epic-one-implementation-20261028-b",
+    "receipt": "C:/Sources/madness/.g0-qualification/epic-one-implementation-20261028-b/report.json",
+    "log": "C:/Sources/madness/.g0-qualification/epic-one-implementation-20261028-b.log",
+    "status": "passed-synthetic-only", "phases": 10, "checks": 74,
+    "ui": 56, "localExpiry": 2, "nativeLoopback": 11, "windows": 5,
+    "allCleanup": true, "historicalUnchanged": true,
+    "version": "0.1.1", "electron": "45.0.0",
+    "asarSha256": "bbac088b9dd9a6c3ad66871dc2db27956378f3a29967df2a734b1e14d007b639",
+    "finishedAt": "2026-10-28T09:57:54.820Z"
+  },
+  "finalReadOnlyOsInventory": [],
+  "a3CliRegression": {
+    "command": "node --test tests/epic-one-qualification.test.mjs",
+    "passed": 15, "failed": 0, "skipped": 0,
+    "red": "Vraie CLI personal/preflight en sous-processus, exécutable absent : sortie13 (cycle TLA) au lieu de1.",
+    "green": "Après extraction de la provenance vers epic-one-provenance.mjs sans TLA : sortie1, JSON FILESYSTEM_BOUNDARY expurgé, checks vides et aucun répertoire profil créé.",
+    "safety": "APPDATA/LOCALAPPDATA/USERPROFILE du sous-processus placés dans le dossier synthétique ; aucun exécutable Madness installé ni modèle utilisé."
+  },
+  "syntaxAndWhitespace": {"nodeCheckFourNewModules": true, "gitDiffCheck": true},
+  "leftToParent": ["Recontrôle indépendant A1 et revue BMad.", "Tous les parcours personnels explicites, conservation/fermeture/réouverture/archivage.", "Matrice finale R1–R10, preuves et conclusion G0/G1 sous qualification-e2e.", "Statut du plan et commit local."]
+}

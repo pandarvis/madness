@@ -1,0 +1,96 @@
+{
+  "scope": "Succès partiels réels sur le paquet0.1.1 ; Forge et G1 encore ouverts",
+  "g1Complete": false,
+  "partialRun": {
+    "name": "personal-run-001",
+    "status": "failed-no-replay",
+    "checks": [
+      "normal-runtime-existing-account-no-authentication",
+      "real-installed-mary-context-and-terminal",
+      "foreign-context-command-refused",
+      "explicit-question-answer-exact-raw-receipt-and-continuation",
+      "native-single-approval-all-effects-reread",
+      "distinct-native-decline-no-effect",
+      "bridge-stop-and-late-command-refused-no-replay"
+    ],
+    "questionReceipts": [
+      {
+        "exact": true,
+        "outputs": 1,
+        "nonSecret": true
+      }
+    ],
+    "approvals": [
+      {
+        "id": "approval-2b0fe353-3dc1-4d80-8504-c8b029544f72",
+        "decision": "accept",
+        "nativeStatus": "completed",
+        "verifiedFiles": 1,
+        "raw": {
+          "status": "unavailable",
+          "observedHashPresent": false
+        }
+      },
+      {
+        "id": "approval-26daa8c7-76ca-4d84-a8c2-8c2835e1a5fb",
+        "decision": "decline",
+        "nativeStatus": "declined",
+        "verifiedFiles": 1,
+        "raw": {
+          "status": "unavailable",
+          "observedHashPresent": false
+        }
+      }
+    ],
+    "forgeFailure": {
+      "status": "error",
+      "errorCode": "UNSUPPORTED_INTERACTION",
+      "turnPhase": "interrupted",
+      "questionCount": 1,
+      "approvalCount": 2
+    },
+    "cleanupVerifiedSeparately": "personal-run-001/failure-cleanup-check.json"
+  },
+  "phases": [
+    {
+      "name": "personal-close-001",
+      "status": "passed-personal-close-active",
+      "checks": 8,
+      "cleanup": {
+        "closed": true,
+        "archived": true
+      },
+      "firstClose": {
+        "mainGone": true,
+        "childrenGone": true,
+        "spacesAbsent": true,
+        "closeObserved": true
+      },
+      "reopen": {
+        "network": 0,
+        "nativeChildren": 0
+      },
+      "historicalUnchanged": true
+    },
+    {
+      "name": "personal-error-001",
+      "status": "passed-personal-child-error",
+      "checks": 9,
+      "cleanup": {
+        "closed": true,
+        "archived": true
+      },
+      "firstClose": {
+        "mainGone": true,
+        "childrenGone": true,
+        "spacesAbsent": true,
+        "closeObserved": true
+      },
+      "reopen": {
+        "network": 0,
+        "nativeChildren": 0
+      },
+      "historicalUnchanged": true
+    }
+  ]
+}

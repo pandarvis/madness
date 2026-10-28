@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "purpose": "GET public Main seul, sans moteur, authentification ni lecture du coffre",
+  "startedAt": "2026-10-28T13:05:36.662Z",
+  "status": "network-diagnostic-completed",
+  "artifact": {
+    "executable": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\Madness.exe",
+    "executableSha256": "85a0f3540057d93eaa7ebf0907cd36da6e7a847b30510c07e3b5cd9586276d62",
+    "manifest": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-forge-session-check\\installation-final\\release-manifest.json",
+    "manifestSha256": "15f08c2c7b3b51056ba7d1ce624dc1759bba09261bea981fb7809636c3b5c8b6",
+    "version": "0.1.2",
+    "electron": "45.0.0",
+    "asarSha256": "9249bdc081c2b3ceeae4465fcc7a3c53af5dca325889cae8fa0b118479f974b4",
+    "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5"
+  },
+  "limits": [
+    "Aucune expiration de l’acquittement déduite. Réponse non lue ; aucun cookie, contenu JSON ou URL de redirection publié."
+  ],
+  "runtime": {
+    "mainPid": 948,
+    "wrapperPid": 47988,
+    "version": "0.1.2",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0",
+    "packaged": true,
+    "normalUserData": true,
+    "normalSessionData": true
+  },
+  "account": {
+    "accountStored": true,
+    "needsPlanAcknowledgement": false
+  },
+  "publicHttpDiagnostic": {
+    "httpStatus": 307,
+    "redirect": true,
+    "destinationCategory": "zscaler",
+    "requestCompleted": false
+  },
+  "fixedPublicUrlOpened": true,
+  "close": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-10-28T13:05:46.764Z",
+      "attached": true,
+      "overflow": false,
+      "network": 1,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 2048,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "finishedAt": "2026-10-28T13:05:50.106Z"
+}

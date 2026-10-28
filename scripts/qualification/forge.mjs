@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import {benchOutput} from './epic-one-support.mjs'
 import {_electron as electron} from 'playwright-core'
 import {mkdtemp,mkdir,writeFile,readFile,copyFile,realpath,lstat,rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
@@ -10,7 +11,7 @@ import {FORGE_MANIFEST} from '../../src/adapters/bmad/forge-manifest.ts'
 import {qualifyForge,ForgeHost} from '../../src/adapters/bmad/forge.ts'
 import {WorkflowStore} from '../../src/adapters/persistence/workflow-store.ts'
 const require=createRequire(import.meta.url),repository=resolve(fileURLToPath(new URL('../../',import.meta.url)))
-const output=join(repository,'_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-boucle-bmad')
+const output=await benchOutput(join(repository,'_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-boucle-bmad'))
 const packaged=process.argv.includes('--packaged'),capture=!process.argv.includes('--no-captures')
 const arg=process.argv.find(v=>v.startsWith('--executable=')),executable=arg?resolve(arg.slice(13)):packaged?join(repository,'dist/forge-pilot/win-unpacked/Madness.exe'):require('electron')
 const report={schemaVersion:1,observedAt:new Date().toISOString(),mode:packaged?'packaged-isolated-no-provider':'compiled-isolated-no-provider',status:'partial',checks:[],captures:[],cleanup:false,liveProof:'missing',limits:['Sorties synthétiques du banc produites par les vrais scripts et outils hôte ; aucun dialogue modèle exécuté.','Aucun compte ni coffre copié ; authentification et workflow natif live installé sont des preuves distinctes.','Les gates et réserves distribuables historiques restent inchangés.']}

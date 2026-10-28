@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T09:43:13.373Z",
+  "mode": "packaged-isolated-synthetic",
+  "status": "isolated-checks-passed-native-proof-separate",
+  "checks": [
+    "real-main-preload-start-without-turn-or-provider",
+    "typed-synthetic-progress-visible-before-terminal-with-unknown-identity",
+    "stable-article-input-focus-and-transition-only-announcement",
+    "reading-anchor-and-draft-survive-progress-and-tab-navigation",
+    "visible-bottom-follows-and-new-identity-keeps-older-message-unknown",
+    "partial-text-and-unconfirmed-storage-remain-visible-without-success",
+    "desktop-and-compact-history-no-horizontal-overflow",
+    "source-core-coalesces-real-snapshot-v1-upserts-without-text-deduplication",
+    "forge-historical-annex-observations-and-human-acceptance-distinction-preserved",
+    "compiled-or-packaged-reopen-exact-text-draft-unknown-identity-no-engine-network"
+  ],
+  "captures": [],
+  "cleanup": true,
+  "liveProof": "separate",
+  "limits": [
+    "Flux synthétique injecté par le banc Main dans le vrai preload/renderer ; aucun fournisseur ni compte.",
+    "Persistance du cœur source exercée séparément sur le même profil, application fermée ; aucun faux flux modèle revendiqué.",
+    "La preuve native installée, les validations humaines et les gates historiques restent distincts."
+  ],
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true
+  },
+  "artifact": {
+    "file": "resources/app.asar",
+    "sha256": "bbac088b9dd9a6c3ad66871dc2db27956378f3a29967df2a734b1e14d007b639"
+  },
+  "snapshot": {
+    "schemaVersion": 1,
+    "messages": 3,
+    "sha256": "29e1c99e1e87c48746811a57b4a0e3f5ece88ef81dc2065104300d6748c99009"
+  }
+}

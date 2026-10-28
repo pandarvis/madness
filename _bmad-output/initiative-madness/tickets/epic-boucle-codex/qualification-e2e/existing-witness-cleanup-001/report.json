@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Réouverture sans moteur puis archivage des seuls témoins failed001/diagnostic001",
+  "status": "passed",
+  "checks": [
+    "closed-durable-exact-on-reopen",
+    "historical-requests-inactive",
+    "account-readable",
+    "no-spontaneous-engine-or-network",
+    "owned-close-confirmed",
+    "only-two-owned-witnesses-removed",
+    "other-projects-conversations-drafts-and-preferences-identical"
+  ],
+  "archives": [
+    {
+      "status": "archived",
+      "archivedConversations": 2,
+      "archivedDrafts": 1,
+      "archivedAnnexes": 4,
+      "archive": "C:\\Users\\UP60066553\\AppData\\Roaming\\Madness\\test-project-archives\\epic-one-a238b3a2-3a58-4e03-bb46-132e35d498cf",
+      "witnessDirectoryPreserved": true
+    },
+    {
+      "status": "archived",
+      "archivedConversations": 1,
+      "archivedDrafts": 0,
+      "archivedAnnexes": 1,
+      "archive": "C:\\Users\\UP60066553\\AppData\\Roaming\\Madness\\test-project-archives\\epic-one-f79dd588-19f9-44a2-8622-c5d180c968b8",
+      "witnessDirectoryPreserved": true
+    }
+  ],
+  "limits": [
+    "Aucun modèle ni accès de connexion déclenché.",
+    "Aucune lecture ni copie du coffre ; compte vérifié par métadonnées du pont.",
+    "Observation sans activité limitée aux trois secondes après hook."
+  ],
+  "runtime": {
+    "mainPid": 36468,
+    "wrapperPid": 46644,
+    "version": "0.1.1",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0",
+    "packaged": true,
+    "normalUserData": true,
+    "normalSessionData": true
+  },
+  "accountReadable": true,
+  "noSpontaneousActivityAfterHook": true,
+  "close": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-10-28T11:17:12.219Z",
+      "attached": true,
+      "overflow": false,
+      "network": 0,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 256,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "retainedProjectNames": [
+    "MIA",
+    "madness"
+  ],
+  "witnesses": [
+    {
+      "id": "935734b1-d2db-400e-9172-07ec79164fd2",
+      "root": "C:\\Sources\\madness\\.g0-qualification\\epic-one-935734b1-d2db-400e-9172-07ec79164fd2",
+      "directoryPreserved": true
+    },
+    {
+      "id": "a789fa9f-f8c1-4723-98bd-3fe4fbd3d067",
+      "root": "C:\\Sources\\madness\\.g0-qualification\\epic-one-a789fa9f-f8c1-4723-98bd-3fe4fbd3d067",
+      "directoryPreserved": true
+    }
+  ]
+}

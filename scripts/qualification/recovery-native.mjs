@@ -1,5 +1,6 @@
 // Runner Codex réel ; fournisseur Responses entièrement simulé sur loopback, sans compte.
 import assert from 'node:assert/strict'
+import {benchOutput} from './epic-one-support.mjs'
 import {createServer} from 'node:http'
 import {spawn} from 'node:child_process'
 import {EventEmitter} from 'node:events'
@@ -18,7 +19,7 @@ import {Application} from '../../src/core/application.ts'
 import {DialogueCoordinator} from '../../src/core/dialogue.ts'
 import {emptySnapshot} from '../../src/contracts/index.ts'
 import {inspectApprovalFiles} from '../../src/adapters/codex/file-proposals.ts'
-const repository=resolve(fileURLToPath(new URL('../../',import.meta.url))),output=join(repository,'_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-recovery'),hash=v=>createHash('sha256').update(v).digest('hex')
+const repository=resolve(fileURLToPath(new URL('../../',import.meta.url))),output=await benchOutput(join(repository,'_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-recovery')),hash=v=>createHash('sha256').update(v).digest('hex')
 const report={schemaVersion:1,startedAt:new Date().toISOString(),scope:'Vrai runner0.144.6 et protocole produit, exec/tools.apply_patch ; perte du terminal simulée au transport. Aucun compte, OAuth ni modèle externe.',checks:[],requests:0,droppedNativeReceipts:0,cleanup:false}
 const controller=new AbortController(),command=(type,extra={})=>({contractVersion:1,correlationId:'recovery-native',type,...extra});let root,child,rpc,server,watchdog,turn,protocolResult,proposalFiles,decisionSent=false,nativeResult='pending',nativeClosed=false
 const pass=name=>report.checks.push(name)

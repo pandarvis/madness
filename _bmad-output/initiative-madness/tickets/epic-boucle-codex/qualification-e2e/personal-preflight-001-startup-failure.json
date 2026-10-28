@@ -1,0 +1,15 @@
+{
+  "attempt": "personal-preflight-001",
+  "status": "failed-before-personal-entry",
+  "source": "parent-cli",
+  "exitCodeObserved": 1,
+  "underlyingNodeExitCodeReproducedByRegression": 13,
+  "exitCodeNote": "Le premier tool observait le code PowerShell extérieur ; la régression CLI capture le code natif Node.",
+  "failure": "UNSETTLED_TOP_LEVEL_AWAIT",
+  "evidence": "Detected unsettled top-level await at scripts/qualification/epic-one.mjs:82, await main().",
+  "cause": "Module d’entrée avec await main() qui importe dynamiquement personal ; personal importe statiquement les fonctions partagées de ce même module d’entrée.",
+  "personalFunctionReached": false,
+  "modelRequested": false,
+  "profileOpenedByThisAttempt": false,
+  "limit": "Absence d’entrée personnelle établie par le cycle de chargement inspecté ; aucun succès de préflight ou G1 déduit."
+}

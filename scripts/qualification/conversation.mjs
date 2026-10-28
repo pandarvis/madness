@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import {benchOutput} from './epic-one-support.mjs'
 import {_electron as electron} from 'playwright-core'
 import {mkdtemp,mkdir,writeFile,readFile,realpath,lstat,rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
@@ -13,7 +14,7 @@ import {WorkflowStore} from '../../src/adapters/persistence/workflow-store.ts'
 import {initialDialogueState} from '../../src/contracts/dialogue.ts'
 
 const require=createRequire(import.meta.url),repository=resolve(fileURLToPath(new URL('../../',import.meta.url)))
-const output=join(repository,'_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-conversation')
+const output=await benchOutput(join(repository,'_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-conversation'))
 const packaged=process.argv.includes('--packaged'),capture=!process.argv.includes('--no-captures')
 const arg=process.argv.find(v=>v.startsWith('--executable=')),executable=arg?resolve(arg.slice(13)):packaged?join(repository,'dist/conversation-pilot/win-unpacked/Madness.exe'):require('electron')
 const report={schemaVersion:1,observedAt:new Date().toISOString(),mode:packaged?'packaged-isolated-synthetic':'compiled-isolated-synthetic',status:'partial',checks:[],captures:[],cleanup:false,liveProof:'separate',limits:['Flux synthétique injecté par le banc Main dans le vrai preload/renderer ; aucun fournisseur ni compte.','Persistance du cœur source exercée séparément sur le même profil, application fermée ; aucun faux flux modèle revendiqué.','La preuve native installée, les validations humaines et les gates historiques restent distincts.']}

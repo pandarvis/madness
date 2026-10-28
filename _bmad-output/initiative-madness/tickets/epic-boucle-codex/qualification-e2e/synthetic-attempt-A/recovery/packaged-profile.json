@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-28T09:44:02.290Z",
+  "mode": "packaged-isolated",
+  "status": "failed",
+  "checks": [],
+  "captures": [],
+  "cleanup": true,
+  "limits": [
+    "États synthétiques ; Main, preload, renderer et lectures projet réels. Aucun compte ni modèle.",
+    "La qualification du vrai runner loopback est séparée. Aucun gate distribué ni accord visuel humain déduit."
+  ],
+  "failure": "locator.waitFor: Error: strict mode violation: getByRole('region', { name: 'Récupérer après une interruption', exact: true }) resolved to 2 elements:\n    1) <section class=\"recovery-panel\" aria-labelledby=\"_r_2_-title\">…</section> aka getByRole('region', { name: 'Récupération globale' }).getByRole('region', { name: 'Récupérer après une' })\n    2) <section class=\"recovery-panel\" aria-labelledby=\"_r_1_-title\">…</section> aka getByRole('tabpanel', { name: 'Conversation' }).getByRole('region', { name: 'Récupérer après une' })\n\nCall log:\n\u001b[2m  - waiting for getByRole('region', { name: 'Récupérer après une interruption', exact: true }) to be visible\u001b[22m\n\n    at C:\\Sources\\madness\\scripts\\qualification\\recovery.mjs:30:327",
+  "finishedAt": "2026-10-28T09:44:10.717Z"
+}

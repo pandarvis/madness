@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import {benchOutput} from './epic-one-support.mjs'
 import {_electron as electron} from 'playwright-core'
 import {mkdtemp,mkdir,writeFile,readFile,realpath,lstat,rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
@@ -9,7 +10,7 @@ import {createHash} from 'node:crypto'
 import {ApprovalStore} from '../../src/adapters/persistence/approval-store.ts'
 import {initialDialogueState,isDialogueState} from '../../src/contracts/dialogue.ts'
 const require=createRequire(import.meta.url),repository=resolve(fileURLToPath(new URL('../../',import.meta.url)))
-const output=join(repository,'_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-approvals')
+const output=await benchOutput(join(repository,'_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-approvals'))
 const packaged=process.argv.includes('--packaged'),capture=!process.argv.includes('--no-captures'),arg=process.argv.find(v=>v.startsWith('--executable='))
 const executable=arg?resolve(arg.slice(13)):packaged?join(repository,'dist/approvals-pilot/win-unpacked/Madness.exe'):require('electron')
 const report={schemaVersion:1,observedAt:new Date().toISOString(),mode:packaged?'packaged-isolated-synthetic':'compiled-isolated-synthetic',status:'partial',checks:[],captures:[],cleanup:false,limits:['Main/preload/renderer réels et états synthétiques ; aucun compte ni fournisseur.','Les décisions et résultats natifs sont vérifiés par les tests protocole ; modèle réel et installation restent des preuves séparées.','Aucune distribution, acceptation visuelle humaine ou clôture des gates historiques déduite.']}

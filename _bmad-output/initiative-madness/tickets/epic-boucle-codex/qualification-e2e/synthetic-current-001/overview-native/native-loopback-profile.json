@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "clientVersion": "0.1.2",
+  "runnerVersion": "0.144.6",
+  "startedAt": "2026-10-28T13:00:45.275Z",
+  "scope": "Vrai runner épinglé, protocole et cœur produit ; fournisseur Responses simulé uniquement sur loopback. Aucun compte/OAuth/modèle externe.",
+  "checks": [
+    "real-native-question-in-common-projection-with-captured-context",
+    "explicit-answer-exact-native-receipt-and-durable-question-values",
+    "resolved-wait-removed-result-exact-no-workflow-or-acceptance-invented",
+    "restored-exact-text-no-new-engine-or-request"
+  ],
+  "requests": 3,
+  "cleanup": true,
+  "networkLimits": {
+    "target": "127.0.0.1",
+    "proxy": "désactivé pour ce seul processus loopback",
+    "externalConnectivity": "non mesurée",
+    "electronNetwork": "contrôle séparé"
+  },
+  "executableSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+  "exactReceipt": {
+    "answers": {
+      "route": {
+        "answers": [
+          "Alpha-29da4027-b3cd-4612-81d0-154616dc28f8"
+        ]
+      }
+    }
+  },
+  "status": "passed",
+  "nativeStopped": true,
+  "finishedAt": "2026-10-28T13:00:47.908Z"
+}

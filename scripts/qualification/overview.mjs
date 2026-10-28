@@ -1,5 +1,6 @@
 // Affichage synthétique identifié ; vrai Main/preload/stockage, sans compte ni moteur.
 import assert from 'node:assert/strict'
+import {benchOutput} from './epic-one-support.mjs'
 import {_electron as electron} from 'playwright-core'
 import {mkdtemp,mkdir,writeFile,readFile,realpath,lstat,rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
@@ -11,7 +12,7 @@ import {QuestionStore} from '../../src/adapters/persistence/question-store.ts'
 import {ApprovalStore} from '../../src/adapters/persistence/approval-store.ts'
 import {initialDialogueState} from '../../src/contracts/dialogue.ts'
 const require=createRequire(import.meta.url),repository=resolve(fileURLToPath(new URL('../../',import.meta.url))),hash=b=>createHash('sha256').update(b).digest('hex'),packaged=process.argv.includes('--packaged'),capture=!process.argv.includes('--no-captures'),arg=process.argv.find(v=>v.startsWith('--executable='))
-const output=join(repository,'_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-overview'),executable=arg?resolve(arg.slice(13)):packaged?join(repository,'dist/overview-pilot/win-unpacked/Madness.exe'):require('electron')
+const output=await benchOutput(join(repository,'_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-overview')),executable=arg?resolve(arg.slice(13)):packaged?join(repository,'dist/overview-pilot/win-unpacked/Madness.exe'):require('electron')
 const report={schemaVersion:1,startedAt:new Date().toISOString(),mode:packaged?'packaged-isolated':'compiled-isolated',status:'partial',checks:[],captures:[],cleanup:false,limits:['Attentes actives injectées pour qualifier leur affichage ; aucun reçu natif déduit de cette fixture.','Main, preload et restauration réels sans compte. Le vrai reçu runner loopback est qualifié séparément.','Aucun gate distribué ni accord visuel humain déduit.']}
 let app,root;const pass=name=>report.checks.push(name)
 async function stop(){if(!app)return;const child=app.process();await app.close();assert.notEqual(child.exitCode,null);app=null}

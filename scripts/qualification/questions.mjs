@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import {benchOutput} from './epic-one-support.mjs'
 import {_electron as electron} from 'playwright-core'
 import {mkdtemp,mkdir,writeFile,readFile,realpath,lstat,rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
@@ -10,7 +11,7 @@ import {QuestionStore} from '../../src/adapters/persistence/question-store.ts'
 import {initialDialogueState,isDialogueState} from '../../src/contracts/dialogue.ts'
 
 const require=createRequire(import.meta.url),repository=resolve(fileURLToPath(new URL('../../',import.meta.url)))
-const output=join(repository,'_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-questions')
+const output=await benchOutput(join(repository,'_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-questions'))
 const packaged=process.argv.includes('--packaged'),capture=!process.argv.includes('--no-captures'),arg=process.argv.find(v=>v.startsWith('--executable='))
 const executable=arg?resolve(arg.slice(13)):packaged?join(repository,'dist/questions-pilot/win-unpacked/Madness.exe'):require('electron')
 const report={schemaVersion:1,observedAt:new Date().toISOString(),mode:packaged?'packaged-isolated-synthetic':'compiled-isolated-synthetic',status:'partial',checks:[],captures:[],cleanup:false,limits:['Main/preload/renderer réels, données et notifications synthétiques ; aucun compte, fournisseur ou modèle.','Les reçus natifs sont exercés par les tests protocole et le spike distinct ; la preuve avec vrai modèle reste séparée.','Aucune acceptation humaine, distribution ni gate historique déduite de ce banc.']}

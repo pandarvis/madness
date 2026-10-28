@@ -3,7 +3,7 @@ title: 'Vérifier la boucle intégrée Windows personnelle et clôturer G0/G1'
 type: 'chore'
 ticket: 11
 created: '2026-10-28'
-status: blocked
+status: in-progress
 baseline_revision: '4855e7dc7eb1371534220bb6bf861c05b5ab672c'
 route: 'full'
 route_source: 'auto'
@@ -16,8 +16,6 @@ context:
   - '{project-root}/AGENTS.md'
   - '{project-root}/_bmad-output/initiative-madness/architecture-madness/architecture-madness.md'
   - '{project-root}/_bmad-output/initiative-madness/decision-personnelle-locale-2026-10-28.md'
-blocked_at: "2026-10-28"
-blocked_reason: "Correction 13 préalable : recherche native de sessions Forge non observable ; preuves et intention figée conservées."
 ---
 
 <frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">
@@ -26,7 +24,7 @@ blocked_reason: "Correction 13 préalable : recherche native de sessions Forge n
 
 **Problem:** Les lots built2,12,3–10 ont des preuves séparées. La clôture technique de l’epic demande une suite intégrée rattachée au paquet Windows personnel courant, en particulier fermeture/erreur avec session active, nettoyage effectif et accès du vrai processus Codex. Une somme de tests simulés ne remplace pas cette preuve et l’ancien spike distribuable1.1 reste dropped.
 
-**Approach:** Produire un harnais permanent reproductible, ses contrôles de garde et un rapport consolidé : bancs synthétiques sur le même exécutable, protocole natif loopback identifié comme tel, puis parcours personnel court avec la connexion SIWC existante et des témoins neufs. Corréler paquet/runner/contexte/événements/reçus/effets ; vérifier arrêt et disparition des seuls espaces possédés ; rouvrir sans moteur spontané et archiver seulement les données témoins après les contrôles. Conserver le manifeste historique0.1.1 et les preuves de remplacement1.9, avec une provenance distincte pour les nouveaux bancs.
+**Approach:** Produire un harnais permanent reproductible, ses contrôles de garde et un rapport consolidé : bancs synthétiques sur le même exécutable, protocole natif loopback identifié comme tel, puis parcours personnel court avec la connexion SIWC existante et des témoins neufs. Corréler paquet/runner/contexte/événements/reçus/effets ; vérifier arrêt et disparition des seuls espaces possédés ; rouvrir sans moteur spontané et archiver seulement les données témoins après les contrôles. Consommer le manifeste final0.1.2 de1.13, conserver le manifeste historique0.1.1 et les preuves de remplacement1.9, avec une provenance distincte pour les nouveaux bancs.
 
 ## Boundaries & Constraints
 
@@ -38,7 +36,7 @@ blocked_reason: "Correction 13 préalable : recherche native de sessions Forge n
 
 | Scenario | Input / State | Expected Output / Behavior | Error Handling |
 |---|---|---|---|
-| Provenance | Exécutable installé0.1.1 et manifeste1.9 | ASAR, runner, version et runtime observé correspondent ; nouveaux bancs ont leur révision/empreintes distinctes | Refuser un artefact hybride ou un rapport de succès non lié ; ne pas régénérer les inputs historiques |
+| Provenance | Exécutable installé0.1.2 et manifeste final1.13 | ASAR, runner, version et runtime observé correspondent ; nouveaux bancs ont leur révision/empreintes distinctes | Refuser un artefact hybride ou un rapport de succès non lié ; ne pas régénérer les inputs historiques |
 | Bancs isolés | Profils synthétiques et sortie de rapport neuve | Forge, conversation, questions, accords, récupération, attentes et Windows exercés sur le même exécutable ; origine simulée explicite | Échec conservé dans son run, fermeture puis nettoyage possédé, aucun rapport ancien écrasé |
 | Vrai BMad | Témoin neuf, compte existant lisible, profil BMad vérifié | Invocation Mary et workflow Forge réellement installé ; progression corrélée avant terminal, journal/livrable et chemins relus | Pas de succès par prose seule ni d’activation fictive ; garder les limites du profil de référence |
 | Interactions | Question native et patch dans le témoin | Réponse explicite avec reçu brut exact ; accord ponctuel avec résultat natif et tous effets relus ; refus distinct sans effet | Une requête résolue ou un flush ne suffit pas ; mauvais contexte/commande tardive refuse sans rejeu |
@@ -71,15 +69,21 @@ blocked_reason: "Correction 13 préalable : recherche native de sessions Forge n
 - [ ] `qualification-e2e/` sous l’epic — parent exécute et conserve rapports synthétiques, loopback et personnels, états de fermeture/nettoyage/réouverture, matrice R1–R10, limites et conclusion G0/G1 ; toute tentative échouée garde son reçu distinct. L’implémenteur n’exécute pas de parcours personnel.
 
 **Acceptance Criteria:**
-- Given le paquet0.1.1 installé, when les contrôles sont lancés, then le rapport lie exécutable/ASAR/runner/runtime aux artifacts du manifeste1.9 inchangé et nomme la provenance propre des nouveaux bancs.
+- Given le paquet0.1.2 installé, when les contrôles sont lancés, then le rapport lie exécutable/ASAR/runner/runtime aux artifacts du manifeste final1.13, en conservant le manifeste1.9 historique et nomme la provenance propre des nouveaux bancs.
 - Given les bancs synthétiques et natifs loopback, when la suite finale est exécutée avec une sortie neuve, then leurs scénarios passent, leurs limites de simulation sont explicites et les empreintes des preuves historiques restent identiques.
 - Given un témoin BMad neuf et la connexion personnelle existante, when le parcours réel est exécuté, then contexte/invocation/progression, réponse avec reçu exact, accord/refus et effets observés, fin de tour et fichiers sont reliés à la même conversation ou à des conversations distinctes nommées, sans validation humaine inventée.
 - Given une activité native possédée, when arrêt par pont, fermeture active ou erreur de processus contrôlée survient, then le vrai Main et les enfants concernés ferment selon l’identité observée, le propriétaire durable est relu et leurs seuls espaces nouveaux sont absents ; une observation manquante laisse le contrôle en échec/inconnu.
 - Given le durable final après fermeture, when Madness est rouvert, then données du témoin exactes, demandes inactives et compte lisible sont constatés, sans lancement ou réseau spontané dans la fenêtre instrumentée ; le nettoyage final n’archive que le témoin et respecte le profil fermé.
 - Given un tour externe corrélé réussi avec le vrai runner et sa configuration HTTPS/TLS contrôlée, when le rapport qualifie le réseau, then il distingue l’inférence d’accès/confiance du child du GET Main et de toute chaîne/CA non capturée.
-- Given les preuves1.9 du remplacement et la conservation fraîche sur le même artefact, when la matrice finale est relue, then chaque R1–R10 et G0/G1 a preuve/limite explicites ; absence d’essai global humain, G2–G5 étendus, catalogue et V1 complète ne sont pas annoncés acquis.
+- Given les preuves1.9 du remplacement et celles de1.13 sur l’artefact0.1.2 courant, when la matrice finale est relue, then chaque R1–R10 et G0/G1 a preuve/limite explicites ; absence d’essai global humain, G2–G5 étendus, catalogue et V1 complète ne sont pas annoncés acquis.
 
 ## Implementation Notes
+
+Reprise après13 sous le mandat humain de finir l’epic, avec validation technique déléguée : changement du seul artefact consommé dans le bloc figé (0.1.1/manifest1.9→0.1.2/manifest final13), but et exigences inchangés. Ancien bloc conservé dans qualification-e2e/frozen-intent-before-1-13.md et dans70cb38ac7a8cbaca0b5adfa35fa41aa599596639 ; nouvelle empreinte enregistrée. Baseline originelle4855e7dc7eb1371534220bb6bf861c05b5ab672c conservée ; correction13 déjà committée dans494f8d85e8d262de6144ae63742b4fb0384436c4, pas réimplémentée ici. Aucun ancien reçu, plan built ni nouveau besoin produit modifié.
+
+Le paquet installé courant0.1.2 a ASAR9249bdc081c2b3ceeae4465fcc7a3c53af5dca325889cae8fa0b118479f974b4, manifeste qualification-forge-session-check/installation-final/release-manifest.json sous l’epic. La1.13 est built, tests338incluant harnais11, paquet9/Windows5/réouverture7 et42empreintes critiques identiques ; aucun modèle dans13. Les anciens tests personnels11 sont explicitement bornés à0.1.1 ; ils restent historiques, les témoinsfailed/diagnostic ont été rouverts puis archivés, MIA/madness seuls, aucun programme personnel actif. Le refus001 reste inexpliqué ; ne pas en déduire un succès ni rejouer ses conversations.
+
+Adaptation étroite de reprise par le même implémenteur : defaultManifest pointe sur le manifeste final13 ; verifyArtifact exige la version exacte releaseVersion du projet courant et contrôle toujours identité/ASAR/runner/runtime, sans faire confiance à une version quelconque du seul manifeste. Tests de mismatch et fixture de version adaptés à cette autorité unique. Trace passive : reconnaître bmad_forge_check_sessions sans argument et l’opération check-sessions ; budget de métadonnées porté à2048événements, maximum déjà prévu, pour couvrir le parcoursmulti-tours (une activation diagnostique a déjà produit51événements). Préserver8Mio cumulés/1Mio ligne, expurgation, relais inchangé et incomplet→échec ; ajouter vérification de plusieurs centaines d’événements sans contenu privé et de dépassement explicite. Aucun plafond ajouté au produit ou budget en tokens. Documenter le nouvel artefact et la commande --manifest explicite, sans modifier la section13 désormais committée. L’implémenteur ne lance aucun compte/modèle/banc personnel ni nouvelle suite synthétique ; tests ciblés du harnais seulement, parent possède la qualification fraîche sur le programme installé. Scénario réel et refus des situations imprévues préservés. Cette invocation Build11 reste celle du snapshot8819f97afe6448b9c573, ne pas la rerendre.
 
 Route full : nouveaux harnais et gardes dépassant100lignes ; risque high conservé car une fausse qualification ou un nettoyage personnel incorrect aurait un effet important. Deux explorateurs frais ont fourni couverture et primitives, sans toucher au profil ni lancer de programme. Le mandat autorise les plans, contrôles et accords synthétiques ; une fenêtre réelle non sauvegardée, un nouveau consentement OAuth ou un nouvel acquittement réseau nécessaire restent des actions humaines distinctes.
 
@@ -101,7 +105,7 @@ L’investigation Forge en lecture seule ne prouve pas encore la branche : repri
 
 ## Design Notes
 
-Le paquet reste0.1.1 tant qu’aucun produit n’est modifié. Lien de preuve : manifeste1.9 intact et son SHA → mêmes artifacts → runtime effectivement lancé ; nouveau harnais/révision/empreintes consignés séparément. Aucun manifeste rétrospectif régénéré. Réseau du child : configuration imposée et tour réel réussi, confiance acceptée pour ces requêtes inférée, pas de certificat exporté.
+Historique avant1.13 : le paquet reste0.1.1 tant qu’aucun produit n’est modifié. Lien de preuve : manifeste1.9 intact et son SHA → mêmes artifacts → runtime effectivement lancé ; nouveau harnais/révision/empreintes consignés séparément. Aucun manifeste rétrospectif régénéré. Réseau du child : configuration imposée et tour réel réussi, confiance acceptée pour ces requêtes inférée, pas de certificat exporté.
 
 Le mode personnel conserve l’environnement habituel filtré sans MADNESS_DATA_HOME ni déplacement AppData/session. Il lit l’état expurgé par les ponts, sans connexion/vérification facturable préliminaire automatique. Hooks passifs sur les seuls enfants app-server possédés : PIDs/hashes/close/identifiants/compteurs et comparaisons booléennes de reçus, jamais environnement complet, bearer ou stderr brut. Les observations antérieures au hook restent non couvertes. Garde globale et interruption du contrôleur passent par une fermeture bornée puis une preuve OS, sans effacer une incertitude.
 

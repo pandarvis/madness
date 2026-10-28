@@ -5,6 +5,12 @@
   pistes_non_qualifiees: Réduire les accès redondants aux clés publiques avec un cache borné et une gestion de leur rotation ; mieux diagnostiquer les blocages et conserver le travail en attente. Ces pistes ne prouvent pas la disparition des acquittements humains ni une autonomie complète.
   statut: Contrainte d’exploitation enregistrée ; à intégrer par Sofia au cadrage de tout lot de fiabilité réseau avant son implémentation. Aucun nouveau ticket, Build, changement d’authentification ou réouverture de l’epic1 par cette note.
 
+- source_plan: `_bmad-output/initiative-madness/backlog/spike-qualifier-cache-et-recuperation-reseau-plan.md`
+  sujet: Intégration éventuelle du cache et du diagnostic réseau qualifiés isolément
+  resultat: qualification-cache-reseau/rapport.md borne le gain local de GET, le contrôle forcé no-store et le refus de persistance non fiable.16tests et banc Electron, Q1corrigé/recontrôlé, revue sécurité favorable ; aucune diminution réelle des acquittements Zscaler ni cache livré démontrés.
+  suite: Cadrer un lot d’intégration distinct avant toute modification produit : en-têtes serveur réellement exploitables, fraîcheur/retrait, précontrôle de chaque intention, contrôle réseau contournant les caches, états de rotation reçue/non validée/inconnue et conservation/crash. Les POST nécessaires et les contraintes du moteur restent des accès réseau. Aucun changement Zscaler/IT ; ne pas substituer une connexion ou un coût API.
+  statut: Pistes et limites conservées pour une intégration ultérieure ; aucun correctif de revue différé. La demande actuelle enchaîne sur2.1, sans ajouter une dépendance artificielle ni modifier ses17entrées.
+
 - demande_du_porteur: 2026-10-27
   sujet: Étudier bmad-builder et surtout bmad-loop
   resultat: Étude terminée dans `research-bmad-loop-et-builder-pour-madness/research-bmad-loop-et-builder-pour-madness.md`. Loop candidat pour le développement autonome, Builder complément éventuel de création de modules ; aucune adoption, installation ou intégration effectuée.

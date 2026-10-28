@@ -1,0 +1,27 @@
+# Sources effectivement examinées — 28 octobre 2026
+
+Périmètre : lecture des sources locales, documents officiels ouverts via l’outil web et essai HTTP sur loopback. Aucun nouveau GET vers OpenAI/Zscaler. Les en-têtes actuels du serveur OpenAI restent **inconnus**.
+
+| Source | Version / section lue | Usage et limite |
+|---|---|---|
+| [RFC 9111](https://www.rfc-editor.org/rfc/rfc9111.html) | Juin 2022 ; §3, §4.2.1, §4.2.3, §4.3, §5.2.2.4–5, §6, §7.1 | `Age`, `Date` et délai de réponse consomment la fraîcheur ; `no-cache` impose validation et `no-store` interdit réemploi. Le prototype adopte volontairement une politique applicative plus restrictive et aucune fraîcheur heuristique. Une revalidation peut réduire les octets sans réduire les accès. Le document ne donne aucune durée d’acquittement Zscaler. |
+| [OpenID Connect Core](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys) | 1.0, errata set 2, 15 décembre 2023 ; §10.1.1, §3.1.3.7 | Un `kid` inconnu appelle une nouvelle récupération des clés ; les clés récemment retirées peuvent être retenues temporairement côté fournisseur. Aucune période universelle, cadence SIWC personnelle ou garantie contre révocation immédiate n’en découle. Le contrôle de signature et des claims reste indispensable. |
+| [jose remote.ts](https://raw.githubusercontent.com/panva/jose/v6.2.13/src/jwks/remote.ts) et fichiers installés `remote.js` / `local.js` | **6.2.13** ; `createRemoteJWKSet`, `isFreshFor`, `jwksCache`, `pendingFetch` | Défauts de bibliothèque : mémoire 600 000 ms, cooldown 30 000 ms, timeout 5 000 ms. Ce sont ses choix, pas les directives du fournisseur. Le cache injecté doit provenir de code de confiance ; il ne lie pas lui-même le contenu à l’URL et admet un timestamp futur fini. Le contre-exemple M3.4 le mesure. Aucun défaut de bibliothèque affirmé : la précondition de confiance est explicite en amont. |
+| [Electron net-fetch.ts](https://raw.githubusercontent.com/electron/electron/v45.0.0/lib/browser/api/net-fetch.ts) | **v45.0.0**, `fetchWithSession`, construction de `Request`, transmission de `req.cache` | Le chemin exact est `lib/browser/api/net-fetch.ts`. Le chemin `lib/common/api/net-fetch.ts` cité initialement renvoie 404 ; ce n’est pas une source exploitable. |
+| [Electron electron_api_url_loader.cc](https://raw.githubusercontent.com/electron/electron/v45.0.0/shell/common/api/electron_api_url_loader.cc) | **v45.0.0**, conversion `FetchCacheMode` | `default` → défaut ; `no-store` → `kNoStore` ; `reload` → `kBypassCache`. Le banc Electron mesure séparément ce que ces modes font sur une réponse loopback cacheable. Il ne qualifie pas le cache ou le proxy d’OpenAI. |
+
+## Sources locales et provenance
+
+Les SHA-256 des **octets effectivement lus** sont dans `results.json`, rubrique `inputs` : `oauth.ts`, `connection.ts`, `NetworkHelp.tsx`, contrat connexion, test OAuth existant, deux modules jose, `package.json` et `package-lock.json`. Les versions locales lues sont Node 24.13.0, jose 6.2.13 et Electron 45.0.0. Le runtime Electron exécuté indique Chromium 156.0.8078.48 et Node 24.22.0 dans `electron-results.json`.
+
+`oauth.ts` : URL fixes, `redirect:error`, `credentials:omit`, 15 s / 256 Kio ; aucun cache applicatif, aucun `fetch.cache` ni retour d’en-têtes. `getKeys` contrôle le jeu RSA public, 2048 bits minimum ; `validateIdentity` fait réellement RS256/issuer/audience/expiration/sujet/nonce/azp. `refreshCredentials` charge les clés avant le POST puis réutilise le resolver local. Aucun rafraîchissement réseau sur `kid` nouveau dans ce resolver livré.
+
+`connection.ts` : un renouvellement n’est demandé que si `expiresAt <= now + 60 s`, lors de `verify` ou `acquireDialogue`. La durée `expires_in` vient de la réponse. **Aucune durée ni fréquence personnelle n’a été relevée**. Le faux coffre n’écrit qu’après retour validé ; le contrôle public séparé n’appelle ni OAuth ni probe. La lecture de `NetworkHelp.tsx` et du contrat confirme la distinction de surface ; ils restent inchangés.
+
+Les reçus historiques `../tickets/epic-boucle-codex/qualification-e2e/public-current-002/report.json` (13:05 UTC : 307) et `public-current-003/report.json` (15:28 UTC : 200) sont lus sans relance. Leur limite explicite conserve l’expiration de l’acquittement inconnue et l’absence de lecture du corps. Leur paquet est l’ASAR `9249…`, pas celui du banc ni une nouvelle preuve native du paquet personnel actuel.
+
+## Décisions candidates, séparées des sources
+
+Le prototype compare des plafonds **1, 5 et 10 minutes**. Cinq minutes est un candidat de compromis à qualifier, plus court que le défaut jose de dix minutes ; ce n’est ni un choix livré ni une recommandation de sécurité validée. La fraîcheur effective ne dépasse ni le plafond, ni le `max-age` explicite diminué de l’âge. Un retrait de clé peut rester invisible pendant cette fenêtre : la sensibilité gains/fenêtre est publiée dans le rapport. Sans en-têtes exploitables : zéro réemploi. Sur erreur, aucune prolongation périmée.
+
+Cooldown inconnu `kid` : candidat 30 s inspiré de jose, au plus une récupération supplémentaire par validation. Timeout candidat 15 s / taille 256 Kio alignés sur le transport livré ; test de timeout accéléré à 20 ms. Ces valeurs limitent le travail, pas la durée d’un acquittement. Persistance non authentifiée : non retenue, y compris avec checksum ou horloge future ; aucune nouvelle persistance de secrets n’est ajoutée.

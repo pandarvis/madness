@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "status": "passed-qualification-only",
+  "preservedProductInputs": 107,
+  "frozenSha256": "f3ca97273a80a23d363dcc638a6746b6ff335cd54fe5ca441acee4182fc8d552",
+  "scenarioTests": 16,
+  "scenarioObservations": 18,
+  "scenarioLog": "parent-scenarios-q1.log",
+  "verificationChecks": 23,
+  "initialDiffRead": {
+    "path": "C:/Users/UP6006~1/AppData/Local/Temp/madness-network-review-qBfBVx/changes.diff",
+    "lines": 2336,
+    "complete": true
+  },
+  "reviewDiff": "C:/Users/UP6006~1/AppData/Local/Temp/madness-network-review-2bselo/changes.diff",
+  "matrixAudit": "M1-M6 covering tests read and confirmed in parent run",
+  "limits": [
+    "No product or personal qualification inferred from the isolated prototype.",
+    "Native initial pre-JavaScript effects remain explicitly uninstrumented."
+  ],
+  "quick": "Q1-resolved",
+  "security": "initial-and-targeted-recheck-favourable",
+  "deferredReviewFixes": 0,
+  "patchDiffRead": {
+    "path": "C:/Users/UP6006~1/AppData/Local/Temp/madness-network-patch-XGpil2/patch.diff",
+    "lines": 140,
+    "complete": true
+  },
+  "finalInputs": [
+    {
+      "path": "prototype.mjs",
+      "sha256": "11d7859d7a0d0672c2ede56b7bd326584710481839c7891151ffc6e18c426b4b"
+    },
+    {
+      "path": "scenarios.test.mjs",
+      "sha256": "c0377f35ccdee26c88a46a3159a3a298c7f325a9ecc7828aac68c3d41ef81cf9"
+    },
+    {
+      "path": "electron-http-cache.cjs",
+      "sha256": "1ddf75b0626fe27476b928df44521811da1307dc60987e639d04dd055992879e"
+    },
+    {
+      "path": "rapport.md",
+      "sha256": "40b563802b42a73dc76628d690e798dbb56f07bd0fea02c4109fba823641afe2"
+    },
+    {
+      "path": "sources.md",
+      "sha256": "c59067e9eb3ea9ec782249bb149a5155acb398c012b6cd29e1b29dd0cda98c1b"
+    },
+    {
+      "path": "matrix-audit.md",
+      "sha256": "69c431c23baf93ef4b483a34e241e11f68cd8a7c2308501e7f5cc23aabe0e4c4"
+    },
+    {
+      "path": "results.json",
+      "sha256": "611dd1f4cd414531cb417883f367014e92ffddb5e83bb22250b70e763b384cb9"
+    },
+    {
+      "path": "electron-results.json",
+      "sha256": "80c3469c583a69fc75063f962860e29cd9afe4bded9ae48bae6e91f41e1d9ea2"
+    },
+    {
+      "path": "quick-review.md",
+      "sha256": "3753f5d4a45745ec5ab2089e2cc5deabfc544977d9d9b52311834ae453f49a3b"
+    },
+    {
+      "path": "security-review.md",
+      "sha256": "54d526b35c8f4eda2da0d6c5a8f77fe72f08d926e798fff5fdf5b9cb1b3027aa"
+    },
+    {
+      "path": "security-recheck.md",
+      "sha256": "7260cfb9092e6e1df287a9a0cc3937c1b351230a500a7de24b8f9ecee8aba3c7"
+    }
+  ]
+}

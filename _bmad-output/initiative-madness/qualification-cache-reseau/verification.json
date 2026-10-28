@@ -1,0 +1,119 @@
+{
+  "baseline": "e2d9367176a93862b9a108fcef16715ff2675a66",
+  "scope": "implementation-artifacts-and-tracked-product-no-personal-profile-inspection",
+  "checks": [
+    {
+      "name": "input-sha256",
+      "path": "src/adapters/codex/oauth.ts",
+      "passed": true
+    },
+    {
+      "name": "input-sha256",
+      "path": "src/adapters/codex/connection.ts",
+      "passed": true
+    },
+    {
+      "name": "input-sha256",
+      "path": "src/renderer/src/NetworkHelp.tsx",
+      "passed": true
+    },
+    {
+      "name": "input-sha256",
+      "path": "src/contracts/connection.ts",
+      "passed": true
+    },
+    {
+      "name": "input-sha256",
+      "path": "tests/connection-oauth.test.mjs",
+      "passed": true
+    },
+    {
+      "name": "input-sha256",
+      "path": "node_modules/jose/dist/webapi/jwks/remote.js",
+      "passed": true
+    },
+    {
+      "name": "input-sha256",
+      "path": "node_modules/jose/dist/webapi/jwks/local.js",
+      "passed": true
+    },
+    {
+      "name": "input-sha256",
+      "path": "package.json",
+      "passed": true
+    },
+    {
+      "name": "input-sha256",
+      "path": "package-lock.json",
+      "passed": true
+    },
+    {
+      "name": "protected-product-unchanged",
+      "command": "git diff --name-only e2d9367176a93862b9a108fcef16715ff2675a66 -- src tests scripts package.json package-lock.json resources",
+      "passed": true
+    },
+    {
+      "name": "protected-product-unchanged",
+      "command": "git status --short -- src tests scripts package.json package-lock.json resources",
+      "passed": true
+    },
+    {
+      "name": "owned-profiles-removed",
+      "passed": true
+    },
+    {
+      "name": "electron-native-local-evidence",
+      "passed": true
+    },
+    {
+      "name": "scenario-evidence",
+      "passed": true
+    },
+    {
+      "name": "whitespace",
+      "path": "prototype.mjs",
+      "passed": true
+    },
+    {
+      "name": "whitespace",
+      "path": "scenarios.test.mjs",
+      "passed": true
+    },
+    {
+      "name": "whitespace",
+      "path": "electron-http-cache.cjs",
+      "passed": true
+    },
+    {
+      "name": "whitespace",
+      "path": "sources.md",
+      "passed": true
+    },
+    {
+      "name": "whitespace",
+      "path": "rapport.md",
+      "passed": true
+    },
+    {
+      "name": "whitespace",
+      "path": "matrix-audit.md",
+      "passed": true
+    },
+    {
+      "name": "whitespace",
+      "path": "verify.mjs",
+      "passed": true
+    },
+    {
+      "name": "whitespace",
+      "path": "results.json",
+      "passed": true
+    },
+    {
+      "name": "whitespace",
+      "path": "electron-results.json",
+      "passed": true
+    }
+  ],
+  "passed": true
+}

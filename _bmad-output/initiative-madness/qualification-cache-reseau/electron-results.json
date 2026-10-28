@@ -1,0 +1,57 @@
+{
+  "status": "measured",
+  "versions": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0"
+  },
+  "fixture": {
+    "address": "127.0.0.1",
+    "responseCacheControl": "public, max-age=600",
+    "externalEndpoints": 0
+  },
+  "rows": [
+    {
+      "mode": "default",
+      "freshOriginRequests": 1,
+      "freshBodyOriginCounts": [
+        1,
+        1
+      ],
+      "serverStopped": {
+        "status": 200,
+        "bodyOriginCount": 1
+      }
+    },
+    {
+      "mode": "no-store",
+      "freshOriginRequests": 2,
+      "freshBodyOriginCounts": [
+        1,
+        2
+      ],
+      "serverStopped": {
+        "status": "network-error"
+      }
+    },
+    {
+      "mode": "reload",
+      "freshOriginRequests": 2,
+      "freshBodyOriginCounts": [
+        1,
+        2
+      ],
+      "serverStopped": {
+        "status": "network-error"
+      }
+    }
+  ],
+  "blockedExternalRequests": 0,
+  "windowsCreated": 0,
+  "originClaimScope": "loopback-runtime-only-no-live-OpenAI-claim",
+  "profile": {
+    "ownership": "mkdtemp-under-qualification-folder",
+    "cleaned": true
+  },
+  "childExitCode": 0
+}

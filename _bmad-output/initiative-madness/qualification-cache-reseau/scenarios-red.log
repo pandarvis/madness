@@ -1,0 +1,197 @@
+✖ M1.1 four explicit refresh intentions compare application GETs, POSTs and simulated reopen (3.1769ms)
+✖ M1.2 no policy header yields no invented reuse; candidate caps have explicit withdrawal windows (0.8933ms)
+✖ M2.1 Age, Date and transfer delay consume freshness; boundary and network failure never extend it (0.7706ms)
+✖ M2.2 restrictive, malformed and contradictory directives fail closed for reuse (0.8515ms)
+✖ M2.3 backward wall or monotonic clocks invalidate; persistent tampering is never a trust root (0.6871ms)
+✖ M3.1 real signatures and issuer, audience, subject, expiry, nonce and azp are checked (0.6144ms)
+✖ M3.2 unknown kid refresh is bounded; removal becomes effective by expiry (0.7363ms)
+✖ M3.3 malformed, empty, private and weak RSA sets fail before any POST (0.6876ms)
+✔ M3.4 jose cache seed accepts attacker keys and future time without origin binding: reject persistence option (30.8503ms)
+✖ M4.1 candidate and shipped transport reject 307, HTML, invalid JSON and oversized responses safely (7.9348ms)
+✖ M4.2 timeout and cancellation are bounded and expunged; one cancelled waiter preserves another (2.0676ms)
+✖ M4.3 last caller cancellation cancels transport; force control cannot join ordinary cache work (0.5633ms)
+✔ M5.1 JWKS unavailable prevents POST; response lost after POST remains uncertain and never retries (3.3305ms)
+✖ M5.2 new signing key after rotation is received-unvalidated in shipped flow; candidate can recover keys only (11.8005ms)
+✖ M5.3 new kid recovery failure and insufficient scopes never write the fake vault or probe (1.3553ms)
+✖ M6.1 fresh keys cannot satisfy explicit blocked control; recovery preserves waiting and local draft (1.0643ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 2
+ℹ fail 14
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1568.9283
+
+✖ failing tests:
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M1.1 four explicit refresh intentions compare application GETs, POSTs and simulated reopen (3.1769ms)
+  AssertionError [ERR_ASSERTION]: candidate cache must implement executable policy
+  + actual - expected
+  
+  + 'undefined'
+  - 'function'
+  
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:43:10
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'function',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M1.2 no policy header yields no invented reuse; candidate caps have explicit withdrawal windows (0.8933ms)
+  TypeError: prototype.KeyCache is not a constructor
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:77:19
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M2.1 Age, Date and transfer delay consume freshness; boundary and network failure never extend it (0.7706ms)
+  TypeError: prototype.KeyCache is not a constructor
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:90:17
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M2.2 restrictive, malformed and contradictory directives fail closed for reuse (0.8515ms)
+  TypeError: prototype.KeyCache is not a constructor
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:109:19
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M2.3 backward wall or monotonic clocks invalidate; persistent tampering is never a trust root (0.6871ms)
+  TypeError: prototype.KeyCache is not a constructor
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:119:19
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M3.1 real signatures and issuer, audience, subject, expiry, nonce and azp are checked (0.6144ms)
+  TypeError: prototype.KeyCache is not a constructor
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:134:17
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M3.2 unknown kid refresh is bounded; removal becomes effective by expiry (0.7363ms)
+  TypeError: prototype.KeyCache is not a constructor
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:149:17
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M3.3 malformed, empty, private and weak RSA sets fail before any POST (0.6876ms)
+  TypeError: non-extractable CryptoKey cannot be exported as a JWK
+      at exportJWK (file:///C:/Sources/madness/node_modules/jose/dist/webapi/key/export.js:24:11)
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:165:33
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M4.1 candidate and shipped transport reject 307, HTML, invalid JSON and oversized responses safely (7.9348ms)
+  TypeError: prototype.KeyCache is not a constructor
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:197:19
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:28)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M4.2 timeout and cancellation are bounded and expunged; one cancelled waiter preserves another (2.0676ms)
+  TypeError: prototype.KeyCache is not a constructor
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:206:19
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M4.3 last caller cancellation cancels transport; force control cannot join ordinary cache work (0.5633ms)
+  TypeError: prototype.KeyCache is not a constructor
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:222:17
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M5.2 new signing key after rotation is received-unvalidated in shipped flow; candidate can recover keys only (11.8005ms)
+  TypeError: prototype.KeyCache is not a constructor
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:258:17
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:28)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M5.3 new kid recovery failure and insufficient scopes never write the fake vault or probe (1.3553ms)
+  TypeError: prototype.KeyCache is not a constructor
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:272:19
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M6.1 fresh keys cannot satisfy explicit blocked control; recovery preserves waiting and local draft (1.0643ms)
+  TypeError: prototype.KeyCache is not a constructor
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:295:17
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

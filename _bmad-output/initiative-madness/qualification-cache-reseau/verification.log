@@ -1,0 +1,32 @@
+$ git diff --name-only e2d9367176a93862b9a108fcef16715ff2675a66 -- src tests scripts package.json package-lock.json resources
+exit=0
+
+$ git status --short -- src tests scripts package.json package-lock.json resources
+exit=0
+
+$ git diff --no-index --check NUL prototype.mjs
+exit=1
+
+$ git diff --no-index --check NUL scenarios.test.mjs
+exit=1
+
+$ git diff --no-index --check NUL electron-http-cache.cjs
+exit=1
+
+$ git diff --no-index --check NUL sources.md
+exit=1
+
+$ git diff --no-index --check NUL rapport.md
+exit=1
+
+$ git diff --no-index --check NUL matrix-audit.md
+exit=1
+
+$ git diff --no-index --check NUL verify.mjs
+exit=1
+
+$ git diff --no-index --check NUL results.json
+exit=1
+
+$ git diff --no-index --check NUL electron-results.json
+exit=1

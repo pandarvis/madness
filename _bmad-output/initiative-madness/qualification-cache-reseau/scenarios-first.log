@@ -1,0 +1,39 @@
+✔ M1.1 four explicit refresh intentions compare application GETs, POSTs and simulated reopen (100.9357ms)
+✔ M1.2 no policy header yields no invented reuse; candidate caps have explicit withdrawal windows (10.7172ms)
+✔ M2.1 Age, Date and transfer delay consume freshness; boundary and network failure never extend it (9.2217ms)
+✔ M2.2 restrictive, malformed and contradictory directives fail closed for reuse (5.2032ms)
+✔ M2.3 backward wall or monotonic clocks invalidate; persistent tampering is never a trust root (2.9353ms)
+✔ M3.1 real signatures and issuer, audience, subject, expiry, nonce and azp are checked (25.0757ms)
+✔ M3.2 unknown kid refresh is bounded; removal becomes effective by expiry (19.7926ms)
+✖ M3.3 malformed, empty, private and weak RSA sets fail before any POST (0.6936ms)
+✔ M3.4 jose cache seed accepts attacker keys and future time without origin binding: reject persistence option (5.4114ms)
+✔ M4.1 candidate and shipped transport reject 307, HTML, invalid JSON and oversized responses safely (4.6039ms)
+✔ M4.2 timeout and cancellation are bounded and expunged; one cancelled waiter preserves another (27.9707ms)
+✔ M4.3 last caller cancellation cancels transport; force control cannot join ordinary cache work (3.573ms)
+✔ M5.1 JWKS unavailable prevents POST; response lost after POST remains uncertain and never retries (1.3876ms)
+✔ M5.2 new signing key after rotation is received-unvalidated in shipped flow; candidate can recover keys only (7.1109ms)
+✔ M5.3 new kid recovery failure and insufficient scopes never write the fake vault or probe (12.9168ms)
+✔ M6.1 fresh keys cannot satisfy explicit blocked control; recovery preserves waiting and local draft (9.9923ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 15
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1993.7889
+
+✖ failing tests:
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:29:3
+✖ M3.3 malformed, empty, private and weak RSA sets fail before any POST (0.6936ms)
+  TypeError: non-extractable CryptoKey cannot be exported as a JWK
+      at exportJWK (file:///C:/Sources/madness/node_modules/jose/dist/webapi/key/export.js:24:11)
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:165:33
+      at TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:30:34)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

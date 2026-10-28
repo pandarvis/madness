@@ -1,0 +1,24 @@
+✔ M1.1 four explicit refresh intentions compare application GETs, POSTs and simulated reopen (57.2833ms)
+✔ M1.2 no policy header yields no invented reuse; candidate caps have explicit withdrawal windows (11.3874ms)
+✔ M2.1 Age, Date and transfer delay consume freshness; boundary and network failure never extend it (10.7028ms)
+✔ M2.2 restrictive, malformed and contradictory directives fail closed for reuse (7.3965ms)
+✔ M2.3 backward wall or monotonic clocks invalidate; persistent tampering is never a trust root (4.2335ms)
+✔ M3.1 real signatures and issuer, audience, subject, expiry, nonce and azp are checked (17.1392ms)
+✔ M3.2 unknown kid refresh is bounded; removal becomes effective by expiry (14.6076ms)
+✔ M3.3 malformed, empty, private and weak RSA sets fail before any POST (2.8102ms)
+✔ M3.4 jose cache seed accepts attacker keys and future time without origin binding: reject persistence option (2.9195ms)
+✔ M4.1 candidate and shipped transport reject 307, HTML, invalid JSON and oversized responses safely (4.5589ms)
+✔ M4.2 timeout and cancellation are bounded and expunged; one cancelled waiter preserves another (34.0317ms)
+✔ M4.3 last caller cancellation cancels transport; force control cannot join ordinary cache work (1.2175ms)
+✔ M5.1 JWKS unavailable prevents POST; response lost after POST remains uncertain and never retries (0.4395ms)
+✔ M5.2 new signing key after rotation is received-unvalidated in shipped flow; candidate can recover keys only (4.1678ms)
+✔ M5.3 new kid recovery failure and insufficient scopes never write the fake vault or probe (6.8228ms)
+✔ M6.1 fresh keys cannot satisfy explicit blocked control; recovery preserves waiting and local draft (18.4845ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1600.3463

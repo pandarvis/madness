@@ -1,0 +1,297 @@
+{
+  "schemaVersion": 1,
+  "scope": "isolated-synthetic-no-personal-network",
+  "cases": [
+    {
+      "id": "M1.1",
+      "name": "four explicit refresh intentions compare application GETs, POSTs and simulated reopen",
+      "status": "passed",
+      "timelineSeconds": [
+        0,
+        60,
+        120,
+        180
+      ],
+      "reopenBeforeIntention": 4,
+      "rows": [
+        {
+          "strategy": "none",
+          "gets": 4,
+          "posts": 4,
+          "notModified": 0
+        },
+        {
+          "strategy": "memory",
+          "gets": 2,
+          "posts": 4,
+          "notModified": 0
+        },
+        {
+          "strategy": "persistent-untrusted",
+          "gets": 2,
+          "posts": 4,
+          "notModified": 0
+        },
+        {
+          "strategy": "revalidate",
+          "gets": 4,
+          "posts": 4,
+          "notModified": 2
+        }
+      ],
+      "actualHumanClicksMeasured": false
+    },
+    {
+      "id": "M1.2",
+      "name": "no policy header yields no invented reuse; candidate caps have explicit withdrawal windows",
+      "status": "passed",
+      "sensitivity": [
+        {
+          "capSeconds": 60,
+          "gets": 6,
+          "maximumRetainedWithdrawalSeconds": 60
+        },
+        {
+          "capSeconds": 300,
+          "gets": 3,
+          "maximumRetainedWithdrawalSeconds": 300
+        },
+        {
+          "capSeconds": 600,
+          "gets": 2,
+          "maximumRetainedWithdrawalSeconds": 600
+        }
+      ],
+      "missingHeadersGets": 2,
+      "refreshCadence": "simulated-only",
+      "actualServiceWithSynthetic3600sCredential": {
+        "dialogueIntentions": 4,
+        "gets": 1,
+        "posts": 1,
+        "writes": 1
+      }
+    },
+    {
+      "id": "M2.1",
+      "name": "Age, Date and transfer delay consume freshness; boundary and network failure never extend it",
+      "status": "passed",
+      "remainingAtReceiptMs": 40000,
+      "failureGets": 2,
+      "staleFallback": false
+    },
+    {
+      "id": "M2.2",
+      "name": "restrictive, malformed and contradictory directives fail closed for reuse",
+      "status": "passed",
+      "directiveCases": 8,
+      "automaticReuse": false
+    },
+    {
+      "id": "M2.3",
+      "name": "backward wall or monotonic clocks invalidate; persistent tampering is never a trust root",
+      "status": "passed",
+      "clockAxesRejected": 2,
+      "returnedCloneIsolated": true,
+      "untrustedReopenAccepted": false
+    },
+    {
+      "id": "M3.1",
+      "name": "real signatures and issuer, audience, subject, expiry, nonce and azp are checked",
+      "status": "passed",
+      "validSignature": true,
+      "rejectedIdentities": 8,
+      "validator": "shipped-validateIdentity"
+    },
+    {
+      "id": "M3.2",
+      "name": "unknown kid refresh is bounded; removal becomes effective by expiry",
+      "status": "passed",
+      "gets": 4,
+      "unknownKidAttempts": 3,
+      "withdrawnKeyAcceptedOnlyWhileFresh": true,
+      "removalBoundSeconds": 300
+    },
+    {
+      "id": "M3.3",
+      "name": "malformed, empty, private and weak RSA sets fail before any POST",
+      "status": "passed",
+      "invalidSets": 7,
+      "posts": 0
+    },
+    {
+      "id": "M3.4",
+      "name": "jose cache seed accepts attacker keys and future time without origin binding: reject persistence option",
+      "status": "passed",
+      "counterexample": "untrusted-jose-seed-would-validate-attacker-signature",
+      "fetches": 0,
+      "futureTimestampAccepted": true,
+      "persistentOption": "not-retained-without-separate-trust-boundary"
+    },
+    {
+      "id": "M4.1",
+      "name": "candidate and shipped transport reject 307, HTML, invalid JSON and oversized responses safely",
+      "status": "passed",
+      "responseCases": 4,
+      "redirectsFollowed": 0,
+      "transport": "real-shipped-and-candidate"
+    },
+    {
+      "id": "M4.2",
+      "name": "timeout and cancellation are bounded and expunged; one cancelled waiter preserves another",
+      "status": "passed",
+      "cancelledWaiters": 1,
+      "successfulWaiters": 1,
+      "gets": 1,
+      "timeoutMs": 20
+    },
+    {
+      "id": "M4.3",
+      "name": "last caller cancellation cancels transport; force control cannot join ordinary cache work",
+      "status": "passed",
+      "gets": 3,
+      "aborts": 1,
+      "forcedControlOwnRequest": true
+    },
+    {
+      "id": "M5.1.before",
+      "status": "passed",
+      "gets": 1,
+      "posts": 0,
+      "outcome": "post-not-started"
+    },
+    {
+      "id": "M5.1.after",
+      "status": "passed",
+      "gets": 1,
+      "posts": 1,
+      "outcome": "post-result-unknown-no-automatic-replay"
+    },
+    {
+      "id": "M5.1",
+      "name": "JWKS unavailable prevents POST; response lost after POST remains uncertain and never retries",
+      "status": "passed",
+      "automaticReplay": false
+    },
+    {
+      "id": "M5.2",
+      "name": "new signing key after rotation is received-unvalidated in shipped flow; candidate can recover keys only",
+      "status": "passed",
+      "baseline": {
+        "gets": 1,
+        "posts": 1,
+        "outcome": "rotation-response-received-unvalidated-not-saved"
+      },
+      "candidate": {
+        "gets": 2,
+        "posts": 1,
+        "outcome": "identity-validated-after-key-only-recovery"
+      },
+      "crashBeforeSave": "response-not-retained-explicit-gap"
+    },
+    {
+      "id": "M5.3",
+      "name": "absent or expired keys prevent POST; rotation failures never write the fake vault or probe",
+      "status": "passed",
+      "rows": [
+        {
+          "mode": "absent-cache-blocked",
+          "gets": 1,
+          "posts": 0,
+          "writes": 0,
+          "probes": 0,
+          "state": "post-not-started"
+        },
+        {
+          "mode": "expired-cache-blocked",
+          "gets": 2,
+          "posts": 0,
+          "writes": 0,
+          "probes": 0,
+          "state": "post-not-started"
+        },
+        {
+          "mode": "lost-response",
+          "gets": 1,
+          "posts": 1,
+          "writes": 0,
+          "probes": 0,
+          "state": "unknown-post-result"
+        },
+        {
+          "mode": "new-kid-blocked",
+          "gets": 2,
+          "posts": 1,
+          "writes": 0,
+          "probes": 0,
+          "state": "received-unvalidated"
+        },
+        {
+          "mode": "missing-scopes",
+          "gets": 1,
+          "posts": 1,
+          "writes": 0,
+          "probes": 0,
+          "state": "received-unvalidated"
+        }
+      ],
+      "crashRetention": "not-implemented-in-shipped-flow"
+    },
+    {
+      "id": "M6.1",
+      "name": "fresh keys cannot satisfy explicit blocked control; recovery preserves waiting and local draft",
+      "status": "passed",
+      "gets": 3,
+      "oauth": 0,
+      "refreshes": 0,
+      "probes": 0,
+      "localDraftReadExact": true,
+      "restoredWaiting": "unknown-stop-unconfirmed",
+      "humanClickSimulated": false
+    }
+  ],
+  "inputs": [
+    {
+      "path": "src/adapters/codex/oauth.ts",
+      "sha256": "2c933e4c147ab05708bc8f0cd81ee707be4a1cbb763ecfa96a6c9d8756d8fe05"
+    },
+    {
+      "path": "src/adapters/codex/connection.ts",
+      "sha256": "60c499425878c71d61e42d8d768f20db222e48ac1720da5fbc5fc3a8d609019d"
+    },
+    {
+      "path": "src/renderer/src/NetworkHelp.tsx",
+      "sha256": "7efd78cd096cd14356c3e00a6e0fb68773121e1a8127998abcfd8c1fb24b581c"
+    },
+    {
+      "path": "src/contracts/connection.ts",
+      "sha256": "2fd82336ce2fde237be4f97a08efbb7dc19992db381fb3d3a776d9a215102947"
+    },
+    {
+      "path": "tests/connection-oauth.test.mjs",
+      "sha256": "b347b9fd7a600bf8a20448603788fbb182962c4fba70b625493d1fdfc7c1af29"
+    },
+    {
+      "path": "node_modules/jose/dist/webapi/jwks/remote.js",
+      "sha256": "f9ee84e9f31c620afd9a426b127284c0e146d4ddc109082dff67cc445ebbc9ed"
+    },
+    {
+      "path": "node_modules/jose/dist/webapi/jwks/local.js",
+      "sha256": "539d24547c9131739064b17c21b20d299428238127ea5c9d741ac1f6e724a64d"
+    },
+    {
+      "path": "package.json",
+      "sha256": "c4895f287b2ccce354c66b2625fa44c1c9a84d23fe9ac9606a9f51f7514ede37"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "9123dad6f751bbaf7a1b15c17daf1c4b4a17ff7579aa7cd29e21d4ee016ed5c8"
+    }
+  ],
+  "runtime": {
+    "node": "24.13.0",
+    "jose": "6.2.13",
+    "electronInstalled": "45.0.0"
+  },
+  "total": 18,
+  "passed": 18
+}

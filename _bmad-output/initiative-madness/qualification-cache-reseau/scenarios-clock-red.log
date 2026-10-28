@@ -1,0 +1,44 @@
+✔ M1.1 four explicit refresh intentions compare application GETs, POSTs and simulated reopen (51.0017ms)
+✔ M1.2 no policy header yields no invented reuse; candidate caps have explicit withdrawal windows (4.3526ms)
+✔ M2.1 Age, Date and transfer delay consume freshness; boundary and network failure never extend it (7.4375ms)
+✔ M2.2 restrictive, malformed and contradictory directives fail closed for reuse (5.9842ms)
+✖ M2.3 backward wall or monotonic clocks invalidate; persistent tampering is never a trust root (2.3069ms)
+✔ M3.1 real signatures and issuer, audience, subject, expiry, nonce and azp are checked (15.4934ms)
+✔ M3.2 unknown kid refresh is bounded; removal becomes effective by expiry (12.2713ms)
+✔ M3.3 malformed, empty, private and weak RSA sets fail before any POST (2.1063ms)
+✔ M3.4 jose cache seed accepts attacker keys and future time without origin binding: reject persistence option (1.8537ms)
+✔ M4.1 candidate and shipped transport reject 307, HTML, invalid JSON and oversized responses safely (3.3618ms)
+✔ M4.2 timeout and cancellation are bounded and expunged; one cancelled waiter preserves another (21.4735ms)
+✔ M4.3 last caller cancellation cancels transport; force control cannot join ordinary cache work (1.2617ms)
+✔ M5.1 JWKS unavailable prevents POST; response lost after POST remains uncertain and never retries (0.4971ms)
+✔ M5.2 new signing key after rotation is received-unvalidated in shipped flow; candidate can recover keys only (3.7861ms)
+✔ M5.3 new kid recovery failure and insufficient scopes never write the fake vault or probe (5.0062ms)
+✔ M6.1 fresh keys cannot satisfy explicit blocked control; recovery preserves waiting and local draft (20.5958ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 15
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1000.7175
+
+✖ failing tests:
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:28:3
+✖ M2.3 backward wall or monotonic clocks invalidate; persistent tampering is never a trust root (2.3069ms)
+  AssertionError [ERR_ASSERTION]: rollback after an earlier hit must also invalidate
+  
+  1 !== 2
+  
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:125:53
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:29:28)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

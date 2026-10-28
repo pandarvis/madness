@@ -1,0 +1,67 @@
+✔ M1.1 four explicit refresh intentions compare application GETs, POSTs and simulated reopen (44.7385ms)
+✔ M1.2 no policy header yields no invented reuse; candidate caps have explicit withdrawal windows (8.0349ms)
+✔ M2.1 Age, Date and transfer delay consume freshness; boundary and network failure never extend it (7.3731ms)
+✔ M2.2 restrictive, malformed and contradictory directives fail closed for reuse (5.2534ms)
+✔ M2.3 backward wall or monotonic clocks invalidate; persistent tampering is never a trust root (2.4016ms)
+✔ M3.1 real signatures and issuer, audience, subject, expiry, nonce and azp are checked (15.3844ms)
+✔ M3.2 unknown kid refresh is bounded; removal becomes effective by expiry (10.6002ms)
+✔ M3.3 malformed, empty, private and weak RSA sets fail before any POST (1.7618ms)
+✔ M3.4 jose cache seed accepts attacker keys and future time without origin binding: reject persistence option (1.7656ms)
+✔ M4.1 candidate and shipped transport reject 307, HTML, invalid JSON and oversized responses safely (3.0347ms)
+✔ M4.2 timeout and cancellation are bounded and expunged; one cancelled waiter preserves another (35.7447ms)
+✔ M4.3 last caller cancellation cancels transport; force control cannot join ordinary cache work (2.1759ms)
+✔ M5.1 JWKS unavailable prevents POST; response lost after POST remains uncertain and never retries (0.7483ms)
+✖ M5.2 new signing key after rotation is received-unvalidated in shipped flow; candidate can recover keys only (7.4711ms)
+✖ M5.3 absent or expired keys prevent POST; rotation failures never write the fake vault or probe (4.2427ms)
+✔ M6.1 fresh keys cannot satisfy explicit blocked control; recovery preserves waiting and local draft (5.676ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 14
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1086.307
+
+✖ failing tests:
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:32:3
+✖ M5.2 new signing key after rotation is received-unvalidated in shipped flow; candidate can recover keys only (7.4711ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   gets: 1,
+  -   gets: 2,
+      posts: 1
+    }
+  
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:286:69
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:33:28)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { gets: 1, posts: 1 },
+    expected: { gets: 2, posts: 1 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:32:3
+✖ M5.3 absent or expired keys prevent POST; rotation failures never write the fake vault or probe (4.2427ms)
+  AssertionError [ERR_ASSERTION]: absent-cache-blocked must check keys before sending a POST
+  
+  1 !== 0
+  
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:311:12
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:33:28)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

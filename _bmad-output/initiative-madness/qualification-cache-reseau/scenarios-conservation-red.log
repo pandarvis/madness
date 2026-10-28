@@ -1,0 +1,44 @@
+✔ M1.1 four explicit refresh intentions compare application GETs, POSTs and simulated reopen (46.1113ms)
+✔ M1.2 no policy header yields no invented reuse; candidate caps have explicit withdrawal windows (4.2377ms)
+✔ M2.1 Age, Date and transfer delay consume freshness; boundary and network failure never extend it (8.6166ms)
+✔ M2.2 restrictive, malformed and contradictory directives fail closed for reuse (7.7565ms)
+✔ M2.3 backward wall or monotonic clocks invalidate; persistent tampering is never a trust root (3.1283ms)
+✔ M3.1 real signatures and issuer, audience, subject, expiry, nonce and azp are checked (16.6089ms)
+✔ M3.2 unknown kid refresh is bounded; removal becomes effective by expiry (11.2346ms)
+✔ M3.3 malformed, empty, private and weak RSA sets fail before any POST (2.0373ms)
+✔ M3.4 jose cache seed accepts attacker keys and future time without origin binding: reject persistence option (1.8422ms)
+✔ M4.1 candidate and shipped transport reject 307, HTML, invalid JSON and oversized responses safely (4.0795ms)
+✔ M4.2 timeout and cancellation are bounded and expunged; one cancelled waiter preserves another (35.6379ms)
+✔ M4.3 last caller cancellation cancels transport; force control cannot join ordinary cache work (1.3071ms)
+✔ M5.1 JWKS unavailable prevents POST; response lost after POST remains uncertain and never retries (0.5606ms)
+✔ M5.2 new signing key after rotation is received-unvalidated in shipped flow; candidate can recover keys only (3.4092ms)
+✔ M5.3 new kid recovery failure and insufficient scopes never write the fake vault or probe (5.0325ms)
+✖ M6.1 fresh keys cannot satisfy explicit blocked control; recovery preserves waiting and local draft (2.6191ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 15
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1039.4606
+
+✖ failing tests:
+
+test at _bmad-output\initiative-madness\qualification-cache-reseau\scenarios.test.mjs:28:3
+✖ M6.1 fresh keys cannot satisfy explicit blocked control; recovery preserves waiting and local draft (2.6191ms)
+  AssertionError [ERR_ASSERTION]: fixture must satisfy the real snapshot contract
+  
+  false !== true
+  
+      at file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:313:10
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/_bmad-output/initiative-madness/qualification-cache-reseau/scenarios.test.mjs:29:28)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

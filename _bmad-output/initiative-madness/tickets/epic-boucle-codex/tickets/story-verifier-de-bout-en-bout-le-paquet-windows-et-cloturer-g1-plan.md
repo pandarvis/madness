@@ -3,14 +3,14 @@ title: 'Vérifier la boucle intégrée Windows personnelle et clôturer G0/G1'
 type: 'chore'
 ticket: 11
 created: '2026-10-28'
-status: in-progress
+status: built
 baseline_revision: '4855e7dc7eb1371534220bb6bf861c05b5ab672c'
 route: 'full'
 route_source: 'auto'
 risk: 'high'
-review: ''
-review_source: ''
-lenses_ran: []
+review: 'quick'
+review_source: 'pinned'
+lenses_ran: ['quick']
 review_loop_iteration: 0
 context:
   - '{project-root}/AGENTS.md'
@@ -62,11 +62,11 @@ context:
 ## Tasks & Acceptance
 
 **Execution:**
-- [ ] `scripts/qualification/epic-one.mjs` et ses éventuels helpers `epic-one-*.mjs` — orchestration/rapports neufs, provenance, inventaire fermé, checks bornés et fermeture/cleanup possédés ; modes synthétique et personnel explicitement séparés, aucun accès personnel par défaut ni import à effet de bord.
-- [ ] `scripts/qualification/{forge,conversation,questions,approvals,recovery,overview,recovery-native}.mjs` — sortie explicite réutilisable vers les nouvelles preuves, sans écraser ou relire comme frais les anciens résultats et sans modifier les scénarios produit.
-- [ ] `tests/epic-one-qualification.test.mjs` — vérifier gardes de chemin/artefact et reprise, conservation des preuves, rapport expurgé et distinction des sources/échecs/limites ; tests sans profil personnel ni modèle.
-- [ ] `docs/development.md` — documenter commandes du nouveau harnais, effets exacts de son mode personnel, provenance et limites, sans remplacer les preuves historiques.
-- [ ] `qualification-e2e/` sous l’epic — parent exécute et conserve rapports synthétiques, loopback et personnels, états de fermeture/nettoyage/réouverture, matrice R1–R10, limites et conclusion G0/G1 ; toute tentative échouée garde son reçu distinct. L’implémenteur n’exécute pas de parcours personnel.
+- [x] `scripts/qualification/epic-one.mjs` et ses éventuels helpers `epic-one-*.mjs` — orchestration/rapports neufs, provenance, inventaire fermé, checks bornés et fermeture/cleanup possédés ; modes synthétique et personnel explicitement séparés, aucun accès personnel par défaut ni import à effet de bord.
+- [x] `scripts/qualification/{forge,conversation,questions,approvals,recovery,overview,recovery-native}.mjs` — sortie explicite réutilisable vers les nouvelles preuves, sans écraser ou relire comme frais les anciens résultats et sans modifier les scénarios produit.
+- [x] `tests/epic-one-qualification.test.mjs` — vérifier gardes de chemin/artefact et reprise, conservation des preuves, rapport expurgé et distinction des sources/échecs/limites ; tests sans profil personnel ni modèle.
+- [x] `docs/development.md` — documenter commandes du nouveau harnais, effets exacts de son mode personnel, provenance et limites, sans remplacer les preuves historiques.
+- [x] `qualification-e2e/` sous l’epic — parent exécute et conserve rapports synthétiques, loopback et personnels, états de fermeture/nettoyage/réouverture, matrice R1–R10, limites et conclusion G0/G1 ; toute tentative échouée garde son reçu distinct. L’implémenteur n’exécute pas de parcours personnel.
 
 **Acceptance Criteria:**
 - Given le paquet0.1.2 installé, when les contrôles sont lancés, then le rapport lie exécutable/ASAR/runner/runtime aux artifacts du manifeste final1.13, en conservant le manifeste1.9 historique et nomme la provenance propre des nouveaux bancs.
@@ -95,7 +95,18 @@ L’investigation Forge en lecture seule ne prouve pas encore la branche : repri
 
 ## Plan Change Log
 
+Consolidation du28octobre : nouveau clic humain reçu pour le blocage13:06, GET Main003200 sans redirection, puis parcours personnel002(12contrôles,ForgeHARDENED/38observations), fermeture active001(8) et panne enfant002(9) réussis sur le paquet final0.1.2 installé. Chaque run rouvre exactement et archive son seul témoin profil fermé. Panne001 avait échoué à la première lecture Mary non admise, sans avoir simulé la panne : refus et six contrôles de conservation/archivage préservés, aucune garde changée. Matrice figée et R1–R10 reliées dans [final-matrix.md](../qualification-e2e/final-matrix.md). Aucun nouveau consentement ou coffre copié, aucune expiration Zscaler déduite.
+
+Lecture parent : diff initial1480lignes lu dans cette invocation, puis deltas de reprise507lignes relus intégralement après reconstruction des seules sources ajoutées depuis le diff initial. Les adaptations de sélecteurs de la refonte ont aussi été lues dans son diff1925lignes. Les receipts de1.11 restent liés à leur ASAR9249..., révision et empreintes propres ; le candidat UX séparé et son correctif Q1 ont leur autre Build et ne sont pas une modification produit de ce lot. Matrice9lignes auditée par preuves exécutées, suite synthétique75contrôles et parcours réels. Revue Quick et relecture indépendante supplémentaire de conservation/nettoyage avant toute conclusion G0/G1.
+
 ## Review Triage Log
+
+- Q1 — revue Quick finale, medium/patch, confirmé : les quatre bancs questions/approbations/vue commune/récupération ont reçu des sélecteurs de détails de la refonte distincte, absents du paquet1.13 effectivement qualifié. Le premier parcours synthétique positif utilisait leurs empreintes antérieures ; avec les scripts courants, la commande reproductible attendrait un détail inexistant sur l’ancien renderer. Les gardes d’artefact et assertions métier restent justes. Correction minimale : rendre seulement le dépliage conditionnel au chrome de détails effectivement livré, conserver l’attente explicite du détail sur le nouveau renderer et toutes les assertions de contenu/état ; qualifier les deux ASAR dans des sorties neuves sans capture/modèle. Aucun produit ni gate modifié.
+
+- P1 — contrôle supplémentaire de conservation, low/patch documentaire : trois nouveaux runs positifs cohérents et383historiques identiques. Le reçu de nettoyage du run d’activation refusée omettait le lien autonome à son argv source ; ajout d’une attestation rétrospective du véritable appel outil94788, avec SHA du contrôleur/reçus et witness/artifact du reçu source. Recontrôle ciblé de ce lien demandé au même auditeur, sans rejeu ni accès AppData.
+
+- Q1 — recontrôle, medium/patch, résolu : quatre enveloppes conditionnées au chrome réellement livré, attente et ouverture conservées sur le nouveau renderer. Ancien paquet final1.13 requalifié dans synthetic-current-002,10phases/75contrôles, nettoyage/historique conformes ; même relecteur confirme cause résolue et empreintes courantes des quatre bancs identiques au reçu. Aucun correctif différé.
+- P1 — recontrôle, low/patch documentaire, résolu : même auditeur vérifie trois SHA, argv source/sortie, témoin et artefact du lien parent94788 ; réserve levée, nature rétrospective maintenue. Avis favorable sur les trois parcours positifs et383historiques inchangés, sans conclusion humaine inventée.
 
 - A1 — contrôle indépendant de conservation, high/patch, résolu : la garde initiale ne cherchait que l’exécutable choisi. Une autre copie pouvait ouvrir le même profil après fermeture du banc et échapper au contrôle. Parent a confirmé le flux ; correction par `profileOwnerInventory/assertProfileClosed`, toutes copies Madness (dont renommées par ProductName) et Electron incertain refusées, avant les mutations d’archivage, sans arrêt par nom. Même auditeur recontrôle la cause et confirme aucun reliquat concret. L’implémenteur ajoute un témoin OS possédé dans un autre dossier : refus avant lecture d’un snapshot volontairement invalide, octets inchangés, enfant fermé/dossier supprimé ; ciblés13/13. Aucun parcours personnel ni archivage n’a précédé ce contrôle.
 

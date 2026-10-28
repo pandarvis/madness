@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T16:08:26.788Z",
+  "mode": "packaged-isolated-synthetic",
+  "status": "isolated-checks-passed-live-proof-separate",
+  "checks": [
+    "restored-approval-inactive-with-full-scope-adjustment-and-no-engine",
+    "snapshot-v1-six-madness-methods-preserved",
+    "real-bridge-rejects-historical-global-and-implicit-adjustment",
+    "real-main-atomic-adjustment-storage-independent-of-free-draft",
+    "full-mixed-patch-before-explicit-whole-operation-choice",
+    "operation-return-preserves-free-draft",
+    "desktop-compact-full-scope-controls-no-overflow",
+    "explicit-choice-keyboard-focus",
+    "transmitted-decision-does-not-claim-effect-success",
+    "unknown-stop-preserves-scope-and-withdraws-controls-in-light-theme",
+    "exact-reopen-annex-snapshot-and-project-no-engine-network-or-replay"
+  ],
+  "captures": [],
+  "cleanup": true,
+  "limits": [
+    "Main/preload/renderer réels et états synthétiques ; aucun compte ni fournisseur.",
+    "Les décisions et résultats natifs sont vérifiés par les tests protocole ; modèle réel et installation restent des preuves séparées.",
+    "Aucune distribution, acceptation visuelle humaine ou clôture des gates historiques déduite."
+  ],
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true
+  },
+  "artifact": {
+    "file": "resources/app.asar",
+    "sha256": "9249bdc081c2b3ceeae4465fcc7a3c53af5dca325889cae8fa0b118479f974b4"
+  },
+  "originalSnapshotSha256": "cdb7060f1159fa1f64fd8a3ce0091e3e031aa5f6b24b1cc84c1398610d8a95e8"
+}

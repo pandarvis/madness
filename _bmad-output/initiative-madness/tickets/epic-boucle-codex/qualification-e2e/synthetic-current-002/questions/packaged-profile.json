@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T16:08:09.935Z",
+  "mode": "packaged-isolated-synthetic",
+  "status": "isolated-checks-passed-live-proof-separate",
+  "checks": [
+    "real-main-restores-question-fields-values-as-inactive-without-engine",
+    "snapshot-v1-and-six-madness-methods-preserved",
+    "real-preload-rejects-empty-and-historical-answer-without-replay",
+    "real-main-atomic-annex-save-keeps-original-demand-and-free-draft",
+    "synthetic-active-question-real-options-no-default-and-empty-send-disabled",
+    "waiting-point-return-across-navigation-preserves-free-draft",
+    "synthetic-sending-never-claims-ack-before-native-and-storage",
+    "desktop-compact-question-no-horizontal-overflow",
+    "inactive-keeps-values-and-controls-disabled-in-both-themes",
+    "exact-reopen-annex-snapshot-and-project-without-engine-or-network"
+  ],
+  "captures": [],
+  "cleanup": true,
+  "limits": [
+    "Main/preload/renderer réels, données et notifications synthétiques ; aucun compte, fournisseur ou modèle.",
+    "Les reçus natifs sont exercés par les tests protocole et le spike distinct ; la preuve avec vrai modèle reste séparée.",
+    "Aucune acceptation humaine, distribution ni gate historique déduite de ce banc."
+  ],
+  "runtime": {
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "packaged": true
+  },
+  "artifact": {
+    "file": "resources/app.asar",
+    "sha256": "9249bdc081c2b3ceeae4465fcc7a3c53af5dca325889cae8fa0b118479f974b4"
+  }
+}

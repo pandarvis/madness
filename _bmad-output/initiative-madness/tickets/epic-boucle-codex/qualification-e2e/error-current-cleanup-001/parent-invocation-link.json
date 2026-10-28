@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "recordedAfterCompletion": true,
+  "source": "Attestation du parent fondée sur l’appel outil exécuté, et non journal automatique contemporain.",
+  "toolSession": 94788,
+  "command": {
+    "executable": "node",
+    "argv": [
+      "C:/Sources/madness/_bmad-output/initiative-madness/.working/story111-clean-current.mjs",
+      "C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-e2e/personal-error-current-001/report.json",
+      "C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-e2e/error-current-cleanup-001"
+    ]
+  },
+  "controllerSha256": "c4510e176bbd6dc087e8b3590fb227e9be6d032ca11087191c1473d7d3d724e4",
+  "sourceReport": {
+    "path": "C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-e2e/personal-error-current-001/report.json",
+    "sha256": "a5f5dedd0aa03e9eef93367a7f59fba1a9935a2d9703cec97a4a2de66a86826a",
+    "witness": {
+      "root": "C:\\Sources\\madness\\.g0-qualification\\epic-one-d17c6b97-244d-4985-9cda-26ca23bab950",
+      "id": "d17c6b97-244d-4985-9cda-26ca23bab950",
+      "synthetic": true
+    },
+    "artifact": {
+      "executable": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\Madness.exe",
+      "executableSha256": "85a0f3540057d93eaa7ebf0907cd36da6e7a847b30510c07e3b5cd9586276d62",
+      "manifest": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-forge-session-check\\installation-final\\release-manifest.json",
+      "manifestSha256": "15f08c2c7b3b51056ba7d1ce624dc1759bba09261bea981fb7809636c3b5c8b6",
+      "version": "0.1.2",
+      "electron": "45.0.0",
+      "asarSha256": "9249bdc081c2b3ceeae4465fcc7a3c53af5dca325889cae8fa0b118479f974b4",
+      "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5"
+    }
+  },
+  "cleanupReport": {
+    "path": "C:/Sources/madness/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-e2e/error-current-cleanup-001/report.json",
+    "sha256": "aa3da4b8acd850556e0fc2480fbea9c42d13800f1a8b8e49667abe9c6c061d90",
+    "checks": 6,
+    "status": "passed"
+  },
+  "observedToolResult": {
+    "status": "passed",
+    "checks": 6,
+    "accountReadable": true
+  },
+  "limits": [
+    "Métadonnées et lien rétrospectif du véritable appel ; aucun ancien reçu modifié et aucune nouvelle lecture du profil AppData."
+  ]
+}

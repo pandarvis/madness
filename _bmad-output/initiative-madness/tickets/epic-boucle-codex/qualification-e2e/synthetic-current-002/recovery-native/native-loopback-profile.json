@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-28T16:09:21.407Z",
+  "scope": "Vrai runner0.144.6 et protocole produit, exec/tools.apply_patch ; perte du terminal simulée au transport. Aucun compte, OAuth ni modèle externe.",
+  "checks": [
+    "owned-windows-identity-captured-before-native-protocol",
+    "wrong-start-time-never-kills-owned-process",
+    "accepted-effect-on-disk-with-native-result-still-unconfirmed",
+    "restart-projection-blocks-before-any-new-engine",
+    "explicit-reobservation-stops-only-proven-native-owner",
+    "all-files-inspected-without-inventing-native-success",
+    "explicit-new-conversation-no-text-approval-or-patch-replay"
+  ],
+  "requests": 2,
+  "droppedNativeReceipts": 1,
+  "cleanup": true,
+  "executableSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+  "events": [
+    {},
+    {
+      "method": "remoteControl/status/changed"
+    },
+    {},
+    {},
+    {
+      "method": "thread/started"
+    },
+    {
+      "method": "warning"
+    },
+    {},
+    {
+      "method": "thread/status/changed"
+    },
+    {
+      "method": "turn/started"
+    },
+    {
+      "method": "rawResponseItem/completed",
+      "item": "message"
+    },
+    {
+      "method": "rawResponseItem/completed",
+      "item": "message"
+    },
+    {
+      "method": "rawResponseItem/completed",
+      "item": "message"
+    },
+    {
+      "method": "rawResponseItem/completed",
+      "item": "message"
+    },
+    {
+      "method": "rawResponseItem/completed",
+      "item": "message"
+    },
+    {
+      "method": "item/started",
+      "item": "userMessage"
+    },
+    {
+      "method": "item/completed",
+      "item": "userMessage"
+    },
+    {
+      "method": "rawResponseItem/completed",
+      "item": "message"
+    },
+    {
+      "method": "rawResponseItem/completed",
+      "item": "custom_tool_call"
+    },
+    {
+      "method": "item/started",
+      "item": "dynamicToolCall",
+      "status": "inProgress"
+    },
+    {
+      "method": "item/tool/call"
+    },
+    {
+      "method": "item/completed",
+      "item": "dynamicToolCall",
+      "status": "completed"
+    },
+    {
+      "method": "item/started",
+      "item": "dynamicToolCall",
+      "status": "inProgress"
+    },
+    {
+      "method": "item/tool/call"
+    },
+    {
+      "method": "item/completed",
+      "item": "dynamicToolCall",
+      "status": "completed"
+    },
+    {
+      "method": "item/started",
+      "item": "fileChange",
+      "status": "inProgress"
+    },
+    {
+      "method": "thread/status/changed"
+    },
+    {
+      "method": "item/fileChange/requestApproval"
+    },
+    {
+      "method": "serverRequest/resolved"
+    },
+    {
+      "method": "thread/status/changed"
+    },
+    {
+      "method": "item/completed",
+      "item": "fileChange",
+      "status": "completed"
+    },
+    {
+      "method": "turn/diff/updated"
+    },
+    {
+      "method": "rawResponseItem/completed",
+      "item": "custom_tool_call_output"
+    },
+    {
+      "method": "thread/tokenUsage/updated"
+    },
+    {
+      "method": "account/rateLimits/updated"
+    },
+    {
+      "method": "turn/diff/updated"
+    }
+  ],
+  "protocolError": "PROVIDER_FAILED",
+  "status": "passed",
+  "nativeStopped": true,
+  "finishedAt": "2026-10-28T16:09:28.912Z"
+}

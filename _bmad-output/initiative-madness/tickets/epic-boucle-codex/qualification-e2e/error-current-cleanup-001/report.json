@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Réouverture exacte puis archivage du seul témoin échoué nommé, sans modèle ni rejeu",
+  "sourceFailure": "DIALOGUE_FAILED",
+  "sourceDiagnostic": {
+    "status": "error",
+    "errorCode": "UNSUPPORTED_INTERACTION",
+    "turnPhase": "interrupted",
+    "questionCount": 0,
+    "approvalCount": 0
+  },
+  "checks": [
+    "closed-durable-exact-on-reopen",
+    "historical-requests-inactive",
+    "account-readable",
+    "no-spontaneous-engine-or-network",
+    "owned-close-and-durable-bytes-identical",
+    "only-owned-witness-archived-other-business-data-identical"
+  ],
+  "status": "passed",
+  "limits": [
+    "Absence d’activité limitée aux3secondes après hook. Aucun coffre lu ou copié ; compte par métadonnées du pont."
+  ],
+  "runtime": {
+    "mainPid": 22736,
+    "wrapperPid": 54080,
+    "version": "0.1.2",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0",
+    "packaged": true,
+    "normalUserData": true,
+    "normalSessionData": true
+  },
+  "accountReadable": true,
+  "close": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-10-28T15:42:54.211Z",
+      "attached": true,
+      "overflow": false,
+      "network": 0,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 2048,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "archive": {
+    "status": "archived",
+    "archivedConversations": 1,
+    "archivedDrafts": 0,
+    "archivedAnnexes": 0,
+    "archive": "C:\\Users\\UP60066553\\AppData\\Roaming\\Madness\\test-project-archives\\epic-one-943fe6f5-158a-4965-ba7d-0666db7c9be0",
+    "witnessDirectoryPreserved": true
+  }
+}

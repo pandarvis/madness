@@ -1,0 +1,13 @@
+# Préparation de l’epic2
+
+28octobre2026, sous le mandat autonome du porteur. **Préparation documentaire terminée, aucun Build2 lancé.** Le premier travail reste bloqué par1.11/G1 et la qualification de la refonte ; Q8/Q9 restent à instruire avant les consommateurs des mesures.
+
+Le raffinement reprend exactement quinze exigences parent et sept contraintes ; aucune nouvelle exigence produit ni memlog enfant n’est créé selon l’exception SPEC applicable. Les32exigences de l’initiative gardent chacune leur epic propriétaire, sans renumérotation ni déplacement des quatre epics.
+
+Le [manifeste](../tickets/tickets.toml) compte17entrées planifiées, sans feuille ni plan : qualificationG2, contrats Sally, tracer d’aide native, projets/initiatives, preuves et actualisation externe, catalogue/fiches/lancement, aperçu/éditeur, accueil, qualification des mesures, UX des mesures, contrats/collecte, affichage, langues, sweep puis E2E. Les identifiants1–16 sont conservés ;17, ajouté après la relecture, précède les nouveaux parcours. Le nombre de lignes ne devient pas une limite ni un motif de nouveau découpage arbitraire.
+
+Les relectures indépendantes [Ticket/Set/Dependencies](review-set.md) et [Tree/Dependencies](review-tree.md) ont conservé leurs constats initiaux puis recontrôlé les corrections : reprises R8/R10/C1 exactes, UX avant implémentation, attribution diagnostic/G2 à2 et initialisation à3, raisons métier et contrôles supplémentaires des risques, handoffs et destinations des spikes. Aucun fix/suggest/ask restant dans ces périmètres. Le premier contrôle Set après refus temporaire UV a employé Python local en lecture seule ; il n’est pas présenté comme une exécution UV. Les commandes officielles UV du parent et du relecteur Tree ont réussi ; les recontrôles Set ultérieurs citent les résultats du parent sans refaire ce contournement.
+
+[coverage.json](coverage.json) relie les contrôles aux empreintes des documents :15lignes et7contraintes exactement héritées,32propriétaires uniques,17entrées planifiées/inassignées, aucune anomalie de dépendance et aucune entrée prête. Les contrôles sont documentaires ; ils ne prouvent ni compatibilité générale de v7, ni disponibilité de l’aide native générique ou de données d’usage/coût.
+
+La prochaine entrée2.1 exige la résolution de ses prérequis réels avant Build ; elle ne reçoit aucun succès par la planification. Le profil initial G2 ne clôturera pas la qualification intégrée de2.16. Les données R32 concernent Madness uniquement : aucun journal de notre développement, tarif API appliqué à l’abonnement, Loop/Builder ou autre fournisseur installé. L’aperçu/éditeur contribue à G3 ; initialisation/G4 et graphe/G5 restent dans les epics3/4.

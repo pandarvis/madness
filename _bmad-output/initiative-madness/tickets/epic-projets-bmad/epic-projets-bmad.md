@@ -5,8 +5,8 @@ parent: initiative-madness
 covers: ["R1", "R2", "R3", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R19", "R20", "R21", "R26", "R32"]
 sources: ["_bmad-output/initiative-madness/initiative-madness.md"]
 companions: ["_bmad-output/initiative-madness/ux-madness/DESIGN.md", "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md", "_bmad-output/initiative-madness/architecture-madness/architecture-madness.md"]
-refined: false
-risk: medium
+refined: true
+risk: high
 ---
 # Comprendre et piloter ses projets BMad existants
 
@@ -17,6 +17,54 @@ Depuis le socle et le dialogue de l'epic 1, une version Windows installable retr
 ## Outcome
 
 Un développeur retrouve ses projets BMad et leurs initiatives, explique l'état à partir de preuves, choisit une possibilité motivée dans le catalogue réel puis poursuit dans la conversation Codex, en français/anglais et clair/sombre. Il consulte le temps et le coût rattachés à une US, en comprenant la provenance, la couverture et les données indisponibles.
+
+## Requirements
+
+- R1 (parent R1) : Ouvrir un ou plusieurs projets locaux, dont un projet BMad déjà en cours, et retrouver pour chacun son contexte, ses initiatives et ses livrables sans réinitialisation imposée.
+
+- R2 (parent R2) : Retrouver à l'accueil les projets récents et leurs attentes nommées, puis ouvrir directement le projet ou le point de réponse, de relecture, d'interruption ou d'erreur concerné.
+
+- R3 (parent R3) : Diagnostiquer à l'ouverture puis avant une opération ses prérequis utiles, l'accès au dossier, la présence de BMad et la compatibilité effective de v7 ; distinguer absence, ancienne version et v7 incompatible ou inconnue, avec une explication et une action de récupération.
+
+- R4 (parent R5) : Identifier le projet et l'initiative active, retrouver et choisir les autres initiatives repérées, et rattacher état, action et fichiers au bon contexte ; changer d'initiative ne réattribue pas les anciens échanges ou résultats, et les outils sans initiative restent accessibles.
+
+- R5 (parent R6) : Présenter le parcours BMad et son état connu à partir des artefacts du projet ; les étapes, livrables et interprétations affichés renvoient à leurs preuves consultables et rendent les informations manquantes explicites.
+
+- R6 (parent R7) : Prendre en compte les fichiers BMad modifiés hors de Madness, actualiser les preuves et retrouver les résultats sans perdre la saisie courante ; ne pas inventer la session, l'auteur, l'activité ou la validation d'origine.
+
+- R7 (parent R8) : Distinguer situation du projet, activité de l'agent et acceptation humaine, ainsi que fait observé, déduction et proposition ; ni présence de fichier ni fin d'exécution ne suffit à afficher une validation humaine.
+
+- R8 (parent R9) : Expliquer une prochaine action à partir de bmad, de l'aide des modules installés et des preuves du projet, en distinguant aide chargée et recommandation produite par l'agent ; proposer les alternatives utiles sans imposer une séquence obligatoire.
+
+- R9 (parent R10) : Explorer et rechercher l'ensemble des compétences réellement installées, y compris outils transversaux et modules présents ; exclure les métadonnées non invocables, expliquer absence ou incompatibilité et permettre de corriger une recherche vide, sans liste ni quota figés.
+
+- R10 (parent R11) : Consulter pour chaque action son objectif, l'invocation Codex exacte et copiable, ses entrées, ses conditions et ses effets ou livrables attendus ; une action indisponible explique ce qui manque et ne se présente pas comme exécutable.
+
+- R11 (parent R19) : Lire les livrables dans un aperçu intégré et agrandissable avec chemin, provenance, portée et statut connu, puis demander leur ouverture dans l'éditeur ; constater la réussite ou expliquer l'échec réel, avec copie du chemin disponible, sans perdre le contexte.
+
+- R12 (parent R20) : Réduire et redéployer le menu gauche, consulter les fichiers et redimensionner la fenêtre sans perdre projet, initiative, conversation ou saisie ; garder les destinations et attentes identifiables, mémoriser la préférence de navigation et rester utilisable si ce stockage échoue.
+
+- R13 (parent R21) : Utiliser les actions au clavier avec noms accessibles, focus visible et rendu au déclencheur après fermeture ; comprendre les états sans couleur ni survol seuls, conserver lecture et commandes au zoom, et respecter la réduction de mouvement selon les contrats UX.
+
+- R14 (parent R26) : Utiliser la V1 en français ou en anglais et en thème clair ou sombre, en conservant contexte et saisie lors d'un changement ; les identifiants techniques, invocations, chemins et artefacts du projet gardent leur contenu et leur langue propres.
+
+- R15 (parent R32) : Consulter dans Madness le temps et le coût associés à une user story du projet ouvert, avec un rattachement identifiable à cette US et une indication explicite lorsqu’une mesure ou un montant n’est pas disponible.
+
+## Constraints
+
+- C1 (parent C1) : L'expérience utilisateur est le premier critère d'arbitrage du périmètre, de l'architecture et des interactions ; les décisions doivent préserver compréhension, guidage et contrôle par un développeur qui découvre BMad.
+
+- C2 (parent C2) : Le périmètre livré est Windows, Codex et BMad v7 uniquement ; une étiquette v7 ne suffit pas à garantir la compatibilité de ses formats et compétences.
+
+- C3 (parent C3) : Les projets et leurs artefacts BMad locaux existants restent exploitables ; la reprise ne requiert ni migration d'une ancienne version ni reconstruction supposée de conversations externes.
+
+- C4 (parent C4) : L’intégration retenue doit être vérifiée contre les interfaces, versions, capacités et modes d’authentification officiellement disponibles pour un projet personnel exécuté localement. La connexion SIWC propre à Madness déjà livrée et l’abonnement ChatGPT sont conservés, sans changement implicite d’authentification ni de facturation.
+
+- C5 (parent C5) : DESIGN.md et EXPERIENCE.md sont les contrats visuel et comportemental adoptés et prévalent sur les maquettes ; la base française claire reste acceptée. Sally complète les contrats pour l'anglais, le sombre et la vue Graphe avec Impeccable avant les implémentations concernées ; leurs hypothèses et limites restent explicites, sans preuve d'intégration déduite de la simulation.
+
+- C6 (parent C6) : Le socle retenu est Electron + React + TypeScript, starter electron-vite et packaging electron-builder. Le contrat d'architecture adopté gouverne les frontières, contrats partagés, autorités et profils qualifiés des lots ; ses décisions AD-1 à AD-10 gardent leurs identifiants. Les versions candidates restent à qualifier avant leurs consommateurs.
+
+- C7 (parent C7) : Madness est réservé au porteur, en local sous Windows, avec code privé ; aucune distribution à d’autres développeurs ni publication du code n’est requise. L’usage en environnement professionnel reste possible : les previews sont autorisées si choisies et signalées ; le runtime doit être acceptable par le proxy cible, sans exigence du tout dernier Chromium exact. La reconstruction et la réinstallation doivent rester simples ; l’auto-updater n’est pas requis pour la V1.
 
 ## Done when
 
@@ -39,13 +87,49 @@ Un développeur retrouve ses projets BMad et leurs initiatives, explique l'état
 
 ## References
 
-- parent — [Initiative Madness](../../initiative-madness.md), `_bmad-output/initiative-madness/initiative-madness.md` ; Requirements R1, R2, R3, R5, R6, R7, R8, R9, R10, R11, R19, R20, R21, R26, R32 ; Constraints C1–C8, Done when, Boundaries et Notes, notamment Q8/Q9.
+- parent — [Initiative Madness](../../initiative-madness.md), `_bmad-output/initiative-madness/initiative-madness.md` ; Requirements R1, R2, R3, R5, R6, R7, R8, R9, R10, R11, R19, R20, R21, R26, R32 ; Constraints C1–C7, Done when, Boundaries et Notes, notamment Q8/Q9.
 - architecture — [Contrat de Winston adopté](../../architecture-madness/architecture-madness.md) ; AD-1 à AD-8 ; G2 et contribution éditeur à G3. Companion conservé sans modification, AD stables ; les gates restent des preuves à produire.
 - design — [Contrat visuel adopté](../../ux-madness/DESIGN.md) ; base française claire acceptée, extensions selon C5.
 - experience — [Contrat comportemental adopté](../../ux-madness/EXPERIENCE.md) ; parcours, états et accessibilité, avec décisions récentes de l’initiative prévalant sur les mentions historiques A2/Q6.
 - ordre — [Découpage approuvé](../tickets.toml) ; identifiant 2 et prérequis de capacités à reporter sur les stories qui les consommeront.
 
 ## Notes
+
+- Decision: 2026-10-28 — Relecture indépendante Ticket/Set/Tree appliquée : reprises parent R8/R10/C1 corrigées sans métadonnées parasites ;17 ajouté avant les nouveaux parcours et12 placé avant11/13 pour leurs décisions UX, ids existants préservés. Les propositions S1/S2 sont retenues : réponses des spikes aux emplacements nommés, profil1 borné au tracer sans clôture G2 anticipée. Le conteneur passe à risque high sous délégation : une qualification erronée peut lancer une action dans un mauvais contexte, exposer un fichier ou attribuer une mesure fausse. Les contrôles supplémentaires ci-dessous complètent les verify ; aucun accord humain global n’est inventé.
+
+| Entrée | Risque et raison métier | Contrôle au-delà de la vérification normale pour les high |
+|---|---|---|
+|1|high : un faux profil compatible ouvrirait des lectures/effets non qualifiés.|Audit indépendant des racines canoniques, personnalisations et frontières, avec contre-exemples d’installation.|
+|17|medium : une nouvelle surface ambiguë ferait perdre contexte ou contrôle.|Relecture cohérence des contrats avant consommateurs.|
+|2|high : une aide mal sourcée pourrait recommander/lancer au mauvais contexte.|Relecture indépendante du reçu natif et de la distinction aide chargée/réponse produite.|
+|3|high : un mauvais changement d’initiative réattribuerait le travail.|Comparaison indépendante des rattachements historiques et des fichiers de configuration avant/après.|
+|4|high : une déduction affichée validée donnerait un faux accord.|Contre-lecture adversaire sur preuves contradictoires, absentes et révisions différentes.|
+|5|high : une preuve périmée autoriserait une opération sur de nouveaux octets.|Essai de course externe pendant lecture et décision, au-delà du rafraîchissement nominal.|
+|6|medium : catalogue incomplet ou opaque empêcherait le choix.|Inventaire et parcours fonctionnels de verify.|
+|7|high : un workflow non qualifié pourrait produire des effets hors de la portée annoncée.|Audit indépendant capacités/permissions et reçus/effets réels sur profils supplémentaires.|
+|8|high : un aperçu ou appel éditeur non borné exposerait du contenu ou exécuterait une entrée non fiable.|Revue de sécurité des types de contenu, chemins, URI et frontière de demande éditeur.|
+|9|medium : attente mal routée ou contexte perdu empêcherait de reprendre le travail.|Parcours multi-projet de verify.|
+|10|high : assimiler un schéma à une mesure fabriquerait du temps ou un coût.|Rapprochement indépendant champs réellement reçus, sémantique et matrice de disponibilité, sans prix API.|
+|12|medium : UX des mesures ambiguë ferait confondre zéro, partiel et indisponible.|Relecture des contrats avant11/13.|
+|11|high : duplication ou mauvaise association corromprait des mesures durables.|Injection de doublons/échecs de stockage et relecture indépendante compatibilité/historiques.|
+|13|high : valeur fausse ou absence présentée zéro tromperait la lecture d’une US.|Rapprochement indépendant de valeurs affichées et preuves de source/couverture, dont zéro connu et coût inconnu.|
+|14|medium : traduction incohérente changerait le sens d’une décision.|Relecture bilingue ciblée des actions et erreurs, en plus des parcours de verify.|
+|15|medium : nettoyage réintroduirait une régression.|Recontrôle des constats effectivement différés et de leurs tests.|
+|16|high : une fausse conclusion annoncerait des capacités non prouvées.|Relecture indépendante matrice/ASAR/runtime et conservation des données avant clôture du conteneur.|
+
+- Decision: 2026-10-28 — Préparation et découpage sous le mandat autonome « enchaine les étapes jusqu’à l’épic2 », sans Build2 démarré. Les quatre epics approuvés restent en place ;17entrées gardent une capacité cohérente dans le même paquet, avec davantage de lignes pour qualifier les inconnues et les contrats avant leurs consommateurs. Ce nombre ne motive ni nouveau découpage arbitraire ni gate de longueur. Aucun checkpoint humain routinier ajouté : plans/revues/commits sont délégués ; un vrai consentement ou clic réseau nécessaire reste une action humaine distincte.
+
+- Decision: 2026-10-28 — Exception de séquencement proposée et retenue sous cette délégation :1 qualifie G2 et les contrats de guidage avant le tracer2 « projet existant → aide des modules réellement installée → réponse native bmad et alternatives → conversation conservée ». Les invocations actuelles sont limitées à Mary/Forge et ne prouvent pas l’aide générale ; ajouter un nom de compétence ne suffit pas. Le spike ne rend pas une action lançable sans profil/capacités prouvés. Le tracer et le catalogue réutilisent la voie unique du cœur/connecteur, sans nouveau moteur ni permissions implicites.
+
+- Decision: 2026-10-28 — Le gate G0/G1 est épinglé à1.11 dans les entrées qui consomment la base ;1.11 reste en cours, dernier essai0.1.2 échoué avant moteur sur nouveau307Zscaler. Point intermédiaire qualification-e2e/checkpoint-0-1-2.md sous l’epic1,343tests/75contrôles isolés réussis, aucun succès natif intégré déduit. La refonte autonome indépendante doit également être qualifiée avant le premier Build2 ; son plan est plan-refonte-espace-de-travail.md sous l’initiative. Préparer les tickets ne lève ni ce prérequis ni G1.
+
+- Decision: 2026-10-28 — Une seule voie de changements car profils, contexte, preuves, catalogue/lancement, fichiers et accueil partagent contrats, cœur, Main/preload et renderer.17 fournit leurs contrats Sally après1 et avant tracer2, puis3–9.10 instruit les mesures sur le paquet figé fourni par9, sans modification des sources produit. Après décisions Q8/Q9,12 fournit leur parcours UX avant contrats/collecte11, puis13 livre le rattachement utilisateur et l’affichage ;14 traduit l’ensemble.15sweep attend tous les autres1–17 sauf16 et ne porte que leur nettoyage différé ;16vérifie l’intégration et transmet la contribution éditeur G3 à3. Aucun Build2 parallèle proposé : paquet/inventaire et ressources natives restent stables pendant qualification.
+
+- Open question: Q3/G2 — Le profil qualifié par1 doit arrêter racines/ordre de découverte, formats6.13.0-next réellement installés, personnalisations, catalogue partiel, aides/résolveurs et capacités par famille. Une entrée TOML peut représenter une US sans feuille, son statut étant dans le plan. Distinguer sélection locale d’initiative et éventuelle écriture BMad réellement consentie ; aucun changement de configuration par simple navigation. Reprise de conversation externe, installation/migration et Graphify restent hors de cet epic.
+
+- Open question: Q8 — Définition du temps par US et rattachement : bornes, attentes humaines, interruption/fermeture, chevauchements, plusieurs conversations/US et changements de rattachement.10 instruit puis Sofia/Winston arrêtent explicitement les règles avant11 ; aucune durée issue d’un timeout ou d’une ouverture de projet n’est retenue comme mesure métier par anticipation.
+
+- Open question: Q9 —10 doit distinguer les schémas exportés des données réellement reçues sur SIWC/Codex : usage last/total, identités locales/natives, champs facultatifs, doublons/retards et couverture. Montant/devise et attribution monétaire restent à qualifier séparément ; coût absent signifie indisponible, pas zéro et pas tarif API appliqué à l’abonnement. Les historiques actuels n’ont ni US ni mesure connue ; le nouveau stockage les préserve sans les reconstruire artificiellement. Ce besoin n’installe ni Loop/Builder ni un autre fournisseur et ne crée pas de suivi de notre développement.
 
 - Decision: 2026-10-27 — REPLAN Sofia sous mandat autonome : R32 reçoit pour propriétaire cet epic, qui identifie les US du projet et leurs preuves. Au raffinement, cadrer Q8/Q9 puis ordonner rattachement/qualification des données et extension des contrats avant affichage et conservation ; aucune mesure ni tarification n’est choisie par anticipation. Enveloppe toujours non raffinée, sans nouvelles stories ; quatre epics et dépendances conservés, aucun travail supprimé. Cette fonction de Madness ne suit pas notre développement et ne modifie ni les plans built ni la 1.8.
 

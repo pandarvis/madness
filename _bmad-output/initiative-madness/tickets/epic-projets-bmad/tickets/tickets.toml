@@ -1,0 +1,226 @@
+# Préparation Sofia sous mandat autonome du28octobre2026.
+# Entrées planifiées seulement ; aucun Build2 lancé, aucune feuille extraite.
+# Le gate1.11 et la refonte restent explicites. Les ids sont permanents.
+
+[[entry]]
+id = 1
+type = "spike"
+title = "Qualifier le profil BMad existant et les contrats de guidage"
+description = "Qualifie les primitives et un profil candidat G2 pour les formats et racines réellement présents, découverte/knowledge/aides, initiatives et tickets sans feuille ; détermine les contrats et capacités nécessaires à l’aide native puis au catalogue, sous l’autorité du cœur et de Winston. Consigne sa réponse dans qualification-profil-g2/profil-g2.md sous cet epic, sans clôturer G2 intégré, et fournit au tracer2 un profil de référence, ses lectures/effets permis et les refus prouvés, sans déduire la compatibilité du seul numéro de version."
+verify = "Sur fixtures v7 représentatives et installation locale, relire la matrice absence/ancien/inconnu/partiel/personnalisé, les frontières canoniques et le contrat de contexte/invocation ; constater les capacités prouvées et les inconnues restantes avant2."
+covers = ["R1", "R3", "R4", "R8", "R9", "R10"]
+after = ["1.11"]
+hitl = false
+risk = "high"
+unknown = "La refonte autonome de l’espace de travail a-t-elle été qualifiée avec son verdict et ses contrats avant de démarrer les parcours de l’epic2 ?"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 17
+type = "story"
+title = "Définir avec Sally les parcours de guidage et de fichiers"
+description = "Après le profil et les limites de1, complète les contrats UX adoptés avant leurs consommateurs : aide native et recommandation, catalogue/fiches, choix d’initiative, preuves/actualisation, aperçu/éditeur et accueil multi-projet. Définit les variantes françaises/anglaises et les états d’accès/refus selon ces capacités, en conservant la refonte et les deux thèmes. Fournit les références au tracer2 et aux parcours3–9 ; R32 est complété par12 après ses décisions10."
+verify = "Parcourir dans les contrats et références chaque destination, attente, erreur et retour au travail, y compris choix d’initiative et aperçu, clavier/zoom et conservation ; aucune compétence non qualifiée présentée lançable ni validation humaine inventée. Réconcilier les états avec le profil1 avant tout code2–9."
+covers = ["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14"]
+after = [1, "1.11"]
+hitl = false
+risk = "medium"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 2
+type = "story"
+title = "Obtenir une prochaine action avec l’aide BMad du projet"
+description = "Livre le tracer depuis un projet BMad existant : diagnostic de référence, aide des modules réellement chargée puis recommandation de l’agent dans une conversation native bmad avec invocation visible. Réutilise le dialogue de1 ; met en œuvre le profil et les contrats qualifiés par2.1, conserve saisie et contexte, distingue aide chargée et réponse produite. Fournit le chemin de référence au catalogue et au choix d’initiative suivants."
+verify = "Dans le paquet Windows, ouvrir un projet de référence, demander Que faire ensuite, retrouver les aides et leur provenance, lire la réponse native et ses alternatives puis retrouver cette conversation après réouverture ; modifier le profil ou retirer une aide donne une limite explicite sans appel supposé réussi."
+covers = ["R1", "R3", "R4", "R8", "R10"]
+after = [17,"1.11"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 3
+type = "story"
+title = "Retrouver et choisir les initiatives sans réattribuer les échanges"
+description = "Étend le contexte établi par2 aux initiatives découvertes de plusieurs projets et à leur choix explicite ; conserve les anciens rattachements et expose l’absence d’initiative. La sélection locale et toute éventuelle écriture de configuration BMad sont distinguées selon le contrat qualifié par1 ; aucune navigation ne modifie silencieusement le projet. Fournit les identités et révisions de contexte aux preuves et aux mesures."
+verify = "Ouvrir deux projets ayant plusieurs initiatives, changer la sélection puis rouvrir Madness : chaque action vise l’initiative choisie, les anciens échanges restent inchangés et les fichiers de configuration ne changent pas par simple navigation ; un contexte devenu invalide refuse l’action concernée."
+covers = ["R1", "R4", "R12"]
+after = [2, "1.11"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 4
+type = "story"
+title = "Lire le parcours et ses preuves à la bonne révision"
+description = "Projette étapes, tickets avec ou sans feuille, plans, livrables et statuts depuis les formats G2 et le contexte de3. Chaque fait, déduction, proposition ou acceptation identifiable renvoie à sa preuve et révision ; l’absence reste inconnue. Fournit les identités de preuves/fichiers/US consommées par actualisation, aperçu et qualification des mesures."
+verify = "Comparer des projets témoins aux artefacts sources, ouvrir les preuves de chaque étape et constater qu’un fichier présent, un plan built ou une fin de tour n’invente pas une validation humaine ; les entrées TOML sans feuille et preuves contradictoires gardent leur provenance."
+covers = ["R5", "R7"]
+after = [3, "1.11"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 5
+type = "story"
+title = "Actualiser les preuves après des changements externes"
+description = "Actualise les projections et identités de4 lorsqu’un fichier change hors de Madness, avec invalidation des résultats anciens et contrôle avant action. Regroupe les événements de fichiers sans perdre le brouillon, attribuer un auteur/session inconnus ou appliquer une ancienne acceptation à de nouveaux octets. Fournit cette fraîcheur au catalogue, à l’aide et aux aperçus."
+verify = "Modifier, supprimer et remplacer un artefact pendant une saisie puis pendant une lecture : nouvelle preuve et révision visibles, ancien accord conservé sur son ancien contenu, saisie intacte et action refusée si ses préconditions ont changé."
+covers = ["R3", "R6", "R7"]
+after = [4, "1.11"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 6
+type = "story"
+title = "Explorer le catalogue réellement installé et ses fiches"
+description = "Expose la découverte sourcée de1 et la fraîcheur de5 : recherche et filtres sur toutes les compétences invocables présentes, modules et outils transversaux, sans quota figé. Chaque fiche explique objectif, invocation exacte copiable, entrées, conditions, effets et capacité disponible ou manquante. Métadonnées bmod et références absentes ne deviennent pas des actions exécutables. Fournit les fiches qualifiées au lancement7."
+verify = "Ajouter ou retirer une compétence et un module dans un témoin, chercher par intention/nom/invocation puis ouvrir une fiche : l’inventaire évolue, copie exacte confirmée, vide et indisponibilité sont expliqués, aucun modèle ni opération déclenché par consultation."
+covers = ["R8", "R9", "R10", "R13"]
+after = [5, "1.11"]
+hitl = false
+risk = "medium"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 7
+type = "story"
+title = "Lancer les actions qualifiées du catalogue dans la conversation"
+description = "Relie les fiches de6 à la voie unique du cœur et du connecteur, en étendant les profils prouvés par1 sans redéfinir les garanties du dialogue. Capture contexte/invocation/entrées/effets puis rejoint l’échange corrélé ; conditions de chaque workflow, choix et mode autonome autorisé respectés. Une action installée dont des capacités restent non qualifiées explique précisément son indisponibilité. Fournit cette voie commune aux parcours fichiers et accueil suivants."
+verify = "Depuis plusieurs fiches de profils qualifiés, lancer explicitement et traiter leurs questions/accords dans le bon projet ; contexte changé ou capacité manquante refuse avant effet. Vérifier invocations et reçus/fichiers réels selon les conditions du workflow, sans simple succès de texte ou second moteur."
+covers = ["R8", "R9", "R10"]
+after = [6, "1.11"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 8
+type = "story"
+title = "Consulter les livrables et demander leur ouverture dans l’éditeur"
+description = "Utilise identités et fraîcheur de4/5 avec le contexte et les actions de7 pour un aperçu intégré agrandissable et une demande d’ouverture éditeur. Chemin, provenance, portée et statut connus restent lisibles ; contenu non fiable ne s’exécute pas. Fournit à l’epic3 la preuve de retour éditeur pour sa contribution G3, et le panneau réutilisable par le graphe futur."
+verify = "Ouvrir et agrandir un livrable témoin, garder la saisie et demander l’éditeur : retour observable ou échec connu, copie exacte disponible. Fichier inaccessible, modifié ou hors portée est refusé sans contenu exécuté ni fausse preuve de lecture humaine."
+covers = ["R5", "R6", "R11", "R12", "R13"]
+after = [7, "1.11"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 9
+type = "story"
+title = "Retrouver son travail et ses attentes entre plusieurs projets"
+description = "Réconcilie récents, initiatives et preuves actualisées avec les destinations de conversation/fichier de8 et la projection d’attentes existante. Accueil et projet distinguent travail présent, attente répondable, relecture, interruption, erreur et historique ; retour exact sans perte de saisie ni réattribution. Fournit un paquet et contexte stables à la qualification de mesure10 et aux contrats/variantes suivants."
+verify = "Depuis l’accueil puis un autre projet, rejoindre chaque attente et chaque preuve corrélée, revenir à la saisie et redimensionner/replier la navigation ; demandes anciennes restent inactives, sélection et brouillon exacts après réouverture."
+covers = ["R1", "R2", "R4", "R7", "R12", "R13"]
+after = [8, "1.11"]
+hitl = false
+risk = "medium"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 10
+type = "spike"
+title = "Cadrer le temps par US et qualifier les données d’usage Codex"
+description = "Sur le paquet figé fourni par9 et les identités de4, instruit Q8/Q9 sans modifier les sources produit : propositions de temps et rattachement, puis preuves des champs réellement exposés par SIWC/Codex, sémantique et déduplication. Distingue schémas et événements observés, local/natif, couverture et indisponibilité ; montant/devise inconnus restent inconnus. Consigne la réponse et fixtures expurgées dans qualification-mesures-us/decisions-et-donnees.md sous cet epic et fournit à12/11 les décisions et qualifications nécessaires, à faire arrêter explicitement par Sofia/Winston sous mandat."
+verify = "Relire une matrice sourcée disponible/non prouvé et des fixtures expurgées couvrant attentes, interruption, terminal absent, doublons/retards, plusieurs conversations/US et réouverture ; constater que ni durée de timeout, ni agrégat de compte, ni tarif API ne devient un temps/coût d’abonnement par US."
+covers = ["R15"]
+after = [9, "1.11"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 12
+type = "story"
+title = "Définir avec Sally le parcours des mesures par US"
+description = "Après décisions Q8/Q9 et qualification10, définit avec Sally et Impeccable le rattachement et la consultation des mesures par US : données connues, couverture, indisponibilité et règles de langue des nouveaux champs. Prolonge les contrats généraux fournis par17, sans changer palette ou composition. Fournit ces règles avant les contrats/collecte11 et le parcours/affichage13 ; aucun montant ou mesure choisi par défaut."
+verify = "À partir des règles arrêtées et preuves10, parcourir les états de rattachement et consultation connus/inconnus/partiels dans les contrats et références UX ; vérifier provenance, couverture, absence de coût inventé et déclinaisons françaises/anglaises avant toute implémentation11/13."
+covers = ["R13","R14","R15"]
+after = [10,"1.11"]
+hitl = false
+risk = "medium"
+unknown = "Q8/Q9 ont-elles des décisions et preuves explicites sur le temps, le rattachement, les données disponibles et la déduplication avant de définir le parcours des mesures ?"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 11
+type = "story"
+title = "Conserver les mesures sourcées et leur rattachement aux US"
+description = "Après décisions Q8/Q9, qualification10 et parcours Sally12, établit sous l’autorité du cœur les extensions versionnées identitéUS/mesure/événements/connecteur/persistance, avec correspondance des identités locales et natives. S’appuie sur le contexte stabilisé par9 ; collecte/normalise seulement les données qualifiées, agrège sans doubles comptes et conserve couverture, inconnus et erreurs atomiquement. Fournit le modèle et les commandes au parcours utilisateur13, sans nouvelle UI dans11 ni réécriture des plans built de1."
+verify = "Dans un banc sans nouvelle UI, rattacher selon les règles décidées plusieurs tours et conversations à des US témoins, réémettre événements et retards puis fermer/rouvrir : mêmes mesures sourcées sans duplication, historiques inconnus, contexte exact et échec disque sans réussite durable inventée. Les commandes utilisateur sont vérifiées en13 après12."
+covers = ["R4", "R7", "R15"]
+after = [9,10,12,"1.11"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 13
+type = "story"
+title = "Consulter le temps et le coût connus d’une US"
+description = "Livre le parcours utilisateur de rattachement et consultation décidé par12 sur le modèle11 dans le contexte du projet/initiative/US : définition, source, intervalle, couverture et données partielles ou indisponibles. Rend le rattachement identifiable et les agrégats compréhensibles sans facturation inventée ; aucune durée rétrospective déduite des historiques. Fournit ses chaînes et états à la traduction14."
+verify = "Ouvrir plusieurs US avec mesure connue, zéro connu, données partielles et coût absent ; expliquer chaque valeur par sa provenance et couverture, puis changer d’US et rouvrir sans mélanger les mesures ni relancer un agent."
+covers = ["R7", "R15"]
+after = [11,12,"1.11"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 14
+type = "story"
+title = "Utiliser les parcours en français ou en anglais dans les deux thèmes"
+description = "Met en œuvre les variantes générales de17 et les compléments de mesure de12 sur toutes les surfaces intégrées jusqu’à13, sans traduire identifiants, invocations, chemins ou artefacts. Choix de langue conservé avec échecs explicites ; thème existant réutilisé. Vérifie navigation, clavier/focus, zoom, redimensionnement et conservation de saisie sur la version complète de l’epic avant le sweep."
+verify = "Changer de langue et de thème pendant rédaction et consultation d’une demande, replier/redimensionner puis rouvrir : interface traduite cohérente, contenu projet exact, saisie/contexte et décisions préservés ; stockage refusé ne prétend pas une préférence sauvegardée."
+covers = ["R12", "R13", "R14"]
+after = [13, "1.11"]
+hitl = false
+risk = "medium"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 15
+type = "story"
+title = "Refactor sweep"
+description = "Nettoie uniquement les constats de revue et dettes effectivement différés par les plans1–14 et17, à relire au démarrage ; aucune fonctionnalité poussée hors d’une story ne devient du nettoyage. Préserve les contrats, qualifications, données et tous les comportements vérifiés, puis fournit la version nettoyée à16."
+verify = "Rapprocher la liste des constats différés des plans et de leurs preuves ; aucun point de nettoyage acquis sans correction/recontrôle, suite appropriée verte et aucun besoin produit absorbé implicitement."
+covers = []
+after = [1,17,2,3,4,5,6,7,8,9,10,12,11,13,14,"1.11"]
+hitl = false
+risk = "medium"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 16
+type = "story"
+title = "Vérifier les parcours intégrés et les preuves G2 et éditeur"
+description = "Qualifie le paquet Windows issu du sweep : projets/initiatives existants, diagnostic G2, aide native et catalogue réel, preuves/changements externes, aperçu/retour éditeur G3, attentes, mesures R32 et variantes. Vérifie restauration et remplacement avec données conservées, publie seulement les profils/capacités prouvés et transmet les preuves à l’epic3 ; aucune clôture G4/G5 ou V1 complète par ce seul lot."
+verify = "Sur projets représentatifs et machine cible, accomplir les parcours intégrés, cas de refus/inconnu, changements externes et restauration/remplacement dans le paquet exact ; matrice R1–R15 et limites G2/G3 relues indépendamment, sans assimilation du prototype ou d’un accord synthétique à une validation humaine globale."
+covers = ["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15"]
+after = [15, "1.11"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false

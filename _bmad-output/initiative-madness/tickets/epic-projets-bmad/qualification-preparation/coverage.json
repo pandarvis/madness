@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "status": "passed-documentary-preparation-only",
+  "checkedAt": "2026-10-28T14:20:30.720Z",
+  "sourceRequirements": 32,
+  "uniqueEpicOwners": 32,
+  "derivedRequirementsExact": 15,
+  "derivedConstraintsExact": 7,
+  "plannedEntries": 17,
+  "order": [
+    1,
+    17,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    11,
+    13,
+    14,
+    15,
+    16
+  ],
+  "riskRows": 17,
+  "readyToStart": 0,
+  "readyToRefine": 0,
+  "g1StoryStatus": "in-progress",
+  "checks": [
+    "exact-parent-wording-and-identifiers",
+    "32-requirements-one-epic-owner-each",
+    "17-planned-unassigned-no-leaves",
+    "ux-before-general-consumers-and-metrics-contracts",
+    "whole-epic-gate-pinned-to-1.11",
+    "no-cycle-drift-unpinned-undeclared-or-order-conflict",
+    "risk-reasons-and-extra-high-checks",
+    "no-build2-or-gate-closure"
+  ],
+  "files": [
+    {
+      "path": "initiative-madness.md",
+      "sha256": "a07a05f5d0290aa139049623e8cc17fedfb2cc6b9d91a61d6cd8386ad23aa1f9"
+    },
+    {
+      "path": "tickets/tickets.toml",
+      "sha256": "abfb2cfb72d2e6ee56969945bd356edf726964699a285b71fa4cb7310b2b5723"
+    },
+    {
+      "path": "tickets/epic-projets-bmad/epic-projets-bmad.md",
+      "sha256": "be0b6c6f4671a0d55b6de5459d96f034c112a74fbf2c2a95aabaae773c773f42"
+    },
+    {
+      "path": "tickets/epic-projets-bmad/tickets/tickets.toml",
+      "sha256": "92f4a70e8bd0d91b23220cdf92a15ad44ee8001bdaccbc5e498486f0c77bc220"
+    }
+  ],
+  "limits": [
+    "Contrôle documentaire et structurel, aucun code2 ni modèle exécuté.",
+    "G1/1.11, refonte et Q8/Q9 restent dans leur portée réellement non résolue."
+  ]
+}

@@ -5,7 +5,18 @@ import {join} from 'node:path'
 import {tmpdir} from 'node:os'
 import {WorkflowStore} from '../src/adapters/persistence/workflow-store.ts'
 import {isWorkflowRecord} from '../src/contracts/dialogue.ts'
+import {createHash} from 'node:crypto'
 const record=()=>({schemaVersion:1,conversationId:'conversation-1',context:{projectId:'project-1',initiativeId:'initiative-test',conversationId:'conversation-1',connectionId:'account-1',providerId:'codex'},invocation:'$bmad-forge-idea',capturedAt:new Date().toISOString(),rootPath:'C:/project',outputBase:'C:/project/_bmad-output/initiative-test',contextDigest:'a'.repeat(64),fingerprint:'b'.repeat(64),skillPath:'C:/project/.agents/skills/bmad-forge-idea/SKILL.md',workspace:null,outcome:'open',observations:[]})
+test('reçu de recherche natif sans chemin durable et ancienne annexe intacte au même schéma',async t=>{
+ const root=await mkdtemp(join(tmpdir(),'madness-workflow-sessions-'));t.after(()=>rm(root,{recursive:true,force:true,maxRetries:3}))
+ const historical=record(),current={...record(),conversationId:'conversation-current',context:{...record().context,conversationId:'conversation-current'}}
+ historical.observations.push({id:'old-init',turnId:'old-turn',operation:'init',phase:'observed',at:historical.capturedAt,path:historical.outputBase+'/forge-old/.memlog.md',sha256:'c'.repeat(64),bytes:42})
+ const historicalPath=join(root,historical.conversationId+'.json'),original=JSON.stringify(historical,null,2)+'\n';await writeFile(historicalPath,original)
+ const output=JSON.stringify({observed:true,locations:[{path:current.outputBase,exists:false,sessions:[]}]})
+ current.observations.push({id:'native-call',turnId:'native-turn',operation:'check-sessions',phase:'observed',at:current.capturedAt,path:null,sha256:createHash('sha256').update(output).digest('hex'),bytes:Buffer.byteLength(output)})
+ const store=new WorkflowStore(root);await store.read();await store.write(current)
+ assert.equal(isWorkflowRecord(current),true);assert.deepEqual(await new WorkflowStore(root).read(),[historical,current]);assert.equal(await readFile(historicalPath,'utf8'),original)
+})
 test('annexe atomique par conversation restaure contexte et preuves sans migration Snapshot',async t=>{
  const root=await mkdtemp(join(tmpdir(),'madness-workflow-test-'));t.after(()=>rm(root,{recursive:true,force:true,maxRetries:3}))
  const store=new WorkflowStore(root),r=record();assert.deepEqual(await store.read(),[]);assert.equal(isWorkflowRecord(r),true)

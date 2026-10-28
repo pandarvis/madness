@@ -1,0 +1,29 @@
+✔ progression stable, stockage groupé, identité figée et demande réelle ; texte partiel gardé sur coupure (39.9382ms)
+✔ un refus disque garde le texte visible avec conservation non confirmée (4.5634ms)
+✔ la projection refuse un volume cumulé excessif sans étendre Snapshot v1 (1.1576ms)
+✔ arrêt pendant un lot en écriture draine le partiel et le brouillon admis sans état ready (111.3338ms)
+✔ un acquittement en écriture ne réannonce pas running après une demande d’arrêt (2.543ms)
+✔ contrat dialogue refuse propriétés natives, chemins, texte vide et effets implicites (0.3867ms)
+✔ qualification bloque le modèle, conversation conserve contexte et accusé durable sans bloquer la navigation (4.9127ms)
+✔ contexte étranger refusé et erreur de sauvegarde ne devient jamais succès (2.7266ms)
+✔ arrêt inconnu interdit tout nouveau lancement et garde le dernier contexte (2.6508ms)
+✔ annuler pendant la qualification ne lance aucun fournisseur et laisse le brouillon intact (5.2157ms)
+✔ arrêter pendant l’écriture finale ferme Codex sans rétablir ready (stopped) (2.6135ms)
+✔ arrêter pendant l’écriture finale ferme Codex sans rétablir ready (unknown) (3.4653ms)
+✔ Forge conserve invocation, contexte et observations avant effets ; restauration sans moteur et copie confirmée (2.3641ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : missing (0.7388ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : fingerprint (0.4487ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : skillPath (0.3226ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : outputBase (0.4028ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : initiativeId (0.725ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : contextDigest (0.584ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : rootPath (0.6232ms)
+✔ la limite de 200 workflows bloque Forge avant le fournisseur et permet restauration et Mary (16.306ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 820.3596

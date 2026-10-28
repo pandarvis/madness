@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "lens": "quick",
+  "reviewer": "/root/forge_session_check_quick",
+  "findings": [
+    {
+      "id": "Q1",
+      "verdict": "medium",
+      "route": "patch",
+      "status": "resolved-same-reviewer"
+    }
+  ],
+  "fixtureSupplement": "reviewed-no-finding",
+  "independentBoundaryFinding": {
+    "id": "A1",
+    "status": "resolved-independent8/8"
+  },
+  "remaining": 0,
+  "deferred": 0,
+  "verification": "post-patch full338/338, types/build, packaged9, windows5, installation7",
+  "limits": [
+    "Quick et recontrôles par inspection ; essais exécutés séparément par parent et implémenteur."
+  ]
+}

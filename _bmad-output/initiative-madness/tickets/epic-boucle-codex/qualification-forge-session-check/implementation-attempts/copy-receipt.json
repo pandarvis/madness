@@ -1,0 +1,73 @@
+{
+  "source": "implementation-owned-logs",
+  "entries": [
+    {
+      "name": "boundaries-windows-recheck.log",
+      "sha256": "abdd68740ba438e9f86de3ce8b4714c28337850ffe7c793aebe7cc3507665137",
+      "bytes": 235
+    },
+    {
+      "name": "coordinator-final.log",
+      "sha256": "a2421adac3e99dcd15aeac0a8658c2838eb20dbfa0c340c321c1432ba6f544e4",
+      "bytes": 2271
+    },
+    {
+      "name": "host-diagnostic.log",
+      "sha256": "c6036a785fd0da7590da9b0342bafd88718fec591a213f9536e08238ac34670b",
+      "bytes": 1147
+    },
+    {
+      "name": "red-protocol.log",
+      "sha256": "8de07f6e3aa6afc7146caae7937f1472a6f17375d78abd480a8d3fd1a366edb4",
+      "bytes": 1637
+    },
+    {
+      "name": "review-a1-absence-final.log",
+      "sha256": "c762b68f8df5378ceb23fefc417dd81260cb6fe23a105ea47c6c4f3736da15a0",
+      "bytes": 238
+    },
+    {
+      "name": "review-a1-boundaries.log",
+      "sha256": "acc78114ccc02715669b4236618fb498213a191ee994e8273a1de1f10f6a21d4",
+      "bytes": 351
+    },
+    {
+      "name": "targeted-final.log",
+      "sha256": "113ed4fa6ac6249fa2a84d9092cae8c8d7473d327e67a1968810aaa1c5db596e",
+      "bytes": 4109
+    },
+    {
+      "name": "targeted-first.log",
+      "sha256": "67e02c6265315bee96113ecef073d0ca1218c783b8460c800a512b04ef351e06",
+      "bytes": 11976
+    },
+    {
+      "name": "targeted-host.log",
+      "sha256": "1e4a2db5ec091720288cd8430d5cd285a6d99525893f2f9f8d84d1a535d56231",
+      "bytes": 3857
+    },
+    {
+      "name": "typecheck-case-prefix.log",
+      "sha256": "8a0cc159074281a46b2d8aa9651f30e889acbbdf9c77353cad7335c98d663e8a",
+      "bytes": 106
+    },
+    {
+      "name": "typecheck-final.log",
+      "sha256": "8a0cc159074281a46b2d8aa9651f30e889acbbdf9c77353cad7335c98d663e8a",
+      "bytes": 106
+    },
+    {
+      "name": "typecheck-first.log",
+      "sha256": "8e2935d107e697e463ecfc9c8f6ec72de33911c717698c5c39aa775d9c5bb85f",
+      "bytes": 106
+    },
+    {
+      "name": "typecheck-review-a1.log",
+      "sha256": "8a0cc159074281a46b2d8aa9651f30e889acbbdf9c77353cad7335c98d663e8a",
+      "bytes": 106
+    }
+  ],
+  "limits": [
+    "Tentatives distinctes, dont échecs sandbox et privilège symlink ; le résultat global frais est full-tests.log."
+  ]
+}

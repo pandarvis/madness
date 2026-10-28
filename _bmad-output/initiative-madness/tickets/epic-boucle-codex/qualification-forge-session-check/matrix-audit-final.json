@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "status": "all-six-rows-covered-and-passed",
+  "matrix": [
+    {
+      "row": "Contrôle natif",
+      "source": "permanent-tests-no-account-or-model",
+      "tests": [
+        "✔ recherche native : sorties absentes, vides et complètes ; reçu exact sans corps ni effet (24412.7949ms)",
+        "✔ sans initiative, la recherche contrôle une seule fois la sortie générale imposée (36106.4861ms)"
+      ],
+      "status": "passed"
+    },
+    {
+      "row": "Fraîcheur",
+      "source": "permanent-tests-no-account-or-model",
+      "tests": [
+        "✔ fraîcheur : session inachevée general apparue après qualification ou contrôle bloque init (31130.4066ms)",
+        "✔ fraîcheur : session inachevée initiative apparue après qualification ou contrôle bloque init (31737.5216ms)"
+      ],
+      "status": "passed"
+    },
+    {
+      "row": "Frontières",
+      "source": "permanent-tests-no-account-or-model",
+      "tests": [
+        "✔ frontières : refus fermés des journaux absents, invalides, trop grands, liens et hardlinks (33052.8739ms)",
+        "✔ contrôle de sessions refuse argument supplémentaire avant exécution hôte (2.0178ms)",
+        "✔ contrôle de sessions refuse le contexte foreign-check (0.6003ms)",
+        "✔ course : une sortie vide remplacée pendant readdir est refusée sans reçu ni lecture externe (33919.4777ms)"
+      ],
+      "status": "passed"
+    },
+    {
+      "row": "Ordre",
+      "source": "permanent-tests-no-account-or-model",
+      "tests": [
+        "✔ régression : le premier terminal après workflow/config seuls doit être refusé (1.1623ms)",
+        "✔ régression : init sans contrôle de sessions doit être refusé avant tout effet hôte (0.9332ms)",
+        "✔ contrôle de sessions refuse avant workflow avant exécution hôte (0.5241ms)",
+        "✔ contrôle de sessions refuse après init avant exécution hôte (0.6348ms)",
+        "✔ ordre hôte et échec de stockage ne créent ni reçu durable ni droit à init (30138.8301ms)"
+      ],
+      "status": "passed"
+    },
+    {
+      "row": "Conservation",
+      "source": "permanent-tests-no-account-or-model",
+      "tests": [
+        "✔ reçu de recherche natif sans chemin durable et ancienne annexe intacte au même schéma (53.3541ms)",
+        "✔ un échec de conservation du contrôle empêche terminal et init (0.7511ms)"
+      ],
+      "status": "passed"
+    },
+    {
+      "row": "Livraison",
+      "status": "passed",
+      "sources": [
+        "full-tests-final.log",
+        "build-win-final.log",
+        "packaged-final/packaged-profile.json",
+        "windows-final.log",
+        "installation-final/release-manifest.json",
+        "installation-final/installation-command.json",
+        "installation-final/installed-reopen-001/report.json"
+      ],
+      "checks": {
+        "fullTests": 338,
+        "packaged": 9,
+        "windows": 5,
+        "installed": 7,
+        "preservedAtReplacement": 42,
+        "preservedBusinessAfterReopen": 41
+      }
+    }
+  ],
+  "limits": [
+    "Aucun modèle externe dans13 ; la preuve intégrée réelle de11 reste ouverte.",
+    "Les338tests du workspace incluent20tests du harnais11 en cours ; aucun succès de11 déduit."
+  ],
+  "candidate": "final-after-Q1",
+  "asarSha256": "9249bdc081c2b3ceeae4465fcc7a3c53af5dca325889cae8fa0b118479f974b4"
+}

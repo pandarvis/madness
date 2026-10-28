@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "checks": [
+    "closed-profile-critical-bytes-identical-after-replacement",
+    "installed-artifact-and-normal-runtime-match",
+    "historical-requests-inactive",
+    "existing-account-readable",
+    "no-spontaneous-model-or-network-after-hook",
+    "actual-main-and-owned-spaces-closed",
+    "durable-business-data-and-encrypted-account-identical-after-reopen"
+  ],
+  "limits": [
+    "Empreintes des seuls fichiers chiffrés : aucun déchiffrement ni copie du coffre.",
+    "Aucun modèle/OAuth/contrôle réseau demandé ; compte lu par métadonnées du pont.",
+    "Zéro activité spontanée vérifié trois secondes après hook seulement."
+  ],
+  "preservedAtReplacement": 42,
+  "artifact": {
+    "executable": "C:/Users/UP60066553/AppData/Local/Programs/Madness/Madness.exe",
+    "version": "0.1.2",
+    "electron": "45.0.0",
+    "manifest": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-boucle-codex\\qualification-forge-session-check\\release-manifest.json",
+    "manifestSha256": "e6853734aca179e0698c5fa769f4391024a4d2ba2f2e8152e8c2d2755174ded5",
+    "asarSha256": "25400621028638c68528178774724362b5434093cbc25048ece8f61247d7b88f",
+    "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5"
+  },
+  "runtime": {
+    "mainPid": 48136,
+    "wrapperPid": 46048,
+    "version": "0.1.2",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0",
+    "packaged": true,
+    "normalUserData": true,
+    "normalSessionData": true
+  },
+  "accountReadable": true,
+  "projectNames": [
+    "MIA",
+    "madness"
+  ],
+  "close": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-10-28T11:56:26.104Z",
+      "attached": true,
+      "overflow": false,
+      "network": 0,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 256,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "preservedAfterReopen": 41,
+  "localStateEqualAfterReopen": true
+}

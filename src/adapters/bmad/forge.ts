@@ -61,8 +61,66 @@ async function resolved(profile: BmadProfile, kind: 'workflow'|'config'|'persona
   const args=kind==='workflow'?['--project-root',profile.rootPath,'--skill',dirname(profile.skillPath),'--key','workflow']:kind==='config'?['--project-root',profile.rootPath,'--key','core.output_folder','--key','core.active_initiative']:['--project-root',profile.rootPath,'--skill',dirname(profile.skillPath)]
   return runForgeScript(profile,kind,args,signal,runner)
 }
-async function incomplete(root:string,base:string):Promise<void> {
-  try { await forgePath(root,base); for(const item of await readdir(base,{withFileTypes:true})) if(item.name.startsWith('forge-')) { const folder=join(base,item.name);await forgePath(root,folder); if(!item.isDirectory()) throw dialogueFailure('OUTPUT_REFUSED');try { const text=decode(await bytes(root,join(folder,'.memlog.md')));if(!/^status:\s*complete\s*$/m.test(text.split('\n---')[0]))throw dialogueFailure('RESUME_UNSUPPORTED') } catch(e){if(!missing(e))throw e} } } catch(e) {if(!missing(e))throw e}
+/** Lecture bornée du seul frontmatter natif ; le corps du journal n'est jamais retourné. */
+async function sessionFrontmatter(root:string,path:string):Promise<Buffer> {
+  await forgePath(root,path)
+  const info=await lstat(path)
+  if(!info.isFile()||info.nlink!==1||info.size>1048576)throw dialogueFailure('OUTPUT_REFUSED')
+  const file=await open(path,'r')
+  try{
+    const opened=await file.stat()
+    if(!opened.isFile()||opened.nlink!==1||opened.size!==info.size||opened.dev!==info.dev||opened.ino!==info.ino)throw dialogueFailure('OUTPUT_REFUSED')
+    let data=Buffer.alloc(0)
+    while(data.length<65536){
+      const chunk=Buffer.alloc(Math.min(1024,65536-data.length)),{bytesRead}=await file.read(chunk,0,chunk.length,null)
+      if(!bytesRead)throw dialogueFailure('OUTPUT_REFUSED')
+      data=Buffer.concat([data,chunk.subarray(0,bytesRead)])
+      const end=(data.length===opened.size?/\r?\n---(?:\r?\n|$)/:/\r?\n---\r?\n/).exec(data.toString('latin1'))
+      if(end){
+        const header=data.subarray(0,end.index+end[0].length),text=decode(header),lines=text.split(/\r?\n/)
+        if(lines[0]!=='---')throw dialogueFailure('OUTPUT_REFUSED')
+        const fields=new Map<string,string>()
+        for(const line of lines.slice(1,lines.indexOf('---',1))){
+          const field=/^([A-Za-z_][A-Za-z0-9_-]*):[ \t]*(.*)$/.exec(line)
+          if(!field||fields.has(field[1])||/[\x00-\x08\x0b-\x1f\x7f]/.test(field[2]))throw dialogueFailure('OUTPUT_REFUSED')
+          fields.set(field[1],field[2].trim())
+        }
+        if(fields.get('status')!=='complete')throw dialogueFailure('RESUME_UNSUPPORTED')
+        await forgePath(root,path)
+        const current=await lstat(path),after=await file.stat()
+        if(current.nlink!==1||current.dev!==opened.dev||current.ino!==opened.ino||after.size!==opened.size||after.mtimeMs!==opened.mtimeMs||after.ctimeMs!==opened.ctimeMs)throw dialogueFailure('OUTPUT_REFUSED')
+        return header
+      }
+    }
+    throw dialogueFailure('OUTPUT_REFUSED')
+  }finally{await file.close()}
+}
+async function sessionDirectory(root:string,base:string){
+  await forgePath(root,base,true)
+  try{const info=await lstat(base);if(!info.isDirectory()||info.isSymbolicLink())throw dialogueFailure('OUTPUT_REFUSED');return info}catch(error){if(missing(error))return null;throw error}
+}
+async function sessionLocation(root:string,base:string):Promise<{path:string;exists:boolean;sessions:{path:string;status:'complete';sha256:string;bytes:number}[]}> {
+  const before=await sessionDirectory(root,base),names=before?await readdir(base,{withFileTypes:true}):[]
+  const sessions:{path:string;status:'complete';sha256:string;bytes:number}[]=[]
+  for(const item of names.filter(item=>item.name.toLowerCase().startsWith('forge-')).sort((a,b)=>a.name.localeCompare(b.name))){
+    const folder=join(base,item.name);await forgePath(root,folder)
+    if(!item.isDirectory())throw dialogueFailure('OUTPUT_REFUSED')
+    const path=join(folder,'.memlog.md')
+    let data:Buffer
+    try{data=await sessionFrontmatter(root,path)}catch(error){if(missing(error))throw dialogueFailure('OUTPUT_REFUSED');throw error}
+    sessions.push({path,status:'complete',sha256:hash(data),bytes:data.length})
+  }
+  const after=await sessionDirectory(root,base)
+  if(before===null?after!==null:after===null||before.dev!==after.dev||before.ino!==after.ino||before.mtimeMs!==after.mtimeMs||before.ctimeMs!==after.ctimeMs)throw dialogueFailure('OUTPUT_REFUSED')
+  return {path:base,exists:before!==null,sessions}
+}
+async function sessionCheck(profile:BmadProfile):Promise<string> {
+  try{
+    const {outputBase,initiativeId}=profile.forge!,outputRoot=initiativeId?dirname(outputBase):outputBase
+    const locations=[await sessionLocation(profile.rootPath,outputRoot)]
+    if(outputBase!==outputRoot)locations.push(await sessionLocation(profile.rootPath,outputBase))
+    return JSON.stringify({observed:true,locations})
+  }catch(error){if((error as {code?:string}).code==='RESUME_UNSUPPORTED')throw error;throw dialogueFailure('OUTPUT_REFUSED')}
 }
 export async function qualifyForge(rootPath:string,signal:AbortSignal,runner?:string):Promise<BmadProfile> {
   let root:string;try{root=await realpath(rootPath)}catch{throw dialogueFailure('PROFILE_ABSENT')}
@@ -74,13 +132,13 @@ export async function qualifyForge(rootPath:string,signal:AbortSignal,runner?:st
   if(typeof output!=='string'||initiative!==null&&(typeof initiative!=='string'||!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(initiative)))throw dialogueFailure('PROFILE_UNRECOGNIZED')
   const outputRoot=resolve(root,output.replaceAll('{project-root}',root));await forgePath(root,outputRoot,true)
   const outputBase=initiative?join(outputRoot,initiative):outputRoot;await forgePath(root,outputBase,true)
-  await incomplete(root,outputRoot);if(outputBase!==outputRoot)await incomplete(root,outputBase)
+  await sessionCheck({...profile,forge:{outputBase,initiativeId:initiative,contextDigest:''}})
   const roster=JSON.parse(await resolved(profile,'personas',signal,runner));if(!isRecord(roster)||roster.agents_resolved!==true||!Array.isArray(roster.agents)||!roster.agents.length||!Array.isArray(roster.members)||!Array.isArray(roster.parties))throw dialogueFailure('PROFILE_UNRECOGNIZED')
   const contextDigest=hash(JSON.stringify({workflow,config,roster}))
   if(await inputs(root)!==fingerprint)throw dialogueFailure('PROFILE_CHANGED')
   return {...profile,forge:{outputBase,initiativeId:initiative,contextDigest}}
 }
-export type ForgeOperation = {kind:'workflow'|'config'|'personas'}|{kind:'init';slug:string;idea:string;goal:string}|{kind:'append';type:string;text:string}|{kind:'write';name:'forge-report.html'|'idea';text:string}|{kind:'finish';outcome:'HARDENED'|'KILLED'|'CLARIFIED'}
+export type ForgeOperation = {kind:'workflow'|'config'|'personas'|'check-sessions'}|{kind:'init';slug:string;idea:string;goal:string}|{kind:'append';type:string;text:string}|{kind:'write';name:'forge-report.html'|'idea';text:string}|{kind:'finish';outcome:'HARDENED'|'KILLED'|'CLARIFIED'}
 export class ForgeHost {
   readonly profile:BmadProfile
   private signal:AbortSignal
@@ -89,6 +147,8 @@ export class ForgeHost {
   private known=new Map<string,string>()
   private blocked=false
   private completed=false
+  private resolved=new Set<string>()
+  private sessionsChecked=false
   private observer:((o:WorkflowObservation,workspace?:string,outcome?:WorkflowRecord['outcome'])=>Promise<void>)|null=null
   constructor(profile:BmadProfile,signal:AbortSignal,runner?:string){if(!profile.forge)throw dialogueFailure('PROFILE_UNRECOGNIZED');this.profile=profile;this.signal=signal;this.runner=runner}
   bind(observer:NonNullable<ForgeHost['observer']>):void{this.observer=observer}
@@ -110,16 +170,28 @@ export class ForgeHost {
   async execute(op:ForgeOperation,callId:string,turnId:string):Promise<string>{
     await this.assert()
     if(['workflow','config','personas'].includes(op.kind)){
+      if(op.kind!=='workflow'&&!this.resolved.has('workflow')||op.kind==='personas'&&!this.resolved.has('config'))throw dialogueFailure('UNSUPPORTED_INTERACTION')
       if(!this.observer)throw dialogueFailure('STORAGE_WRITE_FAILED')
       const output=await resolved(this.profile,op.kind as 'workflow'|'config'|'personas',this.signal,this.runner)
       await this.assert()
       await this.observer({id:callId,turnId,operation:'resolve-'+op.kind,phase:'observed',at:new Date().toISOString(),path:null,sha256:hash(output),bytes:Buffer.byteLength(output)})
+      this.resolved.add(op.kind)
       return output
     }
     if(!this.observer)throw dialogueFailure('STORAGE_WRITE_FAILED')
     if(this.completed)throw dialogueFailure('OUTPUT_REFUSED')
+    if(op.kind==='check-sessions'){
+      if(Object.keys(op).length!==1||this.workspace||!this.resolved.has('config'))throw dialogueFailure('UNSUPPORTED_INTERACTION')
+      this.sessionsChecked=false
+      const output=await sessionCheck(this.profile)
+      await this.assert()
+      await this.observer({id:callId,turnId,operation:'check-sessions',phase:'observed',at:new Date().toISOString(),path:null,sha256:hash(output),bytes:Buffer.byteLength(output)})
+      this.sessionsChecked=true
+      return output
+    }
     let path:string
     if(op.kind==='init'){
+      if(!this.sessionsChecked)throw dialogueFailure('UNSUPPORTED_INTERACTION')
       if(this.workspace||!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(op.slug)||op.slug.length>70||!op.idea.trim()||!op.goal.trim()||op.idea.length>10000||op.goal.length>10000)throw dialogueFailure('OUTPUT_REFUSED')
       this.workspace=join(this.profile.forge!.outputBase,'forge-'+op.slug)
       await forgePath(this.profile.rootPath,this.workspace,true)
@@ -144,7 +216,7 @@ export class ForgeHost {
     let started=false
     try{
       this.signal.throwIfAborted()
-      if(op.kind==='init'){started=true;await mkdir(this.profile.forge!.outputBase,{recursive:true});await forgePath(this.profile.rootPath,this.profile.forge!.outputBase);await mkdir(this.workspace!);await runForgeScript(this.profile,'memlog',['init','--workspace',this.workspace!,'--field','idea='+op.idea,'--field','goal='+op.goal],this.signal,this.runner)}
+      if(op.kind==='init'){await sessionCheck(this.profile);this.signal.throwIfAborted();started=true;await mkdir(this.profile.forge!.outputBase,{recursive:true});await forgePath(this.profile.rootPath,this.profile.forge!.outputBase);await mkdir(this.workspace!);await runForgeScript(this.profile,'memlog',['init','--workspace',this.workspace!,'--field','idea='+op.idea,'--field','goal='+op.goal],this.signal,this.runner)}
       else if(op.kind==='append'){started=true;await runForgeScript(this.profile,'memlog',['append','--workspace',this.workspace!,'--type',op.type,'--text',op.text],this.signal,this.runner)}
       else if(op.kind==='finish'){started=true;await runForgeScript(this.profile,'memlog',['set','--workspace',this.workspace!,'--key','status','--value','complete'],this.signal,this.runner)}
       else if(op.kind==='write'){

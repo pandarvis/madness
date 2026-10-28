@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "finding": "A1",
+  "severity": "Medium",
+  "status": "confirmed-before-remediation",
+  "observedAt": "2026-10-28T11:31:18.305Z",
+  "scope": "Contrôle indépendant en lecture seule du plan 1.13 ; reproduction unitaire synthétique en mémoire, sans profil personnel, compte, réseau ni modèle.",
+  "baselineRevision": "70cb38ac7a8cbaca0b5adfa35fa41aa599596639",
+  "reviewedSourceSha256": {
+    "src/adapters/bmad/forge.ts": "afe24d6f568739ccf0c1ed3534d071c5c5edcdafc41fbe7ee31ee718855f91ad",
+    "src/adapters/codex/dialogue.ts": "16f4d2eeed90a6ab42fe7ec07b48201c01515954495e3e1fdc0912b4d1c6acfc"
+  },
+  "location": "src/adapters/bmad/forge.ts:98-111",
+  "description": "sessionLocation vérifie base avant readdir mais ne vérifie plus le répertoire avant son retour vide. Une jonction remplaçant le répertoire d’initiative entre ces opérations est suivie, et un reçu observed avec sessions:[] peut être conservé pour un emplacement sorti de la frontière capturée.",
+  "impact": "Le premier terminal peut être admis sur un faux reçu vide. Une session inachevée située dans le répertoire déplacé peut ainsi être omise. Le recontrôle avant init réduit la portée avant effet, sans corriger le reçu initial.",
+  "remediation": "Encadrer le scan par l’identité/stat du répertoire et revalider forgePath et cette identité au retour, y compris le cas vide ; refuser la mutation. Ajouter une régression déterministe du remplacement pendant readdir.",
+  "sourceScript": "boundary-audit-A1-memory.mjs",
+  "methodLimits": [
+    "Les fonctions fs lstat/realpath/readdir sont remplacées seulement dans le processus de test.",
+    "host.assert et l’état workflow/config sont initialisés pour isoler la frontière du scan ; les gardes de manifeste et la résolution ne sont pas testées par cette reproduction.",
+    "La course est une transition instrumentée déterministe ; aucune opération de jonction réelle ni exploitation Windows n’a été exécutée.",
+    "Ce constat porte sur la preuve du scan ; aucune cause du refus personnel001 n’en est déduite."
+  ],
+  "capturedResult": {
+    "scenario": "initiative changes to an external junction during readdir",
+    "result": {
+      "observed": true,
+      "locations": [
+        {"path": "C:\\audit-memory\\output", "exists": true, "sessions": []},
+        {"path": "C:\\audit-memory\\output\\initiative-test", "exists": true, "sessions": []}
+      ]
+    },
+    "checksAfterSwap": 0,
+    "receipt": {
+      "id": "race-call",
+      "turnId": "race-turn",
+      "operation": "check-sessions",
+      "phase": "observed",
+      "at": "2026-10-28T11:31:18.305Z",
+      "path": null,
+      "sha256": "e74a5deeffe178facb517fa284197bbc64f9787709f98d17803b64d35702f774",
+      "bytes": 176
+    }
+  },
+  "writesAuthorizedAfterAudit": "Le parent a demandé explicitement la conservation de cette preuve et du script dans le seul dossier qualification-forge-session-check. Aucun fichier produit ni commit modifié par le relecteur."
+}

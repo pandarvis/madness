@@ -1,0 +1,196 @@
+✔ Forge utilise référence skill native, commandes strictes corrélées et même thread sans brouillon (8.6318ms)
+✔ Forge refuse foreign sans faux résultat (3.2582ms)
+✔ Forge refuse duplicate sans faux résultat (1.5452ms)
+✔ Forge refuse structured sans faux résultat (0.7089ms)
+✔ Forge refuse shell sans faux résultat (1.6338ms)
+✔ régression : le premier terminal après workflow/config seuls doit être refusé (2.3338ms)
+✔ régression : init sans contrôle de sessions doit être refusé avant tout effet hôte (1.2824ms)
+✔ ordre natif installé : init après config, puis personas avant la clôture sur le même thread (1.465ms)
+✔ init peut précéder personas mais la clôture sans personas est refusée avant l’outil hôte (1.3164ms)
+✔ init reste refusé avant la résolution de configuration native (0.9126ms)
+✔ contrôle de sessions refuse argument supplémentaire avant exécution hôte (0.8963ms)
+✔ contrôle de sessions refuse avant workflow avant exécution hôte (0.9177ms)
+✔ contrôle de sessions refuse avant config avant exécution hôte (0.6447ms)
+✔ contrôle de sessions refuse après init avant exécution hôte (0.5893ms)
+✔ un échec de conservation du contrôle empêche terminal et init (0.8082ms)
+✖ Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED (16266.7332ms)
+✖ profil Forge refuse dépendance modifiée, hooks, sortie hors projet et reprise avant invocation (17071.9566ms)
+✖ sorties bornées : traversée, liens, collision, modification externe et stockage refusé (15050.605ms)
+✖ échec de sauvegarde après effet reste inconnu et ne permet aucun replay (15356.7844ms)
+✖ recherche native : sorties absentes, vides et complètes ; reçu exact sans corps ni effet (16573.067ms)
+✖ fraîcheur : session inachevée general apparue après qualification ou contrôle bloque init (17060.6045ms)
+✖ fraîcheur : session inachevée initiative apparue après qualification ou contrôle bloque init (24958.4776ms)
+✖ frontières : refus fermés des journaux absents, invalides, trop grands, liens et hardlinks (15884.9833ms)
+✖ ordre hôte et échec de stockage ne créent ni reçu durable ni droit à init (18053.3076ms)
+✖ annexe atomique par conversation restaure contexte et preuves sans migration Snapshot (47.1666ms)
+✖ version future, UTF-8 invalide, conflit et erreur disque préservent les octets (27.9606ms)
+✖ 200 annexes restent lisibles et modifiables ; la 201e est refusée sans changer les octets (2128.1093ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 15
+ℹ fail 12
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 156774.1068
+
+✖ failing tests:
+
+test at tests\forge.test.mjs:21:1
+✖ Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED (16266.7332ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+      at runForgeScript (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:57:300)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async qualifyForge (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:123:29)
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:24:53)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:48:1
+✖ profil Forge refuse dépendance modifiée, hooks, sortie hors projet et reprise avant invocation (17071.9566ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    Comparison {
+  +   code: 'RESOLVER_FAILED'
+  -   code: 'PROFILE_UNRECOGNIZED'
+    }
+  
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:55:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: RESOLVER_FAILED
+        at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+        at runForgeScript (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:57:300)
+        at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+        at async qualifyForge (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:123:29)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:55:3)
+        at async Test.run (node:internal/test_runner/test:1113:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:788:7),
+    expected: { code: 'PROFILE_UNRECOGNIZED' },
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests\forge.test.mjs:63:1
+✖ sorties bornées : traversée, liens, collision, modification externe et stockage refusé (15050.605ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+      at runForgeScript (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:57:300)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async qualifyForge (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:123:29)
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:64:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:87:1
+✖ échec de sauvegarde après effet reste inconnu et ne permet aucun replay (15356.7844ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+      at runForgeScript (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:57:300)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async qualifyForge (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:123:29)
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:88:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:96:1
+✖ recherche native : sorties absentes, vides et complètes ; reçu exact sans corps ni effet (16573.067ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+      at runForgeScript (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:57:300)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async qualifyForge (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:123:29)
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:97:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:117:48
+✖ fraîcheur : session inachevée general apparue après qualification ou contrôle bloque init (17060.6045ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+      at runForgeScript (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:57:300)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async qualifyForge (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:123:29)
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:118:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:117:48
+✖ fraîcheur : session inachevée initiative apparue après qualification ou contrôle bloque init (24958.4776ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+      at runForgeScript (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:57:300)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async qualifyForge (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:123:29)
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:118:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:129:1
+✖ frontières : refus fermés des journaux absents, invalides, trop grands, liens et hardlinks (15884.9833ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+      at runForgeScript (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:57:300)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async qualifyForge (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:123:29)
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:130:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:148:1
+✖ ordre hôte et échec de stockage ne créent ni reçu durable ni droit à init (18053.3076ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+      at runForgeScript (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:57:300)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async qualifyForge (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:123:29)
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:149:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\workflow-store.test.mjs:9:1
+✖ annexe atomique par conversation restaure contexte et preuves sans migration Snapshot (47.1666ms)
+  Error: STORAGE_WRITE_FAILED
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+      at file:///C:/Sources/madness/src/adapters/persistence/workflow-store.ts:46:28 {
+    code: 'STORAGE_WRITE_FAILED'
+  }
+
+test at tests\workflow-store.test.mjs:18:1
+✖ version future, UTF-8 invalide, conflit et erreur disque préservent les octets (27.9606ms)
+  Error: STORAGE_WRITE_FAILED
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+      at file:///C:/Sources/madness/src/adapters/persistence/workflow-store.ts:46:28 {
+    code: 'STORAGE_WRITE_FAILED'
+  }
+
+test at tests\workflow-store.test.mjs:26:1
+✖ 200 annexes restent lisibles et modifiables ; la 201e est refusée sans changer les octets (2128.1093ms)
+  Error: STORAGE_WRITE_FAILED
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+      at file:///C:/Sources/madness/src/adapters/persistence/workflow-store.ts:46:28 {
+    code: 'STORAGE_WRITE_FAILED'
+  }

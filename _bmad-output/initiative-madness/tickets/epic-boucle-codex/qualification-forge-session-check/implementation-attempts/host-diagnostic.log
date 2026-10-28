@@ -1,0 +1,28 @@
+TAP version 13
+# Subtest: Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED
+not ok 1 - Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED
+  ---
+  duration_ms: 14935.8806
+  type: 'test'
+  location: 'C:\\Sources\\madness\\tests\\forge.test.mjs:21:1'
+  failureType: 'testCodeFailure'
+  error: 'RESOLVER_FAILED'
+  code: 'RESOLVER_FAILED'
+  stack: |-
+    dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+    runForgeScript (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:57:300)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async qualifyForge (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:123:29)
+    async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:24:53)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 15338.0417

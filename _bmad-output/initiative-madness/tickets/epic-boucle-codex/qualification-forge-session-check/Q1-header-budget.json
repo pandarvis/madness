@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "finding": "Q1",
+  "source": "Analyse des bornes de ForgeHost.init et memlog.py render/set",
+  "maximumInputUtf16Units": 10000,
+  "fields": 2,
+  "maximumUtf8BytesPerUtf16Unit": 3,
+  "maximumVariableBytes": 60000,
+  "representativeNativeFixedBytes": 73,
+  "chosenFrontmatterBytes": 65536,
+  "headroomBytes": 5463,
+  "limits": [
+    "Analyse de borne pour les seuls champs natifs idée/but/status/updated du profil épinglé ; la régression native reste distincte.",
+    "Le générateur remplace les séparateurs de lignes des valeurs par des espaces, sans augmenter ce maximum.",
+    "Le plafond fichier1Mio reste inchangé ; aucun prix ou budget de tokens ici."
+  ]
+}

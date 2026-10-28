@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "finding": "A1",
+  "status": "resolved-after-independent-recheck",
+  "checkedAt": "2026-10-28T11:38:53.898Z",
+  "reviewedBeforeSha256": "afe24d6f568739ccf0c1ed3534d071c5c5edcdafc41fbe7ee31ee718855f91ad",
+  "reviewedSourceSha256": {
+    "src/adapters/bmad/forge.ts": "6be014ba87755ed1934d9115ee798285aca8dfaee9290663a4737204a01bd0f8",
+    "src/adapters/codex/dialogue.ts": "16f4d2eeed90a6ab42fe7ec07b48201c01515954495e3e1fdc0912b4d1c6acfc",
+    "tests/forge.test.mjs": "3d9a7fd6d3d56190cb47b8e045f31524878eea9afe01212db746d74568524f73"
+  },
+  "inspectedChange": {
+    "file": "src/adapters/bmad/forge.ts",
+    "lines": "98-115",
+    "cause": "La branche vide de sessionLocation n’avait pas de contrôle après readdir.",
+    "correction": "sessionDirectory vérifie chemin et type ; sessionLocation relève identité/dev/ino/mtime/ctime avant et après le scan, y compris résultat vide et absence. Un changement refuse la sortie avant l’observer."
+  },
+  "independentVerification": {
+    "method": "Huit scénarios entièrement en mémoire ; Stat complets dérivés d’un véritable fs.Stats du dépôt, puis identité/métadonnées instrumentées. Aucun fichier produit, profil personnel, modèle ou réseau utilisé.",
+    "executionExitCode": 0,
+    "passed": 8,
+    "total": 8,
+    "assertions": [
+      "Répertoire stable : contrôle réussi, reçu observed conservé.",
+      "Absence stable : contrôle réussi avec exists=false, reçu observed conservé.",
+      "Jonction, identité inode, mtime, ctime, apparition et disparition : transition effectivement déclenchée, relecture après transition comptée, OUTPUT_REFUSED, aucun appel à observer, sessionsChecked=false.",
+      "Le scénario stable et les méthodes natives Stat complètes évitent de confondre un TypeError du mock avec le refus attendu."
+    ],
+    "results": [
+      {
+        "mode": "stable",
+        "passed": true,
+        "changed": false,
+        "afterChecks": 0,
+        "missingReads": 0,
+        "returnedDirectoryReads": 1,
+        "errorCode": null,
+        "errorName": null,
+        "observedReceiptCount": 1,
+        "result": {
+          "observed": true,
+          "locations": [
+            {
+              "path": "C:\\audit-memory\\output",
+              "exists": true,
+              "sessions": []
+            },
+            {
+              "path": "C:\\audit-memory\\output\\initiative-test",
+              "exists": true,
+              "sessions": []
+            }
+          ]
+        }
+      },
+      {
+        "mode": "stable-absent",
+        "passed": true,
+        "changed": false,
+        "afterChecks": 0,
+        "missingReads": 4,
+        "returnedDirectoryReads": 0,
+        "errorCode": null,
+        "errorName": null,
+        "observedReceiptCount": 1,
+        "result": {
+          "observed": true,
+          "locations": [
+            {
+              "path": "C:\\audit-memory\\output",
+              "exists": true,
+              "sessions": []
+            },
+            {
+              "path": "C:\\audit-memory\\output\\initiative-test",
+              "exists": false,
+              "sessions": []
+            }
+          ]
+        }
+      },
+      {
+        "mode": "junction",
+        "passed": true,
+        "changed": true,
+        "afterChecks": 1,
+        "missingReads": 0,
+        "returnedDirectoryReads": 1,
+        "errorCode": "OUTPUT_REFUSED",
+        "errorName": "Error",
+        "observedReceiptCount": 0,
+        "result": null
+      },
+      {
+        "mode": "identity",
+        "passed": true,
+        "changed": true,
+        "afterChecks": 2,
+        "missingReads": 0,
+        "returnedDirectoryReads": 1,
+        "errorCode": "OUTPUT_REFUSED",
+        "errorName": "Error",
+        "observedReceiptCount": 0,
+        "result": null
+      },
+      {
+        "mode": "mtime",
+        "passed": true,
+        "changed": true,
+        "afterChecks": 2,
+        "missingReads": 0,
+        "returnedDirectoryReads": 1,
+        "errorCode": "OUTPUT_REFUSED",
+        "errorName": "Error",
+        "observedReceiptCount": 0,
+        "result": null
+      },
+      {
+        "mode": "ctime",
+        "passed": true,
+        "changed": true,
+        "afterChecks": 2,
+        "missingReads": 0,
+        "returnedDirectoryReads": 1,
+        "errorCode": "OUTPUT_REFUSED",
+        "errorName": "Error",
+        "observedReceiptCount": 0,
+        "result": null
+      },
+      {
+        "mode": "appearance",
+        "passed": true,
+        "changed": true,
+        "afterChecks": 2,
+        "missingReads": 2,
+        "returnedDirectoryReads": 0,
+        "errorCode": "OUTPUT_REFUSED",
+        "errorName": "Error",
+        "observedReceiptCount": 0,
+        "result": null
+      },
+      {
+        "mode": "disappearance",
+        "passed": true,
+        "changed": true,
+        "afterChecks": 2,
+        "missingReads": 0,
+        "returnedDirectoryReads": 1,
+        "errorCode": "OUTPUT_REFUSED",
+        "errorName": "Error",
+        "observedReceiptCount": 0,
+        "result": null
+      }
+    ],
+    "source": "\nimport assert from 'node:assert/strict';\nimport {createRequire,syncBuiltinESMExports} from 'node:module';\nimport {resolve,join} from 'node:path';\nimport {createHash} from 'node:crypto';\nimport {ForgeHost} from './src/adapters/bmad/forge.ts';\nconst fs=createRequire(import.meta.url)('node:fs/promises');\nconst original={lstat:fs.lstat,realpath:fs.realpath,readdir:fs.readdir};\nconst template=await original.lstat('.');\nconst root=resolve('C:/audit-memory'),base=join(root,'output','initiative-test');\nconst cases=[];\nfor(const mode of ['stable','stable-absent','junction','identity','mtime','ctime','appearance','disappearance']){\n let changed=false,afterChecks=0,missingReads=0,returnedDirectoryReads=0;\n const missing=()=>Object.assign(Error('synthetic absence'),{code:'ENOENT'});\n const stats=(path)=>{\n  const altered=changed&&path===base;\n  return Object.assign(Object.create(Object.getPrototypeOf(template)),template,{\n   dev:1,ino:path===base?100+(altered&&mode==='identity'?1:0):10,\n   mode:altered&&mode==='junction'?0o120777:0o40755,nlink:2,\n   size:0,mtimeMs:100+(altered&&mode==='mtime'?1:0),\n   ctimeMs:100+(altered&&mode==='ctime'?1:0)\n  });\n };\n fs.lstat=async path=>{\n  if(path===base){\n   if(changed)afterChecks++;\n   if(mode==='stable-absent'||mode==='appearance'&&!changed){\n    missingReads++;\n    if(mode==='appearance'&&missingReads===2)changed=true;\n    throw missing();\n   }\n   if(mode==='disappearance'&&changed)throw missing();\n  }\n  return stats(path);\n };\n fs.realpath=async path=>changed&&mode==='junction'&&path===base?resolve('C:/outside-audit'):path;\n fs.readdir=async path=>{if(path===base){returnedDirectoryReads++;if(['junction','identity','mtime','ctime','disappearance'].includes(mode))changed=true;}return [];};\n syncBuiltinESMExports();\n try{\n  const host=new ForgeHost({rootPath:root,forge:{outputBase:base,initiativeId:'initiative-test',contextDigest:''}},new AbortController().signal);\n  host.assert=async()=>{};host.resolved.add('workflow');host.resolved.add('config');\n  const receipts=[];host.bind(async value=>receipts.push(value));\n  let result=null,errorCode=null,errorName=null;\n  try{result=JSON.parse(await host.execute({kind:'check-sessions'},'audit-'+mode,'audit-turn'));}\n  catch(error){errorCode=error.code??null;errorName=error.name;}\n  const stable=mode.startsWith('stable');\n  if(stable){\n   assert.equal(errorCode,null);assert.equal(result.observed,true);assert.equal(receipts.length,1);\n   assert.equal(result.locations[1].exists,mode==='stable');\n   assert.equal(result.locations.every(p=>p.sessions.length===0),true);\n  }else{\n   assert.equal(changed,true);assert.ok(afterChecks>0);assert.equal(errorCode,'OUTPUT_REFUSED');assert.equal(errorName,'Error');\n   assert.equal(receipts.length,0);assert.equal(host.sessionsChecked,false);\n  }\n  cases.push({mode,passed:true,changed,afterChecks,missingReads,returnedDirectoryReads,errorCode,errorName,observedReceiptCount:receipts.length,result});\n }finally{Object.assign(fs,original);syncBuiltinESMExports();}\n}\nconst sourceSha256={};\nfor(const path of ['src/adapters/bmad/forge.ts','src/adapters/codex/dialogue.ts','tests/forge.test.mjs']){\n sourceSha256[path]=createHash('sha256').update(await fs.readFile(path)).digest('hex');\n}\nconsole.log(JSON.stringify({checkedAt:new Date().toISOString(),sourceSha256,cases},null,2));\n"
+  },
+  "implementationEvidenceRead": {
+    "source": "tests/forge.test.mjs:163-190",
+    "log": ".g0-qualification/forge-session-check-implementation/review-a1-boundaries.log",
+    "outcome": "2/2 dans le log de l’implémenteur : frontières et test regroupant substitution par jonction puis apparition depuis absence.",
+    "reviewerReran": false,
+    "note": "Code et journal relus. La reproduction indépendante propre au relecteur est celle des huit cas ci-dessus."
+  },
+  "originalEvidencePreserved": {
+    "boundary-audit-A1.json": "fc84d37242274e5b1faa2f0d989b57f45f318b554296dcd31c0f576561775713",
+    "boundary-audit-A1-memory.mjs": "9904f5da53e9a17412fa1cf9ba67b25a7bb33d188ebcdf5a32196310e5961bf8"
+  },
+  "conclusion": "Cause A1 résolue, aucun reliquat concret observé dans ce recontrôle ciblé. Aucune cause du refus personnel001, clôture G1, acceptation humaine ou réussite d’un parcours modèle n’est déduite.",
+  "writes": "Seul ce reçu de recontrôle a été écrit par le relecteur ; preuve initiale, fichiers produit et commits intacts.",
+  "recheckRuns": [
+    {
+      "checkedAt": "2026-10-28T11:36:57.669Z",
+      "sourceSha256": {
+        "src/adapters/bmad/forge.ts": "1cc69f7685ed5e4fc62341bc79eff7dc3f49351a22cbd6544c74e73ec47d9e4e",
+        "src/adapters/codex/dialogue.ts": "16f4d2eeed90a6ab42fe7ec07b48201c01515954495e3e1fdc0912b4d1c6acfc",
+        "tests/forge.test.mjs": "386c809dd0511b2213be09aa372af9c7f55e4e2c4e61080234acd6fcbeed0467"
+      },
+      "passed": 8,
+      "total": 8
+    },
+    {
+      "checkedAt": "2026-10-28T11:38:53.898Z",
+      "sourceSha256": {
+        "src/adapters/bmad/forge.ts": "6be014ba87755ed1934d9115ee798285aca8dfaee9290663a4737204a01bd0f8",
+        "src/adapters/codex/dialogue.ts": "16f4d2eeed90a6ab42fe7ec07b48201c01515954495e3e1fdc0912b4d1c6acfc",
+        "tests/forge.test.mjs": "3d9a7fd6d3d56190cb47b8e045f31524878eea9afe01212db746d74568524f73"
+      },
+      "passed": 8,
+      "total": 8
+    }
+  ],
+  "finalSourceDelta": "Pendant la première écriture de ce reçu, le parent a fait passer le filtre de préfixe à item.name.toLowerCase().startsWith('forge-') pour Windows. Delta lu, aucun changement de la correction A1 ; les huit cas mémoire ont aussi été recontrôlés sur le hash final avant réception de la consigne de ne pas les relancer."
+}

@@ -1,0 +1,23 @@
+✖ Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED (55273.7187ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 55664.7021
+
+✖ failing tests:
+
+test at tests\forge.test.mjs:22:1
+✖ Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED (55273.7187ms)
+  Error: OUTPUT_REFUSED
+      at dialogueFailure (file:///C:/Sources/madness/src/contracts/dialogue.ts:63:112)
+      at sessionCheck (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:123:92)
+      at async qualifyForge (file:///C:/Sources/madness/src/adapters/bmad/forge.ts:135:3)
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:47:28)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'OUTPUT_REFUSED'
+  }

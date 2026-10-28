@@ -1,0 +1,775 @@
+diff --git a/src/adapters/bmad/forge.ts b/src/adapters/bmad/forge.ts
+index e20764f..384a4d4 100644
+--- a/src/adapters/bmad/forge.ts
++++ b/src/adapters/bmad/forge.ts
+@@ -61,8 +61,66 @@ async function resolved(profile: BmadProfile, kind: 'workflow'|'config'|'persona
+   const args=kind==='workflow'?['--project-root',profile.rootPath,'--skill',dirname(profile.skillPath),'--key','workflow']:kind==='config'?['--project-root',profile.rootPath,'--key','core.output_folder','--key','core.active_initiative']:['--project-root',profile.rootPath,'--skill',dirname(profile.skillPath)]
+   return runForgeScript(profile,kind,args,signal,runner)
+ }
+-async function incomplete(root:string,base:string):Promise<void> {
+-  try { await forgePath(root,base); for(const item of await readdir(base,{withFileTypes:true})) if(item.name.startsWith('forge-')) { const folder=join(base,item.name);await forgePath(root,folder); if(!item.isDirectory()) throw dialogueFailure('OUTPUT_REFUSED');try { const text=decode(await bytes(root,join(folder,'.memlog.md')));if(!/^status:\s*complete\s*$/m.test(text.split('\n---')[0]))throw dialogueFailure('RESUME_UNSUPPORTED') } catch(e){if(!missing(e))throw e} } } catch(e) {if(!missing(e))throw e}
++/** Lecture bornée du seul frontmatter natif ; le corps du journal n'est jamais retourné. */
++async function sessionFrontmatter(root:string,path:string):Promise<Buffer> {
++  await forgePath(root,path)
++  const info=await lstat(path)
++  if(!info.isFile()||info.nlink!==1||info.size>1048576)throw dialogueFailure('OUTPUT_REFUSED')
++  const file=await open(path,'r')
++  try{
++    const opened=await file.stat()
++    if(!opened.isFile()||opened.nlink!==1||opened.size!==info.size||opened.dev!==info.dev||opened.ino!==info.ino)throw dialogueFailure('OUTPUT_REFUSED')
++    let data=Buffer.alloc(0)
++    while(data.length<32768){
++      const chunk=Buffer.alloc(Math.min(1024,32768-data.length)),{bytesRead}=await file.read(chunk,0,chunk.length,null)
++      if(!bytesRead)throw dialogueFailure('OUTPUT_REFUSED')
++      data=Buffer.concat([data,chunk.subarray(0,bytesRead)])
++      const end=(data.length===opened.size?/\r?\n---(?:\r?\n|$)/:/\r?\n---\r?\n/).exec(data.toString('latin1'))
++      if(end){
++        const header=data.subarray(0,end.index+end[0].length),text=decode(header),lines=text.split(/\r?\n/)
++        if(lines[0]!=='---')throw dialogueFailure('OUTPUT_REFUSED')
++        const fields=new Map<string,string>()
++        for(const line of lines.slice(1,lines.indexOf('---',1))){
++          const field=/^([A-Za-z_][A-Za-z0-9_-]*):[ \t]*(.*)$/.exec(line)
++          if(!field||fields.has(field[1])||/[\x00-\x08\x0b-\x1f\x7f]/.test(field[2]))throw dialogueFailure('OUTPUT_REFUSED')
++          fields.set(field[1],field[2].trim())
++        }
++        if(fields.get('status')!=='complete')throw dialogueFailure('RESUME_UNSUPPORTED')
++        await forgePath(root,path)
++        const current=await lstat(path),after=await file.stat()
++        if(current.nlink!==1||current.dev!==opened.dev||current.ino!==opened.ino||after.size!==opened.size||after.mtimeMs!==opened.mtimeMs||after.ctimeMs!==opened.ctimeMs)throw dialogueFailure('OUTPUT_REFUSED')
++        return header
++      }
++    }
++    throw dialogueFailure('OUTPUT_REFUSED')
++  }finally{await file.close()}
++}
++async function sessionDirectory(root:string,base:string){
++  await forgePath(root,base,true)
++  try{const info=await lstat(base);if(!info.isDirectory()||info.isSymbolicLink())throw dialogueFailure('OUTPUT_REFUSED');return info}catch(error){if(missing(error))return null;throw error}
++}
++async function sessionLocation(root:string,base:string):Promise<{path:string;exists:boolean;sessions:{path:string;status:'complete';sha256:string;bytes:number}[]}> {
++  const before=await sessionDirectory(root,base),names=before?await readdir(base,{withFileTypes:true}):[]
++  const sessions:{path:string;status:'complete';sha256:string;bytes:number}[]=[]
++  for(const item of names.filter(item=>item.name.toLowerCase().startsWith('forge-')).sort((a,b)=>a.name.localeCompare(b.name))){
++    const folder=join(base,item.name);await forgePath(root,folder)
++    if(!item.isDirectory())throw dialogueFailure('OUTPUT_REFUSED')
++    const path=join(folder,'.memlog.md')
++    let data:Buffer
++    try{data=await sessionFrontmatter(root,path)}catch(error){if(missing(error))throw dialogueFailure('OUTPUT_REFUSED');throw error}
++    sessions.push({path,status:'complete',sha256:hash(data),bytes:data.length})
++  }
++  const after=await sessionDirectory(root,base)
++  if(before===null?after!==null:after===null||before.dev!==after.dev||before.ino!==after.ino||before.mtimeMs!==after.mtimeMs||before.ctimeMs!==after.ctimeMs)throw dialogueFailure('OUTPUT_REFUSED')
++  return {path:base,exists:before!==null,sessions}
++}
++async function sessionCheck(profile:BmadProfile):Promise<string> {
++  try{
++    const {outputBase,initiativeId}=profile.forge!,outputRoot=initiativeId?dirname(outputBase):outputBase
++    const locations=[await sessionLocation(profile.rootPath,outputRoot)]
++    if(outputBase!==outputRoot)locations.push(await sessionLocation(profile.rootPath,outputBase))
++    return JSON.stringify({observed:true,locations})
++  }catch(error){if((error as {code?:string}).code==='RESUME_UNSUPPORTED')throw error;throw dialogueFailure('OUTPUT_REFUSED')}
+ }
+ export async function qualifyForge(rootPath:string,signal:AbortSignal,runner?:string):Promise<BmadProfile> {
+   let root:string;try{root=await realpath(rootPath)}catch{throw dialogueFailure('PROFILE_ABSENT')}
+@@ -74,13 +132,13 @@ export async function qualifyForge(rootPath:string,signal:AbortSignal,runner?:st
+   if(typeof output!=='string'||initiative!==null&&(typeof initiative!=='string'||!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(initiative)))throw dialogueFailure('PROFILE_UNRECOGNIZED')
+   const outputRoot=resolve(root,output.replaceAll('{project-root}',root));await forgePath(root,outputRoot,true)
+   const outputBase=initiative?join(outputRoot,initiative):outputRoot;await forgePath(root,outputBase,true)
+-  await incomplete(root,outputRoot);if(outputBase!==outputRoot)await incomplete(root,outputBase)
++  await sessionCheck({...profile,forge:{outputBase,initiativeId:initiative,contextDigest:''}})
+   const roster=JSON.parse(await resolved(profile,'personas',signal,runner));if(!isRecord(roster)||roster.agents_resolved!==true||!Array.isArray(roster.agents)||!roster.agents.length||!Array.isArray(roster.members)||!Array.isArray(roster.parties))throw dialogueFailure('PROFILE_UNRECOGNIZED')
+   const contextDigest=hash(JSON.stringify({workflow,config,roster}))
+   if(await inputs(root)!==fingerprint)throw dialogueFailure('PROFILE_CHANGED')
+   return {...profile,forge:{outputBase,initiativeId:initiative,contextDigest}}
+ }
+-export type ForgeOperation = {kind:'workflow'|'config'|'personas'}|{kind:'init';slug:string;idea:string;goal:string}|{kind:'append';type:string;text:string}|{kind:'write';name:'forge-report.html'|'idea';text:string}|{kind:'finish';outcome:'HARDENED'|'KILLED'|'CLARIFIED'}
++export type ForgeOperation = {kind:'workflow'|'config'|'personas'|'check-sessions'}|{kind:'init';slug:string;idea:string;goal:string}|{kind:'append';type:string;text:string}|{kind:'write';name:'forge-report.html'|'idea';text:string}|{kind:'finish';outcome:'HARDENED'|'KILLED'|'CLARIFIED'}
+ export class ForgeHost {
+   readonly profile:BmadProfile
+   private signal:AbortSignal
+@@ -89,6 +147,8 @@ export class ForgeHost {
+   private known=new Map<string,string>()
+   private blocked=false
+   private completed=false
++  private resolved=new Set<string>()
++  private sessionsChecked=false
+   private observer:((o:WorkflowObservation,workspace?:string,outcome?:WorkflowRecord['outcome'])=>Promise<void>)|null=null
+   constructor(profile:BmadProfile,signal:AbortSignal,runner?:string){if(!profile.forge)throw dialogueFailure('PROFILE_UNRECOGNIZED');this.profile=profile;this.signal=signal;this.runner=runner}
+   bind(observer:NonNullable<ForgeHost['observer']>):void{this.observer=observer}
+@@ -110,16 +170,28 @@ export class ForgeHost {
+   async execute(op:ForgeOperation,callId:string,turnId:string):Promise<string>{
+     await this.assert()
+     if(['workflow','config','personas'].includes(op.kind)){
++      if(op.kind!=='workflow'&&!this.resolved.has('workflow')||op.kind==='personas'&&!this.resolved.has('config'))throw dialogueFailure('UNSUPPORTED_INTERACTION')
+       if(!this.observer)throw dialogueFailure('STORAGE_WRITE_FAILED')
+       const output=await resolved(this.profile,op.kind as 'workflow'|'config'|'personas',this.signal,this.runner)
+       await this.assert()
+       await this.observer({id:callId,turnId,operation:'resolve-'+op.kind,phase:'observed',at:new Date().toISOString(),path:null,sha256:hash(output),bytes:Buffer.byteLength(output)})
++      this.resolved.add(op.kind)
+       return output
+     }
+     if(!this.observer)throw dialogueFailure('STORAGE_WRITE_FAILED')
+     if(this.completed)throw dialogueFailure('OUTPUT_REFUSED')
++    if(op.kind==='check-sessions'){
++      if(Object.keys(op).length!==1||this.workspace||!this.resolved.has('config'))throw dialogueFailure('UNSUPPORTED_INTERACTION')
++      this.sessionsChecked=false
++      const output=await sessionCheck(this.profile)
++      await this.assert()
++      await this.observer({id:callId,turnId,operation:'check-sessions',phase:'observed',at:new Date().toISOString(),path:null,sha256:hash(output),bytes:Buffer.byteLength(output)})
++      this.sessionsChecked=true
++      return output
++    }
+     let path:string
+     if(op.kind==='init'){
++      if(!this.sessionsChecked)throw dialogueFailure('UNSUPPORTED_INTERACTION')
+       if(this.workspace||!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(op.slug)||op.slug.length>70||!op.idea.trim()||!op.goal.trim()||op.idea.length>10000||op.goal.length>10000)throw dialogueFailure('OUTPUT_REFUSED')
+       this.workspace=join(this.profile.forge!.outputBase,'forge-'+op.slug)
+       await forgePath(this.profile.rootPath,this.workspace,true)
+@@ -144,7 +216,7 @@ export class ForgeHost {
+     let started=false
+     try{
+       this.signal.throwIfAborted()
+-      if(op.kind==='init'){started=true;await mkdir(this.profile.forge!.outputBase,{recursive:true});await forgePath(this.profile.rootPath,this.profile.forge!.outputBase);await mkdir(this.workspace!);await runForgeScript(this.profile,'memlog',['init','--workspace',this.workspace!,'--field','idea='+op.idea,'--field','goal='+op.goal],this.signal,this.runner)}
++      if(op.kind==='init'){await sessionCheck(this.profile);this.signal.throwIfAborted();started=true;await mkdir(this.profile.forge!.outputBase,{recursive:true});await forgePath(this.profile.rootPath,this.profile.forge!.outputBase);await mkdir(this.workspace!);await runForgeScript(this.profile,'memlog',['init','--workspace',this.workspace!,'--field','idea='+op.idea,'--field','goal='+op.goal],this.signal,this.runner)}
+       else if(op.kind==='append'){started=true;await runForgeScript(this.profile,'memlog',['append','--workspace',this.workspace!,'--type',op.type,'--text',op.text],this.signal,this.runner)}
+       else if(op.kind==='finish'){started=true;await runForgeScript(this.profile,'memlog',['set','--workspace',this.workspace!,'--key','status','--value','complete'],this.signal,this.runner)}
+       else if(op.kind==='write'){
+diff --git a/src/adapters/codex/dialogue.ts b/src/adapters/codex/dialogue.ts
+index 2cab2e1..3c20eda 100644
+--- a/src/adapters/codex/dialogue.ts
++++ b/src/adapters/codex/dialogue.ts
+@@ -131,6 +131,7 @@ const dynamicTools = [
+ ]
+ const forgeTools = [
+   {type:'function',name:'bmad_forge_resolve',description:'Exécuter les vrais scripts natifs : workflow=customization --key workflow ; config=configuration centrale ; personas=resolve_personas, y compris roster et sous-processus isolés.',inputSchema:{type:'object',properties:{kind:{type:'string',enum:['workflow','config','personas']}},required:['kind'],additionalProperties:false}},
++  {type:'function',name:'bmad_forge_check_sessions',description:'Après workflow/config, rechercher réellement les sessions Forge dans les deux seuls emplacements du profil. Lecture bornée des frontmatters ; reçu factuel conservé. Aucun argument, chemin, glob libre ou reprise. Obligatoire avant la première fin de tour et avant init ; indisponible après init.',inputSchema:{type:'object',properties:{},additionalProperties:false}},
+   {type:'function',name:'bmad_forge_init',description:'Créer une nouvelle session forge-{slug}, avec le vrai memlog.py init. Seulement quand idée/objectif connus. Jamais de reprise.',inputSchema:{type:'object',properties:{slug:{type:'string'},idea:{type:'string'},goal:{type:'string'}},required:['slug','idea','goal'],additionalProperties:false}},
+   {type:'function',name:'bmad_forge_append',description:'Vrai memlog.py append dans la seule session capturée.',inputSchema:{type:'object',properties:{type:{type:'string',enum:['decision','assumption','crack','kill','direction','lock','note']},text:{type:'string'}},required:['type','text'],additionalProperties:false}},
+   {type:'function',name:'bmad_forge_write',description:'Écrire intégralement une seule fois forge-report.html (HTML autonome, CSS et SVG inline) ou idea (Markdown natif forge-{slug}.md). Chemins imposés, octets relus, aucun aperçu exécuté.',inputSchema:{type:'object',properties:{name:{type:'string',enum:['forge-report.html','idea']},text:{type:'string'}},required:['name','text'],additionalProperties:false}},
+@@ -144,7 +145,7 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
+   const model = catalog.data?.find((value: any) => value.isDefault === true && value.hidden === false && typeof value.model === 'string')
+   if (!model || !/^[a-zA-Z0-9._:/-]{1,100}$/.test(model.model)) throw dialogueFailure('PROVIDER_FAILED')
+   const instructions = `Pilote personnel Madness. Le projet BMad capturé est ${options.profile.rootPath}. Le processus travaille dans un répertoire isolé ; {project-root} désigne toujours le projet capturé et {skill-root} le dossier de ${options.profile.skillPath}. Exécute l'agent installé fourni par l'entrée native skill, sans l'imiter. Pour ses commandes uv run utilise réellement bmad_resolve(kind=agent) puis bmad_resolve(kind=config), dans l'ordre du SKILL.md. Pour les lectures utilise bmad_read_file. Aucun shell, réseau d'outil, écriture, sous-agent, installation ou autre compétence n'est disponible. Ne remplace jamais un resolver par une réponse inventée. Le pilote autorise l'accueil/menu natif puis la discussion libre uniquement, en français. Une demande de workflow documentaire, approbation, effets ou autre outil doit appeler bmad_unsupported ; ne prétends jamais l'avoir réalisée. Les propositions et le menu ne valent aucune approbation. Termine chaque tour par son résultat et la prochaine action attendue, sans déclarer le workflow clos.`
+-  const forgeInstructions=`Madness intègre le skill natif $bmad-forge-idea pour une NOUVELLE idée seulement. {project-root}=${options.profile.rootPath}, {skill-root}=${dirname(options.profile.skillPath)}. Le processus Codex reste read-only dans un dossier isolé. Respecte intégralement le SKILL.md injecté ; ne l'imite pas, ne résume pas ses sorties obligatoires. Pour les commandes natives uv run utilise bmad_forge_resolve : workflow puis config à l'activation, personas dès que le but est connu. Les commandes sont réellement exécutées, y compris roster/personas dans des subprocess isolés. bmad_read_file lit uniquement le profil qualifié. Ne prétends jamais avoir exécuté un script sans résultat de l'outil. Reprise/hooks/autres skills/sous-agents et approbations sont indisponibles : appelle bmad_unsupported, ne simule rien. Pose tes questions dans le dialogue libre ou avec request_user_input. Aucun brouillon n'est envoyé par le lancement. Après but connu, bmad_forge_init crée la SEULE sortie autorisée sous ${options.forge?.profile.forge?.outputBase}; aucun chemin arbitraire. Utilise bmad_forge_append pour les décisions et faits. À la sortie, produis le HTML INTÉGRAL et autonome avec CSS et sceau SVG inline via bmad_forge_write(name=forge-report.html). Si HARDENED, écris aussi le Markdown extrêmement court via name=idea. Puis appelle bmad_forge_finish et cite les chemins réellement observés. Jamais de faux journal/livrable, shell, outil générique, installation, réseau d'outil ou exécution HTML. Termine chaque tour en indiquant sa fin et la prochaine action attendue ; distingue fin de tour, clôture du workflow et acceptation humaine inconnue. Le forfait ChatGPT propre à Madness est utilisé.`
++  const forgeInstructions=`Madness intègre le skill natif $bmad-forge-idea pour une NOUVELLE idée seulement. {project-root}=${options.profile.rootPath}, {skill-root}=${dirname(options.profile.skillPath)}. Le processus Codex reste read-only dans un dossier isolé. Respecte intégralement le SKILL.md injecté ; ne l'imite pas, ne résume pas ses sorties obligatoires. Pour les commandes natives uv run utilise bmad_forge_resolve : workflow puis config à l'activation, puis appelle obligatoirement bmad_forge_check_sessions sans argument pour la recherche de sessions de l’étape5. Son reçu natif doit précéder la première fin de tour et tout init. Ce contrôle lit seulement les frontmatters des deux emplacements imposés et refuse toute session inachevée ; aucune reprise n’est disponible. Après init, ce contrôle est indisponible afin de ne pas confondre la session courante avec une reprise. Résous personas dès que le but est connu. Les commandes sont réellement exécutées, y compris roster/personas dans des subprocess isolés. bmad_read_file lit uniquement le profil qualifié. Ne prétends jamais avoir exécuté un script sans résultat de l'outil. Reprise/hooks/autres skills/sous-agents et approbations sont indisponibles : appelle bmad_unsupported, ne simule rien. Pose tes questions dans le dialogue libre ou avec request_user_input. Aucun brouillon n'est envoyé par le lancement. Après but connu, bmad_forge_init crée la SEULE sortie autorisée sous ${options.forge?.profile.forge?.outputBase}; aucun chemin arbitraire. Utilise bmad_forge_append pour les décisions et faits. À la sortie, produis le HTML INTÉGRAL et autonome avec CSS et sceau SVG inline via bmad_forge_write(name=forge-report.html). Si HARDENED, écris aussi le Markdown extrêmement court via name=idea. Puis appelle bmad_forge_finish et cite les chemins réellement observés. Jamais de faux journal/livrable, shell, outil générique, installation, réseau d'outil ou exécution HTML. Termine chaque tour en indiquant sa fin et la prochaine action attendue ; distingue fin de tour, clôture du workflow et acceptation humaine inconnue. Le forfait ChatGPT propre à Madness est utilisé.`
+   const approvalMode=options.profile.mode==='file-approval'&&!options.forge
+   const approvalInstructions=`Pilote Mary Madness avec propositions de fichiers opt-in. {project-root}=${options.profile.rootPath}, {skill-root}=${dirname(options.profile.skillPath)}. Exécute l’agent installé et bmad_resolve(agent) puis bmad_resolve(config) comme dans le SKILL.md, bmad_read_file pour le profil. Le lancement ne transmet aucun brouillon. Après demande explicite, tu peux proposer apply_patch natif add/update/delete dans le projet ; chaque patch complet attend un accord ponctuel de l’utilisateur. Aucun mouvement, chemin .git/.agents/_bmad/.codex/.aws ni donnée Madness. Aucun shell, commande, réseau d’outil, sous-agent ou permission globale/session. Ne contourne jamais un refus. Un ajustement est un refus puis un nouveau tour explicite. N’annonce aucun effet sans résultat natif observé ; distingue accord, exécution et acceptation du livrable. Termine chaque tour par sa fin et la prochaine action attendue.`
+   const questionInstructions=' Les questions natives request_user_input sont disponibles dans le mode Default. Pose seulement des questions non secrètes ; les choix appartiennent toujours à l’utilisateur. Les approbations restent indisponibles.'
+@@ -229,13 +230,14 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
+       const exact=(keys:string[]):boolean=>Object.keys(args).length===keys.length&&keys.every(k=>Object.hasOwn(args,k))
+       let operation:ForgeOperation
+       if(p.tool==='bmad_forge_resolve'&&exact(['kind'])&&['workflow','config','personas'].includes(String(args.kind))){if(args.kind!=='workflow'&&!resolved.has('workflow')||args.kind==='personas'&&!resolved.has('config'))throw dialogueFailure('UNSUPPORTED_INTERACTION');operation={kind:args.kind as 'workflow'|'config'|'personas'}}
+-      else if(p.tool==='bmad_forge_init'&&exact(['slug','idea','goal'])&&[args.slug,args.idea,args.goal].every(v=>typeof v==='string')&&resolved.has('config'))operation={kind:'init',slug:args.slug as string,idea:args.idea as string,goal:args.goal as string}
++      else if(p.tool==='bmad_forge_check_sessions'&&exact([])&&resolved.has('config')&&!resolved.has('init'))operation={kind:'check-sessions'}
++      else if(p.tool==='bmad_forge_init'&&exact(['slug','idea','goal'])&&[args.slug,args.idea,args.goal].every(v=>typeof v==='string')&&resolved.has('check-sessions'))operation={kind:'init',slug:args.slug as string,idea:args.idea as string,goal:args.goal as string}
+       else if(p.tool==='bmad_forge_append'&&exact(['type','text'])&&typeof args.type==='string'&&typeof args.text==='string')operation={kind:'append',type:args.type,text:args.text}
+       else if(p.tool==='bmad_forge_write'&&exact(['name','text'])&&['forge-report.html','idea'].includes(String(args.name))&&typeof args.text==='string')operation={kind:'write',name:args.name as 'forge-report.html'|'idea',text:args.text}
+       else if(p.tool==='bmad_forge_finish'&&exact(['outcome'])&&['HARDENED','KILLED','CLARIFIED'].includes(String(args.outcome))&&resolved.has('personas'))operation={kind:'finish',outcome:args.outcome as 'HARDENED'|'KILLED'|'CLARIFIED'}
+       else throw dialogueFailure('UNSUPPORTED_INTERACTION')
+       options.activity('Forge natif · '+operation.kind)
+-      output=await options.forge.execute(operation,p.callId,turnId!);if(['workflow','config','personas'].includes(operation.kind))resolved.add(operation.kind)
++      output=await options.forge.execute(operation,p.callId,turnId!);if(['workflow','config','personas','check-sessions','init'].includes(operation.kind))resolved.add(operation.kind)
+     }else if (!options.forge && p.tool === 'bmad_resolve' && Object.keys(args).length === 1 && ['agent', 'config'].includes(String(args.kind))) {
+       const kind = args.kind as 'agent' | 'config'
+       if (kind === 'config' && !resolved.has('agent')) throw dialogueFailure('UNSUPPORTED_INTERACTION')
+@@ -295,7 +297,7 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
+           if(pendingApproval){invalidateApproval('EFFECT_UNKNOWN');throw dialogueFailure('EFFECT_UNKNOWN')}
+           if(pendingQuestion){invalidateQuestion('PROVIDER_FAILED');throw dialogueFailure('PROVIDER_FAILED')}
+           await rpc.drainRequests()
+-          if (p.turn.status !== 'completed' || p.turn.error || !messages.size || [...messages.values()].some(m=>!m.completed) || first && (!resolved.has(options.forge?'workflow':'agent') || !resolved.has('config'))) throw dialogueFailure('PROVIDER_FAILED')
++          if (p.turn.status !== 'completed' || p.turn.error || !messages.size || [...messages.values()].some(m=>!m.completed) || first && (!resolved.has(options.forge?'workflow':'agent') || !resolved.has('config') || !!options.forge&&!resolved.has('check-sessions'))) throw dialogueFailure('PROVIDER_FAILED')
+           const text=[...messages.values()].map(m=>m.text).join('\n\n');if(!text.trim()||text.length>MAX_DRAFT_LENGTH)throw dialogueFailure('PROVIDER_FAILED')
+           first = false; turnId = null; return text
+         }
+diff --git a/tests/forge.test.mjs b/tests/forge.test.mjs
+index f11f3eb..f8e0fbf 100644
+--- a/tests/forge.test.mjs
++++ b/tests/forge.test.mjs
+@@ -1,6 +1,7 @@
+ import assert from 'node:assert/strict'
+-import { test } from 'node:test'
+-import { mkdtemp,mkdir,copyFile,writeFile,readFile,rm,symlink,link } from 'node:fs/promises'
++import { test,mock } from 'node:test'
++import {createRequire,syncBuiltinESMExports} from 'node:module'
++import { mkdtemp,mkdir,copyFile,writeFile,readFile,rm,symlink,link,readdir,rename,unlink } from 'node:fs/promises'
+ import { tmpdir } from 'node:os'
+ import { join,dirname,resolve } from 'node:path'
+ import { createHash } from 'node:crypto'
+@@ -13,6 +14,11 @@ async function fixture(t){
+   await writeFile(join(root,'_bmad/config.toml'),'[core]\noutput_folder = "{project-root}/_bmad-output"\nactive_initiative = "initiative-test"\n')
+   return root
+ }
++async function activate(host,check=true){
++  await host.execute({kind:'workflow'},'workflow','turn-1')
++  await host.execute({kind:'config'},'config','turn-1')
++  if(check)return host.execute({kind:'check-sessions'},'sessions','turn-1')
++}
+ test('Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED',async t=>{
+   const root=await fixture(t),marker=join(root,'INJECTED')
+   for(const folder of ['','_bmad/scripts','.agents/skills/bmad-forge-idea/scripts'])for(const name of ['json.py','argparse.py','sitecustomize.py'])await writeFile(join(root,folder,name),`open(${JSON.stringify(marker)},'w').write('poison')\nraise Exception('poison')`)
+@@ -20,8 +26,9 @@ test('Forge réel : resolvers et personas isolés, journal natif, sorties intég
+   assert.equal(profile.kind,'forge');assert.equal(profile.forge.initiativeId,'initiative-test')
+   await assert.rejects(readFile(marker),{code:'ENOENT'})
+   const host=new ForgeHost(profile,signal),observations=[];host.bind(async(...args)=>observations.push(args))
++  await activate(host)
+   await host.execute({kind:'personas'},'roster','turn-1')
+-  await host.execute({kind:'init',slug:'outil-simple',idea:'Une idée test',goal:'Tester les risques'},'init','turn-1')
++  await host.execute({kind:'init',slug:'outil-simple',idea:'Une idée test\n'+ 'idée longue '.repeat(500),goal:'Tester les risques\navec plusieurs lignes'},'init','turn-1')
+   const workspace=join(profile.forge.outputBase,'forge-outil-simple')
+   assert.match(await readFile(join(workspace,'.memlog.md'),'utf8'),/idea: Une idée test/)
+   await host.execute({kind:'append',type:'lock',text:'Décision explicite du témoin.'},'append','turn-2')
+@@ -37,6 +44,8 @@ test('Forge réel : resolvers et personas isolés, journal natif, sorties intég
+   assert.equal(receipt.sha256,digest(html));assert.equal(receipt.bytes,Buffer.byteLength(html))
+   assert.equal(observations.at(-1)[2],'HARDENED')
+   await assert.rejects(host.execute({kind:'append',type:'note',text:'replay'},'late','turn-4'),{code:'OUTPUT_REFUSED'})
++  const next=new ForgeHost(await qualifyForge(root,signal),signal);next.bind(async()=>{})
++  assert.equal(JSON.parse(await activate(next)).locations.at(-1).sessions.length,1)
+   await assert.rejects(readFile(marker),{code:'ENOENT'})
+ })
+ test('profil Forge refuse dépendance modifiée, hooks, sortie hors projet et reprise avant invocation',async t=>{
+@@ -60,6 +69,7 @@ test('sorties bornées : traversée, liens, collision, modification externe et s
+   const external=await mkdtemp(join(tmpdir(),'madness-forge-external-'));t.after(()=>rm(external,{recursive:true,force:true}))
+   await symlink(external,join(root,'linked'),'junction');await assert.rejects(forgePath(root,join(root,'linked/data'),true),{code:'OUTPUT_REFUSED'})
+   const host=new ForgeHost(profile,signal);host.bind(async()=>{})
++  await activate(host)
+   await assert.rejects(host.execute({kind:'init',slug:'../escape',idea:'x',goal:'y'},'bad','turn'),{code:'OUTPUT_REFUSED'})
+   await host.execute({kind:'init',slug:'collision',idea:'x',goal:'y'},'init','turn')
+   const workspace=join(profile.forge.outputBase,'forge-collision'),html=join(workspace,'forge-report.html')
+@@ -68,17 +78,129 @@ test('sorties bornées : traversée, liens, collision, modification externe et s
+   assert.equal(await readFile(html,'utf8'),'extérieur')
+   await writeFile(join(workspace,'.memlog.md'),'modification externe')
+   await assert.rejects(host.execute({kind:'append',type:'note',text:'écraser'},'append','turn'),{code:'OUTPUT_CONFLICT'})
+-  const denied=new ForgeHost(profile,signal);denied.bind(async()=>{throw Object.assign(Error(),{code:'STORAGE_WRITE_FAILED'})})
++  const denied=new ForgeHost(profile,signal);denied.bind(async()=>{})
++  // Le témoin de collision est inachevé : le retirer avant cette autre activation indépendante.
++  await rm(workspace,{recursive:true,force:true});await activate(denied)
++  denied.bind(async()=>{throw Object.assign(Error(),{code:'STORAGE_WRITE_FAILED'})})
+   await assert.rejects(denied.execute({kind:'init',slug:'disk-denied',idea:'x',goal:'y'},'init','turn'),{code:'STORAGE_WRITE_FAILED'})
+   await assert.rejects(readFile(join(profile.forge.outputBase,'forge-disk-denied/.memlog.md')),{code:'ENOENT'})
+-  const hardlinked=join(root,'hardlink');await link(html,hardlinked)
++  const target=join(root,'hardlink-target');await writeFile(target,'extérieur');const hardlinked=join(root,'hardlink');await link(target,hardlinked)
+   await assert.rejects(host.read(hardlinked),{code:'UNSUPPORTED_INTERACTION'})
+ })
+ test('échec de sauvegarde après effet reste inconnu et ne permet aucun replay',async t=>{
+   const root=await fixture(t),signal=new AbortController().signal,profile=await qualifyForge(root,signal),host=new ForgeHost(profile,signal)
++  host.bind(async()=>{});await activate(host)
+   const events=[];host.bind(async o=>{events.push(o);if(o.phase==='observed')throw Error('disk')})
+   await assert.rejects(host.execute({kind:'init',slug:'uncertain',idea:'x',goal:'y'},'init','turn'),{code:'EFFECT_UNKNOWN'})
+   assert.equal(events.at(-1).phase,'unknown')
+   assert.match(await readFile(join(profile.forge.outputBase,'forge-uncertain/.memlog.md'),'utf8'),/idea: x/)
+   await assert.rejects(host.execute({kind:'append',type:'note',text:'ne pas rejouer'},'next','turn'),{code:'EFFECT_UNKNOWN'})
+ })
++test('recherche native : sorties absentes, vides et complètes ; reçu exact sans corps ni effet',async t=>{
++  const root=await fixture(t),signal=new AbortController().signal,profile=await qualifyForge(root,signal),host=new ForgeHost(profile,signal),observations=[]
++  host.bind(async o=>observations.push(o));const absent=JSON.parse(await activate(host))
++  assert.equal(absent.observed,true);assert.equal(absent.locations.length,2);assert.equal(absent.locations.every(p=>!p.exists&&p.sessions.length===0),true)
++  await assert.rejects(readdir(join(root,'_bmad-output')),{code:'ENOENT'})
++  await mkdir(profile.forge.outputBase,{recursive:true})
++  assert.equal(JSON.parse(await host.execute({kind:'check-sessions'},'empty','turn-1')).locations.every(p=>p.exists&&p.sessions.length===0),true)
++  const headers=['---\nidea: Valeur --- conservée\nstatus: complete\n---\n','---\r\nstatus: complete\r\n---\r\n']
++  for(const [index,base] of [join(root,'_bmad-output'),profile.forge.outputBase].entries()){
++    const folder=join(base,index===0?'FORGE-complete':'forge-complete');await mkdir(folder)
++    await writeFile(join(folder,'.memlog.md'),Buffer.concat([Buffer.from(headers[index]),Buffer.from([0xc0,0x80])]))
++  }
++  const output=await host.execute({kind:'check-sessions'},'complete','turn-2'),result=JSON.parse(output)
++  assert.equal(result.locations.every(p=>p.sessions.length===1),true)
++  assert.deepEqual(result.locations.map(p=>p.sessions[0].sha256),headers.map(digest))
++  assert.deepEqual(result.locations.map(p=>p.sessions[0].bytes),headers.map(v=>Buffer.byteLength(v)))
++  const receipt=observations.at(-1)
++  assert.deepEqual({...receipt,at:'dated'},{id:'complete',turnId:'turn-2',operation:'check-sessions',phase:'observed',at:'dated',path:null,sha256:digest(output),bytes:Buffer.byteLength(output)})
++  assert.equal(observations.some(o=>o.path!==null),false)
++  await assert.rejects(host.read(result.locations[0].sessions[0].path),{code:'UNSUPPORTED_INTERACTION'})
++})
++for(const location of ['general','initiative'])test('fraîcheur : session inachevée '+location+' apparue après qualification ou contrôle bloque init',async t=>{
++  const root=await fixture(t),signal=new AbortController().signal,profile=await qualifyForge(root,signal),host=new ForgeHost(profile,signal),observations=[]
++  host.bind(async o=>observations.push(o));await activate(host)
++  const base=location==='general'?join(root,'_bmad-output'):profile.forge.outputBase,folder=join(base,location==='general'?'Forge-paused':'forge-paused'),content='---\nidea: Inachevée\n---\n'
++  await mkdir(folder,{recursive:true});await writeFile(join(folder,'.memlog.md'),content)
++  await assert.rejects(host.execute({kind:'init',slug:'fresh',idea:'x',goal:'y'},'new','turn-2'),{code:'RESUME_UNSUPPORTED'})
++  await assert.rejects(readFile(join(profile.forge.outputBase,'forge-fresh/.memlog.md')),{code:'ENOENT'})
++  assert.equal(observations.some(o=>o.id==='new'&&o.phase==='observed'),false)
++  const other=new ForgeHost(profile,signal);other.bind(async o=>observations.push(o));await activate(other,false)
++  await assert.rejects(other.execute({kind:'check-sessions'},'stale','turn-2'),{code:'RESUME_UNSUPPORTED'})
++  assert.equal(observations.some(o=>o.id==='stale'),false);assert.equal(await readFile(join(folder,'.memlog.md'),'utf8'),content)
++})
++test('frontières : refus fermés des journaux absents, invalides, trop grands, liens et hardlinks',async t=>{
++  const root=await fixture(t),signal=new AbortController().signal,profile=await qualifyForge(root,signal),host=new ForgeHost(profile,signal),observations=[]
++  host.bind(async o=>observations.push(o));await activate(host,false)
++  const folder=join(profile.forge.outputBase,'forge-hostile'),path=join(folder,'.memlog.md');await mkdir(folder,{recursive:true})
++  for(const content of [null,'status: complete\n','---\nstatus: complete\n','---\nstatus: complete\nstatus: paused\n---\n','---\ninvalid\nstatus: complete\n---\n',Buffer.from([0xc0,0x80]),'---\nidea: '+ 'x'.repeat(32768)+'\nstatus: complete\n---\n','---\nstatus: complete\n---\n'+'x'.repeat(1048576)]){
++    if(content!==null)await writeFile(path,content)
++    await assert.rejects(host.execute({kind:'check-sessions'},'invalid','turn-1'),{code:'OUTPUT_REFUSED'})
++    if(content!==null)assert.deepEqual(await readFile(path),Buffer.from(content))
++  }
++  await rm(path);await mkdir(path)
++  await assert.rejects(host.execute({kind:'check-sessions'},'directory','turn-1'),{code:'OUTPUT_REFUSED'});await rm(path,{recursive:true})
++  await writeFile(path,'---\nstatus: complete\n---\n');const outside=join(root,'outside-secret');await writeFile(outside,'---\nstatus: complete\n---\nSECRET')
++  const nativeFs=createRequire(import.meta.url)('node:fs/promises'),original=nativeFs.open
++  const denied=mock.method(nativeFs,'open',async(candidate,...args)=>{if(candidate===path)throw Object.assign(Error('refus de lecture synthétique'),{code:'EACCES'});return original(candidate,...args)});syncBuiltinESMExports()
++  try{await assert.rejects(host.execute({kind:'check-sessions'},'unreadable','turn-1'),{code:'OUTPUT_REFUSED'})}finally{denied.mock.restore();syncBuiltinESMExports()}
++  await rm(path);await link(outside,path)
++  await assert.rejects(host.execute({kind:'check-sessions'},'hardlink','turn-1'),{code:'OUTPUT_REFUSED'});await rm(path)
++  // Windows autorise les jonctions sans privilège symlink ; les deux passent par la même garde lstat.
++  await symlink(process.platform==='win32'?root:outside,path,process.platform==='win32'?'junction':'file')
++  await assert.rejects(host.execute({kind:'check-sessions'},'symlink','turn-1'),{code:'OUTPUT_REFUSED'});await rm(path)
++  await rm(folder,{recursive:true,force:true});await symlink(root,folder,'junction')
++  await assert.rejects(host.execute({kind:'check-sessions'},'junction','turn-1'),{code:'OUTPUT_REFUSED'});await rm(folder)
++  assert.equal(await readFile(outside,'utf8'),'---\nstatus: complete\n---\nSECRET')
++  assert.equal(observations.some(o=>o.operation==='check-sessions'),false)
++})
++test('sans initiative, la recherche contrôle une seule fois la sortie générale imposée',async t=>{
++  const root=await fixture(t);await writeFile(join(root,'_bmad/config.toml'),'[core]\noutput_folder = "{project-root}/_bmad-output"\n')
++  const signal=new AbortController().signal,profile=await qualifyForge(root,signal),host=new ForgeHost(profile,signal)
++  host.bind(async()=>{});const result=JSON.parse(await activate(host))
++  assert.equal(profile.forge.initiativeId,null);assert.equal(result.locations.length,1);assert.equal(result.locations[0].path,profile.forge.outputBase)
++})
++test('course : une sortie vide remplacée pendant readdir est refusée sans reçu ni lecture externe',async t=>{
++  const root=await fixture(t),signal=new AbortController().signal,profile=await qualifyForge(root,signal),host=new ForgeHost(profile,signal),observations=[]
++  host.bind(async o=>observations.push(o));await activate(host,false)
++  const base=profile.forge.outputBase,moved=base+'-moved',external=join(root,'external-output'),secret=join(external,'forge-private/.memlog.md')
++  await mkdir(base,{recursive:true});await mkdir(dirname(secret),{recursive:true});await writeFile(secret,'---\nstatus: paused\n---\nSECRET')
++  const nativeFs=createRequire(import.meta.url)('node:fs/promises'),original=nativeFs.readdir
++  let switched=false,externalRead=false
++  const raced=mock.method(nativeFs,'readdir',async(path,...args)=>{
++    if(String(path).startsWith(external))externalRead=true
++    const entries=await original(path,...args)
++    if(path===base&&!switched){switched=true;await rename(base,moved);await symlink(external,base,process.platform==='win32'?'junction':'dir')}
++    return entries
++  });syncBuiltinESMExports()
++  try{await assert.rejects(host.execute({kind:'check-sessions'},'raced-scan','turn-1'),{code:'OUTPUT_REFUSED'})}
++  finally{raced.mock.restore();syncBuiltinESMExports();if(switched){await unlink(base);await rename(moved,base)}}
++  assert.equal(switched,true);assert.equal(externalRead,false);assert.equal(observations.some(o=>o.id==='raced-scan'),false)
++  assert.equal(await readFile(secret,'utf8'),'---\nstatus: paused\n---\nSECRET')
++  await rm(base,{recursive:true})
++  const originalStat=nativeFs.lstat;let absentReads=0,appeared=false
++  const appearance=mock.method(nativeFs,'lstat',async(path,...args)=>{
++    try{return await originalStat(path,...args)}catch(error){
++      if(path===base&&error.code==='ENOENT'&&++absentReads===2){await mkdir(base);appeared=true}
++      throw error
++    }
++  });syncBuiltinESMExports()
++  try{await assert.rejects(host.execute({kind:'check-sessions'},'raced-absence','turn-2'),{code:'OUTPUT_REFUSED'})}
++  finally{appearance.mock.restore();syncBuiltinESMExports()}
++  assert.equal(appeared,true);assert.equal(observations.some(o=>o.id==='raced-absence'),false)
++})
++test('ordre hôte et échec de stockage ne créent ni reçu durable ni droit à init',async t=>{
++  const root=await fixture(t),signal=new AbortController().signal,profile=await qualifyForge(root,signal),host=new ForgeHost(profile,signal)
++  host.bind(async()=>{})
++  await assert.rejects(host.execute({kind:'check-sessions'},'early','turn-1'),{code:'UNSUPPORTED_INTERACTION'})
++  await activate(host,false)
++  await assert.rejects(host.execute({kind:'init',slug:'early',idea:'x',goal:'y'},'init','turn-1'),{code:'UNSUPPORTED_INTERACTION'})
++  await assert.rejects(host.execute({kind:'check-sessions',path:'../outside'},'args','turn-1'),{code:'UNSUPPORTED_INTERACTION'})
++  host.bind(async()=>{throw Object.assign(Error(),{code:'STORAGE_WRITE_FAILED'})})
++  await assert.rejects(host.execute({kind:'check-sessions'},'disk','turn-1'),{code:'STORAGE_WRITE_FAILED'})
++  host.bind(async()=>{})
++  await assert.rejects(host.execute({kind:'init',slug:'disk',idea:'x',goal:'y'},'init','turn-1'),{code:'UNSUPPORTED_INTERACTION'})
++  await host.execute({kind:'check-sessions'},'retry-read','turn-2')
++  await host.execute({kind:'init',slug:'valid',idea:'x',goal:'y'},'init','turn-2')
++  await assert.rejects(host.execute({kind:'check-sessions'},'late','turn-2'),{code:'UNSUPPORTED_INTERACTION'})
++})
+diff --git a/tests/forge-protocol.test.mjs b/tests/forge-protocol.test.mjs
+index d15ca7c..e8c8f50 100644
+--- a/tests/forge-protocol.test.mjs
++++ b/tests/forge-protocol.test.mjs
+@@ -6,11 +6,11 @@ import {DialogueRpc,startDialogueProtocol} from '../src/adapters/codex/dialogue.
+ function server(mode='normal',commandsByTurn=null){
+  const child=new EventEmitter();child.stdin=new PassThrough();child.stdout=new PassThrough();child.stderr=new PassThrough()
+  const requests=[];let buffer='',turn=0,index=0
+- const defaults=[['bmad_forge_resolve',{kind:'workflow'}],['bmad_forge_resolve',{kind:'config'}],['bmad_forge_resolve',{kind:'personas'}],['bmad_forge_init',{slug:'test',idea:'Idée témoin',goal:'Tester'}]]
++ const defaults=[['bmad_forge_resolve',{kind:'workflow'}],['bmad_forge_resolve',{kind:'config'}],['bmad_forge_check_sessions',{}],['bmad_forge_resolve',{kind:'personas'}],['bmad_forge_init',{slug:'test',idea:'Idée témoin',goal:'Tester'}]]
+  let commands=defaults
+  const emit=v=>child.stdout.write(JSON.stringify(v)+'\n')
+  const complete=()=>{emit({method:'item/completed',params:{threadId:'thread-1',turnId:'turn-'+turn,item:{id:'answer-'+turn,type:'agentMessage',text:'Fin du tour. À vous de répondre.'}}});emit({method:'turn/completed',params:{threadId:'thread-1',turn:{id:'turn-'+turn,status:'completed'}}})}
+- const tool=()=>{if(index===commands.length){complete();return}const [name,args]=commands[index++];emit({id:100+index,method:mode==='structured'?'item/tool/requestUserInput':'item/tool/call',params:{threadId:mode==='foreign'?'other':'thread-1',turnId:'turn-'+turn,callId:mode==='duplicate'?'same':'tool-'+turn+'-'+index,tool:mode==='shell'?'shell':name,arguments:args}})}
++ const tool=()=>{if(index===commands.length){complete();return}const [name,args]=commands[index++];emit({id:100+index,method:mode==='structured'?'item/tool/requestUserInput':'item/tool/call',params:{threadId:mode==='foreign'||mode==='foreign-check'&&name==='bmad_forge_check_sessions'?'other':'thread-1',turnId:mode==='foreign-check-turn'&&name==='bmad_forge_check_sessions'?'other-turn':'turn-'+turn,callId:mode==='duplicate'?'same':'tool-'+turn+'-'+index,tool:mode==='shell'?'shell':name,arguments:args}})}
+  child.stdin.on('data',chunk=>{buffer+=chunk;while(buffer.includes('\n')){const end=buffer.indexOf('\n'),m=JSON.parse(buffer.slice(0,end));buffer=buffer.slice(end+1);requests.push(m);const reply=result=>emit({id:m.id,result});if(m.method==='initialize')reply({});if(m.method==='model/list')reply({data:[{model:'test-model',hidden:false,isDefault:true}]});if(m.method==='thread/start')reply({thread:{id:'thread-1'},modelProvider:'openai_chatgpt_plan',model:'test-model',sandbox:{type:'readOnly'},approvalPolicy:'never'});if(m.method==='turn/start'){turn++;index=0;commands=commandsByTurn?.[turn-1]??(turn===1?defaults:[]);reply({turn:{id:'turn-'+turn}});tool()}if(m.id>=101&&m.result)tool()}})
+  return {child,requests}
+ }
+@@ -23,9 +23,10 @@ test('Forge utilise référence skill native, commandes strictes corrélées et
+  assert.equal(progress.length,2);assert.equal(progress.every(m=>m.completed&&m.identity.kind==='unknown'),true)
+  const start=s.requests.find(r=>r.method==='thread/start').params,turns=s.requests.filter(r=>r.method==='turn/start')
+  assert.equal(start.sandbox,'read-only');assert.equal(start.approvalPolicy,'never');assert.equal(start.dynamicTools.some(t=>t.name==='shell'),false)
++ const check=start.dynamicTools.find(t=>t.name==='bmad_forge_check_sessions');assert.deepEqual(check.inputSchema,{type:'object',properties:{},additionalProperties:false});assert.match(start.developerInstructions,/bmad_forge_check_sessions/)
+  assert.deepEqual(turns[0].params.input,[{type:'skill',name:'bmad-forge-idea',path:'C:/project/.agents/skills/bmad-forge-idea/SKILL.md'},{type:'text',text:'$bmad-forge-idea'}])
+  assert.deepEqual(turns[1].params.input,[{type:'text',text:'Ma réponse explicite'}]);assert.equal(turns[0].params.threadId,turns[1].params.threadId)
+- assert.deepEqual(operations.map(v=>v.op.kind),['workflow','config','personas','init']);assert.equal(operations.every(v=>v.turn==='turn-1'),true)
++ assert.deepEqual(operations.map(v=>v.op.kind),['workflow','config','check-sessions','personas','init']);assert.equal(operations.every(v=>v.turn==='turn-1'),true)
+  rpc.dispose()
+ })
+ for(const mode of ['foreign','duplicate','structured','shell'])test('Forge refuse '+mode+' sans faux résultat',async()=>{
+@@ -33,32 +34,43 @@ for(const mode of ['foreign','duplicate','structured','shell'])test('Forge refus
+  try{const session=await startDialogueProtocol(rpc,{cwd:'C:/isolated',profile:{rootPath:'C:/project',skillPath:'Forge'},forge:{profile:{forge:{outputBase:'C:/project/_bmad-output'}},execute:async op=>{operations.push(op);return '{}'}},signal,activity:()=>{},read:async()=>'',resolve:async()=>''},500);await assert.rejects(session.turn(null,async()=>{}),e=>['CONTEXT_MISMATCH','UNSUPPORTED_INTERACTION'].includes(e.code));assert.equal(operations.some(op=>op.kind==='init'),false)}finally{rpc.dispose()}
+ })
+ const activation=[['bmad_forge_resolve',{kind:'workflow'}],['bmad_forge_resolve',{kind:'config'}]]
++const sessions=['bmad_forge_check_sessions',{}]
+ const init=['bmad_forge_init',{idea:'Idée témoin nouvelle',goal:'Clarifier les risques',slug:'ordre-natif'}]
+ const personas=['bmad_forge_resolve',{kind:'personas'}]
+ const finish=['bmad_forge_finish',{outcome:'CLARIFIED'}]
+-async function forgeSession(s,operations){
++async function forgeSession(s,operations,execute=async()=> '{}'){
+  const signal=new AbortController().signal,rpc=new DialogueRpc(s.child,signal,300)
+- const session=await startDialogueProtocol(rpc,{cwd:'C:/isolated',profile:{rootPath:'C:/project',skillPath:'C:/project/.agents/skills/bmad-forge-idea/SKILL.md'},forge:{profile:{forge:{outputBase:'C:/project/_bmad-output/initiative-test'}},execute:async(op,callId,turnId)=>{operations.push({op,callId,turnId});return '{}'}},signal,activity:()=>{},read:async()=>'',resolve:async()=>{throw Error('Mary ne doit pas être utilisée')}},1000)
++ const session=await startDialogueProtocol(rpc,{cwd:'C:/isolated',profile:{rootPath:'C:/project',skillPath:'C:/project/.agents/skills/bmad-forge-idea/SKILL.md'},forge:{profile:{forge:{outputBase:'C:/project/_bmad-output/initiative-test'}},execute:async(op,callId,turnId)=>{operations.push({op,callId,turnId});return execute(op,callId,turnId)}},signal,activity:()=>{},read:async()=>'',resolve:async()=>{throw Error('Mary ne doit pas être utilisée')}},1000)
+  return {session,rpc}
+ }
++test('régression : le premier terminal après workflow/config seuls doit être refusé',async()=>{
++ const s=server('normal',[activation]),operations=[]
++ const {session,rpc}=await forgeSession(s,operations)
++ try{await assert.rejects(session.turn(null,async()=>{}),{code:'PROVIDER_FAILED'});assert.deepEqual(operations.map(v=>v.op.kind),['workflow','config'])}finally{rpc.dispose()}
++})
++test('régression : init sans contrôle de sessions doit être refusé avant tout effet hôte',async()=>{
++ const s=server('normal',[[...activation,init]]),operations=[]
++ const {session,rpc}=await forgeSession(s,operations)
++ try{await assert.rejects(session.turn(null,async()=>{}),{code:'UNSUPPORTED_INTERACTION'});assert.deepEqual(operations.map(v=>v.op.kind),['workflow','config'])}finally{rpc.dispose()}
++})
+ test('ordre natif installé : init après config, puis personas avant la clôture sur le même thread',async()=>{
+- const s=server('normal',[activation,[init,personas,finish]]),operations=[]
++ const s=server('normal',[[...activation,sessions],[init,personas,finish]]),operations=[]
+  const {session,rpc}=await forgeSession(s,operations)
+  try{
+   await session.turn(null,async()=>{})
+   await session.turn('Nouvelle idée synthétique ; objectif : clarifier les risques.',async()=>{})
+-  assert.deepEqual(operations.map(v=>v.op.kind),['workflow','config','init','personas','finish'])
+-  assert.deepEqual(operations.slice(2).map(v=>v.turnId),['turn-2','turn-2','turn-2'])
+-  assert.deepEqual(operations[2].op,{kind:'init',idea:'Idée témoin nouvelle',goal:'Clarifier les risques',slug:'ordre-natif'})
++  assert.deepEqual(operations.map(v=>v.op.kind),['workflow','config','check-sessions','init','personas','finish'])
++  assert.deepEqual(operations.slice(3).map(v=>v.turnId),['turn-2','turn-2','turn-2'])
++  assert.deepEqual(operations[3].op,{kind:'init',idea:'Idée témoin nouvelle',goal:'Clarifier les risques',slug:'ordre-natif'})
+  }finally{rpc.dispose()}
+ })
+ test('init peut précéder personas mais la clôture sans personas est refusée avant l’outil hôte',async()=>{
+- const s=server('normal',[activation,[init,finish]]),operations=[]
++ const s=server('normal',[[...activation,sessions],[init,finish]]),operations=[]
+  const {session,rpc}=await forgeSession(s,operations)
+  try{
+   await session.turn(null,async()=>{})
+   await assert.rejects(session.turn('Nouvelle idée synthétique ; objectif connu.',async()=>{}),{code:'UNSUPPORTED_INTERACTION'})
+-  assert.deepEqual(operations.map(v=>v.op.kind),['workflow','config','init'])
++  assert.deepEqual(operations.map(v=>v.op.kind),['workflow','config','check-sessions','init'])
+  }finally{rpc.dispose()}
+ })
+ test('init reste refusé avant la résolution de configuration native',async()=>{
+@@ -69,3 +81,21 @@ test('init reste refusé avant la résolution de configuration native',async()=>
+   assert.deepEqual(operations.map(v=>v.op.kind),['workflow'])
+  }finally{rpc.dispose()}
+ })
++for(const [name,commands,expected] of [
++ ['argument supplémentaire',[...activation,['bmad_forge_check_sessions',{path:'../outside'}]],['workflow','config']],
++ ['avant workflow',[sessions],[]],
++ ['avant config',[activation[0],sessions],['workflow']],
++ ['après init',[...activation,sessions,init,sessions],['workflow','config','check-sessions','init']]
++])test('contrôle de sessions refuse '+name+' avant exécution hôte',async()=>{
++ const s=server('normal',[commands]),operations=[],{session,rpc}=await forgeSession(s,operations)
++ try{await assert.rejects(session.turn(null,async()=>{}),{code:'UNSUPPORTED_INTERACTION'});assert.deepEqual(operations.map(v=>v.op.kind),expected)}finally{rpc.dispose()}
++})
++test('un échec de conservation du contrôle empêche terminal et init',async()=>{
++ const s=server('normal',[[...activation,sessions,init]]),operations=[]
++ const {session,rpc}=await forgeSession(s,operations,async op=>{if(op.kind==='check-sessions')throw Object.assign(Error(),{code:'STORAGE_WRITE_FAILED'});return '{}'})
++ try{await assert.rejects(session.turn(null,async()=>{}),{code:'STORAGE_WRITE_FAILED'});assert.deepEqual(operations.map(v=>v.op.kind),['workflow','config','check-sessions']);assert.equal(s.requests.some(r=>r.result?.success&&r.id===103),false)}finally{rpc.dispose()}
++})
++for(const mode of ['foreign-check','foreign-check-turn'])test('contrôle de sessions refuse le contexte '+mode,async()=>{
++ const s=server(mode,[[...activation,sessions,init]]),operations=[],{session,rpc}=await forgeSession(s,operations)
++ try{await assert.rejects(session.turn(null,async()=>{}),{code:'CONTEXT_MISMATCH'});assert.deepEqual(operations.map(v=>v.op.kind),['workflow','config'])}finally{rpc.dispose()}
++})
+diff --git a/tests/workflow-store.test.mjs b/tests/workflow-store.test.mjs
+index ff52c0c..f8ac044 100644
+--- a/tests/workflow-store.test.mjs
++++ b/tests/workflow-store.test.mjs
+@@ -5,7 +5,18 @@ import {join} from 'node:path'
+ import {tmpdir} from 'node:os'
+ import {WorkflowStore} from '../src/adapters/persistence/workflow-store.ts'
+ import {isWorkflowRecord} from '../src/contracts/dialogue.ts'
++import {createHash} from 'node:crypto'
+ const record=()=>({schemaVersion:1,conversationId:'conversation-1',context:{projectId:'project-1',initiativeId:'initiative-test',conversationId:'conversation-1',connectionId:'account-1',providerId:'codex'},invocation:'$bmad-forge-idea',capturedAt:new Date().toISOString(),rootPath:'C:/project',outputBase:'C:/project/_bmad-output/initiative-test',contextDigest:'a'.repeat(64),fingerprint:'b'.repeat(64),skillPath:'C:/project/.agents/skills/bmad-forge-idea/SKILL.md',workspace:null,outcome:'open',observations:[]})
++test('reçu de recherche natif sans chemin durable et ancienne annexe intacte au même schéma',async t=>{
++ const root=await mkdtemp(join(tmpdir(),'madness-workflow-sessions-'));t.after(()=>rm(root,{recursive:true,force:true,maxRetries:3}))
++ const historical=record(),current={...record(),conversationId:'conversation-current',context:{...record().context,conversationId:'conversation-current'}}
++ historical.observations.push({id:'old-init',turnId:'old-turn',operation:'init',phase:'observed',at:historical.capturedAt,path:historical.outputBase+'/forge-old/.memlog.md',sha256:'c'.repeat(64),bytes:42})
++ const historicalPath=join(root,historical.conversationId+'.json'),original=JSON.stringify(historical,null,2)+'\n';await writeFile(historicalPath,original)
++ const output=JSON.stringify({observed:true,locations:[{path:current.outputBase,exists:false,sessions:[]}]})
++ current.observations.push({id:'native-call',turnId:'native-turn',operation:'check-sessions',phase:'observed',at:current.capturedAt,path:null,sha256:createHash('sha256').update(output).digest('hex'),bytes:Buffer.byteLength(output)})
++ const store=new WorkflowStore(root);await store.read();await store.write(current)
++ assert.equal(isWorkflowRecord(current),true);assert.deepEqual(await new WorkflowStore(root).read(),[historical,current]);assert.equal(await readFile(historicalPath,'utf8'),original)
++})
+ test('annexe atomique par conversation restaure contexte et preuves sans migration Snapshot',async t=>{
+  const root=await mkdtemp(join(tmpdir(),'madness-workflow-test-'));t.after(()=>rm(root,{recursive:true,force:true,maxRetries:3}))
+  const store=new WorkflowStore(root),r=record();assert.deepEqual(await store.read(),[]);assert.equal(isWorkflowRecord(r),true)
+diff --git a/package.json b/package.json
+index b748fee..dff1c45 100644
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "madness",
+-  "version": "0.1.1",
++  "version": "0.1.2",
+   "private": true,
+   "description": "Espace de travail local BMad pour Windows — socle G0",
+   "author": "Madness",
+diff --git a/package-lock.json b/package-lock.json
+index 1852191..67119bc 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "madness",
+-  "version": "0.1.1",
++  "version": "0.1.2",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "madness",
+-      "version": "0.1.1",
++      "version": "0.1.2",
+       "hasInstallScript": true,
+       "dependencies": {
+         "jose": "6.2.13",
+diff --git a/scripts/qualification/forge.mjs b/scripts/qualification/forge.mjs
+index cf378ec..62a660b 100644
+--- a/scripts/qualification/forge.mjs
++++ b/scripts/qualification/forge.mjs
+@@ -36,7 +36,13 @@ try{
+  const record={schemaVersion:1,conversationId:context.conversationId,context,invocation:'$bmad-forge-idea',capturedAt:new Date().toISOString(),rootPath:project,outputBase:qualified.forge.outputBase,contextDigest:qualified.forge.contextDigest,fingerprint:qualified.fingerprint,skillPath:qualified.skillPath,workspace:null,outcome:'open',observations:[]}
+  const store=new WorkflowStore(join(profile,'workflows-v1'));await store.write(record)
+  const host=new ForgeHost(qualified,signal,runner);host.bind(async(o,workspace,outcome)=>{record.observations.push(o);record.workspace=workspace??record.workspace;record.outcome=outcome??record.outcome;await store.write(record)})
+- for(const kind of ['workflow','config','personas'])await host.execute({kind},'resolver-'+kind,'synthetic-turn-1')
++ for(const kind of ['workflow','config'])await host.execute({kind},'resolver-'+kind,'synthetic-turn-1')
++ const sessions=await host.execute({kind:'check-sessions'},'session-check','synthetic-turn-1')
++ assert.equal(JSON.parse(sessions).observed,true)
++ assert.equal(record.observations.at(-1).operation,'check-sessions');assert.equal(record.observations.at(-1).path,null)
++ assert.equal(record.observations.at(-1).sha256,hash(sessions));assert.equal(record.observations.at(-1).bytes,Buffer.byteLength(sessions))
++ await host.execute({kind:'personas'},'resolver-personas','synthetic-turn-1')
++ pass('synthetic-host-requested-session-check-correlated-durable-before-init')
+  await host.execute({kind:'init',slug:'qualification',idea:'Idée synthétique du banc',goal:'Vérifier les commandes natives sans modèle'},'init','synthetic-turn-1')
+  await host.execute({kind:'append',type:'lock',text:'Donnée synthétique : les observations ne valent aucune acceptation.'},'append','synthetic-turn-2')
+  await host.execute({kind:'write',name:'forge-report.html',text:'<!doctype html><html lang="fr"><meta charset="utf-8"><style>body{font:16px system-ui;margin:3rem;color:#211f1e}svg{width:80px}</style><title>Rapport synthétique de qualification</title><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#e49b7a"/></svg><h1>HARDENED · témoin synthétique</h1><p>Rapport du banc hôte, sans modèle ni acceptation humaine.</p></html>'},'html','synthetic-turn-3')
+diff --git a/docs/development.md b/docs/development.md
+index b440426..a53e7e7 100644
+--- a/docs/development.md
++++ b/docs/development.md
+@@ -244,3 +244,11 @@ node scripts/qualification/windows.mjs --ui-regressions-only --skip-screenshots
+ ```
+ 
+ `overview.mjs` utilise les vrais Main/preload/stockage et des profils isolés sans compte ; ses attentes actives sont injectées pour qualifier l’affichage, la navigation, les thèmes et les limites d’action. Ce banc ne prouve aucun reçu natif. `overview-native.mjs` exerce séparément le vrai runner épinglé, le protocole produit et le coordinateur : résolutions BMad, question native, réponse explicite, reçu brut exact observé dans le corps Responses, conservation et récapitulatif corrélés. Son fournisseur HTTP simulé écoute exclusivement sur127.0.0.1 ; aucun compte, OAuth ou modèle externe. Les rapports et captures sont dans `tickets/epic-boucle-codex/qualification-overview/`. Les profils sont nettoyés après fermeture confirmée. La seconde passe visuelle est réservée à la confirmation après revues ; utiliser `--no-captures` pour les vérifications intermédiaires. Snapshot v1 et les six méthodes `madness` ne changent pas. R32 temps/coût, Loop, graphe, catalogue, refonte globale et gates historiques restent hors de ce lot.
++## Recherche native des sessions Forge — correctif 13, version 0.1.2
++
++L’activation native exige désormais `bmad_forge_resolve(workflow)`, `bmad_forge_resolve(config)`, puis `bmad_forge_check_sessions({})` avant la première fin de tour et avant `init`. Ce dernier outil n’accepte aucun argument ni chemin. Il recherche les seuls dossiers `forge-*` dans la sortie générale et celle de l’initiative capturée (un seul emplacement sans initiative), en dérivant ces chemins du profil qualifié. Son résultat factuel distingue sortie absente, vide et sessions complètes ; il expose uniquement les chemins imposés, statuts, tailles et empreintes des frontmatters. Le reçu `check-sessions`, lié à l’appel et au tour de la conversation, est conservé avec `path: null` et l’empreinte/taille du résultat exact, sans nouveau schéma Snapshot ou IPC. Une erreur de conservation ne vaut aucun contrôle observé et interdit `init`.
++
++Les protections canoniques existantes restent actives : liens/jonctions, hardlinks, types non réguliers, UTF-8 invalide, frontmatter absent ou mal formé et dépassements des bornes sont refusés. Le fichier reste limité à1Mio ; seul son en-tête, borné à32Kio, est interprété. Toute session sans statut explicite `complete` empêche une nouvelle session ; aucune reprise n’est disponible. Le contrôle est indisponible après `init`, pour ne pas confondre la session courante avec une reprise. Juste avant les effets de `init`, l’hôte relit aussi les deux mêmes emplacements : une session inachevée apparue après le reçu bloque le démarrage. Cette précondition interne ne constitue pas un nouvel appel du modèle.
++
++Les tests `forge.test.mjs`, `forge-protocol.test.mjs` et `workflow-store.test.mjs` couvrent l’ordre, la fraîcheur, les frontières et la relecture d’annexes anciennes inchangées. Le banc `forge.mjs` appelle réellement le contrôle hôte dans son scénario synthétique sans modèle. Les preuves0.1.1 restent historiques ; construire0.1.2 et son manifeste neuf dans `dist/forge-session-check/`, qualifier le paquet exact puis le remplacer uniquement avec le profil personnel fermé et conservation des données contrôlée. Le parcours natif avec modèle personnel reste la responsabilité de1.11 ; ce correctif ne clôture pas G1.
++
+diff --git a/_bmad-output/initiative-madness/tickets/epic-boucle-codex/tickets/bug-verifier-la-recherche-de-sessions-a-lactivation-forge-plan.md b/_bmad-output/initiative-madness/tickets/epic-boucle-codex/tickets/bug-verifier-la-recherche-de-sessions-a-lactivation-forge-plan.md
+new file mode 100644
+--- /dev/null
++++ b/_bmad-output/initiative-madness/tickets/epic-boucle-codex/tickets/bug-verifier-la-recherche-de-sessions-a-lactivation-forge-plan.md
+@@ -0,0 +1,92 @@
++---
++title: 'Rendre observable la recherche native de sessions Forge'
++type: 'bugfix'
++ticket: 13
++created: '2026-10-28'
++status: 'in-review'
++baseline_revision: '70cb38ac7a8cbaca0b5adfa35fa41aa599596639'
++route: 'full'
++route_source: 'pinned'
++risk: 'high'
++review: 'quick'
++review_source: 'pinned'
++lenses_ran: []
++review_loop_iteration: 0
++context:
++  - '{project-root}/AGENTS.md'
++  - '{project-root}/.agents/skills/bmad-forge-idea/SKILL.md'
++  - '{project-root}/_bmad-output/initiative-madness/tickets/epic-boucle-codex/tickets/bug-verifier-la-recherche-de-sessions-a-lactivation-forge.md'
++---
++
++<frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">
++
++## Intent
++
++**Problem:** Le skill Forge installé exige la recherche des sessions existantes à l’activation. Le profil hôte la vérifie déjà, mais le modèle ne peut demander cette lecture et son premier terminal peut réussir sans elle. Le diagnostic personnel001 l’observe ; il ne prouve pas la cause du refus du premier run001.
++
++**Approach:** Exposer un contrôle Forge strictement borné, sans argument de chemin, réutilisant les emplacements et protections du profil qualifié. Conserver son reçu natif corrélé ; l’exiger après workflow/config avant le premier terminal et avant init. Une session inachevée reste refusée, aucune reprise n’est implémentée. Livrer le correctif identifié à1.11 pour sa nouvelle qualification personnelle complète.
++
++## Boundaries & Constraints
++
++**Always:** Skill et scripts BMad installés intacts ; contrôle factuel des deux emplacements prescrits, lecture de frontmatter sans lecture libre, refus fermé en cas d’incertitude. Observation durable liée à appel/tour/conversation, sans faux livrable ni acceptation. Connexion SIWC, forfait personnel, Mary, arrêt, approbations, fichiers/projets réels et compte conservés. Nouvelle version0.1.2, lockfile cohérent, manifeste neuf attribué aux sources actuelles ; manifeste0.1.1 et anciens reçus inchangés. Remplacement uniquement profil fermé avec vérification de conservation.
++
++**Never:** Glob ou shell général, chemin fourni par l’agent, lecture arbitraire, reprise, modification du skill, nouveau schéma Snapshot/IPC, nouvelles identités ou authentification, assouplissement TLS, retour de succès sans observation, rejeu d’un ancien témoin. Catalogue, graphe, Loop, R32 et refonte UX restent hors du correctif. Aucun statut built ni preuve historique n’est réécrit.
++
++## I/O & Edge-Case Matrix
++
++| Cas | Entrée/état | Résultat attendu | Échec |
++|---|---|---|---|
++| Contrôle natif | Sortie absente/vide ou sessions complètes, profil qualifié | Lecture des emplacements imposés, reçu factuel observé avec hash/taille et IDs de l’appel | Aucun résultat vide inventé ni fichier créé |
++| Fraîcheur | Session inachevée créée dans la sortie générale ou initiative après qualification | Refus de reprise avant init/nouveau travail, fichiers intacts | Aucun succès natif ni observation observed fabriqués |
++| Frontières | Argument supplémentaire, autre contexte, lien/jonction, hardlink, frontmatter illisible/invalide ou trop grand | Refus explicite sans lecture libre ni effet ; fichiers hors motifs intacts | Aucun relâchement des gardes pour faire passer le banc |
++| Ordre | workflow/config seuls ; init avant contrôle ; contrôle après init | Premier terminal/init sans contrôle refusés ; contrôle réservé à l’activation de nouvelle session | Pas de confusion avec la session actuellement créée |
++| Conservation | Reçu observé puis fermeture/réouverture ; ancienne annexe sans ce reçu | Reçu courant durable ; ancien corpus reste lisible et historique sans relance | Échec de sauvegarde ne vaut pas observation durable |
++| Livraison | Sources0.1.2, paquet reconstruit et profil personnel fermé | Types/tests/banc paquet passent ; runtime/ASAR/runner/manifeste frais ; données identiques au remplacement | Une preuve0.1.1 ne qualifie pas implicitement le nouveau produit |
++
++</frozen-after-approval>
++
++## Code Map
++
++- `src/adapters/bmad/forge.ts:64` : `incomplete` est déjà appelée dans `qualifyForge` pour outputRoot puis outputBase. Réutiliser ses protections `forgePath`, taille/type/nlink, décodage strict ; extraire le contrôle factuel sans généraliser la lecture. Les chemins se déduisent exclusivement de `profile.forge.outputBase/initiativeId`. `ForgeHost.execute` conserve les observations et `read` reste strictement inchangé dans sa portée.
++- `src/adapters/codex/dialogue.ts:132,147,228,298` : outils Forge, instructions, validation stricte des clés/corrélation, ensemble des résolutions et garde du premier terminal. Ajouter le contrôle sans argument, son ordre et ses préconditions ; ne pas changer Mary ni les autres demandes.
++- `src/contracts/dialogue.ts:21,60` et `src/adapters/persistence/workflow-store.ts` : `WorkflowObservation.operation` est une chaîne bornée ; le schéma existant admet un nouveau reçu path=null/hash/bytes. Aucun changement de schéma nécessaire ; corpus historique à recontrôler.
++- `tests/forge{,-protocol}.test.mjs` : fixtures de vrais resolvers/memlog et faux transport strict. `scripts/qualification/forge.mjs`, `overview-native.mjs` et les autres fixtures Forge trouvées par recherche : mettre les scénarios natifs en conformité avec le contrôle réellement appelé, sans injection présentée comme modèle réel.
++- `package.json`, `package-lock.json`, `src/adapters/release-version.ts`, `scripts/release/manifest.mjs` : version alimentée depuis package, manifeste neuf après construction. Le bump concerne seulement la version projet, aucune dépendance nouvelle.
++- Harnais1.11 en cours `scripts/qualification/epic-one*.mjs` : travail possédé non committé, à préserver. Il reste figé pendant13 ; adaptation du manifeste/version et reprise de ses contrôles sous son propre plan. Anciennes sorties inchangées.
++
++## Tasks & Acceptance
++
++**Execution:**
++- [x] `tests/forge.test.mjs`, `tests/forge-protocol.test.mjs` — régression rouge du terminal/contrôle manquant puis contrôles de toute la matrice sans compte ni modèle ; conserver le reçu rouge utile.
++- [x] `src/adapters/bmad/forge.ts`, `src/adapters/codex/dialogue.ts` — contrôle natif strict borné, reçu corrélé durable et gardes d’ordre ; intégrité des frontières conservée.
++- [x] `tests/workflow-store.test.mjs`, fixtures Forge et `scripts/qualification/forge.mjs`, bancs concernés — conservation/nouvelle observation et protocole simulé actualisés, anciennes annexes lisibles.
++- [x] `package.json`, `package-lock.json`, `docs/development.md` — version0.1.2 et procédure/limites du contrôle ; préserver la section du harnais1.11.
++- [x] `qualification-forge-session-check/` sous l’epic — parent compile/reconstruit vers `dist/forge-session-check/`, manifeste neuf, banc Forge/Windows et revue indépendante de frontières ; puis remplace le programme fermé avec données contrôlées avant/après. Aucun parcours modèle dans13 ; preuve complète native externe remise à11.
++
++**Acceptance Criteria:**
++- Given un profil neuf de référence, when le protocole réalise l’activation, then le contrôle de sessions est réellement demandé, corrélé et durable avant le terminal ou init ; tous les cas de matrice ont une vérification réussie.
++- Given le paquet0.1.2 qualifié et les données personnelles conservées, when11 reprend, then elle dispose de ses empreintes, du manifeste et des limites exactes ; aucune clôture G1 ni nouvelle acceptation humaine ne se déduit de13.
++- Given la reproduction, when une preuve réfute le défaut, then elle est conservée et aucun patch artificiel n’est introduit ; reprendre11 sur l’artefact inchangé est expliqué.
++
++## Implementation Notes
++
++Plan relu et validé sous le mandat autonome, sans question produit ouverte. Périmètre unique, risque high conservé ; aucune règle de longueur ne conditionne le plan. Baseline et travail1.11 non committé identifiés : conserver ce travail possédé et les caches préexistants, sans nettoyage Git ni reset. Le passage draft→ready-for-dev→in-progress est autorisé ici par la délégation des validations et du démarrage.
++
++L’implémenteur possède les fichiers produit, tests, fixtures/bancs et versions nommés dans les tâches ainsi qu’une nouvelle courte section documentaire propre à13. Il n’est pas seul dans le dépôt : ne pas annuler les edits d’autrui et adapter son travail à eux. Le parent possède le plan/statut, tous rapports de qualification et commandes de paquet/installation/personnel, les revues et le commit. L’implémenteur peut exécuter les tests et types sans compte/modèle, avec logs neufs sous `.g0-qualification/forge-session-check-implementation/`, et y conserver la régression rouge ; aucun ancien reçu modifié, aucun programme personnel ni réseau externe/model lancé, aucun commit. Le harnais1.11 et sa section documentaire restent intacts ; signaler les adaptations nécessaires au parent. Cette invocation Build est déjà rendue et planifiée : ne pas la rerendre ni déclencher d’autre workflow.
++
++## Plan Change Log
++
++## Review Triage Log
++
++- A1 — contrôle indépendant des frontières, medium/patch, en cours : `sessionLocation` ne revalidait pas le répertoire après `readdir` dans la branche vide. Une substitution par jonction pouvait produire un reçu vide `observed` sans preuve du chemin qualifié. Reproduction en mémoire par le relecteur ; parent confirme la branche et demande au même implémenteur de vérifier l’identité/canonicalité du répertoire avant/après scan, y compris vide/absence, avec régression. Aucun élargissement de portée ni changement d’intention ; aucune installation de ce code n’a précédé le contrôle.
++
++## Verification
++
++- Régressions ciblées host/protocole/stockage : rouge sur reproduction, vert après correction ; aucune lecture du profil personnel ni modèle.
++- Suite permanente complète, `npm run build`, installateur `dist/forge-session-check/` ; pas de dépendance/runtime nouveau. Banc Forge vers sortie neuve et Windows ciblé sur le paquet exact.
++- Parent compare sources/artefacts/histoire, reçoit relecture indépendante high-risk, remplace uniquement application fermée et contrôle octets des données critiques/coffre sans contenu secret, puis réouverture sans modèle/réseau spontané dans la fenêtre instrumentée.
++- Aucune UI éditée : pas de passe visuelle ou d’accord Impeccable inventé. La refonte Sally/experts reste après l’epic1.
++
++Recontrôle A1 : même expert,8/8 scénarios mémoire indépendants avec Stats complets (stable et absent acceptés ; jonction, inode, mtime, ctime, apparition et disparition refusés avant observer). Régression contrôlée de l’implémenteur2/2 puis1/1 ; A1 résolu, aucun reliquat concret. Delta final de préfixe relu par l’expert, aucune régression A1. La détection insensible à la casse évite un faux vide face à Forge-/FORGE- ; témoins correspondants dans la suite générale du parent. Source Forge finalSHA6be014ba87755ed1934d9115ee798285aca8dfaee9290663a4737204a01bd0f8.
++
++Vérification parent après code figé :338/338tests permanents du workspace(zéroéchec/ignoré), types/build/installateur0.1.2 réussis. Le nombre inclut20tests du harnais11 non committé. Manifeste neuf120inputs, ASAR25400621028638c68528178774724362b5434093cbc25048ece8f61247d7b88f, runneridentique. Banc paquet9 et Windows5 passent, profils supprimés. Installateur silencieuxexit0 puis42empreintes identiques au remplacement ; réouverture7contrôles,41fichiersmétier/chiffrés identiques, LocalState observé séparément, compte lisible, MIA/madness seuls et fermetureconfirmée. Matrice6lignes couverte/réussie dans matrix-audit.json. Aucun modèle dans13, aucune clôtureG1 déduite.
+diff --git a/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-forge-session-check/boundary-audit-A1-memory.mjs b/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-forge-session-check/boundary-audit-A1-memory.mjs
+new file mode 100644
+--- /dev/null
++++ b/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-forge-session-check/boundary-audit-A1-memory.mjs
+@@ -0,0 +1,25 @@
++// Reproduction synthétique de la course A1, entièrement en mémoire.
++// Exécuter avec Node depuis le dépôt ; aucun profil, modèle ni fichier n'est modifié.
++import {createRequire,syncBuiltinESMExports} from 'node:module'
++import {resolve,join} from 'node:path'
++import {ForgeHost} from '../../../../../src/adapters/bmad/forge.ts'
++
++const fs=createRequire(import.meta.url)('node:fs/promises')
++const original={lstat:fs.lstat,realpath:fs.realpath,readdir:fs.readdir}
++const root=resolve('C:/audit-memory'),base=join(root,'output','initiative-test')
++let swapped=false,checksAfterSwap=0
++fs.lstat=async path=>{if(swapped&&path===base)checksAfterSwap++;return {isSymbolicLink:()=>swapped&&path===base}}
++fs.realpath=async path=>swapped&&path===base?resolve('C:/outside-audit'):path
++fs.readdir=async path=>{if(path===base)swapped=true;return []}
++syncBuiltinESMExports()
++try{
++  const host=new ForgeHost({rootPath:root,forge:{outputBase:base,initiativeId:'initiative-test',contextDigest:''}},new AbortController().signal)
++  // Les gardes de manifeste et de résolution ne sont pas le sujet de ce test unitaire.
++  host.assert=async()=>{}
++  host.resolved.add('workflow');host.resolved.add('config')
++  const receipts=[];host.bind(async receipt=>receipts.push(receipt))
++  let result=null,errorCode=null
++  try{result=JSON.parse(await host.execute({kind:'check-sessions'},'race-call','race-turn'))}
++  catch(error){errorCode=error.code??error.name}
++  console.log(JSON.stringify({scenario:'initiative changes to an external junction during readdir',result,errorCode,checksAfterSwap,receipts},null,2))
++}finally{Object.assign(fs,original);syncBuiltinESMExports()}
+diff --git a/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-forge-session-check/matrix-audit.json b/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-forge-session-check/matrix-audit.json
+new file mode 100644
+--- /dev/null
++++ b/_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-forge-session-check/matrix-audit.json
+@@ -0,0 +1,81 @@
++{
++  "schemaVersion": 1,
++  "status": "all-six-rows-covered-and-passed",
++  "matrix": [
++    {
++      "row": "Contrôle natif",
++      "source": "permanent-tests-no-account-or-model",
++      "tests": [
++        "✔ recherche native : sorties absentes, vides et complètes ; reçu exact sans corps ni effet (41899.2769ms)",
++        "✔ sans initiative, la recherche contrôle une seule fois la sortie générale imposée (28813.3567ms)"
++      ],
++      "status": "passed"
++    },
++    {
++      "row": "Fraîcheur",
++      "source": "permanent-tests-no-account-or-model",
++      "tests": [
++        "✔ fraîcheur : session inachevée general apparue après qualification ou contrôle bloque init (51734.6499ms)",
++        "✔ fraîcheur : session inachevée initiative apparue après qualification ou contrôle bloque init (51115.2393ms)"
++      ],
++      "status": "passed"
++    },
++    {
++      "row": "Frontières",
++      "source": "permanent-tests-no-account-or-model",
++      "tests": [
++        "✔ frontières : refus fermés des journaux absents, invalides, trop grands, liens et hardlinks (57670.5237ms)",
++        "✔ contrôle de sessions refuse argument supplémentaire avant exécution hôte (1.5763ms)",
++        "✔ contrôle de sessions refuse le contexte foreign-check (0.5272ms)",
++        "✔ course : une sortie vide remplacée pendant readdir est refusée sans reçu ni lecture externe (21970.8801ms)"
++      ],
++      "status": "passed"
++    },
++    {
++      "row": "Ordre",
++      "source": "permanent-tests-no-account-or-model",
++      "tests": [
++        "✔ régression : le premier terminal après workflow/config seuls doit être refusé (0.8586ms)",
++        "✔ régression : init sans contrôle de sessions doit être refusé avant tout effet hôte (0.6945ms)",
++        "✔ contrôle de sessions refuse avant workflow avant exécution hôte (0.7925ms)",
++        "✔ contrôle de sessions refuse après init avant exécution hôte (0.7572ms)",
++        "✔ ordre hôte et échec de stockage ne créent ni reçu durable ni droit à init (33606.0812ms)"
++      ],
++      "status": "passed"
++    },
++    {
++      "row": "Conservation",
++      "source": "permanent-tests-no-account-or-model",
++      "tests": [
++        "✔ reçu de recherche natif sans chemin durable et ancienne annexe intacte au même schéma (86.5365ms)",
++        "✔ un échec de conservation du contrôle empêche terminal et init (0.6617ms)"
++      ],
++      "status": "passed"
++    },
++    {
++      "row": "Livraison",
++      "status": "passed",
++      "sources": [
++        "full-tests.log",
++        "build-win.log",
++        "packaged-001/packaged-profile.json",
++        "windows.log",
++        "release-manifest.json",
++        "installation-command.json",
++        "installed-reopen-001/report.json"
++      ],
++      "checks": {
++        "fullTests": 338,
++        "packaged": 9,
++        "windows": 5,
++        "installed": 7,
++        "preservedAtReplacement": 42,
++        "preservedBusinessAfterReopen": 41
++      }
++    }
++  ],
++  "limits": [
++    "Aucun modèle externe dans13 ; la preuve intégrée réelle de11 reste ouverte.",
++    "Les338tests du workspace incluent20tests du harnais11 en cours ; aucun succès de11 déduit."
++  ]
++}

@@ -1,0 +1,52 @@
+✔ Forge utilise référence skill native, commandes strictes corrélées et même thread sans brouillon (12.6327ms)
+✔ Forge refuse foreign sans faux résultat (2.6736ms)
+✔ Forge refuse duplicate sans faux résultat (1.7813ms)
+✔ Forge refuse structured sans faux résultat (0.9125ms)
+✔ Forge refuse shell sans faux résultat (0.788ms)
+✔ régression : le premier terminal après workflow/config seuls doit être refusé (1.3405ms)
+✔ régression : init sans contrôle de sessions doit être refusé avant tout effet hôte (2.7959ms)
+✔ ordre natif installé : init après config, puis personas avant la clôture sur le même thread (2.7218ms)
+✔ init peut précéder personas mais la clôture sans personas est refusée avant l’outil hôte (3.0686ms)
+✔ init reste refusé avant la résolution de configuration native (1.3588ms)
+✔ contrôle de sessions refuse argument supplémentaire avant exécution hôte (1.2842ms)
+✔ contrôle de sessions refuse avant workflow avant exécution hôte (2.4698ms)
+✔ contrôle de sessions refuse avant config avant exécution hôte (1.2091ms)
+✔ contrôle de sessions refuse après init avant exécution hôte (0.8664ms)
+✔ un échec de conservation du contrôle empêche terminal et init (0.7895ms)
+✔ Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED (63426.4276ms)
+✔ profil Forge refuse dépendance modifiée, hooks, sortie hors projet et reprise avant invocation (14803.5569ms)
+✔ sorties bornées : traversée, liens, collision, modification externe et stockage refusé (57299.7337ms)
+✔ échec de sauvegarde après effet reste inconnu et ne permet aucun replay (43304.2649ms)
+✔ recherche native : sorties absentes, vides et complètes ; reçu exact sans corps ni effet (52311.3762ms)
+✔ fraîcheur : session inachevée general apparue après qualification ou contrôle bloque init (50241.0489ms)
+✔ fraîcheur : session inachevée initiative apparue après qualification ou contrôle bloque init (44513.6488ms)
+✖ frontières : refus fermés des journaux absents, invalides, trop grands, liens et hardlinks (36672.3781ms)
+✔ ordre hôte et échec de stockage ne créent ni reçu durable ni droit à init (37255.8684ms)
+✔ reçu de recherche natif sans chemin durable et ancienne annexe intacte au même schéma (117.5427ms)
+✔ annexe atomique par conversation restaure contexte et preuves sans migration Snapshot (126.274ms)
+✔ version future, UTF-8 invalide, conflit et erreur disque préservent les octets (136.6702ms)
+✔ 200 annexes restent lisibles et modifiables ; la 201e est refusée sans changer les octets (3834.9671ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 27
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 400404.4248
+
+✖ failing tests:
+
+test at tests\forge.test.mjs:129:1
+✖ frontières : refus fermés des journaux absents, invalides, trop grands, liens et hardlinks (36672.3781ms)
+  Error: EPERM: operation not permitted, symlink 'C:\Users\UP6006~1\AppData\Local\Temp\madness-forge-test-QMCJXX\outside-secret' -> 'C:\Users\UP60066553\AppData\Local\Temp\madness-forge-test-QMCJXX\_bmad-output\initiative-test\forge-hostile\.memlog.md'
+      at async symlink (node:internal/fs/promises:999:10)
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge.test.mjs:141:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'symlink',
+    path: 'C:\\Users\\UP6006~1\\AppData\\Local\\Temp\\madness-forge-test-QMCJXX\\outside-secret',
+    dest: 'C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-test-QMCJXX\\_bmad-output\\initiative-test\\forge-hostile\\.memlog.md'
+  }

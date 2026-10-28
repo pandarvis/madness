@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "finding": "Q1",
+  "status": "resolved-after-patch-and-recheck",
+  "parentVerdict": "medium",
+  "route": "patch",
+  "files": [
+    "src/adapters/bmad/forge.ts",
+    "tests/forge.test.mjs",
+    "docs/development.md"
+  ],
+  "changes": "Borne frontmatter64Kio, deux champs natifs admis restent inchangés, fichier1Mio/config32Kio/A1 conservés.",
+  "nativeRed": {
+    "failed": 1,
+    "code": "OUTPUT_REFUSED",
+    "stage": "qualification après init et finish réussis"
+  },
+  "targetedGreen": {
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0
+  },
+  "reviewer": "/root/forge_session_check_quick",
+  "reviewerResult": "Q1 résolu par inspection ; aucun reliquat de ce constat.",
+  "logs": [
+    {
+      "name": "Q1-red-native-large-header.log",
+      "sha256": "fd56dcb808f754d67e75b4837496ef0259fd250bd4953e75a5dfc144c9dbf3a2"
+    },
+    {
+      "name": "Q1-targeted-large-header.log",
+      "sha256": "9b7abbc22d12f942ce15782068faf7f4a47163bdccae09dcd0e04e41b73a694d"
+    }
+  ],
+  "limits": [
+    "Recontrôle de Q1 uniquement ; revue complète initiale et audit A1 restent distincts.",
+    "Vérification globale et paquet finaux encore en cours."
+  ]
+}

@@ -1,0 +1,40 @@
+✖ régression : le premier terminal après workflow/config seuls doit être refusé (7.8384ms)
+✖ régression : init sans contrôle de sessions doit être refusé avant tout effet hôte (2.5361ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 551.1268
+
+✖ failing tests:
+
+test at tests\forge-protocol.test.mjs:45:1
+✖ régression : le premier terminal après workflow/config seuls doit être refusé (7.8384ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge-protocol.test.mjs:48:6)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { code: 'PROVIDER_FAILED' },
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests\forge-protocol.test.mjs:50:1
+✖ régression : init sans contrôle de sessions doit être refusé avant tout effet hôte (2.5361ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///C:/Sources/madness/tests/forge-protocol.test.mjs:53:6)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { code: 'UNSUPPORTED_INTERACTION' },
+    operator: 'rejects',
+    diff: 'simple'
+  }

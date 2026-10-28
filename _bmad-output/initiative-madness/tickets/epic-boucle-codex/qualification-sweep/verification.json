@@ -1,0 +1,67 @@
+{
+  "ticket": "1.10",
+  "baseline": "c59b505fb2bb7666f431aaae5ee4b24ad1c9e8b6",
+  "route": "oneshot",
+  "review": {
+    "lens": "quick",
+    "findings": 1,
+    "resolved": 1,
+    "deferred": 0
+  },
+  "frozen_sha256": "fe40c3d1c46dbc657e7d2153700dc3f46d1222f08874af629f7b58f7c54885b3",
+  "frozen_unchanged": true,
+  "red_assertion_proof": {
+    "scenario": "ancienne assertion sur fermeture par SIGTERM",
+    "stopped": true,
+    "closeObserved": true,
+    "exitCode": null,
+    "signalCode": "SIGTERM",
+    "stdoutDestroyed": true,
+    "stderrDestroyed": true,
+    "oldAssertionPassed": false,
+    "assertionCode": "ERR_ASSERTION",
+    "ownedChildClosed": true
+  },
+  "targeted": {
+    "pass": 9,
+    "fail": 0,
+    "exit_code": 0
+  },
+  "full_suite": {
+    "pass": 301,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "exit_code": 0,
+    "duration_ms": 406764.513,
+    "signal_test_deadline_ms": 10000
+  },
+  "post_review_targeted": {
+    "pass": 9,
+    "fail": 0,
+    "exit_code": 0,
+    "signal_test_deadline_ms": 15000
+  },
+  "typecheck_exit_code": 0,
+  "product_paths_unchanged": [
+    "src",
+    "scripts",
+    "resources",
+    "package.json",
+    "package-lock.json",
+    "electron-builder.yml",
+    "electron.vite.config.ts",
+    "tsconfig.node.json",
+    "tsconfig.web.json"
+  ],
+  "historical_plans_and_companions_unchanged": true,
+  "product_rebuild": false,
+  "personal_profile_used": false,
+  "external_model_used": false,
+  "review_directory_cleaned": true,
+  "cleanup_initial_guard": "forme8.3 refusée sans suppression ; nom long contrôlé ensuite",
+  "next_ready": [
+    "1.11"
+  ]
+}

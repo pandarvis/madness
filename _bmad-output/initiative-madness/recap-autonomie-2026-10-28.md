@@ -1,6 +1,6 @@
 # Récapitulatif du travail autonome — 28 octobre2026
 
-**Madness 0.1.1 est installé, avec données et compte conservés. La 1.9 est terminée, la réserve technique1.2 est levée. Après la clarification du porteur le 28 octobre, le besoin est personnel et local avec son abonnement ChatGPT : la qualification de distribution1.1 sort du périmètre. Les deux dernières entrées techniques1.10/1.11 restent à exécuter.**
+**Madness 0.1.1 est installé, avec données et compte conservés. La1.9 et le nettoyage1.10 sont terminés, la réserve technique1.2 est levée. Après la clarification du porteur le28octobre, le besoin est personnel et local avec son abonnement ChatGPT : la qualification de distribution1.1 sort du périmètre. La dernière entrée technique1.11 reste à exécuter avant la clôture intégrée de l’epic.**
 
 Ce récapitulatif est actualisé par la [décision personnelle locale](decision-personnelle-locale-2026-10-28.md). Le cadrage antérieur de distribution, qui avait motivé le blocage annoncé, ne s’applique plus. La connexion SIWC déjà livrée est conservée ; aucune publication du code, demande d’admission ou bascule de facturation n’est nécessaire au périmètre personnel retenu.
 
@@ -9,6 +9,7 @@ Ce récapitulatif est actualisé par la [décision personnelle locale](decision-
 - **1.9 — Maintenance :** procédure de reconstruction/republication, manifeste des versions et empreintes, client Codex aligné sur la version de l’application, comparaison réelle0.1.0 → 0.1.1 et refus des états de stockage incompatibles. Electron 45 et Chromium 156 restent inchangés ; builder 26.18.0 et jose 6.2.13 sont adoptés explicitement.
 - **Installation réelle :** installateur NSIS réussi au même chemin. Douze fichiers synthétiques et leurs projections identiques entre A/B ; vingt-sept entrées personnelles inchangées, compte lisible et MIA/madness seuls dans les récents. Les fenêtres de contrôle et espaces d’essai sont fermés/nettoyés ; aucun nouveau témoin personnel ajouté.
 - **1.2 — Socle cible :** Sofia rapproche les nouvelles preuves d’installation/remplacement/réseau et documente minimum amont et configuration effectivement testée. Relecture fraîche favorable pour Windows 11 Entreprise 25H2 x64, build 26200.9711 ; aucune plage Windows élargie ou politique d’entreprise inventée. Le corps historique du plan reste exact, seul son statut est réconcilié.
+- **1.10 — Nettoyage :** seul point encore ouvert, l’assertion d’arrêt de1.6 reconnaît désormais une fermeture par signal. Cas synthétique déterministe, observation de close/flux et nettoyage de l’enfant. Revue Quick : un constat sur le budget du test corrigé et recontrôlé résolu, aucun correctif différé. Suite301/301 et9/9ciblés après le dernier ajustement ; types réussis, aucun changement produit ni nouvelle installation. [Preuves1.10](tickets/epic-boucle-codex/qualification-sweep/parent-verification.md).
 
 La suite finale passe **300/300**, sans échec ni test ignoré. Types/build/paquet et contrôles Windows sont conservés ; les trois corrections de revue1.9 sont résolues et recontrôlées. Un premier run299/300 garde son erreur Windows de réécriture d’un faux exécutable ; l’isolé puis la confirmation complète passent sans modification produit. Les échecs ne sont pas effacés des preuves.
 
@@ -25,10 +26,10 @@ Commits locaux, sans push :
 |---|---|
 | 1.2, 1.12, 1.3–1.9 | Built : réalisation et vérifications techniques disponibles ; cela ne fabrique pas une acceptation humaine globale. |
 | 1.1 — voie Codex distribuable | Abandonnée comme hors du besoin personnel actuel. Ancien essai et issue inconnue conservés ; aucune réussite technique inventée. |
-| 1.10 — Refactor sweep | Les neuf entrées techniques préalables sont built ; la distribution abandonnée n’est plus une dépendance. La réserve historique du test d’arrêt reste pour cette entrée. |
-| 1.11 — E2E etG1 | Attend1.10 puis son parcours intégré réel. Non exécutée. |
+| 1.10 — Refactor sweep | Built : unique réserve de nettoyage résolue, aucun changement fonctionnel. |
+| 1.11 — E2E etG1 | Prochaine entrée après1.10, parcours intégré réel encore non exécuté. |
 
-Sofia a appliqué le changement explicite de périmètre aux exigences et dépendances ; relecture fraîche Ticket/Set/Tree/Dependencies conforme, sans constat, couverture32/32 et status/next réussis. La1.10 est seule prête, non démarrée ; la1.11 attend10. Le travail restant porte sur le nettoyage et les vérifications intégrées de la voie personnelle : fonctionnement réel, arrêt, restauration et conservation des données. Aucun contact externe, nouvelle authentification ou échange de token n’est demandé pour cette correction de cadrage. L’epic n’est pas déclaré clos par le seul succès des tests précédents. Le [reçu du replan personnel](.working/sofia-personnel-local-validation.json) conserve ces contrôles et les treize empreintes inchangées.
+Sofia a appliqué le changement explicite de périmètre aux exigences et dépendances ; relecture fraîche Ticket/Set/Tree/Dependencies conforme, sans constat, couverture32/32 et status/next réussis. La1.10 est maintenant built ; le travail restant porte sur les vérifications intégrées1.11 de la voie personnelle : fonctionnement réel, arrêt, restauration et conservation des données. Aucun contact externe, nouvelle authentification ou échange de token n’est demandé pour cette correction de cadrage. L’epic n’est pas déclaré clos par le seul succès des tests précédents. Le [reçu historique du replan personnel](.working/sofia-personnel-local-validation.json) conserve l’état avant ce Build et les treize empreintes inchangées.
 
 ## Travail UX effectué en attendant
 

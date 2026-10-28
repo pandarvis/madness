@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { EventEmitter } from 'node:events'
+import { EventEmitter, once } from 'node:events'
 import { PassThrough } from 'node:stream'
 import { spawn } from 'node:child_process'
 import { mkdir, mkdtemp, writeFile, rm, realpath, access, readdir } from 'node:fs/promises'
@@ -49,11 +49,33 @@ test('catalogue seul et modèle défaut invisible ne suffisent pas', async () =>
   const rpc = rpcServer((message, emit) => { if (message.id) emit({ id: message.id, result: message.method === 'model/list' ? { data: [{ model: 'hidden', isDefault: true, hidden: true }] } : {} }) })
   await assert.rejects(probe.runProbeProtocol(rpc, 'empty-work', 300), { code: 'PROBE_FAILED' })
 })
-test('arrêt natif attend la fermeture observable du processus possédé', async () => {
+test('arrêt natif attend la fermeture observable du processus possédé', async (t) => {
   assert.ok(probe)
   const native = spawn(process.execPath, ['-e', 'process.stdin.resume(); process.stdin.on("end",()=>process.exit(0))'], { windowsHide: true, shell: false, stdio: ['pipe', 'pipe', 'pipe'] })
+  let closeObserved = false
+  native.once('close', () => { closeObserved = true })
+  const closed = once(native, 'close')
+  t.after(async () => { if (native.exitCode === null && native.signalCode === null) native.kill('SIGKILL'); await closed })
   assert.equal(await probe.stopNative(native), true)
-  assert.notEqual(native.exitCode, null)
+  assert.equal(closeObserved, true)
+  assert.ok(native.exitCode !== null || native.signalCode !== null)
+})
+
+test('arrêt natif confirme close et les flux après terminaison par signal', { timeout: 15000 }, async (t) => {
+  assert.ok(probe)
+  const native = spawn(process.execPath, ['-e', 'process.stdin.resume(); process.stdin.on("end",()=>{}); setInterval(()=>{},1000); process.stdout.write("READY\\n")'], { windowsHide: true, shell: false, stdio: ['pipe', 'pipe', 'pipe'] })
+  let closeObserved = false
+  native.once('close', () => { closeObserved = true })
+  const closed = once(native, 'close')
+  t.after(async () => { if (native.exitCode === null && native.signalCode === null) native.kill('SIGKILL'); await closed })
+  const [ready] = await once(native.stdout, 'data', { signal: AbortSignal.timeout(5000) })
+  assert.match(ready.toString(), /READY/)
+  assert.equal(await probe.stopNative(native), true)
+  assert.equal(closeObserved, true)
+  assert.equal(native.exitCode, null)
+  assert.equal(native.signalCode, 'SIGTERM')
+  assert.equal(native.stdout.destroyed, true)
+  assert.equal(native.stderr.destroyed, true)
 })
 test('annulation interrompt les appels RPC en attente sans rejouer', async () => {
   assert.ok(probe)

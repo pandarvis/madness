@@ -1,0 +1,12 @@
+{
+  "scenario": "ancienne assertion sur fermeture par SIGTERM",
+  "stopped": true,
+  "closeObserved": true,
+  "exitCode": null,
+  "signalCode": "SIGTERM",
+  "stdoutDestroyed": true,
+  "stderrDestroyed": true,
+  "oldAssertionPassed": false,
+  "assertionCode": "ERR_ASSERTION",
+  "ownedChildClosed": true
+}

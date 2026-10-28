@@ -1,0 +1,17 @@
+✔ environnement témoin supprime les credentials et profils hérités (2.7916ms)
+✔ seuls item assistant et tour completed corrélés prouvent le témoin (9.5956ms)
+✔ catalogue seul et modèle défaut invisible ne suffisent pas (0.7698ms)
+✔ arrêt natif attend la fermeture observable du processus possédé (305.5031ms)
+✔ arrêt natif confirme close et les flux après terminaison par signal (1872.2541ms)
+✔ annulation interrompt les appels RPC en attente sans rejouer (1.0805ms)
+✔ découverte native exige le chemin standard, le manifeste et un fichier PE (186.9307ms)
+✔ un profil témoin sous le dépôt est refusé avant toute création ou détection (3.1013ms)
+✔ un arrêt inconnu pendant --version prime sur annuler et conserve le profil (5713.4331ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8538.6414

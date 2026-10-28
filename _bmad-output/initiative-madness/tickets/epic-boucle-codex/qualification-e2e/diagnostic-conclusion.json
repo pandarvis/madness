@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "source": "parent-read-after-native-run",
+  "diagnostic": "personal-forge-diagnostic-001/report.json",
+  "status": "gap-confirmed-separately-from-original-failure",
+  "firstActivation": {
+    "completed": true,
+    "refusals": 0,
+    "nativeOperations": [
+      "resolve-workflow",
+      "resolve-config"
+    ],
+    "sessionSearchObserved": false
+  },
+  "originalFailureCause": "unknown",
+  "scopeDecision": "Correctif1.13 avant reprise1.11 ; aucune réécriture des anciens reçus.",
+  "g1Complete": false,
+  "personalClosed": true,
+  "targetedTests": {
+    "ordinaryWindows": 20,
+    "passed": 20,
+    "skipped": 0,
+    "sandboxAttempt": {
+      "passed": 17,
+      "failed": 3,
+      "cause": "API CIM/jonction/rename refusées dans le conteneur ; tests inchangés, réussite sur Windows ordinaire"
+    }
+  }
+}

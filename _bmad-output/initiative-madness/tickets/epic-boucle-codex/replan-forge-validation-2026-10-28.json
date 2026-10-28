@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "/root/forge_replan_validation",
+  "sections": [
+    "Ticket",
+    "Set",
+    "Dependencies"
+  ],
+  "result": "conforme",
+  "findings": [],
+  "parentDependencyCheck": {
+    "unpinned_after": [],
+    "undeclared_after": [],
+    "order_conflict": [],
+    "next_id": 14
+  },
+  "scope": "13 corrige recherche native de sessions ; 11 bloquée temporairement ; ancien refus001 inexpliqué",
+  "historicalPlanFrozenSha256": "7df9f57dedcca22d3a532cdc821e5097f4cac317d2160441f46f3c28b67f5f0d",
+  "limitations": [
+    "Contrôle documentaire et état UV host ; aucun modèle ou essai personnel par le relecteur."
+  ]
+}

@@ -141,13 +141,26 @@ risk = "low"
 references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]
 
 [[entry]]
+id = 13
+type = "bug"
+title = "Vérifier la recherche de sessions à l’activation Forge"
+description = "Corrige le contrôle de recherche de sessions exigé par le skill Forge installé : la qualification hôte le vérifie déjà, mais la conversation native ne peut ni le demander ni observer son résultat. Le contrôle doit être factuel, corrélé et conservé avant de commencer une nouvelle idée. Une session inachevée reste refusée ; aucune reprise, lecture libre ni capacité générale de fichiers n’est ajoutée. Livre un paquet personnel qualifié et ses empreintes fraîches à 11 ; ses preuves antérieures restent historiques."
+verify = "Sur un témoin neuf, observer après workflow/config le contrôle natif des emplacements prescrits puis la première fin de tour ; sans ce contrôle, ou si une session inachevée apparaît après qualification, aucun nouveau travail Forge ne commence. Les tests de protocole, chemins et conservation passent sans modèle ; le paquet reconstruit et son remplacement conservent les données. La preuve complète personnelle reste dans 11."
+covers = ["R1","R8"]
+after = [10]
+hitl = false
+risk = "high"
+refine = true
+references = ["_bmad-output/initiative-madness/tickets/epic-boucle-codex/epic-boucle-codex.md","_bmad-output/initiative-madness/architecture-madness/architecture-madness.md"]
+
+[[entry]]
 id = 11
 type = "story"
 title = "Vérifier de bout en bout le paquet Windows et clôturer G1"
 description = "Après le nettoyage 10, rassemble la suite finale sur le paquet personnel installé et le profil réel qualifié, avec la connexion SIWC propre à Madness et l’abonnement ChatGPT conservés : invocation BMad, messages, questions, approbations/refus/expiration, interruption, inconnu réconcilié, attentes, récapitulatif, restauration sans relance et remplacement. Vérifie versions, réseau et certificats du vrai processus Codex, arrêt/fermeture et nettoyage des processus et espaces possédés sur cette voie personnelle ; l’ancien essai natif unknown/cleanup false de 1 reste historique et n’est ni rejoué ni déclaré réussi. Le porteur participe à l’essai sur sa machine Windows cible et aux opérations humaines nécessaires. Chaque entrée garde ses propres tests ; cette suite fournit les preuves intégrées de G0/G1 et les limites observées, sans admission de client distribué, changement d’authentification/facturation, ni annonce de G4 ou de V1 complète."
 verify = "Sur la machine Windows personnelle cible, lancer le scénario reproductible de bout en bout avec le Codex réel et la connexion SIWC conservée, puis retrouver son rapport de versions, événements, effets, réseau/certificats et limites. Constater l’arrêt et le nettoyage des seuls processus/espaces possédés, y compris après interruption, fermeture et erreur ; un arrêt non confirmé reste inconnu et empêche un nouveau lancement concerné. Vérifier restauration sans réseau/moteur spontané et conservation après remplacement. Un contrôle manquant ou une capacité requise non prouvée laisse le gate technique correspondant ouvert ; aucune preuve d’éligibilité de distribution n’est requise pour cet usage personnel."
 covers = ["R1","R2","R3","R4","R5","R6","R7","R8","R9","R10"]
-after = [10]
+after = [10,13]
 hitl = true
 risk = "high"
 references = ["_bmad-output/initiative-madness/architecture-madness/architecture-madness.md","_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md","_bmad-output/initiative-madness/ux-madness/DESIGN.md"]

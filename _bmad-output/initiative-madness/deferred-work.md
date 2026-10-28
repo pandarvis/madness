@@ -1,4 +1,10 @@
 
+- precision_du_porteur: 2026-10-28
+  sujet: Fonctionner avec Zscaler inchangé
+  decision: Aucune demande de configuration ou de dérogation à l’IT ; la solution doit être cherchée côté Madness dans l’environnement réseau existant. Ne plus reproposer une intervention de l’IT comme dépendance de fonctionnement.
+  pistes_non_qualifiees: Réduire les accès redondants aux clés publiques avec un cache borné et une gestion de leur rotation ; mieux diagnostiquer les blocages et conserver le travail en attente. Ces pistes ne prouvent pas la disparition des acquittements humains ni une autonomie complète.
+  statut: Contrainte d’exploitation enregistrée ; à intégrer par Sofia au cadrage de tout lot de fiabilité réseau avant son implémentation. Aucun nouveau ticket, Build, changement d’authentification ou réouverture de l’epic1 par cette note.
+
 - demande_du_porteur: 2026-10-27
   sujet: Étudier bmad-builder et surtout bmad-loop
   resultat: Étude terminée dans `research-bmad-loop-et-builder-pour-madness/research-bmad-loop-et-builder-pour-madness.md`. Loop candidat pour le développement autonome, Builder complément éventuel de création de modules ; aucune adoption, installation ou intégration effectuée.

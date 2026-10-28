@@ -1,6 +1,6 @@
 ---
 type: epic
-status: in-progress
+status: done
 title: "Dialoguer réellement avec Codex dans Madness"
 parent: initiative-madness
 covers: ["R12", "R13", "R14", "R15", "R16", "R17", "R18", "R22", "R25", "R27"]
@@ -88,6 +88,10 @@ Un développeur dialogue réellement avec Codex dans un paquet Windows sur un pr
 - ordre — [Découpage approuvé](../tickets.toml) ; identifiant 1 et prérequis de capacités à reporter sur les stories qui les consommeront.
 
 ## Notes
+
+- Decision: 2026-10-28 — Clôture technique par Sofia sous la délégation humaine explicite de finir l’epic, valider les étapes nécessaires et poursuivre jusqu’à l’epic2. La relecture indépendante Closure, qualification-e2e/closure-review.md, rapproche les six critères de fin, R1–R10, C1–C7 et companions des preuves de réalisation ; son seul fix documentaire F1 est réconcilié dans final-matrix.md, sans nouvelle exécution ni réécriture de reçu.1.11 est built dans8880b17, avec qualification-e2e/parent-verification.md : G0/G1 technique uniquement sur le poste Windows11Entreprise25H2x64 observé, SIWC personnel conservé, Codex0.144.6 et références Mary/Forge, ASAR9249bdc081c2b3ceeae4465fcc7a3c53af5dca325889cae8fa0b118479f974b4. Les12entrées restantes sont built ;1.1 reste dropped pour la sortie explicite de la distribution, jamais déclarée réussie. Les plans et preuves historiques sont conservés. Aucun nouvel accord humain visuel ou parcours G4 n’est inventé par cette clôture déléguée.
+
+- Decision: 2026-10-28 — La refonte distincte demandée après l’epic est built dans5d135f9, avec Sally réellement activée, trois expertises UI/UX indépendantes et Impeccable :355tests,75contrôles intégrés,12contrôles de disposition/conservation, constats corrigés et verdict ciblé ship. Son candidat0.1.2 ASAR6664da10ba09364dd5e7584ad812848d48b7bb8f4c48508507434825770684c8 est maintenant installé avec58empreintes identiques après remplacement et huit contrôles de réouverture, compte conservé ; preuve ../../ux-madness/qualification-refonte/installation/report.json. Les réussites natives9249… restent attachées à cet ancien artefact ; elles ne sont pas réattribuées au6664…. Les contrats Sally sont réconciliés ; l’appréciation visuelle du porteur reste à recueillir. L’epic2 préparé possède diagnostic/G2, aide/catalogue, fichiers/éditeur, variantes et mesures R32 ; initialisation3 et graphe4 restent futurs. Cette décision actualise les jalons chronologiques ci-dessous sans les effacer.
 
 - Decision: 2026-10-28 — Le correctif13 est built dans494f8d85e8d262de6144ae63742b4fb0384436c4 : contrôle natif des sessions, A1/Q1 résolus, paquet personnel0.1.2 final installé avec conservation. BOARD retire le blocage de11 et reprend son Build déjà rendu, inassigné, après10/13. Sous le mandat autonome et sa délégation des validations, le seul paramètre d’artefact du plan11 est réconcilié avec le manifeste final13 ; ancien bloc figé et empreinte conservés, baseline initiale intacte, aucune exigence/contrainte/acceptation allégée. Les essais positifs personnels0.1.1 restent historiques ; nouveau parcours sur0.1.2 requis. Aucun consentement ou clic réseau en attente, aucun gate G1 clos par13. La refonte demandée puis la préparation de l’epic2 restent à réaliser.
 

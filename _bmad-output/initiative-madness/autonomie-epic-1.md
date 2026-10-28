@@ -1,10 +1,12 @@
 ---
 type: coordination
-status: in-progress
+status: done
 created: '2026-10-26'
 ---
 
 # Mandat autonome — epic 1 puis refonte UX
+
+- 28 octobre2026 — Sortie finale du mandat jusqu’à la préparation de l’epic2 :1.11 built dans8880b17, parcours natifs Mary/Forge et arrêt/fermeture/panne réussis, revue Quick et contrôle indépendant de conservation favorables, Closure Sofia favorable et epic1 done sous délégation.1.1 demeure dropped, hors distribution désormais abandonnée. Refonte Sally/trois experts/Impeccable built dans5d135f9,355tests/75contrôles intégrés/12disposition, puis installation personnelle6664da10… réussie :58empreintes identiques après NSIS, compte lisible, MIA/madness seuls, huit contrôles de réouverture sans modèle et contrôle fermé. Les preuves natives9249… et visuelles367… restent distinctes du paquet courant. Epic2 raffiné/préparé17entrées dans61a912b3, aucune feuille/plan/Build2 ; première entrée2.1, puis17Sally et2tracer aide. Aucun clic réseau/OAuth ni autre réponse humaine en attente. Les états de travail détaillés ci-dessous sont historiques et ne doivent pas relancer les lots built. Récapitulatif final recap-epic1-et-preparation-epic2-2026-10-28.md ; Graphify epic4, initialisation3, R32epic2 et Loop non intégré.
 
 - 28 octobre2026 — Sortie1.10 : bmad-build oneshot/Quick, F1 unique traité dans le seul fichier de test d’arrêt. Reproduction rouge de l’ancienne assertion ; fermeture par signal légitime, observation close/flux et nettoyage possédé. Q1 ajustement du budget global du test10→15s corrigé/recontrôlé résolu, ciblés9/9 puis9/9, types et suite301/301. La suite avait chargé le plafond10s ; reciblage post-revue distinct, aucun second run UI prétendu. Aucun code produit, paquet installé ni profil personnel changé. Preuves qualification-sweep/parent-verification.md et verification.json.1.10 built, prochaine entrée1.11 sous le mandat ; ni epic clos ni gate intégré satisfait par ce seul lot. Refonte Sally/experts/Impeccable toujours attendue après l’implémentation.
 

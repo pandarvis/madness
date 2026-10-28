@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T16:45:25.637Z",
+  "status": "passed",
+  "inputs": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "4a9fc04435ef1592a2ce7477e7f16ad955942cc7d41b79ea6cb332cf6b20d5f8"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/initiative-madness.md",
+      "sha256": "33d9853dc94834c003f992ab75f59f73968f9c21564b355916d7def41a9a1f89"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/autonomie-epic-1.md",
+      "sha256": "5501395269c826ef366c6d7a9506dc4ff0e3c3b0b38a55745132a42e004cffe1"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/recap-epic1-et-preparation-epic2-2026-10-28.md",
+      "sha256": "708b8f616993ce88e1b3df8479e2195b1f1cc48471fa8b727e571e8c95bf4c85"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-boucle-codex/epic-boucle-codex.md",
+      "sha256": "6bd8ba56f55a93869b89b0ffcada4bd8286ce0991eac331fe5a898b9a0c20791"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-e2e/final-matrix.md",
+      "sha256": "117562be5052da7787edc54fe3c874009dac2fe63389334899ed7a1e0cfff7b5"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-e2e/closure-review.md",
+      "sha256": "12d09beca93aa00df96caaeca8cf5c8edd15f7465a1e1fb11cedb67f047eb4cb"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/epic-projets-bmad.md",
+      "sha256": "e409a578b057017a63eba7781eef715c310a75d6b040c1b9b8a5b75465429789"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/tickets/tickets.toml",
+      "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-preparation/README.md",
+      "sha256": "0e741ac69f09aba52311ee4a2e4592b45086f6b65845b430f0624606f559b0fd"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-readiness/README.md",
+      "sha256": "fe7477f4e68ae43a8193e87673bf2df083792cb5bc14d29eb578c72d6eb4a811"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-readiness/review-tree.md",
+      "sha256": "6a1dd80e2d5331f68282e6877d4a42961df37ae09917ef1e147bbc30da8b9f32"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/ux-madness/qualification-refonte/parent-verification.md",
+      "sha256": "6ad3c5251a9a587f02a05eec16d451cdb545b73bbe48c0193ed121c5a7a4c787"
+    }
+  ],
+  "checkedLinks": 106,
+  "firstReady": "2.1",
+  "epic1": {
+    "container": "done",
+    "builtPlansProjectedReview": 12,
+    "dropped": 1
+  },
+  "epic2": {
+    "planned": 17,
+    "started": 0,
+    "metricsUnknownPreserved": true
+  },
+  "installed": {
+    "asarSha256": "6664da10ba09364dd5e7584ad812848d48b7bb8f4c48508507434825770684c8",
+    "checks": 8,
+    "preservedAtReplacement": 58,
+    "normalProfile": true
+  },
+  "limits": [
+    "Contrôle documentaire et rapprochement des reçus déjà exécutés ; aucun nouveau test produit, modèle, réseau ou lecture du profil personnel."
+  ]
+}

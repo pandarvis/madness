@@ -1,6 +1,6 @@
 # Préparation de l’epic2
 
-28octobre2026, sous le mandat autonome du porteur. **Préparation documentaire terminée, aucun Build2 lancé.** Le premier travail reste bloqué par1.11/G1 et la qualification de la refonte ; Q8/Q9 restent à instruire avant les consommateurs des mesures.
+28octobre2026, sous le mandat autonome du porteur. **Préparation documentaire terminée, aucun Build2 lancé.** L’état de ce document et de coverage.json ci-dessous était un jalon avant clôture1.11/refonte. Ce prérequis est maintenant satisfait :1.11 built8880b17, clôture technique de l’epic1 relue, refonte built5d135f9 et installée avec conservation. Le résultat courant et la première entrée2.1 prête sont consignés séparément dans [qualification-readiness](../qualification-readiness/README.md), sans régénérer les empreintes du jalon initial. Q8/Q9 restent à instruire avant les consommateurs des mesures.
 
 Le raffinement reprend exactement quinze exigences parent et sept contraintes ; aucune nouvelle exigence produit ni memlog enfant n’est créé selon l’exception SPEC applicable. Les32exigences de l’initiative gardent chacune leur epic propriétaire, sans renumérotation ni déplacement des quatre epics.
 

@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "checks": [
+    "closed-profile-critical-bytes-identical-after-replacement",
+    "installed-artifact-and-normal-runtime-match",
+    "historical-requests-inactive",
+    "existing-account-readable",
+    "new-titlebar-and-single-open-action-present",
+    "no-spontaneous-model-or-network-after-hook",
+    "actual-main-and-owned-spaces-closed",
+    "durable-business-data-and-encrypted-account-identical-after-reopen"
+  ],
+  "limits": [
+    "Fichiers chiffrés : empreintes seulement, aucun déchiffrement ni copie du coffre.",
+    "Aucun modèle, OAuth, test réseau ou nouveau projet demandé.",
+    "Absence d’activité spontanée mesurée trois secondes après instrumentation uniquement.",
+    "La qualification native1.11 reste attachée à son ancien ASAR ; ce contrôle ne la réattribue pas."
+  ],
+  "artifact": {
+    "executable": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\Madness.exe",
+    "executableSha256": "cdaae31916da4ed301375147541748c86186f3710b53b4314cdfc74f8bc1cbea",
+    "manifest": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\ux-madness\\qualification-refonte\\candidate-reviewed-002\\release-manifest.json",
+    "manifestSha256": "0a38473d69fef46403a9a7835d166d43ea31fb2c18da76b689bd0f27038c947e",
+    "version": "0.1.2",
+    "electron": "45.0.0",
+    "asarSha256": "6664da10ba09364dd5e7584ad812848d48b7bb8f4c48508507434825770684c8",
+    "runnerSha256": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5"
+  },
+  "preservedAtReplacement": 58,
+  "runtime": {
+    "mainPid": 61280,
+    "wrapperPid": 63208,
+    "version": "0.1.2",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0",
+    "packaged": true,
+    "normalUserData": true,
+    "normalSessionData": true
+  },
+  "accountReadable": true,
+  "projectNames": [
+    "MIA",
+    "madness"
+  ],
+  "close": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-10-28T16:34:56.352Z",
+      "attached": true,
+      "overflow": false,
+      "network": 0,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 2048,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "preservedAfterReopen": 57,
+  "localStateEqualAfterReopen": true
+}

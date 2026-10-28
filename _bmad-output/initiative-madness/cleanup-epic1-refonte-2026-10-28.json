@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T16:44:06.2753325Z",
+  "status": "completed",
+  "removed": [
+    {
+      "kind": "file",
+      "label": "_bmad-output/initiative-madness/.working/refonte-review-diff.mjs",
+      "sha256": "57f2c9995b18fd51914e2ec1b6ef81dc8a5b3047848f954c06aaa40c5796e725"
+    },
+    {
+      "kind": "file",
+      "label": "_bmad-output/initiative-madness/.working/refonte-preserve-logs.mjs",
+      "sha256": "ac09e251f1d9f58c0c0e8748b9f59c86685822b30ab835957531b0899519f60a"
+    },
+    {
+      "kind": "file",
+      "label": "_bmad-output/initiative-madness/.working/refonte-final-check.mjs",
+      "sha256": "7d956e6057f486d192f7e75a22a4bf393788a5d3a8c430d1da9249c1748e8bc1"
+    },
+    {
+      "kind": "file",
+      "label": "_bmad-output/initiative-madness/.working/refonte-renderer-identity.mjs",
+      "sha256": "57f9305be94098fd3c3e03cdca3a016002d8a8675ca6ec0d45a235eaaf6819c2"
+    },
+    {
+      "kind": "file",
+      "label": "_bmad-output/initiative-madness/.working/story111-final-diff.mjs",
+      "sha256": "c73e5a27bfd8c6d1940f23050c8f17b434c4abd5f1db2baac0d5ce7a28ac03d7"
+    },
+    {
+      "kind": "file",
+      "label": "_bmad-output/initiative-madness/.working/story111-read-delta.mjs",
+      "sha256": "3a7402606c27288cb4fae2096384c30aa1c3bd14a4e514ee9688703193941017"
+    },
+    {
+      "kind": "file",
+      "label": "_bmad-output/initiative-madness/.working/story111-cleanup-link.mjs",
+      "sha256": "8f19b6eaeb1c9e1cd278aa811e3720b2434d7082d2822befd4b14337f1b043c3"
+    },
+    {
+      "kind": "directory",
+      "label": "madness-refonte-review-FRkzs1",
+      "sha256": null
+    },
+    {
+      "kind": "directory",
+      "label": "madness-refonte-review-R7qsT7",
+      "sha256": null
+    },
+    {
+      "kind": "directory",
+      "label": "madness-refonte-review-2tHxY4",
+      "sha256": null
+    },
+    {
+      "kind": "directory",
+      "label": "madness-refonte-review-WNmsFM",
+      "sha256": null
+    },
+    {
+      "kind": "directory",
+      "label": "madness-story111-review-m7KZJV",
+      "sha256": null
+    },
+    {
+      "kind": "directory",
+      "label": "madness-story111-final-review-71UBhU",
+      "sha256": null
+    },
+    {
+      "kind": "directory",
+      "label": "madness-story111-final-review-5rNqgi",
+      "sha256": null
+    },
+    {
+      "kind": "directory",
+      "label": "madness-story111-read-delta-bGURlk",
+      "sha256": null
+    }
+  ],
+  "retained": [
+    "Tests automatisés permanents",
+    "Preuves et journaux archivés avec leurs empreintes",
+    "Dossiers témoins référencés par les preuves et archives privées",
+    "Contrôleur de nettoyage1.11 et aide GET réutilisable",
+    "Caches gérés et fichiers privés préexistants hors de ce lot"
+  ],
+  "personalProfile": "Aucune mutation de profil ; récents MIA/madness vérifiés par le contrôle installé.",
+  "firstAttempt": "Appel sandbox sorti1 sans reçu ; aucun succès déduit. Erreur de syntaxe PowerShell corrigée avant toute suppression, puis reprise sur cibles nommées et chemins absolus contrôlés.",
+  "finalizationHelpersRemoved": [
+    {
+      "sha256": "0e1dd5537df5af8ea582d04c9845827106e276f4efe0ad0da0e1e92f32dd8cea",
+      "path": "_bmad-output/initiative-madness/.working/final-cleanup.ps1"
+    },
+    {
+      "sha256": "ec38d09c6d931f9da8e60ef6046cca5f1ef42dc6c8a7e9d5f8fec8152494e936",
+      "path": "_bmad-output/initiative-madness/.working/final-doc-check.mjs"
+    }
+  ]
+}

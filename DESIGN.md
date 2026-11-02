@@ -150,7 +150,7 @@ components:
   button-primary:
     backgroundColor: "{colors.accent}"
     textColor: "{colors.accent-text}"
-    rounded: "{rounded.control}"
+    rounded: "{rounded.surface}"
     padding: "8px 11px"
   button-primary-hover:
     backgroundColor: "{colors.accent-hover}"
@@ -159,9 +159,9 @@ components:
     backgroundColor: "{colors.accent-active}"
     textColor: "{colors.accent-text}"
   button-secondary:
-    backgroundColor: "{colors.panel}"
+    backgroundColor: "{colors.atelier-chrome}"
     textColor: "{colors.text}"
-    rounded: "{rounded.control}"
+    rounded: "{rounded.surface}"
     padding: "8px 11px"
   button-ghost:
     backgroundColor: "transparent"
@@ -181,7 +181,7 @@ components:
   project-tab-selected:
     backgroundColor: "{colors.accent}"
     textColor: "{colors.accent-text}"
-    padding: "8px 18px"
+    padding: "8px 22px"
   badge:
     backgroundColor: "{colors.neutral}"
     textColor: "{colors.neutral-text}"
@@ -196,7 +196,7 @@ components:
     backgroundColor: "{colors.panel}"
     textColor: "{colors.text}"
     rounded: "{rounded.surface}"
-    padding: "14px 16px"
+    padding: "18px 20px"
   agent-portrait:
     backgroundColor: "{colors.atelier-plate}"
     textColor: "{colors.muted}"
@@ -211,7 +211,7 @@ components:
     backgroundColor: "{colors.accent}"
     textColor: "{colors.accent-text}"
     typography: "{typography.agent-name}"
-    padding: "5px 14px 7px"
+    padding: "5px 24px 7px 14px"
   help-preparation:
     backgroundColor: "{colors.recommendation}"
     textColor: "{colors.text}"
@@ -227,7 +227,7 @@ components:
 
 Un atelier personnel, chaleureux et expressif encadre le travail BMad : plaques bleu pétrole, commandes terracotta, contours encrés, angles coupés et matière peinte mate à usure retenue. Les sept visages originaux donnent un repère aux messages dont l’identité native est attestée. La conversation, ses décisions et ses preuves occupent le centre ; l’illustration reste discrète pendant la lecture.
 
-L’anthracite chaud est le thème par défaut ; l’ivoire est son alternative claire. Les titres condensés portent le caractère du lieu, tandis que Segoe UI porte les messages, les menus et les décisions. Le décor vit dans le chrome et les bandeaux de contexte. Le fond de conversation et la saisie demeurent calmes. Ce système transpose la direction humaine approuvée le 2 novembre 2026 ; il décrit le candidat implémenté, sans valoir acceptation humaine de l’application intégrée.
+L’anthracite chaud est le thème par défaut ; l’ivoire est son alternative claire. Les titres condensés portent le caractère du lieu, tandis que Segoe UI porte les messages, les menus et les décisions. Le décor se prolonge du chrome au centre de travail : cartouches d’auteur attesté, cadres de message et bordure raster de saisie. Les fonds de conversation et de saisie demeurent calmes. Ce système transpose la direction humaine approuvée le 2 novembre 2026 ; il décrit le candidat implémenté, sans valoir acceptation humaine de l’application intégrée.
 
 **Key Characteristics:**
 
@@ -237,7 +237,7 @@ L’anthracite chaud est le thème par défaut ; l’ivoire est son alternative 
 - Portrait compact et fiche informative ouverte à la demande.
 - État, provenance et décisions exprimés par du texte réel.
 
-Le frontmatter porte les primitives effectivement déclarées dans `src/renderer/src/styles.css` et les formes réutilisées. Les clés sans préfixe décrivent le sombre ; `light-*` fournit les remplacements de `data-theme="light"`. Les composants du frontmatter illustrent le sombre ; le renderer et les extraits du sidecar se lient aux propriétés CSS du thème actif. Les nuances de rampe du sidecar sont des aides de palette synthétisées, pas de nouvelles couleurs du produit. Les contrats comportementaux restent dans [ux-madness/DESIGN.md](./_bmad-output/initiative-madness/ux-madness/DESIGN.md) et [EXPERIENCE.md](./_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md).
+Le frontmatter porte les primitives effectivement déclarées dans `src/renderer/src/styles.css` et les formes réutilisées. Les clés sans préfixe décrivent le sombre ; `light-*` fournit les remplacements de `data-theme="light"`. La feuille `src/renderer/src/atelier-immersion.css`, chargée après `styles.css` dans `main.tsx`, affine les composants sans ajouter de palette, de police ni d’asset. Les composants du frontmatter illustrent le sombre ; le renderer et les extraits du sidecar se lient aux propriétés CSS du thème actif. Les nuances de rampe du sidecar sont des aides de palette synthétisées, pas de nouvelles couleurs du produit. Les contrats comportementaux restent dans [ux-madness/DESIGN.md](./_bmad-output/initiative-madness/ux-madness/DESIGN.md) et [EXPERIENCE.md](./_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md).
 
 ## Colors
 
@@ -277,9 +277,9 @@ Terracotta d’action et bleu de repérage accompagnent des neutres chauds ; le 
 ### Hierarchy
 
 - **Display** : marque d’atelier ; le nom d’agent emploie la variante `agent-name` en cartouche et en capitales. Cette expression reste courte.
-- **Headline** : titre de page. Le bandeau de projet passe à une taille plus compacte (28 px), et à 24 px sans décor dans Conversation. Le titre général du bandeau passe à 28 px sous 1081 px, puis 26 px sous 721 px.
+- **Headline** : titre de page. Le bandeau de projet passe à une taille plus compacte (28 px). Dans Conversation il garde une plaque calme à 28 px, réduite à 24 px sous 721 px et dans le dialogue ordinaire ajusté à la fenêtre. Le titre général du bandeau passe à 28 px sous 1081 px, puis 26 px sous 721 px.
 - **Title** : titres de section ; demandes natives autour de 22 px, en-tête de fiche à 23 px, connexion à 25 px.
-- **Body** : paragraphes et informations ; les messages et la saisie prennent la variante `message`. Les paragraphes sont bornés à 70 ch, les messages à 72 ch dans un article de 75 ch maximum.
+- **Body** : paragraphes et informations ; les messages et la saisie prennent la variante `message`. Les paragraphes sont bornés à 70 ch, les messages à 72 ch dans un article de 75 ch maximum ; le message assistant reçoit un interligne de 1,8.
 - **Label** : état, provenance, légende et aide ; les badges factuels et info-bulles utilisent une taille compacte (11 px).
 - **Message author** : identité courte ; le nom utilisateur a une variante à 17 px. Les onglets emploient Barlow Condensed à 19 px, 18 px dans Conversation, 20 px sous 721 px.
 
@@ -291,7 +291,11 @@ La fenêtre est une colonne de hauteur `100dvh` avec barre native d’au moins 5
 
 La navigation déployée mesure 240 px au format courant ; elle passe à 194 px sous 1281 px et 184 px sous 1081 px. Dès 721 px, elle peut se replier en rail. Sous 721 px, le tiroir natif remplace la barre latérale ; sa largeur est bornée à 240 px et à celle de la fenêtre. Les groupes suivent surtout le rythme 8 / 12 / 16 / 20 / 24 px du frontmatter, sans imposer une grille nouvelle à toutes les anciennes surfaces.
 
-Le contenu central est borné à 1160 px. Son espacement horizontal est de 38 px au format courant, 26 px sous 1281 px, 16 px sous 721 px et 52 px dès 1600 px ; avec fiche dockée ouverte, il revient à 24 px. Le bandeau illustré reste sur l’accueil et les vues de préparation ; il se réduit ou perd son image aux petits formats et aux fenêtres de moins de 701 px de haut. Dans Conversation, le bandeau projet est sans image, sans ombre et sans hauteur minimale. Le défilement des messages est borné à `min(36vh, 380px)` et n’impose pas d’ancrage pendant la lecture.
+Le contenu central est borné à 1160 px. Son espacement horizontal est de 38 px au format courant, 26 px sous 1281 px, 16 px sous 721 px et 52 px dès 1600 px ; avec fiche dockée ouverte, il revient à 24 px. Le bandeau illustré reste sur l’accueil et les vues de préparation ; il se réduit ou perd son image aux petits formats et aux fenêtres de moins de 701 px de haut. Dans Conversation, le bandeau projet est une plaque calme sans image. Le dialogue ordinaire, sans formulaire de question ou d’approbation actif, occupe la hauteur restante par flex : le titre, les onglets, les états et le compositeur gardent leur hauteur, tandis que les messages prennent la place disponible avec un minimum de 160 px. Le champ de rédaction garde au moins 64 px ; champ et action restent ensemble dans la fenêtre aux formats vérifiés. L’en-tête d’auteur est sticky au sommet du défilement, borné par son propre article ; la source exacte reste lisible après le texte.
+
+Lorsqu’une question ou une approbation est active, la page conserve son flux naturel afin de laisser toute sa hauteur au formulaire ou au patch. Le défilement des messages est alors borné à `clamp(240px, 44dvh, 640px)`, avec adaptations à 42dvh sous 721 px et 40dvh sous 701 px de haut. La position de lecture et le suivi existants sont conservés.
+
+**The Working Center Rule.** Le décor encadre les noms, les messages et la saisie ; le texte réel, la source et les commandes explicites restent accessibles, y compris après défilement.
 
 La fiche est une vraie colonne dockée **dès 1323 px**, de largeur 320 px, puis 350 px dès 1600 px. En dessous de 1323 px, elle est un dialogue modal de largeur `min(400px, calc(100vw - 32px))` avec marges de 16 px ; sous 721 px, marges de 8 px. Le corps de fiche défile indépendamment. Le changement de seuil conserve sa sélection et sa position de lecture. La fermeture rend l’espace au dialogue ; une confirmation native ou le tiroir de navigation gardent leur priorité dans la pile modale.
 
@@ -301,7 +305,8 @@ La matière associe aplats calmes, contours encrés, arêtes terracotta et cadre
 
 ### Shadow Vocabulary
 
-- **Composer** : `0 4px 12px var(--composer-shadow)` ; attache légère du champ de rédaction.
+- **Composer** : `0 6px 18px var(--composer-shadow)` ; attache diffuse du champ de rédaction.
+- **Assistant message** : `0 4px 12px var(--composer-shadow)` ; légère distinction du panneau de lecture.
 - **Floating panel** : `0 12px 42px var(--panel-shadow)` ; connexion, contexte et confirmation.
 - **Agent modal** : `-12px 8px 40px var(--panel-shadow)` ; fiche superposée.
 - **Drawer** : `15px 0 45px var(--panel-shadow)` ; navigation modale.
@@ -311,13 +316,13 @@ Les encres d’ombre et les valeurs complètes clair/sombre sont portées par `e
 
 **The Empty Center Rule.** Le cadre raster est découpé en neuf zones sans fill : son centre ne se peint jamais derrière un texte ou un formulaire.
 
-Le cadre `chrome-plate-frame.png` est un overlay décoratif sur navigation, tiroir et fiche : `border-image-slice: 128`, largeur de bande de 36 px, débord de 17 px et répétition étirée. Le mot-clé `fill` est absent. L’asset source garde 35 pixels centraux à alpha 1/255 ; le centre omis n’est jamais rendu. Cette limite de production reste dans sa provenance, sans prétendre que l’ouverture source est exactement vide. Les contrôles et les zones de lecture sont au-dessus du cadre et conservent leurs événements et leur focus.
+Le cadre `chrome-plate-frame.png` est un overlay décoratif sur navigation, tiroir et fiche : `border-image-slice: 128`, largeur de bande de 36 px, débord de 17 px et répétition étirée. Le mot-clé `fill` est absent. L’asset source garde 35 pixels centraux à alpha 1/255 ; le centre omis n’est jamais rendu. Cette limite de production reste dans sa provenance, sans prétendre que l’ouverture source est exactement vide. La saisie réutilise ce même raster avec une bande de 22 px et un débord de 7 px ; la marge latérale de 7 px contient son cadre dans le centre de travail. Les contrôles et les zones de lecture sont au-dessus du cadre et conservent leurs événements et leur focus.
 
 ## Shapes
 
 Le langage est celui de plaques mates à angles nets : petits arrondis utilitaires, traits encrés et coupes géométriques visibles. Les contrôles prennent le rayon `control`, les surfaces de lecture et cartes le rayon `surface`, les détails de bustes le rayon `detail`. La fiche dockée est carrée ; les panneaux flottants ont le rayon de contrôle. L’info-bulle garde son arrondi spécifique.
 
-Les onglets sont des silhouettes de dossier : un pseudo-élément reçoit les coins coupés de 10 px et la couleur de plaque. Le bouton réel reste entier afin que la coupe décorative ne rogne pas son focus. Le cartouche du nom est un rectangle terracotta ; les traits diagonaux du bandeau et de la saisie sont de petits rappels d’arête, sans remplacer les commandes.
+Les onglets sont des silhouettes de dossier : un pseudo-élément reçoit les coins coupés de 10 px et la couleur de plaque. Le bouton réel reste entier afin que la coupe décorative ne rogne pas son focus. Le nom attesté reconnu reçoit un cartouche terracotta à coupe diagonale ; le nom de fiche reprend cette coupe dans son propre pseudo-élément. La forme décorative ne rogne pas le texte ou les cibles. Un petit coin terracotta dans le cadre de message rappelle l’arête sans remplacer une commande.
 
 ## Components
 

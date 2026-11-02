@@ -160,8 +160,27 @@ try{
  const snapshot={schemaVersion:1,revision:1,projects:[{id:context.projectId,name:'Projet personnel de qualification de la refonte avec un nom réellement très long sans abréviation',rootPath:first,openedAt:new Date().toISOString()},{id:other.projectId,name:'Autre projet avec un nom long et un contexte indépendant',rootPath:second,openedAt:new Date().toISOString()}],activeProjectId:null,drafts:[{projectId:context.projectId,text:'Brouillon enregistré distinct, été 日本語.',savedAt:new Date().toISOString()}],preferences:{navigationCollapsed:false},conversations:[{id:context.conversationId,context,lastKnownActivity:'idle',messages:[{id:'historical',role:'assistant',text:'Échange historique synthétique. Identité et état du tour inconnus.'}]},{id:other.conversationId,context:other,lastKnownActivity:'idle',messages:[]}]}
  const q={schemaVersion:1,id:'question-workspace',context,requestId:'request-workspace',turnId:'turn-workspace',identity:{kind:'unknown'},fields:[{id:'answer',header:'Direction',prompt:'Quelle direction pour cet échange précis ?',options:[],allowOther:true}],values:{answer:'Réponse historique distincte.'},status:'waiting',reason:null,createdAt:new Date().toISOString(),expiresAt:null,revision:1,storage:'stored'}
  const a={schemaVersion:1,id:'approval-workspace',context,requestId:'request-approval',turnId:'turn-approval',identity:{kind:'unknown'},mode:'file-approval',files:[{path:join(first,'proposition.md'),kind:'add',diff:'Patch complet synthétique sans effet observé.',beforeSha256:null,afterSha256:hash('Patch complet synthétique sans effet observé.')}],reason:'reopened',adjustment:'Ajustement conservé.',adjustmentStatus:'draft',status:'unknown',decision:'accept',transmission:'sent',effect:'unknown',result:null,createdAt:new Date().toISOString(),expiresAt:Date.now()+600000,revision:3,storage:'stored'}
+ if(args.includes('--presentation')){
+  snapshot.projects[0].name='Madness';snapshot.projects[1].name='MIA'
+  snapshot.conversations[0].messages=[{id:'presentation-user',role:'user',text:'Je veux un atelier où retrouver mon projet, mes idées et les agents avec qui je travaille.'}]
+  snapshot.drafts[0].text='Commençons par le parcours de mon projet.'
+ }
  const snapshotPath=join(profile,'madness-state-v1.json');await writeFile(snapshotPath,JSON.stringify(snapshot));await new QuestionStore(join(profile,'questions-v1')).write(q);await new ApprovalStore(join(profile,'approvals-v1')).write(a)
  let page=await launch(profile)
+ if(args.includes('--presentation')){
+  report.limits.push('Vue de présentation à contenu fictif ; distincte de la matrice de qualification avec noms longs et états critiques.')
+  await viewport(page,{width:1440,height:1000},'presentation')
+  await page.locator('.project-row').first().click();await page.getByRole('tab',{name:'Conversation',exact:true}).click()
+  const message={id:'presentation-sally',context,requestId:'presentation-request',turnId:'presentation-turn',order:1,revision:1,text:'Bienvenue à l’atelier.\n\nIci, chaque projet garde son histoire et chaque agent apporte son regard. On clarifie une idée, on dessine un parcours, puis on construit ensemble.\n\nTu gardes la main sur les décisions. Je t’aide à rendre la prochaine étape plus claire.',phase:'complete',storage:'stored',identity:{kind:'attested',name:'Sally',source:'synthetic-presentation-author'}}
+  assert.equal(isDialogueMessage(message),true)
+  await emit({...initialDialogueState(),sequence:2000,messages:[message]})
+  await page.getByRole('button',{name:'Fiche de Sally',exact:true}).waitFor()
+  await shot(page,'presentation-dialogue-dark')
+  await page.getByRole('button',{name:'Fiche de Sally',exact:true}).click();await page.locator('.agent-info-panel[open]').waitFor()
+  await geometry(page,'presentation-profile');await shot(page,'presentation-sally-dark')
+  await assertNoActivity();pass('synthetic-presentation-no-model-or-network-after-hook')
+  report.status='presentation';return report
+ }
  assert.equal((await page.evaluate(()=>window.madnessConnection.read())).state.accountStored,false);assert.equal((await page.evaluate(()=>window.madnessDialogue.read())).questions[0].status,'inactive');pass('no-account-restored-request-inactive')
  await viewport(page,{width:1440,height:920},'home');await shot(page,'home-dark-expanded')
  await page.locator('.project-row').first().click();await page.getByRole('tab',{name:'Conversation',exact:true}).click()

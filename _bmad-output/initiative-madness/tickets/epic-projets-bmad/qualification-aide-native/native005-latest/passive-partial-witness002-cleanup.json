@@ -1,0 +1,98 @@
+{
+  "source": "parent-owned-partial-restoration-after-native005",
+  "status": "passed",
+  "startedAt": "2026-11-02T16:13:28.285Z",
+  "checks": [
+    "exact-partial-messages-and-eight-receipts-restored-unknown-without-work",
+    "separate-product-owners-clear-or-explicitly-reobserved-without-model",
+    "new-passive-session-closed-and-hook-composition-complete",
+    "only-owned-partial-witness-archived-real-projects-and-preferences-exact"
+  ],
+  "cleanup": {
+    "closed": true,
+    "archived": true,
+    "project": {
+      "status": "archived",
+      "archivedConversations": 1,
+      "archivedDrafts": 1,
+      "archivedAnnexes": 0,
+      "archive": "C:\\Users\\UP60066553\\AppData\\Roaming\\Madness\\test-project-archives\\epic-one-b5858d69-5007-4637-8924-5634bc77e4aa",
+      "witnessDirectoryPreserved": true
+    },
+    "helpAnnexes": 1,
+    "realProjectsPreserved": 2
+  },
+  "limits": [
+    "Does not retroactively pass the failed native005 closure or M14.",
+    "No provider, help preparation, model, user message or credentials requested."
+  ],
+  "before": {
+    "snapshotSha256": "88ec7ecbcafa29cbcb298828d6ee34b35d03b65954c919423a29fee5bda0fdc8",
+    "annexSha256": "4174f31af74f88a76eb94d29176b56446bb9986fb4bf16068b47c266812a21c4",
+    "receiptCount": 8,
+    "realProjects": 2,
+    "partialConversation": true
+  },
+  "artifact": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\bmad-help-final-005\\win-unpacked\\Madness.exe",
+    "executableSha256": "efad59516e7dc414287db220cbc13675f08cebcc16e340171e4da0f4c774ebb2",
+    "manifest": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\bmad-help-final-005\\release-manifest.json",
+    "manifestSha256": "3e6785f1a9680b4fba8a39ac53ef2c6e2ebb8556275f60e370dd94a4e3d06257",
+    "version": "0.2.0",
+    "electron": "45.0.0",
+    "asarSha256": "2583aebcffd14d7193e2bf0fdd8b7824f8b9396bb51eaac1ea2a0807a0e9d90a",
+    "runnerSha256": "44e1d7e4faf1e209fb09444f9a916130fe7fec8cca8dd4dbcb33166432745cf9"
+  },
+  "runtime": {
+    "mainPid": 36112,
+    "version": "0.2.0",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0",
+    "packaged": true,
+    "normalUserData": true,
+    "normalSessionData": true,
+    "diaProcessesNotOperated": true
+  },
+  "accountReadable": true,
+  "recoveryBefore": "clear",
+  "close": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-11-02T16:13:48.215Z",
+      "attached": true,
+      "overflow": false,
+      "network": 0,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 2048,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "finishedAt": "2026-11-02T16:14:06.878Z"
+}

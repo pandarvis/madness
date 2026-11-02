@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "source": "parent-owned-draft-witness003-passive-cleanup",
+  "status": "passed",
+  "startedAt": "2026-11-02T21:25:58.501Z",
+  "checks": [
+    "exact-projects-draft-conversations-preferences-restored-no-helper-model-network",
+    "real-main-and-children-closed-with-complete-observers",
+    "only-owned-draft-project-archived-other-data-and-connection-files-exact"
+  ],
+  "cleanup": {
+    "closed": true,
+    "archived": true,
+    "project": {
+      "status": "archived",
+      "archivedConversations": 0,
+      "archivedDrafts": 1,
+      "archivedAnnexes": 0,
+      "archive": "C:\\Users\\UP60066553\\AppData\\Roaming\\Madness\\test-project-archives\\epic-one-5e453c22-9ff1-479c-82d7-37ac4801dda7",
+      "witnessDirectoryPreserved": true
+    },
+    "realProjectsPreserved": 2,
+    "connectionFilesExact": true,
+    "preferencesExact": true
+  },
+  "limits": [
+    "Does not pass M14 or replay any exchange.",
+    "No model, helper preparation, consent, personal screenshot or credential content recorded.",
+    "The witness directory is preserved; only its owned profile records are archived."
+  ],
+  "before": {
+    "snapshotSha256": "01d9d018964ec3e67d786f602e3c4255bbcf1d9d398ea8ac880250b7b1c58c65",
+    "realProjects": 2,
+    "ownedDrafts": 1,
+    "ownedConversations": 0,
+    "ownedHelpRecords": 0
+  },
+  "artifact": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\bmad-help-final-005\\win-unpacked\\Madness.exe",
+    "executableSha256": "efad59516e7dc414287db220cbc13675f08cebcc16e340171e4da0f4c774ebb2",
+    "manifest": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\bmad-help-final-005\\release-manifest.json",
+    "manifestSha256": "3e6785f1a9680b4fba8a39ac53ef2c6e2ebb8556275f60e370dd94a4e3d06257",
+    "version": "0.2.0",
+    "electron": "45.0.0",
+    "asarSha256": "2583aebcffd14d7193e2bf0fdd8b7824f8b9396bb51eaac1ea2a0807a0e9d90a",
+    "runnerSha256": "44e1d7e4faf1e209fb09444f9a916130fe7fec8cca8dd4dbcb33166432745cf9"
+  },
+  "runtime": {
+    "mainPid": 23388,
+    "version": "0.2.0",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0",
+    "packaged": true,
+    "normalUserData": true,
+    "normalSessionData": true,
+    "diaProcessesNotOperated": true
+  },
+  "accountReadable": true,
+  "close": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-11-02T21:26:13.067Z",
+      "attached": true,
+      "overflow": false,
+      "network": 0,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 2048,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "finishedAt": "2026-11-02T21:26:25.777Z"
+}

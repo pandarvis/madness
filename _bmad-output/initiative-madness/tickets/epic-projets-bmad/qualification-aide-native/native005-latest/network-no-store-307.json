@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "action": "public-main-get-only",
+  "startedAt": "2026-11-02T20:16:59.573Z",
+  "status": "public-get-blocked",
+  "artifact": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\bmad-help-final-005\\win-unpacked\\Madness.exe",
+    "version": "0.2.0",
+    "asarSha256": "2583aebcffd14d7193e2bf0fdd8b7824f8b9396bb51eaac1ea2a0807a0e9d90a"
+  },
+  "limits": [
+    "Diagnostic privé après acquittement : GET sans cache, aucune modification du produit ou de la connexion.",
+    "GET public depuis le vrai profil/session Main, cache par défaut ; ne prouve pas un POST de renouvellement ni un échange modèle."
+  ],
+  "runtime": {
+    "mainPid": 39524,
+    "version": "0.2.0",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0",
+    "packaged": true,
+    "normalUserData": true,
+    "normalSessionData": true,
+    "diaProcessesNotOperated": true
+  },
+  "network": {
+    "status": null,
+    "ok": false,
+    "cacheMode": "no-store",
+    "proxyKinds": [
+      "DIRECT"
+    ],
+    "observations": [
+      {
+        "status": 307,
+        "destinationCategory": "zscaler",
+        "fromCache": false,
+        "cacheControl": "no-store,no-cache",
+        "redirectQueryKeys": [
+          "_ordtok",
+          "_sm_rid",
+          "_orig_url"
+        ]
+      }
+    ],
+    "measuredAt": "2026-11-02T20:17:12.956Z"
+  },
+  "noHelperOrModel": true,
+  "close": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-11-02T20:17:12.526Z",
+      "attached": true,
+      "overflow": false,
+      "network": 1,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 2048,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "finishedAt": "2026-11-02T20:17:16.434Z"
+}

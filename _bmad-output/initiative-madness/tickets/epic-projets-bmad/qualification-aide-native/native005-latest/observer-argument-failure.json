@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "source": "parent-personal-real-codex-siwc",
+  "startedAt": "2026-11-02T17:27:50.482Z",
+  "status": "failed",
+  "checks": [
+    "normal-profile-account-readable-no-authentication"
+  ],
+  "limits": [
+    "Aucune acceptation humaine globale ni autonomie réseau garantie.",
+    "Observation après instrumentation seulement ; aucune lecture/copie du coffre ni capture personnelle.",
+    "DIA reconnu par son exécutable exact ; aucun processus DIA arrêté ou modifié."
+  ],
+  "cleanup": {
+    "closed": true,
+    "archived": false
+  },
+  "artifact": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\bmad-help-final-005\\win-unpacked\\Madness.exe",
+    "executableSha256": "efad59516e7dc414287db220cbc13675f08cebcc16e340171e4da0f4c774ebb2",
+    "manifest": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\bmad-help-final-005\\release-manifest.json",
+    "manifestSha256": "3e6785f1a9680b4fba8a39ac53ef2c6e2ebb8556275f60e370dd94a4e3d06257",
+    "version": "0.2.0",
+    "electron": "45.0.0",
+    "asarSha256": "2583aebcffd14d7193e2bf0fdd8b7824f8b9396bb51eaac1ea2a0807a0e9d90a",
+    "runnerSha256": "44e1d7e4faf1e209fb09444f9a916130fe7fec8cca8dd4dbcb33166432745cf9"
+  },
+  "nativeRunnerSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+  "runtime": {
+    "mainPid": 26140,
+    "version": "0.2.0",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0",
+    "packaged": true,
+    "normalUserData": true,
+    "normalSessionData": true,
+    "diaProcessesNotOperated": true
+  },
+  "accountReadable": true,
+  "preparationDiagnostic": {
+    "status": "ready",
+    "error": null,
+    "nativeReady": true,
+    "problems": [
+      "method: missing bmad-retrospective"
+    ]
+  },
+  "preparation": {
+    "revision": "719d057c3928938ec76f5a521820b82f5b4df874f8e60130f1f565d26463c535",
+    "diagnostic": "partial",
+    "documents": [
+      {
+        "module": "core-tools",
+        "sha256": "d06a92b42f77c1ba50369ea6398f191c52042a1e2504a7b306d03a431fecde83",
+        "bytes": 7776
+      },
+      {
+        "module": "method",
+        "sha256": "c67ef5332c7e83f5fe8b21bb932416498b33adfe784eacd7e7d27e22be2cfa11",
+        "bytes": 19241
+      },
+      {
+        "module": "toolsmith",
+        "sha256": "1714dd0e27c8e8b2fd7960c6822240cb8ce387a23c2427b87435b2dca7ab4a9b",
+        "bytes": 11481
+      }
+    ],
+    "sources": 84,
+    "problems": [
+      "method: missing bmad-retrospective"
+    ],
+    "activeInitiative": "initiative-help-witness"
+  },
+  "failure": {
+    "code": "CONTROLLER_FAILED"
+  },
+  "failureHelpTrace": {
+    "events": [],
+    "overflow": false,
+    "spawns": 1,
+    "pending": 0,
+    "restored": false
+  },
+  "failureClose": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-11-02T17:28:02.789Z",
+      "attached": true,
+      "overflow": false,
+      "network": 0,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 2048,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "finishedAt": "2026-11-02T17:29:10.786Z"
+}

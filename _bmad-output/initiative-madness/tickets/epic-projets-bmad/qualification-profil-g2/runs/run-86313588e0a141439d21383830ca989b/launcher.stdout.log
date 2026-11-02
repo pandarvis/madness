@@ -1,0 +1,24 @@
+test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup) ... ERROR
+test_M7_official_three_layer_merge (__main__.Scenarios.test_M7_official_three_layer_merge) ... ok
+
+======================================================================
+ERROR: test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 584, in test_M15_instrumentation_cleanup
+    import verify
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<string>", line 56, in exec_module
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\verify.py", line 165
+    check('native job assigned before every launcher instruction',execution['job_assigned_before_resume'] and execution['job_active_after_stop']==0 and execution['drain_ms']<4000)
+    ^^^^^
+IndentationError: expected an indented block after 'if' statement on line 164
+
+----------------------------------------------------------------------
+Ran 2 tests in 207.159s
+
+FAILED (errors=1)
+Preservation: True files: 558 fixtures removed: True
+NEW_RUN: run-86313588e0a141439d21383830ca989b

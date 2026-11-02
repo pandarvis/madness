@@ -1,0 +1,17 @@
+{
+  "schema": 3,
+  "outcome": "start-failed",
+  "exit": null,
+  "started": false,
+  "owned": [
+    "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-9c8fbe02d6d34caa8b2125449a21af8b"
+  ],
+  "cleanup": [
+    {
+      "removed": true,
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-9c8fbe02d6d34caa8b2125449a21af8b"
+    }
+  ],
+  "results_present": false,
+  "error": "Exception calling \"Start\" with \"1\" argument(s): \"An error occurred trying to start process 'C:\\Users\\UP60066553\\.dotnet\\tools\\pwsh.exe C:\\Users\\UP60066553\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe' with working directory 'C:\\Sources\\madness'. Le fichier spécifié est introuvable.\""
+}

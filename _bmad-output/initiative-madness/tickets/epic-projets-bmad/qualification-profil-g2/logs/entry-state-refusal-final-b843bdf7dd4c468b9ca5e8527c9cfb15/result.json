@@ -1,0 +1,50 @@
+[
+  {
+    "caller_started": false,
+    "caller_cleanup_removed": true,
+    "job_active_after_stop": null,
+    "child_marker_absent": true,
+    "passed": true,
+    "cleanup": [
+      {
+        "removed": true,
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-9c1845d8a5cc477b96d05f645fb246dd\\entry-owned-runtime"
+      },
+      {
+        "removed": true,
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-9c1845d8a5cc477b96d05f645fb246dd\\entry-owned-cache"
+      },
+      {
+        "removed": true,
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-9c1845d8a5cc477b96d05f645fb246dd\\entry-owned-fixture"
+      }
+    ],
+    "error": "CONTROLLED_STATE_WRITE_REFUSAL",
+    "caller_reraised": "ScriptHalted",
+    "started": false
+  },
+  {
+    "caller_started": true,
+    "caller_cleanup_removed": true,
+    "job_active_after_stop": 0,
+    "child_marker_absent": true,
+    "passed": true,
+    "cleanup": [
+      {
+        "removed": true,
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-9c1845d8a5cc477b96d05f645fb246dd\\started-owned-runtime"
+      },
+      {
+        "removed": true,
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-9c1845d8a5cc477b96d05f645fb246dd\\started-owned-cache"
+      },
+      {
+        "removed": true,
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-9c1845d8a5cc477b96d05f645fb246dd\\started-owned-fixture"
+      }
+    ],
+    "error": "CONTROLLED_STATE_WRITE_REFUSAL",
+    "caller_reraised": "ScriptHalted",
+    "started": true
+  }
+]

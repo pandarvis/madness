@@ -1,0 +1,188 @@
+{
+  "rows": [
+    {
+      "epic": "board",
+      "id": 1,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "without leaf",
+      "status": "built",
+      "tracker_status": "",
+      "state": "review",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "",
+      "verify": "",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [],
+      "entry_after": null,
+      "plan": "one-plan.md"
+    },
+    {
+      "epic": "board",
+      "id": 2,
+      "file": "spike-two.md",
+      "type": "spike",
+      "tracker_id": "",
+      "title": "planned",
+      "status": "in-progress",
+      "tracker_status": "done",
+      "state": "done",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "",
+      "verify": "",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [],
+      "entry_after": [],
+      "entry_hitl": false,
+      "plan": "two-plan.md"
+    }
+  ],
+  "sources": {
+    "entries": [
+      {
+        "id": 1,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6cb8f7ff0b43443e80e91a2aee57f90f\\snapshots\\board\\tickets\\tickets.toml",
+        "sha256": "719109072d08ae8cecb636f84e01531b6bb80dca81b96e072ffa1824851496f0",
+        "fields": {
+          "id": 1,
+          "type": "story",
+          "title": "without leaf"
+        }
+      },
+      {
+        "id": 2,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6cb8f7ff0b43443e80e91a2aee57f90f\\snapshots\\board\\tickets\\tickets.toml",
+        "sha256": "719109072d08ae8cecb636f84e01531b6bb80dca81b96e072ffa1824851496f0",
+        "fields": {
+          "id": 2,
+          "type": "spike",
+          "title": "planned"
+        }
+      }
+    ],
+    "leaves": [
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6cb8f7ff0b43443e80e91a2aee57f90f\\snapshots\\board\\tickets\\spike-two.md",
+        "sha256": "a76da4bac878cfae8c4c69dbb2203c53bf3549e61a1591bf665541224a34c7e1",
+        "content": "---\ntype: spike\nid: 2\nstatus: done\ntracker_status: done\n---\n# Leaf\n",
+        "fields": {
+          "type": "spike",
+          "id": 2,
+          "status": "done",
+          "tracker_status": "done"
+        }
+      }
+    ],
+    "plans": [
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6cb8f7ff0b43443e80e91a2aee57f90f\\snapshots\\board\\tickets\\one-plan.md",
+        "sha256": "fc35693f53fc8de1716557432849651cdc1c0c0a1ab604aacedf3023d1da2547",
+        "content": "---\ntype: chore\nticket: 1\nstatus: built\n---\n# Plan\n",
+        "fields": {
+          "type": "chore",
+          "ticket": 1,
+          "status": "built"
+        }
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6cb8f7ff0b43443e80e91a2aee57f90f\\snapshots\\board\\tickets\\two-plan.md",
+        "sha256": "ad940a4a32e5deb72975055b7df8b4006eda15cd315c8fa00f62b02200b29ec6",
+        "content": "---\ntype: chore\nticket: 2\nstatus: in-progress\n---\n# Plan\n",
+        "fields": {
+          "type": "chore",
+          "ticket": 2,
+          "status": "in-progress"
+        }
+      }
+    ],
+    "trackers": [
+      {
+        "id": 2,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6cb8f7ff0b43443e80e91a2aee57f90f\\snapshots\\board\\tickets\\spike-two.md",
+        "sha256": "a76da4bac878cfae8c4c69dbb2203c53bf3549e61a1591bf665541224a34c7e1",
+        "fields": {
+          "tracker_status": "done"
+        }
+      }
+    ],
+    "files": [
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6cb8f7ff0b43443e80e91a2aee57f90f\\snapshots\\board\\tickets\\one-plan.md",
+        "sha256": "fc35693f53fc8de1716557432849651cdc1c0c0a1ab604aacedf3023d1da2547",
+        "content": "---\ntype: chore\nticket: 1\nstatus: built\n---\n# Plan\n",
+        "fields": {
+          "type": "chore",
+          "ticket": 1,
+          "status": "built"
+        }
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6cb8f7ff0b43443e80e91a2aee57f90f\\snapshots\\board\\tickets\\spike-two.md",
+        "sha256": "a76da4bac878cfae8c4c69dbb2203c53bf3549e61a1591bf665541224a34c7e1",
+        "content": "---\ntype: spike\nid: 2\nstatus: done\ntracker_status: done\n---\n# Leaf\n",
+        "fields": {
+          "type": "spike",
+          "id": 2,
+          "status": "done",
+          "tracker_status": "done"
+        }
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6cb8f7ff0b43443e80e91a2aee57f90f\\snapshots\\board\\tickets\\tickets.toml",
+        "sha256": "719109072d08ae8cecb636f84e01531b6bb80dca81b96e072ffa1824851496f0",
+        "content": "[[entry]]\nid=1\ntype=\"story\"\ntitle=\"without leaf\"\n[[entry]]\nid=2\ntype=\"spike\"\ntitle=\"planned\"\n",
+        "fields": {
+          "entry": [
+            {
+              "id": 1,
+              "type": "story",
+              "title": "without leaf"
+            },
+            {
+              "id": 2,
+              "type": "spike",
+              "title": "planned"
+            }
+          ]
+        }
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6cb8f7ff0b43443e80e91a2aee57f90f\\snapshots\\board\\tickets\\two-plan.md",
+        "sha256": "ad940a4a32e5deb72975055b7df8b4006eda15cd315c8fa00f62b02200b29ec6",
+        "content": "---\ntype: chore\nticket: 2\nstatus: in-progress\n---\n# Plan\n",
+        "fields": {
+          "type": "chore",
+          "ticket": 2,
+          "status": "in-progress"
+        }
+      }
+    ]
+  },
+  "problems": [],
+  "acceptance": "unknown"
+}

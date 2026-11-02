@@ -1,0 +1,1577 @@
+{
+  "rows": [
+    {
+      "epic": "real-board",
+      "id": 1,
+      "file": null,
+      "type": "spike",
+      "tracker_id": "",
+      "title": "Qualifier le profil BMad existant et les contrats de guidage",
+      "status": "in-progress",
+      "tracker_status": "",
+      "state": "in-progress",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Qualifie les primitives et un profil candidat G2 pour les formats et racines réellement présents, découverte/knowledge/aides, initiatives et tickets sans feuille ; détermine les contrats et capacités nécessaires à l’aide native puis au catalogue, sous l’autorité du cœur et de Winston. Consigne sa réponse dans qualification-profil-g2/profil-g2.md sous cet epic, sans clôturer G2 intégré, et fournit au tracer2 un profil de référence, ses lectures/effets permis et les refus prouvés, sans déduire la compatibilité du seul numéro de version.",
+      "verify": "Sur fixtures v7 représentatives et installation locale, relire la matrice absence/ancien/inconnu/partiel/personnalisé, les frontières canoniques et le contrat de contexte/invocation ; constater les capacités prouvées et les inconnues restantes avant2.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "high",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R1",
+        "R3",
+        "R4",
+        "R8",
+        "R9",
+        "R10"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        "1.11"
+      ],
+      "entry_after": null,
+      "plan": "spike-qualifier-le-profil-bmad-existant-et-les-contrats-de-guidage-plan.md"
+    },
+    {
+      "epic": "real-board",
+      "id": 17,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Définir avec Sally les parcours de guidage et de fichiers",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Après le profil et les limites de1, complète les contrats UX adoptés avant leurs consommateurs : aide native et recommandation, catalogue/fiches, choix d’initiative, preuves/actualisation, aperçu/éditeur et accueil multi-projet. Définit les variantes françaises/anglaises et les états d’accès/refus selon ces capacités, en conservant la refonte et les deux thèmes. Fournit les références au tracer2 et aux parcours3–9 ; R32 est complété par12 après ses décisions10.",
+      "verify": "Parcourir dans les contrats et références chaque destination, attente, erreur et retour au travail, y compris choix d’initiative et aperçu, clavier/zoom et conservation ; aucune compétence non qualifiée présentée lançable ni validation humaine inventée. Réconcilier les états avec le profil1 avant tout code2–9.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "medium",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        1,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 2,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Obtenir une prochaine action avec l’aide BMad du projet",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Livre le tracer depuis un projet BMad existant : diagnostic de référence, aide des modules réellement chargée puis recommandation de l’agent dans une conversation native bmad avec invocation visible. Réutilise le dialogue de1 ; met en œuvre le profil et les contrats qualifiés par2.1, conserve saisie et contexte, distingue aide chargée et réponse produite. Fournit le chemin de référence au catalogue et au choix d’initiative suivants.",
+      "verify": "Dans le paquet Windows, ouvrir un projet de référence, demander Que faire ensuite, retrouver les aides et leur provenance, lire la réponse native et ses alternatives puis retrouver cette conversation après réouverture ; modifier le profil ou retirer une aide donne une limite explicite sans appel supposé réussi.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "high",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R1",
+        "R3",
+        "R4",
+        "R8",
+        "R10"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        17,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 3,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Retrouver et choisir les initiatives sans réattribuer les échanges",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Étend le contexte établi par2 aux initiatives découvertes de plusieurs projets et à leur choix explicite ; conserve les anciens rattachements et expose l’absence d’initiative. La sélection locale et toute éventuelle écriture de configuration BMad sont distinguées selon le contrat qualifié par1 ; aucune navigation ne modifie silencieusement le projet. Fournit les identités et révisions de contexte aux preuves et aux mesures.",
+      "verify": "Ouvrir deux projets ayant plusieurs initiatives, changer la sélection puis rouvrir Madness : chaque action vise l’initiative choisie, les anciens échanges restent inchangés et les fichiers de configuration ne changent pas par simple navigation ; un contexte devenu invalide refuse l’action concernée.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "high",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R1",
+        "R4",
+        "R12"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        2,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 4,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Lire le parcours et ses preuves à la bonne révision",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Projette étapes, tickets avec ou sans feuille, plans, livrables et statuts depuis les formats G2 et le contexte de3. Chaque fait, déduction, proposition ou acceptation identifiable renvoie à sa preuve et révision ; l’absence reste inconnue. Fournit les identités de preuves/fichiers/US consommées par actualisation, aperçu et qualification des mesures.",
+      "verify": "Comparer des projets témoins aux artefacts sources, ouvrir les preuves de chaque étape et constater qu’un fichier présent, un plan built ou une fin de tour n’invente pas une validation humaine ; les entrées TOML sans feuille et preuves contradictoires gardent leur provenance.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "high",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R5",
+        "R7"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        3,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 5,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Actualiser les preuves après des changements externes",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Actualise les projections et identités de4 lorsqu’un fichier change hors de Madness, avec invalidation des résultats anciens et contrôle avant action. Regroupe les événements de fichiers sans perdre le brouillon, attribuer un auteur/session inconnus ou appliquer une ancienne acceptation à de nouveaux octets. Fournit cette fraîcheur au catalogue, à l’aide et aux aperçus.",
+      "verify": "Modifier, supprimer et remplacer un artefact pendant une saisie puis pendant une lecture : nouvelle preuve et révision visibles, ancien accord conservé sur son ancien contenu, saisie intacte et action refusée si ses préconditions ont changé.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "high",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R3",
+        "R6",
+        "R7"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        4,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 6,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Explorer le catalogue réellement installé et ses fiches",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Expose la découverte sourcée de1 et la fraîcheur de5 : recherche et filtres sur toutes les compétences invocables présentes, modules et outils transversaux, sans quota figé. Chaque fiche explique objectif, invocation exacte copiable, entrées, conditions, effets et capacité disponible ou manquante. Métadonnées bmod et références absentes ne deviennent pas des actions exécutables. Fournit les fiches qualifiées au lancement7.",
+      "verify": "Ajouter ou retirer une compétence et un module dans un témoin, chercher par intention/nom/invocation puis ouvrir une fiche : l’inventaire évolue, copie exacte confirmée, vide et indisponibilité sont expliqués, aucun modèle ni opération déclenché par consultation.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "medium",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R8",
+        "R9",
+        "R10",
+        "R13"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        5,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 7,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Lancer les actions qualifiées du catalogue dans la conversation",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Relie les fiches de6 à la voie unique du cœur et du connecteur, en étendant les profils prouvés par1 sans redéfinir les garanties du dialogue. Capture contexte/invocation/entrées/effets puis rejoint l’échange corrélé ; conditions de chaque workflow, choix et mode autonome autorisé respectés. Une action installée dont des capacités restent non qualifiées explique précisément son indisponibilité. Fournit cette voie commune aux parcours fichiers et accueil suivants.",
+      "verify": "Depuis plusieurs fiches de profils qualifiés, lancer explicitement et traiter leurs questions/accords dans le bon projet ; contexte changé ou capacité manquante refuse avant effet. Vérifier invocations et reçus/fichiers réels selon les conditions du workflow, sans simple succès de texte ou second moteur.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "high",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R8",
+        "R9",
+        "R10"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        6,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 8,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Consulter les livrables et demander leur ouverture dans l’éditeur",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Utilise identités et fraîcheur de4/5 avec le contexte et les actions de7 pour un aperçu intégré agrandissable et une demande d’ouverture éditeur. Chemin, provenance, portée et statut connus restent lisibles ; contenu non fiable ne s’exécute pas. Fournit à l’epic3 la preuve de retour éditeur pour sa contribution G3, et le panneau réutilisable par le graphe futur.",
+      "verify": "Ouvrir et agrandir un livrable témoin, garder la saisie et demander l’éditeur : retour observable ou échec connu, copie exacte disponible. Fichier inaccessible, modifié ou hors portée est refusé sans contenu exécuté ni fausse preuve de lecture humaine.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "high",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R5",
+        "R6",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        7,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 9,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Retrouver son travail et ses attentes entre plusieurs projets",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Réconcilie récents, initiatives et preuves actualisées avec les destinations de conversation/fichier de8 et la projection d’attentes existante. Accueil et projet distinguent travail présent, attente répondable, relecture, interruption, erreur et historique ; retour exact sans perte de saisie ni réattribution. Fournit un paquet et contexte stables à la qualification de mesure10 et aux contrats/variantes suivants.",
+      "verify": "Depuis l’accueil puis un autre projet, rejoindre chaque attente et chaque preuve corrélée, revenir à la saisie et redimensionner/replier la navigation ; demandes anciennes restent inactives, sélection et brouillon exacts après réouverture.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "medium",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R1",
+        "R2",
+        "R4",
+        "R7",
+        "R12",
+        "R13"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        8,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 10,
+      "file": null,
+      "type": "spike",
+      "tracker_id": "",
+      "title": "Cadrer le temps par US et qualifier les données d’usage Codex",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Sur le paquet figé fourni par9 et les identités de4, instruit Q8/Q9 sans modifier les sources produit : propositions de temps et rattachement, puis preuves des champs réellement exposés par SIWC/Codex, sémantique et déduplication. Distingue schémas et événements observés, local/natif, couverture et indisponibilité ; montant/devise inconnus restent inconnus. Consigne la réponse et fixtures expurgées dans qualification-mesures-us/decisions-et-donnees.md sous cet epic et fournit à12/11 les décisions et qualifications nécessaires, à faire arrêter explicitement par Sofia/Winston sous mandat.",
+      "verify": "Relire une matrice sourcée disponible/non prouvé et des fixtures expurgées couvrant attentes, interruption, terminal absent, doublons/retards, plusieurs conversations/US et réouverture ; constater que ni durée de timeout, ni agrégat de compte, ni tarif API ne devient un temps/coût d’abonnement par US.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "high",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R15"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        9,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 12,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Définir avec Sally le parcours des mesures par US",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Après décisions Q8/Q9 et qualification10, définit avec Sally et Impeccable le rattachement et la consultation des mesures par US : données connues, couverture, indisponibilité et règles de langue des nouveaux champs. Prolonge les contrats généraux fournis par17, sans changer palette ou composition. Fournit ces règles avant les contrats/collecte11 et le parcours/affichage13 ; aucun montant ou mesure choisi par défaut.",
+      "verify": "À partir des règles arrêtées et preuves10, parcourir les états de rattachement et consultation connus/inconnus/partiels dans les contrats et références UX ; vérifier provenance, couverture, absence de coût inventé et déclinaisons françaises/anglaises avant toute implémentation11/13.",
+      "unknown": "Q8/Q9 ont-elles des décisions et preuves explicites sur le temps, le rattachement, les données disponibles et la déduplication avant de définir le parcours des mesures ?",
+      "references": [],
+      "notes": [],
+      "risk": "medium",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R13",
+        "R14",
+        "R15"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        10,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 11,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Conserver les mesures sourcées et leur rattachement aux US",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Après décisions Q8/Q9, qualification10 et parcours Sally12, établit sous l’autorité du cœur les extensions versionnées identitéUS/mesure/événements/connecteur/persistance, avec correspondance des identités locales et natives. S’appuie sur le contexte stabilisé par9 ; collecte/normalise seulement les données qualifiées, agrège sans doubles comptes et conserve couverture, inconnus et erreurs atomiquement. Fournit le modèle et les commandes au parcours utilisateur13, sans nouvelle UI dans11 ni réécriture des plans built de1.",
+      "verify": "Dans un banc sans nouvelle UI, rattacher selon les règles décidées plusieurs tours et conversations à des US témoins, réémettre événements et retards puis fermer/rouvrir : mêmes mesures sourcées sans duplication, historiques inconnus, contexte exact et échec disque sans réussite durable inventée. Les commandes utilisateur sont vérifiées en13 après12.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "high",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R4",
+        "R7",
+        "R15"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        9,
+        10,
+        12,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 13,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Consulter le temps et le coût connus d’une US",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Livre le parcours utilisateur de rattachement et consultation décidé par12 sur le modèle11 dans le contexte du projet/initiative/US : définition, source, intervalle, couverture et données partielles ou indisponibles. Rend le rattachement identifiable et les agrégats compréhensibles sans facturation inventée ; aucune durée rétrospective déduite des historiques. Fournit ses chaînes et états à la traduction14.",
+      "verify": "Ouvrir plusieurs US avec mesure connue, zéro connu, données partielles et coût absent ; expliquer chaque valeur par sa provenance et couverture, puis changer d’US et rouvrir sans mélanger les mesures ni relancer un agent.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "high",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R7",
+        "R15"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        11,
+        12,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 14,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Utiliser les parcours en français ou en anglais dans les deux thèmes",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Met en œuvre les variantes générales de17 et les compléments de mesure de12 sur toutes les surfaces intégrées jusqu’à13, sans traduire identifiants, invocations, chemins ou artefacts. Choix de langue conservé avec échecs explicites ; thème existant réutilisé. Vérifie navigation, clavier/focus, zoom, redimensionnement et conservation de saisie sur la version complète de l’epic avant le sweep.",
+      "verify": "Changer de langue et de thème pendant rédaction et consultation d’une demande, replier/redimensionner puis rouvrir : interface traduite cohérente, contenu projet exact, saisie/contexte et décisions préservés ; stockage refusé ne prétend pas une préférence sauvegardée.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "medium",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        13,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 15,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Refactor sweep",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Nettoie uniquement les constats de revue et dettes effectivement différés par les plans1–14 et17, à relire au démarrage ; aucune fonctionnalité poussée hors d’une story ne devient du nettoyage. Préserve les contrats, qualifications, données et tous les comportements vérifiés, puis fournit la version nettoyée à16.",
+      "verify": "Rapprocher la liste des constats différés des plans et de leurs preuves ; aucun point de nettoyage acquis sans correction/recontrôle, suite appropriée verte et aucun besoin produit absorbé implicitement.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "medium",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        1,
+        17,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        11,
+        13,
+        14,
+        "1.11"
+      ],
+      "entry_after": null
+    },
+    {
+      "epic": "real-board",
+      "id": 16,
+      "file": null,
+      "type": "story",
+      "tracker_id": "",
+      "title": "Vérifier les parcours intégrés et les preuves G2 et éditeur",
+      "status": "",
+      "tracker_status": "",
+      "state": "planned",
+      "assignee": "",
+      "refined": false,
+      "refine": false,
+      "description": "Qualifie le paquet Windows issu du sweep : projets/initiatives existants, diagnostic G2, aide native et catalogue réel, preuves/changements externes, aperçu/retour éditeur G3, attentes, mesures R32 et variantes. Vérifie restauration et remplacement avec données conservées, publie seulement les profils/capacités prouvés et transmet les preuves à l’epic3 ; aucune clôture G4/G5 ou V1 complète par ce seul lot.",
+      "verify": "Sur projets représentatifs et machine cible, accomplir les parcours intégrés, cas de refus/inconnu, changements externes et restauration/remplacement dans le paquet exact ; matrice R1–R15 et limites G2/G3 relues indépendamment, sans assimilation du prototype ou d’un accord synthétique à une validation humaine globale.",
+      "unknown": "",
+      "references": [],
+      "notes": [],
+      "risk": "high",
+      "hitl": false,
+      "plan_checkpoint": false,
+      "done_checkpoint": false,
+      "covers": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15"
+      ],
+      "estimate": "",
+      "blocked_at": "",
+      "blocked_reason": "",
+      "raw_after": [
+        15,
+        "1.11"
+      ],
+      "entry_after": null
+    }
+  ],
+  "sources": {
+    "entries": [
+      {
+        "id": 1,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 1,
+          "type": "spike",
+          "title": "Qualifier le profil BMad existant et les contrats de guidage",
+          "description": "Qualifie les primitives et un profil candidat G2 pour les formats et racines réellement présents, découverte/knowledge/aides, initiatives et tickets sans feuille ; détermine les contrats et capacités nécessaires à l’aide native puis au catalogue, sous l’autorité du cœur et de Winston. Consigne sa réponse dans qualification-profil-g2/profil-g2.md sous cet epic, sans clôturer G2 intégré, et fournit au tracer2 un profil de référence, ses lectures/effets permis et les refus prouvés, sans déduire la compatibilité du seul numéro de version.",
+          "verify": "Sur fixtures v7 représentatives et installation locale, relire la matrice absence/ancien/inconnu/partiel/personnalisé, les frontières canoniques et le contrat de contexte/invocation ; constater les capacités prouvées et les inconnues restantes avant2.",
+          "covers": [
+            "R1",
+            "R3",
+            "R4",
+            "R8",
+            "R9",
+            "R10"
+          ],
+          "after": [
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "high",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 17,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 17,
+          "type": "story",
+          "title": "Définir avec Sally les parcours de guidage et de fichiers",
+          "description": "Après le profil et les limites de1, complète les contrats UX adoptés avant leurs consommateurs : aide native et recommandation, catalogue/fiches, choix d’initiative, preuves/actualisation, aperçu/éditeur et accueil multi-projet. Définit les variantes françaises/anglaises et les états d’accès/refus selon ces capacités, en conservant la refonte et les deux thèmes. Fournit les références au tracer2 et aux parcours3–9 ; R32 est complété par12 après ses décisions10.",
+          "verify": "Parcourir dans les contrats et références chaque destination, attente, erreur et retour au travail, y compris choix d’initiative et aperçu, clavier/zoom et conservation ; aucune compétence non qualifiée présentée lançable ni validation humaine inventée. Réconcilier les états avec le profil1 avant tout code2–9.",
+          "covers": [
+            "R1",
+            "R2",
+            "R3",
+            "R4",
+            "R5",
+            "R6",
+            "R7",
+            "R8",
+            "R9",
+            "R10",
+            "R11",
+            "R12",
+            "R13",
+            "R14"
+          ],
+          "after": [
+            1,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "medium",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 2,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 2,
+          "type": "story",
+          "title": "Obtenir une prochaine action avec l’aide BMad du projet",
+          "description": "Livre le tracer depuis un projet BMad existant : diagnostic de référence, aide des modules réellement chargée puis recommandation de l’agent dans une conversation native bmad avec invocation visible. Réutilise le dialogue de1 ; met en œuvre le profil et les contrats qualifiés par2.1, conserve saisie et contexte, distingue aide chargée et réponse produite. Fournit le chemin de référence au catalogue et au choix d’initiative suivants.",
+          "verify": "Dans le paquet Windows, ouvrir un projet de référence, demander Que faire ensuite, retrouver les aides et leur provenance, lire la réponse native et ses alternatives puis retrouver cette conversation après réouverture ; modifier le profil ou retirer une aide donne une limite explicite sans appel supposé réussi.",
+          "covers": [
+            "R1",
+            "R3",
+            "R4",
+            "R8",
+            "R10"
+          ],
+          "after": [
+            17,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "high",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 3,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 3,
+          "type": "story",
+          "title": "Retrouver et choisir les initiatives sans réattribuer les échanges",
+          "description": "Étend le contexte établi par2 aux initiatives découvertes de plusieurs projets et à leur choix explicite ; conserve les anciens rattachements et expose l’absence d’initiative. La sélection locale et toute éventuelle écriture de configuration BMad sont distinguées selon le contrat qualifié par1 ; aucune navigation ne modifie silencieusement le projet. Fournit les identités et révisions de contexte aux preuves et aux mesures.",
+          "verify": "Ouvrir deux projets ayant plusieurs initiatives, changer la sélection puis rouvrir Madness : chaque action vise l’initiative choisie, les anciens échanges restent inchangés et les fichiers de configuration ne changent pas par simple navigation ; un contexte devenu invalide refuse l’action concernée.",
+          "covers": [
+            "R1",
+            "R4",
+            "R12"
+          ],
+          "after": [
+            2,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "high",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 4,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 4,
+          "type": "story",
+          "title": "Lire le parcours et ses preuves à la bonne révision",
+          "description": "Projette étapes, tickets avec ou sans feuille, plans, livrables et statuts depuis les formats G2 et le contexte de3. Chaque fait, déduction, proposition ou acceptation identifiable renvoie à sa preuve et révision ; l’absence reste inconnue. Fournit les identités de preuves/fichiers/US consommées par actualisation, aperçu et qualification des mesures.",
+          "verify": "Comparer des projets témoins aux artefacts sources, ouvrir les preuves de chaque étape et constater qu’un fichier présent, un plan built ou une fin de tour n’invente pas une validation humaine ; les entrées TOML sans feuille et preuves contradictoires gardent leur provenance.",
+          "covers": [
+            "R5",
+            "R7"
+          ],
+          "after": [
+            3,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "high",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 5,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 5,
+          "type": "story",
+          "title": "Actualiser les preuves après des changements externes",
+          "description": "Actualise les projections et identités de4 lorsqu’un fichier change hors de Madness, avec invalidation des résultats anciens et contrôle avant action. Regroupe les événements de fichiers sans perdre le brouillon, attribuer un auteur/session inconnus ou appliquer une ancienne acceptation à de nouveaux octets. Fournit cette fraîcheur au catalogue, à l’aide et aux aperçus.",
+          "verify": "Modifier, supprimer et remplacer un artefact pendant une saisie puis pendant une lecture : nouvelle preuve et révision visibles, ancien accord conservé sur son ancien contenu, saisie intacte et action refusée si ses préconditions ont changé.",
+          "covers": [
+            "R3",
+            "R6",
+            "R7"
+          ],
+          "after": [
+            4,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "high",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 6,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 6,
+          "type": "story",
+          "title": "Explorer le catalogue réellement installé et ses fiches",
+          "description": "Expose la découverte sourcée de1 et la fraîcheur de5 : recherche et filtres sur toutes les compétences invocables présentes, modules et outils transversaux, sans quota figé. Chaque fiche explique objectif, invocation exacte copiable, entrées, conditions, effets et capacité disponible ou manquante. Métadonnées bmod et références absentes ne deviennent pas des actions exécutables. Fournit les fiches qualifiées au lancement7.",
+          "verify": "Ajouter ou retirer une compétence et un module dans un témoin, chercher par intention/nom/invocation puis ouvrir une fiche : l’inventaire évolue, copie exacte confirmée, vide et indisponibilité sont expliqués, aucun modèle ni opération déclenché par consultation.",
+          "covers": [
+            "R8",
+            "R9",
+            "R10",
+            "R13"
+          ],
+          "after": [
+            5,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "medium",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 7,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 7,
+          "type": "story",
+          "title": "Lancer les actions qualifiées du catalogue dans la conversation",
+          "description": "Relie les fiches de6 à la voie unique du cœur et du connecteur, en étendant les profils prouvés par1 sans redéfinir les garanties du dialogue. Capture contexte/invocation/entrées/effets puis rejoint l’échange corrélé ; conditions de chaque workflow, choix et mode autonome autorisé respectés. Une action installée dont des capacités restent non qualifiées explique précisément son indisponibilité. Fournit cette voie commune aux parcours fichiers et accueil suivants.",
+          "verify": "Depuis plusieurs fiches de profils qualifiés, lancer explicitement et traiter leurs questions/accords dans le bon projet ; contexte changé ou capacité manquante refuse avant effet. Vérifier invocations et reçus/fichiers réels selon les conditions du workflow, sans simple succès de texte ou second moteur.",
+          "covers": [
+            "R8",
+            "R9",
+            "R10"
+          ],
+          "after": [
+            6,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "high",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 8,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 8,
+          "type": "story",
+          "title": "Consulter les livrables et demander leur ouverture dans l’éditeur",
+          "description": "Utilise identités et fraîcheur de4/5 avec le contexte et les actions de7 pour un aperçu intégré agrandissable et une demande d’ouverture éditeur. Chemin, provenance, portée et statut connus restent lisibles ; contenu non fiable ne s’exécute pas. Fournit à l’epic3 la preuve de retour éditeur pour sa contribution G3, et le panneau réutilisable par le graphe futur.",
+          "verify": "Ouvrir et agrandir un livrable témoin, garder la saisie et demander l’éditeur : retour observable ou échec connu, copie exacte disponible. Fichier inaccessible, modifié ou hors portée est refusé sans contenu exécuté ni fausse preuve de lecture humaine.",
+          "covers": [
+            "R5",
+            "R6",
+            "R11",
+            "R12",
+            "R13"
+          ],
+          "after": [
+            7,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "high",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 9,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 9,
+          "type": "story",
+          "title": "Retrouver son travail et ses attentes entre plusieurs projets",
+          "description": "Réconcilie récents, initiatives et preuves actualisées avec les destinations de conversation/fichier de8 et la projection d’attentes existante. Accueil et projet distinguent travail présent, attente répondable, relecture, interruption, erreur et historique ; retour exact sans perte de saisie ni réattribution. Fournit un paquet et contexte stables à la qualification de mesure10 et aux contrats/variantes suivants.",
+          "verify": "Depuis l’accueil puis un autre projet, rejoindre chaque attente et chaque preuve corrélée, revenir à la saisie et redimensionner/replier la navigation ; demandes anciennes restent inactives, sélection et brouillon exacts après réouverture.",
+          "covers": [
+            "R1",
+            "R2",
+            "R4",
+            "R7",
+            "R12",
+            "R13"
+          ],
+          "after": [
+            8,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "medium",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 10,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 10,
+          "type": "spike",
+          "title": "Cadrer le temps par US et qualifier les données d’usage Codex",
+          "description": "Sur le paquet figé fourni par9 et les identités de4, instruit Q8/Q9 sans modifier les sources produit : propositions de temps et rattachement, puis preuves des champs réellement exposés par SIWC/Codex, sémantique et déduplication. Distingue schémas et événements observés, local/natif, couverture et indisponibilité ; montant/devise inconnus restent inconnus. Consigne la réponse et fixtures expurgées dans qualification-mesures-us/decisions-et-donnees.md sous cet epic et fournit à12/11 les décisions et qualifications nécessaires, à faire arrêter explicitement par Sofia/Winston sous mandat.",
+          "verify": "Relire une matrice sourcée disponible/non prouvé et des fixtures expurgées couvrant attentes, interruption, terminal absent, doublons/retards, plusieurs conversations/US et réouverture ; constater que ni durée de timeout, ni agrégat de compte, ni tarif API ne devient un temps/coût d’abonnement par US.",
+          "covers": [
+            "R15"
+          ],
+          "after": [
+            9,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "high",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 12,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 12,
+          "type": "story",
+          "title": "Définir avec Sally le parcours des mesures par US",
+          "description": "Après décisions Q8/Q9 et qualification10, définit avec Sally et Impeccable le rattachement et la consultation des mesures par US : données connues, couverture, indisponibilité et règles de langue des nouveaux champs. Prolonge les contrats généraux fournis par17, sans changer palette ou composition. Fournit ces règles avant les contrats/collecte11 et le parcours/affichage13 ; aucun montant ou mesure choisi par défaut.",
+          "verify": "À partir des règles arrêtées et preuves10, parcourir les états de rattachement et consultation connus/inconnus/partiels dans les contrats et références UX ; vérifier provenance, couverture, absence de coût inventé et déclinaisons françaises/anglaises avant toute implémentation11/13.",
+          "covers": [
+            "R13",
+            "R14",
+            "R15"
+          ],
+          "after": [
+            10,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "medium",
+          "unknown": "Q8/Q9 ont-elles des décisions et preuves explicites sur le temps, le rattachement, les données disponibles et la déduplication avant de définir le parcours des mesures ?",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 11,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 11,
+          "type": "story",
+          "title": "Conserver les mesures sourcées et leur rattachement aux US",
+          "description": "Après décisions Q8/Q9, qualification10 et parcours Sally12, établit sous l’autorité du cœur les extensions versionnées identitéUS/mesure/événements/connecteur/persistance, avec correspondance des identités locales et natives. S’appuie sur le contexte stabilisé par9 ; collecte/normalise seulement les données qualifiées, agrège sans doubles comptes et conserve couverture, inconnus et erreurs atomiquement. Fournit le modèle et les commandes au parcours utilisateur13, sans nouvelle UI dans11 ni réécriture des plans built de1.",
+          "verify": "Dans un banc sans nouvelle UI, rattacher selon les règles décidées plusieurs tours et conversations à des US témoins, réémettre événements et retards puis fermer/rouvrir : mêmes mesures sourcées sans duplication, historiques inconnus, contexte exact et échec disque sans réussite durable inventée. Les commandes utilisateur sont vérifiées en13 après12.",
+          "covers": [
+            "R4",
+            "R7",
+            "R15"
+          ],
+          "after": [
+            9,
+            10,
+            12,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "high",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 13,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 13,
+          "type": "story",
+          "title": "Consulter le temps et le coût connus d’une US",
+          "description": "Livre le parcours utilisateur de rattachement et consultation décidé par12 sur le modèle11 dans le contexte du projet/initiative/US : définition, source, intervalle, couverture et données partielles ou indisponibles. Rend le rattachement identifiable et les agrégats compréhensibles sans facturation inventée ; aucune durée rétrospective déduite des historiques. Fournit ses chaînes et états à la traduction14.",
+          "verify": "Ouvrir plusieurs US avec mesure connue, zéro connu, données partielles et coût absent ; expliquer chaque valeur par sa provenance et couverture, puis changer d’US et rouvrir sans mélanger les mesures ni relancer un agent.",
+          "covers": [
+            "R7",
+            "R15"
+          ],
+          "after": [
+            11,
+            12,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "high",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 14,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 14,
+          "type": "story",
+          "title": "Utiliser les parcours en français ou en anglais dans les deux thèmes",
+          "description": "Met en œuvre les variantes générales de17 et les compléments de mesure de12 sur toutes les surfaces intégrées jusqu’à13, sans traduire identifiants, invocations, chemins ou artefacts. Choix de langue conservé avec échecs explicites ; thème existant réutilisé. Vérifie navigation, clavier/focus, zoom, redimensionnement et conservation de saisie sur la version complète de l’epic avant le sweep.",
+          "verify": "Changer de langue et de thème pendant rédaction et consultation d’une demande, replier/redimensionner puis rouvrir : interface traduite cohérente, contenu projet exact, saisie/contexte et décisions préservés ; stockage refusé ne prétend pas une préférence sauvegardée.",
+          "covers": [
+            "R12",
+            "R13",
+            "R14"
+          ],
+          "after": [
+            13,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "medium",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 15,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 15,
+          "type": "story",
+          "title": "Refactor sweep",
+          "description": "Nettoie uniquement les constats de revue et dettes effectivement différés par les plans1–14 et17, à relire au démarrage ; aucune fonctionnalité poussée hors d’une story ne devient du nettoyage. Préserve les contrats, qualifications, données et tous les comportements vérifiés, puis fournit la version nettoyée à16.",
+          "verify": "Rapprocher la liste des constats différés des plans et de leurs preuves ; aucun point de nettoyage acquis sans correction/recontrôle, suite appropriée verte et aucun besoin produit absorbé implicitement.",
+          "covers": [],
+          "after": [
+            1,
+            17,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            12,
+            11,
+            13,
+            14,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "medium",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      },
+      {
+        "id": 16,
+        "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "fields": {
+          "id": 16,
+          "type": "story",
+          "title": "Vérifier les parcours intégrés et les preuves G2 et éditeur",
+          "description": "Qualifie le paquet Windows issu du sweep : projets/initiatives existants, diagnostic G2, aide native et catalogue réel, preuves/changements externes, aperçu/retour éditeur G3, attentes, mesures R32 et variantes. Vérifie restauration et remplacement avec données conservées, publie seulement les profils/capacités prouvés et transmet les preuves à l’epic3 ; aucune clôture G4/G5 ou V1 complète par ce seul lot.",
+          "verify": "Sur projets représentatifs et machine cible, accomplir les parcours intégrés, cas de refus/inconnu, changements externes et restauration/remplacement dans le paquet exact ; matrice R1–R15 et limites G2/G3 relues indépendamment, sans assimilation du prototype ou d’un accord synthétique à une validation humaine globale.",
+          "covers": [
+            "R1",
+            "R2",
+            "R3",
+            "R4",
+            "R5",
+            "R6",
+            "R7",
+            "R8",
+            "R9",
+            "R10",
+            "R11",
+            "R12",
+            "R13",
+            "R14",
+            "R15"
+          ],
+          "after": [
+            15,
+            "1.11"
+          ],
+          "hitl": false,
+          "risk": "high",
+          "plan_checkpoint": false,
+          "done_checkpoint": false
+        }
+      }
+    ],
+    "leaves": [],
+    "plans": [
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\spike-qualifier-le-profil-bmad-existant-et-les-contrats-de-guidage-plan.md",
+        "sha256": "894408c75bca182c1217fce5c0b04e2469b31cfc3bc917242585ceff98e8a29d",
+        "content": "---\ntitle: 'Qualifier le profil BMad existant et les contrats de guidage'\ntype: 'chore'\nticket: '1'\ncreated: '2026-10-28'\nstatus: 'in-progress'\nbaseline_revision: 'ebe2bb3c5279fcb95bd48e0a0da917bce04dddfb'\nroute: 'full'\nroute_source: 'auto'\nrisk: 'high'\nreview: 'quick'\nreview_source: 'pinned'\nlenses_ran: ['quick']\nreview_loop_iteration: 1\ncontext:\n  - '{project-root}/AGENTS.md'\n  - '{project-root}/_bmad-output/initiative-madness/tickets/epic-projets-bmad/epic-projets-bmad.md'\n  - '{project-root}/_bmad-output/initiative-madness/architecture-madness/architecture-madness.md'\n  - '{project-root}/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-profil-g2/rederivation.md'\n---\n\n<frozen-after-approval reason=\"human-owned intent — do not modify unless human renegotiates\">\n\n## Intent\n\n**Problem:** Madness sait exécuter deux profils épinglés, Mary et Forge, mais ne qualifie pas encore les projets BMad ouverts, leurs aides, compétences, initiatives et tickets. Leur seule présence ou la mention v7 ne permet pas de promettre un guidage exécutable.\n\n**Approach:** Qualifier hors produit un profil candidat G2, sur l’installation locale et des fixtures représentatives, avec un banc reproductible en lecture seule. Consigner capacités, refus et contrats de contexte/aide/invocation dans `qualification-profil-g2/profil-g2.md`, pour Sally2.17 puis le tracer2.2. Risque élevé : une découverte trop permissive pourrait lire hors portée ou transformer des fichiers non fiables en commandes.\n\n## Boundaries & Constraints\n\n**Always:** Sources et limites exactes ; chemins canoniques et racines explicitement autorisées, priorité conservée ; lecteurs bornés, UTF-8 strict, refus de liens/reparse points/hardlinks sur les chemins exploités ; empreinte/révision et contrôle de changement avant action. Profil par capacités indépendantes, états diagnostic sourcés et inconnus conservés. Outils de provenance maîtrisée seulement, scripts et runtime épinglés ; aucun code fourni par une fixture ou un projet ouvert n’est exécuté. Tests Windows réels des frontières et traces expurgées. Une commande copiable n’est pas une capacité lançable. Aucun accord humain ni statut inventé.\n\n**Never:** Modifier `src/`, tests produit, dépendances, scripts gérés BMad, configuration personnelle, installation ou coffre ; réseau, OAuth, fournisseur ou modèle ; exécuter `setup --status` (il consulte GitHub), migrations, hooks, ou `render_skill` comme simple sonde. Aucun G2 intégré clos, catalogue/aide native livrés, nouvelle UI, persistance de sélection ou initialisation de projet dans ce spike. Aucun cache réseau intégré implicitement ni nouvelle dépendance d’epic. Aucune limite éditoriale en tokens.\n\n## I/O & Edge-Case Matrix\n\n| Scénario | Entrée / état | Résultat attendu | Erreur / limite |\n|---|---|---|---|\n| M1 | Installation locale exacte `6.13.0-next` | Inventaire sourcé modules, compétences, aides, personnalisation, contexte et tickets sans feuille ; empreintes avant/après identiques | Capacités intégrées non prouvées restent indisponibles |\n| M2 | Projet sans BMad ; structure ancienne reconnue ; version future/inconnue | Absence, ancien observé et inconnu distingués avec raisons | Aucun lancement supposé compatible |\n| M3 | Manifestes manquants, TOML invalide, dépendance/appartenance incohérente, SKILL absent | Partiel ou incompatible selon preuve ; capacités touchées bloquées | Ne pas promouvoir un dossier en compétence lançable |\n| M4 | Racines projet/utilisateur avec collision de nom, y compris masque local sans record | Priorité officielle par nom de dossier ; copie masquée non réactivée | Racines externes non autorisées refusées |\n| M5 | Record `bmod` seul, record+skill, compétence/module manquant | Métadonnées séparées des invocables ; appartenance et invocation exacte sourcées | Présence ne vaut pas runtime qualifié |\n| M6 | Aide implicite, knowledge explicite, topics et migrations | Provenance, contenu chargé ou référence seule distingués, migration jamais exécutée | Aide absente/illisible/hors portée explicitement indisponible |\n| M7 | Config centrale et compétence à trois couches, override user, tableaux code/id ; TOML invalide | Fusion officielle constatée ; `_bmad/config.user.toml` ignoré | Personnalisation résolue ne vaut pas autorisation d’exécution |\n| M8 | Initiative absente, multiple, active et choix Madness divergent | Contexte résolu et sélection locale séparés ; conflit avant invocation | Aucune écriture de configuration ni réattribution d’historique |\n| M9 | Output hors projet, chemins relatifs/absolus et traversal | Frontière canonique du profil et refus explicite | Un comportement permis par BMad n’élargit pas implicitement Madness |\n| M10 | Liens/jonctions Windows et hardlinks vers extérieur, remplacement d’un ancêtre | Refus avant lecture exploitable ou appel d’outil | Prouver réellement le cas Windows, aucun skip vert |\n| M11 | UTF-8 invalide, taille/nombre/profondeur excessifs | Lecture/énumération bornées, erreur typée et capacité limitée | Ne pas tronquer silencieusement une aide |\n| M12 | Source modifiée entre découverte/lecture/action, référence devenue absente | Révision différente/invalidation et refus de l’ancienne invocation | Aucun ancien reçu présenté frais |\n| M13 | Entrée tickets TOML sans feuille, plan présent/absent, statut contradictoire | Identités et chaque preuve conservées ; statut du plan sourcé séparément | Présence/built ne devient pas validation humaine |\n| M14 | Compétence installée non qualifiée, script ou hook non fiable | Aide descriptive possible si sûre ; lancement refusé, aucune exécution | Commande exacte conservée sans promesse de support |\n| M15 | Fixtures et installation observées via outils locaux contrôlés | Zéro réseau/agent/écriture réelle ; fixtures nettoyées même en échec | Échec d’instrumentation conservé, aucune réussite supposée |\n\n</frozen-after-approval>\n\n## Code Map\n\n- Reprise1 après revue : les fonctions officielles ne remplacent pas les gardes du profil. Les précisions ci-dessous et `rederivation.md` règlent six contre-exemples sans changer l’intention figée. Le ZIP `iteration-0.zip` conserve intégralement le premier banc/proofs ; lire ses sources pour préserver les cas utiles, sans exécuter l’ancienne voie.\n- `src/adapters/bmad/runtime.ts:8–26`, `profile.ts:65` : reprendre réellement le modèle de runtime de base hors projet, empreinte des DLL/stdlib/pth et `-I -S -B`, environnement filtré ; ne pas lancer le redirecteur venv. Les deux EXE seuls et `pyvenv.cfg` mutable ne qualifient pas le runtime. Aucun vrai runtime ni sa configuration ne doit être modifié pour tester ; éprouver la sélection et les empreintes sur copies possédées/fixtures.\n- `roster.py:agent_identity` masque ConfigError : prévalider les personnalisations effectivement exploitées, conserver les erreurs sourcées/refuser la capacité au lieu d’une identité de repli inexpliquée. `knowledge` exige aussi la relation inverse module→compétence : une compétence déclarée par un autre module est une contradiction, pas seulement une présence globale.\n- `tickets.py:join_plans` écrase les champs de feuille : capturer et conserver entrée TOML, feuille, plan, tracker et leurs empreintes/champs séparés avant jointure. La projection officielle reste disponible mais ne remplace pas ces preuves ; aucun reçu uniquement temporaire supprimé au nettoyage.\n- `context()` : collection dédiée des seuls fichiers d’initiative exploités, bornée cumulativement avec leur configuration, noms/identités/empreintes dans un reçu de contexte distinct de celui des skills. Recapture et invalidation sur changement d’initiative indépendamment des skills ; pas de scan récursif aveugle de tous les livrables binaires. Éprouver17fichiers de1Mio contre la limite16Mio, et modification à skills inchangés.\n- Reproduction : vérification du reçu existant strictement en lecture seule. Chaque nouvelle exécution écrit ses preuves dans un emplacement neuf possédé sans remplacer les preuves scellées ; sélection/promotion et scellement sont explicites. Éprouver réellement cette séquence, pas seulement corriger une phrase. `uv run --offline --no-project --no-config` reste la voie prescrite des scripts Python.\n\n- `_bmad/scripts/{knowledge,config_utils,resolve_config,resolve_customization,roster}.py` : copies identiques aux sources sous `.agents/skills/bmad/scripts/` selon investigation ; relever à nouveau leurs empreintes. `knowledge.scan` privilégie le premier dossier du même nom même sans record ; `resolve_skill` ne vérifie pas l’exécutabilité. `bmod.toml` porte `6.13.0-next`. Importer/exécuter seulement les outils de provenance épinglée, jamais ceux du projet analysé.\n- `config_utils.py` : trois couches centrales (`config.toml`, custom/config puis custom/config.user) et trois couches compétence (`customize.toml`, custom/skill puis custom/skill.user) ; tableaux code/id remplacent l’élément complet. `knowledge` borne ses aides mais pas les manifestes : le banc doit apporter ses propres préconditions de sûreté.\n- `resolve_customization.py`, `tickets.py` : passer explicitement la racine ; BMad peut résoudre un output externe, le profil Madness doit le refuser. Roster/personas et topics ne prouvent pas invocation.\n- `src/adapters/bmad/profile.ts`, `runtime.ts`, `forge.ts`, `forge-manifest.ts` : références de bornage, canonicité, relecture/identité/empreinte et runtime maîtrisé. Mary/Forge seulement ; pas de découverte ni d’aide générique livrée. Ne pas modifier ces fichiers.\n- `src/core/{ports,dialogue,application}.ts`, `src/contracts/dialogue.ts` : cœur propriétaire des contrats, capture de contexte et reçus ; union d’invocation limitée à Mary/Forge. Les propositions G2 restent documentaires, aucune extension opportuniste.\n- `tests/{dialogue-profile,dialogue-runtime,forge,forge-protocol}.test.mjs` : réutiliser les cas de frontières et courses pertinents sans réexécuter la suite produit inchangée comme preuve G2.\n\n## Tasks & Acceptance\n\n**Execution:**\n- [x] `qualification-profil-g2/{prototype.*,scenarios.*,fixtures-*}` — banc isolé et fixtures jetables, commandes fixes, sorties/durée bornées, aucune exécution de contenu projet ; privilégier les primitives gérées réellement observées, leur préflight et leurs limites plutôt qu’un parseur parallèle prétendument officiel.\n- [x] `qualification-profil-g2/{results.json,sources.md,*.log}` — exécuter chaque ligne M1–M15, enregistrer tests et observations séparément, versions/empreintes, appels et refus, nettoyage et conservation locale.\n- [x] `qualification-profil-g2/profil-g2.md` — répondre au spike : profil exact, états et capacités ; racines/priorité/personnalisation ; contrats documentaires diagnostic, aides/recommandation, contexte/invocation et reçus/provenance ; tickets sans feuille ; décisions de périmètre et inconnus pour2.17/2.2 et clôture future2.16.\n- [x] `qualification-profil-g2/verify.*` — vérificateur fermé des preuves, couverture de matrice et absence de modifications produit/managed ; ne pas lire ni copier coffre/AppData.\n\n**Acceptance Criteria:**\n- Given l’installation et les fixtures définies, when le banc est exécuté, then chaque ligne M1–M15 a une assertion passée sans skip et les capacités retenues renvoient à une preuve ; une limite non testable est signalée sans déclarer le scénario réussi.\n- Given le rapport, when Sally puis le tracer le consomment, then ils disposent d’un contrat précis sous l’autorité du cœur/Winston et de refus reproductibles, sans prétendre G2 intégré ni lancement général.\n- Given ce lot isolé, when les empreintes finales sont comparées, then sources produit/gérées/configurations observées sont inchangées et aucun compte, réseau ou modèle n’a été requis.\n\n## Implementation Notes\n\n2026-10-28 — Complément de reprise1 demandé par le parent avant revue : uv0.13.0 inspecte Python avec `-I -B` sans `-S` (source amont versionnée citée dans sources.md). Pin produit734fichiers conservé et étendu explicitement pour la voie de démarrage : liste exacte d’un `.pth` réel de151octets/SHA2638ce…, seuls imports inconditionnels stdlib épinglés, branche `_distutils_hack` neutralisée par `SETUPTOOLS_USE_DISTUTILS=stdlib` dans l’environnement enfant. Absences de sitecustomize/usercustomize et surcharges de chemin vérifiées avant lancement. Aucun runtime/hook réel modifié. UV réel sur copie exacte, observation du harnais et simulation statique du branchement distingués ; les hooks de fixtures modifiés sont refusés avant lancement, jamais exécutés. Les deux runs précédents et leurs sceaux restent historiques et immuables ; nouveaux runs nécessaires pour ce complément.\n\n2026-10-28 — Reprise1 : primitives sûres du banc archivé conservées, six contre-exemples re-dérivés. Runtime de base hors projet et uv épinglés,734fichiers DLL/stdlib/.pth et pin identique au produit ; contrôle avant premier Python, `-I -S -B`, environnement filtré et temp/cache possédés. Relation réciproque module/skill et prévalidation de l’identité roster ; erreurs sourcées avant repli. Sources brutes/empreintes/champs TOML, feuille, plan et tracker sérialisés avant la jointure officielle. Reçu context-v1 indépendant des skills, trois configurations et seules initiatives exploitées, plafond cumulé16Mio ;17fichiers de1Mio refusés et mutation d’initiative invalidée à skills inchangées. Chaque exécution crée `runs/run-<UUID>/`, scellement create-only et sélection/promotion distincts. Aucun produit/managed/configuration personnelle ni runtime réel modifié.\n\nPremier run reprise1 `run-ff709efe65944deab605bd2b17dace61` :15/15tests,112assertions,20observations,20appels gérés réussis,558inputs identiques, fixtures retirées et63contrôles fermés au scellement explicite. Second run neuf `run-3916a247ce194665972ec45091ea0d66` : mêmes15/15,112assertions,20observations,558inputs et63contrôles. Relecture du premier63/63 après seconde exécution ;16fichiers du premier, sceau compris, identiques individuellement dans reproduction.json. Promotion explicite du premier ; aucun ancien reçu remplacé. Les faits du tour0 ci-dessous sont historiques, archivés, sans équivalence de preuve avec cette reprise ; les revues et le verdict final demeurent au parent.\n\n2026-10-28 — Banc Python isolé livré dans `../qualification-profil-g2/`, sans modification produit/gérée. Les fonctions officielles épinglées `knowledge`, `config_utils`, `roster` et `tickets.load_folder` consomment des snapshots de données précontrôlées ; ni scripts du projet analysé, ni CLI à hook, ni `tickets.central_config` non fiable ne sont exécutés. CPython3.12.14 et scripts verrouillés SHA-256 ; UTF-8 strict, 1Mio/fichier,16Mio/corpus,1024entrées/profondeur12,15s/4Mio par flux. Garde native du handle avant lecture, reparse/hardlinks refusés, révision recapturée avant usage. Worker limité aux seules racines jetables possédées.\n\nInstallation réelle : trois modules6.13.0-next,27compétences,3aides chargées,43topics et2migrations référencés,17entrées sans feuille. Diagnostic partiel : `method` déclare `bmad-retrospective` absent ; absence conservée sans installation. Contrats documentaires proposés au cœur pour Sally2.17/tracer2.2 ; aucune invocation générique ni G2 intégré qualifiés. Premier essai sandbox14/15 (WinError5 création hardlink) conservé ; le final autorisé hors sandbox exerce réellement hardlink/jonction/remplacement d’ancêtre et nettoie ses fixtures. Échec du cache uv initial également conservé, sans succès inventé.\n\n## Plan Change Log\n\n2026-10-28 — Reprise1 déclenchée par Q2/B1/B3 (bad_plan), avec Q1/Q3/B2 (patch) repris dans la réimplémentation cohérente. La Code Map précisait trop peu les garanties absentes des fonctions gérées et l’immuabilité de la preuve lors d’une reproduction. Ajouts : runtime effectif isolé/empreinte complète ; garde de roster et appartenance réciproque ; sources séparées des tickets ; collecte contextuelle bornée/révisionnée ; nouvelle exécution dans un emplacement neuf. État évité : rapport vert annonçant des garanties non exercées ou détruisant son propre reçu. KEEP : M1–M15 réellement exécutés, garde du handle avant lecture, refus NTFS, snapshots sans code projet importé, fusion/knowledge/tickets officiels, absence de runtime générique promis, conservation produit/gérée, nettoyage et échecs historiques explicites. Bloc figé inchangé ; aucun intent_gap ni nouvelle décision produit.\n\n## Review Triage Log\n\n2026-10-28 — Premier tour, Quick + audit high ; six medium, zéro high/low/false/maybe-false, aucun différé. Sources inspectées par parent et résultats initiaux conservés dans iteration-0.zip. Les corrections patch sont reprises avec les trois bad_plan ; pas de correction dispersée avant la réimplémentation.\n\n| Constat | Verdict / route | Vérification parent |\n|---|---|---|\n| Q1 appartenance inverse | medium / patch, repris | `listed_member` contrôle seulement le record de la skill ; member-missing utilise l’ensemble global et accepte une déclaration par un autre module. |\n| Q2 preuves de feuille perdues | medium / bad_plan | `join_plans` fait row.update des champs du plan ; wrapper ne conserve que rows, reçu brut M13 temporaire non sérialisé puis supprimé. |\n| Q3 reproduction détruit le sceau | medium / patch, repris | `scenarios.main` réécrit UUID/date/logs ; `verify` exige les anciens hashes. La procédure sans scellement explicite échoue et écrase le reçu précédent. |\n| B1 runtime incomplet | medium / bad_plan | Verrou initial limité aux deux EXE ; lancement du redirecteur venv sans -S. pyvenv.cfg réel choisit le home et site reste actif avant audit, à la différence du runtime produit. Aucun effet observé n’est déduit. |\n| B2 roster masque TOML invalide | medium / patch, repris | `agent_identity` intercepte ConfigError/OSError et rend {}, sans problème ; M7 ne teste que le chargement direct. |\n| B3 contexte hors plafond/révision | medium / bad_plan | `context` lit directement jusqu’à1024initiatives de1Mio sans TOTAL_LIMIT ni reçu de contexte ; le source_revision M1 porte seulement les skills. |\n\n## Design Notes\n\nMandat humain autonome : plan et décisions nécessaires délégués, sans nouvelle confirmation de routine. Aucun écart d’intention identifié ; les inconnus techniques sont précisément la matière du spike. Route full pour un banc significatif dépassant100 lignes.\n\nLe worker possède seulement les fichiers de qualification décrits et les notes/tâches de ce plan hors bloc figé. Il n’est pas seul dans le dépôt : respecter les autres modifications, ne pas les annuler, s’y adapter. Parent propriétaire des revues, preuves parent, continuité, tickets/epic et commits. Aucun nouveau sous-agent d’implémentation nécessaire.\n\nUne revue Quick fraîche est complétée par une contre-analyse indépendante des frontières canoniques, personnalisations et capacités. Cette seconde lecture répond au contrôle high de l’epic ; lancer les deux avant triage. Aucun rôle Sally ou Winston réellement invoqué ne sera déduit du rôle d’un relecteur technique.\n\n## Verification\n\n- Reprise1 : `& '_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\run.ps1' -Action run` — base épinglée via uv offline/no-project/no-config, sans venv. Première exécution complète autorisée hors sandbox pour ses seuls liens NTFS possédés :15/15tests,112assertions,20observations,558inputs identiques et nettoyage complet.\n- `& '_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\run.ps1' -Action seal -RunId 'run-ff709efe65944deab605bd2b17dace61'` —63/63contrôles ; manifeste054fdc263166f0f82048d7293ed8532e895fa89b9f7ca70ab8eac9d27f20238c. Vérifier le même reçu utilise `-Action verify -RunId <id>` ; aucun sceau ni résultat n’est mis à jour par cette commande.\n- Les commandes/résultats ci-dessous décrivent le tour0 archivé uniquement ; la voie venv n’est plus une reproduction admise de reprise1.\n- Reproduction réelle : même `-Action run`, nouvel id `run-3916a247ce194665972ec45091ea0d66`,15/15tests en127,184s,558inputs identiques et nettoyage complet. `-Action seal -RunId <second>`63/63, puis `-Action verify -RunId <premier>`63/63 et `-Action promote -RunId <premier>`63/63. Reproduction.json conserve les16empreintes avant/après identiques du premier. Second manifestebbc5f6582cb22a1d14c0e8646df680ebcb2f0c2c46d2a64abdb91e038fbe9717 ; journaux first-readonly-verify.log, second-seal.log et promotion.log. Aucune nouvelle exécution ne rafraîchit le verrou ni un sceau précédent.\n\n- Commande finale réellement exécutée depuis la racine : `& 'C:\\Users\\UP60066553\\scoop\\apps\\uv\\current\\uv.exe' run --offline --no-project --no-cache --python 'C:\\Sources\\madness\\.venv\\Scripts\\python.exe' python -B 'C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\scenarios.py'` — 15/15 tests,87assertions,15observations, zéro skip ; 558inputs identiques avant/après et fixtures retirées. Les seuls essais de socket/écriture sont des probes d’audit volontairement refusés, aucun effet réseau ni moteur.\n- `& '.venv\\Scripts\\python.exe' -B '_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\verify.py' --seal` —46/46contrôles fermés ; `evidence-manifest.json` scelle banc, sources et preuves. Reproduction ultérieure sans `--seal` vérifie les empreintes sans les rafraîchir.\n- Durcissement des racines du worker : M15 rouge (`Refusal not raised`) puis vert isolé1/1 et final15/15 ; préflight répété dans le worker. Logs d’instrumentation et premier run refusé conservés, pas de réexécution de la suite produit inchangée comme preuve G2. Revues Quick/frontières high et preuves parent restent sous la responsabilité du parent.\n\n- Depuis la racine, exécuter les tests du banc avec `uv run` pour Python ou `node --test` pour Node ; commandes exactes à inscrire ici après choix technique. Zéro tests ignorés ; M1–M15 couverts, tests de liens Windows réellement exécutés.\n- Vérifier les scripts officiels/versions locaux et les entrées avant/après ; rapport de conservation fermé et audit indépendant. Une lecture de configuration n’exécute ni setup/update ni render.\n- Vérifier le diff complet depuis la baseline, la constance du bloc figé, les liens documentaires, `git diff --check`, puis revue Quick et frontière high. Suite produit/build/installateur inutiles en l’absence de modification du produit.\n",
+        "fields": {
+          "title": "Qualifier le profil BMad existant et les contrats de guidage",
+          "type": "chore",
+          "ticket": "1",
+          "created": "2026-10-28",
+          "status": "in-progress",
+          "baseline_revision": "ebe2bb3c5279fcb95bd48e0a0da917bce04dddfb",
+          "route": "full",
+          "route_source": "auto",
+          "risk": "high",
+          "review": "quick",
+          "review_source": "pinned",
+          "lenses_ran": [
+            "quick"
+          ],
+          "review_loop_iteration": 1,
+          "context": ""
+        }
+      }
+    ],
+    "trackers": [],
+    "files": [
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\spike-qualifier-le-profil-bmad-existant-et-les-contrats-de-guidage-plan.md",
+        "sha256": "894408c75bca182c1217fce5c0b04e2469b31cfc3bc917242585ceff98e8a29d",
+        "content": "---\ntitle: 'Qualifier le profil BMad existant et les contrats de guidage'\ntype: 'chore'\nticket: '1'\ncreated: '2026-10-28'\nstatus: 'in-progress'\nbaseline_revision: 'ebe2bb3c5279fcb95bd48e0a0da917bce04dddfb'\nroute: 'full'\nroute_source: 'auto'\nrisk: 'high'\nreview: 'quick'\nreview_source: 'pinned'\nlenses_ran: ['quick']\nreview_loop_iteration: 1\ncontext:\n  - '{project-root}/AGENTS.md'\n  - '{project-root}/_bmad-output/initiative-madness/tickets/epic-projets-bmad/epic-projets-bmad.md'\n  - '{project-root}/_bmad-output/initiative-madness/architecture-madness/architecture-madness.md'\n  - '{project-root}/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-profil-g2/rederivation.md'\n---\n\n<frozen-after-approval reason=\"human-owned intent — do not modify unless human renegotiates\">\n\n## Intent\n\n**Problem:** Madness sait exécuter deux profils épinglés, Mary et Forge, mais ne qualifie pas encore les projets BMad ouverts, leurs aides, compétences, initiatives et tickets. Leur seule présence ou la mention v7 ne permet pas de promettre un guidage exécutable.\n\n**Approach:** Qualifier hors produit un profil candidat G2, sur l’installation locale et des fixtures représentatives, avec un banc reproductible en lecture seule. Consigner capacités, refus et contrats de contexte/aide/invocation dans `qualification-profil-g2/profil-g2.md`, pour Sally2.17 puis le tracer2.2. Risque élevé : une découverte trop permissive pourrait lire hors portée ou transformer des fichiers non fiables en commandes.\n\n## Boundaries & Constraints\n\n**Always:** Sources et limites exactes ; chemins canoniques et racines explicitement autorisées, priorité conservée ; lecteurs bornés, UTF-8 strict, refus de liens/reparse points/hardlinks sur les chemins exploités ; empreinte/révision et contrôle de changement avant action. Profil par capacités indépendantes, états diagnostic sourcés et inconnus conservés. Outils de provenance maîtrisée seulement, scripts et runtime épinglés ; aucun code fourni par une fixture ou un projet ouvert n’est exécuté. Tests Windows réels des frontières et traces expurgées. Une commande copiable n’est pas une capacité lançable. Aucun accord humain ni statut inventé.\n\n**Never:** Modifier `src/`, tests produit, dépendances, scripts gérés BMad, configuration personnelle, installation ou coffre ; réseau, OAuth, fournisseur ou modèle ; exécuter `setup --status` (il consulte GitHub), migrations, hooks, ou `render_skill` comme simple sonde. Aucun G2 intégré clos, catalogue/aide native livrés, nouvelle UI, persistance de sélection ou initialisation de projet dans ce spike. Aucun cache réseau intégré implicitement ni nouvelle dépendance d’epic. Aucune limite éditoriale en tokens.\n\n## I/O & Edge-Case Matrix\n\n| Scénario | Entrée / état | Résultat attendu | Erreur / limite |\n|---|---|---|---|\n| M1 | Installation locale exacte `6.13.0-next` | Inventaire sourcé modules, compétences, aides, personnalisation, contexte et tickets sans feuille ; empreintes avant/après identiques | Capacités intégrées non prouvées restent indisponibles |\n| M2 | Projet sans BMad ; structure ancienne reconnue ; version future/inconnue | Absence, ancien observé et inconnu distingués avec raisons | Aucun lancement supposé compatible |\n| M3 | Manifestes manquants, TOML invalide, dépendance/appartenance incohérente, SKILL absent | Partiel ou incompatible selon preuve ; capacités touchées bloquées | Ne pas promouvoir un dossier en compétence lançable |\n| M4 | Racines projet/utilisateur avec collision de nom, y compris masque local sans record | Priorité officielle par nom de dossier ; copie masquée non réactivée | Racines externes non autorisées refusées |\n| M5 | Record `bmod` seul, record+skill, compétence/module manquant | Métadonnées séparées des invocables ; appartenance et invocation exacte sourcées | Présence ne vaut pas runtime qualifié |\n| M6 | Aide implicite, knowledge explicite, topics et migrations | Provenance, contenu chargé ou référence seule distingués, migration jamais exécutée | Aide absente/illisible/hors portée explicitement indisponible |\n| M7 | Config centrale et compétence à trois couches, override user, tableaux code/id ; TOML invalide | Fusion officielle constatée ; `_bmad/config.user.toml` ignoré | Personnalisation résolue ne vaut pas autorisation d’exécution |\n| M8 | Initiative absente, multiple, active et choix Madness divergent | Contexte résolu et sélection locale séparés ; conflit avant invocation | Aucune écriture de configuration ni réattribution d’historique |\n| M9 | Output hors projet, chemins relatifs/absolus et traversal | Frontière canonique du profil et refus explicite | Un comportement permis par BMad n’élargit pas implicitement Madness |\n| M10 | Liens/jonctions Windows et hardlinks vers extérieur, remplacement d’un ancêtre | Refus avant lecture exploitable ou appel d’outil | Prouver réellement le cas Windows, aucun skip vert |\n| M11 | UTF-8 invalide, taille/nombre/profondeur excessifs | Lecture/énumération bornées, erreur typée et capacité limitée | Ne pas tronquer silencieusement une aide |\n| M12 | Source modifiée entre découverte/lecture/action, référence devenue absente | Révision différente/invalidation et refus de l’ancienne invocation | Aucun ancien reçu présenté frais |\n| M13 | Entrée tickets TOML sans feuille, plan présent/absent, statut contradictoire | Identités et chaque preuve conservées ; statut du plan sourcé séparément | Présence/built ne devient pas validation humaine |\n| M14 | Compétence installée non qualifiée, script ou hook non fiable | Aide descriptive possible si sûre ; lancement refusé, aucune exécution | Commande exacte conservée sans promesse de support |\n| M15 | Fixtures et installation observées via outils locaux contrôlés | Zéro réseau/agent/écriture réelle ; fixtures nettoyées même en échec | Échec d’instrumentation conservé, aucune réussite supposée |\n\n</frozen-after-approval>\n\n## Code Map\n\n- Reprise1 après revue : les fonctions officielles ne remplacent pas les gardes du profil. Les précisions ci-dessous et `rederivation.md` règlent six contre-exemples sans changer l’intention figée. Le ZIP `iteration-0.zip` conserve intégralement le premier banc/proofs ; lire ses sources pour préserver les cas utiles, sans exécuter l’ancienne voie.\n- `src/adapters/bmad/runtime.ts:8–26`, `profile.ts:65` : reprendre réellement le modèle de runtime de base hors projet, empreinte des DLL/stdlib/pth et `-I -S -B`, environnement filtré ; ne pas lancer le redirecteur venv. Les deux EXE seuls et `pyvenv.cfg` mutable ne qualifient pas le runtime. Aucun vrai runtime ni sa configuration ne doit être modifié pour tester ; éprouver la sélection et les empreintes sur copies possédées/fixtures.\n- `roster.py:agent_identity` masque ConfigError : prévalider les personnalisations effectivement exploitées, conserver les erreurs sourcées/refuser la capacité au lieu d’une identité de repli inexpliquée. `knowledge` exige aussi la relation inverse module→compétence : une compétence déclarée par un autre module est une contradiction, pas seulement une présence globale.\n- `tickets.py:join_plans` écrase les champs de feuille : capturer et conserver entrée TOML, feuille, plan, tracker et leurs empreintes/champs séparés avant jointure. La projection officielle reste disponible mais ne remplace pas ces preuves ; aucun reçu uniquement temporaire supprimé au nettoyage.\n- `context()` : collection dédiée des seuls fichiers d’initiative exploités, bornée cumulativement avec leur configuration, noms/identités/empreintes dans un reçu de contexte distinct de celui des skills. Recapture et invalidation sur changement d’initiative indépendamment des skills ; pas de scan récursif aveugle de tous les livrables binaires. Éprouver17fichiers de1Mio contre la limite16Mio, et modification à skills inchangés.\n- Reproduction : vérification du reçu existant strictement en lecture seule. Chaque nouvelle exécution écrit ses preuves dans un emplacement neuf possédé sans remplacer les preuves scellées ; sélection/promotion et scellement sont explicites. Éprouver réellement cette séquence, pas seulement corriger une phrase. `uv run --offline --no-project --no-config` reste la voie prescrite des scripts Python.\n\n- `_bmad/scripts/{knowledge,config_utils,resolve_config,resolve_customization,roster}.py` : copies identiques aux sources sous `.agents/skills/bmad/scripts/` selon investigation ; relever à nouveau leurs empreintes. `knowledge.scan` privilégie le premier dossier du même nom même sans record ; `resolve_skill` ne vérifie pas l’exécutabilité. `bmod.toml` porte `6.13.0-next`. Importer/exécuter seulement les outils de provenance épinglée, jamais ceux du projet analysé.\n- `config_utils.py` : trois couches centrales (`config.toml`, custom/config puis custom/config.user) et trois couches compétence (`customize.toml`, custom/skill puis custom/skill.user) ; tableaux code/id remplacent l’élément complet. `knowledge` borne ses aides mais pas les manifestes : le banc doit apporter ses propres préconditions de sûreté.\n- `resolve_customization.py`, `tickets.py` : passer explicitement la racine ; BMad peut résoudre un output externe, le profil Madness doit le refuser. Roster/personas et topics ne prouvent pas invocation.\n- `src/adapters/bmad/profile.ts`, `runtime.ts`, `forge.ts`, `forge-manifest.ts` : références de bornage, canonicité, relecture/identité/empreinte et runtime maîtrisé. Mary/Forge seulement ; pas de découverte ni d’aide générique livrée. Ne pas modifier ces fichiers.\n- `src/core/{ports,dialogue,application}.ts`, `src/contracts/dialogue.ts` : cœur propriétaire des contrats, capture de contexte et reçus ; union d’invocation limitée à Mary/Forge. Les propositions G2 restent documentaires, aucune extension opportuniste.\n- `tests/{dialogue-profile,dialogue-runtime,forge,forge-protocol}.test.mjs` : réutiliser les cas de frontières et courses pertinents sans réexécuter la suite produit inchangée comme preuve G2.\n\n## Tasks & Acceptance\n\n**Execution:**\n- [x] `qualification-profil-g2/{prototype.*,scenarios.*,fixtures-*}` — banc isolé et fixtures jetables, commandes fixes, sorties/durée bornées, aucune exécution de contenu projet ; privilégier les primitives gérées réellement observées, leur préflight et leurs limites plutôt qu’un parseur parallèle prétendument officiel.\n- [x] `qualification-profil-g2/{results.json,sources.md,*.log}` — exécuter chaque ligne M1–M15, enregistrer tests et observations séparément, versions/empreintes, appels et refus, nettoyage et conservation locale.\n- [x] `qualification-profil-g2/profil-g2.md` — répondre au spike : profil exact, états et capacités ; racines/priorité/personnalisation ; contrats documentaires diagnostic, aides/recommandation, contexte/invocation et reçus/provenance ; tickets sans feuille ; décisions de périmètre et inconnus pour2.17/2.2 et clôture future2.16.\n- [x] `qualification-profil-g2/verify.*` — vérificateur fermé des preuves, couverture de matrice et absence de modifications produit/managed ; ne pas lire ni copier coffre/AppData.\n\n**Acceptance Criteria:**\n- Given l’installation et les fixtures définies, when le banc est exécuté, then chaque ligne M1–M15 a une assertion passée sans skip et les capacités retenues renvoient à une preuve ; une limite non testable est signalée sans déclarer le scénario réussi.\n- Given le rapport, when Sally puis le tracer le consomment, then ils disposent d’un contrat précis sous l’autorité du cœur/Winston et de refus reproductibles, sans prétendre G2 intégré ni lancement général.\n- Given ce lot isolé, when les empreintes finales sont comparées, then sources produit/gérées/configurations observées sont inchangées et aucun compte, réseau ou modèle n’a été requis.\n\n## Implementation Notes\n\n2026-10-28 — Complément de reprise1 demandé par le parent avant revue : uv0.13.0 inspecte Python avec `-I -B` sans `-S` (source amont versionnée citée dans sources.md). Pin produit734fichiers conservé et étendu explicitement pour la voie de démarrage : liste exacte d’un `.pth` réel de151octets/SHA2638ce…, seuls imports inconditionnels stdlib épinglés, branche `_distutils_hack` neutralisée par `SETUPTOOLS_USE_DISTUTILS=stdlib` dans l’environnement enfant. Absences de sitecustomize/usercustomize et surcharges de chemin vérifiées avant lancement. Aucun runtime/hook réel modifié. UV réel sur copie exacte, observation du harnais et simulation statique du branchement distingués ; les hooks de fixtures modifiés sont refusés avant lancement, jamais exécutés. Les deux runs précédents et leurs sceaux restent historiques et immuables ; nouveaux runs nécessaires pour ce complément.\n\n2026-10-28 — Reprise1 : primitives sûres du banc archivé conservées, six contre-exemples re-dérivés. Runtime de base hors projet et uv épinglés,734fichiers DLL/stdlib/.pth et pin identique au produit ; contrôle avant premier Python, `-I -S -B`, environnement filtré et temp/cache possédés. Relation réciproque module/skill et prévalidation de l’identité roster ; erreurs sourcées avant repli. Sources brutes/empreintes/champs TOML, feuille, plan et tracker sérialisés avant la jointure officielle. Reçu context-v1 indépendant des skills, trois configurations et seules initiatives exploitées, plafond cumulé16Mio ;17fichiers de1Mio refusés et mutation d’initiative invalidée à skills inchangées. Chaque exécution crée `runs/run-<UUID>/`, scellement create-only et sélection/promotion distincts. Aucun produit/managed/configuration personnelle ni runtime réel modifié.\n\nPremier run reprise1 `run-ff709efe65944deab605bd2b17dace61` :15/15tests,112assertions,20observations,20appels gérés réussis,558inputs identiques, fixtures retirées et63contrôles fermés au scellement explicite. Second run neuf `run-3916a247ce194665972ec45091ea0d66` : mêmes15/15,112assertions,20observations,558inputs et63contrôles. Relecture du premier63/63 après seconde exécution ;16fichiers du premier, sceau compris, identiques individuellement dans reproduction.json. Promotion explicite du premier ; aucun ancien reçu remplacé. Les faits du tour0 ci-dessous sont historiques, archivés, sans équivalence de preuve avec cette reprise ; les revues et le verdict final demeurent au parent.\n\n2026-10-28 — Banc Python isolé livré dans `../qualification-profil-g2/`, sans modification produit/gérée. Les fonctions officielles épinglées `knowledge`, `config_utils`, `roster` et `tickets.load_folder` consomment des snapshots de données précontrôlées ; ni scripts du projet analysé, ni CLI à hook, ni `tickets.central_config` non fiable ne sont exécutés. CPython3.12.14 et scripts verrouillés SHA-256 ; UTF-8 strict, 1Mio/fichier,16Mio/corpus,1024entrées/profondeur12,15s/4Mio par flux. Garde native du handle avant lecture, reparse/hardlinks refusés, révision recapturée avant usage. Worker limité aux seules racines jetables possédées.\n\nInstallation réelle : trois modules6.13.0-next,27compétences,3aides chargées,43topics et2migrations référencés,17entrées sans feuille. Diagnostic partiel : `method` déclare `bmad-retrospective` absent ; absence conservée sans installation. Contrats documentaires proposés au cœur pour Sally2.17/tracer2.2 ; aucune invocation générique ni G2 intégré qualifiés. Premier essai sandbox14/15 (WinError5 création hardlink) conservé ; le final autorisé hors sandbox exerce réellement hardlink/jonction/remplacement d’ancêtre et nettoie ses fixtures. Échec du cache uv initial également conservé, sans succès inventé.\n\n## Plan Change Log\n\n2026-10-28 — Reprise1 déclenchée par Q2/B1/B3 (bad_plan), avec Q1/Q3/B2 (patch) repris dans la réimplémentation cohérente. La Code Map précisait trop peu les garanties absentes des fonctions gérées et l’immuabilité de la preuve lors d’une reproduction. Ajouts : runtime effectif isolé/empreinte complète ; garde de roster et appartenance réciproque ; sources séparées des tickets ; collecte contextuelle bornée/révisionnée ; nouvelle exécution dans un emplacement neuf. État évité : rapport vert annonçant des garanties non exercées ou détruisant son propre reçu. KEEP : M1–M15 réellement exécutés, garde du handle avant lecture, refus NTFS, snapshots sans code projet importé, fusion/knowledge/tickets officiels, absence de runtime générique promis, conservation produit/gérée, nettoyage et échecs historiques explicites. Bloc figé inchangé ; aucun intent_gap ni nouvelle décision produit.\n\n## Review Triage Log\n\n2026-10-28 — Premier tour, Quick + audit high ; six medium, zéro high/low/false/maybe-false, aucun différé. Sources inspectées par parent et résultats initiaux conservés dans iteration-0.zip. Les corrections patch sont reprises avec les trois bad_plan ; pas de correction dispersée avant la réimplémentation.\n\n| Constat | Verdict / route | Vérification parent |\n|---|---|---|\n| Q1 appartenance inverse | medium / patch, repris | `listed_member` contrôle seulement le record de la skill ; member-missing utilise l’ensemble global et accepte une déclaration par un autre module. |\n| Q2 preuves de feuille perdues | medium / bad_plan | `join_plans` fait row.update des champs du plan ; wrapper ne conserve que rows, reçu brut M13 temporaire non sérialisé puis supprimé. |\n| Q3 reproduction détruit le sceau | medium / patch, repris | `scenarios.main` réécrit UUID/date/logs ; `verify` exige les anciens hashes. La procédure sans scellement explicite échoue et écrase le reçu précédent. |\n| B1 runtime incomplet | medium / bad_plan | Verrou initial limité aux deux EXE ; lancement du redirecteur venv sans -S. pyvenv.cfg réel choisit le home et site reste actif avant audit, à la différence du runtime produit. Aucun effet observé n’est déduit. |\n| B2 roster masque TOML invalide | medium / patch, repris | `agent_identity` intercepte ConfigError/OSError et rend {}, sans problème ; M7 ne teste que le chargement direct. |\n| B3 contexte hors plafond/révision | medium / bad_plan | `context` lit directement jusqu’à1024initiatives de1Mio sans TOTAL_LIMIT ni reçu de contexte ; le source_revision M1 porte seulement les skills. |\n\n## Design Notes\n\nMandat humain autonome : plan et décisions nécessaires délégués, sans nouvelle confirmation de routine. Aucun écart d’intention identifié ; les inconnus techniques sont précisément la matière du spike. Route full pour un banc significatif dépassant100 lignes.\n\nLe worker possède seulement les fichiers de qualification décrits et les notes/tâches de ce plan hors bloc figé. Il n’est pas seul dans le dépôt : respecter les autres modifications, ne pas les annuler, s’y adapter. Parent propriétaire des revues, preuves parent, continuité, tickets/epic et commits. Aucun nouveau sous-agent d’implémentation nécessaire.\n\nUne revue Quick fraîche est complétée par une contre-analyse indépendante des frontières canoniques, personnalisations et capacités. Cette seconde lecture répond au contrôle high de l’epic ; lancer les deux avant triage. Aucun rôle Sally ou Winston réellement invoqué ne sera déduit du rôle d’un relecteur technique.\n\n## Verification\n\n- Reprise1 : `& '_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\run.ps1' -Action run` — base épinglée via uv offline/no-project/no-config, sans venv. Première exécution complète autorisée hors sandbox pour ses seuls liens NTFS possédés :15/15tests,112assertions,20observations,558inputs identiques et nettoyage complet.\n- `& '_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\run.ps1' -Action seal -RunId 'run-ff709efe65944deab605bd2b17dace61'` —63/63contrôles ; manifeste054fdc263166f0f82048d7293ed8532e895fa89b9f7ca70ab8eac9d27f20238c. Vérifier le même reçu utilise `-Action verify -RunId <id>` ; aucun sceau ni résultat n’est mis à jour par cette commande.\n- Les commandes/résultats ci-dessous décrivent le tour0 archivé uniquement ; la voie venv n’est plus une reproduction admise de reprise1.\n- Reproduction réelle : même `-Action run`, nouvel id `run-3916a247ce194665972ec45091ea0d66`,15/15tests en127,184s,558inputs identiques et nettoyage complet. `-Action seal -RunId <second>`63/63, puis `-Action verify -RunId <premier>`63/63 et `-Action promote -RunId <premier>`63/63. Reproduction.json conserve les16empreintes avant/après identiques du premier. Second manifestebbc5f6582cb22a1d14c0e8646df680ebcb2f0c2c46d2a64abdb91e038fbe9717 ; journaux first-readonly-verify.log, second-seal.log et promotion.log. Aucune nouvelle exécution ne rafraîchit le verrou ni un sceau précédent.\n\n- Commande finale réellement exécutée depuis la racine : `& 'C:\\Users\\UP60066553\\scoop\\apps\\uv\\current\\uv.exe' run --offline --no-project --no-cache --python 'C:\\Sources\\madness\\.venv\\Scripts\\python.exe' python -B 'C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\scenarios.py'` — 15/15 tests,87assertions,15observations, zéro skip ; 558inputs identiques avant/après et fixtures retirées. Les seuls essais de socket/écriture sont des probes d’audit volontairement refusés, aucun effet réseau ni moteur.\n- `& '.venv\\Scripts\\python.exe' -B '_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\verify.py' --seal` —46/46contrôles fermés ; `evidence-manifest.json` scelle banc, sources et preuves. Reproduction ultérieure sans `--seal` vérifie les empreintes sans les rafraîchir.\n- Durcissement des racines du worker : M15 rouge (`Refusal not raised`) puis vert isolé1/1 et final15/15 ; préflight répété dans le worker. Logs d’instrumentation et premier run refusé conservés, pas de réexécution de la suite produit inchangée comme preuve G2. Revues Quick/frontières high et preuves parent restent sous la responsabilité du parent.\n\n- Depuis la racine, exécuter les tests du banc avec `uv run` pour Python ou `node --test` pour Node ; commandes exactes à inscrire ici après choix technique. Zéro tests ignorés ; M1–M15 couverts, tests de liens Windows réellement exécutés.\n- Vérifier les scripts officiels/versions locaux et les entrées avant/après ; rapport de conservation fermé et audit indépendant. Une lecture de configuration n’exécute ni setup/update ni render.\n- Vérifier le diff complet depuis la baseline, la constance du bloc figé, les liens documentaires, `git diff --check`, puis revue Quick et frontière high. Suite produit/build/installateur inutiles en l’absence de modification du produit.\n",
+        "fields": {
+          "title": "Qualifier le profil BMad existant et les contrats de guidage",
+          "type": "chore",
+          "ticket": "1",
+          "created": "2026-10-28",
+          "status": "in-progress",
+          "baseline_revision": "ebe2bb3c5279fcb95bd48e0a0da917bce04dddfb",
+          "route": "full",
+          "route_source": "auto",
+          "risk": "high",
+          "review": "quick",
+          "review_source": "pinned",
+          "lenses_ran": [
+            "quick"
+          ],
+          "review_loop_iteration": 1,
+          "context": ""
+        }
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-a9e19624735d49cf801225f13d3584e1\\real-board\\tickets\\tickets.toml",
+        "sha256": "a4b58b4164dddd599c0a78243e3095af1ec86e79ae8f6123690bd61a8e112317",
+        "content": "# Préparation Sofia sous mandat autonome du28octobre2026.\n# Entrées planifiées seulement ; aucun Build2 lancé, aucune feuille extraite.\n# Le gate1.11 built et la refonte qualifiée sont consignés dans les Notes de l’epic. Les ids sont permanents.\n\n[[entry]]\nid = 1\ntype = \"spike\"\ntitle = \"Qualifier le profil BMad existant et les contrats de guidage\"\ndescription = \"Qualifie les primitives et un profil candidat G2 pour les formats et racines réellement présents, découverte/knowledge/aides, initiatives et tickets sans feuille ; détermine les contrats et capacités nécessaires à l’aide native puis au catalogue, sous l’autorité du cœur et de Winston. Consigne sa réponse dans qualification-profil-g2/profil-g2.md sous cet epic, sans clôturer G2 intégré, et fournit au tracer2 un profil de référence, ses lectures/effets permis et les refus prouvés, sans déduire la compatibilité du seul numéro de version.\"\nverify = \"Sur fixtures v7 représentatives et installation locale, relire la matrice absence/ancien/inconnu/partiel/personnalisé, les frontières canoniques et le contrat de contexte/invocation ; constater les capacités prouvées et les inconnues restantes avant2.\"\ncovers = [\"R1\", \"R3\", \"R4\", \"R8\", \"R9\", \"R10\"]\nafter = [\"1.11\"]\nhitl = false\nrisk = \"high\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 17\ntype = \"story\"\ntitle = \"Définir avec Sally les parcours de guidage et de fichiers\"\ndescription = \"Après le profil et les limites de1, complète les contrats UX adoptés avant leurs consommateurs : aide native et recommandation, catalogue/fiches, choix d’initiative, preuves/actualisation, aperçu/éditeur et accueil multi-projet. Définit les variantes françaises/anglaises et les états d’accès/refus selon ces capacités, en conservant la refonte et les deux thèmes. Fournit les références au tracer2 et aux parcours3–9 ; R32 est complété par12 après ses décisions10.\"\nverify = \"Parcourir dans les contrats et références chaque destination, attente, erreur et retour au travail, y compris choix d’initiative et aperçu, clavier/zoom et conservation ; aucune compétence non qualifiée présentée lançable ni validation humaine inventée. Réconcilier les états avec le profil1 avant tout code2–9.\"\ncovers = [\"R1\", \"R2\", \"R3\", \"R4\", \"R5\", \"R6\", \"R7\", \"R8\", \"R9\", \"R10\", \"R11\", \"R12\", \"R13\", \"R14\"]\nafter = [1, \"1.11\"]\nhitl = false\nrisk = \"medium\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 2\ntype = \"story\"\ntitle = \"Obtenir une prochaine action avec l’aide BMad du projet\"\ndescription = \"Livre le tracer depuis un projet BMad existant : diagnostic de référence, aide des modules réellement chargée puis recommandation de l’agent dans une conversation native bmad avec invocation visible. Réutilise le dialogue de1 ; met en œuvre le profil et les contrats qualifiés par2.1, conserve saisie et contexte, distingue aide chargée et réponse produite. Fournit le chemin de référence au catalogue et au choix d’initiative suivants.\"\nverify = \"Dans le paquet Windows, ouvrir un projet de référence, demander Que faire ensuite, retrouver les aides et leur provenance, lire la réponse native et ses alternatives puis retrouver cette conversation après réouverture ; modifier le profil ou retirer une aide donne une limite explicite sans appel supposé réussi.\"\ncovers = [\"R1\", \"R3\", \"R4\", \"R8\", \"R10\"]\nafter = [17,\"1.11\"]\nhitl = false\nrisk = \"high\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 3\ntype = \"story\"\ntitle = \"Retrouver et choisir les initiatives sans réattribuer les échanges\"\ndescription = \"Étend le contexte établi par2 aux initiatives découvertes de plusieurs projets et à leur choix explicite ; conserve les anciens rattachements et expose l’absence d’initiative. La sélection locale et toute éventuelle écriture de configuration BMad sont distinguées selon le contrat qualifié par1 ; aucune navigation ne modifie silencieusement le projet. Fournit les identités et révisions de contexte aux preuves et aux mesures.\"\nverify = \"Ouvrir deux projets ayant plusieurs initiatives, changer la sélection puis rouvrir Madness : chaque action vise l’initiative choisie, les anciens échanges restent inchangés et les fichiers de configuration ne changent pas par simple navigation ; un contexte devenu invalide refuse l’action concernée.\"\ncovers = [\"R1\", \"R4\", \"R12\"]\nafter = [2, \"1.11\"]\nhitl = false\nrisk = \"high\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 4\ntype = \"story\"\ntitle = \"Lire le parcours et ses preuves à la bonne révision\"\ndescription = \"Projette étapes, tickets avec ou sans feuille, plans, livrables et statuts depuis les formats G2 et le contexte de3. Chaque fait, déduction, proposition ou acceptation identifiable renvoie à sa preuve et révision ; l’absence reste inconnue. Fournit les identités de preuves/fichiers/US consommées par actualisation, aperçu et qualification des mesures.\"\nverify = \"Comparer des projets témoins aux artefacts sources, ouvrir les preuves de chaque étape et constater qu’un fichier présent, un plan built ou une fin de tour n’invente pas une validation humaine ; les entrées TOML sans feuille et preuves contradictoires gardent leur provenance.\"\ncovers = [\"R5\", \"R7\"]\nafter = [3, \"1.11\"]\nhitl = false\nrisk = \"high\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 5\ntype = \"story\"\ntitle = \"Actualiser les preuves après des changements externes\"\ndescription = \"Actualise les projections et identités de4 lorsqu’un fichier change hors de Madness, avec invalidation des résultats anciens et contrôle avant action. Regroupe les événements de fichiers sans perdre le brouillon, attribuer un auteur/session inconnus ou appliquer une ancienne acceptation à de nouveaux octets. Fournit cette fraîcheur au catalogue, à l’aide et aux aperçus.\"\nverify = \"Modifier, supprimer et remplacer un artefact pendant une saisie puis pendant une lecture : nouvelle preuve et révision visibles, ancien accord conservé sur son ancien contenu, saisie intacte et action refusée si ses préconditions ont changé.\"\ncovers = [\"R3\", \"R6\", \"R7\"]\nafter = [4, \"1.11\"]\nhitl = false\nrisk = \"high\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 6\ntype = \"story\"\ntitle = \"Explorer le catalogue réellement installé et ses fiches\"\ndescription = \"Expose la découverte sourcée de1 et la fraîcheur de5 : recherche et filtres sur toutes les compétences invocables présentes, modules et outils transversaux, sans quota figé. Chaque fiche explique objectif, invocation exacte copiable, entrées, conditions, effets et capacité disponible ou manquante. Métadonnées bmod et références absentes ne deviennent pas des actions exécutables. Fournit les fiches qualifiées au lancement7.\"\nverify = \"Ajouter ou retirer une compétence et un module dans un témoin, chercher par intention/nom/invocation puis ouvrir une fiche : l’inventaire évolue, copie exacte confirmée, vide et indisponibilité sont expliqués, aucun modèle ni opération déclenché par consultation.\"\ncovers = [\"R8\", \"R9\", \"R10\", \"R13\"]\nafter = [5, \"1.11\"]\nhitl = false\nrisk = \"medium\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 7\ntype = \"story\"\ntitle = \"Lancer les actions qualifiées du catalogue dans la conversation\"\ndescription = \"Relie les fiches de6 à la voie unique du cœur et du connecteur, en étendant les profils prouvés par1 sans redéfinir les garanties du dialogue. Capture contexte/invocation/entrées/effets puis rejoint l’échange corrélé ; conditions de chaque workflow, choix et mode autonome autorisé respectés. Une action installée dont des capacités restent non qualifiées explique précisément son indisponibilité. Fournit cette voie commune aux parcours fichiers et accueil suivants.\"\nverify = \"Depuis plusieurs fiches de profils qualifiés, lancer explicitement et traiter leurs questions/accords dans le bon projet ; contexte changé ou capacité manquante refuse avant effet. Vérifier invocations et reçus/fichiers réels selon les conditions du workflow, sans simple succès de texte ou second moteur.\"\ncovers = [\"R8\", \"R9\", \"R10\"]\nafter = [6, \"1.11\"]\nhitl = false\nrisk = \"high\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 8\ntype = \"story\"\ntitle = \"Consulter les livrables et demander leur ouverture dans l’éditeur\"\ndescription = \"Utilise identités et fraîcheur de4/5 avec le contexte et les actions de7 pour un aperçu intégré agrandissable et une demande d’ouverture éditeur. Chemin, provenance, portée et statut connus restent lisibles ; contenu non fiable ne s’exécute pas. Fournit à l’epic3 la preuve de retour éditeur pour sa contribution G3, et le panneau réutilisable par le graphe futur.\"\nverify = \"Ouvrir et agrandir un livrable témoin, garder la saisie et demander l’éditeur : retour observable ou échec connu, copie exacte disponible. Fichier inaccessible, modifié ou hors portée est refusé sans contenu exécuté ni fausse preuve de lecture humaine.\"\ncovers = [\"R5\", \"R6\", \"R11\", \"R12\", \"R13\"]\nafter = [7, \"1.11\"]\nhitl = false\nrisk = \"high\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 9\ntype = \"story\"\ntitle = \"Retrouver son travail et ses attentes entre plusieurs projets\"\ndescription = \"Réconcilie récents, initiatives et preuves actualisées avec les destinations de conversation/fichier de8 et la projection d’attentes existante. Accueil et projet distinguent travail présent, attente répondable, relecture, interruption, erreur et historique ; retour exact sans perte de saisie ni réattribution. Fournit un paquet et contexte stables à la qualification de mesure10 et aux contrats/variantes suivants.\"\nverify = \"Depuis l’accueil puis un autre projet, rejoindre chaque attente et chaque preuve corrélée, revenir à la saisie et redimensionner/replier la navigation ; demandes anciennes restent inactives, sélection et brouillon exacts après réouverture.\"\ncovers = [\"R1\", \"R2\", \"R4\", \"R7\", \"R12\", \"R13\"]\nafter = [8, \"1.11\"]\nhitl = false\nrisk = \"medium\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 10\ntype = \"spike\"\ntitle = \"Cadrer le temps par US et qualifier les données d’usage Codex\"\ndescription = \"Sur le paquet figé fourni par9 et les identités de4, instruit Q8/Q9 sans modifier les sources produit : propositions de temps et rattachement, puis preuves des champs réellement exposés par SIWC/Codex, sémantique et déduplication. Distingue schémas et événements observés, local/natif, couverture et indisponibilité ; montant/devise inconnus restent inconnus. Consigne la réponse et fixtures expurgées dans qualification-mesures-us/decisions-et-donnees.md sous cet epic et fournit à12/11 les décisions et qualifications nécessaires, à faire arrêter explicitement par Sofia/Winston sous mandat.\"\nverify = \"Relire une matrice sourcée disponible/non prouvé et des fixtures expurgées couvrant attentes, interruption, terminal absent, doublons/retards, plusieurs conversations/US et réouverture ; constater que ni durée de timeout, ni agrégat de compte, ni tarif API ne devient un temps/coût d’abonnement par US.\"\ncovers = [\"R15\"]\nafter = [9, \"1.11\"]\nhitl = false\nrisk = \"high\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 12\ntype = \"story\"\ntitle = \"Définir avec Sally le parcours des mesures par US\"\ndescription = \"Après décisions Q8/Q9 et qualification10, définit avec Sally et Impeccable le rattachement et la consultation des mesures par US : données connues, couverture, indisponibilité et règles de langue des nouveaux champs. Prolonge les contrats généraux fournis par17, sans changer palette ou composition. Fournit ces règles avant les contrats/collecte11 et le parcours/affichage13 ; aucun montant ou mesure choisi par défaut.\"\nverify = \"À partir des règles arrêtées et preuves10, parcourir les états de rattachement et consultation connus/inconnus/partiels dans les contrats et références UX ; vérifier provenance, couverture, absence de coût inventé et déclinaisons françaises/anglaises avant toute implémentation11/13.\"\ncovers = [\"R13\",\"R14\",\"R15\"]\nafter = [10,\"1.11\"]\nhitl = false\nrisk = \"medium\"\nunknown = \"Q8/Q9 ont-elles des décisions et preuves explicites sur le temps, le rattachement, les données disponibles et la déduplication avant de définir le parcours des mesures ?\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 11\ntype = \"story\"\ntitle = \"Conserver les mesures sourcées et leur rattachement aux US\"\ndescription = \"Après décisions Q8/Q9, qualification10 et parcours Sally12, établit sous l’autorité du cœur les extensions versionnées identitéUS/mesure/événements/connecteur/persistance, avec correspondance des identités locales et natives. S’appuie sur le contexte stabilisé par9 ; collecte/normalise seulement les données qualifiées, agrège sans doubles comptes et conserve couverture, inconnus et erreurs atomiquement. Fournit le modèle et les commandes au parcours utilisateur13, sans nouvelle UI dans11 ni réécriture des plans built de1.\"\nverify = \"Dans un banc sans nouvelle UI, rattacher selon les règles décidées plusieurs tours et conversations à des US témoins, réémettre événements et retards puis fermer/rouvrir : mêmes mesures sourcées sans duplication, historiques inconnus, contexte exact et échec disque sans réussite durable inventée. Les commandes utilisateur sont vérifiées en13 après12.\"\ncovers = [\"R4\", \"R7\", \"R15\"]\nafter = [9,10,12,\"1.11\"]\nhitl = false\nrisk = \"high\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 13\ntype = \"story\"\ntitle = \"Consulter le temps et le coût connus d’une US\"\ndescription = \"Livre le parcours utilisateur de rattachement et consultation décidé par12 sur le modèle11 dans le contexte du projet/initiative/US : définition, source, intervalle, couverture et données partielles ou indisponibles. Rend le rattachement identifiable et les agrégats compréhensibles sans facturation inventée ; aucune durée rétrospective déduite des historiques. Fournit ses chaînes et états à la traduction14.\"\nverify = \"Ouvrir plusieurs US avec mesure connue, zéro connu, données partielles et coût absent ; expliquer chaque valeur par sa provenance et couverture, puis changer d’US et rouvrir sans mélanger les mesures ni relancer un agent.\"\ncovers = [\"R7\", \"R15\"]\nafter = [11,12,\"1.11\"]\nhitl = false\nrisk = \"high\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 14\ntype = \"story\"\ntitle = \"Utiliser les parcours en français ou en anglais dans les deux thèmes\"\ndescription = \"Met en œuvre les variantes générales de17 et les compléments de mesure de12 sur toutes les surfaces intégrées jusqu’à13, sans traduire identifiants, invocations, chemins ou artefacts. Choix de langue conservé avec échecs explicites ; thème existant réutilisé. Vérifie navigation, clavier/focus, zoom, redimensionnement et conservation de saisie sur la version complète de l’epic avant le sweep.\"\nverify = \"Changer de langue et de thème pendant rédaction et consultation d’une demande, replier/redimensionner puis rouvrir : interface traduite cohérente, contenu projet exact, saisie/contexte et décisions préservés ; stockage refusé ne prétend pas une préférence sauvegardée.\"\ncovers = [\"R12\", \"R13\", \"R14\"]\nafter = [13, \"1.11\"]\nhitl = false\nrisk = \"medium\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 15\ntype = \"story\"\ntitle = \"Refactor sweep\"\ndescription = \"Nettoie uniquement les constats de revue et dettes effectivement différés par les plans1–14 et17, à relire au démarrage ; aucune fonctionnalité poussée hors d’une story ne devient du nettoyage. Préserve les contrats, qualifications, données et tous les comportements vérifiés, puis fournit la version nettoyée à16.\"\nverify = \"Rapprocher la liste des constats différés des plans et de leurs preuves ; aucun point de nettoyage acquis sans correction/recontrôle, suite appropriée verte et aucun besoin produit absorbé implicitement.\"\ncovers = []\nafter = [1,17,2,3,4,5,6,7,8,9,10,12,11,13,14,\"1.11\"]\nhitl = false\nrisk = \"medium\"\nplan_checkpoint = false\ndone_checkpoint = false\n\n[[entry]]\nid = 16\ntype = \"story\"\ntitle = \"Vérifier les parcours intégrés et les preuves G2 et éditeur\"\ndescription = \"Qualifie le paquet Windows issu du sweep : projets/initiatives existants, diagnostic G2, aide native et catalogue réel, preuves/changements externes, aperçu/retour éditeur G3, attentes, mesures R32 et variantes. Vérifie restauration et remplacement avec données conservées, publie seulement les profils/capacités prouvés et transmet les preuves à l’epic3 ; aucune clôture G4/G5 ou V1 complète par ce seul lot.\"\nverify = \"Sur projets représentatifs et machine cible, accomplir les parcours intégrés, cas de refus/inconnu, changements externes et restauration/remplacement dans le paquet exact ; matrice R1–R15 et limites G2/G3 relues indépendamment, sans assimilation du prototype ou d’un accord synthétique à une validation humaine globale.\"\ncovers = [\"R1\", \"R2\", \"R3\", \"R4\", \"R5\", \"R6\", \"R7\", \"R8\", \"R9\", \"R10\", \"R11\", \"R12\", \"R13\", \"R14\", \"R15\"]\nafter = [15, \"1.11\"]\nhitl = false\nrisk = \"high\"\nplan_checkpoint = false\ndone_checkpoint = false\n",
+        "fields": {
+          "entry": [
+            {
+              "id": 1,
+              "type": "spike",
+              "title": "Qualifier le profil BMad existant et les contrats de guidage",
+              "description": "Qualifie les primitives et un profil candidat G2 pour les formats et racines réellement présents, découverte/knowledge/aides, initiatives et tickets sans feuille ; détermine les contrats et capacités nécessaires à l’aide native puis au catalogue, sous l’autorité du cœur et de Winston. Consigne sa réponse dans qualification-profil-g2/profil-g2.md sous cet epic, sans clôturer G2 intégré, et fournit au tracer2 un profil de référence, ses lectures/effets permis et les refus prouvés, sans déduire la compatibilité du seul numéro de version.",
+              "verify": "Sur fixtures v7 représentatives et installation locale, relire la matrice absence/ancien/inconnu/partiel/personnalisé, les frontières canoniques et le contrat de contexte/invocation ; constater les capacités prouvées et les inconnues restantes avant2.",
+              "covers": [
+                "R1",
+                "R3",
+                "R4",
+                "R8",
+                "R9",
+                "R10"
+              ],
+              "after": [
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "high",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 17,
+              "type": "story",
+              "title": "Définir avec Sally les parcours de guidage et de fichiers",
+              "description": "Après le profil et les limites de1, complète les contrats UX adoptés avant leurs consommateurs : aide native et recommandation, catalogue/fiches, choix d’initiative, preuves/actualisation, aperçu/éditeur et accueil multi-projet. Définit les variantes françaises/anglaises et les états d’accès/refus selon ces capacités, en conservant la refonte et les deux thèmes. Fournit les références au tracer2 et aux parcours3–9 ; R32 est complété par12 après ses décisions10.",
+              "verify": "Parcourir dans les contrats et références chaque destination, attente, erreur et retour au travail, y compris choix d’initiative et aperçu, clavier/zoom et conservation ; aucune compétence non qualifiée présentée lançable ni validation humaine inventée. Réconcilier les états avec le profil1 avant tout code2–9.",
+              "covers": [
+                "R1",
+                "R2",
+                "R3",
+                "R4",
+                "R5",
+                "R6",
+                "R7",
+                "R8",
+                "R9",
+                "R10",
+                "R11",
+                "R12",
+                "R13",
+                "R14"
+              ],
+              "after": [
+                1,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "medium",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 2,
+              "type": "story",
+              "title": "Obtenir une prochaine action avec l’aide BMad du projet",
+              "description": "Livre le tracer depuis un projet BMad existant : diagnostic de référence, aide des modules réellement chargée puis recommandation de l’agent dans une conversation native bmad avec invocation visible. Réutilise le dialogue de1 ; met en œuvre le profil et les contrats qualifiés par2.1, conserve saisie et contexte, distingue aide chargée et réponse produite. Fournit le chemin de référence au catalogue et au choix d’initiative suivants.",
+              "verify": "Dans le paquet Windows, ouvrir un projet de référence, demander Que faire ensuite, retrouver les aides et leur provenance, lire la réponse native et ses alternatives puis retrouver cette conversation après réouverture ; modifier le profil ou retirer une aide donne une limite explicite sans appel supposé réussi.",
+              "covers": [
+                "R1",
+                "R3",
+                "R4",
+                "R8",
+                "R10"
+              ],
+              "after": [
+                17,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "high",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 3,
+              "type": "story",
+              "title": "Retrouver et choisir les initiatives sans réattribuer les échanges",
+              "description": "Étend le contexte établi par2 aux initiatives découvertes de plusieurs projets et à leur choix explicite ; conserve les anciens rattachements et expose l’absence d’initiative. La sélection locale et toute éventuelle écriture de configuration BMad sont distinguées selon le contrat qualifié par1 ; aucune navigation ne modifie silencieusement le projet. Fournit les identités et révisions de contexte aux preuves et aux mesures.",
+              "verify": "Ouvrir deux projets ayant plusieurs initiatives, changer la sélection puis rouvrir Madness : chaque action vise l’initiative choisie, les anciens échanges restent inchangés et les fichiers de configuration ne changent pas par simple navigation ; un contexte devenu invalide refuse l’action concernée.",
+              "covers": [
+                "R1",
+                "R4",
+                "R12"
+              ],
+              "after": [
+                2,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "high",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 4,
+              "type": "story",
+              "title": "Lire le parcours et ses preuves à la bonne révision",
+              "description": "Projette étapes, tickets avec ou sans feuille, plans, livrables et statuts depuis les formats G2 et le contexte de3. Chaque fait, déduction, proposition ou acceptation identifiable renvoie à sa preuve et révision ; l’absence reste inconnue. Fournit les identités de preuves/fichiers/US consommées par actualisation, aperçu et qualification des mesures.",
+              "verify": "Comparer des projets témoins aux artefacts sources, ouvrir les preuves de chaque étape et constater qu’un fichier présent, un plan built ou une fin de tour n’invente pas une validation humaine ; les entrées TOML sans feuille et preuves contradictoires gardent leur provenance.",
+              "covers": [
+                "R5",
+                "R7"
+              ],
+              "after": [
+                3,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "high",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 5,
+              "type": "story",
+              "title": "Actualiser les preuves après des changements externes",
+              "description": "Actualise les projections et identités de4 lorsqu’un fichier change hors de Madness, avec invalidation des résultats anciens et contrôle avant action. Regroupe les événements de fichiers sans perdre le brouillon, attribuer un auteur/session inconnus ou appliquer une ancienne acceptation à de nouveaux octets. Fournit cette fraîcheur au catalogue, à l’aide et aux aperçus.",
+              "verify": "Modifier, supprimer et remplacer un artefact pendant une saisie puis pendant une lecture : nouvelle preuve et révision visibles, ancien accord conservé sur son ancien contenu, saisie intacte et action refusée si ses préconditions ont changé.",
+              "covers": [
+                "R3",
+                "R6",
+                "R7"
+              ],
+              "after": [
+                4,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "high",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 6,
+              "type": "story",
+              "title": "Explorer le catalogue réellement installé et ses fiches",
+              "description": "Expose la découverte sourcée de1 et la fraîcheur de5 : recherche et filtres sur toutes les compétences invocables présentes, modules et outils transversaux, sans quota figé. Chaque fiche explique objectif, invocation exacte copiable, entrées, conditions, effets et capacité disponible ou manquante. Métadonnées bmod et références absentes ne deviennent pas des actions exécutables. Fournit les fiches qualifiées au lancement7.",
+              "verify": "Ajouter ou retirer une compétence et un module dans un témoin, chercher par intention/nom/invocation puis ouvrir une fiche : l’inventaire évolue, copie exacte confirmée, vide et indisponibilité sont expliqués, aucun modèle ni opération déclenché par consultation.",
+              "covers": [
+                "R8",
+                "R9",
+                "R10",
+                "R13"
+              ],
+              "after": [
+                5,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "medium",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 7,
+              "type": "story",
+              "title": "Lancer les actions qualifiées du catalogue dans la conversation",
+              "description": "Relie les fiches de6 à la voie unique du cœur et du connecteur, en étendant les profils prouvés par1 sans redéfinir les garanties du dialogue. Capture contexte/invocation/entrées/effets puis rejoint l’échange corrélé ; conditions de chaque workflow, choix et mode autonome autorisé respectés. Une action installée dont des capacités restent non qualifiées explique précisément son indisponibilité. Fournit cette voie commune aux parcours fichiers et accueil suivants.",
+              "verify": "Depuis plusieurs fiches de profils qualifiés, lancer explicitement et traiter leurs questions/accords dans le bon projet ; contexte changé ou capacité manquante refuse avant effet. Vérifier invocations et reçus/fichiers réels selon les conditions du workflow, sans simple succès de texte ou second moteur.",
+              "covers": [
+                "R8",
+                "R9",
+                "R10"
+              ],
+              "after": [
+                6,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "high",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 8,
+              "type": "story",
+              "title": "Consulter les livrables et demander leur ouverture dans l’éditeur",
+              "description": "Utilise identités et fraîcheur de4/5 avec le contexte et les actions de7 pour un aperçu intégré agrandissable et une demande d’ouverture éditeur. Chemin, provenance, portée et statut connus restent lisibles ; contenu non fiable ne s’exécute pas. Fournit à l’epic3 la preuve de retour éditeur pour sa contribution G3, et le panneau réutilisable par le graphe futur.",
+              "verify": "Ouvrir et agrandir un livrable témoin, garder la saisie et demander l’éditeur : retour observable ou échec connu, copie exacte disponible. Fichier inaccessible, modifié ou hors portée est refusé sans contenu exécuté ni fausse preuve de lecture humaine.",
+              "covers": [
+                "R5",
+                "R6",
+                "R11",
+                "R12",
+                "R13"
+              ],
+              "after": [
+                7,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "high",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 9,
+              "type": "story",
+              "title": "Retrouver son travail et ses attentes entre plusieurs projets",
+              "description": "Réconcilie récents, initiatives et preuves actualisées avec les destinations de conversation/fichier de8 et la projection d’attentes existante. Accueil et projet distinguent travail présent, attente répondable, relecture, interruption, erreur et historique ; retour exact sans perte de saisie ni réattribution. Fournit un paquet et contexte stables à la qualification de mesure10 et aux contrats/variantes suivants.",
+              "verify": "Depuis l’accueil puis un autre projet, rejoindre chaque attente et chaque preuve corrélée, revenir à la saisie et redimensionner/replier la navigation ; demandes anciennes restent inactives, sélection et brouillon exacts après réouverture.",
+              "covers": [
+                "R1",
+                "R2",
+                "R4",
+                "R7",
+                "R12",
+                "R13"
+              ],
+              "after": [
+                8,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "medium",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 10,
+              "type": "spike",
+              "title": "Cadrer le temps par US et qualifier les données d’usage Codex",
+              "description": "Sur le paquet figé fourni par9 et les identités de4, instruit Q8/Q9 sans modifier les sources produit : propositions de temps et rattachement, puis preuves des champs réellement exposés par SIWC/Codex, sémantique et déduplication. Distingue schémas et événements observés, local/natif, couverture et indisponibilité ; montant/devise inconnus restent inconnus. Consigne la réponse et fixtures expurgées dans qualification-mesures-us/decisions-et-donnees.md sous cet epic et fournit à12/11 les décisions et qualifications nécessaires, à faire arrêter explicitement par Sofia/Winston sous mandat.",
+              "verify": "Relire une matrice sourcée disponible/non prouvé et des fixtures expurgées couvrant attentes, interruption, terminal absent, doublons/retards, plusieurs conversations/US et réouverture ; constater que ni durée de timeout, ni agrégat de compte, ni tarif API ne devient un temps/coût d’abonnement par US.",
+              "covers": [
+                "R15"
+              ],
+              "after": [
+                9,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "high",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 12,
+              "type": "story",
+              "title": "Définir avec Sally le parcours des mesures par US",
+              "description": "Après décisions Q8/Q9 et qualification10, définit avec Sally et Impeccable le rattachement et la consultation des mesures par US : données connues, couverture, indisponibilité et règles de langue des nouveaux champs. Prolonge les contrats généraux fournis par17, sans changer palette ou composition. Fournit ces règles avant les contrats/collecte11 et le parcours/affichage13 ; aucun montant ou mesure choisi par défaut.",
+              "verify": "À partir des règles arrêtées et preuves10, parcourir les états de rattachement et consultation connus/inconnus/partiels dans les contrats et références UX ; vérifier provenance, couverture, absence de coût inventé et déclinaisons françaises/anglaises avant toute implémentation11/13.",
+              "covers": [
+                "R13",
+                "R14",
+                "R15"
+              ],
+              "after": [
+                10,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "medium",
+              "unknown": "Q8/Q9 ont-elles des décisions et preuves explicites sur le temps, le rattachement, les données disponibles et la déduplication avant de définir le parcours des mesures ?",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 11,
+              "type": "story",
+              "title": "Conserver les mesures sourcées et leur rattachement aux US",
+              "description": "Après décisions Q8/Q9, qualification10 et parcours Sally12, établit sous l’autorité du cœur les extensions versionnées identitéUS/mesure/événements/connecteur/persistance, avec correspondance des identités locales et natives. S’appuie sur le contexte stabilisé par9 ; collecte/normalise seulement les données qualifiées, agrège sans doubles comptes et conserve couverture, inconnus et erreurs atomiquement. Fournit le modèle et les commandes au parcours utilisateur13, sans nouvelle UI dans11 ni réécriture des plans built de1.",
+              "verify": "Dans un banc sans nouvelle UI, rattacher selon les règles décidées plusieurs tours et conversations à des US témoins, réémettre événements et retards puis fermer/rouvrir : mêmes mesures sourcées sans duplication, historiques inconnus, contexte exact et échec disque sans réussite durable inventée. Les commandes utilisateur sont vérifiées en13 après12.",
+              "covers": [
+                "R4",
+                "R7",
+                "R15"
+              ],
+              "after": [
+                9,
+                10,
+                12,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "high",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 13,
+              "type": "story",
+              "title": "Consulter le temps et le coût connus d’une US",
+              "description": "Livre le parcours utilisateur de rattachement et consultation décidé par12 sur le modèle11 dans le contexte du projet/initiative/US : définition, source, intervalle, couverture et données partielles ou indisponibles. Rend le rattachement identifiable et les agrégats compréhensibles sans facturation inventée ; aucune durée rétrospective déduite des historiques. Fournit ses chaînes et états à la traduction14.",
+              "verify": "Ouvrir plusieurs US avec mesure connue, zéro connu, données partielles et coût absent ; expliquer chaque valeur par sa provenance et couverture, puis changer d’US et rouvrir sans mélanger les mesures ni relancer un agent.",
+              "covers": [
+                "R7",
+                "R15"
+              ],
+              "after": [
+                11,
+                12,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "high",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 14,
+              "type": "story",
+              "title": "Utiliser les parcours en français ou en anglais dans les deux thèmes",
+              "description": "Met en œuvre les variantes générales de17 et les compléments de mesure de12 sur toutes les surfaces intégrées jusqu’à13, sans traduire identifiants, invocations, chemins ou artefacts. Choix de langue conservé avec échecs explicites ; thème existant réutilisé. Vérifie navigation, clavier/focus, zoom, redimensionnement et conservation de saisie sur la version complète de l’epic avant le sweep.",
+              "verify": "Changer de langue et de thème pendant rédaction et consultation d’une demande, replier/redimensionner puis rouvrir : interface traduite cohérente, contenu projet exact, saisie/contexte et décisions préservés ; stockage refusé ne prétend pas une préférence sauvegardée.",
+              "covers": [
+                "R12",
+                "R13",
+                "R14"
+              ],
+              "after": [
+                13,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "medium",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 15,
+              "type": "story",
+              "title": "Refactor sweep",
+              "description": "Nettoie uniquement les constats de revue et dettes effectivement différés par les plans1–14 et17, à relire au démarrage ; aucune fonctionnalité poussée hors d’une story ne devient du nettoyage. Préserve les contrats, qualifications, données et tous les comportements vérifiés, puis fournit la version nettoyée à16.",
+              "verify": "Rapprocher la liste des constats différés des plans et de leurs preuves ; aucun point de nettoyage acquis sans correction/recontrôle, suite appropriée verte et aucun besoin produit absorbé implicitement.",
+              "covers": [],
+              "after": [
+                1,
+                17,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                12,
+                11,
+                13,
+                14,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "medium",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            },
+            {
+              "id": 16,
+              "type": "story",
+              "title": "Vérifier les parcours intégrés et les preuves G2 et éditeur",
+              "description": "Qualifie le paquet Windows issu du sweep : projets/initiatives existants, diagnostic G2, aide native et catalogue réel, preuves/changements externes, aperçu/retour éditeur G3, attentes, mesures R32 et variantes. Vérifie restauration et remplacement avec données conservées, publie seulement les profils/capacités prouvés et transmet les preuves à l’epic3 ; aucune clôture G4/G5 ou V1 complète par ce seul lot.",
+              "verify": "Sur projets représentatifs et machine cible, accomplir les parcours intégrés, cas de refus/inconnu, changements externes et restauration/remplacement dans le paquet exact ; matrice R1–R15 et limites G2/G3 relues indépendamment, sans assimilation du prototype ou d’un accord synthétique à une validation humaine globale.",
+              "covers": [
+                "R1",
+                "R2",
+                "R3",
+                "R4",
+                "R5",
+                "R6",
+                "R7",
+                "R8",
+                "R9",
+                "R10",
+                "R11",
+                "R12",
+                "R13",
+                "R14",
+                "R15"
+              ],
+              "after": [
+                15,
+                "1.11"
+              ],
+              "hitl": false,
+              "risk": "high",
+              "plan_checkpoint": false,
+              "done_checkpoint": false
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "problems": [],
+  "acceptance": "unknown"
+}

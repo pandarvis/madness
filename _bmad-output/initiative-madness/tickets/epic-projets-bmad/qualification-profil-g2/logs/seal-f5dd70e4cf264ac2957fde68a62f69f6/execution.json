@@ -1,0 +1,28 @@
+{
+  "schema": 4,
+  "outcome": "completed",
+  "exit": 0,
+  "started": true,
+  "owned": [
+    "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+    "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache"
+  ],
+  "cleanup": [
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+      "removed": true
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache",
+      "removed": true
+    }
+  ],
+  "results_present": false,
+  "job_assigned_before_resume": true,
+  "pid": 31264,
+  "active_before_stop": 0,
+  "job_active_after_stop": 0,
+  "stop_ms": 1,
+  "drain_ms": 89,
+  "elapsed_ms": 30184
+}

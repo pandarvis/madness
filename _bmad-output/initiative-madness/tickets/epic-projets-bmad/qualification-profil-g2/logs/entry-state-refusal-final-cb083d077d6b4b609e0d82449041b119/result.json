@@ -1,0 +1,50 @@
+[
+  {
+    "started": false,
+    "error": "CONTROLLED_STATE_WRITE_REFUSAL",
+    "caller_started": false,
+    "job_active_after_stop": null,
+    "passed": true,
+    "caller_reraised": "ScriptHalted",
+    "caller_cleanup_removed": true,
+    "child_marker_absent": true,
+    "cleanup": [
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-b66ede20b1e04dd0be8d40d838277934\\entry-owned-runtime",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-b66ede20b1e04dd0be8d40d838277934\\entry-owned-cache",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-b66ede20b1e04dd0be8d40d838277934\\entry-owned-fixture",
+        "removed": true
+      }
+    ]
+  },
+  {
+    "started": true,
+    "error": "CONTROLLED_STATE_WRITE_REFUSAL",
+    "caller_started": true,
+    "job_active_after_stop": 0,
+    "passed": true,
+    "caller_reraised": "ScriptHalted",
+    "caller_cleanup_removed": true,
+    "child_marker_absent": true,
+    "cleanup": [
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-b66ede20b1e04dd0be8d40d838277934\\started-owned-runtime",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-b66ede20b1e04dd0be8d40d838277934\\started-owned-cache",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-b66ede20b1e04dd0be8d40d838277934\\started-owned-fixture",
+        "removed": true
+      }
+    ]
+  }
+]

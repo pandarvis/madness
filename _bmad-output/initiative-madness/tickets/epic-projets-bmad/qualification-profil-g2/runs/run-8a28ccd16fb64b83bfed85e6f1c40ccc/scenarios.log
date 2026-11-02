@@ -1,0 +1,28 @@
+test_M12_revision_invalidates_action (__main__.Scenarios.test_M12_revision_invalidates_action) ... ok
+test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup) ... ERROR
+test_M8_context_and_selection (__main__.Scenarios.test_M8_context_and_selection) ... ok
+
+======================================================================
+ERROR: test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 449, in test_M15_instrumentation_cleanup
+    native = native_preflight()
+             ^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 407, in native_preflight
+    proc = subprocess.run(command,capture_output=True,timeout=p.TIME_LIMIT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\fixtures-runtime-owned\python\Lib\subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\fixtures-runtime-owned\python\Lib\subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\fixtures-runtime-owned\python\Lib\subprocess.py", line 1630, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['powershell.exe', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', 'C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\preflight-probe.ps1', '-Root', 'C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-4f34257b568c4444a9750b7be1f5052b\\runtime-copy', '-Pins', 'C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\sources-lock.json']' timed out after 15 seconds
+
+----------------------------------------------------------------------
+Ran 3 tests in 149.250s
+
+FAILED (errors=1)

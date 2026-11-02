@@ -1,0 +1,173 @@
+test_M10_real_windows_boundaries (__main__.Scenarios.test_M10_real_windows_boundaries) ... ERROR
+test_M11_bounds_and_utf8 (__main__.Scenarios.test_M11_bounds_and_utf8) ... ok
+test_M12_revision_invalidates_action (__main__.Scenarios.test_M12_revision_invalidates_action) ... ok
+test_M13_tickets_without_leaf (__main__.Scenarios.test_M13_tickets_without_leaf) ... ERROR
+test_M14_untrusted_scripts_never_executed (__main__.Scenarios.test_M14_untrusted_scripts_never_executed) ... ERROR
+test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup) ... ERROR
+test_M1_exact_local_installation (__main__.Scenarios.test_M1_exact_local_installation) ... ERROR
+test_M2_absent_legacy_unknown (__main__.Scenarios.test_M2_absent_legacy_unknown) ... ERROR
+test_M3_partial_invalid_membership (__main__.Scenarios.test_M3_partial_invalid_membership) ... ERROR
+test_M4_root_precedence_and_mask (__main__.Scenarios.test_M4_root_precedence_and_mask) ... ERROR
+test_M5_metadata_and_invocables (__main__.Scenarios.test_M5_metadata_and_invocables) ... ERROR
+test_M6_knowledge_topics_migrations (__main__.Scenarios.test_M6_knowledge_topics_migrations) ... ok
+test_M7_official_three_layer_merge (__main__.Scenarios.test_M7_official_three_layer_merge) ... ok
+test_M8_context_and_selection (__main__.Scenarios.test_M8_context_and_selection) ... ok
+test_M9_output_boundary (__main__.Scenarios.test_M9_output_boundary) ... ok
+
+======================================================================
+ERROR: test_M10_real_windows_boundaries (__main__.Scenarios.test_M10_real_windows_boundaries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 228, in test_M10_real_windows_boundaries
+    os.link(outside, hard)
+PermissionError: [WinError 5] Accès refusé: 'C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-f8d06a6a8a1c43c3b326a278d5079f61\\external\\secret.md' -> 'C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-f8d06a6a8a1c43c3b326a278d5079f61\\project\\hard.md'
+
+======================================================================
+ERROR: test_M13_tickets_without_leaf (__main__.Scenarios.test_M13_tickets_without_leaf)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 326, in test_M13_tickets_without_leaf
+    data = self.tool('tickets', folder=board)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 43, in tool
+    result = p.run_tool(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 338, in run_tool
+    return bounded_process(command, json.dumps(request).encode(), runtime.filtered_env(HERE / 'fixtures-uv-cache'), request['op'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 367, in bounded_process
+    raise Refusal('TIME_LIMIT') from None
+prototype.Refusal: TIME_LIMIT
+
+======================================================================
+ERROR: test_M14_untrusted_scripts_never_executed (__main__.Scenarios.test_M14_untrusted_scripts_never_executed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 352, in test_M14_untrusted_scripts_never_executed
+    cfg = self.tool('config', project=snapshot)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 43, in tool
+    result = p.run_tool(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 338, in run_tool
+    return bounded_process(command, json.dumps(request).encode(), runtime.filtered_env(HERE / 'fixtures-uv-cache'), request['op'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 367, in bounded_process
+    raise Refusal('TIME_LIMIT') from None
+prototype.Refusal: TIME_LIMIT
+
+======================================================================
+ERROR: test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 360, in test_M15_instrumentation_cleanup
+    data = self.tool('audit-probe', sentinel=sentinel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 43, in tool
+    result = p.run_tool(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 338, in run_tool
+    return bounded_process(command, json.dumps(request).encode(), runtime.filtered_env(HERE / 'fixtures-uv-cache'), request['op'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 367, in bounded_process
+    raise Refusal('TIME_LIMIT') from None
+prototype.Refusal: TIME_LIMIT
+
+======================================================================
+ERROR: test_M1_exact_local_installation (__main__.Scenarios.test_M1_exact_local_installation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 54, in test_M1_exact_local_installation
+    data = self.tool('knowledge', roots=[str(snapshot)], content=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 43, in tool
+    result = p.run_tool(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 338, in run_tool
+    return bounded_process(command, json.dumps(request).encode(), runtime.filtered_env(HERE / 'fixtures-uv-cache'), request['op'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 367, in bounded_process
+    raise Refusal('TIME_LIMIT') from None
+prototype.Refusal: TIME_LIMIT
+
+======================================================================
+ERROR: test_M2_absent_legacy_unknown (__main__.Scenarios.test_M2_absent_legacy_unknown)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 93, in test_M2_absent_legacy_unknown
+    data, _ = self.inventory(self.f.project('future', version='7.999.0-preview'))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 49, in inventory
+    return self.tool('knowledge', roots=[str(snapshot / '.agents/skills')], content=True), receipt
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 43, in tool
+    result = p.run_tool(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 338, in run_tool
+    return bounded_process(command, json.dumps(request).encode(), runtime.filtered_env(HERE / 'fixtures-uv-cache'), request['op'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 367, in bounded_process
+    raise Refusal('TIME_LIMIT') from None
+prototype.Refusal: TIME_LIMIT
+
+======================================================================
+ERROR: test_M3_partial_invalid_membership (__main__.Scenarios.test_M3_partial_invalid_membership)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 105, in test_M3_partial_invalid_membership
+    data, _ = self.inventory(project)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 49, in inventory
+    return self.tool('knowledge', roots=[str(snapshot / '.agents/skills')], content=True), receipt
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 43, in tool
+    result = p.run_tool(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 338, in run_tool
+    return bounded_process(command, json.dumps(request).encode(), runtime.filtered_env(HERE / 'fixtures-uv-cache'), request['op'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 367, in bounded_process
+    raise Refusal('TIME_LIMIT') from None
+prototype.Refusal: TIME_LIMIT
+
+======================================================================
+ERROR: test_M4_root_precedence_and_mask (__main__.Scenarios.test_M4_root_precedence_and_mask)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 123, in test_M4_root_precedence_and_mask
+    data = self.tool('knowledge', roots=[str(a), str(b)])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 43, in tool
+    result = p.run_tool(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 338, in run_tool
+    return bounded_process(command, json.dumps(request).encode(), runtime.filtered_env(HERE / 'fixtures-uv-cache'), request['op'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 367, in bounded_process
+    raise Refusal('TIME_LIMIT') from None
+prototype.Refusal: TIME_LIMIT
+
+======================================================================
+ERROR: test_M5_metadata_and_invocables (__main__.Scenarios.test_M5_metadata_and_invocables)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 136, in test_M5_metadata_and_invocables
+    data, _ = self.inventory(project)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 49, in inventory
+    return self.tool('knowledge', roots=[str(snapshot / '.agents/skills')], content=True), receipt
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 43, in tool
+    result = p.run_tool(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 338, in run_tool
+    return bounded_process(command, json.dumps(request).encode(), runtime.filtered_env(HERE / 'fixtures-uv-cache'), request['op'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 367, in bounded_process
+    raise Refusal('TIME_LIMIT') from None
+prototype.Refusal: TIME_LIMIT
+
+----------------------------------------------------------------------
+Ran 15 tests in 516.543s
+
+FAILED (errors=9)

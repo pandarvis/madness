@@ -1,0 +1,57 @@
+test_M10_real_windows_boundaries (__main__.Scenarios.test_M10_real_windows_boundaries) ... ok
+test_M11_bounds_and_utf8 (__main__.Scenarios.test_M11_bounds_and_utf8) ... ok
+test_M12_revision_invalidates_action (__main__.Scenarios.test_M12_revision_invalidates_action) ... ok
+test_M13_tickets_without_leaf (__main__.Scenarios.test_M13_tickets_without_leaf) ... ok
+test_M14_untrusted_scripts_never_executed (__main__.Scenarios.test_M14_untrusted_scripts_never_executed) ... ok
+test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup) ... ERROR
+test_M1_exact_local_installation (__main__.Scenarios.test_M1_exact_local_installation) ... ERROR
+test_M2_absent_legacy_unknown (__main__.Scenarios.test_M2_absent_legacy_unknown) ... ok
+test_M3_partial_invalid_membership (__main__.Scenarios.test_M3_partial_invalid_membership) ... ok
+test_M4_root_precedence_and_mask (__main__.Scenarios.test_M4_root_precedence_and_mask) ... ok
+test_M5_metadata_and_invocables (__main__.Scenarios.test_M5_metadata_and_invocables) ... ok
+test_M6_knowledge_topics_migrations (__main__.Scenarios.test_M6_knowledge_topics_migrations) ... ok
+test_M7_official_three_layer_merge (__main__.Scenarios.test_M7_official_three_layer_merge) ... ok
+test_M8_context_and_selection (__main__.Scenarios.test_M8_context_and_selection) ... ok
+test_M9_output_boundary (__main__.Scenarios.test_M9_output_boundary) ... ok
+
+======================================================================
+ERROR: test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 449, in test_M15_instrumentation_cleanup
+    native = native_preflight()
+             ^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 407, in native_preflight
+    proc = subprocess.run(command,capture_output=True,timeout=p.TIME_LIMIT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\fixtures-runtime-owned\python\Lib\subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\fixtures-runtime-owned\python\Lib\subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\fixtures-runtime-owned\python\Lib\subprocess.py", line 1630, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['powershell.exe', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', 'C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\preflight-probe.ps1', '-Root', 'C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-5ae24996dc954b35be66a49ad1926ac7\\runtime-copy', '-Pins', 'C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\sources-lock.json']' timed out after 15 seconds
+
+======================================================================
+ERROR: test_M1_exact_local_installation (__main__.Scenarios.test_M1_exact_local_installation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 54, in test_M1_exact_local_installation
+    data = self.tool('knowledge', roots=[str(snapshot)], content=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 43, in tool
+    result = p.run_tool(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 338, in run_tool
+    return bounded_process(command, json.dumps(request).encode(), runtime.filtered_env(HERE / 'fixtures-uv-cache'), request['op'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 382, in bounded_process
+    raise Refusal('TIME_LIMIT') from None
+prototype.Refusal: TIME_LIMIT
+
+----------------------------------------------------------------------
+Ran 15 tests in 360.737s
+
+FAILED (errors=2)

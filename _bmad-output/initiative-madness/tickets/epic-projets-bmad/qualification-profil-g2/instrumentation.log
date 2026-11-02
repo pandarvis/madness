@@ -1,0 +1,17 @@
+Reprise1, 2026-10-28. Erreurs d’instrumentation conservées sans succès supposé.
+
+1. Premier record-pins via le nouveau lanceur : exit1, stdout/stderr enfant non
+   redirigés donc cause non enregistrée. Aucun sources-lock produit.
+2. Même bootstrap avec capture des flux : uv refuse la persistance de son cache
+   temporaire interpréteur (Access denied/os error5) dans le TEMP de la sandbox.
+   Correction : TEMP/TMP/cache possédés dans qualification/fixtures-uv-cache,
+   retirés en finally. Aucun cache personnel modifié.
+3. Bootstrap suivant : ValueError RUNTIME_CHANGED dans runtime_guard.select_base.
+   Le pin attendu et le lanceur PowerShell s’accordaient déjà ; le tri Path de
+   Python Windows est insensible à la casse. Correction : tri explicite des noms
+   comme runtime.ts, sans changer le pin attendu. Bootstrap ensuite exit0.
+
+Ces bootstrap n’étaient pas des tests M1–M15. Les runs contiennent leurs propres
+logs et résultats, y compris tout échec. L’archive iteration-0.zip conserve les
+erreurs antérieures de uv/cache et de hardlinks sandbox ainsi que les anciens
+15tests/87assertions ; aucune de ces valeurs ne qualifie la reprise1.

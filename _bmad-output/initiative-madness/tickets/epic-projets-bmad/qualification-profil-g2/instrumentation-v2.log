@@ -1,0 +1,34 @@
+Reprise2 — premier essai run-be15a821212746f1a742210ced6d50c6
+15 tests exécutés,6 passés,9 erreurs,0skip ; durée516543ms.
+M10 : WinError5 sandbox à os.link, avant création du hardlink ; pas de succès NTFS déduit.
+Huit erreurs TIME_LIMIT15s dans les appels UV ; le contrôle de toute la chaîne
+d'ancêtres pour chaque fichier du runtime734fichiers dépassait le budget.
+M8/M12 cohérence alpha/beta et M11 bornes passent ; ces succès ne qualifient pas
+la matrice globale échouée.558inputs avant/après identiques et15fixtures retirées.
+Le reçu et ses octets exécutés restent dans son nouvel emplacement, non scellé.
+
+Correction : traversée exhaustive du runtime avec une garde de toute l'ascendance
+racine puis de chaque entrée, vérification de l'identité de chaque dossier au
+retour et des fichiers avant/après, sans répétition inutile des mêmes ancêtres.
+Aucune limite15s relevée. La garde native est aussi allégée par réutilisation des
+métadonnées d'énumération ; son ensemble de734fichiers admis reste identique.
+Le timeout tue désormais l'arbre PID possédé par UV pour fermer les handles des
+enfants avant le teardown des flux. Les exceptions de lecteurs pendant l'ancien
+timeout sont conservées dans la sortie de l'essai, sans effet produit déduit.
+
+Passage ciblé run-6de1b47b0e68480da0c8ac4ca093863a : M8/M12 passent, M15
+atteint la garde native mais son hôte PowerShell5 refuse le chargement du script
+avec AuthorizationManager/UnauthorizedAccess. Reproduction statique du même
+appel conservée dans la sortie outil. La commande suivante ajoute
+-ExecutionPolicy Bypass au seul processus enfant exécutant ce script de banc
+maîtrisé ; aucune politique utilisateur/système n'est écrite. Aucun payload de
+fixture ni Python de copie non admise n'a été lancé.558inputs et nettoyage intacts.
+
+Reprise du30octobre2026 : le délai des appels du banc est désormais borné à60s
+(4Mio par flux inchangés ; lanceur global600s). Le ciblé0979… avait passé3/3
+en225,369s, mais le complet77868… passe13/15 en360,737s : garde native M15 et
+knowledge local M1 dépassent15s. Ce budget de qualification Windows laisse de
+la marge aux lectures froides et au démarrage des processus ; ce n'est ni une
+promesse de latence produit ni un timeout métier. Aucun retry, refus de fichier
+assoupli, nouveau moteur ou réseau n'est ajouté. Les anciens reçus gardent leur
+code et leurs limites exécutés ; ils ne sont pas réécrits.

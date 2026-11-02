@@ -1,0 +1,3616 @@
+{
+  "schema": 5,
+  "version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "tools": [
+    {
+      "name": "config_utils",
+      "path": "C:\\Sources\\madness\\_bmad\\scripts\\config_utils.py",
+      "sha256": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1"
+    },
+    {
+      "name": "knowledge",
+      "path": "C:\\Sources\\madness\\_bmad\\scripts\\knowledge.py",
+      "sha256": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd"
+    },
+    {
+      "name": "roster",
+      "path": "C:\\Sources\\madness\\_bmad\\scripts\\roster.py",
+      "sha256": "a4b82ae7c08312b352cb151e080f7e78d6cf543f65dfdea9f02f60dd3dc0c59d"
+    },
+    {
+      "name": "resolve_config",
+      "path": "C:\\Sources\\madness\\_bmad\\scripts\\resolve_config.py",
+      "sha256": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762"
+    },
+    {
+      "name": "resolve_customization",
+      "path": "C:\\Sources\\madness\\_bmad\\scripts\\resolve_customization.py",
+      "sha256": "ba379892dea849bdf2bbf7183556dc1030a8aa775ff083d3b89db47b18bf367f"
+    },
+    {
+      "name": "setup_check",
+      "path": "C:\\Sources\\madness\\_bmad\\scripts\\setup_check.py",
+      "sha256": "1c59560aba5f3daed3ab64a04bfb15e0f88a2982f63cd541725ac46a4eca033f"
+    },
+    {
+      "name": "tickets",
+      "path": "C:\\Sources\\madness\\.agents\\skills\\bmad-agent-po\\scripts\\tickets.py",
+      "sha256": "4af8f1ea6ac940a13168b0c71bc95f1147ff914259827ac6f59632eb5ef29217"
+    }
+  ],
+  "copies": [
+    {
+      "name": "config_utils",
+      "source": "C:\\Sources\\madness\\_bmad\\scripts\\config_utils.py",
+      "copy": "C:\\Sources\\madness\\.agents\\skills\\bmad\\scripts\\config_utils.py",
+      "sha256": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+      "identical": true
+    },
+    {
+      "name": "knowledge",
+      "source": "C:\\Sources\\madness\\_bmad\\scripts\\knowledge.py",
+      "copy": "C:\\Sources\\madness\\.agents\\skills\\bmad\\scripts\\knowledge.py",
+      "sha256": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+      "identical": true
+    },
+    {
+      "name": "roster",
+      "source": "C:\\Sources\\madness\\_bmad\\scripts\\roster.py",
+      "copy": "C:\\Sources\\madness\\.agents\\skills\\bmad\\scripts\\roster.py",
+      "sha256": "a4b82ae7c08312b352cb151e080f7e78d6cf543f65dfdea9f02f60dd3dc0c59d",
+      "identical": true
+    },
+    {
+      "name": "resolve_config",
+      "source": "C:\\Sources\\madness\\_bmad\\scripts\\resolve_config.py",
+      "copy": "C:\\Sources\\madness\\.agents\\skills\\bmad\\scripts\\resolve_config.py",
+      "sha256": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+      "identical": true
+    },
+    {
+      "name": "resolve_customization",
+      "source": "C:\\Sources\\madness\\_bmad\\scripts\\resolve_customization.py",
+      "copy": "C:\\Sources\\madness\\.agents\\skills\\bmad\\scripts\\resolve_customization.py",
+      "sha256": "ba379892dea849bdf2bbf7183556dc1030a8aa775ff083d3b89db47b18bf367f",
+      "identical": true
+    },
+    {
+      "name": "setup_check",
+      "source": "C:\\Sources\\madness\\_bmad\\scripts\\setup_check.py",
+      "copy": "C:\\Sources\\madness\\.agents\\skills\\bmad\\scripts\\setup_check.py",
+      "sha256": "1c59560aba5f3daed3ab64a04bfb15e0f88a2982f63cd541725ac46a4eca033f",
+      "identical": true
+    }
+  ],
+  "runtime": {
+    "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned\\python",
+    "files": [
+      {
+        "name": "python.exe",
+        "sha256": "ceabb31054d429f57cb3825775677eeaf0db35fdabbc5ff6aef661c037154b00"
+      },
+      {
+        "name": "python3.dll",
+        "sha256": "313753204dbbb0e3b80ab860f98abb23b58d9f7e7eecb53e618021c01238c261"
+      },
+      {
+        "name": "python312.dll",
+        "sha256": "7e6decf2bf713fc4bdec8f08ff96517f79a481ac12a7aed4daeec55dfb414b3e"
+      },
+      {
+        "name": "vcruntime140.dll",
+        "sha256": "d5e4d9a3e835fa679450145d6a7d94e36573a509317111904d9b3712c30d9066"
+      },
+      {
+        "name": "vcruntime140_1.dll",
+        "sha256": "1f2d41c4aa5db0bc33ebf7b66d72943a817d7ce6cbe880502a9403823633093f"
+      },
+      {
+        "name": "DLLs/_asyncio.pyd",
+        "sha256": "5581f9ba460b8e99992d41a245a1fd944960f446ed9fa6c5b4310f526d29a78d"
+      },
+      {
+        "name": "DLLs/_bz2.pyd",
+        "sha256": "5ea07e4cdd7941b849dd0161b139e1f25782410ca24a87caa04a27294bbfd597"
+      },
+      {
+        "name": "DLLs/_ctypes.pyd",
+        "sha256": "428bc44c7d358a37e85dc55a521fd957252b17cd513d1575e6081a2ca01576f1"
+      },
+      {
+        "name": "DLLs/_ctypes_test.pyd",
+        "sha256": "557c5a06b2a5c8b2911c85ee150fcf8c05f40b1a13797183522fd9509b742a64"
+      },
+      {
+        "name": "DLLs/_decimal.pyd",
+        "sha256": "a2e1094abba20f3e3eb7c38eb7edbb3fc42a0babf1ec1c9b67d1cb9153217227"
+      },
+      {
+        "name": "DLLs/_elementtree.pyd",
+        "sha256": "14c500354d6c641cecc7edbc5e3cbc051bd20ee7571ea4ca49363ddcfdcdc47b"
+      },
+      {
+        "name": "DLLs/_hashlib.pyd",
+        "sha256": "6c04ecf32e71ddcaafab4d26e660eb5e91c42c1a49c06e42299dcc688870cc87"
+      },
+      {
+        "name": "DLLs/_lzma.pyd",
+        "sha256": "28aa729a96bbe5a2dd1bc045d7a0fddb6728480de8b85dd583420eafeaddad48"
+      },
+      {
+        "name": "DLLs/_msi.pyd",
+        "sha256": "9432005a25817adaea1fd5c9623eea192ebe67670a2f103ebe37c88be40e5064"
+      },
+      {
+        "name": "DLLs/_multiprocessing.pyd",
+        "sha256": "353bb97517ecd96355009a59c6a6443ce2a61a345ff586751990f9d3fc43d590"
+      },
+      {
+        "name": "DLLs/_overlapped.pyd",
+        "sha256": "b717a19d5bb82a4d4a09a08908fe933054f09302dffe49868b3a23db89f98f7f"
+      },
+      {
+        "name": "DLLs/_queue.pyd",
+        "sha256": "806e2980d00e8f6d56f3e3bf9a4ed1e51c1f224c3f6f19d3c11e674831d0e068"
+      },
+      {
+        "name": "DLLs/_socket.pyd",
+        "sha256": "d90e932690cd6dcfaf39ee680e1916805bd3bbe0ec0ceaf675f87d5752c7d70d"
+      },
+      {
+        "name": "DLLs/_sqlite3.pyd",
+        "sha256": "da032ab19b4c6f010aac8069f6f0610649836fd24d0dfd53645842449ab720da"
+      },
+      {
+        "name": "DLLs/_ssl.pyd",
+        "sha256": "d2ebb11080f27f16ddb0a2ceb24e0a4608dfa0948c44dee2cf79517a8fa33996"
+      },
+      {
+        "name": "DLLs/_testbuffer.pyd",
+        "sha256": "15903abdfa95c3a310d5d591338b0b2dd4c3a4ba4ec110f99075744f4c3b0770"
+      },
+      {
+        "name": "DLLs/_testcapi.pyd",
+        "sha256": "00f35bff0e152878663f04d03915ad3ba988fcf613fd0faed01af2f298f616d2"
+      },
+      {
+        "name": "DLLs/_testclinic.pyd",
+        "sha256": "21cbd8e7dfdbae09b71accff84c6a7422f07723d994d562bbf1953098ba6d5c7"
+      },
+      {
+        "name": "DLLs/_testconsole.pyd",
+        "sha256": "eea7760104b7f49dd2cb0cdb6c46e4268ac40651335cf0a60a53fe1662674be1"
+      },
+      {
+        "name": "DLLs/_testimportmultiple.pyd",
+        "sha256": "3076b4e52a0e0c26550371a2726665891ed3d1766a67ca40e4d5564fc2cde504"
+      },
+      {
+        "name": "DLLs/_testinternalcapi.pyd",
+        "sha256": "06bec9d2ad650e793f9dcfbe9c9d7cf4187a502eaa38c31f5d283bea0364833a"
+      },
+      {
+        "name": "DLLs/_testmultiphase.pyd",
+        "sha256": "17acdedc090d5902aada94aa687701288c36bd93d0e4e280507326fd6223dbd8"
+      },
+      {
+        "name": "DLLs/_testsinglephase.pyd",
+        "sha256": "4046c007786802e0db183a98cdb3c449ea4dcfa7412e806df1994db743487d12"
+      },
+      {
+        "name": "DLLs/_tkinter.pyd",
+        "sha256": "c27d36aac77cb5874256191c34bcc25f5fec3555dd123a2de50959de23af1938"
+      },
+      {
+        "name": "DLLs/_uuid.pyd",
+        "sha256": "b64471679004f2a0dad6b2fd12ba28edb3b1b0026870dba764ee6ac26584b237"
+      },
+      {
+        "name": "DLLs/_wmi.pyd",
+        "sha256": "8f6ee0cb05b1265f3057399e3299ce674bf60c12876003ac4c88ca454efa6a31"
+      },
+      {
+        "name": "DLLs/_zoneinfo.pyd",
+        "sha256": "376b5f80aa01559cd3f1d0069ade31bd93896a882c6e45fb8c5fbfd33e4b0b05"
+      },
+      {
+        "name": "DLLs/libcrypto-3-x64.dll",
+        "sha256": "ced12fd43226626967ac15f6cac1df569ba28c3857f5843fd35debf0f7f4ef46"
+      },
+      {
+        "name": "DLLs/libffi-8.dll",
+        "sha256": "1dd144bf29b21d130803552f4d335d3b920bd8b4d589a03d7ac23bbf5a717176"
+      },
+      {
+        "name": "DLLs/libssl-3-x64.dll",
+        "sha256": "46fb52a6834a56bbda1273c569e7704d2b6727351e32d2f9cff5e4b98ab52a71"
+      },
+      {
+        "name": "DLLs/pyexpat.pyd",
+        "sha256": "8d6871fdac9fd5e13b2d49a0c73b0f2fc852a20820e9fe4eb4168e0bacef50ac"
+      },
+      {
+        "name": "DLLs/select.pyd",
+        "sha256": "363774afc618bee6072689641fb44d2b81429b591f5b1e563b6b2a780b4cd444"
+      },
+      {
+        "name": "DLLs/sqlite3.dll",
+        "sha256": "0a9736c36b933a73e05e252ef4cc5da6b29dc701016417cd9d8d5db43779ed6e"
+      },
+      {
+        "name": "DLLs/tcl86t.dll",
+        "sha256": "fbfd065f861ec0a90dd513bc209c56bbc23c54d2839964a0ec2df95848af7860"
+      },
+      {
+        "name": "DLLs/tk86t.dll",
+        "sha256": "cd2f60075064dfc2e65c88b239a970cb4bd07cb3eec7cc26fb1bf978d4356b08"
+      },
+      {
+        "name": "DLLs/unicodedata.pyd",
+        "sha256": "5e269ca6cc4b5624ebe00eda359623cdc6c07dcdc445043441e66b3c103861b4"
+      },
+      {
+        "name": "DLLs/winsound.pyd",
+        "sha256": "34dbdc2d4b960444d42c306648d44aa800038d4db92c0e0fb82db99d07790565"
+      },
+      {
+        "name": "Lib/__future__.py",
+        "sha256": "981d4c398849f9ebcab72300d9c1fe288fd6d7f28957b3b3fa3a493a5836d95c"
+      },
+      {
+        "name": "Lib/__hello__.py",
+        "sha256": "a8ce70b199497950f0f06def93115a6814daf1f961934457f59046909901487f"
+      },
+      {
+        "name": "Lib/__phello__/__init__.py",
+        "sha256": "56f7ed595e767c558ded05def14b682893105daf504500c3443b458ca2431bc6"
+      },
+      {
+        "name": "Lib/__phello__/ham/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "Lib/__phello__/ham/eggs.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "Lib/__phello__/spam.py",
+        "sha256": "56f7ed595e767c558ded05def14b682893105daf504500c3443b458ca2431bc6"
+      },
+      {
+        "name": "Lib/_aix_support.py",
+        "sha256": "0982f187c62fbfc1e8d368c8eb4104b56df71009a6b2823565a699e7b4cd945c"
+      },
+      {
+        "name": "Lib/_collections_abc.py",
+        "sha256": "d4945c8410c4bab351741b04bca3de066f7c27ed7e38df89e206a96617102ffb"
+      },
+      {
+        "name": "Lib/_compat_pickle.py",
+        "sha256": "12c8356a3d40bd0a336f13d7c6e2bed50d5c1a876563766a3175a6b328b5855e"
+      },
+      {
+        "name": "Lib/_compression.py",
+        "sha256": "3ad5d60627477a60939ee44fc1bb3a05dbe8fb52f0f75039b8f5d8f1a278b981"
+      },
+      {
+        "name": "Lib/_markupbase.py",
+        "sha256": "cb14dd6f2e2439eb70b806cd49d19911363d424c2b6b9f4b73c9c08022d47030"
+      },
+      {
+        "name": "Lib/_osx_support.py",
+        "sha256": "363d3240acbba18a270bd3161f1ddb478f8492dc14fc451b2dc314db5c5ee09c"
+      },
+      {
+        "name": "Lib/_py_abc.py",
+        "sha256": "f9c6fe3dd9b51bd7d93f867356e9d362600c924febfd903ee1c6e298860dca92"
+      },
+      {
+        "name": "Lib/_pydatetime.py",
+        "sha256": "a03268abe53ccab406fa29cdfcf75b89f7f485d9e6523e00c448ff7a9961dd26"
+      },
+      {
+        "name": "Lib/_pydecimal.py",
+        "sha256": "87a3372df4c4269adcdac5725e04675d306abcfa8d65e8dda59c1846e3d202ac"
+      },
+      {
+        "name": "Lib/_pyio.py",
+        "sha256": "22a2730be3230802593c75c930387e635809c6d82420e5234ef8d9cd1166ac8d"
+      },
+      {
+        "name": "Lib/_pylong.py",
+        "sha256": "05da132ba902633430bf12b5007fa1983630de423e29402998e9edc349bdf591"
+      },
+      {
+        "name": "Lib/_sitebuiltins.py",
+        "sha256": "b9388bc1d6d12ed6be12da420ab1feca40f99c0e33ec315d92b1e01cb69b25bc"
+      },
+      {
+        "name": "Lib/_strptime.py",
+        "sha256": "dcec0ad5efc41dd29fb125b477530ef22c70da117b59fa49cec39aae04e1f868"
+      },
+      {
+        "name": "Lib/_threading_local.py",
+        "sha256": "e1bf3dae66d0bfa63c8bb8a1d10c611203c35c636f7f5191fd56105788ef29cb"
+      },
+      {
+        "name": "Lib/_weakrefset.py",
+        "sha256": "91895a451d06e9f521a1171b31b9b19bc9740f35af00d4fa106338ab7167c9ac"
+      },
+      {
+        "name": "Lib/abc.py",
+        "sha256": "e558702a95cdce3febd289da021715d2b92bc43995b8a1bc58dfa1c3d8010287"
+      },
+      {
+        "name": "Lib/aifc.py",
+        "sha256": "e027e8a33567890ad7f84fea3be423cc0f6e49a33a31bbf279c2d0f64b6f8345"
+      },
+      {
+        "name": "Lib/antigravity.py",
+        "sha256": "8a5ee63e1b79ba2733e7ff4290b6eefea60e7f3a1ccb6bb519535aaf92b44967"
+      },
+      {
+        "name": "Lib/argparse.py",
+        "sha256": "7cc582dcb3b76e2c957f78a3f74e9809d6c311d6aab7bcaa2c9954d0cbff5f30"
+      },
+      {
+        "name": "Lib/ast.py",
+        "sha256": "b515c23dbbc459329d3b802a3aac742cc456d7472e66f7ed6e9dc97e40596d7d"
+      },
+      {
+        "name": "Lib/asyncio/__init__.py",
+        "sha256": "61102f2b5f8fb832f0558cb66391f227970b3dd34ea2a621455587b4295e89a1"
+      },
+      {
+        "name": "Lib/asyncio/__main__.py",
+        "sha256": "c1e67c3b5f5d964029b407e71397d9d93d8b545abde482ffb0eab02dd16ad820"
+      },
+      {
+        "name": "Lib/asyncio/base_events.py",
+        "sha256": "53b71bbbd79e7fb2251460119afc379ebd71bbc599d9018313cc62ef218ae795"
+      },
+      {
+        "name": "Lib/asyncio/base_futures.py",
+        "sha256": "2f3798c4b82f5ac77647908b157c924f734f36871d98970e72849ea9a9a07856"
+      },
+      {
+        "name": "Lib/asyncio/base_subprocess.py",
+        "sha256": "d69ba8f97bf8c89564cadce49427574ddb98103a5db6f04b98798240332e7adf"
+      },
+      {
+        "name": "Lib/asyncio/base_tasks.py",
+        "sha256": "56efac65b63db927af336fa55eb5bda93c97a2defa4734ea8d695ed20fd6712a"
+      },
+      {
+        "name": "Lib/asyncio/constants.py",
+        "sha256": "873fc2f9e66313c3c19c337269e704f204b59f9e91d6ecbec59f68335484d338"
+      },
+      {
+        "name": "Lib/asyncio/coroutines.py",
+        "sha256": "2feec17557c230a80cc2a6391bbb1c44b9f3341820b05667e36a4eb12b749436"
+      },
+      {
+        "name": "Lib/asyncio/events.py",
+        "sha256": "6a18b7eee5926622c146e61a7eb39726b4656e07ca41d36b06936ffb2354f0ed"
+      },
+      {
+        "name": "Lib/asyncio/exceptions.py",
+        "sha256": "a5971f88be14cd1417d59adf539ae48c5d818f95362a4e0eb00017e3690ab37b"
+      },
+      {
+        "name": "Lib/asyncio/format_helpers.py",
+        "sha256": "6377b672b3f4ba8b6f0f7a5f0ea00cde24c8cddc0ca764e3329f302763477f59"
+      },
+      {
+        "name": "Lib/asyncio/futures.py",
+        "sha256": "f6daaf2a051fc61ea146811d7d4b4db1cac31d7f4777aa4d10617812d78bd943"
+      },
+      {
+        "name": "Lib/asyncio/locks.py",
+        "sha256": "5234295a0456e9a6ba2e80446848b602cd9195bca4fca2c711c6e3f41989cd86"
+      },
+      {
+        "name": "Lib/asyncio/log.py",
+        "sha256": "80e4cc3ded4b138baba486519e7444801a23d6ac35f229d336a407a96af7e8d2"
+      },
+      {
+        "name": "Lib/asyncio/mixins.py",
+        "sha256": "8f4a3e16eca845ebfba422550cbcee7340ec8166d2bff6b750a8ed0de6b9ae3c"
+      },
+      {
+        "name": "Lib/asyncio/proactor_events.py",
+        "sha256": "62d15e99315cae52e8548f487391ae6c46827bf8e5b4bcf3382c777a494a759b"
+      },
+      {
+        "name": "Lib/asyncio/protocols.py",
+        "sha256": "1d1b49988c338b4ef06e30f9e92d9db2e00080c341f0a3f573bb8312deb8aff6"
+      },
+      {
+        "name": "Lib/asyncio/queues.py",
+        "sha256": "8f020744ebd1f557dcb051a1530b504447660df906c2127a94bbcc8450ea7ef9"
+      },
+      {
+        "name": "Lib/asyncio/runners.py",
+        "sha256": "739e0ecbb335cfec821a39f9e225583b5911bb6e3894ef93782005f852c54263"
+      },
+      {
+        "name": "Lib/asyncio/selector_events.py",
+        "sha256": "b77c4b8a85f1e1e2882a2bf3bd85a4b1c1fcfd7cb37ed0d8d8eb5f9a2ea44231"
+      },
+      {
+        "name": "Lib/asyncio/sslproto.py",
+        "sha256": "6c7fa1b81dc41850281cbf284c99ca18e824939fa5778860327040f3a80f6218"
+      },
+      {
+        "name": "Lib/asyncio/staggered.py",
+        "sha256": "3998d04fcff2c8052af03f3f34dbd3bd510b2dadddd5f2629a2c1cccbecd136d"
+      },
+      {
+        "name": "Lib/asyncio/streams.py",
+        "sha256": "6ec5c70fd95b0d51cc1e81cd21e8abe8c1b69650148d6bb75ab4aa4797319bd4"
+      },
+      {
+        "name": "Lib/asyncio/subprocess.py",
+        "sha256": "7b70605716334f63cc482123b2aaa3b7c5bb7138eeab63a037bd8068d43307c1"
+      },
+      {
+        "name": "Lib/asyncio/taskgroups.py",
+        "sha256": "1d2bcd2da66524b45024841b94100cd6e7a7825a1b8f8ee125bf16b4ad0ca9bc"
+      },
+      {
+        "name": "Lib/asyncio/tasks.py",
+        "sha256": "6f6aad82d597fea1800004075b9a2481604da0035f1143af1eb267823ec460e3"
+      },
+      {
+        "name": "Lib/asyncio/threads.py",
+        "sha256": "39d37295383641565f0c08bd992e2f661dc8051eb17e890b834fce96bde0910e"
+      },
+      {
+        "name": "Lib/asyncio/timeouts.py",
+        "sha256": "3e40ca0dca3e54776579797837cd4936d73d04aae09fe0cf83ce1e5449d00163"
+      },
+      {
+        "name": "Lib/asyncio/transports.py",
+        "sha256": "940108bc133de399f38928cad3274f463096168d8a3ee5148f2478d3cb636f1c"
+      },
+      {
+        "name": "Lib/asyncio/trsock.py",
+        "sha256": "c0eac37debcc51b702b808f6b7ed3e417343f5ff5f57125dad600a27eb082328"
+      },
+      {
+        "name": "Lib/asyncio/unix_events.py",
+        "sha256": "1fff06cce78763800f05f4d2bebfcdbc07ebf9564ca7e7222e0d91e39dee08c9"
+      },
+      {
+        "name": "Lib/asyncio/windows_events.py",
+        "sha256": "163927e5834c10c6c106d81cf3cfd568fd1ced7fa34d857836447d3c4cc7a9d3"
+      },
+      {
+        "name": "Lib/asyncio/windows_utils.py",
+        "sha256": "e6fcffefa2521666bc2aed0f5caf8e862c1c1014ad12d2ab5fbce09c2df9c6f0"
+      },
+      {
+        "name": "Lib/base64.py",
+        "sha256": "8d1f608dbf030d11d6ec4df9e4c55b73fb68cdfbd9f53a7c91684a93b55564b5"
+      },
+      {
+        "name": "Lib/bdb.py",
+        "sha256": "171ba6b07dc5d3b9f718f3890fedc97e1fe750e39855f4342d71514169ccc29a"
+      },
+      {
+        "name": "Lib/bisect.py",
+        "sha256": "f1cf7b85fc36b5da249813fc5ab97d9464f8cc1bc817f7146206fa2713e35999"
+      },
+      {
+        "name": "Lib/bz2.py",
+        "sha256": "76ab3252924e71e859d7d90e8d3db13b6554975cfcac0fdadced4de7f8779330"
+      },
+      {
+        "name": "Lib/cProfile.py",
+        "sha256": "c4c3edb84862431dffd6c044f5c02bb27f94e5b79a708bce195a7981efcb43bc"
+      },
+      {
+        "name": "Lib/calendar.py",
+        "sha256": "0010004d32c694e4afa554db2434952040819c09c438e88d465dcf6d9fb63718"
+      },
+      {
+        "name": "Lib/cgi.py",
+        "sha256": "f132666784c29a3e275f50596f87bb8abc388a94fcdb70be130000e01a9a6b78"
+      },
+      {
+        "name": "Lib/cgitb.py",
+        "sha256": "08bbcca13a431551da73a2144c13f21e68cb79ac82223fbe5e60fcf89ce10f9c"
+      },
+      {
+        "name": "Lib/chunk.py",
+        "sha256": "4817eb94eeb8835c3325433f68f17e0ebbf7c96065ecf6aba3af7852f9a5314b"
+      },
+      {
+        "name": "Lib/cmd.py",
+        "sha256": "fb82a8c4e44e5b559c88d516d79051534cec69a463df97defe05ac8a261f0a0d"
+      },
+      {
+        "name": "Lib/code.py",
+        "sha256": "dab54e60985a3770782a7f031b6a80f91009c372465a09cdd1221b2ca03080eb"
+      },
+      {
+        "name": "Lib/codecs.py",
+        "sha256": "7b7839e53a77961153240aecfe11edc8054d05b1dedd83894450dae21ec05785"
+      },
+      {
+        "name": "Lib/codeop.py",
+        "sha256": "3fb545862a1f9030c0d8f1ae6c72457d14a26d67a9b45de455e49900ff84a3a9"
+      },
+      {
+        "name": "Lib/collections/__init__.py",
+        "sha256": "7fdb04dd248ab37909f46d2085bfee56b32d7e91e49ad3a2fad99c453295659b"
+      },
+      {
+        "name": "Lib/collections/abc.py",
+        "sha256": "9cb4208f99128a0489b6c8e6c61637617dd7d4250c59e065491957eda084dd10"
+      },
+      {
+        "name": "Lib/colorsys.py",
+        "sha256": "65e3dfbf7bad61d4d7d7731a69dd7e75a347fd350d91327a51010a94e6fd2f1d"
+      },
+      {
+        "name": "Lib/compileall.py",
+        "sha256": "588f003bb5088ce380f3c335febaec1318811d275e5554b106655c4ceebabcfb"
+      },
+      {
+        "name": "Lib/concurrent/__init__.py",
+        "sha256": "87ad5c8954dd56fbbca04517bf87477ff4dce575170c7dd1281d7ef1f4214ac8"
+      },
+      {
+        "name": "Lib/concurrent/futures/__init__.py",
+        "sha256": "9b597f6de7da771109ca7bf96a1af5ea4d5fda69b27b39312d34966d987f73cd"
+      },
+      {
+        "name": "Lib/concurrent/futures/_base.py",
+        "sha256": "8c6d5f09f7c535d40fa1c30ebfcb35e0601c2abf32286a82cf151af7ddf72473"
+      },
+      {
+        "name": "Lib/concurrent/futures/process.py",
+        "sha256": "66b4fe880563a604ac4a094b72c6535b56b3bb8b14f4b6025705d53d28816fba"
+      },
+      {
+        "name": "Lib/concurrent/futures/thread.py",
+        "sha256": "fe940a20adc4d3e66a8ea42a4c7e6c16957b011e8ada50c4e7a7bddbcbbffa0d"
+      },
+      {
+        "name": "Lib/configparser.py",
+        "sha256": "cf5318e0c45a2e206b4ec74d4d66493185ed26c3736a86b0ebdf8f3a3e365a1a"
+      },
+      {
+        "name": "Lib/contextlib.py",
+        "sha256": "8b7a477f978a8532852fd81e241c78182516bc4975d672d580a5848a76e11eb6"
+      },
+      {
+        "name": "Lib/contextvars.py",
+        "sha256": "5ed260be8d1f4fe92261b7810b4bb1e8539c42093d7493f677d076e1a87f459a"
+      },
+      {
+        "name": "Lib/copy.py",
+        "sha256": "cbd25547933176fcf6bb05c2adc9f4796d15ac20b9b82dcf890daea7203daeab"
+      },
+      {
+        "name": "Lib/copyreg.py",
+        "sha256": "c8eda41f05c6bf95a4da4726a530409d2485ae060b8d019b3a8034389a15d3e9"
+      },
+      {
+        "name": "Lib/crypt.py",
+        "sha256": "208df2ff33c19056345dcf5474abef1a58da799e2f3bab09d1d28b77ad3c623d"
+      },
+      {
+        "name": "Lib/csv.py",
+        "sha256": "2fd2a39ec59a5cbcd71596a93205001e593c65dc2ca3bef6028f148372028a88"
+      },
+      {
+        "name": "Lib/ctypes/__init__.py",
+        "sha256": "e0db1242e78267cba0124ee9fe5963b72d1c8a1832bb51a88abcf012a9cbce76"
+      },
+      {
+        "name": "Lib/ctypes/_aix.py",
+        "sha256": "540e2821fa36981bde5c6ffb8f972474b06db4a37c1854c0e0e379b75d2b0fa3"
+      },
+      {
+        "name": "Lib/ctypes/_endian.py",
+        "sha256": "c5d692bdce10dfee242752620061bab684633bc72445a3def484961ef1bdbf3a"
+      },
+      {
+        "name": "Lib/ctypes/macholib/__init__.py",
+        "sha256": "1e77c01eec8f167ed10b754f153c0c743c8e5196ae9c81dffc08f129ab56dbfd"
+      },
+      {
+        "name": "Lib/ctypes/macholib/dyld.py",
+        "sha256": "eb8e7b17f1533bc3e86e23e8695f7a5e4b7a99ef1b1575d10af54f389161b655"
+      },
+      {
+        "name": "Lib/ctypes/macholib/dylib.py",
+        "sha256": "f19ee056b18165cc6735efab0b4ca3508be9405b9646c38113316c15e8278a6f"
+      },
+      {
+        "name": "Lib/ctypes/macholib/framework.py",
+        "sha256": "302439e40d9cbdd61b8b7cffd0b7e1278a6811b635044ee366a36e0d991f62da"
+      },
+      {
+        "name": "Lib/ctypes/util.py",
+        "sha256": "a54310b64a080b0103f3de5df86b21d884bc2985760f3596ab85d458eae8cba5"
+      },
+      {
+        "name": "Lib/ctypes/wintypes.py",
+        "sha256": "5c4d9ba1a21683838ed1d1f007b6038304e42aacf34c576e820311d26cb243f3"
+      },
+      {
+        "name": "Lib/curses/__init__.py",
+        "sha256": "d8730e360dd00ec046bdd85cae41fe83c907c6ae3716a964158fce8f31ab28b0"
+      },
+      {
+        "name": "Lib/curses/ascii.py",
+        "sha256": "780dd8bbaf0ee7e832f164c1772953e694a9cd1031d1ab1471af65344d3645e6"
+      },
+      {
+        "name": "Lib/curses/has_key.py",
+        "sha256": "15a052812d9ae80124bb25b3f5b9ffae38e2b03073774e163abf3d773140cfb3"
+      },
+      {
+        "name": "Lib/curses/panel.py",
+        "sha256": "13ef404a30da1825a612ca3e453db88c305d45deef4441c4c9e2ef7ee0ef50c7"
+      },
+      {
+        "name": "Lib/curses/textpad.py",
+        "sha256": "6fd91c3fd9f4a6f213979a2c1df6b737c49c95d9c3acf22cf40cfdb1f88fb737"
+      },
+      {
+        "name": "Lib/dataclasses.py",
+        "sha256": "d242aea5fcf6408b1c1f622442f88f68b9526ce1f8bd2890d74a144677c427d9"
+      },
+      {
+        "name": "Lib/datetime.py",
+        "sha256": "ef20dc6b3554cd585dddffdc573f1f9a7a54c522f2a3fb4576c44edbb1e14238"
+      },
+      {
+        "name": "Lib/dbm/__init__.py",
+        "sha256": "389407b292f30c38a334599d2546ca1fea316b038a5252f985bbccfce6c8453b"
+      },
+      {
+        "name": "Lib/dbm/dumb.py",
+        "sha256": "c99202d9eb4e25a023715a1b804c886fdb7d9f957730959bb071a57d607443b5"
+      },
+      {
+        "name": "Lib/dbm/gnu.py",
+        "sha256": "36cd4904f50e00c4df4ad9d450b3970e150957425f47c00cf979ba73eff49778"
+      },
+      {
+        "name": "Lib/dbm/ndbm.py",
+        "sha256": "1bcc2d9b2fad1901f3421a174eeecb5b8ccc6763283b87bbe0705b404c71904b"
+      },
+      {
+        "name": "Lib/decimal.py",
+        "sha256": "c3e37c55ef72b3dd6cb7b466a907b966467b6a9c58d85302193e64cbb5fd53d0"
+      },
+      {
+        "name": "Lib/difflib.py",
+        "sha256": "3eb2d371b4a171b063921de6bbf115108bc39de8bf72866315868ce2599213b7"
+      },
+      {
+        "name": "Lib/dis.py",
+        "sha256": "44c0b389c96124d8fb5cb0bc41c7a2aa7a6848ef4001b4000dcbd858efa4a1a2"
+      },
+      {
+        "name": "Lib/doctest.py",
+        "sha256": "8fb954ef7e775270461f1baf1331749cab6765a4006d0183cb8a0dfede1bbdc8"
+      },
+      {
+        "name": "Lib/email/__init__.py",
+        "sha256": "e4f46e3414c4602c9abb8b404a45e84412fc49dbe38a3d163f9575132dc7c93e"
+      },
+      {
+        "name": "Lib/email/_encoded_words.py",
+        "sha256": "4178321600c0a19ca04cfe8542ce44487f339d15d89a473b58cea63c0b230217"
+      },
+      {
+        "name": "Lib/email/_header_value_parser.py",
+        "sha256": "fde2476258d76ae53259f377778cdacdbaca421c2424acada1ef5a94245892cb"
+      },
+      {
+        "name": "Lib/email/_parseaddr.py",
+        "sha256": "4308932872acbf4a674312a45a49b870e48026e3dfedc878ee2f512ddf2f30ba"
+      },
+      {
+        "name": "Lib/email/_policybase.py",
+        "sha256": "284be073d7fe99d1021958e6dbeefe4c98a6c00021ea465d01aac71338d1579f"
+      },
+      {
+        "name": "Lib/email/base64mime.py",
+        "sha256": "e2b4b87a5f42a8c5780e343f675513bbcc6abdd23fa14f8f1a7d4f7d72304770"
+      },
+      {
+        "name": "Lib/email/charset.py",
+        "sha256": "a90653f13a4dc5eb3205079dda1d62561a8bf9a7b45585f5dbf90aa31a966680"
+      },
+      {
+        "name": "Lib/email/contentmanager.py",
+        "sha256": "2d81026aef17e4786b15d9ec0629304987e3f275a0fd0a421a81b4ed87234b2c"
+      },
+      {
+        "name": "Lib/email/encoders.py",
+        "sha256": "690b275529788cc48e8f541a2aef321dc31e92f75764ac7924896db72d8a9555"
+      },
+      {
+        "name": "Lib/email/errors.py",
+        "sha256": "dbfb4bbfc85e9d556d3385dc6356518846d8a122bc643b171ea61b6e8dc42c8b"
+      },
+      {
+        "name": "Lib/email/feedparser.py",
+        "sha256": "6046239fcdd6977d1c25841581cabedaeec8046cc5fedcb8ff2d6450a36442bd"
+      },
+      {
+        "name": "Lib/email/generator.py",
+        "sha256": "1cf088e6632b61b7c428caa8b5007b18e405fba68055716a11bd3ceb55c0d4c7"
+      },
+      {
+        "name": "Lib/email/header.py",
+        "sha256": "4d9baa908ad5288dd8fad8cf20b3802ffac77ba1642727804a633b201c56e5ca"
+      },
+      {
+        "name": "Lib/email/headerregistry.py",
+        "sha256": "fada56c25b6a457c6a62af43f9f929bbc29424103ce65f40f114adb4fdf3d39f"
+      },
+      {
+        "name": "Lib/email/iterators.py",
+        "sha256": "1080a2d03779176d6d45f6ecd976dbe69f5579f7e4e83b75224c3f92fd258102"
+      },
+      {
+        "name": "Lib/email/message.py",
+        "sha256": "ba32efea2602ea52e73028a2817afddccccacc4385b9800896556d5c22db2b90"
+      },
+      {
+        "name": "Lib/email/mime/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "Lib/email/mime/application.py",
+        "sha256": "b82a944ccba03e7e7eec46232e50ffe4ce2c32f4b0e26662e6bde30d533584ae"
+      },
+      {
+        "name": "Lib/email/mime/audio.py",
+        "sha256": "856263b25a3384a7450a1a0b9869fb897b84f893b2e7147c7e045ae50d132cd3"
+      },
+      {
+        "name": "Lib/email/mime/base.py",
+        "sha256": "9a7b36653b5657525a0aeeaa72d4a0b09f598e6edc29c139c2dc2612b7d29fb8"
+      },
+      {
+        "name": "Lib/email/mime/image.py",
+        "sha256": "460be5b50cfcaab8e72a73f24f14ab062cedf1a40a775b8b0d80c13aed44bb5e"
+      },
+      {
+        "name": "Lib/email/mime/message.py",
+        "sha256": "30fccea73b874b5ddaccbd3c64936833749ff039f08d40524c1b0b25b8e8e2b8"
+      },
+      {
+        "name": "Lib/email/mime/multipart.py",
+        "sha256": "8bf2beca6de95d66f12968380a428d3bb0a28a8a6ea2078da521511e1ed80a38"
+      },
+      {
+        "name": "Lib/email/mime/nonmultipart.py",
+        "sha256": "4eb9ad32603d66fc9d55aebcc4d3cf759edd9e95a591d38690659afb2e57b050"
+      },
+      {
+        "name": "Lib/email/mime/text.py",
+        "sha256": "71c56a41675a36801259c9946f7b7bf838e6c29c453ba8c34d89401f2b972d6c"
+      },
+      {
+        "name": "Lib/email/parser.py",
+        "sha256": "88890ea9994c55ff7d6c1fd570fece2785f51ed407ee95df4aff946e250bcd66"
+      },
+      {
+        "name": "Lib/email/policy.py",
+        "sha256": "35fcbece24fac56fdefe15c93351eefda47c3440204746b8519e71d4633b0f3e"
+      },
+      {
+        "name": "Lib/email/quoprimime.py",
+        "sha256": "77b454bd3ba3b5e3776be28ae3a0fd8de5d1e50d5b8ee10dd539c37c2bd68082"
+      },
+      {
+        "name": "Lib/email/utils.py",
+        "sha256": "65d259aded3b7d29609d320decdb59cb0a0f7f0e5c453e1d3c380e8a4a5d61c9"
+      },
+      {
+        "name": "Lib/encodings/__init__.py",
+        "sha256": "78c4744d407690f321565488710b5aaf6486b5afa8d185637aa1e7633ab59cd8"
+      },
+      {
+        "name": "Lib/encodings/aliases.py",
+        "sha256": "6fdcc49ba23a0203ae6cf28e608f8e6297d7c4d77d52e651db3cb49b9564c6d2"
+      },
+      {
+        "name": "Lib/encodings/ascii.py",
+        "sha256": "578aa1173f7cc60dad2895071287fe6182bd14787b3fbf47a6c7983dfe3675e3"
+      },
+      {
+        "name": "Lib/encodings/base64_codec.py",
+        "sha256": "cf9ac7a464f541492486241d1b4bf33e37b45c6499275cc4d69c5a8e564e5976"
+      },
+      {
+        "name": "Lib/encodings/big5.py",
+        "sha256": "98fac6f86a20dd05da197e2058176ebfd47edee7074c3248f5f48fe0fb672d7c"
+      },
+      {
+        "name": "Lib/encodings/big5hkscs.py",
+        "sha256": "21d051a00fb5c6a86ba187e0c50e811d659ce00991fd5f5b408f71ebb2ef0f16"
+      },
+      {
+        "name": "Lib/encodings/bz2_codec.py",
+        "sha256": "1181a2a89102a2b1d2b2f1f4473236d5d1ececdd0be8fdaa498a3dbe21a185ab"
+      },
+      {
+        "name": "Lib/encodings/charmap.py",
+        "sha256": "1b8b5fdb36ce3becc62a6115ed904a17083949ec8aaef5a80f7078cec232f43b"
+      },
+      {
+        "name": "Lib/encodings/cp037.py",
+        "sha256": "fda6ca994d710e4e0c760e0204c29a4273fc0f14ebe3169306d2eb54c9953f58"
+      },
+      {
+        "name": "Lib/encodings/cp1006.py",
+        "sha256": "eaded38b427841bdf280e878f1e26da506e743eaa9429075332af60cce429473"
+      },
+      {
+        "name": "Lib/encodings/cp1026.py",
+        "sha256": "f5227237dd7ce5005b16a8e4d8342f0d193193c878e3cf35b9305d22b3b1aaf9"
+      },
+      {
+        "name": "Lib/encodings/cp1125.py",
+        "sha256": "f84c7d30ce222e6a50cff1a4c9737173411da108cbd2c9bb57c854480103c470"
+      },
+      {
+        "name": "Lib/encodings/cp1140.py",
+        "sha256": "3379d78b244aa905ffe1171a968caaf41b9a0154d1ddc76c05a2abaca2b289fd"
+      },
+      {
+        "name": "Lib/encodings/cp1250.py",
+        "sha256": "ebcec1adf9167863fb0bab29708c546300c80a77ef07838c9e0437a59e265970"
+      },
+      {
+        "name": "Lib/encodings/cp1251.py",
+        "sha256": "d57f8cfa34494c5acb6692ddb31f616ae2dd89a075d2af6d36b0b7ec2ffe7af1"
+      },
+      {
+        "name": "Lib/encodings/cp1252.py",
+        "sha256": "19aa5bee667f5fb387924a813aec9fa1dda47769d09e8483a748bdb202be6a84"
+      },
+      {
+        "name": "Lib/encodings/cp1253.py",
+        "sha256": "8c27696dcfb6894b378869bc89f113703fbd1e9b13a83934463d5999b055d1e8"
+      },
+      {
+        "name": "Lib/encodings/cp1254.py",
+        "sha256": "06517ec2f74f1c6562d0a1a500c48ba43f2e6e9d0c3d28356d747f274f1a4c8d"
+      },
+      {
+        "name": "Lib/encodings/cp1255.py",
+        "sha256": "54a1b5087578fa78e5bdd0afa6a9e80e8c5467c1e4226cf6e586cfe7a674a653"
+      },
+      {
+        "name": "Lib/encodings/cp1256.py",
+        "sha256": "ad3768ac2fef2a646b3301c20af705f4d4a1544f22fa8a84241bada27ab84133"
+      },
+      {
+        "name": "Lib/encodings/cp1257.py",
+        "sha256": "d9149d2925b3f719809ef2297e541461079f15c658af207a3e498be314ab2c6b"
+      },
+      {
+        "name": "Lib/encodings/cp1258.py",
+        "sha256": "672e05b51952a82c8dbd5603769195fcedf565e457bb86c0d5bae04955d04630"
+      },
+      {
+        "name": "Lib/encodings/cp273.py",
+        "sha256": "6c6aec3b213ea3aebc2c526dd4d121c95d4a25a2fc928a87cd80f8448988185f"
+      },
+      {
+        "name": "Lib/encodings/cp424.py",
+        "sha256": "30414c2186ea0802bbf3db034122ddec1f8a10061b97c50871e14b74ee36d0ca"
+      },
+      {
+        "name": "Lib/encodings/cp437.py",
+        "sha256": "5c2a5015cd36cf7f561269f33dec4c323093d3d88b0673969accdabdcb9ce2cb"
+      },
+      {
+        "name": "Lib/encodings/cp500.py",
+        "sha256": "630f503f9110d98ea3e1529f2f965ebc275a2f78d3de47f8e9b69d35589d764b"
+      },
+      {
+        "name": "Lib/encodings/cp720.py",
+        "sha256": "395496001271b92efe5df07fc0ae7c3410d1dd2bdfebbd3e4d8e806c8166beb0"
+      },
+      {
+        "name": "Lib/encodings/cp737.py",
+        "sha256": "be3ca1785a3970ec62310710eaf7de82932181b04d06fe4528f8adaba9fb8c4b"
+      },
+      {
+        "name": "Lib/encodings/cp775.py",
+        "sha256": "e0dba85b99329d7f16907e620adada06be5216abcb964406c827b569b2cf1aeb"
+      },
+      {
+        "name": "Lib/encodings/cp850.py",
+        "sha256": "257e29f235e2a8790dd68cee45668776648bab809ce8584f893cdd8fd007993c"
+      },
+      {
+        "name": "Lib/encodings/cp852.py",
+        "sha256": "cc6faaa9dc4a933127da0aaacd1dc7a44c09266051af56bfe3215ff228636b6b"
+      },
+      {
+        "name": "Lib/encodings/cp855.py",
+        "sha256": "7b25c61c9e8c47b218d3fbb801541a2861926ac712843d2113fff90e2074f5ba"
+      },
+      {
+        "name": "Lib/encodings/cp856.py",
+        "sha256": "2e52ec5cb1eafa6739b5569b0b98ee89df5f7358b84ccdc8da64e86f017d359f"
+      },
+      {
+        "name": "Lib/encodings/cp857.py",
+        "sha256": "8d1b769058bfccdb3c6c70c49a104f5081a2fcc9fad68f7b5eb3e4f67f0b33da"
+      },
+      {
+        "name": "Lib/encodings/cp858.py",
+        "sha256": "a24930c4a6ad0ff66dde9a69f2027e4b92c2c9c61dcda2992e940654c606577b"
+      },
+      {
+        "name": "Lib/encodings/cp860.py",
+        "sha256": "2dfae7e31d3d9aa3013cff44a4d7ad842f257ac63765a9998436701b629cd86a"
+      },
+      {
+        "name": "Lib/encodings/cp861.py",
+        "sha256": "701930d77a2177497586e99bc3fe60f2d4beffb645608f167c76874a72ff405e"
+      },
+      {
+        "name": "Lib/encodings/cp862.py",
+        "sha256": "15a2844b6ed9544c6400cf7299b42d0c2bef93c9bee70a9e89f66b8610ad6d6d"
+      },
+      {
+        "name": "Lib/encodings/cp863.py",
+        "sha256": "a3d57f61fce1b98fc81ea8e4ebebaf402fae40bbcdd35d4b8297b9bb49a79aa2"
+      },
+      {
+        "name": "Lib/encodings/cp864.py",
+        "sha256": "15ad8f1fdfdd842c7522241372e7eddda7df687e815692a89157c5f256f21a08"
+      },
+      {
+        "name": "Lib/encodings/cp865.py",
+        "sha256": "bdbaded987242ed2a8de7133ec2f61ddcc1c2e9de27816ab7cd0a4c678a3a907"
+      },
+      {
+        "name": "Lib/encodings/cp866.py",
+        "sha256": "9efcc8e85bbd1687272a0991f6d0429a4c06679db2d114b2ac95db27a70f9d13"
+      },
+      {
+        "name": "Lib/encodings/cp869.py",
+        "sha256": "52582d9fb769b24eac7154f18d7dae856588297d6da98f37fb5efd8da883826d"
+      },
+      {
+        "name": "Lib/encodings/cp874.py",
+        "sha256": "fe4752fa2e65741e08a563a31ff914fe71068942ce9c6f4070b1dfd7b25e5e7f"
+      },
+      {
+        "name": "Lib/encodings/cp875.py",
+        "sha256": "2fe72632015db2cba2bb4367055551da6fe22051b96d170c7b96fa271c46b257"
+      },
+      {
+        "name": "Lib/encodings/cp932.py",
+        "sha256": "99748e28113d2d49f5d666b49b78accd2c6e10a7852f7dd6dece9b5b71aa83c4"
+      },
+      {
+        "name": "Lib/encodings/cp949.py",
+        "sha256": "950a7d29467ce0590b4a1137830d43d88d8f20e4035dcaaa8b2a5c3c3f1de962"
+      },
+      {
+        "name": "Lib/encodings/cp950.py",
+        "sha256": "27811178b450731fc955b1247656a605d04e5ee98e0d585e4596b94b703a27f6"
+      },
+      {
+        "name": "Lib/encodings/euc_jis_2004.py",
+        "sha256": "9fa426cd9f17629f6320700ed18baa94839304cf1bcabbee7edb501747dc055d"
+      },
+      {
+        "name": "Lib/encodings/euc_jisx0213.py",
+        "sha256": "e28315910da20218dae8b7d5becd81de1e283dfd8b0415a4980d67065de73a0b"
+      },
+      {
+        "name": "Lib/encodings/euc_jp.py",
+        "sha256": "b453a439787b0efa031e43416a7d852a6be705c985e1200693eb96d87ea79cdc"
+      },
+      {
+        "name": "Lib/encodings/euc_kr.py",
+        "sha256": "633a1a5504bfad04b1ec9c96d44d4ebb3bb99066a218318e7d67d866e20887a6"
+      },
+      {
+        "name": "Lib/encodings/gb18030.py",
+        "sha256": "6c10b4dc49bc63724e539137ede6936304fcca1c97c28d16d89f381e10849521"
+      },
+      {
+        "name": "Lib/encodings/gb2312.py",
+        "sha256": "3d2d567d8d079b78f3f3b566ed52ad2f38af61bf832b7dc28858b0039a032d6b"
+      },
+      {
+        "name": "Lib/encodings/gbk.py",
+        "sha256": "eff9b8cbc9ad2ef2e10e96afa83d3db1f775ea044aed275b7a35574ae0d8645b"
+      },
+      {
+        "name": "Lib/encodings/hex_codec.py",
+        "sha256": "fc5f0a31b59efe990b86efb98936769f33dd91d912ce55b49a5a4cfc516cd047"
+      },
+      {
+        "name": "Lib/encodings/hp_roman8.py",
+        "sha256": "c43cce763d12e8f71a63dbc16641bd87147eaf5f9d9054ea856864b216b2735b"
+      },
+      {
+        "name": "Lib/encodings/hz.py",
+        "sha256": "025a9531e3046e52d3e039c0be04f9a5a74651d7683a13c7c7ebd4c7dfb5996a"
+      },
+      {
+        "name": "Lib/encodings/idna.py",
+        "sha256": "9ca58e82d12b171f25d57239ad237dae5c44214a70f2f4f39358c2759b8b9013"
+      },
+      {
+        "name": "Lib/encodings/iso2022_jp.py",
+        "sha256": "461a0e7f72eccb8b29f351c4e7926cfbda58e0edd6d0770bd82e0b36c5febe77"
+      },
+      {
+        "name": "Lib/encodings/iso2022_jp_1.py",
+        "sha256": "63bacad13a979a5519fcaa4f1e1e07b2c7415005167fac3a689408c7d886fabd"
+      },
+      {
+        "name": "Lib/encodings/iso2022_jp_2.py",
+        "sha256": "5d4248181548b0fc89a9f5ee9cf52ebecb235708ba87d47896ad14130884ef9f"
+      },
+      {
+        "name": "Lib/encodings/iso2022_jp_2004.py",
+        "sha256": "b4d1468bcd608b46f38cb0c6ef115510dcf9aa0f71e590792f407efc6e165164"
+      },
+      {
+        "name": "Lib/encodings/iso2022_jp_3.py",
+        "sha256": "3aceaa5661909de14e2861d864443b8472460ce39b99cce5c6965346d47aa5ac"
+      },
+      {
+        "name": "Lib/encodings/iso2022_jp_ext.py",
+        "sha256": "f4c9ed8f3031995faa224bcb10153d2b6144944477d1f27d1a6cc4a879fac34c"
+      },
+      {
+        "name": "Lib/encodings/iso2022_kr.py",
+        "sha256": "1c86362e17944f0bcf68db02f4995bdeea605867795fff7ab4079073f96705e4"
+      },
+      {
+        "name": "Lib/encodings/iso8859_1.py",
+        "sha256": "b5cebd515e057d670bf54e10b8a6f162ef3daa7f21b146aee3249160caf3c32d"
+      },
+      {
+        "name": "Lib/encodings/iso8859_10.py",
+        "sha256": "54c886b41819ebb7f4fb34b8dbae1c45f4fc0864f019ecd772676ccfac5fae7b"
+      },
+      {
+        "name": "Lib/encodings/iso8859_11.py",
+        "sha256": "ed5a964470a241b4da7a6cfb718e4149d09644933af38f0497602baab6e563ef"
+      },
+      {
+        "name": "Lib/encodings/iso8859_13.py",
+        "sha256": "7312237e8e5d201d920b4130f057cfdf1b0be9baafaa246826e6d93204fcc206"
+      },
+      {
+        "name": "Lib/encodings/iso8859_14.py",
+        "sha256": "82778b995a0ee87c5f1180fcc52900359eee15bd9a6e3a0e25f0d963e0b2a343"
+      },
+      {
+        "name": "Lib/encodings/iso8859_15.py",
+        "sha256": "01976a81811873dc9a0c79db9fc00d1c30103487f3c6bc3a6d81b4043cd48e02"
+      },
+      {
+        "name": "Lib/encodings/iso8859_16.py",
+        "sha256": "b5ac8f5a5d8f84c0f903b2b7c342184758d590d8bcf810d561f942fe5b372d66"
+      },
+      {
+        "name": "Lib/encodings/iso8859_2.py",
+        "sha256": "2b57cab6111cae9021505e3ae1b2adbbfc344ec48165fda322f6b069fbb18adc"
+      },
+      {
+        "name": "Lib/encodings/iso8859_3.py",
+        "sha256": "4ffdf89004bf0c5230caa7079f7ca3142fc112f8b923ddb2c7358369d2d3c242"
+      },
+      {
+        "name": "Lib/encodings/iso8859_4.py",
+        "sha256": "87bd130daa0eaef3e4cb465e10cffb2bcd194ff74097e0c186b4b8eb7be41ac5"
+      },
+      {
+        "name": "Lib/encodings/iso8859_5.py",
+        "sha256": "9961d96cc7b9fdf011ebcaaeaeca7b50b8670fadbd7b75fde66192f8c1f68f30"
+      },
+      {
+        "name": "Lib/encodings/iso8859_6.py",
+        "sha256": "4840e68014346517680f593ca22f67133c39ba7e46f34b9be62c980a728448c6"
+      },
+      {
+        "name": "Lib/encodings/iso8859_7.py",
+        "sha256": "b352eca3b819488f64fb3338fd93f39c1e30f32bb13f2f9c577925e58f2960e4"
+      },
+      {
+        "name": "Lib/encodings/iso8859_8.py",
+        "sha256": "4cf9e8a8bbe04accb1c1a80853efb19ae0772d18f81e270adefc1b2386cb368e"
+      },
+      {
+        "name": "Lib/encodings/iso8859_9.py",
+        "sha256": "84d9b15263e81685f7513c5ab45caf80b2f73c301c68e659f7162c1b1882d359"
+      },
+      {
+        "name": "Lib/encodings/johab.py",
+        "sha256": "9586615917afd3d848c1c4328656603b2834af6115f2aec932fccc935e1a60fb"
+      },
+      {
+        "name": "Lib/encodings/koi8_r.py",
+        "sha256": "4d4e353aee8039bb71e2145a6e68fe1e6833a1b4250b70ee0ac5ec70bbb8c51d"
+      },
+      {
+        "name": "Lib/encodings/koi8_t.py",
+        "sha256": "9c9043814abdbe7dc39ff98f3857d5d110a84c978ad2304158d810a4e9eacef1"
+      },
+      {
+        "name": "Lib/encodings/koi8_u.py",
+        "sha256": "d449f9858e357fa8c2edbd4b9fe739337e9f201cac3ded20f99bfcecd4970ff7"
+      },
+      {
+        "name": "Lib/encodings/kz1048.py",
+        "sha256": "76beb30e98a911f72f97609a2373782573c17c88a5fb3537db338aa382979ffc"
+      },
+      {
+        "name": "Lib/encodings/latin_1.py",
+        "sha256": "b75503e532a27c636477396c855209ff5f3036536d2a4bede0a576c89382b60c"
+      },
+      {
+        "name": "Lib/encodings/mac_arabic.py",
+        "sha256": "5eafd9a3136abfbd8ed52df9c90203c7a283e7429ed60502a87a02511e0fb777"
+      },
+      {
+        "name": "Lib/encodings/mac_croatian.py",
+        "sha256": "a880cd05c82a8d11a29c65ee86a396def3344465dd71441b0bb4a73826024953"
+      },
+      {
+        "name": "Lib/encodings/mac_cyrillic.py",
+        "sha256": "83616786a1c6308b03a0dc82536908d24d0974b2248d67393d613fe558cea4bd"
+      },
+      {
+        "name": "Lib/encodings/mac_farsi.py",
+        "sha256": "f5763c38fb4ab0423fafe2fdca34d6f9932ac7f1a74c0cd8109d60234c7dc624"
+      },
+      {
+        "name": "Lib/encodings/mac_greek.py",
+        "sha256": "63016a323ddf98cb3aa9cfa78f3bab4768bedbfe9a5262a36a5aecb13d291f6e"
+      },
+      {
+        "name": "Lib/encodings/mac_iceland.py",
+        "sha256": "753cc1ac635caa7e1b4630fbcebef8db8db332c098154a5b11f652912bf64f37"
+      },
+      {
+        "name": "Lib/encodings/mac_latin2.py",
+        "sha256": "31670da18ce8b5394cd53fe6bf216268e7e8eae4c0247532e420e2e103727d50"
+      },
+      {
+        "name": "Lib/encodings/mac_roman.py",
+        "sha256": "230367d96aef8e8d7f185b4acfb84923714f39ddbcbf9cf38a06bf6f5d621c22"
+      },
+      {
+        "name": "Lib/encodings/mac_romanian.py",
+        "sha256": "49630cf035c19e896a123ed6e5fee18b5e485123daf2f15da38bf727ff387bee"
+      },
+      {
+        "name": "Lib/encodings/mac_turkish.py",
+        "sha256": "99758a5cad2825cb3be3fa5d031e0821e4eba910a46f417fd890207b9b6be77b"
+      },
+      {
+        "name": "Lib/encodings/mbcs.py",
+        "sha256": "f6ed445ed537c9f856d8defe8b56505727737d0dc9348d0a877abedab4bdd864"
+      },
+      {
+        "name": "Lib/encodings/oem.py",
+        "sha256": "481656d3a35f792d0e5109e3f821e6dbfcf097163a19b0cdfcbff3b3db99292f"
+      },
+      {
+        "name": "Lib/encodings/palmos.py",
+        "sha256": "eccf7418adefcc2a59e9a07fc4e34363bd62f7e878d48c8a02730a8ed1c584c8"
+      },
+      {
+        "name": "Lib/encodings/ptcp154.py",
+        "sha256": "0eabcb2c287d335e86b71b0abe5718bd6ddc9aaee234f0f0f2363845d2926d8d"
+      },
+      {
+        "name": "Lib/encodings/punycode.py",
+        "sha256": "34edc8fb1c50e4d1cbaa1e008bb491cd7c12116c316e51974f333fe7b628eb7c"
+      },
+      {
+        "name": "Lib/encodings/quopri_codec.py",
+        "sha256": "502a213c34c05a94ed063ee03f47680bd6efbb35036e06fb4dc809bf398cfa64"
+      },
+      {
+        "name": "Lib/encodings/raw_unicode_escape.py",
+        "sha256": "fa6328486b8f5a5cbd10e377e80adb8cf94acbbe19c38b4e1bf708d831a80a3a"
+      },
+      {
+        "name": "Lib/encodings/rot_13.py",
+        "sha256": "14767f475acdc0bf48e6272280dd15b80efaecafb93c06be21136f83dd1ee7e4"
+      },
+      {
+        "name": "Lib/encodings/shift_jis.py",
+        "sha256": "ad4ac50ebf58294304e412cc0f1b12980988dd6edc414e4110029c0a1abbe966"
+      },
+      {
+        "name": "Lib/encodings/shift_jis_2004.py",
+        "sha256": "d21c5930f21063ea78fea3b0f76dfb8fd92858d2a4a200064a52126a43dd1a99"
+      },
+      {
+        "name": "Lib/encodings/shift_jisx0213.py",
+        "sha256": "2c8d0b93bb36edf31c1236b1b4d1c0008553868bd2fc9137570115b96b834f2e"
+      },
+      {
+        "name": "Lib/encodings/tis_620.py",
+        "sha256": "647c4719e2c1a7375105e15a89b377c66f6b699977dcabbb71d923a4607b7902"
+      },
+      {
+        "name": "Lib/encodings/undefined.py",
+        "sha256": "85bba5c5e1007cd8c1ade5c0214bcc825396d2bbd02054e62a9f162104748b64"
+      },
+      {
+        "name": "Lib/encodings/unicode_escape.py",
+        "sha256": "507e7ca8f18df639fd823d7cc23ce4028a3550ceefdfa40b3c76f81d1a94531d"
+      },
+      {
+        "name": "Lib/encodings/utf_16.py",
+        "sha256": "6c36257f7b8d214473560d195e71bccef0c69a53e1e52d2800b7a7890aad7e58"
+      },
+      {
+        "name": "Lib/encodings/utf_16_be.py",
+        "sha256": "3357196f3fa52433326a6626880e34964e00c5570aee50e9a0a0a7c6d86f6e4f"
+      },
+      {
+        "name": "Lib/encodings/utf_16_le.py",
+        "sha256": "3aedaf3eb49769282daef1eaedfd4fa1c31fe5eebeff67fe2307c89dc2e2fd80"
+      },
+      {
+        "name": "Lib/encodings/utf_32.py",
+        "sha256": "2072eece5f6026ad2d3549ab193a9e38894ea15ca9d5b3cd408fd6b116acc0c2"
+      },
+      {
+        "name": "Lib/encodings/utf_32_be.py",
+        "sha256": "cbba20e1f6d0879c7c4293446c371a9f79e7c90bf3c78a77a9b8fc72b18915dd"
+      },
+      {
+        "name": "Lib/encodings/utf_32_le.py",
+        "sha256": "9134b91047d85b442898d59effe23e7e0cf4167ca341ae31119a731dbf880a7b"
+      },
+      {
+        "name": "Lib/encodings/utf_7.py",
+        "sha256": "9ff32314f4f1fa074f206bbf7fdb851504e5313128636d73b4bf75b886e4a87d"
+      },
+      {
+        "name": "Lib/encodings/utf_8.py",
+        "sha256": "ba0cac060269583523ca9506473a755203037c57d466a11aa89a30a5f6756f3d"
+      },
+      {
+        "name": "Lib/encodings/utf_8_sig.py",
+        "sha256": "1ef3da8d8aa08149e7f274dc64dbfce2155da812e5258ca8e8f832428d3b5c2d"
+      },
+      {
+        "name": "Lib/encodings/uu_codec.py",
+        "sha256": "45ba92000718abf85f158563c755205e100356ce1b4ab9444b4d0a3d21f061a3"
+      },
+      {
+        "name": "Lib/encodings/zlib_codec.py",
+        "sha256": "6ef01e8d3a5fe1cc52f7b5ae008df12f1dbce7304111bf8d4758f1bfc0115759"
+      },
+      {
+        "name": "Lib/ensurepip/__init__.py",
+        "sha256": "90f6c76cd9ef7ed6daa198bb9ef771139683487f1b061211be7aa511831b2028"
+      },
+      {
+        "name": "Lib/ensurepip/__main__.py",
+        "sha256": "ee735f518d0fc4dfec81f7aa3da1e052372ed4202c0da4eddd2587840beaecd7"
+      },
+      {
+        "name": "Lib/ensurepip/_uninstall.py",
+        "sha256": "3a6e95d01c45e2e47c05df3c81073b895c97c1eb0e5b90ab175d6d9263fc81f2"
+      },
+      {
+        "name": "Lib/enum.py",
+        "sha256": "f35e542d8c4c1d2b5e910138d726fa48774925f3c4dc5462793ebcb66aa55501"
+      },
+      {
+        "name": "Lib/filecmp.py",
+        "sha256": "803d8494d5ae72f986f3dedaa30360fcc4467f9cb7b3106cf0d434d87a033d60"
+      },
+      {
+        "name": "Lib/fileinput.py",
+        "sha256": "b0cd2a3f01c96f594b6038e52bd83d489bfa081cc757103c70aab4e5b2c4fe1f"
+      },
+      {
+        "name": "Lib/fnmatch.py",
+        "sha256": "6683da36e47af523f3f41e18ad244d837783e19e98911cc0b7415dea81494ebc"
+      },
+      {
+        "name": "Lib/fractions.py",
+        "sha256": "d52d1ab9d5be26924e4914a5e40069c992bbfa68f773694c2e5ee8452d0766a0"
+      },
+      {
+        "name": "Lib/ftplib.py",
+        "sha256": "fb32563e0157d25e1a4b72cdbb5607893014d1accc2dbb986b2e3a61aebfe26e"
+      },
+      {
+        "name": "Lib/functools.py",
+        "sha256": "de4a1d37c795e2a065124b5c49357893433bc6bb111b41277ccc9930ef08d4c9"
+      },
+      {
+        "name": "Lib/genericpath.py",
+        "sha256": "2b0b35d2206778af4081cf81dd9b513876e72c35a55bec941402e1fa62b1f1aa"
+      },
+      {
+        "name": "Lib/getopt.py",
+        "sha256": "0ce875700c8798193b8e2748f7a27fc542cc4d525a1e6fc403767450ec92be99"
+      },
+      {
+        "name": "Lib/getpass.py",
+        "sha256": "e74fd445337ff503223dd8aa4bdd7d04917067d00c796a10bedb7a1381a4960a"
+      },
+      {
+        "name": "Lib/gettext.py",
+        "sha256": "a5c249a522b6b8e3aa6f1b12a8bcc09508b99ad612b58d2fc973db27ea3b7cc3"
+      },
+      {
+        "name": "Lib/glob.py",
+        "sha256": "c9e5f9ae0752660ede63328a456f58f87c29500b31f58c1b813458b00fceb6d5"
+      },
+      {
+        "name": "Lib/graphlib.py",
+        "sha256": "2a29e0adee584dc76251afef1236d7bedf250aca27911f91a4d442133ce81117"
+      },
+      {
+        "name": "Lib/gzip.py",
+        "sha256": "ea6e194b9df26398bf0d5215e63320c7b9d801b2d8b723fb9c80619df48076e9"
+      },
+      {
+        "name": "Lib/hashlib.py",
+        "sha256": "6dbdebf270868b391080e21dc9687eddfaf321c965ad979f68d3f5c423c613ab"
+      },
+      {
+        "name": "Lib/heapq.py",
+        "sha256": "6d43277e5c76fc0f073cd388fcff852d14d068f6bb6d4886c340f8b75a1229a9"
+      },
+      {
+        "name": "Lib/hmac.py",
+        "sha256": "7facd1330e5487ed995eda5c8619df0d3e32f69cb619f97662372fb76325746e"
+      },
+      {
+        "name": "Lib/html/__init__.py",
+        "sha256": "923d82d821e75e8d235392c10c145ab8587927b3faf9c952bbd48081eebd8522"
+      },
+      {
+        "name": "Lib/html/entities.py",
+        "sha256": "d9c65fb2828dbc1f3e399058a341d51e9375ec5bca95a8e92599c41bd5b78bde"
+      },
+      {
+        "name": "Lib/html/parser.py",
+        "sha256": "a4c5558209ffe6d677dbe18e4a4b2d34672c73aee46e39b1d118846afa62a9ff"
+      },
+      {
+        "name": "Lib/http/__init__.py",
+        "sha256": "17f4f6832cfc84b5b9600414bab80b77e67ccb611bdfed10a3f2beca9d0d568b"
+      },
+      {
+        "name": "Lib/http/client.py",
+        "sha256": "c2c0694155837d72fc710a4138e5d1e53ae1a652b117a2e23a5b1b0db527a0f9"
+      },
+      {
+        "name": "Lib/http/cookiejar.py",
+        "sha256": "2a64dbc46edd0173600f32d195531741de562522da28bc76c2f97dccceb37ddb"
+      },
+      {
+        "name": "Lib/http/cookies.py",
+        "sha256": "6387f676095ae5374943eff99fbcd2d9c681172c00209fadf54c311cf7228149"
+      },
+      {
+        "name": "Lib/http/server.py",
+        "sha256": "12f8db637047c12ec053bfaa6671ad1cb7ca9ca8d1dae82b562e5866c5b02990"
+      },
+      {
+        "name": "Lib/idlelib/__init__.py",
+        "sha256": "3f8058df4fec56eb20ff67ff84c86fd3d9697e2384c5a290ed696f6d3187aa45"
+      },
+      {
+        "name": "Lib/idlelib/__main__.py",
+        "sha256": "26699e80e7e8ba278a649881b80e8c7301c729d04d2f8fb2268365b10a48a91e"
+      },
+      {
+        "name": "Lib/idlelib/autocomplete.py",
+        "sha256": "0d36f7694a50cbaa22d9bf03b91fa0658a147bd90dd867714a9b411febb36427"
+      },
+      {
+        "name": "Lib/idlelib/autocomplete_w.py",
+        "sha256": "91170b060749d0b3c8f2ab31499104028bedf971e5575155d43392d5c8dae5d6"
+      },
+      {
+        "name": "Lib/idlelib/autoexpand.py",
+        "sha256": "c8eb28ef7addf5a664a7e3addfbfebe29040a8695e1db515828305aacba2ee4e"
+      },
+      {
+        "name": "Lib/idlelib/browser.py",
+        "sha256": "b607102a6e2ff7de241744008144a5480e2925098694be2a46003d8f60da0f52"
+      },
+      {
+        "name": "Lib/idlelib/calltip.py",
+        "sha256": "3a723fdf88c0018dfadd19757142a643b01b785c6df17a50bbe21463663ab590"
+      },
+      {
+        "name": "Lib/idlelib/calltip_w.py",
+        "sha256": "077e9d0d95946296077d5c95f343e242a7d250a6efece4afc58759b5e984e6c3"
+      },
+      {
+        "name": "Lib/idlelib/codecontext.py",
+        "sha256": "628a13325b3bf2f76dea9254b20178b3232261f83c660f0e33785e6215dd6492"
+      },
+      {
+        "name": "Lib/idlelib/colorizer.py",
+        "sha256": "4de77a632286cf7cb616a2cf50dcd16a99d452fe7b16bf94c34950be97f293c2"
+      },
+      {
+        "name": "Lib/idlelib/config.py",
+        "sha256": "c1e1557b1fa2a161d42f6231ee36ef090b07bffe58839b3c58f008e39d4fa856"
+      },
+      {
+        "name": "Lib/idlelib/config_key.py",
+        "sha256": "856bd4b2c1fd7275856d3869cad8975f7770edbf021a93c64816a41c2322c2fa"
+      },
+      {
+        "name": "Lib/idlelib/configdialog.py",
+        "sha256": "eaf4a08fbd3a8b92fd77a6c3cd5be824c570b38340c3a9afe4f36580320a3d48"
+      },
+      {
+        "name": "Lib/idlelib/debugger.py",
+        "sha256": "6e595d5a388e46b6b6e24490e970a3d355ec116a16a064bfca6ed86d4b17dcb4"
+      },
+      {
+        "name": "Lib/idlelib/debugger_r.py",
+        "sha256": "ddc797740231f068ca7c7c8610e799d72ad11af670d9bc0b6f9e04fe2ba222d1"
+      },
+      {
+        "name": "Lib/idlelib/debugobj.py",
+        "sha256": "aae9e2468a3d05366480864dc56689c65896757faf3b0364b8eef9feb4876a43"
+      },
+      {
+        "name": "Lib/idlelib/debugobj_r.py",
+        "sha256": "4e583b43fdf9bd4a731d70e074ee597aba03f3c8c36302bdc7e74650fb1fcc11"
+      },
+      {
+        "name": "Lib/idlelib/delegator.py",
+        "sha256": "c2b31919d27056fc3aaa8f4ef798fbdf162665175fa9216d665f58ba2e4a464d"
+      },
+      {
+        "name": "Lib/idlelib/dynoption.py",
+        "sha256": "29933f56722b2efb5cf451825a7fe50f357983e68f6a261afdf89b52f778e488"
+      },
+      {
+        "name": "Lib/idlelib/editor.py",
+        "sha256": "c564a1d52a311436e1242b959d1553599b3744d6ff7da1bf5dec28613bdae260"
+      },
+      {
+        "name": "Lib/idlelib/filelist.py",
+        "sha256": "64e194e4514141414ecb231ac165ed861749bb0d31d0758c7c3a823ce154abe1"
+      },
+      {
+        "name": "Lib/idlelib/format.py",
+        "sha256": "dc2b00fb239f38543bf973d94daef2c52457b905d4d89c640993823127b7923c"
+      },
+      {
+        "name": "Lib/idlelib/grep.py",
+        "sha256": "f30014ca750f79c7742bbe9d363368a6fa8b484112dc5a1450f858792a1d2fb1"
+      },
+      {
+        "name": "Lib/idlelib/help.py",
+        "sha256": "78e392dc7543838cd72e68baf51c0da2fe51669a381d04cd1304b927404155f5"
+      },
+      {
+        "name": "Lib/idlelib/help_about.py",
+        "sha256": "2f89f495a3ed95143ce74ba380fe34f779daf4598fec4c775c46cb43745a4fef"
+      },
+      {
+        "name": "Lib/idlelib/history.py",
+        "sha256": "f91f1568d083bdbc856d38ef48493bcb138c6a492d523385b300a5bac30133e6"
+      },
+      {
+        "name": "Lib/idlelib/hyperparser.py",
+        "sha256": "18563d2b4c248aed70b7f29fd903fd51d1b5aceb3dc93c23f9a54141eed7a9b0"
+      },
+      {
+        "name": "Lib/idlelib/idle.py",
+        "sha256": "33ffa2f718e123fd1c4e536bb4a471978515787ee9fbf7806a92073a787a733a"
+      },
+      {
+        "name": "Lib/idlelib/iomenu.py",
+        "sha256": "7004f1ab2cfa5994e453f426507170ec37c1c4a5b9837ba319e5eaebf1a29c34"
+      },
+      {
+        "name": "Lib/idlelib/macosx.py",
+        "sha256": "e6c687754bb60cd1015a413073b4d85b5e5bc7993c1acbfbc92d70600a83132e"
+      },
+      {
+        "name": "Lib/idlelib/mainmenu.py",
+        "sha256": "092fad4454f593d7bf2e5e1e746acade92bb346d06476ba527f162f843ae3208"
+      },
+      {
+        "name": "Lib/idlelib/multicall.py",
+        "sha256": "efb7d9bddcae17fab2108cb714c240c82d1368087b6d2b91e02ec224ddebce12"
+      },
+      {
+        "name": "Lib/idlelib/outwin.py",
+        "sha256": "a24f67d1ebe5e1dce84de0009d0caefaa1c795280507e1b0b7f0ea63d2ea68b4"
+      },
+      {
+        "name": "Lib/idlelib/parenmatch.py",
+        "sha256": "f122e13c385a135cbbbe8b1d87efeed43ddd3e0be9ddd8aa24b267b61fac4287"
+      },
+      {
+        "name": "Lib/idlelib/pathbrowser.py",
+        "sha256": "42a4e008922c991049f1b42ca18700b65f2f8d0ab6dd12cc22671771e90c2065"
+      },
+      {
+        "name": "Lib/idlelib/percolator.py",
+        "sha256": "42fe72c167eb3a2795cbe64c498d7cbe1de05132be29a99a58226ae83efb31d4"
+      },
+      {
+        "name": "Lib/idlelib/pyparse.py",
+        "sha256": "21c6bf43370998d5a5a6670f7b13409335e9a2c1a350ed586bbe63be5f226648"
+      },
+      {
+        "name": "Lib/idlelib/pyshell.py",
+        "sha256": "a99a92f60190271720a5e3109126c937c435c6f181438038b97b20330f0b8c0b"
+      },
+      {
+        "name": "Lib/idlelib/query.py",
+        "sha256": "faea5edd6b8693e6a32107054ad0de3be4d28e6aacb7792f86cbbe146131373b"
+      },
+      {
+        "name": "Lib/idlelib/redirector.py",
+        "sha256": "7911a7534eb0c73ee3e2464c5f8498109653f73ebed8fa903780c5fd7ca00754"
+      },
+      {
+        "name": "Lib/idlelib/replace.py",
+        "sha256": "ea13db39aa89df369b36200c7301874a5636403e8270b1862f946e2fff081b84"
+      },
+      {
+        "name": "Lib/idlelib/rpc.py",
+        "sha256": "8d0cb6e11c8dcc5dbda89b9a582bfaa74fe2b661dde442b02eb61b8fc47d9eb3"
+      },
+      {
+        "name": "Lib/idlelib/run.py",
+        "sha256": "49a87a54dda2a595720d90f93a70045ac017f2dc826e578e2d2bb5360739db8e"
+      },
+      {
+        "name": "Lib/idlelib/runscript.py",
+        "sha256": "b92740fddc7b1d603b1736a135bd15518081f20c0db1e1a779cab715ee9120fe"
+      },
+      {
+        "name": "Lib/idlelib/scrolledlist.py",
+        "sha256": "25b0ad247977f6079226052e2b76dd4c127bf50f2f5e8ffbd1fe10bc631bfca9"
+      },
+      {
+        "name": "Lib/idlelib/search.py",
+        "sha256": "c53ff4d4814d97d0d95b7e15030d3ae8c732366ed84c2b300183e933270df724"
+      },
+      {
+        "name": "Lib/idlelib/searchbase.py",
+        "sha256": "d6db91e0d9aa869289f11677bcad7184be70fdb942d37b341cd9de6643f82f87"
+      },
+      {
+        "name": "Lib/idlelib/searchengine.py",
+        "sha256": "11b0c8df926e4f6bd2e26d0264b2d902c41bcc70d68a4a830df1ea2da2c2a6cc"
+      },
+      {
+        "name": "Lib/idlelib/sidebar.py",
+        "sha256": "760f14ebb0312adb289cda0562c9eff70982a0acde5d9d9d0b591390cd4a581e"
+      },
+      {
+        "name": "Lib/idlelib/squeezer.py",
+        "sha256": "112221334fee94a88cba2ca7ac455e1bd6ab796397cbe036b1e8a98bc0787e30"
+      },
+      {
+        "name": "Lib/idlelib/stackviewer.py",
+        "sha256": "ee053a65298e2ec2f4628d8269a33362816271fd81fab4e550a621493c26a76f"
+      },
+      {
+        "name": "Lib/idlelib/statusbar.py",
+        "sha256": "3f4dc0f27b0c23e488d022abe8461529ce8a1b4eaf9dbfd97123ef2c502f684e"
+      },
+      {
+        "name": "Lib/idlelib/textview.py",
+        "sha256": "eace58159e9636bb1456885c21f5ed474e203090139e5dd3457ac72ad5552006"
+      },
+      {
+        "name": "Lib/idlelib/tooltip.py",
+        "sha256": "f2779d85a9a1ddf302364e9087ceacf270938f24f3c13f3332a1bdda0414d296"
+      },
+      {
+        "name": "Lib/idlelib/tree.py",
+        "sha256": "eaa604df6184f7efc90edf4cd725db718508898d87c17699fe812690c09d9093"
+      },
+      {
+        "name": "Lib/idlelib/undo.py",
+        "sha256": "291fda98995bb4688fbe05fd3fa689e21aade3627c4c16e8971ed353f6cc3107"
+      },
+      {
+        "name": "Lib/idlelib/util.py",
+        "sha256": "91cfc9e882b1b67a166a8a98a139904c40d6d62efad754b9b344f91cf82e1495"
+      },
+      {
+        "name": "Lib/idlelib/window.py",
+        "sha256": "ca31d8c01c9b468fcad0a4e529c8e205c1e4ecf30520545db654d466bd7158bd"
+      },
+      {
+        "name": "Lib/idlelib/zoomheight.py",
+        "sha256": "5f6ff83cb0df3ee5e7d997ffe23efb341b994bfbaf00b79a4832d54231a095dd"
+      },
+      {
+        "name": "Lib/idlelib/zzdummy.py",
+        "sha256": "5e248f0ea4f35052d23bb2c43564aa567b8cebaf91fd63ba0be8fef2f4167945"
+      },
+      {
+        "name": "Lib/imaplib.py",
+        "sha256": "ab3d485f7ee89deaf132533cd135888326be3c92a88ede79a16fa4c0e4709632"
+      },
+      {
+        "name": "Lib/imghdr.py",
+        "sha256": "c1bb52ea0816db4c5f3420655ab4a476fb3829709141e91f1a56b9c6fe286d56"
+      },
+      {
+        "name": "Lib/importlib/__init__.py",
+        "sha256": "d540b5ac137fcb3e26a8d5f2939649e34373c6685f98a30a9f682cf231be5854"
+      },
+      {
+        "name": "Lib/importlib/_abc.py",
+        "sha256": "80aab7931dc999dee581c8b8b56fcd973fe156335a96ceeaf6acfc03cebf10e8"
+      },
+      {
+        "name": "Lib/importlib/_bootstrap.py",
+        "sha256": "d112d54b7831cf4a818d4841d5ff8003b54df220a6dabafa61f67d7c7a5603f7"
+      },
+      {
+        "name": "Lib/importlib/_bootstrap_external.py",
+        "sha256": "e6ad72f3f0f9b65c99ab52598cd02ab748511dcdce1dd51f18dace9be9a680c6"
+      },
+      {
+        "name": "Lib/importlib/abc.py",
+        "sha256": "5f9cb36ca1bce9d5df00bc8d4d7f46b7ea2353dfa99292ad7f099affddfb5d03"
+      },
+      {
+        "name": "Lib/importlib/machinery.py",
+        "sha256": "d045cd7ecf2a12b6ecbfbef79eb114e87ef2ebd756f5b705f73e6f3266e3dede"
+      },
+      {
+        "name": "Lib/importlib/metadata/__init__.py",
+        "sha256": "1a26dfee8cb302b729501e944626f77e2cbcc4675038f3d18c2d8534751b3e8b"
+      },
+      {
+        "name": "Lib/importlib/metadata/_adapters.py",
+        "sha256": "de9a880abc4513af1b69ce150cd5a5093201c39131717cdc2ba6b19f4364c163"
+      },
+      {
+        "name": "Lib/importlib/metadata/_collections.py",
+        "sha256": "089d0e4c21c88d6034648552e2fa0e440b27d91e11d9c40112d3ec6442690126"
+      },
+      {
+        "name": "Lib/importlib/metadata/_functools.py",
+        "sha256": "3ec636fb8aeb297e1155e442d681a9d65075a660bd78a37cf3f7fe6c3f6e3a80"
+      },
+      {
+        "name": "Lib/importlib/metadata/_itertools.py",
+        "sha256": "72faffdaff0145bc5c225e71e6575fa9d1e3848f188bcb3cca4e741bf9e6ea34"
+      },
+      {
+        "name": "Lib/importlib/metadata/_meta.py",
+        "sha256": "bd3504040497cd049e6b529bde0b461f63cd2be3070f2d0815d4dd7609b266c8"
+      },
+      {
+        "name": "Lib/importlib/metadata/_text.py",
+        "sha256": "1c2b0592c66924b7933f734493f9e0ac079755146d4ebb7287d78e001a113f80"
+      },
+      {
+        "name": "Lib/importlib/readers.py",
+        "sha256": "d0d57d118d64916f7e6edb04f8bd1a760a1abb879125899ef50a36d09ef54df4"
+      },
+      {
+        "name": "Lib/importlib/resources/__init__.py",
+        "sha256": "4146e1d00d56a783d4087f15257f0c284fae52e71fa3f20613fa268d911bf6d5"
+      },
+      {
+        "name": "Lib/importlib/resources/_adapters.py",
+        "sha256": "be9ac919b51e1db6a35fa5c2b8c3fa27794caea0a2f8ffcc4e5ce225447b8df9"
+      },
+      {
+        "name": "Lib/importlib/resources/_common.py",
+        "sha256": "a0de4a899a2aa787b052f92f516b39f80b183c3f0d409d1305cc6dc374f18870"
+      },
+      {
+        "name": "Lib/importlib/resources/_itertools.py",
+        "sha256": "7838ac57a46a88d64ea202d25dfe8b3861ce61cefd14680faca34bcc52e60ab5"
+      },
+      {
+        "name": "Lib/importlib/resources/_legacy.py",
+        "sha256": "79c566fdf1a61129683e38e8c11a660d6233dd84422456ae5dd230e658a7857f"
+      },
+      {
+        "name": "Lib/importlib/resources/abc.py",
+        "sha256": "a726c48590b21ba5532f0c654735991571bc0ecafe88145cb8891d82cd364e5e"
+      },
+      {
+        "name": "Lib/importlib/resources/readers.py",
+        "sha256": "10884a02b4a97636887fcedc7bae248a4ff42f3e52abb80d613cc0b2190b6ce9"
+      },
+      {
+        "name": "Lib/importlib/resources/simple.py",
+        "sha256": "090dd3888305889b3ff34a3eef124bd44a5b5145676b8f8d183ad24d0dc75b66"
+      },
+      {
+        "name": "Lib/importlib/simple.py",
+        "sha256": "8e687aeeb1db537d2717cb0352c5f126ff7d4095c6de6dc7f00d5103f3009c40"
+      },
+      {
+        "name": "Lib/importlib/util.py",
+        "sha256": "671f2995653f673f6d5056a1089debef473bc28ae7114f7a8db71475733d6876"
+      },
+      {
+        "name": "Lib/inspect.py",
+        "sha256": "5c54ebf0bfdc25397750e5d0f63800751650ee50e65325ff3ea4069c9bfa5f75"
+      },
+      {
+        "name": "Lib/io.py",
+        "sha256": "7cec3cb8ac004058dd0a5af246e6d950fb59c7ddd0058fda48bcb3fcb98d8822"
+      },
+      {
+        "name": "Lib/ipaddress.py",
+        "sha256": "ba8d3389ff084fcb232b48204ec04f2b3ea4bd0eadf7b18c814947d185de2c64"
+      },
+      {
+        "name": "Lib/json/__init__.py",
+        "sha256": "d5d41e2c29049515d295d81a6d40b4890fbec8d8482cfb401630f8ef2f77e4d5"
+      },
+      {
+        "name": "Lib/json/decoder.py",
+        "sha256": "382cd02af6f7efede5a6d4abbcda1015e5c7a75794b0016022878f9cf32a24f6"
+      },
+      {
+        "name": "Lib/json/encoder.py",
+        "sha256": "52bfb1b66029cc70fa3bd7fe11df9f2e03922d413407a341b387a22c987f24f8"
+      },
+      {
+        "name": "Lib/json/scanner.py",
+        "sha256": "572958017eae8842eeddd0e3d18d3c56cc0a197348224915e1d87ce937841764"
+      },
+      {
+        "name": "Lib/json/tool.py",
+        "sha256": "d5174b728b376a12cff3f17472d6b9b609c1d3926f7ee02d74d60c80afd60c77"
+      },
+      {
+        "name": "Lib/keyword.py",
+        "sha256": "18c2be738c04ad20ad375f6a71db34b3823c7f40b0340f5294d0e89f3c9b093b"
+      },
+      {
+        "name": "Lib/lib2to3/__init__.py",
+        "sha256": "5373a81ab198cda8e95652dff46ecfee197a0b8901e8432ab448d97b8bc37f87"
+      },
+      {
+        "name": "Lib/lib2to3/__main__.py",
+        "sha256": "c7b09f90e66dea194ad63dc02c6425dff977d16f1f21a157b7475905c219a707"
+      },
+      {
+        "name": "Lib/lib2to3/btm_matcher.py",
+        "sha256": "a1aa5d35558acf4b6016054963285cb145f97a764926bea07cbd674563f3248d"
+      },
+      {
+        "name": "Lib/lib2to3/btm_utils.py",
+        "sha256": "c0653eb497a1a48195dd9c4ecbbf87e4eab31188be29ab1640e353209741588c"
+      },
+      {
+        "name": "Lib/lib2to3/fixer_base.py",
+        "sha256": "c795a53ca849c42212c8ec33a74284e0377df852eb4ea599aba62d5af1df282a"
+      },
+      {
+        "name": "Lib/lib2to3/fixer_util.py",
+        "sha256": "306d0b2ea8169bdca711c6a31c0b1a3ce710d38ae2b6568ef519aa38451af608"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/__init__.py",
+        "sha256": "836cdb388117cf81e78d9fa2a141cca1b14b0179733322e710067749a1b16fe9"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_apply.py",
+        "sha256": "b5171e32758a78450854f40867775d4aca58665bc920ebece04fcfcc153af02a"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_asserts.py",
+        "sha256": "4c77972812cb5ec0a72afbce3e1d618c27ef7b239329c5c952c2bcbe77dba5dd"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_basestring.py",
+        "sha256": "d041443d6499a735bb78fec9da1bf33b3d034b5192c98bc273b16a44692fc88f"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_buffer.py",
+        "sha256": "2da37b49c30d6a0b4db43146ebb4ac8e5ffcb9814816b4742e464cb856977883"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_dict.py",
+        "sha256": "38f460596ebfb64046aab3d9a65935bd4c76a470118fb7d10a088dc0ecdc53ea"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_except.py",
+        "sha256": "7ff6f560c3c3d7a5d9ceef5ba31c556341f7ce1bc1b52d96b063f6c2c4765651"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_exec.py",
+        "sha256": "9e0893327205dea12004e88d18c580286e7977e081b5eda7baf5b7bc93bc6c52"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_execfile.py",
+        "sha256": "6ff65db1192099457cb3d9f2618a893c6ac430028550284f3a34d5c08042b0eb"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_exitfunc.py",
+        "sha256": "ef4f18f651d32410c43644c27590903d41e38e763b0e108e6c685a3412a7d29c"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_filter.py",
+        "sha256": "2c7f0121193395750eab2b2abf5059d9a3b1a61f81763f52511265d7bca5cb21"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_funcattrs.py",
+        "sha256": "111df53fac6a121d61abe33883a68e731820ddc4864b0a4c1000cf2ac5f019cd"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_future.py",
+        "sha256": "baba8cafb48dd9181a0e1f7b0f20b585ce2925e8f347e00b87407a256bb16663"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_getcwdu.py",
+        "sha256": "5bc5252f683a401e7d81c5911617c4af1a1bcdf99a51c4bf1cfccb00446ff220"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_has_key.py",
+        "sha256": "32943d3b921c1c3f0d3776d19e5120806990b817bc99a7e22799847abfda1f63"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_idioms.py",
+        "sha256": "600e34faf36e14307e59d55088e3979881d497b8fc9d77659e77709f9e8bafd7"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_import.py",
+        "sha256": "803baf96f9603c957eb974f252b0ad9829c889a293e0ce6829db1bce3da6dd4e"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_imports.py",
+        "sha256": "cdf7ee6d85e2b148230984cfc4ea3f193be458958ea42ef290854a9672a64370"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_imports2.py",
+        "sha256": "b6f3c628839ffe7fd72569dd6ca2210e18edae3e180002747ea011b76b7ec0ef"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_input.py",
+        "sha256": "10c5ef3b45a4ee7e88af8852181916a788aae2bea52b08f3473815c1c43598d1"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_intern.py",
+        "sha256": "8d29a162536b99c91bd2f9259dda7f39fec751949d6354d2c1f2e5d070c87d66"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_isinstance.py",
+        "sha256": "8408c92b99f50d8c4978b47a2b2155588e315f2ebbe58c160dcdcdcb89e19914"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_itertools.py",
+        "sha256": "578a51b9935020b03a510de15ece55fcd02c9474f37a54c158fb97ba5fd15af1"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_itertools_imports.py",
+        "sha256": "2e419cfbd7f2a326ae7fa10873aa377112ebec32545238fdf988acb088c3cdb7"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_long.py",
+        "sha256": "306b80e0a72c0d16dd934b7d51ab0c9a4224f83be5d6cbad8a7158a0a5d73551"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_map.py",
+        "sha256": "b82c0762c44adf2af7745c030afe291e2badfe360925046c8e58d85340717696"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_metaclass.py",
+        "sha256": "45a30c866aa2ff69e089da147ed09986aad4516b5e5dd943f8dfcb7d3946a3e1"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_methodattrs.py",
+        "sha256": "8d60082f98ce52ee4955099bfd447cbadfa0e9b24ccb8d135cecc833168d44e8"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_ne.py",
+        "sha256": "4f9cb1388ba86f29422d20979d3423fdf3541ba35a17ed44d6f4a517ff784ecd"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_next.py",
+        "sha256": "5c7d86d9f81b2498486d626c7feced1b92f23171cf9e42881abb78de1a93bccd"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_nonzero.py",
+        "sha256": "c2cd7e3ba44508643a20eec4ea4c19f2f1adfd36f6b974d7c143e449571ae736"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_numliterals.py",
+        "sha256": "1c4dd0f7881999abde6cf4d232836fa3e55fc41a7d5aa2b9866092f65707db7f"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_operator.py",
+        "sha256": "023872fe9f03a25387cf2c17fc950cf0f990353df66e603c3a1cd3199dbccd86"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_paren.py",
+        "sha256": "53734f1d7778ad28a4ec3ab4415923e2da8f230de4cd527589829f570e9f254d"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_print.py",
+        "sha256": "cf2690f1b502249289f52cd544190db0b94d59df5eca139829cd2bf0742e9dba"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_raise.py",
+        "sha256": "c38ffec5862597ee8f9dac50385af943ee312bfc394366be08b2fc12563ca1a5"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_raw_input.py",
+        "sha256": "ce04cbaa76d414949afc230360dd9a29ff579bd868cc7f8805230d126ac9ce9b"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_reduce.py",
+        "sha256": "9a03910a6c183586e1db01863fcde6417d06745fb3e63032333d71c5e82e7919"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_reload.py",
+        "sha256": "17570148167e43b2155b6e1c814a3cca9e3ef53750c504932a9c7d62a8b68a3f"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_renames.py",
+        "sha256": "8b71472317bf3adabf819e665c725d03e3064baa45f6ffbfd78cca83eaa46e8d"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_repr.py",
+        "sha256": "d16930b7ef8577747cfef602aba854c64ce85d4ae1e54a18a456eaa202643e3d"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_set_literal.py",
+        "sha256": "33f2c0b6e16357e083c3a98877e7317abe1578a44c288e5979c9d96fb5aa6727"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_standarderror.py",
+        "sha256": "ce7eb37bc7fb29aa138b1cec6656ae8b4886cbfa700e119a1bb8484284cb717a"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_sys_exc.py",
+        "sha256": "0143830586d09d702ca3eeaa8f86698e5fd18af69fd28147e71a1a77600d356a"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_throw.py",
+        "sha256": "fec731ed523d5cdfa21893833b52b2844eabfd1549792c1c9f8ceac2d0e8e901"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_tuple_params.py",
+        "sha256": "f3307d4750d0657d9c42b857d5f37bdb5824f9358939da7d16d13f61eb8abc72"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_types.py",
+        "sha256": "a0a133cfc78e82e1f71ce628408e7d10a38552ba3e3228ebd113838c1ce44484"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_unicode.py",
+        "sha256": "01b2a9b1084b6a0424f27eec488c761f75f053a409608ec36a9ee0ede0d38097"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_urllib.py",
+        "sha256": "3d1c04d976ff4d2841025a785aaab0cc4ee06c9c9b4e09d1e2456949fa273856"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_ws_comma.py",
+        "sha256": "5e7a16daec0b2619110516804bf90cac459a4d0315198fd4eff69c36c54378dd"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_xrange.py",
+        "sha256": "60d8ce92db6f399606d2e40a3c631ba566127e8cd637ebbf35b822672139cab2"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_xreadlines.py",
+        "sha256": "e8c2f19f7047bfc7539fd78839929004d8fe0efba1fbcbd9d712d285e43834ba"
+      },
+      {
+        "name": "Lib/lib2to3/fixes/fix_zip.py",
+        "sha256": "55ce115556c7513dd967364dc6a40c39210c874e8168cf090ddd6dc606df34cb"
+      },
+      {
+        "name": "Lib/lib2to3/main.py",
+        "sha256": "8f5dfa77b8c8b375daba8bb88aaa195395674311e2513b29575a70821e3aa0b8"
+      },
+      {
+        "name": "Lib/lib2to3/patcomp.py",
+        "sha256": "a033a3eb91a39f96747d4300aa3394965e529c71896cd6503dd27e6b685eede5"
+      },
+      {
+        "name": "Lib/lib2to3/pgen2/__init__.py",
+        "sha256": "858eb0f50533bd3bd16fe32815f77fabfed92ede885070b6cb15827ec66ea500"
+      },
+      {
+        "name": "Lib/lib2to3/pgen2/conv.py",
+        "sha256": "e2946a686c12e02248fafb1a57e7514e0c22bdb2b4a66e644215c86fedc37bff"
+      },
+      {
+        "name": "Lib/lib2to3/pgen2/driver.py",
+        "sha256": "57af5e220cd6c6b75e8dead2cea395ead2297dd98e398ad705ca2bce0e9e6594"
+      },
+      {
+        "name": "Lib/lib2to3/pgen2/grammar.py",
+        "sha256": "4898d446d6ae73f7259a3f91839eca1a3380670a9f378b80780707f714fad17c"
+      },
+      {
+        "name": "Lib/lib2to3/pgen2/literals.py",
+        "sha256": "84bc9d5387a2e20fab844e530358571afa39fa3fc0e8024270b5f7d8ac5a595a"
+      },
+      {
+        "name": "Lib/lib2to3/pgen2/parse.py",
+        "sha256": "e245e005e524ab445a570df31f70c6fd7b901ee3b0b68bd3bcf4b41b37fa7bb6"
+      },
+      {
+        "name": "Lib/lib2to3/pgen2/pgen.py",
+        "sha256": "8fe2ac7e0303f0110d75832d746e6661fcd5373fa498d929163f557fd1027434"
+      },
+      {
+        "name": "Lib/lib2to3/pgen2/token.py",
+        "sha256": "7ee05616410d46d8caed0cb0755bf780c62cccf17e3c93c8ccb8dcaaa1e7094c"
+      },
+      {
+        "name": "Lib/lib2to3/pgen2/tokenize.py",
+        "sha256": "aaa0b98f6a65e08e9f8e34358198e329d29554a0d4b5f5059924a252eeb0f5c4"
+      },
+      {
+        "name": "Lib/lib2to3/pygram.py",
+        "sha256": "b49d77876a9d1822ff6be04daf464341a8e4c0c3414240abf519254de2a97a48"
+      },
+      {
+        "name": "Lib/lib2to3/pytree.py",
+        "sha256": "e53689352fb4fc83d85a09369650389ee01db802ad872a8abfc0bf6603ec38b9"
+      },
+      {
+        "name": "Lib/lib2to3/refactor.py",
+        "sha256": "6e9a4262fb65cd4d277f009df73ffa5748f5fe3b963d3c5395c160d5f88b089b"
+      },
+      {
+        "name": "Lib/linecache.py",
+        "sha256": "9eb9194707991b49f9fea67a5222b0e6a0e49c865cdffc69fbc80a1f829e77fb"
+      },
+      {
+        "name": "Lib/locale.py",
+        "sha256": "3988c5419552d5b9f0bef3695102376f79357f0f440e9cd1f32c501f966e6ef3"
+      },
+      {
+        "name": "Lib/logging/__init__.py",
+        "sha256": "43f86bbc08fdd5c7b6e697abffe1381f534a92bb32e1f1aee8360d6a142592a1"
+      },
+      {
+        "name": "Lib/logging/config.py",
+        "sha256": "6b4bdac4318ee794f667a5d5df30040abf70b9786ec5ed8bf597bd8ad0b71d27"
+      },
+      {
+        "name": "Lib/logging/handlers.py",
+        "sha256": "e0d31066e1d11142dc795af60351ea3610c2a08ff1cedf705743ce4522517495"
+      },
+      {
+        "name": "Lib/lzma.py",
+        "sha256": "58fb9d2fdc8a8af7b25e218f17ea3b51bdfa53bdf40f440ab33c605974ca5c2e"
+      },
+      {
+        "name": "Lib/mailbox.py",
+        "sha256": "1c356f03e8df0b99d9d40a08ac7f3f5f71e9626c3ee1149cbed7307968ba0a4f"
+      },
+      {
+        "name": "Lib/mailcap.py",
+        "sha256": "d3242c92bfedb13c7cf5e7aa116e9a38c07e9c6de58f53d03f72a469e9448ca6"
+      },
+      {
+        "name": "Lib/mimetypes.py",
+        "sha256": "ed21537405f4b076318f966b810ae1d9415e16315603ad8003b1ecb24baf5950"
+      },
+      {
+        "name": "Lib/modulefinder.py",
+        "sha256": "e07ab000c3698a7530af2c52955ac8bb7647140d22dca1c30f83443faa191e0f"
+      },
+      {
+        "name": "Lib/msilib/__init__.py",
+        "sha256": "d024165f8b2d90e2fb428348b2e9548dea43f3539d4dbf91e752bde5a4510c98"
+      },
+      {
+        "name": "Lib/msilib/schema.py",
+        "sha256": "a7d6c1a4699a75bb88a8a012adbb64142dc47adcc31212c3c0e7ae092b4161ae"
+      },
+      {
+        "name": "Lib/msilib/sequence.py",
+        "sha256": "a68438bacd41b60c5359b5c5ef32163249f69233292fa94acd53535cb08cd65d"
+      },
+      {
+        "name": "Lib/msilib/text.py",
+        "sha256": "fe5bc6023fc58e01e1c80fbe21304ccd6aadd8c384fe6afebed279c3d2925de4"
+      },
+      {
+        "name": "Lib/multiprocessing/__init__.py",
+        "sha256": "a5a42976033c7d63ee2740acceef949a3582dcb0e0442845f9717e1be771c68b"
+      },
+      {
+        "name": "Lib/multiprocessing/connection.py",
+        "sha256": "c2f2d6f3d32d48d4d8c51a7d7c98766a04e958cae72a67c7f905438a7c332bdd"
+      },
+      {
+        "name": "Lib/multiprocessing/context.py",
+        "sha256": "63f15d3169f4453eb80af4ce673a193a0670941206673ab5192ea16a17e8419f"
+      },
+      {
+        "name": "Lib/multiprocessing/dummy/__init__.py",
+        "sha256": "9127a40ea0ff342cb414383b5e7c594a05be2dd835fe246bd3bb0dc036a32a90"
+      },
+      {
+        "name": "Lib/multiprocessing/dummy/connection.py",
+        "sha256": "d63dd1979fde9c133efe430ee870e6ba6de43c0a0513866ce3ce475791fe57ab"
+      },
+      {
+        "name": "Lib/multiprocessing/forkserver.py",
+        "sha256": "11c9f2e90ae7b0d5882a608ecc074047c10c7360834b026865696a0439bf873f"
+      },
+      {
+        "name": "Lib/multiprocessing/heap.py",
+        "sha256": "f6bb79bb99b9ae484935f0d68822e9603a1622dd0b6c4966c79db232a93ba614"
+      },
+      {
+        "name": "Lib/multiprocessing/managers.py",
+        "sha256": "2cb074d33a3085904e1702b0b521b22fd3428d499fc656cd740e338f6e129333"
+      },
+      {
+        "name": "Lib/multiprocessing/pool.py",
+        "sha256": "418cd41ea5c341e66c6979a38070f6f552cbbdf0539073022b6d15c67e53f480"
+      },
+      {
+        "name": "Lib/multiprocessing/popen_fork.py",
+        "sha256": "0a09db57e7fab7061c01a61778feea6e2b6bb02ccbc150332f2960b05258ef95"
+      },
+      {
+        "name": "Lib/multiprocessing/popen_forkserver.py",
+        "sha256": "0588ad0e5a36718b4377dc2a2a97864a10986c25a33dc3bfed12595711b0cdab"
+      },
+      {
+        "name": "Lib/multiprocessing/popen_spawn_posix.py",
+        "sha256": "97b5d25aa479516894489877e6a7921252ee35f51e118c2f1f91f32919e7caa8"
+      },
+      {
+        "name": "Lib/multiprocessing/popen_spawn_win32.py",
+        "sha256": "6ef8efd9cd4e99c64a6778f7ad0957e924de9eb4aa167337ed121a2621b1ffaa"
+      },
+      {
+        "name": "Lib/multiprocessing/process.py",
+        "sha256": "67f0c2a7a3a83c92dd024705bac18619a2e123c9df77c414beb81035ea4a0e18"
+      },
+      {
+        "name": "Lib/multiprocessing/queues.py",
+        "sha256": "f4721a323ab2981a172dd2b853d2cfeded696e9716fba340cf6e168f5ed95f83"
+      },
+      {
+        "name": "Lib/multiprocessing/reduction.py",
+        "sha256": "4999f8b9ae7b3e8a7f5de302612b4131498dc2e238a2c47f894905c1c63294fe"
+      },
+      {
+        "name": "Lib/multiprocessing/resource_sharer.py",
+        "sha256": "bba3c7f2b76a9cf4e8ceb642801c405411da95adf91947d81b0043586038290e"
+      },
+      {
+        "name": "Lib/multiprocessing/resource_tracker.py",
+        "sha256": "f9d73a8145f8026ec48ebe4127e7e84960e297cb2e247159f8df4f858cfccbf6"
+      },
+      {
+        "name": "Lib/multiprocessing/shared_memory.py",
+        "sha256": "51301e70710220e1c494ff5383ac94442a38a4a6622f2eb94e40128c45de1aeb"
+      },
+      {
+        "name": "Lib/multiprocessing/sharedctypes.py",
+        "sha256": "77ef522912474652490b7df523112858e51721e63dcf109b8567a35ce9b31b0d"
+      },
+      {
+        "name": "Lib/multiprocessing/spawn.py",
+        "sha256": "ebf9fa40eb622384c37690d8c78e7208744df031155ab4ceedab0fc791a1669b"
+      },
+      {
+        "name": "Lib/multiprocessing/synchronize.py",
+        "sha256": "78ff49cff58c0c590324e5097241371f25d61d592c598a8b2c2788f2de32a53e"
+      },
+      {
+        "name": "Lib/multiprocessing/util.py",
+        "sha256": "6752c4515ec69f82e9df64e017da490c3754e51d818c270ea1ad2d64e09268be"
+      },
+      {
+        "name": "Lib/netrc.py",
+        "sha256": "229da6d0cbe6a10295be6c64ac3806420ea018124c09e4887410548fc2fc8b5d"
+      },
+      {
+        "name": "Lib/nntplib.py",
+        "sha256": "6a76a94b951b273aa87335d7c9c4d7273e4c59485c784b057f681443b32d9004"
+      },
+      {
+        "name": "Lib/ntpath.py",
+        "sha256": "6c0d55ee892f98ef87b1ed3c50c9dfc7e267a98d2db47e08d3dc67529af56725"
+      },
+      {
+        "name": "Lib/nturl2path.py",
+        "sha256": "560e42264a337d0d41b42713fbda072890997161aca8b7397cca8967a23f8b63"
+      },
+      {
+        "name": "Lib/numbers.py",
+        "sha256": "ac381960a3dc1db0498b0bd43d8ef278d6599713121a186b153ff09d9552e0db"
+      },
+      {
+        "name": "Lib/opcode.py",
+        "sha256": "192f6008508f28d3273bff42eaea9b01c8394dab1607cd36aea778bdd166c3a6"
+      },
+      {
+        "name": "Lib/operator.py",
+        "sha256": "b2af20f67667203c1730e686cc5d0427becc94db4c97f1d3efe3ed2158473f6a"
+      },
+      {
+        "name": "Lib/optparse.py",
+        "sha256": "07d224301cba312fa0697bff9cd5a4bb4f778a90629632091b3f4ae874d89af5"
+      },
+      {
+        "name": "Lib/os.py",
+        "sha256": "54c43a1fc69c979c70d8f7d097174cee163bfe59937723ee353043dd4a0211e1"
+      },
+      {
+        "name": "Lib/pathlib.py",
+        "sha256": "10ba48ae8063cfe7589436041d0d4628c05f427c7709cf8e75e486f8930cc32c"
+      },
+      {
+        "name": "Lib/pdb.py",
+        "sha256": "c87944ee79327e534816bf8fb72b79b89ad9ef9d3664d2a7b90f8fb961450f25"
+      },
+      {
+        "name": "Lib/pickle.py",
+        "sha256": "7e3447b6d993a6306a7893fd2fba916010ed79f8e09ceb56158a550fa8099a14"
+      },
+      {
+        "name": "Lib/pickletools.py",
+        "sha256": "a4242b8728b0c29d15d9534fac4f7303d9c562a8edb65c87f6bc09f764953412"
+      },
+      {
+        "name": "Lib/pipes.py",
+        "sha256": "153f2d249d954b5536c6a049202617ff43ba2f9b109c426e06676c577ddedc61"
+      },
+      {
+        "name": "Lib/pkgutil.py",
+        "sha256": "44300bc77f6f52ef2ad74d26e5053309c04f49eaa91c099356eb61426cde504f"
+      },
+      {
+        "name": "Lib/platform.py",
+        "sha256": "f5ff83f15c841792be42709a6710dc8d7a9f72791c1ae4cad719b1fb0abe0a05"
+      },
+      {
+        "name": "Lib/plistlib.py",
+        "sha256": "7f427a3b717507598c73bae26ff09d3fb7664540d9b7209ca97be80c76648069"
+      },
+      {
+        "name": "Lib/poplib.py",
+        "sha256": "e1596878e408b1702dea74ca55f13b367f93b12fd9950fc62f70d8e7b47fce83"
+      },
+      {
+        "name": "Lib/posixpath.py",
+        "sha256": "03825681086638649a43480954f7f6a16b4da3bd41ece956864ae96e4f795cd9"
+      },
+      {
+        "name": "Lib/pprint.py",
+        "sha256": "1585c8d74d7f485590db2af46680ae0a73737ca9fb66022b2bcbbc4c4925e203"
+      },
+      {
+        "name": "Lib/profile.py",
+        "sha256": "dee2125b2a0913fcfd0330b75d7fb752f2dbbe1bf43e479fb0cba117b9ae6e17"
+      },
+      {
+        "name": "Lib/pstats.py",
+        "sha256": "476a7f4298d02d7445f65f464b1eeca3b1de7a74ce104e91f75c10a7eb1f9aee"
+      },
+      {
+        "name": "Lib/pty.py",
+        "sha256": "ddbb1749387539c2929957c7ec1235fd201d7ec15d285fe5246e88b35c722a4a"
+      },
+      {
+        "name": "Lib/py_compile.py",
+        "sha256": "3464f04938b57a7aafbc5c394ccd4c46823ee607f7fe36b48b91ecbc30ff4e48"
+      },
+      {
+        "name": "Lib/pyclbr.py",
+        "sha256": "e8ca09333701ba41244e20b8c2c37b7ed0499b88c4b2ca82cac51ef89ca9e647"
+      },
+      {
+        "name": "Lib/pydoc.py",
+        "sha256": "d181676eadd154121c64ffdc908b0fe520da2be4095fd13f8b4c6d1bb1897797"
+      },
+      {
+        "name": "Lib/pydoc_data/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "Lib/pydoc_data/topics.py",
+        "sha256": "4988d3eec54b7ac896baf8774cace20f9c76696590f6fe52a2c26c3e2751212b"
+      },
+      {
+        "name": "Lib/queue.py",
+        "sha256": "f6c37fc37cd7440979f7d22d40ee818fa3b714c573610c08fa52911d541193f0"
+      },
+      {
+        "name": "Lib/quopri.py",
+        "sha256": "a1cd7f3b22033d32151209886cc855d4b71cc4c83530769f920097582339013a"
+      },
+      {
+        "name": "Lib/random.py",
+        "sha256": "de48263a837339c7e01cf9f3c4d756696e0e0775f7778eb9cf81ad5b00134569"
+      },
+      {
+        "name": "Lib/re/__init__.py",
+        "sha256": "8ff3c37c63b917fcf8dc8d50993a502292a3dc159e41de4f4018c72a53d1c07b"
+      },
+      {
+        "name": "Lib/re/_casefix.py",
+        "sha256": "1b12d9136f23db6c3f6f26053fefc15ca964b886838c7b9c1fabf8d2efc1e5c8"
+      },
+      {
+        "name": "Lib/re/_compiler.py",
+        "sha256": "c75620761098a70ed75b9accef63ef2881d8abb6d4e5cbfd10074bd165eefe4d"
+      },
+      {
+        "name": "Lib/re/_constants.py",
+        "sha256": "fa4fdb200f238f9e7817b63892b0d69833d8165134801e775e10cc113348a375"
+      },
+      {
+        "name": "Lib/re/_parser.py",
+        "sha256": "a51a85b37cf3f44ba7ff25754da5f31306e4ccfa6eb3c017f9d37bdf4e770840"
+      },
+      {
+        "name": "Lib/reprlib.py",
+        "sha256": "e177bc70da83a7fbcde6fd261dc15da34e8a20873b1cccd4f9a1f8f27cca3779"
+      },
+      {
+        "name": "Lib/rlcompleter.py",
+        "sha256": "fee9ad9c55529be48329b78e982fbba0201bd218326eaf80a87996c9f8c805bb"
+      },
+      {
+        "name": "Lib/runpy.py",
+        "sha256": "81e07da29bb2235111079bb64efea7d291639c5d2cf163e7af187d6a38cef389"
+      },
+      {
+        "name": "Lib/sched.py",
+        "sha256": "56588f00a68ef953014f41baf36e0dbb7ed7793f8aa883ebcb1a8bd3787c06a6"
+      },
+      {
+        "name": "Lib/secrets.py",
+        "sha256": "277000574358a6ecda4bb40e73332ae81a3bc1c8e1fa36f50e5c6a7d4d3f0f17"
+      },
+      {
+        "name": "Lib/selectors.py",
+        "sha256": "1eeb102373e18c96311203f30c516e785bd8642275aa0bd66e43a284c9692385"
+      },
+      {
+        "name": "Lib/shelve.py",
+        "sha256": "b978c6f0ffa901b041d6518afed03f2938a62168066013ee7d23baac31c356c0"
+      },
+      {
+        "name": "Lib/shlex.py",
+        "sha256": "f927227de5ba5b1b2bdd75e3d9c8cb72b602b3bba3cc8edbf8fb554de0dc1fd7"
+      },
+      {
+        "name": "Lib/shutil.py",
+        "sha256": "53496e06742fe008fee2bccc8caeac77473e69923bec05358bd43eea467db1f8"
+      },
+      {
+        "name": "Lib/signal.py",
+        "sha256": "0363c964c90ac0b3e515de5749205e6e6454051a1211058375d84d91eab6071a"
+      },
+      {
+        "name": "Lib/site.py",
+        "sha256": "b39ab288cc7a6d0cb3bb2655179221411340b22418e4efdee4c20175537a5fa2"
+      },
+      {
+        "name": "Lib/smtplib.py",
+        "sha256": "f19369e751e199f5dfc05882e2f77b6a692719cebd8a18c84552544a0b93e963"
+      },
+      {
+        "name": "Lib/sndhdr.py",
+        "sha256": "d1cb49f6545ef831a69322275ef26f6ca6964953e70d81a8a80fcca8d600ffc0"
+      },
+      {
+        "name": "Lib/socket.py",
+        "sha256": "7d4d4c66e6f4bcc961ab462c4f08002ca97def8713a4be1c7373bdbd970a5274"
+      },
+      {
+        "name": "Lib/socketserver.py",
+        "sha256": "ecbbe1a633801460399a8f10b39007aa0e13cdbdad507e39414000f097b769b5"
+      },
+      {
+        "name": "Lib/sqlite3/__init__.py",
+        "sha256": "f7cc982617b68e147540ef352d38310fe4d25c2c9c2542b67d0590c871df09a8"
+      },
+      {
+        "name": "Lib/sqlite3/__main__.py",
+        "sha256": "495a939623e825a487cde07b62a68aeefdbb1704b53a8b5388af070dc3fac690"
+      },
+      {
+        "name": "Lib/sqlite3/dbapi2.py",
+        "sha256": "7c5c8d98df1f2c50c4062a3be2c0f0499190c179fa4fc281507a1ef763a98f28"
+      },
+      {
+        "name": "Lib/sqlite3/dump.py",
+        "sha256": "bbd9b9d14affcb013f8bd996e30e2cfd1b214d40a37916b9a67fce5b11820eff"
+      },
+      {
+        "name": "Lib/sre_compile.py",
+        "sha256": "f7fd87f8ac9dad7d1387e2401761ec05806c5108201a6d1ede6ab2f481f6df54"
+      },
+      {
+        "name": "Lib/sre_constants.py",
+        "sha256": "87013dc0b349c2c044100f70a8daa9d713e60a527e26f6ab8ee1fc978a6d3234"
+      },
+      {
+        "name": "Lib/sre_parse.py",
+        "sha256": "c4929134532306081918f185c99305c6f55213bc16b32f8c259bc60f7f81e810"
+      },
+      {
+        "name": "Lib/ssl.py",
+        "sha256": "039a0e3f1782e14824b1624c7ffefc2de31714b4a9994424be45a4271966097c"
+      },
+      {
+        "name": "Lib/stat.py",
+        "sha256": "052af0327eae6941b69b05c088b3e748f79995635f80ac4cc7125eb333eb4c77"
+      },
+      {
+        "name": "Lib/statistics.py",
+        "sha256": "5845851a5833a1436bfdfd19001f7cd6b4d95a438b76c47162897106d29449c6"
+      },
+      {
+        "name": "Lib/string.py",
+        "sha256": "24aeae1f0526250f442022022bf98df9a823b1cb330543ee79e70e44907462e9"
+      },
+      {
+        "name": "Lib/stringprep.py",
+        "sha256": "60b6c83581093029312efb6670b11c540090b3f78bcf72264467b494f02f21a5"
+      },
+      {
+        "name": "Lib/struct.py",
+        "sha256": "9c231f9497caf513a22dee8f790b07f969b0e45854a0bdd6dd84b492e08c2856"
+      },
+      {
+        "name": "Lib/subprocess.py",
+        "sha256": "85d29b2bf0249f5436838298c9a60ee93508b1102e9ac43b001f8a7e7ae8f375"
+      },
+      {
+        "name": "Lib/sunau.py",
+        "sha256": "7e4f850f6460bcd302439d6d2a9fc1bfc31f88f87ad86c508489f5612b346b7a"
+      },
+      {
+        "name": "Lib/symtable.py",
+        "sha256": "3858ba5f1bd23175cf36a4b774c4e3d937d7cf15181fe49085b7a2f1cac76af8"
+      },
+      {
+        "name": "Lib/sysconfig.py",
+        "sha256": "ce56212ba89be181fb90fe62496e6d2e436befaf2dffd10e87ce37d1685271a8"
+      },
+      {
+        "name": "Lib/tabnanny.py",
+        "sha256": "5dae83b384db40d6ebadc7af0cbb8396343e8ab289ce30de784a4cb41d5fbdab"
+      },
+      {
+        "name": "Lib/tarfile.py",
+        "sha256": "41a9f1930e5285455b4b0db2b9394247cce312c3fa1ef586a58e66c0100668d5"
+      },
+      {
+        "name": "Lib/telnetlib.py",
+        "sha256": "9b0e127e2d0853cc90a596a7b26a2df4ee49dc66c44ac30372aae64d015fd0f9"
+      },
+      {
+        "name": "Lib/tempfile.py",
+        "sha256": "2eea4401f4f29d0d3647ed6fc8bcf6aa1daf879c8aa407a8ea310edac9dfc317"
+      },
+      {
+        "name": "Lib/textwrap.py",
+        "sha256": "62867e40cdea6669b361f72af4d7daf0359f207c92cbeddfc7c7506397c1f31c"
+      },
+      {
+        "name": "Lib/this.py",
+        "sha256": "481d0cb3de511eae0b5713dad18542b07eafd9c013bb7690f7497bad49923a71"
+      },
+      {
+        "name": "Lib/threading.py",
+        "sha256": "846f450ae794e4aab823a163f8c71d27751148af33e91dd3de886686a4e8ebfb"
+      },
+      {
+        "name": "Lib/timeit.py",
+        "sha256": "d47d9deb6be0136d817e04d0e4824aa66c66efa01fe61cf62860fff08ecfe83a"
+      },
+      {
+        "name": "Lib/tkinter/__init__.py",
+        "sha256": "4648028778a32184f92ba0912b64d26f3aaf583644a12326f6081125bc20164d"
+      },
+      {
+        "name": "Lib/tkinter/__main__.py",
+        "sha256": "9738a6cb9cdd8139721dd82118bd527897db5325d807222883f70fb1c5a1c27e"
+      },
+      {
+        "name": "Lib/tkinter/colorchooser.py",
+        "sha256": "1224241dcfb4ec6aff3cafc66adeb2b2a3759397a28693173915458c50040143"
+      },
+      {
+        "name": "Lib/tkinter/commondialog.py",
+        "sha256": "e683ab0ee9404baec656a88d637910bcb2badb4b4e5d5def2b80cc4534551e6f"
+      },
+      {
+        "name": "Lib/tkinter/constants.py",
+        "sha256": "c01314dc51d1c8effeba2528720a65da133596d4143200c68595c02067bf1da2"
+      },
+      {
+        "name": "Lib/tkinter/dialog.py",
+        "sha256": "4f8201d3ada7b6d0f450b417e55747adaee5f894412c4875169b0736a5ff0faa"
+      },
+      {
+        "name": "Lib/tkinter/dnd.py",
+        "sha256": "542b804b243b502b5525a8b1f04a02a120b1db4e3599f5c7865e60693ed3672a"
+      },
+      {
+        "name": "Lib/tkinter/filedialog.py",
+        "sha256": "d75c1eb4131db658b8622acffd8262ecbd7337425c799ea3be8d605ea6be7b94"
+      },
+      {
+        "name": "Lib/tkinter/font.py",
+        "sha256": "a73482badacc4a69ff7fae9445793a4d858212fdef103360a478bbfd6ed2f496"
+      },
+      {
+        "name": "Lib/tkinter/messagebox.py",
+        "sha256": "cdbf655c66778a19f0e25754a5f198a850c8bd958ce651e8fe4b2b52ad7f9c63"
+      },
+      {
+        "name": "Lib/tkinter/scrolledtext.py",
+        "sha256": "c7cc050ec9cc3cc6a47215b5bc79b2d3e5c6ed895a4300ab0e20f6c249385e3f"
+      },
+      {
+        "name": "Lib/tkinter/simpledialog.py",
+        "sha256": "984eb0bb02ebdf76da3cadde9f54587204f819723346a576176410b86141d15b"
+      },
+      {
+        "name": "Lib/tkinter/tix.py",
+        "sha256": "5d7a11093a1f6510de786b0e9d67902ab33a57f637cd8f5e2603cf6c5c609a18"
+      },
+      {
+        "name": "Lib/tkinter/ttk.py",
+        "sha256": "6c13af04d672c71abc82181961a7f7bce7b9ea79becdae37f55c78001053ce87"
+      },
+      {
+        "name": "Lib/token.py",
+        "sha256": "1a4d994ce9744f4bfe2d964fc24d112a1e76796a08c2e45a2d73c82a8587f922"
+      },
+      {
+        "name": "Lib/tokenize.py",
+        "sha256": "026f566ac63e60d69c8185a3880831b657accc5eac984fadf271fc99a5e5825d"
+      },
+      {
+        "name": "Lib/tomllib/__init__.py",
+        "sha256": "71f67036895f4c5acab942618af0cbd3d814451ba61e967f358d0f341a5b8f51"
+      },
+      {
+        "name": "Lib/tomllib/_parser.py",
+        "sha256": "559366e5c672449a271a6553675c5d1f699b6a3730f6c14c4e4955b184f29d86"
+      },
+      {
+        "name": "Lib/tomllib/_re.py",
+        "sha256": "75b8e0e428594f6dca6bdcfd0c73977ddb52a4fc147dd80c5e78fc34ea25cbec"
+      },
+      {
+        "name": "Lib/tomllib/_types.py",
+        "sha256": "f864c6d9552a929c7032ace654ee05ef26ca75d21b027b801d77e65907138b74"
+      },
+      {
+        "name": "Lib/trace.py",
+        "sha256": "cbed87376cb326ad5c02e6152597d16f4229e96ddb2d8299bfb403ba4d804ba5"
+      },
+      {
+        "name": "Lib/traceback.py",
+        "sha256": "2c44af2848836d9af0c7b3547469695cd22586c64274d362eafcf466af284bd6"
+      },
+      {
+        "name": "Lib/tracemalloc.py",
+        "sha256": "c2cc84a05b824df79840c98729a0e94ef8909b11c528a1b2c5a00aa436b97b25"
+      },
+      {
+        "name": "Lib/tty.py",
+        "sha256": "1ab5e5e047130b310355e907a3306178299b9f2044fb526ac63bd116e9a16d2b"
+      },
+      {
+        "name": "Lib/turtle.py",
+        "sha256": "5e0e21a736c0d20fc49df5f08a69f544e54efa5d9516e1b73d3bfb50da1c6323"
+      },
+      {
+        "name": "Lib/turtledemo/__init__.py",
+        "sha256": "5f465277c96c107a5af544b0a962561f97cb0bfd75906d9bf9741450ed02b0e1"
+      },
+      {
+        "name": "Lib/turtledemo/__main__.py",
+        "sha256": "03594b9dc866cbf17c36c4b133c64975295a3bc4f242187af3ea8ea0c75b1095"
+      },
+      {
+        "name": "Lib/turtledemo/bytedesign.py",
+        "sha256": "6deeee99e0ddb4ed29a648f95d4d33e9f3292c21dbecec301337c22a605a280f"
+      },
+      {
+        "name": "Lib/turtledemo/chaos.py",
+        "sha256": "bc8a3a9b77e90446fb7060ff68ee008ffd6b23b366052207ec225cc163b4dae5"
+      },
+      {
+        "name": "Lib/turtledemo/clock.py",
+        "sha256": "70e6033c112f699da2b54a56f9366f31466c95af9ca3607e6b94b87eb76ee3c5"
+      },
+      {
+        "name": "Lib/turtledemo/colormixer.py",
+        "sha256": "bbb065830edb37fd53b1c004118853176fd8da32ee532cb0d363960880920374"
+      },
+      {
+        "name": "Lib/turtledemo/forest.py",
+        "sha256": "68cd81b7da35ca49d9066cc2cba24768cddbf90797dbd619a559cf899cde926b"
+      },
+      {
+        "name": "Lib/turtledemo/fractalcurves.py",
+        "sha256": "29fadf34c5eabda4649848d052fa2ed3ae829e55bc3ac5933f2aedf3fb04b320"
+      },
+      {
+        "name": "Lib/turtledemo/lindenmayer.py",
+        "sha256": "4b597f52c1cb35ae8ed540d1db2dab52276c7874febd7a659ee50f26be26f61e"
+      },
+      {
+        "name": "Lib/turtledemo/minimal_hanoi.py",
+        "sha256": "0e458a6257fb5a4ecd2785962850fa87924b23d4ead8aebb70aab38904ff8ef5"
+      },
+      {
+        "name": "Lib/turtledemo/nim.py",
+        "sha256": "939d1ee904a7b00579bb44719b0286e7524bf560c7ffff6d482064b41b09fdb3"
+      },
+      {
+        "name": "Lib/turtledemo/paint.py",
+        "sha256": "81aa22d0da1d934cb47edfef1883f9fe8ef864c56d484f79f9ec4b46457d047e"
+      },
+      {
+        "name": "Lib/turtledemo/peace.py",
+        "sha256": "b260b857164684b3065ad760fec0245ab6505c220814fb179a3d080f2bba0814"
+      },
+      {
+        "name": "Lib/turtledemo/penrose.py",
+        "sha256": "14aeb10db966bfd4ec923a19eb96892eb2aa2723c0962c0824fe2ca9f30e300a"
+      },
+      {
+        "name": "Lib/turtledemo/planet_and_moon.py",
+        "sha256": "cd2c5344b67dbe781cf4c7f0f1eb1b97e6d8a5bf50329bdaa4e42e7d390ea609"
+      },
+      {
+        "name": "Lib/turtledemo/rosette.py",
+        "sha256": "61dfd5bb932cc5a0c3bb9caa8ed74889a19a8d3ee3cb6707ea8f63595ec350b0"
+      },
+      {
+        "name": "Lib/turtledemo/round_dance.py",
+        "sha256": "4ecaac02e68f11ec1a406a6ce8a4b17e4f8af74f76157e0776360d0dd041f276"
+      },
+      {
+        "name": "Lib/turtledemo/sorting_animate.py",
+        "sha256": "7d38adf061cecaf08edfbe8ebc194937f7f070a35e19641a472778f6d3a10927"
+      },
+      {
+        "name": "Lib/turtledemo/tree.py",
+        "sha256": "3318448046c83c176f95a97c33b5cd82e0076bee038d72810bef3dac1085e590"
+      },
+      {
+        "name": "Lib/turtledemo/two_canvases.py",
+        "sha256": "3300593114fb9286af9360cc9d871a40e5dcbea4aedc24b832607d1dd71c7b96"
+      },
+      {
+        "name": "Lib/turtledemo/yinyang.py",
+        "sha256": "0737a80b939aafcf3d8a1bf60b63e781979c749337d02b6c216680893f9fffc5"
+      },
+      {
+        "name": "Lib/types.py",
+        "sha256": "345474ef027a1273f353da9bdc1f7c18f65335e72e681bcc0376774cc51f2405"
+      },
+      {
+        "name": "Lib/typing.py",
+        "sha256": "be92d60fb8382bb29ead21c128825d7c96d0e8c915b44f840791e49f5a8d554c"
+      },
+      {
+        "name": "Lib/unittest/__init__.py",
+        "sha256": "32ed48385c0377bc2900a76e9a6acc3705aeef402c72de8554b3c637420506f0"
+      },
+      {
+        "name": "Lib/unittest/__main__.py",
+        "sha256": "ff6b9a100d32001715b40d61bc4d613623b139edb1fdc3566427b83c331caae3"
+      },
+      {
+        "name": "Lib/unittest/_log.py",
+        "sha256": "905672317ab26c656c600defce25d477728068f597f00a7f94e22e8128c323b9"
+      },
+      {
+        "name": "Lib/unittest/async_case.py",
+        "sha256": "c600343ffa27eac746001b2f35df2e4e2e52b90f14026dcfb4c43b25dfd7b261"
+      },
+      {
+        "name": "Lib/unittest/case.py",
+        "sha256": "45bac6d80a4fc3a0dea8340a80681e30b263f017b4a5002cb8f489a632e0f987"
+      },
+      {
+        "name": "Lib/unittest/loader.py",
+        "sha256": "7f0af414bfa7fe8612a424b14cfcf8a3c34fcac999d976461beb738ef8b211b8"
+      },
+      {
+        "name": "Lib/unittest/main.py",
+        "sha256": "db58280574389c0d6cba9559cc51e1787f5b418c4e85d354aa55ca43335c487a"
+      },
+      {
+        "name": "Lib/unittest/mock.py",
+        "sha256": "1de18141992c6742bff27e77c0cbe46d53d6a5ab1850574a536910508823fc5c"
+      },
+      {
+        "name": "Lib/unittest/result.py",
+        "sha256": "5db286bdd3821d64150377e554d7edbdd58db7bb8b950772f977e9ec1d535617"
+      },
+      {
+        "name": "Lib/unittest/runner.py",
+        "sha256": "76d9beb9c21d0d367a1b040a921ad43f90b7971fcc8cacfccd6f9760bedf1ce2"
+      },
+      {
+        "name": "Lib/unittest/signals.py",
+        "sha256": "f8286e818ca56e10e03745bc056cdfd31147678f9a1dc8cb6b0fe96ef9a4362a"
+      },
+      {
+        "name": "Lib/unittest/suite.py",
+        "sha256": "ed2da92bc9f97c53403ee2d3d12cc53b16a96e85d596ebc887b5a93458f3f6bc"
+      },
+      {
+        "name": "Lib/unittest/util.py",
+        "sha256": "fdcc640c3505d16deab9c32eae7c3f5f67c3b5e81c563dc6698fa7fcf403854d"
+      },
+      {
+        "name": "Lib/urllib/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "Lib/urllib/error.py",
+        "sha256": "d12b3cc66af3f42a8ebe63e1c91d24f92c6237b6a93a3702938dffabd812d77b"
+      },
+      {
+        "name": "Lib/urllib/parse.py",
+        "sha256": "e6af7f475262f1de335bb2e41e26adb94d6103977cf5fe1ddc430dc6a3b1623f"
+      },
+      {
+        "name": "Lib/urllib/request.py",
+        "sha256": "6ffc7d993de64319a40fad631966bd1fd643d355a5c154c1a8b1821f49e5c470"
+      },
+      {
+        "name": "Lib/urllib/response.py",
+        "sha256": "7e6c3b6d7a95f0d74f5968f51a87adae8a51bf42390cdfec98c7a99203e7bb76"
+      },
+      {
+        "name": "Lib/urllib/robotparser.py",
+        "sha256": "644cc6d2b09948e8782cb1e7dea3bb39a2d83932c67e7a8eae65a711318c002c"
+      },
+      {
+        "name": "Lib/uu.py",
+        "sha256": "dd1f5be33fb25a1b0832891ea07db4a4a2ae41b466e37e24e204604fdc6d18cf"
+      },
+      {
+        "name": "Lib/uuid.py",
+        "sha256": "fe357bff7241e9fd6f86ee81567fd20aeec2e17460428ea9b7924bebf57301fc"
+      },
+      {
+        "name": "Lib/venv/__init__.py",
+        "sha256": "976ba2fbc7b22cd2ed315d679aef096d8ddadebbc65492cf892ff29e41860c58"
+      },
+      {
+        "name": "Lib/venv/__main__.py",
+        "sha256": "722537c68c0622f8293d39bb6ab1288f3637d8dc45d6f9aae96e49af8145ca36"
+      },
+      {
+        "name": "Lib/venv/scripts/nt/python.exe",
+        "sha256": "d59c9a894b319828d023f3aa83d9a3488d2339f9e27e60e49b02abb0d53cf538"
+      },
+      {
+        "name": "Lib/venv/scripts/nt/pythonw.exe",
+        "sha256": "92babe8ded895f7e8335922a1f55db4b28422746dc4784deee6634c43c9a6459"
+      },
+      {
+        "name": "Lib/warnings.py",
+        "sha256": "6405e281882932205eae641b2d31fba7776f94517a206d289465a1caffbf310e"
+      },
+      {
+        "name": "Lib/wave.py",
+        "sha256": "0330428ea9e45fee49acc4ae5bdca4c235f4236c51dab09f30442ccafa25c1f8"
+      },
+      {
+        "name": "Lib/weakref.py",
+        "sha256": "56f8d313fb74019e53eb9287400702fbce788b7fe30e097b0b6e06296f3f080c"
+      },
+      {
+        "name": "Lib/webbrowser.py",
+        "sha256": "8a7d3cea5e22f227b2fbfcdb21be2ffc3f1c940d2ea26d2da479e1efeec49388"
+      },
+      {
+        "name": "Lib/wsgiref/__init__.py",
+        "sha256": "c30e144025a63d267778d92f2f066fa592b476e789d888f79b96c059bf0bef60"
+      },
+      {
+        "name": "Lib/wsgiref/handlers.py",
+        "sha256": "ad6af74ec157c3a9153d9b34d7ce684e2df1d329aa703990ae5cdc1a08fc6f7f"
+      },
+      {
+        "name": "Lib/wsgiref/headers.py",
+        "sha256": "9e579ab07be58d321f820b481230a10d5ba6dc4db6512c5323051c4870465ca4"
+      },
+      {
+        "name": "Lib/wsgiref/simple_server.py",
+        "sha256": "d435cad48b5f63c0356e1ac70755e6e35eb94b02f9844b813e5762199110bc2b"
+      },
+      {
+        "name": "Lib/wsgiref/types.py",
+        "sha256": "ba66d30ce511a88eba9b809616c51e12bf89c67972102e7d976b18557f7a6387"
+      },
+      {
+        "name": "Lib/wsgiref/util.py",
+        "sha256": "93783cda348368538525f52a5e9a5a43a3de93caec26b6a030ecfb3aedf98b98"
+      },
+      {
+        "name": "Lib/wsgiref/validate.py",
+        "sha256": "4132f87dcf11a332f6ec5b051e68e59ff493dd6fdcc4f716ea72373734977a0a"
+      },
+      {
+        "name": "Lib/xdrlib.py",
+        "sha256": "983c5e8e3090bdbeb94bf4faf841c1f8c916bcbca423863f6870a142d16a4fb8"
+      },
+      {
+        "name": "Lib/xml/__init__.py",
+        "sha256": "34296f728e7fe68cccb97a9f6edbf3bf3a686f44044c744fe85f207a92ed4811"
+      },
+      {
+        "name": "Lib/xml/dom/NodeFilter.py",
+        "sha256": "9bfacbbb64e239a75591a7260b3ed86748eeb4366e6c40f3542753e79bace9a7"
+      },
+      {
+        "name": "Lib/xml/dom/__init__.py",
+        "sha256": "b415a6f3d3663c3ac332ee4a0f4213eadad9281508dc97410e258a03633b063a"
+      },
+      {
+        "name": "Lib/xml/dom/domreg.py",
+        "sha256": "826b02a803930834b96b1086cbee7db1d21c684f65dd3073706dc7bb5ba1a3e8"
+      },
+      {
+        "name": "Lib/xml/dom/expatbuilder.py",
+        "sha256": "80598dbc5970feaa36ea2b7549e3e76dd018fb80cf79e4a5e27e9e71af60c82c"
+      },
+      {
+        "name": "Lib/xml/dom/minicompat.py",
+        "sha256": "42974c4c67803dfe80b016ff8aeea0d1e5c751703ab3aec5be765f4e534367be"
+      },
+      {
+        "name": "Lib/xml/dom/minidom.py",
+        "sha256": "ceb557c3bc32e2a734d947dffb2452676cfb2f6d83d6b490b9e2d9f700f45d33"
+      },
+      {
+        "name": "Lib/xml/dom/pulldom.py",
+        "sha256": "614b88673d496a360e6b10efe8d733c7c0826fb214470ff12f24a1e597699870"
+      },
+      {
+        "name": "Lib/xml/dom/xmlbuilder.py",
+        "sha256": "26883dc30a461cb6a3583bd79d363858059569c04e94e3787d4d028f5fab7354"
+      },
+      {
+        "name": "Lib/xml/etree/ElementInclude.py",
+        "sha256": "8e10c99668216701224831c82f13b36d29cd408554c19e34d290c351595df4ce"
+      },
+      {
+        "name": "Lib/xml/etree/ElementPath.py",
+        "sha256": "f9c2102cf56cf9859d34e69877ad4e8a04a0cdabb6390cf2189f04aa8101759f"
+      },
+      {
+        "name": "Lib/xml/etree/ElementTree.py",
+        "sha256": "897618a09d05dadfa9d1707b39533526be69bf01d133747395d27fdc23db3f9f"
+      },
+      {
+        "name": "Lib/xml/etree/__init__.py",
+        "sha256": "91950edfb196c105d93886f8af7ea3c0a79e06a6b63be3e5a4ea09804e8672a6"
+      },
+      {
+        "name": "Lib/xml/etree/cElementTree.py",
+        "sha256": "d0f57acab07fe4f9c116c3392d85946bac8e78608f409cea70005f16ea019b57"
+      },
+      {
+        "name": "Lib/xml/parsers/__init__.py",
+        "sha256": "b88497adc30d5d5eda7789c25a2206ee9270c932d584d7ac42680325651da45c"
+      },
+      {
+        "name": "Lib/xml/parsers/expat.py",
+        "sha256": "64e1947747c2874117a7458bba1f07c86620cc0ed9a4a4116d262878e4a2aa09"
+      },
+      {
+        "name": "Lib/xml/sax/__init__.py",
+        "sha256": "2f949d27b9eda6284482b43f4c202830fb35ea94f4101d70452119d3210bdbe0"
+      },
+      {
+        "name": "Lib/xml/sax/_exceptions.py",
+        "sha256": "26564d5742496196d17a4a0ee135d28f652ec81742cf2fa4bff83e64323578ac"
+      },
+      {
+        "name": "Lib/xml/sax/expatreader.py",
+        "sha256": "5b6750ae591cffa303b20f092b13409a92df5ee1c403adac08dd5320eafee0be"
+      },
+      {
+        "name": "Lib/xml/sax/handler.py",
+        "sha256": "64c7aae49f1dd382a7b9012610307bfa1d43a14a5dc09a5c8da30903f6805c3d"
+      },
+      {
+        "name": "Lib/xml/sax/saxutils.py",
+        "sha256": "3fe2cdb6386e0c4d42d37c657bbecb78b69c57aedb1610dbd8bf4043944130ab"
+      },
+      {
+        "name": "Lib/xml/sax/xmlreader.py",
+        "sha256": "0962c8d64ac8b03148d4ae62a531f544c4fd1be2116c6f4a53b480cff463dbba"
+      },
+      {
+        "name": "Lib/xmlrpc/__init__.py",
+        "sha256": "87ad5c8954dd56fbbca04517bf87477ff4dce575170c7dd1281d7ef1f4214ac8"
+      },
+      {
+        "name": "Lib/xmlrpc/client.py",
+        "sha256": "c77e7072ab9aaab6c6f16f89f2e7d528183b816df5d9f80e490f773ab45fe238"
+      },
+      {
+        "name": "Lib/xmlrpc/server.py",
+        "sha256": "6781c25a6224b8bafe13050d26456c8a8b480c96e7974bcf60d4deb0c4ad454c"
+      },
+      {
+        "name": "Lib/zipapp.py",
+        "sha256": "56e098b62cef6c39944bb898326dd920b70be461fe644139e2b699977d2997a1"
+      },
+      {
+        "name": "Lib/zipfile/__init__.py",
+        "sha256": "83031a1582b84054fdde260a372f8ed25d9dedfbfcbedcef2bc015bcca7c5332"
+      },
+      {
+        "name": "Lib/zipfile/__main__.py",
+        "sha256": "e418cdbb27adf0063e3cec28179ac6b7bdb6ac743bb49d157f450551fcf38be2"
+      },
+      {
+        "name": "Lib/zipfile/_path/__init__.py",
+        "sha256": "63fc930890d38a662253bcf7ae50a1bfa06ce38bade19084f9c89f964dcd0e12"
+      },
+      {
+        "name": "Lib/zipfile/_path/glob.py",
+        "sha256": "64e27d3872da2ea18b901718c91297d32b9610ebdad058de8561344b0a10e8d7"
+      },
+      {
+        "name": "Lib/zipimport.py",
+        "sha256": "a96f1d7a7b6aaf421a3cf382b94b1422f4f0ad452fdd0bb61d635b560d7a4e91"
+      },
+      {
+        "name": "Lib/zoneinfo/__init__.py",
+        "sha256": "ac7fb403e4371d07482ef2fda81dbcf6879484e9fc41d4be42c156d7e54c68a8"
+      },
+      {
+        "name": "Lib/zoneinfo/_common.py",
+        "sha256": "67deaf0ba41aa4865e007297677207485a89b75629eea0ee5c472be8a3e83bf6"
+      },
+      {
+        "name": "Lib/zoneinfo/_tzpath.py",
+        "sha256": "5dc473af6f6ae35e5531cc9705a1e4923aa07e7d35f6b4c275b90c6a3c2591c4"
+      },
+      {
+        "name": "Lib/zoneinfo/_zoneinfo.py",
+        "sha256": "ebb9b679519a23252eb90541003a2fdbb3f2d7bc36713fd70672baa575dcdcb6"
+      }
+    ],
+    "sha256": "0f3ef35995160c8db3b4892d9bb3bd9ea0eba75634d4fc4505eef13e7ce56f92",
+    "source_root": "C:\\Users\\UP60066553\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python",
+    "policy": "closed-copy-v2"
+  },
+  "uv": {
+    "path": "C:\\Users\\UP60066553\\scoop\\apps\\uv\\0.13.0\\uv.exe",
+    "sha256": "2bfbe53d3cc95799e98fa08323b04844fc01d4f8c87dd5c00089e43f6554f162"
+  },
+  "preservation_before": {
+    ".agents/skills/bmad/assets/config.template.toml": "10118c70f2bdf724734fb67aa4c0db9127affa3e8f48c38452d9d7756d5676a3",
+    ".agents/skills/bmad/bmod.toml": "aefdff57318e8c0a63629e49f5dba8750dbd9fcef6452e11ef40f297a4237af9",
+    ".agents/skills/bmad/references/help.md": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+    ".agents/skills/bmad/references/initiative.md": "a5e11dfeb6a2654d60e1bbe55dc47e0714e09447e15a89ac35fd3b260774b880",
+    ".agents/skills/bmad/references/migrate.md": "813005d5d6edf43cb730c8e38d041ee4099ccc846331531974e337a1d511889e",
+    ".agents/skills/bmad/references/setup.md": "796e8d0d8aa5f70749d8841f58675138b544a5f8d74dbfbe005d4f67af6e7d16",
+    ".agents/skills/bmad/scripts/config_utils.py": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+    ".agents/skills/bmad/scripts/knowledge.py": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+    ".agents/skills/bmad/scripts/memlog.py": "097f0a96cf42aa26da70ac15619983fae599eb33a9e5c03060c4684cb32730ed",
+    ".agents/skills/bmad/scripts/migrate_v6.py": "9471eabc8d7ed66c3561a8d0f0cd7fa68bc8df2a3ff5bef63b83be4ad6db5f52",
+    ".agents/skills/bmad/scripts/render_skill.py": "d6446c4b1094d788d9ef421876203b8b2576e3dbe1cc08f189a030e3def880ea",
+    ".agents/skills/bmad/scripts/resolve_config.py": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+    ".agents/skills/bmad/scripts/resolve_customization.py": "ba379892dea849bdf2bbf7183556dc1030a8aa775ff083d3b89db47b18bf367f",
+    ".agents/skills/bmad/scripts/roster.py": "a4b82ae7c08312b352cb151e080f7e78d6cf543f65dfdea9f02f60dd3dc0c59d",
+    ".agents/skills/bmad/scripts/setup.py": "1de76dce0b4ba702da927d6dc83fd620ec0774aa1c1ab0cc5739167c135f64f8",
+    ".agents/skills/bmad/scripts/setup_check.py": "1c59560aba5f3daed3ab64a04bfb15e0f88a2982f63cd541725ac46a4eca033f",
+    ".agents/skills/bmad/scripts/stamp_release.py": "62e205e4e08591b6a45fc4c720fe4941753f8630601b2ce1c4d926223ee06b09",
+    ".agents/skills/bmad/scripts/tests/test_config_utils.py": "b3292aac8f01b0878ea7e1ab7edca3677ff43695f2ec2e98e3d6353cd9200ec8",
+    ".agents/skills/bmad/scripts/tests/test_knowledge_migrations.py": "230bf275c8b0694db5167b336a9c8de0eaebf179943ecdb3e046cbd4c64c66d6",
+    ".agents/skills/bmad/scripts/tests/test_memlog.py": "ce7af1aa90f744464045ceb9139c7e500cf5b8cd0f9d9b42cef44693199a019c",
+    ".agents/skills/bmad/scripts/tests/test_render_skill.py": "6adc5445b46e462cc69546c7e91cbe383f98e2525a2aa15e13579b10658c2ef4",
+    ".agents/skills/bmad/scripts/tests/test_resolve_config.py": "ff92db3b5a216b6eb533416332a6341ec63a84923c541f1ebd166abcedf82eea",
+    ".agents/skills/bmad/scripts/tests/test_resolve_customization.py": "280e30cb556398466aad604290920d4ef8a7faccb000768da07730e068dec762",
+    ".agents/skills/bmad/scripts/tests/test_roster.py": "aaf060c11c3719be020b5c70f19a9ec7f2390654221a95efbfcbbf7d4081563f",
+    ".agents/skills/bmad/scripts/tests/test_setup_check.py": "34f304f985a709f829f27ebb3a7415cb6ae7fc9302a2e3ed11e51507eb8102e4",
+    ".agents/skills/bmad/scripts/tests/test_stamp_release.py": "6fb975cde1361b44e0468c76521ba918a9026113b026045ca901d9aef142359c",
+    ".agents/skills/bmad/scripts/tests/test_validate_manifests.py": "bb6ba8fb8ab855f26e746bc72f9ab69ebb39ab18b13645146b10f28984fcb16d",
+    ".agents/skills/bmad/scripts/validate_manifests.py": "e30a7da9b709804c647bb3472f9aa745098d550a87d812ebb6f27317f9dd1ae2",
+    ".agents/skills/bmad/SKILL.md": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+    ".agents/skills/bmad-advanced-elicitation/assets/methods.csv": "c5647754013ce04b5f225c6083bf49d4418f5fbd3b5ebc818e6323ddbffb863f",
+    ".agents/skills/bmad-advanced-elicitation/bmod.toml": "aefdff57318e8c0a63629e49f5dba8750dbd9fcef6452e11ef40f297a4237af9",
+    ".agents/skills/bmad-advanced-elicitation/customize.toml": "480798b227f1316850e5f4bae41d01bda6b7ac83f9f904d0ce3f43ee6cd9b11e",
+    ".agents/skills/bmad-advanced-elicitation/scripts/pick_methods.py": "910aee1ba56e1c8bcf10439a6a61128d3a187d200e51df5fac8a7715d1125e5b",
+    ".agents/skills/bmad-advanced-elicitation/scripts/tests/test_pick_methods.py": "fb1158a60b5b28a80977e59816fb811b1e0773816f9970d2af96d30296af5d34",
+    ".agents/skills/bmad-advanced-elicitation/SKILL.md": "97581a8be6e5125f529b5a766ec3975e06892cb3417cda320c602aed8b0c4145",
+    ".agents/skills/bmad-agent-analyst/bmod.toml": "ec2117eafcb40f25457ff4667750e0e98824b4255ca83f3af8d4f8724b851f6c",
+    ".agents/skills/bmad-agent-analyst/customize.toml": "eaed9efbff9cc115b83d5d263b19b9e0202b5b30fa9c4321d18f8c401cbfe85e",
+    ".agents/skills/bmad-agent-analyst/SKILL.md": "6484b18e36a2c5c40bfdaa3c820b7251dad20b97624dd7d43cc629cd33d61e2a",
+    ".agents/skills/bmad-agent-architect/bmod.toml": "635105851aec83e83e07ddf6ff012f330f53079a682ae2b9a9ece97040d438b6",
+    ".agents/skills/bmad-agent-architect/customize.toml": "155d72b1c9bcbff1155e4def8b216ebca1f3eafd423382319946f88d6c5d5d99",
+    ".agents/skills/bmad-agent-architect/SKILL.md": "c04a0bda5de8b9a020c722dbd27c9a8463fba03cbf1c43c7f19ba531f318af95",
+    ".agents/skills/bmad-agent-dev/bmod.toml": "c6ad7108eba95c01acdf8500bb66dc8b0daa515f08a473d95713cf9de271684b",
+    ".agents/skills/bmad-agent-dev/customize.toml": "ff1df601862512eb134c1da5b903814897a15de4ee9f047e83853e1ca495a44a",
+    ".agents/skills/bmad-agent-dev/SKILL.md": "40b717bf82058a6b28dea4e486ce7817f2ac49c500266b55fa9780f4425977fe",
+    ".agents/skills/bmad-agent-pm/bmod.toml": "c696618103814c78c8151610c40ae2879110bf043a88f2ffbcd85255df384b4d",
+    ".agents/skills/bmad-agent-pm/customize.toml": "8f9a9116928690915cc1c80dbc4ad1e3f3b37a2deeb27fe1110c407c87eaa73b",
+    ".agents/skills/bmad-agent-pm/SKILL.md": "7beec87e24fd1db180a67c377d46efc9c1d4d766383edc1b03abd55854967866",
+    ".agents/skills/bmad-agent-po/assets/bug-template.md": "99cb674aa36a46238d65d2cc9f65ba0613880bb85a6ea6b7853331109b6fd7c9",
+    ".agents/skills/bmad-agent-po/assets/spike-template.md": "ec22ef63e859e94ebaeabd5ed33e73895da8ae59d22200fe28426c101a930cc4",
+    ".agents/skills/bmad-agent-po/assets/ticket-template.md": "c213441f48cc0cbe93fd141030f27804194d6c640e2dd1f9719e69ff4ba864f2",
+    ".agents/skills/bmad-agent-po/assets/tickets-template.toml": "2aa5fca7a38556c74dfa8f142a9134fb2b4a71d1c8bb75929cdcbf71887b947f",
+    ".agents/skills/bmad-agent-po/bmod.toml": "b0b3af5e4a393ed4d84e71654482c1b2e3f3108906729968b10704bc0f4cadfe",
+    ".agents/skills/bmad-agent-po/config/github-ticketing.toml": "e444a969f89d87773574f951b1004333da53f2e1bc879e1243e32884c4d92d39",
+    ".agents/skills/bmad-agent-po/config/jira-ticketing.toml": "111d02e8aae7e503396b55a2bf336c42ac1fddb2f14711f689f808f0eeb10d76",
+    ".agents/skills/bmad-agent-po/config/linear-ticketing.toml": "3437454de5d995855ce9e3093d13eb10788b442bb489a9edfe753c1b5a905561",
+    ".agents/skills/bmad-agent-po/config/notion-ticketing.toml": "89d3166bdc8a9cedb02b138b4a1243cc1d65793051a06e0f7576fee3f3bc3f84",
+    ".agents/skills/bmad-agent-po/config/repo-ticketing.toml": "91025a3698081a6e36a758fb7e48b36f33130b8d67b769630c48879206f5a3e6",
+    ".agents/skills/bmad-agent-po/config/trello-ticketing.toml": "179614976b251a2c98d9684b7f78f2bf748bab443f68dea80113737bcaf107f8",
+    ".agents/skills/bmad-agent-po/customize.toml": "2906cfb164d4a0a4f183989d36a7c8338d6b07981719a9e81a30da88a1ee1f4b",
+    ".agents/skills/bmad-agent-po/references/board.md": "385c288af67d16e98b61e39a7421b444edb8fe6637df78fdbaf45f4d39f934a5",
+    ".agents/skills/bmad-agent-po/references/replan.md": "3c48fa4bfdf24eba5693edb70266248ce73daac84d7ce035231c819265f0bd68",
+    ".agents/skills/bmad-agent-po/references/slice.md": "a6ff79da2a65d1efce9404ad1b3e24809907743e2ec19e0a43c46364998a0ccb",
+    ".agents/skills/bmad-agent-po/references/spec.md": "7b69a90f4cfe0b6c6c9821d746cfd5539d7d2e11172152b1516cd090b4345c16",
+    ".agents/skills/bmad-agent-po/references/store-setup.md": "81b4e100347858631f8e436fcdc0f0161098a65b3451b57bef4155fce84cf6c7",
+    ".agents/skills/bmad-agent-po/references/ticket.md": "db1301520ab9246bdc7262abc14fdc128d4c7eae135b39e16a5cc2603a56ddf2",
+    ".agents/skills/bmad-agent-po/references/validate-checks.md": "ced41f29e7c1c0228ad3ae2c6135f3c7f2ceeb2bb425acc6ca3d003176b2a5aa",
+    ".agents/skills/bmad-agent-po/references/validate.md": "102f78c1400136b4fba9b6148875d30f8e63d9d9a447711ee433668d37c47351",
+    ".agents/skills/bmad-agent-po/scripts/read_store.py": "e5b8be2b9abb225b0f0b8c52b5623b6bd3d49b4fd797b3b59fcc4370de1d92b6",
+    ".agents/skills/bmad-agent-po/scripts/tests/test_read_store.py": "a3e2aaa50bd15de83c37d6f3c3d037d56f8cb0785a1b3ed82f24640bbe763e2f",
+    ".agents/skills/bmad-agent-po/scripts/tests/test_tickets.py": "55d500dc03f09f6d24d62126aca5cd94ec7db71b9bcabe04b4c811a18600cd3d",
+    ".agents/skills/bmad-agent-po/scripts/tickets.py": "4af8f1ea6ac940a13168b0c71bc95f1147ff914259827ac6f59632eb5ef29217",
+    ".agents/skills/bmad-agent-po/SKILL.md": "e5910acd3017a0467f3bce5ee9f91db384516cd9b96be37d75807c640617ae79",
+    ".agents/skills/bmad-agent-po/workflow.md": "fe99e0edf624f22f5c0f285909b72f672f98be81e8ee07bfa9ef0bdfaf4e0975",
+    ".agents/skills/bmad-agent-ux-designer/bmod.toml": "ea4950ac8f682092800435499a23b7c0e0bd19865f8c07067832197e9727e534",
+    ".agents/skills/bmad-agent-ux-designer/customize.toml": "021f85cc5fd3501e9add032de98dd00b25efa18201fb80b87eacb2b50be4c7a6",
+    ".agents/skills/bmad-agent-ux-designer/SKILL.md": "0330031cc898302195d5bcfd568d48396adc27574793e998235cfb66811b7401",
+    ".agents/skills/bmad-architecture/assets/spine-template.md": "f35d7514b28c6a476be934efa8a03710a55be1c5629b06e44562fb76eb5e5dfb",
+    ".agents/skills/bmad-architecture/bmod.toml": "e359b62ad6f438c65df3c708ed97da79d81be10eb32e7972bb954a9356fb8f88",
+    ".agents/skills/bmad-architecture/customize.toml": "79d3970819c30198e79af75548c4e7139f51d1f7f2f0521fa8597e050dbab941",
+    ".agents/skills/bmad-architecture/references/headless.md": "4e9d1612d81e6750ac9d4e7cdcbb41230e7b2ca4ff700b5ac3ed5ccfbf1ae975",
+    ".agents/skills/bmad-architecture/references/reviewer-gate.md": "dd280f87b1fb9856c7ac5f300d3b779cba21faa8b8751618982be94ccb36e73e",
+    ".agents/skills/bmad-architecture/scripts/lint_spine.py": "1ff80f7c12495f8cd888836fc3c6dcf61e3e3b08d572838b298f7b4bcbe12fe0",
+    ".agents/skills/bmad-architecture/scripts/tests/test_lint_spine.py": "666646f3ec3bb8eba3f5d477fbea60362b8e7e31906b1fabd05c19803a3aefe7",
+    ".agents/skills/bmad-architecture/SKILL.md": "1d04eb8a8f5597c18836263524a18c9fac97228745f6eb02383f78bf09f129bc",
+    ".agents/skills/bmad-brainstorming/assets/brain-icons.json": "8db86ceac6b7056f2bccd896e96b90118bafc6a2ff4b65f1f924bf7a880c056a",
+    ".agents/skills/bmad-brainstorming/assets/brain-methods.csv": "fff112eabca1a9cb8b190f8314bc47678becc5782a2372e11c83daa0e33b6dfd",
+    ".agents/skills/bmad-brainstorming/assets/brain-selector.html": "c8bb63bb645d6235ade3e56d0e929654e06ab63e53df91b8092ff602d8ea25e3",
+    ".agents/skills/bmad-brainstorming/bmod.toml": "aefdff57318e8c0a63629e49f5dba8750dbd9fcef6452e11ef40f297a4237af9",
+    ".agents/skills/bmad-brainstorming/customize.toml": "25a94e16777ce8442701f642bb69fcdef935291be12cfa24355157a6330a267b",
+    ".agents/skills/bmad-brainstorming/references/converge.md": "ce46cc21b7e0fb098ee91cd91a2d9e9839102c16d5eca7171c72dcd67075637a",
+    ".agents/skills/bmad-brainstorming/references/finalize.md": "8ff7c34ae79d4ccda9ab27a76dc174e6f1620af37bec39753e843b73c7b7937a",
+    ".agents/skills/bmad-brainstorming/references/headless.md": "b611275bf028a0d67b475868c9452306d1a53e8a1e0549e29f8a5262af1c9764",
+    ".agents/skills/bmad-brainstorming/references/in-chat-techniques.md": "72949cdf391da5775c9a5b5fd65a2a0a042af3c3fd170e56a13b54b91e356be5",
+    ".agents/skills/bmad-brainstorming/references/mode-autonomous.md": "bdbb452efa92d49471aafbaa72301d90fa73fe4876e1be6ef28dd13a4d5fffb1",
+    ".agents/skills/bmad-brainstorming/references/mode-facilitator.md": "ff400f1fe59e34935c30f75f359a1d7aed12c9e85fb2aca1054c8d89c4f7328d",
+    ".agents/skills/bmad-brainstorming/references/mode-partner.md": "e301d09f48b41a532482dbfc8468f963bc1579cf4a4440ea03249a4694ec7efa",
+    ".agents/skills/bmad-brainstorming/references/resume.md": "573393e71054c6fb1e118856b7a48a5baa0b8a5fc14d5820fa4d889cbc15d9bd",
+    ".agents/skills/bmad-brainstorming/scripts/brain.py": "deb728667e780878b85a49f6445df639a85720b19782d63f619f108e4ed63fbe",
+    ".agents/skills/bmad-brainstorming/scripts/tests/test_brain.py": "cbb5bd5a0737540de71d3d9c14b58f8eb13e51b0d6597c12930ba060ff9a1320",
+    ".agents/skills/bmad-brainstorming/SKILL.md": "69c09bf93e4043ccf5a8f56910731f2eaad9a4c677e254fce229dc89362a5cad",
+    ".agents/skills/bmad-build/bmod.toml": "e359b62ad6f438c65df3c708ed97da79d81be10eb32e7972bb954a9356fb8f88",
+    ".agents/skills/bmad-build/customize.toml": "4e0b224906a3b011cc661f828fdcaed35f67f4663fd6cfa7eaf91db07d3bb5f6",
+    ".agents/skills/bmad-build/plan-template.md": "d50a09cf03b9c8388d006929da4b1baa81f85ae79268aa9478015ebe87b53e09",
+    ".agents/skills/bmad-build/references/claims-check.md": "25fb9420cad1d453d12d2a6d7eb97142fed97204513a1a9cab4ca36756e2d67d",
+    ".agents/skills/bmad-build/references/deletion-check.md": "2690305265a71a83c46f3f35f2c972552d440447d9fc3e5ac20b5f728cd7749b",
+    ".agents/skills/bmad-build/review-prompts/edge-case-hunter.md": "139eb942f8dde0c6cc3d9e5b6e1674596ac5deec45e698ea567e58fcd00c0dcc",
+    ".agents/skills/bmad-build/review-prompts/verification-gap.md": "042c8af770f9d767b6565de8a6ea4cdff04131150fb6d57a3c0272ccc319c2a7",
+    ".agents/skills/bmad-build/SKILL.md": "d03a9e290faaa8e32e46a229a9c77a2ffe950cf89abfbf768d526bcb746e3e9f",
+    ".agents/skills/bmad-build/step-01-clarify-and-route.md": "58ebec7eccdf8d2b88edfc249dd943eeaa3dc5e60334978d1b8c45ab8110340f",
+    ".agents/skills/bmad-build/step-02-plan.md": "0e216ecde113b908e584b93f4aeccb4f072ec13d0480a6c62806e5b1d9239a40",
+    ".agents/skills/bmad-build/step-03-implement.md": "4bc0141eef923a778399f3b5b657fbb1de76bf052036a4e4d92536c462bbebd9",
+    ".agents/skills/bmad-build/step-04-review.md": "ed89fad08aa356d9f2262a65286684bb2ae8468a0f37090d7caa7e5c67506214",
+    ".agents/skills/bmad-build/step-05-present.md": "749652a20facd64e792ed98b0323d15d38ca871c0db90c358466d0d715b6236b",
+    ".agents/skills/bmad-build/step-oneshot.md": "396509fd292c8fa7dbcc59999dc986d0a2306d32f17820261a8df0e1de149062",
+    ".agents/skills/bmad-build/workflow.md": "0daeaea6d6b6a16fa91c6d5328c595c542ae10d8bb188c772f38e57b05b827b8",
+    ".agents/skills/bmad-build-auto/bmod.toml": "e359b62ad6f438c65df3c708ed97da79d81be10eb32e7972bb954a9356fb8f88",
+    ".agents/skills/bmad-build-auto/customize.toml": "a7fb75dc4273b46ea3dfb50151126c70f83e7825c90f92e89b3e80d421ebf90d",
+    ".agents/skills/bmad-build-auto/plan-template.md": "b691d11e5ccc6576d1aedb3a43018d670faa1d919b534fb17eaa421b16aa73f1",
+    ".agents/skills/bmad-build-auto/references/claims-check.md": "25fb9420cad1d453d12d2a6d7eb97142fed97204513a1a9cab4ca36756e2d67d",
+    ".agents/skills/bmad-build-auto/references/deletion-check.md": "2690305265a71a83c46f3f35f2c972552d440447d9fc3e5ac20b5f728cd7749b",
+    ".agents/skills/bmad-build-auto/review-prompts/edge-case-hunter.md": "139eb942f8dde0c6cc3d9e5b6e1674596ac5deec45e698ea567e58fcd00c0dcc",
+    ".agents/skills/bmad-build-auto/review-prompts/verification-gap.md": "042c8af770f9d767b6565de8a6ea4cdff04131150fb6d57a3c0272ccc319c2a7",
+    ".agents/skills/bmad-build-auto/SKILL.md": "cac8d65ec358cf65ce405475248a41c49c2cdec9bfb0027557ddab3657610b1a",
+    ".agents/skills/bmad-build-auto/step-01-clarify-and-route.md": "c749055f5a146c3c7e28b3df2547ee874af4a87775787f65b7012b53811df0b5",
+    ".agents/skills/bmad-build-auto/step-02-plan.md": "7b84d35c3875769c881ef00f8b2137a943b5714ad736fad493477ae3aea121fa",
+    ".agents/skills/bmad-build-auto/step-03-implement.md": "2017bc86c395fd044554e68cd50bf237a24d99b71d8098a5647697046b140deb",
+    ".agents/skills/bmad-build-auto/step-04-review.md": "de63dd49dd85ee66576e658e69f5520042bd086135e73eadf1ca0d79e25a4b3a",
+    ".agents/skills/bmad-build-auto/workflow.md": "efc5c5b337934489002481b668a629c535fec8d7e85165cfad3444e62f9000a1",
+    ".agents/skills/bmad-code-review/bmod.toml": "e359b62ad6f438c65df3c708ed97da79d81be10eb32e7972bb954a9356fb8f88",
+    ".agents/skills/bmad-code-review/customize.toml": "18d161afddd7b238487e6896b8e41f736c5eb8db3db41599ace2ed3f2c9450c0",
+    ".agents/skills/bmad-code-review/references/claims-check.md": "e7a26d72f810d7cc9796047574632f1a51d83118e2b112004e9fc8907145ff83",
+    ".agents/skills/bmad-code-review/references/deletion-check.md": "2690305265a71a83c46f3f35f2c972552d440447d9fc3e5ac20b5f728cd7749b",
+    ".agents/skills/bmad-code-review/review-prompts/edge-case-hunter.md": "18b23f2c4f7adc537f43156d8a03c002f86113d3f95c4a5d3dbbfa7e6766ff50",
+    ".agents/skills/bmad-code-review/review-prompts/verification-gap.md": "8b7d7c358a223257764ce5b6c1dfc43337311bf05a6b1dade727098e74e8a442",
+    ".agents/skills/bmad-code-review/SKILL.md": "0dafac82e95e63323bc3d201481fac49c8b395416805772776fc556b05d04c75",
+    ".agents/skills/bmad-code-review/step-01-gather-context.md": "54bc05ef781d51e4b9775632be07106669c654926c05054d246099fa208a3e91",
+    ".agents/skills/bmad-code-review/step-02-review.md": "0a5de162d14af96a0b8f2729876ad1c95f4440820173755261229dacadc4ba1f",
+    ".agents/skills/bmad-code-review/step-03-triage.md": "b89c1a1a7f2a445a556d05a73e939625638dfbdae98f6ab72038fabf81998171",
+    ".agents/skills/bmad-code-review/step-04-route.md": "58d348763fb29edd83a34f55b02a378e9a14873f897ee85373f8c1c4f9ec8ebd",
+    ".agents/skills/bmad-code-review/step-05-present.md": "1879e10653e5a4d20af0152d3d2ec4dfffd4454571be897d2f19e6eb520de165",
+    ".agents/skills/bmad-code-review/workflow.md": "24e2fc68fd41543938befa26e1581d1f30a602b7d3ec1e664efa13e5cf3723cb",
+    ".agents/skills/bmad-customize/bmod.toml": "aefdff57318e8c0a63629e49f5dba8750dbd9fcef6452e11ef40f297a4237af9",
+    ".agents/skills/bmad-customize/scripts/list_customizable_skills.py": "4193410c7309432f7289ca271cb2e31a48356783cc1e686b402170308c51a6df",
+    ".agents/skills/bmad-customize/scripts/tests/test_list_customizable_skills.py": "e4247920033b8269990b276e7b134fa8735519732e59f566389e879b75867003",
+    ".agents/skills/bmad-customize/SKILL.md": "df5bda18354473b052bfcb56319ad8c5e305e6c744000f38d5c531fc8ebcc1a8",
+    ".agents/skills/bmad-deep-recon/assets/codebase.template.md": "b731cfc0e2d70c32b5686e7cab3322cc820de4c37884e65ac3aba20f9709c433",
+    ".agents/skills/bmad-deep-recon/assets/research.template.md": "e70f1881dd4e0f8606c74180ef824142b7c98f94c0581f9ce925772a529c2aa8",
+    ".agents/skills/bmad-deep-recon/bmod.toml": "aefdff57318e8c0a63629e49f5dba8750dbd9fcef6452e11ef40f297a4237af9",
+    ".agents/skills/bmad-deep-recon/customize.toml": "cf194f715fddd994227290f863bcb587643437493f51d8bcd7f39af9a0d785a8",
+    ".agents/skills/bmad-deep-recon/evals/triggers.json": "08fc7271af06bda7eea76954803d1c74f16108f0fa37cafcb71626fc44c13056",
+    ".agents/skills/bmad-deep-recon/references/codebase-analyzer.md": "8bffe26e92ea22eb9ce615f97ac2059fde6d92e7053c66f2ab7592ec42d6ab9b",
+    ".agents/skills/bmad-deep-recon/references/codebase-historian.md": "d7bb7b94d88353b6e9a3e7e48b7684fb4d8925cd80100fdbaa2a9cdc9a3b6493",
+    ".agents/skills/bmad-deep-recon/references/codebase-locator.md": "d13f460af2bac97e5142aedcd3fd0e39b1e52e20ffe5b01df1e60407ffc5c66b",
+    ".agents/skills/bmad-deep-recon/references/codebase-verifier.md": "67b9b8aac2132c9ee9a6c744d7dc77acdb5df844dc7a2026b22926d87920a94e",
+    ".agents/skills/bmad-deep-recon/references/codebase.md": "459c6bc271c6cc2b8e6726a1f3f1e5a01c94d98306e5fe9198c37efbb90170bb",
+    ".agents/skills/bmad-deep-recon/references/draft.md": "67093b86f988a6b7a387082094b987b4d1b60f06e37d29ec5b384d7b5eca1ccb",
+    ".agents/skills/bmad-deep-recon/references/finalize.md": "8ea93b42429bf9d38699a7cb95d6a9aceaeb6fbc8adfaa31128a4a0fded32eaf",
+    ".agents/skills/bmad-deep-recon/references/html-briefing.md": "c2f61500128bb5e2978132242fc1c94a5f73db959e6861a94a854467e822acf4",
+    ".agents/skills/bmad-deep-recon/references/lifecycle.md": "dd7215f63d8ab9e68cf64e940c0bfbeeeb786de487ba60475fb4fe388368d2f0",
+    ".agents/skills/bmad-deep-recon/references/process.md": "baac53402d741427a9042554b6e02fa96b5bc9d6848fcba9bb6b8b55d4587d6d",
+    ".agents/skills/bmad-deep-recon/references/run.md": "30a7a9b055e56da2545f90b98581dd655f49777e081e8e5234e2172a36703434",
+    ".agents/skills/bmad-deep-recon/references/selection.md": "da7fbd157e11e86eff3363639feaabfe3e4257e5381e8a4464df848ec9a95ae0",
+    ".agents/skills/bmad-deep-recon/references/synthesis.md": "36b79d7fa8d95c333528f4d10d5642c3cff07b8b0adb83ebafd7ef54ef880dd3",
+    ".agents/skills/bmad-deep-recon/references/verification.md": "06a7c812cd5a983b377a24561b2189de5ca7424ead312696927b5b7a49992290",
+    ".agents/skills/bmad-deep-recon/scripts/recon_kit.py": "2e53386dfb8d76df3b9753b150060f4fe77090c863dd0f1349ba585cf4c0fb33",
+    ".agents/skills/bmad-deep-recon/scripts/tests/test_recon_kit.py": "7641c2d316277400e1c50e7a7c9d357ed0c44521259a09d1c909acf30937affe",
+    ".agents/skills/bmad-deep-recon/SKILL.md": "9e2586dc535cc2d467823f1462c8dfa9db5667349552da6358f58020a40608fc",
+    ".agents/skills/bmad-deep-recon/types/academic-lit.md": "50a9b43b76eeb3ebc61b8586840227294723f605b0ee3f705b7d520228144834",
+    ".agents/skills/bmad-deep-recon/types/competitive.md": "519749aea0145ef47a6312d44957ee29c7945c2433a54db108d8af62419293a9",
+    ".agents/skills/bmad-deep-recon/types/domain.md": "ffc3a8e2254a2f87d34dee5f5df65e3933a8ebe8923bd33ecf5a8b4dd358ae2f",
+    ".agents/skills/bmad-deep-recon/types/market.md": "d19f819b4e31e5ec947656666e2af91f6d1ab34d30c0ec19594a7c2928c6bf1e",
+    ".agents/skills/bmad-deep-recon/types/technical.md": "75cc8040ef5d6dda816b734b024606e49a09805807c3c238f0e41bbdb71fb6e6",
+    ".agents/skills/bmad-deep-recon/types/user-voice.md": "ed70726ae6aeb1c721c09caf6a43b05893bd423d1e01a53724b96cfc25c4e88e",
+    ".agents/skills/bmad-eval/bmod.toml": "d4321b8f9b7d2ccd621111c04e3464b1bebc5b90b9702295e842f7355ce0b272",
+    ".agents/skills/bmad-eval/customize.toml": "fe5705a9f63f63c97ea90f527b918cbe5b50c1700689ad52f221bdc6063de0e5",
+    ".agents/skills/bmad-eval/evals/triggers.json": "f1c9cd9dd1942a9e7d59fdb0a28368897c836480cc861a9d911231070430aea4",
+    ".agents/skills/bmad-eval/references/description-optimization.md": "312b3af21d03b83f013ddbdb5e87e26c1eff21c2b243e91909c00830d2ecb4f6",
+    ".agents/skills/bmad-eval/references/eval-format.md": "1f490892a70e7cc0236a44e866ff3c15f2a0d65eb537f66b00a06286400d4d9e",
+    ".agents/skills/bmad-eval/references/grader.md": "415b267026b6e415b7d98390d6bf0b92b845c2777c845381ea8475f881a25115",
+    ".agents/skills/bmad-eval/references/harness.md": "de570c90448d6972ad5f4bbddc57cba0cdbbccb587f87c1ca646adeb96efe0fb",
+    ".agents/skills/bmad-eval/references/self-improvement.md": "a87b386307ed6303bd2779eb1e86080868bb82d8da7e5caf2a2834005a828aba",
+    ".agents/skills/bmad-eval/scripts/aggregate_benchmark.py": "0c60fab9cfb41d161d8041c131d737f8fb774066070d7308cb7f92c70e570511",
+    ".agents/skills/bmad-eval/scripts/convert_cases.py": "77334c26924f2505c6e9fcf02a3567f3a94ec248be9ef3003eae1a2a1e174d18",
+    ".agents/skills/bmad-eval/scripts/eval_common.py": "f74e5f26a360e30c24e7306f819ec966a286c2712e309100b046de754315be4a",
+    ".agents/skills/bmad-eval/scripts/run_evals.py": "3e4ea433bf9bf79390b9e4607b5187652a08ef1e9903d648dba18dc5c8e4fbae",
+    ".agents/skills/bmad-eval/scripts/run_triggers.py": "c58dc1f7bb5057c8242723c3ac7de54dc622852ddbbeec269514d2e44c7e19a9",
+    ".agents/skills/bmad-eval/scripts/tests/fake_harness.py": "106f82652008a0d4c8aeace6030f499e692cec4b94fc210c5b563e37220d0ec6",
+    ".agents/skills/bmad-eval/scripts/tests/test_aggregate_benchmark.py": "717fb18a65590cfabf94e57b635b6d2ee62883fa20b80c6190d15fd5a9be8731",
+    ".agents/skills/bmad-eval/scripts/tests/test_convert_cases.py": "8506a98ce2ee016d3861205fa987a7a0f95310a14a975a5e475bcc57c29d0e2c",
+    ".agents/skills/bmad-eval/scripts/tests/test_eval_common.py": "483dba5cb9c53841efcb2eb35366baee5a438b406559fe703c4a33b2f1f6e91f",
+    ".agents/skills/bmad-eval/scripts/tests/test_run_evals.py": "4c671f3e6111adf30427002c8bd718567dd15f105c213df739df11f05b88acc6",
+    ".agents/skills/bmad-eval/scripts/tests/test_run_triggers.py": "f1256abf866b182031d23c6b9d53d422b3310ba6c221da3c2cdbd3b2961fb346",
+    ".agents/skills/bmad-eval/SKILL.md": "c13effb746f8dab462b16283f1cdba7a48e33f0817542d568cad668ea30df120",
+    ".agents/skills/bmad-forge-idea/bmod.toml": "aefdff57318e8c0a63629e49f5dba8750dbd9fcef6452e11ef40f297a4237af9",
+    ".agents/skills/bmad-forge-idea/customize.toml": "77a8da3b1388e9d2539f5e6278a8509f71c41f30312fa4a5468211cfbe3c5590",
+    ".agents/skills/bmad-forge-idea/scripts/resolve_personas.py": "8fcd8fc0cf142c8af96c4e5f40c80ac2fe2a6d4b46a9979a1acd35f6b8fdd29c",
+    ".agents/skills/bmad-forge-idea/scripts/tests/test_resolve_personas.py": "86703ee7fbf0088352708fad06a4df27fa0c3aabb8dab8ee8e4dbe0b647a4027",
+    ".agents/skills/bmad-forge-idea/SKILL.md": "e75016bd3c886228964a6adcdd6db55a537e0078b1a7056afe59f705d75cf9c1",
+    ".agents/skills/bmad-party-mode/bmod.toml": "aefdff57318e8c0a63629e49f5dba8750dbd9fcef6452e11ef40f297a4237af9",
+    ".agents/skills/bmad-party-mode/customize.toml": "b622ddd184bee59a0c86c8f4845b2709e255b0ba856922a20b10ce1aa810b248",
+    ".agents/skills/bmad-party-mode/references/create-party.md": "1f5c4ea7bac34aaf11f712bf26102e757fcfba95f77a3e65a7c57f8c7d5ca55b",
+    ".agents/skills/bmad-party-mode/references/mode-agent-team.md": "586f9489a7a9ae83e3dd4b7928afcd25195b07ab51364173504494ec1bd0063d",
+    ".agents/skills/bmad-party-mode/references/mode-auto.md": "d1fec74ca09616eb60186bcc1dc51896f224a67fc200115de3757c365f19de35",
+    ".agents/skills/bmad-party-mode/references/mode-subagent.md": "e5adb51b3562f8cc5b40874fff95fba57cce2935755995accba1b8bfa0f77321",
+    ".agents/skills/bmad-party-mode/references/party-memory.md": "08ea2b1ad7a4ff3b52daafa3d8ecf37fc9a269e440df0430d508dfa23ecbe397",
+    ".agents/skills/bmad-party-mode/scripts/resolve_party.py": "ff6b26877ec8abab695f4646aecdc791c010c3e4b66a6b6c4340f21d7f022615",
+    ".agents/skills/bmad-party-mode/scripts/tests/test_resolve_party.py": "c6a766df3cb760d27f2578c3b0c98e0f908eae0fdb2475606f12c2c14c4e5503",
+    ".agents/skills/bmad-party-mode/SKILL.md": "a4f3ab4839e4739131a8f04eedd2788b107df5340d3841c9956ce22d17fdd404",
+    ".agents/skills/bmad-prd/assets/headless-schemas.md": "f79599ee934a3b8196a25aa59c3927e9529e8094d228445957ba42834c0cbc43",
+    ".agents/skills/bmad-prd/assets/prd-template.md": "47083174b1078f24578368b4e50b9e7b885f6f5e304920051892d7e0d198532d",
+    ".agents/skills/bmad-prd/assets/prd-validation-checklist.md": "8c7d0582f9872014126b2a113ee976c6868bc598e9aa8af6e9f62b01c66a3ef9",
+    ".agents/skills/bmad-prd/assets/validation-report-template.html": "87d2b6968408b85bb4f907ab7d2c83c77f936f4c84fa1967e2f34ff05fd8f01d",
+    ".agents/skills/bmad-prd/bmod.toml": "e359b62ad6f438c65df3c708ed97da79d81be10eb32e7972bb954a9356fb8f88",
+    ".agents/skills/bmad-prd/customize.toml": "f9a60be4eeccfc5df65c2a8b9f2bc24b8e8f1fbc64d4012bab6ef2e87a9e160a",
+    ".agents/skills/bmad-prd/references/headless.md": "fe601df5780b114a90c009825bea573ba7701fa5828e09adc4bf825ae174092f",
+    ".agents/skills/bmad-prd/references/validate.md": "7ca11cb873b859881957ce9710e9e9c2818504499e4367aa85e8fb8e17b37b9c",
+    ".agents/skills/bmad-prd/SKILL.md": "9539b649d93a7db36645e0ac55e9e0eaf21b365a40868f521ee0f27f1f40b438",
+    ".agents/skills/bmad-prfaq/agents/artifact-analyzer.md": "291fb4bcc01733ba0a10c7c834058fc195b6f039cb080df1ade983a378214ea1",
+    ".agents/skills/bmad-prfaq/agents/web-researcher.md": "8b530a75744f72f4d189bb8634c00daeb97aec02aab2daa63df3d4814b27e3b9",
+    ".agents/skills/bmad-prfaq/assets/prfaq-template.md": "6d4913f8d12fcb4d48508ece462e6f102262c1da66df0ac26274a69fb747385e",
+    ".agents/skills/bmad-prfaq/bmad-manifest.json": "da4e65775945d00529732284b1765933b36a55cca033998f5fc097f60f0fe2fb",
+    ".agents/skills/bmad-prfaq/bmod.toml": "e359b62ad6f438c65df3c708ed97da79d81be10eb32e7972bb954a9356fb8f88",
+    ".agents/skills/bmad-prfaq/customize.toml": "401d81c9e383f05881a9684233a3c8af17709a0afcf48c79152cacbfb957a949",
+    ".agents/skills/bmad-prfaq/references/customer-faq.md": "15a9b736b54389e8c923895c937201638b81cb6c57ca09f1785f167be81e2b46",
+    ".agents/skills/bmad-prfaq/references/internal-faq.md": "a5bfc28123a0e72802ecca2ae4c4469701538a7cd6cc2b7c67441463170ce4fc",
+    ".agents/skills/bmad-prfaq/references/press-release.md": "3bea5f38c69846f173030697c7a8cd8adbc75a36089df87d6f66788c85e016ea",
+    ".agents/skills/bmad-prfaq/references/verdict.md": "d876fb39d195a80242d6dbfe15d846874785327276eda54eebde8ee9d0bd3861",
+    ".agents/skills/bmad-prfaq/SKILL.md": "37f6eaecfefb6c7443accc3b9328dd2d2b079d8ff99462f40d1f730092d524b6",
+    ".agents/skills/bmad-product-brief/assets/brief-template.md": "afe1cca8293c3efc7339a9bc562bda43db84b7653cb8bf7872dcd8543afd94d8",
+    ".agents/skills/bmad-product-brief/bmod.toml": "e359b62ad6f438c65df3c708ed97da79d81be10eb32e7972bb954a9356fb8f88",
+    ".agents/skills/bmad-product-brief/customize.toml": "b6d4e55f38a22a44923e0152900729f9066ecf35beada42eb6d3b678b7dc2a0e",
+    ".agents/skills/bmad-product-brief/SKILL.md": "b0ca172220bbd1ed2c1ed116b9ec9297c2342286af85f2b17e13edc96d7d7be1",
+    ".agents/skills/bmad-project-context/bmod.toml": "e359b62ad6f438c65df3c708ed97da79d81be10eb32e7972bb954a9356fb8f88",
+    ".agents/skills/bmad-project-context/customize.toml": "e3f65326f45b189e72f5a3f4722aaf60655aeafe78a7aeabe5908d02348b8eec",
+    ".agents/skills/bmad-project-context/references/best-practices.md": "cc98e9a4f21a70e15c9170a2caa2e1d4da3be1c84ab7f827cd43df001e36b512",
+    ".agents/skills/bmad-project-context/references/template.md": "e1554c4109f012ff3dcf92f72441bc831b4f0253bd7d77274946965952e731c3",
+    ".agents/skills/bmad-project-context/SKILL.md": "ed63f26cc0a046fe6717eb499a221ec054b211f4a7a3c443e96fa19f55b119cd",
+    ".agents/skills/bmad-qa-generate-e2e-tests/bmod.toml": "e359b62ad6f438c65df3c708ed97da79d81be10eb32e7972bb954a9356fb8f88",
+    ".agents/skills/bmad-qa-generate-e2e-tests/customize.toml": "66b768b4f5bc6eee5b0fc54b5ffd17fbb2a95e70a9385c48eb76caa1456acb1e",
+    ".agents/skills/bmad-qa-generate-e2e-tests/SKILL.md": "2717f68a36adc91e7f9742b8e9a8678e23e3b94bfb5d15cc870883423577ed6f",
+    ".agents/skills/bmad-qa-generate-e2e-tests/workflow.md": "d610e074c45a672036f6e6f999a0158982532a884db377874d2b342c87164044",
+    ".agents/skills/bmad-review/bmod.toml": "aefdff57318e8c0a63629e49f5dba8750dbd9fcef6452e11ef40f297a4237af9",
+    ".agents/skills/bmad-review/customize.toml": "d2b68d0d516ba614885963f5817d748d5b09eac9d2e8f0b08e56ecca2b8adaa9",
+    ".agents/skills/bmad-review/references/editorial-common.md": "86a487365b3ae646afa09c70f329fd50210ca3737873cb62c19c9992bf4b7815",
+    ".agents/skills/bmad-review/references/lens-adversarial.md": "f04181ba5958d3b52acd49d0f762085e887e72722857346b192ff1f275a03a06",
+    ".agents/skills/bmad-review/references/lens-edge-case-hunter.md": "615135ca2c388cba8e546c006c1a19198471267f8a7cb9cad5eb7cc5d688c2a3",
+    ".agents/skills/bmad-review/references/lens-prose.md": "5d54b690479664f83cf322067fc850bc0a54c7ba75f92d302075044516b8ba36",
+    ".agents/skills/bmad-review/references/lens-structure.md": "691227f4afb66d2e8fbab5db2fc72fc688c1dbac179f1a6ced4d9dd83af2a93a",
+    ".agents/skills/bmad-review/references/lens-verification-gap.md": "d8ee4cbb18b8f2aad012caa533f21ba2f3491f34381e9b21470b1e09874d012a",
+    ".agents/skills/bmad-review/references/structure-models.md": "d2b1cdc902d13c21d9fc6670f272bbf4add0bc00346d599e87e7e2f435c3ddac",
+    ".agents/skills/bmad-review/scripts/tests/test_word_metrics.py": "bd1758309613cbca535105b3d908b1182cb2a509bc955b0871bd8051b8311cfc",
+    ".agents/skills/bmad-review/scripts/word_metrics.py": "1f3eadf8e99d5048d37bd626f1d39480a1e0d43d1c8d691eb68ee786cc240ddc",
+    ".agents/skills/bmad-review/SKILL.md": "2f76fc92c8c2cda7089c31c6d04fcd1322ccd8b4066ca0e2744d673b2dda3a78",
+    ".agents/skills/bmad-toolsmith/approaches/eval-first.md": "934a2d88a7dbd1b1a8b4b7010ceeca017587b0e93ded9f65a3357286008f7d51",
+    ".agents/skills/bmad-toolsmith/approaches/eval-loop.md": "bc16b6ffca17cb4c3a79cf966bf8ffdb4155c035d7f56ceebacabb68cbc9a9db",
+    ".agents/skills/bmad-toolsmith/approaches/from-logs.md": "1733efeb1f746d621392b99f1222e716f3950903bb4682742015de2cd0eef076",
+    ".agents/skills/bmad-toolsmith/approaches/lean.md": "1bd22e4338bc6ef21ccfe4ff1d90ef7d684f9915116e2e4b7fc45bc9391f6b44",
+    ".agents/skills/bmad-toolsmith/approaches/scaffold.md": "28700482d182eb496b476a743b50be2e5361da998ee9691b27e3d3ec7705f636",
+    ".agents/skills/bmad-toolsmith/approaches/skill-creator-loop.md": "d945b507695301a0fc79165ad83b04d109608a5f6e6b9dedce55c5e9a413acfc",
+    ".agents/skills/bmad-toolsmith/bmod.toml": "1f6bc5f9e0bfadae0f2604eea87c42cb39fafdd27597ed5b9bd8a9464c6b4343",
+    ".agents/skills/bmad-toolsmith/canon.md": "61061039c2a014f9eccbb2b4d25699f482f1d498ef4cd0cc2d52bda9fca3352f",
+    ".agents/skills/bmad-toolsmith/customize.toml": "7383df02a4792e0463d6bebd112653e0ed865cfe6e4345f079a22c24792deaf1",
+    ".agents/skills/bmad-toolsmith/discover.md": "fbaa457689f12260ccc380590419c6abbd5151252d6b7d53b2beebaaec4f268c",
+    ".agents/skills/bmad-toolsmith/ecosystem.md": "34fc568238b8e9fc1376bbd62f5a628ece53c8427f1d7be3283cf57da64a56ff",
+    ".agents/skills/bmad-toolsmith/evals/triggers.json": "219c4584bde96f7b3eb63944175aec05797878c89c90347eb0ef1e6e392b8517",
+    ".agents/skills/bmad-toolsmith/lenses/lens-architecture.md": "e35b47f10865255b87810b4a068045819f7c1c36b59415d8cfe05114590ed00f",
+    ".agents/skills/bmad-toolsmith/lenses/lens-contract.md": "aa81deb6f92df773ffdcae62143a76091d4fc7157b6f84e005c6b92dbd24c1d0",
+    ".agents/skills/bmad-toolsmith/lenses/lens-customization.md": "e533e229d657e5b3b4b0e80217be3cef473228f9e7ef19b4f03068a30d22056f",
+    ".agents/skills/bmad-toolsmith/lenses/lens-determinism.md": "bc9058ec64cb900ff086bb4dc063f922875008f68bbb317a1d78b30369384bf4",
+    ".agents/skills/bmad-toolsmith/lenses/lens-leanness.md": "a1d5a6de3ecf037214423481ca9d49f37f7d640a582f236d88476bdd0e7bf35c",
+    ".agents/skills/bmad-toolsmith/lenses/lens-trigger.md": "d1dbe18ab8b13b880438f04b9d541f5fd211f0aaa92bc940e1a9c1755e0bb95a",
+    ".agents/skills/bmad-toolsmith/lenses/standards.md": "5aeeba3909bb6951911e51cc31496751b2805a5c402b552e68694ab194eb85be",
+    ".agents/skills/bmad-toolsmith/modes/convert.md": "86237b73575f357d803c862c24c12eef025c76eec49fbe05fe56c9302a82dc3c",
+    ".agents/skills/bmad-toolsmith/modes/cut-roles.md": "a15f5bb47f7ef2c7ca0b4df263f22e3124026fdcb4319851f298effe9d15bf74",
+    ".agents/skills/bmad-toolsmith/modes/cut.md": "7a0e7390b2eeaf7feb35b7bed07841d9862a211294bbf0f87a5359e5db936ebb",
+    ".agents/skills/bmad-toolsmith/modes/edit.md": "b749b0c7205a0521cfbf0ccee19c28560706eb12af582de0b2732042ed4006d0",
+    ".agents/skills/bmad-toolsmith/modes/migrate.md": "d37752aa6bfaf143f00dede22058fcb858faa7451970b0b3840974d86b01edaf",
+    ".agents/skills/bmad-toolsmith/modes/package.md": "f338011acab2a587c01d702ebc14e9e0b2e23863495a68d4490d24dd2fe36264",
+    ".agents/skills/bmad-toolsmith/modes/review.md": "9e28cb4ffdab8157d2bc0ab415d70b55da88911bbb94cd0b954e77e2a1bd13e7",
+    ".agents/skills/bmad-toolsmith/modes/validate.md": "afee983f63ae789464be180bd504fc40925c0ce5c3ba91f7f900b2f5eabb1be2",
+    ".agents/skills/bmad-toolsmith/scripts/count_tokens.py": "60fb6dd8307798dafef2d973d4613fb50248f0994fe7a80bfa9b4cb21ca910b8",
+    ".agents/skills/bmad-toolsmith/scripts/cut_check.py": "290be238bfc57d0b38bcff625df2c69dda6ceeef5d7bd0639f0a57c65fbf241f",
+    ".agents/skills/bmad-toolsmith/scripts/init_skill.py": "086bc4bdf34ed99ad7126e84257cd73fbc408b5a8d3ad7d9b995cbb517feb512",
+    ".agents/skills/bmad-toolsmith/scripts/prepass.py": "1ad0f719ecaed14a6ba5f79f780bd0910e032e1ee87ae58e137c645a72c28c61",
+    ".agents/skills/bmad-toolsmith/scripts/process_template.py": "5f75d761da31af51774ef1745cf4450dc9e54dfc766faeec97caa74c5f962a8e",
+    ".agents/skills/bmad-toolsmith/scripts/read_session_log.py": "6b792c79262d548d5aacddbe76d945bec85684506fcde6212a33febe11f12862",
+    ".agents/skills/bmad-toolsmith/scripts/registry.py": "22c6ac4f477f4c5aea1fa97c4a417c86233f5854ec29a174ec43649e96ea3640",
+    ".agents/skills/bmad-toolsmith/scripts/scan_legacy_module.py": "1e65b591d4becfa431b1d06fda1fa6eda6bfac9daae6303dc1cbf0163b2af24f",
+    ".agents/skills/bmad-toolsmith/scripts/scan_paths.py": "e8024f46b03914fc0fc6a8ceeda891c7d8f9b148b7e8758aaf512edf393b6b54",
+    ".agents/skills/bmad-toolsmith/scripts/scan_scripts.py": "a00a93b5b43bdeaa3ad4ad326b83adf4c67ff71271fee4ad2d857c2b7cc2ba33",
+    ".agents/skills/bmad-toolsmith/scripts/tests/test_count_tokens.py": "00b55e4b715cf94e211e713a6c3c3a3e8879b64ab2c3c225ee966e4e37cbfdbc",
+    ".agents/skills/bmad-toolsmith/scripts/tests/test_cut_check.py": "3559c234f1471386c52795baad09c6e6bc88a0f5a8d7b8eb2ea869e3cd14b8c4",
+    ".agents/skills/bmad-toolsmith/scripts/tests/test_init_skill.py": "09c7cfec0a41e7d9d4232134668f1e4caa95cb6a140b76d12b685232081a67b6",
+    ".agents/skills/bmad-toolsmith/scripts/tests/test_memory_agent_scripts.py": "08a703a98cff978ba78197eff0d14416f46bc7ffd41da1e6fc6b16e133d222fa",
+    ".agents/skills/bmad-toolsmith/scripts/tests/test_prepass.py": "fac0c5da755ea928b7e9657755a1005a257f5dc7fbbaa06fdbdc7d493f0577cc",
+    ".agents/skills/bmad-toolsmith/scripts/tests/test_process_template.py": "b3877d2a5564f09a2212e4c0cadcd35f0d9879cad2c7cb14cd62891ecf341a00",
+    ".agents/skills/bmad-toolsmith/scripts/tests/test_read_session_log.py": "480c5f4c7bab481a51f30ebcd2a1d9ae4ff65f9819ef8fe0c5b6af7f5732da5a",
+    ".agents/skills/bmad-toolsmith/scripts/tests/test_registry.py": "c65bb8c0a761be145a8b19d7197a0b5ad721e79c06ad9c9228933936703ba64a",
+    ".agents/skills/bmad-toolsmith/scripts/tests/test_scan_legacy_module.py": "c84423a8598a244e0f91913a311a329d2ffb05f99bbc790961b5d6825334a030",
+    ".agents/skills/bmad-toolsmith/scripts/tests/test_scan_paths.py": "c3c7ef1cf4654055e919b7e00c08abfc4cefebc5be7ac69caa478d4220b96621",
+    ".agents/skills/bmad-toolsmith/scripts/tests/test_scan_scripts.py": "dc23f00d3e84fdf7a67c5e1d1bfc4f803bc721ce0f3ed2ce9ba1ceb1cd14fdc9",
+    ".agents/skills/bmad-toolsmith/shapes/agent/assets/capability-template.md": "94a8248cbd7a0aa9c6ecc7d44d362de89ac338671801eb85e0ae1999b4f634ea",
+    ".agents/skills/bmad-toolsmith/shapes/agent/assets/customize-template.toml": "242620d1724e0cc3e8cbd4b73987266c1e9380e7928967506db3d396684a26e8",
+    ".agents/skills/bmad-toolsmith/shapes/agent/assets/sample-capability.md": "847261f34c47df37e97c1a4be0e5b6747b53686593fea86c483b39a1cb36fac7",
+    ".agents/skills/bmad-toolsmith/shapes/agent/assets/SKILL-template.md": "709dac7c978ff3905d6a688115c1f1dd74fa78e5728d90985dc1fbb92c1a0d14",
+    ".agents/skills/bmad-toolsmith/shapes/agent/shape.md": "ab1be8d9fce63455360e102f8998ca9d3df5818fc81f52353168020e42c93d9b",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/BOND-template.md": "0e6f6ee19562c598de4945ba5319d49ed141a5766d2946b72cee313172001baf",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/CAPABILITIES-template.md": "56c3b5111879799893e0f15c5fe9987f31150d75b3cb0bce730646a0733de9d6",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/CREED-template.md": "cc247c9829e554131c96f1615eb733a60dd7c51111f9f28758f0afa0f9a67ab6",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/customize-template.toml": "62a4bbb8d9d0431332d369d89ae33d4e5660e867f1ddd1c44bae352c1cf8a582",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/first-breath-config-template.md": "3c8b927a78cd6cb6aafdc3be55ef5c75e540b80f2089716d38ad24d0dacfb64c",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/first-breath-template.md": "044b8438bbd6f2a724da2460d2983f09cedddb4aa87a6f3a67e0d5dd5f289988",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/HOW-I-REMEMBER-template.md": "80503ee50f208252e39ee4089a0d67e37c9c7fce025c56e66192fcf2e8dfa9b6",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/init-sanctum-template.py": "c928f3f4a8a4204c63925d551864c000bb9b599fe2c15f6c9f17f3d035fa871c",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/intake-capability-template.md": "51dd4f58e1b85f00d4c7c9f436ab937c0ff0c26137a6612a3e911f3bd48eacd2",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/PERSONA-template.md": "214b438a1e995f920cd635124a211d734cb743e93b882d2677b9f5fef765c475",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/PULSE-template.md": "1b8c57c920ed9ffeea368484b9d4dc5620c98f733afa2d9a78d203bee95f7e4c",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/SKILL-template-bootloader.md": "2056290c260374094d5b43a048f4e68842ec659d6a3295e472de2243e117e1d6",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/assets/wake-template.py": "62b1fa5511e8b975742927a22c8e225469e491434fd73b8d6b9de6d043e9429f",
+    ".agents/skills/bmad-toolsmith/shapes/memory-agent/shape.md": "d0682b7cb1bef3473f395aef588a197603bb664dada6839a78120286fd925940",
+    ".agents/skills/bmad-toolsmith/shapes/multi-skill-module/assets/help-template.md": "20fcad24e30c065c4ca4179d08382d9f89c06da9be7788759701e4adf95742a3",
+    ".agents/skills/bmad-toolsmith/shapes/multi-skill-module/assets/member-bmod-template.toml": "115f883c640fce1c28697df64823c00f54db3264c62ad11db284c8d1be2d3ba6",
+    ".agents/skills/bmad-toolsmith/shapes/multi-skill-module/assets/record-bmod-template.toml": "51393d15ce8fa6d3406241e7af9a8d7b42ac44e63c6f64f4328e4a3c45707e5f",
+    ".agents/skills/bmad-toolsmith/shapes/multi-skill-module/assets/record-SKILL-template.md": "94d8672710efc7699d4261041df818d2445f451ac50b5df0978ca91ffeba14d0",
+    ".agents/skills/bmad-toolsmith/shapes/multi-skill-module/assets/retired-template.toml": "7be6f13c4f396ac6a130b83f01c099957f465b101daa95e3fe42e1671a4f305a",
+    ".agents/skills/bmad-toolsmith/shapes/multi-skill-module/assets/roster-template.toml": "1250156c1e61ba6822cd3a19fa626ef033882161babb67ac6f1e28d4fbb26936",
+    ".agents/skills/bmad-toolsmith/shapes/multi-skill-module/shape.md": "6d220f50e5099633f13190c1fd4dc5828b3f11f1869f5e49875784fc0a48cb93",
+    ".agents/skills/bmad-toolsmith/shapes/plain-skill/assets/customize-template.toml": "d09107877cf460adea202fcc01a31c7c5ae22492cd2a8acffd27be3fdb36f8e4",
+    ".agents/skills/bmad-toolsmith/shapes/plain-skill/assets/sample-skill/SKILL.md": "84d75b99cee9b75364029e90cd39259d6ac6c018a25c37eb0e91de6e03be062b",
+    ".agents/skills/bmad-toolsmith/shapes/plain-skill/assets/SKILL-template.md": "e7ebaba72bd64d0be4d2c3cf1a1a22c1f98e7b43f9a51fcdbad6c2026dcd135a",
+    ".agents/skills/bmad-toolsmith/shapes/plain-skill/shape.md": "ee6e8ca72ba6d379166b69c9493e172c87a1ae7ba2c6e5aca19dcf77ab462d5f",
+    ".agents/skills/bmad-toolsmith/shapes/rendered-agent/assets/capability.md": "81c46872ec576783d63a832081a770dfa9e8797e217bae994a5db9dc88211d76",
+    ".agents/skills/bmad-toolsmith/shapes/rendered-agent/assets/customize-template.toml": "6b8acafd637399eac1b16ae47de842fc7a85de8be26cf3c6733313d77ea13850",
+    ".agents/skills/bmad-toolsmith/shapes/rendered-agent/assets/SKILL-template.md": "7c75ee8beba484721d8df7ed1c41ce6e0d6e6f73239fddb0d47ec2a0f7bcd49e",
+    ".agents/skills/bmad-toolsmith/shapes/rendered-agent/assets/workflow.md": "449e0b2afe476ca7738eb15e4e3cc5ba597e4d45025b23fe953544f4710fa27e",
+    ".agents/skills/bmad-toolsmith/shapes/rendered-agent/shape.md": "ce3545b21bf7448e824b05ac2dab810cecb1189ee99c9119401da76e702f394f",
+    ".agents/skills/bmad-toolsmith/shapes/rendered-skill/assets/customize-template.toml": "f7582a620baef844539ebb8694cb9c4c5f7312801f9503e69dad6470f0fb40b6",
+    ".agents/skills/bmad-toolsmith/shapes/rendered-skill/assets/SKILL-template.md": "6d545a88f4c2a48034af9be6a598856c31eed89888653c5c1722569da2eca11c",
+    ".agents/skills/bmad-toolsmith/shapes/rendered-skill/assets/step.md": "27698950487488fde9276be1948838ad89c69466d9842ba553ac43ee85ab611b",
+    ".agents/skills/bmad-toolsmith/shapes/rendered-skill/assets/workflow.md": "8abb2135cd9876ebe31e8fad3087e1c8fd0a3f14c88c5894cd637330b5af7e7a",
+    ".agents/skills/bmad-toolsmith/shapes/rendered-skill/shape.md": "d521c1a4c38093d2004ff9baac0259e6884a0fccdb6842260479718570ef35dd",
+    ".agents/skills/bmad-toolsmith/shapes/script-utility/assets/script-template.py": "a8c842a6db792bbb74657fd337be1742af9f5433f93670e82f5f487625e1884d",
+    ".agents/skills/bmad-toolsmith/shapes/script-utility/assets/SKILL-template.md": "52f3e7b6aa0f481f0030d606d729947aebb4a2c50939e6c53e7ddc9edfb06c0e",
+    ".agents/skills/bmad-toolsmith/shapes/script-utility/assets/test-template.py": "769c2dba644d09e826781a192e935294e034ffc71a3a759dda0656c95067da58",
+    ".agents/skills/bmad-toolsmith/shapes/script-utility/shape.md": "8676ee0fdf68bf36ea883705fba3f25da57affaf364e85b65d287136ed53120d",
+    ".agents/skills/bmad-toolsmith/shapes/single-skill-module/assets/bmod-template.toml": "09819e8c2f4d73120b443bea23cfd070a134242733feebc48f21a9e09ece4702",
+    ".agents/skills/bmad-toolsmith/shapes/single-skill-module/assets/help-template.md": "23f05fc3d695f3f72fbc24779bf97d4ab4fe39a6fa16ccab5187b66b75f433c3",
+    ".agents/skills/bmad-toolsmith/shapes/single-skill-module/shape.md": "e059328f85636790a468bd4d9d4fce46c03e4a4f8178f841ed6f8a9881127e9d",
+    ".agents/skills/bmad-toolsmith/ship.md": "0865b2657484af32cba35dcb14c076d9fef641cdc0d3f4916785d55cab35dc6b",
+    ".agents/skills/bmad-toolsmith/SKILL.md": "016684e7990ffa6b20bb43f2dd8ed9e16a21e01188f08be0f790876bc8066c14",
+    ".agents/skills/bmad-ux/assets/color-themes.md": "d77b55b4139eb8cbd4635f078ed0e6d37cc867ca337ce1844ed207a4430750f8",
+    ".agents/skills/bmad-ux/assets/design-directions.md": "2c688a1e8ada739d65ecbe9fdbfc1498ec121485267870c73e40f1896868f856",
+    ".agents/skills/bmad-ux/assets/design-example-editorial.md": "ed10853ff4e43d044423fbaf5b24741db714354c3b314a5e0dc7163d556d4ff3",
+    ".agents/skills/bmad-ux/assets/design-example-mobile.md": "bae5ddfe11c4b55c3134cbd567d4fc810fea389475eb3605fedd96124fe33b13",
+    ".agents/skills/bmad-ux/assets/design-example-shadcn.md": "ba189df9538b87b6fc7023be22e734c86ba97178de52e2b37a9527a9c82ebfcc",
+    ".agents/skills/bmad-ux/assets/excalidraw-wireframe.md": "e59663e39d4ece59ef1009ed332889be535317f5ea2f51b382747f61cdba4ca0",
+    ".agents/skills/bmad-ux/assets/experience-example-mobile.md": "bb982b1d1a14b13e72fb50d3029217a520f7f5414d1dd5fabe839614f3dcc474",
+    ".agents/skills/bmad-ux/assets/experience-example-shadcn.md": "5db6325799c098b99f418009053641efe253ed0925992ea2b1f33dd5f14f99f6",
+    ".agents/skills/bmad-ux/assets/headless-schemas.md": "634b7eba00ed08dda2b3a3cfa8ff4ab6301697c2870581fdb0806b1e74f3b909",
+    ".agents/skills/bmad-ux/assets/key-screens.md": "6ec71235f3c32d7e66e64d08a05e69d465060e95899bbc769e3116367ec1d853",
+    ".agents/skills/bmad-ux/assets/validation-report-template.html": "819e25c1f02464f12f98fca88bedca8cd5829232fc05a005623b4d739470b1a3",
+    ".agents/skills/bmad-ux/bmod.toml": "e359b62ad6f438c65df3c708ed97da79d81be10eb32e7972bb954a9356fb8f88",
+    ".agents/skills/bmad-ux/customize.toml": "fb471d4ccb61fdf907408d442ba8ad62beb230b99c5c45bb16675c07f9459285",
+    ".agents/skills/bmad-ux/references/creative-tools.md": "88c46d0574f33ca1ccfd806c0fecf0953d4186e9f4bce7b41e1c448da93cf3a8",
+    ".agents/skills/bmad-ux/references/design-md-spec.md": "034015963ae97a0bff286ed17f8beb39fc97496a81b91fd4d446df3cf64419f0",
+    ".agents/skills/bmad-ux/references/headless.md": "aeb8564c7b1c1d1b127b7eb2550b008fc02b6e5fdf4c627f1898932af5e3a412",
+    ".agents/skills/bmad-ux/references/validate.md": "b7ae641e46d138d2ac17a9b019cc95bff2d32750949dc876e48d5962dc286ff7",
+    ".agents/skills/bmad-ux/SKILL.md": "fa7010c078d058e3dbc9e346434129b48b8477077816a105014320a55e4c274a",
+    ".agents/skills/bmad-walkthrough/bmod.toml": "e359b62ad6f438c65df3c708ed97da79d81be10eb32e7972bb954a9356fb8f88",
+    ".agents/skills/bmad-walkthrough/customize.toml": "46d035e2918ac1ed6f88b0051438aefd04ceb4ee7cd289ef93727c8276d4d1af",
+    ".agents/skills/bmad-walkthrough/SKILL.md": "c6fa1eceef2535df3cefd025be5818f9e6012e237aa454073bf71e534f8f10c8",
+    ".agents/skills/bmad-walkthrough/step-01-orientation.md": "e6c54e9a6ee9c9ccdde33073e75a0e0a3637df32ac0f9f78b5ab4f1a1f083cf8",
+    ".agents/skills/bmad-walkthrough/step-02-narrative.md": "521ea0304947f3a1eaa3772a9aaf7adc2bfc382e1c7767f32833200e173e0d93",
+    ".agents/skills/bmad-walkthrough/step-03-walkthrough.md": "0575dbcf866f51f4940283874416a4d9be961ecc6c1d4e60b56b501294ca624b",
+    ".agents/skills/bmad-walkthrough/templates/log-template.md": "d7b7aa7cbea9e02202b8c8fd5d7f0bed7223df1fd65bf1a2327ed39e784b02b0",
+    ".agents/skills/bmad-walkthrough/workflow.md": "2540e15959d93e77a91909ef8ffdb7bf24f5141321b585b2c4d7b76eb992da6e",
+    ".agents/skills/bmod-core-tools/bmod.toml": "6bf1ef46599035d7a851c67d193fc8caf6c5cad1cae821280d8f6f0e0829abf6",
+    ".agents/skills/bmod-core-tools/help/customization.md": "ce669cda86bfdd9fd50e320427218df26128554434e667837548909c8784ccd6",
+    ".agents/skills/bmod-core-tools/help/help.md": "d06a92b42f77c1ba50369ea6398f191c52042a1e2504a7b306d03a431fecde83",
+    ".agents/skills/bmod-core-tools/help/modules.md": "ad78cf668074a5e1b5d49e3018dc1c0edf9e9553f79a900b9fa3c67f9c8a9fc9",
+    ".agents/skills/bmod-core-tools/help/party-mode.md": "2cb6d438c2fbe7408b93259baea4ad06568403133194987a91122662e845ba78",
+    ".agents/skills/bmod-core-tools/help/research.md": "58fdc29fa43bd74c1f76407a05411be7ce898dfcd22a58716b87b9cfdd575d4e",
+    ".agents/skills/bmod-core-tools/help/team-adoption.md": "33e38b85e01a6e064b243e347303bd20c82e1df8ef9ff78b6fc30de19794e3d9",
+    ".agents/skills/bmod-core-tools/retired.toml": "80a609380a5f7230ca9dd14e89d8175ae655915310e84617a4caef74ad9f420e",
+    ".agents/skills/bmod-core-tools/SKILL.md": "af994bfcafb2dc04f53fe8d31713a2e2305ee563d1f96509dc8e9f4b9c77c6ad",
+    ".agents/skills/bmod-method/bmod.toml": "3bb381809f4e2db1cbc24450345b98639e371e859e25f8d0869ac1a37f2087d1",
+    ".agents/skills/bmod-method/help/analysis-skills.md": "af7976ea502a8c404d267db523fe09367a85fb863b168985ca4d64c583c7bc9c",
+    ".agents/skills/bmod-method/help/artifact-lifetime.md": "3d2b19600a0df64f9fb7f90bfce822298db0cc26f8adb69f6f37e49e11bad789",
+    ".agents/skills/bmod-method/help/existing-codebase.md": "7b3ad921fe8937b083465ace35cbe3b87e846ccbf52df925ab066037e9eb059a",
+    ".agents/skills/bmod-method/help/help.md": "c67ef5332c7e83f5fe8b21bb932416498b33adfe784eacd7e7d27e22be2cfa11",
+    ".agents/skills/bmod-method/help/implementation-skills.md": "25856b21d05f6ba1cdcf16597cb0c98174039f01fb009e1cb1c1db6f5bec63cc",
+    ".agents/skills/bmod-method/help/monorepo-and-polyrepo.md": "eea54579d9ac3cfa3c939bce0295787c513bfabc27a43c8c910569a9037d6637",
+    ".agents/skills/bmod-method/help/planning-skills.md": "66a13f2b27e65da698219bab03b5b498ed9eaefd8d53ffd308dc4c02e058030f",
+    ".agents/skills/bmod-method/help/preparing-a-repo-for-agents.md": "4aa99940e0f769875cb9594ba1a9dfb646c07cec824ebcbbce8b0fffea58d300",
+    ".agents/skills/bmod-method/help/project-context.md": "c15620a701c04e8cf7928247e97b052ab749885ff8b917f5087868104a28092e",
+    ".agents/skills/bmod-method/help/prototyping.md": "14cdcb18f7f4b694ef9ee0c0b412115075ffc448be978f6e3d3087b9271549e2",
+    ".agents/skills/bmod-method/help/review-choices.md": "d1a6e081dac006f6229f5109155b4bb24c4e7c5815fe2ffa150c2504a5c5f650",
+    ".agents/skills/bmod-method/help/ticketing-and-epics.md": "3ca1bff3bfa8b49725af05caef81c1643ab235c1632f7fd17ac7b8750283b208",
+    ".agents/skills/bmod-method/help/ticketing-setup.md": "4ef6c4b29572aa318feaab20d83a15504f79e302922f16670025080f6d56b8f4",
+    ".agents/skills/bmod-method/help/unattended-builds.md": "4985c2aadddfa2ccd926110f68e3e669d14c571585112dc8e9d907e0ddd7f103",
+    ".agents/skills/bmod-method/help/validation-skills.md": "e5af19ac1ff7bfd58bafef219267c251d9d11511676afc253c7bdca5d7e82fdf",
+    ".agents/skills/bmod-method/help/working-in-an-organization.md": "57d006a85966ee5334f313f25e06c4288e9fece587c4468e4ae2cce0d8281667",
+    ".agents/skills/bmod-method/migration-1.toml": "3c064e21e647560933632444acd96245d726980db7725876a0dfee8ebb8f1d48",
+    ".agents/skills/bmod-method/migration-2.toml": "32921ea00dd1648ece93b8ab4e57b073da8eb620357dcbd2ef2586e7083df667",
+    ".agents/skills/bmod-method/retired.toml": "3922c43239a4518d80600d148c9aa2c7f71dc3b9273d9992c75b7dcc999ef5c4",
+    ".agents/skills/bmod-method/roster.toml": "45f7df6a4dc3583cd2e6b69509babe365de0917ff0e72d65f8b26416c91c0cda",
+    ".agents/skills/bmod-method/SKILL.md": "961c329fc8449060b3d43231543d1c19d2615c11f8a64b16091e2566bfdf95d8",
+    ".agents/skills/bmod-toolsmith/bmod.toml": "37c21fb64ac0ffb86c0363928049ccac12b6576fdd8bc37b533e599b86e6c1cb",
+    ".agents/skills/bmod-toolsmith/help/approaches.md": "e8c0aa0f69401cdfac7f16ce19a9df8cf2f379ae26795515b7d88eeb82933283",
+    ".agents/skills/bmod-toolsmith/help/craft-customization.md": "84c99cedbf81c12584af29f5e2912cebce2cfeea8bd90892263c633671785d72",
+    ".agents/skills/bmod-toolsmith/help/craft-description.md": "19aca53c8ce7750626168e5a25d13cba1b51a6a1f2aebfc5648908a10e16fdfb",
+    ".agents/skills/bmod-toolsmith/help/craft-progressive-disclosure.md": "7df91d8c74e131181b4dc7cec7de13112cca7d9c3d7789a41ded11b3ab51980d",
+    ".agents/skills/bmod-toolsmith/help/craft-scripts.md": "01852a7e7d48e22239d405714aea4a2b92fb5cb8475153c04d1db14a56a191c4",
+    ".agents/skills/bmod-toolsmith/help/evals.md": "40f5f20a81b0e1886d86461d1c2514b802e80d3969a6f5141c4ebe9fbd7c1263",
+    ".agents/skills/bmod-toolsmith/help/help.md": "1714dd0e27c8e8b2fd7960c6822240cb8ce387a23c2427b87435b2dca7ab4a9b",
+    ".agents/skills/bmod-toolsmith/help/how-to-add-to-module.md": "44895ec6918f898b039733cd11dd6d556d142bd682c9728437ca11db2b92c6a6",
+    ".agents/skills/bmod-toolsmith/help/how-to-convert-external.md": "f6a75ec7ab96050b38816901c488c9eb94b6b579cb7b113273ba536e49631f68",
+    ".agents/skills/bmod-toolsmith/help/how-to-memory-agent.md": "3a5f989b161d9ae69ceae7349dad9346e3d140f36150b39ecdc3c5e100d44ad9",
+    ".agents/skills/bmod-toolsmith/help/how-to-personal-skill.md": "9af8540e5e77a9036625122717d28e965ae71068a61a0bd87d1a6699c6bbc7ce",
+    ".agents/skills/bmod-toolsmith/help/how-to-review.md": "d92fd1d4607407404f451ec295a20880c2609c9ec4c124e537e8ac5478a93cb1",
+    ".agents/skills/bmod-toolsmith/help/modes.md": "a92677c2e7bf55f7290d030ab1d6dbe5ff6743eae76f47eb654466ec225b8c11",
+    ".agents/skills/bmod-toolsmith/help/naming.md": "285a3b82f741169bb19ae849133201c989fca76eff3c5d92245eda234258dcfe",
+    ".agents/skills/bmod-toolsmith/help/references.md": "f8fd1907f12bfbd9a806a6f0b02acfabab26344f5390857ded358a44874050a3",
+    ".agents/skills/bmod-toolsmith/help/registration.md": "92d3a3b9a9000d1ad4931e1e11a32a88cfbffda65a4670ef5f0be77a5c874148",
+    ".agents/skills/bmod-toolsmith/help/shape-agent.md": "a462f75eb7804c5936fe420fd09cc93e539ba52b79fcc1c9e3e5d398542457a0",
+    ".agents/skills/bmod-toolsmith/help/shape-memory-agent.md": "5a6ea8c97e1e6baac103e1202e497277dd24a77ac58fdbb51a77ab3fa2df0be3",
+    ".agents/skills/bmod-toolsmith/help/shape-multi-skill-module.md": "6dc49d49459374328a1308d81ad41dd4357fcc81cca7bf6ac6ada528d5526ac2",
+    ".agents/skills/bmod-toolsmith/help/shape-plain-skill.md": "f90a17c4dd0c7bf1aae6f33c2ba2f88e7347b3f14722d5cc09c3b776f0317e67",
+    ".agents/skills/bmod-toolsmith/help/shape-rendered-skill.md": "bb0e49d55eee46b9085ef1a5114fbf3253c0e93f43fcdce41f23172c095ee193",
+    ".agents/skills/bmod-toolsmith/help/shape-script-utility.md": "5b95feaeb1455b0713cfdf1722587f903f8cb2facbe8e71d6095954cee7b1212",
+    ".agents/skills/bmod-toolsmith/help/shape-single-skill-module.md": "fe96a21928958ec44c0e08cd08825f068b0340e3d2446565179e40d3366e57a7",
+    ".agents/skills/bmod-toolsmith/help/shapes.md": "b2c2df6a29f5566090269dc043246c9e78abcb58e597cf8515b31d579c93390b",
+    ".agents/skills/bmod-toolsmith/retired.toml": "8d774bdbcb228d6978fd12efae9b0af92bd27f94455c6c3e1d65e798d73be95b",
+    ".agents/skills/bmod-toolsmith/roster.toml": "180ae63d44757c57af96f05d1872f6c493518559cdf5641ffafad2b40e085d7e",
+    ".agents/skills/bmod-toolsmith/SKILL.md": "7989821a102ffa8e72a4ed5ad70824850c9b5dde22ddb8b96fa4e63d1f813841",
+    "_bmad/config.toml": "2ce3e066d9b22526f6abe97581ffe25a6090536c12bd6e2496f1ad48b3d13928",
+    "_bmad/custom/bmad-build.toml": "22639392323b75d9de14da09eaa8f6a9f8f4e51969875aa43899b99877689704",
+    "_bmad/custom/config.user.toml": "aa876c2d08a664736be94750e6715501876dbf6555a7bea6cedffdf6dceae7b4",
+    "_bmad/scripts/config_utils.py": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+    "_bmad/scripts/knowledge.py": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+    "_bmad/scripts/memlog.py": "097f0a96cf42aa26da70ac15619983fae599eb33a9e5c03060c4684cb32730ed",
+    "_bmad/scripts/migrate_v6.py": "9471eabc8d7ed66c3561a8d0f0cd7fa68bc8df2a3ff5bef63b83be4ad6db5f52",
+    "_bmad/scripts/render_skill.py": "d6446c4b1094d788d9ef421876203b8b2576e3dbe1cc08f189a030e3def880ea",
+    "_bmad/scripts/resolve_config.py": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+    "_bmad/scripts/resolve_customization.py": "ba379892dea849bdf2bbf7183556dc1030a8aa775ff083d3b89db47b18bf367f",
+    "_bmad/scripts/roster.py": "a4b82ae7c08312b352cb151e080f7e78d6cf543f65dfdea9f02f60dd3dc0c59d",
+    "_bmad/scripts/setup.py": "1de76dce0b4ba702da927d6dc83fd620ec0774aa1c1ab0cc5739167c135f64f8",
+    "_bmad/scripts/setup_check.py": "1c59560aba5f3daed3ab64a04bfb15e0f88a2982f63cd541725ac46a4eca033f",
+    "_bmad/scripts/stamp_release.py": "62e205e4e08591b6a45fc4c720fe4941753f8630601b2ce1c4d926223ee06b09",
+    "_bmad/scripts/tests/test_config_utils.py": "b3292aac8f01b0878ea7e1ab7edca3677ff43695f2ec2e98e3d6353cd9200ec8",
+    "_bmad/scripts/tests/test_knowledge_migrations.py": "230bf275c8b0694db5167b336a9c8de0eaebf179943ecdb3e046cbd4c64c66d6",
+    "_bmad/scripts/tests/test_memlog.py": "ce7af1aa90f744464045ceb9139c7e500cf5b8cd0f9d9b42cef44693199a019c",
+    "_bmad/scripts/tests/test_render_skill.py": "6adc5445b46e462cc69546c7e91cbe383f98e2525a2aa15e13579b10658c2ef4",
+    "_bmad/scripts/tests/test_resolve_config.py": "ff92db3b5a216b6eb533416332a6341ec63a84923c541f1ebd166abcedf82eea",
+    "_bmad/scripts/tests/test_resolve_customization.py": "280e30cb556398466aad604290920d4ef8a7faccb000768da07730e068dec762",
+    "_bmad/scripts/tests/test_roster.py": "aaf060c11c3719be020b5c70f19a9ec7f2390654221a95efbfcbbf7d4081563f",
+    "_bmad/scripts/tests/test_setup_check.py": "34f304f985a709f829f27ebb3a7415cb6ae7fc9302a2e3ed11e51507eb8102e4",
+    "_bmad/scripts/tests/test_stamp_release.py": "6fb975cde1361b44e0468c76521ba918a9026113b026045ca901d9aef142359c",
+    "_bmad/scripts/tests/test_validate_manifests.py": "bb6ba8fb8ab855f26e746bc72f9ab69ebb39ab18b13645146b10f28984fcb16d",
+    "_bmad/scripts/validate_manifests.py": "e30a7da9b709804c647bb3472f9aa745098d550a87d812ebb6f27317f9dd1ae2",
+    "electron.vite.config.ts": "30d5a13ac2a05badad558bab10ff72a8af7f8a16dc53a746586fc22db69f6172",
+    "package-lock.json": "9123dad6f751bbaf7a1b15c17daf1c4b4a17ff7579aa7cd29e21d4ee016ed5c8",
+    "package.json": "c4895f287b2ccce354c66b2625fa44c1c9a84d23fe9ac9606a9f51f7514ede37",
+    "resources/bmad-script-runner.py": "6d1ebd4e04594ea3f15a39e6e8a1e71ac06a3f0fc8705a7495da47d854ccaed5",
+    "resources/THIRD-PARTY-NOTICES.md": "97832e6590b506dd9382c3b411a60303d210c359cb612536fe416f0878f88b6a",
+    "skills-lock.json": "908cfe73075644e9aad61fc2f8eca25b06babab590ab30108626c225d3ba76c0",
+    "src/adapters/bmad/forge-manifest.ts": "38b026df21e4c78d44b1804fe86827a56d71e1bd90de605b3850e6d91c269e35",
+    "src/adapters/bmad/forge.ts": "fe8930ebd556da424a4b0ad956d444e107112084d9cce83d6625738cf2db8f29",
+    "src/adapters/bmad/profile.ts": "7f1cb5a7b876e24c135ce0cd4b3417d2018952843d5ae18a86d63da5d1063787",
+    "src/adapters/bmad/runtime.ts": "18f76e5a0436f9c9cbab539c57d6a4aaf40a0db33b94865caeade5cf7eae5d91",
+    "src/adapters/codex/connection.ts": "60c499425878c71d61e42d8d768f20db222e48ac1720da5fbc5fc3a8d609019d",
+    "src/adapters/codex/dialogue.ts": "16f4d2eeed90a6ab42fe7ec07b48201c01515954495e3e1fdc0912b4d1c6acfc",
+    "src/adapters/codex/file-proposals.ts": "15af45ab61c3b583f3bdc79cb563b64665ecf5226eb2f8c3cd23193525053398",
+    "src/adapters/codex/oauth.ts": "2c933e4c147ab05708bc8f0cd81ee707be4a1cbb763ecfa96a6c9d8756d8fe05",
+    "src/adapters/codex/owned-run.ts": "530360ba37358d21ae254536bd3875b260fb104ced12891feaa63fbb07b738b0",
+    "src/adapters/codex/probe.ts": "5c677b35f686d1ed326a85cc9d5394e984d725350db4d357a3677873f2ad8b9e",
+    "src/adapters/codex/vault.ts": "20cdba04dd0401e8df833985f7323348d7c9790002220f750b92b87583029057",
+    "src/adapters/persistence/appearance-store.ts": "d9fba482074090f51902fbfee0297c7a5c3fe02b1cd0e52394f76010497841dc",
+    "src/adapters/persistence/approval-store.ts": "98a74e15f41bd6d0e1d58ff4d8ff1ed2817e1d0cf2852ad7ca179d43c58785b1",
+    "src/adapters/persistence/json-store.ts": "0bbdc33eec873bad41588711d2c35aafbf6b48840c527a63883571611bb33ec7",
+    "src/adapters/persistence/question-store.ts": "bd92c590d09063733f68d6300769ca7420818e2c2535fee2caea7af68f3974f2",
+    "src/adapters/persistence/recovery-store.ts": "0e0e7e10cf10885cd174055ed295e3169d9c471ff7ed59d8b730fc6e7ad1ee2f",
+    "src/adapters/persistence/workflow-store.ts": "a04f78c5f3af3cee22ec24b869b6cb1f3a618d85e255c68ad0c0953d3889bfaa",
+    "src/adapters/release-version.ts": "a98b6c1996fdaf3639029996c01f78a457369aa507f65f9b47bc05efe6e16088",
+    "src/contracts/appearance.ts": "c330b4de18bc6d8ad7bbbc1fef427250d7f42cd5a04dd43c02211ceee3c50880",
+    "src/contracts/approvals.ts": "74b582702a71971949196c1d9d15cfd9e10c97aa2660b637a1981cd9bcd3e17c",
+    "src/contracts/connection.ts": "2fd82336ce2fde237be4f97a08efbb7dc19992db381fb3d3a776d9a215102947",
+    "src/contracts/dialogue.ts": "f23bccdc7ea463558b05c220377a3b6eef68203cc6670187e79a8ca096b3417e",
+    "src/contracts/index.ts": "336faf25ca0e0d90da87b71cac401c6abaf6f25dfc6313b2332e3484795d29d0",
+    "src/contracts/questions.ts": "47cfc2e34c803efc768de0e619cc8832596365ceac5cd85196705d53abb7599d",
+    "src/contracts/recovery.ts": "fae7a05b060df420249fc41172da00bc28a1c88d8a30650c906e36ab70b7b7ff",
+    "src/core/application.ts": "53726acd34f64fad84d90b50d073c75b118ecb7c874a61b5e73b14d29ad3e25a",
+    "src/core/dialogue.ts": "f06e9885d72469ea1d20858f9fcab0ec3fd18ccf2ccc84d734a96811670362dc",
+    "src/core/lifecycle.ts": "8f3d41e6964055441245f505830f1aefd2d56632d7ab43552d5cf3ef94a9e10e",
+    "src/core/ports.ts": "35cc2a64d47970311fa03acc9d35a61922ca269f268e59ee07d07af9dc71e5b4",
+    "src/core/work-overview.ts": "d7e1d07e0550715fd68657ec13a1146a38dca24977b83be4cf9f75d0879b542a",
+    "src/main/boundary.ts": "84803089232f729a1ee4eff278996f56541de401dbd7bbf170ce38c17b9a9f3f",
+    "src/main/index.ts": "b6a03f67e519b4358fd536909d249911a6db0e7c391f974c73c3b8fbff9b31f6",
+    "src/node_modules/.vite/deps/_metadata.json": "77c769171fbed780ad2027cd1970f70a5b1043e05125efd1f389d4b312e12cac",
+    "src/node_modules/.vite/deps/package.json": "3ca9d4afd21425087cf31893b8f9f63c81b0b8408db5e343ca76e5f8aa26ab9a",
+    "src/node_modules/.vite/deps/react-DgVJeC5g.js": "3c18eca841add53dd9b8454b3a444291ed2b160a899b13512b2a22bf4a92d768",
+    "src/node_modules/.vite/deps/react-DgVJeC5g.js.map": "1b5dc909e56fe2d3df42ffc9c46b784cb36123181fbfe1a5c90e68a9d71b0ceb",
+    "src/node_modules/.vite/deps/react-dom-CFuoV50Q.js": "071792cd74ed6589f5a90e4a485b331d2610f0a579f57eadc20453d52d22d1c6",
+    "src/node_modules/.vite/deps/react-dom-CFuoV50Q.js.map": "e06cb5bf6e67babd9a572d49711a959932ca7a254caeb9b6da40e6b38da29ac4",
+    "src/node_modules/.vite/deps/react-dom.js": "a2dfa74a3c87b5d80a4981bfe0bfc1831057d8c8ff07ba70fbc228b036035593",
+    "src/node_modules/.vite/deps/react-dom_client.js": "7dff7f1b25377220c70e4ca8cc9ffb42fea9b7561b63fd9278610fbb2dc089ff",
+    "src/node_modules/.vite/deps/react-dom_client.js.map": "9eb7821ad1f335dadf5500dee7526d9d7cf5e89f7a2667598025e7a4aa925ae6",
+    "src/node_modules/.vite/deps/react.js": "a59e03eb14bfbe1e60b58550c3edbe3d7044c1d1370a51338612381aef3519b8",
+    "src/node_modules/.vite/deps/react_jsx-dev-runtime.js": "0fdec6304c67db5f1a3ef4bec895f57b7b1e424635eeb7dc386da66c740e1a90",
+    "src/node_modules/.vite/deps/react_jsx-dev-runtime.js.map": "999d2e02d96239f7911da7edbaad974622e6f71d15ad81ec11b117ac9d6bfec9",
+    "src/node_modules/.vite/deps/react_jsx-runtime.js": "bdd489cc3266584ab2bab029b2de5b2ed7c9b61cd74b2c1f5319d15139be78ac",
+    "src/node_modules/.vite/deps/react_jsx-runtime.js.map": "63777f7300167b1fde9f58359017c9b1641fe5ca807f40c390060ce926bcabcc",
+    "src/package.json": "5a065fe7d8eab2a582f428e11c2ea63aaf70607a54f69cfd5c711b5c53d91b32",
+    "src/preload/index.ts": "fa51500f6d6a026128f8f0d0feb8d09581b696e6da35b3e7ff213bdcbacf7ffb",
+    "src/renderer/index.html": "189d632933119a73aa4da29672517090596f00e46cab5bc119b61db2948f4bef",
+    "src/renderer/src/App.tsx": "0991c17b6504c32db73eeb31c1571adb654b7f1ca75c0b169cc99d9b1f6d97a5",
+    "src/renderer/src/ApprovalPanel.tsx": "0dfcfcb6bc312ff0ddcee29a1d2be71026a74307417840d5c79397e9bb604b1a",
+    "src/renderer/src/assets/chatgpt-mark.svg": "b8b9aba7ba591f54bf1805f422bc23f32c44ee993643cc378cc77f766061f7a1",
+    "src/renderer/src/env.d.ts": "c48f25f8fdd2b914e8fb900323f4402f43a26fe6ba922d4a4d9eb707d9d2c70b",
+    "src/renderer/src/main.tsx": "9447f6dd9d682042b49ce061f8c82c9cee980f6fefa0ca1b0ae4c6696965c90b",
+    "src/renderer/src/NetworkHelp.tsx": "7efd78cd096cd14356c3e00a6e0fb68773121e1a8127998abcfd8c1fb24b581c",
+    "src/renderer/src/QuestionPanel.tsx": "defe73e4c8c585260a318b5822cf9668bc69981c0a0a0f7f4c9aa0a992750a73",
+    "src/renderer/src/RecoveryPanel.tsx": "69e2043b8a632561a2392191e20bd05e06c87289d075550b5594d9c670410b49",
+    "src/renderer/src/strings.ts": "6e21fb0c71213cc3c5685c55b459244c06c6fcf8ba05d49a360af496b9080095",
+    "src/renderer/src/styles.css": "843463920dcc7b250592be463ab0378cecb2fb9d1f5698bf6dd2fb1fb1c79faa",
+    "src/renderer/src/WorkOverview.tsx": "b0f4af36ca4af125d789a8bc9183294a986ce6681c72f616cf5561e74fcc818f",
+    "tests/appearance.test.mjs": "cc7566d9bf4a3b082acaa5a0d9f71bea78b918c4883300be570eb75ce4b482e1",
+    "tests/approvals-protocol.test.mjs": "f10c41ffa4d049788e1baf064ac7060c1c896becb9651c0cfc55036f1d327683",
+    "tests/approvals.test.mjs": "182e6bcddfcded46cd007fed36397f3ebd45451d2694ae8096c04807995474ac",
+    "tests/connection-oauth.test.mjs": "b347b9fd7a600bf8a20448603788fbb182962c4fba70b625493d1fdfc7c1af29",
+    "tests/connection-probe.test.mjs": "75a1882f0a943762da04619228f31858e72a049a73d65d9f3614d5056abba2ee",
+    "tests/connection-ui.test.mjs": "6b0b11b3c2c86ea3458441ec176e7e2dfcfa4f831c5a2ba32d8333a668f2180c",
+    "tests/connection-vault.test.mjs": "e9d2f3fe4495578efbbdad4375483e5283c31cd03d197513df3c8397eeb1d3ca",
+    "tests/connection.test.mjs": "705ab8e9c418256f15780f182ad088c9128db1b663bff8d9eb14cc8062c3d96c",
+    "tests/dialogue-profile.test.mjs": "f3b3a193d9a2aefc637ebe0e7a6f0265510cf5e871201638468c7324da69eee5",
+    "tests/dialogue-protocol.test.mjs": "eacaf0416f301fa8d4b2abda5e9b770e90d4c4e0f128749e4851300f06c2506b",
+    "tests/dialogue-runtime.test.mjs": "363ebdd4478ef943961c54cace3db98c8e6e847ba67e64402b78d6df128d9fa8",
+    "tests/dialogue.test.mjs": "cad2c41e5bd03c54b8186f484d9db0fb5a3960d84460b1edb67755ed01a18b12",
+    "tests/epic-one-qualification.test.mjs": "1397a2fb2e8eb831c2fd3f4b62fda184d25a4b4d5f4e4d96b67b6bb3eaece87b",
+    "tests/forge-protocol.test.mjs": "3dcb803f21f0a1f24a05e4fcc9fbc13ebe8cae7bd02ad7a1da6e7e39796f224e",
+    "tests/forge.test.mjs": "3b43c0cbec4f2104609ad6860665db9a09ac6da01a72f4414176f2d210c66234",
+    "tests/foundation.test.mjs": "07e2126e9bdbf690ca1dcfa9f9b0073e44e58b7247c7080e3dd27d989b88b88f",
+    "tests/helpers/windows-file-lock.mjs": "236d7cf37c16a5cf26efb35e1cab8dc7e15ad21f2f048e44c2d2bd91ff4b7cf1",
+    "tests/json-store-utf8.test.mjs": "e44da72a0d0917c4636ed0ba1b7e6e97654e27be95f5f7962c8d02ac3e549c5c",
+    "tests/lifecycle.test.mjs": "b0815de1bd4572cf6500c544232d4f1fec7ff4e4d3c5166ec047669d4758f085",
+    "tests/maintenance.test.mjs": "4caad2fd4145ae622d4dea430369549fe471deee17a682a2ec19189a61fcd31b",
+    "tests/questions-protocol.test.mjs": "ef3e7e3096573d360823d32e6ddc8e24477fec659613497f7a826dd06d1f9b05",
+    "tests/questions.test.mjs": "697dcf2d01cadeae2a927b363fbb152006afc11bedea0ac7a0221c33443ce5af",
+    "tests/recovery-network.test.mjs": "693ea614717d43499706bfc3e8c8b359a26962a2e48d489d61f0d907a02068dc",
+    "tests/recovery.test.mjs": "192e014761793ba1951cc61d5edb82008267ba87ecb7b06e6b74e5d3ba1facb1",
+    "tests/release.test.mjs": "c7a2c32eb95b1cab19286a1b2bc04e9a11fb2d5d810bd09ca4267c80efec35fc",
+    "tests/windows-harness.test.mjs": "8d7700a9b75f5dd977c157b5447c1ad4055c7f0a6cc737ea5be6998416326eeb",
+    "tests/work-overview.test.mjs": "0dd2bb0f746787118671b7a7a092d24d9d608644807614882ee5b1952f38d8c6",
+    "tests/workflow-store.test.mjs": "8674e1381c0f353723813d7ddea1891a0d13ccc78777abcfe688fda23763605e",
+    "tests/workspace-design-qualification.test.mjs": "e4ee7b1a06fafec5e7aea58de39d4046bef3cc4a4a4e7701e1c82634538498f6",
+    "tsconfig.json": "3983835feac8cd22927398f66367953cbe99d53ef5a27a33fe35267f62560a8c",
+    "tsconfig.node.json": "fdd99de728fc83b30fbba8087218da17c661ab99850b0684bb1630ef120d40ca",
+    "tsconfig.web.json": "37ba00f02ce8b80c40b7161f2a84c817b35734b5f7fafb9b2bb91eb988c8adf1"
+  },
+  "startup": {
+    "site_packages": "empty",
+    "caches": "absent",
+    "root_pth": "absent",
+    "policy": "closed-copy-v2",
+    "allowed_files": 734,
+    "parent_venv": "absent"
+  },
+  "bench_policy": "captured-source-only-v5",
+  "bench": {
+    "prototype.py": "0ba95cd9838506b48994e7c67a00e2a9095204dfebf03f3cc350086df2d867ba",
+    "fixtures.py": "58e6d6407a65f74d24ecdaf6becc902af68aa2950fecd50f6556bdb428a6fa48",
+    "scenarios.py": "f4967d82eb9774809b71898f3957196b05e095ed6724adc471d4a1d2388658dc",
+    "runtime_guard.py": "4c5d99b52726fcd8f2b450a9c30bde74fb344d0c2bedf87a8a060c1fc61540de",
+    "evidence.py": "f978a1224e22dbf4e3c9484f6197c5b65e9d6961f47760b5bf0f3de863b647e6",
+    "verify.py": "3b520e406b0403139b9f32e6ff60106b863bea4204e98726470f44cd6a406f5d",
+    "source_bootstrap.py": "cd842ac6cb53761801e6f13614e78959d722af28d692b5d95acac948f0e9070a",
+    "run.ps1": "a4db9d46d245377579de54e039a559148c948e2d99be8add64db0f0998fec9e9",
+    "runtime-preflight.ps1": "b144833811349c48ea432e7d2f3ff2912ea571cdc85b8adc7d9e55eb66b60b13",
+    "preflight-probe.ps1": "db2443047e5fef6644b233d3efdf0465751e91f9bed6a9e358b3ca8fb79770fc",
+    "supervision.ps1": "5088771ab29bfe666b290e73bdcfd428e43c7915731922f8407da7b4c6ddc8e2",
+    "supervision-probe.ps1": "6e3c0e842bac135698188a38f93e8ac7165a256fb9f10007bce647b4854aab0d"
+  }
+}

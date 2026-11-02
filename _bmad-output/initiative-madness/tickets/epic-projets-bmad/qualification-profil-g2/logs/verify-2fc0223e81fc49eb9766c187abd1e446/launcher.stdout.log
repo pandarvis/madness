@@ -1,0 +1,35 @@
+{
+  "run": "run-4714a7c0a8c241f88d12b9263c0a1684",
+  "incomplete": true,
+  "historical_receipt": true,
+  "current_qualification": false,
+  "tests": {
+    "run": 1,
+    "passed": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "available_sha256": {
+    "calls.log": "da176ed085b727beb3b6b0245fd9fe16e24e953fa09f56f36062f1873fce8204",
+    "evidence.py": "1c0a4e939ac4b76fa3ddd134e395fdce494907c8eb1dfc7774a8661cee4fd73e",
+    "execution.json": "3be59a71b5273f6d03b903d118dec1c33f831d63797e6e32cfc9b8bad36305c8",
+    "fixtures.py": "3a20eb9140315add7162293ea8bc1908fe67663a39d0c09e751b407c28049be2",
+    "launcher.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "launcher.stdout.log": "f91722bc941c8e914f7822d19455fd7ff937f732bcfef3791a5da3ae140bb352",
+    "preflight-probe.ps1": "db2443047e5fef6644b233d3efdf0465751e91f9bed6a9e358b3ca8fb79770fc",
+    "prototype.py": "3fe72d577562ac466fee18c14a19678a7c17c1eaa06062641eaedc5de3288a5f",
+    "results.json": "d1cb726dc0290cc3cd0bb4554757adedc3d4f96fe0e18c82aa7fefa0f6806706",
+    "run.ps1": "59ef287969601cc8aa650ec1e7f90610c84e21278ea99290424d9381356b9bdf",
+    "runtime-preflight.ps1": "b144833811349c48ea432e7d2f3ff2912ea571cdc85b8adc7d9e55eb66b60b13",
+    "runtime_guard.py": "f855953fcf666b0364fb4dc5047b248c637efe41da5824d28599b56dd6f99aa1",
+    "scenarios.log": "71ae0027cb0d3bbb9b13f001e17830af6ff6af5457d2a0375434150bf678f510",
+    "scenarios.py": "6d58ff89e10a63b55224ba7fbd059a4c215a9f6e61bf1998cdfa947e4268c232",
+    "sources-lock.json": "458af9a332f764761f2dea2507512aed3f3a8ed4976fe8b81b6a80d358b207fa",
+    "source_bootstrap.py": "cd842ac6cb53761801e6f13614e78959d722af28d692b5d95acac948f0e9070a",
+    "supervision-probe.ps1": "3b0722440c453c0b66c94a600a9631a3d09e7d62eb0364a907071a272d3903a6",
+    "supervision.ps1": "78c56e78e47cf6c637b880479d02bb787f46cb691d9ae4eab688a3bf1b8b4362",
+    "tickets-conflict.json": "c6f623361b0d29dd319ddcb85577fc2e9b4ad9e3fdc04869c0af9d7d21bb793c",
+    "verify.py": "7832fb72dc492f4b87ad075eb5453c89f8202c446629ab1fa74e8078982c5b4e"
+  }
+}

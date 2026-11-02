@@ -1,0 +1,50 @@
+[
+  {
+    "error": "CONTROLLED_STATE_WRITE_REFUSAL",
+    "child_marker_absent": true,
+    "caller_started": false,
+    "started": false,
+    "caller_cleanup_removed": true,
+    "job_active_after_stop": null,
+    "cleanup": [
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-46766094a67b4b88b58125bff4596ef0\\entry-owned-runtime",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-46766094a67b4b88b58125bff4596ef0\\entry-owned-cache",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-46766094a67b4b88b58125bff4596ef0\\entry-owned-fixture",
+        "removed": true
+      }
+    ],
+    "passed": true,
+    "caller_reraised": "ScriptHalted"
+  },
+  {
+    "error": "CONTROLLED_STATE_WRITE_REFUSAL",
+    "child_marker_absent": true,
+    "caller_started": true,
+    "started": true,
+    "caller_cleanup_removed": true,
+    "job_active_after_stop": 0,
+    "cleanup": [
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-46766094a67b4b88b58125bff4596ef0\\started-owned-runtime",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-46766094a67b4b88b58125bff4596ef0\\started-owned-cache",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-46766094a67b4b88b58125bff4596ef0\\started-owned-fixture",
+        "removed": true
+      }
+    ],
+    "passed": true,
+    "caller_reraised": "ScriptHalted"
+  }
+]

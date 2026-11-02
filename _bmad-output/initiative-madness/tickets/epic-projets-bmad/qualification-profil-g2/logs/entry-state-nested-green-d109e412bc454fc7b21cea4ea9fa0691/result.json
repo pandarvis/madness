@@ -1,0 +1,54 @@
+{
+  "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6c866d1dc4ea46b5baaaa7d343afe9c7\\c6",
+  "source": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\supervision-probe.ps1",
+  "cases": [
+    {
+      "started": false,
+      "child_marker_absent": true,
+      "caller_reraised": "ScriptHalted",
+      "caller_started": false,
+      "caller_cleanup_removed": true,
+      "passed": true,
+      "error": "CONTROLLED_STATE_WRITE_REFUSAL",
+      "job_active_after_stop": null,
+      "cleanup": [
+        {
+          "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6c866d1dc4ea46b5baaaa7d343afe9c7\\c6\\entry-owned-runtime",
+          "removed": true
+        },
+        {
+          "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6c866d1dc4ea46b5baaaa7d343afe9c7\\c6\\entry-owned-cache",
+          "removed": true
+        },
+        {
+          "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6c866d1dc4ea46b5baaaa7d343afe9c7\\c6\\entry-owned-fixture",
+          "removed": true
+        }
+      ]
+    },
+    {
+      "started": true,
+      "child_marker_absent": true,
+      "caller_reraised": "ScriptHalted",
+      "caller_started": true,
+      "caller_cleanup_removed": true,
+      "passed": true,
+      "error": "CONTROLLED_STATE_WRITE_REFUSAL",
+      "job_active_after_stop": 0,
+      "cleanup": [
+        {
+          "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6c866d1dc4ea46b5baaaa7d343afe9c7\\c6\\started-owned-runtime",
+          "removed": true
+        },
+        {
+          "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6c866d1dc4ea46b5baaaa7d343afe9c7\\c6\\started-owned-cache",
+          "removed": true
+        },
+        {
+          "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-6c866d1dc4ea46b5baaaa7d343afe9c7\\c6\\started-owned-fixture",
+          "removed": true
+        }
+      ]
+    }
+  ]
+}

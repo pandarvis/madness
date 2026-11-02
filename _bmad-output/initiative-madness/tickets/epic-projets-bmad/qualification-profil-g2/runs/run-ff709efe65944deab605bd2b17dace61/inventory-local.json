@@ -1,0 +1,966 @@
+{
+  "profile": "partial",
+  "modules": [
+    {
+      "code": "core-tools",
+      "folder": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-core-tools",
+      "table": {
+        "code": "core-tools",
+        "version": "6.13.0-next",
+        "update_source": "github:bmad-code-org/BMAD-METHOD/skills",
+        "skills": [
+          "bmad",
+          "bmad-advanced-elicitation",
+          "bmad-brainstorming",
+          "bmad-customize",
+          "bmad-deep-recon",
+          "bmad-forge-idea",
+          "bmad-party-mode",
+          "bmad-review"
+        ],
+        "required_skills": [
+          "bmad"
+        ],
+        "pre_install_message": "Agile AI-Driven Development. Powered by BMad Core and a growing module ecosystem.\n\n🌟 100% free. 100% open source. Always. No paywalls. No gated content. Knowledge shared, not sold.\n\n🐍 REQUIRED: uv (https://docs.astral.sh/uv/) runs the Python scripts BMad skills rely on (`uv run <script>`) and provisions the interpreter itself. Without it, `bmad setup` cannot run and skills that use scripts halt. If it's not set up yet, ask your AI agent to \"install and set up uv for me\".\n\n🌐 CONNECT:\n  Website:   https://bmadcode.com/\n  Discord:   https://discord.gg/gk8jAdXWmj\n  YouTube:   https://www.youtube.com/@BMadCode\n  X:         https://x.com/BMadCode\n  Facebook:  https://facebook.com/@BMadCode\n\n⭐ SUPPORT THE PROJECT:\n  Star us:   https://github.com/bmad-code-org/BMAD-METHOD/\n  Donate:    https://buymeacoffee.com/bmad\n  Corporate sponsorship and speaking inquiries: contact@bmadcode.com\n",
+        "post_install_message": "BMad is ready. You can ask bmad for help or suggestions at any time, and if you add modules or want to check for updates in the future, just ask the bmad agent to update.\n"
+      },
+      "skills": [
+        "bmad",
+        "bmad-advanced-elicitation",
+        "bmad-brainstorming",
+        "bmad-customize",
+        "bmad-deep-recon",
+        "bmad-forge-idea",
+        "bmad-party-mode",
+        "bmad-review"
+      ]
+    },
+    {
+      "code": "method",
+      "folder": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method",
+      "table": {
+        "code": "method",
+        "version": "6.13.0-next",
+        "update_source": "github:bmad-code-org/BMAD-METHOD/skills",
+        "skills": [
+          "bmad-agent-analyst",
+          "bmad-agent-architect",
+          "bmad-agent-dev",
+          "bmad-agent-pm",
+          "bmad-agent-po",
+          "bmad-agent-ux-designer",
+          "bmad-architecture",
+          "bmad-build",
+          "bmad-build-auto",
+          "bmad-code-review",
+          "bmad-prd",
+          "bmad-prfaq",
+          "bmad-product-brief",
+          "bmad-project-context",
+          "bmad-qa-generate-e2e-tests",
+          "bmad-retrospective",
+          "bmad-ux",
+          "bmad-walkthrough"
+        ],
+        "required_skills": [
+          {
+            "skill": "bmad",
+            "version": "6.13.0",
+            "source": "github:bmad-code-org/BMAD-METHOD/skills"
+          }
+        ],
+        "pre_install_message": "",
+        "post_install_message": ""
+      },
+      "skills": [
+        "bmad-agent-analyst",
+        "bmad-agent-architect",
+        "bmad-agent-dev",
+        "bmad-agent-pm",
+        "bmad-agent-po",
+        "bmad-agent-ux-designer",
+        "bmad-architecture",
+        "bmad-build",
+        "bmad-build-auto",
+        "bmad-code-review",
+        "bmad-prd",
+        "bmad-prfaq",
+        "bmad-product-brief",
+        "bmad-project-context",
+        "bmad-qa-generate-e2e-tests",
+        "bmad-retrospective",
+        "bmad-ux",
+        "bmad-walkthrough"
+      ]
+    },
+    {
+      "code": "toolsmith",
+      "folder": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith",
+      "table": {
+        "code": "toolsmith",
+        "version": "6.13.0-next",
+        "update_source": "github:bmad-code-org/BMAD-METHOD/skills",
+        "skills": [
+          "bmad-toolsmith",
+          "bmad-eval"
+        ],
+        "required_skills": [
+          {
+            "skill": "bmad",
+            "version": "6.13.0",
+            "source": "github:bmad-code-org/BMAD-METHOD/skills"
+          }
+        ],
+        "pre_install_message": "",
+        "post_install_message": "Toolsmith is installed.\nAsk for Smithy to build a skill, optimize or convert a skill to bmad compliance, an agent persona with or without memory or a module; he starts by asking what it is for.\nbmad-eval measures whether a skill works: baseline, variant, quality and trigger runs."
+      },
+      "skills": [
+        "bmad-toolsmith",
+        "bmad-eval"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "skill": "bmad",
+      "module": "core-tools",
+      "bmod": "bmod-core-tools",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-advanced-elicitation",
+      "module": "core-tools",
+      "bmod": "bmod-core-tools",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-advanced-elicitation",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-agent-analyst",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-agent-analyst",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-agent-architect",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-agent-architect",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-agent-dev",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-agent-dev",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-agent-pm",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-agent-pm",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-agent-po",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-agent-po",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-agent-ux-designer",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-agent-ux-designer",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-architecture",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-architecture",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-brainstorming",
+      "module": "core-tools",
+      "bmod": "bmod-core-tools",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-brainstorming",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-build",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-build",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-build-auto",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-build-auto",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-code-review",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-code-review",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-customize",
+      "module": "core-tools",
+      "bmod": "bmod-core-tools",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-customize",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-deep-recon",
+      "module": "core-tools",
+      "bmod": "bmod-core-tools",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-deep-recon",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-eval",
+      "module": "toolsmith",
+      "bmod": "bmod-toolsmith",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-eval",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-forge-idea",
+      "module": "core-tools",
+      "bmod": "bmod-core-tools",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-forge-idea",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-party-mode",
+      "module": "core-tools",
+      "bmod": "bmod-core-tools",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-party-mode",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-prd",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-prd",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-prfaq",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-prfaq",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-product-brief",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-product-brief",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-project-context",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-project-context",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-qa-generate-e2e-tests",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-qa-generate-e2e-tests",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-review",
+      "module": "core-tools",
+      "bmod": "bmod-core-tools",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-review",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-toolsmith",
+      "module": "toolsmith",
+      "bmod": "bmod-toolsmith",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-toolsmith",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-ux",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-ux",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    },
+    {
+      "skill": "bmad-walkthrough",
+      "module": "method",
+      "bmod": "bmod-method",
+      "root": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills",
+      "command": "$bmad-walkthrough",
+      "skill_file_present": true,
+      "launch": "unqualified",
+      "listed_member": true
+    }
+  ],
+  "documents": [
+    {
+      "module": "core-tools",
+      "path": "help/help.md",
+      "skills": [
+        "bmad",
+        "bmad-advanced-elicitation",
+        "bmad-brainstorming",
+        "bmad-customize",
+        "bmad-deep-recon",
+        "bmad-forge-idea",
+        "bmad-party-mode",
+        "bmad-review"
+      ],
+      "installed_skills": [
+        "bmad",
+        "bmad-advanced-elicitation",
+        "bmad-brainstorming",
+        "bmad-customize",
+        "bmad-deep-recon",
+        "bmad-forge-idea",
+        "bmad-party-mode",
+        "bmad-review"
+      ],
+      "reported_from": "bmod-core-tools"
+    },
+    {
+      "module": "method",
+      "path": "help/help.md",
+      "skills": [
+        "bmad-agent-analyst",
+        "bmad-agent-architect",
+        "bmad-agent-dev",
+        "bmad-agent-pm",
+        "bmad-agent-po",
+        "bmad-agent-ux-designer",
+        "bmad-architecture",
+        "bmad-build",
+        "bmad-build-auto",
+        "bmad-code-review",
+        "bmad-prd",
+        "bmad-prfaq",
+        "bmad-product-brief",
+        "bmad-project-context",
+        "bmad-qa-generate-e2e-tests",
+        "bmad-retrospective",
+        "bmad-ux",
+        "bmad-walkthrough"
+      ],
+      "installed_skills": [
+        "bmad-agent-analyst",
+        "bmad-agent-architect",
+        "bmad-agent-dev",
+        "bmad-agent-pm",
+        "bmad-agent-po",
+        "bmad-agent-ux-designer",
+        "bmad-architecture",
+        "bmad-build",
+        "bmad-build-auto",
+        "bmad-code-review",
+        "bmad-prd",
+        "bmad-prfaq",
+        "bmad-product-brief",
+        "bmad-project-context",
+        "bmad-qa-generate-e2e-tests",
+        "bmad-ux",
+        "bmad-walkthrough"
+      ],
+      "reported_from": "bmod-method"
+    },
+    {
+      "module": "toolsmith",
+      "path": "help/help.md",
+      "skills": [
+        "bmad-toolsmith",
+        "bmad-eval"
+      ],
+      "installed_skills": [
+        "bmad-toolsmith",
+        "bmad-eval"
+      ],
+      "reported_from": "bmod-toolsmith"
+    }
+  ],
+  "topics": [
+    {
+      "module": "core-tools",
+      "topic": "customization",
+      "path": "help/customization.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-core-tools\\help\\customization.md"
+    },
+    {
+      "module": "core-tools",
+      "topic": "modules",
+      "path": "help/modules.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-core-tools\\help\\modules.md"
+    },
+    {
+      "module": "core-tools",
+      "topic": "party-mode",
+      "path": "help/party-mode.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-core-tools\\help\\party-mode.md"
+    },
+    {
+      "module": "core-tools",
+      "topic": "research",
+      "path": "help/research.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-core-tools\\help\\research.md"
+    },
+    {
+      "module": "core-tools",
+      "topic": "team-adoption",
+      "path": "help/team-adoption.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-core-tools\\help\\team-adoption.md"
+    },
+    {
+      "module": "method",
+      "topic": "analysis-skills",
+      "path": "help/analysis-skills.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\analysis-skills.md"
+    },
+    {
+      "module": "method",
+      "topic": "artifact-lifetime",
+      "path": "help/artifact-lifetime.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\artifact-lifetime.md"
+    },
+    {
+      "module": "method",
+      "topic": "existing-codebase",
+      "path": "help/existing-codebase.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\existing-codebase.md"
+    },
+    {
+      "module": "method",
+      "topic": "implementation-skills",
+      "path": "help/implementation-skills.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\implementation-skills.md"
+    },
+    {
+      "module": "method",
+      "topic": "monorepo-and-polyrepo",
+      "path": "help/monorepo-and-polyrepo.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\monorepo-and-polyrepo.md"
+    },
+    {
+      "module": "method",
+      "topic": "planning-skills",
+      "path": "help/planning-skills.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\planning-skills.md"
+    },
+    {
+      "module": "method",
+      "topic": "preparing-a-repo-for-agents",
+      "path": "help/preparing-a-repo-for-agents.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\preparing-a-repo-for-agents.md"
+    },
+    {
+      "module": "method",
+      "topic": "project-context",
+      "path": "help/project-context.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\project-context.md"
+    },
+    {
+      "module": "method",
+      "topic": "prototyping",
+      "path": "help/prototyping.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\prototyping.md"
+    },
+    {
+      "module": "method",
+      "topic": "review-choices",
+      "path": "help/review-choices.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\review-choices.md"
+    },
+    {
+      "module": "method",
+      "topic": "ticketing-and-epics",
+      "path": "help/ticketing-and-epics.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\ticketing-and-epics.md"
+    },
+    {
+      "module": "method",
+      "topic": "ticketing-setup",
+      "path": "help/ticketing-setup.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\ticketing-setup.md"
+    },
+    {
+      "module": "method",
+      "topic": "unattended-builds",
+      "path": "help/unattended-builds.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\unattended-builds.md"
+    },
+    {
+      "module": "method",
+      "topic": "validation-skills",
+      "path": "help/validation-skills.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\validation-skills.md"
+    },
+    {
+      "module": "method",
+      "topic": "working-in-an-organization",
+      "path": "help/working-in-an-organization.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\help\\working-in-an-organization.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "approaches",
+      "path": "help/approaches.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\approaches.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "craft-customization",
+      "path": "help/craft-customization.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\craft-customization.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "craft-description",
+      "path": "help/craft-description.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\craft-description.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "craft-progressive-disclosure",
+      "path": "help/craft-progressive-disclosure.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\craft-progressive-disclosure.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "craft-scripts",
+      "path": "help/craft-scripts.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\craft-scripts.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "evals",
+      "path": "help/evals.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\evals.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "how-to-add-to-module",
+      "path": "help/how-to-add-to-module.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\how-to-add-to-module.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "how-to-convert-external",
+      "path": "help/how-to-convert-external.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\how-to-convert-external.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "how-to-memory-agent",
+      "path": "help/how-to-memory-agent.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\how-to-memory-agent.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "how-to-personal-skill",
+      "path": "help/how-to-personal-skill.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\how-to-personal-skill.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "how-to-review",
+      "path": "help/how-to-review.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\how-to-review.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "modes",
+      "path": "help/modes.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\modes.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "naming",
+      "path": "help/naming.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\naming.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "references",
+      "path": "help/references.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\references.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "registration",
+      "path": "help/registration.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\registration.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "shape-agent",
+      "path": "help/shape-agent.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\shape-agent.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "shape-memory-agent",
+      "path": "help/shape-memory-agent.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\shape-memory-agent.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "shape-multi-skill-module",
+      "path": "help/shape-multi-skill-module.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\shape-multi-skill-module.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "shape-plain-skill",
+      "path": "help/shape-plain-skill.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\shape-plain-skill.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "shape-rendered-skill",
+      "path": "help/shape-rendered-skill.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\shape-rendered-skill.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "shape-script-utility",
+      "path": "help/shape-script-utility.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\shape-script-utility.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "shape-single-skill-module",
+      "path": "help/shape-single-skill-module.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\shape-single-skill-module.md"
+    },
+    {
+      "module": "toolsmith",
+      "topic": "shapes",
+      "path": "help/shapes.md",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-toolsmith\\help\\shapes.md"
+    }
+  ],
+  "migrations": [
+    {
+      "module": "method",
+      "path": "migration-1.toml",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\migration-1.toml",
+      "from": "6",
+      "to": "7",
+      "title": "Move v6 planning and implementation artifacts into the v7 initiative layout"
+    },
+    {
+      "module": "method",
+      "path": "migration-2.toml",
+      "file": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-fb23bbdbc76140d5a950ba60c07ddffa\\snapshots\\real-skills\\bmod-method\\migration-2.toml",
+      "from": "7 preview",
+      "to": "7",
+      "title": "Move each initiative's and epic's breakdown into its tickets/ folder"
+    }
+  ],
+  "problems": [],
+  "profile_issues": [
+    {
+      "kind": "member-missing",
+      "module": "method",
+      "skill": "bmad-retrospective"
+    }
+  ],
+  "central": {
+    "core": {
+      "project_name": "madness",
+      "output_folder": "{project-root}/_bmad-output",
+      "active_initiative": "initiative-madness"
+    }
+  },
+  "context": {
+    "output": "C:\\Sources\\madness\\_bmad-output",
+    "available": [
+      "initiative-madness"
+    ],
+    "active_bmad": "initiative-madness",
+    "selected_madness": "initiative-madness",
+    "state": "resolved",
+    "invocation_allowed": false,
+    "receipt": {
+      "kind": "context-v1",
+      "root": "C:\\Sources\\madness",
+      "dirs": {
+        "_bmad-output": [
+          8708507883820908980,
+          5066549582128505,
+          16895,
+          1,
+          16
+        ],
+        "_bmad-output/initiative-madness": [
+          8708507883820908980,
+          9570149209503410,
+          16895,
+          1,
+          16
+        ]
+      },
+      "files": {
+        "_bmad/config.toml": {
+          "sha256": "2ce3e066d9b22526f6abe97581ffe25a6090536c12bd6e2496f1ad48b3d13928",
+          "raw": "[core]\r\nproject_name = \"madness\"\r\noutput_folder = \"{project-root}/_bmad-output\"\r\n",
+          "identity": [
+            8708507883820908980,
+            4785074605400285,
+            33206,
+            1,
+            32
+          ]
+        },
+        "_bmad/custom/config.user.toml": {
+          "sha256": "aa876c2d08a664736be94750e6715501876dbf6555a7bea6cedffdf6dceae7b4",
+          "raw": "[core]\nactive_initiative = \"initiative-madness\"\n",
+          "identity": [
+            8708507883820908980,
+            3096224745162406,
+            33206,
+            1,
+            32
+          ]
+        },
+        "_bmad-output/initiative-madness/initiative-madness.md": {
+          "sha256": "33d9853dc94834c003f992ab75f59f73968f9c21564b355916d7def41a9a1f89",
+          "raw": "---\r\ntype: initiative\r\nstatus: in-progress\r\ntitle: Madness\r\nparent: none\r\nrisk: high\r\nsources:\r\n  - _bmad-output/initiative-madness/brief-madness/brief-madness.md\r\n  - PRODUCT.md\r\n  - _bmad-output/initiative-madness/brief-madness/addendum.md\r\n  - _bmad-output/initiative-madness/ux-madness/DESIGN.md\r\n  - _bmad-output/initiative-madness/ux-madness/EXPERIENCE.md\r\n  - _bmad-output/initiative-madness/architecture-madness/architecture-madness.md\r\n  - _bmad-output/initiative-madness/decision-personnelle-locale-2026-10-28.md\r\ncompanions:\r\n  - _bmad-output/initiative-madness/ux-madness/DESIGN.md\r\n  - _bmad-output/initiative-madness/ux-madness/EXPERIENCE.md\r\n  - _bmad-output/initiative-madness/architecture-madness/architecture-madness.md\r\n---\r\n\r\n# Madness\r\n\r\n## Description\r\n\r\nUne interface graphique personnelle locale permet au porteur peu familier de BMad d'ouvrir ses projets, comprendre leur état et leurs preuves, choisir une possibilité expliquée et poursuivre le travail des agents avec son abonnement ChatGPT. La V1 vise Windows, Codex et BMad v7 ; elle reprend les projets existants et accompagne l'initialisation d'un dossier non équipé. Elle conserve les projets, conversations et brouillons, propose français/anglais et clair/sombre, puis inclut le graphe Graphify du code et des dépendances après la base Windows/Codex. Les contrats UX et d'architecture adoptés portent les détails ; leurs qualifications restent à réaliser.\r\n\r\n## Outcome\r\n\r\nLe suivi du temps et du coût par US fait aussi partie du produit, avec des mesures sourcées et les indisponibilités explicites ; son cadrage précède ses consommateurs dans l’epic 2.\r\n\r\nUne personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et retrouver un projet », « Comprendre l'état et ses preuves » et « Lancer une action et poursuivre » dans une version Windows installable ; elle choisit sans mémoriser les commandes, explique les preuves, dialogue et retrouve le résultat. Elle retrouve ensuite son travail sauvegardé et peut explorer les dépendances de son projet avec un graphe dont la provenance et la fraîcheur sont compréhensibles.\r\n\r\n## Requirements\r\n\r\n- R1 (brief § Périmètre confirmé de la V1 ; experience § Key Flows, parcours 1) : Ouvrir un ou plusieurs projets locaux, dont un projet BMad déjà en cours, et retrouver pour chacun son contexte, ses initiatives et ses livrables sans réinitialisation imposée.\r\n\r\n- R2 (experience § Information Architecture ; experience § Component Patterns, Ligne de projet ou d'attente) : Retrouver à l'accueil les projets récents et leurs attentes nommées, puis ouvrir directement le projet ou le point de réponse, de relecture, d'interruption ou d'erreur concerné.\r\n\r\n- R3 (brief § Périmètre confirmé de la V1 ; experience § State Patterns) : Diagnostiquer à l'ouverture puis avant une opération ses prérequis utiles, l'accès au dossier, la présence de BMad et la compatibilité effective de v7 ; distinguer absence, ancienne version et v7 incompatible ou inconnue, avec une explication et une action de récupération.\r\n\r\n- R4 (brief § Périmètre confirmé de la V1 ; experience § Diagnostic et initialisation) : Initialiser BMad v7 dans un dossier non équipé après présentation des prérequis et des changements exacts puis accord explicite ; annuler laisse le dossier intact et le succès n'est annoncé qu'après vérification de l'installation.\r\n\r\n- R5 (brief § Périmètre confirmé de la V1 ; experience § Information Architecture) : Identifier le projet et l'initiative active, retrouver et choisir les autres initiatives repérées, et rattacher état, action et fichiers au bon contexte ; changer d'initiative ne réattribue pas les anciens échanges ou résultats, et les outils sans initiative restent accessibles.\r\n\r\n- R6 (brief § Périmètre confirmé de la V1 ; experience § Key Flows, parcours 2) : Présenter le parcours BMad et son état connu à partir des artefacts du projet ; les étapes, livrables et interprétations affichés renvoient à leurs preuves consultables et rendent les informations manquantes explicites.\r\n\r\n- R7 (brief § Périmètre confirmé de la V1 ; brief § Parcours de référence et critères de réussite ; experience § Modification externe) : Prendre en compte les fichiers BMad modifiés hors de Madness, actualiser les preuves et retrouver les résultats sans perdre la saisie courante ; ne pas inventer la session, l'auteur, l'activité ou la validation d'origine.\r\n\r\n- R8 (brief § Périmètre confirmé de la V1 ; experience § State Patterns) : Distinguer situation du projet, activité de l'agent et acceptation humaine, ainsi que fait observé, déduction et proposition ; ni présence de fichier ni fin d'exécution ne suffit à afficher une validation humaine.\r\n\r\n- R9 (brief § Priorité : l’expérience utilisateur ; contexte § Product Principles ; addendum § Le minimum : l’aide BMad sur un projet existant) : Expliquer une prochaine action à partir de bmad, de l'aide des modules installés et des preuves du projet, en distinguant aide chargée et recommandation produite par l'agent ; proposer les alternatives utiles sans imposer une séquence obligatoire.\r\n\r\n- R10 (brief § Périmètre confirmé de la V1 ; experience § Catalogue des compétences ; addendum § Accompagnement et catalogue BMad) : Explorer et rechercher l'ensemble des compétences réellement installées, y compris outils transversaux et modules présents ; exclure les métadonnées non invocables, expliquer absence ou incompatibilité et permettre de corriger une recherche vide, sans liste ni quota figés.\r\n\r\n- R11 (brief § Priorité : l’expérience utilisateur ; experience § Fiche compétence) : Consulter pour chaque action son objectif, l'invocation Codex exacte et copiable, ses entrées, ses conditions et ses effets ou livrables attendus ; une action indisponible explique ce qui manque et ne se présente pas comme exécutable.\r\n\r\n- R12 (brief § Périmètre confirmé de la V1 ; addendum § Accompagnement et catalogue BMad ; experience § Fiche compétence) : Lancer depuis Madness les workflows du catalogue pris en charge avec Codex dans le projet et l'initiative indiqués, puis rejoindre leur conversation réelle ; respecter leurs conditions et formes d'interaction, y compris lorsqu'un usage autonome est prévu.\r\n\r\n- R13 (brief § Périmètre confirmé de la V1 ; experience § Conversation) : Lire les retours de l'agent avec son identité connue, le fournisseur, l'invocation et le contexte, puis répondre aux questions et poursuivre les échanges dans Madness ; un retour de texte final seul ne tient pas lieu de dialogue intégré.\r\n\r\n- R14 (brief § Parcours de référence et critères de réussite ; experience § Proposition d'approbation) : Traiter les demandes d'approbation dans Madness en présentant opération, portée et effets ou fichiers avant le choix ; accepter autorise uniquement l'opération annoncée, demander un ajustement poursuit le dialogue, et navigation ou fermeture ne vaut pas accord.\r\n\r\n- R15 (contexte § Product Principles ; experience § State Patterns ; experience § Indicateur d'état) : Rendre visibles travail en cours, réponse ou approbation attendue, interruption, erreur et fin de tour, avec l'action attendue et un retour accessible depuis le projet et l'accueil ; utiliser un libellé et une preuve connue, sans faux pourcentage ni attente limitée à une notification temporaire.\r\n\r\n- R16 (experience § Champ de réponse ; experience § Interaction Primitives) : Conserver la saisie pendant navigation, consultation de fichiers et interruption ; envoyer explicitement à l'agent identifié, refuser un envoi vide et un double lancement, et n'annoncer une réponse envoyée qu'après confirmation fiable de la connexion.\r\n\r\n- R17 (brief § Parcours de référence et critères de réussite ; experience § Interrompu / erreur récupérable) : Pouvoir interrompre et reprendre ou réessayer selon les capacités réelles, en conservant le dernier contexte connu ; distinguer succès, échec et résultat inconnu, puis vérifier ce dernier avant de rejouer une opération.\r\n\r\n- R18 (contexte § Product Principles ; experience § Récapitulatif de tour) : À la fin d'un tour, présenter les résultats proposés, décisions humaines identifiables, fichiers concernés et prochaine action attendue ; rendre distincts fin du tour, clôture du workflow et validation des livrables.\r\n\r\n- R19 (experience § Panneau de fichiers ; experience § Key Flows, parcours 2) : Lire les livrables dans un aperçu intégré et agrandissable avec chemin, provenance, portée et statut connu, puis demander leur ouverture dans l'éditeur ; constater la réussite ou expliquer l'échec réel, avec copie du chemin disponible, sans perdre le contexte.\r\n\r\n- R20 (design § Layout & Spacing ; experience § Navigation latérale ; experience § Responsive & Platform) : Réduire et redéployer le menu gauche, consulter les fichiers et redimensionner la fenêtre sans perdre projet, initiative, conversation ou saisie ; garder les destinations et attentes identifiables, mémoriser la préférence de navigation et rester utilisable si ce stockage échoue.\r\n\r\n- R21 (experience § Accessibility Floor ; experience § Interaction Primitives ; design § Colors) : Utiliser les actions au clavier avec noms accessibles, focus visible et rendu au déclencheur après fermeture ; comprendre les états sans couleur ni survol seuls, conserver lecture et commandes au zoom, et respecter la réduction de mouvement selon les contrats UX.\r\n\r\n- R22 (contexte § Capabilities and Constraints ; experience § Connexion indisponible / hors ligne) : Identifier la connexion Codex, ses capacités réelles et son indisponibilité ; expliquer une opération impossible, conserver les informations déjà connues avec leur portée et proposer une récupération sans annoncer d'exécution autonome ou de reprise non prise en charge.\r\n\r\n- R23 (personnel § Décision du porteur ; contexte § Users et Operating Context) : Utiliser une première version Windows pour les projets personnels locaux du porteur, avec son abonnement ChatGPT ; vérifier installation, prérequis et parcours sur sa machine cible, avec de vrais projets et une connexion Codex, au-delà de la simulation HTML.\r\n\r\n- R24 (brief § Parcours de référence et critères de réussite ; experience § Key Flows) : Vérifier les trois parcours avec une personne peu familière de BMad : ouvrir ou initialiser, expliquer état et preuves, choisir sans mémoriser les commandes, dialoguer et approuver, comprendre problème ou fin de tour et retrouver les fichiers ; distinguer prise en main du prototype et validation de l'application intégrée.\r\n\r\n- R25 (contexte § Operating Context ; architecture AD-5) : Après fermeture et réouverture de Madness, retrouver les projets, conversations et brouillons conservés localement, sans relance automatique d'un agent ; présenter les activités et demandes restaurées comme historiques ou inconnues tant qu'elles ne sont pas vérifiées.\r\n\r\n- R26 (contexte § Brand Commitments ; architecture AD-8) : Utiliser la V1 en français ou en anglais et en thème clair ou sombre, en conservant contexte et saisie lors d'un changement ; les identifiants techniques, invocations, chemins et artefacts du projet gardent leur contenu et leur langue propres.\r\n\r\n- R27 (personnel § Réconciliation des exigences et tickets ; contexte § Capabilities and Constraints ; architecture AD-9) : Pouvoir mettre à jour les dépendances et le runtime, reconstruire puis réinstaller une version Windows pour son usage personnel par une procédure vérifiable ; le remplacement du programme conserve les données locales, avec les versions et limites réellement testées consignées.\r\n\r\n- R28 (contexte § Capabilities and Constraints ; architecture AD-10) : Depuis un projet ouvert, générer ou actualiser à la demande un graphe local du code, des modules, fichiers et dépendances, rattaché explicitement au projet et au périmètre analysé ; cet outil est livré dans la V1 après la base Windows/Codex, son utilisation reste optionnelle.\r\n\r\n- R29 (architecture AD-10) : Rechercher et explorer les éléments du graphe, comprendre le sens, la provenance et le degré de certitude des relations, puis ouvrir le fichier associé dans le panneau existant ; une recherche et une liste de relations accessibles complètent la représentation graphique.\r\n\r\n- R30 (architecture AD-10) : Distinguer graphe absent, analyse en cours, résultat disponible, partiel, ancien, incompatible ou en échec ; rendre sa fraîcheur explicite malgré les modifications non commitées ou survenues pendant l'analyse. Rafraîchissement, interruption ou échec conservent le dernier graphe complet connu ; l'indisponibilité du graphe laisse les parcours BMad utilisables et ne signifie aucune validation ni complétude de la solution.\r\n\r\n- R31 (architecture § Qualification Gates, G5) : Vérifier le graphe dans le paquet Windows sur un dépôt représentatif : génération sans modèle implicite, isolation des effets, fidélité des relations, recherche et accès au fichier, projets multiples, modifications de sources, interruption, erreurs et contrôles accessibles ; consigner performances et limites observées avant de déclarer le périmètre V1 complet.\r\n\r\n- R32 (contexte § Capabilities and Constraints et Evidence on Hand, demande du 27 octobre 2026) : Consulter dans Madness le temps et le coût associés à une user story du projet ouvert, avec un rattachement identifiable à cette US et une indication explicite lorsqu’une mesure ou un montant n’est pas disponible.\r\n\r\n## Constraints\r\n\r\n- C1 (brief § Priorité : l’expérience utilisateur ; contexte § Product Principles) : L'expérience utilisateur est le premier critère d'arbitrage du périmètre, de l'architecture et des interactions ; les décisions doivent préserver compréhension, guidage et contrôle par un développeur qui découvre BMad.\r\n\r\n- C2 (brief § Périmètre confirmé de la V1 ; contexte § Capabilities and Constraints) : Le périmètre livré est Windows, Codex et BMad v7 uniquement ; une étiquette v7 ne suffit pas à garantir la compatibilité de ses formats et compétences.\r\n\r\n- C3 (brief § Périmètre confirmé de la V1 ; contexte § Operating Context ; experience § Foundation) : Les projets et leurs artefacts BMad locaux existants restent exploitables ; la reprise ne requiert ni migration d'une ancienne version ni reconstruction supposée de conversations externes.\r\n\r\n- C4 (personnel § Décision du porteur et Appui documentaire et portée ; contexte § Capabilities and Constraints) : L’intégration retenue doit être vérifiée contre les interfaces, versions, capacités et modes d’authentification officiellement disponibles pour un projet personnel exécuté localement. La connexion SIWC propre à Madness déjà livrée et l’abonnement ChatGPT sont conservés, sans changement implicite d’authentification ni de facturation.\r\n\r\n- C5 (design § Brand & Style ; experience § Foundation ; architecture AD-8) : DESIGN.md et EXPERIENCE.md sont les contrats visuel et comportemental adoptés et prévalent sur les maquettes ; la base française claire reste acceptée. Sally complète les contrats pour l'anglais, le sombre et la vue Graphe avec Impeccable avant les implémentations concernées ; leurs hypothèses et limites restent explicites, sans preuve d'intégration déduite de la simulation.\r\n\r\n- C6 (contexte § Platform et Stack ; architecture AD-1, AD-2, AD-5, AD-7–AD-10) : Le socle retenu est Electron + React + TypeScript, starter electron-vite et packaging electron-builder. Le contrat d'architecture adopté gouverne les frontières, contrats partagés, autorités et profils qualifiés des lots ; ses décisions AD-1 à AD-10 gardent leurs identifiants. Les versions candidates restent à qualifier avant leurs consommateurs.\r\n\r\n- C7 (personnel § Décision du porteur ; contexte § Users et Capabilities and Constraints ; architecture AD-9) : Madness est réservé au porteur, en local sous Windows, avec code privé ; aucune distribution à d’autres développeurs ni publication du code n’est requise. L’usage en environnement professionnel reste possible : les previews sont autorisées si choisies et signalées ; le runtime doit être acceptable par le proxy cible, sans exigence du tout dernier Chromium exact. La reconstruction et la réinstallation doivent rester simples ; l’auto-updater n’est pas requis pour la V1.\r\n\r\n- C8 (architecture AD-10 et G5) : Le premier profil Graphify analyse seulement le code et les dépendances, sans enrichissement sémantique ni modèle implicite, sans modifier les sources ou les instructions, skills, hooks, plugins et configurations du projet ou de l'utilisateur. Le confinement, les formats et le packaging sont qualifiés avant disponibilité ; les documents BMad sémantiques et l'intégration agent/MCP sont hors de ce premier profil.\r\n\r\n## Done when\r\n\r\n1. Sur Windows, un projet BMad existant est repris sans réinitialisation et un dossier non équipé est initialisé après changements compris et acceptés ; annulation, préconditions modifiées, diagnostic incompatible ou inaccessible sont démontrés (R1–R5 ; G2–G3).\r\n2. La personne explique l'état, les déductions et les validations, consulte leurs preuves et retrouve un fichier modifié hors de Madness sans fausse conversation d'origine. Elle consulte aussi le temps et le coût rattachés à une US du projet ouvert, avec provenance et indisponibilité explicites, sans inventer un montant absent (R6–R8, R19, R32).\r\n3. Elle choisit une action expliquée ou une alternative dans le catalogue réel, consulte l'invocation et ses conditions, puis dialogue avec Codex ; questions, approbations, interruption, résultat inconnu et fin de tour aboutissent à un état compréhensible, avec fichiers et suite attendue (R9–R18, R22 ; G1).\r\n4. Navigation rétractable, fichiers, redimensionnement et contrôles accessibles préservent le contexte et la saisie en français/anglais et clair/sombre ; après réouverture, projets, conversations et brouillons sont retrouvés sans relance automatique, selon les contrats étendus de Sally (R19–R21, R25–R26).\r\n5. Une version Windows personnelle est reconstruite et installée sur la machine cible du porteur avec son abonnement ChatGPT ; le remplacement préserve les données, les prérequis réseau/runtime sont vérifiés et les trois parcours avec une personne peu familière de BMad sont consignés, au-delà du prototype (R23–R24, R27 ; G0, G4).\r\n6. Après la base Windows/Codex, le graphe réel permet génération, exploration/recherche et accès au fichier ; fraîcheur, limites, échec et interruption sont compréhensibles, les effets restent confinés, performances et accessibilité sont vérifiées sur dépôt représentatif. La V1 complète exige aussi G5 (R28–R31).\r\n\r\n## Boundaries\r\n\r\n- Inclus : ouverture de plusieurs projets locaux, initiatives et artefacts existants ; guidage, catalogue et dialogue des compétences avec Codex ; initialisation guidée de v7, changements externes, conservation locale, français/anglais, clair/sombre et graphe code/dépendances Graphify après la base Windows/Codex.\r\n- Hors V1 : BMad antérieur à v7 et migration, autres OS et application mobile native ; GitHub Copilot et Claude Code, dont Bedrock ou abonnement, restent des fournisseurs cibles suivants.\r\n- Hors V1 : découverte et suivi en direct, synchronisation ou pilotage des conversations lancées dans VS Code ou Desktop/Codex. L'observation de leurs artefacts est incluse ; une preuve sur un outil ne validera pas les autres.\r\n- Les possibilités BMad ne deviennent pas des étapes obligatoires ; party-mode n'est pas un axe privilégié. Les conditions des workflows et les décisions de l'utilisateur restent respectées.\r\n- Touch point : dossiers et artefacts BMad — diagnostic, lecture et preuves ; propriétaire : epic-projets-bmad, avec extension d'initialisation par epic-initialisation-bmad après son diagnostic.\r\n- Touch point : connexion Codex — invocation, événements, dialogue et autorisations ; propriétaire : epic-boucle-codex.\r\n- Touch point : temps et coût par US — propriétaire : epic-projets-bmad, qui établit les règles de rattachement à une US et les extensions versionnées des contrats de mesure, connecteur et persistance avant leurs consommateurs. Le socle et ses contrats existants restent ceux d’epic-boucle-codex ; leurs plans built ne sont pas réécrits. Ce besoin produit ne crée aucun journal de notre développement.\r\n- Touch point : interface et contrats UX Madness — guidage, navigation, variantes et fichiers ; propriétaire : epic-projets-bmad. La conversation initiale appartient à epic-boucle-codex, la nouvelle vue Graphe à epic-graphe-projet, selon les mêmes contrats.\r\n- Touch point : runtime et installation personnelle Windows — paquet et procédure de reconstruction ; propriétaire : epic-boucle-codex. Vérification intégrée de la base G4 par epic-initialisation-bmad, module et paquet final G5 par epic-graphe-projet.\r\n- Touch point : contrats du cœur, cycle de vie et stockage local — propriétaire : epic-boucle-codex avant consommateurs ; epic-graphe-projet ajoute le contrat d'analyse sous la même autorité du cœur.\r\n- Touch point : Graphify et runtime Python consommés — propriétaire : epic-graphe-projet ; confinement et profil qualifiés avant disponibilité, sans installation implicite de skills/hooks.\r\n- Chemin de démonstration transversal : ouvrir un projet réel → diagnostiquer v7 → obtenir l'aide contextualisée → choisir une compétence → dialoguer avec Codex et traiter une demande → retrouver le fichier et la suite attendue.\r\n- Hors premier profil Graphe : analyse sémantique des documents BMad, recherche par modèle, installation de skills/hooks ou intégration agent/MCP. Le graphe ne détermine aucune validation BMad.\r\n- Livraison : versions Windows personnelles intermédiaires installables à capacités qualifiées et limites explicites ; leur existence ne clôt pas la V1 complète, qui exige aussi le graphe G5. Reconstruction/réinstallation personnelle incluse ; auto-updater non requis. Distribution à d’autres développeurs et publication du code hors du besoin courant.\r\n\r\n## References\r\n\r\nLes alias des exigences et contraintes désignent les fichiers suivants ; les sections sont celles nommées dans chaque ligne.\r\n\r\n- personnel — [Décision du porteur du 28 octobre 2026](decision-personnelle-locale-2026-10-28.md), `_bmad-output/initiative-madness/decision-personnelle-locale-2026-10-28.md` ; Décision du porteur, Appui documentaire et portée, Réconciliation des exigences et tickets, Contrats et suite. Cette décision remplace les mentions historiques de distribution dans les sources, sans modifier les companions adoptés ni les mécanismes déjà réalisés.\r\n\r\n- brief — [Brief produit](brief-madness/brief-madness.md), `_bmad-output/initiative-madness/brief-madness/brief-madness.md` ; Intention et utilisateurs, Priorité : l'expérience utilisateur, Périmètre confirmé de la V1, Parcours de référence et critères de réussite, Extensions et décisions pour les étapes suivantes. Source en brouillon ; aucune approbation globale du brief n'est inférée de l'accord sur le prototype.\r\n- contexte — [Contexte produit](../../PRODUCT.md), `PRODUCT.md` ; Platform, Stack, Users, Operating Context, Capabilities and Constraints, Product Principles, Evidence on Hand.\r\n- addendum — [Recherche et propositions techniques](brief-madness/addendum.md), `_bmad-output/initiative-madness/brief-madness/addendum.md` ; Le minimum : l'aide BMad sur un projet existant, Accompagnement et catalogue BMad, Sessions démarrées ailleurs, Web ou desktop, Fournisseurs et modes de connexion, Modèle d'état proposé. Ses propositions du 22 octobre n'approuvent aucune stack ou intégration ; l'ancien état de découverte UX est remplacé par les contrats finaux.\r\n- design — [Contrat visuel adopté](ux-madness/DESIGN.md), `_bmad-output/initiative-madness/ux-madness/DESIGN.md` ; Brand & Style, Colors, Layout & Spacing, Components. Companion conservé sans modification ; valeurs, composition et références visuelles font foi à leur niveau.\r\n- experience — [Contrat comportemental adopté](ux-madness/EXPERIENCE.md), `_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md` ; Information Architecture, Component Patterns, State Patterns, Interaction Primitives, Accessibility Floor, Key Flows, Responsive & Platform. Companion conservé sans modification ; ses tableaux portent les comportements détaillés et les états décrits seulement.\r\n\r\n- architecture — [Contrat d'architecture adopté](architecture-madness/architecture-madness.md), `_bmad-output/initiative-madness/architecture-madness/architecture-madness.md` ; AD-1 à AD-10, Consistency Conventions, Qualification Gates G0–G5 et Deferred. Companion conservé sans modification ; les versions et interfaces candidates restent à qualifier. Les décisions du 23 octobre remplacent les anciens choix encore ouverts dans le brief et l'addendum, sans valoir approbation globale de ces sources.\r\n\r\n## Notes\r\n\r\n- Decision: 2026-10-28 — L’epic1 est techniquement clos sous la délégation du porteur :1.11 built dans8880b17 et relecture indépendante Closure favorable, F1 documentaire résolu. Preuves tickets/epic-boucle-codex/qualification-e2e/parent-verification.md et closure-review.md ; G0/G1 bornés au poste Windows personnel observé, SIWC conservé, Codex0.144.6 et profil Mary/Forge, ASAR9249…. La refonte distincte Sally/trois expertises/Impeccable est built dans5d135f9 puis installée en0.1.2 ASAR6664da10… :355tests,75contrôles intégrés,12disposition/conservation, huit contrôles installés et58empreintes identiques au remplacement ; compte et données conservés. La preuve native de l’ancien ASAR ne devient pas celle du nouveau. L’epic2 est raffiné et préparé en17entrées, première2.1 prête après résolution de l’inconnue de refonte ; aucun Build2 lancé. Q3/G2, Q4/G3, Q7/G5 et Q8/Q9 restent ouvertes, les parcours humains G4 et l’appréciation visuelle globale ne sont pas déduits des contrôles techniques. Les jalons historiques ci-dessous sont conservés, actualisés par cette décision.\r\n\r\n- Decision: 2026-10-28 — Le porteur précise « cette app n’est que pour moi : je veux juste brancher mon abo ChatGPT dessus point final ». Sofia REPLAN recadre R23/R27 et C4/C7, identifiants R1–R32 conservés, vers l’usage personnel local Windows, code privé et abonnement ChatGPT. La connexion SIWC propre à Madness reste celle livrée ; l’admission d’un client privé distribué, la publication du code et une bascule API sont hors du besoin courant. La source datée `decision-personnelle-locale-2026-10-28.md` prévaut sur les mentions de distribution historiques, dont les décisions du 24 octobre ci-dessous.\r\n\r\n- Decision: 2026-10-28 — La 1.1 distribuable est abandonnée sans succès technique déclaré ; son ancien essai natif unknown/cleanup false reste historique, distinct du SIWC personnel. La 1.10 attend 1.2, 1.12 et 1.3–1.9 built ; la 1.11 attend toujours 1.10 et garde les contrôles techniques intégrés sur la voie personnelle, dont arrêt/fermeture, nettoyage possédé et réseau/certificats du processus Codex. Ni Build ni clôture de G0/G1 ne sont lancés par ce replan. Les epics 1–4, leurs couvertures et leur ordre sont conservés ; l’epic 3 applique R23 à la machine personnelle cible sans retirer G4 ni les trois parcours.\r\n\r\n- Decision: 2026-10-28 — Les contrats architecture AD-1 à AD-10 et UX adoptés restent intacts ; seules leurs mentions historiques de distribution sont remplacées dans le périmètre courant par la décision personnelle locale. Réconciliation documentaire à leur prochaine mise à jour, sans mécanisme différent ni nouveau gate administratif. Les protections, qualifications techniques G0–G5, langues/thèmes, graphe, temps/coût et fournisseurs cibles ne changent pas. La refonte Sally/experts/Impeccable reste à réaliser selon le mandat existant ; aucune acceptation visuelle humaine n’est déduite.\r\n\r\n- Decision: 2026-10-27 — Le porteur précise que le suivi temps/coût par US est une fonctionnalité de Madness uniquement. Sofia ajoute R32 et le rattache à l’epic 2 sous le mandat autonome : cet epic possède le contexte BMad/US et établira les extensions des contrats et leur qualification avant affichage. Les quatre epics, leurs identifiants et leur ordre restent conservés ; aucune story built ni plan en cours n’est modifié. La 1.8 n’a encore ni plan ni code et conserve son objectif. Les données transitoires de suivi de notre développement sont retirées. Les gates G0–G5 et réserves de distribution restent intacts.\r\n\r\n- Open question: Q8 — Quel temps afficher par US : durée écoulée, activité agent ou autre mesure, et avec quelles règles pour attentes, interruptions, exécutions simultanées, rattachement de plusieurs conversations et changements d’US ? À cadrer au raffinement de l’epic 2 avant les consommateurs ; aucune mesure n’est inférée des délais techniques existants.\r\n\r\n- Open question: Q9 — Quelles données d’usage et de coût sont réellement exposées par chaque connexion, avec quelle provenance, devise, granularité, couverture et gestion des doublons ? Un coût inconnu reste indisponible ; les tarifs API ne sont pas assimilés à un coût d’abonnement. Qualification avant affichage dans l’epic 2.\r\n\r\n- Decision: 2026-10-24 — REPLAN Sofia demandé par le porteur et exécuté sous son mandat autonome : les preuves personnelles du 24 octobre sont rapprochées du tableau, sans changer R1–R31, C1–C8, les quatre epics ou leurs couvertures. L'epic 1 ajoute une qualification 1.12 du profil local effectivement livré avant la suite du tracer 1.3 ; les plans 1.1/1.2 restent bloqués et intacts, obligatoires avant nettoyage final et clôture. La connexion SIWC et la conversation Mary sont acquises sur le poste pour leurs scénarios précis ; le dialogue libre ne prouve ni workflow documentaire, ni distribution. La diffusion publique reste soumise à l'admissibilité du connecteur, aux prérequis Windows/runtime et aux gates applicables, dont G4 selon AD-9 ; la V1 complète exige aussi G5. Les epics 2–4 restent non raffinés, aucun nouveau Build n'est lancé par ce replan.\r\n\r\n- Decision: 2026-10-24 — Q2/G1 est partiellement instruit par `qualification-connexion-codex/live-confirmed-profile.json` et `qualification-dialogue-local/live-profile.json` : SIWC indépendant, témoin natif réussi, agent Mary réel, échanges et brouillon retrouvés sans moteur. Restent notamment admissibilité de distribution, workflows documentaires et interactions complètes ; ces preuves ne remplacent pas l'ancien essai d'authentification gérée par Codex. Q3/G2 ne bénéficie que d'un profil Mary épinglé ; ni catalogue général, ni diagnostic multi-initiative, ni compatibilité v7 universelle n'en découlent. Les questions Q2/Q3 restent ouvertes dans leur portée restante.\r\n\r\n- Decision: 2026-10-23 — Le porteur part se coucher et donne le feu vert pour avancer en autonomie avec BMad et valider les étapes nécessaires. Ce mandat autorise les décisions de réalisation, contrôles, revues, ajustements de livraison justifiés et commits locaux ; les preuves réellement humaines ou externes manquantes restent des blocages explicites. Le périmètre V1, les fournisseurs, la facturation et la licence restent ceux déjà décidés. L'agent ne transforme pas ce mandat en preuve de consentement OAuth ni en validation utilisateur de l'application intégrée.\r\n\r\n- Decision: 2026-10-23 — Le porteur autorise le commit local de la proposition présentée, avec 24 exigences et 6 contraintes ; A1/A2 et Q1–Q6 restent ouverts. Cet accord ne choisit aucune architecture et ne change pas le statut du brief source.\r\n\r\n- Decision: 2026-10-23 — Les réponses du porteur pendant Winston règlent Q1 (socle Electron/React/TypeScript, electron-vite et electron-builder), Q5/A2 (conservation locale projets, conversations et brouillons sans relance), Q6 (français/anglais et clair/sombre). Elles remplacent les mentions antérieures non décidées, sans modifier les companions UX adoptés ; Sally doit les réconcilier avant leurs extensions.\r\n\r\n- Decision: 2026-10-23 — Graphify fait partie de la V1 après la base Windows/Codex, pour code, modules, fichiers et dépendances. Son usage est optionnel, sa livraison et G5 sont nécessaires à la clôture V1 ; aucune analyse ou intégration réelle n'est encore démontrée.\r\n\r\n- Decision: 2026-10-23 — Contrat final de Winston adopté comme companion, sans modification ni renumérotation AD-1 à AD-10. La construction des qualifications et des capacités reste à faire ; aucun epic ni développement ne démarre par cette adoption.\r\n\r\n- Assumption: A1 — Cible WCAG 2.2 AA pour la surface web, reprise de EXPERIENCE § Accessibility Floor ; niveau de conformité proposé, non confirmé par un audit. R21 conserve les comportements d'accessibilité déjà décrits sans prétendre à une conformité acquise.\r\n\r\n- Decision: 2026-10-28 — Q2 / G1 résolue au niveau technique personnel par1.11 : workflow BMad réel, événements, questions, approbations/refus, arrêt/fermeture et nettoyage possédés, état inconnu en loopback, restauration et remplacement rapprochés dans tickets/epic-boucle-codex/qualification-e2e/final-matrix.md. Profil Windows/SIWC/Mary/Forge et limites du reçu9249… conservés ; aucun catalogue général, reprise native ou G2–G5 déduit. L’admission d’un client distribué reste hors du besoin courant et l’ancienne voie1.1 dropped n’est pas déclarée réussie.\r\n\r\n- Open question: Q3 / G2 — Quel profil d'installation BMad et quelles fonctions sont effectivement supportés ? Qualifier structures, modules, racines et empreintes, catalogue partiel, contexte multi-initiative et changements externes ; les métadonnées locales 6.13.0-next ne permettent pas un contrôle limité au major « 7 ».\r\n\r\n- Open question: Q4 / G3 — Comment produire un plan d'initialisation exhaustif, vérifier ses préconditions et son résultat, et rapporter le retour observable de l'ouverture dans l'éditeur ? Le contrat fixe les garanties ; les opérations réelles et leurs limites restent à vérifier.\r\n\r\n- Open question: Q7 / G5 — Quel runtime Python, quel paquet et profil Graphify permettent le parcours Windows conforme à AD-10, avec effets confinés, relations fidèles et performances observées ? La recherche de sources n'est pas une analyse exécutée ni une preuve de packaging.\r\n\r\n- Decision: 2026-10-23 — Le porteur valide les quatre epics, leur ordre et leurs limites tels que présentés, puis autorise la création des enveloppes et le commit local des documents. La coupure suit quatre résultats utilisables : dialogue Codex réel, projets BMad existants, initialisation et G4 Windows, graphe et G5. Le socle appartient au premier epic ; les prérequis sont ceux du manifeste. Les epics restent à raffiner, sans stories ni développement lancés.\r\n",
+          "identity": [
+            8708507883820908980,
+            4503599628715679,
+            33206,
+            1,
+            32
+          ]
+        }
+      },
+      "bytes": 35650,
+      "entries": 3,
+      "resolved_config": {
+        "core": {
+          "project_name": "madness",
+          "output_folder": "{project-root}/_bmad-output",
+          "active_initiative": "initiative-madness"
+        }
+      },
+      "revision": "1c4e5c4ec70c92ed1e939ee820fdcc7583e6caf055496162cc28cc1d38564f62"
+    }
+  },
+  "customization_keys": [
+    "workflow"
+  ],
+  "roster_agents": [
+    "bmad-agent-analyst",
+    "bmad-agent-architect",
+    "bmad-agent-dev",
+    "bmad-agent-pm",
+    "bmad-agent-po",
+    "bmad-agent-ux-designer",
+    "bmad-toolsmith"
+  ],
+  "tickets": [
+    {
+      "id": 1,
+      "file": null,
+      "plan": "spike-qualifier-le-profil-bmad-existant-et-les-contrats-de-guidage-plan.md",
+      "status": "in-progress"
+    },
+    {
+      "id": 17,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 2,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 3,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 4,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 5,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 6,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 7,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 8,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 9,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 10,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 12,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 11,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 13,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 14,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 15,
+      "file": null,
+      "plan": null,
+      "status": ""
+    },
+    {
+      "id": 16,
+      "file": null,
+      "plan": null,
+      "status": ""
+    }
+  ],
+  "source_revision": "d2806cdb2281e1869f6282b8866b190603448ce66af5a5afc4d2712345a5d02c",
+  "file_count": 435,
+  "bytes": 2715799
+}

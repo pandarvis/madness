@@ -1,0 +1,75 @@
+{
+  "run": "run-eb0c1970fc6e43ed82402fec1227fcc9",
+  "tests": {
+    "run": 15,
+    "passed": 15,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "assertions": 410.0,
+  "observations": 26,
+  "managed_successes": 23,
+  "observed_calls": 28,
+  "duration_ms": 411375,
+  "max_call_ms": 11781.0,
+  "max_stdout_bytes": 171635.0,
+  "execution": {
+    "schema": 4,
+    "outcome": "completed",
+    "exit": 0,
+    "started": true,
+    "owned": [
+      "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+      "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache",
+      "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-eb0c1970fc6e43ed82402fec1227fcc9"
+    ],
+    "cleanup": [
+      {
+        "removed": true,
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned"
+      },
+      {
+        "removed": true,
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache"
+      },
+      {
+        "removed": true,
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-eb0c1970fc6e43ed82402fec1227fcc9"
+      }
+    ],
+    "results_present": true,
+    "job_assigned_before_resume": true,
+    "pid": 42504,
+    "active_before_stop": 0,
+    "job_active_after_stop": 0,
+    "stop_ms": 1,
+    "drain_ms": 78,
+    "elapsed_ms": 442807
+  },
+  "orphan": {
+    "schema": 4,
+    "outcome": "descendants-stopped",
+    "exit": 0,
+    "started": true,
+    "owned": [
+      "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-eb0c1970fc6e43ed82402fec1227fcc9\\c6\\orphan-owned"
+    ],
+    "cleanup": [
+      {
+        "removed": true,
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-eb0c1970fc6e43ed82402fec1227fcc9\\c6\\orphan-owned"
+      }
+    ],
+    "results_present": false,
+    "job_assigned_before_resume": true,
+    "pid": 59172,
+    "active_before_stop": 3,
+    "job_active_after_stop": 0,
+    "stop_ms": 0,
+    "drain_ms": 101,
+    "elapsed_ms": 2992
+  },
+  "child_stopped": true,
+  "manifest_sha256": "da1d063be57480aa471308eb2075d0cf3ba2d0fcb848d856fc2a69f3f08603be"
+}

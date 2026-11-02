@@ -6,6 +6,7 @@ covers: ["R1", "R2", "R3", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R19", "R
 sources: ["_bmad-output/initiative-madness/initiative-madness.md"]
 companions: ["_bmad-output/initiative-madness/ux-madness/DESIGN.md", "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md", "_bmad-output/initiative-madness/architecture-madness/architecture-madness.md"]
 refined: true
+status: in-progress
 risk: high
 ---
 # Comprendre et piloter ses projets BMad existants
@@ -94,6 +95,10 @@ Un développeur retrouve ses projets BMad et leurs initiatives, explique l'état
 - ordre — [Découpage approuvé](../tickets.toml) ; identifiant 2 et prérequis de capacités à reporter sur les stories qui les consommeront.
 
 ## Notes
+
+- Decision: 2026-11-02 — Entrée2.1 built sous bmad-build full/Quick et audit indépendant des frontières high. Profil candidat et contrats dans qualification-profil-g2/profil-g2.md ; candidat finald499…15/15sans skip,470assertions/29observations,558inputs identiques,583empreintes avant/après et30runs audités. Quick[] ; BV5-1 corrigé/recontrôlé résolu, aucun correctif différé. Ni produit, configuration personnelle ni application installée modifiés ; G2 intégré reste pour2.16. Les17entrées et leur ordre sont conservés :2.17Sally/Impeccable est la prochaine entrée, avant tracer2.2 ; aucun de ces Builds démarré. Les décisions suivantes sont historiques.
+
+- Decision: 2026-10-28 — Build2.1 démarré après la qualification indépendante du cache/réseau (ebe2bb3), sous le mandat explicite de reprise du porteur. Ce spike produit un profil candidat et des contrats documentaires, sans modifier le produit ni lever G2 intégré. L’epic est en cours ; les17entrées et leur ordre restent inchangés, Sally2.17 précède toujours le tracer2.2. La qualification réseau n’est pas une nouvelle dépendance technique de2.1.
 
 - Decision: 2026-10-28 — Le prérequis1.11 est désormais built dans8880b17 : G0/G1 technique sur le profil personnel Windows/SIWC et Mary/Forge de référence, avec les preuves qualification-e2e/parent-verification.md sous l’epic1. La refonte demandée est built dans5d135f9 : Sally a mis à jour les deux contrats adoptés ; trois expertises indépendantes et Impeccable ont fourni leurs constats, corrigés et recontrôlés, avec verdict ciblé ship. Candidat0.1.2 ASAR6664da10ba09364dd5e7584ad812848d48b7bb8f4c48508507434825770684c8,355tests,75contrôles intégrés et12contrôles de disposition/conservation ; preuves ../../ux-madness/qualification-refonte/parent-verification.md et finish-verdict-q1.md. L’inconnue de préparation de la refonte est résolue et retirée de l’entrée1. Ces preuves ne deviennent ni accord visuel humain global, ni G2–G5. Les17entrées restent planifiées, sans feuille ni Build2 ; Q8/Q9 demeurent ouvertes et l’entrée12 garde son inconnue propre. Le prochain workflow est bmad-build sur2.1, puis Sally17 avant le tracer2.
 

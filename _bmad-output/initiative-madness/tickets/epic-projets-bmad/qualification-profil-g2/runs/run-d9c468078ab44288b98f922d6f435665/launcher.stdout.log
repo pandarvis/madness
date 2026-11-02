@@ -1,0 +1,22 @@
+test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup) ... ERROR
+
+======================================================================
+ERROR: test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 799, in <lambda>
+    Scenarios.test_M15_instrumentation_cleanup=lambda test:test.inner_boundaries(p.load_lock())
+                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 650, in inner_boundaries
+    value=p.bounded_process([*prefix,"import json;print(json.dumps({'next':'INNER_NEXT_OK'}))"],b'',env,'inner-boundary-probe',timeout=10)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 386, in bounded_process
+    raise error
+prototype.Refusal: DESCENDANTS_STOPPED
+
+----------------------------------------------------------------------
+Ran 1 test in 13.383s
+
+FAILED (errors=1)
+Preservation: True files: 558 fixtures removed: True
+NEW_RUN: run-d9c468078ab44288b98f922d6f435665

@@ -1,0 +1,54 @@
+test_M10_real_windows_boundaries (__main__.Scenarios.test_M10_real_windows_boundaries) ... ok
+test_M11_bounds_and_utf8 (__main__.Scenarios.test_M11_bounds_and_utf8) ... ok
+test_M12_revision_invalidates_action (__main__.Scenarios.test_M12_revision_invalidates_action) ... ok
+test_M13_tickets_without_leaf (__main__.Scenarios.test_M13_tickets_without_leaf) ... ok
+test_M14_untrusted_scripts_never_executed (__main__.Scenarios.test_M14_untrusted_scripts_never_executed) ... ok
+test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup) ... ERROR
+test_M1_exact_local_installation (__main__.Scenarios.test_M1_exact_local_installation) ... ERROR
+test_M2_absent_legacy_unknown (__main__.Scenarios.test_M2_absent_legacy_unknown) ... ok
+test_M3_partial_invalid_membership (__main__.Scenarios.test_M3_partial_invalid_membership) ... ok
+test_M4_root_precedence_and_mask (__main__.Scenarios.test_M4_root_precedence_and_mask) ... ok
+test_M5_metadata_and_invocables (__main__.Scenarios.test_M5_metadata_and_invocables) ... ok
+test_M6_knowledge_topics_migrations (__main__.Scenarios.test_M6_knowledge_topics_migrations) ... ok
+test_M7_official_three_layer_merge (__main__.Scenarios.test_M7_official_three_layer_merge) ... ok
+test_M8_context_and_selection (__main__.Scenarios.test_M8_context_and_selection) ... ok
+test_M9_output_boundary (__main__.Scenarios.test_M9_output_boundary) ... ok
+
+======================================================================
+ERROR: test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 539, in test_M15_instrumentation_cleanup
+    supervised = json.loads(proc.stdout.decode('utf-8-sig'))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\fixtures-runtime-owned\python\Lib\encodings\utf_8_sig.py", line 23, in decode
+    (output, consumed) = codecs.utf_8_decode(input, errors, True)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x82 in position 88: invalid start byte
+decoding with 'utf-8-sig' codec failed
+
+======================================================================
+ERROR: test_M1_exact_local_installation (__main__.Scenarios.test_M1_exact_local_installation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 53, in test_M1_exact_local_installation
+    snapshot, receipt = self.snap(root, 'real-skills')
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 38, in snap
+    p.stage(receipt, target)
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\prototype.py", line 190, in stage
+    path.write_bytes(item['raw'])
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\fixtures-runtime-owned\python\Lib\pathlib.py", line 1036, in write_bytes
+    with self.open(mode='wb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\fixtures-runtime-owned\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-cc0e94afffa344e0bf62a6e6a98f49df\\case-04903048b7f746a2a090cb6c24b1d678\\snapshots\\real-skills\\bmad-advanced-elicitation\\scripts\\tests\\test_pick_methods.py'
+
+----------------------------------------------------------------------
+Ran 15 tests in 431.019s
+
+FAILED (errors=2)
+Preservation: True files: 558 fixtures removed: True
+NEW_RUN: run-cc0e94afffa344e0bf62a6e6a98f49df

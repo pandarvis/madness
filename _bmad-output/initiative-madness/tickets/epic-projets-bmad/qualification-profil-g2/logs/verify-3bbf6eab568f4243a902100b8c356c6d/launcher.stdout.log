@@ -1,0 +1,27 @@
+{
+  "checks": 2,
+  "passed": 2,
+  "run": "run-3e81ef4bdc28483dad0a5d2fde8c9a8e",
+  "execution_outcome": "timeout",
+  "results_present": false,
+  "available_sha256": {
+    "evidence.py": "1c0a4e939ac4b76fa3ddd134e395fdce494907c8eb1dfc7774a8661cee4fd73e",
+    "execution.json": "e8d697b0330f239eba1a7a66e958db4464a9106db24e3508dea1d6d0b8e13f13",
+    "fixtures.py": "3a20eb9140315add7162293ea8bc1908fe67663a39d0c09e751b407c28049be2",
+    "launcher.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "launcher.stdout.log": "64f1fbd993415eff596180331954e4099ddaf723ce729ac149e1480482142cc4",
+    "preflight-probe.ps1": "db2443047e5fef6644b233d3efdf0465751e91f9bed6a9e358b3ca8fb79770fc",
+    "prototype.py": "d5d563a23adb8affaca0c2c2690126d2d88e7d4d1d6033d40fb9e58633b720f5",
+    "run.ps1": "bd5ea9039955906c4aab3657f964bf5a2de9f65b4338fedb5d56b0924c74f331",
+    "runtime-preflight.ps1": "b144833811349c48ea432e7d2f3ff2912ea571cdc85b8adc7d9e55eb66b60b13",
+    "runtime_guard.py": "f855953fcf666b0364fb4dc5047b248c637efe41da5824d28599b56dd6f99aa1",
+    "scenarios.py": "928462c58b76583fa20e0db45debdeb227915b279f6f1dc004dfb787281b8264",
+    "source_bootstrap.py": "cd842ac6cb53761801e6f13614e78959d722af28d692b5d95acac948f0e9070a",
+    "sources-lock.json": "9695fb1f69ed0836000570b9e983e181f0712142fcd65a135320a69d02cb3758",
+    "supervision-probe.ps1": "8554b053b71415a7e2352910bff6d25a74642120e0d158ee9f9701d51cd1913a",
+    "supervision.ps1": "f77493a485b636a79a1bf58cdd9bc2475c2e70daf94441ec0c0b318215a7a5c2",
+    "verify.py": "d8754ea94337ecfbfcf324f1ddcb181ca2dc72b746f8011e5687f3c54de08f43"
+  },
+  "current_qualification": false,
+  "incomplete": true
+}

@@ -1,0 +1,504 @@
+{
+  "schema": 5,
+  "policy": "captured-source-only-v5",
+  "run": "run-696526c9f77d4399b06c11deafff34bf",
+  "tests": {
+    "run": 15,
+    "passed": 15,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "assertions": 470.0,
+  "observations": 29,
+  "duration_ms": 405187,
+  "unittest_seconds": 403.733,
+  "managed_successes": 23,
+  "bounded_calls": 35,
+  "ordinary_calls": 29,
+  "maximum_ordinary_duration_ms": 10313.0,
+  "maximum_ordinary_stdout": 186321.0,
+  "execution": {
+    "schema": 5,
+    "outcome": "completed",
+    "exit": 0,
+    "started": true,
+    "owned": [
+      "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+      "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache",
+      "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-696526c9f77d4399b06c11deafff34bf"
+    ],
+    "cleanup": [
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-696526c9f77d4399b06c11deafff34bf",
+        "removed": true
+      }
+    ],
+    "results_present": true,
+    "job_assigned_before_resume": true,
+    "pid": 45552,
+    "active_before_stop": 0,
+    "job_active_after_stop": 0,
+    "stop_ms": 1,
+    "drain_ms": 69,
+    "elapsed_ms": 433004
+  },
+  "inner_processes": [
+    {
+      "mode": "orphan",
+      "refusal": "DESCENDANTS_STOPPED",
+      "receipt": {
+        "policy": "job-before-resume-v5",
+        "outcome": "descendants-stopped",
+        "started": true,
+        "job_assigned_before_resume": true,
+        "stdin_mode": "owned-file",
+        "stdin_bytes": 0,
+        "timeout_ms": 6000,
+        "stop_budget_ms": 5000,
+        "drain_budget_ms": 3000,
+        "return_budget_ms": 1000,
+        "pid": 42252,
+        "root_exit_ms": 1266,
+        "active_before_stop": 2,
+        "live_before_stop": [
+          44928,
+          59616
+        ],
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 0,
+        "exit": 0,
+        "duration_ms": 6000,
+        "stdout_bytes": 18,
+        "stdout_sha256": "2ab48267ef758d758dd8f948219e6836428e310ae909a8edfcd8c73674221f89",
+        "stderr_bytes": 18,
+        "stderr_sha256": "4783d484d68cfb9fd3fd9f61046e48f52f8acbeafd62e887003a17f2e8f800a3"
+      },
+      "stdout_sample": "{\"parent\": true}\r\n",
+      "stderr_sample": "PIPE_CHILD_READY\r\n",
+      "child_pid": 59616,
+      "child_stopped": true
+    },
+    {
+      "mode": "timeout",
+      "refusal": "TIME_LIMIT",
+      "receipt": {
+        "policy": "job-before-resume-v5",
+        "outcome": "timeout",
+        "started": true,
+        "job_assigned_before_resume": true,
+        "stdin_mode": "owned-file",
+        "stdin_bytes": 0,
+        "timeout_ms": 6000,
+        "stop_budget_ms": 5000,
+        "drain_budget_ms": 3000,
+        "return_budget_ms": 1000,
+        "pid": 18584,
+        "active_before_stop": 4,
+        "live_before_stop": [
+          18584,
+          36896,
+          48056,
+          40516
+        ],
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 0,
+        "exit": 1,
+        "duration_ms": 6000,
+        "stdout_bytes": 18,
+        "stdout_sha256": "2ab48267ef758d758dd8f948219e6836428e310ae909a8edfcd8c73674221f89",
+        "stderr_bytes": 18,
+        "stderr_sha256": "4783d484d68cfb9fd3fd9f61046e48f52f8acbeafd62e887003a17f2e8f800a3"
+      },
+      "stdout_sample": "{\"parent\": true}\r\n",
+      "stderr_sample": "PIPE_CHILD_READY\r\n",
+      "child_pid": 40516,
+      "child_stopped": true
+    },
+    {
+      "mode": "overflow",
+      "refusal": "OUTPUT_LIMIT",
+      "receipt": {
+        "policy": "job-before-resume-v5",
+        "outcome": "output-limit",
+        "started": true,
+        "job_assigned_before_resume": true,
+        "stdin_mode": "owned-file",
+        "stdin_bytes": 0,
+        "timeout_ms": 6000,
+        "stop_budget_ms": 5000,
+        "drain_budget_ms": 3000,
+        "return_budget_ms": 1000,
+        "pid": 63456,
+        "active_before_stop": 3,
+        "live_before_stop": [
+          63456,
+          43112,
+          29932
+        ],
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 0,
+        "exit": 1,
+        "duration_ms": 1797,
+        "stdout_bytes": 4194304,
+        "stdout_sha256": "d00ec4e27d6db8327d4bbe6f59a5ac0b8475114ef3191c4d67f3dae5bb12ce9d",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout_sample": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "stderr_sample": ""
+    },
+    {
+      "mode": "unread-stdin",
+      "refusal": "TIME_LIMIT",
+      "receipt": {
+        "policy": "job-before-resume-v5",
+        "outcome": "timeout",
+        "started": true,
+        "job_assigned_before_resume": true,
+        "stdin_mode": "owned-file",
+        "stdin_bytes": 1048576,
+        "timeout_ms": 3000,
+        "stop_budget_ms": 5000,
+        "drain_budget_ms": 3000,
+        "return_budget_ms": 1000,
+        "pid": 30592,
+        "active_before_stop": 3,
+        "live_before_stop": [
+          30592,
+          57604,
+          31332
+        ],
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 16,
+        "exit": 1,
+        "duration_ms": 3016,
+        "stdout_bytes": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout_sample": "",
+      "stderr_sample": ""
+    },
+    {
+      "mode": "start-failed",
+      "refusal": "START_FAILED",
+      "receipt": {
+        "policy": "job-before-resume-v5",
+        "outcome": "start-failed",
+        "started": false,
+        "job_assigned_before_resume": false,
+        "stdin_mode": "owned-file",
+        "stdin_bytes": 0,
+        "timeout_ms": 6000,
+        "stop_budget_ms": 5000,
+        "drain_budget_ms": 3000,
+        "return_budget_ms": 1000,
+        "error": "[WinError 2] Le fichier spécifié est introuvable.",
+        "active_before_stop": 0,
+        "live_before_stop": [],
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 0,
+        "duration_ms": 15,
+        "stdout_bytes": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout_sample": "",
+      "stderr_sample": ""
+    },
+    {
+      "mode": "next",
+      "receipt": {
+        "policy": "job-before-resume-v5",
+        "outcome": "completed",
+        "started": true,
+        "job_assigned_before_resume": true,
+        "stdin_mode": "owned-file",
+        "stdin_bytes": 0,
+        "timeout_ms": 10000,
+        "stop_budget_ms": 5000,
+        "drain_budget_ms": 3000,
+        "return_budget_ms": 1000,
+        "pid": 59580,
+        "root_exit_ms": 938,
+        "active_before_stop": 0,
+        "live_before_stop": [],
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 0,
+        "exit": 0,
+        "duration_ms": 938,
+        "stdout_bytes": 27,
+        "stdout_sha256": "d7ccb572fd13f9e68da052f51d583798112ced610454637d1f16d8627f23af78",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "result": {
+        "next": "INNER_NEXT_OK"
+      }
+    }
+  ],
+  "selected_manifest": {
+    "refusal": "SELECTION_MANIFEST_CHANGED",
+    "inner_hashes_unchanged": true,
+    "actual_default_main": true
+  },
+  "preserved_inputs": 558,
+  "preservation_unchanged": true,
+  "historical_runs": 25,
+  "historical_files": 456,
+  "all_evidence_files_compared": 557,
+  "all_evidence_identical": true,
+  "archives": 5,
+  "selected": {
+    "run": "run-696526c9f77d4399b06c11deafff34bf",
+    "manifest_sha256": "2151aa25c210f12f9659a21792fb2604c7282ee18a58c892a1da400f5bf9731f"
+  },
+  "actions": {
+    "seal": {
+      "folder": "seal-0e7931fcb1ca492da108f97a118ca15d",
+      "result": {
+        "checks": 107,
+        "passed": 107,
+        "run": "run-696526c9f77d4399b06c11deafff34bf",
+        "assertions": 470,
+        "observations": 29,
+        "preserved_inputs": 558,
+        "historical_receipt": false,
+        "current_qualification": true,
+        "manifest_sha256": "2151aa25c210f12f9659a21792fb2604c7282ee18a58c892a1da400f5bf9731f",
+        "selected": false
+      },
+      "stdout_sha256": "a98f20ea374e1473f7951c7d0fd0c9380694b4188284018fc7de1eac9e1c9217",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [
+          "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+          "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache"
+        ],
+        "cleanup": [
+          {
+            "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+            "removed": true
+          },
+          {
+            "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache",
+            "removed": true
+          }
+        ],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 8628,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 1,
+        "drain_ms": 85,
+        "elapsed_ms": 29617
+      }
+    },
+    "explicit_verify": {
+      "folder": "verify-f4dbb0cbcf514d7784a9eccb32992247",
+      "result": {
+        "checks": 106,
+        "passed": 106,
+        "run": "run-696526c9f77d4399b06c11deafff34bf",
+        "assertions": 470,
+        "observations": 29,
+        "preserved_inputs": 558,
+        "historical_receipt": false,
+        "current_qualification": true,
+        "manifest_sha256": "2151aa25c210f12f9659a21792fb2604c7282ee18a58c892a1da400f5bf9731f",
+        "selected": false
+      },
+      "stdout_sha256": "6899b68fefdf2f5d75921ef1fb5624239a422c528a5dd742dd4b1c4936fe0f83",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [
+          "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+          "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache"
+        ],
+        "cleanup": [
+          {
+            "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+            "removed": true
+          },
+          {
+            "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache",
+            "removed": true
+          }
+        ],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 55156,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 1,
+        "drain_ms": 88,
+        "elapsed_ms": 27773
+      }
+    },
+    "historical_verify": {
+      "folder": "verify-6e7ccd217c15435599d1c4d6b06a31f8",
+      "result": {
+        "checks": 83,
+        "passed": 83,
+        "run": "run-16822ad1c1f04c459a9c8bf974990770",
+        "assertions": 415,
+        "observations": 27,
+        "preserved_inputs": 558,
+        "historical_receipt": true,
+        "current_qualification": false,
+        "manifest_sha256": "98055ef2e89c2b3f8f65bf57a617ec124da04c900e7cf37446ac70fa176cb1fb",
+        "selected": false
+      },
+      "stdout_sha256": "abbbbabb889147ec4a87c1cab70c8aa6fada099f4223d18193b5273227fbb64a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [
+          "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+          "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache"
+        ],
+        "cleanup": [
+          {
+            "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+            "removed": true
+          },
+          {
+            "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache",
+            "removed": true
+          }
+        ],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 29724,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 1,
+        "drain_ms": 90,
+        "elapsed_ms": 26555
+      }
+    },
+    "promote": {
+      "folder": "promote-d65d54b9f9684812a3e12bf976168a27",
+      "result": {
+        "checks": 107,
+        "passed": 107,
+        "run": "run-696526c9f77d4399b06c11deafff34bf",
+        "assertions": 470,
+        "observations": 29,
+        "preserved_inputs": 558,
+        "historical_receipt": false,
+        "current_qualification": true,
+        "manifest_sha256": "2151aa25c210f12f9659a21792fb2604c7282ee18a58c892a1da400f5bf9731f",
+        "selected": false
+      },
+      "stdout_sha256": "a98f20ea374e1473f7951c7d0fd0c9380694b4188284018fc7de1eac9e1c9217",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [
+          "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+          "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache"
+        ],
+        "cleanup": [
+          {
+            "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+            "removed": true
+          },
+          {
+            "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache",
+            "removed": true
+          }
+        ],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 61108,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 95,
+        "elapsed_ms": 26687
+      }
+    },
+    "default_verify": {
+      "folder": "verify-8ee5ace0ba9a4b7bbd417138248b0439",
+      "result": {
+        "checks": 106,
+        "passed": 106,
+        "run": "run-696526c9f77d4399b06c11deafff34bf",
+        "assertions": 470,
+        "observations": 29,
+        "preserved_inputs": 558,
+        "historical_receipt": false,
+        "current_qualification": true,
+        "manifest_sha256": "2151aa25c210f12f9659a21792fb2604c7282ee18a58c892a1da400f5bf9731f",
+        "selected": true
+      },
+      "stdout_sha256": "2496e3d8cba3926bdb2964bb85644229a005f51d10fe3ab45b8c0d54ee35e3be",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [
+          "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+          "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache"
+        ],
+        "cleanup": [
+          {
+            "removed": true,
+            "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned"
+          },
+          {
+            "removed": true,
+            "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache"
+          }
+        ],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 3120,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 1,
+        "drain_ms": 86,
+        "elapsed_ms": 28673
+      }
+    }
+  },
+  "fixtures_left": 0,
+  "product_managed_personal_changes": false,
+  "network_model_provider_calls": 0,
+  "fresh_reviews_pending": true
+}

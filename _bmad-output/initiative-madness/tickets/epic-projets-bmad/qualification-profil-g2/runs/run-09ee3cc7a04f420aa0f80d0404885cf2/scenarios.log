@@ -1,0 +1,18 @@
+test_M12_revision_invalidates_action (__main__.Scenarios.test_M12_revision_invalidates_action) ... ok
+test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup) ... FAIL
+test_M8_context_and_selection (__main__.Scenarios.test_M8_context_and_selection) ... ok
+
+======================================================================
+FAIL: test_M15_instrumentation_cleanup (__main__.Scenarios.test_M15_instrumentation_cleanup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 466, in test_M15_instrumentation_cleanup
+    self.check(len(p.EVENTS),before_calls,'Python probe refuses '+name+' before UV')
+  File "C:\Sources\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\qualification-profil-g2\scenarios.py", line 24, in check
+    self.assertEqual(actual, expected, why)
+AssertionError: 224 != 212 : Python probe refuses Lib/ctypes/__pycache__/__init__.cpython-312.pyc before UV
+
+----------------------------------------------------------------------
+Ran 3 tests in 63.104s
+
+FAILED (failures=1)

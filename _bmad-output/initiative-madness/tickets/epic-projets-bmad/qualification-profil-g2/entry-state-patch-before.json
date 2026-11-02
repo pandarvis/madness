@@ -1,0 +1,21 @@
+{
+  "run": "run-696526c9f77d4399b06c11deafff34bf",
+  "manifest": "2151aa25c210f12f9659a21792fb2604c7282ee18a58c892a1da400f5bf9731f",
+  "source_sha256": {
+    "prototype.py": "0ba95cd9838506b48994e7c67a00e2a9095204dfebf03f3cc350086df2d867ba",
+    "fixtures.py": "58e6d6407a65f74d24ecdaf6becc902af68aa2950fecd50f6556bdb428a6fa48",
+    "scenarios.py": "7a84b832396dc301c72df71f9d7bf3ad86ca11f0cd5678c2a8d700eb9c4efe69",
+    "runtime_guard.py": "7b445e180bd740e9aa0ba2270a3b867a686bece70be640b02f6ea972929ff5cd",
+    "evidence.py": "f978a1224e22dbf4e3c9484f6197c5b65e9d6961f47760b5bf0f3de863b647e6",
+    "verify.py": "7afdb49d0569d52930e2685c6fc2c21b97b4f244371231c0deafed127129d27c",
+    "source_bootstrap.py": "cd842ac6cb53761801e6f13614e78959d722af28d692b5d95acac948f0e9070a",
+    "run.ps1": "a4db9d46d245377579de54e039a559148c948e2d99be8add64db0f0998fec9e9",
+    "runtime-preflight.ps1": "b144833811349c48ea432e7d2f3ff2912ea571cdc85b8adc7d9e55eb66b60b13",
+    "preflight-probe.ps1": "db2443047e5fef6644b233d3efdf0465751e91f9bed6a9e358b3ca8fb79770fc",
+    "supervision.ps1": "5088771ab29bfe666b290e73bdcfd428e43c7915731922f8407da7b4c6ddc8e2",
+    "supervision-probe.ps1": "6e3c0e842bac135698188a38f93e8ac7165a256fb9f10007bce647b4854aab0d",
+    "sources-lock.json": "6008b54982ad883bc7a05530d13724113a1316a915d0c40aaa5249bb75e7a5b0"
+  },
+  "immutable_sources": "runs/run-696526c9f77d4399b06c11deafff34bf/",
+  "reason": "Small entry-state cleanup patch after both final reviews; prior proof preserved"
+}

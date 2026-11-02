@@ -1,0 +1,29 @@
+{
+  "schema": 3,
+  "outcome": "capture-failed",
+  "exit": null,
+  "started": true,
+  "owned": [
+    "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+    "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache",
+    "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-09ee3cc7a04f420aa0f80d0404885cf2"
+  ],
+  "cleanup": [
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-runtime-owned",
+      "removed": true
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-uv-cache",
+      "removed": true
+    },
+    {
+      "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-09ee3cc7a04f420aa0f80d0404885cf2",
+      "removed": true
+    }
+  ],
+  "results_present": true,
+  "pid": 41332,
+  "error": "Collector implementation left ReadToEndAsync unchanged; WriteAllBytes received a string instead of bounded bytes.",
+  "recovery": "Explicit owned-resource recovery after failed instrumentation; not original successful teardown."
+}

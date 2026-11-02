@@ -1,0 +1,48 @@
+[
+  {
+    "started": false,
+    "caller_reraised": "ScriptHalted",
+    "child_marker_absent": true,
+    "passed": false,
+    "caller_started": false,
+    "cleanup": [
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-d9176986ca474281b34b93fb03169a29\\entry-owned-runtime",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-d9176986ca474281b34b93fb03169a29\\entry-owned-cache",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-d9176986ca474281b34b93fb03169a29\\entry-owned-fixture",
+        "removed": true
+      }
+    ],
+    "error": "CONTROLLED_STATE_WRITE_REFUSAL",
+    "caller_cleanup_removed": true
+  },
+  {
+    "started": true,
+    "caller_reraised": "ScriptHalted",
+    "child_marker_absent": true,
+    "passed": false,
+    "caller_started": true,
+    "cleanup": [
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-d9176986ca474281b34b93fb03169a29\\started-owned-runtime",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-d9176986ca474281b34b93fb03169a29\\started-owned-cache",
+        "removed": true
+      },
+      {
+        "path": "C:\\Sources\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-profil-g2\\fixtures-run-entry-d9176986ca474281b34b93fb03169a29\\started-owned-fixture",
+        "removed": true
+      }
+    ],
+    "error": "CONTROLLED_STATE_WRITE_REFUSAL",
+    "caller_cleanup_removed": true
+  }
+]

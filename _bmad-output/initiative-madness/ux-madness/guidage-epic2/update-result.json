@@ -1,0 +1,86 @@
+{
+  "status": "complete",
+  "intent": "update",
+  "scope": "production des contrats documentaires de la story 2.17 ; revues et verdict Build au parent",
+  "date": "2026-11-02",
+  "design": "_bmad-output/initiative-madness/ux-madness/DESIGN.md",
+  "experience": "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md",
+  "memlog": "_bmad-output/initiative-madness/ux-madness/.memlog.md",
+  "coverage": "_bmad-output/initiative-madness/ux-madness/guidage-epic2/contrats-et-couverture.md",
+  "changes_summary": "Sept parcours contractuels ferment les choix de diagnostic, guidage natif conditionnel, catalogue, initiatives, preuves, aperçu/éditeur et accueil multi-projet pour 2.2–2.9. Les composants, états, formulations FR/EN, focus, conservation et zoom sont appariés aux spines existants sans changer les tokens, la palette ou le chrome.",
+  "authority": {
+    "persona": "contribution de Sally activée par le parent",
+    "mandate": "conception déléguée sous mandat autonome explicite ; aucune nouvelle acceptation humaine",
+    "mode": "bmad-ux Update headless ; Impeccable Operate",
+    "visual_authority": [
+      "DESIGN.md",
+      "EXPERIENCE.md",
+      "refonte existante"
+    ],
+    "profile": "qualification-profil-g2/profil-g2.md, candidat final run-d499adb2942e40e8a84c370fb7208ef2",
+    "profile_status": "partiel, hors produit ; recommandation native et exécution générale non qualifiées"
+  },
+  "delegated_design_decisions": [
+    "Que faire ensuite développe les aides dans Parcours ; la lecture seule ne transmet rien. Une demande native explicite et qualifiée crée un nouvel échange corrélé.",
+    "Toutes les possibilités est l’onglet unique du catalogue ; une fiche modale sépare copie et préparation puis lancement explicite d’une nouvelle conversation.",
+    "Choisir une initiative ne modifie que la sélection Madness. Un conflit active/sélection bloque les actions qui exigent leur concordance, sans mutation de configuration BMad.",
+    "Les preuves restent sourcées par révision, avec contradictions et anciens accords sur leurs octets d’origine. Actualisation et contrôle au point d’effet ne déplacent pas les brouillons.",
+    "L’aperçu contextuel agrandissable conserve son origine ; le retour éditeur ne prétend que le fait observable. Le retour au travail retrouve destination et point de saisie exacts."
+  ],
+  "conflicts_with_prior_decisions": [
+    {
+      "previous": "Phrases des spines présentant la refonte, l’epic 1 ou la qualification 1.11 comme encore en attente.",
+      "resolution": "Réconciliées avec les preuves existantes : epic 1 techniquement clos et refonte livrée/installée ; acceptation visuelle humaine globale encore inconnue. Aucune preuve native réattribuée à un autre paquet."
+    },
+    {
+      "previous": "Choix d’initiative et interactions de guidage/catalogue/fichiers encore laissés à définir.",
+      "resolution": "Choix essentiels maintenant contractuels pour les consommateurs, explicitement non livrés. Sélection locale, aide chargée, recommandation native et capacité de lancement restent distinctes."
+    }
+  ],
+  "assumptions": [],
+  "open_questions": [],
+  "remaining_non_blocking_limits": [
+    "Cible A1 WCAG 2.2 AA sans audit de conformité acquis ; vérification réelle des nouveaux parcours, variantes et focus à l’implémentation.",
+    "G2 intégré reste à 2.16 ; capacité native $bmad à qualifier par 2.2, profils de lancement supplémentaires par 2.7 et retour éditeur par 2.8.",
+    "Q8/Q9/R32 restent dans leurs lots propres ; aucun temps, coût, quota d’abonnement ou suivi de notre développement défini.",
+    "L’acceptation visuelle humaine globale reste inconnue. Les sept compléments sont spine-only, sans nouvelle preuve visuelle."
+  ],
+  "visual_reference_coverage": {
+    "new_surfaces": "spine-only sous mandat ; creative tools désactivés",
+    "new_visual_artifacts": [],
+    "historical_references": "deux imports, trois captures de navigation et quatre fichiers du prototype déjà reliés dans les spines ; surface-brief orphelin historique inchangé"
+  },
+  "review_handoff": {
+    "quick": "completed; Q1 patched and rechecked resolved by original reviewer",
+    "ux_consistency": "completed with Quick and independent parent walkthrough",
+    "doc_standards": "structure then prose completed; one move and four wording corrections applied",
+    "finalization_memlog": "completed via official append, entries37/38"
+  },
+  "external_handoffs": [],
+  "new_product_code": false,
+  "new_native_measurements": false,
+  "new_human_validation": false,
+  "personal_profile_touched": false,
+  "document_checks": {
+    "ok": true,
+    "baseline": "bf3e8a78282e44ba41d0cfee69e11715be424a30",
+    "token_block_sha256": "08db89e673381ed81b2a6658fdd4286ba71fed54062755525114615d80aaf044",
+    "canonical_sections": {
+      "DESIGN": 8,
+      "EXPERIENCE": 10
+    },
+    "components_paired": 26,
+    "token_references_resolved": 71,
+    "local_links_resolved": 60,
+    "key_flows": 7,
+    "historical_visual_files_linked": 9,
+    "json_valid": true
+  },
+  "build_closure": {
+    "status": "built",
+    "remaining_findings": 0,
+    "deferred_fixes": 0,
+    "proof": "guidage-epic2/parent-verification.md",
+    "parallel_ui_redesign": "User signalled a separate redesign to integrate afterwards; preserve concurrent work and reconcile behavior contracts; branch not yet identified"
+  }
+}

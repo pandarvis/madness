@@ -3,7 +3,7 @@ name: Madness
 description: "Parcours guidé pour comprendre et piloter BMad sur des projets locaux."
 status: final
 created: 2026-10-22
-updated: 2026-10-28
+updated: 2026-11-02
 sources:
   - ../initiative-madness.md
   - .memlog.md
@@ -14,6 +14,8 @@ sources:
   - ../decision-personnelle-locale-2026-10-28.md
   - ../deferred-work.md
   - preparation-refonte-2026-10-28/preparation-refonte.md
+  - ../tickets/epic-projets-bmad/epic-projets-bmad.md
+  - ../tickets/epic-projets-bmad/qualification-profil-g2/profil-g2.md
 colors:
   surface: '#211F1E'
   navigation: '#191817'
@@ -214,7 +216,7 @@ Madness est un espace de travail personnel Windows : projet identifiable, conver
 
 La composition « Parcours guidé » et sa navigation rétractable sont acceptées depuis le 23 octobre. La refonte demandée après les lots fonctionnels de l’epic 1 réorganise leur présentation selon la [préparation Sally et trois expertises](preparation-refonte-2026-10-28/preparation-refonte.md) : projet et onglets d’abord, échange et réponse au premier plan, préparation et contexte en second plan. Elle conserve les contrôles et les preuves du produit. La direction s’inspire de ChatGPT Desktop ; la [référence historique Codex Desktop](imports/reference-codex-desktop.png) et la [maquette Parcours guidé](mockups/parcours-guide/index.html) restent des repères de composition.
 
-Ce document finalise une spécification de refonte, sans attester son implémentation ou son acceptation visuelle humaine. La [qualification du thème](../qualification-theme/README.md) et son installation personnelle restent des preuves historiques ciblées. DESIGN.md et EXPERIENCE.md font foi en cas de conflit avec les maquettes ou imports ; la maquette garde son bandeau de simulation. Les décisions antérieures restent traçables dans [.memlog.md](.memlog.md).
+La refonte est livrée et installée selon sa [qualification](qualification-refonte/parent-verification.md) ; son acceptation visuelle humaine globale reste inconnue. L’Update Sally du 2 novembre définit les compléments de guidage et de fichiers de l’epic 2 sous mandat autonome, en mode Impeccable Operate : composition, tokens et thèmes conservés. Ces compléments sont des contrats à implémenter, sans nouvelle capture ou preuve native. La [qualification du thème](../qualification-theme/README.md) reste une preuve historique ciblée. DESIGN.md et EXPERIENCE.md font foi en cas de conflit avec les maquettes ou imports ; la maquette garde son bandeau de simulation. Les décisions antérieures restent traçables dans [.memlog.md](.memlog.md).
 
 ## Colors
 
@@ -237,11 +239,17 @@ Les rôles du frontmatter gouvernent les titres, la lecture, les commandes et le
 
 Les textes fonctionnels restent au moins à `{typography.label.fontSize}`. Réduire cadres, répétitions et espacements avant de réduire la taille du texte. Le projet et l’onglet actif dominent les métadonnées techniques ; les statuts importants restent explicites.
 
+Objectif et indisponibilité se lisent en texte courant ; invocation, chemin et identifiant utilisent `{typography.code}` sans traduction. Noms longs et anglais peuvent occuper plusieurs lignes. Seul un aperçu de chemin peut être abrégé : sa version intégrale est sélectionnable dans Détails de contexte ou Panneau de fichiers. Ne jamais abréger l’invocation à copier, la portée d’un accord, le motif d’un refus ou les deux initiatives en conflit. Révision abrégée avec libellé reste ouvrable vers la preuve intégrale ; date d’observation et fraîcheur ne sont pas confondues.
+
 ## Layout & Spacing
 
 La barre d’action et de titre commune occupe `{components.titlebar.height}` sur toute la largeur ; les contrôles Windows natifs disposent de leur espace Window Controls Overlay. Navigation latérale et centre commencent dessous. Le centre utilise `{spacing.content-max}`, l’accueil `{spacing.home-max}`, avec `{spacing.page-x}` latéral et `{spacing.page-top}` supérieur à la largeur de référence. L’échelle 4 / 8 / 12 / 16 / 20 / 24 px distingue relations proches et sections.
 
 Ordre de lecture du projet : en-tête projet et initiative connue → onglets → courte bande de récupération si nécessaire → contenu de l’onglet. Dans Conversation, l’échange sélectionné ou son état vide, la demande pertinente et le point de réponse sont identifiables dès le premier écran de référence. Une conversation longue reste défilante ; toutes ses lignes n’ont pas à tenir à l’écran. Préparer un nouvel échange est secondaire et ne précède pas systématiquement l’historique. Les détails techniques se déplient sur demande ; arrêt inconnu, blocage global et besoin d’inspection restent lisibles lorsqu’ils s’appliquent.
+
+Le Sélecteur d’initiative suit le projet dans l’en-tête ; « Sélection Madness » et « Active dans BMad » restent deux lignes nommées si elles diffèrent. Dans Parcours, attentes puis faits et Registre des preuves précèdent le guidage secondaire. « Que faire ensuite ? » ouvre ce guidage dans Parcours ; « Toutes les possibilités » ouvre le Catalogue des compétences dans un onglet du même projet. Aides chargées et Recommandation ont des titres séparés ; seule la réponse reçue de l’agent entre dans Conversation. L’aide ne reçoit pas le traitement d’un message assistant.
+
+Le catalogue utilise des lignes plates : nom et objectif, module et invocation, puis disponibilité textuelle. Recherche et filtres précèdent les résultats ; détail dans Fiche compétence. Ni grille de grandes cartes ni nouveau panneau permanent. Le Registre des preuves rassemble libellé, nature du constat, statut sourcé, fraîcheur et accès au fichier ; les détails complets sont dépliables. Le Panneau de fichiers occupe la colonne prévue, jamais la place du champ de réponse. Son agrandissement emploie un Dialogue de lecture borné à la fenêtre ; fermer retrouve la même sélection et position de travail.
 
 La commande unique « Ouvrir un projet » est un dossier SVG de `{components.titlebar.icon}` dans une cible de `{components.titlebar.target}`, au même niveau que thème et connexion. La bascule reste sur la ligne des contrôles Windows, centrée sur `{components.navigation.iconAxisX}` depuis le bord gauche comme les icônes du rail. Les zones libres déplacent la fenêtre ; commandes et surfaces modales restent hors drag. Le monogramme de marque M et son emplacement ne reviennent pas dans le rail.
 
@@ -276,12 +284,15 @@ Les mêmes noms désignent les règles de comportement dans EXPERIENCE.md. Les c
 | Barre d’action et de titre commune | Bande et commandes selon Layout & Spacing ; dossier, soleil/lune et connexion de même poids visuel, cibles de 40 px, aide visible au focus/survol et nom accessible. |
 | Navigation latérale | Tokens `components.navigation` ; sélection `{colors.navigation-selected}`, graisse 600 ; rail à repères distincts et tiroir à libellés. |
 | Bouton | Principal accent, secondaire avec `{colors.control-line}`, discret sans fond ; `{rounded.md}`, `{components.button.padding}`. États survol, pression, focus, attente et indisponibilité explicites. Cible d’au moins 40 px, y compris question, approbation et récupération. |
-| Ligne de projet ou d’attente | Liste plate : libellé, contexte et état ; repère identifiable. Le compteur complète la raison textuelle. |
-| Onglets du projet | Parcours et Conversation immédiatement repérables ; sélection graisse 600 et soulignement accent 2 px. Toutes les possibilités reste réservé au futur catalogue. |
-| Recommandation | Titre, objectif, raison puis action, détails secondaires ; retrait `{components.recommendation.padding}`. Aucun grand bloc promotionnel avant la conversation. |
-| Groupe d’intentions | Ligne extensible, intention et chevron ; actions dans le retrait. Pas de numérotation obligatoire. |
-| Catalogue des compétences | Future recherche et filtres compacts, lignes plates, objectif et invocation monospace ; résultat vide textuel. |
-| Fiche compétence | Futur Dialogue : objectif, catégorie, invocation, entrées, effets et lancement en pied. |
+| Ligne de projet ou d’attente | Liste plate : projet, initiative de la demande, nature et état ; repère identifiable. Le compteur complète la raison textuelle. Lien de destination explicite ; aucune commande sensible sur toute la ligne. |
+| Onglets du projet | Parcours, Conversation puis Toutes les possibilités pour le catalogue prévu ; sélection graisse 600 et soulignement accent 2 px. Les noms se replient sans chevaucher le Sélecteur d’initiative. |
+| Sélecteur d’initiative | Commande compacte à libellé, nom et chevron ; liste dans un Dialogue. Sélection locale marquée « Sélection Madness », actif BMad nommé séparément. Conflit textuel avec les deux noms, pas deux badges de couleur indifférenciés. |
+| Aides chargées | Région sobre dans Parcours : titre, modules couverts, documents réellement chargés, références seules et problèmes distincts ; source, révision et fraîcheur accessibles. Lien vers le texte lu, sans bulle d’assistant ni faux bouton de lancement. |
+| Recommandation | Dans Conversation : réponse native, raison et alternatives, puis actions disponibles selon leur capacité. Dans Parcours, simple lien vers cette réponse avec son contexte. Retrait `{components.recommendation.padding}` seulement si utile ; aucune promesse avant reçu. |
+| Groupe d’intentions | Ligne extensible, intention et chevron ; actions dans le retrait. Pas de numérotation obligatoire ni mise en avant d’un workflow universel. |
+| Catalogue des compétences | Recherche et filtres compacts avec libellés, lignes plates et invocation monospace ; couverture et diagnostic partiel visibles avant résultats. Disponibilité ne dépend ni d’une couleur ni d’une opacité réduite. |
+| Fiche compétence | Dialogue : objectif, module, invocation intégrale, entrées, conditions, effets et provenance ; Copier distinct de Préparer le lancement. En pied, préparation ou motif précis d’indisponibilité et fermeture. Contenu long défilant, gardes lisibles avant action. |
+| Registre des preuves | Liste plate dans Parcours : objet, fait/déduction/proposition/acceptation, source et révision, statut et fraîcheur. Sources contradictoires en lignes distinctes ; pas de coche de validation sur un fichier ou un statut built. |
 | Indicateur d’état | Badge compact ou ligne textuelle ; activité présente distincte de l’historique et de la validation humaine. |
 | Bande de récupération | Courte région durable sous les onglets, motif principal, portée et action. Rappels courts liés aux détails, sans répétition de grandes cartes. |
 | Détails de contexte | Détails textuels dépliables ; identité connue ou inconnue, invocation et chemins repliables. Le chemin complet reste consultable. |
@@ -292,10 +303,12 @@ Les mêmes noms désignent les règles de comportement dans EXPERIENCE.md. Les c
 | Proposition d’approbation | Groupe `{rounded.group}`, opération, portée et patch complet avant les choix textuels. Ne pas remplacer autoriser/refuser par coche/croix. |
 | Récapitulatif de tour | Bloc sobre : fin de tour, faits connus, décisions, chemins et action attendue ; valeurs inconnues explicites. |
 | Connexion Codex | Signe officiel ChatGPT 21 px, grisé à froid, dans cible 40 px ; panneau non modal à droite, maximum 420 px borné à la fenêtre. Titre, état daté, portée, récupération et actions textuelles ; aide réseau sous l’erreur. |
-| Panneau de fichiers | Futur fond `{components.files.background}`, aperçu et chemin lisibles, provenance et actions textuelles. |
-| Diagnostic et initialisation | Future colonne bornée à 680 px : diagnostic, prérequis et changements avant confirmation. |
+| Panneau de fichiers | Fond `{components.files.background}`, en-tête fichier/contexte, statut sourcé et fraîcheur avant contenu ; chemin intégral sélectionnable et actions Agrandir/Ouvrir dans l’éditeur/Copier le chemin. Agrandissement dans Dialogue ; mêmes métadonnées en lecture. Erreur conserve l’en-tête et les commandes encore permises. |
+| Diagnostic et initialisation | Colonne bornée à 680 px : état agrégé puis capacités indépendantes, couverture et refus sourcés. Partiel/inconnu/périmé visibles en texte. L’initialisation demeure future en epic 3 ; aucune commande de réparation ajoutée à ce diagnostic. |
 | Dialogue | Maximum `{components.dialog.maxWidth}` borné à la fenêtre ; fond du thème, `{components.dialog.radius}`, `{components.dialog.shadow}`, contenu défilant et pied d’actions. |
 | Notification | Tokens `components.notification` ; feedback bref, sans recouvrir une décision durable. |
+
+Ces composants étendent le contrat visuel ; les capacités de l’epic 2 restent non livrées. La densité conserve `{spacing.2}` entre éléments liés et `{spacing.4}` entre groupes ; les lignes grandissent avec le texte. Un état en attente garde son libellé et sa portée sans faux pourcentage. Échec et périmé gardent le contenu antérieur identifiable comme historique ; focus, sélection courante et acceptation humaine ont chacun leur libellé et leur traitement. Clair et sombre utilisent leurs tokens existants, avec les mêmes textes, contours de contrôle et ordre de lecture.
 
 ## Do's and Don'ts
 
@@ -305,4 +318,6 @@ Les mêmes noms désignent les règles de comportement dans EXPERIENCE.md. Les c
 | Garder arrêt inconnu, portée globale et inspection visibles. | Compacter en cachant un blocage critique dans des détails. |
 | Réserver les icônes aux commandes familières avec nom et aide clavier. | Réduire une autorisation ou un refus à un pictogramme. |
 | Décrire Mary et Forge selon leurs capacités réelles. | Présenter une phrase fixe comme une recommandation calculée. |
+| Séparer aide chargée, réponse native et action qualifiée. | Rendre lançable une commande seulement copiable ou descriptive. |
+| Nommer couverture, provenance, fraîcheur et sélection locale. | Faire d’un diagnostic partiel un refus global ou d’une sélection un changement BMad. |
 | Conserver saisie, focus, provenance et mouvement réduit. | Présenter une simulation, un état historique ou un test technique comme une validation humaine. |

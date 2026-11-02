@@ -24,3 +24,15 @@ export class LifecycleCoordinator {
     return this.shutdownResult
   }
 }
+
+/** Admissions synchrones privées : une préparation locale et un départ fournisseur ne se croisent pas. */
+export class ActivityAdmission {
+ private provider=false
+ private helper=false
+ enter(kind:'provider'|'helper',nested=false):()=>void {
+  if(kind==='provider'){if(this.provider||this.helper)throw Object.assign(new Error('CONNECTION_BUSY'),{code:'CONNECTION_BUSY'});this.provider=true}
+  else{if(this.helper||this.provider&&!nested)throw Object.assign(new Error('BUSY'),{code:'BUSY'});this.helper=true}
+  let released=false
+  return()=>{if(released)return;released=true;if(kind==='provider')this.provider=false;else this.helper=false}
+ }
+}

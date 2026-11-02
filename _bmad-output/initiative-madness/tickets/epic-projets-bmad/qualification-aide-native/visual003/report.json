@@ -1,0 +1,790 @@
+{
+  "schemaVersion": 1,
+  "mode": "synthetic-ui-finish-isolated-mutable-help-ipc",
+  "startedAt": "2026-11-02T11:39:54.344Z",
+  "artifact": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\bmad-help-final-003\\win-unpacked\\Madness.exe",
+    "asarSha256": "81591937f9868bc6f5f00cbf132c9ab1326eb16d075d512a2a86ff1e1c56fc22"
+  },
+  "fixtures": {
+    "validSnapshot": true,
+    "validHelpState": true,
+    "correlatedConversations": 2
+  },
+  "checks": [
+    {
+      "name": "six-scenes-and-exact-history-focus",
+      "width": 1440,
+      "theme": "dark",
+      "retries": 2
+    },
+    {
+      "name": "six-scenes-and-exact-history-focus",
+      "width": 1440,
+      "theme": "light",
+      "retries": 2
+    },
+    {
+      "name": "six-scenes-and-exact-history-focus",
+      "width": 720,
+      "theme": "dark",
+      "retries": 2
+    },
+    {
+      "name": "six-scenes-and-exact-history-focus",
+      "width": 720,
+      "theme": "light",
+      "retries": 2
+    },
+    {
+      "name": "previous-conversation-retains-own-receipt-and-exact-response"
+    },
+    {
+      "name": "mutable-main-help-event-preserves-draft-and-focus"
+    },
+    {
+      "name": "provenance-and-source-keyboard-details"
+    },
+    {
+      "name": "return-to-work-restores-trigger-focus"
+    },
+    {
+      "name": "zoom125-no-horizontal-overflow",
+      "width": 1440
+    },
+    {
+      "name": "zoom125-no-horizontal-overflow",
+      "width": 720
+    },
+    {
+      "name": "real-navigation-rail-toggle-keeps-help-and-draft"
+    },
+    {
+      "name": "project-change-resets-help-opening-and-keeps-unsaved-draft"
+    },
+    {
+      "name": "viewing-and-retry-keep-saved-draft-and-two-conversations"
+    },
+    {
+      "name": "unique-receipt-focus-targets"
+    }
+  ],
+  "captures": [
+    {
+      "scene": "ready",
+      "file": "ready-1440-dark.png",
+      "theme": "dark",
+      "sha256": "e4f44b4d41ddc2fe5fc1ab362ec07b6ce491bb3c9b6090bd32980f83494fb53c",
+      "geometry": {
+        "width": 1440,
+        "height": 980,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "focusId": "",
+        "help": {
+          "top": 349.6875,
+          "bottom": 1197.34375,
+          "left": 324,
+          "right": 1328,
+          "width": 1004
+        },
+        "cta": {
+          "top": 804.75,
+          "bottom": 844.75,
+          "left": 324,
+          "right": 466.5625,
+          "width": 142.5625
+        }
+      }
+    },
+    {
+      "scene": "initial-reading",
+      "file": "initial-reading-1440-dark.png",
+      "theme": "dark",
+      "sha256": "e2fd9ae9918166bf99402381a2621bb3ff523631e0e4be84f21d524b140294f0",
+      "geometry": {
+        "width": 1440,
+        "height": 980,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "focusId": "",
+        "help": {
+          "top": 349.6875,
+          "bottom": 594.5625,
+          "left": 324,
+          "right": 1328,
+          "width": 1004
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "error-retained",
+      "file": "error-retained-1440-dark.png",
+      "theme": "dark",
+      "sha256": "4d3046e4b59f7fa1658249fcbb077813d0ec0fe658ef421bba9cb4db8fbaa245",
+      "geometry": {
+        "width": 1440,
+        "height": 980,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "focusId": "",
+        "help": {
+          "top": 349.6875,
+          "bottom": 1248.21875,
+          "left": 324,
+          "right": 1328,
+          "width": 1004
+        },
+        "cta": {
+          "top": 804.75,
+          "bottom": 844.75,
+          "left": 324,
+          "right": 466.5625,
+          "width": 142.5625
+        }
+      }
+    },
+    {
+      "scene": "historical-stored",
+      "file": "historical-stored-1440-dark.png",
+      "theme": "dark",
+      "sha256": "8a6a1f0b29e62aedc9b2739998ba9534fda3320a6026497e2cbe09b4db75970b",
+      "geometry": {
+        "width": 1440,
+        "height": 980,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "focusId": "bmad-receipt-visual-help-history",
+        "help": {
+          "top": 623.625,
+          "bottom": 909.734375,
+          "left": 324,
+          "right": 1328,
+          "width": 1004
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "partial-save-error",
+      "file": "partial-save-error-1440-dark.png",
+      "theme": "dark",
+      "sha256": "3c1c0969e0ce7557429dcb8b4bd93a65f607ebeead50870a8693a87b5376322d",
+      "geometry": {
+        "width": 1440,
+        "height": 980,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "focusId": "bmad-receipt-visual-help-partial",
+        "help": {
+          "top": 601.625,
+          "bottom": 866.296875,
+          "left": 324,
+          "right": 1328,
+          "width": 1004
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "partial-retry-saved",
+      "file": "partial-retry-saved-1440-dark.png",
+      "theme": "dark",
+      "sha256": "c17f5735df66ee706e8d6ded7635c5eefd9fc7ac076f6cbf703b8c96b03cefe4",
+      "geometry": {
+        "width": 1440,
+        "height": 980,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "focusId": "bmad-receipt-visual-help-partial",
+        "help": {
+          "top": 675.625,
+          "bottom": 940.296875,
+          "left": 324,
+          "right": 1328,
+          "width": 1004
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "ready",
+      "file": "ready-1440-light.png",
+      "theme": "light",
+      "sha256": "8ae2fed1c93e783c9dd2fb26b6d0b18549099c825f7949e3af10a8a8608d4f1f",
+      "geometry": {
+        "width": 1440,
+        "height": 980,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "focusId": "",
+        "help": {
+          "top": 349.6875,
+          "bottom": 1197.34375,
+          "left": 324,
+          "right": 1328,
+          "width": 1004
+        },
+        "cta": {
+          "top": 804.75,
+          "bottom": 844.75,
+          "left": 324,
+          "right": 466.5625,
+          "width": 142.5625
+        }
+      }
+    },
+    {
+      "scene": "initial-reading",
+      "file": "initial-reading-1440-light.png",
+      "theme": "light",
+      "sha256": "fe35d5c1de7dc173da106c219fefd91e319b69f3e735d5dcea9f4d40493cfb3f",
+      "geometry": {
+        "width": 1440,
+        "height": 980,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "focusId": "",
+        "help": {
+          "top": 349.6875,
+          "bottom": 594.5625,
+          "left": 324,
+          "right": 1328,
+          "width": 1004
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "error-retained",
+      "file": "error-retained-1440-light.png",
+      "theme": "light",
+      "sha256": "87bb5ebed5e7c8628867559874cee9bf711196472c4b6e7300489e1029c77e1e",
+      "geometry": {
+        "width": 1440,
+        "height": 980,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "focusId": "",
+        "help": {
+          "top": 349.6875,
+          "bottom": 1248.21875,
+          "left": 324,
+          "right": 1328,
+          "width": 1004
+        },
+        "cta": {
+          "top": 804.75,
+          "bottom": 844.75,
+          "left": 324,
+          "right": 466.5625,
+          "width": 142.5625
+        }
+      }
+    },
+    {
+      "scene": "historical-stored",
+      "file": "historical-stored-1440-light.png",
+      "theme": "light",
+      "sha256": "e56fbfb6a89f60d164e792bd747828246761aed5be6e03bf019b4bdf968f83b5",
+      "geometry": {
+        "width": 1440,
+        "height": 980,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "focusId": "bmad-receipt-visual-help-history",
+        "help": {
+          "top": 623.625,
+          "bottom": 909.734375,
+          "left": 324,
+          "right": 1328,
+          "width": 1004
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "partial-save-error",
+      "file": "partial-save-error-1440-light.png",
+      "theme": "light",
+      "sha256": "25c5895a7543adb4b096dedeca704cd7ab177af246d74b0812d774bfe972c758",
+      "geometry": {
+        "width": 1440,
+        "height": 980,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "focusId": "bmad-receipt-visual-help-partial",
+        "help": {
+          "top": 601.625,
+          "bottom": 866.296875,
+          "left": 324,
+          "right": 1328,
+          "width": 1004
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "partial-retry-saved",
+      "file": "partial-retry-saved-1440-light.png",
+      "theme": "light",
+      "sha256": "aeac997b0ec418d19c6ffb46572a17cb4882dff4673afcd2d40dfb26f1da415b",
+      "geometry": {
+        "width": 1440,
+        "height": 980,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "focusId": "bmad-receipt-visual-help-partial",
+        "help": {
+          "top": 675.625,
+          "bottom": 940.296875,
+          "left": 324,
+          "right": 1328,
+          "width": 1004
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "ready",
+      "file": "ready-720-dark.png",
+      "theme": "dark",
+      "sha256": "168514664273e60e5eb1810dd125f156475ad4c2861028416a357fb139fc92f7",
+      "geometry": {
+        "width": 720,
+        "height": 980,
+        "scrollWidth": 720,
+        "clientWidth": 720,
+        "focusId": "",
+        "help": {
+          "top": 349.6875,
+          "bottom": 1197.34375,
+          "left": 20,
+          "right": 690,
+          "width": 670
+        },
+        "cta": {
+          "top": 804.75,
+          "bottom": 844.75,
+          "left": 20,
+          "right": 162.5625,
+          "width": 142.5625
+        }
+      }
+    },
+    {
+      "scene": "initial-reading",
+      "file": "initial-reading-720-dark.png",
+      "theme": "dark",
+      "sha256": "cbcb6f2ac3c5685f7f87054a18c31a13d93baf5a6d203dfd3f3be80b51c68623",
+      "geometry": {
+        "width": 720,
+        "height": 980,
+        "scrollWidth": 720,
+        "clientWidth": 720,
+        "focusId": "",
+        "help": {
+          "top": 349.6875,
+          "bottom": 594.5625,
+          "left": 20,
+          "right": 690,
+          "width": 670
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "error-retained",
+      "file": "error-retained-720-dark.png",
+      "theme": "dark",
+      "sha256": "e7758a8177c987a6463b6e81d5cd61708d0c176713ba8f437ee443136598419f",
+      "geometry": {
+        "width": 720,
+        "height": 980,
+        "scrollWidth": 720,
+        "clientWidth": 720,
+        "focusId": "",
+        "help": {
+          "top": 349.6875,
+          "bottom": 1248.21875,
+          "left": 20,
+          "right": 690,
+          "width": 670
+        },
+        "cta": {
+          "top": 804.75,
+          "bottom": 844.75,
+          "left": 20,
+          "right": 162.5625,
+          "width": 142.5625
+        }
+      }
+    },
+    {
+      "scene": "historical-stored",
+      "file": "historical-stored-720-dark.png",
+      "theme": "dark",
+      "sha256": "04d14b388dac4cf61e808cc8c01299083334a3f5fcae3598ac661818cdf861b3",
+      "geometry": {
+        "width": 720,
+        "height": 980,
+        "scrollWidth": 720,
+        "clientWidth": 720,
+        "focusId": "bmad-receipt-visual-help-history",
+        "help": {
+          "top": 623.421875,
+          "bottom": 909.53125,
+          "left": 20,
+          "right": 690,
+          "width": 670
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "partial-save-error",
+      "file": "partial-save-error-720-dark.png",
+      "theme": "dark",
+      "sha256": "0ab5149b25cfb4ac07aa5cd9e3d483d46763514c14a3a3541356d682d538d132",
+      "geometry": {
+        "width": 720,
+        "height": 980,
+        "scrollWidth": 720,
+        "clientWidth": 720,
+        "focusId": "bmad-receipt-visual-help-partial",
+        "help": {
+          "top": 601.421875,
+          "bottom": 866.09375,
+          "left": 20,
+          "right": 690,
+          "width": 670
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "partial-retry-saved",
+      "file": "partial-retry-saved-720-dark.png",
+      "theme": "dark",
+      "sha256": "176bc56a8c430839c64bedafa95201232305478fd665b70706c9e6b0cc92b3d1",
+      "geometry": {
+        "width": 720,
+        "height": 980,
+        "scrollWidth": 720,
+        "clientWidth": 720,
+        "focusId": "bmad-receipt-visual-help-partial",
+        "help": {
+          "top": 675.421875,
+          "bottom": 940.09375,
+          "left": 20,
+          "right": 690,
+          "width": 670
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "ready",
+      "file": "ready-720-light.png",
+      "theme": "light",
+      "sha256": "ec6d568358465581487fa07b71c66439558cc3ea650738f25f04e5af863fe92d",
+      "geometry": {
+        "width": 720,
+        "height": 980,
+        "scrollWidth": 720,
+        "clientWidth": 720,
+        "focusId": "",
+        "help": {
+          "top": 349.6875,
+          "bottom": 1197.34375,
+          "left": 20,
+          "right": 690,
+          "width": 670
+        },
+        "cta": {
+          "top": 804.75,
+          "bottom": 844.75,
+          "left": 20,
+          "right": 162.5625,
+          "width": 142.5625
+        }
+      }
+    },
+    {
+      "scene": "initial-reading",
+      "file": "initial-reading-720-light.png",
+      "theme": "light",
+      "sha256": "ca003a679f7839899ec70090813db30f4f515184f735e84a20240a79dc9257fc",
+      "geometry": {
+        "width": 720,
+        "height": 980,
+        "scrollWidth": 720,
+        "clientWidth": 720,
+        "focusId": "",
+        "help": {
+          "top": 349.6875,
+          "bottom": 594.5625,
+          "left": 20,
+          "right": 690,
+          "width": 670
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "error-retained",
+      "file": "error-retained-720-light.png",
+      "theme": "light",
+      "sha256": "9ade5825446f06e5144acadeff6b51a3038ad425ab9e58cee8b846912cb7d086",
+      "geometry": {
+        "width": 720,
+        "height": 980,
+        "scrollWidth": 720,
+        "clientWidth": 720,
+        "focusId": "",
+        "help": {
+          "top": 349.6875,
+          "bottom": 1248.21875,
+          "left": 20,
+          "right": 690,
+          "width": 670
+        },
+        "cta": {
+          "top": 804.75,
+          "bottom": 844.75,
+          "left": 20,
+          "right": 162.5625,
+          "width": 142.5625
+        }
+      }
+    },
+    {
+      "scene": "historical-stored",
+      "file": "historical-stored-720-light.png",
+      "theme": "light",
+      "sha256": "6922d1a48582dc45c38e21de072c3b3eb2d787b5944ee7d66db0d43e88835ae7",
+      "geometry": {
+        "width": 720,
+        "height": 980,
+        "scrollWidth": 720,
+        "clientWidth": 720,
+        "focusId": "bmad-receipt-visual-help-history",
+        "help": {
+          "top": 623.421875,
+          "bottom": 909.53125,
+          "left": 20,
+          "right": 690,
+          "width": 670
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "partial-save-error",
+      "file": "partial-save-error-720-light.png",
+      "theme": "light",
+      "sha256": "b1ace315c5244d19f0326b66b27c25f535190f3309c1968a0b17f7151bda4b54",
+      "geometry": {
+        "width": 720,
+        "height": 980,
+        "scrollWidth": 720,
+        "clientWidth": 720,
+        "focusId": "bmad-receipt-visual-help-partial",
+        "help": {
+          "top": 601.421875,
+          "bottom": 866.09375,
+          "left": 20,
+          "right": 690,
+          "width": 670
+        },
+        "cta": null
+      }
+    },
+    {
+      "scene": "partial-retry-saved",
+      "file": "partial-retry-saved-720-light.png",
+      "theme": "light",
+      "sha256": "e8fbfb2e4e614bfc414cbe481481a8539d6d8c61db3e0a07a7b492112bee3ad4",
+      "geometry": {
+        "width": 720,
+        "height": 980,
+        "scrollWidth": 720,
+        "clientWidth": 720,
+        "focusId": "bmad-receipt-visual-help-partial",
+        "help": {
+          "top": 675.421875,
+          "bottom": 940.09375,
+          "left": 20,
+          "right": 690,
+          "width": 670
+        },
+        "cta": null
+      }
+    }
+  ],
+  "cleanup": true,
+  "plannedScenes": [
+    "ready",
+    "initial-reading",
+    "error-retained",
+    "historical-stored",
+    "partial-save-error",
+    "partial-retry-saved"
+  ],
+  "limits": [
+    "Synthetic help IPC and receipts: no native help, provider transmission, durable retry or model success proved by these views.",
+    "Network/process observations begin only after instrumentation. No personal profile or data used.",
+    "Visual acceptance and WCAG compliance are not inferred."
+  ],
+  "activity": {
+    "blockedProcesses": 0,
+    "blockedNetwork": 0,
+    "retryAttempts": 2,
+    "commands": [
+      {
+        "type": "read",
+        "conversationId": null,
+        "projectId": null
+      },
+      {
+        "type": "prepare",
+        "conversationId": null,
+        "projectId": "visual-help-project"
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "prepare",
+        "conversationId": null,
+        "projectId": "visual-help-project"
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "prepare",
+        "conversationId": null,
+        "projectId": "visual-help-project"
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "prepare",
+        "conversationId": null,
+        "projectId": "visual-help-project"
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      }
+    ]
+  },
+  "status": "passed",
+  "activityAtClose": {
+    "blockedProcesses": 0,
+    "blockedNetwork": 0,
+    "retryAttempts": 2,
+    "commands": [
+      {
+        "type": "read",
+        "conversationId": null,
+        "projectId": null
+      },
+      {
+        "type": "prepare",
+        "conversationId": null,
+        "projectId": "visual-help-project"
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "prepare",
+        "conversationId": null,
+        "projectId": "visual-help-project"
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "prepare",
+        "conversationId": null,
+        "projectId": "visual-help-project"
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "prepare",
+        "conversationId": null,
+        "projectId": "visual-help-project"
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      },
+      {
+        "type": "retry-save",
+        "conversationId": "visual-help-partial",
+        "projectId": null
+      }
+    ]
+  },
+  "closeObserved": true,
+  "mainGone": true,
+  "remainingApplicationProcesses": [],
+  "childrenGone": true,
+  "finishedAt": "2026-11-02T11:40:15.516Z"
+}

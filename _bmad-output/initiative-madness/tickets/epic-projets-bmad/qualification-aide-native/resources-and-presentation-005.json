@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-11-02T13:34:05.797Z",
+  "directory": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\bmad-help-final-005",
+  "resources": [
+    {
+      "name": "bmad-help.md",
+      "sha256": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+      "bytes": 2120,
+      "packageExact": true,
+      "stagedExact": true
+    },
+    {
+      "name": "bmad-SKILL.md",
+      "sha256": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+      "bytes": 2524,
+      "packageExact": true,
+      "stagedExact": true
+    },
+    {
+      "name": "bootstrap.py",
+      "sha256": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+      "bytes": 2728,
+      "packageExact": true,
+      "stagedExact": true
+    },
+    {
+      "name": "capture.py",
+      "sha256": "b03a1d1426b75582aa279096aa373d3615b174c71498058bef61b09b280dafeb",
+      "bytes": 7514,
+      "packageExact": true,
+      "stagedExact": true
+    },
+    {
+      "name": "config_utils.py",
+      "sha256": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+      "bytes": 4212,
+      "packageExact": true,
+      "stagedExact": true
+    },
+    {
+      "name": "knowledge.py",
+      "sha256": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+      "bytes": 19356,
+      "packageExact": true,
+      "stagedExact": true
+    },
+    {
+      "name": "launcher.ps1",
+      "sha256": "6fc01b13548fd0e86b9095571b60b2fb4b429c7e7ae3044f63b7a4d9ca0f1a8f",
+      "bytes": 4881,
+      "packageExact": true,
+      "stagedExact": true
+    },
+    {
+      "name": "preflight.ps1",
+      "sha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+      "bytes": 2998,
+      "packageExact": true,
+      "stagedExact": true
+    },
+    {
+      "name": "resolve_config.py",
+      "sha256": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+      "bytes": 2459,
+      "packageExact": true,
+      "stagedExact": true
+    },
+    {
+      "name": "runtime_guard.py",
+      "sha256": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+      "bytes": 15890,
+      "packageExact": true,
+      "stagedExact": true
+    },
+    {
+      "name": "runtime.json",
+      "sha256": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+      "bytes": 100459,
+      "packageExact": true,
+      "stagedExact": true
+    },
+    {
+      "name": "supervision.ps1",
+      "sha256": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+      "bytes": 14507,
+      "packageExact": true,
+      "stagedExact": true
+    },
+    {
+      "name": "worker.py",
+      "sha256": "5045cdbfda9ead9c7eebd5c0a0ca0ff1fab5baafa0c50a6d17dfd5d3a481ff14",
+      "bytes": 19098,
+      "packageExact": true,
+      "stagedExact": true
+    }
+  ],
+  "nativeCopiesExact": 5,
+  "runtime": {
+    "entries": 735,
+    "treePin": "f0a980c65dfb91e4a7fc3e49d92786ccf5636dd270f2d049738fd4df57298de8"
+  },
+  "frozenSha256": "69afc7ca9d922429a2f00d0754df703469bffeb8581b7f422c251a4df486ca73",
+  "dependenciesUnchanged": true,
+  "limits": [
+    "Checks resource and staged bytes, not signature or external portability."
+  ],
+  "presentationByteIdenticalTo003": [
+    {
+      "name": "out/preload/index.js",
+      "sha256": "839eef3b1cba24287952f4e506fa984053022b8dee1910dbaba6fc0b555ec09e"
+    },
+    {
+      "name": "out/renderer/assets/chatgpt-mark-BzeLsF5q.svg",
+      "sha256": "88238fe3c01827061444b1732e28e0709e10f61b7941295955cb5889102264a7"
+    },
+    {
+      "name": "out/renderer/assets/index-a3rdRiTy.css",
+      "sha256": "6f041389fdb1ba7994f8208dbca4f9d50ec5a27cb1ce59b421eaa3e70ebd46bf"
+    },
+    {
+      "name": "out/renderer/assets/index-oD-NeTHM.js",
+      "sha256": "3e99c73bd3105498a0b7dcbafb78bb094ea0f335a5499a936ca06c77c3079190"
+    },
+    {
+      "name": "out/renderer/index.html",
+      "sha256": "43e007e0d952756d36d2c8722de9766cedd115b3e3724f803e1dd8ed1a2e048f"
+    }
+  ],
+  "legacyQualifiedHashEmbedded": true,
+  "asarSha256": "2583aebcffd14d7193e2bf0fdd8b7824f8b9396bb51eaac1ea2a0807a0e9d90a"
+}

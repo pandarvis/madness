@@ -8,6 +8,8 @@ files:
   - package.json
 asar: true
 extraResources:
+  - from: resources/bmad-help
+    to: bmad-help
   - from: resources/bmad-script-runner.py
     to: bmad-script-runner.py
 npmRebuild: false

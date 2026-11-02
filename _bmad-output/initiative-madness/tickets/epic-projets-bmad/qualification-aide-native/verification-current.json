@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "status": "in-review",
+  "backend": {
+    "tests": 351,
+    "pass": 351,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "logSha256": "47d8dbc884c459e83946d8dae489041e3cd3a978ff273dd1e75be42d5c73093f",
+    "files": [
+      "tests/appearance.test.mjs",
+      "tests/approvals-protocol.test.mjs",
+      "tests/approvals.test.mjs",
+      "tests/bmad-help-boundaries.test.mjs",
+      "tests/bmad-help-legacy.test.mjs",
+      "tests/bmad-help-partial-docs.test.mjs",
+      "tests/bmad-help-persistence-race.test.mjs",
+      "tests/bmad-help-protocol.test.mjs",
+      "tests/bmad-help-supervision.test.mjs",
+      "tests/bmad-help.test.mjs",
+      "tests/connection-oauth.test.mjs",
+      "tests/connection-probe.test.mjs",
+      "tests/connection-vault.test.mjs",
+      "tests/connection.test.mjs",
+      "tests/dialogue-profile.test.mjs",
+      "tests/dialogue-protocol.test.mjs",
+      "tests/dialogue-runtime.test.mjs",
+      "tests/dialogue.test.mjs",
+      "tests/epic-one-qualification.test.mjs",
+      "tests/forge-protocol.test.mjs",
+      "tests/forge.test.mjs",
+      "tests/foundation.test.mjs",
+      "tests/json-store-utf8.test.mjs",
+      "tests/lifecycle.test.mjs",
+      "tests/maintenance.test.mjs",
+      "tests/questions-protocol.test.mjs",
+      "tests/questions.test.mjs",
+      "tests/recovery-network.test.mjs",
+      "tests/recovery.test.mjs",
+      "tests/release.test.mjs",
+      "tests/windows-harness.test.mjs",
+      "tests/work-overview.test.mjs",
+      "tests/workflow-store.test.mjs",
+      "tests/workspace-design-qualification.test.mjs",
+      "scripts/qualification/codex.test.mjs"
+    ]
+  },
+  "ui": {
+    "registered": 39,
+    "unchangedPreviouslyPassed": 37,
+    "correctedLocatorsPassed": 2,
+    "skipped": 0,
+    "evidence": [
+      "global-diagnostic-initial.log",
+      "recovery-ui-locators.log"
+    ]
+  },
+  "coverage": {
+    "uniqueCases": 390,
+    "method": "consolidated, not one green monolithic command",
+    "reviewedBy": [
+      "Build Quick reviewer",
+      "independent high reviewer"
+    ]
+  },
+  "candidate": {
+    "id": "005",
+    "version": "0.2.0",
+    "asarSha256": "2583aebcffd14d7193e2bf0fdd8b7824f8b9396bb51eaac1ea2a0807a0e9d90a"
+  },
+  "native": {
+    "status": "failed-unsupported-interaction",
+    "localReadPassed": true,
+    "lastFailure": "UNSUPPORTED_INTERACTION after knowledge/config/required-context and five source reads",
+    "closedReceiptPassed": false,
+    "archived": false,
+    "publicGetStatus": 200,
+    "measuredAt": "2026-11-02T14:04:44.515Z",
+    "humanAcknowledgementPending": false
+  },
+  "review": {
+    "findings": 5,
+    "roots": 4,
+    "allRecheckedResolved": true,
+    "deferredCodeFixes": 0,
+    "newNativeFailureOpen": true
+  },
+  "limits": [
+    "The initial 371/387 run remains red.",
+    "Historical native003 success is not native005 proof.",
+    "Last child exited code0 and Madness/workspace were subsequently absent, but failed closure receipt is not promoted to passed.",
+    "No UI implementation, story2.3, profile cleanup, installation or provider replay by this checkpoint."
+  ]
+}

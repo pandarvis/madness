@@ -24,9 +24,9 @@ test('un ancien release ne libère ni ne bloque le bail suivant',async()=>{
 test('un propriétaire durable inconnu bloque également le témoin connexion avant OAuth ou probe',async()=>{
  let calls=0,status='unknown';const connection=new CodexConnection({vault:{read:async()=>null},now:()=>new Date(),openUsage:async()=>{},openPublicKeys:async()=>{},copyPublicKeys:async()=>{},recovery:{status:async()=>status,observeStop:async()=>status='stopped'},oauth:async()=>{calls++;throw Error()},refresh:async()=>{calls++;throw Error()},probe:async()=>{calls++;throw Error()}})
  await connection.read();await connection.command('connect');await new Promise(r=>setImmediate(r));assert.equal(calls,0);assert.equal((await connection.read()).errorCode,'STOP_UNCONFIRMED')
- status='stopped';connection.confirmRecoveryStop();assert.equal((await connection.read()).status,'disconnected')
+ status='stopped';await connection.confirmRecoveryStop();assert.equal((await connection.read()).status,'disconnected')
 })
 test('la fermeture possédée confirmée ne masque pas un coffre illisible',async()=>{
- const connection=new CodexConnection({vault:{read:async()=>{throw Object.assign(Error(),{code:'VAULT_UNREADABLE'})}},recovery:{status:async()=>'unknown',observeStop:async()=>'stopped'},now:()=>new Date(),openUsage:async()=>{},openPublicKeys:async()=>{},copyPublicKeys:async()=>{},oauth:async()=>{throw Error('interdit')},refresh:async()=>{throw Error()},probe:async()=>{throw Error()}})
- await connection.read();connection.confirmRecoveryStop();assert.equal((await connection.read()).errorCode,'VAULT_UNREADABLE')
+ let status='unknown';const connection=new CodexConnection({vault:{read:async()=>{throw Object.assign(Error(),{code:'VAULT_UNREADABLE'})}},recovery:{status:async()=>status,observeStop:async()=>'stopped'},now:()=>new Date(),openUsage:async()=>{},openPublicKeys:async()=>{},copyPublicKeys:async()=>{},oauth:async()=>{throw Error('interdit')},refresh:async()=>{throw Error()},probe:async()=>{throw Error()}})
+ await connection.read();status='stopped';await connection.confirmRecoveryStop();assert.equal((await connection.read()).errorCode,'VAULT_UNREADABLE')
 })

@@ -2,7 +2,9 @@ import { createHash } from 'node:crypto'
 import { lstat, readFile, readdir, realpath } from 'node:fs/promises'
 import { isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { dialogueFailure } from '../../contracts/dialogue.ts'
-const runtimeFingerprint = '0f3ef35995160c8db3b4892d9bb3bd9ea0eba75634d4fc4505eef13e7ce56f92'
+const runtimeFingerprint = 'eaffa289643c1f9f91e7f32a23d06025988ee7e2b7efc0a12298a0997e626e40'
+// La politique historique omet les .pem : ce réglage TLS est vérifié séparément.
+const rejectedCaFingerprint = 'c916ce1b14ed8ca69e9b5c9fab22799a900dd610d6d4ec9b1347f4fd48e53718'
 const uvFingerprint = '2bfbe53d3cc95799e98fa08323b04844fc01d4f8c87dd5c00089e43f6554f162'
 export async function verifyRuntimeFile(path: string, expected: string): Promise<void> { if (!(await lstat(path)).isFile() || createHash('sha256').update(await readFile(path)).digest('hex') !== expected) throw dialogueFailure('RESOLVER_FAILED') }
 export async function runtimeTreeFingerprint(root: string): Promise<string> {
@@ -23,6 +25,7 @@ export async function bmadRuntime(projectRoot?: string): Promise<{ uv: string; p
   const uv = await realpath(join(user, 'scoop/apps/uv/current/uv.exe'))
   if (projectRoot) for (const path of [root, uv]) { const distance = relative(resolve(projectRoot), path); if (!distance || !isAbsolute(distance) && distance !== '..' && !distance.startsWith('..' + sep)) throw dialogueFailure('RESOLVER_FAILED') }
   await verifyRuntimeFile(uv, uvFingerprint)
+  try { await verifyRuntimeFile(join(root, 'Lib/codex-rejected-cas.pem'), rejectedCaFingerprint) } catch { throw dialogueFailure('RESOLVER_FAILED') }
   if (await runtimeTreeFingerprint(root) !== runtimeFingerprint) throw dialogueFailure('RESOLVER_FAILED')
   return { uv, python: join(root, 'python.exe') }
 }

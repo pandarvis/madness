@@ -1,0 +1,281 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-11-02T11:12:52.808Z",
+  "mode": "real-local-helper-no-provider",
+  "runtime": {
+    "entries": 735,
+    "treePin": "f0a980c65dfb91e4a7fc3e49d92786ccf5636dd270f2d049738fd4df57298de8",
+    "source": "current-primary-cache-26.1026.10807-python-3.12.14",
+    "provenance": "40 Valid OpenAI signatures, CPython3.12.14 ssl.py plus Codex rejected CA configuration, unchanged exact PEM",
+    "priorReplacementDateOrVersion": "not established"
+  },
+  "pins": {
+    "resources": 13,
+    "nativeBytesExact": 5
+  },
+  "copyRemovedAfterStopped": true,
+  "local": {
+    "schemaVersion": 1,
+    "mode": "synthetic-real-local-helper-no-provider",
+    "witness": {
+      "root": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\.working\\help22-worker-local-006\\project",
+      "id": "help-1cf9282d-2ad9-4a8e-958a-b09cfad5492e",
+      "initiative": "initiative-help-witness"
+    },
+    "bundleRevision": "c07627ac4614dd2fd1fbfb46b7411e7cf37c753ba6319bcaf949f71f7944675d",
+    "documents": [
+      {
+        "source": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\.working\\help22-worker-local-006\\project\\.agents\\skills\\bmod-core-tools\\help\\help.md",
+        "sha256": "d06a92b42f77c1ba50369ea6398f191c52042a1e2504a7b306d03a431fecde83",
+        "bytes": 7776,
+        "module": "core-tools"
+      },
+      {
+        "source": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\.working\\help22-worker-local-006\\project\\.agents\\skills\\bmod-method\\help\\help.md",
+        "sha256": "c67ef5332c7e83f5fe8b21bb932416498b33adfe784eacd7e7d27e22be2cfa11",
+        "bytes": 19241,
+        "module": "method"
+      },
+      {
+        "source": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\.working\\help22-worker-local-006\\project\\.agents\\skills\\bmod-toolsmith\\help\\help.md",
+        "sha256": "1714dd0e27c8e8b2fd7960c6822240cb8ce387a23c2427b87435b2dca7ab4a9b",
+        "bytes": 11481,
+        "module": "toolsmith"
+      }
+    ],
+    "nativeReady": true,
+    "problems": [
+      "method: missing bmad-retrospective"
+    ],
+    "knowledgeExact": true,
+    "configExact": true,
+    "helperStopped": "stopped",
+    "phases": [
+      {
+        "name": "prepare",
+        "durationMs": 28022
+      },
+      {
+        "name": "fresh",
+        "durationMs": 15568
+      },
+      {
+        "name": "native-knowledge",
+        "durationMs": 15407
+      },
+      {
+        "name": "native-config",
+        "durationMs": 14465
+      },
+      {
+        "name": "read-required-context",
+        "durationMs": 14751
+      }
+    ]
+  },
+  "timings": [
+    {
+      "operation": "native",
+      "kind": "config",
+      "phases": {
+        "resources_ms": 1230,
+        "runtime_copy_ms": 85,
+        "runtime_guard_ms": 3614,
+        "native_group_ms": 7144
+      },
+      "native": {
+        "worker_ms": 4952,
+        "runtime_guard_ms": 1390
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 18696,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 101,
+        "elapsed_ms": 6866
+      },
+      "terminal": {
+        "schemaVersion": 1,
+        "generation": "help-2790add5-24ab-4195-8958-b4439b8d7ef9",
+        "purpose": "bmad-readonly",
+        "terminal": true,
+        "jobAssigned": true,
+        "jobActive": 0,
+        "neverStarted": false
+      }
+    },
+    {
+      "operation": "read",
+      "kind": null,
+      "phases": {
+        "resources_ms": 1253,
+        "runtime_copy_ms": 92,
+        "runtime_guard_ms": 4291,
+        "native_group_ms": 6692
+      },
+      "native": {
+        "worker_ms": 4707,
+        "runtime_guard_ms": 1377
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 54604,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 92,
+        "elapsed_ms": 6433
+      },
+      "terminal": {
+        "schemaVersion": 1,
+        "generation": "help-e730eecd-dbf5-40a6-a8c5-a43413357755",
+        "purpose": "bmad-readonly",
+        "terminal": true,
+        "jobAssigned": true,
+        "jobActive": 0,
+        "neverStarted": false
+      }
+    },
+    {
+      "operation": "fresh",
+      "kind": null,
+      "phases": {
+        "resources_ms": 1592,
+        "runtime_copy_ms": 76,
+        "runtime_guard_ms": 3861,
+        "native_group_ms": 7141
+      },
+      "native": {
+        "worker_ms": 5002,
+        "runtime_guard_ms": 1263
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 40720,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 89,
+        "elapsed_ms": 6854
+      },
+      "terminal": {
+        "schemaVersion": 1,
+        "generation": "help-34673a6f-d70b-4485-bc86-96ebe1730a4d",
+        "purpose": "bmad-readonly",
+        "terminal": true,
+        "jobAssigned": true,
+        "jobActive": 0,
+        "neverStarted": false
+      }
+    },
+    {
+      "operation": "native",
+      "kind": "knowledge",
+      "phases": {
+        "resources_ms": 1243,
+        "runtime_copy_ms": 49,
+        "runtime_guard_ms": 3648,
+        "native_group_ms": 8187
+      },
+      "native": {
+        "worker_ms": 5332,
+        "runtime_guard_ms": 1327
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 48364,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 93,
+        "elapsed_ms": 7862
+      },
+      "terminal": {
+        "schemaVersion": 1,
+        "generation": "help-b68e0e0b-1863-4169-ba06-a9710694b596",
+        "purpose": "bmad-readonly",
+        "terminal": true,
+        "jobAssigned": true,
+        "jobActive": 0,
+        "neverStarted": false
+      }
+    },
+    {
+      "operation": "prepare",
+      "kind": null,
+      "phases": {
+        "resources_ms": 1885,
+        "runtime_copy_ms": 9141,
+        "runtime_guard_ms": 3310,
+        "native_group_ms": 11445
+      },
+      "native": {
+        "worker_ms": 8754,
+        "runtime_guard_ms": 1206
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 13392,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 88,
+        "elapsed_ms": 11199
+      },
+      "terminal": {
+        "schemaVersion": 1,
+        "generation": "help-c72e4cbd-3e9b-42b7-a0fd-c3b02ec1db38",
+        "purpose": "bmad-readonly",
+        "terminal": true,
+        "jobAssigned": true,
+        "jobActive": 0,
+        "neverStarted": false
+      }
+    }
+  ],
+  "tests": {
+    "m2PartialDocuments": 15,
+    "windowsBoundaries": 25,
+    "legacyPresence": 18,
+    "skipped": 0,
+    "symlinkFile": "not exercised; Windows privilege not requested"
+  },
+  "noExternalMutationOrProvider": true
+}

@@ -1,3 +1,4 @@
+import type {BmadHelpCoordinator} from './bmad-help.ts'
 import {isApprovalRecord,isApprovalFiles,isApprovalResult,MAX_APPROVALS} from '../contracts/approvals.ts'
 import type {ApprovalRecord} from '../contracts/approvals.ts'
 import type {ApprovalPort,ApprovalResponder,ApprovalObserver} from './ports.ts'
@@ -14,7 +15,7 @@ import type {RunRecoveryPort} from './ports.ts'
 import type {ApprovalFile} from '../contracts/approvals.ts'
 import {INSPECTION_MAX_AGE_MS} from '../contracts/recovery.ts'
 import type {FileInspection} from '../contracts/recovery.ts'
-type Dependencies = { application: Application;recovery?:RunRecoveryPort;inspectApproval?(rootPath:string,files:ApprovalFile[]):Promise<FileInspection>; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void): Promise<DialogueSession> }
+type Dependencies = { application: Application;help?:BmadHelpCoordinator;recovery?:RunRecoveryPort;inspectApproval?(rootPath:string,files:ApprovalFile[]):Promise<FileInspection>; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void): Promise<DialogueSession> }
 /** Une seule session native possédée. Les travaux longs ne monopolisent jamais la queue disque. */
 export class DialogueCoordinator {
   private state = initialDialogueState()
@@ -40,6 +41,7 @@ export class DialogueCoordinator {
   private restoration:Promise<void>|null=null
   private deps: Dependencies
   constructor(deps: Dependencies) { this.deps = deps;deps.application.subscribe(()=>{if(this.approvalResponders.size)void deps.application.execute({contractVersion:1,correlationId:'approval-context-check',type:'read-state'}).then(reply=>{if(reply.ok&&reply.value.state.activeProjectId!==this.state.context.projectId){this.invalidateApprovals('changed');this.controller?.abort()}})}) }
+  markRecoveryUnknown():void{this.blocked=true;this.controller?.abort();this.update({status:'unknown',errorCode:'STOP_UNCONFIRMED',recovery:{...this.state.recovery,stop:'unconfirmed'}})}
   read(): DialogueState { return structuredClone(this.state) }
   private outputFull():boolean{return this.state.messages.length>MAX_SESSION_MESSAGES-MAX_TURN_MESSAGES||this.state.messages.reduce((n,m)=>n+m.text.length,0)>MAX_SESSION_TEXT-MAX_DRAFT_LENGTH}
   subscribe(listener: (state: DialogueState) => void): () => void { this.listeners.add(listener); return () => this.listeners.delete(listener) }
@@ -62,7 +64,7 @@ export class DialogueCoordinator {
     if (this.blocked) return { ...this.read(), errorCode: 'STOP_UNCONFIRMED' }
     if (this.active) return { ...this.read(), errorCode: 'BUSY' }
     if(input.type==='inspect-approval'){if(this.session)return {...this.read(),errorCode:'BUSY'};this.controller=new AbortController();this.update({status:'inspecting'});this.schedule(()=>this.inspect(input.approvalId));return this.read()}
-    if ((input.type==='send'||input.type==='launch'||input.type==='launch-forge')&&this.outputFull())return {...this.read(),errorCode:'OUTPUT_REFUSED'}
+    if ((input.type==='send'||input.type==='launch'||input.type==='launch-forge'||input.type==='launch-help')&&this.outputFull())return {...this.read(),errorCode:'OUTPUT_REFUSED'}
     if (input.type === 'send') {
       if (!this.session || input.projectId !== this.state.context.projectId || input.conversationId !== this.state.context.conversationId || this.state.status !== 'ready') return { ...this.read(), errorCode: 'CONTEXT_MISMATCH' }
       this.update({ status: 'running', acknowledged: false, errorCode: null })
@@ -71,7 +73,7 @@ export class DialogueCoordinator {
       if (this.session) return { ...this.read(), errorCode: 'BUSY' }
       if(input.type!=='launch-forge')this.qualifiedForge=null
       this.controller = new AbortController()
-      this.update({ status: 'qualifying', context: { ...initialDialogueState().context, projectId: input.projectId }, mode:input.type==='launch'?(input.mode??'read-only'):'read-only',invocation:input.type.endsWith('forge')?'$bmad-forge-idea':'$bmad-agent-analyst', acknowledged: false, errorCode: null, profile: input.type==='launch-forge'?this.state.profile:null, activities: [], turn:null })
+      this.update({ status: 'qualifying', context: { ...initialDialogueState().context, projectId: input.projectId }, mode:input.type==='launch'?(input.mode??'read-only'):'read-only',invocation:input.type==='launch-help'?'$bmad':input.type.endsWith('forge')?'$bmad-forge-idea':'$bmad-agent-analyst', acknowledged: false, errorCode: null, profile: input.type==='launch-forge'?this.state.profile:null, activities: [], turn:null })
       this.schedule(() => this.launch(input))
     }
     return this.read()
@@ -219,7 +221,7 @@ export class DialogueCoordinator {
     this.update({ status: stopped === 'unknown' ? 'unknown' : code === 'CANCELLED' ? 'stopped' : 'error', errorCode: stopped === 'unknown' ? 'STOP_UNCONFIRMED' : code })
     await this.persistActivity(stopped === 'unknown' ? 'unknown' : 'interrupted').catch(() => this.update({ status: 'unknown', errorCode: 'STORAGE_WRITE_FAILED' }))
   }).finally(() => { this.active = null }) }
-  private async launch(input: Extract<DialogueCommand, { projectId: string }> & {type:'qualify'|'launch'|'qualify-forge'|'launch-forge'}): Promise<void> {
+  private async launch(input: Extract<DialogueCommand, { projectId: string }> & {type:'qualify'|'launch'|'qualify-forge'|'launch-forge'|'launch-help'}): Promise<void> {
     const prepared=this.qualifiedForge
     if(input.type==='launch-forge'){
       if(!prepared||prepared.projectId!==input.projectId)throw dialogueFailure('PROFILE_UNRECOGNIZED')
@@ -228,7 +230,7 @@ export class DialogueCoordinator {
     const project = await this.deps.application.dialogueProject(input.projectId)
     const qualify=input.type.endsWith('forge')?this.deps.qualifyForge:this.deps.qualify
     if(!qualify)throw dialogueFailure('UNSUPPORTED_INTERACTION')
-    const profile = {...await qualify(project.rootPath, this.controller!.signal),mode:this.state.mode}
+    const profile = {...await (input.type==='launch-help'?this.deps.help!.profile(project.id,this.controller!.signal):qualify(project.rootPath, this.controller!.signal)),mode:this.state.mode}
     this.controller!.signal.throwIfAborted()
     if(input.type==='launch-forge'){
       const previous=prepared!.profile
@@ -239,7 +241,7 @@ export class DialogueCoordinator {
       this.qualifiedForge={projectId:input.projectId,profile:structuredClone(profile)}
     }
     this.update({ status: 'qualified', profile: { fingerprint: profile.fingerprint, skillPath: profile.skillPath,...(profile.forge?{outputBase:profile.forge.outputBase}:{}) } })
-    this.activity(profile.kind==='forge'?'Profil Forge, roster, hooks, sorties et dépendances vérifiés':'Profil Mary et dépendances vérifiés · lecture seule')
+    this.activity(profile.kind==='help'?'Aides BMad, contexte et sources vérifiés · lecture seule':profile.kind==='forge'?'Profil Forge, roster, hooks, sorties et dépendances vérifiés':'Profil Mary et dépendances vérifiés · lecture seule')
     if (input.type.startsWith('qualify')) return
     this.update({ status: 'starting' })
     await this.freshInspections(project.id,profile.kind==='forge'||profile.mode==='file-approval');
@@ -248,6 +250,7 @@ export class DialogueCoordinator {
     this.controller!.signal.throwIfAborted()
     const conversation = await this.deps.application.dialoguePersist(project.id, null, value => { value.lastKnownActivity = 'running' }, this.session.context,input.correlationId)
     this.update({ context: conversation.context })
+    if(this.session.help){if(!this.deps.help)throw dialogueFailure('STORAGE_WRITE_FAILED');await this.deps.help.begin(this.session.help.bundle,conversation.context);this.session.help.bind(r=>this.deps.help!.tool(conversation.id,r))}
     if(this.session.workflow){
       if(!this.deps.workflows)throw dialogueFailure('STORAGE_WRITE_FAILED')
       const record:WorkflowRecord={schemaVersion:1,conversationId:conversation.id,context:conversation.context,invocation:'$bmad-forge-idea',capturedAt:new Date().toISOString(),rootPath:profile.rootPath,outputBase:this.session.workflow.outputBase,contextDigest:this.session.workflow.contextDigest,fingerprint:profile.fingerprint,skillPath:profile.skillPath,workspace:null,outcome:'open',observations:[]}
@@ -336,9 +339,10 @@ export class DialogueCoordinator {
       await this.deps.application.dialoguePersist(projectId, conversationId, value => { value.lastKnownActivity = 'running' },undefined,requestId)
       const text = await this.session.turn(input?.text ?? null, async () => {
         if(acknowledged)throw dialogueFailure('CONTEXT_MISMATCH')
-        await this.deps.application.dialoguePersist(projectId, conversationId, value => { value.messages.push({ id:turnId+'-request', role: 'user', text: input?.text ?? this.state.invocation }) },undefined,requestId)
+        await this.deps.application.dialoguePersist(projectId, conversationId, value => { value.messages.push({ id:turnId+'-request', role: 'user', text: input?.text ?? (this.state.invocation==='$bmad'?'$bmad\nQue faire ensuite ?':this.state.invocation) }) },undefined,requestId)
         acknowledged=true;this.update({ status:this.controller?.signal.aborted?'stopping':'running', acknowledged: true,turn:{id:turnId,requestId,context,phase:this.controller?.signal.aborted?'interrupted':'streaming'} }); this.activity('Envoi acquitté par Codex · conversation capturée')
       },observe,onQuestion,onApproval)
+      if(this.session.help)await this.deps.help!.response(conversationId,turnId,text,this.session.help.nativeTurn?.())
       await Promise.all(this.answerSettlements.values());await Promise.all(this.approvalSettlements.values());await Promise.all(this.approvalEffects)
       if(!acknowledged||!text.trim())throw dialogueFailure('PROVIDER_FAILED')
       // Compatibilité du port : un adaptateur sans flux peut fournir un unique item final.
@@ -358,8 +362,8 @@ export class DialogueCoordinator {
     }finally{closed=true;this.invalidateQuestions('stopped');this.invalidateApprovals('stopped');clearTimeout(timer);clearTimeout(projectionTimer);await writing;await this.questionWrites;await this.approvalWrites}
   }
   private async persistActivity(activity: 'idle' | 'interrupted' | 'unknown'): Promise<void> { const { projectId, conversationId } = this.state.context; if (projectId && conversationId) await this.deps.application.dialoguePersist(projectId, conversationId, value => { value.lastKnownActivity = activity },undefined,this.state.turn?.requestId??'dialogue-lifecycle') }
-  private async stopSession(recoverShared=false): Promise<'stopped' | 'unknown'> { const control=this.stopControl??this.session;this.session=null;let outcome:'stopped'|'unknown'=this.blocked?'unknown':'stopped';try{if(control)outcome=await control.stop();else if(recoverShared&&this.deps.recovery)outcome=await this.deps.recovery.observeStop()}catch{outcome='unknown'}this.blocked=outcome==='unknown';if(!this.blocked)this.stopControl=null;else if(control)this.stopControl=control;this.update({recovery:{...this.state.recovery,stop:this.blocked?'unconfirmed':'clear'}});return outcome }
-  private async stop(): Promise<void> { const outcome = await this.stopSession(true); await this.persistActivity(outcome === 'stopped' ? 'idle' : 'unknown'); this.update({ status: outcome, errorCode: outcome === 'unknown' ? 'STOP_UNCONFIRMED' : null,...(this.state.turn&&this.state.turn.phase!=='completed'?{turn:{...this.state.turn,phase:outcome==='unknown'?'unknown' as const:'interrupted' as const}}:{}) }); this.activity(outcome === 'stopped' ? 'Processus Codex arrêté' : 'Arrêt Codex non confirmé') }
+  private async stopSession(recoverShared=false): Promise<'stopped' | 'unknown'> { const control=this.stopControl??this.session;this.session=null;let outcome:'stopped'|'unknown'=this.blocked?'unknown':'stopped';try{if(control)outcome=await control.stop();if(recoverShared&&this.deps.recovery){const aggregate=await this.deps.recovery.observeStop();outcome=control?(outcome==='stopped'&&aggregate==='stopped'?'stopped':'unknown'):aggregate}if(control&&!recoverShared&&this.deps.recovery&&await this.deps.recovery.status()!=='stopped')outcome='unknown'}catch{outcome='unknown'}this.blocked=outcome==='unknown';if(!this.blocked)this.stopControl=null;else if(control)this.stopControl=control;this.update({recovery:{...this.state.recovery,stop:this.blocked?'unconfirmed':'clear'}});return outcome }
+  private async stop(): Promise<void> { const outcome = await this.stopSession(true); await this.persistActivity(outcome === 'stopped' ? 'idle' : 'unknown'); this.update({ status: outcome, errorCode: outcome === 'unknown' ? 'STOP_UNCONFIRMED' : null,...(this.state.turn&&this.state.turn.phase!=='completed'?{turn:{...this.state.turn,phase:outcome==='unknown'?'unknown' as const:'interrupted' as const}}:{}) }); this.activity(outcome === 'stopped' ? 'Ressources possédées arrêtées' : 'Arrêt de Codex ou de l’outil local non confirmé') }
   async settled(): Promise<void> { await this.active }
   async shutdown(): Promise<'stopped' | 'unknown'> { this.closing = true;this.invalidateQuestions('stopped');this.invalidateApprovals('stopped'); this.controller?.abort(); await this.active;await this.questionWrites;await this.approvalWrites; await this.stop(); return this.blocked ? 'unknown' : 'stopped' }
 }

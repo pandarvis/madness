@@ -1,0 +1,30 @@
+✔ progression stable, stockage groupé, identité figée et demande réelle ; texte partiel gardé sur coupure (56.3994ms)
+✔ un refus disque garde le texte visible avec conservation non confirmée (8.0872ms)
+✔ la projection refuse un volume cumulé excessif sans étendre Snapshot v1 (1.141ms)
+✔ arrêt pendant un lot en écriture draine le partiel et le brouillon admis sans état ready (120.8389ms)
+✔ un acquittement en écriture ne réannonce pas running après une demande d’arrêt (5.907ms)
+✔ contrat dialogue refuse propriétés natives, chemins, texte vide et effets implicites (1.4018ms)
+✔ qualification bloque le modèle, conversation conserve contexte et accusé durable sans bloquer la navigation (12.9702ms)
+✔ contexte étranger refusé et erreur de sauvegarde ne devient jamais succès (5.9114ms)
+✔ arrêt inconnu interdit tout nouveau lancement et garde le dernier contexte (6.7852ms)
+✔ annuler pendant la qualification ne lance aucun fournisseur et laisse le brouillon intact (22.5779ms)
+✔ arrêter pendant l’écriture finale ferme Codex sans rétablir ready (stopped) (14.3726ms)
+✔ arrêter pendant l’écriture finale ferme Codex sans rétablir ready (unknown) (6.0756ms)
+✔ Forge conserve invocation, contexte et observations avant effets ; restauration sans moteur et copie confirmée (5.5246ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : missing (1.8226ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : fingerprint (2.1333ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : skillPath (1.2014ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : outputBase (1.973ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : initiativeId (1.2737ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : contextDigest (3.0177ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : rootPath (2.3523ms)
+✔ la limite de 200 workflows bloque Forge avant le fournisseur et permet restauration et Mary (55.3202ms)
+✔ help ACK stores the exact initial native question and restores it without launching anything (8.2859ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1165.511

@@ -1,0 +1,19 @@
+J’utilise le skill natif BMAD pour établir la prochaine action à partir de l’état réel du projet, en lecture seule. Je vais d’abord charger ses règles et sa configuration, puis lire toutes les sources qu’il exige avant de formuler la recommandation.
+
+Le contexte actif est bien identifié : une initiative au statut brouillon, sans brief, PRD ni décision humaine sur la solution. Je vérifie maintenant l’aide des modules installés afin de comparer la voie recommandée aux alternatives réellement disponibles.
+
+La prochaine étape recommandée est de parler à **Sofia, la Product Owner** avec `bmad-agent-po`.
+
+Pourquoi : l’initiative existe déjà, mais elle est encore au stade brouillon. Le besoin utilisateur, les exigences et la solution restent à clarifier, et aucun livrable n’a été adopté. Sofia peut transformer l’idée actuelle en exigences explicites, faire ressortir les questions ouvertes, puis proposer un découpage adapté. Rien ne sera considéré comme accepté sans votre décision.
+
+Alternatives pertinentes :
+
+- `bmad-product-brief` si vous préférez d’abord formaliser l’idée dans un document léger et partageable.
+- `bmad-forge-idea` si vous n’arrivez pas encore à définir clairement l’utilisateur ou le problème.
+- `bmad-prfaq` si votre doute principal est de savoir si l’application mérite d’être construite.
+- `bmad-prd` si vous voulez directement élaborer des exigences détaillées.
+- `bmad-ux` si l’essentiel doit être exploré par les écrans et les parcours.
+
+Je ne recommande pas encore `bmad-build` : le ticket « Clarifier le besoin avant de construire » est toujours `todo`, et aucune solution n’a reçu d’accord humain.
+
+Prochaine action attendue : choisissez l’une de ces voies. La voie par défaut serait de lancer, dans un nouveau contexte : **« $bmad-agent-po — Clarifie les exigences de l’initiative active à partir de l’idée existante. »** Aucun travail n’a été lancé ici.

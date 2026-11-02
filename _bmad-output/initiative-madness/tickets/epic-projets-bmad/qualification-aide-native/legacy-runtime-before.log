@@ -1,0 +1,34 @@
+✖ le runtime choisi est hors projet et une copie binaire altérée ne peut pas être exécutée (11929.2308ms)
+✖ legacy runtime PEM guard rejects altered or missing copied CA data before Mary or Forge can start UV (13860.892ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 26438.5318
+
+✖ failing tests:
+
+test at tests\dialogue-runtime.test.mjs:11:1
+✖ le runtime choisi est hors projet et une copie binaire altérée ne peut pas être exécutée (11929.2308ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at Module.bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/dialogue-runtime.test.mjs:13:19)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\dialogue-runtime.test.mjs:22:1
+✖ legacy runtime PEM guard rejects altered or missing copied CA data before Mary or Forge can start UV (13860.892ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at Module.bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/dialogue-runtime.test.mjs:39:17)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }

@@ -1,0 +1,19 @@
+✖ M2 partial documents and structurally invalid configuration retain independent safe help (108869.6176ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 109397.3516
+
+✖ failing tests:
+
+test at tests\bmad-help-partial-docs.test.mjs:85:1
+✖ M2 partial documents and structurally invalid configuration retain independent safe help (108869.6176ms)
+  Error: {"execution":{"schema":5,"outcome":"completed","exit":1,"started":true,"owned":[],"cleanup":[],"results_present":false,"job_assigned_before_resume":true,"pid":36896,"active_before_stop":0,"job_active_after_stop":0,"stop_ms":1,"drain_ms":1282,"elapsed_ms":30830},"stdout":"","stderr":"Traceback (most recent call last):\r\n  File \"<string>\", line 68, in <module>\r\n  File \"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-boundaries-XjApwb\\resources\\cases.py\", line 75, in <module>\r\n    assert not review_failures,json.dumps(review_failures)\r\n           ^^^^^^^^^^^^^^^^^^^\r\nAssertionError: [{\"variant\": \"output-absent\", \"error\": \"output-absent refuses native help capability documents=[{\\\"id\\\": \\\"source-3\\\", \\\"source\\\": \\\"C:\\\\\\\\Users\\\\\\\\UP60066553\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\madness-help-boundaries-XjApwb\\\\\\\\output-absent\\\\\\\\.agents\\\\\\\\skills\\\\\\\\bmod-safe\\\\\\\\help\\\\\\\\help.md\\\", \\\"snapshot\\\": \\\"\\\\\\\\\\\\\\\\?\\\\\\\\C:\\\\\\\\Users\\\\\\\\UP60066553\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\madness-help-boundaries-XjApwb\\\\\\\\snapshot-output-absent\\\\\\\\skills-0\\\\\\\\bmod-safe\\\\\\\\help\\\\\\\\help.md\\\", \\\"sha256\\\": \\\"7929a100d8623daef211f63e32edf715a2328378a11e7d33f7b04588f73d551c\\\", \\\"bytes\\\": 29, \\\"text\\\": \\\"Independent safe help exact.\\\\n\\\", \\\"module\\\": \\\"safe\\\", \\\"skills\\\": [\\\"bmad\\\"]}] problems=[]\"}, {\"variant\": \"skill-oversized\", \"error\": \"FILE_LIMIT\"}, {\"variant\": \"help-oversized\", \"error\": \"FILE_LIMIT\"}]\r\n"}
+      at runHelpSourcesCase (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/helpers/help-native.mjs:38:64)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-help-partial-docs.test.mjs:85:120)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

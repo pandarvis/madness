@@ -1,0 +1,46 @@
+✖ confirm rejection after begin releases helper admission and shutdown without claiming a stop (1803.5721ms)
+✖ help ACK stores the exact initial native question and restores it without launching anything (19.062ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2656.3214
+
+✖ failing tests:
+
+test at tests\bmad-help.test.mjs:235:1
+✖ confirm rejection after begin releases helper admission and shutdown without claiming a stop (1803.5721ms)
+  AssertionError [ERR_ASSERTION]: shutdown must settle after confirm rejects
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-help.test.mjs:253:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: true,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\dialogue.test.mjs:194:1
+✖ help ACK stores the exact initial native question and restores it without launching anything (19.062ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '$bmad'
+  - '$bmad\nQue faire ensuite ?'
+          ^
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/dialogue.test.mjs:204:9)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '$bmad',
+    expected: '$bmad\nQue faire ensuite ?',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,9 +1,15 @@
+import {BmadHelpAdapter} from '../adapters/bmad/help.ts'
+import {HelpOwnedRun} from '../adapters/bmad/help-owned-run.ts'
+import {BmadHelpStore} from '../adapters/persistence/bmad-help-store.ts'
+import {BmadHelpCoordinator} from '../core/bmad-help.ts'
+import {ActivityAdmission} from '../core/lifecycle.ts'
+import {HELP_COMMAND_CHANNEL,HELP_EVENT_CHANNEL,isHelpCommand,isHelpState,initialHelpState} from '../contracts/bmad-help.ts'
 import {ApprovalStore} from '../adapters/persistence/approval-store.ts'
 import {RecoveryStore} from '../adapters/persistence/recovery-store.ts'
 import {OwnedRun} from '../adapters/codex/owned-run.ts'
 import {inspectApprovalFiles} from '../adapters/codex/file-proposals.ts'
 import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, protocol, net, session, Menu, safeStorage, shell } from 'electron'
-import { realpath, stat, access } from 'node:fs/promises'
+import { realpath, stat, access, mkdir } from 'node:fs/promises'
 import { constants } from 'node:fs'
 import { basename, isAbsolute, join, resolve, sep } from 'node:path'
 import { randomUUID } from 'node:crypto'
@@ -116,9 +122,27 @@ else {
       decryptString: (value) => safeStorage.decryptString(value)
     })
     const transport = createTransport(net.fetch.bind(net) as typeof fetch)
+    await mkdir(app.getPath('userData'),{recursive:true})
     const ownedRun=new OwnedRun(new RecoveryStore(join(app.getPath('userData'),'codex-owned-run-v1.json')))
+    const helperOwner=new HelpOwnedRun(join(app.getPath('userData'),'bmad-help-owned-v1.json'))
+    const admission=new ActivityAdmission()
+    const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),helperOwner.status()])).every(s=>s==='stopped')?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await helperOwner.cancel().catch(()=>{});const states=await Promise.all([ownedRun.observeStop(),helperOwner.observeStop()]);return states.every(s=>s==='stopped')?'stopped':'unknown'}}
+    const helpAdapter=new BmadHelpAdapter({root:join(app.getPath('userData'),'bmad-help-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'bmad-help'):join(app.getAppPath(),'resources/bmad-help'),owner:helperOwner,admission,onUnknown:()=>{dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()},admit:async internal=>{
+      if(connection?.hasOperation()&&!(internal&&connection.hasDialogueLease()&&await ownedRun.healthyActive()))throw Object.assign(new Error('BUSY'),{code:'BUSY'})
+      if(await ownedRun.status()!=='stopped'&&!(internal&&connection?.hasDialogueLease()&&await ownedRun.healthyActive()))throw Object.assign(new Error('STOP_UNCONFIRMED'),{code:'STOP_UNCONFIRMED'})
+    }})
+    const helpCoordinator=new BmadHelpCoordinator({application,store:new BmadHelpStore(join(app.getPath('userData'),'bmad-help-v1')),prepare:(id,root,signal)=>helpAdapter.prepare(id,root,signal),profile:(id,signal)=>helpAdapter.profile(id,signal),copy:async value=>{await clipboard.writeText(value);if(await clipboard.readText()!==value)throw Error('COPY_FAILED')}})
+    application.lifecycle.register({id:'bmad-help',context:emptyContext(),stop:async()=>{await helpCoordinator.shutdown();return helpAdapter.shutdown()}})
+    ipcMain.handle(HELP_COMMAND_CHANNEL,async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isHelpCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:{...initialHelpState(),error:'INVALID_COMMAND'}}
+      const state=await helpCoordinator.execute(input)
+      if(!isHelpState(state))throw Error('INVALID_HELP_STATE')
+      return {contractVersion:1,correlationId:input.correlationId,state}
+    })
+    helpCoordinator.subscribe(state=>{if(isHelpState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(HELP_EVENT_CHANNEL,state)})
     connection = new CodexConnection({
-      recovery:ownedRun,
+      admission,
+      recovery,
       vault,
       oauth: (options) => authorize({ ...options, transport, openExternal: (url) => shell.openExternal(url), saveClientId: (value) => vault.saveClientId(value) }),
       refresh: (value, signal) => refreshCredentials(value, { signal, transport }),
@@ -132,7 +156,8 @@ else {
     application.lifecycle.register({ id: 'codex-connection', context: { ...emptyContext(), providerId: 'codex' }, stop: () => connection!.shutdown() })
     dialogueCoordinator = new DialogueCoordinator({
       application,
-      recovery:{status:()=>ownedRun.status(),observeStop:async()=>{const result=await ownedRun.observeStop();if(result==='stopped')connection!.confirmRecoveryStop();return result}},
+      help:helpCoordinator,
+      recovery:{status:()=>recovery.status(),observeStop:async()=>{const result=await recovery.observeStop();if(result==='stopped')await connection!.confirmRecoveryStop();return result}},
       inspectApproval:(root,files)=>inspectApprovalFiles(root,files,[connectionRoot,app.getPath('userData')]),
       workflows:new WorkflowStore(join(app.getPath('userData'),'workflows-v1')),
       approvals:new ApprovalStore(join(app.getPath('userData'),'approvals-v1')),
@@ -144,7 +169,7 @@ else {
         await resolveBmad(profile, 'agent', signal); await resolveBmad(profile, 'config', signal)
         return profile
       },
-      open: (profile, signal, activity) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
+      open: (profile, signal, activity) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun,helpAdapter, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
     ipcMain.handle(DIALOGUE_COMMAND_CHANNEL, async (event, input: unknown) => {

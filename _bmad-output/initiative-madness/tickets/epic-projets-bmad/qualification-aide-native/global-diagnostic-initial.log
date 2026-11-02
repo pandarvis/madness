@@ -1,0 +1,620 @@
+✔ JSONL reconstitue UTF-8 fragmenté et corrèle les réponses hors ordre (4.2929ms)
+✔ ChatGPT vérifié permet une réponse et une fin corrélées sans conserver identité ou texte (3.5001ms)
+✔ conserve réponse et fin groupées dans un seul chunk après l’accusé du tour (10.1235ms)
+✔ refuse apiKey avant catalogue et inférence (1.8981ms)
+✔ refuse amazonBedrock avant catalogue et inférence (0.9418ms)
+✔ refuse unknown avant catalogue et inférence (0.5508ms)
+✔ profil vide attend la connexion corrélée puis relit le compte (1.2534ms)
+✔ échec de connexion ne lance aucun tour et ne révèle pas l’erreur native (0.7349ms)
+✔ une fin d’un autre tour ou un accusé seul ne constitue pas la preuve (28.4684ms)
+✔ le délai global inclut l’attente de l’accusé du tour (15.1554ms)
+✔ refuse failed sans réponse finale corrélée (1.0802ms)
+✔ refuse interrupted sans réponse finale corrélée (0.3687ms)
+✔ refuse completed sans réponse finale corrélée (0.3777ms)
+✔ erreur JSON-RPC expurgée et coupure n’entraînent aucun réessai (0.6692ms)
+✔ demande serveur imprévue refusée avant inférence (0.6238ms)
+✔ activité outil inattendue arrête le témoin (0.4519ms)
+✔ JSON invalide et ligne excessive échouent avec un code fixe (5.4378ms)
+✔ environnement enfant isole identité/configuration et garde réseau sans imprimer ses valeurs (0.5315ms)
+✔ nettoyage refuse une racine arbitraire et ne supprime que son espace temporaire (67.3288ms)
+✔ l’arrêt ferme stdin et confirme la fermeture d’un enfant coopératif sans taskkill (273.4428ms)
+✔ l’arrêt ne confond pas wrapper déjà sorti et fermeture des pipes (24.5143ms)
+✔ l’arrêt reconnaît un enfant déjà fermé avec stderr ignoré (308.3495ms)
+✔ TEMP sous le dépôt est refusé avant toute création de profil (81.6092ms)
+✔ SIGINT pendant la préparation interdit le lancement du fournisseur (787.791ms)
+✔ SIGTERM pendant la préparation interdit le lancement du fournisseur (799.8539ms)
+✔ un arrêt non confirmé libère les handles du parent sans annoncer arrêt ni nettoyage (312.118ms)
+✔ le protocole d’apparence refuse les valeurs hors enum et les propriétés supplémentaires (1.9231ms)
+✔ l’amorçage accepte uniquement les arguments natifs enum et refuse les doublons (1.2617ms)
+✔ un profil neuf reste sombre sans écrire et un choix explicite est restauré séparément du Snapshot (67.1239ms)
+✔ un fichier invalide ou futur reste intact tandis que le choix de session fonctionne (74.6903ms)
+✔ une écriture refusée conserve le choix de session et nettoie les fichiers atomiques (36.0438ms)
+✔ les choix concurrents sont écrits dans l’ordre sans fichier temporaire restant (90.7899ms)
+✔ approbation RPC zéro et proposition décalée : seul résultat natif et octets prouvent l’effet (123.4037ms)
+✔ reçu fileChange et octets sans dépendre du raw : accept / absent (97.9013ms)
+✔ reçu fileChange et octets sans dépendre du raw : accept / exec-array (101.2356ms)
+✔ reçu fileChange et octets sans dépendre du raw : accept / correlated (117.5984ms)
+✔ reçu fileChange et octets sans dépendre du raw : decline / absent (88.0749ms)
+✔ reçu fileChange et octets sans dépendre du raw : decline / exec-array (91.4377ms)
+✔ reçu fileChange et octets sans dépendre du raw : decline / correlated (97.904ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : raw-only (73.2993ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : wrong-item (127.9219ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : wrong-thread (72.2371ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : wrong-turn (78.2207ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : status-mismatch (101.1573ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : decline-completed (98.426ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : effects-mismatch (103.9385ms)
+✔ fileChange et octets ne règlent pas l’opération avant confirmation de transmission de la décision (109.5596ms)
+✔ le terminal sans confirmation de transmission garde le résultat inconnu même avec fileChange (86.3756ms)
+✔ le terminal joint le reçu natif déjà transmis pendant sa relecture (120.6694ms)
+✔ l’arrêt annule l’attente du reçu déjà natif pendant sa relecture (118.5597ms)
+✔ bornes natives et aucune autorisation tardive : read-only (33.7951ms)
+✔ bornes natives et aucune autorisation tardive : grant (50.7184ms)
+✔ bornes natives et aucune autorisation tardive : changed (94.0018ms)
+✔ bornes natives et aucune autorisation tardive : terminal (55.121ms)
+✔ bornes natives et aucune autorisation tardive : string-id (96.4027ms)
+✔ une proposition native changée après affichage retire le consentement sans effet (54.745ms)
+✔ le délai local dix minutes retire une commande sans choix implicite (horloge contrôlée) (54.1586ms)
+✔ deux patches rapprochés du même fichier demandent deux choix sans étendre le premier accord (148.5625ms)
+✔ le terminal retire l’approbation encore en file derrière un outil avant le drain (141.9441ms)
+✔ approbation stricte : aucun accord global, ID natif, feedback ou champ inconnu (3.21ms)
+✔ patch mixte : tous les contenus natifs, empreintes et effets ; précondition modifiée refuse tout (219.6887ms)
+✔ hors projet, protégé, déplacement, portée inconnue et diff incomplet sont refusés (61.5962ms)
+✔ une racine remplacée par une jonction extérieure retire un ajout absent avant tout accord (66.0326ms)
+✔ un petit diff sur la dernière ligne est refusé si son résultat dépasse la capacité de relecture (53.9555ms)
+✔ annexe approbation atomique conserve conflit/version inconnue et toutes les saisies (112.0423ms)
+✔ une décision ancienne retardée ne touche pas la nouvelle conversation et son prochain envoi : resolve (16.5255ms)
+✔ une décision ancienne retardée ne touche pas la nouvelle conversation et son prochain envoi : reject (3.9083ms)
+✔ un ajustement réserve la session avant le disque et refuse un autre ajustement ou un envoi libre (4.9884ms)
+✔ la réservation d’ajustement préserve stop pendant la sauvegarde retenue (4.2984ms)
+✔ la réservation d’ajustement préserve failure pendant la sauvegarde retenue (4.4973ms)
+✔ un ajustement respecte la réserve de session messages et garde lecture, saisie et arrêt disponibles (15082.9205ms)
+✔ un ajustement respecte la réserve de session text et garde lecture, saisie et arrêt disponibles (421.584ms)
+✔ décision verrouillée avant await, transmission distincte des effets puis ajustement explicite (5.2353ms)
+✔ restauration sans moteur garde un accord incertain et retire toute commande (0.5105ms)
+✔ arrêt pendant sauvegarde retire la commande et conserve la saisie sans transmission (4.2988ms)
+✔ un reçu conservé attend le résultat, et un refus disque ultérieur reste inconnu (2.7562ms)
+✔ la validation d’une portée mal formée ne lance jamais une exception (0.2841ms)
+✔ la restauration d’un effet connu garde la preuve tout en retirant tous les choix (0.4983ms)
+{"checks":["native exact main loads help","raw native snapshot paths preserved","noncentral config.user ignored","fresh config mutation refuses","bad config preserves independent help","missing initiative and epic preserve help but block native","invalid utf8 context is visible refusal","whole initiative and epic captured","BMad config absent independent help","unknown version never launches","native Windows hardlink refused before read","native Windows junction ancestor refused","handle revalidation rejects replaced ancestor","external Windows witness remains exact","output traversal refused","external output refused","closed runtime refuses Lib/site-packages/sitecustomize.py","closed runtime refuses Lib/__pycache__/bad.pyc","closed runtime refuses extra-empty/.marker","closed runtime refuses pyvenv.cfg","closed runtime valid after owned variant cleanup","closed runtime refuses missing TLS guard data","closed runtime refuses altered TLS guard data","qualified TLS guard restored exact and runtime closed","native snapshot over MAX_PATH stays complete"],"count":25,"platform":"win32","symlink_file":"not exercised: Windows privilege not requested"}
+✔ real product sources preserve partial help and reject Windows path/runtime boundary variants (118456.065ms)
+{"checks":["only official v6 leftover markers are used","official legacy presence observed without reading _bmad/_config/manifest.yaml","official legacy presence observed without reading _bmad/_config/files-manifest.csv","official legacy presence observed without reading _bmad/_config/skill-manifest.csv","official legacy presence observed without reading _bmad/_config/bmad-help.csv","official legacy presence observed without reading _bmad/config.user.toml","official legacy presence observed without reading _bmad/core/config.yaml","official legacy presence observed without reading _bmad/core/module-help.csv","official legacy presence observed without reading _bmad/core/v6-shims","official legacy presence observed without reading _bmad/bmm/config.yaml","official legacy presence observed without reading _bmad/bmm/module-help.csv","official legacy presence observed without reading _bmad/bmm/v6-shims","fresh detects official legacy marker appearance","legacy presence keeps independent help and refuses native","all eleven legacy observations are captured","legacy YAML CSV and shims content never loaded","oversized invalid UTF8 legacy body never read","fresh detects official legacy marker disappearance"],"count":18}
+✔ M2 official legacy markers are presence-only, independent and fresh on appearance or disappearance (84715.1079ms)
+{"checks":["missing preserves independent safe help","missing never presents bad help as loaded","missing has an explicit document diagnostic","missing raw native JSON remains exact","invalid-utf8 preserves independent safe help","invalid-utf8 never presents bad help as loaded","invalid-utf8 has an explicit document diagnostic","invalid-utf8 raw native JSON remains exact","oversized preserves independent safe help","oversized never presents bad help as loaded","oversized has an explicit document diagnostic","oversized raw native JSON remains exact","oversized refused source freshness retained","scalar-core preserves independent safe help","scalar-core refuses native configuration capability","scalar-core retains an explicit configuration diagnostic","scalar-core preserves exact native help JSON","scalar-core keeps captured configuration fresh","invalid-keyed-merge preserves independent safe help","invalid-keyed-merge refuses native configuration capability","invalid-keyed-merge retains an explicit configuration diagnostic","invalid-keyed-merge preserves exact native help JSON","invalid-keyed-merge keeps captured configuration fresh","qualified candidate has 735 exact runtime entries","qualified TLS guard is present unchanged"],"count":25}
+✔ M2 partial documents and structurally invalid configuration retain independent safe help (80387.2857ms)
+✔ late receipt write acknowledgements never overwrite newer receipts or mark their body durable early (4.6486ms)
+✔ an old failed response save preserves the newer full response and retry-save sends nothing (3.5343ms)
+✔ help sends exact native skill plus dedicated question and retains written tool receipts (15.5014ms)
+✔ first help terminal refuses no tools (3.2418ms)
+✔ first help terminal refuses no context (3.0764ms)
+✔ first help terminal refuses missing inventory (1.6849ms)
+✔ help refuses a foreign tool before calling the native host (1.3323ms)
+✔ native bundle receipt storage failure cannot produce a completed recommendation (2.47ms)
+✔ encoded excessive native response is refused before successful tool transmission (8.4794ms)
+✔ foreign native thread and duplicate call ids are refused with no successful recommendation (1.4421ms)
+✔ one closed context batch satisfies every required source only after its actual written response (3.1138ms)
+✔ wrong batch mapping is refused before an apparent complete recommendation (2.1625ms)
+✔ cumulative encoded tool buffers are bounded at eight MiB with no fabricated transmission after refusal (99.1715ms)
+{"artifact":"C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\.working\\help22-supervision-cases\\madness-help-job-pz9JYv","phase":{"startup_ms":2171,"case_ceiling_ms":15000,"controller_timeout_ms":90000,"cases":[{"duration_ms":7969,"state_elapsed_ms":6421,"name":"normal","outcome":"completed"},{"duration_ms":10412,"state_elapsed_ms":8711,"name":"orphan","outcome":"descendants-stopped"},{"duration_ms":8200,"state_elapsed_ms":7010,"name":"timeout","outcome":"timeout"},{"duration_ms":6508,"state_elapsed_ms":5218,"name":"overflow","outcome":"output-limit"},{"duration_ms":4989,"state_elapsed_ms":3527,"name":"missing","outcome":"start-failed"}]}}
+✔ real Windows Job owns descendants before Resume and returns finitely for root0, timeout, overflow and start failure (44432.8519ms)
+✔ failure after suspended root creation stays started and cannot become a never-started stop proof (10865.248ms)
+✔ help commands accept business ids only and refuse arbitrary paths and modes (81.9833ms)
+✔ helper root disappearance never proves group stop; durable terminal is generation bound (392.9274ms)
+✔ future help annex is preserved and cannot be overwritten (53.842ms)
+✔ product resources include exact native sources and preparation uses no project executable (46.0408ms)
+✔ real Windows helper loads native help over snapshots and rejects changed configuration (340426.2144ms)
+✔ private admissions serialize local preparation and provider, nested helper requires explicit owner scope (11.748ms)
+✔ connection reacquires aggregate proof at effect and a Codex callback cannot clear helper unknown (35.2437ms)
+✔ a successful session.stop cannot bypass the independent helper recovery proof (121.9909ms)
+✔ native receipts survive disk failure in session and retry-save never resends; restore stays passive (40.4801ms)
+✔ help appendix validates exact schemas and rejects corrupt/future content on write (116.8231ms)
+✔ changed owned native resource is refused before any UV and reservation closes without borrowing Codex proof (1199.3992ms)
+✔ corrupt helper owner cannot redirect recovery to an external proof folder (119.1872ms)
+✔ closed context batch has one raw receipt, exact mapping and encoded-size fallback (60.1715ms)
+✔ future owner bytes appearing after a known stop cannot be cleared by observation (460.6969ms)
+✔ OAuth loopback lie PKCE, nonce, client et redirect puis vérifie une vraie signature (86.6487ms)
+✔ callbacks étrangers, doublons et client incorrect ne terminent pas l’attente (43.1719ms)
+✔ la réautorisation reprend le client enregistré si le callback omet client_id et omet le hint initial (22.4303ms)
+✔ refus de consentement ne tente aucun échange et ferme le listener (18.2609ms)
+✔ ID token avec nonce invalide refusé (12.2464ms)
+✔ ID token avec audience invalide refusé (10.508ms)
+✔ ID token avec issuer invalide refusé (11.393ms)
+✔ ID token avec expiration invalide refusé (12.4628ms)
+✔ ID token avec authorized party invalide refusé (12.1064ms)
+✔ ID token avec audiences multiples sans authorized party invalide refusé (12.8645ms)
+✔ scopes insuffisants et changement d’identité refusés (21.9143ms)
+✔ signature forgée refusée au lieu du seul décodage JWT (167.9659ms)
+✔ annulation, timeout et navigateur défaillant ferment le listener (60.092ms)
+✔ refresh tourne le jeton seulement à la demande et refuse une autre identité (3.9073ms)
+✔ refresh charge les clés publiques avant la rotation puis les réutilise pour le nouvel ID token (4.1175ms)
+✔ échec JWKS réseau avant refresh ne transmet aucun POST de rotation (0.4776ms)
+✔ échec JWKS jeu vide avant refresh ne transmet aucun POST de rotation (0.1921ms)
+✔ échec JWKS clé RSA invalide avant refresh ne transmet aucun POST de rotation (0.4085ms)
+✔ transport borne les tailles, refuse les destinations et les redirections (5.1772ms)
+✔ un navigateur qui ne répond pas reste annulable et libère le listener (12.6594ms)
+✔ environnement témoin supprime les credentials et profils hérités (1.8703ms)
+✔ seuls item assistant et tour completed corrélés prouvent le témoin (4.3624ms)
+✔ catalogue seul et modèle défaut invisible ne suffisent pas (0.3652ms)
+✔ arrêt natif attend la fermeture observable du processus possédé (241.2458ms)
+✔ arrêt natif confirme close et les flux après terminaison par signal (1753.9072ms)
+✔ annulation interrompt les appels RPC en attente sans rejouer (0.8689ms)
+✔ découverte native exige le chemin standard, le manifeste et un fichier PE (219.0535ms)
+✔ un profil témoin sous le dépôt est refusé avant toute création ou détection (1.6158ms)
+✔ un arrêt inconnu pendant --version prime sur annuler et conserve le profil (5706.5094ms)
+✔ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (16567.1685ms)
+✔ une approbation corrélée montre sa portée et son patch avant tout ancien formulaire (10930.3353ms)
+✔ un historique simple avec nom long garde le point de saisie libre repérable au premier écran (10889.7552ms)
+ℹ {"requested":{"width":1440,"height":920},"top":635.328125,"bottom":706.328125,"width":1440,"height":920,"mainScroll":0,"requests":0}
+ℹ {"requested":{"width":720,"height":820},"top":630.328125,"bottom":701.328125,"width":720,"height":820,"mainScroll":0,"requests":0}
+✔ le focus de réponse reste neutre pendant envoi puis historique, sans détourner une autre saisie (12426.2267ms)
+✔ expiration et décision retirent leurs contrôles vers un titre neutre dans l’historique (13350.5713ms)
+✔ la conversation donne accès au travail avant la préparation et conserve la saisie en consultant le contexte (14262.2663ms)
+✔ ouvrir Codex depuis la projection ferme le contexte et focalise le panneau visible (19770.3068ms)
+✔ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (22321.1061ms)
+✔ un lancement Mary rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec (49111.3712ms)
+✔ un lancement Forge rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec (34901.1202ms)
+✔ les annonces polies de l’accueil couvrent arrivée, envoi et résolution sans annoncer les fragments (13673.2742ms)
+✔ les récapitulatifs repliés nomment le fait du tour et gardent leur identifiant secondaire (38630.6671ms)
+✔ accueil rejoint la conversation exacte par clavier, préserve les saisies et retire l’attente résolue (25852.6289ms)
+✔ deux destinations concurrentes et retour tardif gardent le dernier contexte et focus demandés (35032.9261ms)
+✔ préparer un échange annule une sélection différée et libère les commandes sans détour tardif (29811.79ms)
+✔ une attente expirée pendant la sélection conserve sa saisie et explique l’absence d’envoi (16222.4679ms)
+✔ activité native reste nommée à l’accueil et un échec de sélection ne déplace ni contexte ni focus (12076.6615ms)
+✔ les articles progressifs gardent leur nœud, identité sourcée, lecture et saisie sans annoncer chaque fragment (15236.0127ms)
+✔ le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (28787.9556ms)
+✔ les indicateurs de question distinguent saisie et envoi et utilisent son destinataire réel (23359.0776ms)
+✔ le thème change au clavier sans perdre le brouillon ni le contexte en fenêtre compacte (15671.6143ms)
+✔ Forge prépare la portée inline, exige qualification et lancement explicites puis conserve le brouillon et le destinataire (28445.4051ms)
+✔ les contrôles partagés sont attribués à la session Forge (32435.5842ms)
+✔ les contrôles partagés sont attribués à la session Mary (86914.5298ms)
+✔ la préparation Forge explique le prérequis account et sa récupération en fenêtre compacte (40982.7695ms)
+✔ la préparation Forge explique le prérequis plan et sa récupération en fenêtre compacte (59859.8797ms)
+✔ Forge historique après Mary conserve résultat, contexte, observations et copie du chemin correspondant (36108.6421ms)
+✔ un thème non sauvegardé garde un avertissement accessible et la saisie (true) (12507.4188ms)
+✔ un thème non sauvegardé garde un avertissement accessible et la saisie (bridge) (9771.9301ms)
+✔ le rappel forfait affiche l’erreur connue et reste fermable après un échec durable (12202.4034ms)
+✔ Échap ferme le tiroir compact actif et conserve le panneau Codex en arrière-plan (12855.0427ms)
+✔ Mary expose son invocation et son forfait puis envoie uniquement le brouillon capturé (14543.0222ms)
+✖ un arrêt inconnu depuis un autre projet garde le motif du blocage et le retour au propriétaire (21529.8921ms)
+✔ l’aide aux clés publiques est absente sans erreur réseau (11834.1484ms)
+✔ l’aide réseau ouvre ou copie l’unique URL publique sans masquer l’erreur ni relancer Codex (13135.9297ms)
+✔ l’aide réseau garde une récupération locale après échec copyPublicKeys (10316.1866ms)
+✔ l’aide réseau garde une récupération locale après échec openPublicKeys (12189.8508ms)
+✔ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (18077.1233ms)
+✖ un arrêt du témoin connexion non confirmé expose la récupération explicite sans projet (44131.5946ms)
+✔ le coffre chiffre atomiquement, restaure et conserve l’inscription après déconnexion (168.8955ms)
+✔ chiffrement absent et coffre corrompu préservent les octets sans fallback clair (49.0531ms)
+✔ le contrat connexion refuse secrets, URLs et commandes imprécises (3.7025ms)
+✔ ouvrir et copier les clés publiques restent des utilitaires sans argument pendant une lease (7.9274ms)
+✔ échec expurgé de open-public-keys conserve erreur réseau, compte et lease (1.3166ms)
+✔ échec expurgé de copy-public-keys conserve erreur réseau, compte et lease (0.9596ms)
+✔ le dialogue utilise les credentials internes, exige le forfait acquitté et verrouille les mutations concurrentes (1.8803ms)
+✔ restaurer un compte ne lance aucun réseau et exige une vérification explicite (0.516ms)
+✔ déconnexion refusée pendant le dialogue après témoin vérifié reste un état BUSY valide (11.6454ms)
+✔ échec du refresh au lancement publie NETWORK_UNAVAILABLE, conserve le compte et libère la lease (1.7194ms)
+✔ connexion courte, compte enregistré et témoin arrêté précèdent le succès sans secret (14.5475ms)
+✔ OAuth seul ne prouve pas le forfait et un arrêt non confirmé produit inconnu (24.6956ms)
+✔ annulation et fermeture interrompent le travail sans réessai automatique (41.5748ms)
+✔ coffre illisible reste une erreur explicite sans reset et sans OAuth (0.7195ms)
+✔ fermer demande l’arrêt du connecteur avant de vider la queue de persistance (4.651ms)
+✔ fermeture conserve inconnu si le processus ne confirme pas son arrêt (2.9756ms)
+✔ deux demandes de fermeture attendent toutes deux le même arrêt en cours (30.8228ms)
+✔ la fermeture conserve le brouillon déjà admis dans la queue et refuse les nouvelles commandes (4.5142ms)
+✔ déconnecter retire les credentials sans effacer l’arrêt inconnu ni autoriser un nouveau témoin (21.7505ms)
+✔ la fermeture attend la mutation coffre disconnect déjà engagée (28.822ms)
+✔ la fermeture attend la mutation coffre acknowledge-plan déjà engagée (36.4993ms)
+✖ profil réel qualifie Mary, ses dépendances et les deux resolvers exécutables (17034.2159ms)
+✔ agent absent, altéré et surcharge inconnue bloquent avant invocation (2360.3167ms)
+✖ un module Python et un interpréteur ajoutés au projet ne remplacent pas le runtime du resolver (6184.473ms)
+✔ les deltas corrélés sont projetés après acquittement, réconciliés par item sans dédoublonner le texte (50.5972ms)
+✔ une identité attestée dans un tour ne réattribue pas les tours suivants sans nouvelle preuve (5.1962ms)
+✔ les notifications admises sont drainées avant error et gardent tout le partiel (4.478ms)
+✔ les notifications admises sont drainées avant abort et gardent tout le partiel (2.5684ms)
+✔ un terminal admis avant error ne devient jamais un succès (2.7781ms)
+✔ un terminal admis avant abort ne devient jamais un succès (2.1672ms)
+✔ un item démarré vide réserve son ordre dans le cœur et garde son identité pendant l’entrelacement A/B (22.2434ms)
+✔ le contexte est filtré avant la limite métier d’une rafale agrégée : foreign (5.4202ms)
+✔ le contexte est filtré avant la limite métier d’une rafale agrégée : old-turn (2.4634ms)
+✔ le contexte est filtré avant la limite métier d’une rafale agrégée : current (4.1144ms)
+✔ événements avant réponse RPC et tardifs sont filtrés ; identité initiale et ordre des items restent figés (2.691ms)
+✔ flux incohérent ou hors borne refusé : mismatch (1.6711ms)
+✔ flux incohérent ou hors borne refusé : incomplete (1.2839ms)
+✔ flux incohérent ou hors borne refusé : overflow (1.9974ms)
+✔ flux incohérent ou hors borne refusé : invalid-id (1.0649ms)
+✔ les identifiants des réponses RPC ne sont pas convertis et les appels natifs simultanés ne se confondent pas (1.943ms)
+✔ injection native skill et outils bornés produisent accueil puis réponse sur le même thread (2.0351ms)
+✔ demandes structurées, contexte étranger et fin native échouée ne sont jamais un succès (4.0924ms)
+✖ le runtime choisi est hors projet et une copie binaire altérée ne peut pas être exécutée (4152.8513ms)
+✔ progression stable, stockage groupé, identité figée et demande réelle ; texte partiel gardé sur coupure (49.5885ms)
+✔ un refus disque garde le texte visible avec conservation non confirmée (4.5765ms)
+✔ la projection refuse un volume cumulé excessif sans étendre Snapshot v1 (0.7149ms)
+✔ arrêt pendant un lot en écriture draine le partiel et le brouillon admis sans état ready (110.6886ms)
+✔ un acquittement en écriture ne réannonce pas running après une demande d’arrêt (2.4989ms)
+✔ contrat dialogue refuse propriétés natives, chemins, texte vide et effets implicites (0.3349ms)
+✔ qualification bloque le modèle, conversation conserve contexte et accusé durable sans bloquer la navigation (5.3804ms)
+✔ contexte étranger refusé et erreur de sauvegarde ne devient jamais succès (2.9277ms)
+✔ arrêt inconnu interdit tout nouveau lancement et garde le dernier contexte (3.0824ms)
+✔ annuler pendant la qualification ne lance aucun fournisseur et laisse le brouillon intact (3.9884ms)
+✔ arrêter pendant l’écriture finale ferme Codex sans rétablir ready (stopped) (3.6336ms)
+✔ arrêter pendant l’écriture finale ferme Codex sans rétablir ready (unknown) (3.8359ms)
+✔ Forge conserve invocation, contexte et observations avant effets ; restauration sans moteur et copie confirmée (9.3359ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : missing (1.2763ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : fingerprint (0.9644ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : skillPath (0.5874ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : outputBase (0.7392ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : initiativeId (0.5281ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : contextDigest (0.7425ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : rootPath (0.5903ms)
+✔ la limite de 200 workflows bloque Forge avant le fournisseur et permet restauration et Mary (18.8952ms)
+✔ une sortie neuve refuse la reprise et conserve le reçu de la tentative précédente (114.6598ms)
+✔ le choix explicite du banc ne peut écraser une sortie existante ; le défaut historique reste inchangé (60.0304ms)
+✔ la garde de chemin refuse racine, voisin et traversée (19.3105ms)
+✔ la garde refuse un parent symbolique de sortie (40.1782ms)
+✔ un paquet hybride est refusé même si la version et ASAR semblent corrects (539.1586ms)
+✔ le manifeste par défaut est le final 1.13 ; le manifeste 1.9 reste historique (26.796ms)
+✔ le reçu de banc exige source reconnue, code de sortie, nettoyage et succès propres (1.9153ms)
+✔ les erreurs publiées excluent texte brut, chemin privé, bearer et stderr (0.8939ms)
+✔ le mode personnel garde AppData et proxy usuels mais refuse déplacement ou affaiblissement TLS (0.8751ms)
+✔ un wrapper sorti ne prouve jamais la fermeture du vrai Main ni de son enfant (0.776ms)
+✔ les modules permanents sont importables et une action personnelle absente refuse avant accès (293.9105ms)
+✔ la vraie CLI personnelle refuse un exécutable absent sans cycle TLA ni accès au profil (1991.1841ms)
+✔ la trace de contrôle expurge prompts, arguments, chemins, identifiants et refus arbitraires (21.3084ms)
+✔ la trace reconnaît la recherche Forge sans argument et expurge les clés imprévues (2.0314ms)
+✔ les opérations Forge conservent check-sessions et expurgent les valeurs inconnues (0.4882ms)
+✔ plusieurs centaines de contrôles restent complets sans contenu privé avant le plafond 2048 (65.2787ms)
+✔ dépasser 2048 contrôles signale l’incomplétude et conserve tout le flux natif (75.6761ms)
+✔ l’observation conserve les octets, le retour de backpressure et le callback stdin (9.2407ms)
+✔ un plafond ou une ligne perdue laisse une trace explicitement incomplète sans couper le flux (3.9992ms)
+✔ budget d’octets et ligne partielle interdisent une trace complète sans masquer les octets transmis (1.9835ms)
+✔ le hook sérialisé comme dans Playwright transmet spawn inchangé et persiste uniquement les métadonnées (32.8158ms)
+✔ le contrôle local expiré ne transmet aucune réponse et reste inactif après restauration (100.8917ms)
+✔ une approbation native corrélée avec effets relus accepte le raw indisponible ; reçu question inchangé (1.4971ms)
+✔ Windows détecte une autre copie Madness avant toute lecture ou mutation du profil (11715.1849ms)
+✔ archivage fermé enlève uniquement les données du témoin ; aucun coffre ni dossier projet copié (620.9303ms)
+✔ Forge utilise référence skill native, commandes strictes corrélées et même thread sans brouillon (20.731ms)
+✔ Forge refuse foreign sans faux résultat (6.2859ms)
+✔ Forge refuse duplicate sans faux résultat (2.7952ms)
+✔ Forge refuse structured sans faux résultat (1.7824ms)
+✔ Forge refuse shell sans faux résultat (1.8756ms)
+✔ régression : le premier terminal après workflow/config seuls doit être refusé (3.2089ms)
+✔ régression : init sans contrôle de sessions doit être refusé avant tout effet hôte (3.2055ms)
+✔ ordre natif installé : init après config, puis personas avant la clôture sur le même thread (4.5629ms)
+✔ init peut précéder personas mais la clôture sans personas est refusée avant l’outil hôte (3.1834ms)
+✔ init reste refusé avant la résolution de configuration native (5.1337ms)
+✔ contrôle de sessions refuse argument supplémentaire avant exécution hôte (2.2212ms)
+✔ contrôle de sessions refuse avant workflow avant exécution hôte (1.6811ms)
+✔ contrôle de sessions refuse avant config avant exécution hôte (1.6112ms)
+✔ contrôle de sessions refuse après init avant exécution hôte (1.7329ms)
+✔ un échec de conservation du contrôle empêche terminal et init (2.0611ms)
+✔ contrôle de sessions refuse le contexte foreign-check (1.5642ms)
+✔ contrôle de sessions refuse le contexte foreign-check-turn (1.3487ms)
+✖ Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED (12316.2189ms)
+✖ profil Forge refuse dépendance modifiée, hooks, sortie hors projet et reprise avant invocation (9562.6037ms)
+✖ sorties bornées : traversée, liens, collision, modification externe et stockage refusé (9231.008ms)
+✖ échec de sauvegarde après effet reste inconnu et ne permet aucun replay (10634.2214ms)
+✖ recherche native : sorties absentes, vides et complètes ; reçu exact sans corps ni effet (20453.963ms)
+✖ fraîcheur : session inachevée general apparue après qualification ou contrôle bloque init (11899.3867ms)
+✖ fraîcheur : session inachevée initiative apparue après qualification ou contrôle bloque init (12302.9567ms)
+✖ frontières : refus fermés des journaux absents, invalides, trop grands, liens et hardlinks (11946.486ms)
+✖ sans initiative, la recherche contrôle une seule fois la sortie générale imposée (12172.5028ms)
+✖ course : une sortie vide remplacée pendant readdir est refusée sans reçu ni lecture externe (28203.3029ms)
+✖ ordre hôte et échec de stockage ne créent ni reçu durable ni droit à init (29270.6148ms)
+✔ les frontières refusent un payload imprécis avant tout effet (4.0544ms)
+✔ le pont ne reconnaît que la fenêtre et la frame exacte autorisées (0.605ms)
+✔ contexte, brouillon et préférence survivent à une nouvelle instance (410.6983ms)
+✔ annuler le dialogue ne crée ni projet ni fichier (24.9376ms)
+✔ stockage corrompu et schéma futur refusent une écriture et préservent les octets (226.3323ms)
+✔ sauvegarde échouée et portée erronée ne revendiquent aucun succès durable (1.7571ms)
+✔ les écritures concurrentes du cœur sont cohérentes et la révision progresse (409.7267ms)
+✔ une cible non inscriptible produit une erreur stable sans remplacer la cible (65.6304ms)
+✔ une modification externe valide est préservée au lieu d’être remplacée (72.9244ms)
+✔ le preload valide aussi les réponses et les événements reçus (1.557ms)
+✔ le JSON contenant des octets UTF-8 invalides est refusé sans remplacement (298.7609ms)
+✔ un caractère U+FFFD encodé correctement reste un brouillon valide (228.9599ms)
+✔ le coordinateur ne démarre rien et clôt uniquement les opérations enregistrées (3.654ms)
+✔ restaurer une activité la rend historique et ne lance aucun connecteur (2.9058ms)
+✔ le banc refuse un espace arbitraire et conserve son profil entre A et B (2445.6359ms)
+✔ les deux reçus exigent identités, ASAR et versions distinctes avant comparaison (26.6875ms)
+✔ un exécutable de même version avec un autre ASAR est refusé avant lancement (30.4327ms)
+✔ les échecs précoces de création nettoient la racine possédée sans masquer leur cause (561.0394ms)
+✔ les jonctions intermédiaires du coffre et de Chromium sont refusées avant lecture et lancement (2572.4958ms)
+✔ la matrice v1, futur, corruption et UTF-8 protège tous les fichiers métier (2490.7533ms)
+✔ un vrai refus Windows de rename conserve octets et révision, nettoie puis accepte un retry explicite (6352.8715ms)
+✔ le renderer garde la saisie non durable après le même refus Windows et attend un nouveau clic (54816.4277ms)
+✔ un autre Electron réellement démarré est refusé puis fermé avant utilisation du profil (53373.3449ms)
+✔ RPC zéro conserve son type ; seul raw exact corrélé confirme la réponse après écriture (53.2038ms)
+✔ aucun faux reçu ou réponse automatique : mismatch (6.3126ms)
+✔ aucun faux reçu ou réponse automatique : absent (122.7949ms)
+✔ aucun faux reçu ou réponse automatique : stop (2.9732ms)
+✔ aucun faux reçu ou réponse automatique : expiry (48.1517ms)
+✔ aucun faux reçu ou réponse automatique : secret (3.0615ms)
+✔ le délai du tour est suspendu pendant la saisie humaine puis le dialogue poursuit (122.51ms)
+✔ deux questions natives concurrentes invalident l’attente sans réponse par défaut (3.102ms)
+✔ un terminal natif pendant la saisie libère le drain sans choisir de réponse (2.3976ms)
+✔ un terminal retire la question encore en file derrière un outil et garde le tour suivant utilisable (6.0517ms)
+✔ contrat question refuse les secrets, IDs natifs, valeurs vides et champs étrangers (4.9428ms)
+✔ annexe question atomique préserve versions inconnues, conflits et octets refusés (611.704ms)
+✔ question active admet une réponse pendant le tour, un seul envoi, ACK et écriture durable avant sent (37.7885ms)
+✔ invalidation pendant sauvegarde garde la saisie et interdit tout transfert vers une autre demande (11.9098ms)
+✔ échec de conservation après reçu ne devient pas sent ; arrêt conserve la réponse (5.5362ms)
+✔ la fin native attend la sauvegarde du reçu avant de terminer et garde la question sent (9.5402ms)
+✔ une sauvegarde réessayée après refus disque confirme la conservation et libère l’erreur locale (2.707ms)
+✔ une réponse déjà inconnue reste inconnue et historique à chaque réouverture (0.9041ms)
+✔ arrêt pendant écriture durable du reçu garde l’invalidation et la même projection que le disque (5.2008ms)
+✔ un reçu rejeté après invalidation conserve atomiquement unknown et sa saisie à la réouverture (451.1074ms)
+✔ le refus de conserver unknown reste explicite après invalidation et rejet du reçu (4.8505ms)
+✔ NETWORK_UNAVAILABLE traverse le contrat dialogue sans devenir PROVIDER_FAILED (3.7267ms)
+✔ GET strict de clés publiques indépendant du coffre, OAuth, refresh, probe et modèle (13.8564ms)
+✔ vérifier accès est annulable, garde erreur connexion et ne libère aucune lease (29.1295ms)
+✔ un ancien release ne libère ni ne bloque le bail suivant (2.5036ms)
+✔ un propriétaire durable inconnu bloque également le témoin connexion avant OAuth ou probe (2.5669ms)
+✔ la fermeture possédée confirmée ne masque pas un coffre illisible (19.3477ms)
+✔ commandes fermées de récupération : aucun PID, chemin, observation ou texte fournis par le renderer (2.642ms)
+✔ inspection groupée distingue avant/après/mélange/divergence sans appliquer de diff (602.6239ms)
+✔ inspection refuse liens et racines protégées même pour un ajout absent (122.1816ms)
+✔ annexe privée versionnée conserve métadonnées inconnues et détecte une écriture externe (337.5211ms)
+✔ propriétaire restauré : identité différente jamais arrêtée ; identité inaccessible reste bloquante (8.6269ms)
+✔ un callback de fermeture ancien ne libère pas le propriétaire suivant (1.3344ms)
+✔ stockage du propriétaire refusé empêche tout départ et laisse la preuve précédente intacte (0.6302ms)
+✔ deux départs simultanés réservent un seul propriétaire avant toute attente (1.2052ms)
+✔ un départ refusé par le stockage libère son verrou pour la prochaine tentative (0.5945ms)
+✔ échec de qualification sans dialogue ne récupère jamais le témoin connexion : qualify (14.6078ms)
+✔ échec de qualification sans dialogue ne récupère jamais le témoin connexion : launch (1.4333ms)
+✔ échec de qualification sans dialogue ne récupère jamais le témoin connexion : qualify-forge (0.6733ms)
+✔ échec d’un dialogue ouvert ferme son propre contrôle sans observation partagée (17.3506ms)
+✔ ouverture au résultat d’arrêt inconnu garde le verrou jusqu’à la récupération explicite (1.6986ms)
+✔ arrêt non confirmé durable bloque après restauration puis réobservation explicite débloque sans moteur (0.9049ms)
+✔ métadonnées de récupération illisibles restent un blocage visible sans moteur (0.7422ms)
+✔ accord incertain exige inspection fraîche : aucun ancien accord, texte ou brouillon au nouveau lancement (414.4274ms)
+✔ inspection bloque mélange et divergence et ne survit jamais à une nouvelle instance (489.8266ms)
+✔ inspection réserve avant await et refuse navigation concurrente sans lancer de modèle (131.3657ms)
+✔ une modification pendant ouverture est refusée avant le premier tour avec effets (996.3259ms)
+✔ le client Codex partage la version du manifeste de livraison (157.2479ms)
+✔ le manifeste est déterministe et relie les entrées, versions, ASAR et installateur (4890.9194ms)
+✔ la ressource externe du paquet doit correspondre à la source qualifiée (1214.2386ms)
+✔ une incohérence du lock, du paquet ou de l’identité refuse le manifeste (861.21ms)
+✔ le banc Windows isole le profil et ne transmet pas les identifiants ou options Node (4.0256ms)
+✔ le nettoyage Windows refuse un parent arbitraire et retire son seul espace créé (844.1252ms)
+✔ attente commune et contexte complet, indépendant du projet sélectionné et des capabilities G0 (8.8945ms)
+✔ expiration, fin, demande résolue et contexte divergent retirent toute attente active (2.3666ms)
+✔ envoi en cours reste visible sans devenir une nouvelle attente (0.7513ms)
+✔ historique sans moteur : texte exact, tour inconnu et demandes inactives (0.7061ms)
+✔ fin corrélée et résultat exact, aucun message complet ne termine seul un tour (3.094ms)
+✔ choix transmis distinct de l’effet et portée annoncée distincte des observations (1.5545ms)
+✔ arrêt global ne prend pas le contexte du projet actif et projection sans mutation (1.4897ms)
+✔ activité native visible sans attente ; idle et texte complet ne prouvent aucune activité ni fin (0.7659ms)
+✔ deux tours dans une conversation gardent la corrélation propre des choix historiques (0.7522ms)
+✔ reçu de recherche natif sans chemin durable et ancienne annexe intacte au même schéma (211.6387ms)
+✔ annexe atomique par conversation restaure contexte et preuves sans migration Snapshot (311.1771ms)
+✔ version future, UTF-8 invalide, conflit et erreur disque préservent les octets (454.7422ms)
+✔ 200 annexes restent lisibles et modifiables ; la 201e est refusée sans changer les octets (8342.5691ms)
+✔ la fermeture du wrapper ne prouve pas la disparition du vrai Main Windows (4.0516ms)
+✔ la fermeture exige événement close, Main absent et observation complète sans app-server (1.4233ms)
+✔ le compteur passif transmet spawn inchangé sans conserver args, env ni transport (4.15ms)
+ℹ tests 387
+ℹ suites 0
+ℹ pass 371
+ℹ fail 16
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1144278.6789
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:490:1
+✖ un arrêt inconnu depuis un autre projet garde le motif du blocage et le retour au propriétaire (21529.8921ms)
+  locator.waitFor: Timeout 1000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('alert').filter({ hasText: 'L’arrêt de Codex reste à confirmer' }) to be visible[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:503:18) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('alert').filter({ hasText: 'L’arrêt de Codex reste à confirmer' }) to be visible" ]
+  }
+
+test at tests\connection-ui.test.mjs:584:1
+✖ un arrêt du témoin connexion non confirmé expose la récupération explicite sans projet (44131.5946ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('dialog', { name: 'Connexion Codex', exact: true }).getByRole('button', { name: 'Vérifier et arrêter Codex', exact: true }) to be visible[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:588:16) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('dialog', { name: 'Connexion Codex', exact: true }).getByRole('button', { name: 'Vérifier et arrêter Codex', exact: true }) to be visible" ]
+  }
+
+test at tests\dialogue-profile.test.mjs:7:1
+✖ profil réel qualifie Mary, ses dépendances et les deux resolvers exécutables (17034.2159ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async Module.resolveBmad (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/profile.ts:59:26)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/dialogue-profile.test.mjs:12:17)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\dialogue-profile.test.mjs:33:1
+✖ un module Python et un interpréteur ajoutés au projet ne remplacent pas le runtime du resolver (6184.473ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async Module.resolveBmad (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/profile.ts:59:26)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/dialogue-profile.test.mjs:43:29)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\dialogue-runtime.test.mjs:7:1
+✖ le runtime choisi est hors projet et une copie binaire altérée ne peut pas être exécutée (4152.8513ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at Module.bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/dialogue-runtime.test.mjs:9:19)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:22:1
+✖ Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED (12316.2189ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async runForgeScript (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:49:17)
+      at async qualifyForge (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:129:29)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/forge.test.mjs:25:53)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:52:1
+✖ profil Forge refuse dépendance modifiée, hooks, sortie hors projet et reprise avant invocation (9562.6037ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    Comparison {
+  +   code: 'RESOLVER_FAILED'
+  -   code: 'PROFILE_UNRECOGNIZED'
+    }
+  
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/forge.test.mjs:59:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: RESOLVER_FAILED
+        at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+        at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+        at async runForgeScript (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:49:17)
+        at async qualifyForge (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:129:29)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/forge.test.mjs:59:3)
+        at async Test.run (node:internal/test_runner/test:1113:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:788:7),
+    expected: { code: 'PROFILE_UNRECOGNIZED' },
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests\forge.test.mjs:67:1
+✖ sorties bornées : traversée, liens, collision, modification externe et stockage refusé (9231.008ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async runForgeScript (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:49:17)
+      at async qualifyForge (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:129:29)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/forge.test.mjs:68:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:91:1
+✖ échec de sauvegarde après effet reste inconnu et ne permet aucun replay (10634.2214ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async runForgeScript (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:49:17)
+      at async qualifyForge (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:129:29)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/forge.test.mjs:92:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:100:1
+✖ recherche native : sorties absentes, vides et complètes ; reçu exact sans corps ni effet (20453.963ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async runForgeScript (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:49:17)
+      at async qualifyForge (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:129:29)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/forge.test.mjs:101:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:121:48
+✖ fraîcheur : session inachevée general apparue après qualification ou contrôle bloque init (11899.3867ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async runForgeScript (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:49:17)
+      at async qualifyForge (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:129:29)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/forge.test.mjs:122:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:121:48
+✖ fraîcheur : session inachevée initiative apparue après qualification ou contrôle bloque init (12302.9567ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async runForgeScript (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:49:17)
+      at async qualifyForge (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:129:29)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/forge.test.mjs:122:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:133:1
+✖ frontières : refus fermés des journaux absents, invalides, trop grands, liens et hardlinks (11946.486ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async runForgeScript (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:49:17)
+      at async qualifyForge (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:129:29)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/forge.test.mjs:134:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:158:1
+✖ sans initiative, la recherche contrôle une seule fois la sortie générale imposée (12172.5028ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async runForgeScript (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:49:17)
+      at async qualifyForge (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:129:29)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/forge.test.mjs:160:53)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:164:1
+✖ course : une sortie vide remplacée pendant readdir est refusée sans reçu ni lecture externe (28203.3029ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async runForgeScript (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:49:17)
+      at async qualifyForge (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:129:29)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/forge.test.mjs:165:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }
+
+test at tests\forge.test.mjs:193:1
+✖ ordre hôte et échec de stockage ne créent ni reçu durable ni droit à init (29270.6148ms)
+  Error: RESOLVER_FAILED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at bmadRuntime (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/runtime.ts:26:72)
+      at async runForgeScript (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:49:17)
+      at async qualifyForge (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:129:29)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/forge.test.mjs:194:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'RESOLVER_FAILED'
+  }

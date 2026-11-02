@@ -66,7 +66,7 @@ const dialogueRequest = async (payload: Omit<DialogueCommand, 'contractVersion' 
   if (reply.correlationId !== correlationId && (reply.correlationId !== 'rejected-request' || !['INVALID_COMMAND', 'UNTRUSTED_CALLER'].includes(reply.state.errorCode ?? ''))) throw new Error('UNRELATED_DIALOGUE_REPLY')
   return reply.state
 }
-const dialogueBridge: DialogueBridge = {
+const dialogueBridge: DialogueBridge = {launchHelp:projectId=>dialogueRequest({type:'launch-help',projectId}),
   inspectApproval:approvalId=>dialogueRequest({type:'inspect-approval',approvalId}),observeStop:()=>dialogueRequest({type:'observe-stop'}),
   saveApproval:(approvalId,adjustment)=>dialogueRequest({type:'save-approval',approvalId,adjustment}),decideApproval:(approvalId,decision)=>dialogueRequest({type:'decide-approval',approvalId,decision}),sendAdjustment:approvalId=>dialogueRequest({type:'send-adjustment',approvalId}),
   saveQuestion:(questionId,values)=>dialogueRequest({type:'save-question',questionId,values}),answerQuestion:(questionId,values)=>dialogueRequest({type:'answer-question',questionId,values}),
@@ -75,3 +75,14 @@ const dialogueBridge: DialogueBridge = {
   onChanged: listener => { const receive = (_event: Electron.IpcRendererEvent, value: unknown): void => { if (isDialogueState(value)) listener(value) }; ipcRenderer.on(DIALOGUE_EVENT_CHANNEL, receive); return () => ipcRenderer.removeListener(DIALOGUE_EVENT_CHANNEL, receive) }
 }
 contextBridge.exposeInMainWorld('madnessDialogue', Object.freeze(dialogueBridge))
+import {HELP_COMMAND_CHANNEL,HELP_EVENT_CHANNEL,isHelpState} from '../contracts/bmad-help.ts'
+import type {HelpBridge,HelpState} from '../contracts/bmad-help.ts'
+const helpRequest=async(payload:Record<string,unknown>):Promise<HelpState>=>{
+ const correlationId=crypto.randomUUID()
+ const reply:unknown=await ipcRenderer.invoke(HELP_COMMAND_CHANNEL,{...payload,contractVersion:1,correlationId})
+ if(!reply||typeof reply!=='object'||!('state' in reply)||!('correlationId' in reply)||reply.correlationId!==correlationId||!isHelpState(reply.state))throw new Error('INVALID_HELP_REPLY')
+ return reply.state
+}
+const helpBridge:HelpBridge={read:()=>helpRequest({type:'read'}),prepare:projectId=>helpRequest({type:'prepare',projectId}),copy:()=>helpRequest({type:'copy'}),retrySave:conversationId=>helpRequest({type:'retry-save',conversationId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isHelpState(value))listener(value)};ipcRenderer.on(HELP_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(HELP_EVENT_CHANNEL,receive)}}
+contextBridge.exposeInMainWorld('madnessHelp',Object.freeze(helpBridge))
+

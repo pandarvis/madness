@@ -6,6 +6,7 @@ import { dialogueFailure } from '../../contracts/dialogue.ts'
 import { createHash } from 'node:crypto'
 export type ConnectionDependencies = {
   recovery?:RunRecoveryPort
+  admission?:{enter(kind:'provider'|'helper',nested?:boolean):()=>void}
   vault: VaultPort
   oauth(options: { registration: Registration; previous: Credentials | null; signal: AbortSignal }): Promise<Credentials>
   refresh(value: Credentials, signal: AbortSignal): Promise<Credentials>
@@ -87,7 +88,9 @@ export class CodexConnection implements ConnectionPort {
     return this.read()
   }
   private async work(action: 'connect' | 'verify', signal: AbortSignal): Promise<void> {
+    let admissionRelease:(()=>void)|undefined
     try {
+      admissionRelease=this.deps.admission?.enter('provider')
       signal.throwIfAborted()
       if(this.deps.recovery&&await this.deps.recovery.status()!=='stopped'){this.dialogueStopUnconfirmed=true;throw connectionFailure('STOP_UNCONFIRMED')}
       if (action === 'connect') {
@@ -115,7 +118,7 @@ export class CodexConnection implements ConnectionPort {
       const code = connectionError(error, 'PROBE_FAILED')
       if (code === 'STOP_UNCONFIRMED'&&!this.dialogueStopUnconfirmed) this.stopUnconfirmed = true
       this.update({ status: code === 'STOP_UNCONFIRMED' ? 'unknown' : signal.aborted ? 'cancelled' : 'error', errorCode: code, verifiedAt: null })
-    }
+    }finally{admissionRelease?.()}
   }
   /** Accès interne à l’adaptateur : aucun jeton ne traverse le pont renderer. */
   async acquireDialogue(signal: AbortSignal): Promise<{ credentials: Credentials; connectionId: string; release(stopped?: boolean): void }> {
@@ -125,25 +128,31 @@ export class CodexConnection implements ConnectionPort {
     if (this.stopUnconfirmed||this.dialogueStopUnconfirmed) throw dialogueFailure('STOP_UNCONFIRMED')
     if (!this.credentials) throw dialogueFailure('NO_ACCOUNT')
     if (!this.credentials.planAcknowledged) throw dialogueFailure('PLAN_ACK_REQUIRED')
+    const admissionRelease=this.deps.admission?.enter('provider')
     this.dialogueLease = true
     const owner=Symbol('dialogue-lease');this.leaseOwner=owner
     try {
+      if(this.deps.recovery&&await this.deps.recovery.status()!=='stopped')throw dialogueFailure('STOP_UNCONFIRMED')
       if (this.credentials.expiresAt <= this.deps.now().getTime() + 60000) { const value = await this.deps.refresh(this.credentials, signal); signal.throwIfAborted(); await this.deps.vault.write(value); this.credentials = value }
       const connectionId = 'c-' + createHash('sha256').update(this.credentials.clientId + '\0' + this.credentials.subject).digest('hex')
-      return { credentials: structuredClone(this.credentials), connectionId, release: (stopped = true) => { if(this.leaseOwner!==owner)return;this.leaseOwner=null;this.dialogueLease = false; if (!stopped) { this.dialogueStopUnconfirmed = true; this.update({ status: 'unknown', errorCode: 'STOP_UNCONFIRMED', verifiedAt: null }) } } }
-    } catch (error) { if(this.leaseOwner===owner){this.leaseOwner=null;this.dialogueLease = false; this.update({ status: 'error', errorCode: connectionError(error, 'PROBE_FAILED'), verifiedAt: null })} throw error }
+      return { credentials: structuredClone(this.credentials), connectionId, release: (stopped = true) => { if(this.leaseOwner!==owner)return;this.leaseOwner=null;this.dialogueLease = false;admissionRelease?.(); if (!stopped) { this.dialogueStopUnconfirmed = true; this.update({ status: 'unknown', errorCode: 'STOP_UNCONFIRMED', verifiedAt: null }) } } }
+    } catch (error) { if(this.leaseOwner===owner){this.leaseOwner=null;this.dialogueLease = false;admissionRelease?.(); this.update({ status: 'error', errorCode: connectionError(error, 'PROBE_FAILED'), verifiedAt: null })} throw error }
   }
-  confirmDialogueStop():void{if(!this.dialogueLease){this.dialogueStopUnconfirmed=false;if(!this.stopUnconfirmed&&this.state.errorCode==='STOP_UNCONFIRMED')this.update({status:this.restoredVaultError?'error':this.credentials?'registered':'disconnected',errorCode:this.restoredVaultError,verifiedAt:null})}}
+  async confirmDialogueStop():Promise<void>{if(this.deps.recovery&&await this.deps.recovery.status()!=='stopped'){this.dialogueStopUnconfirmed=true;this.update({status:'unknown',errorCode:'STOP_UNCONFIRMED',verifiedAt:null});return}if(!this.dialogueLease){this.dialogueStopUnconfirmed=false;if(!this.stopUnconfirmed&&this.state.errorCode==='STOP_UNCONFIRMED')this.update({status:this.restoredVaultError?'error':this.credentials?'registered':'disconnected',errorCode:this.restoredVaultError,verifiedAt:null})}}
   /** Main appelle uniquement après preuve de fermeture du propriétaire durable partagé. */
-  confirmRecoveryStop():void{if(!this.dialogueLease&&!this.active){this.stopUnconfirmed=false;this.confirmDialogueStop()}}
+  async confirmRecoveryStop():Promise<void>{if(this.deps.recovery&&await this.deps.recovery.status()!=='stopped')return;if(!this.dialogueLease&&!this.active){this.stopUnconfirmed=false;await this.confirmDialogueStop()}}
+  markRecoveryUnknown():void{this.dialogueStopUnconfirmed=true;this.update({status:'unknown',errorCode:'STOP_UNCONFIRMED',verifiedAt:null})}
+  hasDialogueLease():boolean{return this.dialogueLease&&!this.dialogueStopUnconfirmed&&!this.stopUnconfirmed}
+  hasOperation():boolean{return !!(this.active||this.dialogueLease||this.mutation)}
   async shutdown(): Promise<'stopped' | 'unknown'> {
     this.closing = true; this.update({ status: 'closing', verifiedAt: null })
     this.active?.controller.abort(connectionFailure('CANCELLED'))
     this.networkWork?.controller.abort()
     const pending = [this.active?.done, this.mutation,this.networkWork?.done].filter((value): value is Promise<void> => !!value)
-    if (!pending.length) return this.stopUnconfirmed||this.dialogueStopUnconfirmed ? 'unknown' : 'stopped'
+    const outcome=async():Promise<'unknown'|'stopped'>=>{try{return this.stopUnconfirmed||this.dialogueStopUnconfirmed||this.deps.recovery&&await this.deps.recovery.status()!=='stopped'?'unknown':'stopped'}catch{return 'unknown'}}
+    if (!pending.length) return outcome()
     let timer: ReturnType<typeof setTimeout> | undefined
-    try { return await Promise.race([Promise.all(pending).then(() => this.stopUnconfirmed||this.dialogueStopUnconfirmed ? 'unknown' as const : 'stopped' as const), new Promise<'unknown'>((resolve) => { timer = setTimeout(() => resolve('unknown'), 12000) })]) }
+    try { return await Promise.race([Promise.all(pending).then(outcome), new Promise<'unknown'>((resolve) => { timer = setTimeout(() => resolve('unknown'), 12000) })]) }
     finally { clearTimeout(timer) }
   }
 }

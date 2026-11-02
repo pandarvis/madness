@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "mode": "one-real-worker-main-prepare-no-provider",
+  "startedAt": "2026-11-02T13:05:07.192Z",
+  "project": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\.working\\help22-native-witness-002",
+  "roots": [
+    "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\.working\\help22-native-witness-002\\.agents\\skills",
+    "C:\\Users\\UP60066553\\.codex\\skills"
+  ],
+  "matchedFailedOperationPins": true,
+  "resourcePins": {
+    "bmad-help.md": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+    "bmad-SKILL.md": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+    "bootstrap.py": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+    "capture.py": "b03a1d1426b75582aa279096aa373d3615b174c71498058bef61b09b280dafeb",
+    "config_utils.py": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+    "knowledge.py": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+    "launcher.ps1": "50b3dcb109e8002781dec7a8f68539653eb0e0638e9345e17ccd78ac70402126",
+    "preflight.ps1": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+    "resolve_config.py": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+    "runtime_guard.py": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+    "runtime.json": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+    "supervision.ps1": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+    "worker.py": "5045cdbfda9ead9c7eebd5c0a0ca0ff1fab5baafa0c50a6d17dfd5d3a481ff14"
+  },
+  "budgets": {
+    "productUsefulMs": 60000,
+    "unchangedHarnessUsefulMs": 120000,
+    "unchangedHarnessControllerMs": 180000
+  },
+  "limits": [
+    "Only one local run. Timing wrappers alter no arguments, return values or source bytes; trace writes add small diagnostic overhead.",
+    "Synthetic witness and managed skill roots read only; worker output lives in owned Temp. No provider/account/network operation.",
+    "Harness includes its existing closed-runtime copy, PowerShell preflights and negative guards before UV; total wall time is not the useful native budget.",
+    "The missing execution record prevents attributing the aggregate timeout to either an exhausted useful native budget or to preflight/startup overhead; both remain distinguishable only with a Job start timestamp."
+  ],
+  "status": "failed",
+  "failure": {
+    "code": null,
+    "killed": true,
+    "signal": "SIGTERM",
+    "message": "Command failed: C:\\Users\\UP60066553\\.dotnet\\tools\\.store\\powershell\\7.5.4\\powershell\\7.5.4\\tools\\net9.0\\any\\win\\pwsh.exe -NoProfile -NonInteractive -EncodedCommand JABFAHIAcgBvAHIAQQBjAHQAaQBvAG4AUAByAGUAZgBlAHIAZQBuAGMAZQA9ACcAUwB0AG8AcAAnAAoALgAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AMQBSAGEAUAAyAGkAXAByAGUAcwBvAHUAcgBjAGUAcwBcAHAAcgBlAGYAbABpAGcAaAB0AC4AcABzADEAJwAKAC4AIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtADEAUgBhAFAAMgBpAFwAcgBlAHMAbwB1AHIAYwBlAHMAXABzAHUAcABlAHIAdgBpAHMAaQBvAG4ALgBwAHMAMQAnAAoAJABtAD0ARwBlAHQALQBDAG8AbgB0AGUAbgB0ACAALQBMAGkAdABlAHIAYQBsAFAAYQB0AGgAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBk"
+  },
+  "totalWallMs": 277144,
+  "trace": [
+    {
+      "event": "owned-start",
+      "at": 1793624963.648964,
+      "root": "\\\\?\\C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-boundaries-1RaP2i",
+      "folder": "\\\\?\\C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-boundaries-1RaP2i\\deadline-prepare",
+      "project": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\.working\\help22-native-witness-002",
+      "roots": [
+        "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\.working\\help22-native-witness-002\\.agents\\skills",
+        "C:\\Users\\UP60066553\\.codex\\skills"
+      ]
+    },
+    {
+      "event": "phase-start",
+      "at": 1793624963.762406,
+      "phase": "python-guard"
+    },
+    {
+      "event": "phase-end",
+      "at": 1793624969.9459152,
+      "phase": "python-guard",
+      "durationMs": 6173
+    },
+    {
+      "event": "phase-start",
+      "at": 1793624969.9584823,
+      "phase": "prepare-including-fresh"
+    },
+    {
+      "event": "phase-start",
+      "at": 1793624979.1771216,
+      "phase": "final-fresh"
+    }
+  ],
+  "ownedTempRemoved": true,
+  "sourcesUnchanged": true,
+  "finishedAt": "2026-11-02T13:09:44.453Z",
+  "postRunOwnedProcessObservation": {
+    "observedAt": "2026-11-02T13:13:00.4361593Z",
+    "method": "read-only Win32_Process, owned Temp executable or command-line match; command lines not exported",
+    "processes": [],
+    "job0ProofAvailable": false
+  },
+  "phaseInterpretation": {
+    "beforePythonMs": 256457,
+    "pythonGuardMs": 6173,
+    "prepareBeforeFreshMs": 9219,
+    "lastStartedPhase": "final-fresh",
+    "resultWithin120UsefulSeconds": "not established: aggregate execFile controller expired; no execution record or Job start timestamp to determine whether its useful 120s had elapsed",
+    "outputTimingLimit": "owned Temp output differs from normal userData output path",
+    "productBudgetChanged": false,
+    "markerMeaning": "beforePythonMs is time to the first diagnostic event after Python bootstrap/imports, not the Job start time"
+  }
+}

@@ -499,7 +499,7 @@ test('un arrêt inconnu depuis un autre projet garde le motif du blocage et le r
   await page.evaluate(()=>window.connectionUIFixture.unknownOnStop())
   await page.getByRole('button',{name:'Arrêter Codex',exact:true}).click()
   await page.getByRole('tab',{name:'Parcours',exact:true}).click()
-  const recovery=page.getByRole('alert').filter({hasText:'L’arrêt de Codex reste à confirmer'})
+  const recovery=page.getByRole('alert').filter({hasText:'L’arrêt de Codex ou de l’outil local reste à confirmer'})
   await recovery.waitFor({timeout:1000})
   await page.getByRole('tab',{name:'Parcours',exact:true}).click()
   assert.equal(await page.getByRole('button',{name:'Lancer Mary avec Codex',exact:true}).isDisabled(),true)
@@ -584,7 +584,7 @@ test('approbation expose tout le patch sans choix présélectionné et sépare r
 test('un arrêt du témoin connexion non confirmé expose la récupération explicite sans projet',async()=>{
  await launch({status:'verifying',accountStored:true});await page.getByRole('button',{name:/^Connexion Codex :/}).click()
  await page.evaluate(()=>window.connectionUIFixture.setState({status:'unknown',errorCode:'STOP_UNCONFIRMED'}))
- const panel=page.getByRole('dialog',{name:'Connexion Codex',exact:true}),recover=panel.getByRole('button',{name:'Vérifier et arrêter Codex',exact:true})
+ const panel=page.getByRole('dialog',{name:'Connexion Codex',exact:true}),recover=panel.getByRole('button',{name:'Vérifier les arrêts possédés',exact:true})
  await recover.waitFor();assert.equal(await recover.isEnabled(),true);assert.equal(await panel.getByRole('button',{name:'Vérifier la connexion',exact:true}).isDisabled(),true)
  assert.equal((await page.evaluate(()=>window.madness.readState())).value.state.activeProjectId,null);assert.equal((await page.evaluate(()=>window.madnessDialogue.read())).recovery.stop,'clear')
  await recover.focus();await page.keyboard.press('Enter');await page.waitForFunction(()=>window.connectionUIFixture.observeStops()===1)

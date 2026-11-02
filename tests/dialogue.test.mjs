@@ -189,3 +189,26 @@ test('la limite de 200 workflows bloque Forge avant le fournisseur et permet res
  await restored.execute(command('launch',{projectId:'id-1'}));await restored.settled();assert.equal(restored.read().status,'ready');assert.equal(opens,1);assert.equal(writes,0)
  await restored.shutdown()
 })
+
+
+test('help ACK stores the exact initial native question and restores it without launching anything',async()=>{
+ const f=fixture();await f.app.execute(command('choose-directory'));await f.app.execute(command('save-draft',{projectId:'id-1',text:'Independent saved draft'}))
+ let opens=0,profiles=0,begins=0,responses=0
+ const profile={rootPath:'C:/project',skillPath:'C:/owned/bmad/SKILL.md',fingerprint:'a'.repeat(64),kind:'help',help:{bundleId:'bundle-1',initiativeId:null}}
+ const help={profile:async()=>{profiles++;return profile},begin:async()=>{begins++},tool:async()=>{},response:async()=>{responses++}}
+ const deps={application:f.app,help,qualify:async()=>{throw Error('No Mary qualifier')},open:async()=>{opens++;return {context:{connectionId:'account-1',initiativeId:null},help:{bundle:{},bind:()=>{},nativeTurn:()=>({threadId:'thread-1',turnId:'native-turn-1'})},turn:async(text,accepted)=>{assert.equal(text,null);await accepted();return 'Exact help response'},stop:async()=>'stopped'}}}
+ const dialogue=new core.DialogueCoordinator(deps)
+ await dialogue.execute(command('launch-help',{projectId:'id-1'}));await dialogue.settled()
+ assert.equal(dialogue.read().status,'ready')
+ const stored=structuredClone(f.stored());assert.equal(isSnapshot(stored),true)
+ assert.equal(stored.conversations[0].messages[0].text,'$bmad\nQue faire ensuite ?')
+ assert.equal(stored.drafts[0].text,'Independent saved draft')
+ await dialogue.shutdown()
+ const app=new Application({store:{read:async()=>structuredClone(stored),write:async()=>{throw Error('Restore must not write')}},newId:()=>{throw Error('Restore must not create ids')},now:()=>new Date().toISOString(),chooseDirectory:async()=>null})
+ const restored=new core.DialogueCoordinator({...deps,application:app})
+ assert.equal((await restored.execute(command('read'))).status,'idle')
+ const reply=await app.execute(command('read-state'));assert.equal(reply.ok,true)
+ assert.equal(reply.value.state.conversations[0].messages[0].text,'$bmad\nQue faire ensuite ?')
+ assert.equal(reply.value.state.drafts[0].text,'Independent saved draft')
+ assert.deepEqual({opens,profiles,begins,responses},{opens:1,profiles:1,begins:1,responses:1})
+})

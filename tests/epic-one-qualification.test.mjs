@@ -52,7 +52,7 @@ test('un paquet hybride est refusé même si la version et ASAR semblent correct
 test('le manifeste par défaut est le final 1.13 ; le manifeste 1.9 reste historique',async()=>{
  assert.equal(defaultManifest,fileURLToPath(new URL('../_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-forge-session-check/installation-final/release-manifest.json',import.meta.url)))
  const manifest=JSON.parse(await readFile(defaultManifest,'utf8'))
- assert.equal(manifest.version,releaseVersion)
+ assert.equal(manifest.version,'0.1.2') // Preuve historique 1.13, distincte du candidat courant.
  assert.equal(manifest.artifacts.find(a=>a.path==='win-unpacked/resources/app.asar').sha256,'9249bdc081c2b3ceeae4465fcc7a3c53af5dca325889cae8fa0b118479f974b4')
  const historical=JSON.parse(await readFile(new URL('../_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-maintenance/release-manifest.json',import.meta.url),'utf8'))
  assert.equal(historical.version,'0.1.1');assert.equal(historical.artifacts.find(a=>a.path==='win-unpacked/resources/app.asar').sha256,'bbac088b9dd9a6c3ad66871dc2db27956378f3a29967df2a734b1e14d007b639')

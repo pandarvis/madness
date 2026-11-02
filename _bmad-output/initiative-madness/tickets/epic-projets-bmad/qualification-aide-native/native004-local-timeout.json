@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "source": "parent-personal-real-codex-siwc",
+  "startedAt": "2026-11-02T12:44:46.505Z",
+  "status": "failed",
+  "checks": [
+    "normal-profile-account-readable-no-authentication"
+  ],
+  "limits": [
+    "Aucune acceptation humaine globale ni autonomie réseau garantie.",
+    "Observation après instrumentation seulement ; aucune lecture/copie du coffre ni capture personnelle.",
+    "DIA reconnu par son exécutable exact ; aucun processus DIA arrêté ou modifié."
+  ],
+  "cleanup": {
+    "closed": true,
+    "archived": false
+  },
+  "artifact": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\bmad-help-final-004\\win-unpacked\\Madness.exe",
+    "executableSha256": "e6b40e79cdf85cac56c935b7e683fef44223944f50a3c3e69ef152476696de64",
+    "manifest": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\bmad-help-final-004\\release-manifest.json",
+    "manifestSha256": "05f59c8abeac049e97418663cf76358804e49a3420b290eedddb1a81bcd96931",
+    "version": "0.2.0",
+    "electron": "45.0.0",
+    "asarSha256": "2157976da5f17173889bde64b51ee21e9cb6c2a84441afa5c959b9e74c98600e",
+    "runnerSha256": "44e1d7e4faf1e209fb09444f9a916130fe7fec8cca8dd4dbcb33166432745cf9"
+  },
+  "nativeRunnerSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+  "runtime": {
+    "mainPid": 25180,
+    "version": "0.2.0",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0",
+    "packaged": true,
+    "normalUserData": true,
+    "normalSessionData": true,
+    "diaProcessesNotOperated": true
+  },
+  "accountReadable": true,
+  "failure": {
+    "code": "NATIVE_HELP_UNAVAILABLE"
+  },
+  "failureClose": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-11-02T12:45:03.993Z",
+      "attached": true,
+      "overflow": false,
+      "network": 0,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 2048,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "finishedAt": "2026-11-02T12:47:30.438Z"
+}

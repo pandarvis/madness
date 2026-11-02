@@ -40,3 +40,40 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+## Scripts natifs BMad pour l’aide
+
+Les fichiers resources/bmad-help/knowledge.py, resolve_config.py et config_utils.py sont des copies exactes de l’installation BMad locale 6.13.0-next. Ils sont exécutés en lecture seule sur des snapshots de données par le code possédé de Madness. Leurs empreintes sont épinglées dans src/adapters/bmad/help-manifest.ts. Aucun code Python du projet ouvert n’est importé.
+
+Source knowledge.py : https://github.com/bmad-code-org/BMAD-METHOD/tree/bd70c643a7ec85d1ec2e88076b3fbdd8e4517f41 ; cette révision correspond au contenu installé après normalisation des seules fins de ligne. Les copies livrées gardent leurs octets locaux exacts. BMad et ses marques restent la propriété de leurs titulaires.
+MIT License
+
+Copyright (c) 2025 BMad Code, LLC
+
+This project incorporates contributions from the open source community.
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for contributor attribution.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+TRADEMARK NOTICE:
+BMad™, BMad Method™, and BMad Core™ are trademarks of BMad Code, LLC, covering all
+casings and variations (including BMAD, bmad, BMadMethod, BMAD-METHOD, etc.). The use of
+these trademarks in this software does not grant any rights to use the trademarks
+for any other purpose. See [TRADEMARK.md](TRADEMARK.md) for detailed guidelines.
+

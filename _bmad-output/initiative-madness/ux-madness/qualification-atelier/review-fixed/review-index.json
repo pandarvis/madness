@@ -1,0 +1,553 @@
+{
+  "schemaVersion": 1,
+  "artifact": {
+    "path": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\dist\\atelier-review-fixed\\win-unpacked\\resources\\app.asar",
+    "sha256": "486cfe44e26256729617b661bdd48e657a3d520c1efa77f21adfe180feaf3118"
+  },
+  "captures": [
+    {
+      "file": "home-dark-expanded.png",
+      "sha256": "36e30b2cbdd445e319062be3840046b20e2eacfb796d66745007648dd0f9418d",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1440,
+        "height": 920,
+        "tab": null,
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/home-dark-expanded.png"
+    },
+    {
+      "file": "context-dark-desktop.png",
+      "sha256": "0c466fbf83d6ddceb3dd4b4e94df7c91cf0b6f1ae090fa8702da33fe629e6e40",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1440,
+        "height": 920,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": true,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/context-dark-desktop.png"
+    },
+    {
+      "file": "project-dark-expanded.png",
+      "sha256": "568df592fe2c92bea52e92d30c9f51a793a03206096b554ffc022a26f48874f0",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1440,
+        "height": 920,
+        "tab": "Parcours",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/project-dark-expanded.png"
+    },
+    {
+      "file": "conversation-dark-rail.png",
+      "sha256": "ecb07b8d663c1724ac049dfda213bc18c823914b78673fd06a3a6fe56fd8b9a4",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1440,
+        "height": 920,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": true,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/conversation-dark-rail.png"
+    },
+    {
+      "file": "conversation-dark-1440.png",
+      "sha256": "6ef38a727344dd8173a0900457a626d66cce1d9e17713093889b81e5b1a6162c",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1440,
+        "height": 920,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/conversation-dark-1440.png"
+    },
+    {
+      "file": "conversation-dark-720.png",
+      "sha256": "575b51a6e76794d5bfd1a6151f488f6d06cfaeeda734d9525204cc3f76c80161",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 720,
+        "height": 820,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/conversation-dark-720.png"
+    },
+    {
+      "file": "conversation-light-720.png",
+      "sha256": "43d01612a34bd0871a9fbd95c3d6178b5c3cd752ef1dcdf93f235274b3725648",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 720,
+        "height": 820,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/conversation-light-720.png"
+    },
+    {
+      "file": "connection-light-compact.png",
+      "sha256": "fb71674bb28a8bf18386eeaa4ea403e62f379068682abf06b1d50ce5e2e97c18",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 720,
+        "height": 820,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": true,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/connection-light-compact.png"
+    },
+    {
+      "file": "agent-full-mary-dark-1600.png",
+      "sha256": "035f9d36ee1313c99a3f0a54236e96653e2882a5afd0fc95f6039feee76a5772",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1600,
+        "height": 1000,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/agent-full-mary-dark-1600.png"
+    },
+    {
+      "file": "agent-full-john-dark-1600.png",
+      "sha256": "17e3edd6ca1b0ec1ec72a0aee6447f03d398de1f1d9e45a4e1f5c99ea38eca96",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1600,
+        "height": 1000,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/agent-full-john-dark-1600.png"
+    },
+    {
+      "file": "agent-full-sofia-dark-1600.png",
+      "sha256": "0168ff1e9a0f8fd6dca1bf915bac2e4f35de8c6f1fb4123fa36ebb88c9c023b2",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1600,
+        "height": 1000,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/agent-full-sofia-dark-1600.png"
+    },
+    {
+      "file": "agent-full-winston-dark-1600.png",
+      "sha256": "17d9d4ea917809242731118e2f3f8f53afd921635d17de9182bcdee28b8aad9c",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1600,
+        "height": 1000,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/agent-full-winston-dark-1600.png"
+    },
+    {
+      "file": "agent-full-sally-dark-1600.png",
+      "sha256": "8dfd8f22689a5b33ee7ff026b3343a809457d123628148b83771ac85b424786e",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1600,
+        "height": 1000,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/agent-full-sally-dark-1600.png"
+    },
+    {
+      "file": "agent-full-amelia-dark-1600.png",
+      "sha256": "b884c9c77d4eb752f84fc3aa015555d75778557bcdc5629a5ff930ddd85fc3f2",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1600,
+        "height": 1000,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/agent-full-amelia-dark-1600.png"
+    },
+    {
+      "file": "agent-full-smithy-dark-1600.png",
+      "sha256": "1303d4bf1af9a0bdfbb3a39ecb1ce319d544706230f179dbf9235bbf2997cf8a",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1600,
+        "height": 1000,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/agent-full-smithy-dark-1600.png"
+    },
+    {
+      "file": "atelier-panel-dark-1600.png",
+      "sha256": "d83e6bbd718044cf90f5eef26f0a0ceca0d93195445d18e5eab11ff31d91ae13",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1600,
+        "height": 1000,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/atelier-panel-dark-1600.png"
+    },
+    {
+      "file": "atelier-panel-light-1600.png",
+      "sha256": "27763a632d03109aebff355bb6803a0124636c12182536021f8cf441952044d3",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 1600,
+        "height": 1000,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/atelier-panel-light-1600.png"
+    },
+    {
+      "file": "atelier-panel-dark-1440.png",
+      "sha256": "dbc3d027dd4807ac6f324b960e7d7c551e51701a80f0ffb9891cf9d45293b941",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1440,
+        "height": 920,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/atelier-panel-dark-1440.png"
+    },
+    {
+      "file": "atelier-panel-light-1440.png",
+      "sha256": "1a950ba66ba25bcb09291582b35911860e085dc39238e59caecb60e84618935e",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 1440,
+        "height": 920,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/atelier-panel-light-1440.png"
+    },
+    {
+      "file": "atelier-panel-dark-1323.png",
+      "sha256": "81f72b123a8ac019e1ef00c7910596d9659594fe33f34131b5bccbaa337a691c",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1324,
+        "height": 920,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/atelier-panel-dark-1323.png"
+    },
+    {
+      "file": "atelier-panel-light-1323.png",
+      "sha256": "29a62db8ac513329315fa0a0a4582b13cff6c9a16c971ee5feea3eb041310c41",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 1324,
+        "height": 920,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/atelier-panel-light-1323.png"
+    },
+    {
+      "file": "atelier-panel-dark-1322.png",
+      "sha256": "b25531f5149dd859fea56210e8a58d3d9dcf45a14b92af39f77c6a16a0816e6f",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1322,
+        "height": 920,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/atelier-panel-dark-1322.png"
+    },
+    {
+      "file": "atelier-panel-light-1322.png",
+      "sha256": "9e5ed2d03bb1b3af5f5a56651dfda92b5b80e84caccbfdec6ba457e9d53963ae",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 1322,
+        "height": 920,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/atelier-panel-light-1322.png"
+    },
+    {
+      "file": "atelier-panel-dark-720.png",
+      "sha256": "437eff6065e31b913760153e2b09dbb265a5ca6941259ce406ff1ba6d03c0be7",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 720,
+        "height": 820,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/atelier-panel-dark-720.png"
+    },
+    {
+      "file": "atelier-panel-light-720.png",
+      "sha256": "94dcdd71b065d3448d26694490d4284c5d291a3e81df95fc907c6916cd97671c",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 720,
+        "height": 820,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/atelier-panel-light-720.png"
+    },
+    {
+      "file": "atelier-panel-dark-600.png",
+      "sha256": "f5aa79836846ef004c916cb4643408fbbb85c97af592ea0acb87806a44002202",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 600,
+        "height": 820,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/atelier-panel-dark-600.png"
+    },
+    {
+      "file": "atelier-panel-light-600.png",
+      "sha256": "66e087bf7964d9aa0a87deb2f5875cea28f795521aa52439b0600089842a86ce",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 600,
+        "height": 820,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/atelier-panel-light-600.png"
+    },
+    {
+      "file": "conversation-zoom-200.png",
+      "sha256": "7d20b9fae2a49f8a2654dac3dde116ed38acf9117efe471a61b2096fe52afcc8",
+      "method": "electron-native-full-content-zoom",
+      "state": {
+        "theme": "light",
+        "width": 660,
+        "height": 460,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 2
+      },
+      "nativeFrame": {
+        "size": [
+          1320,
+          920
+        ],
+        "scale": 1.25
+      },
+      "pixels": {
+        "width": 1650,
+        "height": 1150
+      },
+      "source": ".impeccable/review/atelier-zoom-recapture/conversation-zoom-200.png",
+      "replacesRejectedSha256": "1a2dcadd27c16ff51ac16c6011da383d0f68c08c28281a14545b6b1db6b59ddf",
+      "reason": "Check0 rejected cropped825x575; full native viewport1650x1150 technical recapture, same ASAR."
+    },
+    {
+      "file": "active-question-light.png",
+      "sha256": "a0ba9009654996591c1d779404632963ad3b6d73e5f20fe30f30941516f10577",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 1320,
+        "height": 920,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/active-question-light.png"
+    },
+    {
+      "file": "active-approval-light.png",
+      "sha256": "8fc73b8cc6c6f8a600f0b859c186284c385f54ddb199a3aba2091863861590cf",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 1320,
+        "height": 920,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/active-approval-light.png"
+    },
+    {
+      "file": "global-recovery-light.png",
+      "sha256": "3f112a80c407cc5dba3bf3da0c197ffb3acb7bcbc4e754f15a4345b90a4fa2ef",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 1320,
+        "height": 920,
+        "tab": null,
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "source": ".impeccable/review/atelier-review-fixed/global-recovery-light.png"
+    }
+  ],
+  "allThirtyOneViewedByParent": true,
+  "originalMatrix": "profile.json",
+  "originalMatrixCaptureStatus": "30 valid images; cropped zoom image explicitly superseded by this index",
+  "zoomRecapture": "zoom-recapture-profile.json"
+}

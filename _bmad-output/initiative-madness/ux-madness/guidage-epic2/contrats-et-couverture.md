@@ -2,6 +2,9 @@
 
 Update Sally du 2 novembre 2026, sous mandat autonome, pour la story 2.17. Cet index permet de retrouver les règles ; il ne constitue pas un troisième contrat UX. [DESIGN.md](../DESIGN.md) gouverne l’apparence et [EXPERIENCE.md](../EXPERIENCE.md) le comportement. Les décisions de conception sont déléguées, sans nouvelle approbation visuelle humaine. Le résultat de production est dans [update-result.json](update-result.json) ; les revues et le verdict Build restent au parent.
 
+
+La [réconciliation atelier du candidat 0.2.1](../qualification-atelier/sally-final-reconciliation.md) actualise depuis cet état palettes, typographie, Portrait d’agent, Fiche agent et Signalements de la fiche. Les comptes et comparaisons de tokens ci-dessous décrivent la production historique de 2.17 ; ils ne prétendent plus que le chrome courant est inchangé. Les sept parcours et leurs ancres restent identiques.
+
 ## Sources et statut de preuve
 
 Le [plan 2.17](../../tickets/epic-projets-bmad/tickets/story-definir-avec-sally-les-parcours-de-guidage-et-de-fichiers-plan.md), l’[epic](../../tickets/epic-projets-bmad/epic-projets-bmad.md), son [manifeste inchangé](../../tickets/epic-projets-bmad/tickets/tickets.toml) et le [profil G2 candidat](../../tickets/epic-projets-bmad/qualification-profil-g2/profil-g2.md) bornent cet Update. Le candidat final `run-d499adb2942e40e8a84c370fb7208ef2` qualifie une observation hors produit ; ses 15 cas ne sont pas des essais de ces parcours UX.

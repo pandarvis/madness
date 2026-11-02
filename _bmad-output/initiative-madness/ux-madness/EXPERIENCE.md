@@ -16,6 +16,11 @@ sources:
   - preparation-refonte-2026-10-28/preparation-refonte.md
   - ../tickets/epic-projets-bmad/epic-projets-bmad.md
   - ../tickets/epic-projets-bmad/qualification-profil-g2/profil-g2.md
+  - atelier-agents-2026-11-02/handoff.json
+  - qualification-atelier/sally-final-reconciliation.md
+  - ../../../.impeccable/surfaces/src-renderer-src-app-tsx.md
+  - ../../../src/renderer/src/styles.css
+  - ../../../src/renderer/src/AgentInfoPanel.tsx
 ---
 
 ## Foundation
@@ -26,7 +31,9 @@ La base « Parcours guidé » et sa navigation rétractable ont été acceptées
 
 Les projets, conversations et brouillons sont conservés localement ; la sauvegarde évoquée en A2/Q6 n’est plus à définir. La restauration n’ouvre ni réseau ni moteur et ne reprend aucune conversation native. L’epic 1 est clos techniquement, G0/G1 bornés au profil personnel Mary/Forge selon [1.11](../tickets/epic-boucle-codex/qualification-e2e/parent-verification.md). Versions antérieures à v7, migration et reconstruction de conversations externes restent hors du présent parcours.
 
-L’Update Sally du 2 novembre complète sous mandat autonome les parcours contractuels de l’epic 2. Il utilise Impeccable Operate et les spines comme autorité visuelle, sans nouveau prototype. Le [profil G2 candidat](../tickets/epic-projets-bmad/qualification-profil-g2/profil-g2.md) reste partiel et hors produit : aides sûres réellement chargées indépendantes, recommandation native `$bmad` et exécution générale non qualifiées. Les contrats ci-dessous définissent le comportement de leurs futurs consommateurs 2.2–2.9 ; ils ne rendent aucune capacité disponible. Les choix de conception délégués sont tracés dans [.memlog.md](.memlog.md) et [l’index de couverture](guidage-epic2/contrats-et-couverture.md). Q8/Q9, mesures R32, initialisation et graphe gardent leurs lots propres.
+L’Update Sally de 2.17 définit les sept parcours contractuels de l’epic 2 ; leurs règles ci-dessous sont conservées. Le profil G2 candidat de 2.1 reste une preuve hors produit. Le candidat 2.2 intègre lecture locale et demande native $bmad avec des reçus réels conservés, mais demeure in-review avec M14 ouvert ; le propriétaire signale un nouveau 307 réel après le dernier acquittement humain. Aucun nouveau contrôle réseau n’est réalisé par cette documentation. Les huit reçus natifs ne closent pas cette limite ni ne qualifient le skin atelier. Les choix sont tracés dans [.memlog.md](.memlog.md) et [l’index de couverture](guidage-epic2/contrats-et-couverture.md). Catalogue général, Q8/Q9/R32, initialisation et graphe gardent leurs lots propres.
+
+La [direction atelier approuvée](atelier-agents-2026-11-02/handoff.json) est implémentée dans le candidat 0.2.1, ASAR 486cfe44e26256729617b661bdd48e657a3d520c1efa77f21adfe180feaf3118. La [réconciliation finale](qualification-atelier/sally-final-reconciliation.md) décrit sa portée : conversation centrale, portraits discrets et fiche locale. Elle n’annonce ni installation personnelle, ni acceptation visuelle humaine globale, ni audit WCAG, ni clôture de 2.2.
 
 ## Information Architecture
 
@@ -34,11 +41,12 @@ L’Update Sally du 2 novembre complète sous mandat autonome les parcours contr
 |---|---|---|---|
 | Accueil | Ouverture ou navigation ; récents, activités et attentes corrélées ; commande unique d’ouverture. | 1, 7 | Livré et recomposé ; extension multi-projet/initiatives/preuves prévue en 2.9. |
 | Projet · Parcours | Projet ouvert ; attentes, état sourcé, preuves puis guidage secondaire. | 1, 2, 5 | Mary/Forge livrés ; Registre des preuves et actualisation prévus en 2.4/2.5. |
-| Projet · Conversation | Échange sélectionné, demande pertinente, saisie et décisions ; préparation explicite. | 2, 3, 7 | Dialogue livré ; réponse native `$bmad` à qualifier en 2.2, catalogue en 2.7. |
+| Projet · Conversation | Échange sélectionné, demande pertinente, saisie et décisions ; préparation explicite. | 2, 3, 7 | Dialogue livré ; réponse native $bmad dans le candidat 2.2 encore in-review/M14 ; catalogue futur en 2.7. |
 | Connexion Codex et accès | Commande de barre ; compte, contrôle explicite, indisponibilité et aide réseau. | 1, 2, 3 | Livré ; panneau et arrêt inconnu accessibles sans projet. |
+| Fiche agent | Portrait ou Fiche agent d’un message attesté reconnu ; rôle et provenance de cet item. | 2, 3, 7 | Implémentée dans le candidat atelier ; consultation locale informative, aucun choix ou lancement d’agent. |
 | Diagnostic et initialisation | Dossier choisi ou Détails de contexte → Voir le diagnostic ; profil et capacités indépendantes. | 1 | Diagnostic G2 prévu en epic 2 selon candidat 2.1 ; initialisation future epic 3, aucun setup implicite. |
 | Sélecteur d’initiative | En-tête projet → Choisir une initiative ; liste et conflit dans Dialogue. | 4 | Contrat 2.3 : sélection Madness distincte de l’active BMad ; aucune écriture de configuration. |
-| Aides chargées | Parcours → Que faire ensuite ? ; contenu lu, couverture et préflight avant demande à l’agent. | 2 | Contrat 2.2 ; lecture ne vaut ni envoi ni recommandation. |
+| Aides chargées | Parcours → Que faire ensuite ? ; contenu lu, couverture et préflight avant demande à l’agent. | 2 | Candidat 2.2 encore in-review ; lecture, transmission, réponse et conservation distinctes. |
 | Catalogue des compétences et Fiche compétence | Onglet Toutes les possibilités, ou alternatives → fiche. | 3 | Contrats 2.6/2.7 : catalogue réel, copie distincte du lancement qualifié. |
 | Panneau de fichiers et aperçu agrandi | Preuve/résultat → Aperçu ; Agrandir ouvre un Dialogue de lecture. | 5, 6 | Contrat 2.8 ; chemin/provenance/statut et contexte de l’origine conservés. |
 
@@ -130,6 +138,9 @@ Les noms correspondent à DESIGN.md · Components. Les composants futurs restent
 | Détails de contexte | Consultation à la demande des informations connues, invocations, chemins intégraux et provenance. Cette compacité ne replie pas les effets ou préconditions nécessaires à une autorisation active. |
 | Préparation d’un échange | Présente Mary et Forge avec objectif ; qualification sans modèle, lancement natif et option fichiers séparés. Une nouvelle conversation est explicite ; aucun brouillon transmis au lancement. Forge respecte la recherche native de sessions existantes avant le premier terminal, sans reprise implicite. |
 | Conversation | Affiche échange sélectionné, agent connu ou inconnu, fournisseur, contexte et invocation. Messages progressifs corrélés ; provenance figée par item selon ce qui est attesté. Aucun échange sélectionné : état vide et action de préparation, sans lancement automatique. |
+| Portrait d’agent | Correspondance exacte uniquement depuis l’identité attestée de l’item : Mary, John, Sofia, Winston, Sally, Amelia ou Smithy. Identité inconnue reste inconnue ; nom attesté hors casting conservé sans portrait nommé. Ni invocation, recipient, texte reçu ni fichier de skill ne sont une preuve. |
+| Fiche agent | Capture message, identité/source, contexte et déclencheur exacts ; rôle descriptif, pas compétence disponible ni activité. Ouverture/fermeture et navigation de signalement restent locales ; aucune invocation ni décision métier. Source/contexte invalidé : fermeture avec motif, sans réaffectation au dernier message. |
+| Signalements de la fiche | Pendant la consultation, conserver les attentes/récupérations observées par identifiant, récentes d’abord. Zone visible séparée du rôle, annonce et accès corrélé ; disparition rend l’entrée historique inactive. Chaque nouvel identifiant est annoncé une fois, même si type et projet identiques ; expiration et deltas ne réannoncent pas. |
 | Question de l’agent | Demande active corrélée seulement ; brouillon propre à la demande, choix non secrets et envoi explicite. Après expiration, passage à un état terminal ou restauration : texte conservé et inactif, sans action de réponse. |
 | Champ de réponse | Brouillon libre distinct des réponses aux questions ; sauvegarder et envoyer restent séparés. Refuser texte vide et double envoi ; transmettre la copie capturée au clic à la bonne session. « Envoyé » exige le reçu fiable ; échec de conservation signalé sans succès durable inventé. |
 | Proposition d’approbation | Lecture seule par défaut, mode fichiers opt-in. Présenter opération, portée intégrale, préconditions et patch complet avant autoriser/refuser. Accord ponctuel pour l’opération exacte ; navigation et fermeture ne l’accordent pas. Ajustement dans un nouveau tour, sans rejeu. |
@@ -138,7 +149,17 @@ Les noms correspondent à DESIGN.md · Components. Les composants futurs restent
 | Panneau de fichiers | Ouvre le fichier exact de la preuve/résultat, avec projet, initiative capturée, statut sourcé, chemin et révision. Lecture seule de contenu non fiable, aucun script, lien actif ou commande du document exécuté. Agrandir conserve sélection et position ; ouverture éditeur demande une intégration qualifiée, chemin contrôlé et retour réel selon parcours 6. |
 | Diagnostic et initialisation | Distinguer absent, ancien observé, inconnu, partiel, candidat observé, incompatible, invalidé et erreur selon G2. Montrer capacités indépendantes, sources/racines ordonnées et motif de refus ; version v7 seule insuffisante. Actualiser ne répare pas. L’initialisation reste epic 3, avec changements exacts et accord avant écriture ; installation seule ne signifie pas produit cadré. |
 | Dialogue | Décision unique, fermeture visible et Échap ; focus maintenu dans le dialogue, puis rendu au déclencheur à la fermeture. Fermer n’accepte rien ; aucun empilement de confirmations. |
-| Notification | Retour bref annoncé poliment ; attente, erreur durable et décision restent dans leur surface et ne dépendent pas de sa durée. |
+| Notification | Retour bref annoncé poliment ; attente, erreur durable et décision restent dans leur surface. Les Signalements de la fiche gardent une région visible persistante et des destinations indépendantes de l’annonce live. |
+
+### Consultation locale d’un agent
+
+La fiche s’ouvre depuis le message attesté reconnu, jamais depuis un catalogue de portraits. Nom, rôle statique, spécialité, source d’identité et identifiant du message sont consultables ; aucune disponibilité n’est déduite du casting. Un changement de projet, d’onglet, d’échange sélectionné ou de preuve d’identité ferme la consultation devenue invalide avec un motif, sans la déplacer vers un autre auteur.
+
+Une seule surface informative de contexte est visible à droite. Ouvrir la fiche masque localement Connexion/Contexte sans appeler leur annulation ; une autorisation ou vérification en cours conserve son état. Ouvrir Connexion/Contexte ferme localement la fiche. Échap ferme seulement la surface la plus haute et ne se propage pas vers une annulation de connexion, un refus ou un arrêt. Les Dialogues natifs de navigation et de rappel du forfait gardent leur priorité ; le changement de disposition de la fiche attend leur fermeture au lieu de les rouvrir ou de leur retirer le focus.
+
+À partir de {components.agent.dockBreakpoint}, la fiche est une région dockée non modale ; en dessous, un Dialogue modal. La transition conserve consultation et défilement du corps. À l’ouverture, focus sur son titre ; à la fermeture, retour au déclencheur exact encore présent, sinon au titre neutre de Conversation ou du projet, jamais sur Autoriser.
+
+Une arrivée de question, approbation ou récupération ne change ni l’auteur consulté ni le focus. La zone Signalements reste visible au-dessus du corps de rôle défilant. Son annonce polie et atomique porte un numéro de signalement croissant, distinguant deux arrivées de même type/projet ; elle ne dépend pas des deltas. La liste conserve séparément les destinations exactes. Rejoindre cette demande ou Voir cette récupération ferme seulement la fiche et navigue vers la cible capturée. Une demande disparue devient Cette demande n’est plus active — historique conservé ; Voir cet historique retrouve cette cible, sans substitution ni réponse automatique. Cette persistance dure pendant la consultation ; aucun stockage métier de la fiche ou de ses annonces n’est ajouté.
 
 ### Connexion personnelle et aide réseau
 
@@ -175,6 +196,8 @@ L’aide réseau affiche uniquement l’adresse publique `https://auth.openai.co
 | Aperçu en lecture / refusé / périmé | En-tête exact visible pendant lecture ; aucun contenu ancien sous un titre de nouvelle révision. Accès refusé, hors portée, lien/type refusé, format inconnu ou taille excessive expliqués sans exécuter ni tronquer silencieusement. Après mutation, ancien contenu marqué périmé ; Examiner la nouvelle révision déclenche la lecture sûre. |
 | Éditeur en attente / échec / inconnu | Demande liée au chemin/révision contrôlés, pas à la sélection future. Retour disponible précis ; demande transmise ne prouve ni fenêtre visible ni lecture humaine. Échec connu permet une nouvelle demande explicite ; résultat inconnu n’est pas rejoué automatiquement. Copier le chemin sûr reste indépendant. |
 | Destination d’attente disparue | Ouvrir son historique exact, inactif, avec motif ; si la ressource est inaccessible, afficher ce refus sur la destination demandée. Ne pas rediriger vers une demande plus récente ni rendre répondable l’ancienne. |
+| Fiche ouverte / source invalidée | Consultation liée à son item exact ; contexte ou identité/source non retrouvé ferme avec motif. Un historique sans projection ne récupère aucun visage nommé. |
+| Attente reçue pendant la fiche | Signalement visible avant le rôle, annonce distincte par nouvel identifiant et navigation explicite ; focus conservé à l’arrivée, historique exact après expiration. |
 | Focus / superposition | Ordre de lecture cohérent, focus visible, fermeture accessible et retour au déclencheur. |
 
 <a id="epic2-conservation"></a>
@@ -213,6 +236,8 @@ Tab et Maj+Tab suivent l’ordre visuel. Entrée/Espace activent les boutons ; l
 | Ouvrir un projet | Après choix et lecture, titre du projet ; annulation du sélecteur Windows rend le focus au dossier. Échec focalise son titre/motif, avec accès au travail précédent. |
 | Que faire ensuite ? / Voir les aides | Titre Aides chargées, puis sources et préparation ; fermer les détails rend le focus au lien exact. Les mises à jour n’arrachent pas le focus de la saisie. |
 | Demander à BMad / Lancer une nouvelle conversation | Après envoi admis, titre de l’échange capturé dans Conversation ; demande active ensuite atteignable, jamais Autoriser par défaut. Refus avant envoi rend le focus au motif de la préparation. |
+| Ouvrir / fermer Fiche agent | Titre de fiche, puis rôle et signalements ; Tab libre en docké, contenu dans le Dialogue en mode modal. Fermer/Échap retrouve le bouton exact ou le titre neutre si absent. Le reflow attend une modale prioritaire. |
+| Signalement de fiche → demande / récupération | Navigation volontaire vers la cible capturée, titre corrélé ou historique inactif ; aucune réponse, décision, annulation ou interruption transmise, aucun focus initial sur Autoriser. |
 | Ouvrir / fermer Fiche compétence | Titre du Dialogue, piège de focus ; fermeture ou Échap rend le focus au résultat/alternative exact. Si disparu après actualisation, titre des résultats avec annonce, pas premier Lancer. |
 | Ouvrir / fermer Sélecteur d’initiative | Choix courant, sinon titre ; conflit remplace le contenu du même Dialogue, sans empilement. Annuler ou choisir rend le focus à la commande de l’en-tête. |
 | Preuve → fichier / agrandissement | Titre du Panneau de fichiers ; en panneau latéral non modal, Tab permet le retour au centre. Superposition et agrandissement : Dialogue modal, fermeture à sa commande d’origine ; si disparue, titre du Registre des preuves ou du résultat. |
@@ -231,7 +256,8 @@ Les délais et réponses du [script du prototype](mockups/parcours-guide/app.js)
 
 - Actions au clavier, ordre de focus conforme à la lecture, rôles et états des onglets, navigation, tiroir et demandes exposés.
 - Icônes 19 px et cibles d’au moins `{components.titlebar.target}` ; texte conservé pour décisions de question, patch et récupération. Nom, aide au focus et portée textuelle ne dépendent pas de la couleur.
-- Transitions, reçus et notifications annoncés par statut ; ne pas transformer chaque delta en alerte.
+- Transitions, reçus et notifications annoncés par statut ; ne pas transformer chaque delta en alerte. Chaque nouveau signalement de fiche a une annonce distincte par identifiant et une liste visible séparée ; les contrôles de mutations DOM ne certifient pas une restitution sonore par lecteur d’écran.
+- Portrait et décors redondants restent hors de l’arbre d’accessibilité ; les boutons conservent leur nom, cible de 40 px et focus visible au-dessus du cadre sans remplissage central.
 - Zoom, texte agrandi, chemins et noms longs préservent lecture, commandes et saisie. Aucun débordement de fenêtre nécessaire pour répondre.
 - Mouvement réduit : dossier statique, aucune animation pulsante ni défilement imposé. Vérifier clavier, lecteur d’écran, focus et deux thèmes dans l’application intégrée ; les anciennes vérifications ne valent pas audit de la refonte.
 
@@ -329,7 +355,7 @@ Sam reste le protagoniste de conception des trois [parcours initiaux](.working/p
 
 ## Inspiration & Anti-patterns
 
-ChatGPT Desktop inspire le chrome discret, les commandes compactes et la conversation au centre. Les références historiques [Codex Desktop](imports/reference-codex-desktop.png) et [navigation repliée](imports/reference-navigation-repliee.png) servent ce gain de place. Madness conserve ses preuves, son guidage BMad prévu et la distinction entre propositions et décisions.
+La [référence atelier approuvée](atelier-agents-2026-11-02/atelier-reference-approuvee.png) fixe désormais l’atelier illustré original : portraits discrets, fiche sur demande et matière principalement sur les arêtes. Les références historiques [Codex Desktop](imports/reference-codex-desktop.png) et [navigation repliée](imports/reference-navigation-repliee.png) conservent leur rôle de composition compacte. L’illustration ne remplace ni preuve d’auteur, ni demande, ni décision ; le contenu fictif de la maquette ne devient aucune commande.
 
 Éviter les grandes préparations avant l’échange, les répétitions de blocages, le catalogue fictif et la validation déduite d’un compteur. Party-mode reste une possibilité transversale future parmi les compétences, sans place privilégiée dans les profils livrés. Loop n’est pas adopté ; le graphe relève de l’epic 4.
 
@@ -339,6 +365,8 @@ Windows est la cible ; la fenêtre étroite ne constitue pas une application mob
 
 Les consommateurs de l’epic 2 se vérifient notamment à 1440 × 920, 1280 px de large et 720 × 820, avec noms longs, zoom et mise à l’échelle Windows. En Conversation, échange ou état vide, demande pertinente et point de réponse restent repérables au premier écran de référence ; le défilement nécessaire à un long patch ou historique ne masque pas sa nature ni ses gardes. Au seuil `{components.files.overlayBreakpoint}`, le Panneau de fichiers devient superposé ; sous `{components.navigation.drawerBreakpoint}`, navigation en tiroir. À toute largeur et au zoom 200 %, un panneau/Dialogue peut occuper la largeur utile, défile verticalement et garde son titre, fermeture et actions atteignables. Fermer retrouve la sélection et la saisie d’origine ; changer de largeur ne ferme ni n’envoie une demande.
 
-Le français est livré ; les formulations françaises/anglaises de cet Update sont contractuelles, leur implémentation reste en 2.14. Changer de langue pendant une saisie conserve ses octets, destinataire, demande et position ; pas de requête fournisseur ni traduction du contenu projet. Préférence de langue refusée : choix de session maintenu, erreur accessible et aucune persistance annoncée. Sombre terracotta/bleu par défaut et clair alternatif sont conservés. La commande soleil/lune nomme « Passer au thème clair/sombre » / « Switch to light/dark theme » et préserve focus et travail ; les contrôles Windows suivent le thème.
+La fiche agent utilise {components.agent.panelWidth}, puis {components.agent.wideWidth} dès {components.agent.wideBreakpoint}, en docké à partir de {components.agent.dockBreakpoint}. Sous ce seuil : Dialogue modal, largeur maximale {components.agent.modalWidth}, retrait {components.agent.modalInset} ; sous 720 px, retrait {components.agent.smallInset} et largeur utile. Titre et Signalements sont séparés du corps de rôle défilant. Ce seuil est distinct du futur Panneau de fichiers. Vérifier les deux côtés 1322/1323 px, 1600 px, 600 px et le zoom 200 % ; conserver la mesure CSS réellement observée si la mise à l’échelle Windows quantifie la taille demandée.
+
+Le français est livré ; les formulations françaises/anglaises de cet Update sont contractuelles, leur implémentation reste en 2.14. Changer de langue pendant une saisie conserve ses octets, destinataire, demande et position ; pas de requête fournisseur ni traduction du contenu projet. Préférence de langue refusée : choix de session maintenu, erreur accessible et aucune persistance annoncée. Sombre anthracite/terracotta/pétrole par défaut et clair ivoire/terracotta/pétrole utilisent les tokens atelier de DESIGN.md. La commande soleil/lune nomme « Passer au thème clair/sombre » / « Switch to light/dark theme » et préserve focus et travail ; les contrôles Windows suivent le thème.
 
 La préférence d’apparence reste distincte des données métier. Profil neuf : sombre. Choix explicite retrouvé sans agent ; fichier illisible ou d’une version future : sombre de secours et avertissement sans écraser le fichier. Sauvegarde refusée : choix maintenu pour la session et erreur accessible. Les [preuves historiques de thème](../qualification-theme/README.md) et d’installation ne valent ni contrôle de la nouvelle composition, ni acceptation visuelle humaine, ni audit d’accessibilité complet.

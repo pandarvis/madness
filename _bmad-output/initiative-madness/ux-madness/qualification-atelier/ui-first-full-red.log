@@ -1,0 +1,76 @@
+✔ atelier : seuls les sept auteurs attestés exacts ont un portrait, les replis gardent nom et provenance (14861.5915ms)
+✔ atelier : fiche dockée locale, provenance stable, fermeture restitue largeur, focus et saisie sans effet métier (12881.9092ms)
+✖ atelier : modale étroite inerte, seuil conservé, Échap unique et connexion engagée jamais annulée par consultation (11764.132ms)
+✔ atelier : source disparue ferme la fiche vers le titre neutre, contexte et thème préservent le brouillon (19195.224ms)
+✔ atelier : arrivée question, approbation et récupération gardent le focus, expiration rejoint seulement son historique exact (20778.9717ms)
+✔ atelier : aides partielles et reçus non conservés utilisent un HelpBridge synthétique strict, sans transmission (18779.1079ms)
+✔ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (14486.5821ms)
+✔ une approbation corrélée montre sa portée et son patch avant tout ancien formulaire (10489.8586ms)
+✔ un historique simple avec nom long garde le point de saisie libre repérable au premier écran (12686.1202ms)
+ℹ {"requested":{"width":1440,"height":920},"top":718.8500366210938,"bottom":789.8500366210938,"width":1440,"height":920,"mainScroll":0,"requests":0}
+ℹ {"requested":{"width":720,"height":820},"top":672.7999877929688,"bottom":743.7999877929688,"width":720,"height":820,"mainScroll":0,"requests":0}
+✔ le focus de réponse reste neutre pendant envoi puis historique, sans détourner une autre saisie (9340.3705ms)
+✔ expiration et décision retirent leurs contrôles vers un titre neutre dans l’historique (10546.6953ms)
+✔ la conversation donne accès au travail avant la préparation et conserve la saisie en consultant le contexte (12093.4716ms)
+✔ ouvrir Codex depuis la projection ferme le contexte et focalise le panneau visible (8959.2569ms)
+✔ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (6064.4481ms)
+✔ un lancement Mary rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec (22181.0783ms)
+✔ un lancement Forge rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec (28059.0217ms)
+✔ les annonces polies de l’accueil couvrent arrivée, envoi et résolution sans annoncer les fragments (8616.8091ms)
+✔ les récapitulatifs repliés nomment le fait du tour et gardent leur identifiant secondaire (9211.901ms)
+✔ accueil rejoint la conversation exacte par clavier, préserve les saisies et retire l’attente résolue (17307.1414ms)
+✔ deux destinations concurrentes et retour tardif gardent le dernier contexte et focus demandés (16874.3711ms)
+✔ préparer un échange annule une sélection différée et libère les commandes sans détour tardif (16410.594ms)
+✔ une attente expirée pendant la sélection conserve sa saisie et explique l’absence d’envoi (8473.1106ms)
+✔ activité native reste nommée à l’accueil et un échec de sélection ne déplace ni contexte ni focus (8282.442ms)
+✔ les articles progressifs gardent leur nœud, identité sourcée, lecture et saisie sans annoncer chaque fragment (11743.7944ms)
+✔ le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (25993.3149ms)
+✔ les indicateurs de question distinguent saisie et envoi et utilisent son destinataire réel (11814.655ms)
+✔ le thème change au clavier sans perdre le brouillon ni le contexte en fenêtre compacte (14417.9965ms)
+✔ Forge prépare la portée inline, exige qualification et lancement explicites puis conserve le brouillon et le destinataire (21640.9962ms)
+✔ les contrôles partagés sont attribués à la session Forge (17302.473ms)
+✔ les contrôles partagés sont attribués à la session Mary (13332.3926ms)
+✔ la préparation Forge explique le prérequis account et sa récupération en fenêtre compacte (17513.6613ms)
+✔ la préparation Forge explique le prérequis plan et sa récupération en fenêtre compacte (17308.9396ms)
+✔ Forge historique après Mary conserve résultat, contexte, observations et copie du chemin correspondant (25363.689ms)
+✔ un thème non sauvegardé garde un avertissement accessible et la saisie (true) (7165.9049ms)
+✔ un thème non sauvegardé garde un avertissement accessible et la saisie (bridge) (5219.1516ms)
+✔ le rappel forfait affiche l’erreur connue et reste fermable après un échec durable (9108.2076ms)
+✔ Échap ferme le tiroir compact actif et conserve le panneau Codex en arrière-plan (7656.1368ms)
+✔ Mary expose son invocation et son forfait puis envoie uniquement le brouillon capturé (11363.674ms)
+✔ un arrêt inconnu depuis un autre projet garde le motif du blocage et le retour au propriétaire (21855.7727ms)
+✔ l’aide aux clés publiques est absente sans erreur réseau (5153.3158ms)
+✔ l’aide réseau ouvre ou copie l’unique URL publique sans masquer l’erreur ni relancer Codex (9317.0616ms)
+✔ l’aide réseau garde une récupération locale après échec copyPublicKeys (7226.2158ms)
+✔ l’aide réseau garde une récupération locale après échec openPublicKeys (8372.7488ms)
+✔ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (15251.8381ms)
+✔ un arrêt du témoin connexion non confirmé expose la récupération explicite sans projet (5818.6988ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 44
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 611660.3762
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:102:1
+✖ atelier : modale étroite inerte, seuil conservé, Échap unique et connexion engagée jamais annulée par consultation (11764.132ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 70.4000015258789
+  - 70
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/madness-atelier-ui/madness/tests/connection-ui.test.mjs:111:9)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 70.4000015258789,
+    expected: 70,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

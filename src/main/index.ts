@@ -65,7 +65,7 @@ else {
         const pathname = decodeURIComponent(url.pathname)
         if (request.method !== 'GET' || url.hostname !== 'app' || url.port || url.search || url.hash || pathname.includes('\\') || pathname.includes('\0')) return new Response(null, { status: 403 })
         const file = resolve(rendererRoot, '.' + pathname)
-        if (!file.startsWith(rendererRoot + sep) || !['.html', '.js', '.css', '.svg', '.png'].some((extension) => file.endsWith(extension))) return new Response(null, { status: 403 })
+        if (!file.startsWith(rendererRoot + sep) || !['.html', '.js', '.css', '.svg', '.png', '.ttf'].some((extension) => file.endsWith(extension))) return new Response(null, { status: 403 })
         return await net.fetch(pathToFileURL(file).href)
       } catch { return new Response(null, { status: 404 }) }
     })
@@ -94,7 +94,7 @@ else {
     const appearanceStore = new AppearanceStore(join(app.getPath('userData'), 'appearance-v1.json'))
     let appearance = await appearanceStore.restore()
     let appearanceQueue: Promise<unknown> = Promise.resolve()
-    const nativeColors = (theme: Theme): { color: string; symbolColor: string; height: number } => ({ color: theme === 'dark' ? '#211F1E' : '#FFFFFF', symbolColor: theme === 'dark' ? '#F1EBE6' : '#29282E', height: 56 })
+    const nativeColors = (theme: Theme): { color: string; symbolColor: string; height: number } => ({ color: theme === 'dark' ? '#20343C' : '#E8DDC8', symbolColor: theme === 'dark' ? '#F1EBE6' : '#24211E', height: 56 })
     nativeTheme.themeSource = appearance.theme
     application.lifecycle.register({ id: 'appearance', context: emptyContext(), stop: async () => { await appearanceQueue; return 'stopped' } })
     ipcMain.handle(APPEARANCE_CHANNEL, (event, input: unknown): Promise<AppearanceReply> | AppearanceReply => {

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "scope": "One technical recapture of zoom200 after Check0; no visual redesign or repeat detector.",
+  "publicSourceSha256": "c5bd54fb8d96649883a5b136e865de4cba16106c2e289c2cf7b7539faf6778e0",
+  "derivedSourceSha256": "eb1a47b7c31c63c2535ae52306ab0c720c0c19b9ea135a06803ea99377487fb1",
+  "artifactSha256Before": "486cfe44e26256729617b661bdd48e657a3d520c1efa77f21adfe180feaf3118",
+  "artifactSha256After": "486cfe44e26256729617b661bdd48e657a3d520c1efa77f21adfe180feaf3118",
+  "earlyReturnAfterZoom": true,
+  "limits": [
+    "Données et demandes actives synthétiques ; aucun reçu fournisseur, compte ou accord humain déduit.",
+    "Contrôles du contenu Electron ; glyphes Windows, mise à l’échelle du système, lecteur d’écran et conformité WCAG non certifiés.",
+    "Tailles CSS exactes privilégiées ; quantification Windows limitée à1px et consignée dans viewports, sans franchissement des breakpoints attendus.",
+    "Aucune installation personnelle, clôture G1 ni acceptation visuelle humaine.",
+    "Réseau bloqué et app-server comptés seulement après installation du hook ; aucune absence d’activité antérieure au hook revendiquée.",
+    "Une identité Main, une fermeture observable ou un compteur incomplet interdit le nettoyage du profil. Aucun processus tué par le banc."
+  ]
+}

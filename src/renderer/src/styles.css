@@ -12,7 +12,9 @@
   --tooltip: #efe7e0; --tooltip-text: #211f1e; --backdrop: #0b0908ad;
   --composer-shadow: #0b090824; --panel-shadow: #0b09085c; --tooltip-shadow: #0b09083d;
   --logo-filter: grayscale(1) invert(1); --logo-opacity: .72;
-  --sidebar: 222px; --context-panel: 318px;
+  --sidebar: 240px; --context-panel: 318px;
+  --atelier-chrome: #20343c; --atelier-plate: #294652; --atelier-edge: #bc8464; --atelier-ink: #111819;
+  --atelier-heading: #f4dfc1; --agent-panel-width: 320px;
 }
 .question-panel { margin-block: 24px; padding-block: 22px; border-block: 1px solid var(--control-line); min-width: 0; overflow-wrap: anywhere }
 .question-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap }
@@ -41,16 +43,18 @@
 :root:not([data-theme]) { background: transparent; color-scheme: normal }
 :root[data-theme="light"] {
   color-scheme: light;
-  --surface: #fff; --navigation: #f4f3f7; --panel: #fdfcfe; --text: #29282e;
-  --muted: #66636f; --muted-lavender: #75657f; --line: #e9e7ee; --control-line: #8a8291;
-  --hover: #efedf3; --active: #e7e3ee; --accent: #654bb0; --accent-hover: #51368f; --accent-active: #432b7a;
-  --accent-soft: #f0ebfa; --selected: #e8e3f1; --selected-text: #533b80;
-  --recommendation: #fcfbff; --recommendation-line: #ded7ea;
-  --neutral: #f1f0f4; --neutral-text: #5e596a; --error: #fbecee; --error-text: #9b3a43;
-  --success: #edf5ef; --success-text: #366147; --waiting: #fbf2df; --waiting-text: #7b5519;
-  --accent-text: #fff; --link: #654bb0; --focus: #654bb0; --selection: #ded4f3; --selection-text: #29282e;
-  --tooltip: #403348; --tooltip-text: #fff; --backdrop: #2f253a59;
-  --composer-shadow: #42314908; --panel-shadow: #24162f29; --tooltip-shadow: #24172d1f;
+  --surface: #f6f0e4; --navigation: #e8ddc8; --panel: #fff9ef; --text: #24211e;
+  --muted: #62554b; --muted-lavender: #68584c; --line: #c8b9a4; --control-line: #8c7864;
+  --hover: #e7dcc9; --active: #daceb8; --accent: #9b472c; --accent-hover: #80381f; --accent-active: #6d2e19;
+  --accent-soft: #f0d8c7; --selected: #cfdee0; --selected-text: #234b59;
+  --recommendation: #f0e6d5; --recommendation-line: #b49a7f;
+  --neutral: #e8dece; --neutral-text: #574b40; --error: #f6dedd; --error-text: #903c38;
+  --success: #e1ebdc; --success-text: #335c3e; --waiting: #f2e3c3; --waiting-text: #71501b;
+  --accent-text: #fff9f0; --link: #1c5b76; --focus: #1c5b76; --selection: #c2d9df; --selection-text: #24211e;
+  --tooltip: #20343c; --tooltip-text: #fff9f0; --backdrop: #18161280;
+  --composer-shadow: #392d220d; --panel-shadow: #392d2238; --tooltip-shadow: #392d2229;
+  --atelier-chrome: #e8ddc8; --atelier-plate: #d5dfdb; --atelier-edge: #9b472c; --atelier-ink: #6c5948;
+  --atelier-heading: #314d57;
   --logo-filter: grayscale(1); --logo-opacity: .52;
 }
 * { box-sizing: border-box }
@@ -320,3 +324,129 @@ dd { margin: 6px 0 0; color: var(--muted) }
 .recap-text .message-text { max-height: 320px; overflow: auto; padding-block: 12px; }
 .recap-body details { margin-block: 12px; }
 @media (max-width: 700px) { .overview-list .question-return { flex-direction: column; align-items: flex-start; gap: 8px; } }
+
+@font-face { font-family: 'Barlow Condensed'; src: url('./assets/atelier/BarlowCondensed-Bold.ttf') format('truetype'); font-style: normal; font-weight: 700; font-display: swap }
+/* Atelier chrome surrounds quiet reading surfaces. Decorative cuts never clip a focus target. */
+h1, h2, .brand-label, .agent-name { font-family: 'Barlow Condensed', 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: .005em }
+h1 { font-size: 32px; line-height: 1.15 }
+h2 { font-size: 23px; line-height: 1.2 }
+button { border-radius: 4px }
+.topbar { background: var(--atelier-chrome); border-bottom: 2px solid var(--atelier-ink) }
+.topbar .toolbar-toggle, .codex-trigger { border-radius: 3px }
+.breadcrumb > span { font-weight: 600 }
+.sidebar { position: relative; background: var(--navigation); border-right: 2px solid var(--atelier-ink); padding-top: 20px }
+.sidebar::after { content: ''; display: block; flex: 1 0 150px; max-height: 360px; margin: 20px -12px -12px; background: url('./assets/atelier/workshop-sidebar.png') center 65% / cover no-repeat; pointer-events: none; order: 1 }
+.sidebar-bottom { flex: none; margin-top: 24px; order: 2; background: var(--navigation); padding: 14px 0 0; border-top: 1px solid var(--atelier-edge); z-index: 1 }
+.brand { padding-inline: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--atelier-edge); height: 54px }
+.brand-label { font-size: 36px; color: var(--atelier-heading); letter-spacing: .025em; text-transform: uppercase }
+.nav-section { font-family: 'Barlow Condensed', 'Segoe UI', sans-serif; font-size: 17px; color: var(--muted); margin-top: 28px; letter-spacing: .04em }
+.nav-button { border-radius: 3px; position: relative }
+.nav-button.selected { background: var(--selected); outline: 1px solid var(--control-line); outline-offset: -1px }
+.nav-button.selected::before { content: ''; position: absolute; left: -6px; top: 9px; bottom: 9px; width: 3px; background: var(--accent) }
+.project-glyph, .project-avatar { border-radius: 2px; border: 1px solid var(--control-line); background: var(--atelier-chrome) }
+.project-avatar { color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 23px }
+.main-inner { max-width: 1160px; padding-block-start: 20px }
+.atelier-header { position: relative; isolation: isolate; min-height: 100px; padding: 20px 22px; margin: 0 0 18px; border-radius: 2px; color: #f4eadc; background: #20343c url('./assets/atelier/workshop-header.png') center / cover no-repeat; box-shadow: inset 0 0 0 2px #111819; overflow-wrap: anywhere }
+.atelier-header::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg,#182326f5 0%,#182326e8 48%,#18232655 100%); pointer-events: none }
+.atelier-header::after { content: ''; position: absolute; right: 8px; bottom: 8px; width: 26px; height: 1px; background: #e49b7a; transform: rotate(-45deg); pointer-events: none }
+.atelier-header h1 { max-width: 28ch; text-shadow: 0 2px 6px #10181980 }
+.atelier-header .context-note, .atelier-header p { color: #e0d0bd }
+.atelier-header .context-trigger { color: #f4eadc; background: #20343c; border: 1px solid #8b9b9b; align-self: flex-start }
+.atelier-header .context-trigger:hover { background: #294652 }
+.atelier-header .context-trigger:focus-visible { outline-color: #9dc7e1 }
+.page-intro { align-items: center; margin-bottom: 26px }
+.page-intro p { margin-top: 8px }
+.project-banner { margin-bottom: 0; min-height: 94px; padding-block: 15px }
+.project-banner h1 { max-width: none; font-size: 28px }
+.main-inner:has(#panel-conversation) .project-banner { min-height: 0; padding: 0; background: none; box-shadow: none; color: var(--text) }
+.main-inner:has(#panel-conversation) .project-banner::before, .main-inner:has(#panel-conversation) .project-banner::after { display: none }
+.main-inner:has(#panel-conversation) .project-banner h1 { max-width: none; font-size: 24px; text-shadow: none; text-wrap: wrap }
+.main-inner:has(#panel-conversation) .project-banner .context-note { color: var(--muted); margin-top: 4px }
+.main-inner:has(#panel-conversation) .project-banner .context-trigger { color: var(--text); background: var(--panel); border-color: var(--control-line) }
+.main-inner:has(#panel-conversation) .project-banner .context-trigger:hover { background: var(--hover) }
+.main-inner:has(#panel-conversation) .project-banner .context-trigger:focus-visible { outline-color: var(--focus) }
+.project-tabs { gap: 6px; margin-top: 8px; margin-bottom: 18px; border-bottom: 2px solid var(--atelier-edge); padding-inline: 4px }
+.project-tabs button { position: relative; isolation: isolate; padding: 8px 18px; border: 0; font-family: 'Barlow Condensed','Segoe UI',sans-serif; font-size: 19px; color: var(--text); background: none }
+.main-inner:has(#panel-conversation) .project-tabs { margin-block: 8px 12px }
+.main-inner:has(#panel-conversation) .project-tabs button { font-size: 18px }
+.project-tabs button::before { content: ''; position: absolute; inset: 0; z-index: -1; clip-path: polygon(10px 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%,0 10px); background: var(--atelier-plate); border-bottom: 2px solid var(--atelier-ink); pointer-events: none }
+.project-tabs button[aria-selected='true'] { color: var(--accent-text) }
+.project-tabs button[aria-selected='true']::before { background: var(--accent) }
+.project-tabs button:hover::before { background: var(--hover) }
+.project-tabs button[aria-selected='true']:hover::before { background: var(--accent-hover) }
+.project-tabs button:focus-visible { outline-offset: 2px }
+.primary { border-color: var(--accent); font-weight: 600 }
+.secondary { background: var(--panel) }
+.welcome, .recommendation { border-radius: 3px; border-color: var(--atelier-edge); padding: 24px; background: var(--recommendation) }
+.project-row { padding-inline: 10px; border-bottom-color: var(--control-line) }
+.project-info strong { font-size: 15px }
+.conversation-history > h2 { font-size: 20px; color: var(--muted); margin-block-end: 8px }
+.conversation-messages { max-height: min(36vh,380px); padding-inline: 2px 14px }
+.dialogue-message { max-width: 75ch; padding-block: 16px 20px; border-bottom: 1px solid var(--line) }
+.dialogue-message.user { margin-left: auto; border: 1px solid var(--control-line); border-radius: 3px; background: var(--selected); color: var(--text); padding: 14px 18px }
+.message-author { display: flex; align-items: center; gap: 10px; min-height: 40px; margin-bottom: 10px; flex-wrap: wrap }
+.message-author h3 { font-family: 'Barlow Condensed','Segoe UI',sans-serif; font-weight: 700; color: var(--accent); font-size: 19px; margin: 0; overflow-wrap: anywhere }
+.user .message-author { min-height: 0; margin-bottom: 6px }
+.user .message-author h3 { color: var(--selected-text); font-size: 17px }
+.message-state { margin: 0 0 10px }
+.message-text { font-size: 14px; line-height: 1.75; max-width: 72ch }
+.agent-portrait { width: 40px; height: 40px; flex: 0 0 40px; display: grid; place-items: center; overflow: hidden; border: 1px solid var(--control-line); border-radius: 3px; background: var(--atelier-plate); color: var(--muted) }
+.agent-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; transform: scale(1.35); transform-origin: 50% 14% }
+.agent-portrait svg { width: 22px; height: 22px }
+.agent-portrait-trigger { padding: 0; width: 40px; height: 40px; border: 0; flex: none; border-radius: 3px }
+.agent-portrait-trigger:hover .agent-portrait { border-color: var(--accent) }
+.agent-info-link.text-button { font-size: 12px; margin: 0 0 0 auto; padding: 8px 4px; min-height: 40px }
+.composer { border: 2px solid var(--atelier-plate); border-radius: 3px; padding: 14px 16px; box-shadow: 0 4px 12px var(--composer-shadow); background: var(--panel); margin-top: 18px; position: relative }
+.composer::after { content: ''; position: absolute; right: 6px; bottom: 6px; width: 16px; height: 2px; transform: rotate(-45deg); background: var(--atelier-edge); pointer-events: none }
+.composer textarea { font-size: 14px; border-radius: 2px }
+.composer:focus-within { border-color: var(--focus) }
+.question-panel, .approval-panel { border-block-color: var(--atelier-edge) }
+.question-heading h2, .approval-panel h2 { font-size: 22px }
+.question-status, .approval-status { border-radius: 3px }
+.question-option { border-radius: 3px }
+.question-other textarea, .approval-adjustment textarea, .approval-file pre, .approval-result pre { border-radius: 3px }
+.question-options, .question-other, .approval-files { max-width: 75ch }
+.connection-panel, .context-panel, .plan-confirmation { border-radius: 4px; border-top: 3px solid var(--atelier-edge); box-shadow: 0 12px 42px var(--panel-shadow) }
+.connection-heading h2 { font-size: 25px }
+.connection-error, .connection-cancelled, .error-message, .appearance-warning { border-radius: 3px }
+.agent-info-panel { color: var(--text); background: var(--panel); padding: 0; border: 0; border-left: 2px solid var(--atelier-ink); border-top: 3px solid var(--atelier-edge); border-radius: 0; min-width: 0; animation: agent-reveal 180ms cubic-bezier(.16,1,.3,1) }
+.agent-info-panel.is-docked[open] { position: relative; display: flex; flex-direction: column; width: var(--agent-panel-width); max-width: none; max-height: none; flex: 0 0 var(--agent-panel-width); height: 100%; margin: 0; align-self: stretch }
+.agent-info-panel.is-modal[open] { display: flex; flex-direction: column; position: fixed; inset: 16px 16px 16px auto; margin: 0; width: min(400px,calc(100vw - 32px)); max-width: none; height: calc(100dvh - 32px); max-height: none; box-shadow: -12px 8px 40px var(--panel-shadow) }
+.agent-info-panel::backdrop { background: var(--backdrop) }
+.agent-panel-heading { display: flex; justify-content: space-between; align-items: center; flex: none; gap: 10px; padding: 12px 16px; border-bottom: 2px solid var(--atelier-ink); background: var(--atelier-chrome) }
+.agent-panel-heading h2 { font-size: 23px; min-width: 0; overflow-wrap: anywhere }
+.agent-panel-heading button { padding: 0; width: 40px; flex: none }
+.agent-panel-body { padding: 16px 20px 28px; overflow-y: auto; overflow-anchor: none; min-height: 0; scrollbar-gutter: stable }
+.agent-bust { height: 234px; background: var(--atelier-plate); border: 1px solid var(--control-line); border-radius: 2px; overflow: hidden }
+.agent-bust .agent-portrait.is-large { position: relative; display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; border: 0; border-radius: 0 }
+.agent-bust .agent-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; object-position: center; transform: none }
+.agent-bust .agent-portrait svg { position: absolute; top: 50%; left: 50%; width: 80px; height: 80px; transform: translate(-50%,-50%) }
+.agent-name { display: inline-block; position: relative; z-index: 0; margin: -5px 0 0; padding: 5px 14px 7px; font-size: 36px; line-height: 1.1; background: var(--accent); color: var(--accent-text); text-transform: uppercase }
+.agent-role { margin-block: 12px 16px; font-size: 17px; font-weight: 600 }
+.agent-panel-body > p { max-width: 70ch }
+.agent-panel-body dl { margin-block: 22px }
+.agent-panel-body dt { color: var(--link); font-weight: 600; padding-top: 14px; border-top: 1px solid var(--line) }
+.agent-role-note { color: var(--muted); font-size: 12px }
+.agent-attention-area { flex: none; min-height: 0; max-height: min(44dvh,240px); display: flex; flex-direction: column; }
+.agent-attention-area:has(.agent-attention) { padding: 8px 16px; border-bottom: 1px solid var(--atelier-edge) }
+.agent-attention-announcement { flex: none; max-height: 3.6em; overflow-y: auto; color: var(--waiting-text); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere }
+.agent-attention-announcement:empty { display: none }
+.agent-attention { min-height: 0; overflow-y: auto; margin-top: 4px }
+.agent-attention > div { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: start; gap: 8px; color: var(--waiting-text) }
+.agent-attention > div + div { margin-top: 6px; border-top: 1px solid var(--line); padding-top: 6px }
+.agent-attention p { font-size: 12px; overflow-wrap: anywhere; padding-block: 6px }
+.agent-attention .text-button { text-align: left; margin: 0; padding: 6px 2px; align-self: start }
+/* One native painted frame, nine-sliced without fill: the role and form surfaces stay clear. */
+.sidebar, .navigation-drawer, .agent-info-panel { isolation: isolate }
+.sidebar::before, .navigation-drawer::before, .agent-info-panel::after { content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none; box-sizing: border-box; border: 0 solid transparent; border-image-source: url('./assets/atelier/chrome-plate-frame.png'); border-image-slice: 128; border-image-width: 36px; border-image-outset: 17px; border-image-repeat: stretch }
+.sidebar > nav, .sidebar > .brand, .sidebar > .sidebar-bottom, .navigation-drawer > *, .agent-panel-heading > *, .agent-attention-area, .agent-panel-body { position: relative; z-index: 4 }
+.sidebar button:focus-visible, .navigation-drawer button:focus-visible, .agent-info-panel button:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; box-shadow: 0 0 0 5px var(--panel) }
+@keyframes agent-reveal { from { transform: translateX(10px); clip-path: inset(0 0 0 3%) } to { transform: translateX(0); clip-path: inset(0) } }
+@media (min-width: 1323px) { .agent-info-open .main-inner { padding-inline: 24px } }
+@media (min-width: 1600px) { :root { --agent-panel-width: 350px } }
+@media (max-width: 1322px) { .sidebar::after { max-height: 240px } }
+@media (max-width: 1080px) { .atelier-header { min-height: 80px; padding: 14px 16px } .atelier-header h1 { font-size: 28px } .atelier-header::before { background: #182326ec } .brand-label { font-size: 31px } }
+@media (max-width: 720px) { .main-inner { padding: 16px 16px 32px } .atelier-header { background-image: none; padding: 12px 14px; min-height: 0 } .atelier-header h1 { font-size: 26px } .project-banner .context-note { margin-top: 4px } .project-tabs { margin-bottom: 12px } .project-tabs button { padding-inline: 16px; font-size: 20px } .composer { padding: 12px; margin-top: 16px } .message-text { font-size: 14px } .agent-info-panel.is-modal[open] { inset: 8px; width: calc(100vw - 16px); height: calc(100dvh - 16px) } }
+@media (max-height: 700px) { .sidebar::after { display: none } .atelier-header { min-height: 0; padding-block: 12px; background-image: none } .agent-bust { height: 180px } }
+@media (min-width: 721px) { .nav-compact .sidebar::after { display: none } .nav-compact .sidebar-bottom { display: none } }
+@media (prefers-reduced-motion: reduce) { .agent-info-panel { animation: none } }

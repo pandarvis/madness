@@ -1,0 +1,21 @@
+✔ atelier : arrivée visible au-dessus du rôle à600×650 et zoom200 sans déplacement de focus ni décision (28922.2129ms)
+ℹ {"zoom":1,"height":651,"status":{"top":84,"bottom":102,"width":550.4000244140625,"height":18},"button":{"top":106,"bottom":146,"width":138.5749969482422,"height":40},"body":{"top":154.8000030517578,"bottom":643.1999969482422,"width":582.4000244140625,"height":488.3999938964844},"bodyScroll":0,"focus":"agent-info-title"}
+ℹ {"zoom":2,"height":325,"status":{"top":84.80000305175781,"bottom":120.80000305175781,"width":250,"height":36},"button":{"top":124.80000305175781,"bottom":164.8000030517578,"width":138.56875610351562,"height":40},"body":{"top":185.1999969482422,"bottom":317.6000061035156,"width":282,"height":132.40000915527344},"bodyScroll":0,"focus":"agent-info-title"}
+✔ atelier : chaque nouvelle demande identique est annoncée une fois et conserve sa destination après expiration (14572.3865ms)
+✔ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (12278.0308ms)
+✔ une approbation corrélée montre sa portée et son patch avant tout ancien formulaire (9441.1103ms)
+✔ un historique simple avec nom long garde le point de saisie libre repérable au premier écran (12693.1972ms)
+ℹ {"requested":{"width":1440,"height":920},"top":600.4000244140625,"bottom":671.4000244140625,"width":1440,"height":920,"mainScroll":0,"requests":0}
+ℹ {"requested":{"width":720,"height":820},"top":607.6000366210938,"bottom":678.6000366210938,"width":720,"height":820,"mainScroll":0,"requests":0}
+✔ la conversation donne accès au travail avant la préparation et conserve la saisie en consultant le contexte (13027.4189ms)
+✔ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (8021.8205ms)
+✔ préparer un échange annule une sélection différée et libère les commandes sans détour tardif (16127.2456ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-YPCzNL\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-YPCzNL\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 118298.9626

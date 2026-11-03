@@ -1022,3 +1022,46 @@ test('un arrêt du témoin connexion non confirmé expose la récupération expl
  await recover.focus();await page.keyboard.press('Enter');await page.waitForFunction(()=>window.connectionUIFixture.observeStops()===1)
  assert.equal(await page.evaluate(()=>window.connectionUIFixture.verifies()),0);assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[]);assert.equal((await page.evaluate(()=>window.madnessConnection.read())).state.status,'registered')
 })
+
+
+test('navigation: les infobulles projets restent peintes devant bannière et onglets',async()=>{
+ await launch({status:'registered',accountStored:true,needsPlanAcknowledgement:false})
+ await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];w.setContentSize(1320,900);w.showInactive()})
+ await page.evaluate(()=>window.connectionUIFixture.setSnapshot({projects:['MIA','madness','Projet témoin dont le nom reste lisible malgré une longueur importante'].map((name,i)=>({id:'tooltip-'+i,name,rootPath:'C:/tooltip-'+i,openedAt:new Date().toISOString()}))}))
+ await page.locator('.project-row').nth(2).click()
+ await page.getByRole('button',{name:'Réduire la navigation',exact:true}).click()
+ await page.addStyleTag({content:'.sidebar .project-link[data-paint-probe]::after { pointer-events: auto !important }'})
+ const results=[],proof=process.env.MADNESS_TOOLTIP_PROOF_DIRECTORY,phase=process.env.MADNESS_TOOLTIP_PROOF_PHASE==='red'?'red':'green',capture=proof&&process.env.MADNESS_TOOLTIP_SKIP_CAPTURES!=='1'
+ if(proof)await mkdir(proof,{recursive:true})
+ for(const theme of ['dark','light']){
+  const current=await page.evaluate(()=>document.documentElement.dataset.theme)
+  if(current!==theme)await page.getByRole('button',{name:/Passer au thème/}).click()
+  for(const name of ['MIA','madness','Projet témoin dont le nom reste lisible malgré une longueur importante']){
+   const row=page.locator('.sidebar').getByRole('button',{name:'Ouvrir le projet '+name,exact:true})
+   await row.hover()
+   const observation=await row.evaluate(el=>{const rect=el.getBoundingClientRect(),pseudo=getComputedStyle(el,'::after');el.setAttribute('data-paint-probe','');const x=Number.parseFloat(pseudo.left)+60,y=rect.y+rect.height/2,hit=document.elementFromPoint(x,y);el.removeAttribute('data-paint-probe');return {name:el.getAttribute('aria-label'),content:pseudo.content,paintedInFront:hit===el,hit:hit?.className??null,x,y}})
+   results.push({theme,...observation});if(proof)await writeFile(join(proof,phase+'-paint.json'),JSON.stringify(results,null,2)+'\n')
+   if(capture&&name==='madness')await page.screenshot({path:join(proof,phase+'-'+theme+'.png'),timeout:10000})
+  }
+ }
+ if(proof)await writeFile(join(proof,phase+'-paint.json'),JSON.stringify(results,null,2)+'\n')
+ assert.equal(results.every(r=>r.content!=='none'&&r.paintedInFront),true,JSON.stringify(results))
+ const row=page.locator('.sidebar').getByRole('button',{name:'Ouvrir le projet Projet témoin dont le nom reste lisible malgré une longueur importante',exact:true})
+ await page.mouse.move(600,700);await row.focus();await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');assert.equal(await row.evaluate(el=>el===document.activeElement),true);assert.notEqual(await row.evaluate(el=>getComputedStyle(el,'::after').content),'none')
+ await page.keyboard.press('Escape');assert.equal(await row.evaluate(el=>getComputedStyle(el,'::after').content),'none')
+ await page.getByRole('button',{name:'Déployer la navigation',exact:true}).click()
+ assert.equal(await row.locator('.nav-label').isVisible(),true);assert.equal(await row.evaluate(el=>getComputedStyle(el,'::after').content),'none')
+ await page.getByRole('button',{name:'Réduire la navigation',exact:true}).click()
+ await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(760,900))
+ await page.getByRole('button',{name:'Contexte du projet',exact:true}).click();await row.hover()
+ const overlay=await row.evaluate(el=>{const panel=document.getElementById('project-context-panel'),rect=panel.getBoundingClientRect(),button=el.getBoundingClientRect();el.setAttribute('data-paint-probe','');const hit=document.elementFromPoint(rect.left+1,button.y+button.height/2);el.removeAttribute('data-paint-probe');const pseudo=getComputedStyle(el,'::after');return {panelOnTop:panel.contains(hit),tooltipPresent:pseudo.content!=='none',overlap:rect.left+1>Number.parseFloat(pseudo.left)&&rect.left+1<Number.parseFloat(pseudo.left)+Number.parseFloat(pseudo.width)}})
+ assert.deepEqual(overlay,{panelOnTop:true,tooltipPresent:true,overlap:true},'Le panneau conserve sa priorité sur les infobulles du rail')
+ if(capture)await page.screenshot({path:join(proof,phase+'-panel.png')})
+ await page.getByRole('button',{name:'Fermer le contexte du projet',exact:true}).click()
+ await page.getByRole('button',{name:'Choisir une initiative',exact:true}).click()
+ assert.equal(await page.getByRole('dialog',{name:'Choisir une initiative',exact:true}).isVisible(),true)
+ const topLayer=await page.evaluate(()=>{const dialog=document.querySelector('.initiative-dialog[open]'),rect=dialog.getBoundingClientRect(),hit=document.elementFromPoint(rect.left+rect.width/2,rect.top+30);return dialog.contains(hit)})
+ assert.equal(topLayer,true);await page.keyboard.press('Escape')
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.helpCalls()),[])
+})

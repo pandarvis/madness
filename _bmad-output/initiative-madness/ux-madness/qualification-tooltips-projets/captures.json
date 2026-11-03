@@ -1,0 +1,12 @@
+{
+  "roundsInspected": 2,
+  "baseline": "red-dark.png",
+  "firstCorrection": [
+    "green-dark.png",
+    "green-light.png"
+  ],
+  "firstCorrectionSidebarPriority": 1,
+  "finalSidebarPriority": 10,
+  "finalCssSha256": "88368815862483a1ceb3350ab44ff2955948e9fc834bc2f262b2a0ec7e15b91a",
+  "limit": "PNGs show first correction priority1; final10 is checked by actual painter-order UI1 test without recapture. Geometry/theme/assets unchanged. Initial probe measurements without important are excluded; final red/green JSON uses actual pointer hit testing."
+}

@@ -1,0 +1,9 @@
+{
+  "status": "bug-reproduced",
+  "actualBrowserObservations": 6,
+  "obscured": 4,
+  "source": "red-paint.json",
+  "log": "red-verified.log",
+  "probe": "Test-only pointer-events important; actual painter order, not z-index property.",
+  "visualRounds": "No new screenshots; existing baseline/corrected captures retained."
+}

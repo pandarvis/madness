@@ -334,7 +334,7 @@ button { border-radius: 4px }
 .topbar { background: var(--atelier-chrome); border-bottom: 2px solid var(--atelier-ink) }
 .topbar .toolbar-toggle, .codex-trigger { border-radius: 3px }
 .breadcrumb > span { font-weight: 600 }
-.sidebar { position: relative; background: var(--navigation); border-right: 2px solid var(--atelier-ink); padding-top: 20px }
+.sidebar { position: relative; z-index: 10; background: var(--navigation); border-right: 2px solid var(--atelier-ink); padding-top: 20px }
 .sidebar::after { content: ''; display: block; flex: 1 0 150px; max-height: 360px; margin: 20px -12px -12px; background: url('./assets/atelier/workshop-sidebar.png') center 65% / cover no-repeat; pointer-events: none; order: 1 }
 .sidebar-bottom { flex: none; margin-top: 24px; order: 2; background: var(--navigation); padding: 14px 0 0; border-top: 1px solid var(--atelier-edge); z-index: 1 }
 .brand { padding-inline: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--atelier-edge); height: 54px }

@@ -417,3 +417,8 @@ Révélation de fiche et ouverture du dossier utilisent une seule durée brève 
 - Don’t faire d’un clic sur un portrait une transmission, un lancement, une approbation ou un changement d’agent.
 - Don’t cacher une demande native, une récupération ou un échec de conservation derrière l’habillage ou une notification fugace.
 - Don’t confondre la direction visuelle approuvée avec la validation du rendu intégré, la qualification native 2.2 ou une conformité WCAG globale.
+
+
+## Infobulles du rail — 3 novembre 2026
+
+Le rail reste isolé mais possède une priorité10 : ses noms de projet au survol/focus clavier passent devant le contenu ordinaire, y compris les auteurs sticky2, sous la barre40 et les panneaux70 ; les dialogues natifs gardent leur top-layer. L'info-bulle fixe conserve son style, le retour à la ligne des noms longs, son comportement Échap et les libellés du menu déployé. Aucun changement de charte, de dimensions ou de navigation. Voir [qualification ciblée](./_bmad-output/initiative-madness/ux-madness/qualification-tooltips-projets/parent-verification.md).

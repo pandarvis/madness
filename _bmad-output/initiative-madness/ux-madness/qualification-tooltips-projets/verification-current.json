@@ -1,0 +1,44 @@
+{
+  "status": "built",
+  "workflow": "bmad-build-oneshot-quick",
+  "baseline": "011cd15bb6074c48ea494c5d0f48eb985fced96c",
+  "ui": {
+    "tests": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "redObscured": 4,
+    "greenInFront": 6,
+    "themes": [
+      "dark",
+      "light"
+    ],
+    "keyboardEscapeExpandedOverlayModal": true,
+    "noMessagesOrHelp": true,
+    "fixtureClosedAndCleaned": true
+  },
+  "build": "passed",
+  "package": {
+    "directory": "dist/tooltip-projects-reviewed-001",
+    "version": "0.2.7",
+    "asarSha256": "4bd0b04f8ee4cac3fb951920606da68c2e3aa38f159496aedfd001841d9a2aa2",
+    "inputs": 190,
+    "outputs": 19,
+    "nativeResources": 13,
+    "mainPreloadIdenticalToM14": true,
+    "installed": false
+  },
+  "impeccable": {
+    "detectorRuns": 1,
+    "priorWarnings": 4,
+    "newWarnings": 0,
+    "visualRounds": 2,
+    "captureLimit": "First correction rank1; final rank10 proved by functional painter checks; no newer screenshot claimed.",
+    "finish": "local polish/source and cached render inspection, scoped pass; no new persona/global acceptance"
+  },
+  "review": {
+    "quick": "Q1 resolved by same reviewer; no remaining findings",
+    "deferredCodeFixes": 0,
+    "agent": "/root/tooltip_projects_quick"
+  }
+}

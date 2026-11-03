@@ -1,0 +1,8 @@
+{
+  "status": "bug-reproduced",
+  "actualBrowserObservations": 3,
+  "obscured": 3,
+  "source": "red-paint.json",
+  "capture": "red-dark.png",
+  "limits": "UI run then failed on an unrelated fixture theme locator before reaching its final assertion; this check explicitly verifies the captured paint observations."
+}

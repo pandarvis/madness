@@ -77,8 +77,9 @@
   > * { flex-shrink: 0 }
   .project-banner { padding: 8px 12px; min-height: 0 }
   .project-banner h1 { font-size: 24px }
-  #panel-conversation { display: flex; flex-direction: column; flex: 1 0 480px; min-height: 480px }
-  .conversation-history { display: flex; flex-direction: column; flex: 1; min-height: 240px; margin-top: 8px }
+  #panel-conversation { display: flex; flex-direction: column; flex: 1 0 480px; min-height: min-content }
+  #panel-conversation > details { flex: none }
+  .conversation-history { display: flex; flex-direction: column; flex: 1 1 240px; height: 240px; min-height: 240px; margin-top: 8px }
   .conversation-history > h2 { flex: none; margin-block: 8px 4px }
   .history-note, .turn-status { flex: none; margin-top: 4px }
   .turn-status { padding-block: 6px }

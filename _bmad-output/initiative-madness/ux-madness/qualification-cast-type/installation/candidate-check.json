@@ -1,0 +1,84 @@
+{
+  "status": "passed",
+  "mode": "synthetic-icon-check",
+  "checks": [
+    "exact-executable-and-normal-profile",
+    "dialogue-inactive-no-turn",
+    "local-state-readable",
+    "native-executable-icon-extracted",
+    "native-icon-matches-workshop-palette",
+    "atelier-finish-loaded",
+    "controls-skin-readable-type-no-numbered-projects-and-drag-separated",
+    "local-oxanium-loaded-reading-weight-450",
+    "no-network-or-engine-after-hook"
+  ],
+  "limits": [
+    "Observation réseau et moteur après instrumentation seulement.",
+    "Aucun consentement, vérification fournisseur ou message envoyé."
+  ],
+  "accountReadable": null,
+  "projectNames": [],
+  "runtime": {
+    "pid": 34956,
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\atelier-immersion\\madness\\dist\\atelier-cast-type-reviewed\\win-unpacked\\Madness.exe",
+    "userData": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-icon-rFcQgM",
+    "appPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\atelier-immersion\\madness\\dist\\atelier-cast-type-reviewed\\win-unpacked\\resources\\app.asar",
+    "version": "0.2.3"
+  },
+  "iconSize": {
+    "width": 48,
+    "height": 48
+  },
+  "iconPalette": {
+    "warmRatio": 0.3321123321123321,
+    "coolRatio": 0.40964590964590963
+  },
+  "controls": {
+    "drag": "no-drag",
+    "paragraphSize": 16,
+    "projectNumbers": []
+  },
+  "typography": {
+    "family": "Oxanium, \"Segoe UI\", sans-serif",
+    "weight": "450",
+    "loaded": true
+  },
+  "observation": {
+    "schemaVersion": 1,
+    "afterHookOnly": true,
+    "startedAt": "2026-11-03T11:20:49.599Z",
+    "complete": true,
+    "attached": true,
+    "network": 0,
+    "appServerAttempts": 0,
+    "appServers": 0,
+    "appServerCloses": 0
+  },
+  "close": {
+    "main": {
+      "pid": 34956,
+      "startedAt": "639293016330238418",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\atelier-immersion\\madness\\dist\\atelier-cast-type-reviewed\\win-unpacked\\Madness.exe"
+    },
+    "wrapperPid": 44580,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-03T11:20:49.599Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  },
+  "syntheticCleanup": true
+}

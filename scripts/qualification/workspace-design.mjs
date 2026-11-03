@@ -143,9 +143,11 @@ async function geometry(page,label){
  const value=await page.evaluate(()=>{
   const box=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height}},toggle=document.querySelector(innerWidth<=720?'.mobile-menu':'.desktop-menu'),area=navigator.windowControlsOverlay.getTitlebarAreaRect()
   const containers=[...document.querySelectorAll('html,body,#root,.app-shell,.app-body,.workspace,.workspace-body,.sidebar,main,.main-inner,[role="tabpanel"],.conversation-messages,.agent-info-panel[open],.agent-panel-heading,.agent-panel-body')].filter(e=>e.getClientRects().length).map(e=>{const r=e.getBoundingClientRect(),style=getComputedStyle(e);return {element:e.id?'#'+e.id:e.className||e.tagName.toLowerCase(),...box(e),clientWidth:e.clientWidth,scrollWidth:e.scrollWidth,clientHeight:e.clientHeight,scrollHeight:e.scrollHeight,overflowX:style.overflowX,overflowY:style.overflowY,horizontalOverflow:e.scrollWidth>e.clientWidth+1,shellOutsideViewport:e.matches('html,body,#root,.app-shell,.app-body,.workspace,.workspace-body,.sidebar,main,.agent-info-panel[open]')&&(r.x< -1||r.right>innerWidth+1||r.y< -1||r.bottom>innerHeight+1)}})
-  return {viewport:{width:innerWidth,height:innerHeight,clientWidth:document.documentElement.clientWidth,clientHeight:document.documentElement.clientHeight},titlebar:box(document.querySelector('.topbar')),area:{x:area.x,y:area.y,width:area.width,height:area.height},toggle:box(toggle),rail:document.querySelector('.nav-compact .sidebar .nav-button')?box(document.querySelector('.nav-compact .sidebar .nav-button')):null,commands:[...document.querySelectorAll('.topbar button,.context-trigger')].filter(e=>e.getClientRects().length).map(e=>({label:e.getAttribute('aria-label'),...box(e),region:getComputedStyle(e).getPropertyValue('app-region')})),containers,overflow:containers.some(e=>e.horizontalOverflow||e.shellOutsideViewport)}
+  const footer=document.querySelector('.status-line')?.getBoundingClientRect(),summaries=[...document.querySelectorAll('#panel-conversation > details > summary')].filter(e=>e.getClientRects().length).map(e=>({text:e.textContent,...box(e)}))
+  return {viewport:{width:innerWidth,height:innerHeight,clientWidth:document.documentElement.clientWidth,clientHeight:document.documentElement.clientHeight},titlebar:box(document.querySelector('.topbar')),area:{x:area.x,y:area.y,width:area.width,height:area.height},toggle:box(toggle),rail:document.querySelector('.nav-compact .sidebar .nav-button')?box(document.querySelector('.nav-compact .sidebar .nav-button')):null,commands:[...document.querySelectorAll('.topbar button,.context-trigger')].filter(e=>e.getClientRects().length).map(e=>({label:e.getAttribute('aria-label'),...box(e),region:getComputedStyle(e).getPropertyValue('app-region')})),containers,textFlow:{footerTop:footer?.top??null,summaries,overlap:!!footer&&summaries.some(e=>e.y+e.height>footer.top+1)},overflow:containers.some(e=>e.horizontalOverflow||e.shellOutsideViewport)}
  })
  report.measurements.push({label,...value});assert.equal(value.overflow,false,label+' : débordement')
+ assert.equal(value.textFlow.overlap,false,label+' : récupération et statut se chevauchent')
  assert.equal(value.toggle.x+value.toggle.width/2,28,label+' : axe de la bascule')
  if(value.rail)assert.equal(value.rail.x+value.rail.width/2,28,label+' : axe du rail')
  for(const command of value.commands){assert.equal(command.width,40,label+' : cible '+command.label);assert.equal(command.height,40,label+' : cible '+command.label);if(command.label!=='Contexte du projet'){assert.equal(command.region,'no-drag');assert.ok(command.x>=value.area.x&&command.x+command.width<=value.area.x+value.area.width+1)}}
@@ -168,6 +170,15 @@ try{
  }
  const snapshotPath=join(profile,'madness-state-v1.json');await writeFile(snapshotPath,JSON.stringify(snapshot));await new QuestionStore(join(profile,'questions-v1')).write(q);await new ApprovalStore(join(profile,'approvals-v1')).write(a)
  let page=await launch(profile)
+ if(args.includes('--type')){
+  report.typography=await page.evaluate(async()=>{
+   const sample='Été, œuvre, cœur, où, façade : vérifier le brouillon — 0123456789.'
+   const loaded=await document.fonts.load('450 16px "Oxanium"',sample);await document.fonts.ready
+   if(!loaded.some(face=>face.family.includes('Oxanium')&&face.status==='loaded'))throw Error('BODY_FONT_NOT_LOADED')
+   const body=getComputedStyle(document.body)
+   return {family:body.fontFamily,weight:body.fontWeight,sample,loaded:document.fonts.check('450 16px "Oxanium"',sample)}
+  });assert.ok(report.typography.family.startsWith('Oxanium'));assert.equal(report.typography.weight,'450');assert.equal(report.typography.loaded,true);pass('local-oxanium-loaded-with-french-reading-sample')
+ }
  if(args.includes('--controls')){
   report.limits.push('Profil d’aide fictif et gardes de lancement inchangées ; clics renderer et géométrie de déplacement, pas injection souris native Windows.')
   await viewport(page,{width:1440,height:1000},'controls-home')

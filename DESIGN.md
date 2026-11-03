@@ -115,19 +115,19 @@ typography:
     lineHeight: 1.2
     letterSpacing: "0.015em"
   body:
-    fontFamily: "Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+    fontFamily: "Oxanium, Segoe UI, sans-serif"
     fontSize: "16px"
-    fontWeight: 400
+    fontWeight: 450
     lineHeight: 1.6
   message:
-    fontFamily: "Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+    fontFamily: "Oxanium, Segoe UI, sans-serif"
     fontSize: "16px"
-    fontWeight: 400
+    fontWeight: 450
     lineHeight: 1.65
   label:
-    fontFamily: "Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+    fontFamily: "Oxanium, Segoe UI, sans-serif"
     fontSize: "14px"
-    fontWeight: 400
+    fontWeight: 450
     lineHeight: 1.55
   code:
     fontFamily: "Consolas, Cascadia Code, monospace"
@@ -234,19 +234,19 @@ components:
 
 **Creative North Star: "Atelier de travail illustré des agents BMad"**
 
-Un atelier personnel, chaleureux et expressif encadre le travail BMad : plaques bleu pétrole, commandes terracotta, contours encrés, angles coupés et matière peinte mate à usure retenue. Les sept visages originaux donnent un repère aux messages dont l’identité native est attestée. La conversation, ses décisions et ses preuves occupent le centre ; l’illustration reste discrète pendant la lecture.
+Un atelier personnel, chaleureux et expressif encadre le travail BMad : plaques bleu pétrole, commandes terracotta, contours encrés, angles coupés et matière peinte mate à usure retenue. Les sept visages originaux, édités en casting v2 à encrage franc, ombres en aplats, expressions théâtrales et accessoires de rôle décalés, donnent un repère aux messages dont l’identité native est attestée. La conversation, ses décisions et ses preuves occupent le centre ; l’illustration reste discrète pendant la lecture.
 
-L’anthracite chaud est le thème par défaut ; l’ivoire est son alternative claire. Les titres condensés portent le caractère du lieu, tandis que Segoe UI porte les messages et les explications ; Barlow Condensed Bold porte aussi les commandes explicites. Le décor se prolonge du chrome au centre de travail : cartouches d’auteur attesté, cadres de message et bordure raster de saisie. Les fonds de conversation et de saisie demeurent calmes. Ce système transpose la direction humaine approuvée le 2 novembre 2026 ; il décrit le candidat implémenté, sans valoir acceptation humaine de l’application intégrée.
+L’anthracite chaud est le thème par défaut ; l’ivoire est son alternative claire. Les titres condensés portent le caractère du lieu, tandis qu’Oxanium porte les messages et les explications ; Barlow Condensed Bold porte aussi les commandes explicites. Le décor se prolonge du chrome au centre de travail : cartouches d’auteur attesté, cadres de message et bordure raster de saisie. Les fonds de conversation et de saisie demeurent calmes. Ce système transpose la direction humaine approuvée le 2 novembre 2026 ; il décrit le candidat implémenté, sans valoir acceptation humaine de l’application intégrée.
 
 **Key Characteristics:**
 
 - Conversation dominante et lecture longue sur fonds calmes.
 - Chrome peint/encré, onglets de dossier coupés et cartouches terracotta.
-- Titres et commandes Barlow Condensed Bold locaux ; texte courant Segoe UI.
-- Portrait compact et fiche informative ouverte à la demande.
+- Titres et commandes Barlow Condensed Bold locaux ; texte courant Oxanium.
+- Portrait expressif compact et fiche informative ouverte à la demande.
 - État, provenance et décisions exprimés par du texte réel.
 
-Le frontmatter porte les primitives de palette et les rôles typographiques et formes effectivement utilisés dans la cascade du candidat 0.2.2. Les clés sans préfixe décrivent le sombre ; `light-*` fournit les remplacements de `data-theme="light"`. Dans `main.tsx`, `styles.css` est suivi de `atelier-immersion.css`, puis de `atelier-controls.css`. La dernière couche affine les commandes, la lisibilité et l’espace utile avec les mêmes familles, primitives de palette et assets ; les tailles de texte et les valeurs de composants sont réconciliées ci-dessous. Les composants du frontmatter illustrent le sombre ; le renderer et les extraits du sidecar se lient aux propriétés CSS du thème actif. Les nuances de rampe du sidecar sont des aides de palette synthétisées, pas de nouvelles couleurs du produit. Les contrats comportementaux restent dans [ux-madness/DESIGN.md](./_bmad-output/initiative-madness/ux-madness/DESIGN.md) et [EXPERIENCE.md](./_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md).
+Le frontmatter porte les primitives de palette et les rôles typographiques et formes effectivement utilisés dans la cascade du candidat 0.2.3 (version du runtime, distincte de la story 2.3). Les clés sans préfixe décrivent le sombre ; `light-*` fournit les remplacements de `data-theme="light"`. Dans `main.tsx`, `styles.css` est suivi de `atelier-immersion.css`, puis de `atelier-controls.css`. La dernière couche affine les commandes, la lisibilité et l’espace utile avec les primitives de palette et les familles de titres existantes ; le candidat 0.2.3 ajoute Oxanium locale pour le texte courant, les tailles de texte et les valeurs de composants sont réconciliées ci-dessous. Les composants du frontmatter illustrent le sombre ; le renderer et les extraits du sidecar se lient aux propriétés CSS du thème actif. Les nuances de rampe du sidecar sont des aides de palette synthétisées, pas de nouvelles couleurs du produit. Les contrats comportementaux restent dans [ux-madness/DESIGN.md](./_bmad-output/initiative-madness/ux-madness/DESIGN.md) et [EXPERIENCE.md](./_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md).
 
 ## Colors
 
@@ -277,11 +277,11 @@ Terracotta d’action et bleu de repérage accompagnent des neutres chauds ; le 
 
 **Display Font:** Barlow Condensed Bold, police locale sous SIL OFL 1.1 ; repli Segoe UI, sans-serif.
 
-**Body Font:** Segoe UI, puis le système et les replis déclarés dans le frontmatter.
+**Body Font:** Oxanium variable locale (graisses 200–800), rôle courant à 450, puis Segoe UI et sans-serif en repli.
 
-**Label/Mono Font:** Segoe UI pour les métadonnées ; Consolas puis Cascadia Code pour les chemins, sources et identifiants.
+**Label/Mono Font:** Oxanium à 14 px pour les métadonnées et info-bulles ; Consolas puis Cascadia Code pour les chemins, sources et identifiants.
 
-**Character:** une voix condensée et franche pour repérer, une voix régulière pour lire et décider. La police locale est chargée avec `font-display: swap` ; aucun fournisseur de police distant n’est requis.
+**Character:** une voix condensée et franche pour repérer, une voix régulière pour lire et décider. Les polices locales sont chargées avec `font-display: swap` ; aucun fournisseur de police distant n’est requis. Oxanium est distribuée sous SIL OFL 1.1, avec [provenance](./resources/fonts/provenance.json) et [licence](./resources/fonts/Oxanium-OFL.txt).
 
 ### Hierarchy
 
@@ -293,7 +293,7 @@ Terracotta d’action et bleu de repérage accompagnent des neutres chauds ; le 
 - **Label** : métadonnées, état, source, légendes, aide et info-bulles à 14 px ; la portée de connexion et l’aide réseau conservent cette taille. Les badges factuels hérités gardent leur taille compacte distincte.
 - **Message author** : nom court à 19 px, variante utilisateur à 17 px. Les définitions de rôle de la fiche emploient 19 px et leurs descriptions 16 px.
 
-**The Two Voices Rule.** Barlow Condensed Bold repère les titres courts, les noms et les commandes ; Segoe UI porte les textes longs, les explications et les métadonnées.
+**The Two Voices Rule.** Barlow Condensed Bold repère les titres courts, les noms et les commandes ; Oxanium porte les textes longs, les explications et les métadonnées ; Segoe UI reste un repli.
 
 ## Layout
 
@@ -302,6 +302,8 @@ La fenêtre est une colonne de hauteur `100dvh` avec barre native d’au moins 5
 La navigation déployée mesure 240 px au format courant ; elle passe à 194 px sous 1281 px et 184 px sous 1081 px. Dès 721 px, elle peut se replier en rail. Sous 721 px, le tiroir natif remplace la barre latérale ; sa largeur est bornée à 240 px et à celle de la fenêtre. Les groupes suivent surtout le rythme 8 / 12 / 16 / 20 / 24 px du frontmatter, sans imposer une grille nouvelle à toutes les anciennes surfaces.
 
 Le contenu central occupe 100 % de la largeur disponible, sans largeur maximale. Son espacement horizontal est de 28 px au format courant, 22 px sous 1081 px et 16 px sous 721 px ; avec fiche dockée ouverte, le sélecteur de contexte conserve 24 px. Le bandeau illustré reste sur l’accueil et les vues de préparation ; il se réduit ou perd son image aux petits formats et aux fenêtres de moins de 701 px de haut. Dans Conversation, le bandeau projet est une plaque calme sans image. Le dialogue ordinaire, sans formulaire de question ou d’approbation actif, occupe la hauteur restante par flex : le titre, les onglets, les états et le compositeur gardent leur hauteur, tandis que les messages prennent la place disponible avec un minimum de 160 px. Le champ de rédaction garde au moins 64 px ; champ et action restent ensemble dans la fenêtre aux formats vérifiés. L’en-tête d’auteur est sticky au sommet du défilement, borné par son propre article ; la source exacte reste lisible après le texte.
+
+Les récapitulatifs repliables directement rattachés au panneau de conversation conservent leur hauteur naturelle (`flex: none`) : leurs libellés ne se compriment pas sur le statut. Le panneau garde une base flex de 480 px mais un minimum de hauteur fondé sur le contenu (`min-content`) ; l’historique a une base, une hauteur et un minimum de 240 px avec croissance flexible. Cette règle de répartition locale conserve le texte du récapitulatif, l’état et la saisie sans chevauchement ; elle ne change pas le comportement de dépliage.
 
 Lorsqu’une question ou une approbation est active, la page conserve son flux naturel afin de laisser toute sa hauteur au formulaire ou au patch. Le défilement des messages est alors borné à `clamp(240px, 44dvh, 640px)`, avec adaptations à 42dvh sous 721 px et 40dvh sous 701 px de haut. La position de lecture et le suivi existants sont conservés.
 
@@ -356,7 +358,7 @@ Recommandation et préparation d’aide : surfaces chaudes, contour propre à la
 
 ### Inputs / Fields
 
-La saisie est un panneau calme bordé d’une arête de 1 px et du cadre raster hérité sans centre rempli, à petit rayon, avec contour de focus hérité et bordure qui suit le focus intérieur. Le champ conserve le texte Segoe UI à 16 px, une hauteur minimale de 88 px réduite à 64 px dans le dialogue ordinaire ou sous 701 px de haut, et un redimensionnement vertical borné. Les champs de question, les ajustements d’approbation et les blocs de patch gardent leur forme compacte ; rien n’est escamoté pour laisser place à un portrait. Les reçus natifs et l’état de conservation demeurent distincts.
+La saisie est un panneau calme bordé d’une arête de 1 px et du cadre raster hérité sans centre rempli, à petit rayon, avec contour de focus hérité et bordure qui suit le focus intérieur. Le champ conserve le texte Oxanium à 16 px et graisse 450, une hauteur minimale de 88 px réduite à 64 px dans le dialogue ordinaire ou sous 701 px de haut, et un redimensionnement vertical borné. Les champs de question, les ajustements d’approbation et les blocs de patch gardent leur forme compacte ; rien n’est escamoté pour laisser place à un portrait. Les reçus natifs et l’état de conservation demeurent distincts.
 
 ### Navigation
 
@@ -365,6 +367,8 @@ La navigation choisie reçoit le fond `selected`, le texte associé, un petit re
 ### Portrait and role consultation
 
 La vignette de conversation occupe exactement 40 × 40 px ; le buste réutilisé est recadré dans ce cadre. La fiche révèle le buste entier en `object-fit: contain` dans une zone de 234 px de haut, réduite à 180 px sous 701 px de haut. Les images sont décoratives pour l’accessibilité et un SVG neutre prend le relais en cas d’échec ; le nom et la provenance restent des textes HTML.
+
+Le casting v2 comprend sept PNG RGBA de 1254 × 1254 px, édités depuis les originaux de la révision `1a7100c` avec ImageGen intégré ; Mary sert de guide de style aux six autres. Les contours noirs, ombres franches, silhouettes asymétriques et objets de métier absurdes renforcent le caractère illustré. Les visages restent adultes et distincts : loupes et cartes pour Mary, outils de couleur pour Sally, mécanique pour Amelia, plans et maquette pour Winston, mégaphone et cartes pour John, fiches et tampon pour Sofia, étau et clés pour Smithy. Les [prompts et empreintes](./resources/atelier-cast-v2/provenance.json) relient les éditions à leurs sources. Le fond alpha laisse les composants et les textes réels porter la lecture ; les couleurs accessoires des illustrations ne deviennent pas des tokens UI.
 
 Le registre de présentation accepte uniquement l’identité native attestée et l’un des sept noms exacts : Mary (Analyste), John (Product Manager), Sofia (Product Owner), Winston (Architecte), Sally (UX Designer), Amelia (Développeuse), Smithy (Toolsmith). Une identité attestée hors casting garde son nom et le repère neutre ; l’identité inconnue reste inconnue, notamment à la restauration. La fiche décrit le rôle, la spécialité, la provenance du message et son identifiant. Elle n’atteste ni rôle activé, ni compétence installée, ni activité en cours.
 

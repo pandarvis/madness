@@ -62,6 +62,11 @@ try {
     assert.equal(controls.drag,'no-drag');assert.ok(controls.paragraphSize>=16);assert.ok(controls.projectNumbers.every(value=>value===''))
     report.controls=controls;report.checks.push('controls-skin-readable-type-no-numbered-projects-and-drag-separated')
   }
+  if(process.argv.includes('--type')){
+    report.typography=await page.evaluate(async()=>{const loaded=await document.fonts.load('450 16px "Oxanium"','Été, œuvre, cœur, où, façade — 0123456789.');await document.fonts.ready;return {family:getComputedStyle(document.body).fontFamily,weight:getComputedStyle(document.body).fontWeight,loaded:loaded.some(face=>face.family.includes('Oxanium')&&face.status==='loaded')}})
+    assert.ok(report.typography.family.startsWith('Oxanium'));assert.equal(report.typography.weight,'450');assert.equal(report.typography.loaded,true)
+    report.checks.push('local-oxanium-loaded-reading-weight-450')
+  }
   await page.screenshot({ path: join(output, personal ? 'installed-home.png' : 'candidate-home.png') })
   const value = await app.evaluate(() => globalThis.__workspaceObservation.read())
   assert.ok(value.complete && value.attached); assert.equal(value.network, 0); assert.equal(value.appServerAttempts, 0)

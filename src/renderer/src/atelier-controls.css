@@ -1,5 +1,6 @@
 /* One readable, inked control language across the entire workshop. */
-:root { font-size: 16px }
+@font-face { font-family: 'Oxanium'; src: url('./assets/atelier/Oxanium-Variable.ttf') format('truetype'); font-style: normal; font-weight: 200 800; font-display: swap }
+:root { font-family: 'Oxanium','Segoe UI',sans-serif; font-weight: 450; font-size: 16px }
 p, li, dd, dt, label, legend { font-size: 16px; line-height: 1.6 }
 code { font-size: 14px }
 h1 { font-size: 36px }
@@ -75,7 +76,7 @@ button:disabled, button[aria-disabled='true'] { opacity: 1 }
 .topbar .command-control:hover, .topbar .codex-trigger:hover { border: 0; background: transparent }
 .codex-trigger img { opacity: 1 }
 .codex-trigger[aria-expanded='true'] .connection-tooltip { display: none }
-.command-tooltip, .connection-tooltip { font-family: 'Segoe UI',sans-serif; font-size: 14px; font-weight: 400; letter-spacing: normal }
+.command-tooltip, .connection-tooltip { font-family: 'Oxanium','Segoe UI',sans-serif; font-size: 14px; font-weight: 450; letter-spacing: normal }
 .connection-scope p, .connection-network-help > p, .context-panel p { font-size: 14px }
 
 /* Preparation and provenance share the useful width instead of leaving one

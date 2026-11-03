@@ -1,0 +1,17 @@
+✔ barre : les emprises de déplacement sont séparées des quatre commandes (9339.3849ms)
+ℹ []
+✔ atelier : aides partielles et reçus non conservés utilisent un HelpBridge synthétique strict, sans transmission (16979.0588ms)
+✔ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (4255.3763ms)
+✔ l’aide aux clés publiques est absente sans erreur réseau (5109.4844ms)
+✔ l’aide réseau ouvre ou copie l’unique URL publique sans masquer l’erreur ni relancer Codex (9209.6053ms)
+✔ l’aide réseau garde une récupération locale après échec copyPublicKeys (4350.6194ms)
+✔ l’aide réseau garde une récupération locale après échec openPublicKeys (7593.7173ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-J8XU4e\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-J8XU4e\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 59273.0116

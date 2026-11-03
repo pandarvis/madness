@@ -1,0 +1,21 @@
+✔ late receipt write acknowledgements never overwrite newer receipts or mark their body durable early (2.647ms)
+✔ an old failed response save preserves the newer full response and retry-save sends nothing (1.4718ms)
+✔ help sends exact native skill plus dedicated question and retains written tool receipts (9.7705ms)
+✔ first help terminal refuses no tools (2.3773ms)
+✔ first help terminal refuses no context (1.4167ms)
+✔ first help terminal refuses missing inventory (1.5039ms)
+✔ help refuses a foreign tool before calling the native host (1.2447ms)
+✔ native bundle receipt storage failure cannot produce a completed recommendation (1.7227ms)
+✔ encoded excessive native response is refused before successful tool transmission (7.6648ms)
+✔ foreign native thread and duplicate call ids are refused with no successful recommendation (1.2104ms)
+✔ one closed context batch satisfies every required source only after its actual written response (3.941ms)
+✔ wrong batch mapping is refused before an apparent complete recommendation (1.2001ms)
+✔ cumulative encoded tool buffers are bounded at eight MiB with no fabricated transmission after refusal (82.7453ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 669.0452

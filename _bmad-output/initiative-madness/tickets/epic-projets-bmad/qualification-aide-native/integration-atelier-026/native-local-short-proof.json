@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "mode": "synthetic-real-local-helper-no-provider",
+  "witness": {
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help026-3789dae9\\project",
+    "id": "help-5c27490a-43ef-42a1-88d0-20ee4c730fd9",
+    "initiative": "initiative-help-witness"
+  },
+  "bundleRevision": "42bd7fb636f4fbe4649db7185988d3f75e186665118c812b3d5270ba004b3b16",
+  "documents": [
+    {
+      "source": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help026-3789dae9\\project\\.agents\\skills\\bmod-core-tools\\help\\help.md",
+      "sha256": "d06a92b42f77c1ba50369ea6398f191c52042a1e2504a7b306d03a431fecde83",
+      "bytes": 7776,
+      "module": "core-tools"
+    },
+    {
+      "source": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help026-3789dae9\\project\\.agents\\skills\\bmod-method\\help\\help.md",
+      "sha256": "c67ef5332c7e83f5fe8b21bb932416498b33adfe784eacd7e7d27e22be2cfa11",
+      "bytes": 19241,
+      "module": "method"
+    },
+    {
+      "source": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help026-3789dae9\\project\\.agents\\skills\\bmod-toolsmith\\help\\help.md",
+      "sha256": "1714dd0e27c8e8b2fd7960c6822240cb8ce387a23c2427b87435b2dca7ab4a9b",
+      "bytes": 11481,
+      "module": "toolsmith"
+    }
+  ],
+  "nativeReady": true,
+  "problems": [
+    "method: missing bmad-retrospective"
+  ],
+  "knowledgeExact": true,
+  "configExact": true,
+  "helperStopped": "stopped",
+  "phases": [
+    {
+      "name": "prepare",
+      "durationMs": 64932
+    },
+    {
+      "name": "fresh",
+      "durationMs": 63279
+    },
+    {
+      "name": "native-knowledge",
+      "durationMs": 64076
+    },
+    {
+      "name": "native-config",
+      "durationMs": 44109
+    },
+    {
+      "name": "read-required-context",
+      "durationMs": 43158
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+[
+  {
+    "operation": "operation-0b2c5c35-c948-45a4-94df-131553567925",
+    "execution": {
+      "schema": 5,
+      "outcome": "completed",
+      "exit": 0,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 36168,
+      "active_before_stop": 0,
+      "job_active_after_stop": 0,
+      "stop_ms": 0,
+      "drain_ms": 790,
+      "elapsed_ms": 14204
+    },
+    "terminal": {
+      "schemaVersion": 1,
+      "generation": "help-b151d3a3-08d1-43d5-aec8-61ba1c815f0e",
+      "purpose": "bmad-readonly",
+      "terminal": true,
+      "jobAssigned": true,
+      "jobActive": 0,
+      "neverStarted": false
+    },
+    "phases": {
+      "resources_ms": 1710,
+      "runtime_copy_ms": 297,
+      "runtime_guard_ms": 24162,
+      "native_group_ms": 15381
+    },
+    "stdoutBytes": 195,
+    "stdoutSha256": "c3d2f91ebcc31bf87acd80512c2aacc2297d8ad9dc69f1362809655f6945b0dc"
+  },
+  {
+    "operation": "operation-a5158ee6-7d00-429b-bf2b-bd05f83b98b0",
+    "execution": {
+      "schema": 5,
+      "outcome": "completed",
+      "exit": 0,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 47032,
+      "active_before_stop": 0,
+      "job_active_after_stop": 0,
+      "stop_ms": 0,
+      "drain_ms": 692,
+      "elapsed_ms": 15532
+    },
+    "terminal": {
+      "schemaVersion": 1,
+      "generation": "help-65c54d03-af5d-4681-9fa9-c8ea101af246",
+      "purpose": "bmad-readonly",
+      "terminal": true,
+      "jobAssigned": true,
+      "jobActive": 0,
+      "neverStarted": false
+    },
+    "phases": {
+      "resources_ms": 1320,
+      "runtime_copy_ms": 239,
+      "runtime_guard_ms": 22685,
+      "native_group_ms": 16620
+    },
+    "stdoutBytes": 4722,
+    "stdoutSha256": "acf79cf79763fef18e4be98cf235853c21c7930b5f5aaf86c32c1e1da2eace1e"
+  },
+  {
+    "operation": "operation-c6343940-4f80-4dfc-994a-5802397fef91",
+    "execution": {
+      "schema": 5,
+      "outcome": "completed",
+      "exit": 0,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 43852,
+      "active_before_stop": 0,
+      "job_active_after_stop": 0,
+      "stop_ms": 0,
+      "drain_ms": 844,
+      "elapsed_ms": 22952
+    },
+    "terminal": {
+      "schemaVersion": 1,
+      "generation": "help-619da17b-1a4e-4383-899c-827688c47e94",
+      "purpose": "bmad-readonly",
+      "terminal": true,
+      "jobAssigned": true,
+      "jobActive": 0,
+      "neverStarted": false
+    },
+    "phases": {
+      "resources_ms": 2160,
+      "runtime_copy_ms": 14429,
+      "runtime_guard_ms": 21618,
+      "native_group_ms": 24224
+    },
+    "stdoutBytes": 370876,
+    "stdoutSha256": "7f65fe5b2ab9813aab9603bcc1ccd00b30725a195a251a9ac39bd15f55f68516"
+  },
+  {
+    "operation": "operation-cf83a9aa-2130-48c9-9f3c-62dca33dcde8",
+    "execution": {
+      "schema": 5,
+      "outcome": "completed",
+      "exit": 0,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 36616,
+      "active_before_stop": 0,
+      "job_active_after_stop": 0,
+      "stop_ms": 0,
+      "drain_ms": 742,
+      "elapsed_ms": 16775
+    },
+    "terminal": {
+      "schemaVersion": 1,
+      "generation": "help-28c33925-6ce4-46b2-8855-a2614016e877",
+      "purpose": "bmad-readonly",
+      "terminal": true,
+      "jobAssigned": true,
+      "jobActive": 0,
+      "neverStarted": false
+    },
+    "phases": {
+      "resources_ms": 2551,
+      "runtime_copy_ms": 284,
+      "runtime_guard_ms": 40898,
+      "native_group_ms": 17979
+    },
+    "stdoutBytes": 65391,
+    "stdoutSha256": "d489b9bb12a4d29adfe0131aee146015ec33fa179039646006622a7dafb4f285"
+  },
+  {
+    "operation": "operation-d8479199-c26c-4791-b227-6fc5ca59ea32",
+    "execution": {
+      "schema": 5,
+      "outcome": "completed",
+      "exit": 0,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 10548,
+      "active_before_stop": 0,
+      "job_active_after_stop": 0,
+      "stop_ms": 1,
+      "drain_ms": 809,
+      "elapsed_ms": 24409
+    },
+    "terminal": {
+      "schemaVersion": 1,
+      "generation": "help-80577d6d-1ac5-43d4-b460-d7946c08891b",
+      "purpose": "bmad-readonly",
+      "terminal": true,
+      "jobAssigned": true,
+      "jobActive": 0,
+      "neverStarted": false
+    },
+    "phases": {
+      "resources_ms": 2334,
+      "runtime_copy_ms": 295,
+      "runtime_guard_ms": 32582,
+      "native_group_ms": 25768
+    },
+    "stdoutBytes": 75,
+    "stdoutSha256": "7d18b8110bb79fae57a2b5e88743cbce49c1d873043eb4c1dcbc88c973cc0c52"
+  }
+]

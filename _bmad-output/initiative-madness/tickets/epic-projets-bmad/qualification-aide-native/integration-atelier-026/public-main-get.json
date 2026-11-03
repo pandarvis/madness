@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "action": "public-main-get-only",
+  "startedAt": "2026-11-03T13:50:20.974Z",
+  "status": "public-get-blocked",
+  "artifact": {
+    "executable": "C:\\Users\\UP60066553\\AppData\\Local\\Programs\\Madness\\Madness.exe",
+    "version": "0.2.6",
+    "asarSha256": "a138493835f8912d0f0091fa9131db7e84aa55737db10dd9d0d7be44f817a157"
+  },
+  "limits": [
+    "Candidat préliminaire, pas le paquet final de 2.2.",
+    "GET public depuis le vrai profil/session Main, cache par défaut ; ne prouve pas un POST de renouvellement ni un échange modèle."
+  ],
+  "runtime": {
+    "mainPid": 35700,
+    "version": "0.2.6",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0",
+    "packaged": true,
+    "normalUserData": true,
+    "normalSessionData": true,
+    "diaProcessesNotOperated": true
+  },
+  "network": {
+    "status": null,
+    "ok": false,
+    "observations": [
+      {
+        "status": 307,
+        "destinationCategory": "zscaler"
+      }
+    ],
+    "measuredAt": "2026-11-03T13:50:33.570Z"
+  },
+  "noHelperOrModel": true,
+  "close": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-11-03T13:50:33.241Z",
+      "attached": true,
+      "overflow": false,
+      "network": 1,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 2048,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "finishedAt": "2026-11-03T13:50:35.997Z"
+}

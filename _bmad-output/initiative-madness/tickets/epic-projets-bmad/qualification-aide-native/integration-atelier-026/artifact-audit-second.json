@@ -1,0 +1,1199 @@
+{
+  "schemaVersion": 1,
+  "action": "post-merge-source-and-installed-artifact-audit",
+  "measuredAt": "2026-11-03T14:00:45.578Z",
+  "manifest": "_bmad-output/initiative-madness/ux-madness/qualification-navigation-tooltip/release-manifest.json",
+  "version": "0.2.6",
+  "asarSha256": "a138493835f8912d0f0091fa9131db7e84aa55737db10dd9d0d7be44f817a157",
+  "asarMatches": true,
+  "sourceInputs": [
+    {
+      "path": "electron-builder.yml",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "electron.vite.config.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "package-lock.json",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "package.json",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "resources/THIRD-PARTY-NOTICES.md",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "resources/atelier-cast-v2/provenance.json",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/bmad-SKILL.md",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/bmad-help.md",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/bootstrap.py",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/capture.py",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/config_utils.py",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/knowledge.py",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/launcher.ps1",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/preflight.ps1",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/resolve_config.py",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/runtime.json",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/runtime_guard.py",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/supervision.ps1",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-help/worker.py",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/bmad-script-runner.py",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/branding/generation-prompt.txt",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "resources/branding/madness-128.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/branding/madness-16.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/branding/madness-24.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/branding/madness-256.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/branding/madness-32.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/branding/madness-48.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/branding/madness-64.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/branding/madness-logo.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/branding/madness.ico",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "resources/branding/provenance.json",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "resources/fonts/Oxanium-OFL.txt",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "resources/fonts/provenance.json",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/approvals.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/bmad-help.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/codex.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/codex.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/connection.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/conversation.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/development.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/dialogue.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/epic-one-control-trace.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/epic-one-edges.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/epic-one-personal.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/epic-one-provenance.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/epic-one-support.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/epic-one.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/forge.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/maintenance.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/overview-native.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/overview.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/questions.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/recovery-native.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/recovery.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/renderer-font.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/theme.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/windows.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/qualification/workspace-design.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "scripts/release/atelier-icon.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "scripts/release/check-atelier-installed.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "scripts/release/install-atelier.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "scripts/release/installation-status.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "scripts/release/manifest.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/bmad/forge-manifest.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/bmad/forge.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/bmad/help-manifest.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/bmad/help-owned-run.ts",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/bmad/help.ts",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/bmad/profile.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/bmad/runtime.ts",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/codex/connection.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/codex/dialogue.ts",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/codex/file-proposals.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/codex/oauth.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/codex/owned-run.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/codex/probe.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/codex/vault.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/persistence/appearance-store.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/persistence/approval-store.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/persistence/bmad-help-store.ts",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/persistence/json-store.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/persistence/question-store.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/persistence/recovery-store.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/persistence/workflow-store.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/adapters/release-version.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/contracts/appearance.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/contracts/approvals.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/contracts/bmad-help.ts",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/contracts/connection.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/contracts/dialogue.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/contracts/index.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/contracts/questions.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/contracts/recovery.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/core/application.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/core/bmad-help.ts",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/core/dialogue.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/core/lifecycle.ts",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/core/ports.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/core/work-overview.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/main/boundary.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/main/index.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/package.json",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/preload/index.ts",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/index.html",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/AgentInfoPanel.tsx",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/AgentPortrait.tsx",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/App.tsx",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/ApprovalPanel.tsx",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/HelpPanel.tsx",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/NetworkHelp.tsx",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/QuestionPanel.tsx",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/RecoveryPanel.tsx",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/WindowCaptionPlates.tsx",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/WorkOverview.tsx",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/agentPresentation.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/atelier/BarlowCondensed-Bold.ttf",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/atelier/Oxanium-Variable.ttf",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/atelier/amelia-bust.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/atelier/chrome-plate-frame.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/atelier/john-bust.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/atelier/mary-bust.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/atelier/sally-bust.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/atelier/smithy-bust.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/atelier/sofia-bust.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/atelier/winston-bust.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/atelier/workshop-header.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/atelier/workshop-sidebar.png",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/assets/chatgpt-mark.svg",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/atelier-controls.css",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/atelier-immersion.css",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/env.d.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/help.css",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/main.tsx",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/strings.ts",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "src/renderer/src/styles.css",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/appearance.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/approvals-protocol.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/approvals.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/bmad-help-boundaries.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "tests/bmad-help-legacy.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "tests/bmad-help-partial-docs.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "tests/bmad-help-persistence-race.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "tests/bmad-help-protocol.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "tests/bmad-help-supervision.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "tests/bmad-help.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "tests/connection-oauth.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/connection-probe.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/connection-ui.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/connection-vault.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/connection.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/dialogue-profile.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/dialogue-protocol.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/dialogue-runtime.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "tests/dialogue.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "tests/epic-one-qualification.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/forge-protocol.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/forge.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/foundation.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/helpers/help-native.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "tests/helpers/windows-file-lock.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/json-store-utf8.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/lifecycle.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/maintenance.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/questions-protocol.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/questions.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/recovery-network.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/recovery.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/release.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/windows-harness.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/work-overview.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/workflow-store.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tests/workspace-design-qualification.test.mjs",
+      "deliveryMatches": true,
+      "comparison": "CRLF-only",
+      "matches": true
+    },
+    {
+      "path": "tsconfig.json",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tsconfig.node.json",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    },
+    {
+      "path": "tsconfig.web.json",
+      "deliveryMatches": true,
+      "comparison": "bytes",
+      "matches": true
+    }
+  ],
+  "nativeResources": [
+    {
+      "path": "bmad-help/bmad-SKILL.md",
+      "matches": true
+    },
+    {
+      "path": "bmad-help/bmad-help.md",
+      "matches": true
+    },
+    {
+      "path": "bmad-help/bootstrap.py",
+      "matches": true
+    },
+    {
+      "path": "bmad-help/capture.py",
+      "matches": true
+    },
+    {
+      "path": "bmad-help/config_utils.py",
+      "matches": true
+    },
+    {
+      "path": "bmad-help/knowledge.py",
+      "matches": true
+    },
+    {
+      "path": "bmad-help/launcher.ps1",
+      "matches": true
+    },
+    {
+      "path": "bmad-help/preflight.ps1",
+      "matches": true
+    },
+    {
+      "path": "bmad-help/resolve_config.py",
+      "matches": true
+    },
+    {
+      "path": "bmad-help/runtime.json",
+      "matches": true
+    },
+    {
+      "path": "bmad-help/runtime_guard.py",
+      "matches": true
+    },
+    {
+      "path": "bmad-help/supervision.ps1",
+      "matches": true
+    },
+    {
+      "path": "bmad-help/worker.py",
+      "matches": true
+    }
+  ],
+  "compiledFiles": [
+    {
+      "path": "out/main/index.js",
+      "matches": true
+    },
+    {
+      "path": "out/preload/index.js",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/amelia-bust-BhMfUzyU.png",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/BarlowCondensed-Bold-v1X23fbx.ttf",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/chatgpt-mark-BzeLsF5q.svg",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/chrome-plate-frame-CEUOVTY4.png",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/index-CPEBtXIw.css",
+      "matches": false
+    },
+    {
+      "path": "out/renderer/assets/index-DrKtyfb7.js",
+      "matches": false
+    },
+    {
+      "path": "out/renderer/assets/john-bust-BFR8uFSt.png",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/madness-64-CLfbpCIt.png",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/mary-bust-MARKPnXB.png",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/Oxanium-Variable-Cxng1r8B.ttf",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/sally-bust-V3QCidDb.png",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/smithy-bust-5fAwEfcm.png",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/sofia-bust-BfDgrm10.png",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/winston-bust-CX7w_Rgd.png",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/workshop-header-CzuHm831.png",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/assets/workshop-sidebar-BKMFHWB8.png",
+      "matches": true
+    },
+    {
+      "path": "out/renderer/index.html",
+      "matches": false
+    }
+  ],
+  "limits": [
+    "No model, provider, browser, OAuth or personal-profile mutation.",
+    "Source bytes are checked against the delivered manifest; only valid UTF-8 text with an explicit extension may be equivalent after CRLF normalization, separately reported. Compiled files and native resources require exact bytes.",
+    "Compilation equality and source hashes do not close native M14."
+  ],
+  "passed": false
+}

@@ -1,0 +1,12 @@
+<anonymous_script>:1
+
+
+SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at BmadHelpAdapter.run (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/help.ts:57:22)
+    at async BmadHelpAdapter.prepare (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/help.ts:76:25)
+    at async measure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/bmad-help.mjs:30:83)
+    at async qualifyHelpLocal (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/bmad-help.mjs:33:15)
+    at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/bmad-help.mjs:51:53
+
+Node.js v24.13.0

@@ -1,6 +1,6 @@
 # Story 2.2 — vérification parent
 
-État : in-review. Le candidat final existe ; la réponse native sur ce candidat et le commit de clôture restent requis. Aucun statut built ni succès natif final n’est déduit des preuves historiques.
+État courant au3novembre2026 : **2.2 in-review**, refonte finale0.2.6 réunie dans `5e4777b`, qualification locale réussie, M14 réel encore ouvert derrière307Zscaler. Voir [la reprise documentée](integration-atelier-026/parent-verification.md). Aucun nouveau modèle ni demande humaine en attente. Les paragraphes ci-dessous décrivent le candidat005 historique et ses revues ; ils ne transfèrent pas leurs preuves à0.2.6 et ne rendent pas la refonte inachevée.
 
 ## Parcours livré dans le candidat
 

@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "mode": "synthetic-icon-check",
+  "checks": [
+    "exact-executable-and-normal-profile",
+    "dialogue-inactive-no-turn",
+    "local-state-readable",
+    "native-executable-icon-extracted",
+    "atelier-finish-loaded",
+    "no-network-or-engine-after-hook"
+  ],
+  "limits": [
+    "Observation réseau et moteur après instrumentation seulement.",
+    "Aucun consentement, vérification fournisseur ou message envoyé."
+  ],
+  "accountReadable": null,
+  "projectNames": [],
+  "runtime": {
+    "pid": 34276,
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\atelier-immersion\\madness\\dist\\atelier-logo-final\\win-unpacked\\Madness.exe",
+    "userData": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-icon-ocp7L5",
+    "appPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\atelier-immersion\\madness\\dist\\atelier-logo-final\\win-unpacked\\resources\\app.asar",
+    "version": "0.2.1"
+  },
+  "iconSize": {
+    "width": 32,
+    "height": 32
+  },
+  "observation": {
+    "schemaVersion": 1,
+    "afterHookOnly": true,
+    "startedAt": "2026-11-03T06:27:52.464Z",
+    "complete": true,
+    "attached": true,
+    "network": 0,
+    "appServerAttempts": 0,
+    "appServers": 0,
+    "appServerCloses": 0
+  },
+  "close": {
+    "main": {
+      "pid": 34276,
+      "startedAt": "639292840587665492",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\atelier-immersion\\madness\\dist\\atelier-logo-final\\win-unpacked\\Madness.exe"
+    },
+    "wrapperPid": 22772,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-03T06:27:52.464Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  },
+  "syntheticCleanup": true
+}

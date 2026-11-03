@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-03T12:56:00.365Z",
+  "status": "failed",
+  "mode": "compiled-isolated",
+  "checks": [
+    "local-oxanium-loaded-with-french-reading-sample",
+    "real-windows-main-absent-close-observed-no-app-server-launch-1"
+  ],
+  "measurements": [],
+  "viewports": [],
+  "workPositions": [],
+  "captures": [],
+  "launches": [
+    {
+      "main": {
+        "pid": 38028,
+        "startedAt": "639293073604835888",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 30816,
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\atelier-immersion\\madness\\_bmad-output\\initiative-madness\\ux-madness\\qualification-window-chrome\\red\\native-observation-1.json",
+      "observationStartedAt": "2026-11-03T12:56:07.273Z"
+    }
+  ],
+  "closeReceipts": [
+    {
+      "main": {
+        "pid": 38028,
+        "startedAt": "639293073604835888",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 30816,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-03T12:56:07.273Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Données et demandes actives synthétiques ; aucun reçu fournisseur, compte ou accord humain déduit.",
+    "Contrôles du contenu Electron ; glyphes Windows, mise à l’échelle du système, lecteur d’écran et conformité WCAG non certifiés.",
+    "Tailles CSS exactes privilégiées ; quantification Windows limitée à1px et consignée dans viewports, sans franchissement des breakpoints attendus.",
+    "Aucune installation personnelle, clôture G1 ni acceptation visuelle humaine.",
+    "Réseau bloqué et app-server comptés seulement après installation du hook ; aucune absence d’activité antérieure au hook revendiquée.",
+    "Une identité Main, une fermeture observable ou un compteur incomplet interdit le nettoyage du profil. Aucun processus tué par le banc."
+  ],
+  "typography": {
+    "family": "Oxanium, \"Segoe UI\", sans-serif",
+    "weight": "450",
+    "sample": "Été, œuvre, cœur, où, façade : vérifier le brouillon — 0123456789.",
+    "loaded": true
+  },
+  "caption": {
+    "visible": true,
+    "count": 0,
+    "interactive": 0,
+    "pointer": null,
+    "area": {
+      "x": 0,
+      "y": 0,
+      "width": 1183,
+      "height": 56
+    },
+    "skin": null,
+    "width": 1320
+  },
+  "failure": "AssertionError [ERR_ASSERTION]: CAPTION_PLATES_MISSING\n\n0 !== 3\n\n    at runWorkspaceDesign (file:///C:/Users/UP60066553/.codex/worktrees/atelier-immersion/madness/scripts/qualification/workspace-design.mjs:184:10)\n    at async file:///C:/Users/UP60066553/.codex/worktrees/atelier-immersion/madness/scripts/qualification/workspace-design.mjs:323:79",
+  "finishedAt": "2026-11-03T12:56:08.595Z"
+}

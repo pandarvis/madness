@@ -1,0 +1,99 @@
+{
+  "tool": "built-in image_gen",
+  "mode": "style-transfer with transparent_background:true",
+  "originalRevision": "1a7100c",
+  "brief": "3 novembre2026 — personnages plus déjantés BL2/Tiny Tina, mêmes identités adultes ; Oxanium pour lecture longue.",
+  "assets": [
+    {
+      "name": "mary",
+      "asset": "src/renderer/src/assets/atelier/mary-bust.png",
+      "originalSha256": "9f3f222dbbea708a2c5deafba10977af115017836894a654503eee119d6012a7",
+      "sha256": "c157bb6a0d7f5a423c2e84e627776af4650bdbce7bace92d3992a4de0bc52360",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2367076,
+      "generatedSource": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-ab2e377b-ed37-41a9-ba1a-505a12d539d4.png",
+      "editTarget": "src/renderer/src/assets/atelier/mary-bust.png",
+      "styleReference": null,
+      "prompt": "Use case: style-transfer. Edit target: the attached original Mary bust, an adult fictional BMad analyst.\nPrimary request: redesign this same recognizable woman as a MUCH MORE wild, eccentric Borderlands 2 / Tiny Tina's Wonderlands inspired NPC. The current image is too polite and realistically attractive: push toward bold comic caricature and irreverent scrapyard invention. Preserve her adult age, medium-brown skin, dark curly asymmetrical hair, gold hoop earrings, facial beauty mark and teal/orange palette.\nArt direction: hand-inked thick-to-thin black contour, angular exaggerated facial planes, distinct hard-edged 3-tone CEL SHADING, bold graphic shapes and selective comic hatching. Large expressive eyes, one eyebrow arched extremely high, crooked knowing toothy grin, mischievous brilliant detective energy. Exaggerate the curly hair into an asymmetric unruly silhouette. Give her oversized brass-and-teal multiple-lens detective goggles perched above her forehead, red pencil stuck in curls, mismatched orange/teal scavenged shoulder plates, little folded map scraps and red-string investigation pins on the lapel, an oversized absurd magnifying lens hanging at chest. Intentionally theatrical asymmetric costume; still an original identifiable Mary, not an existing game character.\nComposition: a SINGLE centered bust from head to mid chest, frontal three-quarter pose, entire hair/goggles/shoulders visible, square image. Face centered around 42% of image height and about 35% image width; leave generous 6% transparent padding all sides for the existing 40px dialogue thumbnail and full bust panel. Crisp readable silhouette at small size.\nTransparent alpha background, no backdrop, no circle, no frame, no text or logo. Avoid photoreal skin rendering, soft airbrush, glossy 3D, generic heroic realism, delicate fashion portrait, smooth gradients. Flat saturated rust orange, petrol teal, ochre, cream and dark ink. Keep the original alpha transparency."
+    },
+    {
+      "name": "sally",
+      "asset": "src/renderer/src/assets/atelier/sally-bust.png",
+      "originalSha256": "8ce990e48a4a489b1783b337f90ca3b6f2252d4dc820250c05223995c2c529fc",
+      "sha256": "f6d328b6765d973bc6951fdae69ceba9e633950bcf496f7bbc991113b3995662",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2545762,
+      "generatedSource": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-3b963a6a-af79-402c-807e-8b240de3b383.png",
+      "editTarget": "src/renderer/src/assets/atelier/sally-bust.png",
+      "styleReference": "Mary-v2",
+      "prompt": "Use case: style-transfer. Input image 1 is the EDIT TARGET sally, retain recognizable identity. Input image 2 is STYLE REFERENCE Mary from the same cast; match her exact bold comic cel-shaded rendering, ink weight, saturated petrol-teal/rust/ochre palette and amount of eccentricity, do not copy Mary's face or detective accessories.\nRedesign image 1 as an original MUCH more wild and theatrical Borderlands 2 / Tiny Tina's Wonderlands inspired adult workshop NPC. Subject: adult pale freckled woman, vivid short copper-red hair and green eyes, UX designer. Exaggerate into a jubilant wild-eyed creative gremlin: enormous asymmetric spiky forelock, crooked toothy grin, raised brow, oversized round paint-splattered safety goggles perched on her hair with a tiny bent antenna, mismatched teal/rust shoulder plates, many fat colored paint markers and rulers strapped like bandoliers, a stitched whimsical rabbit-face patch and a brass color-wheel gadget at her collar. Playful explosive Tiny Tina energy while clearly adult; keep her red hair and freckles.\nArt style: exaggerated comic facial proportions and distinctive angular planes; thick-to-thin black hand-inked contour, 3 hard flat cel-shading tones, selective scratchy comic hatching; large readable graphic shapes. Funny asymmetry, irreverent ingenious costumes, expression that reads at 40px. No photoreal skin shading, no fashion-portrait smooth beauty, no soft airbrush or glossy 3D. Strong face contrast and eyes readable.\nComposition: SINGLE centered head-to-mid-chest bust, three-quarter frontal pose, square canvas, entire hair, goggles and shoulders contained, about 6% breathing room on sides/top. Face center near 42% image height. A genuine transparent alpha background, clean silhouette. No scenery, no backdrop, no circle, no border, no words, letters, logo or watermark. Original character, no reproduction of an existing game's named character. Keep a human-looking face rather than monster proportions."
+    },
+    {
+      "name": "amelia",
+      "asset": "src/renderer/src/assets/atelier/amelia-bust.png",
+      "originalSha256": "d3bda852c64981a60104d58b38d3ebc0acc474078c208def643bccb6dadd3b4a",
+      "sha256": "79e08e75593f756c4714f1cbb8d7acfb3f75596c17a0d8436c2a125b2779a600",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2362202,
+      "generatedSource": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-87951088-7ce4-4f3d-a875-20276cbcf221.png",
+      "editTarget": "src/renderer/src/assets/atelier/amelia-bust.png",
+      "styleReference": "Mary-v2",
+      "prompt": "Use case: style-transfer. Input image 1 is the EDIT TARGET amelia, retain recognizable identity. Input image 2 is STYLE REFERENCE Mary from the same cast; match her exact bold comic cel-shaded rendering, ink weight, saturated petrol-teal/rust/ochre palette and amount of eccentricity, do not copy Mary's face or detective accessories.\nRedesign image 1 as an original MUCH more wild and theatrical Borderlands 2 / Tiny Tina's Wonderlands inspired adult workshop NPC. Subject: adult East Asian woman with black hair in a messy high bun, developer. Sharp angular face, intensely amused sideways smirk, arched eyebrow, spectacular asymmetric undercut and spring-loaded magnifying visor flipped up above forehead. An absurd oversized reclaimed mechanical shoulder and copper wire braids, mustard yellow shirt under petrol-teal workshop coat, orange tape, socket-key charms and soldering tools on chest. A confident eccentric genius who just built something unreasonable. Preserve her face/skin identity and black bun; visible human face unobstructed.\nArt style: exaggerated comic facial proportions and distinctive angular planes; thick-to-thin black hand-inked contour, 3 hard flat cel-shading tones, selective scratchy comic hatching; large readable graphic shapes. Funny asymmetry, irreverent ingenious costumes, expression that reads at 40px. No photoreal skin shading, no fashion-portrait smooth beauty, no soft airbrush or glossy 3D. Strong face contrast and eyes readable.\nComposition: SINGLE centered head-to-mid-chest bust, three-quarter frontal pose, square canvas, entire hair, goggles and shoulders contained, about 6% breathing room on sides/top. Face center near 42% image height. A genuine transparent alpha background, clean silhouette. No scenery, no backdrop, no circle, no border, no words, letters, logo or watermark. Original character, no reproduction of an existing game's named character. Keep a human-looking face rather than monster proportions."
+    },
+    {
+      "name": "winston",
+      "asset": "src/renderer/src/assets/atelier/winston-bust.png",
+      "originalSha256": "cbce5bfea1948dd8ad15d572bde5aa425ef52b05c5adcba37470de45c4dd12a6",
+      "sha256": "a65c87f53c895cd4e7240d86ef22a9807d4adaad6a6f194d84a689157ee33d7d",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2391038,
+      "generatedSource": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-24177926-6e08-40ea-9a0a-d9831ef2091b.png",
+      "editTarget": "src/renderer/src/assets/atelier/winston-bust.png",
+      "styleReference": "Mary-v2",
+      "prompt": "Use case: style-transfer. Input image 1 is the EDIT TARGET winston, retain recognizable identity. Input image 2 is STYLE REFERENCE Mary from the same cast; match her exact bold comic cel-shaded rendering, ink weight, saturated petrol-teal/rust/ochre palette and amount of eccentricity, do not copy Mary's face or detective accessories.\nRedesign image 1 as an original MUCH more wild and theatrical Borderlands 2 / Tiny Tina's Wonderlands inspired adult workshop NPC. Subject: older Black man with short white hair and large white beard, systems architect. Exaggerated broad angular jaw, sculptural squared white beard, giant expressive eyebrows and a wry mad-professor grin. A brass multi-lens monocular contraption sits flipped up to the side, enormous asymmetric teal reclaimed shoulder plates built from measuring tools, rolled blueprints and a little hinged model of a tower strapped at shoulder, orange pencil battery on chest. A wonderfully eccentric architect of impossible machines; preserve his adult older Black identity and white beard.\nArt style: exaggerated comic facial proportions and distinctive angular planes; thick-to-thin black hand-inked contour, 3 hard flat cel-shading tones, selective scratchy comic hatching; large readable graphic shapes. Funny asymmetry, irreverent ingenious costumes, expression that reads at 40px. No photoreal skin shading, no fashion-portrait smooth beauty, no soft airbrush or glossy 3D. Strong face contrast and eyes readable.\nComposition: SINGLE centered head-to-mid-chest bust, three-quarter frontal pose, square canvas, entire hair, goggles and shoulders contained, about 6% breathing room on sides/top. Face center near 42% image height. A genuine transparent alpha background, clean silhouette. No scenery, no backdrop, no circle, no border, no words, letters, logo or watermark. Original character, no reproduction of an existing game's named character. Keep a human-looking face rather than monster proportions."
+    },
+    {
+      "name": "john",
+      "asset": "src/renderer/src/assets/atelier/john-bust.png",
+      "originalSha256": "8d57e317844ce3cb2d5c52e010b96d9f8af5a05e79a010c99eb549b6d1fd94ea",
+      "sha256": "04d5fb86a4cf814ac260dae3ca44ab8508ef174ab4cce28bbd13457484a78b87",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2473860,
+      "generatedSource": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-e829eb26-349c-4e02-b340-12daf3b316ea.png",
+      "editTarget": "src/renderer/src/assets/atelier/john-bust.png",
+      "styleReference": "Mary-v2",
+      "prompt": "Use case: style-transfer. Input image 1 is the EDIT TARGET john, retain recognizable identity. Input image 2 is STYLE REFERENCE Mary from the same cast; match her exact bold comic cel-shaded rendering, ink weight, saturated petrol-teal/rust/ochre palette and amount of eccentricity, do not copy Mary's face or detective accessories.\nRedesign image 1 as an original MUCH more wild and theatrical Borderlands 2 / Tiny Tina's Wonderlands inspired adult workshop NPC. Subject: adult light-skinned brown-haired man with stubble, product manager. Exaggerated long sharp nose and chin, swept-up unruly brown quiff, one eyebrow theatrically high, cocky showman crooked toothy grin. Rust-orange ragged dapper waistcoat with absurd high teal collar, mismatched reclaimed shoulder armor, a brass pocket-watch chain, tiny battered megaphone on shoulder, and oversized folded planning cards stuffed in chest straps. Charismatic slightly unhinged scrapyard negotiator; preserve original brown hair/stubble/adult male identity.\nArt style: exaggerated comic facial proportions and distinctive angular planes; thick-to-thin black hand-inked contour, 3 hard flat cel-shading tones, selective scratchy comic hatching; large readable graphic shapes. Funny asymmetry, irreverent ingenious costumes, expression that reads at 40px. No photoreal skin shading, no fashion-portrait smooth beauty, no soft airbrush or glossy 3D. Strong face contrast and eyes readable.\nComposition: SINGLE centered head-to-mid-chest bust, three-quarter frontal pose, square canvas, entire hair, goggles and shoulders contained, about 6% breathing room on sides/top. Face center near 42% image height. A genuine transparent alpha background, clean silhouette. No scenery, no backdrop, no circle, no border, no words, letters, logo or watermark. Original character, no reproduction of an existing game's named character. Keep a human-looking face rather than monster proportions."
+    },
+    {
+      "name": "sofia",
+      "asset": "src/renderer/src/assets/atelier/sofia-bust.png",
+      "originalSha256": "c53a006de761a436d8634449f5a0490ead45480bb0b646bae91f26ab8e1068c3",
+      "sha256": "658dae6271a2dd378b2c1e814f335aa930451856a5296b8858dfc5091a2435a5",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2238535,
+      "generatedSource": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-03e1373a-3ce9-47fd-968a-12f54e4f536c.png",
+      "editTarget": "src/renderer/src/assets/atelier/sofia-bust.png",
+      "styleReference": "Mary-v2",
+      "prompt": "Use case: style-transfer. Input image 1 is the EDIT TARGET sofia, retain recognizable identity. Input image 2 is STYLE REFERENCE Mary from the same cast; match her exact bold comic cel-shaded rendering, ink weight, saturated petrol-teal/rust/ochre palette and amount of eccentricity, do not copy Mary's face or detective accessories.\nRedesign image 1 as an original MUCH more wild and theatrical Borderlands 2 / Tiny Tina's Wonderlands inspired adult workshop NPC. Subject: adult mature light-medium-skinned woman with severe black bob and striking white front streak, product owner. Push her bob into a razor-edged asymmetric graphic silhouette, angular cheekbones and dramatically skeptical brow, intense deadpan little smirk. One tall asymmetric teal collar, reclaimed orange shoulder armor, a red pencil tucked behind ear, binder clips and vividly colored index tabs organized like an absurd ammunition bandolier, a small mechanical stamp clipped to chest. The terrifyingly organized straight-faced ringmaster of this chaotic workshop. Preserve mature woman identity, black bob and white streak.\nArt style: exaggerated comic facial proportions and distinctive angular planes; thick-to-thin black hand-inked contour, 3 hard flat cel-shading tones, selective scratchy comic hatching; large readable graphic shapes. Funny asymmetry, irreverent ingenious costumes, expression that reads at 40px. No photoreal skin shading, no fashion-portrait smooth beauty, no soft airbrush or glossy 3D. Strong face contrast and eyes readable.\nComposition: SINGLE centered head-to-mid-chest bust, three-quarter frontal pose, square canvas, entire hair, goggles and shoulders contained, about 6% breathing room on sides/top. Face center near 42% image height. A genuine transparent alpha background, clean silhouette. No scenery, no backdrop, no circle, no border, no words, letters, logo or watermark. Original character, no reproduction of an existing game's named character. Keep a human-looking face rather than monster proportions."
+    },
+    {
+      "name": "smithy",
+      "asset": "src/renderer/src/assets/atelier/smithy-bust.png",
+      "originalSha256": "434585e83aeeeb1e54b11588935c7334d8ef1e0dc404a7efd843f23bf86fdb50",
+      "sha256": "ac69746654a76fbfca5bcf486acffff685fff06114acb5c33807dc1ada66da25",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2732553,
+      "generatedSource": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-4f54f189-f24d-449a-adf6-d6f58e3fe125.png",
+      "editTarget": "src/renderer/src/assets/atelier/smithy-bust.png",
+      "styleReference": "Mary-v2",
+      "prompt": "Use case: style-transfer. Input image 1 is the EDIT TARGET smithy, retain recognizable identity. Input image 2 is STYLE REFERENCE Mary from the same cast; match her exact bold comic cel-shaded rendering, ink weight, saturated petrol-teal/rust/ochre palette and amount of eccentricity, do not copy Mary's face or detective accessories.\nRedesign image 1 as an original MUCH more wild and theatrical Borderlands 2 / Tiny Tina's Wonderlands inspired adult workshop NPC. Subject: adult older light-skinned stocky male toolsmith with giant white beard, curled mustache and brass goggles. Push silhouette into a huge triangular beard with two tiny braids secured by nuts, gigantic curled mustache, rosy nose, one squinting eye and a delighted manic toothy grin. Enormous mismatched multi-lens brass welding goggles perched up, exaggerated orange work apron over petrol-blue shirt, asymmetrical scrap-metal shoulder, tiny vice and adjustable wrenches strapped across chest. A lovable deranged inventor with confident comic energy. Preserve his older adult identity, massive white beard and orange apron.\nArt style: exaggerated comic facial proportions and distinctive angular planes; thick-to-thin black hand-inked contour, 3 hard flat cel-shading tones, selective scratchy comic hatching; large readable graphic shapes. Funny asymmetry, irreverent ingenious costumes, expression that reads at 40px. No photoreal skin shading, no fashion-portrait smooth beauty, no soft airbrush or glossy 3D. Strong face contrast and eyes readable.\nComposition: SINGLE centered head-to-mid-chest bust, three-quarter frontal pose, square canvas, entire hair, goggles and shoulders contained, about 6% breathing room on sides/top. Face center near 42% image height. A genuine transparent alpha background, clean silhouette. No scenery, no backdrop, no circle, no border, no words, letters, logo or watermark. Original character, no reproduction of an existing game's named character. Keep a human-looking face rather than monster proportions."
+    }
+  ]
+}

@@ -30,8 +30,9 @@ before(async () => {
     const support=async(action)=>{supportCalls.push(action);if(supportFailure===action)throw Error('PUBLIC_KEYS_SUPPORT_FAILED');if(supportDeferred)await new Promise(resolve=>{finishSupport=resolve});return reply()};
     let snapshot={schemaVersion:1,revision:0,projects:[],activeProjectId:null,drafts:[],preferences:{navigationCollapsed:false},conversations:[],capabilities:{codex:{available:false,reasonKey:'codex.unqualified'}},lifecycle:'idle'}, stateListeners=[];
     let deferredSelections=false,selectionRequests=[];const selectProject=async(projectId)=>{if(deferredSelections)await new Promise((resolve,reject)=>selectionRequests.push({projectId,resolve,reject}));snapshot={...snapshot,revision:snapshot.revision+1,activeProjectId:projectId};return appReply()};
-    const appReply=()=>Promise.resolve({ok:true,contractVersion:1,correlationId:'ui-fixture',value:{state:snapshot,effect:'read'}});
-    contextBridge.exposeInMainWorld('madness',{readState:appReply,onStateChanged:listener=>{stateListeners.push(listener);return()=>{}},selectProject,saveDraft:async(projectId,text)=>{snapshot={...snapshot,revision:snapshot.revision+1,drafts:[{projectId,text,savedAt:new Date().toISOString()}]};return appReply()},setNavigation:async(collapsed)=>{snapshot={...snapshot,revision:snapshot.revision+1,preferences:{navigationCollapsed:collapsed}};return appReply()}});
+    const appReply=()=>Promise.resolve({ok:true,contractVersion:1,correlationId:'ui-fixture',value:{state:snapshot,effect:'read'}});let directoryChoices=0;
+    contextBridge.exposeInMainWorld('madnessToolbarFixture',{directoryChoices:()=>directoryChoices});
+    contextBridge.exposeInMainWorld('madness',{readState:appReply,chooseDirectory:async()=>{directoryChoices++;const reply=await appReply();return {...reply,value:{...reply.value,effect:'cancelled'}}},onStateChanged:listener=>{stateListeners.push(listener);return()=>{}},selectProject,saveDraft:async(projectId,text)=>{snapshot={...snapshot,revision:snapshot.revision+1,drafts:[{projectId,text,savedAt:new Date().toISOString()}]};return appReply()},setNavigation:async(collapsed)=>{snapshot={...snapshot,revision:snapshot.revision+1,preferences:{navigationCollapsed:collapsed}};return appReply()}});
     let dialogue={recovery:{stop:'clear',observations:[],capabilities:{resume:false,newConversation:true,inspectFiles:true}},contractVersion:1,sequence:0,status:'idle',context:{projectId:null,initiativeId:null,conversationId:null,providerId:null,connectionId:null},invocation:'$bmad-agent-analyst',profile:null,acknowledged:false,errorCode:null,activities:[],workflows:[],questions:[],approvals:[],mode:'read-only',turn:null,messages:[]},dialogueListeners=[],sent=[],copies=[],unknownOnStop=false;
     const notifyDialogue=()=>dialogueListeners.forEach(listener=>listener(dialogue));
     let launchFailure=false;let questionSaves=[],questionAnswers=[],approvalDecisions=[],adjustmentSends=[],observeStops=0;
@@ -68,7 +69,7 @@ async function launch(state = {}) {
   // Each fixture starts at 100%: Chromium persists per-origin zoom in this shared synthetic profile.
   await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.setZoomFactor(1))
   await page.evaluate((value) => window.connectionUIFixture.setState(value), state)
-  const css=(await readFile(join(repository, 'src/renderer/src/styles.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/help.css'), 'utf8'))
+  const css=(await readFile(join(repository, 'src/renderer/src/styles.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/help.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/atelier-immersion.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/atelier-controls.css'), 'utf8'))
   await page.addStyleTag({ content: css.replaceAll("url('./assets/atelier/", "url('"+pathToFileURL(join(repository,'src/renderer/src/assets/atelier')+'/').href) })
   await page.addScriptTag({ content: bundle })
   await page.getByRole('heading', { name: 'Vos projets, au même endroit', exact: true }).waitFor()
@@ -96,6 +97,19 @@ async function atelierFixture(width=1440){
  return {context,messages,names}
 }
 const portraitButton=name=>page.getByRole('button',{name:'Fiche de '+name,exact:true})
+
+test('barre : les emprises de déplacement sont séparées des quatre commandes',async t=>{
+ await launch();await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(1320,900))
+ const overlaps=await page.evaluate(()=>{
+  const regions=[...document.querySelectorAll('.topbar,.topbar *')].filter(e=>getComputedStyle(e).getPropertyValue('app-region')==='drag').map(e=>({name:e.className||e.tagName,box:e.getBoundingClientRect()}))
+  return [...document.querySelectorAll('.topbar button')].filter(e=>e.getClientRects().length).flatMap(e=>{const b=e.getBoundingClientRect(),x=b.x+b.width/2,y=b.y+b.height/2;return regions.filter(r=>x>=r.box.left&&x<=r.box.right&&y>=r.box.top&&y<=r.box.bottom).map(r=>({button:e.getAttribute('aria-label'),dragRegion:r.name}))})
+ });t.diagnostic(JSON.stringify(overlaps));assert.deepEqual(overlaps,[])
+ await page.getByRole('button',{name:'Réduire la navigation',exact:true}).click();await page.getByRole('button',{name:'Déployer la navigation',exact:true}).waitFor()
+ await page.getByRole('button',{name:'Ouvrir un projet',exact:true}).click();assert.equal(await page.evaluate(()=>window.madnessToolbarFixture.directoryChoices()),1)
+ await page.getByRole('button',{name:'Passer au thème clair',exact:true}).click();await page.waitForFunction(()=>document.documentElement.dataset.theme==='light')
+ await page.getByRole('button',{name:/^Connexion Codex :/}).click();await page.getByRole('dialog',{name:'Connexion Codex',exact:true}).waitFor()
+ assert.equal(await page.evaluate(()=>window.connectionUIFixture.verifies()),0)
+})
 test('atelier : disposition compacte, buste complet et conteneurs confinés dans les deux thèmes',async t=>{
  await atelierFixture()
  const projectName='Projet personnel de qualification de la refonte avec un nom réellement très long sans abréviation'
@@ -269,6 +283,34 @@ test('un historique simple avec nom long garde le point de saisie libre repérab
  await page.locator('[data-question-id="q-priority"]').waitFor({state:'detached'})
  for(const size of [{width:1440,height:920},{width:720,height:820}]){await app.evaluate(({BrowserWindow},size)=>BrowserWindow.getAllWindows()[0].setContentSize(size.width,size.height),size);await page.waitForFunction(size=>innerWidth===size.width&&innerHeight===size.height,size);await page.locator('main').evaluate(e=>{e.scrollTop=0});const position=await page.locator('#draft').evaluate(e=>{const r=e.getBoundingClientRect();return {top:r.top,bottom:r.bottom,width:innerWidth,height:innerHeight,mainScroll:document.querySelector('main').scrollTop,requests:document.querySelectorAll('.conversation-history [data-question-id]').length}});t.diagnostic(JSON.stringify({requested:size,...position}));assert.equal(position.top>=56&&position.bottom<=position.height-12,true,JSON.stringify({requested:size,...position}))}
 })
+test('atelier : la saisie et son action restent ensemble au premier écran',async t=>{
+ await workspaceRequestFixture();await page.evaluate(()=>window.connectionUIFixture.setDialogue({status:'idle',questions:[],approvals:[]}))
+ await page.locator('[data-question-id="q-priority"]').waitFor({state:'detached'})
+ for(const size of [{width:1440,height:920},{width:720,height:820}]){
+  await app.evaluate(({BrowserWindow},size)=>BrowserWindow.getAllWindows()[0].setContentSize(size.width,size.height),size)
+  await page.waitForFunction(size=>innerWidth===size.width&&innerHeight===size.height,size)
+  await page.locator('main').evaluate(e=>{e.scrollTop=0})
+  const reading=await page.locator('.composer').evaluate(e=>({fieldTop:e.querySelector('textarea').getBoundingClientRect().top,actionBottom:e.querySelector('button[type="submit"]').getBoundingClientRect().bottom,height:innerHeight,scroll:document.querySelector('main').scrollTop}))
+  t.diagnostic(JSON.stringify({requested:size,...reading}))
+  assert.equal(reading.scroll,0);assert.ok(reading.fieldTop>=56&&reading.actionBottom<=reading.height-12,JSON.stringify(reading))
+ }
+})
+
+test('atelier : le dernier message garde son auteur et du texte lisibles ensemble',async t=>{
+ await workspaceRequestFixture();await page.evaluate(()=>window.connectionUIFixture.setDialogue({status:'idle',questions:[],approvals:[]}))
+ await page.locator('[data-question-id="q-priority"]').waitFor({state:'detached'})
+ for(const size of [{width:1440,height:920},{width:720,height:820}]){
+  await app.evaluate(({BrowserWindow},size)=>BrowserWindow.getAllWindows()[0].setContentSize(size.width,size.height),size)
+  await page.waitForFunction(size=>innerWidth===size.width&&innerHeight===size.height,size)
+  await page.locator('.conversation-messages').evaluate(e=>{e.scrollTop=e.scrollHeight})
+  const reading=await page.locator('.conversation-messages .dialogue-message.assistant').last().evaluate(e=>{
+   const author=e.querySelector('.message-author').getBoundingClientRect(),text=e.querySelector('.message-text').getBoundingClientRect(),clip=e.parentElement.getBoundingClientRect()
+   return {authorVisible:Math.min(author.bottom,clip.bottom)-Math.max(author.top,clip.top),textVisible:Math.min(text.bottom,clip.bottom)-Math.max(text.top,author.bottom,clip.top)}
+  })
+  t.diagnostic(JSON.stringify({requested:size,...reading}));assert.ok(reading.authorVisible>=39&&reading.textVisible>=24,JSON.stringify(reading))
+ }
+})
+
 test('le focus de réponse reste neutre pendant envoi puis historique, sans détourner une autre saisie',async()=>{
  const {question}=await workspaceRequestFixture()
  const panel=page.locator('[data-question-id="q-priority"]');await panel.getByRole('button',{name:'Envoyer cette réponse',exact:true}).focus();await page.keyboard.press('Enter')

@@ -1,0 +1,1485 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-03T10:04:49.757Z",
+  "status": "passed",
+  "mode": "compiled-isolated",
+  "checks": [
+    "toolbar-navigation-renderer-click",
+    "toolbar-folder-real-main-cancel-no-project-added",
+    "toolbar-theme-real-main",
+    "toolbar-connection-panel-no-verification",
+    "toolbar-controls-outside-every-drag-region",
+    "help-native-guard-preserved-unqualified-profile",
+    "controls-no-network-or-model-after-hook",
+    "real-windows-main-absent-close-observed-no-app-server-launch-1"
+  ],
+  "measurements": [
+    {
+      "label": "help-controls-1440-light",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "clientWidth": 1440,
+        "clientHeight": 1000
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 1303,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 1303,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Réduire la navigation",
+          "x": 8,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 1159,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème sombre",
+          "x": 1207,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 1255,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 1340,
+          "y": -270,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "containers": [
+        {
+          "element": "html",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000,
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "clientHeight": 1000,
+          "scrollHeight": 1000,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "body",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000,
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "clientHeight": 1000,
+          "scrollHeight": 1000,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#root",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000,
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "clientHeight": 1000,
+          "scrollHeight": 1000,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "app-shell ",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000,
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "clientHeight": 1000,
+          "scrollHeight": 1000,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "app-body",
+          "x": 0,
+          "y": 56,
+          "width": 1440,
+          "height": 944,
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "sidebar",
+          "x": 0,
+          "y": 56,
+          "width": 240,
+          "height": 944,
+          "clientWidth": 238,
+          "scrollWidth": 238,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "auto",
+          "overflowY": "auto",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "workspace",
+          "x": 240,
+          "y": 56,
+          "width": 1200,
+          "height": 944,
+          "clientWidth": 1200,
+          "scrollWidth": 1200,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "workspace-body",
+          "x": 240,
+          "y": 56,
+          "width": 1200,
+          "height": 944,
+          "clientWidth": 1200,
+          "scrollWidth": 1200,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#main",
+          "x": 240,
+          "y": 56,
+          "width": 1200,
+          "height": 944,
+          "clientWidth": 1190,
+          "scrollWidth": 1190,
+          "clientHeight": 944,
+          "scrollHeight": 1819,
+          "overflowX": "auto",
+          "overflowY": "auto",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "main-inner",
+          "x": 240,
+          "y": -305,
+          "width": 1190,
+          "height": 1819.375,
+          "clientWidth": 1190,
+          "scrollWidth": 1190,
+          "clientHeight": 1819,
+          "scrollHeight": 1819,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#panel-parcours",
+          "x": 268,
+          "y": 55.96875,
+          "width": 1134,
+          "height": 1372.71875,
+          "clientWidth": 1134,
+          "scrollWidth": 1134,
+          "clientHeight": 1373,
+          "scrollHeight": 1373,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "help-controls-1440-dark",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "clientWidth": 1440,
+        "clientHeight": 1000
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 1303,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 1303,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Réduire la navigation",
+          "x": 8,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 1159,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème sombre",
+          "x": 1207,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 1255,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 1340,
+          "y": -270,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "containers": [
+        {
+          "element": "html",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000,
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "clientHeight": 1000,
+          "scrollHeight": 1000,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "body",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000,
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "clientHeight": 1000,
+          "scrollHeight": 1000,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#root",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000,
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "clientHeight": 1000,
+          "scrollHeight": 1000,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "app-shell ",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000,
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "clientHeight": 1000,
+          "scrollHeight": 1000,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "app-body",
+          "x": 0,
+          "y": 56,
+          "width": 1440,
+          "height": 944,
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "sidebar",
+          "x": 0,
+          "y": 56,
+          "width": 240,
+          "height": 944,
+          "clientWidth": 238,
+          "scrollWidth": 238,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "auto",
+          "overflowY": "auto",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "workspace",
+          "x": 240,
+          "y": 56,
+          "width": 1200,
+          "height": 944,
+          "clientWidth": 1200,
+          "scrollWidth": 1200,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "workspace-body",
+          "x": 240,
+          "y": 56,
+          "width": 1200,
+          "height": 944,
+          "clientWidth": 1200,
+          "scrollWidth": 1200,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#main",
+          "x": 240,
+          "y": 56,
+          "width": 1200,
+          "height": 944,
+          "clientWidth": 1190,
+          "scrollWidth": 1190,
+          "clientHeight": 944,
+          "scrollHeight": 1819,
+          "overflowX": "auto",
+          "overflowY": "auto",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "main-inner",
+          "x": 240,
+          "y": -305,
+          "width": 1190,
+          "height": 1819.375,
+          "clientWidth": 1190,
+          "scrollWidth": 1190,
+          "clientHeight": 1819,
+          "scrollHeight": 1819,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#panel-parcours",
+          "x": 268,
+          "y": 55.96875,
+          "width": 1134,
+          "height": 1372.71875,
+          "clientWidth": 1134,
+          "scrollWidth": 1134,
+          "clientHeight": 1373,
+          "scrollHeight": 1373,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "help-controls-720-light",
+      "viewport": {
+        "width": 720,
+        "height": 920,
+        "clientWidth": 720,
+        "clientHeight": 920
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 583,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 583,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Ouvrir la navigation",
+          "x": 8,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 447,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème sombre",
+          "x": 491,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 535,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 640,
+          "y": -257,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "containers": [
+        {
+          "element": "html",
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 920,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 920,
+          "scrollHeight": 920,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "body",
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 920,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 920,
+          "scrollHeight": 920,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#root",
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 920,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 920,
+          "scrollHeight": 920,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "app-shell ",
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 920,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 920,
+          "scrollHeight": 920,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "app-body",
+          "x": 0,
+          "y": 56,
+          "width": 720,
+          "height": 864,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 864,
+          "scrollHeight": 864,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "workspace",
+          "x": 0,
+          "y": 56,
+          "width": 720,
+          "height": 864,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 864,
+          "scrollHeight": 864,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "workspace-body",
+          "x": 0,
+          "y": 56,
+          "width": 720,
+          "height": 864,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 864,
+          "scrollHeight": 864,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#main",
+          "x": 0,
+          "y": 56,
+          "width": 720,
+          "height": 864,
+          "clientWidth": 710,
+          "scrollWidth": 710,
+          "clientHeight": 864,
+          "scrollHeight": 2041,
+          "overflowX": "auto",
+          "overflowY": "auto",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "main-inner",
+          "x": 0,
+          "y": -285,
+          "width": 710,
+          "height": 2041.15625,
+          "clientWidth": 710,
+          "scrollWidth": 710,
+          "clientHeight": 2041,
+          "scrollHeight": 2041,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#panel-parcours",
+          "x": 16,
+          "y": 55.96875,
+          "width": 678,
+          "height": 1622.5,
+          "clientWidth": 678,
+          "scrollWidth": 678,
+          "clientHeight": 1623,
+          "scrollHeight": 1623,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "label": "help-controls-720-dark",
+      "viewport": {
+        "width": 720,
+        "height": 920,
+        "clientWidth": 720,
+        "clientHeight": 920
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 583,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 583,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Ouvrir la navigation",
+          "x": 8,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 447,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème sombre",
+          "x": 491,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 535,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 640,
+          "y": -257,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "containers": [
+        {
+          "element": "html",
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 920,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 920,
+          "scrollHeight": 920,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "body",
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 920,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 920,
+          "scrollHeight": 920,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#root",
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 920,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 920,
+          "scrollHeight": 920,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "app-shell ",
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 920,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 920,
+          "scrollHeight": 920,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "app-body",
+          "x": 0,
+          "y": 56,
+          "width": 720,
+          "height": 864,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 864,
+          "scrollHeight": 864,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "workspace",
+          "x": 0,
+          "y": 56,
+          "width": 720,
+          "height": 864,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 864,
+          "scrollHeight": 864,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "workspace-body",
+          "x": 0,
+          "y": 56,
+          "width": 720,
+          "height": 864,
+          "clientWidth": 720,
+          "scrollWidth": 720,
+          "clientHeight": 864,
+          "scrollHeight": 864,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#main",
+          "x": 0,
+          "y": 56,
+          "width": 720,
+          "height": 864,
+          "clientWidth": 710,
+          "scrollWidth": 710,
+          "clientHeight": 864,
+          "scrollHeight": 2041,
+          "overflowX": "auto",
+          "overflowY": "auto",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "main-inner",
+          "x": 0,
+          "y": -285,
+          "width": 710,
+          "height": 2041.15625,
+          "clientWidth": 710,
+          "scrollWidth": 710,
+          "clientHeight": 2041,
+          "scrollHeight": 2041,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#panel-parcours",
+          "x": 16,
+          "y": 55.96875,
+          "width": 678,
+          "height": 1622.5,
+          "clientWidth": 678,
+          "scrollWidth": 678,
+          "clientHeight": 1623,
+          "scrollHeight": 1623,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        }
+      ],
+      "overflow": false
+    }
+  ],
+  "viewports": [
+    {
+      "label": "controls-home",
+      "requested": {
+        "width": 1440,
+        "height": 1000
+      },
+      "actual": {
+        "width": 1440,
+        "height": 1000,
+        "layoutWidth": 1440,
+        "devicePixelRatio": 1,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          1440,
+          1000
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 1440,
+            "height": 1000
+          },
+          "native": {
+            "contentSize": [
+              1440,
+              1000
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1440,
+            "height": 1000,
+            "layoutWidth": 1440,
+            "devicePixelRatio": 1,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "help-controls-1440",
+      "requested": {
+        "width": 1440,
+        "height": 1000
+      },
+      "actual": {
+        "width": 1440,
+        "height": 1000,
+        "layoutWidth": 1440,
+        "devicePixelRatio": 1,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          1440,
+          1000
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 1440,
+            "height": 1000
+          },
+          "native": {
+            "contentSize": [
+              1440,
+              1000
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1440,
+            "height": 1000,
+            "layoutWidth": 1440,
+            "devicePixelRatio": 1,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "help-controls-720",
+      "requested": {
+        "width": 720,
+        "height": 920
+      },
+      "actual": {
+        "width": 720,
+        "height": 920,
+        "layoutWidth": 720,
+        "devicePixelRatio": 1,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          720,
+          920
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 720,
+            "height": 920
+          },
+          "native": {
+            "contentSize": [
+              720,
+              920
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 720,
+            "height": 920,
+            "layoutWidth": 720,
+            "devicePixelRatio": 1,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "workPositions": [],
+  "captures": [
+    {
+      "file": "home-controls-dark.png",
+      "sha256": "899d2e41acbe80c357eb89bfd9c7052c4f83402da753b45331867d48cf417331",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1440,
+        "height": 1000,
+        "tab": null,
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "nativeFrame": {
+        "size": [
+          1440,
+          1000
+        ],
+        "scale": 1
+      },
+      "pixels": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "file": "connection-controls-light.png",
+      "sha256": "8e65889b899cfd041f3bfc6a83b4266c07ce09bf878952b93069a50685060a18",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 1440,
+        "height": 1000,
+        "tab": null,
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": true,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "nativeFrame": {
+        "size": [
+          1440,
+          1000
+        ],
+        "scale": 1
+      },
+      "pixels": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "file": "help-controls-light-1440.png",
+      "sha256": "c6e9df097dfb8312660792879eb60555bf7e30f5d6defeb3d8f99c31e7399db8",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 1440,
+        "height": 1000,
+        "tab": "Parcours",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "nativeFrame": {
+        "size": [
+          1440,
+          1000
+        ],
+        "scale": 1
+      },
+      "pixels": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "file": "help-controls-dark-1440.png",
+      "sha256": "31c675c5bae3026cddda6780ba982ca2f0857f99f135ff1c6f3adc1df9f10b32",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 1440,
+        "height": 1000,
+        "tab": "Parcours",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "nativeFrame": {
+        "size": [
+          1440,
+          1000
+        ],
+        "scale": 1
+      },
+      "pixels": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "file": "help-controls-light-720.png",
+      "sha256": "fa8fd0aafa3feec8be900ceb4a91e8eb947e27da135c8e1b80749cfcb0e9949b",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "light",
+        "width": 720,
+        "height": 920,
+        "tab": "Parcours",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "nativeFrame": {
+        "size": [
+          720,
+          920
+        ],
+        "scale": 1
+      },
+      "pixels": {
+        "width": 720,
+        "height": 920
+      }
+    },
+    {
+      "file": "help-controls-dark-720.png",
+      "sha256": "b19ff3cb1c11fbd5145e2cc87d45f328f28373680687062e10ebbe2376d17d95",
+      "method": "playwright-electron-page-screenshot",
+      "state": {
+        "theme": "dark",
+        "width": 720,
+        "height": 920,
+        "tab": "Parcours",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 1
+      },
+      "nativeFrame": {
+        "size": [
+          720,
+          920
+        ],
+        "scale": 1
+      },
+      "pixels": {
+        "width": 720,
+        "height": 920
+      }
+    }
+  ],
+  "launches": [
+    {
+      "main": {
+        "pid": 33688,
+        "startedAt": "639292970900130440",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 40108,
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\atelier-immersion\\madness\\_bmad-output\\initiative-madness\\ux-madness\\qualification-controls\\visual-final\\native-observation-1.json",
+      "observationStartedAt": "2026-11-03T10:05:02.074Z"
+    }
+  ],
+  "closeReceipts": [
+    {
+      "main": {
+        "pid": 33688,
+        "startedAt": "639292970900130440",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 40108,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-03T10:05:02.074Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Données et demandes actives synthétiques ; aucun reçu fournisseur, compte ou accord humain déduit.",
+    "Contrôles du contenu Electron ; glyphes Windows, mise à l’échelle du système, lecteur d’écran et conformité WCAG non certifiés.",
+    "Tailles CSS exactes privilégiées ; quantification Windows limitée à1px et consignée dans viewports, sans franchissement des breakpoints attendus.",
+    "Aucune installation personnelle, clôture G1 ni acceptation visuelle humaine.",
+    "Réseau bloqué et app-server comptés seulement après installation du hook ; aucune absence d’activité antérieure au hook revendiquée.",
+    "Une identité Main, une fermeture observable ou un compteur incomplet interdit le nettoyage du profil. Aucun processus tué par le banc.",
+    "Profil d’aide fictif et gardes de lancement inchangées ; clics renderer et géométrie de déplacement, pas injection souris native Windows."
+  ],
+  "finishedAt": "2026-11-03T10:05:05.959Z"
+}

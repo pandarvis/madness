@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "version": "0.2.3",
+  "baseline": "1a7100c",
+  "font": {
+    "family": "Oxanium",
+    "weight": 450,
+    "bodyPx": 16,
+    "localLoaded": true,
+    "sha256": "2ce01d946e1e1ffc8d7eecfffbda8623bedd63eaf811a20488c4b69af45babb0"
+  },
+  "cast": {
+    "count": 7,
+    "mode": "built-in image_gen style-transfer",
+    "nativeDimensions": [
+      1254,
+      1254
+    ],
+    "transparentAlphaVerified": true,
+    "packagedBytesExact": true,
+    "provenance": "resources/atelier-cast-v2/provenance.json"
+  },
+  "checks": {
+    "typesBuild": true,
+    "targetedUiBeforeF1": 11,
+    "composerUiAfterF1": 1,
+    "nativeFinal": 15,
+    "packagedFinal": 15,
+    "candidate": 9,
+    "personalReopen": 9,
+    "sourceInputsIdentical": 174,
+    "criticalPersonalEntriesIdentical": 838
+  },
+  "review": {
+    "first": "fix F1",
+    "final": "ship for F1 scored fix",
+    "globalWcag": false
+  },
+  "asar": "88b244533233e0af8a2426e51f7bc38cb57f9a400ed72ab2d3b2f59bfa2ea8c7",
+  "installation": {
+    "status": "passed",
+    "accountReadable": true,
+    "projects": [
+      "MIA",
+      "madness"
+    ],
+    "closed": true
+  },
+  "limits": [
+    "Pas de global51/51 nouveau ;11ciblés puis1garde et matrices natives finales.",
+    "Réseau/app-server après hook seulement ; aucun appel modèle ou consentement.",
+    "Pas de nouvelle preuve lecteur écran/contraste Windows/clic physique/WCAG global.",
+    "Version0.2.3 distincte de story2.3 ;2.2/M14 hors lot."
+  ]
+}

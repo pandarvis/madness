@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedImages": "ImageGen original assets. All PNG image-data and structural chunks are unchanged; exact generation prompts are embedded as metadata. Original source hashes and shipping hashes are distinguished below.",
-  "characterProvenance": "notices/atelier-provenance/characters.json",
+  "generatedImages": "Original ImageGen assets. Character v2 outputs are copied bit for bit; exact prompts are stored in the linked external provenance. Existing scene/material provenance is retained.",
+  "characterProvenance": "resources/atelier-cast-v2/provenance.json",
   "sceneProvenance": "notices/atelier-provenance/scenes.json",
   "font": {
     "family": "Barlow Condensed Bold",
@@ -14,14 +14,12 @@
   "files": [
     {
       "file": "src/renderer/src/assets/atelier/amelia-bust.png",
-      "source": "Original generation hash in the linked provenance manifest; shipping PNG includes exact prompt metadata.",
-      "bytes": 1563408,
-      "sha256": "d3bda852c64981a60104d58b38d3ebc0acc474078c208def643bccb6dadd3b4a",
-      "bitwiseCopy": false,
-      "sourceSha256": "957ff412fb7b2c501567cbeb983df0db9b70a1867530542933d8596fe86794d0",
-      "pixelChunksSha256": "913a77a0702e667547876c3a313597b86c36801e2899dbc12dff061a805702da",
-      "promptMetadataEmbedded": true,
-      "imageDataAndStructuralChunksUnchanged": true
+      "source": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-87951088-7ce4-4f3d-a875-20276cbcf221.png",
+      "sourceSha256": "79e08e75593f756c4714f1cbb8d7acfb3f75596c17a0d8436c2a125b2779a600",
+      "sha256": "79e08e75593f756c4714f1cbb8d7acfb3f75596c17a0d8436c2a125b2779a600",
+      "bytes": 2362202,
+      "bitwiseCopy": true,
+      "promptStorage": "resources/atelier-cast-v2/provenance.json"
     },
     {
       "file": "src/renderer/src/assets/atelier/BarlowCondensed-Bold.ttf",
@@ -32,74 +30,62 @@
     },
     {
       "file": "src/renderer/src/assets/atelier/john-bust.png",
-      "source": "Original generation hash in the linked provenance manifest; shipping PNG includes exact prompt metadata.",
-      "bytes": 1914851,
-      "sha256": "8d57e317844ce3cb2d5c52e010b96d9f8af5a05e79a010c99eb549b6d1fd94ea",
-      "bitwiseCopy": false,
-      "sourceSha256": "faf4d8ebc081cc8647ac2a40ce1845b1fdd53d89bd1c2f19dd3e3d99d09daf53",
-      "pixelChunksSha256": "16776fb4acd18d7279c09be4e87fd4b2519d532581e1bcafbdd63d34952c0c6f",
-      "promptMetadataEmbedded": true,
-      "imageDataAndStructuralChunksUnchanged": true
+      "source": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-e829eb26-349c-4e02-b340-12daf3b316ea.png",
+      "sourceSha256": "04d5fb86a4cf814ac260dae3ca44ab8508ef174ab4cce28bbd13457484a78b87",
+      "sha256": "04d5fb86a4cf814ac260dae3ca44ab8508ef174ab4cce28bbd13457484a78b87",
+      "bytes": 2473860,
+      "bitwiseCopy": true,
+      "promptStorage": "resources/atelier-cast-v2/provenance.json"
     },
     {
       "file": "src/renderer/src/assets/atelier/mary-bust.png",
-      "source": "Original generation hash in the linked provenance manifest; shipping PNG includes exact prompt metadata.",
-      "bytes": 1748759,
-      "sha256": "9f3f222dbbea708a2c5deafba10977af115017836894a654503eee119d6012a7",
-      "bitwiseCopy": false,
-      "sourceSha256": "3ae12d98f45189e282991b2f5534d3a036c89c4e5cf4d0c1a0d20cce3c7aba5d",
-      "pixelChunksSha256": "6bd81a72aa7033fbe807f60ce5d919b4b4f9d42a72651e27f4fd4091e10f74c3",
-      "promptMetadataEmbedded": true,
-      "imageDataAndStructuralChunksUnchanged": true
+      "source": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-ab2e377b-ed37-41a9-ba1a-505a12d539d4.png",
+      "sourceSha256": "c157bb6a0d7f5a423c2e84e627776af4650bdbce7bace92d3992a4de0bc52360",
+      "sha256": "c157bb6a0d7f5a423c2e84e627776af4650bdbce7bace92d3992a4de0bc52360",
+      "bytes": 2367076,
+      "bitwiseCopy": true,
+      "promptStorage": "resources/atelier-cast-v2/provenance.json"
     },
     {
       "file": "src/renderer/src/assets/atelier/sally-bust.png",
-      "source": "Original generation hash in the linked provenance manifest; shipping PNG includes exact prompt metadata.",
-      "bytes": 1750211,
-      "sha256": "8ce990e48a4a489b1783b337f90ca3b6f2252d4dc820250c05223995c2c529fc",
-      "bitwiseCopy": false,
-      "sourceSha256": "55dd1e9a89ba4023cc15642765a36774633a6f2ae9b1dbc1d14a7706dc1c8a45",
-      "pixelChunksSha256": "c0eecafd4795d2da4ab7360689c4c05610b5d0c7efc7d12a6aa27d2a842fdb05",
-      "promptMetadataEmbedded": true,
-      "imageDataAndStructuralChunksUnchanged": true
+      "source": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-3b963a6a-af79-402c-807e-8b240de3b383.png",
+      "sourceSha256": "f6d328b6765d973bc6951fdae69ceba9e633950bcf496f7bbc991113b3995662",
+      "sha256": "f6d328b6765d973bc6951fdae69ceba9e633950bcf496f7bbc991113b3995662",
+      "bytes": 2545762,
+      "bitwiseCopy": true,
+      "promptStorage": "resources/atelier-cast-v2/provenance.json"
     },
     {
       "file": "src/renderer/src/assets/atelier/smithy-bust.png",
-      "source": "Original generation hash in the linked provenance manifest; shipping PNG includes exact prompt metadata.",
-      "bytes": 2182196,
-      "sha256": "434585e83aeeeb1e54b11588935c7334d8ef1e0dc404a7efd843f23bf86fdb50",
-      "bitwiseCopy": false,
-      "sourceSha256": "709048ac4f1287dd8aa743dde3edc008ef22d98ff5ad54e767cce47c735c5859",
-      "pixelChunksSha256": "14df4facd7def439e05e63f23d98a29df394b09e00e4e84bb9a30929a38872c1",
-      "promptMetadataEmbedded": true,
-      "imageDataAndStructuralChunksUnchanged": true
+      "source": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-4f54f189-f24d-449a-adf6-d6f58e3fe125.png",
+      "sourceSha256": "ac69746654a76fbfca5bcf486acffff685fff06114acb5c33807dc1ada66da25",
+      "sha256": "ac69746654a76fbfca5bcf486acffff685fff06114acb5c33807dc1ada66da25",
+      "bytes": 2732553,
+      "bitwiseCopy": true,
+      "promptStorage": "resources/atelier-cast-v2/provenance.json"
     },
     {
       "file": "src/renderer/src/assets/atelier/sofia-bust.png",
-      "source": "Original generation hash in the linked provenance manifest; shipping PNG includes exact prompt metadata.",
-      "bytes": 1687327,
-      "sha256": "c53a006de761a436d8634449f5a0490ead45480bb0b646bae91f26ab8e1068c3",
-      "bitwiseCopy": false,
-      "sourceSha256": "d6d9ce87fd778cde327526fdd435f3608ec4d3afcb70cb26a8e3eb9c61f7a1dc",
-      "pixelChunksSha256": "859cf924fb3d291e3ea4d68df61dfd6a2badfa6fdd047ae9d194552cb83c9152",
-      "promptMetadataEmbedded": true,
-      "imageDataAndStructuralChunksUnchanged": true
+      "source": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-03e1373a-3ce9-47fd-968a-12f54e4f536c.png",
+      "sourceSha256": "658dae6271a2dd378b2c1e814f335aa930451856a5296b8858dfc5091a2435a5",
+      "sha256": "658dae6271a2dd378b2c1e814f335aa930451856a5296b8858dfc5091a2435a5",
+      "bytes": 2238535,
+      "bitwiseCopy": true,
+      "promptStorage": "resources/atelier-cast-v2/provenance.json"
     },
     {
       "file": "src/renderer/src/assets/atelier/winston-bust.png",
-      "source": "Original generation hash in the linked provenance manifest; shipping PNG includes exact prompt metadata.",
-      "bytes": 1875373,
-      "sha256": "cbce5bfea1948dd8ad15d572bde5aa425ef52b05c5adcba37470de45c4dd12a6",
-      "bitwiseCopy": false,
-      "sourceSha256": "40461081fc0b20c8a664753c19a71d73f26daa5c499e43b3d725f7454ee3d39d",
-      "pixelChunksSha256": "675a14356420072d7a638c815a1ae208aba4fc99587fb99a762449af418426f2",
-      "promptMetadataEmbedded": true,
-      "imageDataAndStructuralChunksUnchanged": true
+      "source": "C:\\Users\\UP60066553\\.codex\\generated_images\\01a19af2-02c7-7bd2-9a1a-d4a886359d8e\\exec-24177926-6e08-40ea-9a0a-d9831ef2091b.png",
+      "sourceSha256": "a65c87f53c895cd4e7240d86ef22a9807d4adaad6a6f194d84a689157ee33d7d",
+      "sha256": "a65c87f53c895cd4e7240d86ef22a9807d4adaad6a6f194d84a689157ee33d7d",
+      "bytes": 2391038,
+      "bitwiseCopy": true,
+      "promptStorage": "resources/atelier-cast-v2/provenance.json"
     },
     {
       "file": "src/renderer/src/assets/atelier/workshop-header.png",
       "source": "Original generation hash in the linked provenance manifest; shipping PNG includes exact prompt metadata.",
-      "bytes": 2171265,
+      "bytes": 2173584,
       "sha256": "37c06960a882d14504853a93b2025dd32edf58a958a0c4e80c1bb90905925472",
       "bitwiseCopy": false,
       "sourceSha256": "7c82fbb0f68f562e51322b5e7df4d596feb9ae845130b9d474b24daa8b606765",
@@ -110,7 +96,7 @@
     {
       "file": "src/renderer/src/assets/atelier/workshop-sidebar.png",
       "source": "Original generation hash in the linked provenance manifest; shipping PNG includes exact prompt metadata.",
-      "bytes": 2208052,
+      "bytes": 2210435,
       "sha256": "4d4ba515ef3be958d7f034815586c4a1709242f6c4ae1de6fc2b52bbcbd45b38",
       "bitwiseCopy": false,
       "sourceSha256": "bbe523e1c7efda82a89acb43a52c345f302712dafe8848d82060255a32281134",
@@ -128,7 +114,35 @@
       "bitwiseCopy": false,
       "imageDataAndStructuralChunksUnchanged": true,
       "promptMetadataEmbedded": true
+    },
+    {
+      "file": "src/renderer/src/assets/atelier/Oxanium-Variable.ttf",
+      "sha256": "2ce01d946e1e1ffc8d7eecfffbda8623bedd63eaf811a20488c4b69af45babb0",
+      "bytes": 43536,
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/oxanium/Oxanium%5Bwght%5D.ttf",
+      "bitwiseCopy": true
     }
   ],
-  "materialProvenance": "notices/atelier-provenance/material.json"
+  "materialProvenance": "notices/atelier-provenance/material.json",
+  "historicalCharacterProvenance": "notices/atelier-provenance/characters.json",
+  "bodyFont": {
+    "family": "Oxanium",
+    "author": "Severin Meyer",
+    "source": "https://github.com/google/fonts/tree/main/ofl/oxanium",
+    "download": "https://raw.githubusercontent.com/google/fonts/main/ofl/oxanium/Oxanium%5Bwght%5D.ttf",
+    "license": "SIL Open Font License 1.1",
+    "licensePath": "resources/fonts/Oxanium-OFL.txt",
+    "asset": "src/renderer/src/assets/atelier/Oxanium-Variable.ttf",
+    "sha256": "2ce01d946e1e1ffc8d7eecfffbda8623bedd63eaf811a20488c4b69af45babb0",
+    "bytes": 43536,
+    "weights": [
+      200,
+      800
+    ],
+    "roles": {
+      "body": 450,
+      "heading": "Barlow Condensed700 conservé"
+    },
+    "delivery": "local font-display:swap; aucun fournisseur au runtime"
+  }
 }

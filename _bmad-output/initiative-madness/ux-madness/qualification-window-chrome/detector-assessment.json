@@ -1,0 +1,9 @@
+{
+  "finding": "side-tab",
+  "file": "src/renderer/src/atelier-controls.css",
+  "line": 161,
+  "source": "border-left: 2px solid var(--accent-text)",
+  "assessment": "false-positive",
+  "reason": "Ce trait forme la coche de 10×6px du vrai input checkbox avec border-bottom et rotation -45deg. Aucun accent latéral de carte n’est ajouté.",
+  "action": "Aucun changement de code ni deuxième détecteur."
+}

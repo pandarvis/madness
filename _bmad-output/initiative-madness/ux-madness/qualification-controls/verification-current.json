@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "version": "0.2.2",
+  "ui": {
+    "tests": 51,
+    "pass": 51,
+    "fail": 0,
+    "skipped": 0,
+    "exitCode": 0,
+    "duration_ms": 1229592.3609,
+    "closure": {
+      "bootstrap": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-Jfark1\\main.cjs",
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-Jfark1\\profile",
+      "ownedMainAndDescendantsRemaining": [],
+      "cleanup": "verified-before-delete"
+    }
+  },
+  "controlsNative": 8,
+  "nativeMatrix": 14,
+  "packageMatrix": 14,
+  "candidateChecks": 8,
+  "personalReopenChecks": 8,
+  "criticalEntriesIdentical": 838,
+  "sourceInputsIdentical": 170,
+  "asar": "310d6cffdfba7c3670b65f762b34a0a11bf05d1f5cb776e30424cc18b7c05528",
+  "limits": [
+    "Clics renderer Electron et géométrie native ; clic physique Windows non éprouvé.",
+    "Ship visuel ciblé ; aucun accord visuel humain global ni WCAG.",
+    "Story2.2/M14 hors lot ; aucun Build ou gate ajouté.",
+    "Réseau et moteur observés après hook seulement."
+  ]
+}

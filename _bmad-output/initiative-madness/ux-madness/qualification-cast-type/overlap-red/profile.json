@@ -1,0 +1,567 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-03T11:09:03.506Z",
+  "status": "failed",
+  "mode": "compiled-isolated",
+  "checks": [
+    "local-oxanium-loaded-with-french-reading-sample",
+    "no-account-restored-request-inactive",
+    "context-complete-keyboard-escape-return-focus",
+    "prepare-mount-focus-no-implicit-launch-and-draft-preserved",
+    "real-windows-main-absent-close-observed-no-app-server-launch-1"
+  ],
+  "measurements": [
+    {
+      "label": "1600-dark",
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "clientWidth": 1600,
+        "clientHeight": 1000
+      },
+      "titlebar": {
+        "x": 0,
+        "y": 0,
+        "width": 1463,
+        "height": 56
+      },
+      "area": {
+        "x": 0,
+        "y": 0,
+        "width": 1463,
+        "height": 56
+      },
+      "toggle": {
+        "x": 8,
+        "y": 7,
+        "width": 40,
+        "height": 40
+      },
+      "rail": null,
+      "commands": [
+        {
+          "label": "Réduire la navigation",
+          "x": 8,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Ouvrir un projet",
+          "x": 1319,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Passer au thème clair",
+          "x": 1367,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Connexion Codex : non connecté",
+          "x": 1415,
+          "y": 7,
+          "width": 40,
+          "height": 40,
+          "region": "no-drag"
+        },
+        {
+          "label": "Contexte du projet",
+          "x": 1520,
+          "y": 76,
+          "width": 40,
+          "height": 40,
+          "region": "none"
+        }
+      ],
+      "containers": [
+        {
+          "element": "html",
+          "x": 0,
+          "y": 0,
+          "width": 1600,
+          "height": 1000,
+          "clientWidth": 1600,
+          "scrollWidth": 1600,
+          "clientHeight": 1000,
+          "scrollHeight": 1000,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "body",
+          "x": 0,
+          "y": 0,
+          "width": 1600,
+          "height": 1000,
+          "clientWidth": 1600,
+          "scrollWidth": 1600,
+          "clientHeight": 1000,
+          "scrollHeight": 1000,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#root",
+          "x": 0,
+          "y": 0,
+          "width": 1600,
+          "height": 1000,
+          "clientWidth": 1600,
+          "scrollWidth": 1600,
+          "clientHeight": 1000,
+          "scrollHeight": 1000,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "app-shell ",
+          "x": 0,
+          "y": 0,
+          "width": 1600,
+          "height": 1000,
+          "clientWidth": 1600,
+          "scrollWidth": 1600,
+          "clientHeight": 1000,
+          "scrollHeight": 1000,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "app-body",
+          "x": 0,
+          "y": 56,
+          "width": 1600,
+          "height": 944,
+          "clientWidth": 1600,
+          "scrollWidth": 1600,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "sidebar",
+          "x": 0,
+          "y": 56,
+          "width": 240,
+          "height": 944,
+          "clientWidth": 238,
+          "scrollWidth": 238,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "auto",
+          "overflowY": "auto",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "workspace",
+          "x": 240,
+          "y": 56,
+          "width": 1360,
+          "height": 944,
+          "clientWidth": 1360,
+          "scrollWidth": 1360,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "workspace-body",
+          "x": 240,
+          "y": 56,
+          "width": 1360,
+          "height": 944,
+          "clientWidth": 1360,
+          "scrollWidth": 1360,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#main",
+          "x": 240,
+          "y": 56,
+          "width": 1360,
+          "height": 944,
+          "clientWidth": 1360,
+          "scrollWidth": 1360,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "auto",
+          "overflowY": "auto",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "main-inner",
+          "x": 240,
+          "y": 56,
+          "width": 1360,
+          "height": 944,
+          "clientWidth": 1360,
+          "scrollWidth": 1360,
+          "clientHeight": 944,
+          "scrollHeight": 944,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "#panel-conversation",
+          "x": 268,
+          "y": 347.671875,
+          "width": 1304,
+          "height": 586.640625,
+          "clientWidth": 1304,
+          "scrollWidth": 1304,
+          "clientHeight": 587,
+          "scrollHeight": 625,
+          "overflowX": "visible",
+          "overflowY": "visible",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        },
+        {
+          "element": "conversation-messages",
+          "x": 268,
+          "y": 436.640625,
+          "width": 1304,
+          "height": 160,
+          "clientWidth": 1294,
+          "scrollWidth": 1294,
+          "clientHeight": 160,
+          "scrollHeight": 216,
+          "overflowX": "auto",
+          "overflowY": "auto",
+          "horizontalOverflow": false,
+          "shellOutsideViewport": false
+        }
+      ],
+      "textFlow": {
+        "footerTop": 958.3125,
+        "summaries": [
+          {
+            "text": "Détails de récupération et inspection",
+            "x": 268,
+            "y": 864.34375,
+            "width": 1304,
+            "height": 40
+          },
+          {
+            "text": "Demandes conservées · inactives (2)",
+            "x": 268,
+            "y": 932.34375,
+            "width": 1304,
+            "height": 40
+          }
+        ],
+        "overlap": true
+      },
+      "overflow": false
+    }
+  ],
+  "viewports": [
+    {
+      "label": "home",
+      "requested": {
+        "width": 1440,
+        "height": 920
+      },
+      "actual": {
+        "width": 1440,
+        "height": 920,
+        "layoutWidth": 1440,
+        "devicePixelRatio": 1,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          1440,
+          920
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 1440,
+            "height": 920
+          },
+          "native": {
+            "contentSize": [
+              1440,
+              920
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1440,
+            "height": 920,
+            "layoutWidth": 1440,
+            "devicePixelRatio": 1,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "workspace-1600",
+      "requested": {
+        "width": 1600,
+        "height": 1000
+      },
+      "actual": {
+        "width": 1600,
+        "height": 1000,
+        "layoutWidth": 1600,
+        "devicePixelRatio": 1,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          1600,
+          1000
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 1600,
+            "height": 1000
+          },
+          "native": {
+            "contentSize": [
+              1600,
+              1000
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1600,
+            "height": 1000,
+            "layoutWidth": 1600,
+            "devicePixelRatio": 1,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "workPositions": [],
+  "captures": [],
+  "launches": [
+    {
+      "main": {
+        "pid": 39020,
+        "startedAt": "639293009438334331",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 26152,
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\atelier-immersion\\madness\\_bmad-output\\initiative-madness\\ux-madness\\qualification-cast-type\\overlap-red\\native-observation-1.json",
+      "observationStartedAt": "2026-11-03T11:09:14.202Z"
+    }
+  ],
+  "closeReceipts": [
+    {
+      "main": {
+        "pid": 39020,
+        "startedAt": "639293009438334331",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 26152,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-03T11:09:14.202Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Données et demandes actives synthétiques ; aucun reçu fournisseur, compte ou accord humain déduit.",
+    "Contrôles du contenu Electron ; glyphes Windows, mise à l’échelle du système, lecteur d’écran et conformité WCAG non certifiés.",
+    "Tailles CSS exactes privilégiées ; quantification Windows limitée à1px et consignée dans viewports, sans franchissement des breakpoints attendus.",
+    "Aucune installation personnelle, clôture G1 ni acceptation visuelle humaine.",
+    "Réseau bloqué et app-server comptés seulement après installation du hook ; aucune absence d’activité antérieure au hook revendiquée.",
+    "Une identité Main, une fermeture observable ou un compteur incomplet interdit le nettoyage du profil. Aucun processus tué par le banc."
+  ],
+  "typography": {
+    "family": "Oxanium, \"Segoe UI\", sans-serif",
+    "weight": "450",
+    "sample": "Été, œuvre, cœur, où, façade : vérifier le brouillon — 0123456789.",
+    "loaded": true
+  },
+  "failure": "AssertionError [ERR_ASSERTION]: 1600-dark : récupération et statut se chevauchent\n\ntrue !== false\n\n    at geometry (file:///C:/Users/UP60066553/.codex/worktrees/atelier-immersion/madness/scripts/qualification/workspace-design.mjs:150:9)\n    at async runWorkspaceDesign (file:///C:/Users/UP60066553/.codex/worktrees/atelier-immersion/madness/scripts/qualification/workspace-design.mjs:237:4)\n    at async file:///C:/Users/UP60066553/.codex/worktrees/atelier-immersion/madness/scripts/qualification/workspace-design.mjs:293:79",
+  "finishedAt": "2026-11-03T11:09:16.842Z"
+}

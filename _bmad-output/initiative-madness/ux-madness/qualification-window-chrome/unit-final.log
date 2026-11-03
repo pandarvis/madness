@@ -1,0 +1,65 @@
+✔ atelier : les couleurs Windows suivent le chrome des deux thèmes et les couples de lecture restent contrastés (68.6004ms)
+✔ le protocole d’apparence refuse les valeurs hors enum et les propriétés supplémentaires (2.635ms)
+✔ l’amorçage accepte uniquement les arguments natifs enum et refuse les doublons (0.5314ms)
+✖ un profil neuf reste sombre sans écrire et un choix explicite est restauré séparément du Snapshot (294.4407ms)
+✔ un fichier invalide ou futur reste intact tandis que le choix de session fonctionne (447.6199ms)
+✔ une écriture refusée conserve le choix de session et nettoie les fichiers atomiques (47.455ms)
+✖ les choix concurrents sont écrits dans l’ordre sans fichier temporaire restant (106.9009ms)
+✔ la fermeture du wrapper ne prouve pas la disparition du vrai Main Windows (4.0275ms)
+✔ la fermeture exige événement close, Main absent et observation complète sans app-server (1.2671ms)
+✔ le compteur passif transmet spawn inchangé sans conserver args, env ni transport (4.8698ms)
+✔ la fermeture native utilise le wrapper capturé avant la destruction de Playwright (1.1223ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 9
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2488.2452
+
+✖ failing tests:
+
+test at tests\appearance.test.mjs:50:1
+✖ un profil neuf reste sombre sans écrire et un choix explicite est restauré séparément du Snapshot (294.4407ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      theme: 'light',
+  +   warning: 'save-failed'
+  -   warning: null
+    }
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/atelier-immersion/madness/tests/appearance.test.mjs:60:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { theme: 'light', warning: 'save-failed' },
+    expected: { theme: 'light', warning: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\appearance.test.mjs:99:1
+✖ les choix concurrents sont écrits dans l’ordre sans fichier temporaire restant (106.9009ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   theme: 'dark',
+  -   theme: 'light',
+      warning: null
+    }
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/atelier-immersion/madness/tests/appearance.test.mjs:105:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { theme: 'dark', warning: null },
+    expected: { theme: 'light', warning: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

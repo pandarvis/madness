@@ -2,6 +2,8 @@ import {HelpPanel,HelpReceiptPanel,useBmadHelp} from './HelpPanel.tsx'
 import {agentPresentation} from './agentPresentation.ts'
 import {AgentPortrait} from './AgentPortrait.tsx'
 import {AgentInfoPanel} from './AgentInfoPanel.tsx'
+import madnessMark from '../../../resources/branding/madness-64.png'
+import {WindowCaptionPlates} from './WindowCaptionPlates.tsx'
 import type {AgentConsultation} from './AgentInfoPanel.tsx'
 import {NetworkHelp} from './NetworkHelp.tsx'
 import {WorkOverview} from './WorkOverview.tsx'
@@ -55,9 +57,18 @@ function ConversationMessages({conversation,projections,positions,onConsult}:{co
   </div>
 }
 
+function ProjectMark({ name }: { name: string }): ReactNode {
+  const words = name.match(/[\p{L}\p{N}]+/gu) ?? []
+  const letters = words.length > 1 ? words.slice(0, 2).map(word => Array.from(word)[0]).join('') : Array.from(words[0] ?? '').slice(0, Array.from(words[0] ?? '').length <= 3 ? 3 : 2).join('')
+  return <span className="project-mark" aria-hidden="true"><span>{letters ? letters.toUpperCase() : <Icon name="folder" />}</span></span>
+}
+
 function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message' | 'arrow' | 'refresh' | 'external' | 'logout' | 'copy' | 'sun' | 'moon' }): ReactNode {
   const paths = { home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z', folder: 'M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z', panel: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM9 3v18m6-13-3 4 3 4', close: 'm6 6 12 12M6 18 18 6', message: 'M4 4h16v12H9l-5 4V4Z', arrow: 'M5 12h14m-5-5 5 5-5 5', refresh: 'M20 7v5h-5M20 12a8 8 0 1 0-2 5', external: 'M14 4h6v6m0-6-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5', logout: 'M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4m4-12 4 4-4 4m-4-4h12',copy:'M9 9h12v12H9V9ZM5 15H3V3h12v2',sun:'M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5',moon:'M20.5 13.1A8.5 8.5 0 0 1 10.9 3.5a8.5 8.5 0 1 0 9.6 9.6Z' }
-  return <svg aria-hidden="true" viewBox="0 0 24 24"><path d={paths[name]} /></svg>
+  const cutPaths = { home: 'M3 10 12 3l9 7v9l-2 2h-5v-7h-4v7H5l-2-2Z', folder: 'M3 8V4h7l3 3h8v12l-2 2H3Zm0 2h18', panel: 'M5 3h14l2 2v14l-2 2H3V5Zm4 0v18m7-13-4 4 4 4', sun: 'M16 9v6l-4 2-4-2V9l4-2ZM12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2', moon: 'M20 14a8 8 0 0 1-10-10l-5 3-2 5 2 6 5 3 6-1Z' }
+  const face = { home: 'M3 10 12 3l9 7v9l-2 2h-5v-7h-4v7H5l-2-2Z', folder: 'M3 10h18v9l-2 2H3Z', panel: 'M5 3h4v18H3V5Z', sun: 'M16 9v6l-4 2-4-2V9l4-2Z', moon: 'M20 14a8 8 0 0 1-10-10l-5 3-2 5 2 6 5 3 6-1Z' }
+  const key = name in cutPaths ? name as keyof typeof cutPaths : null
+  return <svg className="workshop-icon" aria-hidden="true" viewBox="0 0 24 24">{key && <path className="icon-face" d={face[key]} />}<path d={key ? cutPaths[key] : paths[name]} /></svg>
 }
 
 function WorkflowResult({workflow,onCopy}:{workflow:WorkflowRecord;onCopy:(conversationId:string,target:'invocation'|'workspace')=>Promise<DialogueState>}):ReactNode {
@@ -387,14 +398,14 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const navigation = <>
     <button className={'nav-button ' + (page === 'home' ? 'selected' : '')} aria-label={fr.home} aria-current={page === 'home' ? 'page' : undefined} title={fr.home} onClick={home}><Icon name="home" /><span className="nav-label">{fr.home}</span></button>
     <h2 className="nav-section nav-label">{fr.recent}</h2>
-    {state?.projects.map((p, index) => <button key={p.id} className={'nav-button project-link ' + (page === 'project' && p.id === project?.id ? 'selected' : '')} aria-label={'Ouvrir le projet ' + p.name} aria-current={page === 'project' && p.id === project?.id ? 'page' : undefined} title={p.name + '\n' + p.rootPath} disabled={pending} onClick={() => select(p.id)}><span className="project-glyph" aria-hidden="true">{(index + 1).toString(36).toUpperCase()}</span><span className="nav-label truncate">{p.name}</span></button>)}
+    {state?.projects.map(p => <button key={p.id} className={'nav-button project-link ' + (page === 'project' && p.id === project?.id ? 'selected' : '')} aria-label={'Ouvrir le projet ' + p.name} aria-current={page === 'project' && p.id === project?.id ? 'page' : undefined} title={p.name + '\n' + p.rootPath} disabled={pending} onClick={() => select(p.id)}><span className="project-glyph" aria-hidden="true"><ProjectMark name={p.name} /></span><span className="nav-label truncate">{p.name}</span></button>)}
     {!state?.projects.length && <p className="nav-note nav-label">Vos dossiers ouverts apparaîtront ici.</p>}
   </>
   return <div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>captureRequestFocus(event.target)} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open) return; if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
     <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>Aller au contenu</a>
     <header className="topbar" onMouseLeave={()=>setTooltipsDismissed(false)} onFocusCapture={()=>setTooltipsDismissed(false)}>
       <div className="breadcrumb">
-        <button className="toolbar-toggle command-control desktop-menu" type="button" aria-label={collapsed ? 'Déployer la navigation' : 'Réduire la navigation'} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><Icon name="panel" /><span className="command-tooltip" aria-hidden="true">{collapsed ? 'Déployer la navigation' : 'Réduire la navigation'}</span></button>
+        <button className="toolbar-toggle command-control desktop-menu" type="button" aria-label={collapsed ? 'Déployer la navigation' : 'Réduire la navigation'} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><Icon name="panel" /></button>
         <button className="toolbar-toggle command-control mobile-menu" type="button" ref={drawerTrigger} aria-label="Ouvrir la navigation" aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><Icon name="panel" /><span className="command-tooltip" aria-hidden="true">Ouvrir la navigation</span></button>
         <span title={page === 'project' && project ? project.name : fr.home}>{page === 'project' && project ? project.name : fr.home}</span>
       </div>
@@ -404,6 +415,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         <button className={'codex-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel} title={connectionLabel} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><img src={chatgptMark} alt="" /><span className="connection-tooltip" aria-hidden="true">{connectionLabel}</span></button>
       </div>
     </header>
+    <WindowCaptionPlates />
     {connectionOpen && <section id="codex-connection-panel" className="connection-panel" role="dialog" aria-modal="false" aria-labelledby="codex-connection-title" ref={connectionPanel}>
       <div className="connection-heading"><h2 id="codex-connection-title" ref={connectionHeading} tabIndex={-1}>Connexion Codex</h2><button type="button" aria-label="Fermer la connexion Codex" onClick={closeConnection}><Icon name="close" /></button></div>
       <p className={'connection-state ' + (connection.status === 'verified' ? 'is-verified' : '')} role="status">{fr.connectionStatus[connection.status]}</p>
@@ -429,6 +441,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     <aside className="sidebar" aria-label="Navigation principale" onMouseLeave={() => setTooltipsDismissed(false)} onFocusCapture={() => setTooltipsDismissed(false)}>
       <div className="brand"><span className="brand-label">{fr.app}</span></div>
       <nav id="project-navigation" aria-label="Projets">{navigation}</nav>
+      <div className="rail-signature" aria-hidden="true"><img src={madnessMark} alt="" width="28" height="28" /></div>
       <p className="sidebar-bottom nav-label">Données locales<br />Français · thème {appearance.theme === 'dark' ? 'sombre' : 'clair'}</p>
     </aside>
     <div className="workspace">
@@ -445,7 +458,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
             {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<details className="recovery-details global-recovery"><summary>Détails de la récupération globale</summary><section id="overview-session-recovery" tabIndex={-1} aria-label="Récupération globale"><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section></details>}
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>Retrouver votre espace de travail</h1><p>{pending ? 'Lecture du contexte local…' : 'Le contexte local est indisponible. Utilisez le message ci-dessus pour réessayer.'}</p></section> : page === 'home' || !project ? <>
 
-              {state.projects.length === 0 ? <section className="welcome"><h2>Commencez par un dossier</h2><p>Ouvrez un projet local pour conserver son contexte et y préparer un brouillon. Le dossier reste intact.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Madness doit connaître le projet auquel rattacher votre saisie.</p></section> : <section aria-labelledby="recent-heading"><h2 id="recent-heading">{fr.recent}</h2><div className="project-list">{state.projects.map((p, index) => <button className="project-row" key={p.id} onClick={() => select(p.id)} disabled={pending}><span className="project-avatar" aria-hidden="true">{(index + 1).toString(36).toUpperCase()}</span><span className="project-info"><strong>{p.name}</strong><code>{p.rootPath}</code><small>Contexte conservé localement</small></span><Icon name="arrow" /></button>)}</div></section>}
+              {state.projects.length === 0 ? <section className="welcome"><h2>Commencez par un dossier</h2><p>Ouvrez un projet local pour conserver son contexte et y préparer un brouillon. Le dossier reste intact.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Madness doit connaître le projet auquel rattacher votre saisie.</p></section> : <section aria-labelledby="recent-heading"><h2 id="recent-heading">{fr.recent}</h2><div className="project-list">{state.projects.map(p => <button className="project-row" key={p.id} onClick={() => select(p.id)} disabled={pending}><span className="project-avatar" aria-hidden="true"><ProjectMark name={p.name} /></span><span className="project-info"><strong>{p.name}</strong><code>{p.rootPath}</code><small>Contexte conservé localement</small></span><Icon name="arrow" /></button>)}</div></section>}
               <div className="home-note"><h2>Connectez votre compte depuis le logo Codex</h2><p>{fr.codexReason} L’analyse BMad, l’initialisation et le graphe ne sont pas disponibles dans ce socle.</p></div>
             </> : <>
               <section id={'panel-' + tab} role="tabpanel" aria-labelledby={'tab-' + tab}>

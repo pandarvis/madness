@@ -3,7 +3,7 @@ import {test} from 'node:test'
 import {EventEmitter} from 'node:events'
 import {PassThrough} from 'node:stream'
 import {syncBuiltinESMExports} from 'node:module'
-import {mkdtemp,realpath,writeFile,readFile,rm} from 'node:fs/promises'
+import {mkdtemp,realpath,writeFile,readFile,rm,rename,symlink,unlink} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {DialogueRpc,startDialogueProtocol} from '../src/adapters/codex/dialogue.ts'
@@ -22,11 +22,43 @@ function server(root,options={}){
 }
 async function setup(t,options={}){
  const root=await realpath(await mkdtemp(join(tmpdir(),'madness-approval-protocol-')));await writeFile(join(root,'a.md'),'old\n');t.after(()=>rm(root,{recursive:true,force:true,maxRetries:3}));const controller=new AbortController(),native=server(root,options),rpc=new DialogueRpc(native.child,controller.signal,1000)
- const session=await startDialogueProtocol(rpc,{cwd:root,profile:{rootPath:root,skillPath:'Mary',mode:options.mode??'file-approval'},signal:controller.signal,activity:()=>{},resolve:options.resolve??(async()=>'{}'),read:async()=>''},options.timeout??3000)
+ const session=await startDialogueProtocol(rpc,{cwd:root,profile:{rootPath:root,skillPath:'Mary',mode:options.mode??'file-approval'},signal:controller.signal,assertContext:options.assertContext,activity:()=>{},resolve:options.resolve??(async()=>'{}'),read:async()=>''},options.timeout??3000)
  t.after(()=>{controller.abort();rpc.dispose()});let offered,following;const offers=[],ready=new Promise(r=>offered=r),turn=session.turn(null,async()=>{},()=>{},undefined,async(a,h)=>{offers.push({a,h});offered({a,h});following?.({a,h})});void turn.catch(()=>{})
  return {root,controller,native,rpc,session,turn,ready,offers,nextOffer:()=>new Promise(r=>following=r)}
 }
 async function operationResult(handle){let timer;try{return await Promise.race([handle.result,new Promise((_,reject)=>timer=setTimeout(()=>reject(Error('fileChange-receipt-unavailable-without-raw')),1000))])}finally{clearTimeout(timer)}}
+
+test('accept relit le contexte après la préparation de proposition ; decline reste disponible',{timeout:10000},async t=>{
+ for(const decision of ['accept','decline']){
+  let contextPath,enabled=false
+  const f=await setup(t,{assertContext:async()=>{if(enabled&&contextPath&&await readFile(contextPath,'utf8')!=='captured')throw Object.assign(Error(),{code:'PROFILE_CHANGED'})}})
+  contextPath=join(f.root,'context.toml');await writeFile(contextPath,'captured');enabled=true
+  const {h}=await f.ready,io=(await import('node:module')).createRequire(import.meta.url)('node:fs/promises'),read=io.readFile
+  let changed=false
+  io.readFile=async function(path,...args){const bytes=await Reflect.apply(read,this,[path,...args]);if(String(path)===join(f.root,'a.md')&&!changed){changed=true;await writeFile(contextPath,'changed during proposal preparation')}return bytes};syncBuiltinESMExports()
+  try{
+   if(decision==='accept'){const rejected=assert.rejects(h.result),failed=assert.rejects(f.turn);await assert.rejects(h.decide('accept'),{code:'PROFILE_CHANGED'});await rejected;await failed;assert.equal(f.native.messages.some(m=>m.id===0&&m.result?.decision==='accept'),false)}
+   else{await h.decide('decline');assert.equal(f.native.messages.some(m=>m.id===0&&m.result?.decision==='decline'),true);f.native.item('declined');await operationResult(h);f.native.complete();await f.turn}
+  }finally{io.readFile=read;syncBuiltinESMExports()}
+  assert.equal(changed,true);assert.equal(await readFile(join(f.root,'a.md'),'utf8'),'old\n')
+ }
+})
+
+
+test('accept revalide les fichiers et la possession après la garde de contexte',{timeout:10000},async t=>{
+ for(const mode of ['file','path','stop']){
+  let armed=false,guarded=false,f
+  const external=await mkdtemp(join(tmpdir(),'madness-approval-external-'));t.after(()=>rm(external,{recursive:true,force:true}))
+  const witness=join(external,'witness.md');await writeFile(witness,'EXTERNAL EXACT')
+  f=await setup(t,{assertContext:async()=>{if(!armed)return;armed=false;if(mode==='file')await writeFile(join(f.root,'a.md'),'changed during context guard\n');if(mode==='path'){await rename(join(f.root,'a.md'),join(f.root,'a-original.md'));await symlink(external,join(f.root,'a.md'),'junction')}guarded=true}})
+  const {h}=await f.ready,io=(await import('node:module')).createRequire(import.meta.url)('node:fs/promises'),read=io.readFile
+  if(mode==='stop'){io.readFile=async function(path,...args){const bytes=await Reflect.apply(read,this,[path,...args]);if(guarded&&String(path)===join(f.root,'a.md'))f.controller.abort();return bytes};syncBuiltinESMExports()}
+  const rejected=assert.rejects(h.result),failed=assert.rejects(f.turn);armed=true
+  try{await assert.rejects(h.decide('accept'),e=>e.code===(mode==='file'?'OUTPUT_CONFLICT':mode==='path'?'OUTPUT_REFUSED':'CANCELLED'));await rejected;await failed;assert.equal(guarded,true);assert.equal(f.native.messages.some(m=>m.id===0&&m.result?.decision==='accept'),false);assert.equal(await readFile(witness,'utf8'),'EXTERNAL EXACT')}
+  finally{io.readFile=read;syncBuiltinESMExports();f.controller.abort();if(mode==='path'){await unlink(join(f.root,'a.md'));await rename(join(f.root,'a-original.md'),join(f.root,'a.md'))}}
+ }
+})
+
 test('approbation RPC zéro et proposition décalée : seul résultat natif et octets prouvent l’effet',async t=>{
  const f=await setup(t,{requestFirst:true});assert.equal(f.native.thread().approvalPolicy,'on-request');const {a,h}=await f.ready
  assert.equal(f.native.thread().approvalPolicy,'on-request');assert.equal(f.native.thread().sandbox,'read-only');assert.equal(JSON.stringify(a).includes('native-file'),false)

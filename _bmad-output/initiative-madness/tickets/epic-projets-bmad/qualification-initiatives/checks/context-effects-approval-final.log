@@ -1,0 +1,36 @@
+✔ accept relit le contexte après la préparation de proposition ; decline reste disponible (216.3695ms)
+✔ approbation RPC zéro et proposition décalée : seul résultat natif et octets prouvent l’effet (98.308ms)
+✔ reçu fileChange et octets sans dépendre du raw : accept / absent (78.0734ms)
+✔ reçu fileChange et octets sans dépendre du raw : accept / exec-array (78.7661ms)
+✔ reçu fileChange et octets sans dépendre du raw : accept / correlated (196.8365ms)
+✔ reçu fileChange et octets sans dépendre du raw : decline / absent (130.7179ms)
+✔ reçu fileChange et octets sans dépendre du raw : decline / exec-array (106.17ms)
+✔ reçu fileChange et octets sans dépendre du raw : decline / correlated (85.3298ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : raw-only (59.8571ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : wrong-item (76.978ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : wrong-thread (65.497ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : wrong-turn (62.2553ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : status-mismatch (67.9787ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : decline-completed (69.3696ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : effects-mismatch (72.3577ms)
+✔ fileChange et octets ne règlent pas l’opération avant confirmation de transmission de la décision (131.9163ms)
+✔ le terminal sans confirmation de transmission garde le résultat inconnu même avec fileChange (113.5767ms)
+✔ le terminal joint le reçu natif déjà transmis pendant sa relecture (91.3194ms)
+✔ l’arrêt annule l’attente du reçu déjà natif pendant sa relecture (82.3954ms)
+✔ bornes natives et aucune autorisation tardive : read-only (20.1845ms)
+✔ bornes natives et aucune autorisation tardive : grant (39.2556ms)
+✔ bornes natives et aucune autorisation tardive : changed (58.5481ms)
+✔ bornes natives et aucune autorisation tardive : terminal (30.5503ms)
+✔ bornes natives et aucune autorisation tardive : string-id (67.7849ms)
+✔ une proposition native changée après affichage retire le consentement sans effet (42.6957ms)
+✔ le délai local dix minutes retire une commande sans choix implicite (horloge contrôlée) (41.5055ms)
+✔ deux patches rapprochés du même fichier demandent deux choix sans étendre le premier accord (119.5352ms)
+✔ le terminal retire l’approbation encore en file derrière un outil avant le drain (129.7655ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3048.1965

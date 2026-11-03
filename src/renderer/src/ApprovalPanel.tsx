@@ -9,7 +9,7 @@ export function ApprovalPanel({approval,adjustment,projectName,onChange,onDecide
  return <section className="approval-panel" data-approval-id={id} aria-labelledby={id+'-title'}>
   <h2 id={id+'-title'} tabIndex={-1}>{active?fr.approvals.title:fr.approvals.history}</h2>
   <h3 className="approval-recipient">{identity} · Codex</h3>
-  <p className="small">{compactContext?<span title={projectName}>Ce projet</span>:projectName} · {approval.context.initiativeId??'sans initiative identifiée'} · mode fichiers capturé</p>
+  <p className="small">{compactContext?<span title={projectName}>Ce projet</span>:projectName} · Initiative capturée : {approval.context.initiativeId??'sans initiative identifiée'} · mode fichiers capturé</p>
   <p role="status" className="approval-status">{status}{approval.status==='decided'?' '+effect:''}{approval.reason==='expired'?' Le délai local de dix minutes est dépassé.':approval.reason==='reopened'?' Historique inactif : aucun moteur ni accord relancé.':''}</p>
   <p>{fr.approvals.scope}</p>
   {active&&<p className="small">Échéance locale : {new Date(approval.expiresAt).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}. À l’échéance, le tour sera arrêté sans transmettre de choix.</p>}

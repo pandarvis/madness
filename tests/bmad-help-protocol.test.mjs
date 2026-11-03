@@ -15,12 +15,17 @@ function server(mode='normal',commandsByTurn=null){
  return {child,requests}
 }
 const commands=[['bmad_help_native',{kind:'knowledge'}],['bmad_help_native',{kind:'config'}],['bmad_help_read',{reference:'source-1'}],['bmad_help_read',{reference:'inventories'}]]
-async function helpSession(s,receipts,extra={}){
+async function helpSession(s,receipts,extra={},protocolOptions={},timeout=2000){
  const signal=new AbortController().signal,rpc=new DialogueRpc(s.child,signal,500)
  const help={bundle:{sources:[],inventories:['initiative/epic']},assertFresh:async()=>{},requiredReferences:()=>['source-1'],resolve:async kind=>JSON.stringify({native:kind}),read:async ref=>'snapshot '+ref,transmitted:async r=>{receipts.push(r)},...extra}
- const session=await startDialogueProtocol(rpc,{cwd:'C:/isolated',profile:{rootPath:'C:/project',skillPath:'C:/owned/bmad/SKILL.md'},help,signal,activity:()=>{},resolve:async()=>{throw Error('Mary')},read:async()=>{throw Error('generic file')}},2000)
+ const session=await startDialogueProtocol(rpc,{cwd:'C:/isolated',profile:{rootPath:'C:/project',skillPath:'C:/owned/bmad/SKILL.md'},help,signal,activity:()=>{},resolve:async()=>{throw Error('Mary')},read:async()=>{throw Error('generic file')},...protocolOptions},timeout)
  return {rpc,session}
 }
+test('captured context checks pause the native wait budget while local guarded work is bounded separately',async()=>{
+ const s=server(),receipts=[]
+ const {rpc,session}=await helpSession(s,receipts,{}, {assertContext:async()=>new Promise(r=>setTimeout(r,120))},80)
+ try{assert.equal(await session.turn(null,async()=>{}),'Fin du tour. À vous de répondre.');assert.equal(receipts.length,4)}finally{rpc.dispose()}
+})
 test('help sends exact native skill plus dedicated question and retains written tool receipts',async()=>{
  const s=server(),receipts=[],{rpc,session}=await helpSession(s,receipts)
  try{

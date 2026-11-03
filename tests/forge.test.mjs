@@ -19,6 +19,118 @@ async function activate(host,check=true){
   await host.execute({kind:'config'},'config','turn-1')
   if(check)return host.execute({kind:'check-sessions'},'sessions','turn-1')
 }
+
+
+async function guardedFixture(t,interleave){
+ const root=await fixture(t),signal=new AbortController().signal,profile=await qualifyForge(root,signal),config=join(root,'_bmad/config.toml'),captured=await readFile(config)
+ const observations=[],host=new ForgeHost(profile,signal,undefined,async()=>{if(!(await readFile(config)).equals(captured))throw Object.assign(Error(),{code:'PROFILE_CHANGED'});await interleave?.()})
+ host.bind(async observation=>observations.push(observation));await activate(host);await host.execute({kind:'init',slug:'guard-interval',idea:'x',goal:'y'},'init','turn')
+ return {root,profile,host,config,captured,observations,workspace:join(profile.forge.outputBase,'forge-guard-interval')}
+}
+
+for(const mode of ['junction','identity'])test('Windows publication et nettoyage du temporaire possédé refusent '+mode,async t=>{
+ assert.equal(process.platform,'win32')
+ const external=await mkdtemp(join(tmpdir(),'madness-forge-external-'));t.after(()=>rm(external,{recursive:true,force:true}))
+ let armed=false,switched=false,tempName,movedTemp,foreign,f
+ f=await guardedFixture(t,async()=>{
+  if(!armed)return
+  tempName=(await readdir(f.workspace)).find(n=>n.startsWith('.madness-')&&n.endsWith('.tmp'));if(!tempName)return
+  armed=false;switched=true
+  if(mode==='junction'){const moved=join(external,'owned-workspace');await rename(f.workspace,moved);movedTemp=join(moved,tempName);foreign=join(external,tempName);await writeFile(foreign,'EXTERNAL EXACT');await symlink(external,f.workspace,'junction')}
+  else{movedTemp=join(external,'owned-temp');foreign=join(f.workspace,tempName);await rename(foreign,movedTemp);const source=join(external,'witness.tmp');await writeFile(source,'EXTERNAL EXACT');await link(source,foreign)}
+ })
+ armed=true
+ try{
+  const result=await f.host.execute({kind:'write',name:'idea',text:'OWNED TEMP EXACT'},'raced-publish','turn').then(()=>null,error=>error)
+  assert.equal(switched,true);assert.equal(await readFile(foreign,'utf8'),'EXTERNAL EXACT')
+  assert.equal(await readFile(movedTemp,'utf8'),'OWNED TEMP EXACT')
+  assert.equal(result?.code,'EFFECT_UNKNOWN');assert.equal(f.observations.at(-1).phase,'unknown')
+  await assert.rejects(readFile(join(mode==='junction'?external:f.workspace,'forge-guard-interval.md')),{code:'ENOENT'})
+ }finally{if(switched&&mode==='junction'){await unlink(f.workspace);await rename(join(external,'owned-workspace'),f.workspace)}}
+})
+
+
+
+test('Windows écriture refuse le workspace remplacé avant préparation',async t=>{
+ assert.equal(process.platform,'win32')
+ const external=await mkdtemp(join(tmpdir(),'madness-forge-external-'));t.after(()=>rm(external,{recursive:true,force:true}))
+ const moved=join(external,'owned-workspace'),witness=join(external,'witness.txt');await writeFile(witness,'EXTERNAL EXACT')
+ let armed=false,switched=false,f
+ f=await guardedFixture(t,async()=>{if(armed){armed=false;await rename(f.workspace,moved);await symlink(external,f.workspace,'junction');switched=true}})
+ armed=true
+ try{await assert.rejects(f.host.execute({kind:'write',name:'idea',text:'must stay confined'},'write','turn'),{code:'OUTPUT_REFUSED'});assert.equal(switched,true);assert.equal(f.observations.at(-1).phase,'failed');assert.equal(await readFile(witness,'utf8'),'EXTERNAL EXACT');assert.deepEqual((await readdir(external)).sort(),['owned-workspace','witness.txt'])}
+ finally{if(switched){await unlink(f.workspace);await rename(moved,f.workspace)}}
+})
+
+test('Windows init revalide son workspace après la garde avant le script',async t=>{
+ assert.equal(process.platform,'win32')
+ const root=await fixture(t),signal=new AbortController().signal,profile=await qualifyForge(root,signal),external=await mkdtemp(join(tmpdir(),'madness-forge-external-'))
+ t.after(()=>rm(external,{recursive:true,force:true}))
+ const workspace=join(profile.forge.outputBase,'forge-raced-init'),moved=join(external,'owned-workspace'),witness=join(external,'.memlog.md'),sentinel='EXTERNAL EXACT'
+ await writeFile(witness,sentinel)
+ let calls=0,switched=false,spawns=0;const observations=[]
+ const host=new ForgeHost(profile,signal,undefined,async()=>{if(++calls===3){await rename(workspace,moved);await symlink(external,workspace,'junction');switched=true}})
+ host.bind(async o=>observations.push(o));await activate(host)
+ const child=createRequire(import.meta.url)('node:child_process'),spawn=mock.method(child,'spawn',()=>{spawns++;throw Object.assign(Error('stale init launch'),{code:'STALE_SPAWN'})});syncBuiltinESMExports()
+ try{await assert.rejects(host.execute({kind:'init',slug:'raced-init',idea:'x',goal:'y'},'init','turn'),{code:'EFFECT_UNKNOWN'});assert.equal(switched,true);assert.equal(spawns,0);assert.equal(await readFile(witness,'utf8'),sentinel);assert.equal(observations.at(-1).phase,'unknown')}
+ finally{spawn.mock.restore();syncBuiltinESMExports();if(switched){await unlink(workspace);await rename(moved,workspace)}}
+})
+
+test('Windows gardes locales après contexte refusent les jonctions avant les scripts',async t=>{
+ assert.equal(process.platform,'win32')
+ let f,remaining=0,switched=false,external,moved
+ f=await guardedFixture(t,async()=>{if(remaining&&--remaining===0){switched=true;await rename(f.workspace,moved);await symlink(external,f.workspace,'junction')}})
+ const html='<!doctype html><html><style>body{color:#222}</style><body><svg viewBox="0 0 1 1"></svg><h1>CLARIFIED</h1></body></html>'
+ await f.host.execute({kind:'write',name:'forge-report.html',text:html},'html','turn')
+ external=await mkdtemp(join(tmpdir(),'madness-forge-external-'));t.after(()=>rm(external,{recursive:true,force:true}));moved=join(external,'owned-workspace')
+ const witness=join(external,'.memlog.md'),sentinel='---\nstatus: complete\n---\nEXTERNAL EXACT\n';await writeFile(witness,sentinel)
+ const child=createRequire(import.meta.url)('node:child_process')
+ for(const op of [{kind:'append',type:'note',text:'refuse'},{kind:'finish',outcome:'CLARIFIED'}]){
+  let spawns=0;remaining=2;switched=false
+  const spawn=mock.method(child,'spawn',()=>{spawns++;throw Object.assign(Error('stale script launch'),{code:'STALE_SPAWN'})});syncBuiltinESMExports()
+  try{await assert.rejects(f.host.execute(op,'raced-'+op.kind,'turn'),e=>['OUTPUT_REFUSED','OUTPUT_CONFLICT'].includes(e.code));assert.equal(switched,true);assert.equal(spawns,0);assert.equal(await readFile(witness,'utf8'),sentinel);assert.equal(f.observations.at(-1).phase,'failed')}
+  finally{spawn.mock.restore();syncBuiltinESMExports();if(switched){await unlink(f.workspace);await rename(moved,f.workspace)}}
+ }
+})
+
+test('garde finale après les attentes de runtime refuse append et finish avant spawn',async t=>{
+ const f=await guardedFixture(t),nativeFs=createRequire(import.meta.url)('node:fs/promises'),nativeChild=createRequire(import.meta.url)('node:child_process'),read=nativeFs.readFile
+ const html='<!doctype html><html><style>body{color:#222}</style><body><svg viewBox="0 0 1 1"></svg><h1>CLARIFIED</h1></body></html>'
+ await f.host.execute({kind:'write',name:'forge-report.html',text:html},'html','turn')
+ for(const op of [{kind:'append',type:'note',text:'Ne doit pas partir'},{kind:'finish',outcome:'CLARIFIED'}]){
+  let changed=false,spawns=0
+  const before=await readFile(join(f.workspace,'.memlog.md'))
+  const raced=mock.method(nativeFs,'readFile',async(path,...args)=>{const bytes=await read(path,...args);if(!changed&&String(path).replaceAll('\\','/').endsWith('/uv.exe')){changed=true;await writeFile(f.config,Buffer.concat([f.captured,Buffer.from('\n# changed during runtime preparation\n')]))}return bytes})
+  const spawn=mock.method(nativeChild,'spawn',()=>{spawns++;throw Object.assign(Error('stale native launch'),{code:'STALE_SPAWN'})});syncBuiltinESMExports()
+  try{await assert.rejects(f.host.execute(op,'raced-'+op.kind,'turn'),{code:'PROFILE_CHANGED'})}
+  finally{raced.mock.restore();spawn.mock.restore();syncBuiltinESMExports();await writeFile(f.config,f.captured)}
+  assert.equal(changed,true);assert.equal(spawns,0);assert.equal(f.observations.at(-1).phase,'failed')
+  assert.deepEqual(await readFile(join(f.workspace,'.memlog.md')),before)
+ }
+})
+test('garde finale après préparation du temporaire refuse la publication et conserve unknown commencé',async t=>{
+ const f=await guardedFixture(t),nativeFs=createRequire(import.meta.url)('node:fs/promises'),open=nativeFs.open,before=await readdir(f.workspace)
+ let changed=false
+ const raced=mock.method(nativeFs,'open',async(path,...args)=>{const file=await open(path,...args);if(String(path).includes('.madness-')&&String(path).endsWith('.tmp')){const sync=file.sync.bind(file);file.sync=async()=>{await sync();changed=true;await writeFile(f.config,Buffer.concat([f.captured,Buffer.from('\n# changed during temporary sync\n')]))}}return file});syncBuiltinESMExports()
+ try{await assert.rejects(f.host.execute({kind:'write',name:'idea',text:'Publication interdite après changement'},'raced-write','turn'),{code:'EFFECT_UNKNOWN'})}
+ finally{raced.mock.restore();syncBuiltinESMExports()}
+ assert.equal(changed,true);assert.equal(f.observations.at(-1).phase,'unknown')
+ await assert.rejects(readFile(join(f.workspace,'forge-guard-interval.md')),{code:'ENOENT'})
+ assert.deepEqual(await readdir(f.workspace),before)
+})
+
+test('garde initiative après attente du reçu pending refuse Forge avant le premier effet',async t=>{
+ const root=await fixture(t),signal=new AbortController().signal,profile=await qualifyForge(root,signal),config=await readFile(join(root,'_bmad/config.toml'))
+ let changed=false;const observations=[]
+ const host=new ForgeHost(profile,signal,undefined,async()=>{if(changed)throw Object.assign(Error(),{code:'PROFILE_CHANGED'})})
+ host.bind(async observation=>{observations.push(observation);if(observation.operation==='init'&&observation.phase==='pending')changed=true})
+ await activate(host)
+ await assert.rejects(host.execute({kind:'init',slug:'guarded',idea:'x',goal:'y'},'guarded','turn'),{code:'PROFILE_CHANGED'})
+ assert.equal(observations.at(-1).phase,'failed')
+ await assert.rejects(readdir(join(profile.forge.outputBase,'forge-guarded')),{code:'ENOENT'})
+ assert.deepEqual(await readFile(join(root,'_bmad/config.toml')),config)
+})
+
 test('Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED',async t=>{
   const root=await fixture(t),marker=join(root,'INJECTED')
   for(const folder of ['','_bmad/scripts','.agents/skills/bmad-forge-idea/scripts'])for(const name of ['json.py','argparse.py','sitecustomize.py'])await writeFile(join(root,folder,name),`open(${JSON.stringify(marker)},'w').write('poison')\nraise Exception('poison')`)

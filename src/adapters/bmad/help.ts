@@ -22,10 +22,18 @@ async function safe(path:string,limit=32*1024*1024):Promise<Buffer>{
 }
 export type HelpAdapterOptions={root:string;resources:string;owner:HelpOwnedRun;onUnknown?():void;admission?:{enter(kind:'provider'|'helper',nested?:boolean):()=>void};admit?(internal:boolean):Promise<void>;roots?(project:string):string[]}
 export class BmadHelpAdapter{
+ private contextWaiters=0;private operation:unknown=null
  private closing=false;private pending:Promise<void>|null=null;private runtimeId='runtime-'+randomUUID();private options:HelpAdapterOptions;private busy=false;private preparations=new Map<string,{bundle:HelpBundle;folder:string;captureSha:string}>()
  constructor(options:HelpAdapterOptions){this.options=options}
  private async run(request:Record<string,unknown>,signal:AbortSignal,internal=false):Promise<any>{
-  if(this.closing)throw dialogueFailure('APP_CLOSING');if(this.busy)throw dialogueFailure('BUSY');const release=this.options.admission?.enter('helper',internal);let finish!:()=>void;this.pending=new Promise(r=>finish=r);this.busy=true
+  if(this.closing)throw dialogueFailure('APP_CLOSING')
+  // Consultation and captured guards share this one owner. Waiting never borrows a stop proof.
+  if(this.busy&&internal&&(request.op==='context'||request.op==='context-config'||this.operation==='context'||this.operation==='context-config')){
+   if(this.contextWaiters>=64)throw dialogueFailure('BUSY')
+   this.contextWaiters++
+   try{while(this.busy){await this.pending;signal.throwIfAborted();if(this.closing)throw dialogueFailure('APP_CLOSING')}}finally{this.contextWaiters--}
+  }
+  if(this.busy)throw dialogueFailure('BUSY');const release=this.options.admission?.enter('helper',internal);let finish!:()=>void;this.pending=new Promise(r=>finish=r);this.busy=true;this.operation=request.op
   let folder='',generation='',closed=false,spawned=false
   try{
    signal.throwIfAborted();await this.options.admit?.(internal)
@@ -64,12 +72,24 @@ export class BmadHelpAdapter{
     if(generation&&!closed)closed=await this.options.owner.confirm(generation).catch(()=>'unknown' as const)==='stopped'
     if(closed&&folder){for(const name of ['cache','resources'])await rm(join(folder,name),{recursive:true,force:true}).catch(()=>{})}
    }finally{
-    this.busy=false;try{release?.()}finally{this.pending=null;finish()}
+    this.busy=false;this.operation=null;try{release?.()}finally{this.pending=null;finish()}
    }
    if(generation&&!closed){this.options.onUnknown?.();throw dialogueFailure('STOP_UNCONFIRMED')}
   }
  }
  async shutdown():Promise<'stopped'|'unknown'>{this.closing=true;await this.options.owner.cancel().catch(()=>{});await this.pending;const outcome=await this.options.owner.observeStop().catch(()=>{this.options.onUnknown?.();return 'unknown' as const});if(outcome!=='stopped')return 'unknown';const parent=await directory(this.options.root).catch(()=>null);if(parent){const target=join(parent,this.runtimeId);if(dirname(target)!==parent)throw dialogueFailure('STOP_UNCONFIRMED');const actual=await directory(target).catch(e=>{if((e as NodeJS.ErrnoException).code==='ENOENT')return null;throw e});if(actual&&dirname(actual).toLowerCase()!==parent.toLowerCase())throw dialogueFailure('STOP_UNCONFIRMED');if(actual)await rm(actual,{recursive:true,force:true})}return 'stopped'}
+ async observeContext(projectId:string,rootPath:string,signal:AbortSignal):Promise<import('../../contracts/bmad-context.ts').BmadContextObservation>{
+  const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
+  for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
+  const {result}=await this.run({op:'context',project:root,roots},signal,true)
+  return {schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result}
+ }
+ async observeConfiguration(projectId:string,rootPath:string,signal:AbortSignal):Promise<import('../../contracts/bmad-context.ts').BmadConfigurationObservation>{
+  const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
+  for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
+  const {result}=await this.run({op:'context-config',project:root,roots},signal,true)
+  return {schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result}
+ }
  async prepare(projectId:string,rootPath:string,signal:AbortSignal):Promise<HelpBundle>{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
   for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}

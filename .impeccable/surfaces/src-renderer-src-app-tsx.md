@@ -64,3 +64,17 @@ Les pictogrammes géométriques anguleux reçoivent des faces partielles et un t
 Trois plaques décoratives non interactives et aria-hidden habillent les commandes natives Windows sans remplacer glyphes, zones de clic ni routine d’arrêt. Leur position et leurs trois colonnes suivent la géométrie env de Window Controls Overlay, sans supposer46px par commande. Le composant se retire hors overlay visible ; le calque est hors drag et sans pointeur. Main rend le fond de caption transparent hors contraste élevé ; en contraste élevé, fond natif et retrait du calque en forced-colors.
 
 Les vrais inputs checkbox/radio reçoivent le langage atelier :20px, bord1px, checked/mixte distincts, disabled/focus et clavier conservés. En forced-colors, appearance:auto et disparition des marques décoratives rendent la main aux contrôles natifs. Palette, fontes, casting et rail approuvés sont conservés. Aucun nouveau pouvoir IPC ou comportement métier ; version0.2.5 distincte des stories. Voir [documenter](../../_bmad-output/initiative-madness/ux-madness/qualification-window-chrome/documenter.md). Revue indépendante et paquet/installation restent à venir au relevé ; aucune validation humaine0.2.5 n’est déduite.
+
+## Direction contract — Choix local des initiatives, story2.3
+
+THESIS: Savoir quel contexte on consulte sans déplacer le travail déjà commencé ; le choix de navigation reste distinct du destinataire d’un échange.
+
+OWN-WORLD: Hériter strictement de l’atelier0.2.6 approuvé, de ses fontes, palettes, contrôles compacts et états ; aucune nouvelle identité, illustration ou couche globale.
+
+STORY: Lire l’active BMad et le choix Madness, consulter les initiatives sourcées, choisir localement puis retrouver ce choix ; conflit, disparition et sauvegarde refusée restent compréhensibles.
+
+FIRST VIEWPORT: Sous le titre du projet, bouton libellé/nom/chevron dans le flux existant. Un seul dialogue de choix : liste nom/chemin/source/révision, active et sélection séparées, actions explicites. Focus au choix courant sinon titre, retour au déclencheur ; demandes natives et saisie préservées, lecture compacte/zoom/deux thèmes.
+
+FORM: Extension locale code-led, sans concours ni nouveau seed ; monde établi hérité du seed09fa5971 et de la direction humaine déjà adoptée. Sélection locale seulement, profils et captures historiques font autorité pour les actions.
+
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

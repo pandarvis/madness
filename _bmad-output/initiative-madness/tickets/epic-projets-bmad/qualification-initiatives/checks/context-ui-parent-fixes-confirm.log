@@ -1,0 +1,19 @@
+✔ initiatives: choix local, focus et brouillon conservés sans lancement ni réattribution (12981.5131ms)
+✔ initiatives: consultation beta garde la demande alpha et sa réponse exacte (12547.8365ms)
+✔ initiatives: conservation échouée et ancien résultat restent honnêtes (14981.8103ms)
+✔ initiatives: clavier, noms longs, compact, deux thèmes et zoom200 sans fuite horizontale (14451.4688ms)
+✔ initiatives: couleurs locales lisibles et métadonnées alignées dans le thème clair (8417.5607ms)
+✔ initiatives: seul un échange porte le libellé de capture, indépendamment du choix local (8625.5869ms)
+✔ initiatives: choix courant focalisé sans masquer titre et fermeture au compact et zoom200 (17507.9216ms)
+✔ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (7937.7974ms)
+✔ une approbation corrélée montre sa portée et son patch avant tout ancien formulaire (5966.2593ms)
+✔ la conversation donne accès au travail avant la préparation et conserve la saisie en consultant le contexte (8043.6868ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-Dg3nxF\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-Dg3nxF\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 114803.4259

@@ -1,0 +1,14 @@
+✔ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (7231.8841ms)
+✔ une approbation corrélée montre sa portée et son patch avant tout ancien formulaire (5768.7588ms)
+✔ deux destinations concurrentes et retour tardif gardent le dernier contexte et focus demandés (12872.6256ms)
+✔ le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (21755.4939ms)
+✔ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (11745.2876ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-dC55HA\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-dC55HA\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 63564.1473

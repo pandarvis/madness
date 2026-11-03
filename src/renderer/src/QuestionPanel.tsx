@@ -10,7 +10,7 @@ export function QuestionPanel({question,values,projectName,onChange,onSend,bridg
  const status=question.status==='waiting'&&!respondable?fr.overview.targetGone:fr.questions[question.status]
  return <section className="question-panel" aria-labelledby={titleId} data-question-id={question.id}>
   <div className="question-heading"><h2 id={titleId} tabIndex={-1}>{active?fr.questions.title:question.status==='sending'?'Réponse en cours d’envoi':'Question conservée'}</h2><span className="small">{recipient} · Codex</span></div>
-  <p className="question-context">{compactContext?<span title={projectName}>Ce projet</span>:projectName} · {question.context.initiativeId??'sans initiative identifiée'}</p>
+  <p className="question-context">{compactContext?<span title={projectName}>Ce projet</span>:projectName} · Initiative capturée : {question.context.initiativeId??'sans initiative identifiée'}</p>
   <p className="small question-status" id={statusId} role="status">{status}{question.reason==='expired'?' Le délai connu est dépassé.':question.reason==='reopened'?' '+fr.questions.historical:''}</p>
   <form onSubmit={event=>{event.preventDefault();if(active&&validQuestionValues(question.fields,values,true))onSend()}} aria-describedby={statusId}>
    {question.fields.map(field=>{

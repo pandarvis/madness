@@ -1,0 +1,22 @@
+✔ les frontières refusent un payload imprécis avant tout effet (1.5569ms)
+✔ le pont ne reconnaît que la fenêtre et la frame exacte autorisées (0.2575ms)
+✔ contexte, brouillon et préférence survivent à une nouvelle instance (90.7894ms)
+✔ annuler le dialogue ne crée ni projet ni fichier (7.524ms)
+✔ stockage corrompu et schéma futur refusent une écriture et préservent les octets (56.8189ms)
+✔ sauvegarde échouée et portée erronée ne revendiquent aucun succès durable (0.6378ms)
+✔ les écritures concurrentes du cœur sont cohérentes et la révision progresse (76.7365ms)
+✔ une cible non inscriptible produit une erreur stable sans remplacer la cible (15.8878ms)
+✔ une modification externe valide est préservée au lieu d’être remplacée (31.4327ms)
+✔ le preload valide aussi les réponses et les événements reçus (0.8239ms)
+✔ le client Codex partage la version du manifeste de livraison (46.249ms)
+✔ le manifeste est déterministe et relie les entrées, versions, ASAR et installateur (437.1084ms)
+✔ la ressource externe du paquet doit correspondre à la source qualifiée (165.1367ms)
+✔ une incohérence du lock, du paquet ou de l’identité refuse le manifeste (195.0742ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1092.7251

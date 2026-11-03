@@ -9,6 +9,7 @@ import {helpResourcePins} from '../../src/adapters/bmad/help-manifest.ts'
 const execute=promisify(execFile),quote=s=>"'"+s.replaceAll("'","''")+"'"
 export async function runHelpSourcesCase(source){
  const temporary=await mkdtemp(join(tmpdir(),'madness-help-boundaries-')),root=realpathSync.native(temporary)
+ let cleanupSafe=false
  try{
   const resources=resolve('resources/bmad-help'),runtime=join(root,'python'),snapshot=join(root,'resources')
   await mkdir(join(runtime,'Lib/site-packages'),{recursive:true});await mkdir(snapshot)
@@ -35,7 +36,8 @@ export async function runHelpSourcesCase(source){
   '$state=$null;$r=Invoke-BmadSupervised $s 120000 '+quote(join(root,'execution.json'))+' @() '+quote(root)+' '+quote(join(root,'stdout.json'))+' '+quote(join(root,'stderr.log'))+" '' ([ref]$state)"].join('\n')
   await execute(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,timeout:180000,maxBuffer:65536})
   const execution=JSON.parse(await readFile(join(root,'execution.json'),'utf8')),stdout=await readFile(join(root,'stdout.json'),'utf8'),stderr=await readFile(join(root,'stderr.log'),'utf8')
+  cleanupSafe=execution.outcome!=='running'&&execution.job_active_after_stop===0
   if(execution.outcome!=='completed'||execution.exit!==0)throw Error(JSON.stringify({execution,stdout,stderr}))
   return {value:JSON.parse(stdout),execution,preflight:JSON.parse(await readFile(join(root,'preflight.json'),'utf8'))}
- }finally{await rm(root,{recursive:true,force:true})}
+ }finally{if(cleanupSafe)await rm(root,{recursive:true,force:true});else console.error(JSON.stringify({retainedHelpFixture:root,reason:'terminal Job stop proof unavailable; no cleanup attempted'}))}
 }

@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "scope": "source-renderer-fixture-only-initiatives23",
+  "synthetic": true,
+  "startedAt": "2026-11-03T17:53:03.193Z",
+  "status": "captured",
+  "captures": [
+    {
+      "file": "zoom-light-long.png",
+      "sha256": "169c0da03d9f1a7ca3b7606007dde4cb49379a5527ff961ff09949ed9f7e6c4c",
+      "method": "electron-native-full-content-stayHidden",
+      "state": {
+        "theme": "light",
+        "width": 720,
+        "height": 460,
+        "tab": "Conversation",
+        "mainScroll": 0,
+        "contextOpen": false,
+        "connectionOpen": false,
+        "navigationCollapsed": false,
+        "zoomFactor": 2
+      },
+      "nativeFrame": {
+        "size": [
+          1440,
+          920
+        ],
+        "scale": 1.25
+      },
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      }
+    }
+  ],
+  "viewports": [
+    {
+      "name": "zoom-light-long",
+      "requested": {
+        "width": 1440,
+        "height": 920
+      },
+      "actual": {
+        "width": 1440,
+        "height": 920,
+        "layoutWidth": 1440,
+        "devicePixelRatio": 1.25,
+        "settledBy": "bounded-timeout",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          1440,
+          920
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 1440,
+            "height": 920
+          },
+          "native": {
+            "contentSize": [
+              1440,
+              920
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1440,
+            "height": 920,
+            "layoutWidth": 1440,
+            "devicePixelRatio": 1.25,
+            "settledBy": "bounded-timeout",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "fonts": [
+    {
+      "name": "zoom-light-long",
+      "root": "Oxanium, \"Segoe UI\", sans-serif",
+      "faces": [
+        {
+          "family": "Barlow Condensed",
+          "status": "loaded",
+          "weight": "700"
+        },
+        {
+          "family": "Oxanium",
+          "status": "loaded",
+          "weight": "200 800"
+        }
+      ],
+      "oxanium": true,
+      "barlow": true
+    }
+  ],
+  "limits": [
+    "Real rendered App and current CSS/assets, synthetic bridges/data; not a provider/native-context qualification.",
+    "Electron content captures only; no physical Windows caption-glyph or global accessibility certification.",
+    "One grouped visual round; zoom uses the qualified full native-content capture, not a CSS crop."
+  ],
+  "finishedAt": "2026-11-03T17:53:17.794Z"
+}

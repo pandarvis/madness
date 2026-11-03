@@ -1,3 +1,5 @@
+import type {BmadContextCoordinator} from './bmad-context.ts'
+import type {CapturedBmadContext} from '../contracts/bmad-context.ts'
 import type {BmadHelpCoordinator} from './bmad-help.ts'
 import {isApprovalRecord,isApprovalFiles,isApprovalResult,MAX_APPROVALS} from '../contracts/approvals.ts'
 import type {ApprovalRecord} from '../contracts/approvals.ts'
@@ -15,7 +17,7 @@ import type {RunRecoveryPort} from './ports.ts'
 import type {ApprovalFile} from '../contracts/approvals.ts'
 import {INSPECTION_MAX_AGE_MS} from '../contracts/recovery.ts'
 import type {FileInspection} from '../contracts/recovery.ts'
-type Dependencies = { application: Application;help?:BmadHelpCoordinator;recovery?:RunRecoveryPort;inspectApproval?(rootPath:string,files:ApprovalFile[]):Promise<FileInspection>; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void): Promise<DialogueSession> }
+type Dependencies = { application: Application;contexts?:BmadContextCoordinator;help?:BmadHelpCoordinator;recovery?:RunRecoveryPort;inspectApproval?(rootPath:string,files:ApprovalFile[]):Promise<FileInspection>; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, assertContext?:()=>Promise<void>): Promise<DialogueSession> }
 /** Une seule session native possédée. Les travaux longs ne monopolisent jamais la queue disque. */
 export class DialogueCoordinator {
   private state = initialDialogueState()
@@ -28,6 +30,9 @@ export class DialogueCoordinator {
   private blocked = false
   private restored = false
   private qualifiedForge: { projectId: string; profile: BmadProfile } | null = null
+  private capturedContext:CapturedBmadContext|null=null
+  private contextRefusal=false
+  private async assertCaptured():Promise<void>{if(this.capturedContext&&this.deps.contexts)try{await this.deps.contexts.assertFresh(this.capturedContext,this.controller!.signal)}catch(e){if((e as {code?:string}).code==='PROFILE_CHANGED')this.contextRefusal=true;throw e}}
   private turnSequence = 0
   private questionWrites:Promise<unknown>=Promise.resolve()
   private questionLocks=new Set<string>()
@@ -140,6 +145,7 @@ export class DialogueCoordinator {
       }
       if(input.type==='decide-approval'){
         if(!ownsSession()||this.approvalResponders.get(current.id)!==responder||this.approval(current.id)?.status!=='sending'||Date.now()>=current.expiresAt)throw dialogueFailure('CONTEXT_MISMATCH')
+        if(input.decision==='accept')await this.assertCaptured()
         await responder!.decide(input.decision)
         const latest=this.approval(current.id)!;if(!ownsSession()||latest.status!=='sending'||this.approvalResponders.get(current.id)!==responder||controller?.signal.aborted)throw dialogueFailure('CONTEXT_MISMATCH')
         const sent={...latest,status:'decided' as const,transmission:'sent' as const,revision:latest.revision+1,storage:'pending' as const};this.projectApproval(sent);await this.writeApproval(sent)
@@ -188,6 +194,8 @@ export class DialogueCoordinator {
       await this.writeQuestion(next)
       if(input.type==='answer-question'){
         if(this.questionResponders.get(current.id)!==responder||this.question(current.id)?.status!=='sending'||this.controller?.signal.aborted||current.expiresAt!==null&&Date.now()>=current.expiresAt){this.invalidateQuestion(current.id,current.expiresAt!==null&&Date.now()>=current.expiresAt?'expired':'resolved');return {...this.read(),errorCode:'CONTEXT_MISMATCH'}}
+        await this.assertCaptured()
+        if(this.questionResponders.get(current.id)!==responder||this.question(current.id)?.status!=='sending'||this.controller?.signal.aborted)throw dialogueFailure('CONTEXT_MISMATCH')
         await responder!.answer(structuredClone(input.values))
         // Le reçu natif atteste l’envoi ; l’UI attend encore l’écriture atomique.
         const latest=this.question(current.id)!
@@ -213,7 +221,8 @@ export class DialogueCoordinator {
     }finally{this.questionLocks.delete(current.id);this.answerSettlements.delete(current.id);settled()}
   }
   private schedule(work: () => Promise<void>): void { this.active = Promise.resolve().then(async () => { await work(); if (this.controller?.signal.aborted && this.session) await this.stop() }).catch(async error => {
-    const code = dialogueError(error, this.controller?.signal.aborted ? 'CANCELLED' : 'PROVIDER_FAILED')
+    const reported = dialogueError(error, this.controller?.signal.aborted ? 'CANCELLED' : 'PROVIDER_FAILED')
+    const code = this.contextRefusal&&reported!=='EFFECT_UNKNOWN'&&reported!=='STOP_UNCONFIRMED'?'PROFILE_CHANGED':reported
     let stopped = await this.stopSession()
     if (code === 'STOP_UNCONFIRMED') {stopped = 'unknown';this.update({recovery:{...this.state.recovery,stop:'unconfirmed'}})}
     if (stopped === 'unknown') this.blocked = true
@@ -222,6 +231,7 @@ export class DialogueCoordinator {
     await this.persistActivity(stopped === 'unknown' ? 'unknown' : 'interrupted').catch(() => this.update({ status: 'unknown', errorCode: 'STORAGE_WRITE_FAILED' }))
   }).finally(() => { this.active = null }) }
   private async launch(input: Extract<DialogueCommand, { projectId: string }> & {type:'qualify'|'launch'|'qualify-forge'|'launch-forge'|'launch-help'}): Promise<void> {
+    this.contextRefusal=false
     const prepared=this.qualifiedForge
     if(input.type==='launch-forge'){
       if(!prepared||prepared.projectId!==input.projectId)throw dialogueFailure('PROFILE_UNRECOGNIZED')
@@ -245,9 +255,16 @@ export class DialogueCoordinator {
     if (input.type.startsWith('qualify')) return
     this.update({ status: 'starting' })
     await this.freshInspections(project.id,profile.kind==='forge'||profile.mode==='file-approval');
-    this.session = await this.deps.open(profile, this.controller!.signal, this.activity)
+    this.capturedContext=this.deps.contexts?await this.deps.contexts.capture(project.id,(profile.kind==='forge'&&profile.forge?.initiativeId!=null)||(profile.kind==='help'&&profile.help?.initiativeId!=null),this.controller!.signal):null
+    await this.assertCaptured()
+    if(this.capturedContext&&((profile.kind==='forge'&&profile.forge?.initiativeId!==this.capturedContext.initiativeId)||(profile.kind==='help'&&profile.help?.initiativeId!==this.capturedContext.initiativeId)))throw dialogueFailure('PROFILE_CHANGED')
+    const captured=this.capturedContext,controller=this.controller!
+    const assertContext=async():Promise<void>=>{if(!captured||!this.deps.contexts)return;try{await this.deps.contexts.assertFresh(captured,controller.signal)}catch(e){if(this.capturedContext===captured&&this.controller===controller&&(e as {code?:string}).code==='PROFILE_CHANGED')this.contextRefusal=true;throw e}}
+    this.session = await this.deps.open(profile, controller.signal, this.activity,assertContext)
     this.stopControl=this.session
     this.controller!.signal.throwIfAborted()
+    await this.assertCaptured()
+    if(this.capturedContext&&this.session.context.initiativeId!==this.capturedContext.initiativeId)throw dialogueFailure('PROFILE_CHANGED')
     const conversation = await this.deps.application.dialoguePersist(project.id, null, value => { value.lastKnownActivity = 'running' }, this.session.context,input.correlationId)
     this.update({ context: conversation.context })
     if(this.session.help){if(!this.deps.help)throw dialogueFailure('STORAGE_WRITE_FAILED');await this.deps.help.begin(this.session.help.bundle,conversation.context);this.session.help.bind(r=>this.deps.help!.tool(conversation.id,r))}
@@ -269,6 +286,7 @@ export class DialogueCoordinator {
     const context=structuredClone(this.state.context),{ projectId, conversationId } = context
     if (!projectId || !conversationId || !this.session) throw dialogueFailure('CONTEXT_MISMATCH')
     // Recontrôler aussi après l'ouverture (OAuth/préparation peuvent avoir pris du temps).
+    await this.assertCaptured()
     await this.freshInspections(projectId,this.state.mode==='file-approval'||this.state.invocation==='$bmad-forge-idea')
     const requestId=input?.correlationId??launchRequest!,turnId='turn-'+ ++this.turnSequence,updates=new Map<string,DialogueMessage>(),dirty=new Set<string>()
     const sourceIds=new Map<string,string>()

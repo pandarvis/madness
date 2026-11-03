@@ -1,0 +1,23 @@
+✔ initiatives: conflit asynchrone reçu par abonnement vise seulement le projet courant (9793.5252ms)
+✔ initiatives: choix tardif après fermeture ne reprend ni focus ni nouvelle ouverture (30053.3376ms)
+✔ initiatives: choix local, focus et brouillon conservés sans lancement ni réattribution (11350.8962ms)
+✔ initiatives: consultation beta garde la demande alpha et sa réponse exacte (11480.2993ms)
+✔ initiatives: conservation échouée et ancien résultat restent honnêtes (9186.9044ms)
+✔ initiatives: clavier, noms longs, compact, deux thèmes et zoom200 sans fuite horizontale (13206.3982ms)
+✔ initiatives: couleurs locales lisibles et métadonnées alignées dans le thème clair (5537.5954ms)
+✔ initiatives: seul un échange porte le libellé de capture, indépendamment du choix local (7469.1605ms)
+✔ initiatives: choix courant focalisé sans masquer titre et fermeture au compact et zoom200 (16760.8735ms)
+✔ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (7203.0989ms)
+✔ une approbation corrélée montre sa portée et son patch avant tout ancien formulaire (5555.9197ms)
+✔ deux destinations concurrentes et retour tardif gardent le dernier contexte et focus demandés (12554.1685ms)
+✔ le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (21274.5236ms)
+✔ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (11890.8392ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-SANFwV\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-SANFwV\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 175543.7863

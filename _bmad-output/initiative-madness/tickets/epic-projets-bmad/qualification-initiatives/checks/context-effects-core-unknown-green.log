@@ -1,0 +1,15 @@
+✔ Mary indépendante capture alpha sans dépendre des documents {"missingDocument":true} (7.7048ms)
+✔ Mary indépendante capture alpha sans dépendre des documents {"unrelatedRefusal":true} (1.638ms)
+✔ un effet possédé commencé garde EFFECT_UNKNOWN malgré le refus de contexte (1.0001ms)
+✔ source mutation before open rejects without provider ownership or first turn (1.5869ms)
+✔ mutation inside open stops actual owner before conversation or turn; unknown remains unknown (1.8387ms)
+✔ mutation after conversation persistence refuses first turn without rewriting capture (0.5686ms)
+✔ question alpha survives consultation beta; its own changed sources refuse submission (4.4116ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 316.8828

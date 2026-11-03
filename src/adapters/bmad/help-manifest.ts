@@ -11,5 +11,5 @@ export const helpResourcePins = {
   "runtime_guard.py": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
   "runtime.json": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
   "supervision.ps1": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
-  "worker.py": "5045cdbfda9ead9c7eebd5c0a0ca0ff1fab5baafa0c50a6d17dfd5d3a481ff14"
+  "worker.py": "6dd088f45c55d1cdf2eee7e9580a65de73ca88719d782c707bd9934153c8adc4"
 } as const

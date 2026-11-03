@@ -44,13 +44,16 @@ async function inputs(root: string): Promise<string> {
   for(const path of ['.claude/skills/bmad-party-mode','_bmad/skills/bmad-party-mode']) { try { await lstat(join(root,path)); throw dialogueFailure('PROFILE_UNRECOGNIZED') } catch(e) { if(!missing(e)) throw e } }
   return hash(values.join('\n'))
 }
-export async function runForgeScript(profile: BmadProfile, script: 'workflow'|'config'|'personas'|'memlog', args: string[], signal: AbortSignal, runner=resolve('resources/bmad-script-runner.py')): Promise<string> {
+export async function runForgeScript(profile: BmadProfile, script: 'workflow'|'config'|'personas'|'memlog', args: string[], signal: AbortSignal, runner=resolve('resources/bmad-script-runner.py'),assertContext?:()=>Promise<void>,onStarted?:()=>void): Promise<string> {
   signal.throwIfAborted()
   const runtime=await bmadRuntime(profile.rootPath)
   signal.throwIfAborted()
   const target=script==='personas'?join(profile.rootPath,'.agents/skills/bmad-forge-idea/scripts/resolve_personas.py'):join(profile.rootPath,'_bmad/scripts',script==='workflow'?'resolve_customization.py':script==='config'?'resolve_config.py':'memlog.py')
   const env={...Object.fromEntries(Object.entries(process.env).filter(([key])=>['SYSTEMROOT','WINDIR','TEMP','TMP','PATH'].includes(key.toUpperCase()))),UV_CACHE_DIR:join(tmpdir(),'madness-uv-cache')}
+  await assertContext?.()
+  signal.throwIfAborted()
   const child=spawn(runtime.uv,['run','--offline','--no-project','--no-config','--python',runtime.python,'--',runtime.python,'-B','-I','-S',runner,profile.rootPath,target,...args],{cwd:profile.rootPath,env,shell:false,windowsHide:true,stdio:['pipe','pipe','pipe']})
+  if(child.pid!==undefined)onStarted?.()
   let count=0, output='', timer: ReturnType<typeof setTimeout> | undefined
   child.stdin.end();child.stdout.setEncoding('utf8');child.stdout.on('data',chunk=>{count+=Buffer.byteLength(chunk);if(count<=1048576)output+=chunk;else child.kill()});child.stderr.on('data',chunk=>{count+=chunk.length;if(count>1048576)child.kill()})
   const abort=():void=>{child.kill()};signal.addEventListener('abort',abort,{once:true})
@@ -139,29 +142,44 @@ export async function qualifyForge(rootPath:string,signal:AbortSignal,runner?:st
   return {...profile,forge:{outputBase,initiativeId:initiative,contextDigest}}
 }
 export type ForgeOperation = {kind:'workflow'|'config'|'personas'|'check-sessions'}|{kind:'init';slug:string;idea:string;goal:string}|{kind:'append';type:string;text:string}|{kind:'write';name:'forge-report.html'|'idea';text:string}|{kind:'finish';outcome:'HARDENED'|'KILLED'|'CLARIFIED'}
+type ForgeIdentity={dev:bigint;ino:bigint}
 export class ForgeHost {
   readonly profile:BmadProfile
   private signal:AbortSignal
   private runner?:string
+  private assertContext?:()=>Promise<void>
   private workspace:string|null=null
+  private workspaceIdentity:ForgeIdentity|null=null
   private known=new Map<string,string>()
   private blocked=false
   private completed=false
   private resolved=new Set<string>()
   private sessionsChecked=false
   private observer:((o:WorkflowObservation,workspace?:string,outcome?:WorkflowRecord['outcome'])=>Promise<void>)|null=null
-  constructor(profile:BmadProfile,signal:AbortSignal,runner?:string){if(!profile.forge)throw dialogueFailure('PROFILE_UNRECOGNIZED');this.profile=profile;this.signal=signal;this.runner=runner}
+  constructor(profile:BmadProfile,signal:AbortSignal,runner?:string,assertContext?:()=>Promise<void>){if(!profile.forge)throw dialogueFailure('PROFILE_UNRECOGNIZED');this.profile=profile;this.signal=signal;this.runner=runner;this.assertContext=assertContext}
   bind(observer:NonNullable<ForgeHost['observer']>):void{this.observer=observer}
   async assert():Promise<void>{this.signal.throwIfAborted();if(this.blocked)throw dialogueFailure('EFFECT_UNKNOWN');if(await inputs(this.profile.rootPath)!==this.profile.fingerprint)throw dialogueFailure('PROFILE_CHANGED')}
   async assertForTurn():Promise<void>{await this.assert();await bmadRuntime(this.profile.rootPath);this.signal.throwIfAborted()}
   async read(path:string):Promise<string>{await this.assert();const full=resolve(this.profile.rootPath,path),p=relative(this.profile.rootPath,full).replaceAll('\\','/');if(!Object.hasOwn(FORGE_MANIFEST,p)&&!['_bmad/config.toml','_bmad/custom/config.toml','_bmad/custom/config.user.toml'].includes(p))throw dialogueFailure('UNSUPPORTED_INTERACTION');return decode(await bytes(this.profile.rootPath,full))}
   private async file(path:string):Promise<Buffer>{const data=await bytes(this.profile.rootPath,path);if(!this.known.has(path)||this.known.get(path)!==hash(data))throw dialogueFailure('OUTPUT_CONFLICT');return data}
-  private async intactWorkspace():Promise<void>{
-    if(!this.workspace)return
+  private async ownedWorkspace():Promise<void>{
+    if(!this.workspace||!this.workspaceIdentity)throw dialogueFailure('OUTPUT_CONFLICT')
     await forgePath(this.profile.rootPath,this.workspace)
+    const current=await lstat(this.workspace,{bigint:true})
+    if(!current.isDirectory()||current.isSymbolicLink()||current.dev!==this.workspaceIdentity.dev||current.ino!==this.workspaceIdentity.ino)throw dialogueFailure('OUTPUT_CONFLICT')
+  }
+  private async ownedTemporary(path:string,identity:ForgeIdentity,published:boolean):Promise<void>{
+    await this.ownedWorkspace();await forgePath(this.profile.rootPath,path)
+    const current=await lstat(path,{bigint:true})
+    if(!current.isFile()||current.isSymbolicLink()||current.nlink!==(published?2n:1n)||current.dev!==identity.dev||current.ino!==identity.ino)throw dialogueFailure('OUTPUT_CONFLICT')
+  }
+  private async intactWorkspace(temporary?:string):Promise<void>{
+    if(!this.workspace)return
+    await this.ownedWorkspace()
     for(const name of await readdir(this.workspace)){
       const path=join(this.workspace,name)
       // Aucun fichier inconnu, hardlink ou reste natif .tmp ne doit être écrasé par les scripts.
+      if(path===temporary)continue
       if(!this.known.has(path))throw dialogueFailure('OUTPUT_CONFLICT')
       await this.file(path)
     }
@@ -216,14 +234,29 @@ export class ForgeHost {
     let started=false
     try{
       this.signal.throwIfAborted()
-      if(op.kind==='init'){await sessionCheck(this.profile);this.signal.throwIfAborted();started=true;await mkdir(this.profile.forge!.outputBase,{recursive:true});await forgePath(this.profile.rootPath,this.profile.forge!.outputBase);await mkdir(this.workspace!);await runForgeScript(this.profile,'memlog',['init','--workspace',this.workspace!,'--field','idea='+op.idea,'--field','goal='+op.goal],this.signal,this.runner)}
-      else if(op.kind==='append'){started=true;await runForgeScript(this.profile,'memlog',['append','--workspace',this.workspace!,'--type',op.type,'--text',op.text],this.signal,this.runner)}
-      else if(op.kind==='finish'){started=true;await runForgeScript(this.profile,'memlog',['set','--workspace',this.workspace!,'--key','status','--value','complete'],this.signal,this.runner)}
+      await this.assertContext?.()
+      const assertScript=async():Promise<void>=>{await this.assertContext?.();await this.assert();await this.intactWorkspace();await forgePath(this.profile.rootPath,path,true);if(op.kind==='init'){try{await lstat(path);throw dialogueFailure('OUTPUT_CONFLICT')}catch(error){if(!missing(error))throw error}}else await this.file(path)}
+      if(op.kind==='init'){await sessionCheck(this.profile);await this.assertContext?.();await forgePath(this.profile.rootPath,this.profile.forge!.outputBase,true);await forgePath(this.profile.rootPath,this.workspace!,true);try{await lstat(this.workspace!);throw dialogueFailure('OUTPUT_CONFLICT')}catch(error){if(!missing(error))throw error};this.signal.throwIfAborted();started=true;await mkdir(this.profile.forge!.outputBase,{recursive:true});await forgePath(this.profile.rootPath,this.profile.forge!.outputBase);await mkdir(this.workspace!);await forgePath(this.profile.rootPath,this.workspace!);this.workspaceIdentity=await lstat(this.workspace!,{bigint:true});await runForgeScript(this.profile,'memlog',['init','--workspace',this.workspace!,'--field','idea='+op.idea,'--field','goal='+op.goal],this.signal,this.runner,assertScript)}
+      else if(op.kind==='append'){await runForgeScript(this.profile,'memlog',['append','--workspace',this.workspace!,'--type',op.type,'--text',op.text],this.signal,this.runner,assertScript,()=>{started=true})}
+      else if(op.kind==='finish'){await runForgeScript(this.profile,'memlog',['set','--workspace',this.workspace!,'--key','status','--value','complete'],this.signal,this.runner,assertScript,()=>{started=true})}
       else if(op.kind==='write'){
+        await this.intactWorkspace()
         const temporary=join(this.workspace!,'.madness-'+randomUUID()+'.tmp')
-        try{const f=await open(temporary,'wx',0o600);started=true;try{await f.writeFile(op.text,'utf8');await f.sync()}finally{await f.close()};await forgePath(this.profile.rootPath,path,true);try{await lstat(path);throw dialogueFailure('OUTPUT_CONFLICT')}catch(e){if(!missing(e))throw e}; // link() publishes exclusively without replacing a competing destination.
-          const {link}=await import('node:fs/promises');await link(temporary,path);await unlink(temporary)
-        }finally{await unlink(temporary).catch(()=>{})}
+        await forgePath(this.profile.rootPath,temporary,true)
+        let identity:ForgeIdentity|null=null,published=false
+        try{
+          const f=await open(temporary,'wx',0o600);started=true
+          try{identity=await f.stat({bigint:true});await f.writeFile(op.text,'utf8');await f.sync()}finally{await f.close()}
+          const {link}=await import('node:fs/promises')
+          await this.assertContext?.();await this.assert();await this.intactWorkspace(temporary)
+          if(!identity)throw dialogueFailure('OUTPUT_CONFLICT')
+          await this.ownedTemporary(temporary,identity,false)
+          if(hash(await bytes(this.profile.rootPath,temporary))!==hash(op.text))throw dialogueFailure('OUTPUT_CONFLICT')
+          await forgePath(this.profile.rootPath,path,true);try{await lstat(path);throw dialogueFailure('OUTPUT_CONFLICT')}catch(error){if(!missing(error))throw error}
+          await this.ownedTemporary(temporary,identity,false);this.signal.throwIfAborted()
+          // Exclusive publication; cleanup below requires the same owned file and workspace.
+          await link(temporary,path);published=true
+        }finally{if(identity){await this.ownedTemporary(temporary,identity,published);await unlink(temporary)}}
       }
       const data=await bytes(this.profile.rootPath,path);this.known.set(path,hash(data))
       await this.assert()

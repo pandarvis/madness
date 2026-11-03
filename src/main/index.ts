@@ -1,3 +1,7 @@
+import {BmadContextAdapter} from '../adapters/bmad/context.ts'
+import {BmadContextStore} from '../adapters/persistence/bmad-context-store.ts'
+import {BmadContextCoordinator} from '../core/bmad-context.ts'
+import {BMAD_CONTEXT_COMMAND_CHANNEL,BMAD_CONTEXT_EVENT_CHANNEL,isBmadContextCommand,isBmadContextState,initialBmadContextState} from '../contracts/bmad-context.ts'
 import {BmadHelpAdapter} from '../adapters/bmad/help.ts'
 import {HelpOwnedRun} from '../adapters/bmad/help-owned-run.ts'
 import {BmadHelpStore} from '../adapters/persistence/bmad-help-store.ts'
@@ -141,6 +145,16 @@ else {
       return {contractVersion:1,correlationId:input.correlationId,state}
     })
     helpCoordinator.subscribe(state=>{if(isHelpState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(HELP_EVENT_CHANNEL,state)})
+    const contextAdapter=new BmadContextAdapter(helpAdapter)
+    const contextCoordinator=new BmadContextCoordinator({application,store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal)})
+    application.lifecycle.register({id:'bmad-context',context:emptyContext(),stop:async()=>{await contextCoordinator.shutdown();return 'stopped'}})
+    ipcMain.handle(BMAD_CONTEXT_COMMAND_CHANNEL,async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadContextCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadContextState()}
+      const state=await contextCoordinator.execute(input)
+      if(!isBmadContextState(state))throw Error('INVALID_CONTEXT_STATE')
+      return {contractVersion:1,correlationId:input.correlationId,state}
+    })
+    contextCoordinator.subscribe(state=>{if(isBmadContextState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(BMAD_CONTEXT_EVENT_CHANNEL,state)})
     connection = new CodexConnection({
       admission,
       recovery,
@@ -158,6 +172,7 @@ else {
     dialogueCoordinator = new DialogueCoordinator({
       application,
       help:helpCoordinator,
+      contexts:contextCoordinator,
       recovery:{status:()=>recovery.status(),observeStop:async()=>{const result=await recovery.observeStop();if(result==='stopped')await connection!.confirmRecoveryStop();return result}},
       inspectApproval:(root,files)=>inspectApprovalFiles(root,files,[connectionRoot,app.getPath('userData')]),
       workflows:new WorkflowStore(join(app.getPath('userData'),'workflows-v1')),
@@ -170,7 +185,7 @@ else {
         await resolveBmad(profile, 'agent', signal); await resolveBmad(profile, 'config', signal)
         return profile
       },
-      open: (profile, signal, activity) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun,helpAdapter, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
+      open: (profile, signal, activity,assertContext) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun,helpAdapter,assertContext, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
     ipcMain.handle(DIALOGUE_COMMAND_CHANNEL, async (event, input: unknown) => {

@@ -1,0 +1,24 @@
+✖ portée configuration réelle : Forge sans initiative peut init append write finish, config et périmètre restent gardés (202422.8371ms)
+{"platform":"win32","count":25,"checks":["absent does not invent initiative","legacy presence remains distinct","unknown version permits data consultation only","exact active and immediate initiatives","configured alpha captured without its document","configuration scope never reads or inventories outputs","unrelated refused document leaves configuration capture fresh","full discovery still refuses unrelated invalid document","same-byte file replacement invalidates receipt","file identity participates in revision","three configuration layers resolved from captured bytes","unrepresentable name never becomes slug","invalid active remains explicit","traversal output refused","external output refused","ADS output refused","internal absolute output admitted","config mutation during collection rejects mixed observation","invalid UTF8 initiative refused","real hardlink initiative refused","real junction initiative refused","external witness unchanged","per-file bound refused without truncation","aggregate corpus bound refused","immediate inventory count bound refused"],"symlinkFile":"not exercised: Windows privilege limit"}
+✔ context sources: real Windows receipts, mutations, absent/unknown, identity, three layers and boundaries (58810.3917ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 261898.0957
+
+✖ failing tests:
+
+test at tests\bmad-context-profile-scope.test.mjs:14:1
+✖ portée configuration réelle : Forge sans initiative peut init append write finish, config et périmètre restent gardés (202422.8371ms)
+  Error: OUTPUT_REFUSED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+      at ForgeHost.execute (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/forge.ts:205:151)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-context-profile-scope.test.mjs:32:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'OUTPUT_REFUSED'
+  }

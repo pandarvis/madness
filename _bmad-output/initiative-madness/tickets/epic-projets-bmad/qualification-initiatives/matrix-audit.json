@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "baseline": "03c288066e3105974c7a90041688c01d5df687e8",
+  "frozenBlockLF": "0893413f8a68a2ed842350ddf29b59356e350d3e880718eeef0f6259e66eccba",
+  "phase": "Final tests and exact package passed",
+  "rows": [
+    {
+      "id": "M1",
+      "evidence": [
+        "checks/compiled-main-003.json",
+        "tests/bmad-context.test.mjs",
+        "checks/context-review-loop1-core-confirm.log",
+        "checks/initiatives23-core-r2-final.log",
+        "checks/compiled-main-006.json"
+      ],
+      "checked": "Two choices and real passive reopen; snapshots/config bytes unchanged.",
+      "status": "covered-by-executed-tests"
+    },
+    {
+      "id": "M2",
+      "evidence": [
+        "checks/context-sources-final.log",
+        "checks/context-core-stable-confirmed.log",
+        "checks/context-review-loop1-core-confirm.log",
+        "checks/context-review-loop1-native.log (25 source checks pass; first Forge fixture refusal preserved, separate confirmation pending)",
+        "checks/initiatives23-core-r2-final.log"
+      ],
+      "checked": "Absent/legacy/unknown/unrepresentable and unscoped capture; no default selection.",
+      "status": "covered-by-executed-tests"
+    },
+    {
+      "id": "M3",
+      "evidence": [
+        "checks/context-core-stable-confirmed.log",
+        "checks/context-ui-final.log",
+        "checks/context-review-loop1-core-confirm.log",
+        "checks/initiatives23-ui-parent-final.log",
+        "checks/initiatives23-core-r2-final.log",
+        "checks/initiatives23-ui-sealed.log"
+      ],
+      "checked": "Local beta versus active alpha; scoped capture refused and unscoped capture allowed.",
+      "status": "covered-by-executed-tests"
+    },
+    {
+      "id": "M4",
+      "evidence": [
+        "checks/context-sources-final.log",
+        "checks/context-core-stable-confirmed.log",
+        "checks/context-review-loop1-core-confirm.log",
+        "checks/context-review-loop1-native.log (25 source checks pass; first Forge fixture refusal preserved, separate confirmation pending)",
+        "checks/initiatives23-core-r2-final.log"
+      ],
+      "checked": "Mixed config collection and same-byte file replacement refused; list participates in receipt; old revision refused.",
+      "status": "covered-by-executed-tests"
+    },
+    {
+      "id": "M5",
+      "evidence": [
+        "checks/context-core-stable-confirmed.log",
+        "checks/context-ui-final.log",
+        "checks/context-review-loop1-core-confirm.log",
+        "checks/initiatives23-core-r2-final.log"
+      ],
+      "checked": "Root replacement, future/corrupt/hardlink annex preservation, memory choice versus failed disk.",
+      "status": "covered-by-executed-tests"
+    },
+    {
+      "id": "M6",
+      "evidence": [
+        "checks/context-core-stable-confirmed.log",
+        "checks/context-ui-requests.log",
+        "checks/context-review-loop1-core-confirm.log",
+        "checks/initiatives23-ui-parent-final.log",
+        "checks/initiatives23-core-r2-final.log",
+        "checks/initiatives23-ui-sealed.log"
+      ],
+      "checked": "Active alpha question keeps owner through beta consultation; changed captured sources refuse submission; history stays inactive.",
+      "status": "covered-by-executed-tests"
+    },
+    {
+      "id": "M7",
+      "evidence": [
+        "checks/context-core-stable-confirmed.log",
+        "checks/context-forge-effect.log",
+        "checks/context-review-loop1-core-confirm.log",
+        "checks/initiatives23-core-r2-final.log",
+        "checks/context-r2-forge-green.log",
+        "checks/context-r2-approval-green.log"
+      ],
+      "checked": "Before/inside open/after persistence mutations refuse; unknown stop preserved; pending-to-effect Forge guard refuses.",
+      "status": "covered-by-executed-tests"
+    },
+    {
+      "id": "M8",
+      "evidence": [
+        "checks/context-core-stable-confirmed.log",
+        "checks/context-ui-requests.log",
+        "checks/context-review-loop1-core-confirm.log",
+        "checks/initiatives23-ui-parent-final.log",
+        "checks/initiatives23-core-r2-final.log",
+        "checks/compiled-main-006.json",
+        "checks/initiatives23-ui-sealed.log"
+      ],
+      "checked": "Superseded observation/choice ignored, independent projects, late navigation preserves latest focus/draft.",
+      "status": "covered-by-executed-tests"
+    },
+    {
+      "id": "M9",
+      "evidence": [
+        "checks/context-sources-final.log",
+        "checks/context-help-boundaries-final180.log",
+        "checks/context-review-loop1-core-confirm.log",
+        "checks/context-review-loop1-native.log (25 source checks pass; first Forge fixture refusal preserved, separate confirmation pending)",
+        "checks/initiatives23-core-r2-final.log"
+      ],
+      "checked": "Real Windows traversal/external/ADS, hardlink/junction, UTF8 and corpus/list bounds. File symlink unexercised privilege limit.",
+      "status": "covered-by-executed-tests"
+    },
+    {
+      "id": "M10",
+      "status": "covered-by-executed-tests",
+      "evidence": [
+        "checks/context-ui-parent-fixes-confirm.log",
+        "checks/context-ui-requests.log",
+        "checks/context-review-loop1-core-confirm.log",
+        "checks/initiatives23-ui-parent-final.log",
+        "checks/initiatives23-core-r2-final.log",
+        "checks/initiatives23-ui-sealed.log"
+      ],
+      "checked": "10 current UI tests pass with no skips: clear capture labels, contrast/alignment/body font, current choice focus and visible header/close at compact/zoom200; drafts and old requests preserved. Visual confirmation pending in finish."
+    }
+  ],
+  "limits": [
+    "No provider/network/personal profile qualification. M14/2.2 deferred.",
+    "Main003 observations are after hook only; no wider network assertion.",
+    "Native file symlink not exercised. No skipped test promoted."
+  ],
+  "currentScope": "Final171 core/protocol/foundation,15UI,10ForgeWindows,Main0068checks and package bindings; helper25source checks unchanged bytes6dd088"
+}

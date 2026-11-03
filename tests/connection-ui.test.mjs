@@ -10,6 +10,7 @@ import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
+import { isBmadContextState } from '../src/contracts/bmad-context.ts'
 import { isHelpState } from '../src/contracts/bmad-help.ts'
 import { isDialogueMessage } from '../src/contracts/dialogue.ts'
 import { setWorkspaceViewport } from '../scripts/qualification/workspace-design.mjs'
@@ -35,16 +36,22 @@ before(async () => {
     contextBridge.exposeInMainWorld('madness',{readState:appReply,chooseDirectory:async()=>{directoryChoices++;const reply=await appReply();return {...reply,value:{...reply.value,effect:'cancelled'}}},onStateChanged:listener=>{stateListeners.push(listener);return()=>{}},selectProject,saveDraft:async(projectId,text)=>{snapshot={...snapshot,revision:snapshot.revision+1,drafts:[{projectId,text,savedAt:new Date().toISOString()}]};return appReply()},setNavigation:async(collapsed)=>{snapshot={...snapshot,revision:snapshot.revision+1,preferences:{navigationCollapsed:collapsed}};return appReply()}});
     let dialogue={recovery:{stop:'clear',observations:[],capabilities:{resume:false,newConversation:true,inspectFiles:true}},contractVersion:1,sequence:0,status:'idle',context:{projectId:null,initiativeId:null,conversationId:null,providerId:null,connectionId:null},invocation:'$bmad-agent-analyst',profile:null,acknowledged:false,errorCode:null,activities:[],workflows:[],questions:[],approvals:[],mode:'read-only',turn:null,messages:[]},dialogueListeners=[],sent=[],copies=[],unknownOnStop=false;
     const notifyDialogue=()=>dialogueListeners.forEach(listener=>listener(dialogue));
-    let launchFailure=false;let questionSaves=[],questionAnswers=[],approvalDecisions=[],adjustmentSends=[],observeStops=0;
+    let asyncConflict=false;let launchFailure=false;let questionSaves=[],questionAnswers=[],approvalDecisions=[],adjustmentSends=[],observeStops=0;
     const saveQuestion=async(questionId,values)=>{questionSaves.push({questionId,values});dialogue={...dialogue,sequence:dialogue.sequence+1,questions:dialogue.questions.map(q=>q.id===questionId?{...q,values,storage:'stored'}:q)};notifyDialogue();return dialogue};
     const answerQuestion=async(questionId,values)=>{questionAnswers.push({questionId,values});dialogue={...dialogue,sequence:dialogue.sequence+1,questions:dialogue.questions.map(q=>q.id===questionId?{...q,values,status:'sending'}:q)};notifyDialogue();return dialogue};
     const qualifyForge=async(projectId)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:'qualified',errorCode:null,invocation:'$bmad-forge-idea',context:{...dialogue.context,projectId},profile:{fingerprint:'a'.repeat(64),skillPath:'C:/forge/.agents/skills/bmad-forge-idea/SKILL.md',outputBase:'C:/forge/_bmad-output/initiative-test'}};notifyDialogue();return dialogue};
-    const launchForge=async(projectId)=>{if(launchFailure){dialogue={...dialogue,sequence:dialogue.sequence+1,status:'error',errorCode:'PROVIDER_FAILED'};notifyDialogue();return dialogue}dialogue={...dialogue,sequence:dialogue.sequence+1,status:'ready',errorCode:null,invocation:'$bmad-forge-idea',context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-forge',providerId:'codex',connectionId:'account-1'},workflows:[{schemaVersion:1,conversationId:'conversation-forge',context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-forge',providerId:'codex',connectionId:'account-1'},invocation:'$bmad-forge-idea',capturedAt:new Date().toISOString(),rootPath:'C:/forge',outputBase:'C:/forge/_bmad-output/initiative-test',contextDigest:'b'.repeat(64),fingerprint:'a'.repeat(64),skillPath:'C:/forge/.agents/skills/bmad-forge-idea/SKILL.md',workspace:'C:/forge/_bmad-output/initiative-test/forge-ui-test',outcome:'open',observations:[]}]};snapshot={...snapshot,revision:snapshot.revision+1,conversations:[...snapshot.conversations.filter(c=>c.id!=='conversation-forge'),{id:'conversation-forge',context:dialogue.context,lastKnownActivity:'idle',messages:[{id:'invocation-forge',role:'user',text:'$bmad-forge-idea'},{id:'welcome-forge',role:'assistant',text:'Quelle idée souhaitez-vous éprouver ? Fin du tour.'}]}]};stateListeners.forEach(listener=>listener({}));notifyDialogue();return dialogue};
+    const launchForge=async(projectId)=>{if(asyncConflict){dialogue={...dialogue,sequence:dialogue.sequence+1,status:'starting',errorCode:null,invocation:'$bmad-forge-idea',context:{...dialogue.context,projectId}};return dialogue}if(launchFailure){dialogue={...dialogue,sequence:dialogue.sequence+1,status:'error',errorCode:'PROVIDER_FAILED'};notifyDialogue();return dialogue}dialogue={...dialogue,sequence:dialogue.sequence+1,status:'ready',errorCode:null,invocation:'$bmad-forge-idea',context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-forge',providerId:'codex',connectionId:'account-1'},workflows:[{schemaVersion:1,conversationId:'conversation-forge',context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-forge',providerId:'codex',connectionId:'account-1'},invocation:'$bmad-forge-idea',capturedAt:new Date().toISOString(),rootPath:'C:/forge',outputBase:'C:/forge/_bmad-output/initiative-test',contextDigest:'b'.repeat(64),fingerprint:'a'.repeat(64),skillPath:'C:/forge/.agents/skills/bmad-forge-idea/SKILL.md',workspace:'C:/forge/_bmad-output/initiative-test/forge-ui-test',outcome:'open',observations:[]}]};snapshot={...snapshot,revision:snapshot.revision+1,conversations:[...snapshot.conversations.filter(c=>c.id!=='conversation-forge'),{id:'conversation-forge',context:dialogue.context,lastKnownActivity:'idle',messages:[{id:'invocation-forge',role:'user',text:'$bmad-forge-idea'},{id:'welcome-forge',role:'assistant',text:'Quelle idée souhaitez-vous éprouver ? Fin du tour.'}]}]};stateListeners.forEach(listener=>listener({}));notifyDialogue();return dialogue};
     contextBridge.exposeInMainWorld('madnessDialogue',{observeStop:async()=>{observeStops++;dialogue={...dialogue,sequence:dialogue.sequence+1,status:'stopped',errorCode:null,recovery:{...dialogue.recovery,stop:'clear'}};notifyDialogue();state={...state,sequence:state.sequence+1,status:state.accountStored?'registered':'disconnected',errorCode:null};listeners.forEach(listener=>listener(state));return dialogue},saveApproval:async(approvalId,adjustment)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,approvals:dialogue.approvals.map(a=>a.id===approvalId?{...a,adjustment,storage:'stored'}:a)};notifyDialogue();return dialogue},decideApproval:async(approvalId,decision)=>{approvalDecisions.push({approvalId,decision});dialogue={...dialogue,sequence:dialogue.sequence+1,approvals:dialogue.approvals.map(a=>a.id===approvalId?{...a,decision,status:'sending',transmission:'pending'}:a)};notifyDialogue();return dialogue},sendAdjustment:async(approvalId)=>{adjustmentSends.push(approvalId);return dialogue},saveQuestion,answerQuestion,qualifyForge,launchForge,copyWorkflow:async(conversationId,target)=>{copies.push({conversationId,target});return dialogue},read:()=>Promise.resolve(dialogue),qualify:async(projectId)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:'qualified',context:{...dialogue.context,projectId}};notifyDialogue();return dialogue},launch:async(projectId,mode='read-only')=>{if(launchFailure){dialogue={...dialogue,sequence:dialogue.sequence+1,status:'error',errorCode:'PROVIDER_FAILED'};notifyDialogue();return dialogue}dialogue={...dialogue,sequence:dialogue.sequence+1,status:'ready',errorCode:null,mode,invocation:'$bmad-agent-analyst',acknowledged:true,context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-1',providerId:'codex',connectionId:'account-1'},activities:['Tour terminé']};snapshot={...snapshot,revision:snapshot.revision+1,conversations:[...snapshot.conversations.filter(c=>c.id!=='conversation-1'),{id:'conversation-1',context:dialogue.context,lastKnownActivity:'idle',messages:[{id:'hello',role:'assistant',text:'📊 Bonjour, je suis Mary. Voici mon menu.'}]}]};stateListeners.forEach(listener=>listener({}));notifyDialogue();return dialogue},send:async(projectId,conversationId,text)=>{sent.push({projectId,conversationId,text});dialogue={...dialogue,sequence:dialogue.sequence+1,status:'running',acknowledged:true};notifyDialogue();return dialogue},stop:async()=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:unknownOnStop?'unknown':'stopped',errorCode:unknownOnStop?'STOP_UNCONFIRMED':null};notifyDialogue();return dialogue},onChanged:listener=>{dialogueListeners.push(listener);return()=>{}}});
     contextBridge.exposeInMainWorld('madnessConnection',{read:reply,connect:reply,verify:()=>{verifies++;return reply()},cancel:()=>{cancels++;return reply()},disconnect:reply,manageUsage:reply,openPublicKeys:()=>support('openPublicKeys'),copyPublicKeys:()=>support('copyPublicKeys'),acknowledgePlan:()=>{state={...state,sequence:state.sequence+1,status:'error',errorCode:'VAULT_UNREADABLE'};listeners.forEach(listener=>listener(state));return reply()},onChanged:listener=>{listeners.push(listener);return()=>{listeners=listeners.filter(value=>value!==listener)}}});
+
+    let contextState={contractVersion:1,sequence:0,projects:[]},contextListeners=[],contextChoices=[],contextReads=0,contextSaveFailure=false,contextDeferred=false,contextReleases=[];
+    const notifyContext=()=>contextListeners.forEach(fn=>fn(contextState));
+    contextBridge.exposeInMainWorld('madnessBmadContext',{read:async()=>contextState,onChanged:fn=>{contextListeners.push(fn);return()=>{}},observe:async()=>{contextReads++;return contextState},choose:async(projectId,initiativeId,revision)=>{contextChoices.push({projectId,initiativeId,revision});if(contextDeferred)await new Promise(resolve=>contextReleases.push(resolve));contextState={...contextState,sequence:contextState.sequence+1,projects:contextState.projects.map(p=>p.projectId===projectId?{...p,status:'ready',selection:{schemaVersion:1,projectId,rootPath:p.observation.rootPath,rootIdentity:p.observation.rootIdentity,revision:(p.selection?.revision??0)+1,initiativeId},storage:contextSaveFailure?'failed':'stored',error:contextSaveFailure?'Choix conservé pour cette session — enregistrement échoué.':null}:p)};notifyContext();return contextState},retrySave:async()=>contextState});
+    contextBridge.exposeInMainWorld('bmadContextUIFixture',{deferChoices:()=>{contextDeferred=true},finishChoice:()=>contextReleases.shift()?.(),set:value=>{contextState={...value,sequence:contextState.sequence+1};notifyContext()},choices:()=>contextChoices,reads:()=>contextReads,failSave:value=>contextSaveFailure=value,emitOld:value=>contextListeners.forEach(fn=>fn(value))});
+
     let helpState={contractVersion:1,sequence:0,status:'idle',projectId:null,bundle:null,records:[],error:null},helpListeners=[],helpCalls=[];
     contextBridge.exposeInMainWorld('madnessHelp',{read:async()=>helpState,onChanged:listener=>{helpListeners.push(listener);return()=>{}},prepare:async(projectId)=>{helpCalls.push('prepare');helpState={...helpState,projectId,sequence:helpState.sequence+1};return helpState},copy:async()=>{helpCalls.push('copy');return helpState},retrySave:async(conversationId)=>{helpCalls.push('retry-save:'+conversationId);helpState={...helpState,sequence:helpState.sequence+1,records:helpState.records.map(record=>record.conversationId===conversationId?{...record,storage:'stored'}:record)};return helpState}});
-    contextBridge.exposeInMainWorld('connectionUIFixture',{cancels:()=>cancels,helpCalls:()=>helpCalls,setHelp:value=>{helpState={...value,sequence:helpState.sequence+1};helpListeners.forEach(listener=>listener(helpState))},failLaunch:value=>{launchFailure=value},deferSelections:()=>{deferredSelections=true},selectionCount:()=>selectionRequests.length,finishSelection:index=>selectionRequests[index].resolve(),failSelection:index=>selectionRequests[index].reject(Error('SELECTION_FAILED')),observeStops:()=>observeStops,approvalDecisions:()=>approvalDecisions,adjustmentSends:()=>adjustmentSends,questionSaves:()=>questionSaves,questionAnswers:()=>questionAnswers,failAppearance:value=>{appearanceFailure=value},setState:value=>{state={...state,...value,sequence:state.sequence+1};listeners.forEach(listener=>listener(state))},setSnapshot:value=>{snapshot={...snapshot,...value};stateListeners.forEach(listener=>listener({}))},setDialogue:value=>{dialogue={...dialogue,...value,sequence:dialogue.sequence+1};notifyDialogue()},sent:()=>sent,copies:()=>copies,unknownOnStop:()=>{unknownOnStop=true},supportCalls:()=>supportCalls,verifies:()=>verifies,failSupport:action=>{supportFailure=action},deferSupport:()=>{supportDeferred=true},finishSupport:()=>{supportDeferred=false;finishSupport?.()}});
+    contextBridge.exposeInMainWorld('connectionUIFixture',{emitDialogue:value=>dialogueListeners.forEach(listener=>listener(value)),asyncConflict:value=>asyncConflict=value,cancels:()=>cancels,helpCalls:()=>helpCalls,setHelp:value=>{helpState={...value,sequence:helpState.sequence+1};helpListeners.forEach(listener=>listener(helpState))},failLaunch:value=>{launchFailure=value},deferSelections:()=>{deferredSelections=true},selectionCount:()=>selectionRequests.length,finishSelection:index=>selectionRequests[index].resolve(),failSelection:index=>selectionRequests[index].reject(Error('SELECTION_FAILED')),observeStops:()=>observeStops,approvalDecisions:()=>approvalDecisions,adjustmentSends:()=>adjustmentSends,questionSaves:()=>questionSaves,questionAnswers:()=>questionAnswers,failAppearance:value=>{appearanceFailure=value},setState:value=>{state={...state,...value,sequence:state.sequence+1};listeners.forEach(listener=>listener(state))},setSnapshot:value=>{snapshot={...snapshot,...value};stateListeners.forEach(listener=>listener({}))},setDialogue:value=>{dialogue={...dialogue,...value,sequence:dialogue.sequence+1};notifyDialogue()},sent:()=>sent,copies:()=>copies,unknownOnStop:()=>{unknownOnStop=true},supportCalls:()=>supportCalls,verifies:()=>verifies,failSupport:action=>{supportFailure=action},deferSupport:()=>{supportDeferred=true},finishSupport:()=>{supportDeferred=false;finishSupport?.()}});
   `)
 })
 after(async () => {
@@ -69,7 +76,7 @@ async function launch(state = {}) {
   // Each fixture starts at 100%: Chromium persists per-origin zoom in this shared synthetic profile.
   await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.setZoomFactor(1))
   await page.evaluate((value) => window.connectionUIFixture.setState(value), state)
-  const css=(await readFile(join(repository, 'src/renderer/src/styles.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/help.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/atelier-immersion.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/atelier-controls.css'), 'utf8'))
+  const css=(await readFile(join(repository, 'src/renderer/src/styles.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/help.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/atelier-immersion.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/atelier-controls.css'), 'utf8'))+'\n'+(await readFile(join(repository,'src/renderer/src/initiatives.css'),'utf8'))
   await page.addStyleTag({ content: css.replaceAll("url('./assets/atelier/", "url('"+pathToFileURL(join(repository,'src/renderer/src/assets/atelier')+'/').href) })
   await page.addScriptTag({ content: bundle })
   await page.getByRole('heading', { name: 'Vos projets, au même endroit', exact: true }).waitFor()
@@ -96,6 +103,185 @@ async function atelierFixture(width=1440){
  await page.locator('.project-row').click();await page.getByRole('tab',{name:'Conversation',exact:true}).click()
  return {context,messages,names}
 }
+
+async function initiativeFixture({question=false,long=false}={}){
+ if(question)await workspaceRequestFixture();else{
+  await launch({status:'registered',accountStored:true,needsPlanAcknowledgement:false});
+  await page.evaluate(()=>window.connectionUIFixture.setSnapshot({projects:[{id:'p-context',name:'Projet initiatives',rootPath:'C:/project',openedAt:new Date().toISOString()}]}))
+  await page.locator('.project-row').first().click()
+ }
+ const projectId=question?'p-priority':await page.evaluate(async()=>{const r=await window.madness.readState();return r.value.state.activeProjectId})
+ const name=long?'beta-'+('initiative-avec-nom-long-'.repeat(7)):'beta'
+ const fixtureState=await page.evaluate(({projectId,name})=>{
+  const project={projectId,status:'ready',storage:'stored',error:null,selection:{schemaVersion:1,projectId,rootPath:'C:/project',rootIdentity:'root',revision:1,initiativeId:'alpha'},observation:{schemaVersion:1,projectId,rootPath:'C:/project',rootIdentity:'root',revision:'a'.repeat(64),observedAt:new Date().toISOString(),status:'candidate-observed',activeInitiative:'alpha',activeStatus:'valid',initiatives:['alpha',name].map(id=>({id:id.length<=80?id:null,name:id,path:'C:/project/_bmad-output/'+id,source:'C:/project/_bmad-output/'+id+'/'+id+'.md',revision:'b'.repeat(64)})),sources:[],problems:[]}}
+  const state={contractVersion:1,sequence:1,projects:[project]};window.bmadContextUIFixture.set(state);return state
+ },{projectId,name})
+ assert.ok(isBmadContextState(fixtureState),'Initiative UI fixture must satisfy the shipped contract')
+ return {projectId,name}
+}
+
+test('initiatives: diagnostics explicites dans le choix et le contexte même sans problems',async()=>{
+ await initiativeFixture()
+ for(const theme of ['dark','light']){
+  await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme)
+  for(const [status,label] of [['absent','Installation BMad non repérée'],['legacy-observed','Traces d’une ancienne installation BMad'],['unknown','Profil BMad non identifié'],['incompatible','Lecture du profil BMad refusée'],['partial','Observation BMad partielle'],['candidate-observed','Profil BMad candidat observé']]){
+   const state=await page.evaluate(async status=>{const state=await window.madnessBmadContext.read(),p=state.projects[0];p.observation.status=status;p.observation.problems=[];window.bmadContextUIFixture.set(state);return state},status)
+   assert.ok(isBmadContextState(state))
+   await page.getByRole('button',{name:'Choisir une initiative',exact:true}).click()
+   const modal=page.getByRole('dialog',{name:'Choisir une initiative',exact:true});await modal.getByText(label,{exact:true}).waitFor({timeout:4000})
+   await page.keyboard.press('Escape');await modal.waitFor({state:'detached'})
+   await page.getByRole('button',{name:'Contexte du projet',exact:true}).click()
+   const panel=page.locator('#project-context-panel');await panel.getByText(label,{exact:true}).waitFor({timeout:4000})
+   await panel.getByRole('button',{name:'Fermer le contexte du projet',exact:true}).click()
+  }
+ }
+})
+
+test('initiatives: conflit asynchrone reçu par abonnement vise seulement le projet courant',async()=>{
+ const {projectId}=await initiativeFixture()
+ await page.evaluate(()=>window.connectionUIFixture.asyncConflict(true))
+ await page.getByRole('button',{name:'Préparer Forge',exact:true}).click()
+ await page.getByRole('button',{name:'Vérifier le profil Forge',exact:true}).click()
+ await page.getByRole('button',{name:/Lancer Forge/}).click()
+ await page.evaluate(async projectId=>{const current=await window.madnessDialogue.read();window.connectionUIFixture.emitDialogue({...current,sequence:0,status:'error',errorCode:'CONTEXT_MISMATCH',context:{...current.context,projectId}})},projectId)
+ assert.equal(await page.locator('.initiative-dialog[open]').count(),0)
+ await page.evaluate(projectId=>window.connectionUIFixture.setDialogue({status:'error',errorCode:'CONTEXT_MISMATCH',invocation:'$bmad-forge-idea',context:{projectId,initiativeId:'alpha',conversationId:null,providerId:null,connectionId:null}}),projectId)
+ const modal=page.getByRole('dialog',{name:'Contexte à vérifier',exact:true});await modal.waitFor({timeout:4000})
+ await page.keyboard.press('Escape')
+ await page.evaluate(()=>window.connectionUIFixture.setDialogue({status:'error',errorCode:'CONTEXT_MISMATCH',invocation:'$bmad-forge-idea',context:{projectId:'foreign-project',initiativeId:'alpha',conversationId:null,providerId:null,connectionId:null}}))
+ assert.equal(await page.locator('.initiative-dialog[open]').count(),0)
+})
+test('initiatives: choix tardif après fermeture ne reprend ni focus ni nouvelle ouverture',async()=>{
+ for(const reopen of [false,true]){
+  await initiativeFixture();await page.getByRole('tab',{name:'Conversation',exact:true}).click()
+  await page.evaluate(()=>window.bmadContextUIFixture.deferChoices())
+  const trigger=page.getByRole('button',{name:'Choisir une initiative',exact:true});await trigger.click()
+  let modal=page.getByRole('dialog',{name:'Choisir une initiative',exact:true})
+  await modal.getByRole('button',{name:/^beta/}).click();await page.keyboard.press('Escape');await modal.waitFor({state:'detached'})
+  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))))
+  if(reopen){await trigger.click();modal=page.getByRole('dialog',{name:'Choisir une initiative',exact:true});await modal.getByRole('button',{name:'Fermer le choix d’initiative',exact:true}).focus()}
+  else{await page.locator('.composer textarea').fill('Saisie conservée après annulation');assert.equal(await page.locator('.composer textarea').evaluate(e=>e===document.activeElement),true)}
+  await page.evaluate(()=>window.bmadContextUIFixture.finishChoice())
+  await page.waitForFunction(async()=>{const s=await window.madnessBmadContext.read();return s.projects[0].selection?.initiativeId==='beta'})
+  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))))
+  if(reopen){assert.equal(await modal.count(),1);assert.equal(await modal.getByRole('button',{name:'Fermer le choix d’initiative',exact:true}).evaluate(e=>e===document.activeElement),true);await page.keyboard.press('Escape')}
+  else{assert.equal(await page.locator('.composer textarea').evaluate(e=>e===document.activeElement),true);assert.equal(await page.locator('.composer textarea').inputValue(),'Saisie conservée après annulation')}
+ }
+})
+test('initiatives: choix local, focus et brouillon conservés sans lancement ni réattribution',async()=>{
+ const {projectId}=await initiativeFixture()
+ await page.getByRole('tab',{name:'Conversation',exact:true}).click()
+ const draft=page.locator('.composer textarea');await draft.fill('Mon brouillon reste ici.')
+ const trigger=page.getByRole('button',{name:'Choisir une initiative',exact:true});await trigger.click()
+ const modal=page.getByRole('dialog',{name:'Choisir une initiative',exact:true})
+ await modal.waitFor();assert.equal(await modal.locator('[aria-pressed="true"]').evaluate(e=>e===document.activeElement),true)
+ await modal.getByRole('button',{name:/^beta/}).click();await modal.waitFor({state:'detached'})
+ assert.equal(await trigger.evaluate(e=>e===document.activeElement),true)
+ assert.equal(await draft.inputValue(),'Mon brouillon reste ici.')
+ assert.deepEqual(await page.evaluate(()=>window.bmadContextUIFixture.choices().map(c=>({projectId:c.projectId,initiativeId:c.initiativeId}))),[{projectId,initiativeId:'beta'}])
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+ await trigger.click();await page.keyboard.press('Escape');await modal.waitFor({state:'detached'})
+ assert.equal(await trigger.evaluate(e=>e===document.activeElement),true)
+})
+test('initiatives: consultation beta garde la demande alpha et sa réponse exacte',async()=>{
+ await initiativeFixture({question:true})
+ const trigger=page.getByRole('button',{name:'Choisir une initiative',exact:true});await trigger.click()
+ await page.getByRole('dialog',{name:'Choisir une initiative',exact:true}).getByRole('button',{name:/^beta/}).click()
+ const question=page.locator('[data-question-id="q-priority"]')
+ assert.match(await question.innerText(),/initiative-test/)
+ await question.getByRole('button',{name:'Envoyer cette réponse',exact:true}).click()
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.questionAnswers()),[{questionId:'q-priority',values:{answer:'Réponse propre à la demande'}}])
+})
+test('initiatives: conservation échouée et ancien résultat restent honnêtes',async()=>{
+ const {projectId}=await initiativeFixture();await page.evaluate(()=>window.bmadContextUIFixture.failSave(true))
+ await page.getByRole('button',{name:'Choisir une initiative',exact:true}).click()
+ await page.getByRole('dialog',{name:'Choisir une initiative',exact:true}).getByRole('button',{name:/^beta/}).click()
+ await page.getByText('Choix de session — non enregistré',{exact:true}).waitFor()
+ await page.evaluate(()=>window.bmadContextUIFixture.emitOld({contractVersion:1,sequence:0,projects:[]}))
+ await page.getByRole('button',{name:'Choisir une initiative',exact:true}).click()
+ const modal=page.getByRole('dialog',{name:'Choisir une initiative',exact:true})
+ await modal.getByRole('button',{name:'Réessayer l’enregistrement',exact:true}).waitFor()
+ assert.match(await modal.innerText(),/beta/)
+ await page.keyboard.press('Escape')
+})
+test('initiatives: clavier, noms longs, compact, deux thèmes et zoom200 sans fuite horizontale',async()=>{
+ for(const [theme,width,zoom] of [['dark',720,1],['light',1440,2]]){
+  await initiativeFixture({long:true})
+  await app.evaluate(({BrowserWindow},{width,zoom})=>{const w=BrowserWindow.getAllWindows()[0];w.setContentSize(width,920);w.webContents.setZoomFactor(zoom)},{width,zoom})
+  await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme)
+  await page.getByRole('button',{name:'Choisir une initiative',exact:true}).click()
+  const modal=page.getByRole('dialog',{name:'Choisir une initiative',exact:true})
+  const layout=await modal.evaluate(e=>({scroll:e.scrollWidth,client:e.clientWidth,width:e.getBoundingClientRect().width,viewport:innerWidth}))
+  assert.ok(layout.scroll<=layout.client+1,JSON.stringify(layout));assert.ok(layout.width<=layout.viewport,JSON.stringify(layout))
+  await page.keyboard.press('Escape')
+  assert.equal(await page.getByRole('button',{name:'Choisir une initiative',exact:true}).evaluate(e=>e===document.activeElement),true)
+ }
+})
+
+
+test('initiatives: couleurs locales lisibles et métadonnées alignées dans le thème clair',async()=>{
+ await initiativeFixture();await page.evaluate(()=>document.documentElement.dataset.theme='light')
+ await page.getByRole('button',{name:'Choisir une initiative',exact:true}).click()
+ const modal=page.getByRole('dialog',{name:'Choisir une initiative',exact:true})
+ await page.evaluate(async()=>{
+  const state=await window.madnessBmadContext.read();state.projects[0].error='Choix conservé pour cette session — enregistrement échoué.';state.projects[0].storage='failed';window.bmadContextUIFixture.set(state)
+ })
+ await modal.getByRole('alert').waitFor()
+ const styles=await modal.evaluate(el=>{
+  const first=el.querySelector('p'),status=el.querySelector('p[role="status"]'),error=el.querySelector('[role="alert"]'),option=el.querySelector('.initiative-option'),meta=option.querySelector('span')
+  const css=e=>getComputedStyle(e)
+  return {background:css(el).backgroundColor,intro:css(first).color,status:css(status).color,error:css(error).color,errorBackground:css(error).backgroundColor,alignment:css(option).alignItems,textAlign:css(option).textAlign,metadataFont:css(meta).fontFamily,metadataWeight:css(meta).fontWeight}
+ })
+ const luminance=value=>{const parts=value.match(/[0-9.]+/g).slice(0,3).map(Number).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4});return .2126*parts[0]+.7152*parts[1]+.0722*parts[2]}
+ const contrast=(a,b)=>{const values=[luminance(a),luminance(b)].sort((a,b)=>b-a);return (values[0]+.05)/(values[1]+.05)}
+ assert.ok(contrast(styles.intro,styles.background)>=4.5,JSON.stringify(styles))
+ assert.ok(contrast(styles.status,styles.background)>=4.5,JSON.stringify(styles))
+ assert.ok(contrast(styles.error,styles.errorBackground)>=4.5,JSON.stringify(styles))
+ assert.equal(styles.alignment,'flex-start');assert.equal(styles.textAlign,'left')
+ assert.match(styles.metadataFont,/Oxanium/);assert.equal(styles.metadataWeight,'450')
+ assert.equal(await modal.locator('.initiative-option :is(button,a,summary,input)').count(),0)
+ await page.keyboard.press('Escape')
+})
+test('initiatives: seul un échange porte le libellé de capture, indépendamment du choix local',async()=>{
+ const {projectId}=await initiativeFixture()
+ assert.equal(await page.locator('.project-banner > .context-note').count(),0)
+ const context={projectId,initiativeId:'alpha',conversationId:'captured-conversation',providerId:'codex',connectionId:'account-1'}
+ await page.evaluate(context=>window.connectionUIFixture.setSnapshot({conversations:[{id:context.conversationId,context,lastKnownActivity:'idle',messages:[]}]}),context)
+ await page.getByText('Initiative capturée par cet échange : alpha',{exact:true}).waitFor()
+ await page.getByRole('button',{name:'Choisir une initiative',exact:true}).click()
+ await page.getByRole('dialog',{name:'Choisir une initiative',exact:true}).getByRole('button',{name:/^beta/}).click()
+ await page.getByText('Initiative capturée par cet échange : alpha',{exact:true}).waitFor()
+ await page.evaluate(context=>window.connectionUIFixture.setSnapshot({conversations:[{id:context.conversationId,context:{...context,initiativeId:null},lastKnownActivity:'idle',messages:[]}]}),context)
+ await page.getByText('Initiative capturée par cet échange : non identifiée',{exact:true}).waitFor()
+})
+test('initiatives: choix courant focalisé sans masquer titre et fermeture au compact et zoom200',async()=>{
+ for(const [width,zoom] of [[600,1],[1440,2]]){
+  await initiativeFixture()
+  await app.evaluate(({BrowserWindow},{width,zoom})=>{const w=BrowserWindow.getAllWindows()[0];w.setContentSize(width,820);w.webContents.setZoomFactor(zoom)},{width,zoom})
+  await page.evaluate(async()=>{
+   const state=await window.madnessBmadContext.read(),p=state.projects[0],template=p.observation.initiatives[0]
+   p.observation.initiatives=[template,...Array.from({length:30},(_,n)=>{const id='initiative-'+(n+1);return {...template,id,name:id,path:'C:/project/_bmad-output/'+id,source:'C:/project/_bmad-output/'+id+'/'+id+'.md'}})]
+   p.selection.initiativeId='initiative-30';window.bmadContextUIFixture.set(state)
+  })
+  const trigger=page.getByRole('button',{name:'Choisir une initiative',exact:true});await trigger.click()
+  const modal=page.getByRole('dialog',{name:'Choisir une initiative',exact:true}),selected=modal.locator('[aria-pressed="true"]')
+  assert.equal(await selected.evaluate(e=>e===document.activeElement),true)
+  const bounds=await modal.evaluate(el=>{
+   const box=e=>{const r=e.getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right}}
+   return {modal:box(el),title:box(el.querySelector('h2')),close:box(el.querySelector('[aria-label="Fermer le choix d’initiative"]')),selected:box(el.querySelector('[aria-pressed="true"]')),height:innerHeight}
+  })
+  assert.ok(bounds.title.top>=bounds.modal.top&&bounds.title.bottom<=bounds.height,JSON.stringify(bounds))
+  assert.ok(bounds.close.top>=bounds.modal.top&&bounds.close.bottom<=bounds.height,JSON.stringify(bounds))
+  assert.ok(bounds.selected.top>=bounds.title.bottom,JSON.stringify(bounds))
+  const details=selected.locator('..').locator('.initiative-evidence')
+  assert.equal(await details.evaluate(e=>e.open),false)
+  await details.locator('summary').click()
+  assert.match(await details.innerText(),/Révision/)
+  assert.equal(await modal.getByRole('button',{name:'Fermer le choix d’initiative'}).isVisible(),true)
+  await page.keyboard.press('Escape');assert.equal(await trigger.evaluate(e=>e===document.activeElement),true)
+ }
+})
+
 const portraitButton=name=>page.getByRole('button',{name:'Fiche de '+name,exact:true})
 
 test('barre : les emprises de déplacement sont séparées des quatre commandes',async t=>{

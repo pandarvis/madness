@@ -1,0 +1,42 @@
+/* Consultation locale dans les surfaces et les deux voix de l’atelier. */
+.initiative-control { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; min-width: 0; margin-block: 6px 10px; }
+.initiative-trigger { display: inline-flex; align-items: center; gap: 10px; max-width: 100%; min-height: 44px; text-align: left; }
+.initiative-trigger span { overflow-wrap: anywhere; min-width: 0; }
+.initiative-trigger svg { flex: none; }
+.initiative-dialog { width: min(760px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); box-sizing: border-box; overflow: hidden; background: var(--panel); color: var(--text); border: 1px solid var(--control-line); border-radius: 3px; padding: 0; box-shadow: 0 12px 42px var(--panel-shadow); }
+.initiative-dialog[open] { display: flex; flex-direction: column; }
+.initiative-dialog::backdrop { background: var(--backdrop); }
+.initiative-dialog .initiative-dialog-header { flex: none; gap: 16px; align-items: flex-start; margin: 0; padding: 20px 24px 14px; background: var(--panel); border-bottom: 1px solid var(--line); }
+.initiative-dialog .initiative-dialog-header h2 { min-width: 0; flex: 1; margin: 0; font-size: 28px; color: var(--text); overflow-wrap: anywhere; }
+.initiative-dialog .initiative-dialog-header button { flex: none; min-width: 40px; min-height: 40px; padding: 6px; }
+.initiative-dialog-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; padding: 8px 24px 24px; scrollbar-gutter: stable; }
+.initiative-dialog .initiative-dialog-body p { max-width: 70ch; color: var(--text); overflow-wrap: anywhere; }
+.initiative-dialog .initiative-dialog-body > p[role="status"] { color: var(--muted); }
+.initiative-dialog .initiative-dialog-body .connection-error { color: var(--error-text); background: var(--error); }
+.initiative-dialog code { overflow-wrap: anywhere; white-space: normal; }
+.initiative-dialog :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.initiative-summary { margin-block: 16px; }
+.initiative-summary dt { margin-top: 12px; font-weight: 650; }
+.initiative-summary dd { margin: 4px 0 0; overflow-wrap: anywhere; }
+.initiative-context-evidence { margin-block: 12px 20px; }
+.initiative-conflict { margin-block: 20px; padding-block: 12px; border-block: 1px solid var(--control-line); }
+.initiative-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.initiative-list { list-style: none; padding: 0; margin-block: 20px; }
+.initiative-list li + li { margin-top: 16px; }
+.initiative-dialog .initiative-list .initiative-option { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 6px; width: 100%; text-align: left; padding: 14px 16px; min-height: 44px; background: var(--surface); color: var(--text); border: 1px solid var(--control-line); border-radius: 3px; }
+.initiative-dialog .initiative-option strong { font-family: 'Barlow Condensed', 'Segoe UI', sans-serif; font-size: 23px; font-weight: 700; overflow-wrap: anywhere; }
+.initiative-dialog .initiative-option span, .initiative-dialog .initiative-evidence, .initiative-context-evidence { font-family: 'Oxanium', 'Segoe UI', sans-serif; font-size: 14px; font-weight: 450; line-height: 1.55; letter-spacing: normal; }
+.initiative-dialog .initiative-option span, .initiative-dialog .initiative-option code { max-width: 100%; overflow-wrap: anywhere; }
+.initiative-dialog .initiative-option code, .initiative-dialog .initiative-evidence code { font-family: Consolas, monospace; font-size: 14px; font-weight: 400; line-height: 1.55; letter-spacing: normal; }
+.initiative-dialog .initiative-list .initiative-option:hover { background: var(--hover); }
+.initiative-dialog .initiative-list .initiative-option[aria-pressed="true"] { background: var(--selected); color: var(--selected-text); }
+.initiative-dialog .initiative-list .initiative-option[aria-disabled="true"], .initiative-dialog .initiative-list .initiative-option:disabled { opacity: .65; cursor: not-allowed; }
+.initiative-evidence { margin: 8px 16px 0; overflow-wrap: anywhere; }
+.initiative-evidence dt, .initiative-evidence dd { margin: 4px 0; font-size: 14px; font-weight: 450; }
+.initiative-evidence dt { margin-top: 12px; }
+@media (max-width: 720px) {
+ .initiative-dialog { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); }
+ .initiative-dialog .initiative-dialog-header { padding: 12px 16px; }
+ .initiative-dialog-body { padding: 4px 16px 16px; }
+ .initiative-actions > button { flex: 1 1 100%; }
+}

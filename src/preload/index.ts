@@ -86,3 +86,13 @@ const helpRequest=async(payload:Record<string,unknown>):Promise<HelpState>=>{
 const helpBridge:HelpBridge={read:()=>helpRequest({type:'read'}),prepare:projectId=>helpRequest({type:'prepare',projectId}),copy:()=>helpRequest({type:'copy'}),retrySave:conversationId=>helpRequest({type:'retry-save',conversationId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isHelpState(value))listener(value)};ipcRenderer.on(HELP_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(HELP_EVENT_CHANNEL,receive)}}
 contextBridge.exposeInMainWorld('madnessHelp',Object.freeze(helpBridge))
 
+import {BMAD_CONTEXT_COMMAND_CHANNEL,BMAD_CONTEXT_EVENT_CHANNEL,isBmadContextState} from '../contracts/bmad-context.ts'
+import type {BmadContextBridge,BmadContextState} from '../contracts/bmad-context.ts'
+const contextRequest=async(payload:Record<string,unknown>):Promise<BmadContextState>=>{
+ const correlationId=crypto.randomUUID(),reply:unknown=await ipcRenderer.invoke(BMAD_CONTEXT_COMMAND_CHANNEL,{...payload,contractVersion:1,correlationId})
+ if(!reply||typeof reply!=='object'||!('state' in reply)||!('correlationId' in reply)||reply.correlationId!==correlationId||!isBmadContextState(reply.state))throw Error('INVALID_CONTEXT_REPLY')
+ return reply.state
+}
+const bmadContextBridge:BmadContextBridge={read:()=>contextRequest({type:'read'}),observe:projectId=>contextRequest({type:'observe',projectId}),choose:(projectId,initiativeId,revision)=>contextRequest({type:'choose',projectId,initiativeId,revision}),retrySave:projectId=>contextRequest({type:'retry-save',projectId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isBmadContextState(value))listener(value)};ipcRenderer.on(BMAD_CONTEXT_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(BMAD_CONTEXT_EVENT_CHANNEL,receive)}}
+contextBridge.exposeInMainWorld('madnessBmadContext',Object.freeze(bmadContextBridge))
+

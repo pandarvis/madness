@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "ticket": "2.3",
+  "baseline": "03c288066e3105974c7a90041688c01d5df687e8",
+  "frozenBlockLF": "0893413f8a68a2ed842350ddf29b59356e350d3e880718eeef0f6259e66eccba",
+  "status": "built",
+  "softwareVersion": "0.2.7",
+  "candidate": "dist/initiatives-2-3-reviewed-003",
+  "asar": "fa8feb16b2cef5de623047dca390c595447530688c48d05d29d40977f89bfd19",
+  "tests": {
+    "coreProtocolFoundation": 171,
+    "ui": 15,
+    "forgeWindows": 10,
+    "approvalsWithinCore": 29,
+    "sourcesWindowsWithUnchangedHelper": 25,
+    "nativeMain": 8,
+    "skipped": 0
+  },
+  "nativeInputs": 16,
+  "packagedOutputs": 19,
+  "helperResources": 13,
+  "protectedDocumentsUnchanged": 20,
+  "review": {
+    "quick": "resolved targeted findings",
+    "boundaries": "R2B1/R2B2/P3 resolved; no direct regression",
+    "deferredFixes": []
+  },
+  "impeccable": {
+    "detectorRuns": 1,
+    "initialFindings": [],
+    "finish": "ship, scoped as documented",
+    "nativeRoleSubstitution": "Fresh technical reviewers loaded official definitions",
+    "designPreserved": true
+  },
+  "cleanup": {
+    "main": true,
+    "ui": "verified-before-delete",
+    "temporaryCaptureHelpersRemoved": true,
+    "personalProfileChanged": false
+  },
+  "deferred": "2.2/M14 native review explicitly deferred; no network/OAuth/model probe",
+  "limits": [
+    "Native file symlink not exercised: Windows privilege limit.",
+    "Native network/app-server observation is after-hook only.",
+    "No personal installation/replacement, broad human visual acceptance or global WCAG assertion."
+  ],
+  "updatedAt": "2026-11-03T19:30:30.877Z",
+  "nativeBoard": {
+    "ticket": 3,
+    "state": "review",
+    "readyToStart": [
+      {
+        "id": 4,
+        "title": "Lire le parcours et ses preuves à la bonne révision"
+      }
+    ],
+    "deferredNativeReview": "2.2/M14"
+  }
+}

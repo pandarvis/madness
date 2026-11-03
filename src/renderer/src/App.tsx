@@ -1,3 +1,4 @@
+import {InitiativeSelector,InitiativeContext,useBmadContext} from './InitiativeSelector.tsx'
 import {HelpPanel,HelpReceiptPanel,useBmadHelp} from './HelpPanel.tsx'
 import {agentPresentation} from './agentPresentation.ts'
 import {AgentPortrait} from './AgentPortrait.tsx'
@@ -91,6 +92,8 @@ function WorkflowResult({workflow,onCopy}:{workflow:WorkflowRecord;onCopy:(conve
 
 export function App({ initialAppearance = window.madnessAppearance.initial, appearanceReadFailed = false }: { initialAppearance?: AppearanceState; appearanceReadFailed?: boolean } = {}): ReactNode {
   const [helpState,acceptHelp]=useBmadHelp()
+  const [bmadContext,acceptBmadContext]=useBmadContext()
+  const [initiativeConflict,setInitiativeConflict]=useState(false)
   const [state, setState] = useState<AppState | null>(null)
   const [page, setPage] = useState<'home' | 'project'>('home')
   const navigationToken=useRef(0)
@@ -136,6 +139,10 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const connectionBlocked = ['ENCRYPTION_UNAVAILABLE', 'VAULT_UNREADABLE', 'REGISTRATION_INVALID'].includes(connection.errorCode ?? '')
   const connectionLabel = 'Connexion Codex : ' + fr.connectionStatus[connection.status]
   const project = state?.projects.find((p) => p.id === state.activeProjectId)
+  const initiativeContext=bmadContext.projects.find(p=>p.projectId===project?.id)
+  const currentProjectId=useRef<string|undefined>(undefined),dialogueSequence=useRef(-1)
+  currentProjectId.current=page==='project'?project?.id:undefined
+  useEffect(()=>{if(project&&window.madnessBmadContext)void window.madnessBmadContext.observe(project.id).then(acceptBmadContext).catch(()=>{});setInitiativeConflict(false)},[project?.id])
   const saved = state?.drafts.find((d) => d.projectId === project?.id)
   const text = project ? texts[project.id] ?? saved?.text ?? '' : ''
   const dirty = text !== (saved?.text ?? '')
@@ -273,7 +280,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   }
   useEffect(() => { void load() }, [])
   useEffect(() => window.madness.onStateChanged?.(() => { void window.madness.readState().then(accept).catch(() => setError('Le contexte du dialogue ne peut pas être relu. Votre saisie reste disponible.')) }), [])
-  function acceptDialogue(next: DialogueState): void { setDialogue(current => next.sequence >= current.sequence ? next : current) }
+  function acceptDialogue(next: DialogueState): void { if(next.sequence<dialogueSequence.current)return;dialogueSequence.current=next.sequence;setDialogue(next);const launch=pendingLaunch.current;if(next.errorCode==='CONTEXT_MISMATCH'&&next.status==='error'&&launch&&next.sequence>launch.sequence&&launch.token===navigationToken.current&&launch.projectId===currentProjectId.current&&(next.context.projectId===null||next.context.projectId===launch.projectId)&&(next.invocation==='$bmad'||next.invocation==='$bmad-forge-idea'))setInitiativeConflict(true) }
   function changeApproval(approval:ApprovalRecord,adjustment:string):void{
     const id=approval.id;setApprovalDrafts(current=>({...current,[id]:adjustment}))
     const previous=approvalWrites.current.get(id)??Promise.resolve()
@@ -308,6 +315,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     const projectId = project?.id
     if (action !== 'stop' && action !== 'observeStop' && !projectId) return
     const launching=action==='launch'||action==='launchForge'||action==='launchHelp'
+    if((action==='launchForge'||action==='launchHelp')&&initiativeContext?.observation?.activeInitiative&&initiativeContext.selection?.initiativeId!==initiativeContext.observation.activeInitiative){setInitiativeConflict(true);return}
     const launch=launching?{token:++navigationToken.current,projectId:projectId!,previousConversationId:dialogue.context.conversationId,sequence:dialogue.sequence}:null
     if(launch){pendingLaunch.current=launch;setFocusTarget(null)}
     setDialoguePending(true)
@@ -401,7 +409,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     {state?.projects.map(p => <button key={p.id} className={'nav-button project-link ' + (page === 'project' && p.id === project?.id ? 'selected' : '')} aria-label={'Ouvrir le projet ' + p.name} aria-current={page === 'project' && p.id === project?.id ? 'page' : undefined} title={p.name + '\n' + p.rootPath} disabled={pending} onClick={() => select(p.id)}><span className="project-glyph" aria-hidden="true"><ProjectMark name={p.name} /></span><span className="nav-label truncate">{p.name}</span></button>)}
     {!state?.projects.length && <p className="nav-note nav-label">Vos dossiers ouverts apparaîtront ici.</p>}
   </>
-  return <div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>captureRequestFocus(event.target)} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open) return; if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
+  return <div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>captureRequestFocus(event.target)} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open||document.querySelector('.initiative-dialog[open]')) return; if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
     <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>Aller au contenu</a>
     <header className="topbar" onMouseLeave={()=>setTooltipsDismissed(false)} onFocusCapture={()=>setTooltipsDismissed(false)}>
       <div className="breadcrumb">
@@ -450,7 +458,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
           <div className="main-inner">
             {error && <div className="error-message" role="alert"><strong>L’opération n’a pas abouti</strong><p>{error}</p>{!state && <button className="secondary" onClick={() => void load()} disabled={pending}>Relire le contexte local</button>}</div>}
             {state&&(page==='home'||!project?<div className="page-intro atelier-header"><div><h1 ref={heading} tabIndex={-1}>Vos projets, au même endroit</h1><p>Retrouvez un dossier et préparez la suite de votre travail.</p></div></div>:<><div className="atelier-header project-banner"><div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><button className="toolbar-toggle command-control context-trigger" type="button" ref={contextTrigger} aria-label="Contexte du projet" aria-expanded={contextOpen} aria-controls="project-context-panel" aria-haspopup="dialog" onFocus={()=>setTooltipsDismissed(false)} onMouseLeave={()=>setTooltipsDismissed(false)} onClick={()=>{if(contextOpen)closeContext();else{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(true)}}}><Icon name="panel"/><span className="command-tooltip" aria-hidden="true">Contexte du projet</span></button></div>
-              <p className="context-note">{conversation?.context.initiativeId ? 'Initiative capturée : ' + conversation.context.initiativeId : 'Initiative non identifiée'}</p>
+              <InitiativeSelector key={project.id} projectId={project.id} project={initiativeContext} accept={acceptBmadContext} onOpen={()=>{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(false)}} priority={!!planConfirmation.current?.open||!!drawer.current?.open} conflict={initiativeConflict} onDismissConflict={()=>setInitiativeConflict(false)}/>
+              {conversation&&<p className="context-note">Initiative capturée par cet échange : {conversation.context.initiativeId??'non identifiée'}</p>}
               </div>
               <div className="project-tabs" role="tablist" aria-label="Vues du projet">{(['parcours', 'conversation'] as const).map((item) => <button key={item} id={'tab-' + item} type="button" role="tab" aria-selected={tab === item} aria-controls={'panel-' + item} tabIndex={tab === item ? 0 : -1} onClick={() => chooseTab(item)} onKeyDown={(event) => { if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) { event.preventDefault(); const next = item === 'parcours' ? 'conversation' : 'parcours'; const selected = event.key === 'Home' ? 'parcours' : event.key === 'End' ? 'conversation' : next; chooseTab(selected); document.getElementById('tab-' + selected)?.focus() } }}>{item === 'parcours' ? 'Parcours' : 'Conversation'}</button>)}</div>
 </>)}
@@ -537,7 +546,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       </div>
     </div>
     </div>
-        {contextOpen && page === 'project' && project && <section id="project-context-panel" className="context-panel" role="dialog" aria-modal="false" aria-labelledby="project-context-title"><div className="connection-heading"><h2 id="project-context-title" ref={contextHeading} tabIndex={-1}>Contexte du projet</h2><button type="button" aria-label="Fermer le contexte du projet" onClick={closeContext}><Icon name="close"/></button></div><p>Source : dossier choisi via Windows.</p><dl><dt>Dossier canonique</dt><dd><code>{project.rootPath}</code></dd><dt>Conversation sélectionnée</dt><dd><code>{conversation?.id??'Aucune'}</code></dd><dt>Initiative capturée</dt><dd>{conversation?.context.initiativeId ?? 'Non identifiée'}</dd><dt>Conservation</dt><dd>Échanges, observations et brouillon dans les données locales de Madness.</dd><dt>Activité</dt><dd>{dialogueHere ? displayedDialogueStatus : 'Aucun agent actif dans ce projet'}</dd><dt>Fournisseur</dt><dd>Codex · connexion propre à Madness</dd><dt>Fichiers du projet</dt><dd>{workflow?'Écritures bornées à la nouvelle session Forge capturée.':'Mary en lecture seule par défaut ; mode fichiers avec approbation à activer avant lancement.'}</dd></dl></section>}
+        {contextOpen && page === 'project' && project && <section id="project-context-panel" className="context-panel" role="dialog" aria-modal="false" aria-labelledby="project-context-title"><div className="connection-heading"><h2 id="project-context-title" ref={contextHeading} tabIndex={-1}>Contexte du projet</h2><button type="button" aria-label="Fermer le contexte du projet" onClick={closeContext}><Icon name="close"/></button></div><p>Source : dossier choisi via Windows.</p><dl><dt>Dossier canonique</dt><dd><code>{project.rootPath}</code></dd><dt>Conversation sélectionnée</dt><dd><code>{conversation?.id??'Aucune'}</code></dd><InitiativeContext project={initiativeContext}/><dt>Initiative capturée par la conversation</dt><dd>{conversation?conversation.context.initiativeId??'Non identifiée':'Aucune conversation sélectionnée'}</dd><dt>Conservation</dt><dd>Échanges, observations et brouillon dans les données locales de Madness.</dd><dt>Activité</dt><dd>{dialogueHere ? displayedDialogueStatus : 'Aucun agent actif dans ce projet'}</dd><dt>Fournisseur</dt><dd>Codex · connexion propre à Madness</dd><dt>Fichiers du projet</dt><dd>{workflow?'Écritures bornées à la nouvelle session Forge capturée.':'Mary en lecture seule par défaut ; mode fichiers avec approbation à activer avant lancement.'}</dd></dl></section>}
     <dialog id="navigation-drawer" className="navigation-drawer" ref={drawer} aria-labelledby="drawer-title" onClose={() => drawerTrigger.current?.focus()} onClick={(event) => { if (event.target === drawer.current) closeDrawer() }}>
       <div className="drawer-heading"><h2 id="drawer-title">{fr.app}</h2><button aria-label="Fermer la navigation" onClick={closeDrawer}><Icon name="close" /></button></div><nav aria-label="Projets en fenêtre compacte">{navigation}</nav>
     </dialog>

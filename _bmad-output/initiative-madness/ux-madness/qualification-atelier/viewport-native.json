@@ -1,0 +1,732 @@
+{
+  "status": "passed",
+  "measurements": [
+    {
+      "requested": {
+        "width": 1323,
+        "height": 920
+      },
+      "actual": {
+        "width": 1324,
+        "height": 920,
+        "layoutWidth": 1324,
+        "devicePixelRatio": 1.25,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          1324,
+          920
+        ],
+        "zoomFactor": 1
+      },
+      "exact": false,
+      "limitation": "Native Windows sizing quantization: actual CSS viewport differs by at most 1px; every required layout breakpoint is preserved.",
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 1323,
+            "height": 920
+          },
+          "native": {
+            "contentSize": [
+              1324,
+              920
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1324,
+            "height": 920,
+            "layoutWidth": 1324,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        },
+        {
+          "requestedNative": {
+            "width": 1322,
+            "height": 920
+          },
+          "native": {
+            "contentSize": [
+              1322,
+              920
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1322,
+            "height": 920,
+            "layoutWidth": 1322.4000244140625,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        },
+        {
+          "requestedNative": {
+            "width": 1324,
+            "height": 920
+          },
+          "native": {
+            "contentSize": [
+              1324,
+              920
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1324,
+            "height": 920,
+            "layoutWidth": 1324,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        },
+        {
+          "requestedNative": {
+            "width": 1323,
+            "height": 919
+          },
+          "native": {
+            "contentSize": [
+              1324,
+              920
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1324,
+            "height": 920,
+            "layoutWidth": 1324,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        },
+        {
+          "requestedNative": {
+            "width": 1323,
+            "height": 921
+          },
+          "native": {
+            "contentSize": [
+              1324,
+              921
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1324,
+            "height": 922,
+            "layoutWidth": 1324,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        },
+        {
+          "requestedNative": {
+            "width": 1322,
+            "height": 919
+          },
+          "native": {
+            "contentSize": [
+              1322,
+              920
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1322,
+            "height": 920,
+            "layoutWidth": 1322.4000244140625,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        },
+        {
+          "requestedNative": {
+            "width": 1324,
+            "height": 919
+          },
+          "native": {
+            "contentSize": [
+              1324,
+              920
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1324,
+            "height": 920,
+            "layoutWidth": 1324,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        },
+        {
+          "requestedNative": {
+            "width": 1322,
+            "height": 921
+          },
+          "native": {
+            "contentSize": [
+              1322,
+              921
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1322,
+            "height": 922,
+            "layoutWidth": 1322.4000244140625,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        },
+        {
+          "requestedNative": {
+            "width": 1324,
+            "height": 921
+          },
+          "native": {
+            "contentSize": [
+              1324,
+              921
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1324,
+            "height": 922,
+            "layoutWidth": 1324,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        },
+        {
+          "requestedNative": {
+            "width": 1323,
+            "height": 920
+          },
+          "native": {
+            "contentSize": [
+              1324,
+              920
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1324,
+            "height": 920,
+            "layoutWidth": 1324,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ],
+      "panelRole": "region",
+      "nativeModal": false
+    },
+    {
+      "requested": {
+        "width": 1322,
+        "height": 920
+      },
+      "actual": {
+        "width": 1322,
+        "height": 920,
+        "layoutWidth": 1322.4000244140625,
+        "devicePixelRatio": 1.25,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          1322,
+          920
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 1322,
+            "height": 920
+          },
+          "native": {
+            "contentSize": [
+              1322,
+              920
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1322,
+            "height": 920,
+            "layoutWidth": 1322.4000244140625,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ],
+      "panelRole": "dialog",
+      "nativeModal": true
+    }
+  ],
+  "captures": [],
+  "cleanup": true,
+  "activity": {
+    "schemaVersion": 1,
+    "afterHookOnly": true,
+    "startedAt": "2026-11-02T17:26:53.779Z",
+    "complete": true,
+    "attached": true,
+    "network": 0,
+    "appServerAttempts": 0,
+    "appServers": 0,
+    "appServerCloses": 0
+  },
+  "close": {
+    "main": {
+      "pid": 35856,
+      "startedAt": "639292372062740968",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\node_modules\\electron\\dist\\electron.exe"
+    },
+    "wrapperPid": 10092,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-02T17:26:53.779Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  }
+}

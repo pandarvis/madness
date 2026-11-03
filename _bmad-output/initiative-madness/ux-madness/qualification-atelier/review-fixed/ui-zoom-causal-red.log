@@ -1,0 +1,35 @@
+{"fixtureViewportBeforeMount":{"profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-8GLkQT\\profile","zoomFactor":1,"contentSize":[586,737],"innerWidth":586,"innerHeight":738,"devicePixelRatio":1.25}}
+{"fixtureViewportBeforeMount":{"profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-8GLkQT\\profile","zoomFactor":1,"contentSize":[586,737],"innerWidth":586,"innerHeight":738,"devicePixelRatio":1.25}}
+✔ atelier : arrivée visible au-dessus du rôle à600×650 et zoom200 sans déplacement de focus ni décision (28662.9873ms)
+ℹ {"zoom":1,"height":651,"status":{"top":84,"bottom":102,"width":550.4000244140625,"height":18},"button":{"top":106,"bottom":146,"width":138.5749969482422,"height":40},"body":{"top":154.8000030517578,"bottom":643.1999969482422,"width":582.4000244140625,"height":488.3999938964844},"bodyScroll":0,"focus":"agent-info-title"}
+ℹ {"zoom":2,"height":325,"status":{"top":84.80000305175781,"bottom":120.80000305175781,"width":250,"height":36},"button":{"top":124.80000305175781,"bottom":164.8000030517578,"width":138.56875610351562,"height":40},"body":{"top":185.1999969482422,"bottom":317.6000061035156,"width":282,"height":132.40000915527344},"bodyScroll":0,"focus":"agent-info-title"}
+{"fixtureViewportBeforeMount":{"profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-8GLkQT\\profile","zoomFactor":2,"contentSize":[586,737],"innerWidth":293,"innerHeight":369,"devicePixelRatio":2.5}}
+✖ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (10956.8703ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-8GLkQT\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-8GLkQT\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 43460.3794
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:241:1
+✖ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (10956.8703ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/madness-atelier-ui/madness/tests/connection-ui.test.mjs:247:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

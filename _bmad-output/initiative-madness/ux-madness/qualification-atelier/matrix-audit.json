@@ -1,0 +1,73 @@
+{
+  "phase": "Step3 complete; all U1–U10 covered by executed green cases and final packaged checks",
+  "coverage": {
+    "U1": [
+      "ui-full-45-green.log",
+      "visual-round1.json",
+      "second packaged visual matrix required"
+    ],
+    "U2": [
+      "atelier : seuls les sept auteurs attestés exacts ont un portrait",
+      "atelier : fiche dockée locale"
+    ],
+    "U3": [
+      "atelier : seuls les sept auteurs attestés exacts ont un portrait",
+      "unknown restoration in workspace matrix"
+    ],
+    "U4": [
+      "atelier : fiche dockée locale",
+      "atelier : modale étroite inerte",
+      "atelier : source disparue ferme la fiche"
+    ],
+    "U5": [
+      "ui-visual-fixes-one-green.log:8size/themecombinations",
+      "ui-visual-fixes-four-green.log",
+      "layout-native-after.json",
+      "final package matrix required"
+    ],
+    "U6": [
+      "atelier : arrivée question, approbation et récupération",
+      "approbation expose tout le patch",
+      "expiration et décision retirent leurs contrôles"
+    ],
+    "U7": [
+      "atelier : fiche dockée locale:exact selection3..11",
+      "le thème change au clavier sans perdre le brouillon",
+      "workspace save/reopen"
+    ],
+    "U8": [
+      "atelier : aides partielles et reçus non conservés",
+      "ui-full-45-green.log"
+    ],
+    "U9": [
+      "atelier : seuls les sept auteurs attestés exacts ont un portrait:image error fallback",
+      "font-protocol-scoped.json",
+      "layout-native-after.json"
+    ],
+    "U10": [
+      "visual-round1.json:explicit-save-close-reopen-exact-draft-history-preferences-annexes-no-network-or-app-server-after-hook",
+      "final package matrix required"
+    ]
+  },
+  "tests": {
+    "uniqueUi": 46,
+    "fullPreviousSource": 45,
+    "addedFocused": 1,
+    "existingAffectedFocused": 4,
+    "skipInExecutedSets": 0,
+    "monolithic46Green": false
+  },
+  "backend": {
+    "unchangedPrevious2_2": 351,
+    "notRerunForPresentation": true
+  },
+  "finalPackage": {
+    "asarSha256": "fa4133881785fa1f70e4a8c4dd2ad2121555751797df10396aa4e70fdb1c14b4",
+    "checks": 13,
+    "windows": 5,
+    "captures": 24,
+    "inertAfterHook": true,
+    "cleanup": true,
+    "contextRecaptureChecks": 2
+  }
+}

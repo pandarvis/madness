@@ -1,0 +1,18 @@
+✔ atelier : les couleurs Windows suivent le chrome des deux thèmes et les couples de lecture restent contrastés (18.3936ms)
+✔ le protocole d’apparence refuse les valeurs hors enum et les propriétés supplémentaires (1.2963ms)
+✔ l’amorçage accepte uniquement les arguments natifs enum et refuse les doublons (0.5105ms)
+✔ un profil neuf reste sombre sans écrire et un choix explicite est restauré séparément du Snapshot (96.9352ms)
+✔ un fichier invalide ou futur reste intact tandis que le choix de session fonctionne (134.1509ms)
+✔ une écriture refusée conserve le choix de session et nettoie les fichiers atomiques (51.8138ms)
+✔ les choix concurrents sont écrits dans l’ordre sans fichier temporaire restant (147.6518ms)
+✔ la fermeture du wrapper ne prouve pas la disparition du vrai Main Windows (3.3421ms)
+✔ la fermeture exige événement close, Main absent et observation complète sans app-server (0.9604ms)
+✔ le compteur passif transmet spawn inchangé sans conserver args, env ni transport (3.7615ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1355.0384

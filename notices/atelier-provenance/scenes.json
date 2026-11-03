@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "status": "ready_for_integration_review",
+  "tool": "image_gen.imagegen intégré",
+  "referencePath": "C:/Users/UP60066553/.codex/worktrees/madness-atelier-ui/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png",
+  "assets": [
+    {
+      "id": "header",
+      "file": "workshop-header.png",
+      "sourcePath": "C:/Users/UP60066553/.codex/generated_images/01a19c73-e79f-73c0-aa0e-8e6b83981390/exec-cc628efa-f89a-4d51-9524-288787e4a707.png",
+      "targetPath": "C:/Users/UP60066553/.codex/worktrees/madness-atelier-ui/madness/_bmad-output/initiative-madness/.working/atelier-scene-assets/workshop-header.png",
+      "prompt": "Use case: stylized-concept\nAsset type: workshop-header.png, an opaque original environment illustration for the approved Madness atelier visual system.\nInput image: approved atelier-reference-approuvee.png is a visual style, materials, palette and workshop-world reference only. Create environmental artwork; do not reproduce its interface, typography, frame, buttons or character portraits.\nPrimary request: a very wide horizontal panoramic view of the same original workshop desk and shelves. Landscape canvas approximately 3:1, ideally 1536 x 512; full-bleed opaque painting, no letterboxing. Intended display is a shallow banner only 110–150 px high, so use large simple readable forms and a low visual density.\nComposition: the entire LEFT HALF must stay calm, dark and low contrast: nearly empty matte warm-anthracite and deep blue-petrol painted workshop wall, with only soft understated material variation. This is intentionally clear negative space for a real HTML title that will be added separately; do not draw any text. Gradually introduce a desk and broad stacks of unlabelled closed work folders, a few loose plans and rolled drafting paper toward the center-right. Shelves and neatly grouped workshop materials sit behind the desk on the right. A warm orange light source from the far right catches folder edges and shelf silhouettes; keep the bright orange glow confined mainly to the rightmost quarter.\nStyle/medium: match the approved reference's original cel-shaded illustration: confident dark ink contours, angular hard-edged shapes and shadows, painted matte metal and wood, restrained rubbed paint and subtle workshop wear. Warm anthracite and blue-petrol dominate, with measured terracotta/orange accents and muted ivory paper. Preserve a quiet, legible atmosphere rather than a busy prop catalogue.\nBackground: completely opaque finished environmental art.\nConstraints: no person, face, portrait, animal or robot; no letters, numbers, handwriting, labels, readable symbols, logos or watermarks anywhere, including on folders or plans. Plans may have sparse abstract nonlinguistic drafting lines only. No interface, no screen, no button, no card, no border or decorative enclosing frame. No existing game hero or copied game asset. Only the workshop environment.",
+      "transparentBackgroundRequested": false,
+      "inspection": "Inspecté une fois à la sortie native : panorama d’atelier opaque, moitié gauche calme et sombre, plans et éclairage orange à droite, aucun texte/personnage/interface observé.",
+      "references": [
+        {
+          "path": "C:/Users/UP60066553/.codex/worktrees/madness-atelier-ui/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png",
+          "role": "approved_visual_style_reference",
+          "sha256": "4f93a6e41832dbb66143389a86baee46e117dbfe659c860b9d7a8e6bb775bec5"
+        }
+      ],
+      "dimensions": {
+        "width": 2172,
+        "height": 724,
+        "pixelFormat": "Format24bppRgb"
+      },
+      "bytes": 2171265,
+      "sha256": "7c82fbb0f68f562e51322b5e7df4d596feb9ae845130b9d474b24daa8b606765",
+      "sourceSha256": "7c82fbb0f68f562e51322b5e7df4d596feb9ae845130b9d474b24daa8b606765",
+      "bitwiseCopy": true,
+      "opaqueRgb": true
+    },
+    {
+      "id": "sidebar",
+      "file": "workshop-sidebar.png",
+      "sourcePath": "C:/Users/UP60066553/.codex/generated_images/01a19c73-e79f-73c0-aa0e-8e6b83981390/exec-9ab6881d-3e62-4786-ab98-a0f989e94f7f.png",
+      "targetPath": "C:/Users/UP60066553/.codex/worktrees/madness-atelier-ui/madness/_bmad-output/initiative-madness/.working/atelier-scene-assets/workshop-sidebar.png",
+      "prompt": "Use case: stylized-concept\nAsset type: workshop-sidebar.png, an opaque discreet vertical environment vignette for the bottom of the approved Madness atelier navigation.\nInput images: Image 1, atelier-reference-approuvee.png, is the APPROVED workshop-world, cel-shading, materials and palette reference only. Image 2, the selected workshop-header.png, is a supporting continuity reference for the same room's painted matte materials and lighting. Generate a new vertical environmental vignette, not a crop or an edit of either image. Do not reproduce interface elements or character portraits.\nPrimary request: a quiet vertical corner of this same original workshop, with a small group of hand tools, sturdy stacked workshop crates and unlabelled closed folders, and one leafy potted plant. Portrait canvas approximately 2:3, ideally 1024 x 1536. Full-bleed opaque painting, no letterboxing.\nComposition: a restrained asymmetrical arrangement in the lower two thirds: blue-petrol storage crates and a few ochre/terracotta folder edges near the floor, a paint-worn metal plant pot with broad muted dark leaves rising beside them, a small tool rail or a few simple upright workshop tools behind. The upper third is a calm very dark blue-petrol painted wall, allowing the vignette to blend visually into the navigation's lower area. This artwork sits beneath navigation rows, not behind text. Use large clear silhouettes and modest detail, so it stays unobtrusive when displayed small.\nStyle/medium: match the approved original cel-shaded workshop illustration: confident dark ink contours, angular hard-edged shadow planes, matte painted metal and wood with restrained rubbed paint and workshop wear. Predominantly VERY DARK petroleum blue and warm anthracite, with small muted terracotta/rust accents, a few thin warm reflected edge highlights and little bright paper. Low overall brightness and contrast. No large glowing window or bright orange light source; subtle warmth only.\nBackground: completely opaque finished environmental art.\nConstraints: no person, face, portrait, human sketch, animal or robot. No letters, numbers, handwriting, labels, readable symbols, logos or watermarks anywhere. No interface, screen, menu, button, card, border or decorative enclosing frame. No existing game hero or copied game asset. Only the quiet workshop corner.",
+      "transparentBackgroundRequested": false,
+      "references": [
+        {
+          "path": "C:/Users/UP60066553/.codex/worktrees/madness-atelier-ui/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png",
+          "role": "approved_visual_style_reference",
+          "sha256": "4f93a6e41832dbb66143389a86baee46e117dbfe659c860b9d7a8e6bb775bec5"
+        },
+        {
+          "path": "C:/Users/UP60066553/.codex/worktrees/madness-atelier-ui/madness/_bmad-output/initiative-madness/.working/atelier-scene-assets/workshop-header.png",
+          "role": "same_room_material_and_lighting_continuity",
+          "sha256": "7c82fbb0f68f562e51322b5e7df4d596feb9ae845130b9d474b24daa8b606765"
+        }
+      ],
+      "inspection": "Inspecté une fois à la sortie native : vignette verticale sombre, outils, caisses, dossiers et plante ; aucun texte/personnage/interface observé.",
+      "dimensions": {
+        "width": 1024,
+        "height": 1536,
+        "pixelFormat": "Format24bppRgb"
+      },
+      "bytes": 2208052,
+      "sha256": "bbe523e1c7efda82a89acb43a52c345f302712dafe8848d82060255a32281134",
+      "sourceSha256": "bbe523e1c7efda82a89acb43a52c345f302712dafe8848d82060255a32281134",
+      "bitwiseCopy": true,
+      "opaqueRgb": true
+    }
+  ],
+  "date": "2026-11-02",
+  "generation": {
+    "mode": "built-in",
+    "tool": "image_gen.imagegen intégré",
+    "calls": 2,
+    "variants": 0,
+    "cliUsed": false,
+    "bitmapEdits": false,
+    "crops": false
+  },
+  "reference": {
+    "path": "C:/Users/UP60066553/.codex/worktrees/madness-atelier-ui/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png",
+    "role": "Référence visuelle approuvée de l’atelier ; palette, matières et style uniquement.",
+    "sha256": "4f93a6e41832dbb66143389a86baee46e117dbfe659c860b9d7a8e6bb775bec5",
+    "inspectedBeforeGeneration": true,
+    "verifiedUnchangedDuringGeneration": true
+  },
+  "usage": {
+    "header": "Bandeau de 110–150 px de haut ; titre HTML à gauche, atelier et éclairage orange à droite.",
+    "sidebar": "Illustration discrète au bas de la navigation, sous les lignes de menu.",
+    "scope": "Deux nouveaux décors seulement ; intégration du produit et vérification Windows non réalisées par ce lot."
+  }
+}

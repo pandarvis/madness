@@ -2,25 +2,27 @@
 version: 1
 slug: "src-renderer-src-app-tsx"
 primary_target: "src/renderer/src/App.tsx"
-related_targets: ["src/renderer/src/styles.css","src/renderer/src/WorkOverview.tsx"]
+related_targets: ["src/renderer/src/styles.css","src/renderer/src/HelpPanel.tsx","src/renderer/src/help.css","src/renderer/src/AgentInfoPanel.tsx"]
 ---
 
 # Espace de travail Madness
 
-Mode : Operate. Extension de la composition Parcours guidé choisie, sur l’application Windows réelle. Accueil, projet, conversation et connexion ; aucun catalogue ou fichier futur présenté comme livré. Les exemples de vérification sont synthétiques et sans compte.
+Mode: Operate. Surface: application locale Windows/Electron, projets, parcours et conversation. Public: le porteur développeur, en séances longues ; sombre anthracite par défaut sous éclairage de bureau et clair alternatif pour la lumière ambiante forte.
 
 ## Direction contract
 
-**THESIS** : le travail occupe le centre ; préparer un échange et examiner son contexte restent proches, sans prendre la place de l’échange.
+THESIS: Un atelier illustré où le projet, le dialogue, l’action attendue et leurs preuves se lisent immédiatement ; une conversation ample dans un cadre de travail reconnaissable.
 
-**OWN-WORLD** : le porteur travaille sur ses projets locaux Windows. Anthracite chaud, terracotta d’action et bleu de repérage déjà choisis ; clair alternatif conservé. Segoe UI, listes et filets sobres, SVG19px sur cibles40px, barre Windows56px. Le chrome et ses bordures reculent ; les décisions et inconnus restent lisibles.
+OWN-WORLD: Anthracite chaud et ivoire dans les zones de lecture, plaques bleu pétrole, commandes/cartouches terracotta, contours encrés et angles coupés. Matière peinte mate et usure retenue dans le chrome. Barlow Condensed Bold locale pour titres courts ; Segoe UI pour messages et décisions. Bustes originaux, décors natifs séparés et SVG géométriques sobres pour les commandes.
 
-**STORY** : retrouver son projet, préparer Mary ou Forge dans Parcours, puis rejoindre la conversation acquittée. Interaction signature : passage explicite de la préparation au travail, avec contexte et saisies conservés. Le dossier réagit brièvement au focus/survol ; mouvement réduit statique, aucune animation en boucle.
+STORY: Retrouver le projet, lire le dialogue et les demandes corrélées, répondre explicitement. Reconnaître un auteur seulement depuis sa preuve ; ouvrir sa fiche pour comprendre le rôle puis la refermer. Chargement, transmission, conservation et inconnue restent distincts.
 
-**FIRST VIEWPORT** : barre compacte avec bascule alignée sur le rail et ouverture unique à icône ; titre du projet, initiative connue et onglets en tête du centre. Une courte bande critique conserve la récupération. Conversation montre l’échange/demande puis son point de réponse, sans grands panneaux de lancement avant eux. Contexte à la demande ; historique et détails secondaires. En fenêtre compacte, les mêmes actions et faits restent accessibles sans débordement horizontal.
+FIRST VIEWPORT: Barre native56px, rail rétractable sur axe28px et navigation environ240px en mode large. Projet/onglets puis conversation centrale, texte65–75ch, portraits40px réservés. Fiche de rôle autour de320px à droite seulement à la demande ; fermeture rend l’espace au dialogue. Bandeau d’atelier mesuré dans le contexte, réduit aux tailles étroites/zoom ; fond de lecture calme et saisie accessible. Commande d’ouverture unique à icône40px. Les messages, sources et boutons sont du HTML réel.
 
-**FORM** : Parcours guidé, direction héritée du choix humain du23octobre (seed historique d955fcd3), affinée par ses retours du26octobre et la préparation Sally/trois expertises du28octobre. Code-led maintenu, aucun nouveau tirage ou comp raster. La refonte est autorisée en autonomie ; son acceptation visuelle humaine reste à recueillir.
+FORM: Atelier déjà fixé par le porteur, référence atelier-reference-approuvee.png et handoff du2novembre. Préférence code-led existante copiée depuis .impeccable/config.json. Seed09fa5971, affectation5, deux appels escaladés dégradés : catalogue/QUALITY BAR indisponibles, aucun challenger. L’affectation est reconnue ; la direction expressément approuvée prime et l’image sert de référence critique, conformément au chemin code-led et au handoff qui laisse les pixels/composants à décliner. Interaction signature : fiche de l’auteur qui s’ouvre depuis le message et rend sa largeur à la fermeture, sans appel métier ; mouvement court avec réduction respectée. Aucun nouveau tour de choix ni comp produit.
 
-**FINISH** : unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 
-Références dans `_bmad-output/initiative-madness/ux-madness/` : `DESIGN.md`, `EXPERIENCE.md`, `preparation-refonte-2026-10-28/preparation-refonte.md` et ses captures avant. Aucun raster de produit à créer ; les captures de vérification sont des preuves. La revue porte sur l’application, sans prétendre catalogue complet, graphe, G1 ou accord humain acquis.
+## Contraintes
+
+Conserver préparation/envoi, questions/accords, brouillons, récupération, identités inconnues et comportements2.17/2.2. Cette refonte ne clôt pas la qualification native2.2 ni ne livre2.3. Pas de bouton ou fichier fictif de la maquette. La couleur native peut suivre les tokens ; stockage, permissions et connexion restent hors de ce lot.

@@ -1,4 +1,8 @@
 import {HelpPanel,HelpReceiptPanel,useBmadHelp} from './HelpPanel.tsx'
+import {agentPresentation} from './agentPresentation.ts'
+import {AgentPortrait} from './AgentPortrait.tsx'
+import {AgentInfoPanel} from './AgentInfoPanel.tsx'
+import type {AgentConsultation} from './AgentInfoPanel.tsx'
 import {NetworkHelp} from './NetworkHelp.tsx'
 import {WorkOverview} from './WorkOverview.tsx'
 import {projectWorkOverview,sameContext} from '../../core/work-overview.ts'
@@ -21,23 +25,24 @@ import {QuestionPanel} from './QuestionPanel.tsx'
 import type {QuestionRecord,QuestionValues} from '../../contracts/questions.ts'
 const questionRecipient=(question:QuestionRecord):string=>question.identity.kind==='attested'?question.identity.name:fr.conversation.unknownAgent
 
-function MessageArticle({message,projection}:{message:Conversation['messages'][number];projection?:DialogueMessage}):ReactNode {
+function MessageArticle({message,projection,onConsult}:{message:Conversation['messages'][number];projection?:DialogueMessage;onConsult:(message:DialogueMessage,trigger:HTMLButtonElement)=>void}):ReactNode {
   const identity=projection?.identity
+  const agent=agentPresentation(identity)
   const name=identity?.kind==='attested'?identity.name:fr.conversation.unknownAgent
   const phase=projection?.phase==='streaming'?fr.conversation.streaming:projection?.phase==='complete'?fr.conversation.complete:projection?.phase==='interrupted'?fr.conversation.partial:fr.conversation.unknownPhase
   const storage=projection?.storage==='pending'||projection?.storage==='failed'?fr.conversation.notStored:fr.conversation.stored
   return <article data-message-id={message.id} className={'dialogue-message '+message.role}>
-    <h3>{message.role==='user'?'Vous':name+' · Codex'}</h3>
+    <div className="message-author">{message.role==='assistant'&&(agent&&projection?<button className="agent-portrait-trigger" type="button" aria-label={'Fiche de '+agent.name} onClick={event=>onConsult(projection,event.currentTarget)}><AgentPortrait agent={agent}/></button>:<AgentPortrait/>)}<h3>{message.role==='user'?'Vous':name+' · Codex'}</h3>{message.role==='assistant'&&agent&&projection&&<button className="agent-info-link text-button" type="button" aria-label={'Fiche de '+agent.name+' · message '+message.id} onClick={event=>onConsult(projection,event.currentTarget)}>Fiche agent</button>}</div>
     {message.role==='assistant'&&<p className={'message-state '+(projection?.storage==='failed'?'message-storage-failed':'')}>{projection?phase+' · '+storage:fr.conversation.historical}</p>}
     <div className="message-text">{message.text}</div>
     {message.role==='assistant'&&identity?.kind==='attested'&&<p className="message-provenance">Identité attestée · source : <code>{identity.source}</code></p>}
   </article>
 }
 type ReadingPosition={top:number;follow:boolean}
-function ConversationMessages({conversation,projections,positions}:{conversation:Conversation;projections:DialogueMessage[];positions:Map<string,ReadingPosition>}):ReactNode {
+function ConversationMessages({conversation,projections,positions,onConsult}:{conversation:Conversation;projections:DialogueMessage[];positions:Map<string,ReadingPosition>;onConsult:(message:DialogueMessage,trigger:HTMLButtonElement)=>void}):ReactNode {
   const container=useRef<HTMLDivElement>(null),reading=useRef<ReadingPosition>(positions.get(conversation.id)??{top:0,follow:true})
   const merged=conversation.messages.map(m=>({...m})),byId=new Map(merged.map((m,i)=>[m.id,i]))
-  const current=projections.filter(m=>m.context.conversationId===conversation.id),metadata=new Map(current.map(m=>[m.id,m]))
+  const current=projections.filter(m=>sameContext(m.context,conversation.context)),metadata=new Map(current.map(m=>[m.id,m]))
   for(const message of current){const index=byId.get(message.id),value={id:message.id,role:'assistant' as const,text:message.text};if(index===undefined){byId.set(message.id,merged.length);merged.push(value)}else merged[index]=value}
   useLayoutEffect(()=>{
     const element=container.current;if(!element)return
@@ -46,7 +51,7 @@ function ConversationMessages({conversation,projections,positions}:{conversation
   })
   useLayoutEffect(()=>()=>{positions.set(conversation.id,{...reading.current})},[conversation.id,positions])
   return <div className="conversation-messages" ref={container} tabIndex={0} aria-label="Messages de la conversation" onScroll={event=>{const e=event.currentTarget;reading.current={top:e.scrollTop,follow:e.scrollHeight-e.clientHeight-e.scrollTop<=24};positions.set(conversation.id,{...reading.current})}}>
-    {merged.map(message=><MessageArticle key={message.id} message={message} projection={metadata.get(message.id)}/>)}
+    {merged.map(message=><MessageArticle key={message.id} message={message} projection={metadata.get(message.id)} onConsult={onConsult}/>)}
   </div>
 }
 
@@ -139,6 +144,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [forgePreparation,setForgePreparation]=useState(false)
   const [preparationFocus,setPreparationFocus]=useState<{token:number;projectId:string}|null>(null)
   const [contextOpen,setContextOpen]=useState(false)
+  const [agentConsultation,setAgentConsultation]=useState<AgentConsultation|null>(null)
+  const agentFocusReturn=useRef<HTMLElement|null>(null)
   const contextTrigger=useRef<HTMLButtonElement>(null)
   const contextHeading=useRef<HTMLHeadingElement>(null)
   const sending = useRef(false)
@@ -165,6 +172,22 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const displayedDialogueStatus=activeApproval?(activeApproval.status==='sending'?fr.approvals.status.sending:fr.approvals.title):activeQuestion?(activeQuestion.status==='sending'?fr.questions.sending:fr.questions.title):['waiting-question','waiting-approval'].includes(dialogue.status)?fr.overview.requestInactive:fr.dialogueStatus[dialogue.status]
   const forgePrerequisite=!connection.accountStored?'account':connection.needsPlanAcknowledgement?'plan':null
   const sessionFeedback=!!(sessionPresent||dialogueBusy||((dialogueHere||dialogue.status==='unknown')&&dialogue.errorCode)||dialogueBridgeError||(dialogueHere&&dialogue.profile))
+  function closeAgentInfo(restoreFocus=true):void {
+    agentFocusReturn.current=restoreFocus?agentConsultation?.trigger??null:null
+    setAgentConsultation(null)
+  }
+  useLayoutEffect(()=>{if(agentConsultation||!agentFocusReturn.current)return;const trigger=agentFocusReturn.current;agentFocusReturn.current=null;(trigger.isConnected?trigger:document.getElementById('conversation-heading')??heading.current)?.focus({preventScroll:true})},[agentConsultation])
+  function consultAgent(message:DialogueMessage,trigger:HTMLButtonElement):void {
+    if(!agentPresentation(message.identity))return
+    setConnectionOpen(false);setContextOpen(false)
+    setAgentConsultation({message:structuredClone(message),trigger,viewConversationId:conversation?.id??null})
+  }
+  useEffect(()=>{
+    if(!agentConsultation)return
+    const source=dialogue.messages.find(message=>message.id===agentConsultation.message.id&&sameContext(message.context,agentConsultation.message.context))
+    const identity=agentConsultation.message.identity
+    if(page!=='project'||tab!=='conversation'||conversation?.id!==agentConsultation.viewConversationId||project?.id!==agentConsultation.message.context.projectId||!state?.conversations.some(c=>sameContext(c.context,agentConsultation.message.context))||!source||source.identity.kind!=='attested'||identity.kind!=='attested'||source.identity.name!==identity.name||source.identity.source!==identity.source){setNotice('La fiche a été fermée : son contexte de consultation n’est plus affiché.');closeAgentInfo()}
+  },[page,tab,project?.id,conversation?.id,dialogue.messages,state,agentConsultation])
   useEffect(()=>{setForgePreparation(false)},[project?.id])
   useEffect(()=>{setContextOpen(false)},[project?.id,page])
   useEffect(()=>{if(contextOpen)contextHeading.current?.focus()},[contextOpen])
@@ -312,7 +335,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     if (connectionBusy && !['stopping', 'closing'].includes(connection.status)) void connectionAction('cancel')
     setConnectionOpen(false); connectionTrigger.current?.focus()
   }
-  function openConnection():void {setContextOpen(false);setConnectionOpen(true)}
+  function openConnection():void {closeAgentInfo(false);setContextOpen(false);setConnectionOpen(true)}
   useEffect(() => { if (connectionOpen) connectionHeading.current?.focus() }, [connectionOpen])
   useEffect(() => {
     if (!connection.needsPlanAcknowledgement || !connection.accountStored) planConfirmationDismissed.current = false
@@ -367,7 +390,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     {state?.projects.map((p, index) => <button key={p.id} className={'nav-button project-link ' + (page === 'project' && p.id === project?.id ? 'selected' : '')} aria-label={'Ouvrir le projet ' + p.name} aria-current={page === 'project' && p.id === project?.id ? 'page' : undefined} title={p.name + '\n' + p.rootPath} disabled={pending} onClick={() => select(p.id)}><span className="project-glyph" aria-hidden="true">{(index + 1).toString(36).toUpperCase()}</span><span className="nav-label truncate">{p.name}</span></button>)}
     {!state?.projects.length && <p className="nav-note nav-label">Vos dossiers ouverts apparaîtront ici.</p>}
   </>
-  return <div className={'app-shell ' + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>captureRequestFocus(event.target)} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open) return; if(contextOpen){event.preventDefault();closeContext()}else if (connectionOpen) { event.preventDefault(); closeConnection() } } }}>
+  return <div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>captureRequestFocus(event.target)} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open) return; if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
     <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>Aller au contenu</a>
     <header className="topbar" onMouseLeave={()=>setTooltipsDismissed(false)} onFocusCapture={()=>setTooltipsDismissed(false)}>
       <div className="breadcrumb">
@@ -413,8 +436,9 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         <main id="main" tabIndex={-1}>
           <div className="main-inner">
             {error && <div className="error-message" role="alert"><strong>L’opération n’a pas abouti</strong><p>{error}</p>{!state && <button className="secondary" onClick={() => void load()} disabled={pending}>Relire le contexte local</button>}</div>}
-            {state&&(page==='home'||!project?<div className="page-intro"><div><h1 ref={heading} tabIndex={-1}>Vos projets, au même endroit</h1><p>Retrouvez un dossier et préparez la suite de votre travail.</p></div></div>:<>              <div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><button className="toolbar-toggle command-control context-trigger" type="button" ref={contextTrigger} aria-label="Contexte du projet" aria-expanded={contextOpen} aria-controls="project-context-panel" aria-haspopup="dialog" onFocus={()=>setTooltipsDismissed(false)} onMouseLeave={()=>setTooltipsDismissed(false)} onClick={()=>{if(contextOpen)closeContext();else{setConnectionOpen(false);setContextOpen(true)}}}><Icon name="panel"/><span className="command-tooltip" aria-hidden="true">Contexte du projet</span></button></div>
+            {state&&(page==='home'||!project?<div className="page-intro atelier-header"><div><h1 ref={heading} tabIndex={-1}>Vos projets, au même endroit</h1><p>Retrouvez un dossier et préparez la suite de votre travail.</p></div></div>:<><div className="atelier-header project-banner"><div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><button className="toolbar-toggle command-control context-trigger" type="button" ref={contextTrigger} aria-label="Contexte du projet" aria-expanded={contextOpen} aria-controls="project-context-panel" aria-haspopup="dialog" onFocus={()=>setTooltipsDismissed(false)} onMouseLeave={()=>setTooltipsDismissed(false)} onClick={()=>{if(contextOpen)closeContext();else{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(true)}}}><Icon name="panel"/><span className="command-tooltip" aria-hidden="true">Contexte du projet</span></button></div>
               <p className="context-note">{conversation?.context.initiativeId ? 'Initiative capturée : ' + conversation.context.initiativeId : 'Initiative non identifiée'}</p>
+              </div>
               <div className="project-tabs" role="tablist" aria-label="Vues du projet">{(['parcours', 'conversation'] as const).map((item) => <button key={item} id={'tab-' + item} type="button" role="tab" aria-selected={tab === item} aria-controls={'panel-' + item} tabIndex={tab === item ? 0 : -1} onClick={() => chooseTab(item)} onKeyDown={(event) => { if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) { event.preventDefault(); const next = item === 'parcours' ? 'conversation' : 'parcours'; const selected = event.key === 'Home' ? 'parcours' : event.key === 'End' ? 'conversation' : next; chooseTab(selected); document.getElementById('tab-' + selected)?.focus() } }}>{item === 'parcours' ? 'Parcours' : 'Conversation'}</button>)}</div>
 </>)}
             {overview&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} compact={page==='project'&&tab==='conversation'} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} onNavigate={target=>void navigateOverview(target)} onConnection={openConnection}/>}
@@ -469,7 +493,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
 
                   {conversationQuestions.filter(q=>currentRequest('question',q.id)).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}
                   {conversationApprovals.filter(a=>currentRequest('approval',a.id)).map(approvalPanel)}
-                  <ConversationMessages key={conversation.id} conversation={conversation} projections={dialogue.messages??[]} positions={readingPositions.current}/>
+                  <ConversationMessages key={conversation.id} conversation={conversation} projections={dialogue.messages??[]} positions={readingPositions.current} onConsult={consultAgent}/>
 
 
                   {dialogueConversationHere && <p className="turn-status" role="status">{displayedRecipient} · {displayedDialogueStatus}{dialogue.status === 'running' && !activeQuestion && !activeApproval && (dialogue.acknowledged ? ' · envoi acquitté et enregistré' : ' · accusé d’envoi attendu')}{dialogue.status === 'ready' && ' · tour terminé, prochaine action : votre réponse. La fin du tour ne valide aucun livrable.'}</p>}
@@ -484,7 +508,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                 {tab==='conversation'&&<button className="text-button prepare-exchange" type="button" onClick={prepareExchange}>Préparer un échange</button>}
                 {(dialogue.recovery.stop==='unconfirmed'||dialogue.approvals.some(a=>a.context.projectId===project.id&&a.decision==='accept'&&(['unknown','pending'].includes(a.effect)||a.storage!=='stored')))&&<details className="recovery-details"><summary>Détails de récupération et inspection</summary><div id={dialogue.context.projectId!==null?"overview-session-recovery":undefined} tabIndex={-1}><RecoveryPanel state={dialogue} projectId={project.id} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={id=>void inspectApproval(id)} onPrepare={prepareExchange}/></div></details>}
                 {tab==='conversation'&&(historicalQuestions.length>0||historicalApprovals.length>0)&&<details className="request-history"><summary>Demandes conservées · inactives ({historicalQuestions.length+historicalApprovals.length})</summary>{historicalQuestions.map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{historicalApprovals.map(approvalPanel)}</details>}
-                  {tab==='conversation'&&conversation&&projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><HelpReceiptPanel record={helpState.records.find(r=>r.conversationId===c.id)} onChanged={acceptHelp}/><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.approvals.filter(a=>a.context.conversationId===c.id).map(approvalPanel)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
+                  {tab==='conversation'&&conversation&&projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><HelpReceiptPanel record={helpState.records.find(r=>r.conversationId===c.id)} onChanged={acceptHelp}/><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current} onConsult={consultAgent}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.approvals.filter(a=>a.context.conversationId===c.id).map(approvalPanel)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
                 {tab==='conversation'&&conversation&&<HelpReceiptPanel record={helpState.records.find(r=>r.conversationId===conversation.id)} onChanged={acceptHelp}/>}
                 {workflow&&<WorkflowResult key={workflow.conversationId} workflow={workflow} onCopy={copyWorkflow}/>}
                 {dialogueHere && dialogue.activities.length > 0 && <details className="dialogue-activity"><summary>Activité du dialogue ({dialogue.activities.length})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{entry}</li>)}</ol></details>}
@@ -496,7 +520,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
             <p className="status-line" role="status" aria-live="polite">{notice}</p>
           </div>
         </main>
-
+        {agentConsultation&&<AgentInfoPanel key={agentConsultation.message.context.conversationId+':'+agentConsultation.message.id} consultation={agentConsultation} entries={overview?.entries??[]} onClose={()=>closeAgentInfo()} onNavigate={target=>{closeAgentInfo(false);void navigateOverview(target)}}/>}
       </div>
     </div>
     </div>

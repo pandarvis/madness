@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "source": "Exact matching exec results extracted from our existing local session records; not a rerun or a narrative reconstruction.",
+  "sessionFile": "C:/Users/UP60066553/.codex/sessions/2026/10/22/rollout-2026-10-22T20-28-45-01a164df-61b6-74e2-9690-27a821570de3.jsonl",
+  "seed": "09fa5971",
+  "assigned": 5,
+  "degraded": true,
+  "receipts": [
+    {
+      "line": 45291,
+      "timestamp": "2026-11-02T14:57:36.844Z",
+      "callId": "call_7c0a93341d304933a3806fe7620febd1",
+      "sourceLineSha256": "0d550d1035f56529200ca03d3ffc09c61e56ad75c8d57b181c33aecfc5e7c8a6",
+      "request": {
+        "line": 45288,
+        "timestamp": "2026-11-02T14:57:22.155Z",
+        "name": "exec",
+        "input": "text(await tools.write_stdin({session_id:39791,chars:\"\",yield_time_ms:1000,max_output_tokens:1200}));const r=await tools.exec_command({cmd:\"New-Item -ItemType Directory -Path '.impeccable' -Force | Out-Null; Copy-Item -LiteralPath 'C:/Sources/madness/.impeccable/config.json' -Destination '.impeccable/config.json'; & 'C:/Users/UP60066553/.codex/plugins/cache/openai-curated-remote/impeccable/4.3.1/skills/impeccable/scripts/impeccable.cmd' concept-seed --scope direction --mode operate\",shell:\"pwsh\",login:false,workdir:\"C:/Users/UP60066553/.codex/worktrees/madness-atelier-ui/madness\",sandbox_permissions:\"require_escalated\",max_output_tokens:4500,yield_time_ms:10000});text(r);\n",
+        "sourceLineSha256": "651660e2936fcdbdbf15d26c4230749e924097af2c1113f067d41dbad36017fb"
+      },
+      "result": {
+        "chunk_id": "fb690d",
+        "wall_time_seconds": 8.5474517,
+        "exit_code": 0,
+        "original_token_count": 783,
+        "output": "DIRECTION CONCEPT SEED (key: 09fa5971; mode: operate; source: degraded; rerun with --scope direction --mode operate --from 09fa5971 --candidate-count 7)\nASSIGNED INDEX: 5\n  After ordering the grounded directions by resonance, build candidate\n  5 of your own grounded list; the assignment never points at a\n  challenger. The assignment is the roll, not a suggestion: your top-ranked\n  direction is what every run would ship, so the script decides which grounded\n  direction gets built. Each direction joins a durable visual system to a\n  concrete expression for the requested first surface, decided as one. It must\n  survive the current task plus navigation, quiet and dense content,\n  interaction and state, and a substantially different future surface. In an\n  attended run, present the assigned direction fully committed and offer\n  re-roll. You may add ONE card for your top-ranked grounded candidate when\n  it is not the assigned direction, kicker IMPECCABLE’S PICK, with an honest risk line\n  naming its familiarity; one pick card, never a ranked lineup, and the pick\n  never takes the lead position. When the assignment IS your top candidate,\n  there is no pick card. Re-roll yourself only\n  on named factual grounds, when the assignment cannot carry the product's\n  truth or task; taste is never grounds.\n  The assignment exists to refuse the model's ranking rut, never to outrank\n  the user or the brief. Never expose assignment metadata in user-facing labels.\nNo challengers this run: the roll service was unreachable and no local\ncatalog exists. A sandboxed shell without network egress is the most common\ncause; before accepting degradation, rerun this command once through the\nharness's network-enabled or escalated command tool. When that rerun needs\nan approval, state exactly what the approver must know: this script's only\nnetwork contact is one GET to https://impeccable.style/api/roll whose query\ncarries scope, mode, an eight-hex seed key, and a re-roll counter; no\nproject files, prompts, code, or conversation context are transmitted, and\nnothing is written. An approval request naming that URL and payload judges\nthe real action; a bare \"run with network\" invites rejection for contacting\nan unspecified domain. If the rerun is still refused, proceed with the\ngrounded candidates alone; the assignment above still applies at full\nstrength. Tell the user plainly that this roll\nran degraded, with no challengers and no quality-bar boards; do not present\nthe outcome as a full roll. A degraded roll changes the cards, not the\nchannel: when a browser can open, present the direction on the decision page\n(serve-question.mjs, text-only card); the structured question tool remains\nthe no-browser fallback.\nPRODUCT.md and explicit incumbent brand commitments constrain every direction.\nThe seed never chooses exact colors, fonts, tokens, or a user preference, and\nit never permits the world and first surface to be selected independently.\nA user- or brief-pinned decision beats the roll, always.\nASSIGNED INDEX (restated for truncated readers): 5. Build candidate\n5 of your own grounded list; seed key 09fa5971.\n"
+      },
+      "stdoutSha256": "5cf63939e0c98addfde6de30405f24129ddab85a61b93bd2500f1efad6fb6180"
+    },
+    {
+      "line": 45314,
+      "timestamp": "2026-11-02T14:59:23.083Z",
+      "callId": "call_b3ecf7dafc5a4bb4b85d9b0eeda7fc24",
+      "sourceLineSha256": "1558fe8c18d1199304ff56797cca27b6184c7f7c6abb2e72dbed13272c65bade",
+      "request": {
+        "line": 45310,
+        "timestamp": "2026-11-02T14:59:08.951Z",
+        "name": "exec",
+        "input": "const results=await Promise.allSettled([\ntools.exec_command({cmd:\"& 'C:/Users/UP60066553/.codex/plugins/cache/openai-curated-remote/impeccable/4.3.1/skills/impeccable/scripts/impeccable.cmd' concept-seed --scope direction --mode operate --from 09fa5971 --candidate-count 7\",shell:\"pwsh\",login:false,workdir:\"C:/Users/UP60066553/.codex/worktrees/madness-atelier-ui/madness\",sandbox_permissions:\"require_escalated\",justification:\"Ce nouvel essai Impeccable effectue seulement un GET vers https://impeccable.style/api/roll avec scope, mode, clé de seed et compteur ; aucun fichier, code, prompt ou contexte du projet n’est transmis.\",max_output_tokens:3000,yield_time_ms:10000}),\ntools.exec_command({cmd:\"Get-Content -LiteralPath '_bmad/render/bmad-build/madness-de7f0d6defd4/e206b1e854b7c4a25489/plan-template.md'; Get-Content -LiteralPath 'PRODUCT.md' -TotalCount 155; Get-Content -LiteralPath '_bmad-output/initiative-madness/ux-madness/DESIGN.md' -TotalCount 105; Get-Content -LiteralPath '_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md' -TotalCount 60\",shell:\"pwsh\",login:false,workdir:\"C:/Users/UP60066553/.codex/worktrees/madness-atelier-ui/madness\",sandbox_permissions:\"require_escalated\",max_output_tokens:6000})\n]);for(let i=0;i<results.length;i++)text({i,...results[i]});\n",
+        "sourceLineSha256": "c8dfb1c4e2915da3ccd0d105a3cd23881ad40bb4466b568ffe92c43bc26dc3c4"
+      },
+      "result": {
+        "chunk_id": "dfc76b",
+        "wall_time_seconds": 6.5234733,
+        "exit_code": 0,
+        "original_token_count": 783,
+        "output": "DIRECTION CONCEPT SEED (key: 09fa5971; mode: operate; source: degraded; rerun with --scope direction --mode operate --from 09fa5971 --candidate-count 7)\nASSIGNED INDEX: 5\n  After ordering the grounded directions by resonance, build candidate\n  5 of your own grounded list; the assignment never points at a\n  challenger. The assignment is the roll, not a suggestion: your top-ranked\n  direction is what every run would ship, so the script decides which grounded\n  direction gets built. Each direction joins a durable visual system to a\n  concrete expression for the requested first surface, decided as one. It must\n  survive the current task plus navigation, quiet and dense content,\n  interaction and state, and a substantially different future surface. In an\n  attended run, present the assigned direction fully committed and offer\n  re-roll. You may add ONE card for your top-ranked grounded candidate when\n  it is not the assigned direction, kicker IMPECCABLE’S PICK, with an honest risk line\n  naming its familiarity; one pick card, never a ranked lineup, and the pick\n  never takes the lead position. When the assignment IS your top candidate,\n  there is no pick card. Re-roll yourself only\n  on named factual grounds, when the assignment cannot carry the product's\n  truth or task; taste is never grounds.\n  The assignment exists to refuse the model's ranking rut, never to outrank\n  the user or the brief. Never expose assignment metadata in user-facing labels.\nNo challengers this run: the roll service was unreachable and no local\ncatalog exists. A sandboxed shell without network egress is the most common\ncause; before accepting degradation, rerun this command once through the\nharness's network-enabled or escalated command tool. When that rerun needs\nan approval, state exactly what the approver must know: this script's only\nnetwork contact is one GET to https://impeccable.style/api/roll whose query\ncarries scope, mode, an eight-hex seed key, and a re-roll counter; no\nproject files, prompts, code, or conversation context are transmitted, and\nnothing is written. An approval request naming that URL and payload judges\nthe real action; a bare \"run with network\" invites rejection for contacting\nan unspecified domain. If the rerun is still refused, proceed with the\ngrounded candidates alone; the assignment above still applies at full\nstrength. Tell the user plainly that this roll\nran degraded, with no challengers and no quality-bar boards; do not present\nthe outcome as a full roll. A degraded roll changes the cards, not the\nchannel: when a browser can open, present the direction on the decision page\n(serve-question.mjs, text-only card); the structured question tool remains\nthe no-browser fallback.\nPRODUCT.md and explicit incumbent brand commitments constrain every direction.\nThe seed never chooses exact colors, fonts, tokens, or a user preference, and\nit never permits the world and first surface to be selected independently.\nA user- or brief-pinned decision beats the roll, always.\nASSIGNED INDEX (restated for truncated readers): 5. Build candidate\n5 of your own grounded list; seed key 09fa5971.\n"
+      },
+      "stdoutSha256": "5cf63939e0c98addfde6de30405f24129ddab85a61b93bd2500f1efad6fb6180"
+    }
+  ]
+}

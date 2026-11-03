@@ -1,0 +1,56 @@
+✔ atelier : seuls les sept auteurs attestés exacts ont un portrait, les replis gardent nom et provenance (10180.2206ms)
+✔ atelier : fiche dockée locale, provenance stable, fermeture restitue largeur, focus et saisie sans effet métier (14480.8446ms)
+✔ atelier : modale étroite inerte, seuil conservé, Échap unique et connexion engagée jamais annulée par consultation (29083.7772ms)
+ℹ {"requestedScrollTop":70,"beforeScrollTop":70.4000015258789,"afterScrollTop":70.4000015258789,"devicePixelRatio":1.25}
+✔ atelier : source disparue ferme la fiche vers le titre neutre, contexte et thème préservent le brouillon (20789.4721ms)
+✔ atelier : arrivée question, approbation et récupération gardent le focus, expiration rejoint seulement son historique exact (19729.813ms)
+✔ atelier : aides partielles et reçus non conservés utilisent un HelpBridge synthétique strict, sans transmission (17196.5393ms)
+✔ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (14096.342ms)
+✔ une approbation corrélée montre sa portée et son patch avant tout ancien formulaire (9966.0226ms)
+✔ un historique simple avec nom long garde le point de saisie libre repérable au premier écran (11569.8959ms)
+ℹ {"requested":{"width":1440,"height":920},"top":718.8500366210938,"bottom":789.8500366210938,"width":1440,"height":920,"mainScroll":0,"requests":0}
+ℹ {"requested":{"width":720,"height":820},"top":672.7999877929688,"bottom":743.7999877929688,"width":720,"height":820,"mainScroll":0,"requests":0}
+✔ le focus de réponse reste neutre pendant envoi puis historique, sans détourner une autre saisie (9774.7623ms)
+✔ expiration et décision retirent leurs contrôles vers un titre neutre dans l’historique (9826.8149ms)
+✔ la conversation donne accès au travail avant la préparation et conserve la saisie en consultant le contexte (12972.5429ms)
+✔ ouvrir Codex depuis la projection ferme le contexte et focalise le panneau visible (8884.1698ms)
+✔ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (5021.7562ms)
+✔ un lancement Mary rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec (21776.2682ms)
+✔ un lancement Forge rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec (28437.6613ms)
+✔ les annonces polies de l’accueil couvrent arrivée, envoi et résolution sans annoncer les fragments (6575.7086ms)
+✔ les récapitulatifs repliés nomment le fait du tour et gardent leur identifiant secondaire (8413.564ms)
+✔ accueil rejoint la conversation exacte par clavier, préserve les saisies et retire l’attente résolue (16381.2073ms)
+✔ deux destinations concurrentes et retour tardif gardent le dernier contexte et focus demandés (15448.7979ms)
+✔ préparer un échange annule une sélection différée et libère les commandes sans détour tardif (15522.5152ms)
+✔ une attente expirée pendant la sélection conserve sa saisie et explique l’absence d’envoi (7710.1275ms)
+✔ activité native reste nommée à l’accueil et un échec de sélection ne déplace ni contexte ni focus (6207.067ms)
+✔ les articles progressifs gardent leur nœud, identité sourcée, lecture et saisie sans annoncer chaque fragment (8794.3158ms)
+✔ le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (24510.4684ms)
+✔ les indicateurs de question distinguent saisie et envoi et utilisent son destinataire réel (10163.9767ms)
+✔ le thème change au clavier sans perdre le brouillon ni le contexte en fenêtre compacte (11165.2076ms)
+✔ Forge prépare la portée inline, exige qualification et lancement explicites puis conserve le brouillon et le destinataire (20064.084ms)
+✔ les contrôles partagés sont attribués à la session Forge (16420.5128ms)
+✔ les contrôles partagés sont attribués à la session Mary (12489.1373ms)
+✔ la préparation Forge explique le prérequis account et sa récupération en fenêtre compacte (16436.0158ms)
+✔ la préparation Forge explique le prérequis plan et sa récupération en fenêtre compacte (16620.9276ms)
+✔ Forge historique après Mary conserve résultat, contexte, observations et copie du chemin correspondant (24307.7308ms)
+✔ un thème non sauvegardé garde un avertissement accessible et la saisie (true) (4578.69ms)
+✔ un thème non sauvegardé garde un avertissement accessible et la saisie (bridge) (4415.9153ms)
+✔ le rappel forfait affiche l’erreur connue et reste fermable après un échec durable (6900.58ms)
+✔ Échap ferme le tiroir compact actif et conserve le panneau Codex en arrière-plan (6788.4605ms)
+✔ Mary expose son invocation et son forfait puis envoie uniquement le brouillon capturé (10488.2847ms)
+✔ un arrêt inconnu depuis un autre projet garde le motif du blocage et le retour au propriétaire (20682.5009ms)
+✔ l’aide aux clés publiques est absente sans erreur réseau (4653.9532ms)
+✔ l’aide réseau ouvre ou copie l’unique URL publique sans masquer l’erreur ni relancer Codex (8240.1094ms)
+✔ l’aide réseau garde une récupération locale après échec copyPublicKeys (6695.9782ms)
+✔ l’aide réseau garde une récupération locale après échec openPublicKeys (6649.318ms)
+✔ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (14630.1176ms)
+✔ un arrêt du témoin connexion non confirmé expose la récupération explicite sans projet (4912.0109ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 45
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 582597.6464

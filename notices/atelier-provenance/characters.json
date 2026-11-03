@@ -1,0 +1,718 @@
+{
+  "schemaVersion": 1,
+  "status": "ready_for_integration_review",
+  "tool": "image_gen.imagegen intégré",
+  "date": "2026-11-02",
+  "referencePaths": [
+    "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/casting-bmad.png",
+    "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png"
+  ],
+  "usage": "Préproduction d’illustrations; aucune identité native ou activation BMad prouvée.",
+  "assets": [
+    {
+      "id": "mary",
+      "sourcePath": "C:/Users/UP60066553/.codex/generated_images/01a19c73-e79f-73c0-aa0e-8e6b83981390/exec-66672988-e335-4d66-b97f-55cbc7274f93.png",
+      "file": "mary-bust.png",
+      "targetPath": "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/mary-bust.png",
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready individual character bust PNG for the approved Madness atelier interface, usable both as a small circular portrait via CSS and as a larger agent information card.\nInput images: Image 1 is the APPROVED ORIGINAL CASTING identity reference. Image 2 is the APPROVED ATELIER visual-style reference, not a layout to reproduce.\nPrimary request: create ONLY MARY, the first person at the far left of Image 1, as a single isolated head-and-shoulders-and-upper-torso bust on a genuinely transparent background.\nIdentity invariants: preserve Mary's warm medium-brown skin, expressive dark almond eyes, arched brows, friendly intelligent slightly asymmetrical closed-mouth smile, beauty mark, short voluminous tightly curly dark-brown bob with the same side-swept silhouette, small gold hoop earrings, blue-petrol high-collared workshop coat, charcoal inner top, ochre-brown shoulder strap, small copper/terracotta workshop details. Follow the close-up of Mary at the lower left of Image 1; do not blend in any other character.\nStyle/medium: match the approved original cel-shaded atelier illustration: confident dark ink outlines, angular hard-edged light and shadow, restrained painterly paper/metal wear inside the clothing, crisp facial shapes that remain readable at thumbnail size. Warm natural face light and cool petrol shadows. The same original person, never a recognizable existing Borderlands hero.\nComposition/framing: square 1024 x 1024 canvas; head facing almost forward with the slight three-quarter turn and warm gaze of the casting; head, both whole shoulders and upper chest visible, arms rest below the frame, no held notebook or pencil. Centered figure at consistent bust scale: top of hair around 10% from top, chin around 52% down, complete shoulder width contained between 10% and 90% of canvas. Keep generous true-alpha empty margins around hair and shoulders, and 8% empty margin below a clean intentional lower-torso cutout silhouette. Do not crop hair or shoulders. Face is the visual focus.\nBackground: actual transparent alpha everywhere outside the character silhouette, no painted white/black/colored backdrop, no checkerboard painted into the image, no cast shadow behind or beneath the figure.\nConstraints: one character only, no scene, no environmental props, no UI, no card frame, no label, no letters, no watermark, no halo. Preserve identity and clothing, do not redesign the approved direction.",
+      "transparentBackgroundRequested": true,
+      "references": [
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/casting-bmad.png",
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png"
+      ],
+      "inspection": "Visuellement inspecté : un personnage, identité du casting conservée, pas de texte ni décor, tête et épaules visibles.",
+      "sha256": "3ae12d98f45189e282991b2f5534d3a036c89c4e5cf4d0c1a0d20cce3c7aba5d",
+      "bytes": 1748759,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254,
+        "pixelFormat": "Format32bppArgb"
+      },
+      "alphaInspection": {
+        "minimum": 0,
+        "maximum": 255,
+        "fullyTransparentPixels": 782745,
+        "fullyOpaquePixels": 552,
+        "partialAlphaPixels": 789219,
+        "nearOpaquePixels250to255": 729589,
+        "nonTransparentOuterEdgePixels": 19,
+        "nonZeroBoundsInclusive": [
+          0,
+          19,
+          1223,
+          1223
+        ],
+        "marginsPixels": {
+          "left": 0,
+          "top": 19,
+          "right": 30,
+          "bottom": 30
+        }
+      },
+      "copyVerification": {
+        "bitwiseCopy": true,
+        "sourceSha256": "3ae12d98f45189e282991b2f5534d3a036c89c4e5cf4d0c1a0d20cce3c7aba5d"
+      },
+      "alphaBoundsThresholdSchema": [
+        "alphaThresholdExclusive",
+        "minX",
+        "minY",
+        "maxX",
+        "maxY",
+        "outerEdgePixelsAboveThreshold",
+        "outerEdgeMaxAlpha"
+      ],
+      "alphaBoundsByThreshold": [
+        [
+          0,
+          0,
+          19,
+          1223,
+          1223,
+          19,
+          1
+        ],
+        [
+          8,
+          110,
+          58,
+          1143,
+          1219,
+          0,
+          1
+        ],
+        [
+          16,
+          110,
+          58,
+          1143,
+          1217,
+          0,
+          1
+        ],
+        [
+          128,
+          111,
+          59,
+          1142,
+          1216,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "john",
+      "sourcePath": "C:/Users/UP60066553/.codex/generated_images/01a19c73-e79f-73c0-aa0e-8e6b83981390/exec-4c86d1b2-3149-4f1f-8196-2bf8b811c9ef.png",
+      "file": "john-bust.png",
+      "targetPath": "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/john-bust.png",
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready individual character bust PNG for the approved Madness atelier interface, usable as a small portrait via CSS and as a larger agent information card.\nInput images: Image 1 is the APPROVED ORIGINAL CASTING identity reference. Image 2 is the APPROVED ATELIER visual-style reference, not a layout to reproduce. Image 3 is the already selected Mary bust, for matching illustration finish, figure scale and transparent cutout framing ONLY; do not take her identity.\nPrimary request: create ONLY JOHN, the second person from the left of Image 1, as a single isolated head-and-shoulders-and-upper-torso bust on a genuinely transparent background.\nIdentity invariants: preserve John's light warm olive/tanned skin, hazel-brown eyes, thick expressive dark eyebrows, amiable confident closed-mouth smile, tousled swept-back medium-length dark brown hair with warm highlights, short dark beard stubble and mustache. Preserve his terracotta/rust sleeveless workshop vest with blue-petrol collar accents and rugged dark straps/buckles over the same open-collared ivory work shirt. Follow John's face close-up, second panel at the bottom of Image 1; do not blend in any other character.\nStyle/medium: match the approved original cel-shaded atelier illustration and Image 3 finish: confident dark ink outlines, angular hard-edged light and shadow, restrained painted wear inside clothing, crisp facial shapes readable at thumbnail size, warm natural face light and cool petrol shadows. This same original person, never a recognizable existing Borderlands hero.\nComposition/framing: square canvas matching Image 3; almost forward-facing head with John's subtle three-quarter turn and warm gaze from the casting; head, both whole shoulders and upper chest visible, arms rest below the frame, no held blueprint or props. Centered figure at consistent bust scale: top of hair around 10% from top, chin around 52% down, complete shoulder width contained between 10% and 90% of canvas. Generous true-alpha empty margins around hair and shoulders, with 8% empty margin below a clean intentional lower-torso cutout silhouette. Do not crop hair or shoulders. Face is the visual focus.\nBackground: actual transparent alpha everywhere outside the character silhouette, no painted white/black/colored backdrop, no checkerboard painted into the image, no cast shadow behind or beneath the figure.\nConstraints: one character only, no scene, no environmental props, no UI, no card frame, no label, no letters, no watermark, no halo. Preserve identity and clothing, do not redesign the approved direction.",
+      "transparentBackgroundRequested": true,
+      "references": [
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/casting-bmad.png",
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png",
+        "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/mary-bust.png"
+      ],
+      "inspection": "Visuellement inspecté : un personnage, identité du casting conservée, pas de texte ni décor, tête et épaules visibles.",
+      "sha256": "faf4d8ebc081cc8647ac2a40ce1845b1fdd53d89bd1c2f19dd3e3d99d09daf53",
+      "bytes": 1914851,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254,
+        "pixelFormat": "Format32bppArgb"
+      },
+      "alphaInspection": {
+        "minimum": 0,
+        "maximum": 255,
+        "fullyTransparentPixels": 779414,
+        "fullyOpaquePixels": 793,
+        "partialAlphaPixels": 792309,
+        "nearOpaquePixels250to255": 752006,
+        "nonTransparentOuterEdgePixels": 8,
+        "nonZeroBoundsInclusive": [
+          0,
+          26,
+          1206,
+          1223
+        ],
+        "marginsPixels": {
+          "left": 0,
+          "top": 26,
+          "right": 47,
+          "bottom": 30
+        }
+      },
+      "copyVerification": {
+        "bitwiseCopy": true,
+        "sourceSha256": "faf4d8ebc081cc8647ac2a40ce1845b1fdd53d89bd1c2f19dd3e3d99d09daf53"
+      },
+      "alphaBoundsThresholdSchema": [
+        "alphaThresholdExclusive",
+        "minX",
+        "minY",
+        "maxX",
+        "maxY",
+        "outerEdgePixelsAboveThreshold",
+        "outerEdgeMaxAlpha"
+      ],
+      "alphaBoundsByThreshold": [
+        [
+          0,
+          0,
+          26,
+          1206,
+          1223,
+          8,
+          1
+        ],
+        [
+          8,
+          41,
+          69,
+          1204,
+          1218,
+          0,
+          1
+        ],
+        [
+          16,
+          41,
+          69,
+          1203,
+          1218,
+          0,
+          1
+        ],
+        [
+          128,
+          42,
+          70,
+          1203,
+          1217,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "sofia",
+      "sourcePath": "C:/Users/UP60066553/.codex/generated_images/01a19c73-e79f-73c0-aa0e-8e6b83981390/exec-33663e4b-49ba-427b-bd1a-f057976da285.png",
+      "file": "sofia-bust.png",
+      "targetPath": "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/sofia-bust.png",
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready individual character bust PNG for the approved Madness atelier interface, usable as a small portrait via CSS and as a larger agent information card.\nInput images: Image 1 is the APPROVED ORIGINAL CASTING identity reference. Image 2 is the APPROVED ATELIER visual-style reference, not a layout to reproduce. Image 3 is the already selected Mary bust, for matching illustration finish, figure scale and transparent cutout framing ONLY; do not take her identity.\nPrimary request: create ONLY SOFIA, the third person from the left of Image 1, as a single isolated head-and-shoulders-and-upper-torso bust on a genuinely transparent background.\nIdentity invariants: preserve Sofia's warm olive/light-tan complexion, defined dark almond eyes, precise arched brows, poised thoughtful subtly smiling mouth, sleek straight chin-length black bob with its highly distinctive light gray/silver front streak at the part. Preserve her small gold earring, high-neck charcoal-black ribbed turtleneck, structured long blue-petrol workshop coat with angular turned-up lapels, brass snaps and small restrained terracotta details, brown/ochre shoulder harness. Follow Sofia's face close-up, third panel at the bottom of Image 1; do not blend in any other character.\nStyle/medium: match the approved original cel-shaded atelier illustration and Image 3 finish: confident dark ink outlines, angular hard-edged light and shadow, restrained painted wear inside clothing, crisp facial shapes readable at thumbnail size, warm natural face light and cool petrol shadows. This same original person, never a recognizable existing Borderlands hero.\nComposition/framing: square canvas matching Image 3; almost forward-facing head with Sofia's subtle three-quarter turn and composed gaze from the casting; head, both whole shoulders and upper chest visible, arms rest below the frame, no held clipboard or props. Centered figure at consistent bust scale: top of hair around 10% from top, chin around 52% down, complete shoulder width contained between 10% and 90% of canvas. Generous true-alpha empty margins around hair and shoulders, with 8% empty margin below a clean intentional lower-torso cutout silhouette. Do not crop hair or shoulders. Face is the visual focus.\nBackground: actual transparent alpha everywhere outside the character silhouette, no painted white/black/colored backdrop, no checkerboard painted into the image, no cast shadow behind or beneath the figure.\nConstraints: one character only, no scene, no environmental props, no UI, no card frame, no label, no letters, no watermark, no halo. Preserve identity and clothing, do not redesign the approved direction.",
+      "transparentBackgroundRequested": true,
+      "references": [
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/casting-bmad.png",
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png",
+        "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/mary-bust.png"
+      ],
+      "inspection": "Visuellement inspecté : un personnage, identité du casting conservée, pas de texte ni décor, tête et épaules visibles.",
+      "sha256": "d6d9ce87fd778cde327526fdd435f3608ec4d3afcb70cb26a8e3eb9c61f7a1dc",
+      "bytes": 1687327,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254,
+        "pixelFormat": "Format32bppArgb"
+      },
+      "alphaInspection": {
+        "minimum": 0,
+        "maximum": 255,
+        "fullyTransparentPixels": 808114,
+        "fullyOpaquePixels": 802,
+        "partialAlphaPixels": 763600,
+        "nearOpaquePixels250to255": 728180,
+        "nonTransparentOuterEdgePixels": 5,
+        "nonZeroBoundsInclusive": [
+          0,
+          23,
+          1153,
+          1224
+        ],
+        "marginsPixels": {
+          "left": 0,
+          "top": 23,
+          "right": 100,
+          "bottom": 29
+        }
+      },
+      "copyVerification": {
+        "bitwiseCopy": true,
+        "sourceSha256": "d6d9ce87fd778cde327526fdd435f3608ec4d3afcb70cb26a8e3eb9c61f7a1dc"
+      },
+      "alphaBoundsThresholdSchema": [
+        "alphaThresholdExclusive",
+        "minX",
+        "minY",
+        "maxX",
+        "maxY",
+        "outerEdgePixelsAboveThreshold",
+        "outerEdgeMaxAlpha"
+      ],
+      "alphaBoundsByThreshold": [
+        [
+          0,
+          0,
+          23,
+          1153,
+          1224,
+          5,
+          1
+        ],
+        [
+          8,
+          105,
+          76,
+          1142,
+          1216,
+          0,
+          1
+        ],
+        [
+          16,
+          105,
+          76,
+          1142,
+          1215,
+          0,
+          1
+        ],
+        [
+          128,
+          106,
+          77,
+          1141,
+          1215,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "winston",
+      "sourcePath": "C:/Users/UP60066553/.codex/generated_images/01a19c73-e79f-73c0-aa0e-8e6b83981390/exec-bf9696f8-28bf-4d4b-947f-d898cd41d9a9.png",
+      "file": "winston-bust.png",
+      "targetPath": "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/winston-bust.png",
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready individual character bust PNG for the approved Madness atelier interface, usable as a small portrait via CSS and as a larger agent information card.\nInput images: Image 1 is the APPROVED ORIGINAL CASTING identity reference. Image 2 is the APPROVED ATELIER visual-style reference, not a layout to reproduce. Image 3 is the already selected Mary bust, for matching illustration finish, figure scale and transparent cutout framing ONLY; do not take her identity.\nPrimary request: create ONLY WINSTON, the fourth person from the left of Image 1, as a single isolated head-and-shoulders-and-upper-torso bust on a genuinely transparent background.\nIdentity invariants: preserve Winston as the same mature older Black man, deep warm brown skin, broad nose, dark warm observant eyes, pronounced kind cheek and brow lines, subtly amused composed closed-mouth smile, very short cropped silver-gray hair, close full salt-and-white beard and mustache framing the same strong face. Preserve his blue-petrol long workshop coat with broad raised lapels and copper/brass snaps, dark charcoal ribbed crewneck sweater, aged brown leather shoulder straps/buckles, small pen pocket. Follow Winston's face close-up, fourth panel at the bottom of Image 1; do not blend in any other character.\nStyle/medium: match the approved original cel-shaded atelier illustration and Image 3 finish: confident dark ink outlines, angular hard-edged light and shadow, restrained painted wear inside clothing, crisp facial shapes readable at thumbnail size, warm natural face light and cool petrol shadows. This same original person, never a recognizable existing Borderlands hero.\nComposition/framing: square canvas matching Image 3; almost forward-facing head with Winston's subtle three-quarter turn and calm gaze from the casting; head, both whole shoulders and upper chest visible, arms rest below the frame, no held blueprint, triangle ruler or props. Centered figure at consistent bust scale: top of hair around 10% from top, chin including beard around 52% down, complete shoulder width contained between 10% and 90% of canvas. Generous true-alpha empty margins around head and shoulders, with 8% empty margin below a clean intentional lower-torso cutout silhouette. Do not crop hair or shoulders. Face is the visual focus.\nBackground: actual transparent alpha everywhere outside the character silhouette, no painted white/black/colored backdrop, no checkerboard painted into the image, no cast shadow behind or beneath the figure.\nConstraints: one character only, no scene, no environmental props, no UI, no card frame, no label, no letters, no watermark, no halo. Preserve identity and clothing, do not redesign the approved direction.",
+      "transparentBackgroundRequested": true,
+      "references": [
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/casting-bmad.png",
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png",
+        "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/mary-bust.png"
+      ],
+      "inspection": "Visuellement inspecté : un personnage, identité du casting conservée, pas de texte ni décor, tête et épaules visibles.",
+      "sha256": "40461081fc0b20c8a664753c19a71d73f26daa5c499e43b3d725f7454ee3d39d",
+      "bytes": 1875373,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254,
+        "pixelFormat": "Format32bppArgb"
+      },
+      "alphaInspection": {
+        "minimum": 0,
+        "maximum": 255,
+        "fullyTransparentPixels": 781346,
+        "fullyOpaquePixels": 503,
+        "partialAlphaPixels": 790667,
+        "nearOpaquePixels250to255": 767084,
+        "nonTransparentOuterEdgePixels": 2,
+        "nonZeroBoundsInclusive": [
+          0,
+          21,
+          1231,
+          1238
+        ],
+        "marginsPixels": {
+          "left": 0,
+          "top": 21,
+          "right": 22,
+          "bottom": 15
+        }
+      },
+      "copyVerification": {
+        "bitwiseCopy": true,
+        "sourceSha256": "40461081fc0b20c8a664753c19a71d73f26daa5c499e43b3d725f7454ee3d39d"
+      },
+      "alphaBoundsThresholdSchema": [
+        "alphaThresholdExclusive",
+        "minX",
+        "minY",
+        "maxX",
+        "maxY",
+        "outerEdgePixelsAboveThreshold",
+        "outerEdgeMaxAlpha"
+      ],
+      "alphaBoundsByThreshold": [
+        [
+          0,
+          0,
+          21,
+          1231,
+          1238,
+          2,
+          1
+        ],
+        [
+          8,
+          48,
+          76,
+          1205,
+          1228,
+          0,
+          1
+        ],
+        [
+          16,
+          48,
+          76,
+          1204,
+          1228,
+          0,
+          1
+        ],
+        [
+          128,
+          49,
+          77,
+          1204,
+          1227,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "sally",
+      "sourcePath": "C:/Users/UP60066553/.codex/generated_images/01a19c73-e79f-73c0-aa0e-8e6b83981390/exec-b1ab2293-ad6e-4003-8106-f356120bef8b.png",
+      "file": "sally-bust.png",
+      "targetPath": "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/sally-bust.png",
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready individual character bust PNG for the approved Madness atelier interface, usable as a small portrait via CSS and as a larger agent information card.\nInput images: Image 1 is the APPROVED ORIGINAL CASTING identity reference. Image 2 is the APPROVED ATELIER visual-style reference AND its right-hand Sally portrait is an additional approved Sally identity reference, not a layout to reproduce. Image 3 is the already selected Mary bust, for matching illustration finish, figure scale and transparent cutout framing ONLY; do not take her identity.\nPrimary request: create ONLY SALLY, the fifth person from the left of Image 1 and the woman in the right-hand card of Image 2, as a single isolated head-and-shoulders-and-upper-torso bust on a genuinely transparent background.\nIdentity invariants: preserve Sally's fair warm ivory skin with clear soft freckles across nose and cheeks, hazel/green eyes with distinct upper eyeliner, fine arched auburn brows, playful self-assured subtle closed-mouth smile. Preserve exactly her short tousled asymmetrical copper-red hair: short tucked back on one side and a long swooping side fringe sweeping across the other side of her forehead and beside her cheek, same silhouette as the approved portraits. Preserve small dark round ear studs, fine layered necklaces, ivory scoop-neck T-shirt, weathered terracotta workshop jacket with turned-up blue-petrol collar lining, brass buttons and dark brown leather harness straps. Follow Sally's face close-up, fifth bottom panel of Image 1, reinforced by the large approved Sally portrait in Image 2; do not blend in any other character.\nStyle/medium: match the approved original cel-shaded atelier illustration and Image 3 finish: confident dark ink outlines, angular hard-edged light and shadow, restrained painted wear inside clothing, crisp facial shapes readable at thumbnail size, warm natural face light and cool petrol shadows. This same original person, never a recognizable existing Borderlands hero.\nComposition/framing: square canvas matching Image 3; almost forward-facing head with Sally's subtle three-quarter turn and engaging gaze from the approved references; head, both whole shoulders and upper chest visible, arms rest below the frame, no held tablet, stylus or props. Centered figure at consistent bust scale: top of hair around 10% from top, chin around 52% down, complete shoulder width contained between 10% and 90% of canvas. Generous true-alpha empty margins around hair and shoulders, with 8% empty margin below a clean intentional lower-torso cutout silhouette. Do not crop hair or shoulders. Face is the visual focus.\nBackground: actual transparent alpha everywhere outside the character silhouette, no painted white/black/colored backdrop, no checkerboard painted into the image, no cast shadow behind or beneath the figure.\nConstraints: one character only, no scene, no environmental props, no UI, no card frame, no label, no letters, no watermark, no halo. Preserve identity and clothing, do not redesign the approved direction.",
+      "transparentBackgroundRequested": true,
+      "references": [
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/casting-bmad.png",
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png",
+        "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/mary-bust.png"
+      ],
+      "inspection": "Visuellement inspecté : un personnage, identité du casting conservée, pas de texte ni décor, tête et épaules visibles.",
+      "sha256": "55dd1e9a89ba4023cc15642765a36774633a6f2ae9b1dbc1d14a7706dc1c8a45",
+      "bytes": 1750211,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254,
+        "pixelFormat": "Format32bppArgb"
+      },
+      "alphaInspection": {
+        "minimum": 0,
+        "maximum": 255,
+        "fullyTransparentPixels": 831621,
+        "fullyOpaquePixels": 693,
+        "partialAlphaPixels": 740202,
+        "nearOpaquePixels250to255": 681503,
+        "nonTransparentOuterEdgePixels": 2,
+        "nonZeroBoundsInclusive": [
+          0,
+          21,
+          1237,
+          1233
+        ],
+        "marginsPixels": {
+          "left": 0,
+          "top": 21,
+          "right": 16,
+          "bottom": 20
+        }
+      },
+      "copyVerification": {
+        "bitwiseCopy": true,
+        "sourceSha256": "55dd1e9a89ba4023cc15642765a36774633a6f2ae9b1dbc1d14a7706dc1c8a45"
+      },
+      "alphaBoundsThresholdSchema": [
+        "alphaThresholdExclusive",
+        "minX",
+        "minY",
+        "maxX",
+        "maxY",
+        "outerEdgePixelsAboveThreshold",
+        "outerEdgeMaxAlpha"
+      ],
+      "alphaBoundsByThreshold": [
+        [
+          0,
+          0,
+          21,
+          1237,
+          1233,
+          2,
+          1
+        ],
+        [
+          8,
+          120,
+          55,
+          1122,
+          1201,
+          0,
+          1
+        ],
+        [
+          16,
+          120,
+          55,
+          1122,
+          1200,
+          0,
+          1
+        ],
+        [
+          128,
+          121,
+          56,
+          1121,
+          1200,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "amelia",
+      "sourcePath": "C:/Users/UP60066553/.codex/generated_images/01a19c73-e79f-73c0-aa0e-8e6b83981390/exec-297293ce-0385-44c8-93b2-b849f81b4c69.png",
+      "file": "amelia-bust.png",
+      "targetPath": "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/amelia-bust.png",
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready individual character bust PNG for the approved Madness atelier interface, usable as a small portrait via CSS and as a larger agent information card.\nInput images: Image 1 is the APPROVED ORIGINAL CASTING identity reference. Image 2 is the APPROVED ATELIER visual-style reference, not a layout to reproduce. Image 3 is the already selected Mary bust, for matching illustration finish, figure scale and transparent cutout framing ONLY; do not take her identity.\nPrimary request: create ONLY AMELIA, the sixth person from the left of Image 1, as a single isolated head-and-shoulders-and-upper-torso bust on a genuinely transparent background.\nIdentity invariants: preserve Amelia as the same East Asian woman with warm light-golden complexion, fine dark almond eyes, defined straight gently angled brows, calm attentive subtle closed-mouth smile, black hair gathered in a high loosely messy bun with the same swept front strands and wisps beside her cheeks. Preserve the high-collared blue-petrol workshop coverall, charcoal chest panels and pockets, narrow ochre/terracotta inner collar and seam accents, aged brown leather shoulder harness straps with rectangular metal buckles, small workshop shoulder patch. Follow Amelia's face close-up, sixth panel at the bottom of Image 1; do not blend in any other character.\nStyle/medium: match the approved original cel-shaded atelier illustration and Image 3 finish: confident dark ink outlines, angular hard-edged light and shadow, restrained painted wear inside clothing, crisp facial shapes readable at thumbnail size, warm natural face light and cool petrol shadows. This same original person, never a recognizable existing Borderlands hero.\nComposition/framing: square canvas matching Image 3; almost forward-facing head with Amelia's subtle three-quarter turn and composed gaze from the casting; head including all of the bun, both whole shoulders and upper chest visible, arms rest below the frame, no held tablet or props. Centered figure at consistent bust scale: top of bun around 10% from top, chin around 52% down, complete shoulder width contained between 10% and 90% of canvas. Generous true-alpha empty margins around hair and shoulders, with 8% empty margin below a clean intentional lower-torso cutout silhouette. Do not crop hair, bun or shoulders. Face is the visual focus.\nBackground: actual transparent alpha everywhere outside the character silhouette, no painted white/black/colored backdrop, no checkerboard painted into the image, no cast shadow behind or beneath the figure.\nConstraints: one character only, no scene, no environmental props, no UI, no card frame, no label, no letters, no watermark, no halo. Preserve identity and clothing, do not redesign the approved direction.",
+      "transparentBackgroundRequested": true,
+      "references": [
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/casting-bmad.png",
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png",
+        "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/mary-bust.png"
+      ],
+      "inspection": "Visuellement inspecté : un personnage, identité du casting conservée, pas de texte ni décor, tête et épaules visibles.",
+      "sha256": "957ff412fb7b2c501567cbeb983df0db9b70a1867530542933d8596fe86794d0",
+      "bytes": 1563408,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254,
+        "pixelFormat": "Format32bppArgb"
+      },
+      "alphaInspection": {
+        "minimum": 0,
+        "maximum": 255,
+        "fullyTransparentPixels": 894708,
+        "fullyOpaquePixels": 617,
+        "partialAlphaPixels": 677191,
+        "nearOpaquePixels250to255": 603198,
+        "nonTransparentOuterEdgePixels": 23,
+        "nonZeroBoundsInclusive": [
+          0,
+          42,
+          1163,
+          1229
+        ],
+        "marginsPixels": {
+          "left": 0,
+          "top": 42,
+          "right": 90,
+          "bottom": 24
+        }
+      },
+      "copyVerification": {
+        "bitwiseCopy": true,
+        "sourceSha256": "957ff412fb7b2c501567cbeb983df0db9b70a1867530542933d8596fe86794d0"
+      },
+      "alphaBoundsThresholdSchema": [
+        "alphaThresholdExclusive",
+        "minX",
+        "minY",
+        "maxX",
+        "maxY",
+        "outerEdgePixelsAboveThreshold",
+        "outerEdgeMaxAlpha"
+      ],
+      "alphaBoundsByThreshold": [
+        [
+          0,
+          0,
+          42,
+          1163,
+          1229,
+          23,
+          1
+        ],
+        [
+          8,
+          123,
+          44,
+          1129,
+          1219,
+          0,
+          1
+        ],
+        [
+          16,
+          123,
+          44,
+          1129,
+          1218,
+          0,
+          1
+        ],
+        [
+          128,
+          124,
+          45,
+          1128,
+          1218,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "smithy",
+      "sourcePath": "C:/Users/UP60066553/.codex/generated_images/01a19c73-e79f-73c0-aa0e-8e6b83981390/exec-b0b67524-1748-46b7-a008-d17dcd0f8223.png",
+      "file": "smithy-bust.png",
+      "targetPath": "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/smithy-bust.png",
+      "prompt": "Use case: stylized-concept\nAsset type: production-ready individual character bust PNG for the approved Madness atelier interface, usable as a small portrait via CSS and as a larger agent information card.\nInput images: Image 1 is the APPROVED ORIGINAL CASTING identity reference. Image 2 is the APPROVED ATELIER visual-style reference, not a layout to reproduce. Image 3 is the already selected Mary bust, for matching illustration finish, figure scale and transparent cutout framing ONLY; do not take her identity.\nPrimary request: create ONLY SMITHY, the seventh and rightmost person in Image 1, as a single isolated head-and-shoulders-and-upper-torso bust on a genuinely transparent background.\nIdentity invariants: preserve Smithy as the same older stocky broad-shouldered human workshop craftsman, fair weathered warm skin, rosy round nose and cheeks, kindly crow's-feet, small jovial dark eyes, confident cheerful closed-mouth smile, very full rounded gray-white beard and thick curled gray mustache, short tousled salt-and-pepper hair at the sides. Preserve his distinctive round workshop goggles pushed up on a dark brown headband across the forehead, brass/ochre goggle rims and blue-gray lenses, navy-blue/petrol work shirt with rolled sleeve suggestion and orange collar piping, substantial terracotta-brown leather apron high on chest with heavy dark shoulder straps, brass buckles and rivets. Follow Smithy's face close-up, rightmost panel at the bottom of Image 1; do not blend in any other character. Keep him an original human, not a fantasy dwarf.\nStyle/medium: match the approved original cel-shaded atelier illustration and Image 3 finish: confident dark ink outlines, angular hard-edged light and shadow, restrained painted wear inside clothing, crisp facial shapes readable at thumbnail size, warm natural face light and cool petrol shadows. This same original person, never a recognizable existing Borderlands hero.\nComposition/framing: square canvas matching Image 3; almost forward-facing head with Smithy's subtle three-quarter turn and welcoming gaze from the casting; entire head including hair and goggles, both whole broad shoulders and upper chest visible, arms rest below the frame, no held wrench, machine, robot, tool or props. Centered figure at consistent bust scale: top of hair/goggles around 10% from top, chin including beard around 52% down, complete shoulder width contained between 10% and 90% of canvas. Generous true-alpha empty margins around hair and shoulders, with 8% empty margin below a clean intentional lower-torso cutout silhouette. Do not crop hair, goggles or shoulders. Face is the visual focus.\nBackground: actual transparent alpha everywhere outside the character silhouette, no painted white/black/colored backdrop, no checkerboard painted into the image, no cast shadow behind or beneath the figure.\nConstraints: one character only, no scene, no environmental props, no UI, no card frame, no label, no letters, no watermark, no halo. Preserve identity and clothing, do not redesign the approved direction.",
+      "transparentBackgroundRequested": true,
+      "references": [
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/casting-bmad.png",
+        "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png",
+        "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/.working/atelier-character-assets/mary-bust.png"
+      ],
+      "inspection": "Visuellement inspecté : un personnage, identité du casting conservée, pas de texte ni décor, tête et épaules visibles.",
+      "sha256": "709048ac4f1287dd8aa743dde3edc008ef22d98ff5ad54e767cce47c735c5859",
+      "bytes": 2182196,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254,
+        "pixelFormat": "Format32bppArgb"
+      },
+      "alphaInspection": {
+        "minimum": 0,
+        "maximum": 255,
+        "fullyTransparentPixels": 708800,
+        "fullyOpaquePixels": 837,
+        "partialAlphaPixels": 862879,
+        "nearOpaquePixels250to255": 826782,
+        "nonTransparentOuterEdgePixels": 9,
+        "nonZeroBoundsInclusive": [
+          0,
+          37,
+          1215,
+          1224
+        ],
+        "marginsPixels": {
+          "left": 0,
+          "top": 37,
+          "right": 38,
+          "bottom": 29
+        }
+      },
+      "copyVerification": {
+        "bitwiseCopy": true,
+        "sourceSha256": "709048ac4f1287dd8aa743dde3edc008ef22d98ff5ad54e767cce47c735c5859"
+      },
+      "alphaBoundsThresholdSchema": [
+        "alphaThresholdExclusive",
+        "minX",
+        "minY",
+        "maxX",
+        "maxY",
+        "outerEdgePixelsAboveThreshold",
+        "outerEdgeMaxAlpha"
+      ],
+      "alphaBoundsByThreshold": [
+        [
+          0,
+          0,
+          37,
+          1215,
+          1224,
+          9,
+          1
+        ],
+        [
+          8,
+          38,
+          76,
+          1204,
+          1218,
+          0,
+          1
+        ],
+        [
+          16,
+          38,
+          76,
+          1204,
+          1216,
+          0,
+          1
+        ],
+        [
+          128,
+          39,
+          78,
+          1203,
+          1216,
+          0,
+          1
+        ]
+      ]
+    }
+  ],
+  "assetCount": 7,
+  "generation": {
+    "tool": "image_gen.imagegen intégré",
+    "mode": "built-in",
+    "calls": 7,
+    "targetedCorrections": 0,
+    "cliUsed": false,
+    "apiKeyUsed": false,
+    "bitmapRetouch": false,
+    "selection": "Premier et unique résultat de chaque personnage retenu après inspection visuelle."
+  },
+  "sourceBrief": {
+    "path": "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/handoff.json",
+    "sourceChatId": "01a19af2-02c7-7bd2-9a1a-d4a886359d8e",
+    "direction": "Atelier anthracite, bleu pétrole, terracotta; casting original approuvé préservé.",
+    "integration": "Préproduction uniquement. Aucun composant, ticket, spine, profil, paquet ou application modifié."
+  },
+  "referenceProvenance": [
+    {
+      "path": "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/casting-bmad.png",
+      "bytes": 3304058,
+      "sha256": "c1858e2167ee9af36a0d61c435fcc684773e48a178ffce422763626b2c82d4d6",
+      "role": "approved_casting_identity",
+      "originalImageGenSource": "C:/Users/UP60066553/.codex/generated_images/01a19af2-02c7-7bd2-9a1a-d4a886359d8e/exec-b5320bf0-9305-4aca-80fc-ad964d986cdd.png"
+    },
+    {
+      "path": "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/atelier-reference-approuvee.png",
+      "bytes": 2327346,
+      "sha256": "4f93a6e41832dbb66143389a86baee46e117dbfe659c860b9d7a8e6bb775bec5",
+      "role": "approved_atelier_visual_style_and_sally_identity",
+      "originalImageGenSource": "C:/Users/UP60066553/.codex/generated_images/01a19af2-02c7-7bd2-9a1a-d4a886359d8e/exec-85ec0336-48bb-42d9-98fa-5235b08af178.png"
+    },
+    {
+      "path": "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/handoff.json",
+      "bytes": 5512,
+      "sha256": "c6a11895cb958ecdf9d8e872d199829441b685634ae5a866cf3d56b9a4d71d6e",
+      "role": "handoff"
+    },
+    {
+      "path": "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/images-provenance.json",
+      "bytes": 955,
+      "sha256": "99793a0e8e51090b0124f930e30a1f77403f85db6977a96c7f55f823acba62a6",
+      "role": "reference_provenance"
+    }
+  ],
+  "visualReview": {
+    "reviewer": "Agent de préproduction",
+    "humanAcceptance": false,
+    "allSevenImagesInspected": true,
+    "identity": "Visages, coiffures, teints, vêtements et accessoires distinctifs comparés au casting approuvé.",
+    "composition": "Bustes isolés, tête complète, deux épaules et haut du torse visibles; découpe inférieure intentionnelle; pas de texte, cadre, décor ou autre personnage.",
+    "smallPortraitIntent": "Traits et silhouettes conçus pour un crop CSS de portrait. Aucun contrôle intégré de rendu Windows ou vignette du produit n’est revendiqué.",
+    "alpha": "Vrai canal alpha, min0/max255. Au bord extérieur, seulement quelques pixels natifs alpha1; aucun alpha>1. Alpha original conservé sans nettoyage ni retouche.",
+    "semantics": "Ces illustrations ne prouvent aucune activation, disponibilité de skill ou identité native d’agent."
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-02",
+  "title": "Madness — atelier des agents BMad",
+  "status": "direction_visuelle_approuvee_implementation_non_commencee",
+  "sourceChat": {
+    "id": "01a19af2-02c7-7bd2-9a1a-d4a886359d8e",
+    "title": "Clarifier les agents nommés BMad",
+    "containsFullGenerationPrompts": true
+  },
+  "humanDecisions": [
+    "Donner un visage original aux agents nommés BMad dans un style cel shading inspiré de Borderlands.",
+    "Commencer par le dialogue avec un agent.",
+    "Pendant les longues séances : portraits discrets et fiche agent dépliable.",
+    "Étendre la direction atelier / Borderlands à toute l'interface, au-delà des portraits.",
+    "La maquette atelier-reference-approuvee.png a reçu la réponse humaine : C'est tellement parfait !"
+  ],
+  "assets": {
+    "casting": "casting-bmad.png",
+    "earlierDialogueExploration": "dialogue-exploration.png",
+    "approvedVisualReference": "atelier-reference-approuvee.png",
+    "provenance": "images-provenance.json",
+    "generationTool": "image_gen.imagegen intégré",
+    "usageAtThisStage": "Maquettes de conception ; ne pas utiliser une capture entière comme interface finale.",
+    "generationPromptLocation": "Prompts complets dans les appels image_gen du chat source ; ce fichier décrit le brief d'intégration et ne prétend pas les reproduire."
+  },
+  "visualDirection": {
+    "metaphor": "Atelier de travail illustré des agents BMad",
+    "palette": "Anthracite chaud, bleu pétrole, terracotta et texte ivoire ; thèmes et contrastes à décliner et vérifier.",
+    "materials": "Plaques peintes mates, contours encrés, coins coupés, cartouches et usure mesurée sur le chrome.",
+    "typography": "Titres courts et noms d'agents condensés et expressifs ; messages, menus et documents dans une police très lisible.",
+    "composition": "Navigation projets/échanges à gauche, conversation dominante au centre, fiche informative dépliable à droite.",
+    "controls": "Onglets de dossiers mécaniques, boutons terracotta et séparateurs cohérents avec les cartouches illustrés.",
+    "reading": "Fonds de lecture et de saisie calmes ; matière décorative principalement sur les contours et zones de navigation.",
+    "agentCast": ["Mary", "John", "Sofia", "Winston", "Sally", "Amelia", "Smithy"]
+  },
+  "interactionRequirements": [
+    "Fermer la fiche rend sa largeur à la conversation ; ne pas imposer en permanence un grand personnage.",
+    "Portrait, nom et rôle servent le repérage ; l'identité affichée reste liée aux preuves natives, sinon inconnue.",
+    "Le casting illustré ne prouve ni activation d'un persona ni disponibilité d'une compétence.",
+    "La fiche d'un agent est informative ; elle ne déclenche ni changement d'agent ni lancement implicite.",
+    "Conserver les règles de préparation et de lancement explicite de Conversation définies en 2.17.",
+    "Préserver questions et approbations natives, brouillons, récupération et états inconnus, navigation clavier et mouvement réduit.",
+    "Les textes, heures, fichiers et échanges dessinés dans les maquettes sont fictifs ; ils ne prouvent aucune capacité livrée."
+  ],
+  "integration": {
+    "otherChat": {
+      "id": "01a164df-61b6-74e2-9690-27a821570de3",
+      "title": "Initialiser le framework BMad",
+      "observedState": "2.17 terminée et committée a93f50a ; plan 2.2 rédigé, travail d'implémentation dans un espace isolé.",
+      "observationLimit": "Instantané de statut du 2 novembre 2026 ; relire le statut avant intégration."
+    },
+    "recommendedSequence": [
+      "Laisser le chat propriétaire terminer et vérifier son lot 2.2.",
+      "Réconcilier cette direction approuvée avec les contrats UX finalisés en 2.17 ; conserver leur comportement.",
+      "Préparer et faire relire le plan d'implémentation de la refonte dans un espace isolé depuis la base mise à jour.",
+      "Produire les vrais assets séparés : portraits, bustes à transparence et éventuels décors ; transcrire cadres, onglets et commandes en composants et styles.",
+      "Implémenter la conversation et la fiche agent, puis les états et surfaces concernés dans le même système visuel.",
+      "Vérifier rendu Windows aux tailles utiles, clavier, lisibilité, conservation des données et parcours natifs ; effectuer les revues avant livraison personnelle."
+    ],
+    "candidateSourceFilesToReconcile": [
+      "src/renderer/src/App.tsx",
+      "src/renderer/src/styles.css",
+      "_bmad-output/initiative-madness/ux-madness/DESIGN.md",
+      "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md"
+    ],
+    "thisChatChanges": "Uniquement ce nouveau dossier de maquettes et de transmission ; aucun composant, contrat existant, ticket, compte, profil personnel ou paquet installé modifié.",
+    "messageToOtherChatSent": false,
+    "implementationStarted": false,
+    "newBmadBuildStarted": false
+  },
+  "remainingDesignWork": [
+    "Décliner les vrais composants et leur comportement de redimensionnement ; la maquette ne fixe pas des pixels ou polices mesurés.",
+    "Décliner demandes actives, erreurs, récupération, identité inconnue et thèmes ; aucun état technique ne doit être caché par le skin.",
+    "Créer des assets indépendants cohérents pour les sept agents et vérifier leur lisibilité en petite vignette.",
+    "Définir les expressions et animations utiles si retenues, sans leur attribuer un état de travail non attesté."
+  ]
+}

@@ -1,0 +1,42 @@
+
+> madness@0.2.1 build
+> npm run typecheck && electron-vite build
+
+
+> madness@0.2.1 typecheck
+> tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json
+
+vite v8.3.5 building ssr environment for production...
+transforming...
+✓ 38 modules transformed.
+rendering chunks...
+out/main/index.js  306.12 kB
+
+✓ built in 439ms
+vite v8.3.5 building ssr environment for production...
+transforming...
+✓ 10 modules transformed.
+rendering chunks...
+out/preload/index.js  36.64 kB
+
+✓ built in 126ms
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 42 modules transformed.
+rendering chunks...
+out/renderer/index.html                                    0.45 kB
+out/renderer/assets/chatgpt-mark-BzeLsF5q.svg              4.21 kB
+out/renderer/assets/BarlowCondensed-Bold-v1X23fbx.ttf    109.91 kB
+out/renderer/assets/amelia-bust-fl-JqRfU.png           1,563.40 kB
+out/renderer/assets/sofia-bust-DU3x8EFY.png            1,687.32 kB
+out/renderer/assets/mary-bust-B4yQvihO.png             1,748.75 kB
+out/renderer/assets/sally-bust-Sj-q4RGe.png            1,750.21 kB
+out/renderer/assets/winston-bust-CuvKcj2e.png          1,875.37 kB
+out/renderer/assets/john-bust-CEYookBW.png             1,914.85 kB
+out/renderer/assets/workshop-header-D35jd83X.png       2,171.26 kB
+out/renderer/assets/smithy-bust-BPhnbBTx.png           2,182.19 kB
+out/renderer/assets/workshop-sidebar-BkW9TM05.png      2,208.05 kB
+out/renderer/assets/index-DuI_EgU4.css                    43.32 kB
+out/renderer/assets/index--6vy9aBs.js                    751.14 kB
+
+✓ built in 1.92s

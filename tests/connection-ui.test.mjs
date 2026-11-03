@@ -5,22 +5,27 @@ import react from '@vitejs/plugin-react'
 import { _electron as electron } from 'playwright-core'
 import { mkdtemp, mkdir, writeFile, readFile, rm, realpath } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join,dirname,basename } from 'node:path'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
+import { isHelpState } from '../src/contracts/bmad-help.ts'
+import { isDialogueMessage } from '../src/contracts/dialogue.ts'
+import { setWorkspaceViewport } from '../scripts/qualification/workspace-design.mjs'
 const require = createRequire(import.meta.url)
 const repository = fileURLToPath(new URL('../', import.meta.url))
 let root, app, page, bundle
 before(async () => {
   // Seulement le renderer source : aucun build Main/paquet, réseau ou fournisseur.
-  const result = await build({ root: repository, configFile: false, logLevel: 'silent', define: { 'process.env.NODE_ENV': '"production"' }, plugins: [react(), { name: 'connection-ui-fixture', resolveId: (id) => id === 'connection-ui-fixture' || id.replaceAll('\\', '/').endsWith('/connection-ui-fixture') ? '\0connection-ui-fixture' : undefined, load: (id) => id === '\0connection-ui-fixture' ? `import {createElement} from 'react'; import {createRoot} from 'react-dom/client'; import {App} from ${JSON.stringify(join(repository, 'src/renderer/src/App.tsx').replaceAll('\\', '/'))}; createRoot(document.getElementById('root')).render(createElement(App));` : undefined }], build: { write: false, minify: false, lib: { entry: 'connection-ui-fixture', formats: ['iife'], name: 'ConnectionUIFixture' } } })
+  const result = await build({ root: repository, configFile: false, logLevel: 'silent', define: { 'process.env.NODE_ENV': '"production"' }, plugins: [{ name: 'atelier-fixture-local-assets', enforce: 'pre', load: id => id.endsWith('-bust.png?url') ? 'export default '+JSON.stringify(pathToFileURL(id.split('?')[0]).href) : undefined }, react(), { name: 'connection-ui-fixture', resolveId: (id) => id === 'connection-ui-fixture' || id.replaceAll('\\', '/').endsWith('/connection-ui-fixture') ? '\0connection-ui-fixture' : undefined, load: (id) => id === '\0connection-ui-fixture' ? `import {createElement} from 'react'; import {createRoot} from 'react-dom/client'; import {App} from ${JSON.stringify(join(repository, 'src/renderer/src/App.tsx').replaceAll('\\', '/'))}; createRoot(document.getElementById('root')).render(createElement(App));` : undefined }], build: { write: false, minify: false, lib: { entry: 'connection-ui-fixture', formats: ['iife'], name: 'ConnectionUIFixture' } } })
   bundle = (Array.isArray(result) ? result[0] : result).output.find((output) => output.type === 'chunk').code
   root = await realpath(await mkdtemp(join(tmpdir(), 'madness-ui-review-')))
   await writeFile(join(root, 'main.cjs'), `const {app,BrowserWindow,session}=require('electron'); app.setPath('userData',${JSON.stringify(join(root, 'profile'))}); app.whenReady().then(()=>{session.defaultSession.webRequest.onBeforeRequest({urls:['http://*/*','https://*/*']},(_details,callback)=>callback({cancel:true})); const w=new BrowserWindow({show:false,width:600,height:800,webPreferences:{preload:${JSON.stringify(join(root, 'preload.cjs'))},contextIsolation:true,sandbox:true,nodeIntegration:false}});w.loadFile(${JSON.stringify(join(root, 'index.html'))});});`)
   await writeFile(join(root, 'index.html'), '<!doctype html><html lang="fr"><meta charset="utf-8"><div id="root"></div></html>')
   await writeFile(join(root, 'preload.cjs'), `const {contextBridge}=require('electron');
     let appearanceFailure=false;contextBridge.exposeInMainWorld('madnessAppearance',{initial:{theme:'dark',warning:null},setTheme:async(theme)=>{if(appearanceFailure==='bridge')throw Error('BRIDGE_UNAVAILABLE');return {theme,warning:appearanceFailure?'save-failed':null}}});
-    let state={network:{status:'idle',checkedAt:null,errorCode:null},contractVersion:1,sequence:0,status:'disconnected',accountStored:false,verifiedAt:null,errorCode:null,cliVersion:null,needsPlanAcknowledgement:false}, listeners=[],supportCalls=[],supportFailure=null,supportDeferred=false,finishSupport=null,verifies=0;
+    let state={network:{status:'idle',checkedAt:null,errorCode:null},contractVersion:1,sequence:0,status:'disconnected',accountStored:false,verifiedAt:null,errorCode:null,cliVersion:null,needsPlanAcknowledgement:false}, listeners=[],supportCalls=[],supportFailure=null,supportDeferred=false,finishSupport=null,verifies=0,cancels=0;
     const reply=()=>Promise.resolve({contractVersion:1,correlationId:'ui-fixture',state});
     const support=async(action)=>{supportCalls.push(action);if(supportFailure===action)throw Error('PUBLIC_KEYS_SUPPORT_FAILED');if(supportDeferred)await new Promise(resolve=>{finishSupport=resolve});return reply()};
     let snapshot={schemaVersion:1,revision:0,projects:[],activeProjectId:null,drafts:[],preferences:{navigationCollapsed:false},conversations:[],capabilities:{codex:{available:false,reasonKey:'codex.unqualified'}},lifecycle:'idle'}, stateListeners=[];
@@ -35,21 +40,39 @@ before(async () => {
     const qualifyForge=async(projectId)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:'qualified',errorCode:null,invocation:'$bmad-forge-idea',context:{...dialogue.context,projectId},profile:{fingerprint:'a'.repeat(64),skillPath:'C:/forge/.agents/skills/bmad-forge-idea/SKILL.md',outputBase:'C:/forge/_bmad-output/initiative-test'}};notifyDialogue();return dialogue};
     const launchForge=async(projectId)=>{if(launchFailure){dialogue={...dialogue,sequence:dialogue.sequence+1,status:'error',errorCode:'PROVIDER_FAILED'};notifyDialogue();return dialogue}dialogue={...dialogue,sequence:dialogue.sequence+1,status:'ready',errorCode:null,invocation:'$bmad-forge-idea',context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-forge',providerId:'codex',connectionId:'account-1'},workflows:[{schemaVersion:1,conversationId:'conversation-forge',context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-forge',providerId:'codex',connectionId:'account-1'},invocation:'$bmad-forge-idea',capturedAt:new Date().toISOString(),rootPath:'C:/forge',outputBase:'C:/forge/_bmad-output/initiative-test',contextDigest:'b'.repeat(64),fingerprint:'a'.repeat(64),skillPath:'C:/forge/.agents/skills/bmad-forge-idea/SKILL.md',workspace:'C:/forge/_bmad-output/initiative-test/forge-ui-test',outcome:'open',observations:[]}]};snapshot={...snapshot,revision:snapshot.revision+1,conversations:[...snapshot.conversations.filter(c=>c.id!=='conversation-forge'),{id:'conversation-forge',context:dialogue.context,lastKnownActivity:'idle',messages:[{id:'invocation-forge',role:'user',text:'$bmad-forge-idea'},{id:'welcome-forge',role:'assistant',text:'Quelle idée souhaitez-vous éprouver ? Fin du tour.'}]}]};stateListeners.forEach(listener=>listener({}));notifyDialogue();return dialogue};
     contextBridge.exposeInMainWorld('madnessDialogue',{observeStop:async()=>{observeStops++;dialogue={...dialogue,sequence:dialogue.sequence+1,status:'stopped',errorCode:null,recovery:{...dialogue.recovery,stop:'clear'}};notifyDialogue();state={...state,sequence:state.sequence+1,status:state.accountStored?'registered':'disconnected',errorCode:null};listeners.forEach(listener=>listener(state));return dialogue},saveApproval:async(approvalId,adjustment)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,approvals:dialogue.approvals.map(a=>a.id===approvalId?{...a,adjustment,storage:'stored'}:a)};notifyDialogue();return dialogue},decideApproval:async(approvalId,decision)=>{approvalDecisions.push({approvalId,decision});dialogue={...dialogue,sequence:dialogue.sequence+1,approvals:dialogue.approvals.map(a=>a.id===approvalId?{...a,decision,status:'sending',transmission:'pending'}:a)};notifyDialogue();return dialogue},sendAdjustment:async(approvalId)=>{adjustmentSends.push(approvalId);return dialogue},saveQuestion,answerQuestion,qualifyForge,launchForge,copyWorkflow:async(conversationId,target)=>{copies.push({conversationId,target});return dialogue},read:()=>Promise.resolve(dialogue),qualify:async(projectId)=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:'qualified',context:{...dialogue.context,projectId}};notifyDialogue();return dialogue},launch:async(projectId,mode='read-only')=>{if(launchFailure){dialogue={...dialogue,sequence:dialogue.sequence+1,status:'error',errorCode:'PROVIDER_FAILED'};notifyDialogue();return dialogue}dialogue={...dialogue,sequence:dialogue.sequence+1,status:'ready',errorCode:null,mode,invocation:'$bmad-agent-analyst',acknowledged:true,context:{projectId,initiativeId:'initiative-test',conversationId:'conversation-1',providerId:'codex',connectionId:'account-1'},activities:['Tour terminé']};snapshot={...snapshot,revision:snapshot.revision+1,conversations:[...snapshot.conversations.filter(c=>c.id!=='conversation-1'),{id:'conversation-1',context:dialogue.context,lastKnownActivity:'idle',messages:[{id:'hello',role:'assistant',text:'📊 Bonjour, je suis Mary. Voici mon menu.'}]}]};stateListeners.forEach(listener=>listener({}));notifyDialogue();return dialogue},send:async(projectId,conversationId,text)=>{sent.push({projectId,conversationId,text});dialogue={...dialogue,sequence:dialogue.sequence+1,status:'running',acknowledged:true};notifyDialogue();return dialogue},stop:async()=>{dialogue={...dialogue,sequence:dialogue.sequence+1,status:unknownOnStop?'unknown':'stopped',errorCode:unknownOnStop?'STOP_UNCONFIRMED':null};notifyDialogue();return dialogue},onChanged:listener=>{dialogueListeners.push(listener);return()=>{}}});
-    contextBridge.exposeInMainWorld('madnessConnection',{read:reply,connect:reply,verify:()=>{verifies++;return reply()},cancel:reply,disconnect:reply,manageUsage:reply,openPublicKeys:()=>support('openPublicKeys'),copyPublicKeys:()=>support('copyPublicKeys'),acknowledgePlan:()=>{state={...state,sequence:state.sequence+1,status:'error',errorCode:'VAULT_UNREADABLE'};listeners.forEach(listener=>listener(state));return reply()},onChanged:listener=>{listeners.push(listener);return()=>{listeners=listeners.filter(value=>value!==listener)}}});
-    contextBridge.exposeInMainWorld('connectionUIFixture',{failLaunch:value=>{launchFailure=value},deferSelections:()=>{deferredSelections=true},selectionCount:()=>selectionRequests.length,finishSelection:index=>selectionRequests[index].resolve(),failSelection:index=>selectionRequests[index].reject(Error('SELECTION_FAILED')),observeStops:()=>observeStops,approvalDecisions:()=>approvalDecisions,adjustmentSends:()=>adjustmentSends,questionSaves:()=>questionSaves,questionAnswers:()=>questionAnswers,failAppearance:value=>{appearanceFailure=value},setState:value=>{state={...state,...value,sequence:state.sequence+1};listeners.forEach(listener=>listener(state))},setSnapshot:value=>{snapshot={...snapshot,...value};stateListeners.forEach(listener=>listener({}))},setDialogue:value=>{dialogue={...dialogue,...value,sequence:dialogue.sequence+1};notifyDialogue()},sent:()=>sent,copies:()=>copies,unknownOnStop:()=>{unknownOnStop=true},supportCalls:()=>supportCalls,verifies:()=>verifies,failSupport:action=>{supportFailure=action},deferSupport:()=>{supportDeferred=true},finishSupport:()=>{supportDeferred=false;finishSupport?.()}});
+    contextBridge.exposeInMainWorld('madnessConnection',{read:reply,connect:reply,verify:()=>{verifies++;return reply()},cancel:()=>{cancels++;return reply()},disconnect:reply,manageUsage:reply,openPublicKeys:()=>support('openPublicKeys'),copyPublicKeys:()=>support('copyPublicKeys'),acknowledgePlan:()=>{state={...state,sequence:state.sequence+1,status:'error',errorCode:'VAULT_UNREADABLE'};listeners.forEach(listener=>listener(state));return reply()},onChanged:listener=>{listeners.push(listener);return()=>{listeners=listeners.filter(value=>value!==listener)}}});
+    let helpState={contractVersion:1,sequence:0,status:'idle',projectId:null,bundle:null,records:[],error:null},helpListeners=[],helpCalls=[];
+    contextBridge.exposeInMainWorld('madnessHelp',{read:async()=>helpState,onChanged:listener=>{helpListeners.push(listener);return()=>{}},prepare:async(projectId)=>{helpCalls.push('prepare');helpState={...helpState,projectId,sequence:helpState.sequence+1};return helpState},copy:async()=>{helpCalls.push('copy');return helpState},retrySave:async(conversationId)=>{helpCalls.push('retry-save:'+conversationId);helpState={...helpState,sequence:helpState.sequence+1,records:helpState.records.map(record=>record.conversationId===conversationId?{...record,storage:'stored'}:record)};return helpState}});
+    contextBridge.exposeInMainWorld('connectionUIFixture',{cancels:()=>cancels,helpCalls:()=>helpCalls,setHelp:value=>{helpState={...value,sequence:helpState.sequence+1};helpListeners.forEach(listener=>listener(helpState))},failLaunch:value=>{launchFailure=value},deferSelections:()=>{deferredSelections=true},selectionCount:()=>selectionRequests.length,finishSelection:index=>selectionRequests[index].resolve(),failSelection:index=>selectionRequests[index].reject(Error('SELECTION_FAILED')),observeStops:()=>observeStops,approvalDecisions:()=>approvalDecisions,adjustmentSends:()=>adjustmentSends,questionSaves:()=>questionSaves,questionAnswers:()=>questionAnswers,failAppearance:value=>{appearanceFailure=value},setState:value=>{state={...state,...value,sequence:state.sequence+1};listeners.forEach(listener=>listener(state))},setSnapshot:value=>{snapshot={...snapshot,...value};stateListeners.forEach(listener=>listener({}))},setDialogue:value=>{dialogue={...dialogue,...value,sequence:dialogue.sequence+1};notifyDialogue()},sent:()=>sent,copies:()=>copies,unknownOnStop:()=>{unknownOnStop=true},supportCalls:()=>supportCalls,verifies:()=>verifies,failSupport:action=>{supportFailure=action},deferSupport:()=>{supportDeferred=true},finishSupport:()=>{supportDeferred=false;finishSupport?.()}});
   `)
 })
-after(async () => { if (app) await app.close(); if (root) await rm(root, { recursive: true, force: true }) })
+after(async () => {
+  if (app) { await app.close(); app=null }
+  if (!root) return
+  const ownedPath=root.replaceAll("'","''"),script="$ErrorActionPreference='Stop'; $ownedRoot='"+ownedPath+"'; $found=@(Get-CimInstance Win32_Process -Filter \"Name='electron.exe'\" | Where-Object {$_.CommandLine -and $_.CommandLine.IndexOf($ownedRoot,[StringComparison]::OrdinalIgnoreCase) -ge 0} | ForEach-Object {@{pid=$_.ProcessId;parentPid=$_.ParentProcessId;executable=$_.ExecutablePath}}); ConvertTo-Json -Compress -InputObject $found"
+  const {stdout}=await promisify(execFile)('powershell.exe',['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,timeout:15000})
+  const remaining=JSON.parse(stdout.trim())
+  assert.deepEqual(remaining,[],'Synthetic profile retained: real Main or descendants still reference '+root)
+  const actual=await realpath(root);assert.equal(dirname(actual),await realpath(tmpdir()));assert.match(basename(actual),/^madness-ui-review-[A-Za-z0-9]+$/)
+  console.log(JSON.stringify({fixtureClosure:{bootstrap:join(root,'main.cjs'),profile:join(root,'profile'),ownedMainAndDescendantsRemaining:remaining,cleanup:'verified-before-delete'}}))
+  await rm(actual,{recursive:true,force:true})
+})
 async function launch(state = {}) {
   if (app) { await app.close(); app = null }
   const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => ['PATH', 'SYSTEMROOT', 'WINDIR', 'COMSPEC', 'PATHEXT', 'TEMP', 'TMP'].includes(key.toUpperCase())))
   app = await electron.launch({ executablePath: require('electron'), args: [join(root, 'main.cjs')], env: { ...env, APPDATA: join(root, 'appdata'), LOCALAPPDATA: join(root, 'localappdata') }, timeout: 30000 })
+  const native=await app.evaluate(({app},bootstrap)=>({pid:process.pid,executable:process.execPath,profile:app.getPath('userData'),bootstrapAttested:process.argv.includes(bootstrap)}),join(root,'main.cjs'))
+  assert.equal(native.bootstrapAttested,true);assert.equal(native.profile,join(root,'profile'));assert.equal(native.executable.toLowerCase(),require('electron').toLowerCase())
   page = await app.firstWindow()
   await page.waitForFunction(() => !!window.connectionUIFixture)
+  // Each fixture starts at 100%: Chromium persists per-origin zoom in this shared synthetic profile.
+  await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.setZoomFactor(1))
   await page.evaluate((value) => window.connectionUIFixture.setState(value), state)
-  await page.addStyleTag({ content: await readFile(join(repository, 'src/renderer/src/styles.css'), 'utf8') })
+  const css=(await readFile(join(repository, 'src/renderer/src/styles.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/help.css'), 'utf8'))
+  await page.addStyleTag({ content: css.replaceAll("url('./assets/atelier/", "url('"+pathToFileURL(join(repository,'src/renderer/src/assets/atelier')+'/').href) })
   await page.addScriptTag({ content: bundle })
   await page.getByRole('heading', { name: 'Vos projets, au même endroit', exact: true }).waitFor()
+  await page.evaluate(()=>document.fonts.ready)
 }
 async function workspaceRequestFixture({longHistory=false}={}){
  await launch({status:'registered',accountStored:true,needsPlanAcknowledgement:false})
@@ -60,6 +83,161 @@ async function workspaceRequestFixture({longHistory=false}={}){
  await page.locator('.project-row').click();await page.getByRole('tab',{name:'Conversation',exact:true}).click()
  return {context,question,approval}
 }
+async function atelierFixture(width=1440){
+ await launch({status:'registered',accountStored:true,needsPlanAcknowledgement:false})
+ await app.evaluate(({BrowserWindow},width)=>BrowserWindow.getAllWindows()[0].setContentSize(width,920),width)
+ const context={projectId:'p-atelier',initiativeId:'initiative-test',conversationId:'c-atelier',providerId:'codex',connectionId:'account-1'}
+ const names=['Mary','John','Sofia','Winston','Sally','Amelia','Smithy']
+ const messages=names.map((name,order)=>({id:'portrait-'+name,context,requestId:'request-atelier',turnId:'turn-atelier',order:order+1,revision:1,text:'Message de présentation synthétique '+name,phase:'complete',storage:'stored',identity:{kind:'attested',name,source:'source-native-'+name}}))
+ messages.push(...[{kind:'unknown'},{kind:'attested',name:'Mary bis',source:'source-hors-casting'},{kind:'attested',name:'mary',source:'source-minuscule'}].map((identity,i)=>({...messages[0],id:'unknown-'+i,order:8+i,identity,text:'Mary $bmad-agent-analyst Forge $bmad — ce texte ne prouve aucun auteur.'})))
+ assert.ok(messages.every(isDialogueMessage),'Atelier projections must satisfy the real per-message contract.')
+ await page.evaluate(({context,messages})=>{window.connectionUIFixture.setSnapshot({projects:[{id:context.projectId,name:'Projet atelier',rootPath:'C:/atelier',openedAt:new Date().toISOString()}],conversations:[{id:context.conversationId,context,lastKnownActivity:'idle',messages:[{id:'historical-unknown',role:'assistant',text:'Mary dans un historique sans projection.'}]}]});window.connectionUIFixture.setDialogue({status:'ready',context,messages,invocation:'$bmad-forge-idea'})},{context,messages})
+ await page.locator('.project-row').click();await page.getByRole('tab',{name:'Conversation',exact:true}).click()
+ return {context,messages,names}
+}
+const portraitButton=name=>page.getByRole('button',{name:'Fiche de '+name,exact:true})
+test('atelier : disposition compacte, buste complet et conteneurs confinés dans les deux thèmes',async t=>{
+ await atelierFixture()
+ const projectName='Projet personnel de qualification de la refonte avec un nom réellement très long sans abréviation'
+ await page.evaluate(projectName=>window.connectionUIFixture.setSnapshot({projects:[{id:'p-atelier',name:projectName,rootPath:'C:/atelier',openedAt:new Date().toISOString()}]}),projectName)
+ await portraitButton('Sally').click()
+ for(const size of [{width:1600,height:1000},{width:1440,height:920},{width:720,height:820},{width:600,height:820}]){
+  await setWorkspaceViewport(app,page,size)
+  for(const theme of ['dark','light']){
+   if(await page.evaluate(()=>document.documentElement.dataset.theme)!==theme){await page.keyboard.press('Escape');await page.getByRole('button',{name:'Passer au thème '+(theme==='dark'?'sombre':'clair'),exact:true}).click();await portraitButton('Sally').click()}
+   await page.locator('.agent-bust img').evaluate(e=>e.decode())
+   await page.evaluate(async()=>{await Promise.allSettled(document.getAnimations().filter(a=>a.playState==='running'&&Number.isFinite(a.effect?.getTiming().iterations)).map(a=>a.finished))})
+   const geometry=await page.evaluate(()=>{
+    const box=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height}},title=document.querySelector('.project-heading h1'),banner=document.querySelector('.project-banner'),image=document.querySelector('.agent-bust img'),bust=document.querySelector('.agent-bust')
+    return {viewport:{width:innerWidth,height:innerHeight},title:{text:title.textContent,scrollWidth:title.scrollWidth,clientWidth:title.clientWidth},banner:{...box(banner),backgroundImage:getComputedStyle(banner).backgroundImage},tabs:[...document.querySelectorAll('.project-tabs button')].map(box),bust:box(bust),image:{...box(image),objectFit:getComputedStyle(image).objectFit,transform:getComputedStyle(image).transform,naturalWidth:image.naturalWidth,naturalHeight:image.naturalHeight},containers:[...document.querySelectorAll('html,body,#root,.app-shell,.app-body,.workspace,.workspace-body,.sidebar,main,.main-inner,[role="tabpanel"],.conversation-messages,.agent-info-panel[open],.agent-panel-heading,.agent-panel-body')].filter(e=>e.getClientRects().length).map(e=>({element:e.id?'#'+e.id:e.className||e.tagName.toLowerCase(),...box(e),clientWidth:e.clientWidth,scrollWidth:e.scrollWidth}))}
+   })
+   t.diagnostic(JSON.stringify({size,theme,...geometry}))
+   assert.equal(geometry.title.text,projectName);assert.ok(geometry.title.scrollWidth<=geometry.title.clientWidth+1);assert.equal(geometry.banner.backgroundImage,'none');assert.ok(geometry.banner.height<=130)
+   for(const tab of geometry.tabs)assert.ok(tab.height>=40&&tab.height<=44)
+   assert.ok(geometry.bust.height<=234);assert.ok(geometry.image.naturalWidth>0&&geometry.image.naturalHeight>0);assert.equal(geometry.image.objectFit,'contain');assert.equal(geometry.image.transform,'none')
+   assert.ok(geometry.image.x>=geometry.bust.x&&geometry.image.y>=geometry.bust.y&&geometry.image.right<=geometry.bust.right&&geometry.image.bottom<=geometry.bust.bottom)
+   for(const element of geometry.containers)assert.ok(element.scrollWidth<=element.clientWidth+1,JSON.stringify(element))
+  }
+ }
+})
+test('atelier : seuls les sept auteurs attestés exacts ont un portrait, les replis gardent nom et provenance',async()=>{
+ const {names}=await atelierFixture()
+ for(const name of names){const article=page.locator('[data-message-id="portrait-'+name+'"]');assert.equal(await article.locator('img').count(),1);assert.match(await article.textContent(),new RegExp(name+' · Codex'));assert.match(await article.textContent(),new RegExp('source-native-'+name));assert.equal(await portraitButton(name).count(),1)}
+ for(const id of ['historical-unknown','unknown-0','unknown-1','unknown-2']){const article=page.locator('[data-message-id="'+id+'"]');assert.equal(await article.locator('img,button').count(),0);assert.equal(await article.locator('.agent-portrait svg').count(),1)}
+ assert.match(await page.locator('[data-message-id="unknown-1"]').textContent(),/Mary bis · Codex.*source-hors-casting/s)
+ await page.locator('[data-message-id="portrait-Mary"] img').dispatchEvent('error');assert.equal(await portraitButton('Mary').locator('img').count(),0);assert.equal(await portraitButton('Mary').locator('svg').count(),1)
+})
+test('atelier : fiche dockée locale, provenance stable, fermeture restitue largeur, focus et saisie sans effet métier',async()=>{
+ const {context,messages}=await atelierFixture();await page.locator('#draft').fill('Brouillon exact été 日本語')
+ await page.locator('#draft').evaluate(e=>{e.setSelectionRange(3,11)})
+ const before=await page.locator('main').evaluate(e=>e.clientWidth)
+ await portraitButton('Mary').click();const panel=page.getByRole('region',{name:'Fiche de Mary',exact:true});await panel.waitFor()
+ assert.equal(await panel.evaluate(e=>e.matches('dialog[open]')&&!e.matches(':modal')),true)
+ assert.match(await panel.textContent(),/source-native-Mary/);assert.equal(await panel.getByRole('button').count(),1)
+ assert.ok(await page.locator('main').evaluate(e=>e.clientWidth)<before)
+ await page.evaluate(({context,messages})=>window.connectionUIFixture.setDialogue({messages:[...messages,{...messages[4],id:'new-Sally',order:20,revision:1,text:'Nouvel auteur sans retarget'}]}),{context,messages})
+ assert.equal(await page.getByRole('region',{name:'Fiche de Mary',exact:true}).count(),1)
+ await page.keyboard.press('Escape');await panel.waitFor({state:'detached'})
+ assert.equal(await portraitButton('Mary').evaluate(e=>e===document.activeElement),true);assert.equal(await page.locator('main').evaluate(e=>e.clientWidth),before)
+ assert.deepEqual(await page.locator('#draft').evaluate(e=>({text:e.value,start:e.selectionStart,end:e.selectionEnd})),{text:'Brouillon exact été 日本語',start:3,end:11})
+ assert.deepEqual(await page.evaluate(()=>({sent:window.connectionUIFixture.sent(),decisions:window.connectionUIFixture.approvalDecisions(),answers:window.connectionUIFixture.questionAnswers(),cancels:window.connectionUIFixture.cancels(),verifies:window.connectionUIFixture.verifies(),help:window.connectionUIFixture.helpCalls()})),{sent:[],decisions:[],answers:[],cancels:0,verifies:0,help:[]})
+})
+test('atelier : modale étroite inerte, seuil conservé, Échap unique et connexion engagée jamais annulée par consultation',async t=>{
+ await atelierFixture(720);await page.locator('#draft').fill('Saisie préservée')
+ await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(720,650))
+ await page.evaluate(()=>window.connectionUIFixture.setState({status:'authorizing'}))
+ await page.getByRole('button',{name:/^Connexion Codex/}).click();await page.waitForFunction(()=>document.activeElement?.id==='codex-connection-title')
+ await portraitButton('Sally').click();const panel=page.getByRole('dialog',{name:'Fiche de Sally',exact:true});await panel.waitFor()
+ assert.equal(await panel.evaluate(e=>e.matches(':modal')),true);assert.equal(await page.locator('#codex-connection-panel').count(),0)
+ await page.locator('#draft').evaluate(e=>e.focus());assert.equal(await page.locator('#draft').evaluate(e=>e===document.activeElement),false)
+ const beforeScroll=await panel.locator('.agent-panel-body').evaluate(e=>{e.scrollTop=70;return {top:e.scrollTop,devicePixelRatio:window.devicePixelRatio}})
+ assert.ok(beforeScroll.top>0)
+ await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(1600,650));await page.getByRole('region',{name:'Fiche de Sally',exact:true}).waitFor()
+ const afterScroll=await page.locator('.agent-panel-body').evaluate(e=>e.scrollTop)
+ t.diagnostic(JSON.stringify({requestedScrollTop:70,beforeScrollTop:beforeScroll.top,afterScrollTop:afterScroll,devicePixelRatio:beforeScroll.devicePixelRatio}))
+ assert.equal(afterScroll,beforeScroll.top)
+ await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(600,650));await page.getByRole('dialog',{name:'Fiche de Sally',exact:true}).waitFor()
+ await page.keyboard.press('Escape');assert.equal(await portraitButton('Sally').evaluate(e=>e===document.activeElement),true)
+ assert.equal(await page.locator('#draft').inputValue(),'Saisie préservée');assert.equal(await page.evaluate(()=>window.connectionUIFixture.cancels()),0)
+ await portraitButton('Mary').click();await page.keyboard.press('Escape');await page.getByRole('button',{name:/^Connexion Codex/}).click();await page.waitForFunction(()=>document.activeElement?.id==='codex-connection-title')
+ assert.equal(await page.locator('.agent-info-panel').count(),0);assert.equal(await page.evaluate(()=>window.connectionUIFixture.cancels()),0)
+ await portraitButton('Mary').click();await page.evaluate(()=>window.connectionUIFixture.setState({status:'registered',needsPlanAcknowledgement:true}))
+ await page.waitForFunction(()=>document.querySelector('.plan-confirmation')?.matches(':modal'))
+ await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(1600,650));await page.waitForFunction(()=>document.querySelector('.agent-info-panel')?.getAttribute('role')==='region')
+ await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(720,650));await page.waitForFunction(()=>document.querySelector('.agent-info-panel')?.getAttribute('role')==='dialog')
+ assert.equal(await page.locator('.plan-confirmation').evaluate(e=>e.contains(document.activeElement)),true)
+ assert.equal(await page.locator('.plan-confirmation').evaluate(e=>e.matches(':modal')),true)
+ await page.keyboard.press('Escape');await page.waitForFunction(()=>!document.querySelector('.plan-confirmation')?.open&&document.querySelector('.agent-info-panel')?.matches(':modal')&&document.activeElement?.id==='agent-info-title')
+ assert.equal(await page.locator('.agent-info-panel').count(),1);await page.keyboard.press('Escape');assert.equal(await page.locator('.agent-info-panel').count(),0);assert.equal(await page.evaluate(()=>window.connectionUIFixture.cancels()),0)
+})
+test('atelier : source disparue ferme la fiche vers le titre neutre, contexte et thème préservent le brouillon',async()=>{
+ const {messages}=await atelierFixture();await page.locator('#draft').fill('Texte indépendant de la fiche')
+ await portraitButton('Mary').click();await page.evaluate(messages=>window.connectionUIFixture.setDialogue({messages:messages.filter(m=>m.id!=='portrait-Mary')}),messages)
+ await page.waitForFunction(()=>document.activeElement?.id==='conversation-heading');assert.equal(await page.locator('.agent-info-panel').count(),0)
+ await portraitButton('Sally').click();await page.getByRole('button',{name:'Passer au thème clair',exact:true}).click();assert.equal(await page.getByRole('region',{name:'Fiche de Sally',exact:true}).isVisible(),true)
+ await page.getByRole('button',{name:'Contexte du projet',exact:true}).click();assert.equal(await page.locator('.agent-info-panel').count(),0)
+ await page.keyboard.press('Escape');assert.equal(await page.locator('#draft').inputValue(),'Texte indépendant de la fiche')
+})
+test('atelier : arrivée question, approbation et récupération gardent le focus, expiration rejoint seulement son historique exact',async()=>{
+ const {context}=await atelierFixture(720);await portraitButton('Mary').click();const panel=page.getByRole('dialog',{name:'Fiche de Mary',exact:true})
+ const question={schemaVersion:1,id:'q-atelier',context,requestId:'request-atelier',turnId:'turn-atelier',identity:{kind:'unknown'},fields:[{id:'answer',header:'Direction',prompt:'Demande atelier exacte',allowOther:true,options:[]}],values:{},status:'waiting',reason:null,createdAt:new Date().toISOString(),expiresAt:null,revision:1,storage:'stored'}
+ const approval={schemaVersion:1,id:'a-atelier',context,requestId:question.requestId,turnId:question.turnId,identity:{kind:'unknown'},mode:'file-approval',files:[{path:'C:/atelier/test.md',kind:'add',diff:'Patch complet',beforeSha256:null,afterSha256:'a'.repeat(64)}],reason:null,adjustment:'',adjustmentStatus:'draft',status:'waiting',decision:null,transmission:'none',effect:'pending',result:null,createdAt:new Date().toISOString(),expiresAt:null,revision:1,storage:'stored'}
+ await page.evaluate(({context,question,approval})=>window.connectionUIFixture.setDialogue({status:'waiting-question',turn:{id:'turn-atelier',requestId:'request-atelier',context,phase:'streaming'},questions:[question],approvals:[approval]}),{context,question,approval})
+ await panel.getByRole('status').getByText(/Réponse attendue.*Approbation attendue/).waitFor();assert.equal(await page.evaluate(()=>document.activeElement?.id),'agent-info-title')
+ await page.evaluate(()=>{const e=document.querySelector('.agent-attention-announcement');window.__atelierAnnouncements=[];new MutationObserver(()=>window.__atelierAnnouncements.push(e.textContent)).observe(e,{subtree:true,childList:true,characterData:true})})
+ await page.evaluate(question=>window.connectionUIFixture.setDialogue({questions:[{...question,status:'inactive',reason:'expired'}]}),question)
+ await panel.getByRole('button',{name:'Voir cet historique',exact:true}).waitFor();assert.equal(await page.evaluate(()=>document.activeElement?.id),'agent-info-title');assert.deepEqual(await page.evaluate(()=>window.__atelierAnnouncements),[])
+ await panel.getByRole('button',{name:'Voir cet historique',exact:true}).click();await page.waitForFunction(()=>document.activeElement?.id==='q-atelier-title')
+ assert.equal(await page.locator('[data-question-id="q-atelier"] button[type="submit"]').count(),0);assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.approvalDecisions()),[]);assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.questionAnswers()),[])
+ await portraitButton('Mary').click();await page.evaluate(()=>window.connectionUIFixture.setDialogue({status:'unknown',errorCode:'STOP_UNCONFIRMED',recovery:{stop:'unconfirmed',observations:[],capabilities:{resume:false,newConversation:true,inspectFiles:true}}}))
+ await page.getByRole('dialog',{name:'Fiche de Mary',exact:true}).getByRole('button',{name:'Voir cette récupération',exact:true}).click();await page.waitForFunction(()=>document.activeElement?.id==='dialogue-session-title'||document.activeElement?.id==='overview-session-recovery')
+ assert.equal(await page.evaluate(()=>window.connectionUIFixture.observeStops()),0)
+})
+test('atelier : arrivée visible au-dessus du rôle à600×650 et zoom200 sans déplacement de focus ni décision',async t=>{
+ for(const zoom of [1,2]){
+  const {context}=await atelierFixture(600)
+  await app.evaluate(({BrowserWindow},zoom)=>{const w=BrowserWindow.getAllWindows()[0];w.setContentSize(600,650);w.webContents.setZoomFactor(zoom)},zoom)
+  await portraitButton('Mary').click();const panel=page.getByRole('dialog',{name:'Fiche de Mary',exact:true})
+  await panel.locator('.agent-panel-body').evaluate(e=>{e.scrollTop=0})
+  const question={schemaVersion:1,id:'q-visible',context,requestId:'visible-request',turnId:'visible-turn',identity:{kind:'unknown'},fields:[{id:'answer',header:'Direction',prompt:'Question visible exacte',allowOther:true,options:[]}],values:{},status:'waiting',reason:null,createdAt:new Date().toISOString(),expiresAt:null,revision:1,storage:'stored'}
+  await page.evaluate(({context,question})=>window.connectionUIFixture.setDialogue({status:'waiting-question',turn:{id:question.turnId,requestId:question.requestId,context,phase:'streaming'},questions:[question]}),{context,question})
+  await panel.getByRole('status').getByText(/Réponse attendue/).waitFor()
+  const position=await panel.evaluate(e=>{const box=element=>{const r=element.getBoundingClientRect();return {top:r.top,bottom:r.bottom,width:r.width,height:r.height}},status=e.querySelector('.agent-attention-announcement'),button=e.querySelector('.agent-attention button'),body=e.querySelector('.agent-panel-body');return {height:innerHeight,status:box(status),button:box(button),body:box(body),bodyScroll:body.scrollTop,focus:document.activeElement?.id}})
+  t.diagnostic(JSON.stringify({zoom,...position}));assert.equal(position.focus,'agent-info-title');assert.equal(position.bodyScroll,0);assert.ok(position.status.top>=0&&position.status.bottom<=position.height);assert.ok(position.button.top>=position.status.bottom&&position.button.bottom<=position.body.top&&position.button.bottom<=position.height)
+  await page.locator('#draft').evaluate(e=>e.focus());assert.equal(await page.evaluate(()=>document.activeElement?.id),'agent-info-title')
+  await panel.getByRole('button',{name:'Rejoindre cette demande',exact:true}).click();await page.waitForFunction(()=>document.activeElement?.id==='q-visible-title')
+  assert.deepEqual(await page.evaluate(()=>({sent:window.connectionUIFixture.sent(),answers:window.connectionUIFixture.questionAnswers(),decisions:window.connectionUIFixture.approvalDecisions(),cancels:window.connectionUIFixture.cancels()})),{sent:[],answers:[],decisions:[],cancels:0})
+ }
+})
+test('atelier : chaque nouvelle demande identique est annoncée une fois et conserve sa destination après expiration',async()=>{
+ const {context,messages}=await atelierFixture(600);await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(600,650));await portraitButton('Mary').click()
+ const panel=page.getByRole('dialog',{name:'Fiche de Mary',exact:true})
+ await page.evaluate(()=>{const region=document.querySelector('.agent-attention-announcement');window.__arrivalAnnouncements=[];new MutationObserver(()=>window.__arrivalAnnouncements.push(region.textContent)).observe(region,{childList:true,subtree:true,characterData:true})})
+ const first={schemaVersion:1,id:'q-first-exact',context,requestId:'request-first',turnId:'turn-first',identity:{kind:'unknown'},fields:[{id:'answer',header:'Réponse',prompt:'Première question exacte',allowOther:true,options:[]}],values:{},status:'waiting',reason:null,createdAt:new Date().toISOString(),expiresAt:null,revision:1,storage:'stored'}
+ await page.evaluate(first=>window.connectionUIFixture.setDialogue({status:'waiting-question',turn:{id:first.turnId,requestId:first.requestId,context:first.context,phase:'streaming'},questions:[first]}),first)
+ await page.waitForFunction(()=>window.__arrivalAnnouncements.length===1)
+ const second={...first,id:'q-second-exact',requestId:'request-second',turnId:'turn-second',fields:[{...first.fields[0],prompt:'Deuxième question exacte'}]}
+ await page.evaluate(({first,second})=>window.connectionUIFixture.setDialogue({turn:{id:second.turnId,requestId:second.requestId,context:second.context,phase:'streaming'},questions:[{...first,status:'inactive',reason:'resolved'},second]}),{first,second})
+ await page.waitForFunction(()=>window.__arrivalAnnouncements.length===2)
+ const announcements=await page.evaluate(()=>window.__arrivalAnnouncements);assert.notEqual(announcements[0],announcements[1]);assert.match(announcements[0],/Signalement 1/);assert.match(announcements[1],/Signalement 2/)
+ await page.evaluate(({first,second,messages})=>{window.connectionUIFixture.setDialogue({questions:[{...first,status:'inactive',reason:'resolved'},{...second,status:'inactive',reason:'expired'}]});for(let revision=2;revision<6;revision++)window.connectionUIFixture.setDialogue({messages:messages.map(message=>({...message,revision,text:message.text+' delta'+revision}))})},{first,second,messages})
+ await panel.locator('.agent-attention > div').first().getByRole('button',{name:'Voir cet historique',exact:true}).waitFor();assert.deepEqual(await page.evaluate(()=>window.__arrivalAnnouncements),announcements);assert.equal(await page.evaluate(()=>document.activeElement?.id),'agent-info-title')
+ await panel.locator('.agent-attention > div').first().getByRole('button',{name:'Voir cet historique',exact:true}).click();await page.waitForFunction(()=>document.activeElement?.id==='q-second-exact-title')
+ assert.equal(await page.locator('[data-question-id="q-first-exact"]').getByText('Première question exacte',{exact:true}).count(),1);assert.equal(await page.locator('[data-question-id="q-second-exact"] button[type="submit"]').count(),0)
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.questionAnswers()),[]);assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.approvalDecisions()),[])
+})
+test('atelier : aides partielles et reçus non conservés utilisent un HelpBridge synthétique strict, sans transmission',async()=>{
+ const {context}=await atelierFixture();await page.getByRole('tab',{name:'Parcours',exact:true}).click()
+ const bundle={schemaVersion:1,id:'bundle-atelier',projectId:context.projectId,rootPath:'C:/atelier',observedAt:new Date().toISOString(),revision:'a'.repeat(64),diagnostic:'partial',nativeReady:false,problems:['Source requise absente'],documents:[{id:'doc-help',source:'C:/atelier/help.md',snapshot:'help.md',sha256:'b'.repeat(64),bytes:21,text:'Aide locale intégrale',module:'bmm',skills:[]}],references:[{module:'bmm',path:'references-only.md'}],sources:[],activeInitiative:null,selectedInitiative:null,outputPath:null,inventories:[],knowledgeRaw:'{}',configRaw:'{}',skillPath:'C:/atelier/bmad/SKILL.md'}
+ const record={schemaVersion:1,conversationId:context.conversationId,context,invocation:'$bmad',bundle,turns:[],localTurnId:null,nativeThreadId:null,nativeTurnId:null,transmission:'partial',tools:[],response:'Réponse brute sans auteur attesté',outcome:'unknown',storage:'failed'}
+ const help={contractVersion:1,sequence:1,status:'ready',projectId:context.projectId,bundle,records:[record],error:null};assert.equal(isHelpState(help),true)
+ await page.evaluate(help=>window.connectionUIFixture.setHelp(help),help);await page.getByRole('button',{name:'Voir les aides',exact:true}).click()
+ assert.equal(await page.getByRole('button',{name:'Demander à BMad',exact:true}).isDisabled(),true);await page.getByText('Recommandation native non qualifiée pour ce profil — voir les capacités concernées.',{exact:true}).waitFor()
+ await page.getByRole('button',{name:'Revenir au travail',exact:true}).click();await page.getByRole('tab',{name:'Conversation',exact:true}).click()
+ const receipt=page.getByRole('region',{name:'Reçus BMad',exact:true});assert.match(await receipt.textContent(),/Transmission partielle.*Conservation locale non confirmée/s)
+ await receipt.getByRole('button',{name:'Réessayer l’enregistrement',exact:true}).click();await receipt.getByText(/Annexe enregistrée/).waitFor()
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.helpCalls()),['retry-save:'+context.conversationId]);assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+})
 test('une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange',async()=>{
  const {question}=await workspaceRequestFixture({longHistory:true})
  for(const size of [{width:1320,height:920},{width:720,height:820}]){

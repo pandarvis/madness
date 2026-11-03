@@ -1,0 +1,11 @@
+{
+  "testFile": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\tests\\connection-ui.test.mjs",
+  "beforeSha256": "1f210495fce52d99559c788717fb44434551558b2bd1a222b223e21e462f1b64",
+  "afterSha256": "a1b5b572b565b410e8748640658d79afb7de35a0d2418da1458e51c76506fa41",
+  "firstChangedLine": 68,
+  "removed": [],
+  "added": [
+    "  // Each fixture starts at 100%: Chromium persists per-origin zoom in this shared synthetic profile.",
+    "  await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.setZoomFactor(1))"
+  ]
+}

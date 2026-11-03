@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-03T13:02:38.925Z",
+  "status": "passed",
+  "mode": "compiled-isolated",
+  "checks": [
+    "local-oxanium-loaded-with-french-reading-sample",
+    "native-caption-region-three-noninteractive-plates-aligned",
+    "native-inspection-no-network-or-model-after-hook",
+    "real-windows-main-absent-close-observed-no-app-server-launch-1"
+  ],
+  "measurements": [],
+  "viewports": [
+    {
+      "label": "native-caption-inspection",
+      "requested": {
+        "width": 1320,
+        "height": 860
+      },
+      "actual": {
+        "width": 1320,
+        "height": 860,
+        "layoutWidth": 1320,
+        "devicePixelRatio": 1,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          1320,
+          860
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 1320,
+            "height": 860
+          },
+          "native": {
+            "contentSize": [
+              1320,
+              860
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1320,
+            "height": 860,
+            "layoutWidth": 1320,
+            "devicePixelRatio": 1,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "workPositions": [],
+  "captures": [],
+  "launches": [
+    {
+      "main": {
+        "pid": 19440,
+        "startedAt": "639293077596445154",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 45212,
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\atelier-immersion\\madness\\_bmad-output\\initiative-madness\\ux-madness\\qualification-window-chrome\\native-probe\\native-observation-1.json",
+      "observationStartedAt": "2026-11-03T13:02:56.671Z"
+    }
+  ],
+  "closeReceipts": [
+    {
+      "main": {
+        "pid": 19440,
+        "startedAt": "639293077596445154",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 45212,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-03T13:02:56.671Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Données et demandes actives synthétiques ; aucun reçu fournisseur, compte ou accord humain déduit.",
+    "Contrôles du contenu Electron ; glyphes Windows, mise à l’échelle du système, lecteur d’écran et conformité WCAG non certifiés.",
+    "Tailles CSS exactes privilégiées ; quantification Windows limitée à1px et consignée dans viewports, sans franchissement des breakpoints attendus.",
+    "Aucune installation personnelle, clôture G1 ni acceptation visuelle humaine.",
+    "Réseau bloqué et app-server comptés seulement après installation du hook ; aucune absence d’activité antérieure au hook revendiquée.",
+    "Une identité Main, une fermeture observable ou un compteur incomplet interdit le nettoyage du profil. Aucun processus tué par le banc.",
+    "Pause de qualification native bornée à240s ; le banc n’envoie aucun input Windows."
+  ],
+  "typography": {
+    "family": "Oxanium, \"Segoe UI\", sans-serif",
+    "weight": "450",
+    "sample": "Été, œuvre, cœur, où, façade : vérifier le brouillon — 0123456789.",
+    "loaded": true
+  },
+  "caption": {
+    "visible": true,
+    "count": 3,
+    "interactive": 0,
+    "hidden": "true",
+    "pointer": "none",
+    "area": {
+      "x": 0,
+      "y": 0,
+      "width": 1183,
+      "height": 56
+    },
+    "skin": {
+      "x": 1183,
+      "y": 0,
+      "width": 137,
+      "height": 56
+    },
+    "width": 1320
+  },
+  "finishedAt": "2026-11-03T13:06:57.201Z"
+}

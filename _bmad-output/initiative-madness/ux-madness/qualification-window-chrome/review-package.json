@@ -1,0 +1,40 @@
+{
+  "base": "fd78875",
+  "head": "working tree after fd78875",
+  "scope": [
+    "src/main/index.ts",
+    "src/renderer/src/App.tsx",
+    "src/renderer/src/WindowCaptionPlates.tsx",
+    "src/renderer/src/atelier-controls.css",
+    "scripts/qualification/workspace-design.mjs",
+    "tests/workspace-design-qualification.test.mjs",
+    "package.json",
+    "package-lock.json"
+  ],
+  "spec": "_bmad-output/initiative-madness/ux-madness/qualification-window-chrome/design.md",
+  "plan": "docs/superpowers/plans/2026-11-03-window-chrome-atelier.md",
+  "ledger": ".superpowers/sdd/2026-11-03-window-chrome-atelier/progress.md",
+  "proofDirectory": "C:/Users/UP60066553/.codex/worktrees/atelier-immersion/madness/_bmad-output/initiative-madness/ux-madness/qualification-window-chrome",
+  "images": [
+    "native-window-light-normal.jpg",
+    "native-window-light-maximized.jpg",
+    "native-window-dark-normal.jpg",
+    "native-window-dark-maximized.jpg"
+  ],
+  "reports": [
+    "red/profile.json",
+    "round1/profile.json",
+    "matrix/profile.json",
+    "native-actions-dark/profile.json",
+    "native-close-diagnostic/profile.json",
+    "native-close-confirmed/profile.json"
+  ],
+  "notes": [
+    "JPG capture native includes actual OS glyphs; PNG content screenshots do not.",
+    "Actual light max/restore and dark minimize/restore/max/unmax/close manually clicked via sky.",
+    "First external-close bench failed only because app.process() was accessed after disposed Playwright; fixed by captured child, meaningful regression4/4 and native-close-confirmed5/5 passed.",
+    "Existing palette, type, cast and nav ship fd78875 unchanged. App before-quit/Application.shutdown unchanged.",
+    "OS high contrast and Snap hover/scale hardware not exercised; CSS forced-colors and zoom200 measured.",
+    "Packaging and personal installation pending; verdict scoped to source/rendered candidate."
+  ]
+}

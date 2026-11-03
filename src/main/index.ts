@@ -95,6 +95,7 @@ else {
     let appearance = await appearanceStore.restore()
     let appearanceQueue: Promise<unknown> = Promise.resolve()
     const nativeColors = (theme: Theme): { color: string; symbolColor: string; height: number } => ({ color: theme === 'dark' ? '#20343C' : '#E8DDC8', symbolColor: theme === 'dark' ? '#F1EBE6' : '#24211E', height: 56 })
+    const nativeCaptionColors = (theme: Theme): { color: string; symbolColor: string; height: number } => ({ ...nativeColors(theme), color: nativeTheme.shouldUseHighContrastColors ? nativeColors(theme).color : '#00000000' })
     nativeTheme.themeSource = appearance.theme
     application.lifecycle.register({ id: 'appearance', context: emptyContext(), stop: async () => { await appearanceQueue; return 'stopped' } })
     ipcMain.handle(APPEARANCE_CHANNEL, (event, input: unknown): Promise<AppearanceReply> | AppearanceReply => {
@@ -108,7 +109,7 @@ else {
           const next: AppearanceState = await appearanceStore.save(input.theme)
           appearance = next
           nativeTheme.themeSource = next.theme
-          if (window && !window.isDestroyed()) { window.setBackgroundColor(nativeColors(next.theme).color); window.setTitleBarOverlay(nativeColors(next.theme)) }
+          if (window && !window.isDestroyed()) { window.setBackgroundColor(nativeColors(next.theme).color); window.setTitleBarOverlay(nativeCaptionColors(next.theme)) }
         }
         return { contractVersion: 1, correlationId: input.correlationId, ok: true, state: appearance }
       })
@@ -204,7 +205,7 @@ else {
       icon: app.isPackaged ? join(process.resourcesPath, 'madness.ico') : join(app.getAppPath(), 'resources/branding/madness.ico'),
       width: 1320, height: 860, minWidth: 520, minHeight: 520, show: false,
       title: 'Madness', backgroundColor: nativeColors(appearance.theme).color, autoHideMenuBar: true,
-      titleBarStyle: 'hidden', titleBarOverlay: nativeColors(appearance.theme),
+      titleBarStyle: 'hidden', titleBarOverlay: nativeCaptionColors(appearance.theme),
       webPreferences: { preload: join(__dirname, '../preload/index.js'), additionalArguments: ['--madness-theme=' + appearance.theme, '--madness-appearance-warning=' + (appearance.warning ?? 'none')], contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, allowRunningInsecureContent: false, webviewTag: false, spellcheck: false }
     })
     window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
@@ -212,6 +213,7 @@ else {
     window.webContents.on('will-redirect', (event) => event.preventDefault())
     window.webContents.on('will-attach-webview', (event) => event.preventDefault())
     window.once('ready-to-show', () => window?.show())
+    nativeTheme.on('updated', () => { if (window && !window.isDestroyed()) window.setTitleBarOverlay(nativeCaptionColors(appearance.theme)) })
     window.on('closed', () => { window = null })
     await window.loadURL(rendererUrl)
   }).catch(() => {

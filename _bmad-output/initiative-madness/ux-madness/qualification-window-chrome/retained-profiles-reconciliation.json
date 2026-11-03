@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "receipts": [
+    {
+      "name": "native-actions-dark",
+      "retainedWorkspace": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-workspace-design-jpDqGY",
+      "close": {
+        "main": {
+          "pid": 2796,
+          "startedAt": "639293086881669516",
+          "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\node_modules\\electron\\dist\\electron.exe"
+        },
+        "wrapperPid": 4648,
+        "wrapperExited": false,
+        "closeObserved": true,
+        "closeError": false,
+        "mainGone": true,
+        "observerComplete": true,
+        "observation": {
+          "schemaVersion": 1,
+          "afterHookOnly": true,
+          "startedAt": "2026-11-03T13:18:12.074Z",
+          "complete": true,
+          "attached": true,
+          "network": 0,
+          "appServerAttempts": 0,
+          "appServers": 0,
+          "appServerCloses": 0
+        },
+        "childrenGone": true,
+        "cleanupSafe": true
+      },
+      "removed": true
+    },
+    {
+      "name": "native-close-diagnostic",
+      "retainedWorkspace": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-workspace-design-5HAXAd",
+      "close": {
+        "main": {
+          "pid": 44520,
+          "startedAt": "639293088126477632",
+          "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\madness-atelier-ui\\madness\\node_modules\\electron\\dist\\electron.exe"
+        },
+        "wrapperPid": 13684,
+        "wrapperExited": false,
+        "closeObserved": true,
+        "closeError": false,
+        "mainGone": true,
+        "observerComplete": true,
+        "observation": {
+          "schemaVersion": 1,
+          "afterHookOnly": true,
+          "startedAt": "2026-11-03T13:20:17.228Z",
+          "complete": true,
+          "attached": true,
+          "network": 0,
+          "appServerAttempts": 0,
+          "appServers": 0,
+          "appServerCloses": 0
+        },
+        "childrenGone": true,
+        "cleanupSafe": true
+      },
+      "removed": true
+    }
+  ],
+  "finishedAt": "2026-11-03T13:23:39.967Z"
+}

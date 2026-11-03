@@ -3,6 +3,7 @@ import {agentPresentation} from './agentPresentation.ts'
 import {AgentPortrait} from './AgentPortrait.tsx'
 import {AgentInfoPanel} from './AgentInfoPanel.tsx'
 import madnessMark from '../../../resources/branding/madness-64.png'
+import {WindowCaptionPlates} from './WindowCaptionPlates.tsx'
 import type {AgentConsultation} from './AgentInfoPanel.tsx'
 import {NetworkHelp} from './NetworkHelp.tsx'
 import {WorkOverview} from './WorkOverview.tsx'
@@ -414,6 +415,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         <button className={'codex-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel} title={connectionLabel} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><img src={chatgptMark} alt="" /><span className="connection-tooltip" aria-hidden="true">{connectionLabel}</span></button>
       </div>
     </header>
+    <WindowCaptionPlates />
     {connectionOpen && <section id="codex-connection-panel" className="connection-panel" role="dialog" aria-modal="false" aria-labelledby="codex-connection-title" ref={connectionPanel}>
       <div className="connection-heading"><h2 id="codex-connection-title" ref={connectionHeading} tabIndex={-1}>Connexion Codex</h2><button type="button" aria-label="Fermer la connexion Codex" onClick={closeConnection}><Icon name="close" /></button></div>
       <p className={'connection-state ' + (connection.status === 'verified' ? 'is-verified' : '')} role="status">{fr.connectionStatus[connection.status]}</p>

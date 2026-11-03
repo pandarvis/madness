@@ -3,7 +3,7 @@ name: Madness
 description: "Parcours guidé pour comprendre et piloter BMad sur des projets locaux."
 status: final
 created: 2026-10-22
-updated: 2026-11-02
+updated: 2026-11-03
 sources:
   - ../initiative-madness.md
   - .memlog.md
@@ -21,6 +21,9 @@ sources:
   - ../../../.impeccable/surfaces/src-renderer-src-app-tsx.md
   - ../../../src/renderer/src/styles.css
   - ../../../src/renderer/src/AgentInfoPanel.tsx
+  - ../../../src/renderer/src/WindowCaptionPlates.tsx
+  - ../../../src/renderer/src/atelier-controls.css
+  - ../../../src/main/index.ts
 colors:
   surface: '#211F1E'
   navigation: '#191817'
@@ -225,8 +228,8 @@ components:
     revealDuration: 180ms
   chrome:
     frameSlice: 128
-    frameWidth: 36px
-    frameOutset: 17px
+    frameWidth: 16px
+    frameOutset: 6px
     frameFill: false
   files:
     width: 318px
@@ -291,7 +294,7 @@ Le Sélecteur d’initiative suit le projet dans l’en-tête ; « Sélection Ma
 
 Le catalogue utilise des lignes plates : nom et objectif, module et invocation, puis disponibilité textuelle. Recherche et filtres précèdent les résultats ; détail dans Fiche compétence. Ni grille de grandes cartes ni nouveau panneau permanent. Le Registre des preuves rassemble libellé, nature du constat, statut sourcé, fraîcheur et accès au fichier ; les détails complets sont dépliables. Le Panneau de fichiers occupe la colonne prévue, jamais la place du champ de réponse. Son agrandissement emploie un Dialogue de lecture borné à la fenêtre ; fermer retrouve la même sélection et position de travail.
 
-La commande unique « Ouvrir un projet » est un dossier SVG de `{components.titlebar.icon}` dans une cible de `{components.titlebar.target}`, au même niveau que thème et connexion. La bascule reste sur la ligne des contrôles Windows, centrée sur `{components.navigation.iconAxisX}` depuis le bord gauche comme les icônes du rail. Les zones libres déplacent la fenêtre ; commandes et surfaces modales restent hors drag. Le monogramme de marque M et son emplacement ne reviennent pas dans le rail.
+La commande unique « Ouvrir un projet » est un dossier SVG de `{components.titlebar.icon}` dans une cible de `{components.titlebar.target}`, au même niveau que thème et connexion. La bascule reste sur la ligne des contrôles Windows, centrée sur `{components.navigation.iconAxisX}` depuis le bord gauche comme les icônes du rail. Le titre conserve la zone de déplacement ; groupes de commandes, commandes et surfaces modales restent hors drag. Le rail compact réutilise désormais le logo M existant comme signature basse ; le raffinement 0.2.4 est installé (commit fd78875), sans nouvelle fonction.
 
 | Largeur de fenêtre | Composition de référence |
 |---|---|
@@ -308,7 +311,7 @@ Au-dessus de `{components.navigation.drawerBreakpoint}`, le rail replié mesure 
 
 ## Elevation & Depth
 
-Les plaques peintes et arêtes encrées donnent leur profondeur au chrome. Le cadre raster local de navigation, tiroir et fiche est appliqué en neuf tranches : slice {components.chrome.frameSlice}, largeur {components.chrome.frameWidth}, débord {components.chrome.frameOutset}, sans remplissage central. Décor non interactif sous le contenu/focus, il ne couvre ni texte, ni champ, ni décision. Ombres réservées à la saisie, aux Dialogues et aux panneaux superposés.
+Les plaques peintes et arêtes encrées donnent leur profondeur au chrome. Le cadre raster local de fiche est appliqué en neuf tranches : slice {components.chrome.frameSlice}, largeur {components.chrome.frameWidth}, débord {components.chrome.frameOutset}, sans remplissage central. Décor non interactif sous le contenu/focus, il ne couvre ni texte, ni champ, ni décision. Rail et tiroir conservent leur bande pétrole installée en 0.2.4, sans cadre raster. Ombres réservées à la saisie, aux Dialogues et aux panneaux superposés.
 
 Les transitions brèves durent 180 ms : révélation, retour d’état ou dossier au survol/focus, sans boucle ni animation de chargement décorative. L’animation du dossier accompagne la même action au clavier et au pointeur. En mode de mouvement réduit, le dossier reste statique ; les transitions et défilements animés sont supprimés.
 
@@ -353,6 +356,10 @@ Les mêmes noms désignent les règles de comportement dans EXPERIENCE.md. Les c
 | Diagnostic et initialisation | Colonne bornée à 680 px : état agrégé puis capacités indépendantes, couverture et refus sourcés. Partiel/inconnu/périmé visibles en texte. L’initialisation demeure future en epic 3 ; aucune commande de réparation ajoutée à ce diagnostic. |
 | Dialogue | Maximum `{components.dialog.maxWidth}` borné à la fenêtre ; fond du thème, `{components.dialog.radius}`, `{components.dialog.shadow}`, contenu défilant et pied d’actions. |
 | Notification | Feedback bref selon components.notification, sans recouvrir une décision durable. Les Signalements de la fiche forment une zone visible persistante distincte, pas une notification temporaire. |
+
+Complément actif du 3 novembre 2026, candidat logiciel 0.2.5 : trois plaques décoratives aria-hidden et sans pointeur habillent Réduire, Agrandir/Restaurer et Fermer sous les glyphes et zones d’action Windows natifs. La position suit les variables env de Window Controls Overlay et ses changements de géométrie, sans largeur de commande fixée à 46 px ; hors overlay visible, le composant ne rend rien. Le fond natif de caption est transparent hors contraste élevé ; le contraste élevé garde son fond natif et le calque se retire en forced-colors. Aucun bouton HTML de substitution, nouveau pouvoir IPC ni changement de routine de fermeture.
+
+Les cases et radios restent de vrais inputs, habillés à 20 px avec bord fin de 1 px, états coché/mixte/désactivé et focus clavier distincts. Le libellé et la décision corrélée restent la source du sens ; la coche ne remplace pas une autorisation ou un refus. En forced-colors, appearance:auto et retrait des marques décoratives préservent le contrôle natif. Les valeurs visuelles détaillées courantes sont relevées dans le [DESIGN racine](../../../DESIGN.md) ; ce complément conserve les contrats métier, les inconnues et les états des stories.
 
 Portrait, fiche et signalements décrivent le candidat atelier ; catalogue, initiatives, preuves et fichiers conservent leur statut contractuel dans EXPERIENCE. Densité {spacing.2} entre éléments liés et {spacing.4} entre groupes ; lignes extensibles. Attente, erreur, périmé, sélection et acceptation gardent libellés et portée. Clair et sombre partagent les comportements et utilisent leurs tokens propres ; aucun rendu ou succès technique ne vaut acceptation humaine.
 

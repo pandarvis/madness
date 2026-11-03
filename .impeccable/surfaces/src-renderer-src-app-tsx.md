@@ -2,7 +2,7 @@
 version: 1
 slug: "src-renderer-src-app-tsx"
 primary_target: "src/renderer/src/App.tsx"
-related_targets: ["src/renderer/src/styles.css","src/renderer/src/atelier-immersion.css","src/renderer/src/atelier-controls.css","src/renderer/src/main.tsx","src/renderer/src/HelpPanel.tsx","src/renderer/src/help.css","src/renderer/src/AgentInfoPanel.tsx"]
+related_targets: ["src/renderer/src/styles.css","src/renderer/src/atelier-immersion.css","src/renderer/src/atelier-controls.css","src/renderer/src/main.tsx","src/renderer/src/HelpPanel.tsx","src/renderer/src/help.css","src/renderer/src/AgentInfoPanel.tsx","src/renderer/src/WindowCaptionPlates.tsx","src/main/index.ts"]
 ---
 
 # Espace de travail Madness
@@ -51,8 +51,14 @@ Les sept éditions ImageGen sont demandées depuis les originaux et un guide Mar
 
 Après livraison de la version0.2.3, le porteur répond explicitement « JE VALIDE ». La typographie Oxanium/Barlow et les sept personnages du casting v2 deviennent la référence visuelle confirmée des prochaines itérations. [Reçu et portée](../../_bmad-output/initiative-madness/ux-madness/qualification-cast-type/human-approval.json). Les limites techniques et les statuts métier restent ceux de leurs preuves distinctes.
 
-## Navigation — candidat logiciel 0.2.4
+## Navigation — logiciel 0.2.4 installé
 
 Le [retour humain](../../_bmad-output/initiative-madness/ux-madness/qualification-navigation/user-feedback.png) vise la barre gauche et les icônes. Le rail et le tiroir restent pétrole dans les deux thèmes, sans cadre raster, avec séparation1px et focus bleu clair. La sélection déployée est terracotta/texte encre ; en compact, le fond de ligne reste pétrole, seule la face du monogramme est terracotta/texte encre, avec contour de 1 px et repère latéral de 2 px. Lignes52px déployées ; compact40×44px, rail58px et axe28px conservés. Les projets utilisent un repère nominal : MIA/MA pour MIA/Madness, initiales des deux premiers mots ou deux premiers caractères d’un mot long ; repliSVG si aucun caractère alphanumérique. Même repère à l’accueil, noms complets et actions inchangés.
 
-Les pictogrammes géométriques anguleux reçoivent des faces partielles et un trait affiné à 1,5 unité SVG. Les commandes restent40px et la marque ChatGPT est intacte. La signature basse du rail compact réutilise le logoM64 existant à28px ; aucun nouveau raster, changement de police ou édition des sept personnages. La validation humaine0.2.3 reste acquise ; elle ne vaut pas validation0.2.4. Le build source est annoncé réussi par le parent ; round1, matrice, testsUI et revue restent à venir au relevé. La version logicielle0.2.4 n’est pas la story2.4. Voir [documenter](../../_bmad-output/initiative-madness/ux-madness/qualification-navigation/documenter.md).
+Les pictogrammes géométriques anguleux reçoivent des faces partielles et un trait affiné à 1,5 unité SVG. Les commandes restent40px et la marque ChatGPT est intacte. La signature basse du rail compact réutilise le logoM64 existant à28px ; aucun nouveau raster, changement de police ou édition des sept personnages. La validation humaine0.2.3 reste acquise ; elle ne vaut pas validation0.2.4. La navigation 0.2.4 est installée et enregistrée dans le commit `fd78875`, selon sa [vérification parent](../../_bmad-output/initiative-madness/ux-madness/qualification-navigation/parent-verification.md). Les états de préparation antérieurs décrivent leurs étapes respectives. La version logicielle0.2.4 n’est pas la story2.4. Voir [documenter](../../_bmad-output/initiative-madness/ux-madness/qualification-navigation/documenter.md).
+
+## Chrome natif — candidat logiciel 0.2.5
+
+Trois plaques décoratives non interactives et aria-hidden habillent les commandes natives Windows sans remplacer glyphes, zones de clic ni routine d’arrêt. Leur position et leurs trois colonnes suivent la géométrie env de Window Controls Overlay, sans supposer46px par commande. Le composant se retire hors overlay visible ; le calque est hors drag et sans pointeur. Main rend le fond de caption transparent hors contraste élevé ; en contraste élevé, fond natif et retrait du calque en forced-colors.
+
+Les vrais inputs checkbox/radio reçoivent le langage atelier :20px, bord1px, checked/mixte distincts, disabled/focus et clavier conservés. En forced-colors, appearance:auto et disparition des marques décoratives rendent la main aux contrôles natifs. Palette, fontes, casting et rail approuvés sont conservés. Aucun nouveau pouvoir IPC ou comportement métier ; version0.2.5 distincte des stories. Voir [documenter](../../_bmad-output/initiative-madness/ux-madness/qualification-window-chrome/documenter.md). Revue indépendante et paquet/installation restent à venir au relevé ; aucune validation humaine0.2.5 n’est déduite.

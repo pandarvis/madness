@@ -150,6 +150,27 @@ button:disabled, button[aria-disabled='true'] { opacity: 1 }
 :is(.sidebar,.navigation-drawer) .project-mark { --mark-face: var(--rail-face); --mark-ink: var(--atelier-edge); --mark-text: var(--rail-text) }
 :is(.sidebar,.navigation-drawer) .selected .project-mark { --mark-face: var(--rail-surface); --mark-ink: var(--rail-ink) }
 .rail-signature { display: none }
+.window-caption-plates { --caption-unit: calc(env(titlebar-area-height,56px) / 56); position: fixed; top: env(titlebar-area-y,0px); left: calc(env(titlebar-area-x,0px) + env(titlebar-area-width,100vw)); right: 0; height: env(titlebar-area-height,56px); display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); padding-block: calc(var(--caption-unit) * 8); background: var(--atelier-chrome); pointer-events: none; app-region: no-drag; z-index: 41 }
+.window-caption-plates > span { --caption-cut: calc(var(--caption-unit) * 6); position: relative; isolation: isolate; margin-inline: calc(var(--caption-unit) * 4); pointer-events: none; app-region: no-drag }
+.window-caption-plates > span::before, .window-caption-plates > span::after { content: ''; position: absolute; pointer-events: none; clip-path: polygon(var(--caption-cut) 0,calc(100% - var(--caption-cut)) 0,100% var(--caption-cut),100% calc(100% - var(--caption-cut)),calc(100% - var(--caption-cut)) 100%,0 100%,0 var(--caption-cut)) }
+.window-caption-plates > span::before { inset: 0; background: var(--atelier-ink) }
+.window-caption-plates > span::after { inset: var(--caption-unit); background: var(--atelier-plate) }
+.window-caption-plates > span:last-child::after { background: var(--accent-soft) }
+input:is([type='checkbox'],[type='radio']) { appearance: none; width: 20px; height: 20px; flex: 0 0 20px; margin: 0; display: inline-grid; place-content: center; border: 1px solid var(--control-line); border-radius: 2px; background: var(--panel); vertical-align: middle; cursor: pointer }
+input:is([type='checkbox'],[type='radio']):checked, input[type='checkbox']:indeterminate { border-color: var(--accent-active); background: var(--accent) }
+input[type='checkbox']::after { content: ''; width: 10px; height: 6px; border-left: 2px solid var(--accent-text); border-bottom: 2px solid var(--accent-text); transform: rotate(-45deg) translateY(-1px); opacity: 0 }
+input[type='checkbox']:checked::after { opacity: 1 }
+input[type='checkbox']:indeterminate::after { opacity: 1; height: 0; transform: none; border-left: 0 }
+input[type='radio'] { border-radius: 50% }
+input[type='radio']::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-text); opacity: 0 }
+input[type='radio']:checked::after { opacity: 1 }
+input:is([type='checkbox'],[type='radio']):focus-visible { outline: 2px solid var(--focus); outline-offset: 3px }
+input:is([type='checkbox'],[type='radio']):disabled { opacity: .65; cursor: not-allowed }
+@media (forced-colors: active) {
+  .window-caption-plates { display: none }
+  input:is([type='checkbox'],[type='radio']) { appearance: auto; background: revert; border: revert }
+  input:is([type='checkbox'],[type='radio'])::after { display: none }
+}
 @media (min-width: 721px) {
   .nav-compact .sidebar { padding-top: 20px }
   .nav-compact .sidebar nav { gap: 10px }

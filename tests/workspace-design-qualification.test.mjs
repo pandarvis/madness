@@ -38,3 +38,10 @@ test('le compteur passif transmet spawn inchangé sans conserver args, env ni tr
  assert.doesNotMatch(writes.join(''),/DO_NOT_EXPORT|ACCESS_TOKEN|stdio|codex\.exe|other\.exe/)
  assert.equal(runInContext('globalThis.__workspaceObservation.restore()',context),true);assert.equal(cp.spawn,original)
 })
+
+test('la fermeture native utilise le wrapper capturé avant la destruction de Playwright',async()=>{
+ const owned=session();owned.child={pid:1001,exitCode:0};owned.closeObserved=true;owned.closeAttempted=true;owned.observerAvailable=true;
+ owned.app.process=()=>{throw Error('Disposed Playwright connection')};
+ const receipt=await qualification.closeWorkspaceSession(owned,{readProcess:async()=>null,readObservation:async()=>observation,waitMs:0});
+ assert.equal(receipt.wrapperPid,1001);assert.equal(receipt.cleanupSafe,true);
+})

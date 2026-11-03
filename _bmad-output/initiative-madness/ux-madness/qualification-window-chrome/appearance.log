@@ -1,0 +1,15 @@
+✔ atelier : les couleurs Windows suivent le chrome des deux thèmes et les couples de lecture restent contrastés (7.8913ms)
+✔ le protocole d’apparence refuse les valeurs hors enum et les propriétés supplémentaires (0.4841ms)
+✔ l’amorçage accepte uniquement les arguments natifs enum et refuse les doublons (0.1801ms)
+✔ un profil neuf reste sombre sans écrire et un choix explicite est restauré séparément du Snapshot (29.8264ms)
+✔ un fichier invalide ou futur reste intact tandis que le choix de session fonctionne (43.5145ms)
+✔ une écriture refusée conserve le choix de session et nettoie les fichiers atomiques (9.6978ms)
+✔ les choix concurrents sont écrits dans l’ordre sans fichier temporaire restant (42.1869ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 345.5578

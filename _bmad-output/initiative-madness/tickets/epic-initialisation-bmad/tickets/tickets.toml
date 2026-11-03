@@ -1,0 +1,133 @@
+# Adoption Sofia sous mandat autonome du 3 novembre 2026 : ids 3.1–3.10 alloués.
+# Entrées planifiées ; aucune feuille ni plan Build anticipé. Checkpoints de plan/fin délégués.
+# Prérequis épinglés = capacités à attendre, jamais preuve d'un fournisseur built ou gate réussi.
+
+[[entry]]
+id = 1
+type = "spike"
+title = "Qualifier l'outillage et le plan exact d'initialisation BMad"
+description = "Instruit Q3-1/Q3-2 et G3 sur dossiers de test possédés, avec le profil de diagnostic et le contexte de l'epic 2 : paquet/outillage et prérequis exacts, effets directs/indirects, plan avant écriture, limites d'annulation, préconditions et résultat vérifiable. Consigne profil, preuves et refus dans qualification-initialisation/profil-g3.md sous l'epic réel lors du futur Build ; ne modifie pas les sources produit ou les projets du porteur. Fournit le profil à Sally2 et au contrat3."
+verify = "Relire la matrice et les empreintes avant/après des dossiers possédés : plan exhaustif, annulation intacte, conditions modifiées, installation contrôlée et cas non prouvés nommés ; aucune commande ou plage de version déclarée compatible par seule documentation."
+covers = ["R1"]
+after = ["2.1", "2.3", "1.11"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 2
+type = "story"
+title = "Définir avec Sally le parcours d'initialisation et sa récupération"
+description = "Sur le profil1, les contrats de guidage2.17 et les variantes2.14 stabilisées, Sally et Impeccable complètent DESIGN/EXPERIENCE avant leurs nouvelles surfaces : prérequis, changements exacts, consentement, refus, plan périmé, application, contrôle et résultats succès/échec/inconnu. Conserve l'atelier adopté, FR/EN, clair/sombre et retour au travail ; fournit les règles au contrat3 et au tracer4 sans assimiler installation et validation du projet."
+verify = "Parcourir les contrats et leurs états au clavier/zoom : les effets et préconditions nécessaires se lisent avant l'accord, annuler/fermer n'accorde rien, récupération et conservation sont explicites dans les variantes, aucune promesse dépassant le profil1."
+covers = ["R1", "R3"]
+after = [1, "2.17", "2.14"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 3
+type = "story"
+title = "Établir le contrat d'opération d'initialisation sous l'autorité du cœur"
+description = "Après le profil1, les règles2 et le paquet intégré2.16, ajoute les contrats versionnés plan/opération/préconditions/résultat et leurs validations aux frontières, derrière les ports et propriétaires existants. Contexte et accord capturés désignent le même plan exact ; fermeture, mutation, sauvegarde et résultat inconnu sont prévus sans accès brut depuis le renderer. Fournit la voie commune au tracer4."
+verify = "Dans un banc de contrats, préparer et autoriser un plan témoin puis modifier plan/contexte/préconditions : seules les identités concordantes sont admises, accord ancien ou charge hors portée refusés, aucun effet ni reprise automatique par restauration."
+covers = ["R1"]
+after = [2, "2.16"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 4
+type = "story"
+title = "Initialiser un dossier témoin après un plan compris et accepté"
+description = "Livre le tracer mince de référence dans le paquet Windows : diagnostic absent → plan exhaustif issu de l'outillage qualifié1 → présentation des effets → accord explicite → application par l'adaptateur → vérification de l'installation et retour au projet. Réutilise le contrat3 et l'UX2 ; le résultat apparaît avec sa preuve, sans validation de livrable ou compatibilité générale. Le consentement synthétique d'un banc ne vaut pas décision réelle du porteur."
+verify = "Sur un dossier témoin possédé, parcourir le paquet de qualification jusqu'au résultat puis comparer octets/effets au plan affiché et au contrôle d'installation ; succès seulement après vérification, aucun écrit avant l'accord exact."
+covers = ["R1"]
+after = [3]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 5
+type = "story"
+title = "Refuser les plans périmés et annuler sans effet"
+description = "Complète le tracer4 pour refus, annulation avant application, prérequis manquants, dossier ou profil modifié, collision et double lancement. Recontrôle au point d'effet les préconditions qualifiées et exige une nouvelle préparation après mutation ; reste sur le bon projet et conserve saisie et contexte. Fournit les refus sûrs à la récupération6."
+verify = "Dans la matrice du paquet, refuser/annuler puis changer le dossier ou une précondition entre plan et accord : dossier intact avant application, ancien accord refusé, aucun double effet ni réinstallation implicite."
+covers = ["R1"]
+after = [4]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 6
+type = "story"
+title = "Conserver et inspecter les résultats d'initialisation interrompus"
+description = "Sur la voie5, traite erreurs, interruption et fermeture pendant l'opération avec le coordinateur et la persistance existants : arrêt limité aux ressources possédées, résultat confirmé ou inconnu, inspection des effets avant nouvelle tentative volontaire. Restaure le plan/résultat connu sans relancer l'outil, distingue reçu d'exécution et conservation, et ne promet aucun rollback non qualifié. Fournit une base stable au paquet7."
+verify = "Interrompre et fermer des opérations de test, simuler enfant/disque en erreur puis rouvrir : absence de relance, effets inspectables et résultat inconnu conservé tant que non vérifié ; retry de sauvegarde sans rejeu d'installation."
+covers = ["R1", "R2"]
+after = [5]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 7
+type = "story"
+title = "Préparer le paquet Windows et ses prérequis d'initialisation"
+description = "Reprend l'infrastructure de maintenance existante après6 pour livrer les ressources/outils réellement qualifiés, détecter leur absence et documenter versions, prérequis et limites du paquet enrichi. Vérifie build/installation et remplacement sur profil de test possédé avec données conservées ; ne transforme pas ce contrôle technique en parcours novice G4 et ne modifie pas silencieusement le système ou SIWC. Fournit le candidat au sweep8."
+verify = "Reconstruire le paquet identifié, démarrer avec outil présent puis absent, installer/remplacer sur profil possédé : explication actionnable, données identiques et aucune relance de moteur ; manifeste et empreinte identifient l'artefact contrôlé."
+covers = ["R2"]
+after = [6]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 8
+type = "story"
+title = "Refactor sweep"
+description = "Nettoie seulement les constats et dettes effectivement différés par les plans/revues1–7, relus au démarrage. Préserve contrats, outillage qualifié, consentement et données ; aucun besoin produit écarté d'une story ne devient nettoyage. Fournit la version nettoyée aux qualifications finales9/10."
+verify = "Rapprocher les constats différés de leurs corrections/recontrôles et exécuter les vérifications adaptées ; aucune dette déclarée résolue sans preuve ni fonctionnalité absorbée implicitement."
+covers = []
+after = [1, 2, 3, 4, 5, 6, 7]
+hitl = false
+risk = "medium"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 9
+type = "story"
+title = "Qualifier les opérations G3 et réunir le retour éditeur"
+description = "Sur le candidat nettoyé8 et les acquis2.16, clôt la matrice technique G3 sur dossiers possédés : plan/accord/annulation, mutation, application vérifiée, interruption/échec/inconnu, restauration et frontières. Réunit les preuves aperçu/éditeur2.8 au même paquet, vérifie le retour disponible et ses limites au lieu de transférer un succès d'un ancien ASAR. Fournit la voie produit locale stabilisée et le candidat à l'intégration graphe4.4, puis le protocole exact à G4 en10."
+verify = "Dans le paquet exact, exécuter la matrice G3 et contrôler le manifeste, les différences de dossiers et les reçus éditeur réels ; une ouverture OS acceptée ne prouve ni lecture ni validation humaine et une preuve manquante laisse son cas ouvert."
+covers = ["R1", "R2"]
+after = [8, "2.16"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 10
+type = "story"
+title = "Vérifier les trois parcours réels avec le porteur novice sur Windows"
+description = "Qualifie G4 sur le candidat9 avec le porteur peu familier de BMad, ses projets réels et sa connexion Codex : ouvrir ou initialiser, expliquer état/preuves, choisir sans mémoriser les commandes, dialoguer/approuver, retrouver fichiers et suite. Inclut machine cible, prérequis par connexion, variantes/états difficiles, fermeture/réouverture sans relance et remplacement avec données conservées. Rapporte les essais externes bloqués avec artefact/test/preuve/portée/reprise, sans inventer participation, consentement ou réussite ; transmet à4.11 seulement la base réellement qualifiée pour la matrice finaleG5."
+verify = "Relire les observations des trois parcours réellement accomplis par le porteur et les reçus du paquet/installation/restauration/remplacement exacts ; distinguer limites, essais reportés et décisions humaines des contrôles automatisés. G4 reste ouvert tant que sa preuve humaine ou technique nécessaire manque."
+covers = ["R2", "R3"]
+after = [9]
+hitl = true
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false

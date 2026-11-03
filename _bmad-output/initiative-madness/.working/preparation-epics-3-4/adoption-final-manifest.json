@@ -1,0 +1,46 @@
+{
+  "at": "2026-11-03T22:59:51.267343+00:00",
+  "files": {
+    "_bmad-output/initiative-madness/initiative-madness.md": "00cec0fff734fa2266d841de9862e2e1de7d6798ff97b0664f96719e475b3e96",
+    "_bmad-output/initiative-madness/tickets/tickets.toml": "a87d9b968795602e8b69b5745c0cf0fe6f464a7bb5c4892e7f4a5af96f988d75",
+    "_bmad-output/initiative-madness/tickets/epic-initialisation-bmad/epic-initialisation-bmad.md": "2e3b78a3837edc82a7102fc420dc3d377c9ad178bae7db512a71d3bb59334cec",
+    "_bmad-output/initiative-madness/tickets/epic-initialisation-bmad/tickets/tickets.toml": "af03eadd16b9126e8f8c5b9d953bba2dcb6c69d09968aa8284ae184d447e49fe",
+    "_bmad-output/initiative-madness/tickets/epic-graphe-projet/epic-graphe-projet.md": "d45659b7f1d5de36913ff38bf1dc285d119d70799008a47292a24d1f1fe3a364",
+    "_bmad-output/initiative-madness/tickets/epic-graphe-projet/tickets/tickets.toml": "328655dda9773e07b9a5f0a8c7c0cf80330850858241ac4aa062fa6e31491b0d"
+  },
+  "fresh_review": {
+    "reviewer": "/root/sofia_adopt_epics34/validate_adoption34",
+    "scopes": [
+      "Ticket",
+      "Set",
+      "Tree",
+      "Dependencies"
+    ],
+    "fix": [],
+    "suggest": [],
+    "ask": [],
+    "resolved": [
+      "F1 high-risk rationale and independent check",
+      "4.3 contract-vs-runtime restoration precision"
+    ]
+  },
+  "commit": false,
+  "staging": false,
+  "build_started": false,
+  "reviewed_files_before_eof_normalization": {
+    "_bmad-output/initiative-madness/initiative-madness.md": "00cec0fff734fa2266d841de9862e2e1de7d6798ff97b0664f96719e475b3e96",
+    "_bmad-output/initiative-madness/tickets/tickets.toml": "a87d9b968795602e8b69b5745c0cf0fe6f464a7bb5c4892e7f4a5af96f988d75",
+    "_bmad-output/initiative-madness/tickets/epic-initialisation-bmad/epic-initialisation-bmad.md": "2e3b78a3837edc82a7102fc420dc3d377c9ad178bae7db512a71d3bb59334cec",
+    "_bmad-output/initiative-madness/tickets/epic-initialisation-bmad/tickets/tickets.toml": "131bf01a17c885e1954e50d04bc2e4447241317a428a8906ba2c700d4013d147",
+    "_bmad-output/initiative-madness/tickets/epic-graphe-projet/epic-graphe-projet.md": "d45659b7f1d5de36913ff38bf1dc285d119d70799008a47292a24d1f1fe3a364",
+    "_bmad-output/initiative-madness/tickets/epic-graphe-projet/tickets/tickets.toml": "6f709fe50ee1426c4e0d36ac930b7169dbab66cb84a209c345a3b9fd7263d3c4"
+  },
+  "parent_eof_normalization": {
+    "at": "2026-11-03T23:23:23.688Z",
+    "paths": [
+      "_bmad-output/initiative-madness/tickets/epic-initialisation-bmad/tickets/tickets.toml",
+      "_bmad-output/initiative-madness/tickets/epic-graphe-projet/tickets/tickets.toml"
+    ],
+    "change": "Remove surplus blank EOF lines only; reviewed bytes preserved in reviewed_files_before_eof_normalization."
+  }
+}

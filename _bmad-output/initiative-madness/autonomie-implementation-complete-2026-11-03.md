@@ -14,3 +14,7 @@ Si Zscaler bloque un essai, conserver dans ce document ou dans le rapport de qua
 ## Essais externes reportés pendant ce mandat
 
 Aucun à ce point. Chaque futur report doit renvoyer à son rapport précis.
+
+## Clarification de livraison — Graphe
+
+Le porteur confirme à nouveau que cette version doit offrir une zone permettant de voir le Graphify du projet ouvert, en déléguant son emplacement. Choix de conception retenu sous autonomie : onglet projet « Graphe », recherche, zoom, exploration des relations et nœud vers fichier, avec Sally et Impeccable. Cette confirmation renforce R28–R31 et l’epic4 déjà inclus dans la V1 ; aucun placeholder présenté comme intégration, aucun G4/G5 acquis par cette décision.

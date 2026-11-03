@@ -1,0 +1,146 @@
+# Adoption Sofia sous mandat autonome du 3 novembre 2026 : ids 4.1–4.11 alloués.
+# Entrées planifiées ; aucune feuille ni plan Build anticipé. Checkpoints de plan/fin délégués.
+# Prérequis épinglés = capacités à attendre, jamais preuve d'un fournisseur built ou gate réussi.
+
+[[entry]]
+id = 1
+type = "spike"
+title = "Qualifier le runtime Graphify, ses formats et son confinement Windows"
+description = "Instruit Q4-1/Q4-2/Q4-3 sur la base Windows/Codex1.11 et le contexte projet2.3, indépendamment de la participation finale G4 : choisit explicitement le candidat exact à partir du relevé frais0.9.101, qualifie Python/dépendances/wheels et le profil code-only dans des espaces possédés, sans modifier le produit ou les installations utilisateur. Vérifie zéro modèle implicite, environnement enfant, racine/CWD/sorties/cache, anciens skills/plugins, overrides hérités, formats et direction/confiance avec fixtures expurgées. Consigne profil, mesures, refus et limites dans qualification-graphe/profil-g5.md sous l'epic réel au futur Build ; fournit ses résultats à Sally2 et au contrat3."
+verify = "Relire matrice native Windows, empreintes avant/après projet/home/installations témoins, traces modèle/réseau, sorties et fixtures : effets confinés et comportement réellement observés, formats et dépendances exacts identifiés, inconnus conservés ; aucune simple lecture de sources promue en G5."
+covers = ["R1", "R2", "R3", "R4"]
+after = ["1.11", "2.3"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 2
+type = "story"
+title = "Définir avec Sally l'exploration accessible du graphe"
+description = "Après le profil1 et les contrats locaux2.17, Sally et Impeccable rédigent sous cet epic un supplément UX dédié au graphe, sans éditer les spines partagés avant leur réconciliation en4.4 : onglet réel Graphe du projet ouvert, zoom, génération volontaire, états absent/en cours/disponible/partiel/ancien/incompatible/échec, fraîcheur, portée, provenance et confiance, recherche/liste de relations et sélection vers le panneau de fichiers existant. Conserve atelier, FR/EN, thèmes, clavier/focus/zoom/mouvement réduit et travail BMad disponible. Fournit les règles au contrat3, au tracer4 et à l'exploration8 ; aucune nouvelle surface produit dans2."
+verify = "Parcourir chaque état et transition dans les contrats : l'utilisateur explique sens/incertitude/fraîcheur, retrouve un fichier au clavier et revient au travail sans analyse implicite ; aucun graphe ou portrait ne vaut validation BMad."
+covers = ["R1", "R2", "R3"]
+after = [1, "2.17"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 3
+type = "story"
+title = "Établir le port d'analyse et GraphSnapshot du cœur"
+description = "Sur le profil1 et les règles2, établit dans des modules propres isolés, sous autorité du cœur, le port d'analyse, GraphSnapshot versionné, commandes/événements/erreurs/validations, identités projet/racine/périmètre/analyse/révision et règles de publication. Spécifie les raccordements aux propriétaires de cycle de vie/persistance sans les modifier avant4.4 ; ne touche ni contrats existants, Main/preload/UI, ni spines partagés. Il préserve provenance, fichiers/lignes, direction et EXTRACTED/INFERRED/AMBIGUOUS sans payload natif dans la UI. Fournit les contrats et validations testables hors intégration au tracer4, qui seul les branche sur les fournisseurs stabilisés."
+verify = "Dans un banc de contrats, valider un snapshot connu puis altérer identité, schéma, référence ou niveau de confiance : seules charges admises sont publiables, résultats d'une autre analyse/projet refusés et aucune commande de relance déduite du contrat restauré. Ce banc hors intégration ne vaut pas preuve de restauration réelle, contrôlée en4.7."
+covers = ["R1", "R2", "R3"]
+after = [2]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 4
+type = "story"
+title = "Générer et consulter un premier graphe de code dans le paquet"
+description = "Livre le tracer sur dépôt de référence possédé et profil1 : action explicite → enfant isolé code-only → décodage/normalisation derrière3 → snapshot → recherche et liste de relations → fichier du même projet dans le panneau existant. Après fichiers/éditeur2.8, variantes2.14 et voie locale stabilisée3.9, réconcilie le supplément UX2 et les contrats3 avec les spines et propriétaires existants puis branche cette unique voie produit. L'onglet réel Graphe conserve recherche/zoom/relations/nœud vers fichier et les ressources locales ; il montre provenance et limites de cette preuve étroite sans déclarer tout G5 ou la V1 complète. Fournit la voie réelle à la normalisation5."
+verify = "Dans le paquet de qualification, générer sur le dépôt témoin, rechercher une relation attendue puis ouvrir son fichier ; comparer au snapshot et aux sources, observer absence de modèle et d'effets hors espace possédé, aucune analyse au simple changement de vue."
+covers = ["R1", "R2", "R4"]
+after = [3, "2.8", "2.14", "3.9"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 5
+type = "story"
+title = "Normaliser les relations et refuser les artefacts hors profil"
+description = "Complète le chemin4 avec décodage robuste du seul outil/type/schéma qualifié1 : variantes links/edges admises, priorité _src/_tgt sinon source→target malgré directed=false, provenance et degrés de confiance. Valide références, refus hors projet et erreurs/partiel/incompatible sans inventer de relation ; fournit des snapshots sûrs à la fraîcheur6."
+verify = "Passer le corpus qualifié et ses variantes altérées dans le paquet/banc adaptateur : sens et confiance fidèles aux sources, formats inconnus et références hors portée refusés, aucune charge native ou script HTML exécuté par la UI."
+covers = ["R2", "R3", "R4"]
+after = [4]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 6
+type = "story"
+title = "Préserver la fraîcheur et le dernier graphe complet par projet"
+description = "Sur les snapshots5, capture la révision des sources avec changements non commitées/non suivis, marque les mutations pendant analyse et invalide les résultats devenus anciens. Isole plusieurs projets/analyses, publication admise et conservation du dernier complet connu avec portée/date/révision ; changement de projet et réouverture ne réattribuent ni ne relancent le graphe. Fournit cette base à la récupération7."
+verify = "Générer sur deux projets, modifier une source non commitée puis pendant l'analyse, rafraîchir et rouvrir : identités exactes et fraîcheur explicite, résultat modifié jamais actuel, dernier complet toujours identifiable et aucune analyse automatique."
+covers = ["R1", "R3", "R4"]
+after = [5]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 7
+type = "story"
+title = "Interrompre et restaurer les analyses avec leurs limites connues"
+description = "Complète6 avec annulation, arrêt descendant et fermeture possédés, erreurs runtime/format/disque, résultat partiel et inconnu. Réutilise le coordinateur et la persistance, conserve le dernier complet et la saisie BMad, distingue stockage échoué et résultat observé ; aucun retry d'analyse automatique ni arrêt d'une ressource étrangère. Fournit les états éprouvés à l'exploration8."
+verify = "Interrompre/fermer une analyse, simuler enfant ou stockage défaillant puis rouvrir : arrêt prouvé ou inconnu explicite, dernier complet et brouillon retrouvés, aucun processus relancé et parcours BMad toujours utilisables."
+covers = ["R3", "R4"]
+after = [6]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 8
+type = "story"
+title = "Explorer le graphe et ses relations au clavier dans les variantes"
+description = "Sur la voie réelle et les états4–7, complète l'exploration conçue par Sally2 avec rendu livré localement, recherche et liste accessibles, provenance/confiance/sens, sélection sûre vers fichiers et retour au travail. Choisit projections et limites à partir des mesures du profil, sans quota arbitraire ni dépendance à des ressources distantes. Vérifie FR/EN, clair/sombre, noms longs, focus, zoom et mouvement réduit ; fournit le module complet au paquet9."
+verify = "Au clavier et au zoom dans les variantes, chercher un nœud, lire ses relations/incertitudes, ouvrir le fichier du snapshot et revenir ; même sens dans la représentation et la liste, commandes atteignables, aucune dépendance au survol/couleur seuls ni perte de contexte."
+covers = ["R2", "R3", "R4"]
+after = [7]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 9
+type = "story"
+title = "Livrer le runtime et les ressources du graphe dans le paquet Windows"
+description = "Après8, reprend la procédure Windows existante pour assembler runtime/paquet exacts qualifiés1, ressources locales, dépendances et notices réelles ; détecte prérequis absents et documente versions/limites. Vérifie profil enfant et confinement dans le paquet, installation/remplacement/restauration sur données possédées ; ne modifie pas la configuration utilisateur. Fournit un candidat reproductible au sweep10."
+verify = "Reconstruire et installer le candidat identifié, exécuter génération avec prérequis présents puis absents et remplacer le programme : erreur actionnable, données conservées, ressources locales et notices complètes, aucun effet hors espace possédé ou processus relancé."
+covers = ["R1", "R3", "R4"]
+after = [8]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 10
+type = "story"
+title = "Refactor sweep"
+description = "Nettoie uniquement les constats/dettes différés des plans et revues1–9, relus au démarrage, sans absorber une fonction écartée. Préserve profil G5, contrats, confinement, données et comportements accessibles puis fournit le candidat nettoyé à11."
+verify = "Rapprocher constats, corrections et recontrôles puis exécuter les vérifications adaptées ; aucun nettoyage déclaré acquis sans preuve et aucun besoin produit glissé dans le sweep."
+covers = []
+after = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+hitl = false
+risk = "medium"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 11
+type = "story"
+title = "Qualifier le graphe G5 dans le paquet Windows sur dépôt représentatif"
+description = "Sur le candidat nettoyé10 et la base G4 réellement qualifiée, exécute la matrice finale G5 : génération/actualisation sans modèle implicite, confinement et installations utilisateur inchangées, schéma/sens/confiance, recherche/fichier, plusieurs projets, sources non commitées et mutation pendant analyse, interruption/fermeture, erreurs/partiel/incompatible, dernier complet, durée/mémoire observées et contrôles accessibles dans les variantes. Consigne artefact, profils, limites et éventuels reports précis sans remplacer une preuve manquante par l'état des enfants ; clôt seulement le périmètre effectivement démontré."
+verify = "Sur la machine cible et le paquet exact, comparer relations au dépôt représentatif et relire traces d'effets, matrice, observations accessibles et mesures de ressources ; graphe indisponible laisse BMad utilisable. Aucun succès G5/V1 si une preuve nécessaire manque, aucun appel modèle ou validation humaine déduit du graphe."
+covers = ["R1", "R2", "R3", "R4"]
+after = [10, "3.10"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false

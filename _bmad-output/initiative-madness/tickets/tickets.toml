@@ -1,5 +1,5 @@
 # Découpage Sofia approuvé par le porteur le 23 octobre 2026.
-# Enveloppes créées ; epics1/2 raffinés, epics3/4 à raffiner avant leurs stories.
+# Les quatre epics sont raffinés ; entrées3/4 adoptées le3novembre2026 sous mandat autonome.
 # L'ordre et les identifiants 1–4 sont conservés ; les identifiants ne sont pas réutilisés.
 
 [[epic]]
@@ -23,12 +23,12 @@ slug = "epic-initialisation-bmad"
 title = "Initialiser un projet et qualifier les parcours Windows"
 description = "À partir du diagnostic, des projets et de l'interface de l'epic 2, une version Windows installable initialise BMad avec plan exact, accord, annulation et résultat vérifié. Elle réunit les preuves G3, dont l'ouverture éditeur fournie par l'epic 2, puis G4 sur machine cible : les trois parcours réels avec novice, restauration et remplacement du programme."
 covers = ["R4", "R23", "R24"]
-after = [{ epic = 2, needs = "diagnostic BMad qualifié, contexte projet, preuves, aperçu/éditeur et interface bilingue à deux thèmes" }]
+after = [{ epic = 1, needs = "1.11 : socle Windows/Codex, contrats communs, cycle de vie, persistance et paquet réellement construits pour les qualifications possédées" }, { epic = 2, needs = "2.1/2.3 : diagnostic et contexte pour3.1 ; 2.17/2.14 : règles et variantes avant3.2 ; 2.16 : capacités intégrées, fichiers/éditeur et paquet stabilisés avant la voie produit3.3 et G3/G4" }]
 
 [[epic]]
 id = 4
 slug = "epic-graphe-projet"
 title = "Explorer le graphe du code et des dépendances"
-description = "Après la base Windows/Codex qualifiée par l'epic 3, le paquet Windows intègre le graphe Graphify à la demande : recherche et relations accessibles, ouverture du fichier, provenance, confiance et fraîcheur. Le port d'analyse précède ses consommateurs, Sally définit le parcours avec Impeccable, puis G5 qualifie runtime, effets confinés, format et comportement réel. Sa livraison clôt ce volet obligatoire de la V1 ; son usage reste optionnel."
+description = "Sur la base Windows/Codex construite, qualifie localement Graphify puis livre dans le paquet Windows un onglet Graphe du projet ouvert : recherche, zoom, relations accessibles et nœud vers fichier, provenance, confiance et fraîcheur. Les contrats du cœur et le supplément UX Sally/Impeccable précèdent la voie produit après ses fournisseurs fichiers/variantes et initialisation locale stabilisée. G4 reste requis à la qualification finale G5 ; livraison obligatoire en V1, usage optionnel."
 covers = ["R28", "R29", "R30", "R31"]
-after = [{ epic = 3, needs = "base BMad Windows/Codex vérifiée en G4, panneau de fichiers et infrastructure de paquet/contexte/lifecycle réutilisables" }]
+after = [{ epic = 1, needs = "1.11 : base Windows/Codex, contrats, cycle de vie, persistance et paquet pour qualification locale indépendante4.1 et contrats4.3" }, { epic = 2, needs = "2.3 : contexte projet pour4.1 ; 2.17 : règles pour supplément UX4.2 ; 2.8/2.14 : panneau fichiers/éditeur et variantes avant intégration4.4" }, { epic = 3, needs = "3.9 : voie produit locale stabilisée avant4.4 ; 3.10 : vraie qualification G4 avant matrice finale4.11, sans gate entier sur4.1–4.3" }]

@@ -1,0 +1,19 @@
+✖ review H2/H3/F4: real Windows source joins, TOML lexical provenance and conventional v7 documents (29120.1406ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 29287.6723
+
+✖ failing tests:
+
+test at tests\bmad-progress-review.test.mjs:43:1
+✖ review H2/H3/F4: real Windows source joins, TOML lexical provenance and conventional v7 documents (29120.1406ms)
+  Error: {"execution":{"schema":5,"outcome":"completed","exit":1,"started":true,"owned":[],"cleanup":[],"results_present":false,"job_assigned_before_resume":true,"pid":18036,"active_before_stop":0,"job_active_after_stop":0,"stop_ms":0,"drain_ms":342,"elapsed_ms":4699},"stdout":"{\"platform\": \"win32\", \"checks\": {\"H2-alphanumeric-stem-joins-unmatched-id\": false, \"H2-conflicting-leaf-and-plan-keep-same-identity\": false, \"H3-multiline-basic-actual-status-line\": false, \"H3-multiline-basic-valid-toml-not-refused\": false, \"H3-multiline-literal-actual-status-line\": false, \"H3-multiline-literal-valid-toml-not-refused\": false, \"H3-quoted-keys-actual-status-line\": false, \"H3-quoted-keys-valid-toml-not-refused\": false, \"F4-canonical-brief-demo\": false, \"F4-canonical-prd-demo\": false, \"F4-canonical-architecture-demo\": false, \"F4-canonical-research-demo\": false, \"F4-canonical-ux-demo\": false, \"F4-ux-DESIGN.md\": false, \"F4-ux-EXPERIENCE.md\": false, \"F4-no-heavy-evidence-or-import-recursion\": true, \"F4-literal-canonical-decisions\": false}, \"count\": 17, \"network\": false, \"provider\": false}\r\n","stderr":"Traceback (most recent call last):\r\n  File \"<string>\", line 68, in <module>\r\n  File \"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-boundaries-Yq5DsD\\resources\\cases.py\", line 38, in <module>\r\n    assert all(checks.values()),json.dumps(checks)\r\n           ^^^^^^^^^^^^^^^^^^^^\r\nAssertionError: {\"H2-alphanumeric-stem-joins-unmatched-id\": false, \"H2-conflicting-leaf-and-plan-keep-same-identity\": false, \"H3-multiline-basic-actual-status-line\": false, \"H3-multiline-basic-valid-toml-not-refused\": false, \"H3-multiline-literal-actual-status-line\": false, \"H3-multiline-literal-valid-toml-not-refused\": false, \"H3-quoted-keys-actual-status-line\": false, \"H3-quoted-keys-valid-toml-not-refused\": false, \"F4-canonical-brief-demo\": false, \"F4-canonical-prd-demo\": false, \"F4-canonical-architecture-demo\": false, \"F4-canonical-research-demo\": false, \"F4-canonical-ux-demo\": false, \"F4-ux-DESIGN.md\": false, \"F4-ux-EXPERIENCE.md\": false, \"F4-no-heavy-evidence-or-import-recursion\": true, \"F4-literal-canonical-decisions\": false}\r\n"}
+      at runHelpSourcesCase (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/helpers/help-native.mjs:40:64)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-progress-review.test.mjs:43:129)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

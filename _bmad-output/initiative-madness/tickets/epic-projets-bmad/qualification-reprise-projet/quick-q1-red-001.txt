@@ -1,0 +1,28 @@
+✖ Q1 literal status disagreements survive classification while tracker equivalence stays separate (78.7861ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 263.8685
+
+✖ failing tests:
+
+test at tests\bmad-progress.test.mjs:14:1
+✖ Q1 literal status disagreements survive classification while tracker equivalence stays separate (78.7861ms)
+  AssertionError [ERR_ASSERTION]: in-progress vs blocked
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-progress.test.mjs:18:61)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

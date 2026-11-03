@@ -1,0 +1,7 @@
+# Latence locale observée — à instruire avant actualisation fréquente
+
+Le candidat project-resume-reviewed-001 présente un intervalle de 63,597 secondes entre les observations des collectes séquentielles A et B du banc paquet : 2026-11-03T22:31:42.387Z puis 22:32:45.984Z. Source exacte : package-main-001/verification.json, snapshot-project-a/b.observedAt. Le banc complet va de 22:27:57.620 à22:32:51.787 ; il comprend huit opérations helper, préparation, fermetures et réouverture. Cet intervalle inclut rafraîchissement du contexte et cycle de vie du helper : ce n’est pas une mesure isolée du parseur ou du runtime.
+
+Aucune cause de cette lenteur n’est établie. Le launcher et l’adaptateur émettent déjà phases.json et native-timings.json dans leurs opérations possédées ; le prochain banc final déjà nécessaire conservera ces reçus avant nettoyage. Pas de run supplémentaire, réseau, compte ou registre temps/coût de notre développement pour cette observation.
+
+Ce signal doit être traité dans le séquencement de 2.5 : ne pas lancer en boucle des collectes coûteuses sur chaque événement. Mesurer les phases et rechercher une amélioration locale sans affaiblir pins, garde runtime, frontière de lecture, possession ou arrêt ; conserver date et état ancien pendant attente. Aucun cache de confiance, privilège ou seuil de performance inventé ici. Ce document ne prétend ni avoir corrigé la latence ni qualifier les performances sur un dépôt représentatif.

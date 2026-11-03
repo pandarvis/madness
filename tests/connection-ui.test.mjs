@@ -11,6 +11,7 @@ import { promisify } from 'node:util'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 import { isBmadContextState } from '../src/contracts/bmad-context.ts'
+import {isBmadProgressSnapshot} from '../src/contracts/bmad-progress.ts'
 import { isHelpState } from '../src/contracts/bmad-help.ts'
 import { isDialogueMessage } from '../src/contracts/dialogue.ts'
 import { setWorkspaceViewport } from '../scripts/qualification/workspace-design.mjs'
@@ -49,6 +50,10 @@ before(async () => {
     contextBridge.exposeInMainWorld('madnessBmadContext',{read:async()=>contextState,onChanged:fn=>{contextListeners.push(fn);return()=>{}},observe:async()=>{contextReads++;return contextState},choose:async(projectId,initiativeId,revision)=>{contextChoices.push({projectId,initiativeId,revision});if(contextDeferred)await new Promise(resolve=>contextReleases.push(resolve));contextState={...contextState,sequence:contextState.sequence+1,projects:contextState.projects.map(p=>p.projectId===projectId?{...p,status:'ready',selection:{schemaVersion:1,projectId,rootPath:p.observation.rootPath,rootIdentity:p.observation.rootIdentity,revision:(p.selection?.revision??0)+1,initiativeId},storage:contextSaveFailure?'failed':'stored',error:contextSaveFailure?'Choix conservé pour cette session — enregistrement échoué.':null}:p)};notifyContext();return contextState},retrySave:async()=>contextState});
     contextBridge.exposeInMainWorld('bmadContextUIFixture',{deferChoices:()=>{contextDeferred=true},finishChoice:()=>contextReleases.shift()?.(),set:value=>{contextState={...value,sequence:contextState.sequence+1};notifyContext()},choices:()=>contextChoices,reads:()=>contextReads,failSave:value=>contextSaveFailure=value,emitOld:value=>contextListeners.forEach(fn=>fn(value))});
 
+    let progressState={contractVersion:1,sequence:0,projects:[]},progressListeners=[],progressCalls=[],progressDeferred=false,progressReleases=[];
+    const notifyProgress=()=>progressListeners.forEach(fn=>fn(progressState));
+    contextBridge.exposeInMainWorld('madnessBmadProgress',{read:async()=>progressState,onChanged:fn=>{progressListeners.push(fn);return()=>{}},collect:async(projectId)=>{progressCalls.push(projectId);if(progressDeferred)await new Promise(resolve=>progressReleases.push(resolve));return progressState}});
+    contextBridge.exposeInMainWorld('bmadProgressUIFixture',{set:value=>{progressState={...value,sequence:progressState.sequence+1};notifyProgress()},calls:()=>progressCalls,defer:()=>progressDeferred=true,finish:()=>progressReleases.shift()?.(),emitOld:value=>progressListeners.forEach(fn=>fn(value))});
     let helpState={contractVersion:1,sequence:0,status:'idle',projectId:null,bundle:null,records:[],error:null},helpListeners=[],helpCalls=[];
     contextBridge.exposeInMainWorld('madnessHelp',{read:async()=>helpState,onChanged:listener=>{helpListeners.push(listener);return()=>{}},prepare:async(projectId)=>{helpCalls.push('prepare');helpState={...helpState,projectId,sequence:helpState.sequence+1};return helpState},copy:async()=>{helpCalls.push('copy');return helpState},retrySave:async(conversationId)=>{helpCalls.push('retry-save:'+conversationId);helpState={...helpState,sequence:helpState.sequence+1,records:helpState.records.map(record=>record.conversationId===conversationId?{...record,storage:'stored'}:record)};return helpState}});
     contextBridge.exposeInMainWorld('connectionUIFixture',{emitDialogue:value=>dialogueListeners.forEach(listener=>listener(value)),asyncConflict:value=>asyncConflict=value,cancels:()=>cancels,helpCalls:()=>helpCalls,setHelp:value=>{helpState={...value,sequence:helpState.sequence+1};helpListeners.forEach(listener=>listener(helpState))},failLaunch:value=>{launchFailure=value},deferSelections:()=>{deferredSelections=true},selectionCount:()=>selectionRequests.length,finishSelection:index=>selectionRequests[index].resolve(),failSelection:index=>selectionRequests[index].reject(Error('SELECTION_FAILED')),observeStops:()=>observeStops,approvalDecisions:()=>approvalDecisions,adjustmentSends:()=>adjustmentSends,questionSaves:()=>questionSaves,questionAnswers:()=>questionAnswers,failAppearance:value=>{appearanceFailure=value},setState:value=>{state={...state,...value,sequence:state.sequence+1};listeners.forEach(listener=>listener(state))},setSnapshot:value=>{snapshot={...snapshot,...value};stateListeners.forEach(listener=>listener({}))},setDialogue:value=>{dialogue={...dialogue,...value,sequence:dialogue.sequence+1};notifyDialogue()},sent:()=>sent,copies:()=>copies,unknownOnStop:()=>{unknownOnStop=true},supportCalls:()=>supportCalls,verifies:()=>verifies,failSupport:action=>{supportFailure=action},deferSupport:()=>{supportDeferred=true},finishSupport:()=>{supportDeferred=false;finishSupport?.()}});
@@ -79,6 +84,7 @@ async function launch(state = {}, initial = {}) {
   await page.evaluate(initial=>{if(initial.snapshot)window.connectionUIFixture.setSnapshot(initial.snapshot);if(initial.context)window.bmadContextUIFixture.set(initial.context)},initial)
   const css=(await readFile(join(repository, 'src/renderer/src/styles.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/help.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/atelier-immersion.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/atelier-controls.css'), 'utf8'))+'\n'+(await readFile(join(repository,'src/renderer/src/initiatives.css'),'utf8'))
   await page.addStyleTag({ content: css.replaceAll("url('./assets/atelier/", "url('"+pathToFileURL(join(repository,'src/renderer/src/assets/atelier')+'/').href) })
+  await page.addStyleTag({content:await readFile(join(repository,'src/renderer/src/progress.css'),'utf8')})
   await page.addScriptTag({ content: bundle })
   await page.getByRole('heading', { name: initial.snapshot?.activeProjectId ? initial.snapshot.projects.find(p=>p.id===initial.snapshot.activeProjectId).name : 'Vos projets, au même endroit', exact: true }).waitFor()
   await page.evaluate(()=>document.fonts.ready)
@@ -121,6 +127,102 @@ async function initiativeFixture({question=false,long=false}={}){
  return {projectId,name}
 }
 
+async function resumeFixture(){
+ const {projectId}=await initiativeFixture()
+ const captured={projectId,initiativeId:'alpha',conversationId:'resume-alpha',providerId:'codex',connectionId:'captured-account'}
+ await page.evaluate(({projectId,captured})=>{window.connectionUIFixture.setState({status:'disconnected',accountStored:false,needsPlanAcknowledgement:false});window.connectionUIFixture.setSnapshot({drafts:[{projectId,text:'Brouillon exact de reprise 🧭',savedAt:'2026-11-03T10:00:00Z'}],conversations:[{id:captured.conversationId,context:captured,lastKnownActivity:'idle',messages:[{id:'resume-message',role:'assistant',text:'Texte local reçu pour alpha, sans relance.'}]}]});const observation={schemaVersion:1,projectId,rootPath:'C:/project',rootIdentity:'root',revision:'a'.repeat(64),observedAt:'2026-11-03T10:00:00Z',status:'candidate-observed',activeInitiative:'alpha',activeStatus:'valid',initiatives:['alpha','beta'].map(id=>({id,name:id,path:'C:/project/_bmad-output/'+id,source:'C:/project/_bmad-output/'+id+'/'+id+'.md',revision:'b'.repeat(64)})),sources:[],problems:[]};window.bmadContextUIFixture.set({contractVersion:1,sequence:2,projects:[{projectId,status:'ready',storage:'stored',error:null,observation,selection:{schemaVersion:1,projectId,rootPath:'C:/project',rootIdentity:'root',revision:2,initiativeId:'beta'}}]})},{projectId,captured})
+ const snapshot={schemaVersion:1,projectId,rootPath:'C:/project',rootIdentity:'root',initiativeId:'beta',initiativePath:'C:/project/_bmad-output/beta',contextRevision:'a'.repeat(64),revision:'c'.repeat(64),observedAt:'2026-11-03T10:01:00Z',coverage:'partial',sources:[{id:'source-1',kind:'entry',path:'C:/project/_bmad-output/beta/tickets/epic-a/tickets/tickets.toml',relativePath:'tickets/epic-a/tickets/tickets.toml',sha256:'d'.repeat(64),bytes:200,modifiedAt:'2026-11-03T09:00:00Z'},{id:'source-2',kind:'plan',path:'C:/project/_bmad-output/beta/tickets/epic-a/tickets/story-plan.md',relativePath:'tickets/epic-a/tickets/story-plan.md',sha256:'e'.repeat(64),bytes:300,modifiedAt:'2026-11-03T09:00:00Z'}],declarations:[{sourceId:'source-1',container:'tickets/epic-a',ticketId:'1',title:'Entrée sans feuille',field:'status',value:'in-progress',line:4},{sourceId:'source-2',container:'tickets/epic-a',ticketId:'1',title:'Entrée sans feuille',field:'status',value:'built',line:5}],excerpts:[{sourceId:'source-2',category:'decisions',heading:'Décisions locales',text:'Proposition <script>window.evidenceExecuted=true</script> littérale.\n',startLine:8,endLine:8}],problems:['Qualification volumineuse hors portée ; information non établie.']}
+ assert.ok(isBmadProgressSnapshot(snapshot))
+ return {snapshot,projectId,captured,set:async(value=snapshot,status='ready')=>page.evaluate(({snapshot,status})=>window.bmadProgressUIFixture.set({contractVersion:1,sequence:1,projects:[{projectId:snapshot.projectId,generation:1,status,snapshot,errorCode:null,error:null}]}),{snapshot:value,status})}
+}
+test('reprise: hors ligne, declarations exactes, preuves inertes et retour capture alpha conservent la saisie',async()=>{
+ const f=await resumeFixture(),region=page.getByRole('region',{name:'Reprise du projet',exact:true})
+ await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];if(w.isMinimized())w.restore();if(w.isMaximized())w.unmaximize();w.show();w.webContents.setZoomFactor(1)})
+ const viewport=await setWorkspaceViewport(app,page,{width:1440,height:920});assert.ok(Math.abs(viewport.actual.width-1440)<=1);assert.ok(viewport.actual.queries.every(query=>query.matches===query.expected));console.log(JSON.stringify({resumeUiViewport:{case:'offline-captured-conversation',viewport}}))
+ assert.deepEqual(await page.evaluate(()=>window.bmadProgressUIFixture.calls()),[])
+ const read=region.getByRole('button',{name:'Lire les preuves du projet',exact:true});await page.waitForFunction(()=>document.querySelector('.resume-heading button')?.disabled===false);await read.focus();await page.keyboard.press('Enter');await page.waitForFunction(()=>window.bmadProgressUIFixture.calls().length===1);assert.deepEqual(await page.evaluate(()=>window.bmadProgressUIFixture.calls()),[f.projectId])
+ await f.set();await region.locator('.resume-states > summary').click();await region.getByText('Déclarations contradictoires — chaque source est conservée séparément.',{exact:true}).waitFor();await region.getByText('Travail restant non établi',{exact:true}).waitFor()
+ await region.locator('summary').filter({hasText:'Voir la preuve de Décisions locales'}).click();await region.getByText('Proposition <script>window.evidenceExecuted=true</script> littérale.',{exact:true}).waitFor();assert.equal(await page.evaluate(()=>window.evidenceExecuted),undefined)
+ assert.equal(await region.locator('code').filter({hasText:'e'.repeat(64)}).count()>0,true)
+ await region.getByRole('button',{name:'Rejoindre l’échange · alpha',exact:true}).click();await page.getByRole('tab',{name:'Conversation',exact:true}).getAttribute('aria-selected').then(value=>assert.equal(value,'true'));assert.equal(await page.locator('textarea#draft').inputValue(),'Brouillon exact de reprise 🧭')
+ await page.locator('textarea#draft').fill('Brouillon modifié sans envoi 🧭');await page.getByRole('tab',{name:'Parcours',exact:true}).click();await page.getByRole('tab',{name:'Conversation',exact:true}).click();assert.equal(await page.locator('textarea#draft').inputValue(),'Brouillon modifié sans envoi 🧭');assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[]);assert.equal(await page.evaluate(()=>window.connectionUIFixture.verifies()),0)
+})
+test('reprise: Q2 identite de fichier ne se presente pas comme id natif',async()=>{
+ const f=await resumeFixture(),value=structuredClone(f.snapshot),region=page.getByRole('region',{name:'Reprise du projet',exact:true})
+ value.sources[0]={...value.sources[0],kind:'leaf',path:value.initiativePath+'/tickets/epic-a/tickets/story-demo.md',relativePath:'tickets/epic-a/tickets/story-demo.md'}
+ value.declarations.forEach(d=>{d.ticketId='@file:'+'b'.repeat(64);d.title='story-demo'})
+ await f.set(value);await region.locator('.resume-states > summary').click()
+ await region.getByRole('heading',{name:'story-demo · Identité de fichier · id natif inconnu',exact:true}).waitFor()
+ assert.equal(await region.getByRole('heading',{level:4}).textContent(),'story-demo · Identité de fichier · id natif inconnu');assert.equal(await region.locator('.resume-ticket li code').allTextContents().then(values=>values.join(',')),'in-progress,built')
+})
+
+test('reprise: Q3 retour de conversation restaure preuves recap et position de la meme capture seulement',async()=>{
+ const f=await resumeFixture();await f.set();const region=page.getByRole('region',{name:'Reprise du projet',exact:true})
+ await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];if(w.isMinimized())w.restore();if(w.isMaximized())w.unmaximize();w.show();w.webContents.setZoomFactor(1)})
+ await setWorkspaceViewport(app,page,{width:1440,height:920})
+ await region.locator('.resume-states > summary').click()
+ const proof=region.locator('.resume-ticket .resume-proof');await proof.locator('summary').click()
+ const literal=region.locator('.resume-proof').filter({has:page.locator('summary').filter({hasText:'Voir la preuve de Décisions locales'})});await literal.locator('summary').click()
+ const recap=region.locator('.turn-recap');await recap.locator('summary').first().click();await recap.getByText('Résultat proposé',{exact:true}).waitFor()
+ const open=recap.getByRole('button',{name:'Retrouver la conversation',exact:true});await open.scrollIntoViewIfNeeded()
+ const top=await page.locator('main').evaluate(e=>e.scrollTop);assert.ok(top>100)
+ await open.click();await page.getByRole('tab',{name:'Conversation',exact:true}).getAttribute('aria-selected').then(value=>assert.equal(value,'true'))
+ assert.equal(await page.getByRole('region',{name:'Reprise du projet',exact:true}).count(),0);assert.equal(await page.locator('textarea#draft').inputValue(),'Brouillon exact de reprise 🧭')
+ await page.locator('textarea#draft').fill('Brouillon de retour exact 🧭');await page.getByRole('tab',{name:'Parcours',exact:true}).click()
+ await region.waitFor();assert.equal(await region.locator('.resume-states').evaluate(e=>e.open),true);assert.equal(await proof.evaluate(e=>e.open),true);assert.equal(await literal.evaluate(e=>e.open),true);assert.equal(await recap.evaluate(e=>e.open),true)
+ await recap.getByText('Résultat proposé',{exact:true}).waitFor();assert.ok(Math.abs(await page.locator('main').evaluate(e=>e.scrollTop)-top)<=2)
+ assert.equal(await region.getByRole('navigation',{name:'Accès aux informations de reprise',exact:true}).getByRole('button').count(),4)
+ // A newer revision and a different root must not inherit these open details.
+ await region.getByRole('button',{name:'Rejoindre l’échange · alpha',exact:true}).click();const next={...structuredClone(f.snapshot),revision:'f'.repeat(64)};await f.set(next);await page.getByRole('tab',{name:'Parcours',exact:true}).click()
+ assert.equal(await region.locator('.resume-states').evaluate(e=>e.open),false);assert.equal(await region.locator('.turn-recap').evaluate(e=>e.open),false)
+ await page.getByRole('tab',{name:'Conversation',exact:true}).click();await f.set();await page.evaluate(({projectId})=>window.connectionUIFixture.setSnapshot({projects:[{id:projectId,name:'Racine remplacée',rootPath:'C:/replaced',openedAt:'2026-11-03T10:00:00Z'}]}),{projectId:f.projectId});await page.getByRole('tab',{name:'Parcours',exact:true}).click()
+ assert.equal(await region.locator('.resume-states').evaluate(e=>e.open),false);assert.equal(await region.locator('.turn-recap').evaluate(e=>e.open),false)
+ await page.getByRole('tab',{name:'Conversation',exact:true}).click();assert.equal(await page.locator('textarea#draft').inputValue(),'Brouillon de retour exact 🧭');await page.getByText('Texte local reçu pour alpha, sans relance.',{exact:true}).waitFor()
+ assert.deepEqual(await page.evaluate(()=>window.bmadProgressUIFixture.calls()),[]);assert.equal(await page.evaluate(()=>window.bmadContextUIFixture.reads()),0);assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[]);assert.equal(await page.evaluate(()=>window.connectionUIFixture.verifies()),0)
+})
+
+test('reprise: captures anciennes, details clavier, deux themes, compact et zoom 200 sans debordement',async()=>{
+ const f=await resumeFixture();await f.set();const region=page.getByRole('region',{name:'Reprise du projet',exact:true})
+ await page.evaluate(({projectId})=>{window.bmadContextUIFixture.set({contractVersion:1,sequence:20,projects:[{projectId,status:'idle',storage:'stored',error:null,observation:null,selection:{schemaVersion:1,projectId,rootPath:'C:/project',rootIdentity:'root',revision:3,initiativeId:'alpha'}}]})},{projectId:f.projectId})
+ await region.getByText(/Dernière observation.*beta.*Observation ancienne/).waitFor()
+ await region.locator('.resume-states > summary').focus();await page.keyboard.press('Enter')
+ const proof=region.locator('summary').filter({hasText:'Voir la preuve de Entrée sans feuille'});await proof.focus();await page.keyboard.press('Enter');assert.equal(await proof.evaluate(e=>e.parentElement.open),true);await page.keyboard.press('Enter');assert.equal(await proof.evaluate(e=>e.parentElement.open),false)
+ for(const theme of ['dark','light'])for(const [width,zoom] of [[1440,1],[720,1],[1440,2]]){
+  await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];if(w.isMinimized())w.restore();if(w.isMaximized())w.unmaximize();w.show();w.webContents.setZoomFactor(1)})
+  const viewportAt100=await setWorkspaceViewport(app,page,{width,height:920});assert.ok(viewportAt100.actual.queries.every(query=>query.matches===query.expected))
+  await app.evaluate(({BrowserWindow},zoom)=>BrowserWindow.getAllWindows()[0].webContents.setZoomFactor(zoom),zoom);await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme)
+  await page.waitForFunction(({width,zoom})=>Math.abs(innerWidth-width/zoom)<=1&&Math.abs(innerHeight-920/zoom)<=1,{width,zoom})
+  const geometry=await region.evaluate(e=>({width:innerWidth,height:innerHeight,compact:matchMedia('(max-width: 720px)').matches,docked:matchMedia('(min-width: 1323px)').matches,scroll:document.documentElement.scrollWidth,region:e.getBoundingClientRect().width,client:e.clientWidth,scrollRegion:e.scrollWidth,font:getComputedStyle(e).fontFamily}));assert.ok(Math.abs(geometry.width-width/zoom)<=1);assert.ok(Math.abs(geometry.height-920/zoom)<=1);assert.equal(geometry.compact,width/zoom<=720);assert.equal(geometry.docked,width/zoom>=1323);assert.ok(geometry.scroll<=geometry.width+1,JSON.stringify({theme,width,zoom,geometry}));assert.ok(geometry.scrollRegion<=geometry.client+1);assert.match(geometry.font,/Oxanium/);console.log(JSON.stringify({resumeUiViewport:{theme,width,zoom,viewportAt100,geometry}}))
+ }
+ await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.setZoomFactor(1));assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+})
+test('reprise: annonce du projet precedent effacee dans une destination sans projection',async()=>{
+ const f=await resumeFixture();await f.set();const region=page.getByRole('region',{name:'Reprise du projet',exact:true})
+ await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];if(w.isMinimized())w.restore();if(w.isMaximized())w.unmaximize();w.show();w.webContents.setZoomFactor(1)})
+ await setWorkspaceViewport(app,page,{width:1440,height:920})
+ await page.waitForFunction(()=>document.querySelector('.resume-announcement')?.textContent.includes('Lecture locale terminée'))
+ await page.evaluate(()=>window.connectionUIFixture.setSnapshot({projects:[{id:'p-context',name:'Projet initiatives',rootPath:'C:/project',openedAt:'2026-11-03T10:00:00Z'},{id:'project-other',name:'Projet sans projection',rootPath:'C:/other',openedAt:'2026-11-03T10:00:00Z'}]}))
+ await page.locator('.sidebar').getByRole('button',{name:'Ouvrir le projet Projet sans projection',exact:true}).click()
+ await region.getByText('Les preuves du projet n’ont pas été lues dans cette session.',{exact:true}).waitFor()
+ assert.equal(await region.locator('.resume-announcement').textContent(),'')
+ assert.deepEqual(await page.evaluate(()=>window.bmadProgressUIFixture.calls()),[])
+})
+test('reprise: liste longue repliee et acces clavier aux quatre groupes avant les tickets',async()=>{
+ const f=await resumeFixture(),value=structuredClone(f.snapshot),region=page.getByRole('region',{name:'Reprise du projet',exact:true})
+ value.declarations.push(...Array.from({length:120},(_,index)=>({sourceId:'source-1',container:'tickets/epic-a',ticketId:String(index+3),title:'Entrée de qualification '+(index+3),field:'existence',value:'entry',line:4})))
+ value.excerpts.push({sourceId:'source-2',category:'remaining',heading:'Travail restant de qualification',text:'Reste connu de la fixture, sans synthèse.',startLine:10,endLine:10})
+ assert.ok(isBmadProgressSnapshot(value));await f.set(value)
+ const access=region.getByRole('navigation',{name:'Accès aux informations de reprise',exact:true});assert.equal(await access.count(),1)
+ const states=region.locator('.resume-states');assert.equal(await states.evaluate(e=>e.open),false);assert.equal(await region.locator('.resume-ticket:visible').count(),0)
+ const buttons=access.getByRole('button');assert.equal(await buttons.count(),4);await buttons.first().focus();await page.keyboard.press('Tab');assert.equal(await buttons.nth(1).evaluate(e=>e===document.activeElement),true);await page.keyboard.press('Enter')
+ assert.equal(await region.getByRole('heading',{name:'Résultats et décisions connus',exact:true}).evaluate(e=>e===document.activeElement),true);assert.equal(await states.evaluate(e=>e.open),false)
+ await access.getByRole('button',{name:'Récapitulatifs disponibles',exact:true}).focus();await page.keyboard.press('Enter');assert.equal(await region.getByRole('heading',{name:'Récapitulatifs disponibles',exact:true}).evaluate(e=>e===document.activeElement),true)
+ await region.getByText('Contexte capturé : alpha · resume-alpha',{exact:true}).waitFor()
+ await access.getByRole('button',{name:'Travail restant connu',exact:true}).focus();await page.keyboard.press('Enter');assert.equal(await region.getByRole('heading',{name:'Travail restant connu',exact:true}).evaluate(e=>e===document.activeElement),true)
+ const remaining=region.locator('summary').filter({hasText:'Voir la preuve de Travail restant de qualification'});await remaining.focus();await page.keyboard.press('Enter');await region.getByText('Reste connu de la fixture, sans synthèse.',{exact:true}).waitFor();assert.equal(await states.evaluate(e=>e.open),false)
+ await states.locator('summary').first().focus();await page.keyboard.press('Enter');assert.equal(await region.locator('.resume-ticket').count(),121);await region.getByText('Déclarations contradictoires — chaque source est conservée séparément.',{exact:true}).waitFor()
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+})
 test('initiatives: restauration et changement de projet restent passifs, observation explicite conservée',async()=>{
  const ids=['project-a','project-b']
  const initial={snapshot:{projects:ids.map(id=>({id,name:id,rootPath:'C:/'+id,openedAt:new Date().toISOString()})),activeProjectId:'project-a'},context:{contractVersion:1,sequence:1,projects:ids.map((projectId,index)=>({projectId,status:'idle',observation:null,selection:{schemaVersion:1,projectId,rootPath:'C:/'+projectId,rootIdentity:'root-'+projectId,revision:1,initiativeId:index===0?'alpha':'beta'},storage:'stored',error:null}))}}

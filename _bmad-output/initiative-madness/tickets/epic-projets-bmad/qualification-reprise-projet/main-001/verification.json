@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-03T21:25:24.604Z",
+  "status": "partial",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-rURJFb",
+  "launches": [
+    {
+      "main": {
+        "pid": 24096,
+        "startedAt": "639293379249415293",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-rURJFb\\profile",
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-reprise-projet\\main-001\\observation-1.json"
+    }
+  ],
+  "captures": [],
+  "closures": [
+    {
+      "main": {
+        "pid": 24096,
+        "startedAt": "639293379249415293",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 21800,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-03T21:25:27.795Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "checks": [
+    "two-concurrent-project-observations-share-the-owned-helper"
+  ],
+  "inputs": {
+    "out/main/index.js": "4e86c60342b14f044971405aed2460dedbd1ba31e9466e6e41a3d840cd1595ad",
+    "out/preload/index.js": "0406aed2c9d0fa75b5bdeebed40df1d4156006a1eea664347ad296cde4f95634",
+    "package.json": "022117eac926de301656956bc7b4382c16c3413649c9781f21c13286aed77b9a",
+    "resources/bmad-help/bmad-help.md": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+    "resources/bmad-help/bmad-SKILL.md": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+    "resources/bmad-help/bootstrap.py": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+    "resources/bmad-help/capture.py": "b03a1d1426b75582aa279096aa373d3615b174c71498058bef61b09b280dafeb",
+    "resources/bmad-help/config_utils.py": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+    "resources/bmad-help/knowledge.py": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+    "resources/bmad-help/launcher.ps1": "52f42c1ec152befd03d034ae801f90e37877a41089ebefe2658be5c18e200de1",
+    "resources/bmad-help/preflight.ps1": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+    "resources/bmad-help/resolve_config.py": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+    "resources/bmad-help/runtime_guard.py": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+    "resources/bmad-help/runtime.json": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+    "resources/bmad-help/supervision.ps1": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+    "resources/bmad-help/worker.py": "8967fd9ddd119939294017d8cae4254f80c15f1312e0202a067873b8bf1bade6",
+    "resources/bmad-help/progress.py": "03f5b94b4ae1bcda83d63230d23bf249a61d42e8a011e92b50a32bcbb61906b4"
+  },
+  "cleanup": true,
+  "limits": [
+    "Réseau/app-server observés après hook seulement ; aucun succès fournisseur ni 2.2/M14 déduit.",
+    "Captures synthétiques seulement si --screenshots ; aucune validation humaine ; symlink fichier non exercée faute de privilège."
+  ],
+  "error": "TypeError: Cannot read properties of null (reading 'initiativeId')\n    at file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/bmad-progress.mjs:70:67",
+  "completedAt": "2026-11-03T21:26:36.530Z"
+}

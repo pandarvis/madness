@@ -96,3 +96,13 @@ const contextRequest=async(payload:Record<string,unknown>):Promise<BmadContextSt
 const bmadContextBridge:BmadContextBridge={read:()=>contextRequest({type:'read'}),observe:projectId=>contextRequest({type:'observe',projectId}),choose:(projectId,initiativeId,revision)=>contextRequest({type:'choose',projectId,initiativeId,revision}),retrySave:projectId=>contextRequest({type:'retry-save',projectId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isBmadContextState(value))listener(value)};ipcRenderer.on(BMAD_CONTEXT_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(BMAD_CONTEXT_EVENT_CHANNEL,receive)}}
 contextBridge.exposeInMainWorld('madnessBmadContext',Object.freeze(bmadContextBridge))
 
+import {BMAD_PROGRESS_COMMAND_CHANNEL,BMAD_PROGRESS_EVENT_CHANNEL,isBmadProgressState} from '../contracts/bmad-progress.ts'
+import type {BmadProgressBridge,BmadProgressState} from '../contracts/bmad-progress.ts'
+const progressRequest=async(payload:Record<string,unknown>):Promise<BmadProgressState>=>{
+ const correlationId=crypto.randomUUID(),reply:unknown=await ipcRenderer.invoke(BMAD_PROGRESS_COMMAND_CHANNEL,{...payload,contractVersion:1,correlationId})
+ if(!reply||typeof reply!=='object'||!('state' in reply)||!('correlationId' in reply)||reply.correlationId!==correlationId||!isBmadProgressState(reply.state))throw Error('INVALID_PROGRESS_REPLY')
+ return reply.state
+}
+const bmadProgressBridge:BmadProgressBridge={read:()=>progressRequest({type:'read'}),collect:projectId=>progressRequest({type:'collect',projectId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isBmadProgressState(value))listener(value)};ipcRenderer.on(BMAD_PROGRESS_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(BMAD_PROGRESS_EVENT_CHANNEL,receive)}}
+contextBridge.exposeInMainWorld('madnessBmadProgress',Object.freeze(bmadProgressBridge))
+

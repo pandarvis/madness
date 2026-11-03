@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "source": "verification.json",
+  "captures": [
+    {
+      "file": "resume-large-dark.png",
+      "sha256": "93d6956b5050a98317c51e1ad56fe5c56a8c3934033cfee9a2064b64fcd4a261",
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "expectedFullNativePixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "acceptedAsFullFrame": true,
+      "acceptedAsRequestedThemeEvidence": true,
+      "limitation": null
+    },
+    {
+      "file": "resume-compact-light.png",
+      "sha256": "5601856da2dd9524c8cc186441f9e24cc2476d53cb017af4f1d0dc1ec8ffc206",
+      "pixels": {
+        "width": 900,
+        "height": 1025
+      },
+      "expectedFullNativePixels": {
+        "width": 900,
+        "height": 1025
+      },
+      "acceptedAsFullFrame": true,
+      "acceptedAsRequestedThemeEvidence": false,
+      "limitation": "Requested light theme was not applied to React state by the direct bridge call; actual image is dark. Retained with limit; compact light replaced by visual-recapture-zoom-003."
+    },
+    {
+      "file": "resume-zoom-200.png",
+      "sha256": "6b87c72ce37555e74939da99db52bbec9435d369657c7d726292751b16bb948b",
+      "pixels": {
+        "width": 900,
+        "height": 575
+      },
+      "expectedFullNativePixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "acceptedAsFullFrame": false,
+      "limitation": "Playwright PNG cropped at zoom; retained as rejected, not a full-frame visual proof."
+    }
+  ]
+}

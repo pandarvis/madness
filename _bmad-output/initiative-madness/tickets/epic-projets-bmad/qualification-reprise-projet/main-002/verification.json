@@ -1,0 +1,381 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-03T21:29:46.114Z",
+  "status": "partial",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B",
+  "launches": [
+    {
+      "main": {
+        "pid": 2448,
+        "startedAt": "639293381864077042",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\profile",
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-reprise-projet\\main-002\\observation-1.json"
+    }
+  ],
+  "captures": [],
+  "closures": [
+    {
+      "main": {
+        "pid": 2448,
+        "startedAt": "639293381864077042",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 48896,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-03T21:29:48.872Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "checks": [
+    "two-concurrent-project-observations-share-the-owned-helper",
+    "compiled-choose-project-a-beta",
+    "compiled-choose-project-b-beta",
+    "compiled-local-progress-project-a-beta",
+    "compiled-local-progress-project-b-beta"
+  ],
+  "inputs": {
+    "out/main/index.js": "c26a7188afa609cbcfa06c1940932dac5b6cb811dce7856bee6dec80e4d7cd66",
+    "out/preload/index.js": "0406aed2c9d0fa75b5bdeebed40df1d4156006a1eea664347ad296cde4f95634",
+    "package.json": "022117eac926de301656956bc7b4382c16c3413649c9781f21c13286aed77b9a",
+    "resources/bmad-help/bmad-help.md": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+    "resources/bmad-help/bmad-SKILL.md": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+    "resources/bmad-help/bootstrap.py": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+    "resources/bmad-help/capture.py": "b03a1d1426b75582aa279096aa373d3615b174c71498058bef61b09b280dafeb",
+    "resources/bmad-help/config_utils.py": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+    "resources/bmad-help/knowledge.py": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+    "resources/bmad-help/launcher.ps1": "52f42c1ec152befd03d034ae801f90e37877a41089ebefe2658be5c18e200de1",
+    "resources/bmad-help/preflight.ps1": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+    "resources/bmad-help/resolve_config.py": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+    "resources/bmad-help/runtime_guard.py": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+    "resources/bmad-help/runtime.json": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+    "resources/bmad-help/supervision.ps1": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+    "resources/bmad-help/worker.py": "8967fd9ddd119939294017d8cae4254f80c15f1312e0202a067873b8bf1bade6",
+    "resources/bmad-help/progress.py": "432de37bca00829748bca5e9f2177a2d723cce13e3c3e8d88a1e56dd761be571"
+  },
+  "cleanup": true,
+  "limits": [
+    "Réseau/app-server observés après hook seulement ; aucun succès fournisseur ni 2.2/M14 déduit.",
+    "Captures synthétiques seulement si --screenshots ; aucune validation humaine ; symlink fichier non exercée faute de privilège."
+  ],
+  "snapshot-project-a": {
+    "schemaVersion": 1,
+    "projectId": "project-a",
+    "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\project-a",
+    "observedAt": "2026-11-03T21:33:54.193Z",
+    "rootIdentity": "5bc503af2a637182fa5f1ec509135606d4039f08a8347e9dde6142bf0b3d80f7",
+    "initiativeId": "beta",
+    "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\project-a\\_bmad-output\\beta",
+    "contextRevision": "072252751bd508966e81dabd2b2e1743a76719b8a4543432b4ccfc184f322999",
+    "revision": "0246272d54c68f9a3276b321f1c4f0bbf758875a0b29eb3925c4e7d81083bd0c",
+    "coverage": "complete",
+    "sources": [
+      {
+        "id": "source-add824a9b5d3d7d31d41ecc9e559b122544195b75ab32b8c5e005a7f212325ad",
+        "kind": "container",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\project-a\\_bmad-output\\beta\\beta.md",
+        "relativePath": "beta.md",
+        "sha256": "7bb1347a5ed27cba09c239e19bc971d2ca4848c7b0b427ac540fcd80ae2fb11c",
+        "bytes": 7,
+        "modifiedAt": "2026-11-03T21:29:46.208341+00:00"
+      },
+      {
+        "id": "source-db1b719517ab7035ac7b56f63bd47f1dca6618ff8570b286ed2fcd5d282fe43a",
+        "kind": "entry",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\project-a\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\tickets.toml",
+        "relativePath": "tickets/epic-a/tickets/tickets.toml",
+        "sha256": "4d5ff83479f10c3bccf37065e9ad1ed209e100bd3494fd36a252a4efd68c029f",
+        "bytes": 117,
+        "modifiedAt": "2026-11-03T21:29:46.218389+00:00"
+      },
+      {
+        "id": "source-4bee95df9918200782d3c6a4a18848d51d0f8064002409885f405b67ba4a686d",
+        "kind": "plan",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\project-a\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\story-opposition-plan.md",
+        "relativePath": "tickets/epic-a/tickets/story-opposition-plan.md",
+        "sha256": "d73fab16adbcc4a2eb9e97f5bca26c28bb16d90d421a311644f1fc2e4a17fbda",
+        "bytes": 126,
+        "modifiedAt": "2026-11-03T21:29:46.227908+00:00"
+      },
+      {
+        "id": "source-020774d84d2619524c2821072e2536107cbcb0c671f06772f7aa6c451ce6add3",
+        "kind": "leaf",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\project-a\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\story-opposition.md",
+        "relativePath": "tickets/epic-a/tickets/story-opposition.md",
+        "sha256": "1ed284d6862b2a1427c345240875a346b09d3201907d0316391555f6ba590a6a",
+        "bytes": 231,
+        "modifiedAt": "2026-11-03T21:29:46.222389+00:00"
+      }
+    ],
+    "declarations": [
+      {
+        "sourceId": "source-add824a9b5d3d7d31d41ecc9e559b122544195b75ab32b8c5e005a7f212325ad",
+        "container": ".",
+        "ticketId": null,
+        "title": "beta",
+        "field": "existence",
+        "value": "container",
+        "line": 1
+      },
+      {
+        "sourceId": "source-db1b719517ab7035ac7b56f63bd47f1dca6618ff8570b286ed2fcd5d282fe43a",
+        "container": "tickets/epic-a",
+        "ticketId": "1",
+        "title": "Entrée sans feuille",
+        "field": "existence",
+        "value": "entry",
+        "line": 1
+      },
+      {
+        "sourceId": "source-db1b719517ab7035ac7b56f63bd47f1dca6618ff8570b286ed2fcd5d282fe43a",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "existence",
+        "value": "entry",
+        "line": 5
+      },
+      {
+        "sourceId": "source-020774d84d2619524c2821072e2536107cbcb0c671f06772f7aa6c451ce6add3",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "existence",
+        "value": "leaf",
+        "line": 1
+      },
+      {
+        "sourceId": "source-020774d84d2619524c2821072e2536107cbcb0c671f06772f7aa6c451ce6add3",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "status",
+        "value": "in-progress",
+        "line": 5
+      },
+      {
+        "sourceId": "source-020774d84d2619524c2821072e2536107cbcb0c671f06772f7aa6c451ce6add3",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "tracker_status",
+        "value": "done",
+        "line": 6
+      },
+      {
+        "sourceId": "source-4bee95df9918200782d3c6a4a18848d51d0f8064002409885f405b67ba4a686d",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "story-opposition-plan",
+        "field": "existence",
+        "value": "plan",
+        "line": 1
+      },
+      {
+        "sourceId": "source-4bee95df9918200782d3c6a4a18848d51d0f8064002409885f405b67ba4a686d",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "story-opposition-plan",
+        "field": "status",
+        "value": "built",
+        "line": 4
+      }
+    ],
+    "excerpts": [
+      {
+        "sourceId": "source-020774d84d2619524c2821072e2536107cbcb0c671f06772f7aa6c451ce6add3",
+        "category": "results",
+        "heading": "Résultats",
+        "text": "Résultat déclaré dans la feuille, à vérifier.\n\n",
+        "startLine": 10,
+        "endLine": 11
+      },
+      {
+        "sourceId": "source-020774d84d2619524c2821072e2536107cbcb0c671f06772f7aa6c451ce6add3",
+        "category": "remaining",
+        "heading": "Travail restant",
+        "text": "Proposition conservée : examiner les preuves.\n",
+        "startLine": 13,
+        "endLine": 13
+      },
+      {
+        "sourceId": "source-4bee95df9918200782d3c6a4a18848d51d0f8064002409885f405b67ba4a686d",
+        "category": "decisions",
+        "heading": "Décisions",
+        "text": "Proposition de l’agent : une décision humaine reste inconnue.\n",
+        "startLine": 8,
+        "endLine": 8
+      }
+    ],
+    "problems": []
+  },
+  "snapshot-project-b": {
+    "schemaVersion": 1,
+    "projectId": "project-b",
+    "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\project-b",
+    "observedAt": "2026-11-03T21:35:15.083Z",
+    "rootIdentity": "dfb71d449e3e4e8fb6b7581d7e5f209f1121e2a9a39495f3f3e46f84310e4791",
+    "initiativeId": "beta",
+    "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\project-b\\_bmad-output\\beta",
+    "contextRevision": "7d602415dd3e5bd2aa0db9b77f20194e5f560bd437954938f3a80b1276218b93",
+    "revision": "60160519e4f99b11beb00a22d300907b451b896cd6209ebd86efac0002f2660d",
+    "coverage": "complete",
+    "sources": [
+      {
+        "id": "source-f0f4b40b416edbab1bbeaf41d5bea47c13ec91b259394ed00b0c77c7a840b653",
+        "kind": "container",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\project-b\\_bmad-output\\beta\\beta.md",
+        "relativePath": "beta.md",
+        "sha256": "7bb1347a5ed27cba09c239e19bc971d2ca4848c7b0b427ac540fcd80ae2fb11c",
+        "bytes": 7,
+        "modifiedAt": "2026-11-03T21:29:46.259370+00:00"
+      },
+      {
+        "id": "source-07f269a6f145d76b5adce865ed3c71f6051b6408b29c06c0ae1f86c17f91bce5",
+        "kind": "entry",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\project-b\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\tickets.toml",
+        "relativePath": "tickets/epic-a/tickets/tickets.toml",
+        "sha256": "4d5ff83479f10c3bccf37065e9ad1ed209e100bd3494fd36a252a4efd68c029f",
+        "bytes": 117,
+        "modifiedAt": "2026-11-03T21:29:46.269367+00:00"
+      },
+      {
+        "id": "source-e1ad10719fdb6f6b38ff4d0be94579f090dc26109a052feddd4ac13a0a932c62",
+        "kind": "plan",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\project-b\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\story-opposition-plan.md",
+        "relativePath": "tickets/epic-a/tickets/story-opposition-plan.md",
+        "sha256": "d73fab16adbcc4a2eb9e97f5bca26c28bb16d90d421a311644f1fc2e4a17fbda",
+        "bytes": 126,
+        "modifiedAt": "2026-11-03T21:29:46.276369+00:00"
+      },
+      {
+        "id": "source-ff5ecb1187248c410ffcd5eac635d6685d1c499146618fbb298cf08531b590c9",
+        "kind": "leaf",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-5jCD0B\\project-b\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\story-opposition.md",
+        "relativePath": "tickets/epic-a/tickets/story-opposition.md",
+        "sha256": "1ed284d6862b2a1427c345240875a346b09d3201907d0316391555f6ba590a6a",
+        "bytes": 231,
+        "modifiedAt": "2026-11-03T21:29:46.272370+00:00"
+      }
+    ],
+    "declarations": [
+      {
+        "sourceId": "source-f0f4b40b416edbab1bbeaf41d5bea47c13ec91b259394ed00b0c77c7a840b653",
+        "container": ".",
+        "ticketId": null,
+        "title": "beta",
+        "field": "existence",
+        "value": "container",
+        "line": 1
+      },
+      {
+        "sourceId": "source-07f269a6f145d76b5adce865ed3c71f6051b6408b29c06c0ae1f86c17f91bce5",
+        "container": "tickets/epic-a",
+        "ticketId": "1",
+        "title": "Entrée sans feuille",
+        "field": "existence",
+        "value": "entry",
+        "line": 1
+      },
+      {
+        "sourceId": "source-07f269a6f145d76b5adce865ed3c71f6051b6408b29c06c0ae1f86c17f91bce5",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "existence",
+        "value": "entry",
+        "line": 5
+      },
+      {
+        "sourceId": "source-ff5ecb1187248c410ffcd5eac635d6685d1c499146618fbb298cf08531b590c9",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "existence",
+        "value": "leaf",
+        "line": 1
+      },
+      {
+        "sourceId": "source-ff5ecb1187248c410ffcd5eac635d6685d1c499146618fbb298cf08531b590c9",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "status",
+        "value": "in-progress",
+        "line": 5
+      },
+      {
+        "sourceId": "source-ff5ecb1187248c410ffcd5eac635d6685d1c499146618fbb298cf08531b590c9",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "tracker_status",
+        "value": "done",
+        "line": 6
+      },
+      {
+        "sourceId": "source-e1ad10719fdb6f6b38ff4d0be94579f090dc26109a052feddd4ac13a0a932c62",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "story-opposition-plan",
+        "field": "existence",
+        "value": "plan",
+        "line": 1
+      },
+      {
+        "sourceId": "source-e1ad10719fdb6f6b38ff4d0be94579f090dc26109a052feddd4ac13a0a932c62",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "story-opposition-plan",
+        "field": "status",
+        "value": "built",
+        "line": 4
+      }
+    ],
+    "excerpts": [
+      {
+        "sourceId": "source-ff5ecb1187248c410ffcd5eac635d6685d1c499146618fbb298cf08531b590c9",
+        "category": "results",
+        "heading": "Résultats",
+        "text": "Résultat déclaré dans la feuille, à vérifier.\n\n",
+        "startLine": 10,
+        "endLine": 11
+      },
+      {
+        "sourceId": "source-ff5ecb1187248c410ffcd5eac635d6685d1c499146618fbb298cf08531b590c9",
+        "category": "remaining",
+        "heading": "Travail restant",
+        "text": "Proposition conservée : examiner les preuves.\n",
+        "startLine": 13,
+        "endLine": 13
+      },
+      {
+        "sourceId": "source-e1ad10719fdb6f6b38ff4d0be94579f090dc26109a052feddd4ac13a0a932c62",
+        "category": "decisions",
+        "heading": "Décisions",
+        "text": "Proposition de l’agent : une décision humaine reste inconnue.\n",
+        "startLine": 8,
+        "endLine": 8
+      }
+    ],
+    "problems": []
+  },
+  "error": "electronApplication.evaluate: TypeError: Error processing argument at index 1, conversion failure from \n    at eval (eval at evaluate (:370:30), <anonymous>:1:74)\n    at UtilityScript.evaluate (<anonymous>:372:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at measure (C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\scripts\\qualification\\workspace-design.mjs:26:26)\n    at setWorkspaceViewport (C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\scripts\\qualification\\workspace-design.mjs:38:21)\n    at C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\scripts\\qualification\\bmad-progress.mjs:85:10",
+  "completedAt": "2026-11-03T21:35:17.748Z"
+}

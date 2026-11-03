@@ -1,0 +1,47 @@
+✖ Q1 literal statuses in-progress and blocked remain conflicting (77.9353ms)
+✖ Q1 literal statuses draft and ready-for-dev remain conflicting (0.3323ms)
+✔ Q1 tracker equivalence stays separate from literal status disagreement (0.5318ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 1
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 235.4707
+
+✖ failing tests:
+
+test at tests\bmad-progress.test.mjs:14:83
+✖ Q1 literal statuses in-progress and blocked remain conflicting (77.9353ms)
+  AssertionError [ERR_ASSERTION]: in-progress vs blocked
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-progress.test.mjs:17:61)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-progress.test.mjs:14:83
+✖ Q1 literal statuses draft and ready-for-dev remain conflicting (0.3323ms)
+  AssertionError [ERR_ASSERTION]: draft vs ready-for-dev
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-progress.test.mjs:17:61)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

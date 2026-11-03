@@ -78,16 +78,23 @@ export class BmadHelpAdapter{
   }
  }
  async shutdown():Promise<'stopped'|'unknown'>{this.closing=true;await this.options.owner.cancel().catch(()=>{});await this.pending;const outcome=await this.options.owner.observeStop().catch(()=>{this.options.onUnknown?.();return 'unknown' as const});if(outcome!=='stopped')return 'unknown';const parent=await directory(this.options.root).catch(()=>null);if(parent){const target=join(parent,this.runtimeId);if(dirname(target)!==parent)throw dialogueFailure('STOP_UNCONFIRMED');const actual=await directory(target).catch(e=>{if((e as NodeJS.ErrnoException).code==='ENOENT')return null;throw e});if(actual&&dirname(actual).toLowerCase()!==parent.toLowerCase())throw dialogueFailure('STOP_UNCONFIRMED');if(actual)await rm(actual,{recursive:true,force:true})}return 'stopped'}
- async observeContext(projectId:string,rootPath:string,signal:AbortSignal):Promise<import('../../contracts/bmad-context.ts').BmadContextObservation>{
+ async observeContext(projectId:string,rootPath:string,signal:AbortSignal,internal=true):Promise<import('../../contracts/bmad-context.ts').BmadContextObservation>{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
   for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
-  const {result}=await this.run({op:'context',project:root,roots},signal,true)
+  const {result}=await this.run({op:'context',project:root,roots},signal,internal)
   return {schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result}
  }
  async observeConfiguration(projectId:string,rootPath:string,signal:AbortSignal):Promise<import('../../contracts/bmad-context.ts').BmadConfigurationObservation>{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
   for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
   const {result}=await this.run({op:'context-config',project:root,roots},signal,true)
+  return {schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result}
+ }
+ async observeProgress(projectId:string,rootPath:string,selection:import('../../contracts/bmad-context.ts').BmadSelection,observation:import('../../contracts/bmad-context.ts').BmadContextObservation,signal:AbortSignal):Promise<import('../../contracts/bmad-progress.ts').BmadProgressSnapshot>{
+  const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
+  for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
+  // This is a local consultation, never a provider-nested admission.
+  const {result}=await this.run({op:'progress',project:root,roots,initiativeId:selection.initiativeId,rootIdentity:selection.rootIdentity,contextRevision:observation.revision},signal)
   return {schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result}
  }
  async prepare(projectId:string,rootPath:string,signal:AbortSignal):Promise<HelpBundle>{

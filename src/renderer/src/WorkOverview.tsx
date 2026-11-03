@@ -3,7 +3,7 @@ import type {ReactNode} from 'react'
 import type {WorkOverviewState,OverviewTarget,ConversationOverview} from '../../core/work-overview.ts'
 import {fr} from './strings.ts'
 
-function Recap({value,onNavigate}:{value:ConversationOverview;onNavigate:(target:OverviewTarget)=>void}):ReactNode {
+export function Recap({value,onNavigate}:{value:ConversationOverview;onNavigate:(target:OverviewTarget)=>void}):ReactNode {
  const turn=value.turn,words=fr.overview
  const [open,setOpen]=useState(false)
  return <details className="turn-recap" data-recap-id={value.id} onToggle={event=>setOpen(event.currentTarget.open)}>

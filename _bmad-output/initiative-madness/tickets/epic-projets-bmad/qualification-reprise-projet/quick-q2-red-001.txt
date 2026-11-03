@@ -1,0 +1,19 @@
+✖ Q2 filename joins retain recognized leaves without inventing native ids (49499.6505ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 49713.2745
+
+✖ failing tests:
+
+test at tests\bmad-progress-review.test.mjs:58:1
+✖ Q2 filename joins retain recognized leaves without inventing native ids (49499.6505ms)
+  Error: {"execution":{"schema":5,"outcome":"completed","exit":1,"started":true,"owned":[],"cleanup":[],"results_present":false,"job_assigned_before_resume":true,"pid":27128,"active_before_stop":0,"job_active_after_stop":0,"stop_ms":0,"drain_ms":892,"elapsed_ms":7306},"stdout":"{\"platform\": \"win32\", \"checks\": {\"filename-join-no-native-id\": false, \"explicit-file-identity-bounded\": false, \"raw-statuses-retained\": true, \"native-id-unknown-explicit\": false, \"joined-plan-not-orphan\": false, \"id-first-before-filename\": true, \"genuine-orphan-preserved\": true, \"file-identity-stable-across-content-revision\": true}, \"count\": 8, \"network\": false, \"provider\": false}\r\n","stderr":"Traceback (most recent call last):\r\n  File \"<string>\", line 68, in <module>\r\n  File \"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-boundaries-UBIrlZ\\resources\\cases.py\", line 28, in <module>\r\n    print(json.dumps({'platform':sys.platform,'checks':checks,'count':len(checks),'network':False,'provider':False}));assert all(checks.values()),json.dumps(checks)\r\n                                                                                                                             ^^^^^^^^^^^^^^^^^^^^\r\nAssertionError: {\"filename-join-no-native-id\": false, \"explicit-file-identity-bounded\": false, \"raw-statuses-retained\": true, \"native-id-unknown-explicit\": false, \"joined-plan-not-orphan\": false, \"id-first-before-filename\": true, \"genuine-orphan-preserved\": true, \"file-identity-stable-across-content-revision\": true}\r\n"}
+      at runHelpSourcesCase (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/helpers/help-native.mjs:40:64)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-progress-review.test.mjs:59:15)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

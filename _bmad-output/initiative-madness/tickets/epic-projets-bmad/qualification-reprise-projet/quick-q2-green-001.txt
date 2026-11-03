@@ -1,0 +1,10 @@
+{"platform":"win32","checks":{"filename-join-no-native-id":true,"explicit-file-identity-bounded":true,"raw-statuses-retained":true,"native-id-unknown-explicit":true,"joined-plan-not-orphan":true,"id-first-before-filename":true,"genuine-orphan-preserved":true,"file-identity-stable-across-content-revision":true},"count":8,"network":false,"provider":false}
+✔ Q2 filename joins retain recognized leaves without inventing native ids (39955.6188ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 40175.0212

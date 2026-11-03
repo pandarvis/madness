@@ -1,0 +1,397 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-03T22:00:37.075Z",
+  "status": "passed",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-visual-QiF0Jq",
+  "source": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-reprise-projet\\main-004",
+  "checks": [
+    "actual-native-projection-explicitly-historical",
+    "native-compact-light-full-content-frame-and-theme-attested",
+    "native-zoom-200-full-content-frame-and-theme-attested",
+    "no-helper-operation-or-runtime-created",
+    "owned-main-closed-without-network-or-provider"
+  ],
+  "cleanup": true,
+  "limits": [
+    "Visual-only historical projection rehydrated from actual Main004 bytes; no current filesystem observation is claimed.",
+    "Selection annexes are synthetic view fixtures derived from the captured identities, not original annex-byte preservation.",
+    "No collector/helper/provider/network invoked; no human visual approval or full accessibility audit."
+  ],
+  "sourceReceiptSha256": "7005309a1f7fa8541ce30bf5d40ddb67e8136adb967107e1de9cdb4ffc581ba1",
+  "sourceBaselineSha256": "b2141b30803a0fcf62e8c7f0ecc341191f3cf0ec10616e116e721b9540bf3337",
+  "projection": {
+    "projectId": "project-a",
+    "initiativeId": "beta",
+    "revision": "5e2344d7495af804b184d573ead126b84fbe7b36c0833d178b0f3d470f32c877",
+    "contextRevision": "eff59010f7f6c9ec96156b1c0e75a81562c563ecc8af77df2507c020c053a5fd",
+    "observedAt": "2026-11-03T21:51:58.866Z"
+  },
+  "main": {
+    "pid": 47068,
+    "startedAt": "639293400371747748",
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+  },
+  "captures": [
+    {
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-reprise-projet\\visual-recapture-zoom-003\\resume-compact-light-native.png",
+      "pixels": {
+        "width": 900,
+        "height": 1025
+      },
+      "sha256": "ef5b854fe62399c53c7369728cdfe7ff13254ab0fdad2a98d1b34434af36aa13",
+      "expectedFullNativePixels": {
+        "width": 900,
+        "height": 1025
+      },
+      "method": "BrowserWindow.webContents.capturePage() without rect",
+      "appearance": {
+        "theme": "light",
+        "body": "rgba(0, 0, 0, 0)",
+        "root": "rgb(232, 221, 200)",
+        "workspace": "rgb(246, 240, 228)",
+        "surface": "#f6f0e4"
+      },
+      "restoration": {
+        "before": {
+          "minimized": false,
+          "visible": true,
+          "maximized": false,
+          "contentSize": [
+            1321,
+            816
+          ],
+          "zoom": 1
+        },
+        "after": {
+          "minimized": false,
+          "visible": true,
+          "maximized": false,
+          "contentSize": [
+            1321,
+            816
+          ],
+          "zoom": 1
+        }
+      },
+      "viewportAt100": {
+        "requested": {
+          "width": 720,
+          "height": 820
+        },
+        "actual": {
+          "width": 720,
+          "height": 820,
+          "layoutWidth": 720,
+          "devicePixelRatio": 1.25,
+          "settledBy": "animation-frames",
+          "queries": [
+            {
+              "query": "(max-width: 720px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(max-width: 1080px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(max-width: 1280px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(min-width: 1323px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(min-width: 1600px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-height: 700px)",
+              "expected": false,
+              "matches": false
+            }
+          ]
+        },
+        "native": {
+          "contentSize": [
+            720,
+            820
+          ],
+          "zoomFactor": 1
+        },
+        "exact": true,
+        "limitation": null,
+        "attempts": [
+          {
+            "requestedNative": {
+              "width": 720,
+              "height": 820
+            },
+            "native": {
+              "contentSize": [
+                720,
+                820
+              ],
+              "zoomFactor": 1
+            },
+            "actual": {
+              "width": 720,
+              "height": 820,
+              "layoutWidth": 720,
+              "devicePixelRatio": 1.25,
+              "settledBy": "animation-frames",
+              "queries": [
+                {
+                  "query": "(max-width: 720px)",
+                  "expected": true,
+                  "matches": true
+                },
+                {
+                  "query": "(max-width: 1080px)",
+                  "expected": true,
+                  "matches": true
+                },
+                {
+                  "query": "(max-width: 1280px)",
+                  "expected": true,
+                  "matches": true
+                },
+                {
+                  "query": "(min-width: 1323px)",
+                  "expected": false,
+                  "matches": false
+                },
+                {
+                  "query": "(min-width: 1600px)",
+                  "expected": false,
+                  "matches": false
+                },
+                {
+                  "query": "(max-height: 700px)",
+                  "expected": false,
+                  "matches": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "viewport": {
+        "width": 720,
+        "height": 820,
+        "devicePixelRatio": 1.25,
+        "compact": true,
+        "docked": false
+      },
+      "nativeAtCapture": {
+        "minimized": false,
+        "visible": true,
+        "contentSize": [
+          720,
+          820
+        ],
+        "zoom": 1,
+        "scaleFactor": 1.25
+      }
+    },
+    {
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-reprise-projet\\visual-recapture-zoom-003\\resume-zoom-200-native.png",
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "sha256": "72ce4161fa8ed5bb2b6dd6837cf1efffc4db3def08a864b594517be934e31535",
+      "expectedFullNativePixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "method": "BrowserWindow.webContents.capturePage() without rect",
+      "appearance": {
+        "theme": "dark",
+        "body": "rgba(0, 0, 0, 0)",
+        "root": "rgb(25, 24, 23)",
+        "workspace": "rgb(33, 31, 30)",
+        "surface": "#211f1e"
+      },
+      "restoration": {
+        "before": {
+          "minimized": false,
+          "visible": true,
+          "maximized": false,
+          "contentSize": [
+            720,
+            820
+          ],
+          "zoom": 1
+        },
+        "after": {
+          "minimized": false,
+          "visible": true,
+          "maximized": false,
+          "contentSize": [
+            720,
+            820
+          ],
+          "zoom": 1
+        }
+      },
+      "viewportAt100": {
+        "requested": {
+          "width": 1440,
+          "height": 920
+        },
+        "actual": {
+          "width": 1440,
+          "height": 920,
+          "layoutWidth": 1440,
+          "devicePixelRatio": 1.25,
+          "settledBy": "animation-frames",
+          "queries": [
+            {
+              "query": "(max-width: 720px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1080px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1280px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(min-width: 1323px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(min-width: 1600px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-height: 700px)",
+              "expected": false,
+              "matches": false
+            }
+          ]
+        },
+        "native": {
+          "contentSize": [
+            1440,
+            920
+          ],
+          "zoomFactor": 1
+        },
+        "exact": true,
+        "limitation": null,
+        "attempts": [
+          {
+            "requestedNative": {
+              "width": 1440,
+              "height": 920
+            },
+            "native": {
+              "contentSize": [
+                1440,
+                920
+              ],
+              "zoomFactor": 1
+            },
+            "actual": {
+              "width": 1440,
+              "height": 920,
+              "layoutWidth": 1440,
+              "devicePixelRatio": 1.25,
+              "settledBy": "animation-frames",
+              "queries": [
+                {
+                  "query": "(max-width: 720px)",
+                  "expected": false,
+                  "matches": false
+                },
+                {
+                  "query": "(max-width: 1080px)",
+                  "expected": false,
+                  "matches": false
+                },
+                {
+                  "query": "(max-width: 1280px)",
+                  "expected": false,
+                  "matches": false
+                },
+                {
+                  "query": "(min-width: 1323px)",
+                  "expected": true,
+                  "matches": true
+                },
+                {
+                  "query": "(min-width: 1600px)",
+                  "expected": false,
+                  "matches": false
+                },
+                {
+                  "query": "(max-height: 700px)",
+                  "expected": false,
+                  "matches": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "viewport": {
+        "width": 720,
+        "height": 460,
+        "devicePixelRatio": 2.5,
+        "compact": true,
+        "docked": false
+      },
+      "nativeAtCapture": {
+        "minimized": false,
+        "visible": true,
+        "contentSize": [
+          1440,
+          920
+        ],
+        "zoom": 2,
+        "scaleFactor": 1.25
+      }
+    }
+  ],
+  "closure": {
+    "main": {
+      "pid": 47068,
+      "startedAt": "639293400371747748",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+    },
+    "wrapperPid": 52280,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-03T22:00:39.026Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  },
+  "completedAt": "2026-11-03T22:00:40.577Z"
+}

@@ -1,0 +1,22 @@
+✔ P2/P3 declarations keep entry, leaf, plan and tracker separate; built never accepts (88.3977ms)
+✔ P4 literal excerpts retain section, source and lines with no generated synthesis (0.7837ms)
+✔ Q1 literal statuses in-progress and blocked remain conflicting (0.2819ms)
+✔ Q1 literal statuses draft and ready-for-dev remain conflicting (0.1692ms)
+✔ Q1 tracker equivalence stays separate from literal status disagreement (0.2146ms)
+✔ strict bridge refuses free paths, admission flags and inconsistent source links (1.7731ms)
+✔ P5 consultation beta is independent of active alpha; passive read starts no helper (0.9515ms)
+✔ P5 no choice, missing choice and replaced root refuse new collection (0.7624ms)
+✔ P7 late result remains attached to captured beta and cannot replace selected alpha (8.1931ms)
+✔ P7 failure preserves previous dated snapshot and shutdown aborts owned read (1.1177ms)
+✔ P8 local reader has no connection dependency; BUSY and STOP_UNCONFIRMED remain distinct (0.6431ms)
+✔ P7 failed refresh preserves every previous source byte reference and date (0.4225ms)
+✔ P7 replaced application root marks a delayed capture historical even before context refresh (0.9584ms)
+✔ P7 superseded generation cannot overwrite the latest read (1.3484ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 289.7553

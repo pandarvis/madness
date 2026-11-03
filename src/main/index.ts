@@ -1,4 +1,7 @@
 import {BmadContextAdapter} from '../adapters/bmad/context.ts'
+import {BmadProgressAdapter} from '../adapters/bmad/progress.ts'
+import {BmadProgressCoordinator} from '../core/bmad-progress.ts'
+import {BMAD_PROGRESS_COMMAND_CHANNEL,BMAD_PROGRESS_EVENT_CHANNEL,isBmadProgressCommand,isBmadProgressState,initialBmadProgressState} from '../contracts/bmad-progress.ts'
 import {BmadContextStore} from '../adapters/persistence/bmad-context-store.ts'
 import {BmadContextCoordinator} from '../core/bmad-context.ts'
 import {BMAD_CONTEXT_COMMAND_CHANNEL,BMAD_CONTEXT_EVENT_CHANNEL,isBmadContextCommand,isBmadContextState,initialBmadContextState} from '../contracts/bmad-context.ts'
@@ -146,7 +149,7 @@ else {
     })
     helpCoordinator.subscribe(state=>{if(isHelpState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(HELP_EVENT_CHANNEL,state)})
     const contextAdapter=new BmadContextAdapter(helpAdapter)
-    const contextCoordinator=new BmadContextCoordinator({application,projectIds:async()=>{if(!application)throw Error('APP_CLOSING');const reply=await application.execute({contractVersion:1,correlationId:'bmad-context-restore',type:'read-state'});if(!reply.ok)throw Error(reply.error.code);return reply.value.state.projects.map(project=>project.id)},store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal)})
+    const contextCoordinator=new BmadContextCoordinator({application,projectIds:async()=>{if(!application)throw Error('APP_CLOSING');const reply=await application.execute({contractVersion:1,correlationId:'bmad-context-restore',type:'read-state'});if(!reply.ok)throw Error(reply.error.code);return reply.value.state.projects.map(project=>project.id)},observeConsultation:(id,root,signal)=>contextAdapter.consult(id,root,signal),store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal)})
     application.lifecycle.register({id:'bmad-context',context:emptyContext(),stop:async()=>{await contextCoordinator.shutdown();return 'stopped'}})
     ipcMain.handle(BMAD_CONTEXT_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadContextCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadContextState()}
@@ -155,6 +158,16 @@ else {
       return {contractVersion:1,correlationId:input.correlationId,state}
     })
     contextCoordinator.subscribe(state=>{if(isBmadContextState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(BMAD_CONTEXT_EVENT_CHANNEL,state)})
+    const progressAdapter=new BmadProgressAdapter(helpAdapter)
+    const progressCoordinator=new BmadProgressCoordinator({application,contexts:contextCoordinator,collect:(id,root,selection,observation,signal)=>progressAdapter.collect(id,root,selection,observation,signal)})
+    application.lifecycle.register({id:'bmad-progress',context:emptyContext(),stop:async()=>{await progressCoordinator.shutdown();return 'stopped'}})
+    ipcMain.handle(BMAD_PROGRESS_COMMAND_CHANNEL,async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadProgressCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadProgressState()}
+      const state=await progressCoordinator.execute(input)
+      if(!isBmadProgressState(state))throw Error('INVALID_PROGRESS_STATE')
+      return {contractVersion:1,correlationId:input.correlationId,state}
+    })
+    progressCoordinator.subscribe(state=>{if(isBmadProgressState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(BMAD_PROGRESS_EVENT_CHANNEL,state)})
     connection = new CodexConnection({
       admission,
       recovery,

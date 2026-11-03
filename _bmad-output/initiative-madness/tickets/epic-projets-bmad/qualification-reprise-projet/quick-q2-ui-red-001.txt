@@ -1,0 +1,23 @@
+✖ reprise: Q2 identite de fichier ne se presente pas comme id natif (35854.2657ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-yl1K9M\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-yl1K9M\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 37999.4826
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:150:1
+✖ reprise: Q2 identite de fichier ne se presente pas comme id natif (35854.2657ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('region', { name: 'Reprise du projet', exact: true }).getByRole('heading', { name: 'story-demo · Identité de fichier · id natif inconnu', exact: true }) to be visible[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:155:108) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('region', { name: 'Reprise du projet', exact: true }).getByRole('heading', { name: 'story-demo · Identité de fichier · id natif inconnu', exact: true }) to be visible" ]
+  }

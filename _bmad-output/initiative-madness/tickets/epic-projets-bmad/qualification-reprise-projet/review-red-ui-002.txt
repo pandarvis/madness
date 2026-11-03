@@ -1,0 +1,31 @@
+✖ reprise: annonce du projet precedent effacee dans une destination sans projection (3399.7397ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-W5j3xx\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-W5j3xx\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6126.8301
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:164:1
+✖ reprise: annonce du projet precedent effacee dans une destination sans projection (3399.7397ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Lecture locale terminée · 2 sources · Couverture partielle'
+  - ''
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:172:9)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Lecture locale terminée · 2 sources · Couverture partielle',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

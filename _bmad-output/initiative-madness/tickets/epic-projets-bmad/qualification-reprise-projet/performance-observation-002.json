@@ -1,0 +1,85 @@
+{
+  "source": "package-main-002/verification.json",
+  "afterHookOnly": true,
+  "samples": [
+    {
+      "op": "progress",
+      "resources_ms": 1578,
+      "runtime_copy_ms": 235,
+      "runtime_guard_ms": 18389,
+      "native_group_ms": 7786,
+      "python_worker_ms": 1996,
+      "python_runtime_guard_ms": 1471
+    },
+    {
+      "op": "context",
+      "resources_ms": 1746,
+      "runtime_copy_ms": 348,
+      "runtime_guard_ms": 21788,
+      "native_group_ms": 7197,
+      "python_worker_ms": 1715,
+      "python_runtime_guard_ms": 1443
+    },
+    {
+      "op": "context",
+      "resources_ms": 1389,
+      "runtime_copy_ms": 182,
+      "runtime_guard_ms": 27188,
+      "native_group_ms": 7637,
+      "python_worker_ms": 1632,
+      "python_runtime_guard_ms": 1374
+    },
+    {
+      "op": "context",
+      "resources_ms": 1603,
+      "runtime_copy_ms": 325,
+      "runtime_guard_ms": 20125,
+      "native_group_ms": 6614,
+      "python_worker_ms": 1611,
+      "python_runtime_guard_ms": 1377
+    },
+    {
+      "op": "context",
+      "resources_ms": 2282,
+      "runtime_copy_ms": 7325,
+      "runtime_guard_ms": 20465,
+      "native_group_ms": 6695,
+      "python_worker_ms": 1501,
+      "python_runtime_guard_ms": 1280
+    },
+    {
+      "op": "context",
+      "resources_ms": 2431,
+      "runtime_copy_ms": 374,
+      "runtime_guard_ms": 18671,
+      "native_group_ms": 9525,
+      "python_worker_ms": 2242,
+      "python_runtime_guard_ms": 1836
+    },
+    {
+      "op": "context",
+      "resources_ms": 1145,
+      "runtime_copy_ms": 189,
+      "runtime_guard_ms": 22881,
+      "native_group_ms": 6734,
+      "python_worker_ms": 1592,
+      "python_runtime_guard_ms": 1339
+    },
+    {
+      "op": "progress",
+      "resources_ms": 1311,
+      "runtime_copy_ms": 209,
+      "runtime_guard_ms": 20201,
+      "native_group_ms": 9507,
+      "python_worker_ms": 3280,
+      "python_runtime_guard_ms": 2094
+    }
+  ],
+  "guardMinMs": 18389,
+  "guardMaxMs": 27188,
+  "sequentialProgressObservationIntervalMs": 63173,
+  "limits": [
+    "Measured launcher phase Assert-BmadClosedRuntime, not an attribution to network, antivirus or an individual syscall.",
+    "No isolated parser benchmark or performance improvement claimed."
+  ]
+}

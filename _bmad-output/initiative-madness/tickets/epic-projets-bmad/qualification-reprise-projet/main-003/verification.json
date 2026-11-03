@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-03T21:36:06.972Z",
+  "status": "partial",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6",
+  "launches": [
+    {
+      "main": {
+        "pid": 18988,
+        "startedAt": "639293385671878329",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\profile",
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-reprise-projet\\main-003\\observation-1.json"
+    }
+  ],
+  "captures": [],
+  "closures": [
+    {
+      "main": {
+        "pid": 18988,
+        "startedAt": "639293385671878329",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 48644,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-03T21:36:09.798Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "checks": [
+    "two-concurrent-project-observations-share-the-owned-helper",
+    "compiled-choose-project-a-beta",
+    "compiled-choose-project-b-beta",
+    "compiled-local-progress-project-a-beta",
+    "compiled-local-progress-project-b-beta",
+    "reading-proofs-does-not-write-navigation-history-or-drafts"
+  ],
+  "inputs": {
+    "out/main/index.js": "c26a7188afa609cbcfa06c1940932dac5b6cb811dce7856bee6dec80e4d7cd66",
+    "out/preload/index.js": "0406aed2c9d0fa75b5bdeebed40df1d4156006a1eea664347ad296cde4f95634",
+    "package.json": "022117eac926de301656956bc7b4382c16c3413649c9781f21c13286aed77b9a",
+    "resources/bmad-help/bmad-help.md": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+    "resources/bmad-help/bmad-SKILL.md": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+    "resources/bmad-help/bootstrap.py": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+    "resources/bmad-help/capture.py": "b03a1d1426b75582aa279096aa373d3615b174c71498058bef61b09b280dafeb",
+    "resources/bmad-help/config_utils.py": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+    "resources/bmad-help/knowledge.py": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+    "resources/bmad-help/launcher.ps1": "52f42c1ec152befd03d034ae801f90e37877a41089ebefe2658be5c18e200de1",
+    "resources/bmad-help/preflight.ps1": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+    "resources/bmad-help/resolve_config.py": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+    "resources/bmad-help/runtime_guard.py": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+    "resources/bmad-help/runtime.json": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+    "resources/bmad-help/supervision.ps1": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+    "resources/bmad-help/worker.py": "8967fd9ddd119939294017d8cae4254f80c15f1312e0202a067873b8bf1bade6",
+    "resources/bmad-help/progress.py": "432de37bca00829748bca5e9f2177a2d723cce13e3c3e8d88a1e56dd761be571"
+  },
+  "cleanup": true,
+  "limits": [
+    "Réseau/app-server observés après hook seulement ; aucun succès fournisseur ni 2.2/M14 déduit.",
+    "Captures synthétiques seulement si --screenshots ; aucune validation humaine ; symlink fichier non exercée faute de privilège."
+  ],
+  "snapshot-project-a": {
+    "schemaVersion": 1,
+    "projectId": "project-a",
+    "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\project-a",
+    "observedAt": "2026-11-03T21:39:06.317Z",
+    "rootIdentity": "3627faa9c9a6c0d61554343394c2342d1a2309f03296df8b2cc997dea9908172",
+    "initiativeId": "beta",
+    "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\project-a\\_bmad-output\\beta",
+    "contextRevision": "d758dc93ab15af41ca0b1ecfcf87b5b939eeea8191a9ed26e76f4a28a3fbc534",
+    "revision": "7efc2d7860b73604ae84411e409beefb80b625eab6a329eb0fb466d30315cfaa",
+    "coverage": "complete",
+    "sources": [
+      {
+        "id": "source-126b2e1147d0deca9914a8083d8cb279d5eaf3c052401ebca7a096c06b283c57",
+        "kind": "container",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\project-a\\_bmad-output\\beta\\beta.md",
+        "relativePath": "beta.md",
+        "sha256": "7bb1347a5ed27cba09c239e19bc971d2ca4848c7b0b427ac540fcd80ae2fb11c",
+        "bytes": 7,
+        "modifiedAt": "2026-11-03T21:36:07.028170+00:00"
+      },
+      {
+        "id": "source-6bc7f383fc08f9e142bd3ba8868a04f296096b967144e6e9b7d2591ec2648186",
+        "kind": "entry",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\project-a\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\tickets.toml",
+        "relativePath": "tickets/epic-a/tickets/tickets.toml",
+        "sha256": "4d5ff83479f10c3bccf37065e9ad1ed209e100bd3494fd36a252a4efd68c029f",
+        "bytes": 117,
+        "modifiedAt": "2026-11-03T21:36:07.035186+00:00"
+      },
+      {
+        "id": "source-c6cc366cc8925c8377bc6e87157833c62989533fab3ee3fbbc476d9f40731d06",
+        "kind": "plan",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\project-a\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\story-opposition-plan.md",
+        "relativePath": "tickets/epic-a/tickets/story-opposition-plan.md",
+        "sha256": "d73fab16adbcc4a2eb9e97f5bca26c28bb16d90d421a311644f1fc2e4a17fbda",
+        "bytes": 126,
+        "modifiedAt": "2026-11-03T21:36:07.041185+00:00"
+      },
+      {
+        "id": "source-446b5df57b8c32f1a80f6399f07e91957cad2645d33eff0f1839314c5878e2ab",
+        "kind": "leaf",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\project-a\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\story-opposition.md",
+        "relativePath": "tickets/epic-a/tickets/story-opposition.md",
+        "sha256": "1ed284d6862b2a1427c345240875a346b09d3201907d0316391555f6ba590a6a",
+        "bytes": 231,
+        "modifiedAt": "2026-11-03T21:36:07.037182+00:00"
+      }
+    ],
+    "declarations": [
+      {
+        "sourceId": "source-126b2e1147d0deca9914a8083d8cb279d5eaf3c052401ebca7a096c06b283c57",
+        "container": ".",
+        "ticketId": null,
+        "title": "beta",
+        "field": "existence",
+        "value": "container",
+        "line": 1
+      },
+      {
+        "sourceId": "source-6bc7f383fc08f9e142bd3ba8868a04f296096b967144e6e9b7d2591ec2648186",
+        "container": "tickets/epic-a",
+        "ticketId": "1",
+        "title": "Entrée sans feuille",
+        "field": "existence",
+        "value": "entry",
+        "line": 1
+      },
+      {
+        "sourceId": "source-6bc7f383fc08f9e142bd3ba8868a04f296096b967144e6e9b7d2591ec2648186",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "existence",
+        "value": "entry",
+        "line": 5
+      },
+      {
+        "sourceId": "source-446b5df57b8c32f1a80f6399f07e91957cad2645d33eff0f1839314c5878e2ab",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "existence",
+        "value": "leaf",
+        "line": 1
+      },
+      {
+        "sourceId": "source-446b5df57b8c32f1a80f6399f07e91957cad2645d33eff0f1839314c5878e2ab",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "status",
+        "value": "in-progress",
+        "line": 5
+      },
+      {
+        "sourceId": "source-446b5df57b8c32f1a80f6399f07e91957cad2645d33eff0f1839314c5878e2ab",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "tracker_status",
+        "value": "done",
+        "line": 6
+      },
+      {
+        "sourceId": "source-c6cc366cc8925c8377bc6e87157833c62989533fab3ee3fbbc476d9f40731d06",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "story-opposition-plan",
+        "field": "existence",
+        "value": "plan",
+        "line": 1
+      },
+      {
+        "sourceId": "source-c6cc366cc8925c8377bc6e87157833c62989533fab3ee3fbbc476d9f40731d06",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "story-opposition-plan",
+        "field": "status",
+        "value": "built",
+        "line": 4
+      }
+    ],
+    "excerpts": [
+      {
+        "sourceId": "source-446b5df57b8c32f1a80f6399f07e91957cad2645d33eff0f1839314c5878e2ab",
+        "category": "results",
+        "heading": "Résultats",
+        "text": "Résultat déclaré dans la feuille, à vérifier.\n\n",
+        "startLine": 10,
+        "endLine": 11
+      },
+      {
+        "sourceId": "source-446b5df57b8c32f1a80f6399f07e91957cad2645d33eff0f1839314c5878e2ab",
+        "category": "remaining",
+        "heading": "Travail restant",
+        "text": "Proposition conservée : examiner les preuves.\n",
+        "startLine": 13,
+        "endLine": 13
+      },
+      {
+        "sourceId": "source-c6cc366cc8925c8377bc6e87157833c62989533fab3ee3fbbc476d9f40731d06",
+        "category": "decisions",
+        "heading": "Décisions",
+        "text": "Proposition de l’agent : une décision humaine reste inconnue.\n",
+        "startLine": 8,
+        "endLine": 8
+      }
+    ],
+    "problems": []
+  },
+  "snapshot-project-b": {
+    "schemaVersion": 1,
+    "projectId": "project-b",
+    "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\project-b",
+    "observedAt": "2026-11-03T21:40:16.891Z",
+    "rootIdentity": "56393333b535b8fa712d50a32827fd74ba739bbbd29f0615f44a95c667f35c34",
+    "initiativeId": "beta",
+    "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\project-b\\_bmad-output\\beta",
+    "contextRevision": "8ae6b276f226e88c64bd92f13ec860430c273a999afdd412a8440bde7cb9fe7c",
+    "revision": "f4b325c82f056e4ae5c1a45022c770d24668f5e9ec20c2ad0a49c15a6fa95c09",
+    "coverage": "complete",
+    "sources": [
+      {
+        "id": "source-7c9adeaf14381f5bcd6271531f0c41435d912189d98f26895f3e42ae863dd8a8",
+        "kind": "container",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\project-b\\_bmad-output\\beta\\beta.md",
+        "relativePath": "beta.md",
+        "sha256": "7bb1347a5ed27cba09c239e19bc971d2ca4848c7b0b427ac540fcd80ae2fb11c",
+        "bytes": 7,
+        "modifiedAt": "2026-11-03T21:36:07.063181+00:00"
+      },
+      {
+        "id": "source-310434150e6f049f840d252b6eb497148670fcb8aceb85dedecccd2b8c279347",
+        "kind": "entry",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\project-b\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\tickets.toml",
+        "relativePath": "tickets/epic-a/tickets/tickets.toml",
+        "sha256": "4d5ff83479f10c3bccf37065e9ad1ed209e100bd3494fd36a252a4efd68c029f",
+        "bytes": 117,
+        "modifiedAt": "2026-11-03T21:36:07.069257+00:00"
+      },
+      {
+        "id": "source-33c836fc369cf89c766891d509aa2d49d7c6ab331730f083bf582ede063b05eb",
+        "kind": "plan",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\project-b\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\story-opposition-plan.md",
+        "relativePath": "tickets/epic-a/tickets/story-opposition-plan.md",
+        "sha256": "d73fab16adbcc4a2eb9e97f5bca26c28bb16d90d421a311644f1fc2e4a17fbda",
+        "bytes": 126,
+        "modifiedAt": "2026-11-03T21:36:07.076257+00:00"
+      },
+      {
+        "id": "source-4b9fa626a3bb8350cd5109d63f59d9c251d10167184a1ae4649ef81dff839b2e",
+        "kind": "leaf",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-gNcNE6\\project-b\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\story-opposition.md",
+        "relativePath": "tickets/epic-a/tickets/story-opposition.md",
+        "sha256": "1ed284d6862b2a1427c345240875a346b09d3201907d0316391555f6ba590a6a",
+        "bytes": 231,
+        "modifiedAt": "2026-11-03T21:36:07.072257+00:00"
+      }
+    ],
+    "declarations": [
+      {
+        "sourceId": "source-7c9adeaf14381f5bcd6271531f0c41435d912189d98f26895f3e42ae863dd8a8",
+        "container": ".",
+        "ticketId": null,
+        "title": "beta",
+        "field": "existence",
+        "value": "container",
+        "line": 1
+      },
+      {
+        "sourceId": "source-310434150e6f049f840d252b6eb497148670fcb8aceb85dedecccd2b8c279347",
+        "container": "tickets/epic-a",
+        "ticketId": "1",
+        "title": "Entrée sans feuille",
+        "field": "existence",
+        "value": "entry",
+        "line": 1
+      },
+      {
+        "sourceId": "source-310434150e6f049f840d252b6eb497148670fcb8aceb85dedecccd2b8c279347",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "existence",
+        "value": "entry",
+        "line": 5
+      },
+      {
+        "sourceId": "source-4b9fa626a3bb8350cd5109d63f59d9c251d10167184a1ae4649ef81dff839b2e",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "existence",
+        "value": "leaf",
+        "line": 1
+      },
+      {
+        "sourceId": "source-4b9fa626a3bb8350cd5109d63f59d9c251d10167184a1ae4649ef81dff839b2e",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "status",
+        "value": "in-progress",
+        "line": 5
+      },
+      {
+        "sourceId": "source-4b9fa626a3bb8350cd5109d63f59d9c251d10167184a1ae4649ef81dff839b2e",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "tracker_status",
+        "value": "done",
+        "line": 6
+      },
+      {
+        "sourceId": "source-33c836fc369cf89c766891d509aa2d49d7c6ab331730f083bf582ede063b05eb",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "story-opposition-plan",
+        "field": "existence",
+        "value": "plan",
+        "line": 1
+      },
+      {
+        "sourceId": "source-33c836fc369cf89c766891d509aa2d49d7c6ab331730f083bf582ede063b05eb",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "story-opposition-plan",
+        "field": "status",
+        "value": "built",
+        "line": 4
+      }
+    ],
+    "excerpts": [
+      {
+        "sourceId": "source-4b9fa626a3bb8350cd5109d63f59d9c251d10167184a1ae4649ef81dff839b2e",
+        "category": "results",
+        "heading": "Résultats",
+        "text": "Résultat déclaré dans la feuille, à vérifier.\n\n",
+        "startLine": 10,
+        "endLine": 11
+      },
+      {
+        "sourceId": "source-4b9fa626a3bb8350cd5109d63f59d9c251d10167184a1ae4649ef81dff839b2e",
+        "category": "remaining",
+        "heading": "Travail restant",
+        "text": "Proposition conservée : examiner les preuves.\n",
+        "startLine": 13,
+        "endLine": 13
+      },
+      {
+        "sourceId": "source-33c836fc369cf89c766891d509aa2d49d7c6ab331730f083bf582ede063b05eb",
+        "category": "decisions",
+        "heading": "Décisions",
+        "text": "Proposition de l’agent : une décision humaine reste inconnue.\n",
+        "startLine": 8,
+        "endLine": 8
+      }
+    ],
+    "problems": []
+  },
+  "error": "AssertionError [ERR_ASSERTION]: VIEWPORT_UNREACHABLE_WITHIN_ONE_PIXEL_AND_REQUIRED_BREAKPOINTS {\"requested\":{\"width\":1440,\"height\":920},\"attempts\":[{\"requestedNative\":{\"width\":1440,\"height\":920},\"native\":{\"contentSize\":[0,0],\"zoomFactor\":1},\"actual\":{\"width\":1322,\"height\":816,\"layoutWidth\":1321.5999755859375,\"devicePixelRatio\":1.25,\"settledBy\":\"bounded-timeout\",\"queries\":[{\"query\":\"(max-width: 720px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1080px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1280px)\",\"expected\":false,\"matches\":false},{\"query\":\"(min-width: 1323px)\",\"expected\":true,\"matches\":false},{\"query\":\"(min-width: 1600px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-height: 700px)\",\"expected\":false,\"matches\":false}]}},{\"requestedNative\":{\"width\":1439,\"height\":920},\"native\":{\"contentSize\":[0,0],\"zoomFactor\":1},\"actual\":{\"width\":1322,\"height\":816,\"layoutWidth\":1321.5999755859375,\"devicePixelRatio\":1.25,\"settledBy\":\"bounded-timeout\",\"queries\":[{\"query\":\"(max-width: 720px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1080px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1280px)\",\"expected\":false,\"matches\":false},{\"query\":\"(min-width: 1323px)\",\"expected\":true,\"matches\":false},{\"query\":\"(min-width: 1600px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-height: 700px)\",\"expected\":false,\"matches\":false}]}},{\"requestedNative\":{\"width\":1441,\"height\":920},\"native\":{\"contentSize\":[0,0],\"zoomFactor\":1},\"actual\":{\"width\":1322,\"height\":816,\"layoutWidth\":1321.5999755859375,\"devicePixelRatio\":1.25,\"settledBy\":\"bounded-timeout\",\"queries\":[{\"query\":\"(max-width: 720px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1080px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1280px)\",\"expected\":false,\"matches\":false},{\"query\":\"(min-width: 1323px)\",\"expected\":true,\"matches\":false},{\"query\":\"(min-width: 1600px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-height: 700px)\",\"expected\":false,\"matches\":false}]}},{\"requestedNative\":{\"width\":1440,\"height\":919},\"native\":{\"contentSize\":[0,0],\"zoomFactor\":1},\"actual\":{\"width\":1322,\"height\":816,\"layoutWidth\":1321.5999755859375,\"devicePixelRatio\":1.25,\"settledBy\":\"bounded-timeout\",\"queries\":[{\"query\":\"(max-width: 720px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1080px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1280px)\",\"expected\":false,\"matches\":false},{\"query\":\"(min-width: 1323px)\",\"expected\":true,\"matches\":false},{\"query\":\"(min-width: 1600px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-height: 700px)\",\"expected\":false,\"matches\":false}]}},{\"requestedNative\":{\"width\":1440,\"height\":921},\"native\":{\"contentSize\":[0,0],\"zoomFactor\":1},\"actual\":{\"width\":1322,\"height\":816,\"layoutWidth\":1321.5999755859375,\"devicePixelRatio\":1.25,\"settledBy\":\"bounded-timeout\",\"queries\":[{\"query\":\"(max-width: 720px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1080px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1280px)\",\"expected\":false,\"matches\":false},{\"query\":\"(min-width: 1323px)\",\"expected\":true,\"matches\":false},{\"query\":\"(min-width: 1600px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-height: 700px)\",\"expected\":false,\"matches\":false}]}},{\"requestedNative\":{\"width\":1439,\"height\":919},\"native\":{\"contentSize\":[0,0],\"zoomFactor\":1},\"actual\":{\"width\":1322,\"height\":816,\"layoutWidth\":1321.5999755859375,\"devicePixelRatio\":1.25,\"settledBy\":\"bounded-timeout\",\"queries\":[{\"query\":\"(max-width: 720px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1080px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1280px)\",\"expected\":false,\"matches\":false},{\"query\":\"(min-width: 1323px)\",\"expected\":true,\"matches\":false},{\"query\":\"(min-width: 1600px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-height: 700px)\",\"expected\":false,\"matches\":false}]}},{\"requestedNative\":{\"width\":1441,\"height\":919},\"native\":{\"contentSize\":[0,0],\"zoomFactor\":1},\"actual\":{\"width\":1322,\"height\":816,\"layoutWidth\":1321.5999755859375,\"devicePixelRatio\":1.25,\"settledBy\":\"bounded-timeout\",\"queries\":[{\"query\":\"(max-width: 720px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1080px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1280px)\",\"expected\":false,\"matches\":false},{\"query\":\"(min-width: 1323px)\",\"expected\":true,\"matches\":false},{\"query\":\"(min-width: 1600px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-height: 700px)\",\"expected\":false,\"matches\":false}]}},{\"requestedNative\":{\"width\":1439,\"height\":921},\"native\":{\"contentSize\":[0,0],\"zoomFactor\":1},\"actual\":{\"width\":1322,\"height\":816,\"layoutWidth\":1321.5999755859375,\"devicePixelRatio\":1.25,\"settledBy\":\"bounded-timeout\",\"queries\":[{\"query\":\"(max-width: 720px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1080px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1280px)\",\"expected\":false,\"matches\":false},{\"query\":\"(min-width: 1323px)\",\"expected\":true,\"matches\":false},{\"query\":\"(min-width: 1600px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-height: 700px)\",\"expected\":false,\"matches\":false}]}},{\"requestedNative\":{\"width\":1441,\"height\":921},\"native\":{\"contentSize\":[0,0],\"zoomFactor\":1},\"actual\":{\"width\":1322,\"height\":816,\"layoutWidth\":1321.5999755859375,\"devicePixelRatio\":1.25,\"settledBy\":\"bounded-timeout\",\"queries\":[{\"query\":\"(max-width: 720px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1080px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-width: 1280px)\",\"expected\":false,\"matches\":false},{\"query\":\"(min-width: 1323px)\",\"expected\":true,\"matches\":false},{\"query\":\"(min-width: 1600px)\",\"expected\":false,\"matches\":false},{\"query\":\"(max-height: 700px)\",\"expected\":false,\"matches\":false}]}}]}\n    at setWorkspaceViewport (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/workspace-design.mjs:42:9)\n    at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/bmad-progress.mjs:86:4",
+  "completedAt": "2026-11-03T21:40:21.269Z"
+}

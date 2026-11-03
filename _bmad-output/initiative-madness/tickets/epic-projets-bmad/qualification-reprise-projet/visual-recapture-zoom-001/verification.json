@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-03T21:57:32.670Z",
+  "status": "partial",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-visual-iPFEoR",
+  "source": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-reprise-projet\\main-004",
+  "checks": [],
+  "cleanup": true,
+  "limits": [
+    "Visual-only historical projection rehydrated from actual Main004 bytes; no current filesystem observation is claimed.",
+    "Selection annexes are synthetic view fixtures derived from the captured identities, not original annex-byte preservation.",
+    "No collector/helper/provider/network invoked; no human visual approval or full accessibility audit."
+  ],
+  "sourceReceiptSha256": "7005309a1f7fa8541ce30bf5d40ddb67e8136adb967107e1de9cdb4ffc581ba1",
+  "sourceBaselineSha256": "b2141b30803a0fcf62e8c7f0ecc341191f3cf0ec10616e116e721b9540bf3337",
+  "projection": {
+    "projectId": "project-a",
+    "initiativeId": "beta",
+    "revision": "5e2344d7495af804b184d573ead126b84fbe7b36c0833d178b0f3d470f32c877",
+    "contextRevision": "eff59010f7f6c9ec96156b1c0e75a81562c563ecc8af77df2507c020c053a5fd",
+    "observedAt": "2026-11-03T21:51:58.866Z"
+  },
+  "main": {
+    "pid": 34928,
+    "startedAt": "639293398527669841",
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+  },
+  "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.project-row').first()\u001b[22m\n\n    at C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\scripts\\qualification\\bmad-progress-visual.mjs:38:45",
+  "closure": {
+    "main": {
+      "pid": 34928,
+      "startedAt": "639293398527669841",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+    },
+    "wrapperPid": 34840,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-03T21:57:36.075Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  },
+  "completedAt": "2026-11-03T21:58:07.286Z"
+}

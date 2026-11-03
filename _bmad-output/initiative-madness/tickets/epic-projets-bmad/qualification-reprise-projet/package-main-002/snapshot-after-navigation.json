@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "revision": 1,
+  "projects": [
+    {
+      "id": "project-a",
+      "name": "project-a",
+      "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-Fyt0tN\\project-a",
+      "openedAt": "2026-11-03T23:07:41.217Z"
+    },
+    {
+      "id": "project-b",
+      "name": "project-b",
+      "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-Fyt0tN\\project-b",
+      "openedAt": "2026-11-03T23:07:41.249Z"
+    }
+  ],
+  "activeProjectId": "project-a",
+  "drafts": [
+    {
+      "projectId": "project-a",
+      "text": "Brouillon synthétique exact 🧭 project-a",
+      "savedAt": "2026-11-03T23:07:41.217Z"
+    },
+    {
+      "projectId": "project-b",
+      "text": "Brouillon synthétique exact 🧭 project-b",
+      "savedAt": "2026-11-03T23:07:41.249Z"
+    }
+  ],
+  "preferences": {
+    "navigationCollapsed": false
+  },
+  "conversations": [
+    {
+      "id": "historical-project-a",
+      "context": {
+        "projectId": "project-a",
+        "initiativeId": "alpha",
+        "conversationId": "historical-project-a",
+        "providerId": "codex",
+        "connectionId": "historical-account"
+      },
+      "lastKnownActivity": "idle",
+      "messages": [
+        {
+          "id": "old-message",
+          "role": "assistant",
+          "text": "Historique inconnu — octets conservés."
+        }
+      ]
+    },
+    {
+      "id": "historical-project-b",
+      "context": {
+        "projectId": "project-b",
+        "initiativeId": "alpha",
+        "conversationId": "historical-project-b",
+        "providerId": "codex",
+        "connectionId": "historical-account"
+      },
+      "lastKnownActivity": "idle",
+      "messages": [
+        {
+          "id": "old-message",
+          "role": "assistant",
+          "text": "Historique inconnu — octets conservés."
+        }
+      ]
+    }
+  ]
+}

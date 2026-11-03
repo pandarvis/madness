@@ -372,6 +372,12 @@ def main():
     def audit(event,args):
         if event.startswith('socket.') or event in ('subprocess.Popen','os.system','os.exec','os.posix_spawn'):raise ValueError('EFFECT_DENIED')
     sys.addaudithook(audit)
+    if req['op']=='progress':
+        import progress
+        context=context_observation(req)
+        result=progress.collect(req,context)
+        fresh(capture.long_path(req['folder']))
+        return result
     if req['op']=='context':return context_observation(req)
     if req['op']=='context-config':return context_observation(req,True)
     if req['op']=='prepare':return prepare(req)

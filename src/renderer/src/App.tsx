@@ -1,4 +1,5 @@
 import {InitiativeSelector,InitiativeContext,useBmadContext} from './InitiativeSelector.tsx'
+import {ProjectResume,useBmadProgress} from './ProjectResume.tsx'
 import {HelpPanel,HelpReceiptPanel,useBmadHelp} from './HelpPanel.tsx'
 import {agentPresentation} from './agentPresentation.ts'
 import {AgentPortrait} from './AgentPortrait.tsx'
@@ -92,6 +93,7 @@ function WorkflowResult({workflow,onCopy}:{workflow:WorkflowRecord;onCopy:(conve
 
 export function App({ initialAppearance = window.madnessAppearance.initial, appearanceReadFailed = false }: { initialAppearance?: AppearanceState; appearanceReadFailed?: boolean } = {}): ReactNode {
   const [helpState,acceptHelp]=useBmadHelp()
+  const [progressState,acceptProgress]=useBmadProgress()
   const [initiativeConflict,setInitiativeConflict]=useState(false)
   const [state, setState] = useState<AppState | null>(null)
   const [bmadContext,acceptBmadContext]=useBmadContext(state?.activeProjectId??undefined)
@@ -468,9 +470,10 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>Retrouver votre espace de travail</h1><p>{pending ? 'Lecture du contexte local…' : 'Le contexte local est indisponible. Utilisez le message ci-dessus pour réessayer.'}</p></section> : page === 'home' || !project ? <>
 
               {state.projects.length === 0 ? <section className="welcome"><h2>Commencez par un dossier</h2><p>Ouvrez un projet local pour conserver son contexte et y préparer un brouillon. Le dossier reste intact.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Madness doit connaître le projet auquel rattacher votre saisie.</p></section> : <section aria-labelledby="recent-heading"><h2 id="recent-heading">{fr.recent}</h2><div className="project-list">{state.projects.map(p => <button className="project-row" key={p.id} onClick={() => select(p.id)} disabled={pending}><span className="project-avatar" aria-hidden="true"><ProjectMark name={p.name} /></span><span className="project-info"><strong>{p.name}</strong><code>{p.rootPath}</code><small>Contexte conservé localement</small></span><Icon name="arrow" /></button>)}</div></section>}
-              <div className="home-note"><h2>Connectez votre compte depuis le logo Codex</h2><p>{fr.codexReason} L’analyse BMad, l’initialisation et le graphe ne sont pas disponibles dans ce socle.</p></div>
+              <div className="home-note"><h2>Connectez votre compte depuis le logo Codex</h2><p>{fr.codexReason} Les preuves BMad se lisent dans Parcours, sans connexion. L’initialisation et le graphe restent à venir.</p></div>
             </> : <>
               <section id={'panel-' + tab} role="tabpanel" aria-labelledby={'tab-' + tab}>
+                <div hidden={tab!=='parcours'}><ProjectResume active={tab==='parcours'} rootPath={project.rootPath} projectId={project.id} context={initiativeContext} value={progressState.projects.find(p=>p.projectId===project.id)} overview={overview} accept={acceptProgress} onNavigate={target=>void navigateOverview(target)} onChoose={()=>document.querySelector<HTMLButtonElement>('.initiative-trigger')?.click()} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'}/></div>
                 {tab==='parcours'&&<HelpPanel stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} state={helpState} onChanged={acceptHelp} onOpen={record=>void navigateOverview({kind:'conversation',context:record.context,id:'bmad-receipt-'+record.conversationId})} onObserveStop={()=>void dialogueAction('observeStop')} projectId={project.id} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} allowed={connection.accountStored&&!connection.needsPlanAcknowledgement&&!connectionBusy&&!dialogueBridgeError} onLaunch={()=>void dialogueAction('launchHelp')}/>}
                 {tab === 'parcours' && <div className="exchange-preparation"><p className="preparation-intro">Préparez un échange avec Mary pour préciser votre projet, ou avec Forge pour éprouver une nouvelle idée. Qualification et lancement restent explicites.</p><section className="forge-launch" aria-labelledby="forge-title">
                   <div className="dialogue-heading"><h2 id="forge-title">Mettre une idée à l’épreuve</h2>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&<span className="badge" role="status">Forge · {displayedDialogueStatus}</span>}</div>

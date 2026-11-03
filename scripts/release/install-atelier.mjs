@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url'
 const run = promisify(execFile), root = resolve(fileURLToPath(new URL('../../', import.meta.url)))
 const installed = 'C:/Users/UP60066553/AppData/Local/Programs/Madness'
 const profile = 'C:/Users/UP60066553/AppData/Roaming/Madness'
-const output = join(root, '_bmad-output/initiative-madness/ux-madness/qualification-logo-installation')
+const output = resolve(root, process.argv.find(arg => arg.startsWith('--output='))?.slice(9) ?? '_bmad-output/initiative-madness/ux-madness/qualification-logo-installation')
 const sha = bytes => createHash('sha256').update(bytes).digest('hex')
 await mkdir(output, { recursive: true })
 async function closed() {
@@ -41,7 +41,8 @@ if (stage === 'before') {
   const directory = resolve(root, process.argv.find(arg => arg.startsWith('--directory='))?.slice(12) ?? 'dist/atelier-logo-final')
   const manifest = JSON.parse(await readFile(join(directory, 'release-manifest.json'), 'utf8'))
   for (const item of manifest.artifacts) assert.equal(sha(await readFile(join(directory, item.path))), item.sha256, 'CANDIDATE_CHANGED')
-  const installer = join(directory, 'Madness-0.2.1-x64-setup.exe')
+  assert.match(manifest.version,/^\d+\.\d+\.\d+$/)
+  const installer = join(directory, `Madness-${manifest.version}-x64-setup.exe`)
   await run(installer, ['/S', '/currentuser', '/D=' + installed.replaceAll('/', '\\')], { timeout: 180000 })
   await closed()
   const asar = manifest.artifacts.find(item => item.path === 'win-unpacked/resources/app.asar')

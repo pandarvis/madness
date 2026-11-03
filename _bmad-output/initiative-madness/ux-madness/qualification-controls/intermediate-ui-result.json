@@ -1,0 +1,22 @@
+{
+  "status": "failed",
+  "tests": 51,
+  "pass": 50,
+  "fail": 1,
+  "skipped": 0,
+  "duration_ms": 837200.1278,
+  "failure": {
+    "test": "atelier : disposition compacte, buste complet et conteneurs confinés dans les deux thèmes",
+    "assertion": "tab.height>=40&&tab.height<=44",
+    "observedBeforeCorrection": 46,
+    "correction": "CSS min-height44 ; assertion conservée",
+    "finalRun": "ui-final.log"
+  },
+  "cleanup": {
+    "ownedMainAndDescendantsRemaining": [],
+    "status": "verified-before-delete"
+  },
+  "limits": [
+    "Résultat du premier global, lancé avant les dernières corrections CSS ; ne vaut pas réussite finale."
+  ]
+}

@@ -11,7 +11,7 @@ const root = resolve(fileURLToPath(new URL('../../', import.meta.url)))
 const personal = process.argv.includes('--personal')
 const directory = resolve(root, process.argv.find(arg => arg.startsWith('--directory='))?.slice(12) ?? 'dist/atelier-logo-final')
 const executable = personal ? 'C:/Users/UP60066553/AppData/Local/Programs/Madness/Madness.exe' : join(directory, 'win-unpacked/Madness.exe')
-const output = join(root, '_bmad-output/initiative-madness/ux-madness/qualification-logo-installation')
+const output = resolve(root, process.argv.find(arg => arg.startsWith('--output='))?.slice(9) ?? '_bmad-output/initiative-madness/ux-madness/qualification-logo-installation')
 await mkdir(output, { recursive: true })
 const temporary = personal ? null : await realpath(await mkdtemp(join(tmpdir(), 'madness-icon-')))
 const expectedProfile = personal ? 'C:/Users/UP60066553/AppData/Roaming/Madness' : temporary
@@ -57,6 +57,11 @@ try {
   assert.ok(icon.warmRatio>.1&&icon.coolRatio>.05,'WINDOWS_ICON_NOT_THE_WORKSHOP_LOGO');report.checks.push('native-icon-matches-workshop-palette')
   const stylesheet = await page.evaluate(() => [...document.styleSheets].some(sheet => { try { return [...sheet.cssRules].some(rule => rule.cssText.includes('message-author') && rule.cssText.includes('sticky')) } catch { return false } }))
   assert.ok(stylesheet, 'ATELIER_STYLE_NOT_LOADED'); report.checks.push('atelier-finish-loaded')
+  if(process.argv.includes('--controls')){
+    const controls=await page.evaluate(()=>({drag:getComputedStyle(document.querySelector('.topbar')).getPropertyValue('app-region'),paragraphSize:parseFloat(getComputedStyle(document.querySelector('p:not([class])')??document.querySelector('p')).fontSize),projectNumbers:[...document.querySelectorAll('.project-glyph,.project-avatar')].map(e=>e.textContent.trim())}))
+    assert.equal(controls.drag,'no-drag');assert.ok(controls.paragraphSize>=16);assert.ok(controls.projectNumbers.every(value=>value===''))
+    report.controls=controls;report.checks.push('controls-skin-readable-type-no-numbered-projects-and-drag-separated')
+  }
   await page.screenshot({ path: join(output, personal ? 'installed-home.png' : 'candidate-home.png') })
   const value = await app.evaluate(() => globalThis.__workspaceObservation.read())
   assert.ok(value.complete && value.attached); assert.equal(value.network, 0); assert.equal(value.appServerAttempts, 0)

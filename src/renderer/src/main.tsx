@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client'
 import { App } from './App.tsx'
 import './styles.css'
 import './atelier-immersion.css'
+import './atelier-controls.css'
 async function mount(): Promise<void> {
   // L’amorce native sert au secours ; Main détient le choix courant après un reload.
   let appearance = window.madnessAppearance.initial

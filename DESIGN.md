@@ -88,7 +88,7 @@ typography:
     letterSpacing: "0.025em"
   headline:
     fontFamily: "Barlow Condensed, Segoe UI, sans-serif"
-    fontSize: "32px"
+    fontSize: "36px"
     fontWeight: 700
     lineHeight: 1.15
     letterSpacing: "0.005em"
@@ -108,24 +108,30 @@ typography:
     fontFamily: "Barlow Condensed, Segoe UI, sans-serif"
     fontSize: "19px"
     fontWeight: 700
+  command:
+    fontFamily: "Barlow Condensed, Segoe UI, sans-serif"
+    fontSize: "19px"
+    fontWeight: 700
+    lineHeight: 1.2
+    letterSpacing: "0.015em"
   body:
     fontFamily: "Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
-    fontSize: "13px"
+    fontSize: "16px"
+    fontWeight: 400
+    lineHeight: 1.6
+  message:
+    fontFamily: "Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+    fontSize: "16px"
     fontWeight: 400
     lineHeight: 1.65
-  message:
+  label:
     fontFamily: "Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
     fontSize: "14px"
     fontWeight: 400
-    lineHeight: 1.75
-  label:
-    fontFamily: "Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
-    fontSize: "12px"
-    fontWeight: 400
-    lineHeight: 1.65
+    lineHeight: 1.55
   code:
     fontFamily: "Consolas, Cascadia Code, monospace"
-    fontSize: "12px"
+    fontSize: "14px"
     lineHeight: 1.65
 rounded:
   square: "0px"
@@ -150,8 +156,9 @@ components:
   button-primary:
     backgroundColor: "{colors.accent}"
     textColor: "{colors.accent-text}"
-    rounded: "{rounded.surface}"
-    padding: "8px 11px"
+    typography: "{typography.command}"
+    rounded: "{rounded.detail}"
+    padding: "10px 16px"
   button-primary-hover:
     backgroundColor: "{colors.accent-hover}"
     textColor: "{colors.accent-text}"
@@ -159,20 +166,22 @@ components:
     backgroundColor: "{colors.accent-active}"
     textColor: "{colors.accent-text}"
   button-secondary:
-    backgroundColor: "{colors.atelier-chrome}"
+    backgroundColor: "{colors.atelier-plate}"
     textColor: "{colors.text}"
-    rounded: "{rounded.surface}"
-    padding: "8px 11px"
+    typography: "{typography.command}"
+    rounded: "{rounded.detail}"
+    padding: "10px 16px"
   button-ghost:
     backgroundColor: "transparent"
     textColor: "{colors.text}"
     rounded: "{rounded.control}"
     padding: "8px 11px"
   button-text:
-    backgroundColor: "transparent"
+    backgroundColor: "{colors.panel}"
     textColor: "{colors.link}"
-    rounded: "{rounded.control}"
-    padding: "6px 0"
+    typography: "{typography.command}"
+    rounded: "{rounded.detail}"
+    padding: "9px 14px"
   navigation-selected:
     backgroundColor: "{colors.selected}"
     textColor: "{colors.selected-text}"
@@ -213,10 +222,10 @@ components:
     typography: "{typography.agent-name}"
     padding: "5px 24px 7px 14px"
   help-preparation:
-    backgroundColor: "{colors.recommendation}"
+    backgroundColor: "{colors.panel}"
     textColor: "{colors.text}"
-    rounded: "{rounded.surface}"
-    padding: "16px"
+    rounded: "{rounded.detail}"
+    padding: "22px"
 ---
 
 # Design System: Madness
@@ -227,17 +236,17 @@ components:
 
 Un atelier personnel, chaleureux et expressif encadre le travail BMad : plaques bleu pétrole, commandes terracotta, contours encrés, angles coupés et matière peinte mate à usure retenue. Les sept visages originaux donnent un repère aux messages dont l’identité native est attestée. La conversation, ses décisions et ses preuves occupent le centre ; l’illustration reste discrète pendant la lecture.
 
-L’anthracite chaud est le thème par défaut ; l’ivoire est son alternative claire. Les titres condensés portent le caractère du lieu, tandis que Segoe UI porte les messages, les menus et les décisions. Le décor se prolonge du chrome au centre de travail : cartouches d’auteur attesté, cadres de message et bordure raster de saisie. Les fonds de conversation et de saisie demeurent calmes. Ce système transpose la direction humaine approuvée le 2 novembre 2026 ; il décrit le candidat implémenté, sans valoir acceptation humaine de l’application intégrée.
+L’anthracite chaud est le thème par défaut ; l’ivoire est son alternative claire. Les titres condensés portent le caractère du lieu, tandis que Segoe UI porte les messages et les explications ; Barlow Condensed Bold porte aussi les commandes explicites. Le décor se prolonge du chrome au centre de travail : cartouches d’auteur attesté, cadres de message et bordure raster de saisie. Les fonds de conversation et de saisie demeurent calmes. Ce système transpose la direction humaine approuvée le 2 novembre 2026 ; il décrit le candidat implémenté, sans valoir acceptation humaine de l’application intégrée.
 
 **Key Characteristics:**
 
 - Conversation dominante et lecture longue sur fonds calmes.
 - Chrome peint/encré, onglets de dossier coupés et cartouches terracotta.
-- Titres Barlow Condensed Bold locaux ; texte courant Segoe UI.
+- Titres et commandes Barlow Condensed Bold locaux ; texte courant Segoe UI.
 - Portrait compact et fiche informative ouverte à la demande.
 - État, provenance et décisions exprimés par du texte réel.
 
-Le frontmatter porte les primitives effectivement déclarées dans `src/renderer/src/styles.css` et les formes réutilisées. Les clés sans préfixe décrivent le sombre ; `light-*` fournit les remplacements de `data-theme="light"`. La feuille `src/renderer/src/atelier-immersion.css`, chargée après `styles.css` dans `main.tsx`, affine les composants sans ajouter de palette, de police ni d’asset. Les composants du frontmatter illustrent le sombre ; le renderer et les extraits du sidecar se lient aux propriétés CSS du thème actif. Les nuances de rampe du sidecar sont des aides de palette synthétisées, pas de nouvelles couleurs du produit. Les contrats comportementaux restent dans [ux-madness/DESIGN.md](./_bmad-output/initiative-madness/ux-madness/DESIGN.md) et [EXPERIENCE.md](./_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md).
+Le frontmatter porte les primitives de palette et les rôles typographiques et formes effectivement utilisés dans la cascade du candidat 0.2.2. Les clés sans préfixe décrivent le sombre ; `light-*` fournit les remplacements de `data-theme="light"`. Dans `main.tsx`, `styles.css` est suivi de `atelier-immersion.css`, puis de `atelier-controls.css`. La dernière couche affine les commandes, la lisibilité et l’espace utile avec les mêmes familles, primitives de palette et assets ; les tailles de texte et les valeurs de composants sont réconciliées ci-dessous. Les composants du frontmatter illustrent le sombre ; le renderer et les extraits du sidecar se lient aux propriétés CSS du thème actif. Les nuances de rampe du sidecar sont des aides de palette synthétisées, pas de nouvelles couleurs du produit. Les contrats comportementaux restent dans [ux-madness/DESIGN.md](./_bmad-output/initiative-madness/ux-madness/DESIGN.md) et [EXPERIENCE.md](./_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md).
 
 ## Colors
 
@@ -276,14 +285,15 @@ Terracotta d’action et bleu de repérage accompagnent des neutres chauds ; le 
 
 ### Hierarchy
 
-- **Display** : marque d’atelier ; le nom d’agent emploie la variante `agent-name` en cartouche et en capitales. Cette expression reste courte.
-- **Headline** : titre de page. Le bandeau de projet passe à une taille plus compacte (28 px). Dans Conversation il garde une plaque calme à 28 px, réduite à 24 px sous 721 px et dans le dialogue ordinaire ajusté à la fenêtre. Le titre général du bandeau passe à 28 px sous 1081 px, puis 26 px sous 721 px.
-- **Title** : titres de section ; demandes natives autour de 22 px, en-tête de fiche à 23 px, connexion à 25 px.
-- **Body** : paragraphes et informations ; les messages et la saisie prennent la variante `message`. Les paragraphes sont bornés à 70 ch, les messages à 72 ch dans un article de 75 ch maximum ; le message assistant reçoit un interligne de 1,8.
-- **Label** : état, provenance, légende et aide ; les badges factuels et info-bulles utilisent une taille compacte (11 px).
-- **Message author** : identité courte ; le nom utilisateur a une variante à 17 px. Les onglets emploient Barlow Condensed à 19 px, 18 px dans Conversation, 20 px sous 721 px.
+- **Display** : marque d’atelier ; nom d’agent court en cartouche, variante `agent-name`.
+- **Headline** : titre général à 36 px ; titres de contexte adaptés par surface. Dans Conversation, le bandeau garde 24 px en dialogue ordinaire et passe à 25 px sous 721 px. Les titres de section généraux sont à 28 px ; l’aide prend 30 px.
+- **Title** : sous-titres généraux à 22 px, demandes natives autour de 22 px, en-tête de fiche et connexion à 25 px, sous-titres d’aide à 23 px.
+- **Command** : Barlow Condensed Bold à 19 px, interligne 1,2 ; la consultation de fiche depuis un message utilise 17 px. Les onglets sont à 21 px, y compris dans Conversation, avec variante à 20 px sous 721 px et hauteur minimale de 44 px.
+- **Body** : paragraphes à 16 px, interligne 1,6 ; messages et saisie à 16 px. Le message assistant conserve l’interligne 1,8 de son panneau spécifique. Paragraphes bornés à 70 ch et messages à 72 ch dans un article de 75 ch maximum.
+- **Label** : métadonnées, état, source, légendes, aide et info-bulles à 14 px ; la portée de connexion et l’aide réseau conservent cette taille. Les badges factuels hérités gardent leur taille compacte distincte.
+- **Message author** : nom court à 19 px, variante utilisateur à 17 px. Les définitions de rôle de la fiche emploient 19 px et leurs descriptions 16 px.
 
-**The Two Voices Rule.** Barlow Condensed Bold donne leur caractère aux titres courts et aux noms ; Segoe UI porte les textes longs et les décisions.
+**The Two Voices Rule.** Barlow Condensed Bold repère les titres courts, les noms et les commandes ; Segoe UI porte les textes longs, les explications et les métadonnées.
 
 ## Layout
 
@@ -291,11 +301,15 @@ La fenêtre est une colonne de hauteur `100dvh` avec barre native d’au moins 5
 
 La navigation déployée mesure 240 px au format courant ; elle passe à 194 px sous 1281 px et 184 px sous 1081 px. Dès 721 px, elle peut se replier en rail. Sous 721 px, le tiroir natif remplace la barre latérale ; sa largeur est bornée à 240 px et à celle de la fenêtre. Les groupes suivent surtout le rythme 8 / 12 / 16 / 20 / 24 px du frontmatter, sans imposer une grille nouvelle à toutes les anciennes surfaces.
 
-Le contenu central est borné à 1160 px. Son espacement horizontal est de 38 px au format courant, 26 px sous 1281 px, 16 px sous 721 px et 52 px dès 1600 px ; avec fiche dockée ouverte, il revient à 24 px. Le bandeau illustré reste sur l’accueil et les vues de préparation ; il se réduit ou perd son image aux petits formats et aux fenêtres de moins de 701 px de haut. Dans Conversation, le bandeau projet est une plaque calme sans image. Le dialogue ordinaire, sans formulaire de question ou d’approbation actif, occupe la hauteur restante par flex : le titre, les onglets, les états et le compositeur gardent leur hauteur, tandis que les messages prennent la place disponible avec un minimum de 160 px. Le champ de rédaction garde au moins 64 px ; champ et action restent ensemble dans la fenêtre aux formats vérifiés. L’en-tête d’auteur est sticky au sommet du défilement, borné par son propre article ; la source exacte reste lisible après le texte.
+Le contenu central occupe 100 % de la largeur disponible, sans largeur maximale. Son espacement horizontal est de 28 px au format courant, 22 px sous 1081 px et 16 px sous 721 px ; avec fiche dockée ouverte, le sélecteur de contexte conserve 24 px. Le bandeau illustré reste sur l’accueil et les vues de préparation ; il se réduit ou perd son image aux petits formats et aux fenêtres de moins de 701 px de haut. Dans Conversation, le bandeau projet est une plaque calme sans image. Le dialogue ordinaire, sans formulaire de question ou d’approbation actif, occupe la hauteur restante par flex : le titre, les onglets, les états et le compositeur gardent leur hauteur, tandis que les messages prennent la place disponible avec un minimum de 160 px. Le champ de rédaction garde au moins 64 px ; champ et action restent ensemble dans la fenêtre aux formats vérifiés. L’en-tête d’auteur est sticky au sommet du défilement, borné par son propre article ; la source exacte reste lisible après le texte.
 
 Lorsqu’une question ou une approbation est active, la page conserve son flux naturel afin de laisser toute sa hauteur au formulaire ou au patch. Le défilement des messages est alors borné à `clamp(240px, 44dvh, 640px)`, avec adaptations à 42dvh sous 721 px et 40dvh sous 701 px de haut. La position de lecture et le suivi existants sont conservés.
 
 **The Working Center Rule.** Le décor encadre les noms, les messages et la saisie ; le texte réel, la source et les commandes explicites restent accessibles, y compris après défilement.
+
+Dans l’aide chargée avec préparation, une grille partage la largeur entre préparation à gauche et diagnostic/provenance à droite : colonnes `minmax(0, 1.6fr)` et `minmax(280px, 1fr)`, écart horizontal de 24 px. Sous 1081 px, elle devient une seule colonne. Les raisons, les sources et les gardes natives restent présentes ; ce regroupement ne change ni disponibilité ni lancement.
+
+La barre de fenêtre réserve le déplacement au libellé de titre. Les parents de commandes, les groupes, les boutons, leurs descendants et pseudo-éléments sont en `app-region: no-drag`. Les commandes à icône restent des cibles de 40 px sur l’axe établi ; aucun rectangle de déplacement ne doit les recouvrir.
 
 La fiche est une vraie colonne dockée **dès 1323 px**, de largeur 320 px, puis 350 px dès 1600 px. En dessous de 1323 px, elle est un dialogue modal de largeur `min(400px, calc(100vw - 32px))` avec marges de 16 px ; sous 721 px, marges de 8 px. Le corps de fiche défile indépendamment. Le changement de seuil conserve sa sélection et sa position de lecture. La fermeture rend l’espace au dialogue ; une confirmation native ou le tiroir de navigation gardent leur priorité dans la pile modale.
 
@@ -316,11 +330,11 @@ Les encres d’ombre et les valeurs complètes clair/sombre sont portées par `e
 
 **The Empty Center Rule.** Le cadre raster est découpé en neuf zones sans fill : son centre ne se peint jamais derrière un texte ou un formulaire.
 
-Le cadre `chrome-plate-frame.png` est un overlay décoratif sur navigation, tiroir et fiche : `border-image-slice: 128`, largeur de bande de 36 px, débord de 17 px et répétition étirée. Le mot-clé `fill` est absent. L’asset source garde 35 pixels centraux à alpha 1/255 ; le centre omis n’est jamais rendu. Cette limite de production reste dans sa provenance, sans prétendre que l’ouverture source est exactement vide. La saisie réutilise ce même raster avec une bande de 22 px et un débord de 7 px ; la marge latérale de 7 px contient son cadre dans le centre de travail. Les contrôles et les zones de lecture sont au-dessus du cadre et conservent leurs événements et leur focus.
+Le cadre `chrome-plate-frame.png` est un overlay décoratif sur navigation, tiroir et fiche : `border-image-slice: 128`, largeur de bande de 16 px, débord de 6 px et répétition étirée. Le mot-clé `fill` est absent. L’asset source garde 35 pixels centraux à alpha 1/255 ; le centre omis n’est jamais rendu. Cette limite de production reste dans sa provenance, sans prétendre que l’ouverture source est exactement vide. La saisie réutilise ce même raster avec une bande de 12 px et un débord de 7 px ; la marge latérale de 7 px contient son cadre dans le centre de travail. Les contrôles et les zones de lecture sont au-dessus du cadre et conservent leurs événements et leur focus.
 
 ## Shapes
 
-Le langage est celui de plaques mates à angles nets : petits arrondis utilitaires, traits encrés et coupes géométriques visibles. Les contrôles prennent le rayon `control`, les surfaces de lecture et cartes le rayon `surface`, les détails de bustes le rayon `detail`. La fiche dockée est carrée ; les panneaux flottants ont le rayon de contrôle. L’info-bulle garde son arrondi spécifique.
+Le langage est celui de plaques mates à angles nets : petits arrondis utilitaires, traits encrés et coupes géométriques visibles. Les commandes en plaque prennent deux polygones superposés à coins coupés de 6 px, avec un bouton réel au rayon `detail` ; les utilitaires sans plaque conservent leur rayon propre. Les surfaces de lecture gardent le rayon `surface`, la préparation d’aide le rayon `detail`, et les détails de bustes leur rayon `detail`. La fiche dockée est carrée ; les panneaux flottants ont le rayon de contrôle. L’info-bulle garde son arrondi spécifique.
 
 Les onglets sont des silhouettes de dossier : un pseudo-élément reçoit les coins coupés de 10 px et la couleur de plaque. Le bouton réel reste entier afin que la coupe décorative ne rogne pas son focus. Le nom attesté reconnu reçoit un cartouche terracotta à coupe diagonale ; le nom de fiche reprend cette coupe dans son propre pseudo-élément. La forme décorative ne rogne pas le texte ou les cibles. Un petit coin terracotta dans le cadre de message rappelle l’arête sans remplacer une commande.
 
@@ -328,7 +342,9 @@ Les onglets sont des silhouettes de dossier : un pseudo-élément reçoit les co
 
 ### Buttons
 
-Commandes compactes et décisions lisibles. Hauteur minimale de 40 px, espacement intérieur et rayon dans le frontmatter ; les SVG utilitaires ordinaires font 19 px. Le principal emploie terracotta et texte contrasté, avec états survol et pression ; le secondaire est une plaque de panneau bordée par `control-line`. Le bouton sans fond et le lien textuel gardent leur rôle respectif. Le focus est un contour de 2 px avec décalage de 3 px. Dans le chrome encadré, un halo de panneau supplémentaire de 5 px protège sa visibilité. Désactivé : opacité 0,5 et curseur indisponible ; les boutons désactivés des aides gardent explicitement un texte atténué et l’opacité pleine.
+Les commandes principales, secondaires, textuelles et les bascules de barre adoptent deux plaques plates : une silhouette encrée extérieure et une face intérieure en retrait de 1 px, avec un trait clair en haut et un trait d’encre en bas. Les coins coupés de 6 px appartiennent aux pseudo-éléments ; le bouton et son focus restent rectangulaires et entièrement ciblables. Barlow Condensed Bold, taille 19 px et hauteur minimale de 44 px rendent les décisions lisibles ; les utilitaires à icône et les fermetures gardent 40 px.
+
+Le principal suit les trois accents d’action ; le secondaire utilise la plaque pétrole, puis les fonds de survol et pression. L’action textuelle est une plaque de panneau à texte de lien, avec retour au survol. Désactivé : opacité pleine, face neutre et texte neutre associé ; l’indisponibilité fonctionnelle reste héritée. Le focus garde son contour de 2 px et son décalage de 3 px. L’info-bulle Codex se retire pendant l’ouverture du panneau de connexion.
 
 ### Chips
 
@@ -336,15 +352,15 @@ Le badge factuel est petit et neutre, avec le rayon `badge`, sans fonctionnement
 
 ### Cards / Containers
 
-Recommandation et préparation d’aide : surfaces chaudes, contour propre à la recommandation et petit rayon. La première garde 24 px de remplissage, la préparation d’aide 16 px puis 12 px sous 721 px. Les messages assistant restent dans le flux séparé d’un trait ; les messages utilisateur sont légèrement contenus, alignés à droite et remplis avec `selected`.
+Recommandation et préparation d’aide : surfaces chaudes, contour propre à la recommandation et petit rayon. La première garde 24 px de remplissage, la préparation d’aide 22 px puis 18 px sous 721 px, sur le fond de panneau et avec une arête supérieure. Les messages assistant restent dans le flux sur un panneau calme bordé et ombré ; les messages utilisateur sont légèrement contenus, alignés à droite et remplis avec `selected`.
 
 ### Inputs / Fields
 
-La saisie est un panneau calme bordé d’une plaque de 2 px, à petit rayon, avec contour de focus hérité et bordure qui suit le focus intérieur. Le champ conserve le texte Segoe UI de message, une hauteur minimale de 71 px et un redimensionnement vertical borné. Les champs de question, les ajustements d’approbation et les blocs de patch gardent leur forme compacte ; rien n’est escamoté pour laisser place à un portrait. Les reçus natifs et l’état de conservation demeurent distincts.
+La saisie est un panneau calme bordé d’une arête de 1 px et du cadre raster hérité sans centre rempli, à petit rayon, avec contour de focus hérité et bordure qui suit le focus intérieur. Le champ conserve le texte Segoe UI à 16 px, une hauteur minimale de 88 px réduite à 64 px dans le dialogue ordinaire ou sous 701 px de haut, et un redimensionnement vertical borné. Les champs de question, les ajustements d’approbation et les blocs de patch gardent leur forme compacte ; rien n’est escamoté pour laisser place à un portrait. Les reçus natifs et l’état de conservation demeurent distincts.
 
 ### Navigation
 
-La navigation choisie reçoit le fond `selected`, le texte associé, un contour interne utile et un petit repère terracotta. Les onglets sélectionnés reçoivent terracotta et un fond de dossier coupé ; leur survol suit l’accent approprié. Le repli garde les noms accessibles et les aides au survol/focus. Un projet garde son contexte et ses onglets avant le dialogue ; l’état du travail ne provient pas du décor.
+La navigation choisie reçoit le fond `selected`, le texte associé, un petit repère terracotta de 2 px, sans contour ni ombre supplémentaires. Les projets emploient un SVG de dossier de 21 px dans la navigation et de 30 px à l’accueil ; aucun numéro décoratif ne remplace le nom du projet. Les onglets sélectionnés reçoivent terracotta et un fond de dossier coupé ; leur survol suit l’accent approprié. Le repli garde les noms accessibles et les aides au survol/focus. Un projet garde son contexte et ses onglets avant le dialogue ; l’état du travail ne provient pas du décor.
 
 ### Portrait and role consultation
 
@@ -368,7 +384,7 @@ Révélation de fiche et ouverture du dossier utilisent une seule durée brève 
 
 - Do garder la conversation et les demandes explicites au premier plan, puis rendre sa largeur à la conversation à la fermeture de la fiche.
 - Do employer les rôles de couleur de la palette active ; conserver un texte de statut et sa portée en complément de la couleur.
-- Do garder les cibles de commande de 40 px, les pictogrammes SVG sobres et un focus externe visible.
+- Do garder les commandes de décision d’au moins 44 px et les utilitaires à icône de 40 px, les pictogrammes SVG sobres et un focus externe visible.
 - Do réserver les petits portraits aux identités natives attestées reconnues ; conserver le nom attesté hors casting et le repère neutre pour l’inconnu.
 - Do utiliser les bustes et décors originaux avec leur provenance, en gardant le centre du cadre nine-slice non rempli.
 - Do conserver les brouillons, le clavier, les décisions natives et le mouvement réduit lors des changements de fiche, de largeur ou de thème.

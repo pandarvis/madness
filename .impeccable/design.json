@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-02T22:29:47.482Z",
+  "generatedAt": "2026-11-03T10:13:16.708Z",
   "title": "Design System: Madness",
   "extensions": {
     "colorMeta": {
@@ -1211,6 +1211,10 @@
       "code": {
         "displayName": "Code",
         "purpose": "Chemins et identifiants."
+      },
+      "command": {
+        "displayName": "Command",
+        "purpose": "Commandes explicites Barlow Condensed Bold à 19 px."
       }
     },
     "shadows": [
@@ -1314,9 +1318,9 @@
       "name": "Primary button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Décision principale explicite, dans la palette active.",
+      "description": "Décision explicite en deux plaques plates encrées ; aucune transmission dans cet extrait.",
       "html": "<button type=\"button\" class=\"ds-primary\">Envoyer</button>",
-      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;border:1px solid transparent;border-radius:4px;padding:8px 11px;cursor:pointer;font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.35;font-weight:600;background:var(--accent,#e49b7a);color:var(--accent-text,#231a15);border-color:var(--accent,#e49b7a)}.ds-primary:hover{background:var(--accent-hover,#eeae8f);border-color:var(--accent-hover,#eeae8f)}.ds-primary:active{background:var(--accent-active,#cf896a);border-color:var(--accent-active,#cf896a)}.ds-primary:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px;}.ds-primary:disabled{opacity:.5;cursor:not-allowed} .ds-primary{border-radius:3px;border-color:var(--accent-active,#cf896a);box-shadow:inset 0 1px 0 var(--accent-hover,#eeae8f),0 3px 8px var(--composer-shadow,#0b090824)}.ds-primary:hover{box-shadow:inset 0 1px 0 var(--accent,#e49b7a),0 4px 10px var(--panel-shadow,#0b09085c)}.ds-primary:active{box-shadow:inset 0 1px 3px var(--composer-shadow,#0b090824)}"
+      "css": ".ds-primary{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 16px;border:0;border-radius:2px;background:transparent;color:var(--accent-text,#231a15);font:700 19px/1.2 'Barlow Condensed','Segoe UI',sans-serif;letter-spacing:.015em;cursor:pointer;--control-face:var(--accent,#e49b7a);--control-ink:var(--atelier-ink,#111819)}.ds-primary::before,.ds-primary::after{content:\"\";position:absolute;pointer-events:none;clip-path:polygon(6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px)}.ds-primary::before{inset:0;z-index:-2;background:var(--control-ink)}.ds-primary::after{inset:1px;z-index:-1;background:var(--control-face);box-shadow:inset 0 1px 0 var(--control-line,#82766e),inset 0 -2px 0 var(--atelier-ink,#111819)}.ds-primary:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px}.ds-primary:disabled,.ds-primary[aria-disabled=true]{opacity:1;cursor:not-allowed;--control-face:var(--neutral,#342f2b);color:var(--neutral-text,#d0c4bb)}.ds-primary:hover{--control-face:var(--accent-hover,#eeae8f)}.ds-primary:active{--control-face:var(--accent-active,#cf896a)}.ds-primary:disabled{--control-face:var(--neutral,#342f2b)}"
     },
     {
       "name": "Secondary button",
@@ -1324,7 +1328,7 @@
       "refersTo": "button-secondary",
       "description": "Commande secondaire bordée, sans démarrage implicite.",
       "html": "<button type=\"button\" class=\"ds-secondary\">Annuler</button>",
-      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;border:1px solid transparent;border-radius:4px;padding:8px 11px;cursor:pointer;font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.35;background:var(--panel,#272423);color:var(--text,#f1ebe6);border-color:var(--control-line,#82766e)}.ds-secondary:hover{background:var(--hover,#332e2a)}.ds-secondary:active{background:var(--active,#423830)}.ds-secondary:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px;}.ds-secondary:disabled{opacity:.5;cursor:not-allowed} .ds-secondary{border-radius:3px;background:var(--atelier-chrome,#20343c);box-shadow:0 3px 8px var(--composer-shadow,#0b090824)}.ds-secondary:active{box-shadow:inset 0 1px 3px var(--composer-shadow,#0b090824)}"
+      "css": ".ds-secondary{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 16px;border:0;border-radius:2px;background:transparent;color:var(--text,#f1ebe6);font:700 19px/1.2 'Barlow Condensed','Segoe UI',sans-serif;letter-spacing:.015em;cursor:pointer;--control-face:var(--atelier-plate,#294652);--control-ink:var(--atelier-ink,#111819)}.ds-secondary::before,.ds-secondary::after{content:\"\";position:absolute;pointer-events:none;clip-path:polygon(6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px)}.ds-secondary::before{inset:0;z-index:-2;background:var(--control-ink)}.ds-secondary::after{inset:1px;z-index:-1;background:var(--control-face);box-shadow:inset 0 1px 0 var(--control-line,#82766e),inset 0 -2px 0 var(--atelier-ink,#111819)}.ds-secondary:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px}.ds-secondary:disabled,.ds-secondary[aria-disabled=true]{opacity:1;cursor:not-allowed;--control-face:var(--neutral,#342f2b);color:var(--neutral-text,#d0c4bb)}.ds-secondary:hover{--control-face:var(--hover,#332e2a)}.ds-secondary:active{--control-face:var(--active,#423830)}.ds-secondary:disabled{--control-face:var(--neutral,#342f2b)}"
     },
     {
       "name": "Ghost button",
@@ -1332,15 +1336,15 @@
       "refersTo": "button-ghost",
       "description": "Commande utilitaire à icône géométrique.",
       "html": "<button type=\"button\" class=\"ds-ghost\" aria-label=\"Fermer\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"m6 6 12 12M6 18 18 6\"/></svg></button>",
-      "css": ".ds-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;border:1px solid transparent;border-radius:4px;padding:8px 11px;cursor:pointer;font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.35;width:40px;padding:0;background:transparent;color:var(--text,#f1ebe6)}.ds-ghost svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}.ds-ghost:hover{background:var(--hover,#332e2a)}.ds-ghost:active{background:var(--active,#423830)}.ds-ghost:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px;}"
+      "css": ".ds-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;border:1px solid transparent;border-radius:4px;padding:8px 11px;cursor:pointer;font-family:'Barlow Condensed','Segoe UI',sans-serif;font-size:19px;font-weight:700;line-height:1.2;width:40px;padding:0;background:transparent;color:var(--text,#f1ebe6)}.ds-ghost svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}.ds-ghost:hover{background:var(--hover,#332e2a)}.ds-ghost:active{background:var(--active,#423830)}.ds-ghost:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px;}.ds-ghost:disabled{opacity:1;cursor:not-allowed}"
     },
     {
       "name": "Text action",
       "kind": "button",
       "refersTo": "button-text",
-      "description": "Navigation textuelle explicite vers une preuve ou une demande.",
+      "description": "Action explicite sur plaque calme, avec texte de lien ; indisponibilité lisible.",
       "html": "<button type=\"button\" class=\"ds-text\">Rejoindre cette demande</button>",
-      "css": ".ds-text{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;border:1px solid transparent;border-radius:4px;padding:8px 11px;cursor:pointer;font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.35;padding:6px 0;font-size:12px;background:transparent;color:var(--link,#9dc7e1);text-decoration:underline;text-underline-offset:3px}.ds-text:hover{background:var(--hover,#332e2a)}.ds-text:active{background:var(--active,#423830)}.ds-text:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px;}"
+      "css": ".ds-text{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:9px 14px;border:0;border-radius:2px;background:transparent;color:var(--link,#9dc7e1);font:700 19px/1.2 'Barlow Condensed','Segoe UI',sans-serif;letter-spacing:.015em;cursor:pointer;--control-face:var(--panel,#272423);--control-ink:var(--atelier-ink,#111819)}.ds-text::before,.ds-text::after{content:\"\";position:absolute;pointer-events:none;clip-path:polygon(6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px)}.ds-text::before{inset:0;z-index:-2;background:var(--control-ink)}.ds-text::after{inset:1px;z-index:-1;background:var(--control-face);box-shadow:inset 0 1px 0 var(--control-line,#82766e),inset 0 -2px 0 var(--atelier-ink,#111819)}.ds-text:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px}.ds-text:disabled,.ds-text[aria-disabled=true]{opacity:1;cursor:not-allowed;--control-face:var(--neutral,#342f2b);color:var(--neutral-text,#d0c4bb)}.ds-text{margin-block:6px;width:fit-content;max-width:100%;white-space:normal;text-align:start;text-decoration:none}.ds-text:hover{--control-face:var(--hover,#332e2a)}.ds-text:active{--control-face:var(--active,#423830)}.ds-text:disabled{--control-face:var(--neutral,#342f2b)}"
     },
     {
       "name": "Conversation input",
@@ -1348,15 +1352,15 @@
       "refersTo": "composer",
       "description": "Champ de rédaction calme dans le cadre raster hérité sans centre rempli ; cet extrait autonome montre la bordure et le focus, sans importer le raster ni transmettre.",
       "html": "<div class=\"ds-composer\"><label class=\"ds-label\" for=\"ds-message\">Message</label><textarea id=\"ds-message\" class=\"ds-message\" placeholder=\"Préparez votre message…\"></textarea></div>",
-      "css": ".ds-composer{padding:18px 20px;border:1px solid var(--atelier-edge,#bc8464);border-radius:3px;background:var(--panel,#272423);color:var(--text,#f1ebe6);box-shadow:0 6px 18px var(--composer-shadow,#0b090824)}.ds-composer:focus-within{border-color:var(--focus,#9dc7e1)}.ds-label{display:block;margin-bottom:8px;font:12px/1.65 \"Segoe UI\",system-ui,sans-serif;color:var(--muted,#bcb0a8)}.ds-message{width:100%;min-height:88px;max-height:350px;resize:vertical;border:0;border-radius:2px;padding:14px 0;background:transparent;color:var(--text,#f1ebe6);font:14px/1.75 \"Segoe UI\",system-ui,sans-serif;caret-color:var(--focus,#9dc7e1)}.ds-message::placeholder{color:var(--muted-lavender,#b5aaa2)}.ds-message:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px;}"
+      "css": ".ds-composer{padding:18px 20px;border:1px solid var(--atelier-edge,#bc8464);border-radius:3px;background:var(--panel,#272423);color:var(--text,#f1ebe6);box-shadow:0 6px 18px var(--composer-shadow,#0b090824)}.ds-composer:focus-within{border-color:var(--focus,#9dc7e1)}.ds-label{display:block;margin-bottom:8px;font:14px/1.5 \"Segoe UI\",system-ui,sans-serif;color:var(--muted,#bcb0a8)}.ds-message{width:100%;min-height:88px;max-height:350px;resize:vertical;border:0;border-radius:2px;padding:14px 0;background:transparent;color:var(--text,#f1ebe6);font:16px/1.65 \"Segoe UI\",system-ui,sans-serif;caret-color:var(--focus,#9dc7e1)}.ds-message::placeholder{color:var(--muted-lavender,#b5aaa2)}.ds-message:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px;}"
     },
     {
       "name": "Project tabs",
       "kind": "nav",
       "refersTo": "project-tab-selected",
-      "description": "Onglets de dossier coupés ; le bouton réel porte un focus entier.",
+      "description": "Onglets de dossier coupés à 21 px, 20 px sous 721 px, y compris dans Conversation ; cible minimale de 44 px et focus entier.",
       "html": "<nav class=\"ds-tabs\" aria-label=\"Vues du projet\"><button type=\"button\" class=\"ds-tab\" aria-current=\"page\">Conversation</button><button type=\"button\" class=\"ds-tab\">Parcours</button></nav>",
-      "css": ".ds-tabs{display:flex;gap:8px;padding:0 4px;border-bottom:2px solid var(--atelier-edge,#bc8464)}.ds-tab{position:relative;isolation:isolate;min-height:44px;padding:8px 22px;border:0;background:none;color:var(--text,#f1ebe6);font:400 19px/1.35 \"Barlow Condensed\",\"Segoe UI\",sans-serif;cursor:pointer}.ds-tab::before{content:\"\";position:absolute;inset:0;z-index:-1;clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%,0 10px);background:var(--atelier-plate,#294652);border-bottom:2px solid var(--atelier-ink,#111819);pointer-events:none}.ds-tab[aria-current=page]{font-weight:600;color:var(--accent-text,#231a15)}.ds-tab[aria-current=page]::before{background:var(--accent,#e49b7a)}.ds-tab:hover::before{background:var(--hover,#332e2a)}.ds-tab[aria-current=page]:hover::before{background:var(--accent-hover,#eeae8f)}.ds-tab:active::before{background:var(--active,#423830)}.ds-tab:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px;outline-offset:2px} .ds-tab{letter-spacing:.025em}.ds-tab::after{content:\"\";position:absolute;inset:3px 10px auto;height:1px;background:var(--control-line,#82766e);opacity:.7;pointer-events:none}.ds-tab[aria-current=page]::after{background:var(--accent-text,#231a15);opacity:.4}"
+      "css": ".ds-tabs{display:flex;gap:8px;padding:0 4px;border-bottom:2px solid var(--atelier-edge,#bc8464)}.ds-tab{position:relative;isolation:isolate;min-height:44px;padding:8px 22px;border:0;background:none;color:var(--text,#f1ebe6);font:700 21px/1.2 \"Barlow Condensed\",\"Segoe UI\",sans-serif;cursor:pointer}.ds-tab::before{content:\"\";position:absolute;inset:0;z-index:-1;clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%,0 10px);background:var(--atelier-plate,#294652);border-bottom:2px solid var(--atelier-ink,#111819);pointer-events:none}.ds-tab[aria-current=page]{font-weight:600;color:var(--accent-text,#231a15)}.ds-tab[aria-current=page]::before{background:var(--accent,#e49b7a)}.ds-tab:hover::before{background:var(--hover,#332e2a)}.ds-tab[aria-current=page]:hover::before{background:var(--accent-hover,#eeae8f)}.ds-tab:active::before{background:var(--active,#423830)}.ds-tab:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px;outline-offset:2px} .ds-tab{letter-spacing:.025em}.ds-tab::after{content:\"\";position:absolute;inset:3px 10px auto;height:1px;background:var(--control-line,#82766e);opacity:.7;pointer-events:none}.ds-tab[aria-current=page]::after{background:var(--accent-text,#231a15);opacity:.4} @media (max-width:720px){.ds-tab{font-size:20px}}"
     },
     {
       "name": "Factual badge",
@@ -1372,7 +1376,7 @@
       "refersTo": "help-preparation",
       "description": "Surface de préparation locale ; une action reste un bouton séparé.",
       "html": "<section class=\"ds-preparation\"><h2 class=\"ds-title\">Préparation</h2><p class=\"ds-copy\">Vérifiez les informations avant l’envoi explicite.</p></section>",
-      "css": ".ds-preparation{padding:16px;border:1px solid var(--recommendation-line,#5b4538);border-radius:3px;background:var(--recommendation,#272321);color:var(--text,#f1ebe6)}.ds-title{margin:0 0 8px;font:700 23px/1.35 \"Barlow Condensed\",\"Segoe UI\",sans-serif;letter-spacing:.005em}.ds-copy{margin:0;max-width:75ch;font:13px/1.65 \"Segoe UI\",system-ui,sans-serif;color:var(--muted,#bcb0a8)}"
+      "css": ".ds-preparation{padding:22px;border:1px solid var(--control-line,#82766e);border-radius:2px;background:var(--panel,#272423);color:var(--text,#f1ebe6);box-shadow:inset 0 2px 0 var(--atelier-edge,#bc8464)}.ds-title{margin:0 0 8px;font:700 23px/1.35 \"Barlow Condensed\",\"Segoe UI\",sans-serif;letter-spacing:.005em}.ds-copy{margin:0;max-width:75ch;font:16px/1.6 \"Segoe UI\",system-ui,sans-serif;color:var(--muted,#bcb0a8)}"
     },
     {
       "name": "Selected navigation row",
@@ -1380,7 +1384,7 @@
       "refersTo": "navigation-selected",
       "description": "Choix de navigation bordé avec repère terracotta.",
       "html": "<button type=\"button\" class=\"ds-nav\" aria-current=\"page\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M3 7h7l2 2h9v11H3zM3 7V4h6l2 3\"/></svg><span class=\"ds-nav-label\">Projet local</span></button>",
-      "css": ".ds-nav{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;border:1px solid transparent;border-radius:4px;padding:8px 11px;cursor:pointer;font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.35;position:relative;width:100%;justify-content:flex-start;text-align:left;padding:10px;border-radius:3px;background:var(--selected,#293842);color:var(--selected-text,#b7d8ee);font-size:13px;font-weight:600;outline:1px solid var(--control-line,#82766e);outline-offset:-1px}.ds-nav::before{content:\"\";position:absolute;left:-6px;top:9px;bottom:9px;width:3px;background:var(--accent,#e49b7a)}.ds-nav svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linejoin:round}.ds-nav:hover{background:var(--hover,#332e2a)}.ds-nav:active{background:var(--active,#423830)}.ds-nav:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px;box-shadow:0 0 0 5px var(--panel,#272423)} .ds-nav{box-shadow:inset 0 1px 0 var(--atelier-edge,#bc8464),0 3px 8px var(--panel-shadow,#0b09085c)}"
+      "css": ".ds-nav{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;border:1px solid transparent;border-radius:4px;padding:8px 11px;cursor:pointer;font-family:'Barlow Condensed','Segoe UI',sans-serif;font-size:19px;font-weight:700;line-height:1.2;position:relative;width:100%;justify-content:flex-start;text-align:left;padding:10px;border-radius:3px;background:var(--selected,#293842);color:var(--selected-text,#b7d8ee);font-size:13px;font-weight:600;outline:1px solid var(--control-line,#82766e);outline-offset:-1px}.ds-nav::before{content:\"\";position:absolute;left:-6px;top:9px;bottom:9px;width:3px;background:var(--accent,#e49b7a)}.ds-nav svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linejoin:round}.ds-nav:hover{background:var(--hover,#332e2a)}.ds-nav:active{background:var(--active,#423830)}.ds-nav:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px;box-shadow:0 0 0 5px var(--panel,#272423)} .ds-nav{box-shadow:inset 0 1px 0 var(--atelier-edge,#bc8464),0 3px 8px var(--panel-shadow,#0b09085c)}.ds-nav{gap:12px;min-height:46px;font-size:19px;font-weight:700;outline:none;box-shadow:none}.ds-nav::before{width:2px;left:-3px}.ds-nav svg{width:21px;height:21px;stroke-width:1.6}.ds-nav:focus-visible{outline:2px solid var(--focus,#9dc7e1);outline-offset:3px;box-shadow:0 0 0 5px var(--panel,#272423)}"
     },
     {
       "name": "Role nameplate",
@@ -1388,16 +1392,16 @@
       "refersTo": "agent-nameplate",
       "description": "Cartouche statique de rôle ; aucune identité native n’est attestée par cet extrait.",
       "html": "<div class=\"ds-role-sample\"><h3 class=\"ds-nameplate\">Sally</h3><p class=\"ds-role\">UX Designer</p><p class=\"ds-note\">Présentation du rôle · aucune activité attestée</p></div>",
-      "css": ".ds-role-sample{background:var(--panel,#272423);color:var(--text,#f1ebe6);padding:16px 20px}.ds-nameplate{display:inline-block;margin:0;padding:5px 14px 7px;background:var(--accent,#e49b7a);color:var(--accent-text,#231a15);font:700 36px/1.1 \"Barlow Condensed\",\"Segoe UI\",sans-serif;letter-spacing:.005em;text-transform:uppercase}.ds-role{margin:12px 0 16px;font:600 17px/1.65 \"Segoe UI\",system-ui,sans-serif}.ds-note{margin:0;font:12px/1.65 \"Segoe UI\",system-ui,sans-serif;color:var(--muted,#bcb0a8)} .ds-nameplate{position:relative;isolation:isolate;background:none;padding-inline-end:24px}.ds-nameplate::before{content:\"\";position:absolute;inset:0;z-index:-1;background:var(--accent,#e49b7a);clip-path:polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%);pointer-events:none}"
+      "css": ".ds-role-sample{background:var(--panel,#272423);color:var(--text,#f1ebe6);padding:16px 20px}.ds-nameplate{display:inline-block;margin:0;padding:5px 14px 7px;background:var(--accent,#e49b7a);color:var(--accent-text,#231a15);font:700 36px/1.1 \"Barlow Condensed\",\"Segoe UI\",sans-serif;letter-spacing:.005em;text-transform:uppercase}.ds-role{margin:12px 0 16px;font:600 18px/1.65 \"Segoe UI\",system-ui,sans-serif}.ds-note{margin:0;font:14px/1.55 \"Segoe UI\",system-ui,sans-serif;color:var(--muted,#bcb0a8)} .ds-nameplate{position:relative;isolation:isolate;background:none;padding-inline-end:24px}.ds-nameplate::before{content:\"\";position:absolute;inset:0;z-index:-1;background:var(--accent,#e49b7a);clip-path:polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%);pointer-events:none}"
     }
   ],
   "narrative": {
     "northStar": "Atelier de travail illustré des agents BMad",
-    "overview": "Un atelier personnel, chaleureux et expressif encadre le travail BMad : plaques bleu pétrole, commandes terracotta, contours encrés, angles coupés et matière peinte mate à usure retenue. Les sept visages originaux donnent un repère aux messages dont l’identité native est attestée. La conversation, ses décisions et ses preuves occupent le centre ; l’illustration reste discrète pendant la lecture.\n\nL’anthracite chaud est le thème par défaut ; l’ivoire est son alternative claire. Les titres condensés portent le caractère du lieu, tandis que Segoe UI porte les messages, les menus et les décisions. Le décor se prolonge du chrome au centre de travail : cartouches d’auteur attesté, cadres de message et bordure raster de saisie. Les fonds de conversation et de saisie demeurent calmes. Ce système transpose la direction humaine approuvée le 2 novembre 2026 ; il décrit le candidat implémenté, sans valoir acceptation humaine de l’application intégrée.",
+    "overview": "Un atelier personnel, chaleureux et expressif encadre le travail BMad : plaques bleu pétrole, commandes terracotta, contours encrés, angles coupés et matière peinte mate à usure retenue. Les sept visages originaux donnent un repère aux messages dont l’identité native est attestée. La conversation, ses décisions et ses preuves occupent le centre ; l’illustration reste discrète pendant la lecture.\n\nL’anthracite chaud est le thème par défaut ; l’ivoire est son alternative claire. Les titres condensés portent le caractère du lieu, tandis que Segoe UI porte les messages et les explications ; Barlow Condensed Bold porte aussi les commandes explicites. Le décor se prolonge du chrome au centre de travail : cartouches d’auteur attesté, cadres de message et bordure raster de saisie. Les fonds de conversation et de saisie demeurent calmes. Ce système transpose la direction humaine approuvée le 2 novembre 2026 ; il décrit le candidat implémenté, sans valoir acceptation humaine de l’application intégrée.",
     "keyCharacteristics": [
       "Conversation dominante et lecture longue sur fonds calmes.",
       "Chrome peint/encré, onglets de dossier coupés et cartouches terracotta.",
-      "Titres Barlow Condensed Bold locaux ; texte courant Segoe UI.",
+      "Titres et commandes Barlow Condensed Bold locaux ; texte courant Segoe UI.",
       "Portrait compact et fiche informative ouverte à la demande.",
       "État, provenance et décisions exprimés par du texte réel."
     ],
@@ -1414,24 +1418,24 @@
       },
       {
         "name": "The Two Voices Rule",
-        "body": "Barlow Condensed Bold donne leur caractère aux titres courts et aux noms ; Segoe UI porte les textes longs et les décisions.",
+        "body": "Barlow Condensed Bold repère les titres courts, les noms et les commandes ; Segoe UI porte les textes longs, les explications et les métadonnées.",
         "section": "typography"
-      },
-      {
-        "name": "The Empty Center Rule",
-        "body": "Le cadre raster est découpé en neuf zones sans fill : son centre ne se peint jamais derrière un texte ou un formulaire.",
-        "section": "elevation"
       },
       {
         "name": "The Working Center Rule",
         "body": "Le décor encadre les noms, les messages et la saisie ; le texte réel, la source et les commandes explicites restent accessibles, y compris après défilement.",
         "section": "layout"
+      },
+      {
+        "name": "The Empty Center Rule",
+        "body": "Le cadre raster est découpé en neuf zones sans fill : son centre ne se peint jamais derrière un texte ou un formulaire.",
+        "section": "elevation"
       }
     ],
     "dos": [
       "Do garder la conversation et les demandes explicites au premier plan, puis rendre sa largeur à la conversation à la fermeture de la fiche.",
       "Do employer les rôles de couleur de la palette active ; conserver un texte de statut et sa portée en complément de la couleur.",
-      "Do garder les cibles de commande de 40 px, les pictogrammes SVG sobres et un focus externe visible.",
+      "Do garder les commandes de décision d’au moins 44 px et les utilitaires à icône de 40 px, les pictogrammes SVG sobres et un focus externe visible.",
       "Do réserver les petits portraits aux identités natives attestées reconnues ; conserver le nom attesté hors casting et le repère neutre pour l’inconnu.",
       "Do utiliser les bustes et décors originaux avec leur provenance, en gardant le centre du cadre nine-slice non rempli.",
       "Do conserver les brouillons, le clavier, les décisions natives et le mouvement réduit lors des changements de fiche, de largeur ou de thème."

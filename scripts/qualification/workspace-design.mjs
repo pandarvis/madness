@@ -12,6 +12,7 @@ import {windowsOwnedProcesses} from '../../src/adapters/codex/owned-run.ts'
 import {QuestionStore} from '../../src/adapters/persistence/question-store.ts'
 import {ApprovalStore} from '../../src/adapters/persistence/approval-store.ts'
 import {initialDialogueState,isDialogueMessage} from '../../src/contracts/dialogue.ts'
+import {isHelpState,HELP_EVENT_CHANNEL} from '../../src/contracts/bmad-help.ts'
 
 const repository=resolve(fileURLToPath(new URL('../../',import.meta.url))),require=createRequire(import.meta.url),hash=b=>createHash('sha256').update(b).digest('hex')
 const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms))
@@ -160,13 +161,44 @@ try{
  const snapshot={schemaVersion:1,revision:1,projects:[{id:context.projectId,name:'Projet personnel de qualification de la refonte avec un nom réellement très long sans abréviation',rootPath:first,openedAt:new Date().toISOString()},{id:other.projectId,name:'Autre projet avec un nom long et un contexte indépendant',rootPath:second,openedAt:new Date().toISOString()}],activeProjectId:null,drafts:[{projectId:context.projectId,text:'Brouillon enregistré distinct, été 日本語.',savedAt:new Date().toISOString()}],preferences:{navigationCollapsed:false},conversations:[{id:context.conversationId,context,lastKnownActivity:'idle',messages:[{id:'historical',role:'assistant',text:'Échange historique synthétique. Identité et état du tour inconnus.'}]},{id:other.conversationId,context:other,lastKnownActivity:'idle',messages:[]}]}
  const q={schemaVersion:1,id:'question-workspace',context,requestId:'request-workspace',turnId:'turn-workspace',identity:{kind:'unknown'},fields:[{id:'answer',header:'Direction',prompt:'Quelle direction pour cet échange précis ?',options:[],allowOther:true}],values:{answer:'Réponse historique distincte.'},status:'waiting',reason:null,createdAt:new Date().toISOString(),expiresAt:null,revision:1,storage:'stored'}
  const a={schemaVersion:1,id:'approval-workspace',context,requestId:'request-approval',turnId:'turn-approval',identity:{kind:'unknown'},mode:'file-approval',files:[{path:join(first,'proposition.md'),kind:'add',diff:'Patch complet synthétique sans effet observé.',beforeSha256:null,afterSha256:hash('Patch complet synthétique sans effet observé.')}],reason:'reopened',adjustment:'Ajustement conservé.',adjustmentStatus:'draft',status:'unknown',decision:'accept',transmission:'sent',effect:'unknown',result:null,createdAt:new Date().toISOString(),expiresAt:Date.now()+600000,revision:3,storage:'stored'}
- if(args.includes('--presentation')){
+ if(args.includes('--presentation')||args.includes('--controls')){
   snapshot.projects[0].name='Madness';snapshot.projects[1].name='MIA'
   snapshot.conversations[0].messages=[{id:'presentation-user',role:'user',text:'Je veux un atelier où retrouver mon projet, mes idées et les agents avec qui je travaille.'}]
   snapshot.drafts[0].text='Commençons par le parcours de mon projet.'
  }
  const snapshotPath=join(profile,'madness-state-v1.json');await writeFile(snapshotPath,JSON.stringify(snapshot));await new QuestionStore(join(profile,'questions-v1')).write(q);await new ApprovalStore(join(profile,'approvals-v1')).write(a)
  let page=await launch(profile)
+ if(args.includes('--controls')){
+  report.limits.push('Profil d’aide fictif et gardes de lancement inchangées ; clics renderer et géométrie de déplacement, pas injection souris native Windows.')
+  await viewport(page,{width:1440,height:1000},'controls-home')
+  await shot(page,'home-controls-dark')
+  const before=await page.getByRole('button',{name:'Réduire la navigation',exact:true}).getAttribute('aria-expanded')
+  await page.getByRole('button',{name:'Réduire la navigation',exact:true}).click();await page.getByRole('button',{name:'Déployer la navigation',exact:true}).waitFor()
+  await page.getByRole('button',{name:'Déployer la navigation',exact:true}).click();assert.equal(before,'true');pass('toolbar-navigation-renderer-click')
+  await app.evaluate(({dialog})=>{globalThis.__folderChecks=0;dialog.showOpenDialog=async()=>{globalThis.__folderChecks++;return {canceled:true,filePaths:[]}}})
+  await page.getByRole('button',{name:'Ouvrir un projet',exact:true}).click();await page.getByText('Ouverture annulée. Aucun projet ajouté.',{exact:true}).waitFor()
+  assert.equal(await app.evaluate(()=>globalThis.__folderChecks),1);pass('toolbar-folder-real-main-cancel-no-project-added')
+  await page.getByRole('button',{name:'Passer au thème clair',exact:true}).click();await page.waitForFunction(()=>document.documentElement.dataset.theme==='light');pass('toolbar-theme-real-main')
+  await page.getByRole('button',{name:/^Connexion Codex :/}).click();await page.locator('#codex-connection-panel').waitFor();await shot(page,'connection-controls-light');await page.keyboard.press('Escape');pass('toolbar-connection-panel-no-verification')
+  const collisions=await page.evaluate(()=>{
+   const regions=[...document.querySelectorAll('.topbar,.topbar *')].filter(e=>getComputedStyle(e).getPropertyValue('app-region')==='drag').map(e=>e.getBoundingClientRect())
+   return [...document.querySelectorAll('.topbar button')].filter(e=>e.getClientRects().length).filter(e=>{const b=e.getBoundingClientRect(),x=b.x+b.width/2,y=b.y+b.height/2;return regions.some(r=>x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom)}).map(e=>e.getAttribute('aria-label'))
+  });assert.deepEqual(collisions,[]);pass('toolbar-controls-outside-every-drag-region')
+  await page.locator('.project-row').first().click()
+  const bundle={schemaVersion:1,id:'controls-help',projectId:context.projectId,rootPath:first,observedAt:new Date().toISOString(),revision:'a'.repeat(64),diagnostic:'partial',nativeReady:false,problems:['Source requise absente dans ce profil de démonstration.'],documents:[{id:'help-doc',source:join(first,'help.md'),snapshot:'help.md',sha256:'b'.repeat(64),bytes:21,text:'Aide locale synthétique',module:'bmm',skills:[]}],references:[{module:'bmm',path:'references-only.md'}],sources:[],activeInitiative:null,selectedInitiative:null,outputPath:null,inventories:[],knowledgeRaw:'{}',configRaw:'{}',skillPath:join(first,'.agents/skills/bmad/SKILL.md')}
+  const help={contractVersion:1,sequence:2000,status:'ready',projectId:context.projectId,bundle,records:[],error:null};assert.equal(isHelpState(help),true)
+  await app.evaluate(({BrowserWindow},{channel,state})=>BrowserWindow.getAllWindows()[0].webContents.send(channel,state),{channel:HELP_EVENT_CHANNEL,state:help})
+  await page.getByRole('button',{name:'Voir les aides',exact:true}).click();assert.equal(await page.getByRole('button',{name:'Demander à BMad',exact:true}).isDisabled(),true)
+  pass('help-native-guard-preserved-unqualified-profile')
+  for(const size of [{width:1440,height:1000},{width:720,height:920}]){
+   await viewport(page,size,'help-controls-'+size.width)
+   for(const theme of ['light','dark']){
+    if(await page.evaluate(()=>document.documentElement.dataset.theme)!==theme)await page.getByRole('button',{name:'Passer au thème '+(theme==='dark'?'sombre':'clair'),exact:true}).click()
+    await page.locator('.help-panel').evaluate(e=>e.scrollIntoView({block:'start'}));await geometry(page,'help-controls-'+size.width+'-'+theme);await shot(page,'help-controls-'+theme+'-'+size.width)
+   }
+  }
+  await assertNoActivity();pass('controls-no-network-or-model-after-hook');report.status='passed';return report
+ }
  if(args.includes('--presentation')){
   report.limits.push('Vue de présentation à contenu fictif ; distincte de la matrice de qualification avec noms longs et états critiques.')
   await viewport(page,{width:1440,height:1000},'presentation')

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "source": "passive-owned-local-failure-cleanup",
+  "status": "passed",
+  "shortPath": "C:\\Users\\UP6006~1\\AppData\\Local\\Temp\\madness-help22-8d9a3e36-5591-4efe-80f9-b670b8bf87c5",
+  "canonicalPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help22-8d9a3e36-5591-4efe-80f9-b670b8bf87c5",
+  "checks": [
+    "canonical-alias-empty-owned-project-passively-reopened",
+    "no-helper-model-network-and-closed",
+    "only-empty-owned-project-archived-real-data-exact"
+  ],
+  "close": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-11-03T19:42:38.668Z",
+      "attached": true,
+      "overflow": false,
+      "network": 0,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 2048,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "archive": {
+    "status": "archived",
+    "archivedConversations": 0,
+    "archivedDrafts": 0,
+    "archivedAnnexes": 0,
+    "archive": "C:\\Users\\UP60066553\\AppData\\Roaming\\Madness\\test-project-archives\\epic-one-0e9d4c3e-8cf2-4dd1-bb33-7045453e4995",
+    "witnessDirectoryPreserved": true
+  }
+}

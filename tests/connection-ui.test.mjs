@@ -65,7 +65,7 @@ after(async () => {
   console.log(JSON.stringify({fixtureClosure:{bootstrap:join(root,'main.cjs'),profile:join(root,'profile'),ownedMainAndDescendantsRemaining:remaining,cleanup:'verified-before-delete'}}))
   await rm(actual,{recursive:true,force:true})
 })
-async function launch(state = {}) {
+async function launch(state = {}, initial = {}) {
   if (app) { await app.close(); app = null }
   const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => ['PATH', 'SYSTEMROOT', 'WINDIR', 'COMSPEC', 'PATHEXT', 'TEMP', 'TMP'].includes(key.toUpperCase())))
   app = await electron.launch({ executablePath: require('electron'), args: [join(root, 'main.cjs')], env: { ...env, APPDATA: join(root, 'appdata'), LOCALAPPDATA: join(root, 'localappdata') }, timeout: 30000 })
@@ -76,10 +76,11 @@ async function launch(state = {}) {
   // Each fixture starts at 100%: Chromium persists per-origin zoom in this shared synthetic profile.
   await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.setZoomFactor(1))
   await page.evaluate((value) => window.connectionUIFixture.setState(value), state)
+  await page.evaluate(initial=>{if(initial.snapshot)window.connectionUIFixture.setSnapshot(initial.snapshot);if(initial.context)window.bmadContextUIFixture.set(initial.context)},initial)
   const css=(await readFile(join(repository, 'src/renderer/src/styles.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/help.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/atelier-immersion.css'), 'utf8'))+'\n'+(await readFile(join(repository, 'src/renderer/src/atelier-controls.css'), 'utf8'))+'\n'+(await readFile(join(repository,'src/renderer/src/initiatives.css'),'utf8'))
   await page.addStyleTag({ content: css.replaceAll("url('./assets/atelier/", "url('"+pathToFileURL(join(repository,'src/renderer/src/assets/atelier')+'/').href) })
   await page.addScriptTag({ content: bundle })
-  await page.getByRole('heading', { name: 'Vos projets, au même endroit', exact: true }).waitFor()
+  await page.getByRole('heading', { name: initial.snapshot?.activeProjectId ? initial.snapshot.projects.find(p=>p.id===initial.snapshot.activeProjectId).name : 'Vos projets, au même endroit', exact: true }).waitFor()
   await page.evaluate(()=>document.fonts.ready)
 }
 async function workspaceRequestFixture({longHistory=false}={}){
@@ -119,6 +120,31 @@ async function initiativeFixture({question=false,long=false}={}){
  assert.ok(isBmadContextState(fixtureState),'Initiative UI fixture must satisfy the shipped contract')
  return {projectId,name}
 }
+
+test('initiatives: restauration et changement de projet restent passifs, observation explicite conservée',async()=>{
+ const ids=['project-a','project-b']
+ const initial={snapshot:{projects:ids.map(id=>({id,name:id,rootPath:'C:/'+id,openedAt:new Date().toISOString()})),activeProjectId:'project-a'},context:{contractVersion:1,sequence:1,projects:ids.map((projectId,index)=>({projectId,status:'idle',observation:null,selection:{schemaVersion:1,projectId,rootPath:'C:/'+projectId,rootIdentity:'root-'+projectId,revision:1,initiativeId:index===0?'alpha':'beta'},storage:'stored',error:null}))}}
+ assert.ok(isBmadContextState(initial.context))
+ await launch({status:'registered',accountStored:true,needsPlanAcknowledgement:false},initial)
+ await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(1440,920))
+ const trigger=page.getByRole('button',{name:'Choisir une initiative',exact:true})
+ await trigger.getByText('alpha',{exact:true}).waitFor()
+ assert.equal(await page.evaluate(()=>window.bmadContextUIFixture.reads()),0)
+ await page.getByRole('button',{name:'Contexte du projet',exact:true}).click()
+ await page.locator('#project-context-panel').getByText('Profil BMad non observé',{exact:true}).waitFor()
+ await page.locator('#project-context-panel').getByRole('button',{name:'Fermer le contexte du projet',exact:true}).click()
+ await page.locator('.sidebar').getByRole('button',{name:'Ouvrir le projet project-b',exact:true}).click();await trigger.getByText('beta',{exact:true}).waitFor()
+ assert.equal(await page.evaluate(()=>window.bmadContextUIFixture.reads()),0)
+ await page.locator('.sidebar').getByRole('button',{name:'Ouvrir le projet project-a',exact:true}).click();await trigger.getByText('alpha',{exact:true}).waitFor()
+ assert.equal(await page.evaluate(()=>window.bmadContextUIFixture.reads()),0)
+ await trigger.click();const modal=page.getByRole('dialog',{name:'Choisir une initiative',exact:true});await modal.waitFor()
+ assert.equal(await page.evaluate(()=>window.bmadContextUIFixture.reads()),1)
+ await modal.getByRole('button',{name:'Actualiser les initiatives',exact:true}).click()
+ assert.equal(await page.evaluate(()=>window.bmadContextUIFixture.reads()),2)
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.helpCalls()),[])
+ assert.deepEqual(await page.evaluate(()=>window.connectionUIFixture.sent()),[])
+ await page.keyboard.press('Escape')
+})
 
 test('initiatives: diagnostics explicites dans le choix et le contexte même sans problems',async()=>{
  await initiativeFixture()

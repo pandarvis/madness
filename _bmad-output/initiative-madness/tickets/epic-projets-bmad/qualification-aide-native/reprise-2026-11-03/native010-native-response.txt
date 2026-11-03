@@ -1,0 +1,21 @@
+J’utilise le skill BMAD natif demandé. Je vais charger son aide et sa configuration capturées, puis lire toutes les sources obligatoires avant de vous proposer la suite — sans modifier aucun fichier.
+
+La configuration confirme une initiative active et un ticket encore au stade de clarification. Je vérifie maintenant les règles exactes du skill et l’aide complète des trois modules installés afin que la recommandation ne saute aucune option pertinente.
+
+Bonjour Sam, je suis l’Agent BMad.
+
+La prochaine étape recommandée est de parler à **Sofia, la Product Owner** (`bmad-agent-po`) pour clarifier le besoin et compléter l’initiative existante.
+
+Pourquoi : l’application locale est encore une intention générale — retrouver des notes — sans utilisateur cible, problème précis ni exigences adoptées. L’epic et son ticket existent, mais ne constituent pas encore une spécification assez claire pour lancer `bmad-build`.
+
+Alternatives pertinentes :
+
+- `bmad-forge-idea` si vous souhaitez d’abord éprouver et préciser l’idée.
+- `bmad-product-brief` si vous voulez formaliser une vision courte et partageable.
+- `bmad-prfaq` si votre question principale est de savoir si l’application mérite d’être construite.
+- `bmad-ux` si vous raisonnez surtout en écrans et parcours utilisateur.
+- `bmad-brainstorming` si vous ne savez pas encore quelle forme devrait prendre la solution.
+
+Je recommande donc Sofia en premier : elle pourra transformer ce qui existe en exigences explicites, relever les lacunes et vous demander de trancher sans présumer de vos choix.
+
+Action humaine attendue : ouvrez un nouveau contexte avec `bmad-agent-po` et demandez-lui « Clarifie le besoin et complète les exigences de l’initiative active », ou demandez-moi explicitement de lancer Sofia ici. Aucun travail n’a été lancé et aucune acceptation n’est supposée.

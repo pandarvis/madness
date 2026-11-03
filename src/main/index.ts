@@ -146,7 +146,7 @@ else {
     })
     helpCoordinator.subscribe(state=>{if(isHelpState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(HELP_EVENT_CHANNEL,state)})
     const contextAdapter=new BmadContextAdapter(helpAdapter)
-    const contextCoordinator=new BmadContextCoordinator({application,store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal)})
+    const contextCoordinator=new BmadContextCoordinator({application,projectIds:async()=>{if(!application)throw Error('APP_CLOSING');const reply=await application.execute({contractVersion:1,correlationId:'bmad-context-restore',type:'read-state'});if(!reply.ok)throw Error(reply.error.code);return reply.value.state.projects.map(project=>project.id)},store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal)})
     application.lifecycle.register({id:'bmad-context',context:emptyContext(),stop:async()=>{await contextCoordinator.shutdown();return 'stopped'}})
     ipcMain.handle(BMAD_CONTEXT_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadContextCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadContextState()}

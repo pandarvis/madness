@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "status": "in-progress-M14-not-qualified",
+  "frozenLfSha256": "69afc7ca9d922429a2f00d0754df703469bffeb8581b7f422c251a4df486ca73",
+  "baselineRevision": "a93f50a0b0e8a5d1b094ddca77ec5d57ee3b6e18",
+  "resumeHead": "68aba81cc09e103be73f2942c036a3911f87a604",
+  "noNewHumanNetworkAction": true,
+  "native008": "failed-before-helper-or-provider-canonical-path-comparison",
+  "native009": "failed-before-provider-BUSY-auto-context-observation",
+  "installedVersionUnchanged": "0.2.6",
+  "next": "Fix passive context restoration, rebuild/audit final candidate, run native M14 with exact guarded local-failure reuse"
+}

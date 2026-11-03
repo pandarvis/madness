@@ -1,3 +1,5 @@
+> Mise à jour du3novembre2026 : **2.2 built, M14 passée sur candidat010 /0.2.7**. [Rapport actuel](reprise-2026-11-03/parent-verification.md), [vérification structurée](reprise-2026-11-03/verification-current.json). Les paragraphes ci-dessous restent les preuves historiques du2novembre ; leurs états ouverts ne sont plus le statut courant. Aucun succès rétroactif005 déduit.
+
 # Story 2.2 — vérification parent
 
 État courant au3novembre2026 : **2.2 in-review**, refonte finale0.2.6 réunie dans `5e4777b`, qualification locale réussie, M14 réel encore ouvert derrière307Zscaler. Voir [la reprise documentée](integration-atelier-026/parent-verification.md). Aucun nouveau modèle ni demande humaine en attente. Les paragraphes ci-dessous décrivent le candidat005 historique et ses revues ; ils ne transfèrent pas leurs preuves à0.2.6 et ne rendent pas la refonte inachevée.

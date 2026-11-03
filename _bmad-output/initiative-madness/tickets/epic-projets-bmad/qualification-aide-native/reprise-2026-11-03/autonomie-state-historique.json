@@ -1,0 +1,121 @@
+{
+  "task": "finish-story-2.2",
+  "story": "2.2",
+  "stage": "bmad-build-step3-implementation",
+  "worktree": "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness",
+  "branch": "codex/bmad-help-2-2",
+  "baseline": "a93f50a0b0e8a5d1b094ddca77ec5d57ee3b6e18",
+  "implementer": "/root/help22_implement",
+  "plan": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/tickets/story-obtenir-une-prochaine-action-avec-laide-bmad-du-projet-plan.md",
+  "frozenPlanSha256": "69afc7ca9d922429a2f00d0754df703469bffeb8581b7f422c251a4df486ca73",
+  "ux217": "built-a93f50a",
+  "redesignChat": "Clarifier les agents nommés BMad",
+  "redesignIntegration": "afterwards",
+  "personalProviderUsed": false,
+  "nativeQualification": "pending",
+  "review": {
+    "quick": "resolved Q1/Q2/Q3",
+    "high": "resolved H1/H2, no new findings",
+    "legacy": "explicit current735 qualified; PEMguard beforeUV; 2runtime+4MaryForge passed"
+  },
+  "commit": "pending",
+  "updatedAt": "2026-11-02T13:44:00.415Z",
+  "network": {
+    "humanConfirmed": true,
+    "mainStatus": 200,
+    "noPendingUserAction": true
+  },
+  "implementation": {
+    "initialFullTests": "369 total, 362 pass, 7 fail; corrections in progress",
+    "recoveryTargeted": "51 pass",
+    "boundaries": "21 observations, 1 test pass, no skips",
+    "supervision": "real Job test pass root0/timeout/overflow/start failure",
+    "helperStable": "prepare/fresh/mutation pass, 253575 ms under full suite",
+    "performance": "local capture/fresh optimizing, complete benchmark pending"
+  },
+  "visual": {
+    "roundsInspected": 1,
+    "capturesInspected": 1,
+    "source": ".working/help22-visual-round1-attempt3/help-loaded-1440-dark.png",
+    "scope": "synthetic-only preliminary ASAR4201f06",
+    "limits": "two initial attempts no capture due outdated selector, third one capture then controller theme call incorrect; controller fixed to actual UI theme button",
+    "detectorRuns": 0,
+    "remainingGroupedRounds": 1
+  },
+  "parentControllers": [
+    "C:/Sources/madness/_bmad-output/initiative-madness/.working/help22-personal-controller.mjs",
+    "C:/Sources/madness/_bmad-output/initiative-madness/.working/help22-network-controller.mjs",
+    "C:/Sources/madness/_bmad-output/initiative-madness/.working/help22-visual-controller.mjs"
+  ],
+  "witness": ".working/help22-native-witness-001.json",
+  "preliminaryCandidate": "dist/help22-network-preflight-001/win-unpacked/Madness.exe",
+  "currentImplementation": "worker owns code; extended Windows paths and grouped context implemented, longpath native recheck then complete local benchmark still running; no final candidate or native model yet",
+  "activeStory": "2.2",
+  "activeWorktree": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness",
+  "backend735Qualified": true,
+  "uiParentF1F2F3Applied": true,
+  "native003": {
+    "status": "passed",
+    "checks": 6,
+    "asar": "81591937f9868bc6f5f00cbf132c9ab1326eb16d075d512a2a86ff1e1c56fc22",
+    "path": ".working/help22-native-final-001",
+    "closed": true,
+    "witnessArchived": true
+  },
+  "pending": [
+    "worker M2 structurally invalid TOML red/green + pins",
+    "worker synthetic Impeccable finish captures003",
+    "same finish reviewer verdict + documenter",
+    "final full suite/build/package/native corresponding final artifact",
+    "matrix diff audit + Quick and high independent review",
+    "proofs/status/local commit; no2.3"
+  ],
+  "sourceFrozenAfterReviews": true,
+  "artifactFinal": {
+    "directory": "dist/bmad-help-final-005",
+    "asar": "2583aebcffd14d7193e2bf0fdd8b7824f8b9396bb51eaac1ea2a0807a0e9d90a",
+    "resources": 13,
+    "presentationUnchanged": true
+  },
+  "pendingSessions": {
+    "native005": 30125
+  },
+  "next": [
+    "Finish native004 actual new question snapshot/restoration and cleanup",
+    "Full current frozen suite, no source edits planned",
+    "Final proofs/matrix, built/board/AGENTS and local commit; no2.3"
+  ],
+  "initialGlobalDiagnostic": {
+    "tests": 387,
+    "pass": 371,
+    "fail": 16,
+    "reason": "14oldlegacyruntime pin, 2obsoleteUIlabels",
+    "final": false
+  },
+  "native004": {
+    "status": "local-timeout-before-model",
+    "job0": true,
+    "snapshots": 85,
+    "witnessRetained": true
+  },
+  "budgets": {
+    "localUsefulMs": 120000,
+    "totalMs": 240000,
+    "reviewed": true,
+    "diagnostic120Conclusive": false
+  },
+  "uiPreparation": {
+    "handoff": "C:/Sources/madness/_bmad-output/initiative-madness/ux-madness/atelier-agents-2026-11-02/handoff.json",
+    "sallyReport": ".working/atelier-integration-preparation.md",
+    "assetsInProgress": "atelier_character_assets",
+    "implementationStarted": false
+  },
+  "verificationStrategy": {
+    "kind": "consolidated",
+    "uiCases": 39,
+    "unchangedPassed": 37,
+    "fixedLocatorsPassed": 2,
+    "backendAfterFreezePending": true,
+    "noSingleGlobalGreenClaim": true
+  }
+}

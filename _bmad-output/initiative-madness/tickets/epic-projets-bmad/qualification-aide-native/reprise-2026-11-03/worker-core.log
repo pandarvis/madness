@@ -1,0 +1,28 @@
+✔ Mary indépendante capture alpha sans dépendre des documents {"missingDocument":true} (29.1184ms)
+✔ Mary indépendante capture alpha sans dépendre des documents {"unrelatedRefusal":true} (6.442ms)
+✔ open refuse la garde puis échoue au nettoyage : arrêt inconnu sans session retournée (2.9838ms)
+✔ un effet possédé commencé garde EFFECT_UNKNOWN malgré le refus de contexte (4.4209ms)
+✔ source mutation before open rejects without provider ownership or first turn (1.7563ms)
+✔ mutation inside open stops actual owner before conversation or turn; unknown remains unknown (2.4927ms)
+✔ mutation after conversation persistence refuses first turn without rewriting capture (1.6351ms)
+✔ question alpha survives consultation beta; its own changed sources refuse submission (12.5322ms)
+✔ outil indépendant ne périme pas sa capture quand ses sorties changent (152.1093ms)
+✔ root replacement preserves old selection and refuses initiative action until a fresh explicit choice (2.5849ms)
+✔ invalid active identities never become a represented context or a guessed slug (2.6178ms)
+✔ selection annex rejects a real hardlink without altering its external witness (79.753ms)
+✔ consultation and captured-context guards serialize their read-only helper work (12.2217ms)
+✔ an admitted internal helper waits for context consultation and then reacquires ownership checks (31.171ms)
+✔ commands refuse arbitrary paths and public admission flags (0.4293ms)
+✔ atomic annex restores two independent choices and preserves future/corrupt bytes (265.2302ms)
+✔ consultation beta never reassigns captured alpha; fresh sources still guard alpha (2.3544ms)
+✔ failed preservation retains session choice; save retry performs no observation (1.1519ms)
+✔ superseded asynchronous choice never overwrites latest choice (3.0634ms)
+✔ passive read restores only known local choices without observing project data (329.0882ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1305.6205

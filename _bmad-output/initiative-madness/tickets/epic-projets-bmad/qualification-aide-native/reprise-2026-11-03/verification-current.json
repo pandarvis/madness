@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "status": "built",
+  "story": "2.2",
+  "invocation": "8008c73bb807d364d02b",
+  "baselineRevision": "a93f50a0b0e8a5d1b094ddca77ec5d57ee3b6e18",
+  "frozenLfSha256": "69afc7ca9d922429a2f00d0754df703469bffeb8581b7f422c251a4df486ca73",
+  "candidate": {
+    "directory": "dist/bmad-help-m14-reviewed-010",
+    "version": "0.2.7",
+    "asarSha256": "27deaa3cbfcf25437f1dae78167744ea07a95c63cb576cc9fa0b33b94769a147",
+    "installed": false,
+    "installedVersionRemains": "0.2.6"
+  },
+  "currentChecks": {
+    "coreDialogue": {
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0,
+      "log": "worker-core.log"
+    },
+    "protocolCompatibilityAndWindows": {
+      "passed": 70,
+      "failed": 0,
+      "skipped": 0,
+      "log": "protocol-regressions.log",
+      "isolatedWindowsOperationsIncluded": 13
+    },
+    "newUiRegression": {
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "log": "worker-ui.log"
+    },
+    "otherUiInitiatives": {
+      "passed": 10,
+      "source": "worker actual tool run5455; no reconstructed log"
+    },
+    "typecheckBuildNsis": "passed",
+    "package": {
+      "inputs": 190,
+      "outputs": 19,
+      "helperResources": 13,
+      "artifacts": 3,
+      "audit": "package-audit.json"
+    }
+  },
+  "native": {
+    "status": "passed",
+    "matrixRow": "M14",
+    "report": "native010-report.json",
+    "checks": 8,
+    "tools": 7,
+    "responseCharacters": 1833,
+    "responseSha256": "5fae8b7d808eac1c65328f3b17bd5d1269712f02486fd71cad05e8887467ad32",
+    "helperGenerations": 25,
+    "allJobsStopped": true,
+    "codexClosed": true,
+    "bothControlTracesComplete": true,
+    "passiveReopenNoHelperCodexNetwork": true,
+    "witnessArchived": true,
+    "realProjectsRemaining": [
+      "MIA",
+      "madness"
+    ],
+    "newHumanNetworkAction": false,
+    "getMain200At": "2026-11-03T19:39:55.891Z"
+  },
+  "reviews": {
+    "quick": {
+      "agent": "/root/help22_resume_quick",
+      "result": [],
+      "scope": "full original-baseline diff including current resume"
+    },
+    "high": {
+      "agent": "/root/help22_m14_audit",
+      "result": "M14 favorable; no blocking finding",
+      "originalFailureNotClaimedFixed": true
+    },
+    "deferredCodeFixes": 0
+  },
+  "historicalVerification": "verification-prior-005.json",
+  "limits": [
+    "Personal local Windows/Codex/SIWC reference profile only.",
+    "Native005 UNSUPPORTED_INTERACTION remains historical, exact cause unknown and not claimed repaired; native010 succeeds with complete trace.",
+    "390 historical cases are not a new monolithic run or a global current UI acceptance.",
+    "No new Impeccable visual run: DOM/CSS/assets unchanged; behavior regression tested.",
+    "Packaged candidate is tested with normal personal profile; installed0.2.6 was not replaced.",
+    "No claim of universal proxy autonomy, new OAuth consent, WCAG, Graphify, further epic or whole V1 completion."
+  ]
+}

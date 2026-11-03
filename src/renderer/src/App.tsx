@@ -92,9 +92,9 @@ function WorkflowResult({workflow,onCopy}:{workflow:WorkflowRecord;onCopy:(conve
 
 export function App({ initialAppearance = window.madnessAppearance.initial, appearanceReadFailed = false }: { initialAppearance?: AppearanceState; appearanceReadFailed?: boolean } = {}): ReactNode {
   const [helpState,acceptHelp]=useBmadHelp()
-  const [bmadContext,acceptBmadContext]=useBmadContext()
   const [initiativeConflict,setInitiativeConflict]=useState(false)
   const [state, setState] = useState<AppState | null>(null)
+  const [bmadContext,acceptBmadContext]=useBmadContext(state?.activeProjectId??undefined)
   const [page, setPage] = useState<'home' | 'project'>('home')
   const navigationToken=useRef(0)
   const pendingLaunch=useRef<{token:number;projectId:string;previousConversationId:string|null;sequence:number}|null>(null)
@@ -142,7 +142,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const initiativeContext=bmadContext.projects.find(p=>p.projectId===project?.id)
   const currentProjectId=useRef<string|undefined>(undefined),dialogueSequence=useRef(-1)
   currentProjectId.current=page==='project'?project?.id:undefined
-  useEffect(()=>{if(project&&window.madnessBmadContext)void window.madnessBmadContext.observe(project.id).then(acceptBmadContext).catch(()=>{});setInitiativeConflict(false)},[project?.id])
+  useEffect(()=>{setInitiativeConflict(false)},[project?.id])
   const saved = state?.drafts.find((d) => d.projectId === project?.id)
   const text = project ? texts[project.id] ?? saved?.text ?? '' : ''
   const dirty = text !== (saved?.text ?? '')

@@ -1,95 +1,55 @@
 {
   "schemaVersion": 1,
-  "status": "in-review",
-  "backend": {
-    "tests": 351,
-    "pass": 351,
-    "fail": 0,
-    "cancelled": 0,
-    "skipped": 0,
-    "logSha256": "47d8dbc884c459e83946d8dae489041e3cd3a978ff273dd1e75be42d5c73093f",
-    "files": [
-      "tests/appearance.test.mjs",
-      "tests/approvals-protocol.test.mjs",
-      "tests/approvals.test.mjs",
-      "tests/bmad-help-boundaries.test.mjs",
-      "tests/bmad-help-legacy.test.mjs",
-      "tests/bmad-help-partial-docs.test.mjs",
-      "tests/bmad-help-persistence-race.test.mjs",
-      "tests/bmad-help-protocol.test.mjs",
-      "tests/bmad-help-supervision.test.mjs",
-      "tests/bmad-help.test.mjs",
-      "tests/connection-oauth.test.mjs",
-      "tests/connection-probe.test.mjs",
-      "tests/connection-vault.test.mjs",
-      "tests/connection.test.mjs",
-      "tests/dialogue-profile.test.mjs",
-      "tests/dialogue-protocol.test.mjs",
-      "tests/dialogue-runtime.test.mjs",
-      "tests/dialogue.test.mjs",
-      "tests/epic-one-qualification.test.mjs",
-      "tests/forge-protocol.test.mjs",
-      "tests/forge.test.mjs",
-      "tests/foundation.test.mjs",
-      "tests/json-store-utf8.test.mjs",
-      "tests/lifecycle.test.mjs",
-      "tests/maintenance.test.mjs",
-      "tests/questions-protocol.test.mjs",
-      "tests/questions.test.mjs",
-      "tests/recovery-network.test.mjs",
-      "tests/recovery.test.mjs",
-      "tests/release.test.mjs",
-      "tests/windows-harness.test.mjs",
-      "tests/work-overview.test.mjs",
-      "tests/workflow-store.test.mjs",
-      "tests/workspace-design-qualification.test.mjs",
-      "scripts/qualification/codex.test.mjs"
-    ]
-  },
-  "ui": {
-    "registered": 39,
-    "unchangedPreviouslyPassed": 37,
-    "correctedLocatorsPassed": 2,
-    "skipped": 0,
-    "evidence": [
-      "global-diagnostic-initial.log",
-      "recovery-ui-locators.log"
-    ]
-  },
-  "coverage": {
-    "uniqueCases": 390,
-    "method": "consolidated, not one green monolithic command",
-    "reviewedBy": [
-      "Build Quick reviewer",
-      "independent high reviewer"
-    ]
-  },
+  "status": "built",
+  "currentVerification": "reprise-2026-11-03/verification-current.json",
   "candidate": {
-    "id": "005",
-    "version": "0.2.0",
-    "asarSha256": "2583aebcffd14d7193e2bf0fdd8b7824f8b9396bb51eaac1ea2a0807a0e9d90a"
+    "directory": "dist/bmad-help-m14-reviewed-010",
+    "version": "0.2.7",
+    "asarSha256": "27deaa3cbfcf25437f1dae78167744ea07a95c63cb576cc9fa0b33b94769a147",
+    "installed": false,
+    "installedVersionRemains": "0.2.6"
   },
   "native": {
-    "status": "failed-unsupported-interaction",
-    "localReadPassed": true,
-    "lastFailure": "UNSUPPORTED_INTERACTION after knowledge/config/required-context and five source reads",
-    "closedReceiptPassed": false,
-    "archived": false,
-    "publicGetStatus": 200,
-    "measuredAt": "2026-11-02T14:04:44.515Z",
-    "humanAcknowledgementPending": false
+    "status": "passed",
+    "matrixRow": "M14",
+    "report": "native010-report.json",
+    "checks": 8,
+    "tools": 7,
+    "responseCharacters": 1833,
+    "responseSha256": "5fae8b7d808eac1c65328f3b17bd5d1269712f02486fd71cad05e8887467ad32",
+    "helperGenerations": 25,
+    "allJobsStopped": true,
+    "codexClosed": true,
+    "bothControlTracesComplete": true,
+    "passiveReopenNoHelperCodexNetwork": true,
+    "witnessArchived": true,
+    "realProjectsRemaining": [
+      "MIA",
+      "madness"
+    ],
+    "newHumanNetworkAction": false,
+    "getMain200At": "2026-11-03T19:39:55.891Z"
   },
   "review": {
-    "findings": 5,
-    "roots": 4,
-    "allRecheckedResolved": true,
-    "deferredCodeFixes": 0,
-    "newNativeFailureOpen": true
+    "quick": {
+      "agent": "/root/help22_resume_quick",
+      "result": [],
+      "scope": "full original-baseline diff including current resume"
+    },
+    "high": {
+      "agent": "/root/help22_m14_audit",
+      "result": "M14 favorable; no blocking finding",
+      "originalFailureNotClaimedFixed": true
+    },
+    "deferredCodeFixes": 0
   },
+  "historicalCheckpoint": "reprise-2026-11-03/verification-prior-005.json",
   "limits": [
-    "The initial 371/387 run remains red.",
-    "Historical native003 success is not native005 proof.",
-    "Last child exited code0 and Madness/workspace were subsequently absent, but failed closure receipt is not promoted to passed.",
-    "No UI implementation, story2.3, profile cleanup, installation or provider replay by this checkpoint."
+    "Personal local Windows/Codex/SIWC reference profile only.",
+    "Native005 UNSUPPORTED_INTERACTION remains historical, exact cause unknown and not claimed repaired; native010 succeeds with complete trace.",
+    "390 historical cases are not a new monolithic run or a global current UI acceptance.",
+    "No new Impeccable visual run: DOM/CSS/assets unchanged; behavior regression tested.",
+    "Packaged candidate is tested with normal personal profile; installed0.2.6 was not replaced.",
+    "No claim of universal proxy autonomy, new OAuth consent, WCAG, Graphify, further epic or whole V1 completion."
   ]
 }

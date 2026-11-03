@@ -5,11 +5,12 @@ import type {BmadContextState,BmadContextProject} from '../../contracts/bmad-con
 const contextDiagnostics={absent:'Installation BMad non repérée','legacy-observed':'Traces d’une ancienne installation BMad',unknown:'Profil BMad non identifié',incompatible:'Lecture du profil BMad refusée',partial:'Observation BMad partielle','candidate-observed':'Profil BMad candidat observé'} as const
 const SelectorIcon=({close=false}:{close?:boolean}):ReactNode=><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d={close?'M6 6 18 18M18 6 6 18':'m5 9 7 7 7-7'}/></svg>
 
-export function useBmadContext():[BmadContextState,(s:BmadContextState)=>void]{
+export function useBmadContext(projectId?:string):[BmadContextState,(s:BmadContextState)=>void]{
  const [state,setState]=useState(initialBmadContextState)
  const sequence=useRef(-1)
  const accept=(next:BmadContextState):void=>{if(next.sequence>=sequence.current){sequence.current=next.sequence;setState(next)}}
- useEffect(()=>{const bridge=window.madnessBmadContext;if(!bridge)return;const off=bridge.onChanged(accept);void bridge.read().then(accept).catch(()=>{});return off},[])
+ useEffect(()=>{const bridge=window.madnessBmadContext;if(!bridge)return;return bridge.onChanged(accept)},[])
+ useEffect(()=>{const bridge=window.madnessBmadContext;if(bridge)void bridge.read().then(accept).catch(()=>{})},[projectId])
  return [state,accept]
 }
 export function InitiativeContext({project,includeRevision=true}:{project:BmadContextProject|undefined;includeRevision?:boolean}):ReactNode{

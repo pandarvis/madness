@@ -3,7 +3,7 @@ title: 'Obtenir une prochaine action avec l’aide BMad du projet'
 type: 'feature'
 ticket: '2'
 created: '2026-11-02'
-status: 'in-review'
+status: built
 baseline_revision: 'a93f50a0b0e8a5d1b094ddca77ec5d57ee3b6e18'
 route: 'full'
 route_source: 'auto'
@@ -83,7 +83,7 @@ context:
 - [x] `src/main/index.ts`, `src/preload/index.ts`, `src/renderer/src/env.d.ts`, `src/renderer/src/HelpPanel.tsx`, `src/renderer/src/help.css`, `src/renderer/src/App.tsx` — Que faire ensuite local, aides/source/couverture lisibles, invocationcopiable, Demander à BMad explicite puis Conversation, réponse et reçus consultables ; conformité aux contratsSally sans nouvelle refonte. Aucun bouton catalogue/initiative/éditeur fictivement disponible.
 - [x] `package.json`, `package-lock.json` — version candidate0.2.0 seulement, aucune montée de dépendance ; qualifier le paquet correspondant.
 - [x] `tests/bmad-help*.test.mjs` et tests existants touchés — faire échouer puis réussir les comportements de M1–M13, cas de frontières Windows réellement exercés, vrai helper local/ressources compilées, faux RPC bien identifié ; couvrir compatibilité, concurrence, disque, lifecycle, inconnues et restauration, sans tests miroir du rendu.
-- [ ] `scripts/qualification/bmad-help.mjs`, `qualification-aide-native/` sous cet epic — banc permanent explicite synthétique/compilé/paquet et scénario natif possédé, reçus/source/arrêt/réouverture/nettoyage. Worker exécute seulement variantes synthétiques SANS compte/modèle/réseau ; parent seul lance toute qualification personnelle et vérification finale. Prévoir trace expurgée et comparaison de provenance réelle, pas d’assertion fondée sur une phrase modèle fixe.
+- [x] `scripts/qualification/bmad-help.mjs`, `qualification-aide-native/` sous cet epic — banc permanent explicite synthétique/compilé/paquet et scénario natif possédé, reçus/source/arrêt/réouverture/nettoyage. Worker exécute seulement variantes synthétiques SANS compte/modèle/réseau ; parent seul lance toute qualification personnelle et vérification finale. Prévoir trace expurgée et comparaison de provenance réelle, pas d’assertion fondée sur une phrase modèle fixe.
 
 **Acceptance Criteria:**
 - Given un projet de référence, when le porteur consulte Que faire ensuite, then il voit le diagnostic utile et les aides réellement chargées avec provenance, sans accès au forfait ni transmission de son brouillon.
@@ -153,3 +153,35 @@ Typechecks/compilation,13tests protocole/persistance et7contrôles UI ciblés r�
 GET strict Main0.2.6 reçoit307Zscaler le3novembre13:50:33UTC, puis GET.NET système aussi307 à14:07:34UTC ; zéro modèle/OAuth, aucune modification de transport/configuration. Les anciens acquittements restent acquis ; aucune demande humaine répétée. M14 demeure ouvert : reprise fournisseur seulement après GETMain200, avec observer corrigé, nouveau témoin puis réponse/alternatives natives, fermeture/réouverture passive et archivage possédé. Les anciennes preuves005 restent historiques et ne valent pas succès0.2.6.
 
 Relecture Quick fraîche du checkpoint d'intégration par `/root/help22_integration_quick` : retour final `[]`, aucun nouveau constat à trier ni correctif différé. Diff unifié de la baseline originale, plan/contextes et instructions relus par inspection. Voir integration-atelier-026/quick-review.md. Ce retour ne clôt pas M14 et ne change pas le statut in-review.
+
+
+## Reprise M14 autorisée — 3 novembre 2026, intégration courante
+
+Le porteur demande explicitement « vas y valide la2.2 ». L'invocation8008c73bb807d364d02b, la baseline a93f50a0b0e8a5d1b094ddca77ec5d57ee3b6e18 et le bloc figé sont conservés. Le HEAD intégré68aba81 contient la2.3 built et l'UI atelier ; leur présence est conservée, sans réouverture de leur Build ni reset. Parent possède preuve native/statut/commit ; worker possède uniquement le correctif d'intégration ci-dessous et ses tests. Il n'est pas seul et préserve les fichiers d'autrui.
+
+GET Main du candidat0.2.7 ASARfa8feb16b2cef5de623047dca390c595447530688c48d05d29d40977f89bfd19 réussi200 le3novembre19:39:55UTC, sans clic humain nouveau. Les refus historiques restent conservés. Essai008 échoue dans le banc avant helper/fournisseur : os.tmpdir donne le chemin court8.3, comparé lexicalement au chemin canonique produit ; témoin vide rouvert passivement/fermé/archivé, trois contrôles réussis. Banc privé corrige root par realpath, preuves de Job terminal pour chaque nouvelle génération et controlTrace.complete. Aucun patch produit motivé par008.
+
+Essai009 : préparation aide refusée BUSY avant fournisseur. App.tsx:145 appelle automatiquement madnessBmadContext.observe(project.id) par useEffect au premier chargement et changement de projet. Cette découverte native peut prendre l'admission pendant sa préphase avant spawn. Surtout, la même voie est déclenchée à la réouverture du projet : incompatible avec M13 (aucun helper au restore). Ne pas seulement ajouter un délai au banc et masquer cette activité.
+
+**Correctif ciblé à implémenter maintenant, le reste des tâches étant acquis :** restaurer passivement les sélections locales d'initiative à la lecture initiale/au changement de projet, sans observation native implicite ni aide/compte/modèle/réseau. Conserver l'observation explicite dans le sélecteur (« Choisir une initiative », actualiser), la garde fraîche au lancement/aux outils, l'initiative active différente de la sélection, tous refus BUSY/STOP_UNCONFIRMED et les protections2.3. Le read typé existant peut charger les seules annexes locales des projets connus via une dépendance privée injectée par Main ; ne créer aucune nouvelle commande publique de lancement/chemin arbitraire. L'affichage restauré ne prétend pas disposer d'une nouvelle observation. Les variantes absence/corruption restent conservatrices. Réutiliser les contrats existants et l'UI adoptée ; aucune refonte, nouvelle fonctionnalité ou modification d'auth/proxy.
+
+**Ownership worker et vérification :** correction minimale App.tsx / useBmadContext / BmadContextCoordinator / composition Main et seuls tests ciblés nécessaires. Prouver rouge→vert : restauration initiale et changement de projet gardent le choix local mais déclenchent zéro observe/helper ; l'action explicite du sélecteur déclenche encore la lecture et les gardes de lancement sont intactes. Tests cœur et UI pertinents, types ; aucun compte/modèle/réseau/profil personnel, aucun Build récursif ou commit. Conserver toutes les modifications UI/2.3 et les anciennes preuves, aucune réécriture des attentes pour accepter une lecture implicite. Parent reconstruit/audite le nouveau paquet, reprend M14 sur témoin possédé, fait relire Quick+high les seules nouvelles corrections et preuves, puis ferme/rouvre passivement et archive après contrôles. Aucun built avant M14 réellement réussi.
+
+
+Correctif de restauration passive terminé : quatre sources, dépendance privée projectIds injectée par Main et read typé existant ; aucune nouvelle commande publique. Deux régressions rouge→vert (résultats outils initiaux a5644c et db1cc7, non recréés comme journaux). Confirmation fraîche cœur20/20, UI nouveau1/1 sans skip, types ; dix autres cas initiatives passés séparément selon reçu worker, sans journal reconstitué. Logs .working/help22-passive-worker-{core,types,ui}.log. Aucune apparence/palette/commande de lancement/guard natif modifiée. Le banc personnel devient permanent et explicitement opt-in dans scripts/qualification/bmad-help-{personal,observation,network}.mjs : témoin canonique marqué, choix d'initiative explicite existant, trace bornée, arrêt de chaque génération helper/Job0 séparé de Codex, réouverture passive exacte, archivage des seules annexes help/contexte du témoin. Import personnel observé sans processus/réseau/lecture synchrone de profil ; portée instrumentée explicitée. Nouveau paquet de même version0.2.7 en construction sous dist/bmad-help-m14-reviewed-010 ; aucune installation personnelle ni réussite native nouvelle annoncée à ce stade. Revues fraîches Quick et high sur la reprise, anciens constats/reçus conservés ; aucune bascule au Step5 avant M14.
+
+
+## Clôture M14 — 3 novembre 2026
+
+Candidat010/0.2.7 ASAR27deaa3cbfcf25437f1dae78167744ea07a95c63cb576cc9fa0b33b94769a147 : M14 réel8groupes verts,7reçus, réponse native avec raisons/cinq alternatives/action humaine attendue ;25générations helper completed/Job0, Codex fermécode0, deux traces complètes. Réouverture exacte sans helper/modèle/réseau puis seul témoin archivé (projet/conversation/brouillon/annexes aide+contexte). MIA/madness et compte lisible conservés. GETMain200 sans nouveau clic humain. Le paquet n'est pas installé,0.2.6 demeure en place.
+
+Correction M13 de restauration passive relue Quick `[]` et high favorable ;20cœur/dialogue,70protocoles/compatibilité etUI1 nouveau sans skip, types/build/NSIS et audit190inputs/19sorties/13ressources passent. Dix autres UI verts observés par worker séparément, sans journal recréé. Régression rouge réelle conservée dans résultats d'outil ; aucun ancien succès ou premier rouge réécrit. Aucun correctif différé, aucune revue visuelle globale réinventée. Le refus005 reste historique : cause exacte inconnue, non reproduit ; pas de réparation causale prétendue. Preuves complètes : ../qualification-aide-native/reprise-2026-11-03/parent-verification.md et verification-current.json. Statut built autorisé sous mandat humain ; pas de push ni de nouvelle story lancée.
+
+### Triage de reprise (diagnostic puis recontrôle)
+
+| ID | Verdict / route | Preuve et résultat |
+|---|---|---|
+| R-M13 | high / patch ciblé | App.tsx observe automatiquement au restore ; capture helper avant spawn et refus BUSY009. Read passif et annexes connues, rouge→vert cœur/UI ; Quick et high recontrôlent résolu, M14 confirme zéro nouvelle génération au restore. |
+| B-8.3 | medium / patch de banc | os.tmpdir court ne correspondait pas lexicalement à la racine canonique. Root realpath avant sélection, témoin008 passivement nettoyé, succès010 ; aucun produit assoupli. |
+| B-HELPER | medium / patch de banc | Arrêt Codex ne prouvait pas les descendants helper.25terminaux/Job0 de chaque génération et owner stopped avant/après close, contrôlés en010 et par high ; résolu. |
+| B-TRACE | medium / patch de banc | Trace complète non exigée au dernier verdict. Complétude explicitement bloquante aux deux fermetures010 ; aucune limite/restoreConflict, résolu. |

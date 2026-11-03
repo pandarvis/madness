@@ -133,3 +133,28 @@ test('superseded asynchronous choice never overwrites latest choice',async()=>{
  await c.execute(cmd('choose',{projectId:'project-a',initiativeId:'beta',revision:'a'.repeat(64)}))
  release();await old;assert.equal(c.read().projects[0].selection.initiativeId,'beta')
 })
+
+
+test('passive read restores only known local choices without observing project data',async()=>{
+ const {BmadContextCoordinator}=await import('../src/core/bmad-context.ts')
+ const {BmadContextStore}=await import('../src/adapters/persistence/bmad-context-store.ts')
+ const folder=await mkdtemp(join(tmpdir(),'madness-context-passive-'))
+ try{
+  const store=new BmadContextStore(folder),known=['project-a','project-b','project-empty','project-corrupt']
+  const selection=(projectId,initiativeId)=>({schemaVersion:1,projectId,rootPath:'C:/'+projectId,rootIdentity:'root-'+projectId,revision:1,initiativeId})
+  await store.write(selection('project-a','alpha'));await store.write(selection('project-b','beta'));await store.write(selection('foreign-project','foreign'))
+  const corrupt='{"schemaVersion":99}\n';await writeFile(join(folder,'project-corrupt.json'),corrupt)
+  let observations=0;const refuse=async()=>{observations++;throw Error('No implicit native observation')}
+  const c=new BmadContextCoordinator({application:{dialogueProject:async id=>({id,rootPath:'C:/'+id})},projectIds:async()=>[...known],store,observe:refuse,observeConfiguration:refuse})
+  const restored=await c.execute(cmd('read'))
+  assert.deepEqual(restored.projects.map(p=>[p.projectId,p.selection?.initiativeId??null,p.status,p.observation,p.storage]),[
+   ['project-a','alpha','idle',null,'stored'],['project-b','beta','idle',null,'stored'],['project-empty',null,'idle',null,'unset'],['project-corrupt',null,'idle',null,'unreadable']
+  ])
+  assert.equal(observations,0);assert.equal(await readFile(join(folder,'project-corrupt.json'),'utf8'),corrupt)
+  await store.write(selection('project-new','gamma'));known.push('project-new')
+  const changed=await c.execute(cmd('read'))
+  assert.equal(changed.projects.find(p=>p.projectId==='project-new').selection.initiativeId,'gamma')
+  assert.equal(changed.projects.some(p=>p.projectId==='foreign-project'),false);assert.equal(observations,0)
+  await c.shutdown()
+ }finally{await rm(folder,{recursive:true,force:true})}
+})

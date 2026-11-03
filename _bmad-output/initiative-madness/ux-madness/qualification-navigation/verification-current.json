@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "version": "0.2.4",
+  "scope": "navigation et pictogrammes",
+  "asar": "bee1b59913f9fdfd3d0ddb55bb540ef72c3f5a6cb445a0c9b52fbf9eb21e7d37",
+  "checks": {
+    "nativeNavigation": 11,
+    "nativeStressBeforeThinSteering": 15,
+    "packagedNavigation": 11,
+    "packagedMatrix": 15,
+    "toolbarUi": 1,
+    "candidate": 9,
+    "personal": 9,
+    "criticalEntriesIdentical": 838,
+    "sourceInputsIdentical": 174
+  },
+  "review": "ship scoped navigation/icons",
+  "humanValidation": "not yet received for0.2.4;0.2.3 typography/cast approval preserved",
+  "limits": [
+    "Aucun global51/51 ou WCAG global déduit.",
+    "Viewport utilisateur CSS inconnu ; captures1320x900 approximant la fenêtre1344x872.",
+    "Contrôles renderer et Main ; pas de clic physique des nouvelles commandes produit dans ce lot.",
+    "Fenêtre personnelle fermée par le porteur avant installation ; aucune fermeture forcée.",
+    "Version applicative0.2.4, aucune story2.4 ou nouveau Build BMad."
+  ]
+}

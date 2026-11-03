@@ -58,9 +58,9 @@ try {
   const stylesheet = await page.evaluate(() => [...document.styleSheets].some(sheet => { try { return [...sheet.cssRules].some(rule => rule.cssText.includes('message-author') && rule.cssText.includes('sticky')) } catch { return false } }))
   assert.ok(stylesheet, 'ATELIER_STYLE_NOT_LOADED'); report.checks.push('atelier-finish-loaded')
   if(process.argv.includes('--controls')){
-    const controls=await page.evaluate(()=>({drag:getComputedStyle(document.querySelector('.topbar')).getPropertyValue('app-region'),paragraphSize:parseFloat(getComputedStyle(document.querySelector('p:not([class])')??document.querySelector('p')).fontSize),projectNumbers:[...document.querySelectorAll('.project-glyph,.project-avatar')].map(e=>e.textContent.trim())}))
-    assert.equal(controls.drag,'no-drag');assert.ok(controls.paragraphSize>=16);assert.ok(controls.projectNumbers.every(value=>value===''))
-    report.controls=controls;report.checks.push('controls-skin-readable-type-no-numbered-projects-and-drag-separated')
+    const controls=await page.evaluate(()=>({drag:getComputedStyle(document.querySelector('.topbar')).getPropertyValue('app-region'),paragraphSize:parseFloat(getComputedStyle(document.querySelector('p:not([class])')??document.querySelector('p')).fontSize),projectMarks:[...document.querySelectorAll('.project-glyph,.project-avatar')].map(e=>({text:e.textContent.trim(),drawn:!!e.querySelector('.project-mark')})),projectLabels:[...document.querySelectorAll('.project-link')].map(e=>e.getAttribute('aria-label'))}))
+    assert.equal(controls.drag,'no-drag');assert.ok(controls.paragraphSize>=16);assert.ok(controls.projectMarks.every(value=>value.drawn));assert.ok(controls.projectLabels.every(value=>!!value))
+    report.controls=controls;report.checks.push('controls-skin-readable-type-named-project-marks-and-drag-separated')
   }
   if(process.argv.includes('--type')){
     report.typography=await page.evaluate(async()=>{const loaded=await document.fonts.load('450 16px "Oxanium"','Été, œuvre, cœur, où, façade — 0123456789.');await document.fonts.ready;return {family:getComputedStyle(document.body).fontFamily,weight:getComputedStyle(document.body).fontWeight,loaded:loaded.some(face=>face.family.includes('Oxanium')&&face.status==='loaded')}})

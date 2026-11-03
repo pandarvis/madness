@@ -183,10 +183,10 @@ components:
     rounded: "{rounded.detail}"
     padding: "9px 14px"
   navigation-selected:
-    backgroundColor: "{colors.selected}"
-    textColor: "{colors.selected-text}"
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.accent-text}"
     rounded: "{rounded.surface}"
-    padding: "10px"
+    padding: "8px 10px"
   project-tab-selected:
     backgroundColor: "{colors.accent}"
     textColor: "{colors.accent-text}"
@@ -236,7 +236,7 @@ components:
 
 Un atelier personnel, chaleureux et expressif encadre le travail BMad : plaques bleu pétrole, commandes terracotta, contours encrés, angles coupés et matière peinte mate à usure retenue. Les sept visages originaux, édités en casting v2 à encrage franc, ombres en aplats, expressions théâtrales et accessoires de rôle décalés, donnent un repère aux messages dont l’identité native est attestée. La conversation, ses décisions et ses preuves occupent le centre ; l’illustration reste discrète pendant la lecture.
 
-L’anthracite chaud est le thème par défaut ; l’ivoire est son alternative claire. Les titres condensés portent le caractère du lieu, tandis qu’Oxanium porte les messages et les explications ; Barlow Condensed Bold porte aussi les commandes explicites. Le décor se prolonge du chrome au centre de travail : cartouches d’auteur attesté, cadres de message et bordure raster de saisie. Les fonds de conversation et de saisie demeurent calmes. Ce système transpose la direction humaine approuvée le 2 novembre 2026 ; il décrit le candidat implémenté, sans valoir acceptation humaine de l’application intégrée.
+L’anthracite chaud est le thème par défaut ; l’ivoire est son alternative claire. Les titres condensés portent le caractère du lieu, tandis qu’Oxanium porte les messages et les explications ; Barlow Condensed Bold porte aussi les commandes explicites. Le décor se prolonge du chrome au centre de travail : cartouches d’auteur attesté, cadres de message et bordure raster de saisie. Les fonds de conversation et de saisie demeurent calmes. La navigation reste une bande pétrole dans les deux thèmes de lecture. Ce système transpose la direction humaine approuvée le 2 novembre 2026 ; il décrit le candidat implémenté, sans valoir acceptation humaine du candidat 0.2.4. La validation humaine du candidat 0.2.3 reste acquise.
 
 **Key Characteristics:**
 
@@ -246,7 +246,7 @@ L’anthracite chaud est le thème par défaut ; l’ivoire est son alternative 
 - Portrait expressif compact et fiche informative ouverte à la demande.
 - État, provenance et décisions exprimés par du texte réel.
 
-Le frontmatter porte les primitives de palette et les rôles typographiques et formes effectivement utilisés dans la cascade du candidat 0.2.3 (version du runtime, distincte de la story 2.3). Les clés sans préfixe décrivent le sombre ; `light-*` fournit les remplacements de `data-theme="light"`. Dans `main.tsx`, `styles.css` est suivi de `atelier-immersion.css`, puis de `atelier-controls.css`. La dernière couche affine les commandes, la lisibilité et l’espace utile avec les primitives de palette et les familles de titres existantes ; le candidat 0.2.3 ajoute Oxanium locale pour le texte courant, les tailles de texte et les valeurs de composants sont réconciliées ci-dessous. Les composants du frontmatter illustrent le sombre ; le renderer et les extraits du sidecar se lient aux propriétés CSS du thème actif. Les nuances de rampe du sidecar sont des aides de palette synthétisées, pas de nouvelles couleurs du produit. Les contrats comportementaux restent dans [ux-madness/DESIGN.md](./_bmad-output/initiative-madness/ux-madness/DESIGN.md) et [EXPERIENCE.md](./_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md).
+Le frontmatter porte les primitives de palette et les rôles typographiques et formes effectivement utilisés dans la cascade du candidat 0.2.4 (version du runtime, distincte de la story 2.4). Les clés sans préfixe décrivent le sombre ; `light-*` fournit les remplacements de `data-theme="light"`. Dans `main.tsx`, `styles.css` est suivi de `atelier-immersion.css`, puis de `atelier-controls.css`. La dernière couche affine les commandes, la lisibilité et l’espace utile avec les primitives de palette et les familles de titres existantes ; le candidat 0.2.3 ajoute Oxanium locale pour le texte courant, les tailles de texte et les valeurs de composants sont réconciliées ci-dessous. Les composants du frontmatter illustrent le sombre ; le renderer et les extraits du sidecar se lient aux propriétés CSS du thème actif. Les nuances de rampe du sidecar sont des aides de palette synthétisées, pas de nouvelles couleurs du produit. Les contrats comportementaux restent dans [ux-madness/DESIGN.md](./_bmad-output/initiative-madness/ux-madness/DESIGN.md) et [EXPERIENCE.md](./_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md).
 
 ## Colors
 
@@ -259,11 +259,11 @@ Terracotta d’action et bleu de repérage accompagnent des neutres chauds ; le 
 ### Secondary
 
 - **Bleu de repérage** (`link`, `focus`, `selected`, `selected-text`, `selection`, `selection-text`) : liens, contour clavier, contexte sélectionné et sélection de texte. Le focus ne prend pas le sens d’une approbation.
-- **Plaques pétrole et arêtes cuivre** (`atelier-chrome`, `atelier-plate`, `atelier-edge`, `atelier-ink`, `atelier-heading`) : barre de fenêtre, cadres, onglets, contours encrés et marque d’atelier. Le clair emploie des plaques pâles et une encre brune ; le cadre raster conserve sa matière pétrole.
+- **Plaques pétrole et arêtes cuivre** (`atelier-chrome`, `atelier-plate`, `atelier-edge`, `atelier-ink`, `atelier-heading`) : barre de fenêtre, cadres, onglets, contours encrés et marque d’atelier. Le clair emploie des plaques pâles et une encre brune dans le travail ; le rail et le tiroir gardent leur propre surface pétrole, texte ivoire, sélection terracotta et focus bleu clair. Les alias `rail-*` reprennent les primitives existantes sans nouvelle palette.
 
 ### Neutral
 
-- **Anthracite de lecture / ivoire de lecture** (`surface`, `navigation`, `panel`, `text`) : page, rail, panneaux et texte courant selon le thème.
+- **Anthracite de lecture / ivoire de lecture** (`surface`, `navigation`, `panel`, `text`) : page, surfaces et texte courant selon le thème ; le rail et le tiroir utilisent la palette pétrole fixe décrite ci-dessus.
 - **Texte secondaire chaud** (`muted`, `muted-lavender`) : provenance, chemins, explications et légendes. Le nom historique `muted-lavender` ne désigne plus une direction violette.
 - **Traits et interaction** (`line`, `control-line`, `hover`, `active`) : séparations discrètes, contours utiles et retour d’interaction.
 - **Conteneurs et info-bulles** (`recommendation`, `recommendation-line`, `neutral`, `neutral-text`, `tooltip`, `tooltip-text`, `backdrop`) : recommandation, badge factuel, aide ponctuelle et voile de dialogue.
@@ -332,7 +332,7 @@ Les encres d’ombre et les valeurs complètes clair/sombre sont portées par `e
 
 **The Empty Center Rule.** Le cadre raster est découpé en neuf zones sans fill : son centre ne se peint jamais derrière un texte ou un formulaire.
 
-Le cadre `chrome-plate-frame.png` est un overlay décoratif sur navigation, tiroir et fiche : `border-image-slice: 128`, largeur de bande de 16 px, débord de 6 px et répétition étirée. Le mot-clé `fill` est absent. L’asset source garde 35 pixels centraux à alpha 1/255 ; le centre omis n’est jamais rendu. Cette limite de production reste dans sa provenance, sans prétendre que l’ouverture source est exactement vide. La saisie réutilise ce même raster avec une bande de 12 px et un débord de 7 px ; la marge latérale de 7 px contient son cadre dans le centre de travail. Les contrôles et les zones de lecture sont au-dessus du cadre et conservent leurs événements et leur focus.
+Le cadre `chrome-plate-frame.png` reste un overlay décoratif sur la fiche : `border-image-slice: 128`, largeur de bande de 16 px, débord de 6 px et répétition étirée. Le rail et le tiroir ne rendent plus ce cadre raster ; une séparation de 1 px porte leur bord. Le mot-clé `fill` reste absent des usages conservés. L’asset source garde 35 pixels centraux à alpha 1/255 ; le centre omis n’est jamais rendu. Cette limite de production reste dans sa provenance, sans prétendre que l’ouverture source est exactement vide. La saisie réutilise ce même raster avec une bande de 12 px et un débord de 7 px ; la marge latérale de 7 px contient son cadre dans le centre de travail. Les contrôles et les zones de lecture sont au-dessus du cadre et conservent leurs événements et leur focus.
 
 ## Shapes
 
@@ -362,7 +362,11 @@ La saisie est un panneau calme bordé d’une arête de 1 px et du cadre raster 
 
 ### Navigation
 
-La navigation choisie reçoit le fond `selected`, le texte associé, un petit repère terracotta de 2 px, sans contour ni ombre supplémentaires. Les projets emploient un SVG de dossier de 21 px dans la navigation et de 30 px à l’accueil ; aucun numéro décoratif ne remplace le nom du projet. Les onglets sélectionnés reçoivent terracotta et un fond de dossier coupé ; leur survol suit l’accent approprié. Le repli garde les noms accessibles et les aides au survol/focus. Un projet garde son contexte et ses onglets avant le dialogue ; l’état du travail ne provient pas du décor.
+Le rail et le tiroir restent pétrole, en clair comme en sombre, avec texte ivoire et métadonnées atténuées. Une ligne mesure au moins 52 px en mode déployé ; en rail compact, sa cible mesure 40 × 44 px dans la largeur de 58 px, avec l’axe de commande à 28 px conservé. En mode déployé, la sélection remplit la ligne en terracotta avec texte encre. En rail compact, la ligne sélectionnée garde le fond pétrole du rail, sans encadrement extérieur orange : seule la face du monogramme devient terracotta avec texte encre, entourée d’un trait de 1 px, et un repère latéral de 2 px indique la sélection. Le survol reste pétrole plus clair et le focus un contour bleu clair de 2 px décalé de 2 px. Les info-bulles compactes sont en Oxanium 450 à 14 px.
+
+Le repère de projet reprend le nom : un mot de trois lettres/chiffres au plus est gardé, un mot plus long donne ses deux premiers caractères, plusieurs mots donnent les initiales des deux premiers. Le résultat est mis en capitales : MIA et Madness donnent MIA et MA. Sans lettre ni chiffre, un SVG de dossier sert de repli. Le même repère apparaît dans la navigation et sur les cartes d’accueil ; le nom complet accessible et les actions restent inchangés.
+
+Les pictogrammes utilitaires ont des contours anguleux de 1,5 unité SVG et des faces partiellement remplies ; les commandes de barre restent à 40 px et la marque ChatGPT est conservée. Le logo M existant, issu du raster de 64 px, signe le bas du rail compact à 28 px ; cette réutilisation n’ajoute aucune image. Les onglets sélectionnés reçoivent terracotta et un fond de dossier coupé ; leur survol suit l’accent approprié. Le repli garde les noms accessibles et les aides au survol/focus. Un projet garde son contexte et ses onglets avant le dialogue ; l’état du travail ne provient pas du décor.
 
 ### Portrait and role consultation
 

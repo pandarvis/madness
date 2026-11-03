@@ -163,7 +163,7 @@ try{
  const snapshot={schemaVersion:1,revision:1,projects:[{id:context.projectId,name:'Projet personnel de qualification de la refonte avec un nom réellement très long sans abréviation',rootPath:first,openedAt:new Date().toISOString()},{id:other.projectId,name:'Autre projet avec un nom long et un contexte indépendant',rootPath:second,openedAt:new Date().toISOString()}],activeProjectId:null,drafts:[{projectId:context.projectId,text:'Brouillon enregistré distinct, été 日本語.',savedAt:new Date().toISOString()}],preferences:{navigationCollapsed:false},conversations:[{id:context.conversationId,context,lastKnownActivity:'idle',messages:[{id:'historical',role:'assistant',text:'Échange historique synthétique. Identité et état du tour inconnus.'}]},{id:other.conversationId,context:other,lastKnownActivity:'idle',messages:[]}]}
  const q={schemaVersion:1,id:'question-workspace',context,requestId:'request-workspace',turnId:'turn-workspace',identity:{kind:'unknown'},fields:[{id:'answer',header:'Direction',prompt:'Quelle direction pour cet échange précis ?',options:[],allowOther:true}],values:{answer:'Réponse historique distincte.'},status:'waiting',reason:null,createdAt:new Date().toISOString(),expiresAt:null,revision:1,storage:'stored'}
  const a={schemaVersion:1,id:'approval-workspace',context,requestId:'request-approval',turnId:'turn-approval',identity:{kind:'unknown'},mode:'file-approval',files:[{path:join(first,'proposition.md'),kind:'add',diff:'Patch complet synthétique sans effet observé.',beforeSha256:null,afterSha256:hash('Patch complet synthétique sans effet observé.')}],reason:'reopened',adjustment:'Ajustement conservé.',adjustmentStatus:'draft',status:'unknown',decision:'accept',transmission:'sent',effect:'unknown',result:null,createdAt:new Date().toISOString(),expiresAt:Date.now()+600000,revision:3,storage:'stored'}
- if(args.includes('--presentation')||args.includes('--controls')){
+ if(args.includes('--presentation')||args.includes('--controls')||args.includes('--rail')){
   snapshot.projects[0].name='Madness';snapshot.projects[1].name='MIA'
   snapshot.conversations[0].messages=[{id:'presentation-user',role:'user',text:'Je veux un atelier où retrouver mon projet, mes idées et les agents avec qui je travaille.'}]
   snapshot.drafts[0].text='Commençons par le parcours de mon projet.'
@@ -178,6 +178,30 @@ try{
    const body=getComputedStyle(document.body)
    return {family:body.fontFamily,weight:body.fontWeight,sample,loaded:document.fonts.check('450 16px "Oxanium"',sample)}
   });assert.ok(report.typography.family.startsWith('Oxanium'));assert.equal(report.typography.weight,'450');assert.equal(report.typography.loaded,true);pass('local-oxanium-loaded-with-french-reading-sample')
+ }
+ if(args.includes('--rail')){
+  await viewport(page,{width:1320,height:900},'navigation')
+  const links=page.locator('.sidebar .project-link')
+  const marks=await links.locator('.project-mark').allTextContents();assert.deepEqual(marks,['MA','MIA']);pass('project-marks-distinguish-madness-and-mia')
+  await links.first().click()
+  report.navigation=[]
+  for(const theme of ['light','dark']){
+   if(await page.evaluate(()=>document.documentElement.dataset.theme)!==theme)await page.getByRole('button',{name:'Passer au thème '+(theme==='dark'?'sombre':'clair'),exact:true}).click()
+   for(const collapsed of [false,true]){
+    if(await page.locator('.app-shell').evaluate(e=>e.classList.contains('nav-compact'))!==collapsed)await page.getByRole('button',{name:collapsed?'Réduire la navigation':'Déployer la navigation',exact:true}).click()
+    const metrics=await page.evaluate(()=>{
+     const rail=document.querySelector('.sidebar'),selected=rail.querySelector('.nav-button.selected'),mark=selected.querySelector('.project-mark'),style=getComputedStyle(rail),button=getComputedStyle(selected)
+     const luminance=value=>(value.trim().startsWith('#')?value.trim().slice(1).match(/../g).map(n=>parseInt(n,16)):value.match(/[\d.]+/g).slice(0,3).map(Number)).map(n=>n/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0)
+     const contrast=(a,b)=>(Math.max(luminance(a),luminance(b))+.05)/(Math.min(luminance(a),luminance(b))+.05)
+     return {width:rail.getBoundingClientRect().width,background:style.backgroundColor,selectedText:contrast(button.color,button.backgroundColor),labelText:contrast(style.color,style.backgroundColor),markText:contrast(getComputedStyle(mark).color,getComputedStyle(mark,'::after').backgroundColor),focus:contrast(style.getPropertyValue('--rail-focus'),style.backgroundColor)}
+    });assert.ok(metrics.selectedText>=4.5&&metrics.labelText>=4.5&&metrics.markText>=4.5);assert.ok(metrics.focus>=3);if(collapsed)assert.equal(metrics.width,58)
+    report.navigation.push({theme,collapsed,...metrics});await geometry(page,'navigation-'+theme+'-'+(collapsed?'rail':'expanded'));await shot(page,'navigation-'+theme+'-'+(collapsed?'rail':'expanded'))
+   }
+   await links.first().focus();await page.keyboard.press('Tab');assert.equal(await links.nth(1).evaluate(e=>e===document.activeElement),true)
+   await page.keyboard.press('Enter');await page.waitForFunction(async id=>(await window.madness.readState()).value.state.activeProjectId===id,other.projectId)
+   await page.getByRole('button',{name:'Déployer la navigation',exact:true}).click()
+  }
+  await page.getByRole('button',{name:'Accueil',exact:true}).click();pass('navigation-two-themes-targets-contrast-keyboard-exact-project')
  }
  if(args.includes('--controls')){
   report.limits.push('Profil d’aide fictif et gardes de lancement inchangées ; clics renderer et géométrie de déplacement, pas injection souris native Windows.')

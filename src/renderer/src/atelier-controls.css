@@ -121,3 +121,46 @@ button:disabled, button[aria-disabled='true'] { opacity: 1 }
   .topbar .topbar-actions { gap: 4px }
   .main-inner:has(#panel-conversation) .project-banner h1 { font-size: 25px }
 }
+
+/* Navigation stays a petrol workshop strip in either reading theme. These
+   aliases reuse the existing atelier palette; the reading field is untouched. */
+:root { --rail-surface: #20343c; --rail-face: #294652; --rail-ink: #111819; --rail-text: #f4dfc1; --rail-muted: #bcb0a8; --rail-active: #e49b7a; --rail-active-text: #231a15; --rail-focus: #9dc7e1 }
+.workshop-icon { stroke-width: 1.5; stroke-linecap: square; stroke-linejoin: miter }
+.workshop-icon .icon-face { fill: currentColor; fill-opacity: .2; stroke: none }
+.sidebar, .navigation-drawer { background: var(--rail-surface); color: var(--rail-text); border-color: var(--rail-ink) }
+.sidebar { border-right-width: 1px }
+.sidebar::before, .navigation-drawer::before { display: none }
+.sidebar .brand-label { color: var(--rail-text); text-shadow: none }
+.sidebar .brand, .navigation-drawer .drawer-heading { border-color: var(--atelier-edge) }
+.sidebar .nav-section, .sidebar .nav-note, .navigation-drawer .nav-section, .navigation-drawer .nav-note { color: var(--rail-muted) }
+.sidebar .sidebar-bottom { color: var(--rail-muted); background: transparent }
+:is(.sidebar,.navigation-drawer) .nav-button { color: var(--rail-text); min-height: 52px; padding: 8px 10px; border: 1px solid transparent }
+:is(.sidebar,.navigation-drawer) .nav-button:hover { background: var(--rail-face); border-color: var(--atelier-edge) }
+:is(.sidebar,.navigation-drawer) .nav-button.selected { color: var(--rail-active-text); background: var(--rail-active); border-color: var(--rail-ink) }
+:is(.sidebar,.navigation-drawer) .nav-button.selected:hover { background: #eeae8f }
+:is(.sidebar,.navigation-drawer) .nav-button.selected::before { background: var(--rail-active-text); left: 0; width: 2px }
+.sidebar .nav-button:focus-visible, .navigation-drawer button:focus-visible { outline: 2px solid var(--rail-focus); outline-offset: 2px; box-shadow: none }
+:is(.sidebar,.navigation-drawer) .nav-button > .workshop-icon { width: 24px; height: 24px; margin-inline: 4px }
+.project-glyph { width: 32px; height: 32px; flex: 0 0 32px }
+.project-mark { --mark-face: var(--atelier-plate); --mark-ink: var(--atelier-ink); --mark-text: var(--text); width: 100%; height: 100%; position: relative; isolation: isolate; display: grid; place-items: center; color: var(--mark-text); font: 700 18px/1 'Barlow Condensed','Oxanium',sans-serif; letter-spacing: .02em }
+.project-mark::before, .project-mark::after { content: ''; position: absolute; pointer-events: none; z-index: -1; clip-path: polygon(0 5px,5px 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%) }
+.project-mark::before { inset: 0; background: var(--mark-ink) }
+.project-mark::after { inset: 1px; background: var(--mark-face) }
+.project-mark > span { display: grid; place-items: center }
+:is(.sidebar,.navigation-drawer) .project-mark { --mark-face: var(--rail-face); --mark-ink: var(--atelier-edge); --mark-text: var(--rail-text) }
+:is(.sidebar,.navigation-drawer) .selected .project-mark { --mark-face: var(--rail-surface); --mark-ink: var(--rail-ink) }
+.rail-signature { display: none }
+@media (min-width: 721px) {
+  .nav-compact .sidebar { padding-top: 20px }
+  .nav-compact .sidebar nav { gap: 10px }
+  .nav-compact .sidebar .nav-button { min-height: 44px; height: 44px; width: 40px; padding: 0; border-color: transparent }
+  .nav-compact .sidebar .nav-button:first-child { margin-bottom: 14px }
+  .nav-compact .sidebar .nav-button > .workshop-icon { margin: 0 }
+  .nav-compact .sidebar .project-glyph { width: 30px; height: 30px; flex-basis: 30px }
+  .nav-compact .sidebar .nav-button.selected { background: var(--rail-surface); color: var(--rail-text) }
+  .nav-compact .sidebar .nav-button.selected:hover { background: var(--rail-face) }
+  .nav-compact .sidebar .nav-button.selected::before { background: var(--rail-active); left: -4px; top: 13px; bottom: 13px }
+  .nav-compact .sidebar .selected .project-mark { --mark-face: var(--rail-active); --mark-text: var(--rail-active-text) }
+  .nav-compact .sidebar .rail-signature { display: flex; justify-content: center; width: 40px; padding-block: 20px 8px; margin-top: auto; order: 2 }
+  .nav-compact:not(.tooltips-dismissed) .sidebar .nav-button:is(:hover,:focus-visible)::after { font: 450 14px/1.5 'Oxanium','Segoe UI',sans-serif; padding: 9px 12px }
+}

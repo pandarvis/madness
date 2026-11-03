@@ -1,0 +1,14 @@
+  • electron-builder  version=26.18.0 os=10.0.26200
+  • loaded configuration  file=C:\Users\UP60066553\.codex\worktrees\atelier-immersion\madness\electron-builder.yml
+  • skipped dependencies rebuild  reason=npmRebuild is set to false
+  • packaging       platform=win32 arch=x64 electron=45.0.0 appOutDir=dist\atelier-tooltip-reviewed\win-unpacked
+  • using custom unpacked Electron distribution  electronDist=node_modules\electron\dist
+  • copying unpacked Electron  source=C:\Users\UP60066553\.codex\worktrees\atelier-immersion\madness\node_modules\electron\dist destination=C:\Users\UP60066553\.codex\worktrees\atelier-immersion\madness\dist\atelier-tooltip-reviewed\win-unpacked
+  • searching for node modules  pm=npm searchDir=C:\Users\UP60066553\.codex\worktrees\atelier-immersion\madness
+  • cannot find path for dependency  dependencies=["scheduler@undefined"]
+  • updating asar integrity executable resource  executablePath=dist\atelier-tooltip-reviewed\win-unpacked\Madness.exe
+  • file signing skipped via signExecutable configuration  file=dist\atelier-tooltip-reviewed\win-unpacked\Madness.exe
+  • building        target=nsis file=dist\atelier-tooltip-reviewed\Madness-0.2.6-x64-setup.exe archs=x64 oneClick=false perMachine=false
+  • file signing skipped via signExecutable configuration  file=dist\atelier-tooltip-reviewed\Madness-0.2.6-x64-setup.__uninstaller.exe
+  • file signing skipped via signExecutable configuration  file=dist\atelier-tooltip-reviewed\Madness-0.2.6-x64-setup.exe
+  • building block map  blockMapFile=dist\atelier-tooltip-reviewed\Madness-0.2.6-x64-setup.exe.blockmap

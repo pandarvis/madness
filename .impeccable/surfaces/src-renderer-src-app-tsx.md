@@ -23,6 +23,8 @@ FORM: Extension code-led et raffinement de la composition établie, palette et f
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 
+Retouche du3novembre2026 : la bascule desktop qui replie/déploie la navigation n’affiche plus d’infobulle visuelle, sur retour humain. Son nom accessible d’action, aria-expanded/controls, focus et cible restent conservés. Les autres aides de commandes gardent leur comportement.
+
 ## Contraintes
 
 Conserver préparation/envoi, questions/accords, brouillons, récupération, identités inconnues et comportements2.17/2.2. Cette refonte ne clôt pas la qualification native2.2 ni ne livre2.3. Pas de bouton ou fichier fictif de la maquette. La couleur native peut suivre les tokens ; stockage, permissions et connexion restent hors de ce lot.

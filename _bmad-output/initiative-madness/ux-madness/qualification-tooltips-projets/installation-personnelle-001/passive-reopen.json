@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "createdAt": "2026-11-03T20:51:18.289Z",
+  "providerCalls": 0,
+  "personalScreenshots": 0,
+  "checks": [
+    "installation-verified-profile-exact",
+    "initiative-selections-exact-after-install",
+    "installed-sidebar-priority-10",
+    "account-readable-no-reconnect",
+    "two-real-projects-present",
+    "no-provider-network-or-model-after-hook",
+    "closed-reopen-profile-and-context-exact"
+  ],
+  "output": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\ux-madness\\qualification-tooltips-projets\\installation-personnelle-001",
+  "contextBefore": [],
+  "runtime": {
+    "mainPid": 45436,
+    "version": "0.2.7",
+    "electron": "45.0.0",
+    "chromium": "156.0.8078.48",
+    "node": "24.22.0",
+    "packaged": true,
+    "normalUserData": true,
+    "normalSessionData": true,
+    "diaProcessesNotOperated": true
+  },
+  "accountReadable": true,
+  "projects": [
+    "MIA",
+    "madness"
+  ],
+  "projectCount": 2,
+  "sidebarZIndex": "10",
+  "close": {
+    "mainGone": true,
+    "childrenGone": true,
+    "closeObserved": true,
+    "spacesAbsent": true,
+    "native": {
+      "startedAt": "2026-11-03T20:52:19.943Z",
+      "attached": true,
+      "overflow": false,
+      "network": 0,
+      "children": [],
+      "questions": [],
+      "approvals": [],
+      "turns": [],
+      "controlTrace": {
+        "schemaVersion": 1,
+        "attached": false,
+        "complete": true,
+        "limits": {
+          "maxEvents": 2048,
+          "maxLineBytes": 1048576,
+          "maxBytes": 8388608
+        },
+        "events": [],
+        "droppedEvents": 0,
+        "suppressedDeltas": 0,
+        "incomplete": {
+          "eventLimit": false,
+          "lineLimit": false,
+          "byteLimit": false,
+          "parseFailure": false,
+          "partialLine": false,
+          "observerFailure": false,
+          "restoreConflict": false
+        }
+      }
+    }
+  },
+  "completedAt": "2026-11-03T20:52:25.226Z"
+}

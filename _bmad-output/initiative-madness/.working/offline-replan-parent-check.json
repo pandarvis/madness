@@ -1,0 +1,63 @@
+{
+  "action": "Sofia REPLAN delivery-only",
+  "entryCount": 17,
+  "changedFields": {
+    "3": [
+      "after",
+      "description"
+    ],
+    "7": [
+      "after",
+      "description"
+    ],
+    "8": [
+      "after",
+      "description",
+      "verify"
+    ],
+    "9": [
+      "description"
+    ],
+    "11": [
+      "after",
+      "description"
+    ],
+    "16": [
+      "verify"
+    ]
+  },
+  "newOrder": [
+    1,
+    17,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    9,
+    7,
+    10,
+    12,
+    11,
+    13,
+    14,
+    15,
+    16
+  ],
+  "requirementsConstraintsDoneUnchanged": true,
+  "protectedPlansAndCompanionsIdentical": 20,
+  "productAndAuthUnchanged": true,
+  "structuralProblems": [],
+  "readyToStart": "2.3",
+  "native22": "in-review; M14 outstanding; no human input requested",
+  "parentDependenciesCheck": {
+    "needs": "3 consumes1/17/1.11;8 consumes6;7 consumes2/9;16 keeps15→2/7",
+    "collisions": "One sequential product lane:3/4/5/6/8/9 then7 then11.2.2 code frozen ef2d0d6, only native validation deferred; future native fixes reconciled before consumers7/16.10 has no product code;12 is a documentary UX contract.",
+    "handoffs": "3 and8 no longer claim native prerequisites;7 explicitly consumes the local9 snapshot and2 qualification;8 gives local files to9."
+  },
+  "mechanicalReviewFixes": {
+    "D1": "11 waits7 before shared product changes; source remains a single lane",
+    "H1": "9 explicitly supplies its snapshot to7 and10"
+  }
+}

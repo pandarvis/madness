@@ -201,6 +201,7 @@ else {
       if (window && !window.isDestroyed() && window.webContents.mainFrame.url === rendererUrl) window.webContents.send(EVENT_CHANNEL, event)
     })
     window = new BrowserWindow({
+      icon: app.isPackaged ? join(process.resourcesPath, 'madness.ico') : join(app.getAppPath(), 'resources/branding/madness.ico'),
       width: 1320, height: 860, minWidth: 520, minHeight: 520, show: false,
       title: 'Madness', backgroundColor: nativeColors(appearance.theme).color, autoHideMenuBar: true,
       titleBarStyle: 'hidden', titleBarOverlay: nativeColors(appearance.theme),

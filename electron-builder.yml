@@ -8,18 +8,24 @@ files:
   - package.json
 asar: true
 extraResources:
+  - from: resources/branding/madness.ico
+    to: madness.ico
   - from: resources/bmad-help
     to: bmad-help
   - from: resources/bmad-script-runner.py
     to: bmad-script-runner.py
 npmRebuild: false
 win:
+  icon: resources/branding/madness.ico
   executableName: Madness
   target:
     - target: nsis
       arch: [x64]
   signExecutable: false
 nsis:
+  runAfterFinish: false
+  installerIcon: resources/branding/madness.ico
+  uninstallerIcon: resources/branding/madness.ico
   oneClick: false
   perMachine: false
   allowToChangeInstallationDirectory: true

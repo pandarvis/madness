@@ -51,7 +51,7 @@ Le porteur initialise un dossier non équipé en comprenant les changements et l
 - Possède l'extension d'initialisation de l'adaptateur BMad, ses contrats sous autorité du cœur et la qualification G3. Préparer n'écrit rien dans le dossier cible ; l'autorisation de développement ne remplace pas l'accord requis pour une opération réelle.
 - Consomme les contrats/cycle de vie/persistance et l'infrastructure Windows de l'epic 1 ; ne les réimplémente pas. Le profil d'initialisation ne généralise pas la compatibilité à toutes les installations v7.
 - Possède la qualification intégrée G4, sans second moteur BMad, nouveau fournisseur, modification de connexion SIWC, installation système implicite ou nouvelle procédure de packaging indépendante.
-- Transmet à l'epic 4 une base Windows/Codex réellement vérifiée et le panneau de fichiers ; ne livre pas le graphe et n'annonce pas la V1 complète.
+- Transmet à l'epic 4 une base Windows/Codex réellement vérifiée et le panneau de fichiers pour ses compléments4.5/final4.11, en préservant le premier onglet4.4 déjà intégré ; ne livre pas le graphe et n'annonce pas la V1 complète.
 
 ## References
 
@@ -62,6 +62,8 @@ Le porteur initialise un dossier non équipé en comprenant les changements et l
 - Mandat : [autonomie du 3 novembre](../../autonomie-implementation-complete-2026-11-03.md) et [décision personnelle locale](../../decision-personnelle-locale-2026-10-28.md).
 
 ## Notes
+
+- Decision: 2026-11-04 — Le porteur réaffirme une zone Graphify réelle dans cette version, sous son mandat complet d’autonomie. Seule la livraison change, aucune exigence ni couverture : catalogue2.6 → fichiers2.8 → premier onglet4.4 → reprise2.9 et suite2 → voie locale3.9 → compléments4.5–4.9 ;4.8 consomme explicitement2.14 et4.11 garde3.10/G4. Le graphe local n’exige ni BMad installé ni connexion IA. Une seule voie produit :2.9 attend4.4 et4.5 attend3.9, afin de ne pas déplacer le fork de Main/preload/cœur/persistance/renderer. Un seul Build produit actif, prédécesseur revu et stable avant consommation, même si le magasin classe built dans review. Le conflit d’ordre déclaratif2→4 du manifeste parent est assumé selon Board : les capacités partielles2.8→4.4→2.9 forment un DAG de feuilles, jamais des gates d’epics entiers ; la sortie brute order_conflict n’est pas effacée ni annoncée vide. G2/G3/G4/G5 et les essais humains/externes restent requis à leur niveau ; les inconnus, sources, versions, projets personnels et plans built sont conservés. 3.2 réconcilie les spines sans écraser l’onglet4.4 déjà livré ;3.9 transmet sa stabilisation à4.5 et au final, et non plus au premier raccordement4.4. Il n’y a aucune obligation d’initialiser BMad pour analyser du code. Les dépendances et la participation hitl de3.10 sont inchangées.
 
 - Risk: high — Une initialisation au mauvais endroit, un accord périmé ou un faux succès peut altérer le projet personnel et tromper le porteur novice sur les changements réellement appliqués.
 - Check: au-delà des critères de réalisation, une relecture indépendante reconstruit la chaîne dossier/plan exact/accord/préconditions/effets depuis les preuves brutes et rapproche chaque conclusion G3/G4 du manifeste et de l'ASAR contrôlés ; une preuve absente ou issue d'un autre artefact laisse la conclusion ouverte.

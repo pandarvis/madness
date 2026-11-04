@@ -1,0 +1,18 @@
+{
+  "status": "parent dependencies draft checked",
+  "requirementsOutcomeDoneWhen": "all8doc protected sections unchanged",
+  "entries": "18/10/11 ids/covers/risks/checkpoints and built rows preserved",
+  "leafDag": 52,
+  "cycle": false,
+  "problems": [],
+  "unpinned": [],
+  "undeclared": [],
+  "order_conflict_raw": [
+    {
+      "epic": "epic-projets-bmad",
+      "after": "epic-graphe-projet"
+    }
+  ],
+  "orderConflictResolution": "Explicit datedDecision in initiative/affectedepics under Board exception; not erased",
+  "next": "Fresh Ticket/Set/Dependencies and Tree check before approval/commit"
+}

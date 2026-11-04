@@ -1,0 +1,63 @@
+{
+  "status": "approved-under-existing-full-autonomy",
+  "requirementsOutcomeDoneWhen": "all8doc protected sections unchanged",
+  "entries": "18/10/11 ids/covers/risks/checkpoints and built rows preserved",
+  "leafDag": 52,
+  "cycle": false,
+  "problems": [],
+  "unpinned": [],
+  "undeclared": [],
+  "order_conflict_raw": [
+    {
+      "epic": "epic-projets-bmad",
+      "after": "epic-graphe-projet"
+    }
+  ],
+  "orderConflictResolution": "Explicit datedDecision in initiative/affectedepics under Board exception; not erased",
+  "next": "bmad-build2.6 then2.8 then4.4, unassigned rows only, one product Build active",
+  "at": "2026-11-04T08:18:31.737037+00:00",
+  "baselineRevision": "de568d5dbde50d730397de65d3de77edf2fb3088",
+  "render": "bmad-agent-po/ad129d551caca8e00228 called once",
+  "approval": "Explicit full autonomous implementation mandate; delivery only, all requirements and gates retained",
+  "reviews": {
+    "/root/graph_replan_epic2_check": {
+      "lenses": [
+        "Ticket",
+        "Set",
+        "Dependencies"
+      ],
+      "fix": [],
+      "suggest": [],
+      "ask": [],
+      "observed": "18entries7built/review11planned,expected raw order_conflict2waits4 documented;7builtplans+3spines unchanged"
+    },
+    "/root/graph_replan_epic4_check": {
+      "lenses": [
+        "Ticket",
+        "Set",
+        "Dependencies"
+      ],
+      "fix": [],
+      "suggest": [],
+      "ask": [],
+      "observed": "11entries,37links valid, built4.1/2/3 scope/handoffs reconciled by newDecision, no UI/G5 inferred"
+    },
+    "/root/graph_replan_tree_check": {
+      "lenses": [
+        "Tree",
+        "Dependencies"
+      ],
+      "findings": [],
+      "observed": "52leaf DAG independently reconstructed,32parent requirements covered once,allparentrefs/companions present,root docs protected sections unchanged"
+    }
+  },
+  "technicalReaders": {
+    "/root/graph_delivery_dependencies": "No intrinsic imports/capability dependency on init3.9/variants2.14; real missing adapter/owner/store/IPC/UI needed4.4; CLI partial metadata cycles distinct from leaf DAG;2.9after4.4 and4.5after3.9 serialize shared lane",
+    "/root/graph_delivery_evidence": "4.1profile/4.2UX/4.3contracts built with bounded evidence, no integrated graph; first actual rendering/zoom belongs4.4, variants deepen4.8;2.8must provide reusable safe file panel without BMad"
+  },
+  "limits": [
+    "No code, runtime, profile, account, provider, personal install, UI, G3/G4/G5 or human acceptance changed/acquired",
+    "Raw order_conflict2after4 retained and justified, not misreported as empty",
+    "Existing built blocks and spines remain exact; notes supersede historical delivery only"
+  ]
+}

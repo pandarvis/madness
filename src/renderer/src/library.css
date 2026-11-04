@@ -1,0 +1,16 @@
+.project-library { margin-block: 24px; }
+.library-project { padding-block: 16px 24px; border-bottom: 1px solid var(--line); min-width: 0; }
+.library-project .project-row { width: 100%; text-align: left; }
+.library-project .project-info { min-width: 0; }
+.library-project .project-row strong { font-size: 23px; }
+.library-project .project-row code, .library-summary code { overflow-wrap: anywhere; white-space: normal; }
+.library-summary { padding: 4px 20px 0; }
+.library-summary h3 { margin-block: 16px 8px; }
+.library-summary h4 { margin-block: 20px 8px; font-size: 19px; }
+.library-summary p, .library-summary li { max-width: 72ch; }
+.library-summary details { margin-block: 12px; }
+.library-summary details > summary { padding-block: 8px; cursor: pointer; overflow-wrap: anywhere; }
+.library-summary .message-text { max-width: 72ch; overflow-wrap: anywhere; }
+.library-summary ul { padding-inline-start: 22px; }
+.return-to-work { margin-block: 12px; }
+@media (max-width: 720px) { .library-summary { padding-inline: 4px; } .library-project .project-row { flex-wrap: wrap; gap: 8px; } }

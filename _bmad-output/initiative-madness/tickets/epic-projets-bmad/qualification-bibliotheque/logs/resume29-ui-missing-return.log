@@ -1,0 +1,25 @@
+✖ library L4: deleted return conversation stays absent instead of selecting a newer conversation (15367.6399ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-gq72Tg\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-gq72Tg\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21907.4917
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1252:1
+✖ library L4: deleted return conversation stays absent instead of selecting a newer conversation (15367.6399ms)
+  Error: Attempting to serialize unexpected value at position "set": async(value=snapshot,status='ready')=>page.evaluate(({snapshot,status})=>window.bmadProgressUIFixture.set({contractVersion:1,sequence:1,projects:[{projectId:snapshot.projectId,generation:1,status,freshness:status==='ready'?'current':'stale',monitoring:'watching',queued:false,snapshot,errorCode:null,error:null}]}),{snapshot:value,status})
+      at innerSerializeValue (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\node_modules\playwright-core\lib\coreBundle.js:12759:9)
+      at innerSerializeValue (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\node_modules\playwright-core\lib\coreBundle.js:12756:28)
+      at serializeValue (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\node_modules\playwright-core\lib\coreBundle.js:12699:10)
+      at serializeArgument (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\node_modules\playwright-core\lib\coreBundle.js:59213:18)
+      at _Frame.evaluate (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\node_modules\playwright-core\lib\coreBundle.js:61935:121)
+      at _Page.evaluate (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\node_modules\playwright-core\lib\coreBundle.js:63245:38)
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:1254:13)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

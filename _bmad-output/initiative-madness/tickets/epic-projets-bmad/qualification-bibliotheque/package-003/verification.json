@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "startedAt": "2026-11-04T19:20:04.095Z",
+  "mode": "packaged",
+  "checks": [
+    "L1 L7 persisted homonymous projects and historical inactive request",
+    "L1 L2 separate current declarations, literal result and incomplete project",
+    "L3 L4 expired exact request and return restore captured conversation draft and cursor",
+    "L6 graph complete choice search selection zoom pan restored with zero generation or revalidation",
+    "L8 compact light and actual native zoom200 retain readable controls without overflow",
+    "L7 unscoped stop guard remains global",
+    "L7 passive reopen retains exact real draft and annex bytes; no agent or collector replay"
+  ],
+  "captures": [
+    {
+      "file": "01-home-two-projects-dark.png",
+      "sha256": "25132bfa9ef4ab2164066680da3e0ef862e2b4878793c4b80c9c242c5c3ae32d",
+      "viewport": {
+        "width": 1440,
+        "height": 920,
+        "theme": "dark"
+      }
+    },
+    {
+      "file": "02-exact-wait-and-return.png",
+      "sha256": "83caee5f967c82000f6ef9dd57fb974b7e0798357cb765ea2dfb0906195607e9",
+      "viewport": {
+        "width": 1440,
+        "height": 920,
+        "theme": "dark"
+      }
+    },
+    {
+      "file": "03-retained-complete-graph.png",
+      "sha256": "e4723a54c840e00fb1b657eddd302bf49891fd1c534292f0ea464e11fc558805",
+      "viewport": {
+        "width": 1440,
+        "height": 920,
+        "theme": "dark"
+      }
+    },
+    {
+      "file": "04-compact-light.png",
+      "sha256": "7b744bbecaeb902988da1549866107ddb66393cec60792fb0bd9f270125ac85d",
+      "viewport": {
+        "width": 720,
+        "height": 820,
+        "theme": "light"
+      }
+    },
+    {
+      "file": "05-native-zoom200-light.png",
+      "sha256": "0963c94613717faa03b046664531b03cf83d2ccc2ff5c691504cb90c429e073c",
+      "viewport": {
+        "width": 825,
+        "height": 575,
+        "theme": "light"
+      }
+    }
+  ],
+  "launches": [
+    {
+      "main": {
+        "pid": 29820,
+        "startedAt": "639294168069188155",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 29820,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-library-udvLbI\\profile",
+        "version": "0.2.13",
+        "packaged": true
+      }
+    },
+    {
+      "main": {
+        "pid": 38776,
+        "startedAt": "639294168206683507",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 38776,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-library-udvLbI\\profile",
+        "version": "0.2.13",
+        "packaged": true
+      }
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 29820,
+        "startedAt": "639294168069188155",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 51116,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T19:20:15.237Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 38776,
+        "startedAt": "639294168206683507",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 32180,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T19:20:24.244Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Synthetic context/progress/live-request/Graph fixtures exercise presentation and passive navigation only; no native agent, collector or Graphify success is claimed.",
+    "Progress/Graph presentation injection is session-only. Reopening asserts only real persisted projects, draft and inactive requests.",
+    "No personal profile, external network, installation, human visual approval or global accessibility qualification."
+  ],
+  "commandsBeforeReopen": {
+    "madness:dialogue:command:v1:read": 1,
+    "madness:command:v1:select-project": 5,
+    "madness:bmad-context:command:v1:read": 5,
+    "madness:command:v1:read-state": 5,
+    "madness:appearance:v1:set-theme": 1
+  },
+  "commandsAfterReopen": {
+    "madness:dialogue:command:v1:read": 1
+  },
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe",
+    "sha256": "52a226b59023d456604a1b6c37992901177ae7a4615b34664dfd80762f82d0ea",
+    "version": "0.2.13"
+  },
+  "finishedAt": "2026-11-04T19:20:25.644Z"
+}

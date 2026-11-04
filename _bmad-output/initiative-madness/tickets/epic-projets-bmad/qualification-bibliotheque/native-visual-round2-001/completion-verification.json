@@ -1,0 +1,625 @@
+{
+  "schemaVersion": 1,
+  "visualBatch": {
+    "number": 2,
+    "totalAllowed": 2,
+    "purpose": "Correct native full-window zoom capture; add requested scrolled incomplete-project and literal-source reading views",
+    "priorBatch": "package-003",
+    "productChanges": false,
+    "resizing": false,
+    "attemptOrdinalAcrossAllBatches": 3,
+    "epochs": [
+      {
+        "ordinal": 1,
+        "status": "failed-before-05",
+        "startedAt": "2026-11-04T19:26:37.025Z",
+        "finishedAt": "2026-11-04T19:26:44.263Z",
+        "captures": 4,
+        "cleanup": true
+      },
+      {
+        "ordinal": 2,
+        "status": "passed",
+        "startedAt": "2026-11-04T19:28:56.671Z",
+        "capturesToAdd": 3,
+        "addedCaptures": 3
+      }
+    ]
+  },
+  "status": "passed",
+  "startedAt": "2026-11-04T19:28:56.671Z",
+  "mode": "packaged",
+  "checks": [
+    "L1 L7 persisted homonymous projects and historical inactive request",
+    "L1 L2 separate current declarations, literal result and incomplete project",
+    "L3 L4 expired exact request and return restore captured conversation draft and cursor",
+    "L6 graph complete choice search selection zoom pan restored with zero generation or revalidation",
+    "L8 compact light and actual native zoom200 retain readable controls without overflow",
+    "Second visual batch includes both requested scrolled reading views with exact fixture context and source",
+    "L7 unscoped stop guard remains global",
+    "L7 passive reopen retains exact real draft and annex bytes; no agent or collector replay"
+  ],
+  "captures": [
+    {
+      "file": "01-home-two-projects-dark-native-full.png",
+      "scope": "Reproduction du même état du premier lot ; capture native complète, aucun recadrage",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "b773e135ad29137c63670d06bc4716a00c4ada32db8f30e09ee9bafc1bf21c48",
+      "pngSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoomFactor": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 1441,
+        "height": 921
+      },
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "theme": "dark",
+        "documentScrollWidth": 1440,
+        "mainScrollTop": 0,
+        "mainScrollHeight": 1635
+      },
+      "fullNativeFrameVerified": true
+    },
+    {
+      "file": "02-exact-wait-and-return-native-full.png",
+      "scope": "Reproduction du même état du premier lot ; capture native complète, aucun recadrage",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "83caee5f967c82000f6ef9dd57fb974b7e0798357cb765ea2dfb0906195607e9",
+      "pngSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoomFactor": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 1441,
+        "height": 921
+      },
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "theme": "dark",
+        "documentScrollWidth": 1440,
+        "mainScrollTop": 110.4000015258789,
+        "mainScrollHeight": 1644
+      },
+      "fullNativeFrameVerified": true
+    },
+    {
+      "file": "03-retained-complete-graph-native-full.png",
+      "scope": "Reproduction du même état du premier lot ; capture native complète, aucun recadrage",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "e4723a54c840e00fb1b657eddd302bf49891fd1c534292f0ea464e11fc558805",
+      "pngSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoomFactor": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 1441,
+        "height": 921
+      },
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "theme": "dark",
+        "documentScrollWidth": 1440,
+        "mainScrollTop": 0,
+        "mainScrollHeight": 2520
+      },
+      "fullNativeFrameVerified": true
+    },
+    {
+      "file": "04-compact-light-native-full.png",
+      "scope": "Reproduction du même état du premier lot ; capture native complète, aucun recadrage",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "20af4111f9a93d9f5f84c2665dcc23c3abc081992bcc0d4b22b565b8e422ff07",
+      "pngSize": {
+        "width": 900,
+        "height": 1025
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 900,
+        "height": 1025
+      },
+      "zoomFactor": 1,
+      "contentSize": [
+        720,
+        820
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 721,
+        "height": 821
+      },
+      "metrics": {
+        "width": 720,
+        "height": 820,
+        "devicePixelRatio": 1.25,
+        "theme": "light",
+        "documentScrollWidth": 720,
+        "mainScrollTop": 0,
+        "mainScrollHeight": 1535
+      },
+      "fullNativeFrameVerified": true
+    },
+    {
+      "file": "05-native-zoom200-light-full.png",
+      "scope": "Reproduction du même état du premier lot ; capture native complète, aucun recadrage",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "f379d403071f0837f4e4686bbc5ce3610110945825833e5f19e648ae4f565d9a",
+      "pngSize": {
+        "width": 2063,
+        "height": 1437
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 2063,
+        "height": 1437
+      },
+      "zoomFactor": 2,
+      "contentSize": [
+        1650,
+        1149
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 1650,
+        "height": 1149
+      },
+      "sizing": {
+        "requestedContent": [
+          1650,
+          1150
+        ],
+        "actualContent": [
+          1650,
+          1149
+        ],
+        "quantizationDips": [
+          0,
+          -1
+        ],
+        "roundingTolerancePhysicalPixels": 2
+      },
+      "metrics": {
+        "width": 825,
+        "height": 575,
+        "devicePixelRatio": 2.5,
+        "theme": "light",
+        "documentScrollWidth": 825,
+        "mainScrollTop": 0,
+        "mainScrollHeight": 1628
+      },
+      "fullNativeFrameVerified": true,
+      "captureEpoch": 2
+    },
+    {
+      "file": "06-scrolled-second-project-incomplete-dark-native-full.png",
+      "scope": "Vue défilée de la carte propre au second projet incomplet ; aucune prétention de premier viewport",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "d7c5c7bea0eb713e2fea2c6884411c1a0fca4cb471b754af3f7015c8f56261ec",
+      "pngSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoomFactor": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 1441,
+        "height": 921
+      },
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "theme": "dark",
+        "documentScrollWidth": 1440,
+        "mainScrollTop": 664,
+        "mainScrollHeight": 1528
+      },
+      "fullNativeFrameVerified": true,
+      "captureEpoch": 2
+    },
+    {
+      "file": "07-scrolled-first-project-literal-result-source-dark-native-full.png",
+      "scope": "Vue défilée du résultat littéral ouvert et de sa source/révision, suivis des décisions non établies ; aucune prétention de premier viewport",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "64214b871507731573ba00b560de22f411be6a891ce993d4bc82ae3cd1933a8a",
+      "pngSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoomFactor": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 1441,
+        "height": 921
+      },
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "theme": "dark",
+        "documentScrollWidth": 1440,
+        "mainScrollTop": 821.5999755859375,
+        "mainScrollHeight": 2103
+      },
+      "fullNativeFrameVerified": true,
+      "captureEpoch": 2
+    }
+  ],
+  "launches": [
+    {
+      "main": {
+        "pid": 33540,
+        "startedAt": "639294171974884778",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 33540,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-library-35EF8A\\profile",
+        "version": "0.2.13",
+        "packaged": true
+      }
+    },
+    {
+      "main": {
+        "pid": 54484,
+        "startedAt": "639294173370970571",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 54484,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-library-51ACko\\profile",
+        "version": "0.2.13",
+        "packaged": true
+      }
+    },
+    {
+      "main": {
+        "pid": 40028,
+        "startedAt": "639294173445646615",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 40028,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-library-51ACko\\profile",
+        "version": "0.2.13",
+        "packaged": true
+      }
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 33540,
+        "startedAt": "639294171974884778",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 30768,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T19:26:40.252Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 54484,
+        "startedAt": "639294173370970571",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 32732,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T19:28:59.811Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 40028,
+        "startedAt": "639294173445646615",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 45720,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T19:29:06.838Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Synthetic context/progress/live-request/Graph fixtures exercise presentation and passive navigation only; no native agent, collector or Graphify success is claimed.",
+    "Progress/Graph presentation injection is session-only. Reopening asserts only real persisted projects, draft and inactive requests.",
+    "No personal profile, external network, installation, human visual approval or global accessibility qualification.",
+    "This completes only05–07 in the same explicit second visual batch. First4native PNGs and the failed initial receipt stay unchanged; three cumulative attempts across both batches, two epochs in batch2. Native content may differ by1DIP under WindowsDPI1.25; full PNG dimensions are checked against actual native size/baseDPR with2pixel rounding tolerance."
+  ],
+  "priorAttempt": {
+    "status": "failed",
+    "receipt": "verification.json",
+    "sha256": "c70c37aed9e547f24ad88b8f389856a256ff861f284aa144fb28b9faa5e32ec1",
+    "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    1650,\n+   1149\n-   1150\n  ]\n\n    at shot (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/project-library-native-visual.mjs:56:36)\n    at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/project-library-native-visual.mjs:82:742",
+    "successClaim": false
+  },
+  "preservedInputs": {
+    "package003": {
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-bibliotheque\\package-003\\01-home-two-projects-dark.png": "25132bfa9ef4ab2164066680da3e0ef862e2b4878793c4b80c9c242c5c3ae32d",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-bibliotheque\\package-003\\02-exact-wait-and-return.png": "83caee5f967c82000f6ef9dd57fb974b7e0798357cb765ea2dfb0906195607e9",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-bibliotheque\\package-003\\03-retained-complete-graph.png": "e4723a54c840e00fb1b657eddd302bf49891fd1c534292f0ea464e11fc558805",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-bibliotheque\\package-003\\04-compact-light.png": "7b744bbecaeb902988da1549866107ddb66393cec60792fb0bd9f270125ac85d",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-bibliotheque\\package-003\\05-native-zoom200-light.png": "0963c94613717faa03b046664531b03cf83d2ccc2ff5c691504cb90c429e073c",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-bibliotheque\\package-003\\observation-1.json": "1a804c7059a14b23ce3159cb4ea806d880a1cceec520e19219a6c1a7c12b81c8",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-bibliotheque\\package-003\\observation-2.json": "9fff619aa63e3b3dd917b51a9f10b4e920d03b6c15094db14d390ea0726830da",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-bibliotheque\\package-003\\verification.json": "873b363774c98310b5955647801845a29ead897c43699a27044f3df83fb34a9e"
+    },
+    "sourceAndOutput": {
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\analysis\\graph-corpus.ts": "c804f6d7d029812437296e7da2f7576946e1b42411ec353fbd0fe479e2d2da79",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\analysis\\graph-owned-run.ts": "b7f0b3e01235f7956b3325dae13cd2e068cf9726f3361496869841f762a11699",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\analysis\\graphify-manifest.ts": "9f7c1bad487da1ac380315449a19fddab3de82d1e2c59e721e4cc771b543c7f2",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\analysis\\graphify-normalize.ts": "a0d9abcf1f0c31b389f1b5dd5dfece46684ef5ee0d37f03ccd8404f1c3d84dbb",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\analysis\\graphify.ts": "0bce4acd3a3723c3743701a97a34b8606fa065ebcff4620697d175171c325e3b",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\bmad\\catalog.ts": "ec3b11f8a10be0ca5ec06f0d444fe17680518969222953e4b5c6969217294825",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\bmad\\change-observer.ts": "46d5ceb4dfda2e5bd2084754ad746d1a82ef3beb0ff57c4fa29aaa2d8ce8ba62",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\bmad\\context.ts": "326eeaec5d20a8dea6e2ba501491fbe91fa695a11ffe8c1c7f182810b702b3b9",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\bmad\\forge-manifest.ts": "eaa726f1e7a7e296d7d4bf7c46892db09bb88a1cd0d7e18c8f4299850d1a5377",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\bmad\\forge.ts": "786278f56cb1527dff5d9fb40938c77751a56e9609dbfdf2f1bf9f64fd31c7f1",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\bmad\\help-manifest.ts": "e666c22fe9b3c0ac5ebbae39bcb1f4b63a98fcf5abe8ff00238fb4c203a0cb2d",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\bmad\\help-owned-run.ts": "640e57869c792dabe6bfcfba93e8cb5bc0683c83640f735e4663d1fa5556b621",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\bmad\\help.ts": "1b3330fef15426d3b1268e7c4bb43b0e0c3ef3a649629d206fa531acba88e084",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\bmad\\profile.ts": "99d8bcb416317550a5f9fbb34ed309ef3e1d92e9377fbc89db03e6bf989b2938",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\bmad\\progress.ts": "53a1b3011f226fdd222f1124c8d352822f28854bbad6aab11997df22b57bd896",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\bmad\\runtime.ts": "89b3c94d6a0e75f7d7543ab230d57e0db10bcd987037da240bbdf05d736895c8",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\codex\\connection.ts": "32e83ca8bed20e9dbef8da5ff0eda8a2a5fad74f69d5dd7d641a4f532682cf82",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\codex\\dialogue.ts": "f0d55048de1b3652f81f95c93e64ba97b471b552023455488b3d505787baa670",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\codex\\file-proposals.ts": "3c906711f492e80a4c69d186ebe0cc7a8d44ec73a14abf9389a9efdf37257443",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\codex\\oauth.ts": "301df8b5103ed2b35e7fb5ede64855bbaeb470b80e198250086de67e62c11a1d",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\codex\\owned-run.ts": "780a51e405725143f605c22c7c4ca4fa9f7d18feb3eebc79598873b3cb076d0c",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\codex\\probe.ts": "a5ce6d9897c31ef2491e386a94e53d0a636cebee28672ea2667a9aeb4d374cd2",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\codex\\vault.ts": "7630d09aecab6d0745ae5b7b48c86c6b981d0d8524a3a59b9207b2ef73d9c306",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\persistence\\appearance-store.ts": "a3fde69d5e70a4e0a29fc7567d70e335495df0f460505e0b000e1ec6f97acdbd",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\persistence\\approval-store.ts": "77e8cd137d8ad490a787e156722b71e610b4a9cc1399ba824fd6bd1fd075c60a",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\persistence\\bmad-context-store.ts": "9f5842c9b3f2bd12c4eb577467bab5c144dc862f2f24ef301658e7525e26eee7",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\persistence\\bmad-help-store.ts": "27f14c5c1ee8f789a8a66b184ad0a82c647bf8e4c14f6476fa15fcd0c514b21f",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\persistence\\graph-store.ts": "7c83cc042a526d1f50bda286cf0e2dfae9a497f01c44a859616b2f08b9b44a59",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\persistence\\json-store.ts": "5fbf4f3e26fe87511900ef05118a38221d54d383c6e909040f64829f07acc25e",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\persistence\\question-store.ts": "604619b170517057271559f144ecd13cb0895a3448023c2db8495f9e5ebad2a1",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\persistence\\recovery-store.ts": "fbaf743a2c167b66f42bd52d95c10fe312b828cd9229a0996836531cfdcf2217",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\persistence\\workflow-store.ts": "8baedaaf14e9e01c568374cb9ecd5d094abf32f1c36683b58a8d9d7875182fb5",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\adapters\\release-version.ts": "61f5aca3a85c6d0f9d92a5be756222e2ee0dbbae7a297636ed1454b868fd3e85",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\appearance.ts": "d3ce1afd5a6a3436f061ccfa994d49ab7a86943505a8902da7c8d3ef688227f3",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\approvals.ts": "9d246f4df262e7c95f6d6be3cc513a28da4956be398d539192f9baeb78ff9a5d",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\bmad-catalog.ts": "17d507b104f37b0067442dfb464a280e118719b1e55762140f86a051e31a4d07",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\bmad-context.ts": "0c6d17906bea014b51d387ba75247d29a9a91f96ce8dc7ceb445ed2da8d0cde1",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\bmad-graph.ts": "74ab78ad78afd7820fc6c939f51a7a278f5e4d78bbc1ccf4f0f8be6581f77912",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\bmad-help.ts": "0afeb2ee00f9cdb4df833d68ee454af472edf9b0ee05fecc2dc9b6dd706fdb7a",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\bmad-progress.ts": "965562c6ae88c60c62f5353dc65fdcde95670f609482202c5da1491d927af5e3",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\connection.ts": "1511fcef8d40839c3d7044f79b3ea62792976b1384ef2aba5d0a625932ebc206",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\dialogue.ts": "935e34da009965ca7ff207ea01f35cb95e01ee4ba7b187496d74cb2bc696b17e",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\index.ts": "a0e2bdba6558719cab40bccc55e4e669991c4e35368751eda90b2ee58c9c0ccf",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\project-files.ts": "3c676867201813393700b588eb6d5fa64d633971788f50ba96f169b155285493",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\questions.ts": "615fe3220a14e94a5f7be5d898737dc7325184ba7375e5c4aaafa7ea115d7461",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\contracts\\recovery.ts": "bd210fa24920f413995d0054e5a192093f983fc341f60fd20a5b91b9d15ea539",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\application.ts": "67c313429130973e4e480e8b02cffe6a8dea4048e80f5b30441b62a379fd7b3c",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\bmad-catalog.ts": "dccee3ecee588c09cbaf20ae437fbd0a3db4056952aad4c0513b110209692686",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\bmad-context.ts": "28c631b9b41a0f989c8957745d7edc3f55b6ebfb43c5f62bf5264662c144ef50",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\bmad-graph-port.ts": "3b5557879073eadd5c2b0b326d9e0cbd4ae3dc8bd1c54d2ed50ae7b542fd6c4e",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\bmad-graph.ts": "de8aee46dd4003e54320ecd93438b7fce1c07a80cd9a867b292c6a1a95851ee1",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\bmad-help.ts": "dcb798707293d3cc10ec561fff3ce649057dd7bb952f0fbb525d287b48c2f084",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\bmad-observation.ts": "986043eed826c064f7a6d7c1cee5de7c0413ee101d97b05037c0211ef156b0f2",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\bmad-progress.ts": "4a94fe23bc23800d3768a9b53f98228bcad71be68aa26bb0794f82501359f332",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\dialogue.ts": "88d32fd9b8d8d4a4143e2ce167de62820f3c3ac43e19b46df9a4110b9ff414b2",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\graph-coordinator.ts": "10df6a83c427a812c8b7633881f70d9b99d3c571ae45d85855b43ef4588688f7",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\lifecycle.ts": "318c18ca9f240d6902de88d2b41ba845836cd69b9cb524ab3f49ae16fe24c81a",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\ports.ts": "ff0a9a81c5a5d6a3dff1a20225c8f1405bb8d238bee81eeb28784e0d7277c33d",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\project-files.ts": "d07eecee0b67ee41d670d9b88d4df4fae3e0be9c43fe063c9d3f881db208b419",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\project-library.ts": "73b97889c42e76ecd3e5e75867aef2c81ef532ff4ce5a7511ef9ea81bec857cd",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\core\\work-overview.ts": "844a65acee9b429be56d17347baa0448c244929ff0e5292d73e72c93456c5f10",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\main\\boundary.ts": "5f67fad35979ea54b1f853981c3eb8b183aea5c18919be5ce863b9e837d79f28",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\main\\index.ts": "3e93719a933df0d158626678dacbfa020743cba5218e98be263cf3b38605c156",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\package.json": "592f56e0d5a1da31d06e1a3cfc3dfb58d8dd5c257388fd9cc9f02a9f041b66f1",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\preload\\index.ts": "699d336ca5943c38d2200317299b5e5dfcd69398dd3c4596045df58bf555aa6e",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\index.html": "e3c368d529d7b041c877806ee476a08beca1778118886445d2c27c0662da369e",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\AgentInfoPanel.tsx": "f6fa8373bcedd1a2be85aea087155a522f14222ced9ad18a7526b13e5bebe6dd",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\AgentPortrait.tsx": "c15b2edebb8e30e7266ca93a17693ffd320bac1b355ac7e457a05ba8f6bf3404",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\agentPresentation.ts": "dfab8525abca93277cef346e1088a0e4bb791ea3001cead31439ba13ca8cb661",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\App.tsx": "a2002f7a390fe5c7857107a3dd55749295364439481f4e786dd7bf3c8c3888ba",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\ApprovalPanel.tsx": "4b12ffa86273bcd65d7d72c3e7f1bdc8632f5944162d558383093ee3f496e3b3",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\atelier\\amelia-bust.png": "79e08e75593f756c4714f1cbb8d7acfb3f75596c17a0d8436c2a125b2779a600",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\atelier\\BarlowCondensed-Bold.ttf": "e476562ec9c1e16cf16475895b511f08c804f438cc9a9f80a44ea50a0eeb5b65",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\atelier\\chrome-plate-frame.png": "cee7d64112d445b0f3ef3a666bc6f7d9e7c7edfc6c63135fed40823d63e0f9ad",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\atelier\\john-bust.png": "04d5fb86a4cf814ac260dae3ca44ab8508ef174ab4cce28bbd13457484a78b87",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\atelier\\mary-bust.png": "c157bb6a0d7f5a423c2e84e627776af4650bdbce7bace92d3992a4de0bc52360",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\atelier\\Oxanium-Variable.ttf": "2ce01d946e1e1ffc8d7eecfffbda8623bedd63eaf811a20488c4b69af45babb0",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\atelier\\sally-bust.png": "f6d328b6765d973bc6951fdae69ceba9e633950bcf496f7bbc991113b3995662",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\atelier\\smithy-bust.png": "ac69746654a76fbfca5bcf486acffff685fff06114acb5c33807dc1ada66da25",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\atelier\\sofia-bust.png": "658dae6271a2dd378b2c1e814f335aa930451856a5296b8858dfc5091a2435a5",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\atelier\\winston-bust.png": "a65c87f53c895cd4e7240d86ef22a9807d4adaad6a6f194d84a689157ee33d7d",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\atelier\\workshop-header.png": "37c06960a882d14504853a93b2025dd32edf58a958a0c4e80c1bb90905925472",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\atelier\\workshop-sidebar.png": "4d4ba515ef3be958d7f034815586c4a1709242f6c4ae1de6fc2b52bbcbd45b38",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\assets\\chatgpt-mark.svg": "88238fe3c01827061444b1732e28e0709e10f61b7941295955cb5889102264a7",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\atelier-controls.css": "7cc7b3738ae1cc892d5938069b361aedee08d7f46b15ce1c901f85a507519570",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\atelier-immersion.css": "4f1ed5e84745667f33fc74f74e2271f2fc58043bf4459fa29cd80fb6ba41236d",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\catalog.css": "1c03417603b9177fda9cd29486e779102471930cf7e50917b770694b6ae67c55",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\CatalogPanel.tsx": "aad9439eef38831c2798cd3d65ee34be931cd38bff7c8f2f45b97d93db995041",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\consultation-navigation.ts": "1fab10ee0210c713963631a3a29c34121b91d2282a052ead9231997415a9b4af",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\env.d.ts": "24b05105f38e8671255429d76b1ead94d1d381186baee58698ee3d0e2aafd459",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\file-strings.ts": "5404f3394c451a04b28ef1ff8a8e5b3d58e58bd1a04be3b24ac44d44bfa831c5",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\FilePreview.tsx": "014ccbd05f25d15dd72d7b253ad5bd17e1d1bc5bcf5f4b74b0f5a0a4b5d4d335",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\files.css": "aaab3c8c65684def6821bbca29cffdea911fb3868bce89591c9eb33ec2a6bb6e",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\graph-strings.ts": "bc247ed2ba433282ff2548d955da83b4c83ea6d5e4741c7f5d592e9ea7798146",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\graph.css": "34cd5ce8905185aec506666238b08ad98fee7807e7957dff8fc381e8fc0d2187",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\GraphPanel.tsx": "434d25acc08d1c0ccb3b1db49c3f5b434507f6e1b1a13318789f69dc80dd8f2b",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\help.css": "7b5401902dc636eb547a30f911ecabefe438b3f887fe4322c6cbafe147e99c1b",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\HelpPanel.tsx": "f985b167cf5caf4bb430ab3efce0f0c456434743c5637a35e72b9a2ff1dc3fbd",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\initiatives.css": "f67cd411976b6300e271b97280b5cb26dffe7e750b2a6b15939f6ad2f598b421",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\InitiativeSelector.tsx": "f410071105bf91a5acb203f1d6fb536b269caf272133c9041dddbfcf64f32861",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\library.css": "899bb25a96bb3f7ba42a24049ef0758e06f19c4d79fba5531753af18a40da8d3",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\main.tsx": "65d669d6fc3590fa320a46775c5a2a616101b04ee0fe769753e293917abf7b76",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\NetworkHelp.tsx": "8f773286de1cde15dcef84cb32fe18f7d88fb900123cf90f75a3832771f7e6e1",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\progress.css": "b8fdc7dedd10fae3d9ba76ec20d933c0ba792378a4c8021f7f01f3a616c54bc8",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\ProjectLibrary.tsx": "a8f862007602dea2e2938de6a2dc8513596f13c73e0e8cd17d6477cf79ee0721",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\ProjectResume.tsx": "b347250260812825edb7ac0af8c62b0e07203b2e8a70c01c3e841e088acbd91d",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\QuestionPanel.tsx": "61a2b4e8c2ece09fa914391c3fdeb6cc518c71da5a9765f6e56baa702d8da9c6",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\RecoveryPanel.tsx": "dc403b1a86648ad64ffcb4e7f5e705cba1c3d51168495f7404512d9082ea6c8d",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\strings.ts": "eda648ba76bf112ac4c8742e5f17622312040d026d02b1f2a8288901b029c557",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\styles.css": "88368815862483a1ceb3350ab44ff2955948e9fc834bc2f262b2a0ec7e15b91a",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\WindowCaptionPlates.tsx": "0d79309f9b6b5b4d017acc38966acd67929418e94ba0f75d7c8507b6453076c6",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\src\\renderer\\src\\WorkOverview.tsx": "fcb196ff72008eb7c6d73d24d45b21cd7543ed5256b045afc4654709b5204acc",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\main\\index.js": "e4d15fd6af537ed5aab76ee321a396b3475f55a6b00714da1b24628af60ecb7b",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\preload\\index.js": "988931a9ffef4cc019c2e3430d20c028dae9dfc595812ee93b0382ddc8ce9595",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\amelia-bust-BhMfUzyU.png": "79e08e75593f756c4714f1cbb8d7acfb3f75596c17a0d8436c2a125b2779a600",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\BarlowCondensed-Bold-v1X23fbx.ttf": "e476562ec9c1e16cf16475895b511f08c804f438cc9a9f80a44ea50a0eeb5b65",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\chatgpt-mark-BzeLsF5q.svg": "88238fe3c01827061444b1732e28e0709e10f61b7941295955cb5889102264a7",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\chrome-plate-frame-CEUOVTY4.png": "cee7d64112d445b0f3ef3a666bc6f7d9e7c7edfc6c63135fed40823d63e0f9ad",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\index-BLgsTXyj.css": "45557d8c56790b815b5ca193acd89cad06857328a0e0461b8bd71e1a7064f3e0",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\index-ZmnqjWjf.js": "d4a0052b743541953948158b17dfb3e7b41a6c65964274e1cda8547fa82bfbb5",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\john-bust-BFR8uFSt.png": "04d5fb86a4cf814ac260dae3ca44ab8508ef174ab4cce28bbd13457484a78b87",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\madness-64-CLfbpCIt.png": "cfcb8389875b74f2e6ddc1d0a14d46a765c2bb7895247c6580dc7f40f4e2b5bb",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\mary-bust-MARKPnXB.png": "c157bb6a0d7f5a423c2e84e627776af4650bdbce7bace92d3992a4de0bc52360",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\Oxanium-Variable-Cxng1r8B.ttf": "2ce01d946e1e1ffc8d7eecfffbda8623bedd63eaf811a20488c4b69af45babb0",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\sally-bust-V3QCidDb.png": "f6d328b6765d973bc6951fdae69ceba9e633950bcf496f7bbc991113b3995662",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\smithy-bust-5fAwEfcm.png": "ac69746654a76fbfca5bcf486acffff685fff06114acb5c33807dc1ada66da25",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\sofia-bust-BfDgrm10.png": "658dae6271a2dd378b2c1e814f335aa930451856a5296b8858dfc5091a2435a5",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\winston-bust-CX7w_Rgd.png": "a65c87f53c895cd4e7240d86ef22a9807d4adaad6a6f194d84a689157ee33d7d",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\workshop-header-CzuHm831.png": "37c06960a882d14504853a93b2025dd32edf58a958a0c4e80c1bb90905925472",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\assets\\workshop-sidebar-BKMFHWB8.png": "4d4ba515ef3be958d7f034815586c4a1709242f6c4ae1de6fc2b52bbcbd45b38",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\out\\renderer\\index.html": "8a02376ac2733f90897926f84a07da12f4bb8872ff4c69953b905ea15917ff82",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\package.json": "43d1c6d6d8ce02a1c7a33dc4fdcadfcec1e9b6fe7124be4769e914cd724f48c7",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\package-lock.json": "b612c9a173635a3cba771a454eca6a08d5ae1e0ff7ac3ed31371fdee9f7ea73d",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\electron-builder.yml": "dd4f945ba8ba9699430fc6ecf4c77f3d66e9f958d98b639cdd440656f21d77d1",
+      "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\electron.vite.config.ts": "7e421e376f8be09d21f5a317c45d911d6bc75842879542455b6747402869085c"
+    },
+    "asar": {
+      "path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\resources\\app.asar",
+      "sha256": "52a226b59023d456604a1b6c37992901177ae7a4615b34664dfd80762f82d0ea"
+    }
+  },
+  "commandsBeforeReopen": {
+    "madness:dialogue:command:v1:read": 1,
+    "madness:command:v1:select-project": 5,
+    "madness:bmad-context:command:v1:read": 5,
+    "madness:command:v1:read-state": 5,
+    "madness:appearance:v1:set-theme": 2
+  },
+  "commandsAfterReopen": {
+    "madness:dialogue:command:v1:read": 1
+  },
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe",
+    "sha256": "52a226b59023d456604a1b6c37992901177ae7a4615b34664dfd80762f82d0ea",
+    "version": "0.2.13"
+  },
+  "preservation": {
+    "package003Unchanged": true,
+    "sourceAndOutputUnchanged": true,
+    "asarUnchanged": true,
+    "sourceAndOutputFiles": 135,
+    "package003Files": 8
+  },
+  "finishedAt": "2026-11-04T19:29:08.580Z"
+}

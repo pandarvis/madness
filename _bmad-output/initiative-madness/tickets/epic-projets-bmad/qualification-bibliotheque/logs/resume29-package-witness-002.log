@@ -1,0 +1,10 @@
+L1 L7 persisted homonymous projects and historical inactive request
+locator.waitFor: Error: strict mode violation: locator('.library-project').first().getByText(/Preuves contradictoires/) resolved to 2 elements:
+    1) <span class="connection-error"> · Preuves contradictoires</span> aka getByText('· Preuves contradictoires', { exact: true })
+    2) <summary>Déclarations témoins contradictoires · Preuves co…</summary> aka getByText('Déclarations témoins contradictoires · Preuves contradictoires')
+
+Call log:
+  - waiting for locator('.library-project').first().getByText(/Preuves contradictoires/) to be visible
+
+    at C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\scripts\qualification\project-library.mjs:54:348
+{"status":"failed","checks":1,"cleanup":true,"captures":0}

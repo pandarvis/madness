@@ -1,0 +1,30 @@
+{
+  "lens": "quick",
+  "findings": [
+    {
+      "id": "Q1",
+      "location": "ProjectLibrary.tsx:12",
+      "verdict": "medium",
+      "route": "patch",
+      "evidence": "Les événements useBmadProgress remplacent directement evidence, y compris dans les détails ouverts. EXPERIENCE Actualisation2.5/ligne230 exige la version présentée distincte et une bascule volontaire ; état/révision disponibles démontrés. Reprendre le mécanisme de présentation déjà établi, sans nouveau contrat public métier/IPC/persistance.",
+      "recheck": "resolved by original Quick after same-worker patch"
+    },
+    {
+      "id": "Q2",
+      "location": "App.tsx:305/435",
+      "verdict": "medium",
+      "route": "patch",
+      "evidence": "WorkOverview reste accessible pendant pending ; navigateOverview(null) change token mais quitte sans libérer pending. Le finally guardé ne le libère plus. Correction directe du chemin global connu.",
+      "recheck": "resolved by original Quick after same-worker patch"
+    },
+    {
+      "id": "Q3",
+      "location": "GraphPanel.tsx:24",
+      "verdict": "medium",
+      "route": "patch",
+      "evidence": "views garde ordre insertion ; Object.assign ne promeut pas P après C. Nouvelle analyse retrouve C via reverse alors que P est consulté. Choisir la vue effectivement consultée dans le même périmètre ; aucun nouveau pouvoir public ni état hypothétique.",
+      "recheck": "resolved by original Quick after same-worker patch"
+    }
+  ],
+  "additionalLensesSkipped": true
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "status": "failed",
+  "startedAt": "2026-11-04T19:13:53.576Z",
+  "mode": "packaged",
+  "checks": [
+    "L1 L7 persisted homonymous projects and historical inactive request"
+  ],
+  "captures": [],
+  "launches": [
+    {
+      "main": {
+        "pid": 41396,
+        "startedAt": "639294164351730076",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 41396,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-library-LMcNoS\\profile",
+        "version": "0.2.13",
+        "packaged": true
+      }
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 41396,
+        "startedAt": "639294164351730076",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 28048,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T19:14:01.483Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Synthetic context/progress/live-request/Graph fixtures exercise presentation and passive navigation only; no native agent, collector or Graphify success is claimed.",
+    "Progress/Graph presentation injection is session-only. Reopening asserts only real persisted projects, draft and inactive requests.",
+    "No personal profile, external network, installation, human visual approval or global accessibility qualification."
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/project-library.mjs:49:341",
+  "finishedAt": "2026-11-04T19:14:04.475Z"
+}

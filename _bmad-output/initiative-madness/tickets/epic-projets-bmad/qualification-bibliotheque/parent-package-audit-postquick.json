@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "at": "2026-11-04T20:16:22.841Z",
+  "status": "passed",
+  "compiledFiles": 19,
+  "mainAndPreload": {
+    "out\\main\\index.js": {
+      "old": "6c65e9cf89fe1b6d05d14ded054099f7b313c3448a9c76b0f9407812034ded9f",
+      "current": "e4d15fd6af537ed5aab76ee321a396b3475f55a6b00714da1b24628af60ecb7b",
+      "byteIdentical": false,
+      "onlyReleaseVersionDelta": true
+    },
+    "out\\preload\\index.js": {
+      "old": "988931a9ffef4cc019c2e3430d20c028dae9dfc595812ee93b0382ddc8ce9595",
+      "current": "988931a9ffef4cc019c2e3430d20c028dae9dfc595812ee93b0382ddc8ce9595",
+      "byteIdentical": true,
+      "onlyReleaseVersionDelta": false
+    }
+  },
+  "externalResourceFilesByteIdentical": 3069,
+  "nativeComparisonBaselineAsar": "fe0d700698031e42abea38645935727a02fa016602834448e907d011ecfaf591",
+  "candidate": {
+    "asarSha256": "613e05e63594d52e0279e30518b3f7e52384cc17dd04460c900704571be71d7b",
+    "executableSha256": "1ace98378ba853cc90b30229a989be3b4ac20ba39a5e9447364df00379c28e93",
+    "installerSha256": "880d4f499f28a41d9945db1ca59e2dc68258cb2abb63970b3871126ec91b68de"
+  },
+  "scope": "Main differs only by inspected releaseVersion0.2.12->0.2.13 literal. Preload/external resources byte-identical since qualified Graph4.4. Current renderer exercised by seeded-presentation package003, no new native agent/collector/Graphify or wholeV1 qualification claimed."
+}

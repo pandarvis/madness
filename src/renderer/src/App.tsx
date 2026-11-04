@@ -1,3 +1,7 @@
+import {ProjectLibrary} from './ProjectLibrary.tsx'
+import {projectLibrary} from '../../core/project-library.ts'
+import {consultationKey,navigationCurrent} from './consultation-navigation.ts'
+import type {ConsultationPosition,WorkTab} from './consultation-navigation.ts'
 import {GraphPanel,useGraph} from './GraphPanel.tsx'
 import type {GraphView} from './GraphPanel.tsx'
 import {FilePreview,FilesContext,useProjectFiles} from './FilePreview.tsx'
@@ -110,7 +114,11 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const catalogViews=useRef(new Map<string,CatalogView>())
   const [initiativeConflict,setInitiativeConflict]=useState(false)
   const [state, setState] = useState<AppState | null>(null)
-  const [bmadContext,acceptBmadContext]=useBmadContext(state?.activeProjectId??undefined)
+  const [displayedProjectId,setDisplayedProjectId]=useState<string|null>(null)
+  const [bmadContext,acceptBmadContext]=useBmadContext(displayedProjectId??undefined)
+  const consultations=useRef(new Map<string,ConsultationPosition>())
+  const lastWork=useRef<ConsultationPosition|null>(null)
+  const [workReturn,setWorkReturn]=useState<ConsultationPosition|null>(null)
   const [page, setPage] = useState<'home' | 'project'>('home')
   const navigationToken=useRef(0)
   const pendingLaunch=useRef<{token:number;projectId:string;previousConversationId:string|null;sequence:number}|null>(null)
@@ -154,7 +162,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const connectionBusy = ['authorizing', 'verifying', 'stopping', 'closing'].includes(connection.status)
   const connectionBlocked = ['ENCRYPTION_UNAVAILABLE', 'VAULT_UNREADABLE', 'REGISTRATION_INVALID'].includes(connection.errorCode ?? '')
   const connectionLabel = 'Connexion Codex : ' + fr.connectionStatus[connection.status]
-  const project = state?.projects.find((p) => p.id === state.activeProjectId)
+  const project = state?.projects.find((p) => p.id === displayedProjectId)
   const initiativeContext=bmadContext.projects.find(p=>p.projectId===project?.id)
   const fileScope=tab==='graphe'?JSON.stringify([project?.id,project?.rootPath,'corpus']):JSON.stringify([project?.id,project?.rootPath,initiativeContext?.selection?.rootIdentity,initiativeContext?.selection?.initiativeId])
   const fileConsultation=page==='project'?fileViews[fileScope]:undefined
@@ -193,7 +201,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const dialogueBusy = ['qualifying', 'inspecting', 'starting', 'running','waiting-question','waiting-approval', 'stopping'].includes(dialogue.status)
   const sessionPresent = ['starting', 'running','waiting-question','waiting-approval', 'ready', 'stopping'].includes(dialogue.status)
   const projectConversations = state?.conversations.filter(c => c.context.projectId === project?.id) ?? []
-  const conversation = projectConversations.find(c=>c.id===conversationSelections[project?.id??'']) ?? projectConversations.find(c => c.id === dialogue.context.conversationId) ?? projectConversations.at(-1)
+  const selectedConversation=conversationSelections[project?.id??'']
+  const conversation = selectedConversation!==undefined?projectConversations.find(c=>c.id===selectedConversation):projectConversations.find(c => c.id === dialogue.context.conversationId) ?? projectConversations.at(-1)
   const dialogueConversationHere=!!conversation&&sameContext(conversation.context,dialogue.context)
   const overview=state?projectWorkOverview(state,dialogue,connection,Date.now()):null
   const respondable=(kind:'question'|'approval',id:string):boolean=>!!overview?.entries.some(e=>e.target.kind===kind&&e.target.id===id&&e.state==='waiting')
@@ -254,7 +263,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     const target=focusTarget.target
     if(target.context.projectId!==null&&(page!=='project'||project?.id!==target.context.projectId||tab!=='conversation'||target.context.conversationId!==null&&(!conversation||!sameContext(conversation.context,target.context))))return
     const element=target.kind==='question'?document.getElementById(target.id+'-title'):target.kind==='approval'?document.getElementById(target.id+'-title'):target.kind==='recovery'?document.getElementById('recovery-'+target.id):target.kind==='session'?document.getElementById(target.id==='activity'||target.context.projectId!==null&&dialogue.recovery.stop==='clear'?'dialogue-session-title':'overview-session-recovery'):document.getElementById(target.id.startsWith('bmad-receipt-')?target.id:'conversation-heading')
-    if(!element)return
+    if(!element){if(target.kind==='question'||target.kind==='approval'){setNotice('Cette demande exacte est indisponible — aucun substitut sélectionné.');setFocusTarget(null)}return}
     if((target.kind==='question'||target.kind==='approval')&&!overview?.entries.some(e=>e.target.kind===target.kind&&e.target.id===target.id))setNotice(fr.overview.targetGone)
     let parent=element.parentElement
     while(parent){if(parent instanceof HTMLDetailsElement)parent.open=true;parent=parent.parentElement}
@@ -286,17 +295,20 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     return true
   }
   async function run(operation: () => Promise<Reply>, after?: (reply: Reply) => void): Promise<void> {
+    const token=navigationToken.current
     setPending(true)
     try {
       const reply = await operation()
-      if (accept(reply)) after?.(reply)
-    } catch { setError('Le pont local ne répond pas. Votre saisie reste disponible ici. Réessayez.'); setNotice('') }
-    finally { setPending(false) }
+      const accepted=reply.ok?accept(reply):token===navigationToken.current?accept(reply):false
+      if (accepted&&token===navigationToken.current) after?.(reply)
+    } catch { if(token===navigationToken.current){setError('Le pont local ne répond pas. Votre saisie reste disponible ici. Réessayez.'); setNotice('')} }
+    finally { if(token===navigationToken.current)setPending(false) }
   }
   async function load(): Promise<void> {
     await run(() => window.madness.readState(), (reply) => {
       if (!reply.ok) return
       setCollapsed(reply.value.state.preferences.navigationCollapsed)
+      setDisplayedProjectId(reply.value.state.activeProjectId)
       setPage(reply.value.state.activeProjectId ? 'project' : 'home')
       setNotice('Contexte local chargé. Aucun agent n’a été relancé.')
     })
@@ -385,36 +397,73 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     if (!connection.needsPlanAcknowledgement && planConfirmation.current?.open) { planConfirmation.current.close(); if (connectionOpen) connectionHeading.current?.focus(); else connectionTrigger.current?.focus() }
   }, [connection.needsPlanAcknowledgement, connection.accountStored, connection.status, connectionOpen])
   function closeDrawer(): void { drawer.current?.close(); drawerTrigger.current?.focus() }
-  function home(): void { const token=++navigationToken.current;setPending(false);setFocusTarget(null);setPage('home'); closeDrawer(); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) }
+  function rootIdentity(id:string,path:string):string|null {const value=bmadContext.projects.find(p=>p.projectId===id)?.observation;return value&&value.rootPath===path?value.rootIdentity:graphState.projects.find(p=>p.scope.projectId===id&&p.scope.rootPath===path)?.scope.rootIdentity??null}
+  function remember():ConsultationPosition|null {
+    if(page!=='project'||!project)return null
+    const focus=workFocus.current,input=focus instanceof HTMLInputElement||focus instanceof HTMLTextAreaElement?focus:null
+    const value:ConsultationPosition={projectId:project.id,rootPath:project.rootPath,rootIdentity:rootIdentity(project.id,project.rootPath),tab,conversationId:conversation?.id??null,conversationContext:conversation?{...conversation.context}:null,inputId:input?.id||null,start:input?.selectionStart??null,end:input?.selectionEnd??null,top:document.getElementById('main')?.scrollTop??0,focus}
+    consultations.current.set(consultationKey(project.id,project.rootPath,value.rootIdentity),value);lastWork.current=value;return value
+  }
+  function restoreView(id:string):void {
+    const p=state?.projects.find(p=>p.id===id);if(!p)return
+    const identity=rootIdentity(p.id,p.rootPath),key=consultationKey(p.id,p.rootPath,identity)
+    const priorKnown=[...consultations.current.keys()].some(k=>{const [pid,path,root]=JSON.parse(k) as [string,string,string|null];return pid===p.id&&path===JSON.parse(key)[1]&&root!==null})
+    const value=consultations.current.get(key)??(identity!==null&&!priorKnown?consultations.current.get(consultationKey(p.id,p.rootPath,null)):undefined)
+    setDisplayedProjectId(id);setPage('project');setTab(value?.tab??'parcours')
+    if(value?.conversationId)setConversationSelections(current=>({...current,[id]:value.conversationId!}))
+    const token=navigationToken.current
+    requestAnimationFrame(()=>{if(!navigationCurrent({token,projectId:id},navigationToken.current,currentProjectId.current))return;const main=document.getElementById('main');if(main)main.scrollTop=value?.top??0})
+  }
+  function home(): void { remember();const token=++navigationToken.current;setPending(false);setFocusTarget(null);setPage('home'); closeDrawer(); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) }
   function open(): void {
-    const token=++navigationToken.current;setFocusTarget(null)
+    remember();const token=++navigationToken.current;setFocusTarget(null);setWorkReturn(null)
     closeDrawer()
     void run(() => window.madness.chooseDirectory(), (reply) => {
       if (!reply.ok||token!==navigationToken.current) return
       if (reply.value.effect === 'cancelled') setNotice('Ouverture annulée. Aucun projet ajouté.')
-      else { setPage('project'); setNotice('Contexte du dossier enregistré localement.'); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) }
+      else { setDisplayedProjectId(reply.value.state.activeProjectId);setTab('parcours');setPage('project'); setNotice('Contexte du dossier enregistré localement.'); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) }
     })
   }
   function select(projectId: string): void {
-    const token=++navigationToken.current;setFocusTarget(null)
-    closeDrawer()
-    void run(() => window.madness.selectProject(projectId), () => { if(token!==navigationToken.current)return;setPage('project'); setNotice('Projet retrouvé. Aucun agent n’a été relancé.'); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) })
+    remember();const token=++navigationToken.current;setFocusTarget(null);setWorkReturn(null)
+    closeDrawer();restoreView(projectId)
+    void run(() => window.madness.selectProject(projectId), () => { if(token!==navigationToken.current)return;setNotice('Projet retrouvé. Aucun agent n’a été relancé.'); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) })
   }
   async function navigateOverview(target:OverviewTarget):Promise<void>{
+    const origin=remember()??lastWork.current;if(!workReturn&&origin)setWorkReturn(origin)
     const token=++navigationToken.current;setFocusTarget(null);closeDrawer()
-    if(target.context.projectId===null){setPage('home');setFocusTarget({token,target});return}
+    if(target.context.projectId===null){setPending(false);setPage('home');setFocusTarget({token,target});return}
     setPending(true)
     try{
       const reply=await window.madness.selectProject(target.context.projectId)
+      // Publishing durable facts never authorizes an obsolete navigation.
+      if(reply.ok)accept(reply)
       if(token!==navigationToken.current)return
       if(!reply.ok){accept(reply);setNotice(fr.overview.selectionFailed);return}
       const captured=target.context.conversationId===null||reply.value.state.conversations.some(c=>c.id===target.context.conversationId&&sameContext(c.context,target.context))
-      if(!captured||reply.value.state.activeProjectId!==target.context.projectId){setNotice(fr.overview.selectionFailed);return}
-      accept(reply);setPage('project');setTab('conversation')
+      setDisplayedProjectId(target.context.projectId);setPage('project');setTab('conversation')
       if(target.context.conversationId)setConversationSelections(current=>({...current,[target.context.projectId!]:target.context.conversationId!}))
+      if(!captured||reply.value.state.activeProjectId!==target.context.projectId){setNotice('Destination exacte disparue — aucun autre échange sélectionné.');return}
       setFocusTarget({token,target});setNotice('Contexte capturé retrouvé. Aucun message ni accord transmis.')
     }catch{if(token===navigationToken.current)setNotice(fr.overview.selectionFailed)}
     finally{if(token===navigationToken.current)setPending(false)}
+  }
+  function returnToWork():void {
+    const value=workReturn;if(!value)return
+    remember();const token=++navigationToken.current;setPending(false);setFocusTarget(null);setWorkReturn(null)
+    const p=state?.projects.find(p=>p.id===value.projectId)
+    if(!p||p.rootPath!==value.rootPath||value.rootIdentity!==rootIdentity(p.id,p.rootPath)){setPage('home');setNotice('Point de retour indisponible — projet absent ou racine remplacée.');return}
+    setDisplayedProjectId(p.id);setPage('project');setTab(value.tab)
+    const exact=value.conversationContext===null||state?.conversations.some(c=>sameContext(c.context,value.conversationContext!))
+    if(value.conversationId)setConversationSelections(current=>({...current,[p.id]:value.conversationId!}))
+    setNotice(exact?'Travail retrouvé pour cette session. Aucun envoi effectué.':'Échange de retour supprimé — aucun échange de remplacement sélectionné.')
+    void window.madness.selectProject(p.id).then(reply=>{if(reply.ok)accept(reply);else if(token===navigationToken.current){setError(fr.errors[reply.error.messageKey]);setNotice('Navigation conservée pour cette session — enregistrement échoué. La réouverture n’est pas garantie.')}}).catch(()=>{if(token===navigationToken.current)setNotice('Navigation conservée pour cette session — enregistrement échoué. La réouverture n’est pas garantie.')})
+    requestAnimationFrame(()=>{
+      if(!navigationCurrent({token,projectId:p.id},navigationToken.current,currentProjectId.current))return
+      const input=exact&&value.inputId?document.getElementById(value.inputId):null,target=exact?(value.focus?.isConnected?value.focus:input??document.getElementById('tab-'+value.tab)):heading.current
+      target?.focus({preventScroll:true});if((input instanceof HTMLInputElement||input instanceof HTMLTextAreaElement)&&value.start!==null&&value.end!==null)input.setSelectionRange(value.start,value.end)
+      const main=document.getElementById('main');if(main)main.scrollTop=value.top
+    })
   }
   function toggleNavigation(): void {
     if (pending || !state) return
@@ -425,10 +474,10 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   }
   function chooseTab(value:'parcours'|'conversation'|'catalogue'|'graphe'):void {
     if(value==='graphe'&&tab!=='graphe'&&project){const trigger=workFocus.current,input=trigger instanceof HTMLTextAreaElement||trigger instanceof HTMLInputElement?trigger:null;graphReturns.current.set(project.id,{projectId:project.id,rootPath:project.rootPath,tab,initiative:initiativeContext?.selection?.initiativeId??null,conversationId:conversation?.id??null,trigger,inputId:input?.id||null,start:input?.selectionStart??null,end:input?.selectionEnd??null,top:document.getElementById('main')?.scrollTop??0})}
-    if(value!==tab)closeFile(false)
+    remember()
     navigationToken.current++;setFocusTarget(null);setPending(false);setTab(value);if(value==='catalogue'&&project&&!catalogState.projects.some(p=>p.projectId===project.id))void window.madnessBmadCatalog?.collect(project.id).then(acceptCatalog).catch(()=>{})
   }
-  function returnFromGraph():void{if(!project)return;const target=graphReturns.current.get(project.id);if(!target||target.rootPath!==project.rootPath||target.initiative!==(initiativeContext?.selection?.initiativeId??null)||target.conversationId!==(conversation?.id??null)){setNotice('Retour exact indisponible — le contexte de travail a changé.');heading.current?.focus();return}chooseTab(target.tab);requestAnimationFrame(()=>{const input=target.inputId?document.getElementById(target.inputId):null,element=target.trigger?.isConnected?target.trigger:input??document.getElementById('tab-'+target.tab)??heading.current;element?.focus({preventScroll:true});if((input instanceof HTMLTextAreaElement||input instanceof HTMLInputElement)&&target.start!==null&&target.end!==null)input.setSelectionRange(target.start,target.end);const main=document.getElementById('main');if(main)main.scrollTop=target.top})}
+  function returnFromGraph():void{if(!project)return;const target=graphReturns.current.get(project.id);if(!target||target.rootPath!==project.rootPath||target.initiative!==(initiativeContext?.selection?.initiativeId??null)||target.conversationId!==(conversation?.id??null)){setNotice('Retour exact indisponible — le contexte de travail a changé.');heading.current?.focus();return}const token=++navigationToken.current,id=project.id;setFocusTarget(null);setPending(false);setTab(target.tab);requestAnimationFrame(()=>{if(!navigationCurrent({token,projectId:id},navigationToken.current,currentProjectId.current))return;const input=target.inputId?document.getElementById(target.inputId):null,element=target.trigger?.isConnected?target.trigger:input??document.getElementById('tab-'+target.tab)??heading.current;element?.focus({preventScroll:true});if((input instanceof HTMLTextAreaElement||input instanceof HTMLInputElement)&&target.start!==null&&target.end!==null)input.setSelectionRange(target.start,target.end);const main=document.getElementById('main');if(main)main.scrollTop=target.top})}
 
   function prepareExchange():void {if(!project)return;const token=++navigationToken.current;setFocusTarget(null);setPending(false);setTab('parcours');setPreparationFocus({token,projectId:project.id})}
   function closeContext():void {setContextOpen(false);contextTrigger.current?.focus()}
@@ -438,7 +487,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     {state?.projects.map(p => <button key={p.id} className={'nav-button project-link ' + (page === 'project' && p.id === project?.id ? 'selected' : '')} aria-label={'Ouvrir le projet ' + p.name} aria-current={page === 'project' && p.id === project?.id ? 'page' : undefined} title={p.name + '\n' + p.rootPath} disabled={pending} onClick={() => select(p.id)}><span className="project-glyph" aria-hidden="true"><ProjectMark name={p.name} /></span><span className="nav-label truncate">{p.name}</span></button>)}
     {!state?.projects.length && <p className="nav-note nav-label">Vos dossiers ouverts apparaîtront ici.</p>}
   </>
-  return <FilesContext.Provider value={{state:filesState,open:openFile}}><div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>{captureRequestFocus(event.target);if(tab!=='graphe'&&event.target instanceof HTMLElement&&!event.target.closest('.project-tabs,.file-preview'))workFocus.current=event.target}} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open||document.querySelector('.initiative-dialog[open],.catalog-dialog[open]')) return; if(fileConsultation){event.preventDefault();event.stopPropagation();closeFile()}else if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
+  return <FilesContext.Provider value={{state:filesState,open:openFile}}><div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>{captureRequestFocus(event.target);if(tab!=='graphe'&&event.target instanceof HTMLElement&&event.target.closest('main')&&!event.target.closest('.project-tabs,.file-preview,.work-overview,.project-library,.return-to-work'))workFocus.current=event.target}} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open||document.querySelector('.initiative-dialog[open],.catalog-dialog[open]')) return; if(fileConsultation){event.preventDefault();event.stopPropagation();closeFile()}else if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
     <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>Aller au contenu</a>
     <header className="topbar" onMouseLeave={()=>setTooltipsDismissed(false)} onFocusCapture={()=>setTooltipsDismissed(false)}>
       <div className="breadcrumb">
@@ -492,11 +541,13 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
               </div>
               <div className="project-tabs" role="tablist" aria-label="Vues du projet">{(['parcours','conversation','catalogue','graphe'] as const).map((item,index,tabs)=><button key={item} id={'tab-'+item} type="button" role="tab" aria-selected={tab===item} aria-controls={'panel-'+item} tabIndex={tab===item?0:-1} onClick={()=>chooseTab(item)} onKeyDown={event=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:tabs.length-1))%tabs.length;document.getElementById('tab-'+tabs[next])?.focus()}}}>{item==='parcours'?'Parcours':item==='conversation'?'Conversation':item==='catalogue'?'Toutes les possibilités':'Graphe'}</button>)}</div>
 </>)}
+            {workReturn&&<button type="button" className="text-button return-to-work" onClick={returnToWork}>Revenir au travail · {state?.projects.find(p=>p.id===workReturn.projectId)?.name??'projet indisponible'}</button>}
             {overview&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} compact={page==='project'&&(tab==='conversation'||tab==='catalogue'||tab==='graphe')} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} onNavigate={target=>void navigateOverview(target)} onConnection={openConnection}/>}
             {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<details className="recovery-details global-recovery"><summary>Détails de la récupération globale</summary><section id="overview-session-recovery" tabIndex={-1} aria-label="Récupération globale"><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section></details>}
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>Retrouver votre espace de travail</h1><p>{pending ? 'Lecture du contexte local…' : 'Le contexte local est indisponible. Utilisez le message ci-dessus pour réessayer.'}</p></section> : page === 'home' || !project ? <>
 
-              {state.projects.length === 0 ? <section className="welcome"><h2>Commencez par un dossier</h2><p>Ouvrez un projet local pour conserver son contexte et y préparer un brouillon. Le dossier reste intact.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Madness doit connaître le projet auquel rattacher votre saisie.</p></section> : <section aria-labelledby="recent-heading"><h2 id="recent-heading">{fr.recent}</h2><div className="project-list">{state.projects.map(p => <button className="project-row" key={p.id} onClick={() => select(p.id)} disabled={pending}><span className="project-avatar" aria-hidden="true"><ProjectMark name={p.name} /></span><span className="project-info"><strong>{p.name}</strong><code>{p.rootPath}</code><small>Contexte conservé localement</small></span><Icon name="arrow" /></button>)}</div></section>}
+              {state.projects.length === 0 ? <section className="welcome"><h2>Commencez par un dossier</h2><p>Ouvrez un projet local pour conserver son contexte et y préparer un brouillon. Le dossier reste intact.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Madness doit connaître le projet auquel rattacher votre saisie.</p></section> : <ProjectLibrary mark={name=><ProjectMark name={name}/>} entries={projectLibrary(state,bmadContext,progressState,helpState,overview!)} onSelect={select} onNavigate={target=>void navigateOverview(target)} pending={pending}/>}
+
               <div className="home-note"><h2>Connectez votre compte depuis le logo Codex</h2><p>{fr.codexReason} Les preuves BMad se lisent dans Parcours, sans connexion. Le graphe local du code se consulte dans l’onglet Graphe. L’initialisation reste à venir.</p></div>
             </> : <>
               <section id={'panel-' + tab} role="tabpanel" aria-labelledby={'tab-' + tab}>

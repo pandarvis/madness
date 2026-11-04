@@ -1,0 +1,39 @@
+✔ P2/P3 declarations keep entry, leaf, plan and tracker separate; built never accepts (172.2122ms)
+✔ P4 literal excerpts retain section, source and lines with no generated synthesis (1.7946ms)
+✔ Q1 literal statuses in-progress and blocked remain conflicting (0.8865ms)
+✔ Q1 literal statuses draft and ready-for-dev remain conflicting (0.5545ms)
+✔ Q1 tracker equivalence stays separate from literal status disagreement (0.6978ms)
+✔ strict bridge refuses free paths, admission flags and inconsistent source links (3.549ms)
+✔ P5 consultation beta is independent of active alpha; passive read starts no helper (2.9746ms)
+✔ P5 no choice, missing choice and replaced root refuse new collection (2.2587ms)
+✔ P7 late result remains attached to captured beta and cannot replace selected alpha (21.3455ms)
+✔ P7 failure preserves previous dated snapshot and shutdown aborts owned read (4.3852ms)
+✔ P8 local reader has no connection dependency; BUSY and STOP_UNCONFIRMED remain distinct (1.4547ms)
+✔ P7 failed refresh preserves every previous source byte reference and date (1.8987ms)
+✔ P7 replaced application root marks a delayed capture historical even before context refresh (2.2906ms)
+✔ P7 superseded generation cannot overwrite the latest read (2.6876ms)
+✔ graph UI searches, preserves direction and local view without analysis, with named keyboard controls (8439.1791ms)
+✔ graph resume preserves compatible filters on new analysis and complete choice through direct project prop changes (12342.9282ms)
+✔ L1/L2: homonymous projects remain separate, literal conflicts and missing facts stay explicit (11.8524ms)
+✔ L2/L6: physical root, selected initiative, context revision and freshness are independently checked (4.2159ms)
+✔ L2: partial help is literal, dated as bundle only and never granted root/context identity (1.6086ms)
+✔ L3/L7: expired and restored requests stay inactive without borrowing the current choice (1.3067ms)
+✔ L4/L5: consultation keys separate roots and continuations require both intent and current project (0.8759ms)
+✔ L1: same ticket identifiers on separate roots never merge declarations or results (9.9485ms)
+✔ attente commune et contexte complet, indépendant du projet sélectionné et des capabilities G0 (5.4084ms)
+✔ expiration, fin, demande résolue et contexte divergent retirent toute attente active (2.3552ms)
+✔ envoi en cours reste visible sans devenir une nouvelle attente (0.6388ms)
+✔ historique sans moteur : texte exact, tour inconnu et demandes inactives (0.5986ms)
+✔ fin corrélée et résultat exact, aucun message complet ne termine seul un tour (3.003ms)
+✔ choix transmis distinct de l’effet et portée annoncée distincte des observations (1.0475ms)
+✔ arrêt global ne prend pas le contexte du projet actif et projection sans mutation (1.3926ms)
+✔ activité native visible sans attente ; idle et texte complet ne prouvent aucune activité ni fin (0.8698ms)
+✔ deux tours dans une conversation gardent la corrélation propre des choix historiques (1.0964ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 23547.5898

@@ -1,0 +1,37 @@
+✔ P2/P3 declarations keep entry, leaf, plan and tracker separate; built never accepts (147.7445ms)
+✔ P4 literal excerpts retain section, source and lines with no generated synthesis (1.3529ms)
+✔ Q1 literal statuses in-progress and blocked remain conflicting (0.5993ms)
+✔ Q1 literal statuses draft and ready-for-dev remain conflicting (0.3226ms)
+✔ Q1 tracker equivalence stays separate from literal status disagreement (0.4438ms)
+✔ strict bridge refuses free paths, admission flags and inconsistent source links (2.5272ms)
+✔ P5 consultation beta is independent of active alpha; passive read starts no helper (2.3681ms)
+✔ P5 no choice, missing choice and replaced root refuse new collection (1.552ms)
+✔ P7 late result remains attached to captured beta and cannot replace selected alpha (23.1766ms)
+✔ P7 failure preserves previous dated snapshot and shutdown aborts owned read (2.021ms)
+✔ P8 local reader has no connection dependency; BUSY and STOP_UNCONFIRMED remain distinct (0.8299ms)
+✔ P7 failed refresh preserves every previous source byte reference and date (0.7488ms)
+✔ P7 replaced application root marks a delayed capture historical even before context refresh (1.3545ms)
+✔ P7 superseded generation cannot overwrite the latest read (1.3573ms)
+✔ L1/L2: homonymous projects remain separate, literal conflicts and missing facts stay explicit (9.1642ms)
+✔ L2/L6: physical root, selected initiative, context revision and freshness are independently checked (2.0699ms)
+✔ L2: partial help is literal, dated as bundle only and never granted root/context identity (0.7279ms)
+✔ L3/L7: expired and restored requests stay inactive without borrowing the current choice (0.4719ms)
+✔ L4/L5: consultation keys separate roots and continuations require both intent and current project (0.3306ms)
+✔ L1: same ticket identifiers on separate roots never merge declarations or results (0.6244ms)
+✔ attente commune et contexte complet, indépendant du projet sélectionné et des capabilities G0 (17.7758ms)
+✔ expiration, fin, demande résolue et contexte divergent retirent toute attente active (3.8658ms)
+✔ envoi en cours reste visible sans devenir une nouvelle attente (0.8244ms)
+✔ historique sans moteur : texte exact, tour inconnu et demandes inactives (1.611ms)
+✔ fin corrélée et résultat exact, aucun message complet ne termine seul un tour (1.4043ms)
+✔ choix transmis distinct de l’effet et portée annoncée distincte des observations (0.408ms)
+✔ arrêt global ne prend pas le contexte du projet actif et projection sans mutation (0.5917ms)
+✔ activité native visible sans attente ; idle et texte complet ne prouvent aucune activité ni fin (0.4124ms)
+✔ deux tours dans une conversation gardent la corrélation propre des choix historiques (0.3722ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 790.8241

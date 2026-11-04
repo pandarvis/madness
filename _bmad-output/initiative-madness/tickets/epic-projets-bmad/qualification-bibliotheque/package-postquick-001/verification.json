@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "startedAt": "2026-11-04T20:15:16.634Z",
+  "mode": "packaged",
+  "checks": [
+    "L1 L7 persisted homonymous projects and historical inactive request",
+    "L1 L2 separate current declarations, literal result and incomplete project",
+    "L3 L4 expired exact request and return restore captured conversation draft and cursor",
+    "L6 graph complete choice search selection zoom pan restored with zero generation or revalidation",
+    "L8 compact light and actual native zoom200 retain readable controls without overflow",
+    "L7 unscoped stop guard remains global",
+    "L7 passive reopen retains exact real draft and annex bytes; no agent or collector replay"
+  ],
+  "captures": [],
+  "launches": [
+    {
+      "main": {
+        "pid": 43600,
+        "startedAt": "639294201179681752",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed-postquick\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 43600,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-library-AvEH8J\\profile",
+        "version": "0.2.13",
+        "packaged": true
+      }
+    },
+    {
+      "main": {
+        "pid": 18032,
+        "startedAt": "639294201283306175",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed-postquick\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 18032,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-library-AvEH8J\\profile",
+        "version": "0.2.13",
+        "packaged": true
+      }
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 43600,
+        "startedAt": "639294201179681752",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed-postquick\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 17896,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T20:15:24.486Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 18032,
+        "startedAt": "639294201283306175",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed-postquick\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 37684,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T20:15:32.109Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Synthetic context/progress/live-request/Graph fixtures exercise presentation and passive navigation only; no native agent, collector or Graphify success is claimed.",
+    "Progress/Graph presentation injection is session-only. Reopening asserts only real persisted projects, draft and inactive requests.",
+    "No personal profile, external network, installation, human visual approval or global accessibility qualification."
+  ],
+  "commandsBeforeReopen": {
+    "madness:dialogue:command:v1:read": 1,
+    "madness:command:v1:select-project": 5,
+    "madness:bmad-context:command:v1:read": 5,
+    "madness:command:v1:read-state": 5,
+    "madness:appearance:v1:set-theme": 1
+  },
+  "commandsAfterReopen": {
+    "madness:dialogue:command:v1:read": 1
+  },
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed-postquick\\win-unpacked\\Madness.exe",
+    "sha256": "613e05e63594d52e0279e30518b3f7e52384cc17dd04460c900704571be71d7b",
+    "version": "0.2.13"
+  },
+  "finishedAt": "2026-11-04T20:15:33.498Z"
+}

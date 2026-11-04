@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "at": "2026-11-04T19:55:41.456325+00:00",
+  "matrix": "L1-L8 frozen5114d7ad…",
+  "status": "passed within stated scopes",
+  "rows": {
+    "L1": [
+      "tests/project-library.test.mjs; parent-core-graph-final.log",
+      "library L1-L4; parent-library-ui-final.log",
+      "package-003 checks1–2: homonymes, manques et aucune acceptation déduite"
+    ],
+    "L2": [
+      "tests/project-library.test.mjs: contexte, historique, contradictions, propositions littérales et inconnus; parent-core-graph-final.log",
+      "package-003 check2 et cadres06/07: passages/source/révision",
+      "library review: preserve presented evidence…; parent-library-ui-postquick.log"
+    ],
+    "L3": [
+      "library L1-L4; parent-library-ui-final.log",
+      "une attente expirée pendant la sélection…; worker ui-targeted-final.log",
+      "package-003 check3: cible capturée exacte/expiration sans envoi"
+    ],
+    "L4": [
+      "library L1-L4 et library L4 deleted return…; parent-library-ui-final.log",
+      "package-003 check3: brouillon/curseur exacts"
+    ],
+    "L5": [
+      "library L5…; parent-library-ui-final.log",
+      "deux destinations concurrentes… et préparer un échange…; worker ui-targeted-final.log",
+      "navigationCurrent tested in project-library.test.mjs; parent-core-graph-final.log",
+      "library review: global recovery releases pending…; parent-library-ui-postquick.log"
+    ],
+    "L6": [
+      "graph review carries the actually consulted compatible filters…; parent-core-graph-postquick.log",
+      "library L6…; parent-library-ui-final.log",
+      "package-003 check4: complet/requête/sélection/zoom/pan sans generate/revalidate"
+    ],
+    "L7": [
+      "work-overview.test.mjs; parent-core-graph-final.log",
+      "package-003 checks1,6,7: historiques inactifs/STOPglobal/données durables sans moteur aprèshook"
+    ],
+    "L8": [
+      "package-003 check5; native-visual-round2-001 check5 plus cadres04/05 complets: clair compact/zoom200/repli/noms longs",
+      "UI ciblée clavier/focus; finisher ship limité, pas WCAG globale"
+    ]
+  },
+  "parent": {
+    "coreGraph": 31,
+    "libraryUI": 4,
+    "fail": 0,
+    "skip": 0,
+    "buildExit": 0,
+    "compiledExact": 19
+  },
+  "workerConsolidated": {
+    "core": 29,
+    "renderer": 9,
+    "graph": 2,
+    "total": 40,
+    "note": "not added to parent totals; repeats not counted as unique coverage"
+  },
+  "limits": [
+    "Native presentation progress/context/question/Graph are explicitly seeded session fixtures, not native producer qualification.",
+    "Durable reopen asserts real projects, drafts and annex bytes only; network/child counters after hook only.",
+    "Nine older UI divergences remain unattributed under2.15; positive external clipboard under2.16.",
+    "No installation, personal-profile change or global human/WCAG/G2-G5 claim."
+  ],
+  "postQuick": {
+    "coreGraph": 31,
+    "libraryUI": 6,
+    "fail": 0,
+    "skip": 0,
+    "buildExit": 0,
+    "consolidatedParent": 37,
+    "graphRegression": "extended existing graph test, not an additional unique case"
+  }
+}

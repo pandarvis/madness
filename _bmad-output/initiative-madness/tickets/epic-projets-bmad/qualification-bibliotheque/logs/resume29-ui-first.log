@@ -1,0 +1,30 @@
+✔ deux destinations concurrentes et retour tardif gardent le dernier contexte et focus demandés (13356.5006ms)
+✔ préparer un échange annule une sélection différée et libère les commandes sans détour tardif (11717.3774ms)
+✔ une attente expirée pendant la sélection conserve sa saisie et explique l’absence d’envoi (5712.3424ms)
+✔ library L1-L4: exact cross-project request and return preserve captured initiative, unsaved draft and cursor (14573.3622ms)
+✖ library L5: late ordinary selection and state event cannot replace home or a later displayed project (9469.8938ms)
+✔ library L6: file consultation survives another tab and project without a second preview (3318.8893ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-gKndVR\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-gKndVR\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 60755.0855
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1241:1
+✖ library L5: late ordinary selection and state event cannot replace home or a later displayed project (9469.8938ms)
+  locator.getAttribute: Error: strict mode violation: locator('.project-link[aria-current="page"]') resolved to 2 elements:
+      1) <button aria-current="page" title="Même nom↵C:/late-b" aria-label="Ouvrir le projet Même nom" class="nav-button project-link selected">…</button> aka getByRole('button', { name: 'Ouvrir le projet Même nom', description: 'Même nom C:/late-b' })
+      2) <button aria-current="page" title="Même nom↵C:/late-b" aria-label="Ouvrir le projet Même nom" class="nav-button project-link selected">…</button> aka getByLabel('Projets en fenêtre compacte').getByTitle('Même nom\nC:/late-b')
+  
+  Call log:
+  [2m  - waiting for locator('.project-link[aria-current="page"]')[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1245:670) {
+    log: [ `  - waiting for locator('.project-link[aria-current="page"]')` ]
+  }

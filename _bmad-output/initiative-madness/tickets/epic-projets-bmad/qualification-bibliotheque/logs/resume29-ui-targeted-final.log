@@ -1,0 +1,18 @@
+{"resumeUiViewport":{"case":"offline-captured-conversation","viewport":{"requested":{"width":1440,"height":920},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[1440,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":1440,"height":920},"native":{"contentSize":[1440,920],"zoomFactor":1},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]}}}
+✔ reprise: hors ligne, declarations exactes, preuves inertes et retour capture alpha conservent la saisie (7099.6026ms)
+✔ deux destinations concurrentes et retour tardif gardent le dernier contexte et focus demandés (15151.3787ms)
+✔ préparer un échange annule une sélection différée et libère les commandes sans détour tardif (13098.5542ms)
+✔ une attente expirée pendant la sélection conserve sa saisie et explique l’absence d’envoi (8138.253ms)
+✔ fichiers: explicit new revision reads once and returning to its project never replays it (4630.6563ms)
+✔ library L1-L4: exact cross-project request and return preserve captured initiative, unsaved draft and cursor (14921.9688ms)
+✔ library L5: late ordinary selection and state event cannot replace home or a later displayed project (9760.4084ms)
+✔ library L6: file consultation survives another tab and project without a second preview (2550.4483ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-eQC5RV\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-eQC5RV\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 79641.589

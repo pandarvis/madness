@@ -1,0 +1,66 @@
+{
+  "at": "2026-11-04T19:33:51.786147+00:00",
+  "candidateAsar": "52a226b59023d456604a1b6c37992901177ae7a4615b34664dfd80762f82d0ea",
+  "selected": [
+    {
+      "file": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-bibliotheque/native-visual-round2-001/01-home-two-projects-dark-native-full.png",
+      "reviewCopy": ".impeccable/review/resume29-01-home-two-projects-dark-native-full.png",
+      "sha256": "b773e135ad29137c63670d06bc4716a00c4ada32db8f30e09ee9bafc1bf21c48",
+      "parentOpened": true,
+      "scope": "full native content viewport"
+    },
+    {
+      "file": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-bibliotheque/native-visual-round2-001/02-exact-wait-and-return-native-full.png",
+      "reviewCopy": ".impeccable/review/resume29-02-exact-wait-and-return-native-full.png",
+      "sha256": "83caee5f967c82000f6ef9dd57fb974b7e0798357cb765ea2dfb0906195607e9",
+      "parentOpened": true,
+      "scope": "full native content viewport"
+    },
+    {
+      "file": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-bibliotheque/native-visual-round2-001/03-retained-complete-graph-native-full.png",
+      "reviewCopy": ".impeccable/review/resume29-03-retained-complete-graph-native-full.png",
+      "sha256": "e4723a54c840e00fb1b657eddd302bf49891fd1c534292f0ea464e11fc558805",
+      "parentOpened": true,
+      "scope": "full native content viewport"
+    },
+    {
+      "file": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-bibliotheque/native-visual-round2-001/04-compact-light-native-full.png",
+      "reviewCopy": ".impeccable/review/resume29-04-compact-light-native-full.png",
+      "sha256": "20af4111f9a93d9f5f84c2665dcc23c3abc081992bcc0d4b22b565b8e422ff07",
+      "parentOpened": true,
+      "scope": "full native content viewport"
+    },
+    {
+      "file": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-bibliotheque/native-visual-round2-001/05-native-zoom200-light-full.png",
+      "reviewCopy": ".impeccable/review/resume29-05-native-zoom200-light-full.png",
+      "sha256": "f379d403071f0837f4e4686bbc5ce3610110945825833e5f19e648ae4f565d9a",
+      "parentOpened": true,
+      "scope": "full native content viewport"
+    },
+    {
+      "file": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-bibliotheque/native-visual-round2-001/06-scrolled-second-project-incomplete-dark-native-full.png",
+      "reviewCopy": ".impeccable/review/resume29-06-scrolled-second-project-incomplete-dark-native-full.png",
+      "sha256": "d7c5c7bea0eb713e2fea2c6884411c1a0fca4cb471b754af3f7015c8f56261ec",
+      "parentOpened": true,
+      "scope": "scrolled reading state"
+    },
+    {
+      "file": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-bibliotheque/native-visual-round2-001/07-scrolled-first-project-literal-result-source-dark-native-full.png",
+      "reviewCopy": ".impeccable/review/resume29-07-scrolled-first-project-literal-result-source-dark-native-full.png",
+      "sha256": "64214b871507731573ba00b560de22f411be6a891ce993d4bc82ae3cd1933a8a",
+      "parentOpened": true,
+      "scope": "scrolled reading state"
+    }
+  ],
+  "batches": 2,
+  "attempts": 3,
+  "secondBatchEpochs": 2,
+  "rejected": [
+    {
+      "file": "package-003/05-native-zoom200-light.png",
+      "reason": "Playwright screenshot crop1031x719 atnativezoom2; not fullnativeviewport"
+    }
+  ],
+  "firstBatchScope": "Other4images retained as valid for their named scopes; no wholeV1/nativeagent qualification",
+  "secondBatchScope": "Same product, no build/sourceUI edits; first4frames then3remaining after onepixel native heightquantization guard; raw failed epoch retained"
+}

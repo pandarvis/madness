@@ -1,0 +1,15 @@
+## verdict
+
+- Q1 — resolved à la portée source/tests relus : `LibraryProject` conserve l’observation présentée dans son état local ; une arrivée de révision ou de contexte différente rend l’observation disponible distincte sans remplacer le passage, la source ni les détails ouverts. `Afficher la nouvelle observation` réutilise l’action établie et ne bascule que vers une observation courante. La clé du registre change lors de cette bascule volontaire ; le bouton reste monté grâce à `switched`, ce qui permet de conserver son focus. Le scope projet/chemin canonique/initiative/identité physique empêche de reconduire une présentation sous une autre racine. Le test `library review: preserve presented evidence and open details until the explicit observation switch` contrôle l’ancien nœud toujours connecté, les détails et leur focus, le passage ancien, les deux révisions, le refus d’une version stale, la bascule explicite puis la racine remplacée sans collecte. Aucun résultat d’exécution n’est déduit de la seule lecture du test.
+- Q2 — resolved à la même portée : le trajet `navigateOverview` vers une récupération globale libère `pending` avant de retourner, tout en changeant le token de navigation. Le test `library review: global recovery releases pending before an obsolete project selection completes` contrôle que récupération et focus restent courants, que commandes/projets sont libérés avant la fin de l’ancienne sélection et que cette fin ne ramène pas le projet ni ne transmet de message.
+- Q3 — resolved à la même portée : `consultedKey` mémorise la vue effectivement consultée par périmètre ; une nouvelle identité d’analyse reprend seulement recherche et filtres depuis cette vue compatible. Le test `graph review carries the actually consulted compatible filters through partial complete partial edits` couvre P→C→P et ses modifications, un autre projet, la nouvelle analyse, la sélection et le zoom remis à zéro, puis une racine remplacée sans effet de génération/revalidation.
+- Régressions introduites par ce lot : aucune relevée dans ces trois corrections et leurs oracles. Pas de nouvelle chasse visuelle ; CSS, monde et actifs restent ceux du cadre adopté. Cette lecture ne transforme pas les assertions de tests en résultats exécutés.
+
+## remaining
+
+Clear pour le recheck ciblé des corrections Q1–Q3 à la portée source/oracles. Ce ship couvre les corrections relues, pas la surface entière ni le futur paquet. Les contrôles parent et la qualification du nouveau candidat étaient en cours au mandat ; leurs résultats ne sont pas attestés ici.
+
+Les sept cadres du premier finish restent des preuves historiques du seul ASAR `52a226b59023d456604a1b6c37992901177ae7a4615b34664dfd80762f82d0ea`. Aucun rendu postQuick, nouveau lot, recapture, détecteur, test ou build n’a été produit par ce recheck ; aucune image n’est attribuée à un autre ASAR. L’ancienne carte QUALITY BAR reste indisponible. Aucun accord humain global, audit WCAG, installation personnelle ou nouvelle qualification native métier n’en découle.
+
+disposition: ship
+

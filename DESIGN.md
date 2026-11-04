@@ -402,6 +402,12 @@ La fiche garde une zone séparée pour les attentes et récupérations nouvellem
 
 Révélation de fiche et ouverture du dossier utilisent une seule durée brève (180 ms), avec `cubic-bezier(.16, 1, .3, 1)`. La fiche avance de 10 px en se révélant ; les portraits restent statiques. `prefers-reduced-motion: reduce` supprime animations, transitions et défilement animé. Aucun mouvement ne signifie une activité native supposée.
 
+### Bibliothèque de projets et reprise
+
+L’accueil place les attentes et récupérations avant « Reprendre un projet ». Chaque ligne calme associe repère nominal, nom, racine exacte, initiative connue et action explicite ; les projets homonymes gardent leurs chemins distincts. État daté, couverture, contradiction et manque restent textuels. Résultats, décisions, récapitulatifs et suite proposée se lisent dans des détails progressifs avec leur contexte et provenance ; les passages restent littéraux et les inconnus ne deviennent pas une acceptation.
+
+Les noms reprennent le titre de projet, les passages restent bornés à 72 ch et les chemins longs reviennent à la ligne ; sous 721 px, la ligne se replie et les détails réduisent leur indentation. Revenir au travail restaure la consultation mémorisée en session, sans envoi implicite. Cette mémoire ne remplace pas la conservation durable des données locales. Une nouvelle observation garde la version déjà lue et ses détails jusqu’à « Afficher la nouvelle observation » ; les révisions affichée et disponible restent distinctes.
+
 ## Do's and Don'ts
 
 ### Do:

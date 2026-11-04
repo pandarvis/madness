@@ -3,10 +3,10 @@ import type {ReactNode} from 'react'
 import type {WorkOverviewState,OverviewTarget,ConversationOverview} from '../../core/work-overview.ts'
 import {fr} from './strings.ts'
 
-export function Recap({value,onNavigate}:{value:ConversationOverview;onNavigate:(target:OverviewTarget)=>void}):ReactNode {
+export function Recap({value,onNavigate,idPrefix=''}:{idPrefix?:string;value:ConversationOverview;onNavigate:(target:OverviewTarget)=>void}):ReactNode {
  const turn=value.turn,words=fr.overview
  const [open,setOpen]=useState(false)
- return <details className="turn-recap" data-recap-id={value.id} onToggle={event=>setOpen(event.currentTarget.open)}>
+ return <details className="turn-recap" data-recap-id={idPrefix+value.id} onToggle={event=>setOpen(event.currentTarget.open)}>
   <summary><span>{words.recap} · {value.projectName} · {words.turnStates[turn?.phase??'historical']}</span><code className="recap-reference">{value.id}</code></summary>
   {open&&<div className="recap-body">
    <p>{turn?.phase==='completed'?words.completed:turn?words.turnUnfinished:words.historical}</p>

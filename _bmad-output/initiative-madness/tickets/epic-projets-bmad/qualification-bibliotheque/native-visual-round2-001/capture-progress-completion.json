@@ -1,0 +1,299 @@
+{
+  "visualBatch": {
+    "number": 2,
+    "totalAllowed": 2,
+    "purpose": "Correct native full-window zoom capture; add requested scrolled incomplete-project and literal-source reading views",
+    "priorBatch": "package-003",
+    "productChanges": false,
+    "resizing": false,
+    "attemptOrdinalAcrossAllBatches": 3,
+    "epochs": [
+      {
+        "ordinal": 1,
+        "status": "failed-before-05",
+        "startedAt": "2026-11-04T19:26:37.025Z",
+        "finishedAt": "2026-11-04T19:26:44.263Z",
+        "captures": 4,
+        "cleanup": true
+      },
+      {
+        "ordinal": 2,
+        "status": "in-progress",
+        "startedAt": "2026-11-04T19:28:56.671Z",
+        "capturesToAdd": 3
+      }
+    ]
+  },
+  "captures": [
+    {
+      "file": "01-home-two-projects-dark-native-full.png",
+      "scope": "Reproduction du même état du premier lot ; capture native complète, aucun recadrage",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "b773e135ad29137c63670d06bc4716a00c4ada32db8f30e09ee9bafc1bf21c48",
+      "pngSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoomFactor": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 1441,
+        "height": 921
+      },
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "theme": "dark",
+        "documentScrollWidth": 1440,
+        "mainScrollTop": 0,
+        "mainScrollHeight": 1635
+      },
+      "fullNativeFrameVerified": true
+    },
+    {
+      "file": "02-exact-wait-and-return-native-full.png",
+      "scope": "Reproduction du même état du premier lot ; capture native complète, aucun recadrage",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "83caee5f967c82000f6ef9dd57fb974b7e0798357cb765ea2dfb0906195607e9",
+      "pngSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoomFactor": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 1441,
+        "height": 921
+      },
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "theme": "dark",
+        "documentScrollWidth": 1440,
+        "mainScrollTop": 110.4000015258789,
+        "mainScrollHeight": 1644
+      },
+      "fullNativeFrameVerified": true
+    },
+    {
+      "file": "03-retained-complete-graph-native-full.png",
+      "scope": "Reproduction du même état du premier lot ; capture native complète, aucun recadrage",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "e4723a54c840e00fb1b657eddd302bf49891fd1c534292f0ea464e11fc558805",
+      "pngSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoomFactor": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 1441,
+        "height": 921
+      },
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "theme": "dark",
+        "documentScrollWidth": 1440,
+        "mainScrollTop": 0,
+        "mainScrollHeight": 2520
+      },
+      "fullNativeFrameVerified": true
+    },
+    {
+      "file": "04-compact-light-native-full.png",
+      "scope": "Reproduction du même état du premier lot ; capture native complète, aucun recadrage",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "20af4111f9a93d9f5f84c2665dcc23c3abc081992bcc0d4b22b565b8e422ff07",
+      "pngSize": {
+        "width": 900,
+        "height": 1025
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 900,
+        "height": 1025
+      },
+      "zoomFactor": 1,
+      "contentSize": [
+        720,
+        820
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 721,
+        "height": 821
+      },
+      "metrics": {
+        "width": 720,
+        "height": 820,
+        "devicePixelRatio": 1.25,
+        "theme": "light",
+        "documentScrollWidth": 720,
+        "mainScrollTop": 0,
+        "mainScrollHeight": 1535
+      },
+      "fullNativeFrameVerified": true
+    },
+    {
+      "file": "05-native-zoom200-light-full.png",
+      "scope": "Reproduction du même état du premier lot ; capture native complète, aucun recadrage",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "f379d403071f0837f4e4686bbc5ce3610110945825833e5f19e648ae4f565d9a",
+      "pngSize": {
+        "width": 2063,
+        "height": 1437
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 2063,
+        "height": 1437
+      },
+      "zoomFactor": 2,
+      "contentSize": [
+        1650,
+        1149
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 1650,
+        "height": 1149
+      },
+      "sizing": {
+        "requestedContent": [
+          1650,
+          1150
+        ],
+        "actualContent": [
+          1650,
+          1149
+        ],
+        "quantizationDips": [
+          0,
+          -1
+        ],
+        "roundingTolerancePhysicalPixels": 2
+      },
+      "metrics": {
+        "width": 825,
+        "height": 575,
+        "devicePixelRatio": 2.5,
+        "theme": "light",
+        "documentScrollWidth": 825,
+        "mainScrollTop": 0,
+        "mainScrollHeight": 1628
+      },
+      "fullNativeFrameVerified": true,
+      "captureEpoch": 2
+    },
+    {
+      "file": "06-scrolled-second-project-incomplete-dark-native-full.png",
+      "scope": "Vue défilée de la carte propre au second projet incomplet ; aucune prétention de premier viewport",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "d7c5c7bea0eb713e2fea2c6884411c1a0fca4cb471b754af3f7015c8f56261ec",
+      "pngSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoomFactor": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 1441,
+        "height": 921
+      },
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "theme": "dark",
+        "documentScrollWidth": 1440,
+        "mainScrollTop": 664,
+        "mainScrollHeight": 1528
+      },
+      "fullNativeFrameVerified": true,
+      "captureEpoch": 2
+    },
+    {
+      "file": "07-scrolled-first-project-literal-result-source-dark-native-full.png",
+      "scope": "Vue défilée du résultat littéral ouvert et de sa source/révision, suivis des décisions non établies ; aucune prétention de premier viewport",
+      "method": "webContents.capturePage() WITHOUT rect, NativeImage.toPNG() WITHOUT resize",
+      "sha256": "64214b871507731573ba00b560de22f411be6a891ce993d4bc82ae3cd1933a8a",
+      "pngSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "baseDeviceScale": 1.25,
+      "imageSize": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoomFactor": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "windowBounds": {
+        "x": 107,
+        "y": 0,
+        "width": 1441,
+        "height": 921
+      },
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "theme": "dark",
+        "documentScrollWidth": 1440,
+        "mainScrollTop": 821.5999755859375,
+        "mainScrollHeight": 2103
+      },
+      "fullNativeFrameVerified": true,
+      "captureEpoch": 2
+    }
+  ]
+}

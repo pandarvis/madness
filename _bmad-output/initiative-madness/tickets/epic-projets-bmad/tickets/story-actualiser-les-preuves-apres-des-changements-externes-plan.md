@@ -1,7 +1,7 @@
 ---
 title: 'Actualiser les preuves après des changements externes'
 type: 'feature'
-ticket: '2.5'
+ticket: '5'
 created: '2026-11-04'
 status: 'built'
 baseline_revision: 'bd4b6ea95b42d9abae9f7de488c77d0487a32d96'

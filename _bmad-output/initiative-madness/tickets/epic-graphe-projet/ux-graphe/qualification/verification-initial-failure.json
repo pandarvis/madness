@@ -1,0 +1,10 @@
+{
+  "kind": "documentary-evidence-locators-and-reference-check",
+  "attempts": [
+    {"exitCode": 1, "error": "Missing exact quote U2e: ne pas faire une conversion silencieuse", "cause": "Citation paraphrased the document instead of quoting it."},
+    {"exitCode": 1, "error": "Citation absente de la clause U3e e3: aucune plage inventée", "cause": "Document says sans plage inventée; exact locator was wrong."},
+    {"exitCode": 1, "scenariosLocated": 30, "frEnPairsMatched": 42, "linkFailures": ["DESIGN.md -> qualification/verification.md", "handoff.md -> qualification/verification.md"], "cause": "First persisted audit checked the generated verification.md before writing it; the same run then wrote that file. Recheck required."}
+  ],
+  "productExecuted": false,
+  "correction": "Locate exact sentence inside its named clause; rerun reference audit after its generated artifact exists. No product behavior or contracts changed to satisfy an audit locator."
+}

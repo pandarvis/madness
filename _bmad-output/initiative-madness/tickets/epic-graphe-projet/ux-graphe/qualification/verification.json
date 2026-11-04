@@ -1,0 +1,933 @@
+{
+  "sources": [
+    {
+      "file": "DESIGN.md",
+      "sha256": "6b51044a49810cc28be094d687fcb27c8fa27ae079819ba9c8d539857fffc61c"
+    },
+    {
+      "file": "EXPERIENCE.md",
+      "sha256": "a2363df06532ab99464ac05aeb0a01945e58a3a715893b43c0345716ff466d52"
+    },
+    {
+      "file": "handoff.md",
+      "sha256": "66ddd2daad9847e281852139bc14eb408c1555a72070b3636e17b7d84d058ab4"
+    }
+  ],
+  "checkedAt": "2026-11-04T01:37:35.915Z",
+  "kind": "documentary-walkthrough-reference-copy-audit",
+  "uiExecuted": false,
+  "graphifyExecuted": false,
+  "humanApproval": false,
+  "g5Claimed": false,
+  "families": [
+    "U1",
+    "U2",
+    "U3",
+    "U4",
+    "U5",
+    "U6"
+  ],
+  "scenarioCount": 30,
+  "walkthroughs": [
+    {
+      "id": "U1a",
+      "family": "U1",
+      "input": "Conversation/brouillon du projet A, Codex déconnecté",
+      "action": "Choisir Graphe puis revenir",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e1",
+        "quote": "La découverte reste visible dans la même liste d’onglets, sans écran de configuration ni contrôle de compte IA préalable.",
+        "line": 15
+      },
+      "observation": "Entrée sans compte puis retour exact sans lancement ni envoi.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U1b",
+      "family": "U1",
+      "input": "Projet A puis B, résultat tardif A",
+      "action": "Retrouver chaque projet",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e1",
+        "quote": "Passer de A à B retrouve seulement l’exploration de B ; une arrivée tardive de A reste dans A et ne vole ni vue ni focus.",
+        "line": 19
+      },
+      "observation": "Explorations isolées par projet/racine/périmètre/analyse/révision.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U1c",
+      "family": "U1",
+      "input": "Initiative consultée changée",
+      "action": "Consulter le même graphe",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e1",
+        "quote": "Changer d’initiative ne réattribue pas le graphe du projet ni les échanges ; une portée effectivement différente exige un autre contexte affiché.",
+        "line": 19
+      },
+      "observation": "Échanges et graphe ne changent pas d’attribution.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U1d",
+      "family": "U1",
+      "input": "Déclencheur supprimé ou restauration",
+      "action": "Revenir/rouvrir",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e1",
+        "quote": "Ne jamais choisir le dernier échange, le premier projet ou une commande d’autorisation en remplacement.",
+        "line": 17
+      },
+      "observation": "Repli neutre connu ; seules données conservées et aucune relance.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U2a",
+      "family": "U2",
+      "input": "Aucun résultat",
+      "action": "Générer volontairement",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e2",
+        "quote": "Générer le graphe est volontaire ; ouvrir le panneau n’équivaut pas à ce clic.",
+        "line": 30
+      },
+      "observation": "Absent distinct du vide de recherche, aucun lancement par navigation.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U2b",
+      "family": "U2",
+      "input": "Dernier complet ancien, nouvelle analyse",
+      "action": "Lire activité et ancien résultat",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e2",
+        "quote": "Ancien résultat consultable sous son identité, sans mélange avec les données en cours.",
+        "line": 31
+      },
+      "observation": "Axes distincts, dernier complet identifiable, pas de double lancement.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U2c",
+      "family": "U2",
+      "input": "Analyse en cours",
+      "action": "Interrompre ou atteindre timeout",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e2",
+        "quote": "|\n| Arrêt demandé | Annoncer Arrêt demandé, puis attendre les preuves de l’enfant et des descendants possédés ; ne pas confondre clic, sortie du lanceur et fin de Job.",
+        "line": 36
+      },
+      "observation": "Arrêt demandé puis confirmé/inconnu, pas de succès provisoire.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U2d",
+      "family": "U2",
+      "input": "Fermeture ou arrêt inconnu",
+      "action": "Restaurer puis demander nouveau lancement",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e2",
+        "quote": "La restauration conserve un arrêt inconnu sans rendre la tentative active ni la relancer.",
+        "line": 41
+      },
+      "observation": "Garde concernée maintenue ; réobservation qualifiée sans relance.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U2e",
+      "family": "U2",
+      "input": "Incompatible/échec",
+      "action": "Lire motif puis revenir ou réessayer si admis",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e2",
+        "quote": "|\n| Incompatible : version/schéma/profil non admis | Motif et capacité touchée ; ne pas interpréter le payload en dessin ni faire une conversion silencieuse.",
+        "line": 34
+      },
+      "observation": "États distincts, dernier complet et BMad conservés, conditions de réessai.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U2f",
+      "family": "U2",
+      "input": "Résultat reçu, sauvegarde échouée",
+      "action": "Réessayer l’enregistrement",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e7",
+        "quote": "Réessayer l’enregistrement sauvegarde seulement, sans nouvelle analyse, lecture native, ouverture fichier ou effet éditeur.",
+        "line": 96
+      },
+      "observation": "Résultat de session séparé du durable, réessai de sauvegarde seul.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U3a",
+      "family": "U3",
+      "input": "Complet/partiel/ancien, HEAD identique",
+      "action": "Lire fraîcheur/couverture",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e3",
+        "quote": "La révision inclut les sources non commitées et non suivies selon le futur contrat4.3/4.6 ; un commit seul n’établit pas la fraîcheur.",
+        "line": 48
+      },
+      "observation": "Révision des octets, non commités/non suivis, observation datée.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U3b",
+      "family": "U3",
+      "input": "Mutation pendant collecte puis navigation",
+      "action": "Lire historique",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e3",
+        "quote": "Un changement pendant l’analyse, après collecte ou une restauration ne devient jamais actuel par navigation, filtrage ou ouverture de fichier.",
+        "line": 48
+      },
+      "observation": "Aucune promotion implicite, invalidation sans vol de focus.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U3c",
+      "family": "U3",
+      "input": "directed:false ou marqueur isolé",
+      "action": "Lire relation ou refus",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e3",
+        "quote": "`directed:false` ne rend pas un appel réciproque.",
+        "line": 50
+      },
+      "observation": "Deux marqueurs prioritaires ensemble, sinon source→target ; partiel refusé.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U3d",
+      "family": "U3",
+      "input": "INFERRED, score0.85",
+      "action": "Lire confiance et score",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e3",
+        "quote": "**0.85 n’est pas 85 % de certitude.** Un score absent reste Score inconnu ; hors domaine ou confiance inconnue sont des refus du profil, sans remplacement par EXTRACTED.",
+        "line": 58
+      },
+      "observation": "Trois niveaux expliqués, codes fidèles, score séparé non probabiliste.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U3e",
+      "family": "U3",
+      "input": "Ligne absente/nulle/vide/texte inconnu",
+      "action": "Lire référence",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e3",
+        "quote": "Absente, nulle, vide ou texte de localisation non reconnu : ligne inconnue, donnée brute conservée derrière l’adaptateur sans plage inventée.",
+        "line": 60
+      },
+      "observation": "Inconnus conservés sans ligne/plage devinée ; aucune validation déduite.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U4a",
+      "family": "U4",
+      "input": "Requête vide ou sans correspondance",
+      "action": "Chercher puis effacer",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e4",
+        "quote": "Aucun résultat garde le texte et propose Effacer la recherche ; si aucun graphe n’est admis, ce n’est pas un zéro résultat.",
+        "line": 65
+      },
+      "observation": "Requête et portée conservées, absence de graphe distincte du zéro.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U4b",
+      "family": "U4",
+      "input": "Homonymes et relations entrantes/sortantes",
+      "action": "Sélectionner relation et autre extrémité",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e4",
+        "quote": "Depuis B dans une relation entrante A→B, Sélectionner A rejoint donc l’origine A ; depuis A, Sélectionner B rejoint la destination B.",
+        "line": 69
+      },
+      "observation": "Origine A atteignable depuis B, destination B depuis A ; sens/provenance inchangés.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U4c",
+      "family": "U4",
+      "input": "Nombreux résultats/projection/tranche",
+      "action": "Parcourir au clavier",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e4",
+        "quote": "Nombreux éléments : une pagination, virtualisation ou projection future doit offrir un accès nommé au clavier à tous les résultats admis de cette portée, annoncer la tranche affichée et le total s’il est établi, garder sélection/position et distinguer éléments non encore affichés, refusés et masqués.",
+        "line": 71
+      },
+      "observation": "Accès aux résultats de portée, masque/refus distincts sans quota ni faux inventaire.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U4d",
+      "family": "U4",
+      "input": "Dessin sélectionné, sans drag",
+      "action": "Zoomer/panner au clavier",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e5",
+        "quote": "Le zoom de l’application demeure distinct et ses raccourcis ne sont pas interceptés par le dessin ; aucune commande de zoom application nouvelle n’est promise ici.",
+        "line": 78
+      },
+      "observation": "Zoom local séparé, quatre pans et Tab sortant, pas de capture des champs.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U4e",
+      "family": "U4",
+      "input": "Nouvelle analyse supprime sélection pendant frappe",
+      "action": "Mettre à jour puis revenir",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e1",
+        "quote": "Si l’élément n’est plus retrouvé, annoncer Sélection indisponible sans déplacer le focus encore valide, notamment dans la recherche.",
+        "line": 19
+      },
+      "observation": "Annonce sans voler recherche ; repli si contrôle focalisé disparu ou retour explicite.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U5a",
+      "family": "U5",
+      "input": "Nœud avec référence relative sûre",
+      "action": "Voir fichier puis fermer",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e6",
+        "quote": "Avant effet, revalider identité de projet/racine, portée, fichier relatif existant et révision des octets.",
+        "line": 88
+      },
+      "observation": "Intention2.8 même projet/révision, titre panneau puis retour exact.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U5b",
+      "family": "U5",
+      "input": "Révision changée ou inconnue",
+      "action": "Lire refus puis examiner nouvelle révision",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e6",
+        "quote": "Une révision modifiée ou inconnue n’ouvre pas silencieusement le fichier courant comme source de l’ancien graphe : afficher Référence ancienne ou non vérifiée.",
+        "line": 88
+      },
+      "observation": "Ancien graphe historique, nouvelle lecture explicite séparée.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U5c",
+      "family": "U5",
+      "input": "Référence absolue/traversante/lien/hors racine ou ligne inconnue",
+      "action": "Demander fichier",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e6",
+        "quote": "Ligne non admise : aucun saut de ligne deviné.",
+        "line": 88
+      },
+      "observation": "Référence refusée non ouvrable, pas de ligne inventée.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U5d",
+      "family": "U5",
+      "input": "Changement de projet pendant ouverture",
+      "action": "Recevoir réponse tardive",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e6",
+        "quote": "Si projet ou racine change pendant l’ouverture, ne pas afficher le fichier A sous B ni sélectionner automatiquement A.",
+        "line": 89
+      },
+      "observation": "Demande corrélée A, pas de changement de projet ou focus imposé.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U5e",
+      "family": "U5",
+      "input": "Éditeur absent/échec/inconnu ou reçu transmission",
+      "action": "Ouvrir dans éditeur",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e6",
+        "quote": "Seul retour connu annoncé : Demande transmise à l’éditeur si tel est le reçu, pas « fichier ouvert » ou « lu ».",
+        "line": 91
+      },
+      "observation": "Reçu2.8 borné sans retry ; aucune ouverture réelle ni IPC créé.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U6a",
+      "family": "U6",
+      "input": "FR/EN, recherche et chemins longs",
+      "action": "Changer langue",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e7",
+        "quote": "Langue : interface FR/EN appariée en E8 ; changer la langue garde octets de recherche, noms/chemins/types de projet non traduits, sélection, contexte de retour et focus.",
+        "line": 98
+      },
+      "observation": "Copie appariée, octets et focus conservés,2.14 future.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U6b",
+      "family": "U6",
+      "input": "Clair/sombre",
+      "action": "Lire état et commandes",
+      "evidence": {
+        "file": "DESIGN.md",
+        "anchor": "d6",
+        "quote": "<a id=\"d6\"></a>\n## D6 — Variantes, clavier et mouvement\n\nLes deux thèmes utilisent la même hiérarchie, les mêmes noms et les mêmes gardes.",
+        "line": 60
+      },
+      "observation": "Palette existante et texte, aucune nouvelle acceptation humaine.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U6c",
+      "family": "U6",
+      "input": "Clavier seul, onglets",
+      "action": "Flèches puis Entrée/Espace et Tab",
+      "evidence": {
+        "file": "EXPERIENCE.md",
+        "anchor": "e5",
+        "quote": "Dans les onglets, flèches gauche/droite et Début/Fin déplacent le focus ; Entrée/Espace active le panneau.",
+        "line": 76
+      },
+      "observation": "Ordre et repli définis, divergence App466 nommée pour2.14/4.4.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U6d",
+      "family": "U6",
+      "input": "Zoom200%, faible largeur et noms longs",
+      "action": "Replier disposition et revenir",
+      "evidence": {
+        "file": "DESIGN.md",
+        "anchor": "d3",
+        "quote": "Quand ces régions ne tiennent plus, notamment au zoom application 200 %, elles passent en flux vertical : recherche → résultats → détail et relations → représentation avec commandes locales.",
+        "line": 38
+      },
+      "observation": "Lecture/contrôles atteignables sans fenêtre horizontale, aucun seuil graphe inventé.",
+      "result": "satisfied-documentary"
+    },
+    {
+      "id": "U6e",
+      "family": "U6",
+      "input": "Mouvement réduit et mise à jour",
+      "action": "Lire puis naviguer",
+      "evidence": {
+        "file": "DESIGN.md",
+        "anchor": "d6",
+        "quote": "Un changement volontaire de vue peut suivre la transition brève héritée, au plus 180 ms ; `prefers-reduced-motion` retire transition et défilement animé sans retirer le retour d’état.",
+        "line": 67
+      },
+      "observation": "Aucune force/recentrage imposé, annonces groupées ; contrôle physique futur.",
+      "result": "satisfied-documentary"
+    }
+  ],
+  "links": {
+    "count": 26,
+    "failures": [],
+    "entries": [
+      {
+        "file": "DESIGN.md",
+        "target": "../../../ux-madness/DESIGN.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "DESIGN.md",
+        "target": "../../../ux-madness/EXPERIENCE.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "DESIGN.md",
+        "target": "../../../../../DESIGN.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "DESIGN.md",
+        "target": "../qualification-graphe/profil-g5.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "DESIGN.md",
+        "target": "EXPERIENCE.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "DESIGN.md",
+        "target": "handoff.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "DESIGN.md",
+        "target": "EXPERIENCE.md#e5",
+        "exists": true,
+        "anchorExists": true
+      },
+      {
+        "file": "DESIGN.md",
+        "target": "../../epic-projets-bmad/qualification-reprise-projet/visual-finish-001/resume-large-dark-native.png",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "DESIGN.md",
+        "target": "../../epic-projets-bmad/qualification-reprise-projet/visual-finish-001/resume-compact-light-native.png",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "DESIGN.md",
+        "target": "../../epic-projets-bmad/qualification-reprise-projet/impeccable-documentation.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "DESIGN.md",
+        "target": "qualification/verification.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "EXPERIENCE.md",
+        "target": "DESIGN.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "EXPERIENCE.md",
+        "target": "../qualification-graphe/profil-g5.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "EXPERIENCE.md",
+        "target": "../qualification-graphe/schema-profile.json",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "handoff.md",
+        "target": "DESIGN.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "handoff.md",
+        "target": "EXPERIENCE.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "handoff.md",
+        "target": "qualification/verification.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "handoff.md",
+        "target": "../tickets/story-definir-avec-sally-l-exploration-accessible-du-graphe-plan.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "handoff.md",
+        "target": "../tickets/tickets.toml",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "handoff.md",
+        "target": "../../../../../DESIGN.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "handoff.md",
+        "target": "../epic-graphe-projet.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "handoff.md",
+        "target": "../qualification-graphe/profil-g5.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "handoff.md",
+        "target": "../qualification-graphe/schema-profile.json",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "handoff.md",
+        "target": "../qualification-graphe/parent-verification.md",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "handoff.md",
+        "target": "../qualification-graphe/final-verification.json",
+        "exists": true,
+        "anchorExists": null
+      },
+      {
+        "file": "handoff.md",
+        "target": "DESIGN.md#d7",
+        "exists": true,
+        "anchorExists": true
+      }
+    ]
+  },
+  "frEn": {
+    "pairCount": 42,
+    "failures": [],
+    "pairs": [
+      {
+        "key": "navigation",
+        "fr": "Graphe · Graphe du projet · Revenir au travail",
+        "en": "Graph · Project graph · Return to work",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "identity",
+        "fr": "Projet · Racine · Périmètre · Analyse · Révision · Observé le · Détails de l’analyse",
+        "en": "Project · Root · Scope · Analysis · Revision · Observed at · Analysis details",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "coverage",
+        "fr": "Couverture · Inclus · Exclu · Inconnu",
+        "en": "Coverage · Included · Excluded · Unknown",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "absent",
+        "fr": "Aucun graphe disponible · Analyse locale du code et des dépendances, sans modèle",
+        "en": "No graph available · Local code and dependency analysis, without a model",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "generate",
+        "fr": "Générer le graphe · Actualiser le graphe",
+        "en": "Generate graph · Refresh graph",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "running",
+        "fr": "Analyse en cours · Début : {date} · Durée écoulée : {duration}",
+        "en": "Analysis in progress · Started: {date} · Elapsed: {duration}",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "complete",
+        "fr": "Analyse terminée · Graphe disponible",
+        "en": "Analysis complete · Graph available",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "partial",
+        "fr": "Résultat partiel : {reason} · Relations non exhaustives",
+        "en": "Partial result: {reason} · Relations are not exhaustive",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "old",
+        "fr": "Graphe ancien : {reason} · Observation datée — sources non revalidées · Sources modifiées pendant l’analyse",
+        "en": "Stale graph: {reason} · Dated observation — sources not revalidated · Sources changed during analysis",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "incompatible",
+        "fr": "Graphe incompatible : {reason}",
+        "en": "Incompatible graph: {reason}",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "failed",
+        "fr": "Analyse échouée : {reason} · Réessayer l’analyse",
+        "en": "Analysis failed: {reason} · Retry analysis",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "interrupt",
+        "fr": "Interrompre l’analyse · Arrêt demandé",
+        "en": "Interrupt analysis · Stop requested",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "stopped",
+        "fr": "Analyse interrompue · Délai dépassé · Arrêt confirmé",
+        "en": "Analysis interrupted · Time limit exceeded · Stop confirmed",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "stop-unknown",
+        "fr": "Résultat de l’arrêt inconnu · Nouvelle analyse bloquée · Vérifier l’arrêt",
+        "en": "Stop outcome unknown · New analysis blocked · Check stop",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "last-complete",
+        "fr": "Dernier graphe complet : {analysis}, {date}, {revision} · Consulter le dernier complet",
+        "en": "Last complete graph: {analysis}, {date}, {revision} · View last complete graph",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "result-missing",
+        "fr": "Résultat indisponible : {reason} · Retour exact indisponible · Sélection indisponible",
+        "en": "Result unavailable: {reason} · Exact return unavailable · Selection unavailable",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "search",
+        "fr": "Rechercher dans ce graphe · Nom, identifiant ou chemin relatif · Effacer la recherche",
+        "en": "Search this graph · Name, identifier or relative path · Clear search",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "all-results",
+        "fr": "Tous les éléments du graphe · {count} résultats dans {scope}",
+        "en": "All graph elements · {count} results in {scope}",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "no-results",
+        "fr": "Aucun résultat pour cette recherche",
+        "en": "No matches for this search",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "projection",
+        "fr": "Projection : {scope} · {shown} éléments affichés · {hidden} éléments masqués · Tranche affichée : {range} · Total inconnu",
+        "en": "Projection: {scope} · {shown} elements shown · {hidden} elements hidden · Displayed range: {range} · Total unknown",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "select",
+        "fr": "Sélectionner {node} · Revenir à {node} · Revenir aux résultats",
+        "en": "Select {node} · Return to {node} · Return to results",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "relation-regions",
+        "fr": "Relations entrantes · Relations sortantes · Toutes les relations · Entrantes · Sortantes",
+        "en": "Incoming relations · Outgoing relations · All relations · Incoming · Outgoing",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "relation-search",
+        "fr": "Rechercher dans les relations · Nom, type ou extrémité · Effacer les filtres de relations",
+        "en": "Search relations · Name, type or endpoint · Clear relation filters",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "relation-empty",
+        "fr": "Aucune relation pour ces filtres",
+        "en": "No relations for these filters",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "direction",
+        "fr": "Origine : {source} → Relation : {type} → Destination : {target}",
+        "en": "From: {source} → Relation: {type} → To: {target}",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "relation-detail",
+        "fr": "Voir les détails de cette relation · Source de la relation · Relations regroupées : {count}",
+        "en": "View this relation’s details · Relation source · Grouped relations: {count}",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "confidence",
+        "fr": "Repérée dans le code · Déduite · Ambiguë",
+        "en": "Found in code · Inferred · Ambiguous",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "score",
+        "fr": "Score Graphify : {score} · Score inconnu · Indicateur du moteur, pas une probabilité de vérité",
+        "en": "Graphify score: {score} · Unknown score · Engine indicator, not a probability of truth",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "source-location",
+        "fr": "Provenance · Fichier inconnu · Ligne inconnue · Ligne : {line}",
+        "en": "Provenance · Unknown file · Unknown line · Line: {line}",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "refused-coverage",
+        "fr": "Données refusées : {reason}",
+        "en": "Rejected data: {reason}",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "graph-controls",
+        "fr": "Zoom avant · Zoom arrière · Ajuster la vue · Réinitialiser la vue · Zoom du graphe : {value}",
+        "en": "Zoom in · Zoom out · Fit view · Reset view · Graph zoom: {value}",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "pan",
+        "fr": "Déplacer vers le haut · Déplacer vers le bas · Déplacer vers la gauche · Déplacer vers la droite",
+        "en": "Pan up · Pan down · Pan left · Pan right",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "graph-region",
+        "fr": "Représentation du graphe · Consulter la liste équivalente · Représentation indisponible : {reason}",
+        "en": "Graph representation · View equivalent list · Representation unavailable: {reason}",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "graph-help",
+        "fr": "Utilisez les commandes pour zoomer ou déplacer la vue. Tab permet de quitter la représentation.",
+        "en": "Use the controls to zoom or pan. Tab leaves the representation.",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "unavailable-command",
+        "fr": "Commande indisponible : {reason}",
+        "en": "Command unavailable: {reason}",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "file-intent",
+        "fr": "Voir le fichier · Référence ancienne ou non vérifiée · Examiner la nouvelle révision",
+        "en": "View file · Stale or unverified reference · Inspect new revision",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "file-refused",
+        "fr": "Référence refusée : {reason} · Projet changé — demande non appliquée à la vue courante",
+        "en": "Reference rejected: {reason} · Project changed — request not applied to the current view",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "file-panel",
+        "fr": "Panneau de fichiers · Agrandir · Fermer · Ouvrir dans l’éditeur · Copier le chemin",
+        "en": "File panel · Expand · Close · Open in editor · Copy path",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "editor",
+        "fr": "Demande d’ouverture en cours… · Demande transmise à l’éditeur · Ouverture non confirmée",
+        "en": "Requesting file opening… · Request sent to editor · Opening not confirmed",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "editor-failed",
+        "fr": "Éditeur indisponible — vous pouvez copier le chemin · Demande d’ouverture échouée : {reason}",
+        "en": "Editor unavailable — you can copy the path · Editor request failed: {reason}",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "copy",
+        "fr": "Chemin copié · Copie impossible — sélectionnez le texte",
+        "en": "Path copied · Could not copy — select the text",
+        "paired": true,
+        "parametersMatch": true
+      },
+      {
+        "key": "save",
+        "fr": "Enregistrement échoué — réouverture non garantie · Résultat de session non enregistré · Réessayer l’enregistrement",
+        "en": "Save failed — reopening not guaranteed · Unsaved session result · Retry save",
+        "paired": true,
+        "parametersMatch": true
+      }
+    ]
+  },
+  "initialLocatorFailure": "verification-initial-failure.json",
+  "protected": {
+    "before": "protected-before.json",
+    "after": "protected-after.json",
+    "fileCount": 1668,
+    "unchanged": 1668,
+    "changed": 0
+  },
+  "independentUxReview": {
+    "status": "completed-two-P2-resolved",
+    "agent": "/root/graph42_implementation/graph42_ux_review",
+    "receipt": "ux-review.md",
+    "reviewedExperienceSha256": "a2363df06532ab99464ac05aeb0a01945e58a3a715893b43c0345716ff466d52",
+    "currentExperienceMatchesReviewed": true
+  },
+  "parentQuick": {
+    "status": "parent-owned-not-run-by-worker"
+  }
+}

@@ -1,0 +1,70 @@
+✖ C7 unknown stop ignores bare availability and retries only an explicit collect under its guard (3.1061ms)
+✖ C7 two projects blocked by shared unknown stop cannot retry one another through admission releases (3.0393ms)
+✖ C7 shared actual helper and ActivityAdmission keep two unknown-stop scopes inert until explicit guarded retry (32.9311ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 239.2242
+
+✖ failing tests:
+
+test at tests\bmad-catalog.test.mjs:33:1
+✖ C7 unknown stop ignores bare availability and retries only an explicit collect under its guard (3.1061ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-catalog.test.mjs:33:693)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-catalog.test.mjs:35:1
+✖ C7 two projects blocked by shared unknown stop cannot retry one another through admission releases (3.0393ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   'project-a': 5,
+  +   'project-b': 4
+  -   'project-a': 1,
+  -   'project-b': 1
+    }
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-catalog.test.mjs:35:676)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { 'project-a': 5, 'project-b': 4 },
+    expected: { 'project-a': 1, 'project-b': 1 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-catalog.test.mjs:36:1
+✖ C7 shared actual helper and ActivityAdmission keep two unknown-stop scopes inert until explicit guarded retry (32.9311ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  8 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-catalog.test.mjs:36:1254)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 8,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

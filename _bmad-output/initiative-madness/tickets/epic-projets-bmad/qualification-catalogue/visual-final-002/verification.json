@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-04T10:42:59.845Z",
+  "status": "partial",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-koJDOu",
+  "checks": [
+    "C9 first-open-is-passive",
+    "C7 real-context-helper-occupation-releases-pending-catalogue",
+    "C1 C2 C7 exact-two-projects-no-initiative-or-account",
+    "C9 local-read-preserves-projects-history-drafts",
+    "C4 C5 actual-preload-native-clipboard-write-and-read"
+  ],
+  "launches": [
+    {
+      "main": {
+        "pid": 49376,
+        "startedAt": "639293857802315371",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-koJDOu\\profile",
+      "runtime": {
+        "pid": 49376,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-koJDOu\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\visual-final-002\\observation-1.json"
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 49376,
+        "startedAt": "639293857802315371",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 29728,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T10:43:05.689Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "helperBefore": "unknown",
+      "helperAfter": "stopped"
+    }
+  ],
+  "captures": [
+    {
+      "name": "details-dark",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\visual-final-002\\details-dark.png",
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "dialogScrollTop": 0,
+        "theme": "dark",
+        "tab": "Toutes les possibilités",
+        "dialog": "catalog26-alpha",
+        "scrollWidth": 1440
+      },
+      "size": {
+        "width": 1800,
+        "height": 1150
+      },
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "method": "webContents.capturePage without rect"
+    },
+    {
+      "name": "filtered-list-dark",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\visual-final-002\\filtered-list-dark.png",
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "dialogScrollTop": null,
+        "theme": "dark",
+        "tab": "Toutes les possibilités",
+        "dialog": null,
+        "scrollWidth": 1440
+      },
+      "size": {
+        "width": 1800,
+        "height": 1150
+      },
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "method": "webContents.capturePage without rect"
+    },
+    {
+      "name": "compact-light",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\visual-final-002\\compact-light.png",
+      "metrics": {
+        "width": 720,
+        "height": 820,
+        "devicePixelRatio": 1.25,
+        "dialogScrollTop": 0,
+        "theme": "light",
+        "tab": "Toutes les possibilités",
+        "dialog": "catalog26-alpha",
+        "scrollWidth": 720
+      },
+      "size": {
+        "width": 900,
+        "height": 1025
+      },
+      "pixels": {
+        "width": 900,
+        "height": 1025
+      },
+      "zoom": 1,
+      "contentSize": [
+        720,
+        820
+      ],
+      "method": "webContents.capturePage without rect"
+    },
+    {
+      "name": "zoom200-dark",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\visual-final-002\\zoom200-dark.png",
+      "metrics": {
+        "width": 720,
+        "height": 460,
+        "devicePixelRatio": 2.5,
+        "dialogScrollTop": 0,
+        "theme": "dark",
+        "tab": "Toutes les possibilités",
+        "dialog": "catalog26-alpha",
+        "scrollWidth": 720
+      },
+      "size": {
+        "width": 1800,
+        "height": 1150
+      },
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 2,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "method": "webContents.capturePage without rect"
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Synthetic projects; no provider or personal profile. Network/app-server accounting starts after hook.",
+    "File symlink privilege is not assumed; native hardlinks and junctions have separate protocol coverage.",
+    "Screenshots run only when explicitly requested by the parent; technical checks alone are not visual acceptance."
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe",
+    "executableSha256": "a4e2b6f4a8774e5b4c4316ac4172254b09ce19972e9e4b1da7e5d07278594c07",
+    "asarSha256": "be41bfdbacb89919c45396497e9c04be0f0d976b5048d2d9627f1d96a78be6d7"
+  },
+  "uiInitial": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:44:22 · Couverture : Partielle\n\nVersion affichée : bc2a8e58c06e027faf04f60dcf0c12d4a98249e517be4f1ee1b1063c453cb24d\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\n\nInvocation copiée",
+  "uiAfterRefresh": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\nLecture locale du catalogue en cours…\n\nObservé le 04/11/2026 11:44:22 · Couverture : Partielle\n\nVersion affichée : bc2a8e58c06e027faf04f60dcf0c12d4a98249e517be4f1ee1b1063c453cb24d\n\nObservation précédente — fiche historique\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial",
+  "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Afficher la nouvelle observation', exact: true }) to be visible\u001b[22m\n\n    at C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\scripts\\qualification\\bmad-catalog.mjs:49:657",
+  "finishedAt": "2026-11-04T10:45:59.528Z"
+}

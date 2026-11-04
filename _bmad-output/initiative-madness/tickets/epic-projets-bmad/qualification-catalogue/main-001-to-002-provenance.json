@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "source": "producer-manifest.json captured before each launch",
+  "equivalenceClaim": false,
+  "changes": [
+    {
+      "path": "scripts/qualification/bmad-catalog.mjs",
+      "before": "a0299a1afb63eb9d8f027ee27d7f372c04a6d5a85bed7e6ade87f117737a687f",
+      "after": "034e959520acf3fc5145646bd2a72860f18b8743c63d8f536fc5d5d0d05e6a88"
+    },
+    {
+      "path": "src/core/bmad-catalog.ts",
+      "before": "7e798d1409522c117e28498fffada47782b8c41a39835ab9f4c3a671d16d4790",
+      "after": "d78c113aa72bf6f9789200ab4fdb42d2b3c0fabd5a170f61f20c42d917182a50"
+    },
+    {
+      "path": "src/adapters/bmad/help-manifest.ts",
+      "before": "ce9a969369657c88001cec18bb3df2a1e0749bd86581e9f50c21c254e0a7d142",
+      "after": "37355ec6ef18aaeb6121615889fd2ffef9f26bf63a5cb3db7f392ef1c11f2e19"
+    },
+    {
+      "path": "resources/bmad-help/catalog.py",
+      "before": "c56730f58540df008bfa2bdf21d616339a90f054a878465bb64c1bfe1291757e",
+      "after": "feed12dbd16fee285ffc7a631b533b9295d189eee4b9a02aaea6cfdb67616297"
+    },
+    {
+      "path": "out/main/index.js",
+      "before": "420b72eebc6ce5f3d97bf18fbee24672a9d85fb16ac3e3dedea1fa792e4ffd23",
+      "after": "516a5a5edfe19ebef67c05bdd240ce7cb0555080ae20a8eed68745bb2ee69f65"
+    }
+  ]
+}

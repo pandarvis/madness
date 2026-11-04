@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-04T09:45:14.650Z",
+  "status": "passed",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-h36qzo",
+  "checks": [
+    "C9 first-open-is-passive",
+    "C7 real-context-helper-occupation-releases-pending-catalogue",
+    "C1 C2 C7 exact-two-projects-no-initiative-or-account",
+    "C9 local-read-preserves-projects-history-drafts",
+    "C4 C5 actual-preload-native-clipboard-write-and-read",
+    "C6 external-add-invalidates-and-retains-displayed-query",
+    "C4 dynamic-new-skill-search-with-voluntary-switch",
+    "C1 C6 actual-removal-observed",
+    "C9 exact-passive-reopen-and-known-owned-stops",
+    "C9 actually-live-native-job-cancelled-and-drained"
+  ],
+  "launches": [
+    {
+      "main": {
+        "pid": 46884,
+        "startedAt": "639293823166976412",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-h36qzo\\profile",
+      "runtime": {
+        "pid": 46884,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-h36qzo\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\main-final\\observation-1.json"
+    },
+    {
+      "main": {
+        "pid": 53140,
+        "startedAt": "639293824104180314",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-h36qzo\\profile",
+      "runtime": {
+        "pid": 53140,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-h36qzo\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\main-final\\observation-2.json"
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 46884,
+        "startedAt": "639293823166976412",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 51648,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T09:45:23.794Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "helperBefore": "stopped",
+      "helperAfter": "stopped"
+    },
+    {
+      "main": {
+        "pid": 53140,
+        "startedAt": "639293824104180314",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 53048,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T09:46:52.638Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "helperBefore": "unknown",
+      "helperAfter": "stopped"
+    }
+  ],
+  "captures": [],
+  "cleanup": true,
+  "limits": [
+    "Synthetic projects; no provider or personal profile. Network/app-server accounting starts after hook.",
+    "File symlink privilege is not assumed; native hardlinks and junctions have separate protocol coverage.",
+    "Screenshots run only when explicitly requested by the parent; technical checks alone are not visual acceptance."
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe",
+    "executableSha256": "7938cf1917e88fc95327ce1a2a909999b3bd338ea1444df611392e231a028aac",
+    "asarSha256": "ba7e5a5a02d33c9cedf6de830b020e492d4ecd2bd1058a28cc8879345910fe4a"
+  },
+  "uiInitial": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 10:46:16 · Couverture : Partielle\n\nVersion affichée : b631ecb071b3abd8ca6be14a0a8373cd8f227ca597328a69a50126a0464d4a5e\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\n\nInvocation copiée",
+  "uiAfterRefresh": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\nLecture locale du catalogue en cours…\n\nObservé le 04/11/2026 10:46:16 · Couverture : Partielle\n\nVersion affichée : b631ecb071b3abd8ca6be14a0a8373cd8f227ca597328a69a50126a0464d4a5e\n\nObservation précédente — fiche historique\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\n\nInvocation copiée",
+  "closeDuringRead": {
+    "owner": {
+      "schemaVersion": 1,
+      "generation": "help-242d6c86-df0e-4e45-a570-d83882311e2c",
+      "purpose": "bmad-readonly",
+      "status": "unknown",
+      "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-h36qzo\\profile\\bmad-help-runs-v1\\operation-d22efc1c-b904-402b-b487-6f9b18876121"
+    },
+    "execution": {
+      "schema": 5,
+      "outcome": "running",
+      "exit": null,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 23340
+    },
+    "process": {
+      "pid": 23340,
+      "startedAt": "639293824231047272",
+      "executable": "C:\\Users\\UP60066553\\scoop\\apps\\uv\\0.13.0\\uv.exe"
+    }
+  },
+  "liveStop": {
+    "terminal": {
+      "schemaVersion": 1,
+      "generation": "help-242d6c86-df0e-4e45-a570-d83882311e2c",
+      "purpose": "bmad-readonly",
+      "terminal": true,
+      "jobAssigned": true,
+      "jobActive": 0,
+      "neverStarted": false
+    },
+    "execution": {
+      "schema": 5,
+      "outcome": "cancelled",
+      "exit": 1,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 23340,
+      "active_before_stop": 3,
+      "job_active_after_stop": 0,
+      "stop_ms": 0,
+      "drain_ms": 146,
+      "elapsed_ms": 1776
+    }
+  },
+  "finishedAt": "2026-11-04T09:47:07.290Z"
+}

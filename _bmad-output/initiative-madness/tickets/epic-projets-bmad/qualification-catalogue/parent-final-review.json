@@ -1,0 +1,40 @@
+{
+  "at": "2026-11-04T12:15:26.751601+00:00",
+  "fullDiffRead": {
+    "file": "C:\\Users\\UP6006~1\\AppData\\Local\\Temp\\madness-catalog26-review-007.diff",
+    "sha256": "78d72e2445f34b228aeaa9766684b9d529b0c6d481f2764457dbbcc7ca3838b4",
+    "paths": 693,
+    "bytes": 1531257
+  },
+  "codeDeltaSinceOriginalQuick006": [],
+  "newProofCategories": [
+    "finish-f1-final-003",
+    "impeccable-documentation-initial.md",
+    "impeccable-documentation.md",
+    "impeccable-finish-review-initial.md",
+    "impeccable-finish-review.md",
+    "logs",
+    "parent-audit-003.json",
+    "parent-matrix-final.json",
+    "parent-verification.md",
+    "verification-parent-final.json",
+    "visual-finish-selection.json"
+  ],
+  "rootReview": "Product reviewed in001/005/006 with original Quick and high; final007 adds runtime receipts/capsules and final docs, all paths/bytes checked, source capsules/manifests validated separately. No raw generated blob semantics invented. Final index registry link corrected after007, docs-only.",
+  "board": {
+    "story": "2.6",
+    "planStatus": "built",
+    "state": "review",
+    "next": [
+      "2.8"
+    ],
+    "order_conflict": [
+      {
+        "epic": "epic-projets-bmad",
+        "after": "epic-graphe-projet"
+      }
+    ],
+    "exception": "Explicit adopted Board Decision partial capabilities, not leaf cycle"
+  },
+  "whitespace": "Tracked and new product code no whitespace errors; Git autocrlf warnings only. Raw native receipts are preserved, not normalized."
+}

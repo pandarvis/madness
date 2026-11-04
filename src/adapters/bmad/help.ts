@@ -95,6 +95,12 @@ export class BmadHelpAdapter{
   const {result,hints}=await this.run({op:'context-config',project:root,roots},signal,true)
   return this.captured({schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result},hints)
  }
+ async observeCatalog(projectId:string,rootPath:string,signal:AbortSignal):Promise<import('../../contracts/bmad-catalog.ts').BmadCatalogSnapshot>{
+  const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
+  for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
+  const {result,hints}=await this.run({op:'catalog',project:root,roots},signal,false)
+  return this.captured({schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result},hints)
+ }
  async observeProgress(projectId:string,rootPath:string,selection:import('../../contracts/bmad-context.ts').BmadSelection,observation:import('../../contracts/bmad-context.ts').BmadContextObservation,signal:AbortSignal):Promise<import('../../contracts/bmad-progress.ts').BmadProgressSnapshot>{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
   for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}

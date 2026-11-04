@@ -106,3 +106,13 @@ const progressRequest=async(payload:Record<string,unknown>):Promise<BmadProgress
 const bmadProgressBridge:BmadProgressBridge={read:()=>progressRequest({type:'read'}),collect:projectId=>progressRequest({type:'collect',projectId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isBmadProgressState(value))listener(value)};ipcRenderer.on(BMAD_PROGRESS_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(BMAD_PROGRESS_EVENT_CHANNEL,receive)}}
 contextBridge.exposeInMainWorld('madnessBmadProgress',Object.freeze(bmadProgressBridge))
 
+
+import {BMAD_CATALOG_COMMAND_CHANNEL,BMAD_CATALOG_EVENT_CHANNEL,isBmadCatalogState} from '../contracts/bmad-catalog.ts'
+import type {BmadCatalogBridge,BmadCatalogState} from '../contracts/bmad-catalog.ts'
+const catalogRequest=async(payload:Record<string,unknown>):Promise<BmadCatalogState>=>{
+ const correlationId=crypto.randomUUID(),reply=await ipcRenderer.invoke(BMAD_CATALOG_COMMAND_CHANNEL,{contractVersion:1,correlationId,...payload})
+ if(!reply||typeof reply!=='object'||!('state' in reply)||!('correlationId' in reply)||reply.correlationId!==correlationId||!isBmadCatalogState(reply.state))throw Error('INVALID_CATALOG_REPLY')
+ return reply.state
+}
+const bmadCatalogBridge:BmadCatalogBridge={read:()=>catalogRequest({type:'read'}),collect:projectId=>catalogRequest({type:'collect',projectId}),copy:(projectId,itemId,revision)=>catalogRequest({type:'copy',projectId,itemId,revision}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isBmadCatalogState(value))listener(value)};ipcRenderer.on(BMAD_CATALOG_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(BMAD_CATALOG_EVENT_CHANNEL,receive)}}
+contextBridge.exposeInMainWorld('madnessBmadCatalog',Object.freeze(bmadCatalogBridge))

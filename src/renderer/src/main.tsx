@@ -15,3 +15,5 @@ async function mount(): Promise<void> {
   createRoot(document.getElementById('root')!).render(<App initialAppearance={appearance} appearanceReadFailed={appearanceReadFailed} />)
 }
 void mount()
+
+import './catalog.css'

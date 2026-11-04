@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-04T09:35:04.153Z",
+  "status": "passed",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-V3YH0M",
+  "checks": [
+    "C9 first-open-is-passive",
+    "C1 C2 C7 exact-two-projects-no-initiative-or-account",
+    "C9 local-read-preserves-projects-history-drafts",
+    "C4 C5 actual-preload-native-clipboard-write-and-read",
+    "C6 external-add-invalidates-and-retains-displayed-query",
+    "C4 dynamic-new-skill-search-with-voluntary-switch",
+    "C1 C6 actual-removal-observed",
+    "C9 exact-passive-reopen-and-known-owned-stops"
+  ],
+  "launches": [
+    {
+      "main": {
+        "pid": 6748,
+        "startedAt": "639293817043259779",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-V3YH0M\\profile",
+      "runtime": {
+        "pid": 6748,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-V3YH0M\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\main-002\\observation-1.json"
+    },
+    {
+      "main": {
+        "pid": 33692,
+        "startedAt": "639293817740042770",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-V3YH0M\\profile",
+      "runtime": {
+        "pid": 33692,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-V3YH0M\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\main-002\\observation-2.json"
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 6748,
+        "startedAt": "639293817043259779",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 51928,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T09:35:06.538Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 33692,
+        "startedAt": "639293817740042770",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 9164,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T09:36:17.343Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "captures": [],
+  "cleanup": true,
+  "limits": [
+    "Synthetic projects; no provider or personal profile. Network/app-server accounting starts after hook.",
+    "File symlink privilege is not assumed; native hardlinks and junctions have separate protocol coverage.",
+    "Screenshots run only when explicitly requested by the parent; technical checks alone are not visual acceptance."
+  ],
+  "uiInitial": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 10:35:20 · Couverture : Partielle\n\nVersion affichée : 70956c25c7c8cf4b9d6ed3aba73f6ba529d7758931217e0b832845499866388c\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\n\nInvocation copiée",
+  "uiAfterRefresh": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\nLecture locale du catalogue en cours…\n\nObservé le 04/11/2026 10:35:20 · Couverture : Partielle\n\nVersion affichée : 70956c25c7c8cf4b9d6ed3aba73f6ba529d7758931217e0b832845499866388c\n\nObservation précédente — fiche historique\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\n\nInvocation copiée",
+  "finishedAt": "2026-11-04T09:36:18.373Z"
+}

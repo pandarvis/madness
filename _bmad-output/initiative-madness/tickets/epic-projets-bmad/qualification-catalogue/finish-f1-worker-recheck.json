@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-11-04T11:20:01.797Z",
+  "status": "targeted-fixes-verified-parent-verification-pending",
+  "bank": {
+    "normalWait": "Passive monotone event cache, synchronous matched-state predicates, ready/current/not queued plus exact item and revision",
+    "harnessCases": 3,
+    "syntax": "node --check passed",
+    "deadlines": {
+      "native": 120000,
+      "ui": 30000
+    },
+    "graphicalSourceLinesUnchanged": 4,
+    "shotHelperUnchanged": true,
+    "graphicalSourceHashes": [
+      "90b3ba6299cf85d6b15a63f5ad54893cb965b6c606ed11cac9410baf0f051fd4",
+      "feed044331324078b36ac9d1469452c18c7477971e701359042fead30db04468",
+      "fdb00a9da0b03739dc28a6b3319dd0a8e71b4ac8c8659110240843ac58f7f847",
+      "31222e40468f3c2bc3f3fb06898e4c83bce6e249897a4abad76246a943b156b4"
+    ],
+    "evidence": "logs/bank-normal-wait-green.log"
+  },
+  "ui": {
+    "red": "logs/finish-f1-geometry-red.log",
+    "catalogueCases": 7,
+    "evidence": "logs/finish-f1-ui-final.log",
+    "historyRecheck": "logs/finish-f1-history-geometry.log",
+    "viewport": [
+      1440,
+      920
+    ],
+    "mainScroll": 0,
+    "historicalConversations": 2,
+    "capturedInitiativeNote": "Initiative capturée par cet échange : non identifiée",
+    "firstFullRow": {
+      "top": 701.5,
+      "bottom": 861.5
+    },
+    "preserved": [
+      "coverage/date/full revision",
+      "active question navigation and untouched answer",
+      "query and module reset behavior",
+      "exact switch/dialog focus",
+      "compact light/native zoom200",
+      "other-tab overview presentation"
+    ]
+  },
+  "screenshots": 0,
+  "detectors": 0,
+  "builds": 0,
+  "installation": false
+}

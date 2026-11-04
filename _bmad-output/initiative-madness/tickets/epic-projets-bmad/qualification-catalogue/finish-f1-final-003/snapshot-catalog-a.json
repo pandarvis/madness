@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "projectId": "catalog-a",
+  "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a",
+  "observedAt": "2026-11-04T11:46:20.645Z",
+  "rootIdentity": "478559b3465aa4661072d21ea1e65fd290aec4cf632536b4ae6cfb0107215cf6",
+  "revision": "41ec2077218cb32ebe74402d389d3c1da7a614ea46a2dc41a6a226fce2f1876e",
+  "diagnostic": "partial",
+  "coverage": "partial",
+  "roots": [
+    "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills",
+    "C:\\Users\\UP60066553\\.codex\\skills"
+  ],
+  "sources": [
+    {
+      "id": "catalog-source-1",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-alpha\\bmod.toml",
+      "sha256": "dcaffc90c95598a1dfd2b8906f22bec38d0a8b84e7be7af2f66a2bd44675b897",
+      "bytes": 32,
+      "text": "[skill]\nbmod=\"catalog26-module\"\n"
+    },
+    {
+      "id": "catalog-source-2",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-beta\\bmod.toml",
+      "sha256": "dcaffc90c95598a1dfd2b8906f22bec38d0a8b84e7be7af2f66a2bd44675b897",
+      "bytes": 32,
+      "text": "[skill]\nbmod=\"catalog26-module\"\n"
+    },
+    {
+      "id": "catalog-source-3",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-module\\bmod.toml",
+      "sha256": "3fec4eddb980ecfab87423d2276e7f18ea357d0cc86b9191fb294c6a65abe0f3",
+      "bytes": 110,
+      "text": "[bmod]\ncode=\"catalog26\"\nversion=\"6.13.0-next\"\nskills=[\"catalog26-alpha\",\"catalog26-beta\",\"catalog26-missing\"]\n"
+    },
+    {
+      "id": "catalog-source-4",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-module\\help\\help.md",
+      "sha256": "3d727b5454c05bc7e30b1e817dc1aea1702e4b7713c85e7afa95c16ef12f3940",
+      "bytes": 111,
+      "text": "| Skill | For | Writes |\n| --- | --- | --- |\n| catalog26-alpha | Market exploration | A literal local report |\n"
+    },
+    {
+      "id": "catalog-source-5",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-alpha\\SKILL.md",
+      "sha256": "1d8bb6b6e7ff7d4ea480c2b48167b633408c0a74b77d6c3065de76fe5f08a848",
+      "bytes": 134,
+      "text": "---\nname: 'catalog26-alpha'\ndescription: 'Mary explores documented market intentions'\n---\nNative documentary text. No code execution.\n"
+    },
+    {
+      "id": "catalog-source-6",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-beta\\SKILL.md",
+      "sha256": "54d891ed8398feedb24ca237ca333c3eacc465e6806da0429ed8e3cc9c4796dd",
+      "bytes": 123,
+      "text": "---\nname: 'catalog26-beta'\ndescription: 'Sally designs literal interfaces'\n---\nNative documentary text. No code execution.\n"
+    }
+  ],
+  "modules": [
+    {
+      "code": "catalog26",
+      "folder": "catalog26-module",
+      "version": "6.13.0-next",
+      "sourceId": "catalog-source-3"
+    }
+  ],
+  "items": [
+    {
+      "id": "catalog26-alpha",
+      "name": "catalog26-alpha",
+      "module": "catalog26",
+      "sourceId": "catalog-source-5",
+      "manifestSourceId": "catalog-source-1",
+      "invocation": "$catalog26-alpha",
+      "presence": "present",
+      "copyable": true,
+      "copyReasons": [],
+      "documentation": [
+        {
+          "sourceId": "catalog-source-4",
+          "startLine": 3,
+          "endLine": 3,
+          "value": "Market exploration"
+        },
+        {
+          "sourceId": "catalog-source-4",
+          "startLine": 3,
+          "endLine": 3,
+          "value": "A literal local report"
+        }
+      ],
+      "launchable": false,
+      "launchReason": "General launch is not qualified for this profile",
+      "fields": {
+        "purpose": {
+          "sourceId": "catalog-source-5",
+          "startLine": 3,
+          "endLine": 3,
+          "value": "Mary explores documented market intentions"
+        },
+        "inputs": null,
+        "conditions": null,
+        "effects": {
+          "sourceId": "catalog-source-4",
+          "startLine": 3,
+          "endLine": 3,
+          "value": "A literal local report"
+        }
+      }
+    },
+    {
+      "id": "catalog26-beta",
+      "name": "catalog26-beta",
+      "module": "catalog26",
+      "sourceId": "catalog-source-6",
+      "manifestSourceId": "catalog-source-2",
+      "invocation": "$catalog26-beta",
+      "presence": "present",
+      "copyable": true,
+      "copyReasons": [],
+      "documentation": [],
+      "launchable": false,
+      "launchReason": "General launch is not qualified for this profile",
+      "fields": {
+        "purpose": {
+          "sourceId": "catalog-source-6",
+          "startLine": 3,
+          "endLine": 3,
+          "value": "Sally designs literal interfaces"
+        },
+        "inputs": null,
+        "conditions": null,
+        "effects": null
+      }
+    }
+  ],
+  "problems": [
+    "catalog26: missing registered skill catalog26-missing"
+  ]
+}

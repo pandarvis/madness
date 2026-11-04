@@ -1,0 +1,12 @@
+{
+  "before": "131749fbf422e5e437359e060ac0907f2a9ed5acfa16137f7e8937fcb5386fa7",
+  "after": "520c7075fd7ccf26b52424542c08972e9a1059fe7180bb5815a8f432fd2284f6",
+  "productChanged": false,
+  "screenshots": false,
+  "mode": "--diagnostic-functional --diagnostic-await-events",
+  "changes": [
+    "False Promise versus false waitForFunction counterexample",
+    "Diagnostic-only synchronous wait on latest received bridge event, including ready/current/not queued",
+    "Post-ready DOM checkpoint; original normal wait path preserved"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "at": "2026-11-04T09:52:57.373285+00:00",
+  "baseline": "d0c706642673a56fcaf0138ee216219b9b20e8b3",
+  "matrix": {
+    "C1": {
+      "passedTestContains": "native Windows catalogue capture",
+      "mainPassedCheck": "C1 C6 actual-removal-observed"
+    },
+    "C2": {
+      "passedTestContains": "extended fences and non-tables cannot manufacture documentary effects",
+      "mainPassedCheck": "C1 C2 C7 exact-two-projects-no-initiative-or-account"
+    },
+    "C3": {
+      "passedTestContains": "strict snapshot refuses outside source",
+      "mainPassedCheck": "C1 C2 C7 exact-two-projects-no-initiative-or-account"
+    },
+    "C4": {
+      "passedTestContains": "inventory has no fixed functional result quota",
+      "mainPassedCheck": "C4 dynamic-new-skill-search-with-voluntary-switch"
+    },
+    "C5": {
+      "passedTestContains": "copy uses core-owned invocation",
+      "mainPassedCheck": "C4 C5 actual-preload-native-clipboard-write-and-read"
+    },
+    "C6": {
+      "passedTestContains": "bursts invalidate synchronously",
+      "mainPassedCheck": "C6 external-add-invalidates-and-retains-displayed-query"
+    },
+    "C7": {
+      "passedTestContains": "availability microtask before BUSY catch",
+      "mainPassedCheck": "C7 real-context-helper-occupation-releases-pending-catalogue"
+    },
+    "C8": {
+      "passedTestContains": "catalogue: manual three-tab keyboard navigation",
+      "mainPassedCheck": null
+    },
+    "C9": {
+      "passedTestContains": "shutdown closes leases synchronously",
+      "mainPassedCheck": "C9 actually-live-native-job-cancelled-and-drained"
+    }
+  },
+  "targeted": {
+    "tests": 76,
+    "passed": 76,
+    "skip": 0
+  },
+  "ui": "4catalogue and2unchanged cases green in initial7case run; navigation locator scoped then rechecked1/1; not a claimed new7/7run",
+  "sourceLinkage": {
+    "mainProducerInputsExact": 50,
+    "protocolProducerInputsExact": 17
+  },
+  "asar": "ba7e5a5a02d33c9cedf6de830b020e492d4ecd2bd1058a28cc8879345910fe4a",
+  "limitations": [
+    "Native file symlink not physically exercised; hardlink and junction passed.",
+    "Physical provider/network/human/WCAG/G2/G4/G5 not acquired.",
+    "InitialMain001 remains partial on its own divergent producers; no equivalence claimed."
+  ],
+  "logs": {
+    "logs/targeted-final.log": "c5bb3431700f1a168d7e80f5c9b85105838b146f107fae242ef8ac8dff67e0a4",
+    "logs/ui-final.log": "56b603a44e0329c079b791f4f437cfe5c08124b68a055603d2445fc0e03ac74c",
+    "logs/navigation-recheck.log": "3dd3e5b72b90df5ee4f6cc29305ba24f93a63df616ce567c1f0414fb29ab5542",
+    "main-final/verification.json": "63adcd043705bc76d311707b429bad98d29910caf0c933cfbb17ded13f39e638"
+  }
+}

@@ -1,0 +1,24 @@
+✔ C5 strict commands refuse renderer text, paths, aliases and wrong revision (1.0106ms)
+✔ C4 all literal search terms and module filters are local (0.747ms)
+✔ C6 read is passive, first collection independent of initiative or connection (4.6851ms)
+✔ C5 copy uses core-owned invocation and refuses stale revision/item/text; clipboard must match (1.0342ms)
+✔ C5 delayed clipboard keeps exact project/item/revision and cannot confirm new generation (1.193ms)
+✔ C6 bursts invalidate synchronously and coalesce one trailing flight (0.8226ms)
+✔ C7 BUSY waits for admission availability without spin and preserves old data (0.6883ms)
+✔ C6 focus unchanged does not recollect old hashes; no-lease degraded first attachment recovers (1.3797ms)
+✔ C7 two projects cannot exchange snapshots or clipboard values; changed destination refused before copy (0.6426ms)
+✔ C9 shutdown closes leases synchronously and rejects a late observation (0.4896ms)
+✔ C3 degraded coverage remains readable and never current or copyable at effect (0.3191ms)
+✔ C7 availability microtask before BUSY catch is retained until flight settles (0.5275ms)
+✔ C3 strict snapshot refuses outside source, private hints, foreign refs, launch claims and copy aliases (0.221ms)
+✔ C7 STOP_UNCONFIRMED remains deferred and never retries on its own (0.458ms)
+✔ C4 inventory has no fixed functional result quota and every long literal is searchable (6.5277ms)
+✔ C6 invalidation during both bounded passes settles the recorded trailing work without another event (0.8468ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 243.2815

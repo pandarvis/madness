@@ -1,0 +1,27 @@
+{
+  "at": "2026-11-04T09:24:04.447Z",
+  "case": "C7 admission available arrives between helper rejection and pending/job cleanup",
+  "sourceSha256": "cfaa4b4433b2e8fd3ba7d9fccd021beea6431c66ea1849331086b4a5b1456e3a",
+  "calls": 1,
+  "state": {
+    "contractVersion": 1,
+    "sequence": 2,
+    "projects": [
+      {
+        "projectId": "project-a",
+        "generation": 1,
+        "status": "error",
+        "freshness": "none",
+        "monitoring": "unarmed",
+        "queued": true,
+        "snapshot": null,
+        "copy": null,
+        "errorCode": "BUSY",
+        "error": "Les outils locaux sont occupés ; la lecture attend leur libération."
+      }
+    ]
+  },
+  "expected": "Second attempt without another focus or availability event, then settled without spin",
+  "network": false,
+  "provider": false
+}

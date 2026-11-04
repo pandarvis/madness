@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-04T11:29:18.003186+00:00",
+  "base": "parent-final-proof/producer-manifest.json",
+  "changed": [
+    "scripts/qualification/bmad-catalog.mjs",
+    "src/renderer/src/App.tsx",
+    "src/renderer/src/CatalogPanel.tsx",
+    "src/renderer/src/catalog.css",
+    "tests/connection-ui.test.mjs"
+  ],
+  "unchanged": 38,
+  "backendAndNativeTestInputsUnchanged": true,
+  "newFiles": [
+    "scripts/qualification/bmad-catalog-wait.mjs",
+    "tests/bmad-catalog-wait.test.mjs"
+  ],
+  "verificationPlan": "Keep81/81 current unchanged backend/native cases; rerun affected UI+harness, types/build/NSIS/audit and real Main/fresh finish capture"
+}

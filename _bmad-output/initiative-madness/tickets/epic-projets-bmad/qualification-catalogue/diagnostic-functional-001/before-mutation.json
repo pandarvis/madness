@@ -1,0 +1,2059 @@
+{
+  "label": "before-mutation",
+  "at": "2026-11-04T10:58:43.389Z",
+  "renderer": {
+    "trace": {
+      "events": [
+        {
+          "at": "2026-11-04T10:57:56.467Z",
+          "state": {
+            "sequence": 1,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 1,
+                "status": "reading",
+                "freshness": "none",
+                "monitoring": "unarmed",
+                "queued": false,
+                "errorCode": null,
+                "revision": null,
+                "items": []
+              }
+            ]
+          },
+          "dom": {
+            "at": "2026-11-04T10:57:56.467Z",
+            "url": "madness://app/index.html",
+            "visibility": "visible",
+            "hasFocus": true,
+            "size": [
+              1322,
+              816
+            ],
+            "theme": "dark",
+            "tabs": [],
+            "panels": [],
+            "buttons": [],
+            "dialogs": [
+              {
+                "className": "navigation-drawer",
+                "open": false,
+                "modal": false,
+                "text": "Madness",
+                "scroll": 0
+              },
+              {
+                "className": "plan-confirmation",
+                "open": false,
+                "modal": false,
+                "text": "Vous utilisez votre forfait ChatGPT",
+                "scroll": 0
+              }
+            ],
+            "focus": {
+              "tag": "BODY",
+              "id": "",
+              "label": null,
+              "text": "\n    Aller au contenuOuvrir la navigationAccueilOuvrir un projetPasser au thème clairConnexion Codex : non connectéMadnessAccueilProjets récentsCAcatalog-aCBcatalog-bDonnées localesFrançais · thème so"
+            }
+          }
+        },
+        {
+          "at": "2026-11-04T10:57:56.482Z",
+          "state": {
+            "sequence": 2,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 1,
+                "status": "error",
+                "freshness": "none",
+                "monitoring": "unarmed",
+                "queued": true,
+                "errorCode": "BUSY",
+                "revision": null,
+                "items": []
+              }
+            ]
+          },
+          "dom": {
+            "at": "2026-11-04T10:57:56.482Z",
+            "url": "madness://app/index.html",
+            "visibility": "visible",
+            "hasFocus": true,
+            "size": [
+              1322,
+              816
+            ],
+            "theme": "dark",
+            "tabs": [],
+            "panels": [],
+            "buttons": [],
+            "dialogs": [
+              {
+                "className": "navigation-drawer",
+                "open": false,
+                "modal": false,
+                "text": "Madness",
+                "scroll": 0
+              },
+              {
+                "className": "plan-confirmation",
+                "open": false,
+                "modal": false,
+                "text": "Vous utilisez votre forfait ChatGPT",
+                "scroll": 0
+              }
+            ],
+            "focus": {
+              "tag": "BODY",
+              "id": "",
+              "label": null,
+              "text": "\n    Aller au contenuOuvrir la navigationAccueilOuvrir un projetPasser au thème clairConnexion Codex : non connectéMadnessAccueilProjets récentsCAcatalog-aCBcatalog-bDonnées localesFrançais · thème so"
+            }
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:11.005Z",
+          "state": {
+            "sequence": 3,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 2,
+                "status": "reading",
+                "freshness": "none",
+                "monitoring": "unarmed",
+                "queued": false,
+                "errorCode": null,
+                "revision": null,
+                "items": []
+              }
+            ]
+          },
+          "dom": {
+            "at": "2026-11-04T10:58:11.005Z",
+            "url": "madness://app/index.html",
+            "visibility": "visible",
+            "hasFocus": true,
+            "size": [
+              1322,
+              816
+            ],
+            "theme": "dark",
+            "tabs": [],
+            "panels": [],
+            "buttons": [],
+            "dialogs": [
+              {
+                "className": "navigation-drawer",
+                "open": false,
+                "modal": false,
+                "text": "Madness",
+                "scroll": 0
+              },
+              {
+                "className": "plan-confirmation",
+                "open": false,
+                "modal": false,
+                "text": "Vous utilisez votre forfait ChatGPT",
+                "scroll": 0
+              }
+            ],
+            "focus": {
+              "tag": "BODY",
+              "id": "",
+              "label": null,
+              "text": "\n    Aller au contenuOuvrir la navigationAccueilOuvrir un projetPasser au thème clairConnexion Codex : non connectéMadnessAccueilProjets récentsCAcatalog-aCBcatalog-bDonnées localesFrançais · thème so"
+            }
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:11.635Z",
+          "state": {
+            "sequence": 4,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 3,
+                "status": "reading",
+                "freshness": "stale",
+                "monitoring": "watching",
+                "queued": true,
+                "errorCode": null,
+                "revision": null,
+                "items": []
+              }
+            ]
+          },
+          "dom": {
+            "at": "2026-11-04T10:58:11.635Z",
+            "url": "madness://app/index.html",
+            "visibility": "visible",
+            "hasFocus": true,
+            "size": [
+              1322,
+              816
+            ],
+            "theme": "dark",
+            "tabs": [],
+            "panels": [],
+            "buttons": [],
+            "dialogs": [
+              {
+                "className": "navigation-drawer",
+                "open": false,
+                "modal": false,
+                "text": "Madness",
+                "scroll": 0
+              },
+              {
+                "className": "plan-confirmation",
+                "open": false,
+                "modal": false,
+                "text": "Vous utilisez votre forfait ChatGPT",
+                "scroll": 0
+              }
+            ],
+            "focus": {
+              "tag": "BODY",
+              "id": "",
+              "label": null,
+              "text": "\n    Aller au contenuOuvrir la navigationAccueilOuvrir un projetPasser au thème clairConnexion Codex : non connectéMadnessAccueilProjets récentsCAcatalog-aCBcatalog-bDonnées localesFrançais · thème so"
+            }
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:20.964Z",
+          "state": {
+            "sequence": 5,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 4,
+                "status": "reading",
+                "freshness": "stale",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": null,
+                "items": []
+              }
+            ]
+          },
+          "dom": {
+            "at": "2026-11-04T10:58:20.964Z",
+            "url": "madness://app/index.html",
+            "visibility": "visible",
+            "hasFocus": true,
+            "size": [
+              1322,
+              816
+            ],
+            "theme": "dark",
+            "tabs": [],
+            "panels": [],
+            "buttons": [],
+            "dialogs": [
+              {
+                "className": "navigation-drawer",
+                "open": false,
+                "modal": false,
+                "text": "Madness",
+                "scroll": 0
+              },
+              {
+                "className": "plan-confirmation",
+                "open": false,
+                "modal": false,
+                "text": "Vous utilisez votre forfait ChatGPT",
+                "scroll": 0
+              }
+            ],
+            "focus": {
+              "tag": "BODY",
+              "id": "",
+              "label": null,
+              "text": "\n    Aller au contenuOuvrir la navigationAccueilOuvrir un projetPasser au thème clairConnexion Codex : non connectéMadnessAccueilProjets récentsCAcatalog-aCBcatalog-bDonnées localesFrançais · thème so"
+            }
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:31.349Z",
+          "state": {
+            "sequence": 6,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 4,
+                "status": "ready",
+                "freshness": "current",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": "c887b89ed6bcdedcb7bfd340a5a84377bbccdbcf452864377b5be823387bb9f9",
+                "items": [
+                  "catalog26-alpha",
+                  "catalog26-beta"
+                ]
+              }
+            ]
+          },
+          "dom": {
+            "at": "2026-11-04T10:58:31.349Z",
+            "url": "madness://app/index.html",
+            "visibility": "visible",
+            "hasFocus": true,
+            "size": [
+              1322,
+              816
+            ],
+            "theme": "dark",
+            "tabs": [],
+            "panels": [],
+            "buttons": [],
+            "dialogs": [
+              {
+                "className": "navigation-drawer",
+                "open": false,
+                "modal": false,
+                "text": "Madness",
+                "scroll": 0
+              },
+              {
+                "className": "plan-confirmation",
+                "open": false,
+                "modal": false,
+                "text": "Vous utilisez votre forfait ChatGPT",
+                "scroll": 0
+              }
+            ],
+            "focus": {
+              "tag": "BODY",
+              "id": "",
+              "label": null,
+              "text": "\n    Aller au contenuOuvrir la navigationAccueilOuvrir un projetPasser au thème clairConnexion Codex : non connectéMadnessAccueilProjets récentsCAcatalog-aCBcatalog-bDonnées localesFrançais · thème so"
+            }
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:31.349Z",
+          "state": {
+            "sequence": 7,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 4,
+                "status": "ready",
+                "freshness": "current",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": "c887b89ed6bcdedcb7bfd340a5a84377bbccdbcf452864377b5be823387bb9f9",
+                "items": [
+                  "catalog26-alpha",
+                  "catalog26-beta"
+                ]
+              },
+              {
+                "id": "catalog-a",
+                "generation": 1,
+                "status": "reading",
+                "freshness": "none",
+                "monitoring": "unarmed",
+                "queued": false,
+                "errorCode": null,
+                "revision": null,
+                "items": []
+              }
+            ]
+          },
+          "dom": {
+            "at": "2026-11-04T10:58:31.349Z",
+            "url": "madness://app/index.html",
+            "visibility": "visible",
+            "hasFocus": true,
+            "size": [
+              1322,
+              816
+            ],
+            "theme": "dark",
+            "tabs": [],
+            "panels": [],
+            "buttons": [],
+            "dialogs": [
+              {
+                "className": "navigation-drawer",
+                "open": false,
+                "modal": false,
+                "text": "Madness",
+                "scroll": 0
+              },
+              {
+                "className": "plan-confirmation",
+                "open": false,
+                "modal": false,
+                "text": "Vous utilisez votre forfait ChatGPT",
+                "scroll": 0
+              }
+            ],
+            "focus": {
+              "tag": "BODY",
+              "id": "",
+              "label": null,
+              "text": "\n    Aller au contenuOuvrir la navigationAccueilOuvrir un projetPasser au thème clairConnexion Codex : non connectéMadnessAccueilProjets récentsCAcatalog-aCBcatalog-bDonnées localesFrançais · thème so"
+            }
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:41.465Z",
+          "state": {
+            "sequence": 8,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 4,
+                "status": "ready",
+                "freshness": "current",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": "c887b89ed6bcdedcb7bfd340a5a84377bbccdbcf452864377b5be823387bb9f9",
+                "items": [
+                  "catalog26-alpha",
+                  "catalog26-beta"
+                ]
+              },
+              {
+                "id": "catalog-a",
+                "generation": 1,
+                "status": "ready",
+                "freshness": "current",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+                "items": [
+                  "catalog26-alpha",
+                  "catalog26-beta"
+                ]
+              }
+            ]
+          },
+          "dom": {
+            "at": "2026-11-04T10:58:41.465Z",
+            "url": "madness://app/index.html",
+            "visibility": "visible",
+            "hasFocus": true,
+            "size": [
+              1322,
+              816
+            ],
+            "theme": "dark",
+            "tabs": [],
+            "panels": [],
+            "buttons": [],
+            "dialogs": [
+              {
+                "className": "navigation-drawer",
+                "open": false,
+                "modal": false,
+                "text": "Madness",
+                "scroll": 0
+              },
+              {
+                "className": "plan-confirmation",
+                "open": false,
+                "modal": false,
+                "text": "Vous utilisez votre forfait ChatGPT",
+                "scroll": 0
+              }
+            ],
+            "focus": {
+              "tag": "BODY",
+              "id": "",
+              "label": null,
+              "text": "\n    Aller au contenuOuvrir la navigationAccueilOuvrir un projetPasser au thème clairConnexion Codex : non connectéMadnessAccueilProjets récentsCAcatalog-aCBcatalog-bDonnées localesFrançais · thème so"
+            }
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:42.405Z",
+          "state": {
+            "sequence": 9,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 4,
+                "status": "ready",
+                "freshness": "current",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": "c887b89ed6bcdedcb7bfd340a5a84377bbccdbcf452864377b5be823387bb9f9",
+                "items": [
+                  "catalog26-alpha",
+                  "catalog26-beta"
+                ]
+              },
+              {
+                "id": "catalog-a",
+                "generation": 1,
+                "status": "ready",
+                "freshness": "current",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+                "items": [
+                  "catalog26-alpha",
+                  "catalog26-beta"
+                ]
+              }
+            ]
+          },
+          "dom": {
+            "at": "2026-11-04T10:58:42.405Z",
+            "url": "madness://app/index.html",
+            "visibility": "visible",
+            "hasFocus": true,
+            "size": [
+              1322,
+              816
+            ],
+            "theme": "dark",
+            "tabs": [
+              {
+                "text": "Parcours",
+                "selected": "false",
+                "visible": true
+              },
+              {
+                "text": "Conversation",
+                "selected": "false",
+                "visible": true
+              },
+              {
+                "text": "Toutes les possibilités",
+                "selected": "true",
+                "visible": true
+              }
+            ],
+            "project": "catalog-a",
+            "panels": [
+              {
+                "visible": true,
+                "hiddenAncestor": false,
+                "inertAncestor": false,
+                "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\ncatalog26-alpha\n\ncatalog26 · Invocation copiable\n\nObservé le 04/11/2026 11:58:41\nRévision : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nObjectif\n\nMary explores documented market intentions\n\nSource · ligne 3\nEntrées\n\nInformation non documentée — inconnue\n\nConditions\n\nInformation non documentée — inconnue\n\nEffets et livrables attendus\n\nA literal local report\n\nSource · ligne 3\nNotes documentaires de l’aide\nDisponibilité\n\nLancement général non qualifié pour ce profil\n\n$catalog26-alpha\nCopier l’invocation\n\nLa copie ne lance aucune conversation.\n\nLire le texte source",
+                "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+                "activity": "2 compétence(s) repérée(s)"
+              }
+            ],
+            "buttons": [],
+            "dialogs": [
+              {
+                "className": "catalog-dialog",
+                "open": true,
+                "modal": true,
+                "text": "catalog26-alpha",
+                "scroll": 164.8000030517578
+              },
+              {
+                "className": "navigation-drawer",
+                "open": false,
+                "modal": false,
+                "text": "Madness",
+                "scroll": 0
+              },
+              {
+                "className": "plan-confirmation",
+                "open": false,
+                "modal": false,
+                "text": "Vous utilisez votre forfait ChatGPT",
+                "scroll": 0
+              }
+            ],
+            "focus": {
+              "tag": "BODY",
+              "id": "",
+              "label": null,
+              "text": "\n    Aller au contenuOuvrir la navigationcatalog-aOuvrir un projetPasser au thème clairConnexion Codex : non connectéMadnessAccueilProjets récentsCAcatalog-aCBcatalog-bDonnées localesFrançais · thème "
+            }
+          }
+        }
+      ],
+      "eventCount": 9,
+      "dom": [
+        {
+          "at": "2026-11-04T10:57:56.456Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            1322,
+            816
+          ],
+          "theme": "dark",
+          "tabs": [],
+          "panels": [],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BODY",
+            "id": "",
+            "label": null,
+            "text": "\n    Aller au contenuOuvrir la navigationAccueilOuvrir un projetPasser au thème clairConnexion Codex : non connectéMadnessAccueilProjets récentsCAcatalog-aCBcatalog-bDonnées localesFrançais · thème so"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:41.549Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            1322,
+            816
+          ],
+          "theme": "dark",
+          "tabs": [],
+          "panels": [],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "label": null,
+            "text": "CAcatalog-aC:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\catalog-aContexte conservé localement"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:41.637Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            1322,
+            816
+          ],
+          "theme": "dark",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "true",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "false",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": false,
+              "hiddenAncestor": true,
+              "inertAncestor": false,
+              "text": "Toutes les possibilitésActualiser le catalogueConsultez les compétences BMad repérées dans ce projet et leurs sources locales.2 compétence(s) repérée(s)Observé le 04/11/2026 11:58:41 · Couverture : PartielleVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6fRechercher une possibilitéModuleTous les modulescatalog26Effacer les filtresRésultats du catalogue2 résultat(s)catalog26-alphacatalog26 · Invocation copiableMary explores documented market intentions$catalog26-alphacatalog26-betacatalog26 · Invocation copiableSally designs literal interfaces$catalog26-betaDiagnostic et provenance · partialcatalog-a · C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\catalog-aIdentité de racine : c7cab56db6586813b697790d08c85ac3b757fb39f6e3793a5da5f2c18b5e2221Racines ordonnéesC:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\catalog-a\\.agents\\skillsC:\\Users\\UP60066553\\.codex\\skillscatalog26 · 6.13.0-next · C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\catalog-a\\.agents\\skills\\catalog26-module\\bmod.tomlcatalog26: missing registered skill catalog26-missing",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BODY",
+            "id": "",
+            "label": null,
+            "text": "\n    Aller au contenuOuvrir la navigationcatalog-aOuvrir un projetPasser au thème clairConnexion Codex : non connectéMadnessAccueilProjets récentsCAcatalog-aCBcatalog-bDonnées localesFrançais · thème "
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:41.717Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            1322,
+            816
+          ],
+          "theme": "dark",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n2 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\ncatalog26-beta\ncatalog26 · Invocation copiable\n\nSally designs literal interfaces\n\n$catalog26-beta\nDiagnostic et provenance · partial",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BUTTON",
+            "id": "tab-catalogue",
+            "label": null,
+            "text": "Toutes les possibilités"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:41.734Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            1322,
+            816
+          ],
+          "theme": "dark",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "INPUT",
+            "id": "_r_1_-search",
+            "label": null,
+            "text": ""
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:41.788Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            1322,
+            816
+          ],
+          "theme": "dark",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\ncatalog26-alpha\n\ncatalog26 · Invocation copiable\n\nObservé le 04/11/2026 11:58:41\nRévision : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nObjectif\n\nMary explores documented market intentions\n\nSource · ligne 3\nEntrées\n\nInformation non documentée — inconnue\n\nConditions\n\nInformation non documentée — inconnue\n\nEffets et livrables attendus\n\nA literal local report\n\nSource · ligne 3\nNotes documentaires de l’aide\nDisponibilité\n\nLancement général non qualifié pour ce profil\n\n$catalog26-alpha\nCopier l’invocation\n\nLa copie ne lance aucune conversation.\n\nLire le texte source",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "catalog-dialog",
+              "open": true,
+              "modal": true,
+              "text": "catalog26-alpha",
+              "scroll": 0
+            },
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "H2",
+            "id": "_r_1_-detail",
+            "label": null,
+            "text": "catalog26-alpha"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:42.406Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            1322,
+            816
+          ],
+          "theme": "dark",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\ncatalog26-alpha\n\ncatalog26 · Invocation copiable\n\nObservé le 04/11/2026 11:58:41\nRévision : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nObjectif\n\nMary explores documented market intentions\n\nSource · ligne 3\nEntrées\n\nInformation non documentée — inconnue\n\nConditions\n\nInformation non documentée — inconnue\n\nEffets et livrables attendus\n\nA literal local report\n\nSource · ligne 3\nNotes documentaires de l’aide\nDisponibilité\n\nLancement général non qualifié pour ce profil\n\n$catalog26-alpha\nCopier l’invocation\n\nLa copie ne lance aucune conversation.\n\nInvocation copiée\n\nLire le texte source",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "catalog-dialog",
+              "open": true,
+              "modal": true,
+              "text": "catalog26-alpha",
+              "scroll": 164.8000030517578
+            },
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BODY",
+            "id": "",
+            "label": null,
+            "text": "\n    Aller au contenuOuvrir la navigationcatalog-aOuvrir un projetPasser au thème clairConnexion Codex : non connectéMadnessAccueilProjets récentsCAcatalog-aCBcatalog-bDonnées localesFrançais · thème "
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:42.770Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            1440,
+            920
+          ],
+          "theme": "dark",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\n\nInvocation copiée",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "label": "Fiche compétence catalog26-alpha",
+            "text": "catalog26-alpha"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:42.867Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            720,
+            820
+          ],
+          "theme": "dark",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\n\nInvocation copiée",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "label": "Passer au thème clair",
+            "text": "Passer au thème clair"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:42.949Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            720,
+            820
+          ],
+          "theme": "dark",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\n\nInvocation copiée",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "label": "Passer au thème sombre",
+            "text": "Passer au thème sombre"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:42.950Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            720,
+            820
+          ],
+          "theme": "light",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\n\nInvocation copiée",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "label": "Passer au thème sombre",
+            "text": "Passer au thème sombre"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:42.992Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            720,
+            820
+          ],
+          "theme": "light",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\ncatalog26-alpha\n\ncatalog26 · Invocation copiable\n\nObservé le 04/11/2026 11:58:41\nRévision : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nObjectif\n\nMary explores documented market intentions\n\nSource · ligne 3\nEntrées\n\nInformation non documentée — inconnue\n\nConditions\n\nInformation non documentée — inconnue\n\nEffets et livrables attendus\n\nA literal local report\n\nSource · ligne 3\nNotes documentaires de l’aide\nDisponibilité\n\nLancement général non qualifié pour ce profil\n\n$catalog26-alpha\nCopier l’invocation\n\nLa copie ne lance aucune conversation.\n\nLire le texte source",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "catalog-dialog",
+              "open": true,
+              "modal": true,
+              "text": "catalog26-alpha",
+              "scroll": 0
+            },
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "H2",
+            "id": "_r_1_-detail",
+            "label": null,
+            "text": "catalog26-alpha"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:43.032Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            720,
+            820
+          ],
+          "theme": "light",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "label": "Fiche compétence catalog26-alpha",
+            "text": "catalog26-alpha"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:43.120Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            1440,
+            920
+          ],
+          "theme": "light",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "label": "Passer au thème sombre",
+            "text": "Passer au thème sombre"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:43.215Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            720,
+            460
+          ],
+          "theme": "light",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "label": "Passer au thème clair",
+            "text": "Passer au thème clair"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:43.216Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            720,
+            460
+          ],
+          "theme": "dark",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "label": "Passer au thème clair",
+            "text": "Passer au thème clair"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:43.269Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            720,
+            460
+          ],
+          "theme": "dark",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\ncatalog26-alpha\n\ncatalog26 · Invocation copiable\n\nObservé le 04/11/2026 11:58:41\nRévision : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nObjectif\n\nMary explores documented market intentions\n\nSource · ligne 3\nEntrées\n\nInformation non documentée — inconnue\n\nConditions\n\nInformation non documentée — inconnue\n\nEffets et livrables attendus\n\nA literal local report\n\nSource · ligne 3\nNotes documentaires de l’aide\nDisponibilité\n\nLancement général non qualifié pour ce profil\n\n$catalog26-alpha\nCopier l’invocation\n\nLa copie ne lance aucune conversation.\n\nLire le texte source",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "catalog-dialog",
+              "open": true,
+              "modal": true,
+              "text": "catalog26-alpha",
+              "scroll": 0
+            },
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "H2",
+            "id": "_r_1_-detail",
+            "label": null,
+            "text": "catalog26-alpha"
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:43.315Z",
+          "url": "madness://app/index.html",
+          "visibility": "visible",
+          "hasFocus": true,
+          "size": [
+            720,
+            460
+          ],
+          "theme": "dark",
+          "tabs": [
+            {
+              "text": "Parcours",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Conversation",
+              "selected": "false",
+              "visible": true
+            },
+            {
+              "text": "Toutes les possibilités",
+              "selected": "true",
+              "visible": true
+            }
+          ],
+          "project": "catalog-a",
+          "panels": [
+            {
+              "visible": true,
+              "hiddenAncestor": false,
+              "inertAncestor": false,
+              "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial",
+              "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+              "activity": "2 compétence(s) repérée(s)"
+            }
+          ],
+          "buttons": [],
+          "dialogs": [
+            {
+              "className": "navigation-drawer",
+              "open": false,
+              "modal": false,
+              "text": "Madness",
+              "scroll": 0
+            },
+            {
+              "className": "plan-confirmation",
+              "open": false,
+              "modal": false,
+              "text": "Vous utilisez votre forfait ChatGPT",
+              "scroll": 0
+            }
+          ],
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "label": "Fiche compétence catalog26-alpha",
+            "text": "catalog26-alpha"
+          }
+        }
+      ],
+      "domCount": 18,
+      "limit": 128,
+      "last": "{\"at\":null,\"url\":\"madness://app/index.html\",\"visibility\":\"visible\",\"hasFocus\":true,\"size\":[720,460],\"theme\":\"dark\",\"tabs\":[{\"text\":\"Parcours\",\"selected\":\"false\",\"visible\":true},{\"text\":\"Conversation\",\"selected\":\"false\",\"visible\":true},{\"text\":\"Toutes les possibilités\",\"selected\":\"true\",\"visible\":true}],\"project\":\"catalog-a\",\"panels\":[{\"visible\":true,\"hiddenAncestor\":false,\"inertAncestor\":false,\"text\":\"Toutes les possibilités\\nActualiser le catalogue\\n\\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\\n\\n2 compétence(s) repérée(s)\\n\\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\\n\\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\\n\\nRechercher une possibilité\\nModule\\nTous les modules\\ncatalog26\\nEffacer les filtres\\nRésultats du catalogue\\n\\n1 résultat(s)\\n\\ncatalog26-alpha\\ncatalog26 · Invocation copiable\\n\\nMary explores documented market intentions\\n\\n$catalog26-alpha\\nDiagnostic et provenance · partial\",\"displayedRevision\":\"69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\",\"activity\":\"2 compétence(s) repérée(s)\"}],\"buttons\":[],\"dialogs\":[{\"className\":\"navigation-drawer\",\"open\":false,\"modal\":false,\"text\":\"Madness\",\"scroll\":0},{\"className\":\"plan-confirmation\",\"open\":false,\"modal\":false,\"text\":\"Vous utilisez votre forfait ChatGPT\",\"scroll\":0}],\"focus\":{\"tag\":\"BUTTON\",\"id\":\"\",\"label\":\"Fiche compétence catalog26-alpha\",\"text\":\"catalog26-alpha\"}}"
+    },
+    "dom": {
+      "at": "2026-11-04T10:58:43.363Z",
+      "url": "madness://app/index.html",
+      "visibility": "visible",
+      "hasFocus": true,
+      "size": [
+        1440,
+        920
+      ],
+      "theme": "dark",
+      "tabs": [
+        {
+          "text": "Parcours",
+          "selected": "false",
+          "visible": true
+        },
+        {
+          "text": "Conversation",
+          "selected": "false",
+          "visible": true
+        },
+        {
+          "text": "Toutes les possibilités",
+          "selected": "true",
+          "visible": true
+        }
+      ],
+      "project": "catalog-a",
+      "panels": [
+        {
+          "visible": true,
+          "hiddenAncestor": false,
+          "inertAncestor": false,
+          "text": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial",
+          "displayedRevision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+          "activity": "2 compétence(s) repérée(s)"
+        }
+      ],
+      "buttons": [],
+      "dialogs": [
+        {
+          "className": "navigation-drawer",
+          "open": false,
+          "modal": false,
+          "text": "Madness",
+          "scroll": 0
+        },
+        {
+          "className": "plan-confirmation",
+          "open": false,
+          "modal": false,
+          "text": "Vous utilisez votre forfait ChatGPT",
+          "scroll": 0
+        }
+      ],
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "Fiche compétence catalog26-alpha",
+        "text": "catalog26-alpha"
+      }
+    },
+    "read": {
+      "sequence": 9,
+      "projects": [
+        {
+          "id": "catalog-b",
+          "generation": 4,
+          "status": "ready",
+          "freshness": "current",
+          "monitoring": "watching",
+          "queued": false,
+          "errorCode": null,
+          "revision": "c887b89ed6bcdedcb7bfd340a5a84377bbccdbcf452864377b5be823387bb9f9",
+          "items": [
+            "catalog26-alpha",
+            "catalog26-beta"
+          ]
+        },
+        {
+          "id": "catalog-a",
+          "generation": 1,
+          "status": "ready",
+          "freshness": "current",
+          "monitoring": "watching",
+          "queued": false,
+          "errorCode": null,
+          "revision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+          "items": [
+            "catalog26-alpha",
+            "catalog26-beta"
+          ]
+        }
+      ]
+    }
+  },
+  "main": {
+    "trace": {
+      "events": [
+        {
+          "at": "2026-11-04T10:57:56.465Z",
+          "url": "madness://app/index.html",
+          "state": {
+            "sequence": 1,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 1,
+                "status": "reading",
+                "freshness": "none",
+                "monitoring": "unarmed",
+                "queued": false,
+                "errorCode": null,
+                "revision": null,
+                "items": []
+              }
+            ]
+          }
+        },
+        {
+          "at": "2026-11-04T10:57:56.481Z",
+          "url": "madness://app/index.html",
+          "state": {
+            "sequence": 2,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 1,
+                "status": "error",
+                "freshness": "none",
+                "monitoring": "unarmed",
+                "queued": true,
+                "errorCode": "BUSY",
+                "revision": null,
+                "items": []
+              }
+            ]
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:11.004Z",
+          "url": "madness://app/index.html",
+          "state": {
+            "sequence": 3,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 2,
+                "status": "reading",
+                "freshness": "none",
+                "monitoring": "unarmed",
+                "queued": false,
+                "errorCode": null,
+                "revision": null,
+                "items": []
+              }
+            ]
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:11.634Z",
+          "url": "madness://app/index.html",
+          "state": {
+            "sequence": 4,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 3,
+                "status": "reading",
+                "freshness": "stale",
+                "monitoring": "watching",
+                "queued": true,
+                "errorCode": null,
+                "revision": null,
+                "items": []
+              }
+            ]
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:20.963Z",
+          "url": "madness://app/index.html",
+          "state": {
+            "sequence": 5,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 4,
+                "status": "reading",
+                "freshness": "stale",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": null,
+                "items": []
+              }
+            ]
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:31.346Z",
+          "url": "madness://app/index.html",
+          "state": {
+            "sequence": 6,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 4,
+                "status": "ready",
+                "freshness": "current",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": "c887b89ed6bcdedcb7bfd340a5a84377bbccdbcf452864377b5be823387bb9f9",
+                "items": [
+                  "catalog26-alpha",
+                  "catalog26-beta"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:31.347Z",
+          "url": "madness://app/index.html",
+          "state": {
+            "sequence": 7,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 4,
+                "status": "ready",
+                "freshness": "current",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": "c887b89ed6bcdedcb7bfd340a5a84377bbccdbcf452864377b5be823387bb9f9",
+                "items": [
+                  "catalog26-alpha",
+                  "catalog26-beta"
+                ]
+              },
+              {
+                "id": "catalog-a",
+                "generation": 1,
+                "status": "reading",
+                "freshness": "none",
+                "monitoring": "unarmed",
+                "queued": false,
+                "errorCode": null,
+                "revision": null,
+                "items": []
+              }
+            ]
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:41.463Z",
+          "url": "madness://app/index.html",
+          "state": {
+            "sequence": 8,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 4,
+                "status": "ready",
+                "freshness": "current",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": "c887b89ed6bcdedcb7bfd340a5a84377bbccdbcf452864377b5be823387bb9f9",
+                "items": [
+                  "catalog26-alpha",
+                  "catalog26-beta"
+                ]
+              },
+              {
+                "id": "catalog-a",
+                "generation": 1,
+                "status": "ready",
+                "freshness": "current",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+                "items": [
+                  "catalog26-alpha",
+                  "catalog26-beta"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "at": "2026-11-04T10:58:42.403Z",
+          "url": "madness://app/index.html",
+          "state": {
+            "sequence": 9,
+            "projects": [
+              {
+                "id": "catalog-b",
+                "generation": 4,
+                "status": "ready",
+                "freshness": "current",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": "c887b89ed6bcdedcb7bfd340a5a84377bbccdbcf452864377b5be823387bb9f9",
+                "items": [
+                  "catalog26-alpha",
+                  "catalog26-beta"
+                ]
+              },
+              {
+                "id": "catalog-a",
+                "generation": 1,
+                "status": "ready",
+                "freshness": "current",
+                "monitoring": "watching",
+                "queued": false,
+                "errorCode": null,
+                "revision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+                "items": [
+                  "catalog26-alpha",
+                  "catalog26-beta"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "count": 9,
+      "limit": 128
+    },
+    "url": "madness://app/index.html",
+    "mainFrame": {
+      "processId": 5,
+      "routingId": 1
+    },
+    "window": {
+      "minimized": false,
+      "visible": true,
+      "focused": true,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "zoom": 1
+    }
+  },
+  "owner": {
+    "schemaVersion": 1,
+    "generation": "help-14e7e9c8-cfda-4782-bd44-820014c369d4",
+    "purpose": "bmad-readonly",
+    "status": "stopped",
+    "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\profile\\bmad-help-runs-v1\\operation-eacf5369-3cdc-45f8-bcd7-dbb4293e8fed"
+  },
+  "execution": {
+    "schema": 5,
+    "outcome": "completed",
+    "exit": 0,
+    "started": true,
+    "owned": [],
+    "cleanup": [],
+    "results_present": false,
+    "job_assigned_before_resume": true,
+    "pid": 20640,
+    "active_before_stop": 0,
+    "job_active_after_stop": 0,
+    "stop_ms": 0,
+    "drain_ms": 223,
+    "elapsed_ms": 3630
+  }
+}

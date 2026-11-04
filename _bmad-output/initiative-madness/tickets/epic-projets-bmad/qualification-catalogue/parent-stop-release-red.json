@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-04T10:13:53.850Z",
+  "case": "C7 own helper admission release before STOP_UNCONFIRMED catch must not cause automatic retry",
+  "sourceSha256": "24dbcd13a7ce2b4d3e1d0fea69c40a9ec814f34f1ff18d6ef46d94fc465ede96",
+  "calls": 4,
+  "artificialSafetyCap": 4,
+  "expectedCallsUntilRecovery": 1,
+  "state": {
+    "contractVersion": 1,
+    "sequence": 8,
+    "projects": [
+      {
+        "projectId": "project-a",
+        "generation": 4,
+        "status": "error",
+        "freshness": "none",
+        "monitoring": "unarmed",
+        "queued": true,
+        "snapshot": null,
+        "copy": null,
+        "errorCode": "STOP_UNCONFIRMED",
+        "error": "Arrêt non confirmé — récupération requise."
+      }
+    ]
+  }
+}

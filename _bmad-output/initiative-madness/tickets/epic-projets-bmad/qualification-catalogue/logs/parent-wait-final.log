@@ -1,0 +1,11 @@
+✔ bank cache is passive and a delayed older read cannot replace a newer received event (1.2269ms)
+✔ normal bank predicate is synchronous false until the exact ready/current/not-queued capture exists (1.1388ms)
+✔ normal bank removal wait requires a new qualified revision and actual item absence (0.2729ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 171.5533

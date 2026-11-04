@@ -1,0 +1,91 @@
+{
+  "at": "2026-11-04T12:14:07.473077+00:00",
+  "baseline": "d0c706642673a56fcaf0138ee216219b9b20e8b3",
+  "matrix": {
+    "C1": {
+      "passedTestContains": "native Windows catalogue capture",
+      "mainPassedCheck": "C1 C6 actual-removal-observed",
+      "testReceipt": "logs/parent-targeted-final.log",
+      "mainReceipt": "finish-f1-final-003/verification.json"
+    },
+    "C2": {
+      "passedTestContains": "extended fences and non-tables cannot manufacture documentary effects",
+      "mainPassedCheck": "C1 C2 C7 exact-two-projects-no-initiative-or-account",
+      "testReceipt": "logs/parent-targeted-final.log",
+      "mainReceipt": "finish-f1-final-003/verification.json"
+    },
+    "C3": {
+      "passedTestContains": "strict snapshot refuses outside source",
+      "mainPassedCheck": "C1 C2 C7 exact-two-projects-no-initiative-or-account",
+      "testReceipt": "logs/parent-targeted-final.log",
+      "mainReceipt": "finish-f1-final-003/verification.json"
+    },
+    "C4": {
+      "passedTestContains": "inventory has no fixed functional result quota",
+      "mainPassedCheck": "C4 dynamic-new-skill-search-with-voluntary-switch",
+      "testReceipt": "logs/parent-targeted-final.log",
+      "mainReceipt": "finish-f1-final-003/verification.json"
+    },
+    "C5": {
+      "passedTestContains": "copy uses core-owned invocation",
+      "mainPassedCheck": "C4 C5 actual-preload-native-clipboard-write-and-read",
+      "testReceipt": "logs/parent-targeted-final.log",
+      "mainReceipt": "finish-f1-final-003/verification.json"
+    },
+    "C6": {
+      "passedTestContains": "bursts invalidate synchronously",
+      "mainPassedCheck": "C6 external-add-invalidates-and-retains-displayed-query",
+      "testReceipt": "logs/parent-targeted-final.log",
+      "mainReceipt": "finish-f1-final-003/verification.json"
+    },
+    "C7": {
+      "passedTestContains": "availability microtask before BUSY catch",
+      "mainPassedCheck": "C7 real-context-helper-occupation-releases-pending-catalogue",
+      "testReceipt": "logs/parent-targeted-final.log",
+      "mainReceipt": "finish-f1-final-003/verification.json"
+    },
+    "C8": {
+      "passedTestContains": "catalogue: manual three-tab keyboard navigation",
+      "mainPassedCheck": null,
+      "testReceipt": "logs/parent-ui-finish-final.log",
+      "mainReceipt": null
+    },
+    "C9": {
+      "passedTestContains": "shutdown closes leases synchronously",
+      "mainPassedCheck": "C9 actually-live-native-job-cancelled-and-drained",
+      "testReceipt": "logs/parent-targeted-final.log",
+      "mainReceipt": "finish-f1-final-003/verification.json"
+    }
+  },
+  "runs": {
+    "logs/parent-targeted-final.log": {
+      "tests": 81,
+      "pass": 81,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "d32804845dec9a2c98691260e5de58f266303c5c385164e5127120ca02bc564e"
+    },
+    "logs/parent-ui-finish-final.log": {
+      "tests": 10,
+      "pass": 10,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "dbe512816660bb26a0a6eca7a49d99569dd46b6719579c7db8d15d19b85b88b0"
+    },
+    "logs/parent-wait-final.log": {
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "389ec67be0d575e5f4e82ca913c020a633723e9c09563450b4ef0fb81d5d51f3"
+    }
+  },
+  "sourceInputs": {
+    "backendNative": "parent-final-proof/producer-manifest.json",
+    "changedOnlyUiAndBank": "finish-f1-changed-inputs.json",
+    "uiHarness": "parent-finish-proof/producer-manifest.json",
+    "main": "finish-f1-final-003/producer-manifest.json"
+  },
+  "asar": "687f495a869c767949a2c79535efe107fdf5202255ba0265aa9cc1d3d90b624a",
+  "scope": "Separate executed runs, not one invented total. Initial parent-matrix-audit.json remains historical on ba7; V1 waits not promoted retrospectively."
+}

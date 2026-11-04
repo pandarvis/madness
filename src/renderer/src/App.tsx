@@ -1,3 +1,5 @@
+import {CatalogPanel,useBmadCatalog} from './CatalogPanel.tsx'
+import type {CatalogView} from './CatalogPanel.tsx'
 import {InitiativeSelector,InitiativeContext,useBmadContext} from './InitiativeSelector.tsx'
 import {ProjectResume,useBmadProgress} from './ProjectResume.tsx'
 import {HelpPanel,HelpReceiptPanel,useBmadHelp} from './HelpPanel.tsx'
@@ -94,6 +96,8 @@ function WorkflowResult({workflow,onCopy}:{workflow:WorkflowRecord;onCopy:(conve
 export function App({ initialAppearance = window.madnessAppearance.initial, appearanceReadFailed = false }: { initialAppearance?: AppearanceState; appearanceReadFailed?: boolean } = {}): ReactNode {
   const [helpState,acceptHelp]=useBmadHelp()
   const [progressState,acceptProgress]=useBmadProgress()
+  const [catalogState,acceptCatalog]=useBmadCatalog()
+  const catalogViews=useRef(new Map<string,CatalogView>())
   const [initiativeConflict,setInitiativeConflict]=useState(false)
   const [state, setState] = useState<AppState | null>(null)
   const [bmadContext,acceptBmadContext]=useBmadContext(state?.activeProjectId??undefined)
@@ -103,7 +107,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [conversationSelections,setConversationSelections]=useState<Record<string,string>>({})
   const [focusTarget,setFocusTarget]=useState<{token:number;target:OverviewTarget}|null>(null)
   const [overviewClock,setOverviewClock]=useState(0)
-  const [tab, setTab] = useState<'parcours' | 'conversation'>('parcours')
+  const [tab, setTab] = useState<'parcours' | 'conversation' | 'catalogue'>('parcours')
   const [texts, setTexts] = useState<Record<string, string>>({})
   const [collapsed, setCollapsed] = useState(false)
   const [preferenceUnsaved, setPreferenceUnsaved] = useState(false)
@@ -402,7 +406,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     setPreferenceUnsaved(true)
     void run(() => window.madness.setNavigation(next), () => { setPreferenceUnsaved(false); setNotice('Préférence de navigation enregistrée.') })
   }
-  function chooseTab(value:'parcours'|'conversation'):void {navigationToken.current++;setFocusTarget(null);setPending(false);setTab(value)}
+  function chooseTab(value:'parcours'|'conversation'|'catalogue'):void {navigationToken.current++;setFocusTarget(null);setPending(false);setTab(value);if(value==='catalogue'&&project&&!catalogState.projects.some(p=>p.projectId===project.id))void window.madnessBmadCatalog?.collect(project.id).then(acceptCatalog).catch(()=>{})}
   function prepareExchange():void {if(!project)return;const token=++navigationToken.current;setFocusTarget(null);setPending(false);setTab('parcours');setPreparationFocus({token,projectId:project.id})}
   function closeContext():void {setContextOpen(false);contextTrigger.current?.focus()}
   const navigation = <>
@@ -411,7 +415,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     {state?.projects.map(p => <button key={p.id} className={'nav-button project-link ' + (page === 'project' && p.id === project?.id ? 'selected' : '')} aria-label={'Ouvrir le projet ' + p.name} aria-current={page === 'project' && p.id === project?.id ? 'page' : undefined} title={p.name + '\n' + p.rootPath} disabled={pending} onClick={() => select(p.id)}><span className="project-glyph" aria-hidden="true"><ProjectMark name={p.name} /></span><span className="nav-label truncate">{p.name}</span></button>)}
     {!state?.projects.length && <p className="nav-note nav-label">Vos dossiers ouverts apparaîtront ici.</p>}
   </>
-  return <div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>captureRequestFocus(event.target)} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open||document.querySelector('.initiative-dialog[open]')) return; if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
+  return <div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>captureRequestFocus(event.target)} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open||document.querySelector('.initiative-dialog[open],.catalog-dialog[open]')) return; if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
     <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>Aller au contenu</a>
     <header className="topbar" onMouseLeave={()=>setTooltipsDismissed(false)} onFocusCapture={()=>setTooltipsDismissed(false)}>
       <div className="breadcrumb">
@@ -463,9 +467,9 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
               <InitiativeSelector key={project.id} projectId={project.id} project={initiativeContext} accept={acceptBmadContext} onOpen={()=>{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(false)}} priority={!!planConfirmation.current?.open||!!drawer.current?.open} conflict={initiativeConflict} onDismissConflict={()=>setInitiativeConflict(false)}/>
               {conversation&&<p className="context-note">Initiative capturée par cet échange : {conversation.context.initiativeId??'non identifiée'}</p>}
               </div>
-              <div className="project-tabs" role="tablist" aria-label="Vues du projet">{(['parcours', 'conversation'] as const).map((item) => <button key={item} id={'tab-' + item} type="button" role="tab" aria-selected={tab === item} aria-controls={'panel-' + item} tabIndex={tab === item ? 0 : -1} onClick={() => chooseTab(item)} onKeyDown={(event) => { if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) { event.preventDefault(); const next = item === 'parcours' ? 'conversation' : 'parcours'; const selected = event.key === 'Home' ? 'parcours' : event.key === 'End' ? 'conversation' : next; chooseTab(selected); document.getElementById('tab-' + selected)?.focus() } }}>{item === 'parcours' ? 'Parcours' : 'Conversation'}</button>)}</div>
+              <div className="project-tabs" role="tablist" aria-label="Vues du projet">{(['parcours','conversation','catalogue'] as const).map((item,index,tabs)=><button key={item} id={'tab-'+item} type="button" role="tab" aria-selected={tab===item} aria-controls={'panel-'+item} tabIndex={tab===item?0:-1} onClick={()=>chooseTab(item)} onKeyDown={event=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:tabs.length-1))%tabs.length;document.getElementById('tab-'+tabs[next])?.focus()}}}>{item==='parcours'?'Parcours':item==='conversation'?'Conversation':'Toutes les possibilités'}</button>)}</div>
 </>)}
-            {overview&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} compact={page==='project'&&tab==='conversation'} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} onNavigate={target=>void navigateOverview(target)} onConnection={openConnection}/>}
+            {overview&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} compact={page==='project'&&(tab==='conversation'||tab==='catalogue')} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} onNavigate={target=>void navigateOverview(target)} onConnection={openConnection}/>}
             {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<details className="recovery-details global-recovery"><summary>Détails de la récupération globale</summary><section id="overview-session-recovery" tabIndex={-1} aria-label="Récupération globale"><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section></details>}
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>Retrouver votre espace de travail</h1><p>{pending ? 'Lecture du contexte local…' : 'Le contexte local est indisponible. Utilisez le message ci-dessus pour réessayer.'}</p></section> : page === 'home' || !project ? <>
 
@@ -473,6 +477,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
               <div className="home-note"><h2>Connectez votre compte depuis le logo Codex</h2><p>{fr.codexReason} Les preuves BMad se lisent dans Parcours, sans connexion. L’initialisation et le graphe restent à venir.</p></div>
             </> : <>
               <section id={'panel-' + tab} role="tabpanel" aria-labelledby={'tab-' + tab}>
+                <div hidden={tab!=='catalogue'}><CatalogPanel key={project.id} projectId={project.id} rootPath={project.rootPath} value={catalogState.projects.find(p=>p.projectId===project.id)} accept={acceptCatalog} views={catalogViews.current} active={tab==='catalogue'}/></div>
                 <div hidden={tab!=='parcours'}><ProjectResume active={tab==='parcours'} rootPath={project.rootPath} projectId={project.id} context={initiativeContext} value={progressState.projects.find(p=>p.projectId===project.id)} overview={overview} accept={acceptProgress} onNavigate={target=>void navigateOverview(target)} onChoose={()=>document.querySelector<HTMLButtonElement>('.initiative-trigger')?.click()} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'}/></div>
                 {tab==='parcours'&&<HelpPanel stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} state={helpState} onChanged={acceptHelp} onOpen={record=>void navigateOverview({kind:'conversation',context:record.context,id:'bmad-receipt-'+record.conversationId})} onObserveStop={()=>void dialogueAction('observeStop')} projectId={project.id} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} allowed={connection.accountStored&&!connection.needsPlanAcknowledgement&&!connectionBusy&&!dialogueBridgeError} onLaunch={()=>void dialogueAction('launchHelp')}/>}
                 {tab === 'parcours' && <div className="exchange-preparation"><p className="preparation-intro">Préparez un échange avec Mary pour préciser votre projet, ou avec Forge pour éprouver une nouvelle idée. Qualification et lancement restent explicites.</p><section className="forge-launch" aria-labelledby="forge-title">

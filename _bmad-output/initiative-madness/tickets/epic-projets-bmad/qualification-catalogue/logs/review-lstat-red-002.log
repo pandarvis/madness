@@ -1,0 +1,19 @@
+✖ C1 per-entry lstat refusal keeps the project priority mask and independent safe entries (11945.9738ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12104.589
+
+✖ failing tests:
+
+test at tests\bmad-catalog-protocol.test.mjs:78:1
+✖ C1 per-entry lstat refusal keeps the project priority mask and independent safe entries (11945.9738ms)
+  Error: {"execution":{"schema":5,"outcome":"completed","exit":1,"started":true,"owned":[],"cleanup":[],"results_present":false,"job_assigned_before_resume":true,"pid":21936,"active_before_stop":0,"job_active_after_stop":0,"stop_ms":0,"drain_ms":108,"elapsed_ms":2612},"stdout":"","stderr":"Traceback (most recent call last):\r\n  File \"<string>\", line 68, in <module>\r\n  File \"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-boundaries-CxCBIR\\resources\\cases.py\", line 21, in <module>\r\n    assert not any(i['id']=='masked' for i in value['items']),'REFUSED_PROJECT_ENTRY_MUST_MASK_USER'\r\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nAssertionError: REFUSED_PROJECT_ENTRY_MUST_MASK_USER\r\n"}
+      at runHelpSourcesCase (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/helpers/help-native.mjs:40:64)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-catalog-protocol.test.mjs:78:114)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

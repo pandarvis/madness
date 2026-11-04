@@ -1,0 +1,19 @@
+✖ C1 per-entry lstat refusal keeps the project priority mask and independent safe entries (11450.4614ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11658.0671
+
+✖ failing tests:
+
+test at tests\bmad-catalog-protocol.test.mjs:78:1
+✖ C1 per-entry lstat refusal keeps the project priority mask and independent safe entries (11450.4614ms)
+  Error: {"execution":{"schema":5,"outcome":"completed","exit":1,"started":true,"owned":[],"cleanup":[],"results_present":false,"job_assigned_before_resume":true,"pid":17608,"active_before_stop":0,"job_active_after_stop":0,"stop_ms":0,"drain_ms":95,"elapsed_ms":2156},"stdout":"","stderr":"Traceback (most recent call last):\r\n  File \"<string>\", line 68, in <module>\r\n  File \"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-boundaries-fXVTC2\\resources\\cases.py\", line 7\r\n    put(skills/'module/bmod.toml','[bmod]\r\n                                  ^\r\nSyntaxError: unterminated string literal (detected at line 7)\r\n"}
+      at runHelpSourcesCase (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/helpers/help-native.mjs:40:64)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-catalog-protocol.test.mjs:78:114)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

@@ -1,0 +1,52 @@
+{
+  "at": "2026-11-04T10:06:48.205647+00:00",
+  "quickAgent": "/root/catalog26_quick",
+  "highAgent": "/root/catalog26_high_audit",
+  "diff": "catalog26-diff-path-004.json",
+  "allResultsCollectedBeforeTriage": true,
+  "findings": [
+    {
+      "id": "H1",
+      "verdict": "medium",
+      "route": "patch",
+      "claim": "second bounded pass invalidation loses wakeup"
+    },
+    {
+      "id": "Q1",
+      "verdict": "medium",
+      "route": "patch",
+      "claim": "refused lstat entry fails to mask lower homonym"
+    },
+    {
+      "id": "Q2",
+      "verdict": "medium",
+      "route": "patch",
+      "claim": "switch unmounts focused command"
+    }
+  ],
+  "groups": 3,
+  "sameImplementer": "/root/catalog26_implementation",
+  "visual001": "partial,3native captures opened by parent,missing compact/light/zoom; cleanuptrue; timeout second show exact cause unknown, not attributed to findings",
+  "parentSupplement": {
+    "id": "N1",
+    "verdict": "high",
+    "route": "patch",
+    "proof": "parent-stop-release-red.json",
+    "cause": "self admission release between STOP rejection and core catch mistaken for external recovery",
+    "notAChangedIntent": true
+  },
+  "recheck001": {
+    "quick": {
+      "Q1": "resolved",
+      "Q2": "resolved",
+      "newConcreteFinding": false
+    },
+    "high": {
+      "H1": "resolved",
+      "N1": "partial multi-project echo"
+    },
+    "parentReproduced": "parent-stop-two-project-red.json",
+    "route": "carried high patch same implementer",
+    "testsBeforeNewPatch": "Parent targeted/UI commands both returned0; their exact receipts remain scoped to pre-second-N1-patch source"
+  }
+}

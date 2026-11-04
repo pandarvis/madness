@@ -1,0 +1,12 @@
+{
+  "before": "e24df28cd8932fb7afbe0017a44b2bebc569c1f0213474b080ea88b552e20c9e",
+  "after": "131749fbf422e5e437359e060ac0907f2a9ed5acfa16137f7e8937fcb5386fa7",
+  "productChanged": false,
+  "screenshotRuns": 0,
+  "mode": "--diagnostic-functional",
+  "changes": [
+    "Separate functional resize/theme/dialog branch; no image API in this mode",
+    "Bounded128 Main-send, renderer bridge and DOM traces",
+    "Native read predicate/timeout owner, execution and window boundaries"
+  ]
+}

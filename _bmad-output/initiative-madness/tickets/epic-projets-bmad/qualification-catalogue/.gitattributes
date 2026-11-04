@@ -1,0 +1,12 @@
+* -text
+# Exact machine receipts: review source originals, human-readable logs and hash manifests.
+**/producer/** -diff
+producer/** -diff
+parent-audit-*.json -diff
+protocol-*/verification.json -diff
+
+# Bounded diagnostic event inventories are machine receipts; cause/diagnostic reports remain text.
+diagnostic-*/verification.json -diff
+diagnostic-*/native-*.json -diff
+diagnostic-*/before-*.json -diff
+diagnostic-*/timeout-*.json -diff

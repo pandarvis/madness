@@ -1,0 +1,19 @@
+✖ C2 extended fences and non-tables cannot manufacture documentary effects (17691.3126ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17866.3013
+
+✖ failing tests:
+
+test at tests\bmad-catalog-protocol.test.mjs:76:1
+✖ C2 extended fences and non-tables cannot manufacture documentary effects (17691.3126ms)
+  Error: {"execution":{"schema":5,"outcome":"completed","exit":1,"started":true,"owned":[],"cleanup":[],"results_present":false,"job_assigned_before_resume":true,"pid":48220,"active_before_stop":0,"job_active_after_stop":0,"stop_ms":0,"drain_ms":176,"elapsed_ms":2792},"stdout":"","stderr":"Traceback (most recent call last):\r\n  File \"<string>\", line 68, in <module>\r\n  File \"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-boundaries-4NBJv0\\resources\\cases.py\", line 3, in <module>\r\n    assert catalog.help_fields(source,\"alpha\").get(\"effects\") is None,\"SHORTER_FENCE_MUST_NOT_CLOSE_OUTER\"\r\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nAssertionError: SHORTER_FENCE_MUST_NOT_CLOSE_OUTER\r\n"}
+      at runHelpSourcesCase (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/helpers/help-native.mjs:40:64)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-catalog-protocol.test.mjs:76:99)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

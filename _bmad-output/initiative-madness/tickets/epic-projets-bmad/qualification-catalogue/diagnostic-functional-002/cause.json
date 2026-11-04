@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-11-04T11:06:26.243Z",
+  "cause": "The installed waitForFunction polling loop tests a Promise object for truthiness before its boolean settles; the original IPC predicates returned Promises and their false result handles were discarded.",
+  "scope": "Functional benchmark waiting logic; no product defect established by these observations.",
+  "package": "be41bfdbacb89919c45396497e9c04be0f0d976b5048d2d9627f1d96a78be6d7",
+  "productFilesUnchanged": 48,
+  "changedProductFiles": [],
+  "originalPrematureBoundary": {
+    "at": "2026-11-04T10:58:43.590Z",
+    "sequence": 15,
+    "project": {
+      "id": "catalog-a",
+      "generation": 7,
+      "status": "reading",
+      "freshness": "stale",
+      "monitoring": "watching",
+      "queued": true,
+      "errorCode": null,
+      "revision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+      "items": [
+        "catalog26-alpha",
+        "catalog26-beta"
+      ]
+    },
+    "mainLastSequence": 15,
+    "bridgeLastSequence": 15
+  },
+  "counterexample": {
+    "asynchronous": {
+      "outcome": "resolved",
+      "value": false,
+      "elapsedMs": 5
+    },
+    "synchronous": {
+      "outcome": "rejected",
+      "name": "TimeoutError",
+      "elapsedMs": 254
+    }
+  },
+  "correctedWait": {
+    "match": {
+      "sequence": 15,
+      "project": {
+        "id": "catalog-a",
+        "generation": 8,
+        "status": "ready",
+        "freshness": "current",
+        "monitoring": "watching",
+        "queued": false,
+        "errorCode": null,
+        "revision": "32f213dac7ded74733c61b58ec1f1c4d6cfc9d3046fabdc11586fe27c630a2d2",
+        "items": [
+          "catalog26-alpha",
+          "catalog26-beta",
+          "catalog26-gamma"
+        ]
+      }
+    },
+    "beforeMutationAt": "2026-11-04T11:03:21.477Z",
+    "qualifiedAt": "2026-11-04T11:03:46.372Z",
+    "elapsedMs": 24895,
+    "visibleAt": "2026-11-04T11:03:46.422Z",
+    "mainSequences": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "bridgeSequences": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "eventSequencesMatch": true,
+    "buttons": [
+      {
+        "text": "Afficher la nouvelle observation",
+        "visible": true,
+        "inertAncestor": false,
+        "hiddenAncestor": false,
+        "ariaDisabled": "false",
+        "disabled": false,
+        "rect": {
+          "x": 268,
+          "y": 748,
+          "width": 260.8374938964844,
+          "height": 44,
+          "top": 748,
+          "right": 528.8374938964844,
+          "bottom": 792,
+          "left": 268
+        }
+      }
+    ],
+    "owner": "stopped",
+    "window": {
+      "minimized": false,
+      "visible": true,
+      "focused": true,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "zoom": 1
+    },
+    "url": "madness://app/index.html"
+  },
+  "execution": {
+    "status": "passed",
+    "cleanup": true,
+    "captures": 0,
+    "checks": [
+      "C9 first-open-is-passive",
+      "C7 real-context-helper-occupation-releases-pending-catalogue",
+      "C1 C2 C7 exact-two-projects-no-initiative-or-account",
+      "C9 local-read-preserves-projects-history-drafts",
+      "C4 C5 actual-preload-native-clipboard-write-and-read",
+      "C6 external-add-invalidates-and-retains-displayed-query",
+      "C4 dynamic-new-skill-search-with-voluntary-switch",
+      "C1 C6 actual-removal-observed",
+      "C9 exact-passive-reopen-and-known-owned-stops",
+      "C9 actually-live-native-job-cancelled-and-drained"
+    ],
+    "closures": [
+      {
+        "mainGone": true,
+        "cleanupSafe": true,
+        "helperAfter": "stopped",
+        "network": 0,
+        "appServerAttempts": 0
+      },
+      {
+        "mainGone": true,
+        "cleanupSafe": true,
+        "helperAfter": "stopped",
+        "network": 0,
+        "appServerAttempts": 0
+      }
+    ],
+    "liveStop": {
+      "schema": 5,
+      "outcome": "cancelled",
+      "exit": 1,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 49580,
+      "active_before_stop": 3,
+      "job_active_after_stop": 0,
+      "stop_ms": 1,
+      "drain_ms": 133,
+      "elapsed_ms": 2555
+    }
+  },
+  "proposal": [
+    "Seed latest catalogue state once with read and retain only monotonically received onChanged states.",
+    "Use synchronous waitForFunction predicates over that retained state, requiring status ready, freshness current, queued false and the exact expected revision/item condition.",
+    "Apply the same correction to current(), Gamma-added and Gamma-removed waits; keep existing 120s native and 30s UI bounds.",
+    "Read the matched handle/state as evidence and persist the qualified Main/bridge/DOM boundary. No renderer/Main product change or timeout inflation."
+  ],
+  "limits": [
+    "Does not establish the precise scheduling duration of historical failed runs; their alleged qualified Gamma state was not proved by the old predicate.",
+    "The first traced original-wait run happened to finish but its premature boundary is retained; it is not an isolated timing-controlled equivalent to the failed visual run.",
+    "Corrected wait is currently behind --diagnostic-functional --diagnostic-await-events; normal benchmark Promise paths are preserved for parent disposition.",
+    "No new image, detector, polish, provider, personal profile, installation or Build was performed."
+  ]
+}

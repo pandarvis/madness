@@ -1,0 +1,26 @@
+✔ catalogue: manual three-tab keyboard navigation, literal search, filters, source details and confirmed copy (7600.9562ms)
+✖ catalogue: old details survive refresh and latest observation requires voluntary switch (39116.3936ms)
+✔ catalogue: delayed copy cannot confirm another details view and failure keeps selectable invocation (11201.4498ms)
+✔ catalogue: compact two themes and native zoom200 preserve details controls without window overflow (1479.8348ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-0L90O3\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-0L90O3\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 61429.4032
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1192:1
+✖ catalogue: old details survive refresh and latest observation requires voluntary switch (39116.3936ms)
+  locator.click: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Ouvrir le projet catalog-b', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1193:1525) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('button', { name: 'Ouvrir le projet catalog-b', exact: true })" ]
+  }

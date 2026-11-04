@@ -1,0 +1,17 @@
+✔ le thème change au clavier sans perdre le brouillon ni le contexte en fenêtre compacte (12394.5133ms)
+✔ navigation: les infobulles projets restent peintes devant bannière et onglets (18782.455ms)
+✔ actualisation: async stale/reading/error/new revision preserves displayed proof and composer focus (20820.1813ms)
+✔ catalogue: manual three-tab keyboard navigation, literal search, filters, source details and confirmed copy (2550.0742ms)
+✔ catalogue: old details survive refresh and latest observation requires voluntary switch (2457.1323ms)
+✔ catalogue: delayed copy cannot confirm another details view and failure keeps selectable invocation (2764.567ms)
+✔ catalogue: compact two themes and native zoom200 preserve details controls without window overflow (6084.8929ms)
+✔ catalogue: voluntary observation switch retains keyboard focus and stays a no-op until another admissible capture (3198.1906ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-gjM4ku\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-gjM4ku\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 75197.2215

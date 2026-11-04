@@ -1,0 +1,406 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-04T10:57:53.982Z",
+  "status": "passed",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8",
+  "checks": [
+    "C9 first-open-is-passive",
+    "C7 real-context-helper-occupation-releases-pending-catalogue",
+    "C1 C2 C7 exact-two-projects-no-initiative-or-account",
+    "C9 local-read-preserves-projects-history-drafts",
+    "C4 C5 actual-preload-native-clipboard-write-and-read",
+    "C6 external-add-invalidates-and-retains-displayed-query",
+    "C4 dynamic-new-skill-search-with-voluntary-switch",
+    "C1 C6 actual-removal-observed",
+    "C9 exact-passive-reopen-and-known-owned-stops",
+    "C9 actually-live-native-job-cancelled-and-drained"
+  ],
+  "launches": [
+    {
+      "main": {
+        "pid": 49600,
+        "startedAt": "639293866743708525",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\profile",
+      "runtime": {
+        "pid": 49600,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\diagnostic-functional-001\\observation-1.json"
+    },
+    {
+      "main": {
+        "pid": 37472,
+        "startedAt": "639293867539153071",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\profile",
+      "runtime": {
+        "pid": 37472,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\diagnostic-functional-001\\observation-2.json"
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 49600,
+        "startedAt": "639293866743708525",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 812,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T10:57:56.404Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "helperBefore": "stopped",
+      "helperAfter": "stopped"
+    },
+    {
+      "main": {
+        "pid": 37472,
+        "startedAt": "639293867539153071",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 12340,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T10:59:17.097Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "helperBefore": "unknown",
+      "helperAfter": "stopped"
+    }
+  ],
+  "captures": [],
+  "cleanup": true,
+  "limits": [
+    "Synthetic projects; no provider or personal profile. Network/app-server accounting starts after hook.",
+    "File symlink privilege is not assumed; native hardlinks and junctions have separate protocol coverage.",
+    "Screenshots run only when explicitly requested by the parent; technical checks alone are not visual acceptance."
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe",
+    "executableSha256": "a4e2b6f4a8774e5b4c4316ac4172254b09ce19972e9e4b1da7e5d07278594c07",
+    "asarSha256": "be41bfdbacb89919c45396497e9c04be0f0d976b5048d2d9627f1d96a78be6d7"
+  },
+  "diagnosticPoints": [
+    "details-functional",
+    "view-compact-light",
+    "view-zoom200-dark",
+    "before-mutation",
+    "native-predicate-gamma"
+  ],
+  "uiInitial": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\n\nInvocation copiée",
+  "diagnosticNativeBaseline": {
+    "sequence": 9,
+    "project": {
+      "projectId": "catalog-a",
+      "generation": 1,
+      "status": "ready",
+      "freshness": "current",
+      "monitoring": "watching",
+      "queued": false,
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "catalog-a",
+        "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\catalog-a",
+        "observedAt": "2026-11-04T10:58:41.001Z",
+        "rootIdentity": "c7cab56db6586813b697790d08c85ac3b757fb39f6e3793a5da5f2c18b5e2221",
+        "revision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+        "diagnostic": "partial",
+        "coverage": "partial",
+        "roots": [
+          "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\catalog-a\\.agents\\skills",
+          "C:\\Users\\UP60066553\\.codex\\skills"
+        ],
+        "sources": [
+          {
+            "id": "catalog-source-1",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\catalog-a\\.agents\\skills\\catalog26-alpha\\bmod.toml",
+            "sha256": "dcaffc90c95598a1dfd2b8906f22bec38d0a8b84e7be7af2f66a2bd44675b897",
+            "bytes": 32,
+            "text": "[skill]\nbmod=\"catalog26-module\"\n"
+          },
+          {
+            "id": "catalog-source-2",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\catalog-a\\.agents\\skills\\catalog26-beta\\bmod.toml",
+            "sha256": "dcaffc90c95598a1dfd2b8906f22bec38d0a8b84e7be7af2f66a2bd44675b897",
+            "bytes": 32,
+            "text": "[skill]\nbmod=\"catalog26-module\"\n"
+          },
+          {
+            "id": "catalog-source-3",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\catalog-a\\.agents\\skills\\catalog26-module\\bmod.toml",
+            "sha256": "3fec4eddb980ecfab87423d2276e7f18ea357d0cc86b9191fb294c6a65abe0f3",
+            "bytes": 110,
+            "text": "[bmod]\ncode=\"catalog26\"\nversion=\"6.13.0-next\"\nskills=[\"catalog26-alpha\",\"catalog26-beta\",\"catalog26-missing\"]\n"
+          },
+          {
+            "id": "catalog-source-4",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\catalog-a\\.agents\\skills\\catalog26-module\\help\\help.md",
+            "sha256": "3d727b5454c05bc7e30b1e817dc1aea1702e4b7713c85e7afa95c16ef12f3940",
+            "bytes": 111,
+            "text": "| Skill | For | Writes |\n| --- | --- | --- |\n| catalog26-alpha | Market exploration | A literal local report |\n"
+          },
+          {
+            "id": "catalog-source-5",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\catalog-a\\.agents\\skills\\catalog26-alpha\\SKILL.md",
+            "sha256": "1d8bb6b6e7ff7d4ea480c2b48167b633408c0a74b77d6c3065de76fe5f08a848",
+            "bytes": 134,
+            "text": "---\nname: 'catalog26-alpha'\ndescription: 'Mary explores documented market intentions'\n---\nNative documentary text. No code execution.\n"
+          },
+          {
+            "id": "catalog-source-6",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\catalog-a\\.agents\\skills\\catalog26-beta\\SKILL.md",
+            "sha256": "54d891ed8398feedb24ca237ca333c3eacc465e6806da0429ed8e3cc9c4796dd",
+            "bytes": 123,
+            "text": "---\nname: 'catalog26-beta'\ndescription: 'Sally designs literal interfaces'\n---\nNative documentary text. No code execution.\n"
+          }
+        ],
+        "modules": [
+          {
+            "code": "catalog26",
+            "folder": "catalog26-module",
+            "version": "6.13.0-next",
+            "sourceId": "catalog-source-3"
+          }
+        ],
+        "items": [
+          {
+            "id": "catalog26-alpha",
+            "name": "catalog26-alpha",
+            "module": "catalog26",
+            "sourceId": "catalog-source-5",
+            "manifestSourceId": "catalog-source-1",
+            "invocation": "$catalog26-alpha",
+            "presence": "present",
+            "copyable": true,
+            "copyReasons": [],
+            "documentation": [
+              {
+                "sourceId": "catalog-source-4",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "Market exploration"
+              },
+              {
+                "sourceId": "catalog-source-4",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "A literal local report"
+              }
+            ],
+            "launchable": false,
+            "launchReason": "General launch is not qualified for this profile",
+            "fields": {
+              "purpose": {
+                "sourceId": "catalog-source-5",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "Mary explores documented market intentions"
+              },
+              "inputs": null,
+              "conditions": null,
+              "effects": {
+                "sourceId": "catalog-source-4",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "A literal local report"
+              }
+            }
+          },
+          {
+            "id": "catalog26-beta",
+            "name": "catalog26-beta",
+            "module": "catalog26",
+            "sourceId": "catalog-source-6",
+            "manifestSourceId": "catalog-source-2",
+            "invocation": "$catalog26-beta",
+            "presence": "present",
+            "copyable": true,
+            "copyReasons": [],
+            "documentation": [],
+            "launchable": false,
+            "launchReason": "General launch is not qualified for this profile",
+            "fields": {
+              "purpose": {
+                "sourceId": "catalog-source-6",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "Sally designs literal interfaces"
+              },
+              "inputs": null,
+              "conditions": null,
+              "effects": null
+            }
+          }
+        ],
+        "problems": [
+          "catalog26: missing registered skill catalog26-missing"
+        ]
+      },
+      "copy": {
+        "correlationId": "76fa49d4-2717-44c0-995d-748707ff6f56",
+        "projectId": "catalog-a",
+        "itemId": "catalog26-alpha",
+        "revision": "69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f",
+        "status": "copied",
+        "reason": null
+      },
+      "errorCode": null,
+      "error": null
+    }
+  },
+  "uiAfterRefresh": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\nLecture locale du catalogue en cours…\n\nObservé le 04/11/2026 11:58:41 · Couverture : Partielle\n\nVersion affichée : 69cf40da78c75d190a1b50cced559b7bd70236b9f9854a9412409fe45385fb6f\n\nObservation précédente — fiche historique\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial",
+  "closeDuringRead": {
+    "owner": {
+      "schemaVersion": 1,
+      "generation": "help-2832a7bf-9017-4fc5-beab-bf95405c021f",
+      "purpose": "bmad-readonly",
+      "status": "unknown",
+      "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-ZrUlH8\\profile\\bmad-help-runs-v1\\operation-4ae3938d-8162-435a-90bd-397436bdc780"
+    },
+    "execution": {
+      "schema": 5,
+      "outcome": "running",
+      "exit": null,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 53604
+    },
+    "process": {
+      "pid": 53604,
+      "startedAt": "639293867725905956",
+      "executable": "C:\\Users\\UP60066553\\scoop\\apps\\uv\\0.13.0\\uv.exe"
+    }
+  },
+  "liveStop": {
+    "terminal": {
+      "schemaVersion": 1,
+      "generation": "help-2832a7bf-9017-4fc5-beab-bf95405c021f",
+      "purpose": "bmad-readonly",
+      "terminal": true,
+      "jobAssigned": true,
+      "jobActive": 0,
+      "neverStarted": false
+    },
+    "execution": {
+      "schema": 5,
+      "outcome": "cancelled",
+      "exit": 1,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 53604,
+      "active_before_stop": 3,
+      "job_active_after_stop": 0,
+      "stop_ms": 1,
+      "drain_ms": 223,
+      "elapsed_ms": 3735
+    }
+  },
+  "finishedAt": "2026-11-04T10:59:38.210Z"
+}

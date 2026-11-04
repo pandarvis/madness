@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-04T09:30:59.078Z",
+  "status": "partial",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-89Duw4",
+  "checks": [
+    "C9 first-open-is-passive",
+    "C1 C2 C7 exact-two-projects-no-initiative-or-account",
+    "C9 local-read-preserves-projects-history-drafts",
+    "C4 C5 actual-preload-native-clipboard-write-and-read"
+  ],
+  "launches": [
+    {
+      "main": {
+        "pid": 38528,
+        "startedAt": "639293814592555034",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-89Duw4\\profile",
+      "runtime": {
+        "pid": 38528,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-89Duw4\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\main-001\\observation-1.json"
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 38528,
+        "startedAt": "639293814592555034",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 33436,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T09:31:01.913Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "captures": [],
+  "cleanup": true,
+  "limits": [
+    "Synthetic projects; no provider or personal profile. Network/app-server accounting starts after hook.",
+    "File symlink privilege is not assumed; native hardlinks and junctions have separate protocol coverage.",
+    "Screenshots run only when explicitly requested by the parent; technical checks alone are not visual acceptance."
+  ],
+  "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Afficher la nouvelle observation', exact: true }) to be visible\u001b[22m\n\n    at C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\scripts\\qualification\\bmad-catalog.mjs:48:586",
+  "finishedAt": "2026-11-04T09:32:08.064Z"
+}

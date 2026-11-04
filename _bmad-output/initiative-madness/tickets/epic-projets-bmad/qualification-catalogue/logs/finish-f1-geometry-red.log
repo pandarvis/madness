@@ -1,0 +1,27 @@
+{"catalogueArrivalGeometry":{"viewport":[1440,920],"scroll":0,"banner":{"top":76,"bottom":239.6999969482422,"height":163.6999969482422},"overview":{"top":317.3000183105469,"bottom":406.6000213623047,"height":89.30000305175781},"panel":{"top":422.6000061035156,"bottom":1262.1000061035156,"height":839.5},"observation":{"top":557.7999877929688,"bottom":671.9999923706055,"height":114.20000457763672},"filters":{"top":696,"bottom":776.8000030517578,"height":80.80000305175781},"row":{"top":871.7000122070312,"bottom":1031.7000122070312,"height":160},"purpose":"Mary explores documented intentions","invocation":"$alpha","observationText":"Observé le 04/11/2026 11:00:00 · Couverture : PartielleVersion affichée : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}}
+✖ catalogue: first complete representative row is visible on arrival at1440x920 with source context intact (1607.2204ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-ijI5QE\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-ijI5QE\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3664.7768
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1204:1
+✖ catalogue: first complete representative row is visible on arrival at1440x920 with source context intact (1607.2204ms)
+  AssertionError [ERR_ASSERTION]: One complete catalogue result must be visible on arrival: {"viewport":[1440,920],"scroll":0,"banner":{"top":76,"bottom":239.6999969482422,"height":163.6999969482422},"overview":{"top":317.3000183105469,"bottom":406.6000213623047,"height":89.30000305175781},"panel":{"top":422.6000061035156,"bottom":1262.1000061035156,"height":839.5},"observation":{"top":557.7999877929688,"bottom":671.9999923706055,"height":114.20000457763672},"filters":{"top":696,"bottom":776.8000030517578,"height":80.80000305175781},"row":{"top":871.7000122070312,"bottom":1031.7000122070312,"height":160},"purpose":"Mary explores documented intentions","invocation":"$alpha","observationText":"Observé le 04/11/2026 11:00:00 · Couverture : PartielleVersion affichée : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:1204:1728)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

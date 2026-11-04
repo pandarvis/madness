@@ -1,0 +1,36 @@
+{
+  "name": "madness",
+  "version": "0.2.10",
+  "private": true,
+  "description": "Espace de travail local BMad pour Windows — socle G0",
+  "author": "Madness",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "start": "electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
+    "test": "node --test tests/*.test.mjs scripts/qualification/codex.test.mjs",
+    "build": "npm run typecheck && electron-vite build",
+    "build:unpack": "npm run build && electron-builder --win --x64 --dir",
+    "build:win": "npm run build && electron-builder --win --x64",
+    "qualify:windows": "node scripts/qualification/windows.mjs",
+    "postinstall": "install-electron && electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "jose": "6.2.13",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "electron": "45.0.0",
+    "electron-builder": "26.18.0",
+    "electron-vite": "6.0.0",
+    "playwright-core": "1.64.1",
+    "typescript": "7.0.2",
+    "vite": "8.3.5"
+  }
+}

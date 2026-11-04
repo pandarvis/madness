@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-04T10:40:49.294644+00:00",
+  "file": "scripts/qualification/bmad-catalog.mjs",
+  "before": "043787382f650070b96b1adb0eb3c8b477f7894f1bdf9c0320e684d3b3249060",
+  "after": "e24df28cd8932fb7afbe0017a44b2bebc569c1f0213474b080ea88b552e20c9e",
+  "changes": [
+    "Capture compact/light and zoom200/dark before external mutation/removal, then restore1440x920 dark100%.",
+    "Reset open modal scroll to0 before native capture, record dialogScrollTop.",
+    "No screenshot performed by this edit; planned batch2 remains unused."
+  ],
+  "reason": "Batch1 partial after optional second switch timeout; captures required viewports before unrelated later technical waits, preserving all add/remove/native/close checks and the original partial receipt.",
+  "scope": "Screenshot-only branch and shot helper; product/renderer/resources/out/package unchanged. Main producer will freeze revised bank before execution. Prior test capsule script hash remains historical; other42inputs unchanged."
+}

@@ -37,3 +37,7 @@
 - source_plan: `_bmad-output/initiative-madness/tickets/epic-projets-bmad/tickets/story-lire-le-parcours-et-ses-preuves-a-la-bonne-revision-plan.md`
   summary: Qualifier puis réduire la latence de la garde runtime locale avant les actualisations fréquentes de 2.5.
   evidence: Le paquet002 conserve huit mesures de Assert-BmadClosedRuntime entre 18,389 et 27,188 secondes par opération, avec worker Python entre 1,501 et 3,280 secondes ; intervalle de 63,173 secondes entre deux collectes séquentielles, contexte inclus. Voir qualification-reprise-projet/performance-observation-002.json. La garde est préexistante ; aucun changement de sécurité ou gain de performance n’est acquis.
+
+- source_plan: `C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\_bmad-output\initiative-madness\tickets\epic-projets-bmad\tickets\story-explorer-le-catalogue-reellement-installe-et-ses-fiches-plan.md`
+  summary: Auditer en2.15 les attentes waitForFunction asynchrones des autres bancs de qualification existants avant de réutiliser leurs groupes fondés seulement sur ces attentes.
+  evidence: diagnostic-functional-002 prouve sur le Playwright installé qu’une Promise résolvantfalse peut terminer l’attente ; V1 est corrigé dans le banc courant2.6. La portée des autres bancs reste à vérifier : les assertions directes de fichiers, ressources, clipboard et arrêts ne sont pas invalidées en bloc.

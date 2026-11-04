@@ -1,3 +1,6 @@
+import {BmadCatalogAdapter} from '../adapters/bmad/catalog.ts'
+import {BmadCatalogCoordinator} from '../core/bmad-catalog.ts'
+import {BMAD_CATALOG_COMMAND_CHANNEL,BMAD_CATALOG_EVENT_CHANNEL,isBmadCatalogCommand,isBmadCatalogState,initialBmadCatalogState} from '../contracts/bmad-catalog.ts'
 import {BmadChangeObserver} from '../adapters/bmad/change-observer.ts'
 import {BmadContextAdapter} from '../adapters/bmad/context.ts'
 import {BmadProgressAdapter} from '../adapters/bmad/progress.ts'
@@ -171,6 +174,16 @@ else {
       return {contractVersion:1,correlationId:input.correlationId,state}
     })
     progressCoordinator.subscribe(state=>{if(isBmadProgressState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(BMAD_PROGRESS_EVENT_CHANNEL,state)})
+    const catalogAdapter=new BmadCatalogAdapter(helpAdapter)
+    const catalogCoordinator=new BmadCatalogCoordinator({application,observation,available:fn=>admission.subscribeAvailable(fn),collect:(id,root,signal)=>catalogAdapter.collect(id,root,signal),clipboard})
+    application.lifecycle.register({id:'bmad-catalog',context:emptyContext(),stop:async()=>{await catalogCoordinator.shutdown();return 'stopped'}})
+    ipcMain.handle(BMAD_CATALOG_COMMAND_CHANNEL,async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadCatalogCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadCatalogState()}
+      const state=await catalogCoordinator.execute(input)
+      if(!isBmadCatalogState(state))throw Error('INVALID_CATALOG_STATE')
+      return {contractVersion:1,correlationId:input.correlationId,state}
+    })
+    catalogCoordinator.subscribe(state=>{if(isBmadCatalogState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(BMAD_CATALOG_EVENT_CHANNEL,state)})
     connection = new CodexConnection({
       admission,
       recovery,
@@ -239,7 +252,7 @@ else {
       titleBarStyle: 'hidden', titleBarOverlay: nativeCaptionColors(appearance.theme),
       webPreferences: { preload: join(__dirname, '../preload/index.js'), additionalArguments: ['--madness-theme=' + appearance.theme, '--madness-appearance-warning=' + (appearance.warning ?? 'none')], contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, allowRunningInsecureContent: false, webviewTag: false, spellcheck: false }
     })
-    window.on('focus',()=>{contextCoordinator.reconcile();helpCoordinator.reconcile();progressCoordinator.reconcile()})
+    window.on('focus',()=>{contextCoordinator.reconcile();helpCoordinator.reconcile();progressCoordinator.reconcile();catalogCoordinator.reconcile()})
     window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
     window.webContents.on('will-navigate', (event) => event.preventDefault())
     window.webContents.on('will-redirect', (event) => event.preventDefault())

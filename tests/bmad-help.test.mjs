@@ -261,3 +261,5 @@ test('confirm rejection after begin releases helper admission and shutdown witho
   await assert.rejects(access(join(operations,runs[0],'execution.json')),{code:'ENOENT'})
  }finally{interception?.mock.restore();syncBuiltinESMExports();await rm(folder,{recursive:true,force:true})}
 })
+
+test('catalogue consultation requests normal helper admission and cannot nest into provider ownership',async()=>{const {BmadHelpAdapter}=await import('../src/adapters/bmad/help.ts');const folder=await mkdtemp(join(tmpdir(),'madness-catalog-admission-'));try{const calls=[],helper=new BmadHelpAdapter({root:folder,resources:folder,owner:{},roots:()=>[]});helper.run=async(request,signal,internal)=>{calls.push({request,internal});throw Object.assign(Error('BUSY'),{code:'BUSY'})};await assert.rejects(helper.observeCatalog('project-a',folder,new AbortController().signal),{code:'BUSY'});assert.equal(calls.length,1);assert.equal(calls[0].request.op,'catalog');assert.equal(calls[0].internal,false)}finally{await rm(folder,{recursive:true,force:true})}})

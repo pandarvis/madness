@@ -1,0 +1,794 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-04T11:45:39.940Z",
+  "status": "passed",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL",
+  "checks": [
+    "C9 first-open-is-passive",
+    "C7 real-context-helper-occupation-releases-pending-catalogue",
+    "C1 C2 C7 exact-two-projects-no-initiative-or-account",
+    "C9 local-read-preserves-projects-history-drafts",
+    "C4 C5 actual-preload-native-clipboard-write-and-read",
+    "C6 external-add-invalidates-and-retains-displayed-query",
+    "C4 dynamic-new-skill-search-with-voluntary-switch",
+    "C1 C6 actual-removal-observed",
+    "C9 exact-passive-reopen-and-known-owned-stops",
+    "C9 actually-live-native-job-cancelled-and-drained"
+  ],
+  "launches": [
+    {
+      "main": {
+        "pid": 32648,
+        "startedAt": "639293895408078820",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\profile",
+      "runtime": {
+        "pid": 32648,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\finish-f1-final-003\\observation-1.json"
+    },
+    {
+      "main": {
+        "pid": 42304,
+        "startedAt": "639293897037709010",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\profile",
+      "runtime": {
+        "pid": 42304,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\finish-f1-final-003\\observation-2.json"
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 32648,
+        "startedAt": "639293895408078820",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 50876,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T11:45:47.820Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "helperBefore": "stopped",
+      "helperAfter": "stopped"
+    },
+    {
+      "main": {
+        "pid": 42304,
+        "startedAt": "639293897037709010",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 48204,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T11:48:28.332Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "helperBefore": "unknown",
+      "helperAfter": "stopped"
+    }
+  ],
+  "captures": [
+    {
+      "name": "details-dark",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\finish-f1-final-003\\details-dark.png",
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "dialogScrollTop": 0,
+        "firstResult": {
+          "x": 268,
+          "y": 701.5,
+          "width": 1133.5999755859375,
+          "height": 160,
+          "top": 701.5,
+          "right": 1401.5999755859375,
+          "bottom": 861.5,
+          "left": 268,
+          "text": "catalog26-alphacatalog26 · Invocation copiableMary explores documented market intentions$catalog26-alpha"
+        },
+        "theme": "dark",
+        "tab": "Toutes les possibilités",
+        "dialog": "catalog26-alpha",
+        "scrollWidth": 1440
+      },
+      "size": {
+        "width": 1800,
+        "height": 1150
+      },
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "method": "webContents.capturePage without rect"
+    },
+    {
+      "name": "filtered-list-dark",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\finish-f1-final-003\\filtered-list-dark.png",
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "dialogScrollTop": null,
+        "firstResult": {
+          "x": 268,
+          "y": 701.5,
+          "width": 1133.5999755859375,
+          "height": 160,
+          "top": 701.5,
+          "right": 1401.5999755859375,
+          "bottom": 861.5,
+          "left": 268,
+          "text": "catalog26-alphacatalog26 · Invocation copiableMary explores documented market intentions$catalog26-alpha"
+        },
+        "theme": "dark",
+        "tab": "Toutes les possibilités",
+        "dialog": null,
+        "scrollWidth": 1440
+      },
+      "size": {
+        "width": 1800,
+        "height": 1150
+      },
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "method": "webContents.capturePage without rect"
+    },
+    {
+      "name": "compact-light",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\finish-f1-final-003\\compact-light.png",
+      "metrics": {
+        "width": 720,
+        "height": 820,
+        "devicePixelRatio": 1.25,
+        "dialogScrollTop": 0,
+        "firstResult": {
+          "x": 16,
+          "y": 814.4000244140625,
+          "width": 677.6000366210938,
+          "height": 160,
+          "top": 814.4000244140625,
+          "right": 693.6000366210938,
+          "bottom": 974.4000244140625,
+          "left": 16,
+          "text": "catalog26-alphacatalog26 · Invocation copiableMary explores documented market intentions$catalog26-alpha"
+        },
+        "theme": "light",
+        "tab": "Toutes les possibilités",
+        "dialog": "catalog26-alpha",
+        "scrollWidth": 720
+      },
+      "size": {
+        "width": 900,
+        "height": 1025
+      },
+      "pixels": {
+        "width": 900,
+        "height": 1025
+      },
+      "zoom": 1,
+      "contentSize": [
+        720,
+        820
+      ],
+      "method": "webContents.capturePage without rect"
+    },
+    {
+      "name": "zoom200-dark",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\finish-f1-final-003\\zoom200-dark.png",
+      "metrics": {
+        "width": 720,
+        "height": 460,
+        "devicePixelRatio": 2.5,
+        "dialogScrollTop": 0,
+        "firstResult": {
+          "x": 16,
+          "y": 813.7999877929688,
+          "width": 682.7999877929688,
+          "height": 160,
+          "top": 813.7999877929688,
+          "right": 698.7999877929688,
+          "bottom": 973.7999877929688,
+          "left": 16,
+          "text": "catalog26-alphacatalog26 · Invocation copiableMary explores documented market intentions$catalog26-alpha"
+        },
+        "theme": "dark",
+        "tab": "Toutes les possibilités",
+        "dialog": "catalog26-alpha",
+        "scrollWidth": 720
+      },
+      "size": {
+        "width": 1800,
+        "height": 1150
+      },
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 2,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "method": "webContents.capturePage without rect"
+    },
+    {
+      "name": "partial-stale-dark",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\finish-f1-final-003\\partial-stale-dark.png",
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "dialogScrollTop": null,
+        "firstResult": {
+          "x": 268,
+          "y": 812.7000122070312,
+          "width": 1133.5999755859375,
+          "height": 160,
+          "top": 812.7000122070312,
+          "right": 1401.5999755859375,
+          "bottom": 972.7000122070312,
+          "left": 268,
+          "text": "catalog26-alphacatalog26 · Invocation copiableMary explores documented market intentions$catalog26-alpha"
+        },
+        "theme": "dark",
+        "tab": "Toutes les possibilités",
+        "dialog": null,
+        "scrollWidth": 1440
+      },
+      "size": {
+        "width": 1800,
+        "height": 1150
+      },
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "method": "webContents.capturePage without rect"
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Synthetic projects; no provider or personal profile. Network/app-server accounting starts after hook.",
+    "File symlink privilege is not assumed; native hardlinks and junctions have separate protocol coverage.",
+    "Screenshots run only when explicitly requested by the parent; technical checks alone are not visual acceptance."
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\Madness.exe",
+    "executableSha256": "da4203f2a21cfaf03c4fb587403dea6e7088e2e43e2c2ced8e44cdb10ea052ac",
+    "asarSha256": "687f495a869c767949a2c79535efe107fdf5202255ba0265aa9cc1d3d90b624a"
+  },
+  "uiInitial": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 12:46:20 · Couverture : Partielle\n\nVersion affichée : 41ec2077218cb32ebe74402d389d3c1da7a614ea46a2dc41a6a226fce2f1876e\n\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial\n\nInvocation copiée",
+  "gammaWaitMatch": {
+    "sequence": 15,
+    "project": {
+      "projectId": "catalog-a",
+      "generation": 8,
+      "status": "ready",
+      "freshness": "current",
+      "monitoring": "watching",
+      "queued": false,
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "catalog-a",
+        "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a",
+        "observedAt": "2026-11-04T11:46:54.780Z",
+        "rootIdentity": "478559b3465aa4661072d21ea1e65fd290aec4cf632536b4ae6cfb0107215cf6",
+        "revision": "837e1f448bac52496be58cd1cbf8789f46af3c60e88231df3efb90f4ed4ea701",
+        "diagnostic": "partial",
+        "coverage": "partial",
+        "roots": [
+          "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills",
+          "C:\\Users\\UP60066553\\.codex\\skills"
+        ],
+        "sources": [
+          {
+            "id": "catalog-source-1",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-alpha\\bmod.toml",
+            "sha256": "dcaffc90c95598a1dfd2b8906f22bec38d0a8b84e7be7af2f66a2bd44675b897",
+            "bytes": 32,
+            "text": "[skill]\nbmod=\"catalog26-module\"\n"
+          },
+          {
+            "id": "catalog-source-2",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-beta\\bmod.toml",
+            "sha256": "dcaffc90c95598a1dfd2b8906f22bec38d0a8b84e7be7af2f66a2bd44675b897",
+            "bytes": 32,
+            "text": "[skill]\nbmod=\"catalog26-module\"\n"
+          },
+          {
+            "id": "catalog-source-3",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-gamma\\bmod.toml",
+            "sha256": "dcaffc90c95598a1dfd2b8906f22bec38d0a8b84e7be7af2f66a2bd44675b897",
+            "bytes": 32,
+            "text": "[skill]\nbmod=\"catalog26-module\"\n"
+          },
+          {
+            "id": "catalog-source-4",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-module\\bmod.toml",
+            "sha256": "213380ed5a8405e61df1390be7332e6fc415c33d97b941174e0a85e99057519e",
+            "bytes": 128,
+            "text": "[bmod]\ncode=\"catalog26\"\nversion=\"6.13.0-next\"\nskills=[\"catalog26-alpha\",\"catalog26-beta\",\"catalog26-gamma\",\"catalog26-missing\"]\n"
+          },
+          {
+            "id": "catalog-source-5",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-module\\help\\help.md",
+            "sha256": "3d727b5454c05bc7e30b1e817dc1aea1702e4b7713c85e7afa95c16ef12f3940",
+            "bytes": 111,
+            "text": "| Skill | For | Writes |\n| --- | --- | --- |\n| catalog26-alpha | Market exploration | A literal local report |\n"
+          },
+          {
+            "id": "catalog-source-6",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-alpha\\SKILL.md",
+            "sha256": "1d8bb6b6e7ff7d4ea480c2b48167b633408c0a74b77d6c3065de76fe5f08a848",
+            "bytes": 134,
+            "text": "---\nname: 'catalog26-alpha'\ndescription: 'Mary explores documented market intentions'\n---\nNative documentary text. No code execution.\n"
+          },
+          {
+            "id": "catalog-source-7",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-beta\\SKILL.md",
+            "sha256": "54d891ed8398feedb24ca237ca333c3eacc465e6806da0429ed8e3cc9c4796dd",
+            "bytes": 123,
+            "text": "---\nname: 'catalog26-beta'\ndescription: 'Sally designs literal interfaces'\n---\nNative documentary text. No code execution.\n"
+          },
+          {
+            "id": "catalog-source-8",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-gamma\\SKILL.md",
+            "sha256": "29d7fe6f8c457acf44cf98004d013716722d8cce34211114a89318c08f1dcc03",
+            "bytes": 126,
+            "text": "---\nname: 'catalog26-gamma'\ndescription: 'Winston reads architecture sources'\n---\nNative documentary text. No code execution.\n"
+          }
+        ],
+        "modules": [
+          {
+            "code": "catalog26",
+            "folder": "catalog26-module",
+            "version": "6.13.0-next",
+            "sourceId": "catalog-source-4"
+          }
+        ],
+        "items": [
+          {
+            "id": "catalog26-alpha",
+            "name": "catalog26-alpha",
+            "module": "catalog26",
+            "sourceId": "catalog-source-6",
+            "manifestSourceId": "catalog-source-1",
+            "invocation": "$catalog26-alpha",
+            "presence": "present",
+            "copyable": true,
+            "copyReasons": [],
+            "documentation": [
+              {
+                "sourceId": "catalog-source-5",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "Market exploration"
+              },
+              {
+                "sourceId": "catalog-source-5",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "A literal local report"
+              }
+            ],
+            "launchable": false,
+            "launchReason": "General launch is not qualified for this profile",
+            "fields": {
+              "purpose": {
+                "sourceId": "catalog-source-6",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "Mary explores documented market intentions"
+              },
+              "inputs": null,
+              "conditions": null,
+              "effects": {
+                "sourceId": "catalog-source-5",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "A literal local report"
+              }
+            }
+          },
+          {
+            "id": "catalog26-beta",
+            "name": "catalog26-beta",
+            "module": "catalog26",
+            "sourceId": "catalog-source-7",
+            "manifestSourceId": "catalog-source-2",
+            "invocation": "$catalog26-beta",
+            "presence": "present",
+            "copyable": true,
+            "copyReasons": [],
+            "documentation": [],
+            "launchable": false,
+            "launchReason": "General launch is not qualified for this profile",
+            "fields": {
+              "purpose": {
+                "sourceId": "catalog-source-7",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "Sally designs literal interfaces"
+              },
+              "inputs": null,
+              "conditions": null,
+              "effects": null
+            }
+          },
+          {
+            "id": "catalog26-gamma",
+            "name": "catalog26-gamma",
+            "module": "catalog26",
+            "sourceId": "catalog-source-8",
+            "manifestSourceId": "catalog-source-3",
+            "invocation": "$catalog26-gamma",
+            "presence": "present",
+            "copyable": true,
+            "copyReasons": [],
+            "documentation": [],
+            "launchable": false,
+            "launchReason": "General launch is not qualified for this profile",
+            "fields": {
+              "purpose": {
+                "sourceId": "catalog-source-8",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "Winston reads architecture sources"
+              },
+              "inputs": null,
+              "conditions": null,
+              "effects": null
+            }
+          }
+        ],
+        "problems": [
+          "catalog26: missing registered skill catalog26-missing"
+        ]
+      },
+      "copy": {
+        "correlationId": "476a009f-5d43-45c7-b9af-177f64b987b8",
+        "projectId": "catalog-a",
+        "itemId": "catalog26-alpha",
+        "revision": "41ec2077218cb32ebe74402d389d3c1da7a614ea46a2dc41a6a226fce2f1876e",
+        "status": "copied",
+        "reason": null
+      },
+      "errorCode": null,
+      "error": null
+    }
+  },
+  "uiAfterRefresh": "Toutes les possibilités\nActualiser le catalogue\n\nConsultez les compétences BMad repérées dans ce projet et leurs sources locales.\n\n2 compétence(s) repérée(s)\n\nObservé le 04/11/2026 12:46:20 · Couverture : Partielle\n\nVersion affichée : 41ec2077218cb32ebe74402d389d3c1da7a614ea46a2dc41a6a226fce2f1876e\n\nObservation précédente — fiche historique\n\nNouvelle observation disponible · 837e1f448bac52496be58cd1cbf8789f46af3c60e88231df3efb90f4ed4ea701\n\nAfficher la nouvelle observation\nRechercher une possibilité\nModule\nTous les modules\ncatalog26\nEffacer les filtres\nRésultats du catalogue\n\n1 résultat(s)\n\ncatalog26-alpha\ncatalog26 · Invocation copiable\n\nMary explores documented market intentions\n\n$catalog26-alpha\nDiagnostic et provenance · partial",
+  "gammaRemovalWaitMatch": {
+    "sequence": 65,
+    "project": {
+      "projectId": "catalog-a",
+      "generation": 35,
+      "status": "ready",
+      "freshness": "current",
+      "monitoring": "watching",
+      "queued": false,
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "catalog-a",
+        "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a",
+        "observedAt": "2026-11-04T11:48:20.645Z",
+        "rootIdentity": "478559b3465aa4661072d21ea1e65fd290aec4cf632536b4ae6cfb0107215cf6",
+        "revision": "41ec2077218cb32ebe74402d389d3c1da7a614ea46a2dc41a6a226fce2f1876e",
+        "diagnostic": "partial",
+        "coverage": "partial",
+        "roots": [
+          "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills",
+          "C:\\Users\\UP60066553\\.codex\\skills"
+        ],
+        "sources": [
+          {
+            "id": "catalog-source-1",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-alpha\\bmod.toml",
+            "sha256": "dcaffc90c95598a1dfd2b8906f22bec38d0a8b84e7be7af2f66a2bd44675b897",
+            "bytes": 32,
+            "text": "[skill]\nbmod=\"catalog26-module\"\n"
+          },
+          {
+            "id": "catalog-source-2",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-beta\\bmod.toml",
+            "sha256": "dcaffc90c95598a1dfd2b8906f22bec38d0a8b84e7be7af2f66a2bd44675b897",
+            "bytes": 32,
+            "text": "[skill]\nbmod=\"catalog26-module\"\n"
+          },
+          {
+            "id": "catalog-source-3",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-module\\bmod.toml",
+            "sha256": "3fec4eddb980ecfab87423d2276e7f18ea357d0cc86b9191fb294c6a65abe0f3",
+            "bytes": 110,
+            "text": "[bmod]\ncode=\"catalog26\"\nversion=\"6.13.0-next\"\nskills=[\"catalog26-alpha\",\"catalog26-beta\",\"catalog26-missing\"]\n"
+          },
+          {
+            "id": "catalog-source-4",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-module\\help\\help.md",
+            "sha256": "3d727b5454c05bc7e30b1e817dc1aea1702e4b7713c85e7afa95c16ef12f3940",
+            "bytes": 111,
+            "text": "| Skill | For | Writes |\n| --- | --- | --- |\n| catalog26-alpha | Market exploration | A literal local report |\n"
+          },
+          {
+            "id": "catalog-source-5",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-alpha\\SKILL.md",
+            "sha256": "1d8bb6b6e7ff7d4ea480c2b48167b633408c0a74b77d6c3065de76fe5f08a848",
+            "bytes": 134,
+            "text": "---\nname: 'catalog26-alpha'\ndescription: 'Mary explores documented market intentions'\n---\nNative documentary text. No code execution.\n"
+          },
+          {
+            "id": "catalog-source-6",
+            "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\catalog-a\\.agents\\skills\\catalog26-beta\\SKILL.md",
+            "sha256": "54d891ed8398feedb24ca237ca333c3eacc465e6806da0429ed8e3cc9c4796dd",
+            "bytes": 123,
+            "text": "---\nname: 'catalog26-beta'\ndescription: 'Sally designs literal interfaces'\n---\nNative documentary text. No code execution.\n"
+          }
+        ],
+        "modules": [
+          {
+            "code": "catalog26",
+            "folder": "catalog26-module",
+            "version": "6.13.0-next",
+            "sourceId": "catalog-source-3"
+          }
+        ],
+        "items": [
+          {
+            "id": "catalog26-alpha",
+            "name": "catalog26-alpha",
+            "module": "catalog26",
+            "sourceId": "catalog-source-5",
+            "manifestSourceId": "catalog-source-1",
+            "invocation": "$catalog26-alpha",
+            "presence": "present",
+            "copyable": true,
+            "copyReasons": [],
+            "documentation": [
+              {
+                "sourceId": "catalog-source-4",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "Market exploration"
+              },
+              {
+                "sourceId": "catalog-source-4",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "A literal local report"
+              }
+            ],
+            "launchable": false,
+            "launchReason": "General launch is not qualified for this profile",
+            "fields": {
+              "purpose": {
+                "sourceId": "catalog-source-5",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "Mary explores documented market intentions"
+              },
+              "inputs": null,
+              "conditions": null,
+              "effects": {
+                "sourceId": "catalog-source-4",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "A literal local report"
+              }
+            }
+          },
+          {
+            "id": "catalog26-beta",
+            "name": "catalog26-beta",
+            "module": "catalog26",
+            "sourceId": "catalog-source-6",
+            "manifestSourceId": "catalog-source-2",
+            "invocation": "$catalog26-beta",
+            "presence": "present",
+            "copyable": true,
+            "copyReasons": [],
+            "documentation": [],
+            "launchable": false,
+            "launchReason": "General launch is not qualified for this profile",
+            "fields": {
+              "purpose": {
+                "sourceId": "catalog-source-6",
+                "startLine": 3,
+                "endLine": 3,
+                "value": "Sally designs literal interfaces"
+              },
+              "inputs": null,
+              "conditions": null,
+              "effects": null
+            }
+          }
+        ],
+        "problems": [
+          "catalog26: missing registered skill catalog26-missing"
+        ]
+      },
+      "copy": {
+        "correlationId": "476a009f-5d43-45c7-b9af-177f64b987b8",
+        "projectId": "catalog-a",
+        "itemId": "catalog26-alpha",
+        "revision": "41ec2077218cb32ebe74402d389d3c1da7a614ea46a2dc41a6a226fce2f1876e",
+        "status": "copied",
+        "reason": null
+      },
+      "errorCode": null,
+      "error": null
+    }
+  },
+  "closeDuringRead": {
+    "owner": {
+      "schemaVersion": 1,
+      "generation": "help-924e1552-97a3-4ac2-9ea9-f23822585f16",
+      "purpose": "bmad-readonly",
+      "status": "unknown",
+      "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mcatalog-main-OBxCRL\\profile\\bmad-help-runs-v1\\operation-29bb7109-fc63-4abf-a425-b08dfd45cb11"
+    },
+    "execution": {
+      "schema": 5,
+      "outcome": "running",
+      "exit": null,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 49844
+    },
+    "process": {
+      "pid": 49844,
+      "startedAt": "639293897245063389",
+      "executable": "C:\\Users\\UP60066553\\scoop\\apps\\uv\\0.13.0\\uv.exe"
+    }
+  },
+  "liveStop": {
+    "terminal": {
+      "schemaVersion": 1,
+      "generation": "help-924e1552-97a3-4ac2-9ea9-f23822585f16",
+      "purpose": "bmad-readonly",
+      "terminal": true,
+      "jobAssigned": true,
+      "jobActive": 0,
+      "neverStarted": false
+    },
+    "execution": {
+      "schema": 5,
+      "outcome": "cancelled",
+      "exit": 1,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 49844,
+      "active_before_stop": 3,
+      "job_active_after_stop": 0,
+      "stop_ms": 1,
+      "drain_ms": 176,
+      "elapsed_ms": 4325
+    }
+  },
+  "finishedAt": "2026-11-04T11:48:51.062Z"
+}

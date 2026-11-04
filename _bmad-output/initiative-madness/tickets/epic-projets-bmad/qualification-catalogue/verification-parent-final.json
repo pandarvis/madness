@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "at": "2026-11-04T12:14:07.473077+00:00",
+  "story": "2.6",
+  "baseline": "d0c706642673a56fcaf0138ee216219b9b20e8b3",
+  "status": "verified-ready-for-local-commit",
+  "candidate": {
+    "version": "0.2.10",
+    "asar": {
+      "path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\win-unpacked\\resources\\app.asar",
+      "sha256": "687f495a869c767949a2c79535efe107fdf5202255ba0265aa9cc1d3d90b624a"
+    },
+    "installer": {
+      "path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-reviewed\\Madness-0.2.10-x64-setup.exe",
+      "sha256": "22a013f94fb73f064bddc51eb62f564b2a92b86b147025c13f3bdd4fd13e7244"
+    },
+    "installed": false
+  },
+  "runs": {
+    "logs/parent-targeted-final.log": {
+      "tests": 81,
+      "pass": 81,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "d32804845dec9a2c98691260e5de58f266303c5c385164e5127120ca02bc564e"
+    },
+    "logs/parent-ui-finish-final.log": {
+      "tests": 10,
+      "pass": 10,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "dbe512816660bb26a0a6eca7a49d99569dd46b6719579c7db8d15d19b85b88b0"
+    },
+    "logs/parent-wait-final.log": {
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "389ec67be0d575e5f4e82ca913c020a633723e9c09563450b4ef0fb81d5d51f3"
+    }
+  },
+  "nativeMain": {
+    "receipt": "finish-f1-final-003/verification.json",
+    "status": "passed",
+    "checks": 10,
+    "producerInputsExact": 53,
+    "captures": 5,
+    "liveJobBefore": 3,
+    "liveJobAfter": 0,
+    "mainClosures": 2,
+    "cleanup": true,
+    "networkAfterHook": 0,
+    "appServerAttemptsAfterHook": 0
+  },
+  "buildExit": 0,
+  "nsisExit": 0,
+  "audit": {
+    "resourcesPerLocation": 15,
+    "locations": 2,
+    "protectedHistoricalFiles": 4033,
+    "compiledOutputs": 19,
+    "runtimeFiles": 735,
+    "receipt": "parent-audit-003.json"
+  },
+  "reviews": {
+    "H1": "resolved same high auditor",
+    "Q1": "resolved same Quick",
+    "Q2": "resolved same Quick",
+    "N1": "resolved same high/Quick including shared real helper/admission",
+    "V1": "normal bank fixed and verified synchronous predicate,3tests + actual Main",
+    "F1": "resolved original fresh official finish substitute; ship limited to F1 scored"
+  },
+  "impeccable": {
+    "parentOwnVisualBatches": 2,
+    "requiredFinishFixBatch": 1,
+    "totalBatches": 3,
+    "detectorRuns": 1,
+    "detectorResult": [],
+    "finish": "ship limited to F1 fix",
+    "roles": "Fresh technical substitutes loaded official definitions; native roles unavailable; no Sally persona claimed",
+    "authoritiesChanged": false
+  },
+  "deferred": [
+    {
+      "scope": "preexisting unrelated qualification harnesses",
+      "destination": "2.15",
+      "registry": "../../../deferred-work.md"
+    }
+  ],
+  "limits": [
+    "Native file symlink privilege not exercised; physical hardlink/junction coverage is separate and passed.",
+    "Synthetic isolated Windows profiles only; no personal installation/profile/provider/network/authentication/human/WCAG/G2/G4/G5 acceptance acquired.",
+    "Network/app-server counters begin after instrumentation hook.",
+    "Old ba7/be41 capsules, Main partials and Promise-based wait-only checks remain historical; no retrospective equivalence.",
+    "Preexisting other asynchronous qualification waits recorded for audit in2.15 before reuse; no current2.6 corrective deferred.",
+    "Raw producer/out and node_modules copies exist locally but ignored files are not all committed; hash manifests bind execution dependencies."
+  ],
+  "receipts": {
+    "parent-audit-003.json": "88db1248d6d306169900807b1e2e4c4b4a9b4f6e79fd5614d9255643465ba7db",
+    "parent-matrix-final.json": "719a260da7673274a3a99db1b557349e0bd3562b8fe3356dcb719e086596212d",
+    "finish-f1-final-003/verification.json": "cfef605ab0c29e89fd493fadf0f4a0a42ca1779080606d5530aafb8e45202fd4",
+    "finish-f1-final-003/producer-manifest.json": "d514764e21f035122b02fd65c7aed7397bfbdfeb649eb5b66a0fd3c4f523ef95",
+    "parent-final-proof/producer-manifest.json": "38a2591a2d9cb28d1bee2cb185d98274043cd1659f95bdd3b97447318c99a243",
+    "parent-finish-proof/producer-manifest.json": "fe7c6a4e29fc40922018299320f8fac29a37be6c3787c2e43896e685b012894f",
+    "finish-f1-changed-inputs.json": "7cdf21e0fff1d4fa6a5766b471c5419759b5d66b5537ebd3ee4a36a271766b04",
+    "bank-finish-evidence-instrumentation.json": "249d11aaeb11e04ed273cbc2d032615a1d56de13b55863e879e3dfc552a988e5",
+    "visual-finish-selection.json": "869b2f1fae5bf918a4d876c9a80784237ea213ca7e30ac77c1d27ab6ffd33d73",
+    "impeccable-detector.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "impeccable-finish-review.md": "64ed4fd81efad5e5c8e98b204e3c6b9b1b6033c8937a4d0f5e4a6977a77d2aa9",
+    "impeccable-documentation.md": "ca8b7a3e8744624333526902ab08ee530380c5588aa3b9b60de62c9bbab7d8f5",
+    "logs/parent-finish-build.log": "2b1efb5a03027b9be5c26800f8000c868e26ea98384f2fdf9a3e9a61c92d9462",
+    "logs/parent-finish-package.log": "1f3ea284b58f90a51dfd01256f1911f4cdef9135e1eef6e2d63fd6469c83507c"
+  }
+}

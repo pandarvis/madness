@@ -1,0 +1,96 @@
+{
+  "at": "2026-11-04T10:56:40.316110+00:00",
+  "visualRounds": 2,
+  "detectorRuns": 0,
+  "currentAsar": "be41bfdbacb89919c45396497e9c04be0f0d976b5048d2d9627f1d96a78be6d7",
+  "currentRequired": [
+    {
+      "source": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\visual-final-002\\details-dark.png",
+      "review": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\.impeccable\\review\\catalog26-details-dark-native.png",
+      "sha256": "32e412a0b955edbdbbdfc5d2084b8efd971bbf74e83e5a24f606cc0b53b2d467",
+      "parentActuallyOpened": true,
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "dialogScrollTop": 0,
+        "theme": "dark",
+        "tab": "Toutes les possibilités",
+        "dialog": "catalog26-alpha",
+        "scrollWidth": 1440
+      },
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 1
+    },
+    {
+      "source": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\visual-final-002\\filtered-list-dark.png",
+      "review": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\.impeccable\\review\\catalog26-filtered-list-dark-native.png",
+      "sha256": "ad05f0a0fd4ae131716ee37d3de32ed27f561e20ffcb0796714225adb6c83df3",
+      "parentActuallyOpened": true,
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "dialogScrollTop": null,
+        "theme": "dark",
+        "tab": "Toutes les possibilités",
+        "dialog": null,
+        "scrollWidth": 1440
+      },
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 1
+    },
+    {
+      "source": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\visual-final-002\\compact-light.png",
+      "review": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\.impeccable\\review\\catalog26-compact-light-native.png",
+      "sha256": "697ec0417564488060f551dcfee05358975b6fbf3a7920cae379e712e947db4f",
+      "parentActuallyOpened": true,
+      "metrics": {
+        "width": 720,
+        "height": 820,
+        "devicePixelRatio": 1.25,
+        "dialogScrollTop": 0,
+        "theme": "light",
+        "tab": "Toutes les possibilités",
+        "dialog": "catalog26-alpha",
+        "scrollWidth": 720
+      },
+      "pixels": {
+        "width": 900,
+        "height": 1025
+      },
+      "zoom": 1
+    },
+    {
+      "source": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-catalogue\\visual-final-002\\zoom200-dark.png",
+      "review": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\.impeccable\\review\\catalog26-zoom200-dark-native.png",
+      "sha256": "84492a94c9f0ddb903d412ff12a7a04e79e875d2a7a5b47c57a3019bc5fe9918",
+      "parentActuallyOpened": true,
+      "metrics": {
+        "width": 720,
+        "height": 460,
+        "devicePixelRatio": 2.5,
+        "dialogScrollTop": 0,
+        "theme": "dark",
+        "tab": "Toutes les possibilités",
+        "dialog": "catalog26-alpha",
+        "scrollWidth": 720
+      },
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 2
+    }
+  ],
+  "historicalExcluded": "visual-001 three ba7 screenshots are retained separately, not attributed to be41",
+  "missingState": "partial-stale-dark on current candidate not captured: functional bench timeout under investigation, no third screenshot batch requested",
+  "scope": "Four current full native webContents viewports with font readiness, settled motion, DPI and dialog scroll0. Windows caption glyph overlay outside webContents bitmap not assessed. No acceptance/WCAG/provider claim.",
+  "mainScope": "visual-final-002 remains PARTIAL, cleanup=true; do not promote it to passed"
+}

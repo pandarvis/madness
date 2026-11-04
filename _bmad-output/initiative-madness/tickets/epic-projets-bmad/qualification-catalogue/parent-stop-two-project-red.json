@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-04T10:23:54.493Z",
+  "case": "C7 two projects share unknown owner; own admission releases must not echo retries",
+  "sourceSha256": "13544c4026866cf076be1ed7b7b61568cacc7a7bc8bdc3c2c977bc382f45720f",
+  "calls": 8,
+  "perProject": {
+    "project-a": 4,
+    "project-b": 4
+  },
+  "artificialSafetyCap": 8,
+  "expectedCallsBeforeExplicitRecovery": 2,
+  "state": {
+    "contractVersion": 1,
+    "sequence": 16,
+    "projects": [
+      {
+        "projectId": "project-a",
+        "generation": 4,
+        "status": "error",
+        "freshness": "none",
+        "monitoring": "unarmed",
+        "queued": true,
+        "snapshot": null,
+        "copy": null,
+        "errorCode": "STOP_UNCONFIRMED",
+        "error": "Arrêt non confirmé — récupération requise."
+      },
+      {
+        "projectId": "project-b",
+        "generation": 4,
+        "status": "error",
+        "freshness": "none",
+        "monitoring": "unarmed",
+        "queued": true,
+        "snapshot": null,
+        "copy": null,
+        "errorCode": "STOP_UNCONFIRMED",
+        "error": "Arrêt non confirmé — récupération requise."
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-04T03:04:03.740948+00:00",
+  "authority": "explicit user complete autonomy, routine checkpoint/scope sequencing delegated",
+  "newHumanReply": false,
+  "change": "delivery only; add technical story18 after4/1.11,5 consumes18,15 waits18,16 transitive",
+  "requirementsChanged": false,
+  "coverage": "R1–R15 covered, new18 covers[] underC1/C2/C6",
+  "entriesBefore": 17,
+  "entriesAfter": 18,
+  "existingEntriesChanged": [
+    5,
+    15
+  ],
+  "existingOtherEntriesEqual": true,
+  "beforePlanAndCompanionSha256": {
+    "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/tickets/spike-qualifier-le-profil-bmad-existant-et-les-contrats-de-guidage-plan.md": "8049efbc9bde5924a206ac87dda9caf2d4cca6a4756a14c0248b0729f5bad98e",
+    "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/tickets/story-definir-avec-sally-les-parcours-de-guidage-et-de-fichiers-plan.md": "ed6e852f494bdf0f7597b5a026a74452006392fa89149565529718783beda94b",
+    "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/tickets/story-lire-le-parcours-et-ses-preuves-a-la-bonne-revision-plan.md": "a4ba5721f3d73095ee10d96bd094697e2384a5deaed61172f2330485c9fe7e8d",
+    "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/tickets/story-obtenir-une-prochaine-action-avec-laide-bmad-du-projet-plan.md": "7a54491c0a01c8a1679a1fb776c59f5bc8bc621debe2e163a745c31e8015c08a",
+    "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/tickets/story-retrouver-et-choisir-les-initiatives-sans-reattribuer-les-ec-plan.md": "315f0abe47d4e459bc4953c65e85d2aafd4f5abf608d5214eb8e3f00d9bdf537",
+    "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/architecture-madness/architecture-madness.md": "843d4c863ef59b308f70775a8ff1aeb0c2c7c31c313b56eabbf0cf4f43d1068f",
+    "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/ux-madness/DESIGN.md": "43c85e17ee57f84ea72cbba82777eefff451d0698e7a896bb46a11444d0acc3a",
+    "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md": "b4dbc4dd84399a0aa8d8e21420c0ee26264a367902b921689d47c7274137a436"
+  },
+  "unchanged": true,
+  "parentDependencies": "actual prerequisite output from4 consumed by18/5; single lane, handoffs explicit; no script errors/drift/cycles/order conflicts",
+  "freshValidation": {
+    "agent": "/root/sofia_latency_validation",
+    "checks": [
+      "Ticket",
+      "Set",
+      "Dependencies",
+      "Tree targeted"
+    ],
+    "fix": [],
+    "suggest": [],
+    "ask": [],
+    "inspectionOnly": true,
+    "limits": "old review histories not completely reaudited, no Closure of old epics; no product test/build/network"
+  },
+  "sourceObservations": "qualification-reprise-projet/performance-observation-002.json, eight native observations, no cause finer than guard phase",
+  "diagnosticQueue": "diagnostics-a-reprendre.json preserves11red diagnostic cases without final-source attribution",
+  "noCompanionInvalidated": true,
+  "memlog": "own epic journal absent; initiative journal consulted by impact agent selectively"
+}

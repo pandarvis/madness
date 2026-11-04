@@ -68,13 +68,27 @@ plan_checkpoint = false
 done_checkpoint = false
 
 [[entry]]
+id = 18
+type = "story"
+title = "Réduire le coût du contrôle du runtime sans affaiblir ses refus"
+description = "Après les mesures natives de4, qualifie puis optimise le coût de la garde du runtime fermé avant les actualisations5. Compare sur la machine cible la voie existante et la candidate, conserve les contrôles de manifeste/hashes/ancêtres/liens/hardlinks/venv/extras/manquants et le refus avant premier lancement ; aucune admission ni confiance en cache, aucun changement de compte/modèle/réseau/profil. Fournit à5 une voie locale qualifiée et ses limites de latence, avec gardes globales, possession/arrêt et seconde vérification Python préservés."
+verify = "Sur le même inventaire fermé et des variantes possédées, comparer résultats/refus et phases mesurées avant/après ; démontrer le gain réel sans seuil arbitraire et rejeter les altérations avant premier lancement. Reprendre les trois échecs Windows du diagnostic4.3 (context-sources, help-boundaries, supervision) dans un banc contrôlé : établir leur cause ou conserver une inconnue explicite, sans les attribuer au réseau, augmenter aveuglément les délais ou affaiblir la preuve d'arrêt. Audit indépendant des frontières et du lien des mesures au code candidat."
+covers = []
+after = [4, "1.11"]
+hitl = false
+risk = "high"
+references = ["qualification-reprise-projet/latence-observee.md", "qualification-reprise-projet/performance-observation-002.json"]
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
 id = 5
 type = "story"
 title = "Actualiser les preuves après des changements externes"
-description = "Actualise les projections et identités de4 lorsqu’un fichier change hors de Madness, avec invalidation des résultats anciens et contrôle avant action. Regroupe les événements de fichiers sans perdre le brouillon, attribuer un auteur/session inconnus ou appliquer une ancienne acceptation à de nouveaux octets. Fournit cette fraîcheur au catalogue, à l’aide et aux aperçus."
+description = "Actualise les projections et identités de4 lorsqu’un fichier change hors de Madness, avec invalidation des résultats anciens et contrôle avant action. Consomme la voie locale qualifiée par18, regroupe les événements de fichiers sans perdre le brouillon, attribuer un auteur/session inconnus ou appliquer une ancienne acceptation à de nouveaux octets. Fournit cette fraîcheur au catalogue, à l’aide et aux aperçus."
 verify = "Modifier, supprimer et remplacer un artefact pendant une saisie puis pendant une lecture : nouvelle preuve et révision visibles, ancien accord conservé sur son ancien contenu, saisie intacte et action refusée si ses préconditions ont changé. Le résumé Quick Resume est actualisé ou signalé ancien avec sa date/révision ; une ancienne prochaine action n’est pas présentée comme encore vérifiée."
 covers = ["R3", "R6", "R7"]
-after = [4, "1.11"]
+after = [4,18, "1.11"]
 hitl = false
 risk = "high"
 plan_checkpoint = false
@@ -202,10 +216,10 @@ done_checkpoint = false
 id = 15
 type = "story"
 title = "Refactor sweep"
-description = "Nettoie uniquement les constats de revue et dettes effectivement différés par les plans1–14 et17, à relire au démarrage ; aucune fonctionnalité poussée hors d’une story ne devient du nettoyage. Préserve les contrats, qualifications, données et tous les comportements vérifiés, puis fournit la version nettoyée à16."
+description = "Nettoie uniquement les constats de revue et dettes effectivement différés par les plans1–14,17 et18, à relire au démarrage ; aucune fonctionnalité poussée hors d’une story ne devient du nettoyage. Préserve les contrats, qualifications, données et tous les comportements vérifiés, puis fournit la version nettoyée à16."
 verify = "Rapprocher la liste des constats différés des plans et de leurs preuves ; aucun point de nettoyage acquis sans correction/recontrôle, suite appropriée verte et aucun besoin produit absorbé implicitement."
 covers = []
-after = [1,17,2,3,4,5,6,7,8,9,10,12,11,13,14,"1.11"]
+after = [1,17,2,3,4,5,6,7,8,9,10,12,11,13,14,18,"1.11"]
 hitl = false
 risk = "medium"
 plan_checkpoint = false

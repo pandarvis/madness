@@ -1,0 +1,295 @@
+✔ C1 normalized code-only witness retains directed INFERRED 0.85 and independent copies (4.376ms)
+✔ C3/C4 refuses version without altering input (0.3864ms)
+✔ C3/C4 refuses profile without altering input (0.264ms)
+✔ C3/C4 refuses tool without altering input (0.2452ms)
+✔ C3/C4 refuses raw without altering input (0.2627ms)
+✔ C3/C4 refuses schema without altering input (0.2467ms)
+✔ C3/C4 refuses extra payload without altering input (0.2341ms)
+✔ C3/C4 refuses duplicate nodes without altering input (0.3056ms)
+✔ C3/C4 refuses duplicate relations without altering input (0.3146ms)
+✔ C3/C4 refuses endpoint without altering input (0.4926ms)
+✔ C3/C4 refuses direction without altering input (0.2452ms)
+✔ C3/C4 refuses confidence without altering input (0.2014ms)
+✔ C3/C4 refuses boolean score without altering input (0.1992ms)
+✔ C3/C4 refuses nan score without altering input (0.1914ms)
+✔ C3/C4 refuses infinite score without altering input (0.6242ms)
+✔ C3/C4 refuses large score without altering input (0.2307ms)
+✔ C3/C4 refuses missing value without altering input (0.1836ms)
+✔ C3/C4 refuses line zero without altering input (0.1777ms)
+✔ C3/C4 refuses line out of corpus without altering input (0.1709ms)
+✔ C3/C4 refuses fractional line without altering input (0.1507ms)
+✔ C3/C4 refuses unattested line without altering input (0.1441ms)
+✔ C3/C4 refuses declared link without altering input (0.2378ms)
+✔ C3/C4 refuses unknown file without altering input (0.2073ms)
+✔ C3/C4 refuses duplicate sources without altering input (0.1612ms)
+✔ C3/C4 refuses complete with omissions without altering input (0.1406ms)
+✔ C3/C4 refuses ../outside.ts without altering input (0.1814ms)
+✔ C3/C4 refuses /absolute.ts without altering input (0.4825ms)
+✔ C3/C4 refuses C:/outside.ts without altering input (0.3458ms)
+✔ C3/C4 refuses src\file.ts without altering input (0.2916ms)
+✔ C3/C4 refuses src/../outside.ts without altering input (0.1928ms)
+✔ C3/C4 refuses ./src/client.ts without altering input (0.1442ms)
+✔ C3/C4 refuses src//client.ts without altering input (0.1359ms)
+✔ C3/C4 refuses src/a:b.ts without altering input (0.1193ms)
+✔ C3 cycles, accessors, prototypes and hostile values have controlled refusals without getter calls (0.8654ms)
+✔ C4 all three levels, unknown file/line and absent score remain explicit without promotion (0.3805ms)
+✔ C1 multiple proofs between identical endpoints keep ids, source direction and opaque native ids (0.1724ms)
+✔ C2 candidate claims cannot override independently held expected identities, manifest or generation (1.9246ms)
+✔ C2 a newer wall clock never publishes an older attempt or different scope/project (3.8194ms)
+✔ C5 observing a complete result does not prove terminal stop, persistence or a new last complete (1.4733ms)
+✔ C5 partial, failure, incompatible and changed-during-collection preserve previous complete (4.9157ms)
+✔ C5 terminal order and owned attempt are checked against core facts, without promotion on stop request (0.7658ms)
+✔ C6 restoration is historical, non-revalidating and starts no fictitious port or derived command (2.1474ms)
+✔ C7 command declarations reject paths, native effects, invalid discriminants/correlation and unknown versions (0.3868ms)
+✔ C7 event validation rejects correlation/discriminant/identity incoherence and controls replay order (1.9013ms)
+✔ C8 all pure decisions detach candidate, expected corpus, previous result and returned last complete (3.1862ms)
+✔ C7 port requests are versioned data: authority and live effects cannot enter through payloads (0.5775ms)
+✔ C2 source revision captured at start cannot be silently reassigned by later expected facts (0.2425ms)
+✔ C3/C6 malformed expected facts and historical stop ambiguity cannot be repaired or used as permission (3.3707ms)
+✔ C5 unknown source observation is never promoted, and terminal corpus is checked again (2.3601ms)
+✔ C5 complete, partial, failures, timeout and interruption each require coherent terminal observations (0.6791ms)
+✔ C4 expected scope disclosure, uncommitted revision and missing line facts stay distinct (0.8359ms)
+✔ C5 a new session result never inherits a prior successful save acknowledgement (1.5954ms)
+✔ C1 qualified witness subset preserves actual labels, source-target orientation and known lines (22.5549ms)
+✔ Q1 ANALYSIS_FAILED locks a failed attempt against late result and complete promotion until explicit fresh start (4.735ms)
+✔ Q1 INCOMPATIBLE locks a failed attempt against late result and complete promotion until explicit fresh start (4.5745ms)
+✖ Q2 progress reflects changed source facts for an already observed result (2.6622ms)
+✖ Q2 stopped reflects changed source facts for an already observed result (1.8405ms)
+✖ Q2 progress reflects unknown source facts for an already observed result (1.8082ms)
+✖ Q2 stopped reflects unknown source facts for an already observed result (1.5207ms)
+✔ Q2 non-result events never promote an earlier or unverified result from current attempt facts (4.533ms)
+✖ Q3 complete outcome rejects result analysis mismatch on validation and restore (1.2959ms)
+✖ Q3 complete outcome rejects result source-revision mismatch on validation and restore (0.9668ms)
+✖ Q3 complete outcome rejects result status mismatch on validation and restore (0.8616ms)
+✖ Q3 partial outcome rejects result analysis mismatch on validation and restore (1.1516ms)
+✖ Q3 partial outcome rejects result source-revision mismatch on validation and restore (0.8023ms)
+✖ Q3 partial outcome rejects result status mismatch on validation and restore (0.6856ms)
+✔ Q3 matching terminal and historical outcomes restore passively while a new running attempt may retain a previous result (2.8015ms)
+ℹ tests 67
+ℹ suites 0
+ℹ pass 57
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 334.6651
+
+✖ failing tests:
+
+test at tests\bmad-graph.test.mjs:204:89
+✖ Q2 progress reflects changed source facts for an already observed result (2.6622ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'observed'
+  - 'changed'
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:209:33)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'observed',
+    expected: 'changed',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:204:89
+✖ Q2 stopped reflects changed source facts for an already observed result (1.8405ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'observed'
+  - 'changed'
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:209:33)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'observed',
+    expected: 'changed',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:204:89
+✖ Q2 progress reflects unknown source facts for an already observed result (1.8082ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'observed'
+  - 'unverified'
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:209:33)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'observed',
+    expected: 'unverified',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:204:89
+✖ Q2 stopped reflects unknown source facts for an already observed result (1.5207ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'observed'
+  - 'unverified'
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:209:33)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'observed',
+    expected: 'unverified',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:230:107
+✖ Q3 complete outcome rejects result analysis mismatch on validation and restore (1.2959ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:236:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:230:107
+✖ Q3 complete outcome rejects result source-revision mismatch on validation and restore (0.9668ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:236:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:230:107
+✖ Q3 complete outcome rejects result status mismatch on validation and restore (0.8616ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:236:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:230:107
+✖ Q3 partial outcome rejects result analysis mismatch on validation and restore (1.1516ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:236:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:230:107
+✖ Q3 partial outcome rejects result source-revision mismatch on validation and restore (0.8023ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:236:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:230:107
+✖ Q3 partial outcome rejects result status mismatch on validation and restore (0.6856ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:236:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

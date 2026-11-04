@@ -1,0 +1,90 @@
+{
+  "at": "2026-11-04T02:38:39.083839+00:00",
+  "baseline": "e7713cc9c56d48bc7366be04a02afe4dd0fe5b73",
+  "frozenLF": "738d619b809aef87c393b947b1e02ee29cfab5f0724a59ae23f67bda0891bf65",
+  "sources": {
+    "src/contracts/bmad-graph.ts": "1029c99a389714c6afb1f7ac3700295ff996700ea85c6d942e3cda659df80506",
+    "src/core/bmad-graph.ts": "c5d1ee794507b121c804e1f17b0798aa9cc01162356acef5f0efdda8a0f6cd4a",
+    "src/core/bmad-graph-port.ts": "3b5557879073eadd5c2b0b326d9e0cbd4ae3dc8bd1c54d2ed50ae7b542fd6c4e",
+    "tests/bmad-graph.test.mjs": "dd9ec6e8cd4e773a32d0ffd09dfdb288b75091038814706505e454d7ae38cabd",
+    "tests/fixtures/bmad-graph/known-normalized.json": "0c6f01c160ce5e47127a721643f7957e1b3e395cc189986feffb80b9161d0943"
+  },
+  "checks": {
+    "tests": {
+      "exit": 0,
+      "passed": 55,
+      "failed": 0,
+      "skipped": 0,
+      "log": "parent-final-tests.log"
+    },
+    "types": {
+      "exit": 0,
+      "log": "parent-final-types.log"
+    },
+    "build": {
+      "exit": 0,
+      "log": "parent-final-build.log"
+    }
+  },
+  "matrix": {
+    "C1": "nominal and qualified static partial subset preserve data and detached copies",
+    "C2": "expected identity/generation/correlation/source captured at start and event order reject foreign/stale",
+    "C3": "strict versions, profiles, data tree, duplication and references; no JS sandbox claim",
+    "C4": "expected corpus separate, paths/file kinds/line bounds/confidence/raw score checked without coercion",
+    "C5": "last complete versus staged partial/failure/freshness/preservation; H1 logical failure latch",
+    "C6": "passive restore, unknown stop blocks next attempt, no effect dependency or command output",
+    "C7": "versioned commands/requests/events, declarative port only and no payload effect authority",
+    "C8": "repeatable pure decisions, outputs detached from candidates/context and last complete"
+  },
+  "protected": {
+    "files": 4446,
+    "changed": []
+  },
+  "globalDiagnostic": {
+    "session": 97176,
+    "owner": "/root/graph43_implementation",
+    "exit": 1,
+    "tests": 525,
+    "passed": 514,
+    "failed": 11,
+    "skip": 0,
+    "log": "verification-suite.log",
+    "scope": "not final source; started before subsequent code/tests changes; diagnostic only, no causation attributed"
+  },
+  "limits": [
+    "no coordinator/store/IPC/UI/native adapter/runtime integration",
+    "no physical stop or persistence established by types",
+    "no G5/human or WCAG acceptance",
+    "actual Graphify UI still upcoming, not available yet"
+  ],
+  "postQuick": {
+    "at": "2026-11-04T02:51:54.563877+00:00",
+    "sources": {
+      "src/contracts/bmad-graph.ts": "aa1b05316648b1494d55f5a850b8a880386dc17c3bc43af20fa08b9129d2c400",
+      "src/core/bmad-graph.ts": "de8aee46dd4003e54320ecd93438b7fce1c07a80cd9a867b292c6a1a95851ee1",
+      "src/core/bmad-graph-port.ts": "3b5557879073eadd5c2b0b326d9e0cbd4ae3dc8bd1c54d2ed50ae7b542fd6c4e",
+      "tests/bmad-graph.test.mjs": "07b1f1bdfe304f9831ddb6f6903077cf83243d8fe975375773f137e754c7d3db",
+      "tests/fixtures/bmad-graph/known-normalized.json": "0c6f01c160ce5e47127a721643f7957e1b3e395cc189986feffb80b9161d0943"
+    },
+    "tests": {
+      "count": 67,
+      "pass": 67,
+      "skip": 0,
+      "exit": 0,
+      "log": "parent-postquick-tests.log"
+    },
+    "types": {
+      "exit": 0,
+      "log": "parent-postquick-types.log"
+    },
+    "build": {
+      "exit": 0,
+      "log": "parent-postquick-build.log"
+    },
+    "mapping": {
+      "H1": "worker test Q1",
+      "Quick Q1": "worker test Q2",
+      "Quick Q2": "worker test Q3"
+    }
+  }
+}

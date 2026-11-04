@@ -1,0 +1,169 @@
+{
+  "at": "2026-11-04T02:21:37.643Z",
+  "baseline": "e7713cc9c56d48bc7366be04a02afe4dd0fe5b73",
+  "existingTrackedChecked": 4446,
+  "existingTrackedChanged": [],
+  "inputs": [
+    {
+      "path": "src/contracts/bmad-graph.ts",
+      "sha256": "62912aa3cf30b191eb4fbb3e84196b6adfe58574bc82ddced097feeec647ee0a"
+    },
+    {
+      "path": "src/core/bmad-graph.ts",
+      "sha256": "2f873335eb929a14081aa8568d32e906cd92cf46e167e3195c8665d2b7ec2ae9"
+    },
+    {
+      "path": "src/core/bmad-graph-port.ts",
+      "sha256": "3b5557879073eadd5c2b0b326d9e0cbd4ae3dc8bd1c54d2ed50ae7b542fd6c4e"
+    },
+    {
+      "path": "tests/bmad-graph.test.mjs",
+      "sha256": "31a27b259b575d4a3b2763ca978d570270854737b7df53a781901e655e4ca2bc"
+    },
+    {
+      "path": "tests/fixtures/bmad-graph/known-normalized.json",
+      "sha256": "0c6f01c160ce5e47127a721643f7957e1b3e395cc189986feffb80b9161d0943"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/handoff.md",
+      "sha256": "13fe5db70117921fdfc94a7938805abcdf67fe18cf6ed3f21580850ffb00408d"
+    }
+  ],
+  "checks": [
+    {
+      "command": "node --test tests/bmad-graph.test.mjs",
+      "exitCode": 0,
+      "tests": 53,
+      "pass": 53,
+      "fail": 0,
+      "skipped": 0,
+      "log": "verification-final-tests.log",
+      "stage": "historical before H1/Q1 correction"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "configurations": 2,
+      "log": "verification-types-final.log",
+      "stage": "historical before H1/Q1 correction"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "includesFinalTypechecks": true,
+      "log": "verification-final-build.log",
+      "stage": "historical before H1/Q1 correction"
+    }
+  ],
+  "tdd": [
+    {
+      "log": "verification-red.log",
+      "tests": 1,
+      "pass": 0,
+      "fail": 1,
+      "reason": "Nominal refused by skeleton; expected true / actual false."
+    },
+    {
+      "log": "verification-policy-red.log",
+      "tests": 45,
+      "pass": 37,
+      "fail": 8,
+      "reason": "Pure policies missing; failures in behavior assertions."
+    },
+    {
+      "log": "verification-boundaries-red.log",
+      "tests": 51,
+      "pass": 48,
+      "fail": 3,
+      "reason": "Request validation, source revision reassignment and historical stop ambiguity."
+    },
+    {
+      "log": "verification-preservation-red.log",
+      "tests": 52,
+      "pass": 51,
+      "fail": 1,
+      "reason": "New session result incorrectly inherited prior stored status."
+    }
+  ],
+  "fullSuite": {
+    "command": "npm test",
+    "status": "completed",
+    "sessionId": 97176,
+    "log": "verification-suite.log",
+    "scope": "diagnostic only on sources loaded during that execution; no final-version attribution and no unrelated correction or rerun",
+    "exitCode": 1,
+    "observedAt": "2026-11-04T02:33:53.909Z",
+    "tests": 525,
+    "pass": 514,
+    "fail": 11,
+    "cancelled": 0,
+    "skipped": 0,
+    "durationMs": 944753.3515,
+    "failures": [
+      {
+        "location": "tests\\bmad-context-sources.test.mjs:101:1",
+        "name": "context sources: real Windows receipts, mutations, absent/unknown, identity, three layers and boundaries (187742.7016ms)"
+      },
+      {
+        "location": "tests\\bmad-help-boundaries.test.mjs:96:1",
+        "name": "real product sources preserve partial help and reject Windows path/runtime boundary variants (189536.6635ms)"
+      },
+      {
+        "location": "tests\\bmad-help-supervision.test.mjs:13:1",
+        "name": "real Windows Job owns descendants before Resume and returns finitely for root0, timeout, overflow and start failure (90047.9068ms)"
+      },
+      {
+        "location": "tests\\connection-probe.test.mjs:87:1",
+        "name": "découverte native exige le chemin standard, le manifeste et un fichier PE (620.3118ms)"
+      },
+      {
+        "location": "tests\\connection-ui.test.mjs:335:1",
+        "name": "initiatives: clavier, noms longs, compact, deux thèmes et zoom200 sans fuite horizontale (12536.8609ms)"
+      },
+      {
+        "location": "tests\\connection-ui.test.mjs:350:1",
+        "name": "initiatives: couleurs locales lisibles et métadonnées alignées dans le thème clair (4300.3572ms)"
+      },
+      {
+        "location": "tests\\connection-ui.test.mjs:385:1",
+        "name": "initiatives: choix courant focalisé sans masquer titre et fermeture au compact et zoom200 (3934.009ms)"
+      },
+      {
+        "location": "tests\\connection-ui.test.mjs:427:1",
+        "name": "atelier : disposition compacte, buste complet et conteneurs confinés dans les deux thèmes (9386.4721ms)"
+      },
+      {
+        "location": "tests\\connection-ui.test.mjs:600:1",
+        "name": "atelier : la saisie et son action restent ensemble au premier écran (8060.2331ms)"
+      },
+      {
+        "location": "tests\\connection-ui.test.mjs:828:1",
+        "name": "le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (15595.0859ms)"
+      },
+      {
+        "location": "tests\\connection-ui.test.mjs:1129:1",
+        "name": "navigation: les infobulles projets restent peintes devant bannière et onglets (2574.2529ms)"
+      }
+    ],
+    "logSha256": "a5850ed635eb44514879692f3df58845dcb4544999607aef1c06326b26b8e0ad"
+  },
+  "limits": [
+    "Pure contract tests only; no runtime integration, Graphify execution, physical stop, durable save, personal profile, package installation, G5 or human acceptance.",
+    "Independent high/Quick and rechecks remain parent-owned."
+  ],
+  "inputsStage": "historical worker handoff before H1/Q1 correction; final hashes/verification remain parent-owned",
+  "q1WorkerRecheck": {
+    "command": "node --test tests/bmad-graph.test.mjs",
+    "exitCode": 0,
+    "tests": 55,
+    "pass": 55,
+    "fail": 0,
+    "skipped": 0,
+    "redLogs": [
+      "verification-q1-red.log",
+      "verification-q1-coherence-red.log"
+    ],
+    "greenLog": "verification-q1-green.log",
+    "scope": "targeted worker correction only; final 55/types/build verification remains parent-owned"
+  }
+}

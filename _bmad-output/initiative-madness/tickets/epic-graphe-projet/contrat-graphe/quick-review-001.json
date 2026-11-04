@@ -1,0 +1,43 @@
+{
+  "agent": "/root/graph43_quick",
+  "review": "quick",
+  "source": "pinned",
+  "inspectionOnly": true,
+  "findings": [
+    {
+      "id": "Q1",
+      "verdict": "medium",
+      "route": "patch",
+      "location": "src/core/bmad-graph.ts:102",
+      "claim": "progress/unknown-stop with independently known changed sources retains observed freshness of current-attempt result",
+      "evidence": "parent pure reproduction result→progress with sourceState changed: freshness observed unchanged; branches traced beyond result/complete terminal",
+      "status": "resolved"
+    },
+    {
+      "id": "Q2",
+      "verdict": "medium",
+      "route": "patch",
+      "location": "src/contracts/bmad-graph.ts:247",
+      "claim": "complete/partial outcome can restore a snapshot from a different analysis/source revision than activity",
+      "evidence": "parent normal completed state then changing result.snapshot.identity.analysisId alone passes validateGraphState and restoreGraphState; only scope matched",
+      "status": "resolved"
+    }
+  ],
+  "recheck": {
+    "agent": "/root/graph43_quick",
+    "inspectionOnly": true,
+    "verdict": "Q1/Q2 resolved",
+    "hashes": {
+      "src/contracts/bmad-graph.ts": "aa1b05316648b1494d55f5a850b8a880386dc17c3bc43af20fa08b9129d2c400",
+      "src/core/bmad-graph.ts": "de8aee46dd4003e54320ecd93438b7fce1c07a80cd9a867b292c6a1a95851ee1",
+      "src/core/bmad-graph-port.ts": "3b5557879073eadd5c2b0b326d9e0cbd4ae3dc8bd1c54d2ed50ae7b542fd6c4e",
+      "tests/bmad-graph.test.mjs": "07b1f1bdfe304f9831ddb6f6903077cf83243d8fe975375773f137e754c7d3db",
+      "tests/fixtures/bmad-graph/known-normalized.json": "0c6f01c160ce5e47127a721643f7957e1b3e395cc189986feffb80b9161d0943"
+    },
+    "mapping": {
+      "Quick Q1": "worker Q2 freshness",
+      "Quick Q2": "worker Q3 terminal coherence",
+      "high H1": "worker Q1 logical latch"
+    }
+  }
+}

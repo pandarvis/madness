@@ -1,0 +1,107 @@
+✔ C1 normalized code-only witness retains directed INFERRED 0.85 and independent copies (11.0723ms)
+✔ C3/C4 refuses version without altering input (0.9796ms)
+✔ C3/C4 refuses profile without altering input (0.718ms)
+✔ C3/C4 refuses tool without altering input (0.5849ms)
+✔ C3/C4 refuses raw without altering input (0.5733ms)
+✔ C3/C4 refuses schema without altering input (0.7511ms)
+✔ C3/C4 refuses extra payload without altering input (0.9803ms)
+✔ C3/C4 refuses duplicate nodes without altering input (1.6575ms)
+✔ C3/C4 refuses duplicate relations without altering input (0.9603ms)
+✔ C3/C4 refuses endpoint without altering input (0.7684ms)
+✔ C3/C4 refuses direction without altering input (0.4433ms)
+✔ C3/C4 refuses confidence without altering input (0.3093ms)
+✔ C3/C4 refuses boolean score without altering input (0.5626ms)
+✔ C3/C4 refuses nan score without altering input (0.5187ms)
+✔ C3/C4 refuses infinite score without altering input (0.4011ms)
+✔ C3/C4 refuses large score without altering input (0.7381ms)
+✔ C3/C4 refuses missing value without altering input (0.5421ms)
+✔ C3/C4 refuses line zero without altering input (0.4728ms)
+✔ C3/C4 refuses line out of corpus without altering input (0.3953ms)
+✔ C3/C4 refuses fractional line without altering input (0.2908ms)
+✔ C3/C4 refuses unattested line without altering input (0.2528ms)
+✔ C3/C4 refuses declared link without altering input (0.2314ms)
+✔ C3/C4 refuses unknown file without altering input (0.2381ms)
+✔ C3/C4 refuses duplicate sources without altering input (0.2404ms)
+✔ C3/C4 refuses complete with omissions without altering input (0.2613ms)
+✔ C3/C4 refuses ../outside.ts without altering input (0.4094ms)
+✔ C3/C4 refuses /absolute.ts without altering input (0.4125ms)
+✔ C3/C4 refuses C:/outside.ts without altering input (0.3972ms)
+✔ C3/C4 refuses src\file.ts without altering input (0.4057ms)
+✔ C3/C4 refuses src/../outside.ts without altering input (0.3843ms)
+✔ C3/C4 refuses ./src/client.ts without altering input (0.5079ms)
+✔ C3/C4 refuses src//client.ts without altering input (0.3731ms)
+✔ C3/C4 refuses src/a:b.ts without altering input (0.3817ms)
+✔ C3 cycles, accessors, prototypes and hostile values have controlled refusals without getter calls (1.1945ms)
+✔ C4 all three levels, unknown file/line and absent score remain explicit without promotion (2.0165ms)
+✔ C1 multiple proofs between identical endpoints keep ids, source direction and opaque native ids (0.9904ms)
+✔ C2 candidate claims cannot override independently held expected identities, manifest or generation (7.8964ms)
+✔ C2 a newer wall clock never publishes an older attempt or different scope/project (12.1834ms)
+✔ C5 observing a complete result does not prove terminal stop, persistence or a new last complete (4.6934ms)
+✔ C5 partial, failure, incompatible and changed-during-collection preserve previous complete (10.3863ms)
+✔ C5 terminal order and owned attempt are checked against core facts, without promotion on stop request (1.3031ms)
+✔ C6 restoration is historical, non-revalidating and starts no fictitious port or derived command (6.0966ms)
+✔ C7 command declarations reject paths, native effects, invalid discriminants/correlation and unknown versions (1.1032ms)
+✔ C7 event validation rejects correlation/discriminant/identity incoherence and controls replay order (3.7165ms)
+✔ C8 all pure decisions detach candidate, expected corpus, previous result and returned last complete (7.8865ms)
+✔ C7 port requests are versioned data: authority and live effects cannot enter through payloads (1.8274ms)
+✔ C2 source revision captured at start cannot be silently reassigned by later expected facts (0.8698ms)
+✔ C3/C6 malformed expected facts and historical stop ambiguity cannot be repaired or used as permission (6.3846ms)
+✔ C5 unknown source observation is never promoted, and terminal corpus is checked again (5.6924ms)
+✔ C5 complete, partial, failures, timeout and interruption each require coherent terminal observations (1.9836ms)
+✔ C4 expected scope disclosure, uncommitted revision and missing line facts stay distinct (1.5271ms)
+✔ C5 a new session result never inherits a prior successful save acknowledgement (4.1778ms)
+✔ C1 qualified witness subset preserves actual labels, source-target orientation and known lines (41.6438ms)
+✖ Q1 ANALYSIS_FAILED locks a failed attempt against late result and complete promotion until explicit fresh start (4.2985ms)
+✖ Q1 INCOMPATIBLE locks a failed attempt against late result and complete promotion until explicit fresh start (3.0969ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 53
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 593.161
+
+✖ failing tests:
+
+test at tests\bmad-graph.test.mjs:182:91
+✖ Q1 ANALYSIS_FAILED locks a failed attempt against late result and complete promotion until explicit fresh start (4.2985ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:191:90)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:182:91
+✖ Q1 INCOMPATIBLE locks a failed attempt against late result and complete promotion until explicit fresh start (3.0969ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:191:90)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

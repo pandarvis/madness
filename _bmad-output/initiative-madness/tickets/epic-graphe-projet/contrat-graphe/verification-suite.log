@@ -1,0 +1,727 @@
+
+> madness@0.2.7 test
+> node --test tests/*.test.mjs scripts/qualification/codex.test.mjs
+
+✔ JSONL reconstitue UTF-8 fragmenté et corrèle les réponses hors ordre (4.5196ms)
+✔ ChatGPT vérifié permet une réponse et une fin corrélées sans conserver identité ou texte (10.3632ms)
+✔ conserve réponse et fin groupées dans un seul chunk après l’accusé du tour (8.5299ms)
+✔ refuse apiKey avant catalogue et inférence (2.3065ms)
+✔ refuse amazonBedrock avant catalogue et inférence (0.6558ms)
+✔ refuse unknown avant catalogue et inférence (0.433ms)
+✔ profil vide attend la connexion corrélée puis relit le compte (1.0072ms)
+✔ échec de connexion ne lance aucun tour et ne révèle pas l’erreur native (0.5801ms)
+✔ une fin d’un autre tour ou un accusé seul ne constitue pas la preuve (16.5471ms)
+✔ le délai global inclut l’attente de l’accusé du tour (14.012ms)
+✔ refuse failed sans réponse finale corrélée (1.0127ms)
+✔ refuse interrupted sans réponse finale corrélée (0.8274ms)
+✔ refuse completed sans réponse finale corrélée (0.5123ms)
+✔ erreur JSON-RPC expurgée et coupure n’entraînent aucun réessai (1.1074ms)
+✔ demande serveur imprévue refusée avant inférence (0.8152ms)
+✔ activité outil inattendue arrête le témoin (0.6161ms)
+✔ JSON invalide et ligne excessive échouent avec un code fixe (10.6055ms)
+✔ environnement enfant isole identité/configuration et garde réseau sans imprimer ses valeurs (0.5703ms)
+✔ nettoyage refuse une racine arbitraire et ne supprime que son espace temporaire (58.0054ms)
+✔ l’arrêt ferme stdin et confirme la fermeture d’un enfant coopératif sans taskkill (787.5399ms)
+✔ l’arrêt ne confond pas wrapper déjà sorti et fermeture des pipes (14.4211ms)
+✔ l’arrêt reconnaît un enfant déjà fermé avec stderr ignoré (485.7098ms)
+✔ TEMP sous le dépôt est refusé avant toute création de profil (43.1583ms)
+✔ SIGINT pendant la préparation interdit le lancement du fournisseur (2215.331ms)
+✔ SIGTERM pendant la préparation interdit le lancement du fournisseur (2784.4235ms)
+✔ un arrêt non confirmé libère les handles du parent sans annoncer arrêt ni nettoyage (844.3372ms)
+✔ atelier : les couleurs Windows suivent le chrome des deux thèmes et les couples de lecture restent contrastés (51.5709ms)
+✔ le protocole d’apparence refuse les valeurs hors enum et les propriétés supplémentaires (1.6799ms)
+✔ l’amorçage accepte uniquement les arguments natifs enum et refuse les doublons (0.4563ms)
+✔ un profil neuf reste sombre sans écrire et un choix explicite est restauré séparément du Snapshot (79.8062ms)
+✔ un fichier invalide ou futur reste intact tandis que le choix de session fonctionne (527.8543ms)
+✔ une écriture refusée conserve le choix de session et nettoie les fichiers atomiques (563.9168ms)
+✔ les choix concurrents sont écrits dans l’ordre sans fichier temporaire restant (1556.745ms)
+✔ accept relit le contexte après la préparation de proposition ; decline reste disponible (437.5204ms)
+✔ accept revalide les fichiers et la possession après la garde de contexte (682.9324ms)
+✔ approbation RPC zéro et proposition décalée : seul résultat natif et octets prouvent l’effet (137.3836ms)
+✔ reçu fileChange et octets sans dépendre du raw : accept / absent (235.7863ms)
+✔ reçu fileChange et octets sans dépendre du raw : accept / exec-array (266.6097ms)
+✔ reçu fileChange et octets sans dépendre du raw : accept / correlated (377.909ms)
+✔ reçu fileChange et octets sans dépendre du raw : decline / absent (148.5713ms)
+✔ reçu fileChange et octets sans dépendre du raw : decline / exec-array (205.4387ms)
+✔ reçu fileChange et octets sans dépendre du raw : decline / correlated (298.5708ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : raw-only (299.3483ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : wrong-item (944.052ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : wrong-thread (629.9923ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : wrong-turn (482.0644ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : status-mismatch (539.8045ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : decline-completed (369.9502ms)
+✔ aucun reçu depuis raw seul ou résultat non corrélé/cohérent : effects-mismatch (414.5255ms)
+✔ fileChange et octets ne règlent pas l’opération avant confirmation de transmission de la décision (379.1929ms)
+✔ le terminal sans confirmation de transmission garde le résultat inconnu même avec fileChange (257.5374ms)
+✔ le terminal joint le reçu natif déjà transmis pendant sa relecture (252.4055ms)
+✔ l’arrêt annule l’attente du reçu déjà natif pendant sa relecture (212.5916ms)
+✔ bornes natives et aucune autorisation tardive : read-only (66.4415ms)
+✔ bornes natives et aucune autorisation tardive : grant (300.4932ms)
+✔ bornes natives et aucune autorisation tardive : changed (226.3499ms)
+✔ bornes natives et aucune autorisation tardive : terminal (227.5835ms)
+✔ bornes natives et aucune autorisation tardive : string-id (208.7656ms)
+✔ une proposition native changée après affichage retire le consentement sans effet (94.792ms)
+✔ le délai local dix minutes retire une commande sans choix implicite (horloge contrôlée) (47.5958ms)
+✔ deux patches rapprochés du même fichier demandent deux choix sans étendre le premier accord (428.35ms)
+✔ le terminal retire l’approbation encore en file derrière un outil avant le drain (200.2435ms)
+✔ approbation stricte : aucun accord global, ID natif, feedback ou champ inconnu (2.3842ms)
+✔ patch mixte : tous les contenus natifs, empreintes et effets ; précondition modifiée refuse tout (417.6547ms)
+✔ hors projet, protégé, déplacement, portée inconnue et diff incomplet sont refusés (570.7203ms)
+✔ une racine remplacée par une jonction extérieure retire un ajout absent avant tout accord (85.3212ms)
+✔ un petit diff sur la dernière ligne est refusé si son résultat dépasse la capacité de relecture (64.4184ms)
+✔ annexe approbation atomique conserve conflit/version inconnue et toutes les saisies (1488.2189ms)
+✔ une décision ancienne retardée ne touche pas la nouvelle conversation et son prochain envoi : resolve (96.4051ms)
+✔ une décision ancienne retardée ne touche pas la nouvelle conversation et son prochain envoi : reject (6.0593ms)
+✔ un ajustement réserve la session avant le disque et refuse un autre ajustement ou un envoi libre (71.9758ms)
+✔ la réservation d’ajustement préserve stop pendant la sauvegarde retenue (38.2593ms)
+✔ la réservation d’ajustement préserve failure pendant la sauvegarde retenue (35.6932ms)
+✔ un ajustement respecte la réserve de session messages et garde lecture, saisie et arrêt disponibles (25807.0955ms)
+✔ un ajustement respecte la réserve de session text et garde lecture, saisie et arrêt disponibles (836.5512ms)
+✔ décision verrouillée avant await, transmission distincte des effets puis ajustement explicite (27.5893ms)
+✔ restauration sans moteur garde un accord incertain et retire toute commande (2.4266ms)
+✔ arrêt pendant sauvegarde retire la commande et conserve la saisie sans transmission (11.7184ms)
+✔ un reçu conservé attend le résultat, et un refus disque ultérieur reste inconnu (25.2252ms)
+✔ la validation d’une portée mal formée ne lance jamais une exception (0.6668ms)
+✔ la restauration d’un effet connu garde la preuve tout en retirant tous les choix (1.1341ms)
+✔ Mary indépendante capture alpha sans dépendre des documents {"missingDocument":true} (42.2993ms)
+✔ Mary indépendante capture alpha sans dépendre des documents {"unrelatedRefusal":true} (9.9609ms)
+✔ open refuse la garde puis échoue au nettoyage : arrêt inconnu sans session retournée (4.9122ms)
+✔ un effet possédé commencé garde EFFECT_UNKNOWN malgré le refus de contexte (17.7698ms)
+✔ source mutation before open rejects without provider ownership or first turn (1.1258ms)
+✔ mutation inside open stops actual owner before conversation or turn; unknown remains unknown (1.6492ms)
+✔ mutation after conversation persistence refuses first turn without rewriting capture (1.1116ms)
+✔ question alpha survives consultation beta; its own changed sources refuse submission (40.9119ms)
+{"nativeContext":{"root":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mctx-gs47Ry","closed":"stopped","network":false,"provider":false,"symlinkFile":"not exercised: existing Windows privilege limit"}}
+✔ real closed Windows helper: two projects, passive restoration, bounded refusals and unchanged configuration/history (914993.0214ms)
+{"profileScope":{"operations":["init","append","write","finish"],"closed":"stopped","configChangedRefused":true,"sameBytesReplacementRefused":true}}
+✔ portée configuration réelle : Forge sans initiative peut init append write finish, config et périmètre restent gardés (931855.9136ms)
+{"retainedHelpFixture":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-boundaries-L4Ontm","reason":"terminal Job stop proof unavailable; no cleanup attempted"}
+✖ context sources: real Windows receipts, mutations, absent/unknown, identity, three layers and boundaries (187742.7016ms)
+✔ outil indépendant ne périme pas sa capture quand ses sorties changent (668.6036ms)
+✔ root replacement preserves old selection and refuses initiative action until a fresh explicit choice (4.1451ms)
+✔ invalid active identities never become a represented context or a guessed slug (5.3361ms)
+✔ selection annex rejects a real hardlink without altering its external witness (361.5852ms)
+✔ consultation and captured-context guards serialize their read-only helper work (14.473ms)
+✔ an admitted internal helper waits for context consultation and then reacquires ownership checks (90.2449ms)
+✔ commands refuse arbitrary paths and public admission flags (0.4267ms)
+✔ atomic annex restores two independent choices and preserves future/corrupt bytes (3819.0775ms)
+✔ consultation beta never reassigns captured alpha; fresh sources still guard alpha (2.1664ms)
+✔ failed preservation retains session choice; save retry performs no observation (13.611ms)
+✔ superseded asynchronous choice never overwrites latest choice (31.3681ms)
+✔ passive read restores only known local choices without observing project data (5383.7587ms)
+✔ C1 normalized code-only witness retains directed INFERRED 0.85 and independent copies (19.4181ms)
+✔ C3/C4 refuses version without altering input (0.9978ms)
+✔ C3/C4 refuses profile without altering input (1.3681ms)
+✔ C3/C4 refuses tool without altering input (0.8384ms)
+✔ C3/C4 refuses raw without altering input (14.6263ms)
+✔ C3/C4 refuses schema without altering input (98.9832ms)
+✔ C3/C4 refuses extra payload without altering input (0.7525ms)
+✔ C3/C4 refuses duplicate nodes without altering input (0.9623ms)
+✔ C3/C4 refuses duplicate relations without altering input (0.8031ms)
+✔ C3/C4 refuses endpoint without altering input (1.1353ms)
+✔ C3/C4 refuses direction without altering input (0.6347ms)
+✔ C3/C4 refuses confidence without altering input (0.5446ms)
+✔ C3/C4 refuses boolean score without altering input (0.7321ms)
+✔ C3/C4 refuses nan score without altering input (0.4614ms)
+✔ C3/C4 refuses infinite score without altering input (1.2985ms)
+✔ C3/C4 refuses large score without altering input (1.7304ms)
+✔ C3/C4 refuses missing value without altering input (0.562ms)
+✔ C3/C4 refuses line zero without altering input (1.5229ms)
+✔ C3/C4 refuses line out of corpus without altering input (0.5105ms)
+✔ C3/C4 refuses fractional line without altering input (0.3732ms)
+✔ C3/C4 refuses unattested line without altering input (0.3649ms)
+✔ C3/C4 refuses declared link without altering input (0.3193ms)
+✔ C3/C4 refuses unknown file without altering input (0.3161ms)
+✔ C3/C4 refuses duplicate sources without altering input (0.294ms)
+✔ C3/C4 refuses complete with omissions without altering input (0.2642ms)
+✔ C3/C4 refuses ../outside.ts without altering input (0.2722ms)
+✔ C3/C4 refuses /absolute.ts without altering input (0.2405ms)
+✔ C3/C4 refuses C:/outside.ts without altering input (0.2899ms)
+✔ C3/C4 refuses src\file.ts without altering input (0.2679ms)
+✔ C3/C4 refuses src/../outside.ts without altering input (0.2629ms)
+✔ C3/C4 refuses ./src/client.ts without altering input (0.5194ms)
+✔ C3/C4 refuses src//client.ts without altering input (0.2745ms)
+✔ C3/C4 refuses src/a:b.ts without altering input (0.2291ms)
+✔ C3 cycles, accessors, prototypes and hostile values have controlled refusals without getter calls (1.0156ms)
+✔ C4 all three levels, unknown file/line and absent score remain explicit without promotion (0.9648ms)
+✔ C1 multiple proofs between identical endpoints keep ids, source direction and opaque native ids (0.4899ms)
+✔ C2 candidate claims cannot override independently held expected identities, manifest or generation (9.6043ms)
+✔ C2 a newer wall clock never publishes an older attempt or different scope/project (9.4508ms)
+✔ C5 observing a complete result does not prove terminal stop, persistence or a new last complete (3.0974ms)
+✔ C5 partial, failure, incompatible and changed-during-collection preserve previous complete (8.9818ms)
+✔ C5 terminal order and owned attempt are checked against core facts, without promotion on stop request (1.4408ms)
+✔ C6 restoration is historical, non-revalidating and starts no fictitious port or derived command (5.1507ms)
+✔ C7 command declarations reject paths, native effects, invalid discriminants/correlation and unknown versions (0.7116ms)
+✔ C7 event validation rejects correlation/discriminant/identity incoherence and controls replay order (3.2839ms)
+✔ C8 all pure decisions detach candidate, expected corpus, previous result and returned last complete (106.5374ms)
+✔ C7 port requests are versioned data: authority and live effects cannot enter through payloads (1.2085ms)
+✔ C2 source revision captured at start cannot be silently reassigned by later expected facts (0.6593ms)
+✔ C3/C6 malformed expected facts and historical stop ambiguity cannot be repaired or used as permission (5.3186ms)
+✔ C5 unknown source observation is never promoted, and terminal corpus is checked again (5.5449ms)
+✔ C5 complete, partial, failures, timeout and interruption each require coherent terminal observations (1.5495ms)
+✔ C4 expected scope disclosure, uncommitted revision and missing line facts stay distinct (1.2982ms)
+{"retainedHelpFixture":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-boundaries-fnrN8G","reason":"terminal Job stop proof unavailable; no cleanup attempted"}
+✖ real product sources preserve partial help and reject Windows path/runtime boundary variants (189536.6635ms)
+{"checks":["only official v6 leftover markers are used","official legacy presence observed without reading _bmad/_config/manifest.yaml","official legacy presence observed without reading _bmad/_config/files-manifest.csv","official legacy presence observed without reading _bmad/_config/skill-manifest.csv","official legacy presence observed without reading _bmad/_config/bmad-help.csv","official legacy presence observed without reading _bmad/config.user.toml","official legacy presence observed without reading _bmad/core/config.yaml","official legacy presence observed without reading _bmad/core/module-help.csv","official legacy presence observed without reading _bmad/core/v6-shims","official legacy presence observed without reading _bmad/bmm/config.yaml","official legacy presence observed without reading _bmad/bmm/module-help.csv","official legacy presence observed without reading _bmad/bmm/v6-shims","fresh detects official legacy marker appearance","legacy presence keeps independent help and refuses native","all eleven legacy observations are captured","legacy YAML CSV and shims content never loaded","oversized invalid UTF8 legacy body never read","fresh detects official legacy marker disappearance"],"count":18}
+✔ M2 official legacy markers are presence-only, independent and fresh on appearance or disappearance (149164.0104ms)
+{"checks":["missing preserves independent safe help","missing never presents bad help as loaded","missing has an explicit document diagnostic","missing raw native JSON remains exact","invalid-utf8 preserves independent safe help","invalid-utf8 never presents bad help as loaded","invalid-utf8 has an explicit document diagnostic","invalid-utf8 raw native JSON remains exact","oversized preserves independent safe help","oversized never presents bad help as loaded","oversized has an explicit document diagnostic","oversized raw native JSON remains exact","oversized refused source freshness retained","scalar-core preserves independent safe help","scalar-core refuses native configuration capability","scalar-core retains an explicit configuration diagnostic","scalar-core preserves exact native help JSON","scalar-core keeps captured configuration fresh","invalid-keyed-merge preserves independent safe help","invalid-keyed-merge refuses native configuration capability","invalid-keyed-merge retains an explicit configuration diagnostic","invalid-keyed-merge preserves exact native help JSON","invalid-keyed-merge keeps captured configuration fresh","output-absent preserves independent safe help","output-absent refuses native help capability","output-absent has precise absence or size diagnostic","output-absent captured state stays fresh before changes","output-absent appearance or refused source change invalidates capture","skill-oversized preserves independent safe help","skill-oversized refuses native help capability","skill-oversized has precise absence or size diagnostic","skill-oversized captured state stays fresh before changes","skill-oversized primary oversized text never presented loaded","skill-oversized appearance or refused source change invalidates capture","help-oversized preserves independent safe help","help-oversized refuses native help capability","help-oversized has precise absence or size diagnostic","help-oversized captured state stays fresh before changes","help-oversized primary oversized text never presented loaded","help-oversized appearance or refused source change invalidates capture","qualified candidate has 735 exact runtime entries","qualified TLS guard is present unchanged"],"count":42}
+✔ M2 partial documents and structurally invalid configuration retain independent safe help (177408.6739ms)
+✔ late receipt write acknowledgements never overwrite newer receipts or mark their body durable early (9.8813ms)
+✔ an old failed response save preserves the newer full response and retry-save sends nothing (5.5036ms)
+✔ captured context checks pause the native wait budget while local guarded work is bounded separately (932.6874ms)
+✔ help sends exact native skill plus dedicated question and retains written tool receipts (6.7661ms)
+✔ first help terminal refuses no tools (2.2593ms)
+✔ first help terminal refuses no context (5.7171ms)
+✔ first help terminal refuses missing inventory (2.0988ms)
+✔ help refuses a foreign tool before calling the native host (1.2475ms)
+✔ native bundle receipt storage failure cannot produce a completed recommendation (1.7341ms)
+✔ encoded excessive native response is refused before successful tool transmission (53.7423ms)
+✔ foreign native thread and duplicate call ids are refused with no successful recommendation (2.9964ms)
+✔ one closed context batch satisfies every required source only after its actual written response (3.9835ms)
+✔ wrong batch mapping is refused before an apparent complete recommendation (1.6777ms)
+✔ cumulative encoded tool buffers are bounded at eight MiB with no fabricated transmission after refusal (372.662ms)
+✖ real Windows Job owns descendants before Resume and returns finitely for root0, timeout, overflow and start failure (90047.9068ms)
+✔ failure after suspended root creation stays started and cannot become a never-started stop proof (21877.4166ms)
+✔ help commands accept business ids only and refuse arbitrary paths and modes (239.8257ms)
+✔ helper root disappearance never proves group stop; durable terminal is generation bound (1419.5932ms)
+✔ future help annex is preserved and cannot be overwritten (132.5332ms)
+✔ product resources include exact native sources and preparation uses no project executable (212.85ms)
+✔ real Windows helper loads native help over snapshots and rejects changed configuration (270087.5742ms)
+✔ private admissions serialize local preparation and provider, nested helper requires explicit owner scope (15.0087ms)
+✔ connection reacquires aggregate proof at effect and a Codex callback cannot clear helper unknown (26.7082ms)
+✔ a successful session.stop cannot bypass the independent helper recovery proof (56.4345ms)
+✔ native receipts survive disk failure in session and retry-save never resends; restore stays passive (16.5325ms)
+✔ help appendix validates exact schemas and rejects corrupt/future content on write (36.7069ms)
+✔ changed owned native resource is refused before any UV and reservation closes without borrowing Codex proof (553.973ms)
+✔ corrupt helper owner cannot redirect recovery to an external proof folder (49.0859ms)
+✔ closed context batch has one raw receipt, exact mapping and encoded-size fallback (23.5357ms)
+✔ future owner bytes appearing after a known stop cannot be cleared by observation (111.3866ms)
+✔ confirm rejection after begin releases helper admission and shutdown without claiming a stop (453.0329ms)
+{"platform":"win32","checks":["selected beta distinct from active alpha","no leaf entry remains visible","three status declarations retained","literal excerpts and exact lines","qualification never scanned","hash source-ecc7b36016e06ce3578acf495222b34eb53a43932d8b5e9e50014da2cd7fd4d0","hash source-e4bab747433748b3063535008c70132facffc2f53eac87971db6ba4d6ee6e576","hash source-5767bb38a5a5f7ed7fbcad3fb63bb590e01da6dc841772332dc5bc6049b60ed5","hash source-923bd629beb30d86634d45b46fd9634f27fa1b8ebd061e7dfc448c26f401a763","hash source-0108ce1ebcb670f7eba668c1e9967fcf4ce869eeb386ed8fbd8a1a8bcdcfee90","new bytes produce different revision","plan joins by leaf stem independent of filename","duplicate plans kept and named","same byte replacement changes collection revision","invalid UTF8 explicit partial","invalid frontmatter explicit partial","file bound no truncation","hardlink refusal no outside read","invalid TOML explicit partial","mixed revision refused","unqualified G2 refused"],"count":21,"network":false,"provider":false}
+✔ P1/P2/P3/P4/P6 closed Windows progress helper: exact bytes, limits, mutations and refusal (160633.3435ms)
+{"platform":"win32","checks":{"H2-alphanumeric-stem-joins-unmatched-id":true,"H2-conflicting-leaf-and-plan-keep-same-identity":true,"H3-multiline-basic-actual-status-line":true,"H3-multiline-basic-valid-toml-not-refused":true,"H3-multiline-literal-actual-status-line":true,"H3-multiline-literal-valid-toml-not-refused":true,"H3-quoted-keys-actual-status-line":true,"H3-quoted-keys-valid-toml-not-refused":true,"F4-canonical-brief-demo":true,"F4-canonical-prd-demo":true,"F4-canonical-architecture-demo":true,"F4-canonical-research-demo":true,"F4-canonical-ux-demo":true,"F4-canonical-prfaq-demo":true,"F4-canonical-brainstorm-demo":true,"F4-canonical-forge-demo":true,"F4-ux-DESIGN.md":true,"F4-ux-EXPERIENCE.md":true,"F4-no-heavy-evidence-or-import-recursion":true,"F4-literal-canonical-decisions":true,"F4-epic-canonical-prd-demo":true,"F4-epic-canonical-architecture-demo":true,"F4-epic-canonical-ux-demo":true,"F4-epic-ux-DESIGN.md":true,"F4-epic-ux-EXPERIENCE.md":true,"F4-epic-document-mutation-changes-revision":true,"F4-epic-document-hash-from-actual-bytes":true,"F4-epic-heavy-proof-excluded":true},"count":28,"network":false,"provider":false}
+✔ review H2/H3/F4: real Windows source joins, TOML lexical provenance and conventional v7 documents (160035.7815ms)
+{"platform":"win32","checks":{"filename-join-no-native-id":true,"explicit-file-identity-bounded":true,"raw-statuses-retained":true,"native-id-unknown-explicit":true,"joined-plan-not-orphan":true,"id-first-before-filename":true,"genuine-orphan-preserved":true,"file-identity-stable-across-content-revision":true},"count":8,"network":false,"provider":false}
+✔ Q2 filename joins retain recognized leaves without inventing native ids (79126.3975ms)
+✔ qualification receipts retain emitted timings and Job state but only request.op (188.0355ms)
+✔ P2/P3 declarations keep entry, leaf, plan and tracker separate; built never accepts (287.594ms)
+✔ P4 literal excerpts retain section, source and lines with no generated synthesis (1.2844ms)
+✔ Q1 literal statuses in-progress and blocked remain conflicting (0.526ms)
+✔ Q1 literal statuses draft and ready-for-dev remain conflicting (0.3139ms)
+✔ Q1 tracker equivalence stays separate from literal status disagreement (0.4223ms)
+✔ strict bridge refuses free paths, admission flags and inconsistent source links (2.2237ms)
+✔ P5 consultation beta is independent of active alpha; passive read starts no helper (1.6191ms)
+✔ P5 no choice, missing choice and replaced root refuse new collection (1.4ms)
+✔ P7 late result remains attached to captured beta and cannot replace selected alpha (67.3018ms)
+✔ P7 failure preserves previous dated snapshot and shutdown aborts owned read (2.9765ms)
+✔ P8 local reader has no connection dependency; BUSY and STOP_UNCONFIRMED remain distinct (32.7284ms)
+✔ P7 failed refresh preserves every previous source byte reference and date (1.098ms)
+✔ P7 replaced application root marks a delayed capture historical even before context refresh (1.292ms)
+✔ P7 superseded generation cannot overwrite the latest read (1.0846ms)
+✔ OAuth loopback lie PKCE, nonce, client et redirect puis vérifie une vraie signature (288.8635ms)
+✔ callbacks étrangers, doublons et client incorrect ne terminent pas l’attente (97.9746ms)
+✔ la réautorisation reprend le client enregistré si le callback omet client_id et omet le hint initial (50.2042ms)
+✔ refus de consentement ne tente aucun échange et ferme le listener (28.5366ms)
+✔ ID token avec nonce invalide refusé (18.8416ms)
+✔ ID token avec audience invalide refusé (26.3948ms)
+✔ ID token avec issuer invalide refusé (22.8744ms)
+✔ ID token avec expiration invalide refusé (23.592ms)
+✔ ID token avec authorized party invalide refusé (16.7853ms)
+✔ ID token avec audiences multiples sans authorized party invalide refusé (23.2379ms)
+✔ scopes insuffisants et changement d’identité refusés (51.6643ms)
+✔ signature forgée refusée au lieu du seul décodage JWT (90.9577ms)
+✔ annulation, timeout et navigateur défaillant ferment le listener (51.0252ms)
+✔ refresh tourne le jeton seulement à la demande et refuse une autre identité (22.4413ms)
+✔ refresh charge les clés publiques avant la rotation puis les réutilise pour le nouvel ID token (28.3806ms)
+✔ échec JWKS réseau avant refresh ne transmet aucun POST de rotation (1.8561ms)
+✔ échec JWKS jeu vide avant refresh ne transmet aucun POST de rotation (0.4043ms)
+✔ échec JWKS clé RSA invalide avant refresh ne transmet aucun POST de rotation (0.6673ms)
+✔ transport borne les tailles, refuse les destinations et les redirections (6.6622ms)
+✔ un navigateur qui ne répond pas reste annulable et libère le listener (15.5669ms)
+✔ environnement témoin supprime les credentials et profils hérités (23.3117ms)
+✔ seuls item assistant et tour completed corrélés prouvent le témoin (9.5708ms)
+✔ catalogue seul et modèle défaut invisible ne suffisent pas (1.5862ms)
+✔ arrêt natif attend la fermeture observable du processus possédé (1261.1231ms)
+✔ arrêt natif confirme close et les flux après terminaison par signal (2384.4915ms)
+✔ annulation interrompt les appels RPC en attente sans rejouer (1.0064ms)
+✖ découverte native exige le chemin standard, le manifeste et un fichier PE (620.3118ms)
+✔ un profil témoin sous le dépôt est refusé avant toute création ou détection (3.0538ms)
+✔ un arrêt inconnu pendant --version prime sur annuler et conserve le profil (6107.8987ms)
+{"resumeUiViewport":{"case":"offline-captured-conversation","viewport":{"requested":{"width":1440,"height":920},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[1440,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":1440,"height":920},"native":{"contentSize":[1440,920],"zoomFactor":1},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]}}}
+✔ reprise: hors ligne, declarations exactes, preuves inertes et retour capture alpha conservent la saisie (8553.2361ms)
+✔ reprise: Q2 identite de fichier ne se presente pas comme id natif (40202.8754ms)
+✔ reprise: Q3 retour de conversation restaure preuves recap et position de la meme capture seulement (11083.643ms)
+{"resumeUiViewport":{"theme":"dark","width":1440,"zoom":1,"viewportAt100":{"requested":{"width":1440,"height":920},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[1440,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":1440,"height":920},"native":{"contentSize":[1440,920],"zoomFactor":1},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]},"geometry":{"width":1440,"height":920,"compact":false,"docked":true,"scroll":1440,"region":1133.5999755859375,"client":1134,"scrollRegion":1134,"font":"Oxanium, \"Segoe UI\", sans-serif"}}}
+{"resumeUiViewport":{"theme":"dark","width":720,"zoom":1,"viewportAt100":{"requested":{"width":720,"height":920},"actual":{"width":720,"height":920,"layoutWidth":720,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":true,"matches":true},{"query":"(max-width: 1080px)","expected":true,"matches":true},{"query":"(max-width: 1280px)","expected":true,"matches":true},{"query":"(min-width: 1323px)","expected":false,"matches":false},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[720,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":720,"height":920},"native":{"contentSize":[720,920],"zoomFactor":1},"actual":{"width":720,"height":920,"layoutWidth":720,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":true,"matches":true},{"query":"(max-width: 1080px)","expected":true,"matches":true},{"query":"(max-width: 1280px)","expected":true,"matches":true},{"query":"(min-width: 1323px)","expected":false,"matches":false},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]},"geometry":{"width":720,"height":920,"compact":true,"docked":false,"scroll":720,"region":677.6000366210938,"client":678,"scrollRegion":678,"font":"Oxanium, \"Segoe UI\", sans-serif"}}}
+{"resumeUiViewport":{"theme":"dark","width":1440,"zoom":2,"viewportAt100":{"requested":{"width":1440,"height":920},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[1440,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":1440,"height":920},"native":{"contentSize":[1440,920],"zoomFactor":1},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]},"geometry":{"width":720,"height":460,"compact":true,"docked":false,"scroll":720,"region":682.7999877929688,"client":683,"scrollRegion":683,"font":"Oxanium, \"Segoe UI\", sans-serif"}}}
+{"resumeUiViewport":{"theme":"light","width":1440,"zoom":1,"viewportAt100":{"requested":{"width":1440,"height":920},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[1440,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":1440,"height":920},"native":{"contentSize":[1440,920],"zoomFactor":1},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]},"geometry":{"width":1440,"height":920,"compact":false,"docked":true,"scroll":1440,"region":1133.5999755859375,"client":1134,"scrollRegion":1134,"font":"Oxanium, \"Segoe UI\", sans-serif"}}}
+{"resumeUiViewport":{"theme":"light","width":720,"zoom":1,"viewportAt100":{"requested":{"width":720,"height":920},"actual":{"width":720,"height":920,"layoutWidth":720,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":true,"matches":true},{"query":"(max-width: 1080px)","expected":true,"matches":true},{"query":"(max-width: 1280px)","expected":true,"matches":true},{"query":"(min-width: 1323px)","expected":false,"matches":false},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[720,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":720,"height":920},"native":{"contentSize":[720,920],"zoomFactor":1},"actual":{"width":720,"height":920,"layoutWidth":720,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":true,"matches":true},{"query":"(max-width: 1080px)","expected":true,"matches":true},{"query":"(max-width: 1280px)","expected":true,"matches":true},{"query":"(min-width: 1323px)","expected":false,"matches":false},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]},"geometry":{"width":720,"height":920,"compact":true,"docked":false,"scroll":720,"region":677.6000366210938,"client":678,"scrollRegion":678,"font":"Oxanium, \"Segoe UI\", sans-serif"}}}
+{"resumeUiViewport":{"theme":"light","width":1440,"zoom":2,"viewportAt100":{"requested":{"width":1440,"height":920},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[1440,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":1440,"height":920},"native":{"contentSize":[1440,920],"zoomFactor":1},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]},"geometry":{"width":720,"height":460,"compact":true,"docked":false,"scroll":720,"region":682.7999877929688,"client":683,"scrollRegion":683,"font":"Oxanium, \"Segoe UI\", sans-serif"}}}
+✔ reprise: captures anciennes, details clavier, deux themes, compact et zoom 200 sans debordement (6725.5271ms)
+✔ reprise: annonce du projet precedent effacee dans une destination sans projection (8837.1105ms)
+✔ reprise: liste longue repliee et acces clavier aux quatre groupes avant les tickets (49476.0238ms)
+✔ initiatives: restauration et changement de projet restent passifs, observation explicite conservée (23634.8135ms)
+✔ initiatives: diagnostics explicites dans le choix et le contexte même sans problems (82803.7306ms)
+✔ initiatives: conflit asynchrone reçu par abonnement vise seulement le projet courant (10055.8338ms)
+✔ initiatives: choix tardif après fermeture ne reprend ni focus ni nouvelle ouverture (30092.6581ms)
+✔ initiatives: choix local, focus et brouillon conservés sans lancement ni réattribution (11675.5418ms)
+✔ initiatives: consultation beta garde la demande alpha et sa réponse exacte (13844.3594ms)
+✔ initiatives: conservation échouée et ancien résultat restent honnêtes (18653.1417ms)
+✖ initiatives: clavier, noms longs, compact, deux thèmes et zoom200 sans fuite horizontale (12536.8609ms)
+✖ initiatives: couleurs locales lisibles et métadonnées alignées dans le thème clair (4300.3572ms)
+✔ initiatives: seul un échange porte le libellé de capture, indépendamment du choix local (8015.8721ms)
+✖ initiatives: choix courant focalisé sans masquer titre et fermeture au compact et zoom200 (3934.009ms)
+✔ barre : les emprises de déplacement sont séparées des quatre commandes (9620.9256ms)
+ℹ []
+✖ atelier : disposition compacte, buste complet et conteneurs confinés dans les deux thèmes (9386.4721ms)
+ℹ {"size":{"width":1600,"height":1000},"theme":"dark","viewport":{"width":1600,"height":1000},"title":{"text":"Projet personnel de qualification de la refonte avec un nom réellement très long sans abréviation","scrollWidth":522,"clientWidth":522},"banner":{"x":264,"y":68,"right":1215.6000366210938,"bottom":233.6999969482422,"width":951.6000366210938,"height":165.6999969482422,"backgroundImage":"none"},"tabs":[{"x":268,"y":247.6999969482422,"right":383.5500030517578,"bottom":291.6999969482422,"width":115.55000305175781,"height":44},{"x":391.5500183105469,"y":247.6999969482422,"right":539.6750183105469,"bottom":291.6999969482422,"width":148.125,"height":44}],"bust":{"x":1271.5999755859375,"y":136,"right":1569.5999755859375,"bottom":370,"width":298,"height":234},"image":{"x":1272.4000244140625,"y":136.8000030517578,"right":1568.8000183105469,"bottom":369.20001220703125,"width":296.3999938964844,"height":232.40000915527344,"objectFit":"contain","transform":"none","naturalWidth":1254,"naturalHeight":1254},"containers":[{"element":"html","x":0,"y":0,"right":1600,"bottom":1000,"width":1600,"height":1000,"clientWidth":1600,"scrollWidth":1600},{"element":"body","x":0,"y":0,"right":1600,"bottom":1000,"width":1600,"height":1000,"clientWidth":1600,"scrollWidth":1600},{"element":"#root","x":0,"y":0,"right":1600,"bottom":1000,"width":1600,"height":1000,"clientWidth":1600,"scrollWidth":1600},{"element":"app-shell agent-info-open ","x":0,"y":0,"right":1600,"bottom":1000,"width":1600,"height":1000,"clientWidth":1600,"scrollWidth":1600},{"element":"app-body","x":0,"y":56,"right":1600,"bottom":1000,"width":1600,"height":944,"clientWidth":1600,"scrollWidth":1600},{"element":"sidebar","x":0,"y":56,"right":240,"bottom":1000,"width":240,"height":944,"clientWidth":239,"scrollWidth":239},{"element":"workspace","x":240,"y":56,"right":1600,"bottom":1000,"width":1360,"height":944,"clientWidth":1360,"scrollWidth":1360},{"element":"workspace-body","x":240,"y":56,"right":1600,"bottom":1000,"width":1360,"height":944,"clientWidth":1360,"scrollWidth":1360},{"element":"#main","x":240,"y":56,"right":1250,"bottom":1000,"width":1010,"height":944,"clientWidth":1000,"scrollWidth":1000},{"element":"main-inner","x":240,"y":56,"right":1239.6000366210938,"bottom":1000,"width":999.6000366210938,"height":944,"clientWidth":1000,"scrollWidth":1000},{"element":"#panel-conversation","x":264,"y":387,"right":1215.6000366210938,"bottom":973,"width":951.6000366210938,"height":586,"clientWidth":952,"scrollWidth":952},{"element":"conversation-messages","x":264,"y":487.3999938964844,"right":1215.6000366210938,"bottom":647.3999938964844,"width":951.6000366210938,"height":160,"clientWidth":941,"scrollWidth":941},{"element":"agent-info-panel is-docked","x":1250,"y":56,"right":1600,"bottom":1000,"width":350,"height":944,"clientWidth":348,"scrollWidth":348},{"element":"agent-panel-heading","x":1251.5999755859375,"y":58.400001525878906,"right":1599.9999694824219,"bottom":120.00000381469727,"width":348.3999938964844,"height":61.60000228881836,"clientWidth":348,"scrollWidth":348},{"element":"agent-panel-body","x":1251.5999755859375,"y":120,"right":1599.9999694824219,"bottom":951,"width":348.3999938964844,"height":831,"clientWidth":338,"scrollWidth":338}]}
+✔ atelier : seuls les sept auteurs attestés exacts ont un portrait, les replis gardent nom et provenance (5702.5199ms)
+✔ atelier : fiche dockée locale, provenance stable, fermeture restitue largeur, focus et saisie sans effet métier (7860.6979ms)
+✔ atelier : modale étroite inerte, seuil conservé, Échap unique et connexion engagée jamais annulée par consultation (19499.5415ms)
+ℹ {"requestedScrollTop":70,"beforeScrollTop":70.4000015258789,"afterScrollTop":70.4000015258789,"devicePixelRatio":1.25}
+✔ atelier : source disparue ferme la fiche vers le titre neutre, contexte et thème préservent le brouillon (16852.9987ms)
+✔ atelier : arrivée question, approbation et récupération gardent le focus, expiration rejoint seulement son historique exact (15803.676ms)
+✔ atelier : arrivée visible au-dessus du rôle à600×650 et zoom200 sans déplacement de focus ni décision (20020.5508ms)
+ℹ {"zoom":1,"height":651,"status":{"top":80,"bottom":101,"width":550.4000244140625,"height":21},"button":{"top":105,"bottom":149,"width":182.41250610351562,"height":44},"body":{"top":157.8000030517578,"bottom":643.1999969482422,"width":582.4000244140625,"height":485.3999938964844},"bodyScroll":0,"focus":"agent-info-title"}
+ℹ {"zoom":2,"height":325,"status":{"top":80.80000305175781,"bottom":122.80000305175781,"width":250,"height":42},"button":{"top":126.80000305175781,"bottom":170.8000030517578,"width":182.41250610351562,"height":44},"body":{"top":216.0625,"bottom":317.5999984741211,"width":282,"height":101.5374984741211},"bodyScroll":0,"focus":"agent-info-title"}
+✔ atelier : chaque nouvelle demande identique est annoncée une fois et conserve sa destination après expiration (9862.9382ms)
+✔ atelier : aides partielles et reçus non conservés utilisent un HelpBridge synthétique strict, sans transmission (16008.4241ms)
+✔ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (9793.2793ms)
+✔ une approbation corrélée montre sa portée et son patch avant tout ancien formulaire (6198.1298ms)
+✔ un historique simple avec nom long garde le point de saisie libre repérable au premier écran (8123.9932ms)
+ℹ {"requested":{"width":1440,"height":920},"top":682.7999877929688,"bottom":751.5999908447266,"width":1440,"height":920,"mainScroll":0,"requests":0}
+ℹ {"requested":{"width":720,"height":820},"top":703.7999877929688,"bottom":772.5999908447266,"width":720,"height":820,"mainScroll":0,"requests":0}
+✖ atelier : la saisie et son action restent ensemble au premier écran (8060.2331ms)
+ℹ {"requested":{"width":1440,"height":920},"fieldTop":682.7999877929688,"actionBottom":801.200023651123,"height":920,"scroll":0}
+ℹ {"requested":{"width":720,"height":820},"fieldTop":703.7999877929688,"actionBottom":856.5999870300293,"height":820,"scroll":0}
+✔ atelier : le dernier message garde son auteur et du texte lisibles ensemble (8141.4754ms)
+ℹ {"requested":{"width":1440,"height":920},"authorVisible":48,"textVisible":62.400001525878906}
+ℹ {"requested":{"width":720,"height":820},"authorVisible":48,"textVisible":58.400001525878906}
+✔ le focus de réponse reste neutre pendant envoi puis historique, sans détourner une autre saisie (5672.6963ms)
+✔ expiration et décision retirent leurs contrôles vers un titre neutre dans l’historique (6858.1247ms)
+✔ la conversation donne accès au travail avant la préparation et conserve la saisie en consultant le contexte (9531.3231ms)
+✔ ouvrir Codex depuis la projection ferme le contexte et focalise le panneau visible (5807.531ms)
+✔ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (2833.1097ms)
+✔ un lancement Mary rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec (18766.1714ms)
+✔ un lancement Forge rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec (24940.6726ms)
+✔ les annonces polies de l’accueil couvrent arrivée, envoi et résolution sans annoncer les fragments (3554.5023ms)
+✔ les récapitulatifs repliés nomment le fait du tour et gardent leur identifiant secondaire (5681.0652ms)
+✔ accueil rejoint la conversation exacte par clavier, préserve les saisies et retire l’attente résolue (13549.2205ms)
+✔ deux destinations concurrentes et retour tardif gardent le dernier contexte et focus demandés (12532.4235ms)
+✔ préparer un échange annule une sélection différée et libère les commandes sans détour tardif (12642.6397ms)
+✔ une attente expirée pendant la sélection conserve sa saisie et explique l’absence d’envoi (4768.9804ms)
+✔ activité native reste nommée à l’accueil et un échec de sélection ne déplace ni contexte ni focus (3698.9261ms)
+✔ les articles progressifs gardent leur nœud, identité sourcée, lecture et saisie sans annoncer chaque fragment (6269.4569ms)
+✖ le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (15595.0859ms)
+✔ les indicateurs de question distinguent saisie et envoi et utilisent son destinataire réel (7679.7826ms)
+✔ le thème change au clavier sans perdre le brouillon ni le contexte en fenêtre compacte (8517.4152ms)
+✔ Forge prépare la portée inline, exige qualification et lancement explicites puis conserve le brouillon et le destinataire (17950.967ms)
+✔ les contrôles partagés sont attribués à la session Forge (13636.1303ms)
+✔ les contrôles partagés sont attribués à la session Mary (9594.8884ms)
+✔ la préparation Forge explique le prérequis account et sa récupération en fenêtre compacte (14015.4464ms)
+✔ la préparation Forge explique le prérequis plan et sa récupération en fenêtre compacte (13585.5867ms)
+✔ Forge historique après Mary conserve résultat, contexte, observations et copie du chemin correspondant (21714.3943ms)
+✔ un thème non sauvegardé garde un avertissement accessible et la saisie (true) (1777.7139ms)
+✔ un thème non sauvegardé garde un avertissement accessible et la saisie (bridge) (1760.2175ms)
+✔ le rappel forfait affiche l’erreur connue et reste fermable après un échec durable (5449.408ms)
+✔ Échap ferme le tiroir compact actif et conserve le panneau Codex en arrière-plan (3653.7929ms)
+✔ Mary expose son invocation et son forfait puis envoie uniquement le brouillon capturé (8114.3986ms)
+✔ un arrêt inconnu depuis un autre projet garde le motif du blocage et le retour au propriétaire (17875.8235ms)
+✔ l’aide aux clés publiques est absente sans erreur réseau (1654.7959ms)
+✔ l’aide réseau ouvre ou copie l’unique URL publique sans masquer l’erreur ni relancer Codex (6164.7205ms)
+✔ l’aide réseau garde une récupération locale après échec copyPublicKeys (3703.9283ms)
+✔ l’aide réseau garde une récupération locale après échec openPublicKeys (1637.4012ms)
+✔ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (11877.6619ms)
+✔ un arrêt du témoin connexion non confirmé expose la récupération explicite sans projet (1845.966ms)
+✖ navigation: les infobulles projets restent peintes devant bannière et onglets (2574.2529ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-jOP87V\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-jOP87V\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+✔ le coffre chiffre atomiquement, restaure et conserve l’inscription après déconnexion (250.7916ms)
+✔ chiffrement absent et coffre corrompu préservent les octets sans fallback clair (290.635ms)
+✔ le contrat connexion refuse secrets, URLs et commandes imprécises (2.566ms)
+✔ ouvrir et copier les clés publiques restent des utilitaires sans argument pendant une lease (5.374ms)
+✔ échec expurgé de open-public-keys conserve erreur réseau, compte et lease (1.2798ms)
+✔ échec expurgé de copy-public-keys conserve erreur réseau, compte et lease (1.1947ms)
+✔ le dialogue utilise les credentials internes, exige le forfait acquitté et verrouille les mutations concurrentes (2.2636ms)
+✔ restaurer un compte ne lance aucun réseau et exige une vérification explicite (0.4345ms)
+✔ déconnexion refusée pendant le dialogue après témoin vérifié reste un état BUSY valide (5.097ms)
+✔ échec du refresh au lancement publie NETWORK_UNAVAILABLE, conserve le compte et libère la lease (1.2347ms)
+✔ connexion courte, compte enregistré et témoin arrêté précèdent le succès sans secret (19.4686ms)
+✔ OAuth seul ne prouve pas le forfait et un arrêt non confirmé produit inconnu (27.7619ms)
+✔ annulation et fermeture interrompent le travail sans réessai automatique (30.926ms)
+✔ coffre illisible reste une erreur explicite sans reset et sans OAuth (0.5235ms)
+✔ fermer demande l’arrêt du connecteur avant de vider la queue de persistance (2.692ms)
+✔ fermeture conserve inconnu si le processus ne confirme pas son arrêt (12.2255ms)
+✔ deux demandes de fermeture attendent toutes deux le même arrêt en cours (14.3728ms)
+✔ la fermeture conserve le brouillon déjà admis dans la queue et refuse les nouvelles commandes (16.6002ms)
+✔ déconnecter retire les credentials sans effacer l’arrêt inconnu ni autoriser un nouveau témoin (14.2874ms)
+✔ la fermeture attend la mutation coffre disconnect déjà engagée (14.7782ms)
+✔ la fermeture attend la mutation coffre acknowledge-plan déjà engagée (48.8638ms)
+✔ profil réel qualifie Mary, ses dépendances et les deux resolvers exécutables (42122.8318ms)
+✔ agent absent, altéré et surcharge inconnue bloquent avant invocation (628.036ms)
+✔ un module Python et un interpréteur ajoutés au projet ne remplacent pas le runtime du resolver (17122.8942ms)
+✔ les deltas corrélés sont projetés après acquittement, réconciliés par item sans dédoublonner le texte (53.0528ms)
+✔ une identité attestée dans un tour ne réattribue pas les tours suivants sans nouvelle preuve (3.6789ms)
+✔ les notifications admises sont drainées avant error et gardent tout le partiel (3.2833ms)
+✔ les notifications admises sont drainées avant abort et gardent tout le partiel (10.3685ms)
+✔ un terminal admis avant error ne devient jamais un succès (2.3814ms)
+✔ un terminal admis avant abort ne devient jamais un succès (2.0931ms)
+✔ un item démarré vide réserve son ordre dans le cœur et garde son identité pendant l’entrelacement A/B (18.2035ms)
+✔ le contexte est filtré avant la limite métier d’une rafale agrégée : foreign (4.3984ms)
+✔ le contexte est filtré avant la limite métier d’une rafale agrégée : old-turn (2.6022ms)
+✔ le contexte est filtré avant la limite métier d’une rafale agrégée : current (6.9004ms)
+✔ événements avant réponse RPC et tardifs sont filtrés ; identité initiale et ordre des items restent figés (2.3993ms)
+✔ flux incohérent ou hors borne refusé : mismatch (1.4232ms)
+✔ flux incohérent ou hors borne refusé : incomplete (1.1317ms)
+✔ flux incohérent ou hors borne refusé : overflow (1.9096ms)
+✔ flux incohérent ou hors borne refusé : invalid-id (1.0975ms)
+✔ les identifiants des réponses RPC ne sont pas convertis et les appels natifs simultanés ne se confondent pas (1.9395ms)
+✔ injection native skill et outils bornés produisent accueil puis réponse sur le même thread (2.0032ms)
+✔ demandes structurées, contexte étranger et fin native échouée ne sont jamais un succès (4.6681ms)
+✔ le runtime choisi est hors projet et une copie binaire altérée ne peut pas être exécutée (19389.6978ms)
+✔ legacy runtime PEM guard rejects altered or missing copied CA data before Mary or Forge can start UV (90178.9723ms)
+✔ progression stable, stockage groupé, identité figée et demande réelle ; texte partiel gardé sur coupure (29.4773ms)
+✔ un refus disque garde le texte visible avec conservation non confirmée (3.6278ms)
+✔ la projection refuse un volume cumulé excessif sans étendre Snapshot v1 (0.6054ms)
+✔ arrêt pendant un lot en écriture draine le partiel et le brouillon admis sans état ready (114.5284ms)
+✔ un acquittement en écriture ne réannonce pas running après une demande d’arrêt (2.9026ms)
+✔ contrat dialogue refuse propriétés natives, chemins, texte vide et effets implicites (0.3291ms)
+✔ qualification bloque le modèle, conversation conserve contexte et accusé durable sans bloquer la navigation (5.0724ms)
+✔ contexte étranger refusé et erreur de sauvegarde ne devient jamais succès (2.5162ms)
+✔ arrêt inconnu interdit tout nouveau lancement et garde le dernier contexte (2.6411ms)
+✔ annuler pendant la qualification ne lance aucun fournisseur et laisse le brouillon intact (3.5571ms)
+✔ arrêter pendant l’écriture finale ferme Codex sans rétablir ready (stopped) (3.2163ms)
+✔ arrêter pendant l’écriture finale ferme Codex sans rétablir ready (unknown) (3.3796ms)
+✔ Forge conserve invocation, contexte et observations avant effets ; restauration sans moteur et copie confirmée (3.5056ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : missing (0.8894ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : fingerprint (0.7327ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : skillPath (0.6751ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : outputBase (1.096ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : initiativeId (0.843ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : contextDigest (0.6641ms)
+✔ Forge refuse un profil préparé absent ou changé avant fournisseur : rootPath (0.575ms)
+✔ la limite de 200 workflows bloque Forge avant le fournisseur et permet restauration et Mary (15.948ms)
+✔ help ACK stores the exact initial native question and restores it without launching anything (2.7036ms)
+✔ une sortie neuve refuse la reprise et conserve le reçu de la tentative précédente (82.9009ms)
+✔ le choix explicite du banc ne peut écraser une sortie existante ; le défaut historique reste inchangé (251.8905ms)
+✔ la garde de chemin refuse racine, voisin et traversée (68.7027ms)
+✔ la garde refuse un parent symbolique de sortie (131.9285ms)
+✔ un paquet hybride est refusé même si la version et ASAR semblent corrects (1656.5905ms)
+✔ le manifeste par défaut est le final 1.13 ; le manifeste 1.9 reste historique (19.1609ms)
+✔ le reçu de banc exige source reconnue, code de sortie, nettoyage et succès propres (0.9915ms)
+✔ les erreurs publiées excluent texte brut, chemin privé, bearer et stderr (0.5178ms)
+✔ le mode personnel garde AppData et proxy usuels mais refuse déplacement ou affaiblissement TLS (0.6254ms)
+✔ un wrapper sorti ne prouve jamais la fermeture du vrai Main ni de son enfant (0.6517ms)
+✔ les modules permanents sont importables et une action personnelle absente refuse avant accès (289.5458ms)
+✔ la vraie CLI personnelle refuse un exécutable absent sans cycle TLA ni accès au profil (1477.4618ms)
+✔ la trace de contrôle expurge prompts, arguments, chemins, identifiants et refus arbitraires (8.9001ms)
+✔ la trace reconnaît la recherche Forge sans argument et expurge les clés imprévues (1.5221ms)
+✔ les opérations Forge conservent check-sessions et expurgent les valeurs inconnues (0.4103ms)
+✔ plusieurs centaines de contrôles restent complets sans contenu privé avant le plafond 2048 (32.3801ms)
+✔ dépasser 2048 contrôles signale l’incomplétude et conserve tout le flux natif (44.0562ms)
+✔ l’observation conserve les octets, le retour de backpressure et le callback stdin (6.5978ms)
+✔ un plafond ou une ligne perdue laisse une trace explicitement incomplète sans couper le flux (1.3769ms)
+✔ budget d’octets et ligne partielle interdisent une trace complète sans masquer les octets transmis (1.0251ms)
+✔ le hook sérialisé comme dans Playwright transmet spawn inchangé et persiste uniquement les métadonnées (12.8773ms)
+✔ le contrôle local expiré ne transmet aucune réponse et reste inactif après restauration (59.8666ms)
+✔ une approbation native corrélée avec effets relus accepte le raw indisponible ; reçu question inchangé (0.948ms)
+✔ Windows détecte une autre copie Madness avant toute lecture ou mutation du profil (10943.1865ms)
+✔ archivage fermé enlève uniquement les données du témoin ; aucun coffre ni dossier projet copié (1236.3581ms)
+✔ Forge utilise référence skill native, commandes strictes corrélées et même thread sans brouillon (16.7726ms)
+✔ Forge refuse foreign sans faux résultat (3.9262ms)
+✔ Forge refuse duplicate sans faux résultat (3.2685ms)
+✔ Forge refuse structured sans faux résultat (2.1005ms)
+✔ Forge refuse shell sans faux résultat (1.6872ms)
+✔ régression : le premier terminal après workflow/config seuls doit être refusé (2.5852ms)
+✔ régression : init sans contrôle de sessions doit être refusé avant tout effet hôte (2.0941ms)
+✔ ordre natif installé : init après config, puis personas avant la clôture sur le même thread (3.132ms)
+✔ init peut précéder personas mais la clôture sans personas est refusée avant l’outil hôte (4.2179ms)
+✔ init reste refusé avant la résolution de configuration native (1.7967ms)
+✔ contrôle de sessions refuse argument supplémentaire avant exécution hôte (1.6377ms)
+✔ contrôle de sessions refuse avant workflow avant exécution hôte (1.0716ms)
+✔ contrôle de sessions refuse avant config avant exécution hôte (1.0343ms)
+✔ contrôle de sessions refuse après init avant exécution hôte (1.1299ms)
+✔ un échec de conservation du contrôle empêche terminal et init (1.941ms)
+✔ contrôle de sessions refuse le contexte foreign-check (1.3984ms)
+✔ contrôle de sessions refuse le contexte foreign-check-turn (1.0811ms)
+✔ Windows publication et nettoyage du temporaire possédé refusent junction (76800.5398ms)
+✔ Windows publication et nettoyage du temporaire possédé refusent identity (39388.6987ms)
+✔ Windows écriture refuse le workspace remplacé avant préparation (38490.8202ms)
+✔ Windows init revalide son workspace après la garde avant le script (34499.8659ms)
+✔ Windows gardes locales après contexte refusent les jonctions avant les scripts (84604.6378ms)
+✔ garde finale après les attentes de runtime refuse append et finish avant spawn (50554.703ms)
+✔ garde finale après préparation du temporaire refuse la publication et conserve unknown commencé (35601.6902ms)
+✔ garde initiative après attente du reçu pending refuse Forge avant le premier effet (26189.3823ms)
+✔ Forge réel : resolvers et personas isolés, journal natif, sorties intégrales relues et fin HARDENED (99804.6971ms)
+✔ profil Forge refuse dépendance modifiée, hooks, sortie hors projet et reprise avant invocation (18192.185ms)
+✔ sorties bornées : traversée, liens, collision, modification externe et stockage refusé (55323.5476ms)
+✔ échec de sauvegarde après effet reste inconnu et ne permet aucun replay (32909.1984ms)
+✔ recherche native : sorties absentes, vides et complètes ; reçu exact sans corps ni effet (33676.4172ms)
+✔ fraîcheur : session inachevée general apparue après qualification ou contrôle bloque init (41724.2554ms)
+✔ fraîcheur : session inachevée initiative apparue après qualification ou contrôle bloque init (41040.2008ms)
+✔ frontières : refus fermés des journaux absents, invalides, trop grands, liens et hardlinks (46656.3861ms)
+✔ sans initiative, la recherche contrôle une seule fois la sortie générale imposée (25746.4886ms)
+✔ course : une sortie vide remplacée pendant readdir est refusée sans reçu ni lecture externe (22282.8138ms)
+✔ ordre hôte et échec de stockage ne créent ni reçu durable ni droit à init (34532.3034ms)
+✔ les frontières refusent un payload imprécis avant tout effet (2.305ms)
+✔ le pont ne reconnaît que la fenêtre et la frame exacte autorisées (0.4804ms)
+✔ contexte, brouillon et préférence survivent à une nouvelle instance (273.8854ms)
+✔ annuler le dialogue ne crée ni projet ni fichier (55.8879ms)
+✔ stockage corrompu et schéma futur refusent une écriture et préservent les octets (48.4862ms)
+✔ sauvegarde échouée et portée erronée ne revendiquent aucun succès durable (1.3947ms)
+✔ les écritures concurrentes du cœur sont cohérentes et la révision progresse (64.7472ms)
+✔ une cible non inscriptible produit une erreur stable sans remplacer la cible (16.3507ms)
+✔ une modification externe valide est préservée au lieu d’être remplacée (104.3189ms)
+✔ le preload valide aussi les réponses et les événements reçus (1.6626ms)
+✔ le JSON contenant des octets UTF-8 invalides est refusé sans remplacement (85.1129ms)
+✔ un caractère U+FFFD encodé correctement reste un brouillon valide (44.9668ms)
+✔ le coordinateur ne démarre rien et clôt uniquement les opérations enregistrées (4.5043ms)
+✔ restaurer une activité la rend historique et ne lance aucun connecteur (9.7815ms)
+✔ le banc refuse un espace arbitraire et conserve son profil entre A et B (309.5729ms)
+✔ les deux reçus exigent identités, ASAR et versions distinctes avant comparaison (4.9768ms)
+✔ un exécutable de même version avec un autre ASAR est refusé avant lancement (2.2251ms)
+✔ les échecs précoces de création nettoient la racine possédée sans masquer leur cause (120.1522ms)
+✔ les jonctions intermédiaires du coffre et de Chromium sont refusées avant lecture et lancement (446.4032ms)
+✔ la matrice v1, futur, corruption et UTF-8 protège tous les fichiers métier (593.4659ms)
+✔ un vrai refus Windows de rename conserve octets et révision, nettoie puis accepte un retry explicite (1308.431ms)
+✔ le renderer garde la saisie non durable après le même refus Windows et attend un nouveau clic (23965.9315ms)
+✔ un autre Electron réellement démarré est refusé puis fermé avant utilisation du profil (9700.0381ms)
+✔ RPC zéro conserve son type ; seul raw exact corrélé confirme la réponse après écriture (20.7799ms)
+✔ aucun faux reçu ou réponse automatique : mismatch (14.7361ms)
+✔ aucun faux reçu ou réponse automatique : absent (104.5579ms)
+✔ aucun faux reçu ou réponse automatique : stop (3.2002ms)
+✔ aucun faux reçu ou réponse automatique : expiry (29.7458ms)
+✔ aucun faux reçu ou réponse automatique : secret (2.4172ms)
+✔ le délai du tour est suspendu pendant la saisie humaine puis le dialogue poursuit (107.5933ms)
+✔ deux questions natives concurrentes invalident l’attente sans réponse par défaut (2.543ms)
+✔ un terminal natif pendant la saisie libère le drain sans choisir de réponse (2.7844ms)
+✔ un terminal retire la question encore en file derrière un outil et garde le tour suivant utilisable (6.8663ms)
+✔ contrat question refuse les secrets, IDs natifs, valeurs vides et champs étrangers (3.9921ms)
+✔ annexe question atomique préserve versions inconnues, conflits et octets refusés (138.3136ms)
+✔ question active admet une réponse pendant le tour, un seul envoi, ACK et écriture durable avant sent (20.5668ms)
+✔ invalidation pendant sauvegarde garde la saisie et interdit tout transfert vers une autre demande (3.3605ms)
+✔ échec de conservation après reçu ne devient pas sent ; arrêt conserve la réponse (3.2841ms)
+✔ la fin native attend la sauvegarde du reçu avant de terminer et garde la question sent (5.2122ms)
+✔ une sauvegarde réessayée après refus disque confirme la conservation et libère l’erreur locale (2.7878ms)
+✔ une réponse déjà inconnue reste inconnue et historique à chaque réouverture (0.7964ms)
+✔ arrêt pendant écriture durable du reçu garde l’invalidation et la même projection que le disque (4.4886ms)
+✔ un reçu rejeté après invalidation conserve atomiquement unknown et sa saisie à la réouverture (148.0933ms)
+✔ le refus de conserver unknown reste explicite après invalidation et rejet du reçu (4.0197ms)
+✔ NETWORK_UNAVAILABLE traverse le contrat dialogue sans devenir PROVIDER_FAILED (1.4747ms)
+✔ GET strict de clés publiques indépendant du coffre, OAuth, refresh, probe et modèle (8.8965ms)
+✔ vérifier accès est annulable, garde erreur connexion et ne libère aucune lease (11.6881ms)
+✔ un ancien release ne libère ni ne bloque le bail suivant (1.89ms)
+✔ un propriétaire durable inconnu bloque également le témoin connexion avant OAuth ou probe (2.1278ms)
+✔ la fermeture possédée confirmée ne masque pas un coffre illisible (0.7877ms)
+✔ commandes fermées de récupération : aucun PID, chemin, observation ou texte fournis par le renderer (1.6993ms)
+✔ inspection groupée distingue avant/après/mélange/divergence sans appliquer de diff (410.2883ms)
+✔ inspection refuse liens et racines protégées même pour un ajout absent (65.3257ms)
+✔ annexe privée versionnée conserve métadonnées inconnues et détecte une écriture externe (171.035ms)
+✔ propriétaire restauré : identité différente jamais arrêtée ; identité inaccessible reste bloquante (0.9749ms)
+✔ un callback de fermeture ancien ne libère pas le propriétaire suivant (0.7427ms)
+✔ stockage du propriétaire refusé empêche tout départ et laisse la preuve précédente intacte (0.4803ms)
+✔ deux départs simultanés réservent un seul propriétaire avant toute attente (0.4066ms)
+✔ un départ refusé par le stockage libère son verrou pour la prochaine tentative (0.3909ms)
+✔ échec de qualification sans dialogue ne récupère jamais le témoin connexion : qualify (13.5295ms)
+✔ échec de qualification sans dialogue ne récupère jamais le témoin connexion : launch (0.8333ms)
+✔ échec de qualification sans dialogue ne récupère jamais le témoin connexion : qualify-forge (1.8933ms)
+✔ échec d’un dialogue ouvert ferme son propre contrôle sans observation partagée (3.1568ms)
+✔ ouverture au résultat d’arrêt inconnu garde le verrou jusqu’à la récupération explicite (1.0185ms)
+✔ arrêt non confirmé durable bloque après restauration puis réobservation explicite débloque sans moteur (0.6156ms)
+✔ métadonnées de récupération illisibles restent un blocage visible sans moteur (0.5013ms)
+✔ accord incertain exige inspection fraîche : aucun ancien accord, texte ou brouillon au nouveau lancement (179.206ms)
+✔ inspection bloque mélange et divergence et ne survit jamais à une nouvelle instance (270.1288ms)
+✔ inspection réserve avant await et refuse navigation concurrente sans lancer de modèle (122.7885ms)
+✔ une modification pendant ouverture est refusée avant le premier tour avec effets (324.0766ms)
+✔ le client Codex partage la version du manifeste de livraison (269.8922ms)
+✔ le manifeste est déterministe et relie les entrées, versions, ASAR et installateur (1126.8592ms)
+✔ la ressource externe du paquet doit correspondre à la source qualifiée (232.43ms)
+✔ une incohérence du lock, du paquet ou de l’identité refuse le manifeste (324.9894ms)
+✔ le banc Windows isole le profil et ne transmet pas les identifiants ou options Node (3.951ms)
+✔ le nettoyage Windows refuse un parent arbitraire et retire son seul espace créé (320.0996ms)
+✔ attente commune et contexte complet, indépendant du projet sélectionné et des capabilities G0 (3.0185ms)
+✔ expiration, fin, demande résolue et contexte divergent retirent toute attente active (1.4895ms)
+✔ envoi en cours reste visible sans devenir une nouvelle attente (0.4945ms)
+✔ historique sans moteur : texte exact, tour inconnu et demandes inactives (0.428ms)
+✔ fin corrélée et résultat exact, aucun message complet ne termine seul un tour (1.7583ms)
+✔ choix transmis distinct de l’effet et portée annoncée distincte des observations (3.564ms)
+✔ arrêt global ne prend pas le contexte du projet actif et projection sans mutation (1.553ms)
+✔ activité native visible sans attente ; idle et texte complet ne prouvent aucune activité ni fin (0.7263ms)
+✔ deux tours dans une conversation gardent la corrélation propre des choix historiques (0.5448ms)
+✔ reçu de recherche natif sans chemin durable et ancienne annexe intacte au même schéma (129.2226ms)
+✔ annexe atomique par conversation restaure contexte et preuves sans migration Snapshot (128.1817ms)
+✔ version future, UTF-8 invalide, conflit et erreur disque préservent les octets (79.9879ms)
+✔ 200 annexes restent lisibles et modifiables ; la 201e est refusée sans changer les octets (4632.2221ms)
+✔ la fermeture du wrapper ne prouve pas la disparition du vrai Main Windows (3.1982ms)
+✔ la fermeture exige événement close, Main absent et observation complète sans app-server (1.0158ms)
+✔ le compteur passif transmet spawn inchangé sans conserver args, env ni transport (3.0403ms)
+✔ la fermeture native utilise le wrapper capturé avant la destruction de Playwright (0.538ms)
+ℹ tests 525
+ℹ suites 0
+ℹ pass 514
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 944753.3515
+
+✖ failing tests:
+
+test at tests\bmad-context-sources.test.mjs:101:1
+✖ context sources: real Windows receipts, mutations, absent/unknown, identity, three layers and boundaries (187742.7016ms)
+  Error: Command failed: C:\Users\UP60066553\.dotnet\tools\.store\powershell\7.5.4\powershell\7.5.4\tools\net9.0\any\win\pwsh.exe -NoProfile -NonInteractive -EncodedCommand JABFAHIAcgBvAHIAQQBjAHQAaQBvAG4AUAByAGUAZgBlAHIAZQBuAGMAZQA9ACcAUwB0AG8AcAAnAAoALgAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXAByAGUAcwBvAHUAcgBjAGUAcwBcAHAAcgBlAGYAbABpAGcAaAB0AC4AcABzADEAJwAKAC4AIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcgBlAHMAbwB1AHIAYwBlAHMAXABzAHUAcABlAHIAdgBpAHMAaQBvAG4ALgBwAHMAMQAnAAoAJABtAD0ARwBlAHQALQBDAG8AbgB0AGUAbgB0ACAALQBMAGkAdABlAHIAYQBsAFAAYQB0AGgAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcgBlAHMAbwB1AHIAYwBlAHMAXAByAHUAbgB0AGkAbQBlAC4AagBzAG8AbgAnACAALQBSAGEAdwB8AEMAbwBuAHYAZQByAHQARgByAG8AbQAtAEoAcwBvAG4ACgBBAHMAcwBlAHIAdAAtAEIAbQBhAGQAQwBsAG8AcwBlAGQAUgB1AG4AdABpAG0AZQAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXABwAHkAdABoAG8AbgAnACAAJABtAC4AZgBpAGwAZQBzAAoAJABnAHUAYQByAGQAcwA9AFsAQwBvAGwAbABlAGMAdABpAG8AbgBzAC4ARwBlAG4AZQByAGkAYwAuAEwAaQBzAHQAWwBzAHQAcgBpAG4AZwBdAF0AOgA6AG4AZQB3ACgAKQAKAFsAdgBvAGkAZABdAFsASQBPAC4ARABpAHIAZQBjAHQAbwByAHkAXQA6ADoAQwByAGUAYQB0AGUARABpAHIAZQBjAHQAbwByAHkAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAHMAaQB0AGUALQBwAGEAYwBrAGEAZwBlAHMAJwApADsAWwBJAE8ALgBGAGkAbABlAF0AOgA6AFcAcgBpAHQAZQBBAGwAbABUAGUAeAB0ACgAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBMADQATwBuAHQAbQBcAHAAeQB0AGgAbwBuAFwATABpAGIAXABzAGkAdABlAC0AcABhAGMAawBhAGcAZQBzAFwAcwBpAHQAZQBjAHUAcwB0AG8AbQBpAHoAZQAuAHAAeQAnACwAIgBOAEUAVgBFAFIAXwBFAFgARQBDAFUAVABFACIAKQAKACQAcgBlAGYAdQBzAGUAZAA9ACQAZgBhAGwAcwBlADsAdAByAHkAewBBAHMAcwBlAHIAdAAtAEIAbQBhAGQAQwBsAG8AcwBlAGQAUgB1AG4AdABpAG0AZQAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXABwAHkAdABoAG8AbgAnACAAJABtAC4AZgBpAGwAZQBzAH0AYwBhAHQAYwBoAHsAJAByAGUAZgB1AHMAZQBkAD0AJAB0AHIAdQBlAH0AOwBpAGYAKAAtAG4AbwB0ACAAJAByAGUAZgB1AHMAZQBkACkAewB0AGgAcgBvAHcAIAAnAFAAUgBFAEYATABJAEcASABUAF8ARABJAEQAXwBOAE8AVABfAFIARQBGAFUAUwBFACcAfQAKAFsASQBPAC4ARgBpAGwAZQBdADoAOgBEAGUAbABlAHQAZQAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXABwAHkAdABoAG8AbgBcAEwAaQBiAFwAcwBpAHQAZQAtAHAAYQBjAGsAYQBnAGUAcwBcAHMAaQB0AGUAYwB1AHMAdABvAG0AaQB6AGUALgBwAHkAJwApADsAJABnAHUAYQByAGQAcwAuAEEAZABkACgAJwBzAGkAdABlAGMAdQBzAHQAbwBtAGkAegBlACcAKQAKAFsAdgBvAGkAZABdAFsASQBPAC4ARABpAHIAZQBjAHQAbwByAHkAXQA6ADoAQwByAGUAYQB0AGUARABpAHIAZQBjAHQAbwByAHkAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAF8AXwBwAHkAYwBhAGMAaABlAF8AXwAnACkAOwBbAEkATwAuAEYAaQBsAGUAXQA6ADoAVwByAGkAdABlAEEAbABsAFQAZQB4AHQAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAF8AXwBwAHkAYwBhAGMAaABlAF8AXwBcAG4AbwB0AC0AYQBkAG0AaQB0AHQAZQBkAC4AcAB5AGMAJwAsACIATgBFAFYARQBSAF8ARQBYAEUAQwBVAFQARQAiACkACgAkAHIAZQBmAHUAcwBlAGQAPQAkAGYAYQBsAHMAZQA7AHQAcgB5AHsAQQBzAHMAZQByAHQALQBCAG0AYQBkAEMAbABvAHMAZQBkAFIAdQBuAHQAaQBtAGUAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AJwAgACQAbQAuAGYAaQBsAGUAcwB9AGMAYQB0AGMAaAB7ACQAcgBlAGYAdQBzAGUAZAA9ACQAdAByAHUAZQB9ADsAaQBmACgALQBuAG8AdAAgACQAcgBlAGYAdQBzAGUAZAApAHsAdABoAHIAbwB3ACAAJwBQAFIARQBGAEwASQBHAEgAVABfAEQASQBEAF8ATgBPAFQAXwBSAEUARgBVAFMARQAnAH0ACgBbAEkATwAuAEYAaQBsAGUAXQA6ADoARABlAGwAZQB0AGUAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAF8AXwBwAHkAYwBhAGMAaABlAF8AXwBcAG4AbwB0AC0AYQBkAG0AaQB0AHQAZQBkAC4AcAB5AGMAJwApADsAJABnAHUAYQByAGQAcwAuAEEAZABkACgAJwBjAGEAYwBoAGUAJwApAAoAWwBJAE8ALgBEAGkAcgBlAGMAdABvAHIAeQBdADoAOgBEAGUAbABlAHQAZQAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXABwAHkAdABoAG8AbgBcAEwAaQBiAFwAXwBfAHAAeQBjAGEAYwBoAGUAXwBfACcALAAkAGYAYQBsAHMAZQApAAoAWwB2AG8AaQBkAF0AWwBJAE8ALgBEAGkAcgBlAGMAdABvAHIAeQBdADoAOgBDAHIAZQBhAHQAZQBEAGkAcgBlAGMAdABvAHIAeQAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AJwApADsAWwBJAE8ALgBGAGkAbABlAF0AOgA6AFcAcgBpAHQAZQBBAGwAbABUAGUAeAB0ACgAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBMADQATwBuAHQAbQBcAHAAeQB2AGUAbgB2AC4AYwBmAGcAJwAsACIATgBFAFYARQBSAF8ARQBYAEUAQwBVAFQARQAiACkACgAkAHIAZQBmAHUAcwBlAGQAPQAkAGYAYQBsAHMAZQA7AHQAcgB5AHsAQQBzAHMAZQByAHQALQBCAG0AYQBkAEMAbABvAHMAZQBkAFIAdQBuAHQAaQBtAGUAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AJwAgACQAbQAuAGYAaQBsAGUAcwB9AGMAYQB0AGMAaAB7ACQAcgBlAGYAdQBzAGUAZAA9ACQAdAByAHUAZQB9ADsAaQBmACgALQBuAG8AdAAgACQAcgBlAGYAdQBzAGUAZAApAHsAdABoAHIAbwB3ACAAJwBQAFIARQBGAEwASQBHAEgAVABfAEQASQBEAF8ATgBPAFQAXwBSAEUARgBVAFMARQAnAH0ACgBbAEkATwAuAEYAaQBsAGUAXQA6ADoARABlAGwAZQB0AGUAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHYAZQBuAHYALgBjAGYAZwAnACkAOwAkAGcAdQBhAHIAZABzAC4AQQBkAGQAKAAnAHAAYQByAGUAbgB0AC0AdgBlAG4AdgAnACkACgBbAEkATwAuAEYAaQBsAGUAXQA6ADoAVwByAGkAdABlAEEAbABsAFQAZQB4AHQAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAByAGUAZgBsAGkAZwBoAHQALgBqAHMAbwBuACcALAAoACQAZwB1AGEAcgBkAHMALgBUAG8AQQByAHIAYQB5ACgAKQB8AEMAbwBuAHYAZQByAHQAVABvAC0ASgBzAG8AbgAgAC0AQwBvAG0AcAByAGUAcwBzACkAKQAKACQAcwA9AFsARABpAGEAZwBuAG8AcwB0AGkAYwBzAC4AUAByAG8AYwBlAHMAcwBTAHQAYQByAHQASQBuAGYAbwBdADoAOgBuAGUAdwAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAHMAYwBvAG8AcABcAGEAcABwAHMAXAB1AHYAXAAwAC4AMQAzAC4AMABcAHUAdgAuAGUAeABlACcAKQAKAGYAbwByAGUAYQBjAGgAKAAkAGEAIABpAG4AIABAACgAJwByAHUAbgAnACwAJwAtAC0AbwBmAGYAbABpAG4AZQAnACwAJwAtAC0AbgBvAC0AcAByAG8AagBlAGMAdAAnACwAJwAtAC0AbgBvAC0AYwBvAG4AZgBpAGcAJwAsACcALQAtAG4AbwAtAGMAYQBjAGgAZQAnACwAJwAtAC0AcAB5AHQAaABvAG4AJwAsACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXABwAHkAdABoAG8AbgBcAHAAeQB0AGgAbwBuAC4AZQB4AGUAJwAsACcALQAtACcALAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AXABwAHkAdABoAG8AbgAuAGUAeABlACcALAAnAC0ASQAnACwAJwAtAFMAJwAsACcALQBCACcALAAnAC0AYwAnACwAJwAiACIAIgBTAG8AdQByAGMAZQAtAG8AbgBsAHkAIABiAG8AbwB0AHMAdAByAGEAcAAsACAAcABhAHMAcwBlAGQAIABhAHMAIAAtAGMAIABiAGUAZgBvAHIAZQAgAGEAbgB5ACAAaABhAHIAbgBlAHMAcwAgAG0AbwBkAHUAbABlACAAaQBzACAAaQBtAHAAbwByAHQAZQBkAC4AIgAiACIACgBpAG0AcABvAHIAdAAgAGgAYQBzAGgAbABpAGIACgBpAG0AcABvAHIAdAAgAGkAbQBwAG8AcgB0AGwAaQBiAC4AYQBiAGMACgBpAG0AcABvAHIAdAAgAGkAbQBwAG8AcgB0AGwAaQBiAC4AdQB0AGkAbAAKAGkAbQBwAG8AcgB0ACAAagBzAG8AbgAKAGkAbQBwAG8AcgB0ACAAbwBzAAoAZgByAG8AbQAgAHAAYQB0AGgAbABpAGIAIABpAG0AcABvAHIAdAAgAFAAYQB0AGgACgBpAG0AcABvAHIAdAAgAHMAdABhAHQACgBpAG0AcABvAHIAdAAgAHMAeQBzAAoAaQBtAHAAbwByAHQAIAB0AHkAcABlAHMACgAKAHIAbwBvAHQALAAgAGwAbwBnAGkAYwBhAGwALAAgAG0AYQBuAGkAZgBlAHMAdABfAHQAZQB4AHQALAAgAGUAbgB0AHIAeQAsACAAKgBhAHIAZwB1AG0AZQBuAHQAcwAgAD0AIABzAHkAcwAuAGEAcgBnAHYAWwAxADoAXQAKAHIAbwBvAHQALAAgAGwAbwBnAGkAYwBhAGwAIAA9ACAAUABhAHQAaAAoAHIAbwBvAHQAKQAsACAAUABhAHQAaAAoAGwAbwBnAGkAYwBhAGwAKQAKAG0AYQBuAGkAZgBlAHMAdAAgAD0AIABqAHMAbwBuAC4AbABvAGEAZABzACgAbQBhAG4AaQBmAGUAcwB0AF8AdABlAHgAdAApAAoAcwBvAHUAcgBjAGUAcwAgAD0AIAB7AH0ACgBmAG8AcgAgAG4AYQBtAGUALAAgAGUAeABwAGUAYwB0AGUAZAAgAGkAbgAgAG0AYQBuAGkAZgBlAHMAdAAuAGkAdABlAG0AcwAoACkAOgAKACAAIAAgACAAaQBmACAAbgBvAHQAIABuAGEAbQBlAC4AaQBzAGkAZABlAG4AdABpAGYAaQBlAHIAKAApADoACgAgACAAIAAgACAAIAAgACAAcgBhAGkAcwBlACAAVgBhAGwAdQBlAEUAcgByAG8AcgAoACcAJwBTAE8AVQBSAEMARQBfAE4AQQBNAEUAJwAnACkACgAgACAAIAAgAHAAYQB0AGgAIAA9ACAAcgBvAG8AdAAgAC8AIAAoAG4AYQBtAGUAIAArACAAJwAnAC4AcAB5ACcAJwApAAoAIAAgACAAIABmAG8AcgAgAHAAYQByAHQAIABpAG4AIABbACoAcgBlAHYAZQByAHMAZQBkACgAcABhAHQAaAAuAHAAYQByAGUAbgB0AHMAKQAsACAAcABhAHQAaABdADoACgAgACAAIAAgACAAIAAgACAAaQBuAGYAbwAgAD0AIABwAGEAcgB0AC4AbABzAHQAYQB0ACgAKQAKACAAIAAgACAAIAAgACAAIABpAGYAIABzAHQAYQB0AC4AUwBfAEkAUwBMAE4ASwAoAGkAbgBmAG8ALgBzAHQAXwBtAG8AZABlACkAIABvAHIAIABnAGUAdABhAHQAdAByACgAaQBuAGYAbwAsACAAJwAnAHMAdABfAGYAaQBsAGUAXwBhAHQAdAByAGkAYgB1AHQAZQBzACcAJwAsACAAMAApACAAJgAgADAAeAA0ADAAMAA6AAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAcgBhAGkAcwBlACAAVgBhAGwAdQBlAEUAcgByAG8AcgAoACcAJwBTAE8AVQBSAEMARQBfAFIARQBQAEEAUgBTAEUAJwAnACkACgAgACAAIAAgACAAIAAgACAAaQBmACAAcwB0AGEAdAAuAFMAXwBJAFMAUgBFAEcAKABpAG4AZgBvAC4AcwB0AF8AbQBvAGQAZQApACAAYQBuAGQAIABpAG4AZgBvAC4AcwB0AF8AbgBsAGkAbgBrACAAIQA9ACAAMQA6AAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAcgBhAGkAcwBlACAAVgBhAGwAdQBlAEUAcgByAG8AcgAoACcAJwBTAE8AVQBSAEMARQBfAEgAQQBSAEQATABJAE4ASwAnACcAKQAKACAAIAAgACAAYgBlAGYAbwByAGUAIAA9ACAAcABhAHQAaAAuAHMAdABhAHQAKAApAAoAIAAgACAAIABpAGYAIABiAGUAZgBvAHIAZQAuAHMAdABfAHMAaQB6AGUAIAA+ACAAMQAwADIANAAgACoAIAAxADAAMgA0ADoACgAgACAAIAAgACAAIAAgACAAcgBhAGkAcwBlACAAVgBhAGwAdQBlAEUAcgByAG8AcgAoACcAJwBTAE8AVQBSAEMARQBfAEIATwBVAE4ARAAnACcAKQAKACAAIAAgACAAcgBhAHcAIAA9ACAAcABhAHQAaAAuAHIAZQBhAGQAXwBiAHkAdABlAHMAKAApAAoAIAAgACAAIABhAGYAdABlAHIAIAA9ACAAcABhAHQAaAAuAHMAdABhAHQAKAApAAoAIAAgACAAIABpAGYAIAAoAGIAZQBmAG8AcgBlAC4AcwB0AF8AaQBuAG8ALAAgAGIAZQBmAG8AcgBlAC4AcwB0AF8AcwBpAHoAZQAsACAAYgBlAGYAbwByAGUALgBzAHQAXwBtAHQAaQBtAGUAXwBuAHMALAAgAGIAZQBmAG8AcgBlAC4AcwB0AF8AYwB0AGkAbQBlAF8AbgBzACkAIAAhAD0AIAAoAGEAZgB0AGUAcgAuAHMAdABfAGkAbgBvACwAIABhAGYAdABlAHIALgBzAHQAXwBzAGkAegBlACwAIABhAGYAdABlAHIALgBzAHQAXwBtAHQAaQBtAGUAXwBuAHMALAAgAGEAZgB0AGUAcgAuAHMAdABfAGMAdABpAG0AZQBfAG4AcwApADoACgAgACAAIAAgACAAIAAgACAAcgBhAGkAcwBlACAAVgBhAGwAdQBlAEUAcgByAG8AcgAoACcAJwBTAE8AVQBSAEMARQBfAEMASABBAE4ARwBFAEQAJwAnACkACgAgACAAIAAgAGkAZgAgAGgAYQBzAGgAbABpAGIALgBzAGgAYQAyADUANgAoAHIAYQB3ACkALgBoAGUAeABkAGkAZwBlAHMAdAAoACkAIAAhAD0AIABlAHgAcABlAGMAdABlAGQAOgAKACAAIAAgACAAIAAgACAAIAByAGEAaQBzAGUAIABWAGEAbAB1AGUARQByAHIAbwByACgAJwAnAFMATwBVAFIAQwBFAF8AQwBIAEEATgBHAEUARAA6ACAAJwAnACAAKwAgAG4AYQBtAGUAKQAKACAAIAAgACAAcwBvAHUAcgBjAGUAcwBbAG4AYQBtAGUAXQAgAD0AIAByAGEAdwAKAAoAYwBsAG8AcwB1AHIAZQAgAD0AIAB0AHkAcABlAHMALgBNAG8AZAB1AGwAZQBUAHkAcABlACgAJwAnAF8AYgBtAGEAZABfAHMAbwB1AHIAYwBlAF8AYwBsAG8AcwB1AHIAZQAnACcAKQAKAGMAbABvAHMAdQByAGUALgBzAGgAYQAyADUANgAgAD0AIABkAGkAYwB0ACgAbQBhAG4AaQBmAGUAcwB0ACkADQAKAGMAbABvAHMAdQByAGUALgBzAG8AdQByAGMAZQBzACAAPQAgAHMAbwB1AHIAYwBlAHMACgBjAGwAbwBzAHUAcgBlAC4AYwBvAG0AcABpAGwAZQBkACAAPQAgAFsAXQAKAGMAbABvAHMAdQByAGUALgBiAG8AbwB0AHMAdAByAGEAcABfAHMAaABhADIANQA2ACAAPQAgAGgAYQBzAGgAbABpAGIALgBzAGgAYQAyADUANgAoAHMAeQBzAC4AbwByAGkAZwBfAGEAcgBnAHYAWwBzAHkAcwAuAG8AcgBpAGcAXwBhAHIAZwB2AC4AaQBuAGQAZQB4ACgAJwAnAC0AYwAnACcAKQAgACsAIAAxAF0ALgBlAG4AYwBvAGQAZQAoACcAJwB1AHQAZgAtADgAJwAnACkAKQAuAGgAZQB4AGQAaQBnAGUAcwB0ACgAKQAKAHMAeQBzAC4AbQBvAGQAdQBsAGUAcwBbAGMAbABvAHMAdQByAGUALgBfAF8AbgBhAG0AZQBfAF8AXQAgAD0AIABjAGwAbwBzAHUAcgBlAAoACgBjAGwAYQBzAHMAIABTAG8AdQByAGMAZQBzACgAaQBtAHAAbwByAHQAbABpAGIALgBhAGIAYwAuAE0AZQB0AGEAUABhAHQAaABGAGkAbgBkAGUAcgAsACAAaQBtAHAAbwByAHQAbABpAGIALgBhAGIAYwAuAEwAbwBhAGQAZQByACkAOgAKACAAIAAgACAAZABlAGYAIABmAGkAbgBkAF8AcwBwAGUAYwAoAHMAZQBsAGYALAAgAGYAdQBsAGwAbgBhAG0AZQAsACAAcABhAHQAaAA9AE4AbwBuAGUALAAgAHQAYQByAGcAZQB0AD0ATgBvAG4AZQApADoACgAgACAAIAAgACAAIAAgACAAaQBmACAAZgB1AGwAbABuAGEAbQBlACAAaQBuACAAcwBvAHUAcgBjAGUAcwA6AAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAcgBlAHQAdQByAG4AIABpAG0AcABvAHIAdABsAGkAYgAuAHUAdABpAGwALgBzAHAAZQBjAF8AZgByAG8AbQBfAGwAbwBhAGQAZQByACgAZgB1AGwAbABuAGEAbQBlACwAIABzAGUAbABmACkACgAgACAAIAAgACAAIAAgACAAcgBlAHQAdQByAG4AIABOAG8AbgBlAAoACgAgACAAIAAgAGQAZQBmACAAYwByAGUAYQB0AGUAXwBtAG8AZAB1AGwAZQAoAHMAZQBsAGYALAAgAHMAcABlAGMAKQA6AAoAIAAgACAAIAAgACAAIAAgAHIAZQB0AHUAcgBuACAATgBvAG4AZQAKAAoAIAAgACAAIABkAGUAZgAgAGUAeABlAGMAXwBtAG8AZAB1AGwAZQAoAHMAZQBsAGYALAAgAG0AbwBkAHUAbABlACkAOgAKACAAIAAgACAAIAAgACAAIABuAGEAbQBlACAAPQAgAG0AbwBkAHUAbABlAC4AXwBfAG4AYQBtAGUAXwBfAAoAIAAgACAAIAAgACAAIAAgAG0AbwBkAHUAbABlAC4AXwBfAGYAaQBsAGUAXwBfACAAPQAgAHMAdAByACgAbABvAGcAaQBjAGEAbAAgAC8AIAAoAG4AYQBtAGUAIAArACAAJwAnAC4AcAB5ACcAJwApACkACgAgACAAIAAgACAAIAAgACAAYwBsAG8AcwB1AHIAZQAuAGMAbwBtAHAAaQBsAGUAZAAuAGEAcABwAGUAbgBkACgAbgBhAG0AZQApAAoAIAAgACAAIAAgACAAIAAgAGUAeABlAGMAKABjAG8AbQBwAGkAbABlACgAcwBvAHUAcgBjAGUAcwBbAG4AYQBtAGUAXQAsACAAbQBvAGQAdQBsAGUALgBfAF8AZgBpAGwAZQBfAF8ALAAgACcAJwBlAHgAZQBjACcAJwApACwAIABtAG8AZAB1AGwAZQAuAF8AXwBkAGkAYwB0AF8AXwApAAoACgBpAGYAIABhAG4AeQAoAG8AcwAuAHAAYQB0AGgALgBuAG8AcgBtAGMAYQBzAGUAKABzAHQAcgAoAHIAbwBvAHQAKQApACAAPQA9ACAAbwBzAC4AcABhAHQAaAAuAG4AbwByAG0AYwBhAHMAZQAoAHMAdAByACgAUABhAHQAaAAoAHYAYQBsAHUAZQAgAG8AcgAgACcAJwAuACcAJwApAC4AYQBiAHMAbwBsAHUAdABlACgAKQApACkAIABvAHIAIABvAHMALgBwAGEAdABoAC4AbgBvAHIAbQBjAGEAcwBlACgAcwB0AHIAKABsAG8AZwBpAGMAYQBsACkAKQAgAD0APQAgAG8AcwAuAHAAYQB0AGgALgBuAG8AcgBtAGMAYQBzAGUAKABzAHQAcgAoAFAAYQB0AGgAKAB2AGEAbAB1AGUAIABvAHIAIAAnACcALgAnACcAKQAuAGEAYgBzAG8AbAB1AHQAZQAoACkAKQApACAAZgBvAHIAIAB2AGEAbAB1AGUAIABpAG4AIABzAHkAcwAuAHAAYQB0AGgAKQA6AAoAIAAgACAAIAByAGEAaQBzAGUAIABWAGEAbAB1AGUARQByAHIAbwByACgAJwAnAFMATwBVAFIAQwBFAF8AUwBFAEEAUgBDAEgAXwBQAEEAVABIACcAJwApAAoAcwB5AHMALgBtAGUAdABhAF8AcABhAHQAaAAuAGkAbgBzAGUAcgB0ACgAMAAsACAAUwBvAHUAcgBjAGUAcwAoACkAKQAKAHMAeQBzAC4AYQByAGcAdgAgAD0AIABbAHMAdAByACgAbABvAGcAaQBjAGEAbAAgAC8AIAAoAGUAbgB0AHIAeQAgACsAIAAnACcALgBwAHkAJwAnACkAKQAsACAAKgBhAHIAZwB1AG0AZQBuAHQAcwBdAAoAaQBmACAAZQBuAHQAcgB5ACAAbgBvAHQAIABpAG4AIABzAG8AdQByAGMAZQBzADoACgAgACAAIAAgAHIAYQBpAHMAZQAgAFYAYQBsAHUAZQBFAHIAcgBvAHIAKAAnACcAUwBPAFUAUgBDAEUAXwBFAE4AVABSAFkAJwAnACkACgBtAG8AZAB1AGwAZQAgAD0AIAB0AHkAcABlAHMALgBNAG8AZAB1AGwAZQBUAHkAcABlACgAJwAnAF8AXwBtAGEAaQBuAF8AXwAnACcAKQAKAG0AbwBkAHUAbABlAC4AXwBfAGYAaQBsAGUAXwBfACAAPQAgAHMAeQBzAC4AYQByAGcAdgBbADAAXQAKAHMAeQBzAC4AbQBvAGQAdQBsAGUAcwBbACcAJwBfAF8AbQBhAGkAbgBfAF8AJwAnAF0AIAA9ACAAbQBvAGQAdQBsAGUACgBlAHgAZQBjACgAYwBvAG0AcABpAGwAZQAoAHMAbwB1AHIAYwBlAHMAWwBlAG4AdAByAHkAXQAsACAAbQBvAGQAdQBsAGUALgBfAF8AZgBpAGwAZQBfAF8ALAAgACcAJwBlAHgAZQBjACcAJwApACwAIABtAG8AZAB1AGwAZQAuAF8AXwBkAGkAYwB0AF8AXwApACcALAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcgBlAHMAbwB1AHIAYwBlAHMAJwAsACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXAByAGUAcwBvAHUAcgBjAGUAcwAnACwAJwB7ACIAYwBhAHAAdAB1AHIAZQAiADoAIgBiADAAMwBhADEAZAAxADQAMgA2AGIANwA1ADUAOAAyAGEAYQAyADcAOQAwADkANgBhAGEAMwA3ADMAZAAzADYAMQA1AGIAMQA3ADQAYwA3ADEANAA5ADgAMAA1ADgAYgBlAGYANgAxAGIAMAA5AGIAMgA4ADAAZABhAGYAZQBiACIALAAiAGMAbwBuAGYAaQBnAF8AdQB0AGkAbABzACIAOgAiADkAOAA5ADQAMQAwAGMANAAwADAAOQBiADkAMAA4ADEAMgAxAGIAYgBiADAAZgBlADUANQAxAGEAMgBkADcAZABiADIAOQBmADgAOQAzADgANQBkADAANgA4ADgAYwBkAGEANQBjAGIAZgBjADEANgAyAGEANQA1ADEAMQBhADEAIgAsACIAawBuAG8AdwBsAGUAZABnAGUAIgA6ACIANgAyAGUAYwA1ADMAZQBjAGQANQA2ADkANgBkAGYAZABiADkAMQA5AGEAYQA2AGQAZQA4ADMAMgAxAGUAOAA2ADAANQA4ADYANgAyADQAMwAxADIAOQAzADgANQBiADgANwA1ADAAZABhAGIANAAwAGQAZQA1ADUAZgAyAGMAZAAiACwAIgByAGUAcwBvAGwAdgBlAF8AYwBvAG4AZgBpAGcAIgA6ACIAZABlADYAMQAyADYANAA1AGQANQA0ADYAMAAwADEAZQAxAGQAZAAzAGYANQBhAGYANgA5AGQAZQA2ADUANQA5AGEAZgBlADQANwAzADMAYgBiAGIANQA0AGUAYQA0ADAANAAyADkANwAxADUAZQA5ADQAMwAyADQAYQA3ADYAMgAiACwAIgByAHUAbgB0AGkAbQBlAF8AZwB1AGEAcgBkACIAOgAiADkAMAAxAGEANgAxADAANwA2ADQANgBkADQANABiADYAZQBhAGQAMwA4AGUANAA3ADEAYQBkADQAMwAzADkANQA3ADQAZgBkADYAYwA2AGYANQA5ADUANABiAGEAMgBhADAAOQAzADQAOAAxAGQAOQBhADMAOQA3ADMAZAA0ADkAIgAsACIAdwBvAHIAawBlAHIAIgA6ACIAOAA5ADYANwBmAGQAOQBkAGQAZAAxADEAOQA5ADMAOQAyADkANAAwADEANwBkADgAYwBhAGUANAAyADUANABmADgAMABjADEANQBmADEAMwAxADIAZQAwADIAMAAyAGEAMAA2ADcAOAA3ADMAYgA4AGIAZgAxAGIAYQBkAGUANgAiACwAIgBwAHIAbwBnAHIAZQBzAHMAIgA6ACIAMAAzADgAMgA0ADUANgAyAGUANQAxADAAOQAxADcAMABiAGIAYwA2ADMAYgAxADQAOAA3AGEANgA2ADYAMQAyADcAYQA5AGYAMABkAGUANwA3ADEAMgBlADEAYgA1AGMANgA5ADMAOAA0ADUAMgA1ADgANQAyADkANgA0ADIAMAAiACwAIgBjAGEAcwBlAHMAIgA6ACIAOABjADEANgA5AGYAMwA2AGEAYQAxAGYANAAxAGQAZABhAGMAYgA4ADEAYQA3ADEANQA1ADIAMgBiADQAYgA0AGIAMQA2AGEAMgA2AGUAMgAzAGIAMgBhADkAYgA3AGQAMwBmADkAZQA4AGYANwBmADMAZQBhAGQAZgBiAGEAOQAiAH0AJwAsACcAYwBhAHMAZQBzACcALAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtACcAKQApAHsAWwB2AG8AaQBkAF0AJABzAC4AQQByAGcAdQBtAGUAbgB0AEwAaQBzAHQALgBBAGQAZAAoACQAYQApAH0ACgAkAHMALgBXAG8AcgBrAGkAbgBnAEQAaQByAGUAYwB0AG8AcgB5AD0AJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBMADQATwBuAHQAbQAnADsAJABzAC4AVQBzAGUAUwBoAGUAbABsAEUAeABlAGMAdQB0AGUAPQAkAGYAYQBsAHMAZQA7ACQAcwAuAEMAcgBlAGEAdABlAE4AbwBXAGkAbgBkAG8AdwA9ACQAdAByAHUAZQAKACQAcwB0AGEAdABlAD0AJABuAHUAbABsADsAJAByAD0ASQBuAHYAbwBrAGUALQBCAG0AYQBkAFMAdQBwAGUAcgB2AGkAcwBlAGQAIAAkAHMAIAAxADIAMAAwADAAMAAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXABlAHgAZQBjAHUAdABpAG8AbgAuAGoAcwBvAG4AJwAgAEAAKAApACAAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBMADQATwBuAHQAbQAnACAAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBMADQATwBuAHQAbQBcAHMAdABkAG8AdQB0AC4AagBzAG8AbgAnACAAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBMADQATwBuAHQAbQBcAHMAdABkAGUAcgByAC4AbABvAGcAJwAgACcAJwAgACgAWwByAGUAZgBdACQAcwB0AGEAdABlACkA
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at ChildProcess.exithandler (node:child_process:417:12)
+      at ChildProcess.emit (node:events:508:28)
+      at maybeClose (node:internal/child_process:1101:16)
+      at ChildProcess._handle.onexit (node:internal/child_process:305:5) {
+    code: null,
+    killed: true,
+    signal: 'SIGTERM',
+    cmd: 'C:\\Users\\UP60066553\\.dotnet\\tools\\.store\\powershell\\7.5.4\\powershell\\7.5.4\\tools\\net9.0\\any\\win\\pwsh.exe -NoProfile -NonInteractive -EncodedCommand JABFAHIAcgBvAHIAQQBjAHQAaQBvAG4AUAByAGUAZgBlAHIAZQBuAGMAZQA9ACcAUwB0AG8AcAAnAAoALgAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXAByAGUAcwBvAHUAcgBjAGUAcwBcAHAAcgBlAGYAbABpAGcAaAB0AC4AcABzADEAJwAKAC4AIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcgBlAHMAbwB1AHIAYwBlAHMAXABzAHUAcABlAHIAdgBpAHMAaQBvAG4ALgBwAHMAMQAnAAoAJABtAD0ARwBlAHQALQBDAG8AbgB0AGUAbgB0ACAALQBMAGkAdABlAHIAYQBsAFAAYQB0AGgAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcgBlAHMAbwB1AHIAYwBlAHMAXAByAHUAbgB0AGkAbQBlAC4AagBzAG8AbgAnACAALQBSAGEAdwB8AEMAbwBuAHYAZQByAHQARgByAG8AbQAtAEoAcwBvAG4ACgBBAHMAcwBlAHIAdAAtAEIAbQBhAGQAQwBsAG8AcwBlAGQAUgB1AG4AdABpAG0AZQAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXABwAHkAdABoAG8AbgAnACAAJABtAC4AZgBpAGwAZQBzAAoAJABnAHUAYQByAGQAcwA9AFsAQwBvAGwAbABlAGMAdABpAG8AbgBzAC4ARwBlAG4AZQByAGkAYwAuAEwAaQBzAHQAWwBzAHQAcgBpAG4AZwBdAF0AOgA6AG4AZQB3ACgAKQAKAFsAdgBvAGkAZABdAFsASQBPAC4ARABpAHIAZQBjAHQAbwByAHkAXQA6ADoAQwByAGUAYQB0AGUARABpAHIAZQBjAHQAbwByAHkAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAHMAaQB0AGUALQBwAGEAYwBrAGEAZwBlAHMAJwApADsAWwBJAE8ALgBGAGkAbABlAF0AOgA6AFcAcgBpAHQAZQBBAGwAbABUAGUAeAB0ACgAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBMADQATwBuAHQAbQBcAHAAeQB0AGgAbwBuAFwATABpAGIAXABzAGkAdABlAC0AcABhAGMAawBhAGcAZQBzAFwAcwBpAHQAZQBjAHUAcwB0AG8AbQBpAHoAZQAuAHAAeQAnACwAIgBOAEUAVgBFAFIAXwBFAFgARQBDAFUAVABFACIAKQAKACQAcgBlAGYAdQBzAGUAZAA9ACQAZgBhAGwAcwBlADsAdAByAHkAewBBAHMAcwBlAHIAdAAtAEIAbQBhAGQAQwBsAG8AcwBlAGQAUgB1AG4AdABpAG0AZQAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXABwAHkAdABoAG8AbgAnACAAJABtAC4AZgBpAGwAZQBzAH0AYwBhAHQAYwBoAHsAJAByAGUAZgB1AHMAZQBkAD0AJAB0AHIAdQBlAH0AOwBpAGYAKAAtAG4AbwB0ACAAJAByAGUAZgB1AHMAZQBkACkAewB0AGgAcgBvAHcAIAAnAFAAUgBFAEYATABJAEcASABUAF8ARABJAEQAXwBOAE8AVABfAFIARQBGAFUAUwBFACcAfQAKAFsASQBPAC4ARgBpAGwAZQBdADoAOgBEAGUAbABlAHQAZQAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXABwAHkAdABoAG8AbgBcAEwAaQBiAFwAcwBpAHQAZQAtAHAAYQBjAGsAYQBnAGUAcwBcAHMAaQB0AGUAYwB1AHMAdABvAG0AaQB6AGUALgBwAHkAJwApADsAJABnAHUAYQByAGQAcwAuAEEAZABkACgAJwBzAGkAdABlAGMAdQBzAHQAbwBtAGkAegBlACcAKQAKAFsAdgBvAGkAZABdAFsASQBPAC4ARABpAHIAZQBjAHQAbwByAHkAXQA6ADoAQwByAGUAYQB0AGUARABpAHIAZQBjAHQAbwByAHkAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAF8AXwBwAHkAYwBhAGMAaABlAF8AXwAnACkAOwBbAEkATwAuAEYAaQBsAGUAXQA6ADoAVwByAGkAdABlAEEAbABsAFQAZQB4AHQAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAF8AXwBwAHkAYwBhAGMAaABlAF8AXwBcAG4AbwB0AC0AYQBkAG0AaQB0AHQAZQBkAC4AcAB5AGMAJwAsACIATgBFAFYARQBSAF8ARQBYAEUAQwBVAFQARQAiACkACgAkAHIAZQBmAHUAcwBlAGQAPQAkAGYAYQBsAHMAZQA7AHQAcgB5AHsAQQBzAHMAZQByAHQALQBCAG0AYQBkAEMAbABvAHMAZQBkAFIAdQBuAHQAaQBtAGUAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AJwAgACQAbQAuAGYAaQBsAGUAcwB9AGMAYQB0AGMAaAB7ACQAcgBlAGYAdQBzAGUAZAA9ACQAdAByAHUAZQB9ADsAaQBmACgALQBuAG8AdAAgACQAcgBlAGYAdQBzAGUAZAApAHsAdABoAHIAbwB3ACAAJwBQAFIARQBGAEwASQBHAEgAVABfAEQASQBEAF8ATgBPAFQAXwBSAEUARgBVAFMARQAnAH0ACgBbAEkATwAuAEYAaQBsAGUAXQA6ADoARABlAGwAZQB0AGUAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAF8AXwBwAHkAYwBhAGMAaABlAF8AXwBcAG4AbwB0AC0AYQBkAG0AaQB0AHQAZQBkAC4AcAB5AGMAJwApADsAJABnAHUAYQByAGQAcwAuAEEAZABkACgAJwBjAGEAYwBoAGUAJwApAAoAWwBJAE8ALgBEAGkAcgBlAGMAdABvAHIAeQBdADoAOgBEAGUAbABlAHQAZQAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXABwAHkAdABoAG8AbgBcAEwAaQBiAFwAXwBfAHAAeQBjAGEAYwBoAGUAXwBfACcALAAkAGYAYQBsAHMAZQApAAoAWwB2AG8AaQBkAF0AWwBJAE8ALgBEAGkAcgBlAGMAdABvAHIAeQBdADoAOgBDAHIAZQBhAHQAZQBEAGkAcgBlAGMAdABvAHIAeQAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AJwApADsAWwBJAE8ALgBGAGkAbABlAF0AOgA6AFcAcgBpAHQAZQBBAGwAbABUAGUAeAB0ACgAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBMADQATwBuAHQAbQBcAHAAeQB2AGUAbgB2AC4AYwBmAGcAJwAsACIATgBFAFYARQBSAF8ARQBYAEUAQwBVAFQARQAiACkACgAkAHIAZQBmAHUAcwBlAGQAPQAkAGYAYQBsAHMAZQA7AHQAcgB5AHsAQQBzAHMAZQByAHQALQBCAG0AYQBkAEMAbABvAHMAZQBkAFIAdQBuAHQAaQBtAGUAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AJwAgACQAbQAuAGYAaQBsAGUAcwB9AGMAYQB0AGMAaAB7ACQAcgBlAGYAdQBzAGUAZAA9ACQAdAByAHUAZQB9ADsAaQBmACgALQBuAG8AdAAgACQAcgBlAGYAdQBzAGUAZAApAHsAdABoAHIAbwB3ACAAJwBQAFIARQBGAEwASQBHAEgAVABfAEQASQBEAF8ATgBPAFQAXwBSAEUARgBVAFMARQAnAH0ACgBbAEkATwAuAEYAaQBsAGUAXQA6ADoARABlAGwAZQB0AGUAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHYAZQBuAHYALgBjAGYAZwAnACkAOwAkAGcAdQBhAHIAZABzAC4AQQBkAGQAKAAnAHAAYQByAGUAbgB0AC0AdgBlAG4AdgAnACkACgBbAEkATwAuAEYAaQBsAGUAXQA6ADoAVwByAGkAdABlAEEAbABsAFQAZQB4AHQAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAByAGUAZgBsAGkAZwBoAHQALgBqAHMAbwBuACcALAAoACQAZwB1AGEAcgBkAHMALgBUAG8AQQByAHIAYQB5ACgAKQB8AEMAbwBuAHYAZQByAHQAVABvAC0ASgBzAG8AbgAgAC0AQwBvAG0AcAByAGUAcwBzACkAKQAKACQAcwA9AFsARABpAGEAZwBuAG8AcwB0AGkAYwBzAC4AUAByAG8AYwBlAHMAcwBTAHQAYQByAHQASQBuAGYAbwBdADoAOgBuAGUAdwAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAHMAYwBvAG8AcABcAGEAcABwAHMAXAB1AHYAXAAwAC4AMQAzAC4AMABcAHUAdgAuAGUAeABlACcAKQAKAGYAbwByAGUAYQBjAGgAKAAkAGEAIABpAG4AIABAACgAJwByAHUAbgAnACwAJwAtAC0AbwBmAGYAbABpAG4AZQAnACwAJwAtAC0AbgBvAC0AcAByAG8AagBlAGMAdAAnACwAJwAtAC0AbgBvAC0AYwBvAG4AZgBpAGcAJwAsACcALQAtAG4AbwAtAGMAYQBjAGgAZQAnACwAJwAtAC0AcAB5AHQAaABvAG4AJwAsACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0ATAA0AE8AbgB0AG0AXABwAHkAdABoAG8AbgBcAHAAeQB0AGgAbwBuAC4AZQB4AGUAJwAsACcALQAtACcALAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAEwANABPAG4AdABtAFwAcAB5AHQAaABvAG4AXABwAHkAdABoAG8AbgAuAGUAeABlACcALAAnAC0ASQAnACwAJwAtAFMAJwAsACcALQBCACcALAAnAC0AYwAnACwAJwAiACIAIgBTAG8AdQByAGMAZQAtAG8AbgBsAHkAIABiAG8AbwB0AHMAdAByAGEAcAAsACAAcABhAHMAcwBlAGQAIABhAHMAIAAtAGMAIABiAGUAZgBvAHIAZQAgAGEAbgB5ACAAaABhAHIAbgBlAHMAcwAgAG0AbwBkAHUAbABlACAAaQBzACAAaQBtAHAAbwByAHQAZQBkAC4AIgAiACIACgBpAG0AcABvAHIAdAAgAGgAYQBzAGgAbABpAGIACgBpAG0AcABvAHIAdAAgAGkAbQBwAG8AcgB0AGwAaQBiAC4AYQBiAGMACgBpAG0AcABvAHIAdAAgAGkAbQBwAG8AcgB0AGwAaQBiAC4AdQB0AGkAbAAKAGkAbQBwAG8AcgB0ACAAagBzAG8AbgAKAGkAbQBwAG8AcgB0ACAAbwBzAAoAZgByAG8AbQAgAHAAYQB0AGgAbABpAGIAIABpAG0AcABvAHIAdAAgAFAAYQB0AGgACgBpAG0AcABvAHIAdAAgAHMAdABhAHQACgBpAG0AcABvAHIAdAAgAHMAeQBzAAoAaQBtAHAAbwByAHQAIAB0AHkAcABlAHMACgAKAHIAbwBvAHQALAAgAGwAbwBnAGkAYwBhAGwALAAgAG0AYQBuAGkAZgBlAHMAdABfAHQAZQB4AHQALAAgAGUAbgB0AHIAeQAsACAAKgBhAHIAZwB1AG0AZQBuAHQAcwAgAD0AIABzAHkAcwAuAGEAcgBnAHYAWwAxADoAXQAKAHIAbwBvAHQALAAgAGwAbwBnAGkAYwBhAGwAIAA9ACAAUABhAHQAaAAoAHIAbwBvAHQAKQAsACAAUABhAHQAaAAoAGwAbwBnAGkAYwBhAGwAKQAKAG0AYQBuAGkAZgBlAHMAdAAgAD0AIABqAHMAbwBuAC4AbABvAGEAZABzACgAbQBhAG4AaQBmAGUAcwB0AF8AdABlAHgAdAApAAoAcwBvAHUAcgBjAGUAcwAgAD0AIAB7AH0ACgBmAG8AcgAgAG4AYQBtAGUALAAgAGUAeABwAGUAYwB0AGUAZAAgAGkAbgAgAG0AYQBuAGkAZgBlAHMAdAAuAGkAdABlAG0AcwAoACkAOgAKACAAIAAgACAAaQBmACAAbgBvAHQAIABuAGEAbQBlAC4AaQBzAGkAZABlAG4AdABpAGYAaQBlAHIAKAApADoACgAgACAAIAAgACAAIAAgACAAcgBhAGkAcwBlACAAVgBhAGwAdQBlAEUAcgByAG8AcgAoACcAJwBTAE8AVQBSAEMARQBfAE4AQQBNAEUAJwAnACkACgAgACAAIAAgAHAAYQB0AGgAIAA9ACAAcgBvAG8AdAAgAC8AIAAoAG4AYQBtAGUAIAArACAAJwAnAC4AcAB5ACcAJwApAAoAIAAgACAAIABmAG8AcgAgAHAAYQByAHQAIABpAG4AIABbACoAcgBlAHYAZQByAHMAZQBkACgAcABhAHQAaAAuAHAAYQByAGUAbgB0AHMAKQAsACAAcABhAHQAaABdADoACgAgACAAIAAgACAAIAAgACAAaQBuAGYAbwAgAD0AIABwAGEAcgB0AC4AbABzAHQAYQB0ACgAKQAKACAAIAAgACAAIAAgACAAIABpAGYAIABz'... 9620 more characters,
+    stdout: '',
+    stderr: ''
+  }
+
+test at tests\bmad-help-boundaries.test.mjs:96:1
+✖ real product sources preserve partial help and reject Windows path/runtime boundary variants (189536.6635ms)
+  Error: Command failed: C:\Users\UP60066553\.dotnet\tools\.store\powershell\7.5.4\powershell\7.5.4\tools\net9.0\any\win\pwsh.exe -NoProfile -NonInteractive -EncodedCommand JABFAHIAcgBvAHIAQQBjAHQAaQBvAG4AUAByAGUAZgBlAHIAZQBuAGMAZQA9ACcAUwB0AG8AcAAnAAoALgAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXAByAGUAcwBvAHUAcgBjAGUAcwBcAHAAcgBlAGYAbABpAGcAaAB0AC4AcABzADEAJwAKAC4AIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcgBlAHMAbwB1AHIAYwBlAHMAXABzAHUAcABlAHIAdgBpAHMAaQBvAG4ALgBwAHMAMQAnAAoAJABtAD0ARwBlAHQALQBDAG8AbgB0AGUAbgB0ACAALQBMAGkAdABlAHIAYQBsAFAAYQB0AGgAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcgBlAHMAbwB1AHIAYwBlAHMAXAByAHUAbgB0AGkAbQBlAC4AagBzAG8AbgAnACAALQBSAGEAdwB8AEMAbwBuAHYAZQByAHQARgByAG8AbQAtAEoAcwBvAG4ACgBBAHMAcwBlAHIAdAAtAEIAbQBhAGQAQwBsAG8AcwBlAGQAUgB1AG4AdABpAG0AZQAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXABwAHkAdABoAG8AbgAnACAAJABtAC4AZgBpAGwAZQBzAAoAJABnAHUAYQByAGQAcwA9AFsAQwBvAGwAbABlAGMAdABpAG8AbgBzAC4ARwBlAG4AZQByAGkAYwAuAEwAaQBzAHQAWwBzAHQAcgBpAG4AZwBdAF0AOgA6AG4AZQB3ACgAKQAKAFsAdgBvAGkAZABdAFsASQBPAC4ARABpAHIAZQBjAHQAbwByAHkAXQA6ADoAQwByAGUAYQB0AGUARABpAHIAZQBjAHQAbwByAHkAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAHMAaQB0AGUALQBwAGEAYwBrAGEAZwBlAHMAJwApADsAWwBJAE8ALgBGAGkAbABlAF0AOgA6AFcAcgBpAHQAZQBBAGwAbABUAGUAeAB0ACgAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBmAG4AcgBOADgARwBcAHAAeQB0AGgAbwBuAFwATABpAGIAXABzAGkAdABlAC0AcABhAGMAawBhAGcAZQBzAFwAcwBpAHQAZQBjAHUAcwB0AG8AbQBpAHoAZQAuAHAAeQAnACwAIgBOAEUAVgBFAFIAXwBFAFgARQBDAFUAVABFACIAKQAKACQAcgBlAGYAdQBzAGUAZAA9ACQAZgBhAGwAcwBlADsAdAByAHkAewBBAHMAcwBlAHIAdAAtAEIAbQBhAGQAQwBsAG8AcwBlAGQAUgB1AG4AdABpAG0AZQAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXABwAHkAdABoAG8AbgAnACAAJABtAC4AZgBpAGwAZQBzAH0AYwBhAHQAYwBoAHsAJAByAGUAZgB1AHMAZQBkAD0AJAB0AHIAdQBlAH0AOwBpAGYAKAAtAG4AbwB0ACAAJAByAGUAZgB1AHMAZQBkACkAewB0AGgAcgBvAHcAIAAnAFAAUgBFAEYATABJAEcASABUAF8ARABJAEQAXwBOAE8AVABfAFIARQBGAFUAUwBFACcAfQAKAFsASQBPAC4ARgBpAGwAZQBdADoAOgBEAGUAbABlAHQAZQAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXABwAHkAdABoAG8AbgBcAEwAaQBiAFwAcwBpAHQAZQAtAHAAYQBjAGsAYQBnAGUAcwBcAHMAaQB0AGUAYwB1AHMAdABvAG0AaQB6AGUALgBwAHkAJwApADsAJABnAHUAYQByAGQAcwAuAEEAZABkACgAJwBzAGkAdABlAGMAdQBzAHQAbwBtAGkAegBlACcAKQAKAFsAdgBvAGkAZABdAFsASQBPAC4ARABpAHIAZQBjAHQAbwByAHkAXQA6ADoAQwByAGUAYQB0AGUARABpAHIAZQBjAHQAbwByAHkAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAF8AXwBwAHkAYwBhAGMAaABlAF8AXwAnACkAOwBbAEkATwAuAEYAaQBsAGUAXQA6ADoAVwByAGkAdABlAEEAbABsAFQAZQB4AHQAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAF8AXwBwAHkAYwBhAGMAaABlAF8AXwBcAG4AbwB0AC0AYQBkAG0AaQB0AHQAZQBkAC4AcAB5AGMAJwAsACIATgBFAFYARQBSAF8ARQBYAEUAQwBVAFQARQAiACkACgAkAHIAZQBmAHUAcwBlAGQAPQAkAGYAYQBsAHMAZQA7AHQAcgB5AHsAQQBzAHMAZQByAHQALQBCAG0AYQBkAEMAbABvAHMAZQBkAFIAdQBuAHQAaQBtAGUAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AJwAgACQAbQAuAGYAaQBsAGUAcwB9AGMAYQB0AGMAaAB7ACQAcgBlAGYAdQBzAGUAZAA9ACQAdAByAHUAZQB9ADsAaQBmACgALQBuAG8AdAAgACQAcgBlAGYAdQBzAGUAZAApAHsAdABoAHIAbwB3ACAAJwBQAFIARQBGAEwASQBHAEgAVABfAEQASQBEAF8ATgBPAFQAXwBSAEUARgBVAFMARQAnAH0ACgBbAEkATwAuAEYAaQBsAGUAXQA6ADoARABlAGwAZQB0AGUAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAF8AXwBwAHkAYwBhAGMAaABlAF8AXwBcAG4AbwB0AC0AYQBkAG0AaQB0AHQAZQBkAC4AcAB5AGMAJwApADsAJABnAHUAYQByAGQAcwAuAEEAZABkACgAJwBjAGEAYwBoAGUAJwApAAoAWwBJAE8ALgBEAGkAcgBlAGMAdABvAHIAeQBdADoAOgBEAGUAbABlAHQAZQAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXABwAHkAdABoAG8AbgBcAEwAaQBiAFwAXwBfAHAAeQBjAGEAYwBoAGUAXwBfACcALAAkAGYAYQBsAHMAZQApAAoAWwB2AG8AaQBkAF0AWwBJAE8ALgBEAGkAcgBlAGMAdABvAHIAeQBdADoAOgBDAHIAZQBhAHQAZQBEAGkAcgBlAGMAdABvAHIAeQAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAJwApADsAWwBJAE8ALgBGAGkAbABlAF0AOgA6AFcAcgBpAHQAZQBBAGwAbABUAGUAeAB0ACgAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBmAG4AcgBOADgARwBcAHAAeQB2AGUAbgB2AC4AYwBmAGcAJwAsACIATgBFAFYARQBSAF8ARQBYAEUAQwBVAFQARQAiACkACgAkAHIAZQBmAHUAcwBlAGQAPQAkAGYAYQBsAHMAZQA7AHQAcgB5AHsAQQBzAHMAZQByAHQALQBCAG0AYQBkAEMAbABvAHMAZQBkAFIAdQBuAHQAaQBtAGUAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AJwAgACQAbQAuAGYAaQBsAGUAcwB9AGMAYQB0AGMAaAB7ACQAcgBlAGYAdQBzAGUAZAA9ACQAdAByAHUAZQB9ADsAaQBmACgALQBuAG8AdAAgACQAcgBlAGYAdQBzAGUAZAApAHsAdABoAHIAbwB3ACAAJwBQAFIARQBGAEwASQBHAEgAVABfAEQASQBEAF8ATgBPAFQAXwBSAEUARgBVAFMARQAnAH0ACgBbAEkATwAuAEYAaQBsAGUAXQA6ADoARABlAGwAZQB0AGUAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHYAZQBuAHYALgBjAGYAZwAnACkAOwAkAGcAdQBhAHIAZABzAC4AQQBkAGQAKAAnAHAAYQByAGUAbgB0AC0AdgBlAG4AdgAnACkACgBbAEkATwAuAEYAaQBsAGUAXQA6ADoAVwByAGkAdABlAEEAbABsAFQAZQB4AHQAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAByAGUAZgBsAGkAZwBoAHQALgBqAHMAbwBuACcALAAoACQAZwB1AGEAcgBkAHMALgBUAG8AQQByAHIAYQB5ACgAKQB8AEMAbwBuAHYAZQByAHQAVABvAC0ASgBzAG8AbgAgAC0AQwBvAG0AcAByAGUAcwBzACkAKQAKACQAcwA9AFsARABpAGEAZwBuAG8AcwB0AGkAYwBzAC4AUAByAG8AYwBlAHMAcwBTAHQAYQByAHQASQBuAGYAbwBdADoAOgBuAGUAdwAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAHMAYwBvAG8AcABcAGEAcABwAHMAXAB1AHYAXAAwAC4AMQAzAC4AMABcAHUAdgAuAGUAeABlACcAKQAKAGYAbwByAGUAYQBjAGgAKAAkAGEAIABpAG4AIABAACgAJwByAHUAbgAnACwAJwAtAC0AbwBmAGYAbABpAG4AZQAnACwAJwAtAC0AbgBvAC0AcAByAG8AagBlAGMAdAAnACwAJwAtAC0AbgBvAC0AYwBvAG4AZgBpAGcAJwAsACcALQAtAG4AbwAtAGMAYQBjAGgAZQAnACwAJwAtAC0AcAB5AHQAaABvAG4AJwAsACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXABwAHkAdABoAG8AbgBcAHAAeQB0AGgAbwBuAC4AZQB4AGUAJwAsACcALQAtACcALAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AXABwAHkAdABoAG8AbgAuAGUAeABlACcALAAnAC0ASQAnACwAJwAtAFMAJwAsACcALQBCACcALAAnAC0AYwAnACwAJwAiACIAIgBTAG8AdQByAGMAZQAtAG8AbgBsAHkAIABiAG8AbwB0AHMAdAByAGEAcAAsACAAcABhAHMAcwBlAGQAIABhAHMAIAAtAGMAIABiAGUAZgBvAHIAZQAgAGEAbgB5ACAAaABhAHIAbgBlAHMAcwAgAG0AbwBkAHUAbABlACAAaQBzACAAaQBtAHAAbwByAHQAZQBkAC4AIgAiACIACgBpAG0AcABvAHIAdAAgAGgAYQBzAGgAbABpAGIACgBpAG0AcABvAHIAdAAgAGkAbQBwAG8AcgB0AGwAaQBiAC4AYQBiAGMACgBpAG0AcABvAHIAdAAgAGkAbQBwAG8AcgB0AGwAaQBiAC4AdQB0AGkAbAAKAGkAbQBwAG8AcgB0ACAAagBzAG8AbgAKAGkAbQBwAG8AcgB0ACAAbwBzAAoAZgByAG8AbQAgAHAAYQB0AGgAbABpAGIAIABpAG0AcABvAHIAdAAgAFAAYQB0AGgACgBpAG0AcABvAHIAdAAgAHMAdABhAHQACgBpAG0AcABvAHIAdAAgAHMAeQBzAAoAaQBtAHAAbwByAHQAIAB0AHkAcABlAHMACgAKAHIAbwBvAHQALAAgAGwAbwBnAGkAYwBhAGwALAAgAG0AYQBuAGkAZgBlAHMAdABfAHQAZQB4AHQALAAgAGUAbgB0AHIAeQAsACAAKgBhAHIAZwB1AG0AZQBuAHQAcwAgAD0AIABzAHkAcwAuAGEAcgBnAHYAWwAxADoAXQAKAHIAbwBvAHQALAAgAGwAbwBnAGkAYwBhAGwAIAA9ACAAUABhAHQAaAAoAHIAbwBvAHQAKQAsACAAUABhAHQAaAAoAGwAbwBnAGkAYwBhAGwAKQAKAG0AYQBuAGkAZgBlAHMAdAAgAD0AIABqAHMAbwBuAC4AbABvAGEAZABzACgAbQBhAG4AaQBmAGUAcwB0AF8AdABlAHgAdAApAAoAcwBvAHUAcgBjAGUAcwAgAD0AIAB7AH0ACgBmAG8AcgAgAG4AYQBtAGUALAAgAGUAeABwAGUAYwB0AGUAZAAgAGkAbgAgAG0AYQBuAGkAZgBlAHMAdAAuAGkAdABlAG0AcwAoACkAOgAKACAAIAAgACAAaQBmACAAbgBvAHQAIABuAGEAbQBlAC4AaQBzAGkAZABlAG4AdABpAGYAaQBlAHIAKAApADoACgAgACAAIAAgACAAIAAgACAAcgBhAGkAcwBlACAAVgBhAGwAdQBlAEUAcgByAG8AcgAoACcAJwBTAE8AVQBSAEMARQBfAE4AQQBNAEUAJwAnACkACgAgACAAIAAgAHAAYQB0AGgAIAA9ACAAcgBvAG8AdAAgAC8AIAAoAG4AYQBtAGUAIAArACAAJwAnAC4AcAB5ACcAJwApAAoAIAAgACAAIABmAG8AcgAgAHAAYQByAHQAIABpAG4AIABbACoAcgBlAHYAZQByAHMAZQBkACgAcABhAHQAaAAuAHAAYQByAGUAbgB0AHMAKQAsACAAcABhAHQAaABdADoACgAgACAAIAAgACAAIAAgACAAaQBuAGYAbwAgAD0AIABwAGEAcgB0AC4AbABzAHQAYQB0ACgAKQAKACAAIAAgACAAIAAgACAAIABpAGYAIABzAHQAYQB0AC4AUwBfAEkAUwBMAE4ASwAoAGkAbgBmAG8ALgBzAHQAXwBtAG8AZABlACkAIABvAHIAIABnAGUAdABhAHQAdAByACgAaQBuAGYAbwAsACAAJwAnAHMAdABfAGYAaQBsAGUAXwBhAHQAdAByAGkAYgB1AHQAZQBzACcAJwAsACAAMAApACAAJgAgADAAeAA0ADAAMAA6AAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAcgBhAGkAcwBlACAAVgBhAGwAdQBlAEUAcgByAG8AcgAoACcAJwBTAE8AVQBSAEMARQBfAFIARQBQAEEAUgBTAEUAJwAnACkACgAgACAAIAAgACAAIAAgACAAaQBmACAAcwB0AGEAdAAuAFMAXwBJAFMAUgBFAEcAKABpAG4AZgBvAC4AcwB0AF8AbQBvAGQAZQApACAAYQBuAGQAIABpAG4AZgBvAC4AcwB0AF8AbgBsAGkAbgBrACAAIQA9ACAAMQA6AAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAcgBhAGkAcwBlACAAVgBhAGwAdQBlAEUAcgByAG8AcgAoACcAJwBTAE8AVQBSAEMARQBfAEgAQQBSAEQATABJAE4ASwAnACcAKQAKACAAIAAgACAAYgBlAGYAbwByAGUAIAA9ACAAcABhAHQAaAAuAHMAdABhAHQAKAApAAoAIAAgACAAIABpAGYAIABiAGUAZgBvAHIAZQAuAHMAdABfAHMAaQB6AGUAIAA+ACAAMQAwADIANAAgACoAIAAxADAAMgA0ADoACgAgACAAIAAgACAAIAAgACAAcgBhAGkAcwBlACAAVgBhAGwAdQBlAEUAcgByAG8AcgAoACcAJwBTAE8AVQBSAEMARQBfAEIATwBVAE4ARAAnACcAKQAKACAAIAAgACAAcgBhAHcAIAA9ACAAcABhAHQAaAAuAHIAZQBhAGQAXwBiAHkAdABlAHMAKAApAAoAIAAgACAAIABhAGYAdABlAHIAIAA9ACAAcABhAHQAaAAuAHMAdABhAHQAKAApAAoAIAAgACAAIABpAGYAIAAoAGIAZQBmAG8AcgBlAC4AcwB0AF8AaQBuAG8ALAAgAGIAZQBmAG8AcgBlAC4AcwB0AF8AcwBpAHoAZQAsACAAYgBlAGYAbwByAGUALgBzAHQAXwBtAHQAaQBtAGUAXwBuAHMALAAgAGIAZQBmAG8AcgBlAC4AcwB0AF8AYwB0AGkAbQBlAF8AbgBzACkAIAAhAD0AIAAoAGEAZgB0AGUAcgAuAHMAdABfAGkAbgBvACwAIABhAGYAdABlAHIALgBzAHQAXwBzAGkAegBlACwAIABhAGYAdABlAHIALgBzAHQAXwBtAHQAaQBtAGUAXwBuAHMALAAgAGEAZgB0AGUAcgAuAHMAdABfAGMAdABpAG0AZQBfAG4AcwApADoACgAgACAAIAAgACAAIAAgACAAcgBhAGkAcwBlACAAVgBhAGwAdQBlAEUAcgByAG8AcgAoACcAJwBTAE8AVQBSAEMARQBfAEMASABBAE4ARwBFAEQAJwAnACkACgAgACAAIAAgAGkAZgAgAGgAYQBzAGgAbABpAGIALgBzAGgAYQAyADUANgAoAHIAYQB3ACkALgBoAGUAeABkAGkAZwBlAHMAdAAoACkAIAAhAD0AIABlAHgAcABlAGMAdABlAGQAOgAKACAAIAAgACAAIAAgACAAIAByAGEAaQBzAGUAIABWAGEAbAB1AGUARQByAHIAbwByACgAJwAnAFMATwBVAFIAQwBFAF8AQwBIAEEATgBHAEUARAA6ACAAJwAnACAAKwAgAG4AYQBtAGUAKQAKACAAIAAgACAAcwBvAHUAcgBjAGUAcwBbAG4AYQBtAGUAXQAgAD0AIAByAGEAdwAKAAoAYwBsAG8AcwB1AHIAZQAgAD0AIAB0AHkAcABlAHMALgBNAG8AZAB1AGwAZQBUAHkAcABlACgAJwAnAF8AYgBtAGEAZABfAHMAbwB1AHIAYwBlAF8AYwBsAG8AcwB1AHIAZQAnACcAKQAKAGMAbABvAHMAdQByAGUALgBzAGgAYQAyADUANgAgAD0AIABkAGkAYwB0ACgAbQBhAG4AaQBmAGUAcwB0ACkADQAKAGMAbABvAHMAdQByAGUALgBzAG8AdQByAGMAZQBzACAAPQAgAHMAbwB1AHIAYwBlAHMACgBjAGwAbwBzAHUAcgBlAC4AYwBvAG0AcABpAGwAZQBkACAAPQAgAFsAXQAKAGMAbABvAHMAdQByAGUALgBiAG8AbwB0AHMAdAByAGEAcABfAHMAaABhADIANQA2ACAAPQAgAGgAYQBzAGgAbABpAGIALgBzAGgAYQAyADUANgAoAHMAeQBzAC4AbwByAGkAZwBfAGEAcgBnAHYAWwBzAHkAcwAuAG8AcgBpAGcAXwBhAHIAZwB2AC4AaQBuAGQAZQB4ACgAJwAnAC0AYwAnACcAKQAgACsAIAAxAF0ALgBlAG4AYwBvAGQAZQAoACcAJwB1AHQAZgAtADgAJwAnACkAKQAuAGgAZQB4AGQAaQBnAGUAcwB0ACgAKQAKAHMAeQBzAC4AbQBvAGQAdQBsAGUAcwBbAGMAbABvAHMAdQByAGUALgBfAF8AbgBhAG0AZQBfAF8AXQAgAD0AIABjAGwAbwBzAHUAcgBlAAoACgBjAGwAYQBzAHMAIABTAG8AdQByAGMAZQBzACgAaQBtAHAAbwByAHQAbABpAGIALgBhAGIAYwAuAE0AZQB0AGEAUABhAHQAaABGAGkAbgBkAGUAcgAsACAAaQBtAHAAbwByAHQAbABpAGIALgBhAGIAYwAuAEwAbwBhAGQAZQByACkAOgAKACAAIAAgACAAZABlAGYAIABmAGkAbgBkAF8AcwBwAGUAYwAoAHMAZQBsAGYALAAgAGYAdQBsAGwAbgBhAG0AZQAsACAAcABhAHQAaAA9AE4AbwBuAGUALAAgAHQAYQByAGcAZQB0AD0ATgBvAG4AZQApADoACgAgACAAIAAgACAAIAAgACAAaQBmACAAZgB1AGwAbABuAGEAbQBlACAAaQBuACAAcwBvAHUAcgBjAGUAcwA6AAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAcgBlAHQAdQByAG4AIABpAG0AcABvAHIAdABsAGkAYgAuAHUAdABpAGwALgBzAHAAZQBjAF8AZgByAG8AbQBfAGwAbwBhAGQAZQByACgAZgB1AGwAbABuAGEAbQBlACwAIABzAGUAbABmACkACgAgACAAIAAgACAAIAAgACAAcgBlAHQAdQByAG4AIABOAG8AbgBlAAoACgAgACAAIAAgAGQAZQBmACAAYwByAGUAYQB0AGUAXwBtAG8AZAB1AGwAZQAoAHMAZQBsAGYALAAgAHMAcABlAGMAKQA6AAoAIAAgACAAIAAgACAAIAAgAHIAZQB0AHUAcgBuACAATgBvAG4AZQAKAAoAIAAgACAAIABkAGUAZgAgAGUAeABlAGMAXwBtAG8AZAB1AGwAZQAoAHMAZQBsAGYALAAgAG0AbwBkAHUAbABlACkAOgAKACAAIAAgACAAIAAgACAAIABuAGEAbQBlACAAPQAgAG0AbwBkAHUAbABlAC4AXwBfAG4AYQBtAGUAXwBfAAoAIAAgACAAIAAgACAAIAAgAG0AbwBkAHUAbABlAC4AXwBfAGYAaQBsAGUAXwBfACAAPQAgAHMAdAByACgAbABvAGcAaQBjAGEAbAAgAC8AIAAoAG4AYQBtAGUAIAArACAAJwAnAC4AcAB5ACcAJwApACkACgAgACAAIAAgACAAIAAgACAAYwBsAG8AcwB1AHIAZQAuAGMAbwBtAHAAaQBsAGUAZAAuAGEAcABwAGUAbgBkACgAbgBhAG0AZQApAAoAIAAgACAAIAAgACAAIAAgAGUAeABlAGMAKABjAG8AbQBwAGkAbABlACgAcwBvAHUAcgBjAGUAcwBbAG4AYQBtAGUAXQAsACAAbQBvAGQAdQBsAGUALgBfAF8AZgBpAGwAZQBfAF8ALAAgACcAJwBlAHgAZQBjACcAJwApACwAIABtAG8AZAB1AGwAZQAuAF8AXwBkAGkAYwB0AF8AXwApAAoACgBpAGYAIABhAG4AeQAoAG8AcwAuAHAAYQB0AGgALgBuAG8AcgBtAGMAYQBzAGUAKABzAHQAcgAoAHIAbwBvAHQAKQApACAAPQA9ACAAbwBzAC4AcABhAHQAaAAuAG4AbwByAG0AYwBhAHMAZQAoAHMAdAByACgAUABhAHQAaAAoAHYAYQBsAHUAZQAgAG8AcgAgACcAJwAuACcAJwApAC4AYQBiAHMAbwBsAHUAdABlACgAKQApACkAIABvAHIAIABvAHMALgBwAGEAdABoAC4AbgBvAHIAbQBjAGEAcwBlACgAcwB0AHIAKABsAG8AZwBpAGMAYQBsACkAKQAgAD0APQAgAG8AcwAuAHAAYQB0AGgALgBuAG8AcgBtAGMAYQBzAGUAKABzAHQAcgAoAFAAYQB0AGgAKAB2AGEAbAB1AGUAIABvAHIAIAAnACcALgAnACcAKQAuAGEAYgBzAG8AbAB1AHQAZQAoACkAKQApACAAZgBvAHIAIAB2AGEAbAB1AGUAIABpAG4AIABzAHkAcwAuAHAAYQB0AGgAKQA6AAoAIAAgACAAIAByAGEAaQBzAGUAIABWAGEAbAB1AGUARQByAHIAbwByACgAJwAnAFMATwBVAFIAQwBFAF8AUwBFAEEAUgBDAEgAXwBQAEEAVABIACcAJwApAAoAcwB5AHMALgBtAGUAdABhAF8AcABhAHQAaAAuAGkAbgBzAGUAcgB0ACgAMAAsACAAUwBvAHUAcgBjAGUAcwAoACkAKQAKAHMAeQBzAC4AYQByAGcAdgAgAD0AIABbAHMAdAByACgAbABvAGcAaQBjAGEAbAAgAC8AIAAoAGUAbgB0AHIAeQAgACsAIAAnACcALgBwAHkAJwAnACkAKQAsACAAKgBhAHIAZwB1AG0AZQBuAHQAcwBdAAoAaQBmACAAZQBuAHQAcgB5ACAAbgBvAHQAIABpAG4AIABzAG8AdQByAGMAZQBzADoACgAgACAAIAAgAHIAYQBpAHMAZQAgAFYAYQBsAHUAZQBFAHIAcgBvAHIAKAAnACcAUwBPAFUAUgBDAEUAXwBFAE4AVABSAFkAJwAnACkACgBtAG8AZAB1AGwAZQAgAD0AIAB0AHkAcABlAHMALgBNAG8AZAB1AGwAZQBUAHkAcABlACgAJwAnAF8AXwBtAGEAaQBuAF8AXwAnACcAKQAKAG0AbwBkAHUAbABlAC4AXwBfAGYAaQBsAGUAXwBfACAAPQAgAHMAeQBzAC4AYQByAGcAdgBbADAAXQAKAHMAeQBzAC4AbQBvAGQAdQBsAGUAcwBbACcAJwBfAF8AbQBhAGkAbgBfAF8AJwAnAF0AIAA9ACAAbQBvAGQAdQBsAGUACgBlAHgAZQBjACgAYwBvAG0AcABpAGwAZQAoAHMAbwB1AHIAYwBlAHMAWwBlAG4AdAByAHkAXQAsACAAbQBvAGQAdQBsAGUALgBfAF8AZgBpAGwAZQBfAF8ALAAgACcAJwBlAHgAZQBjACcAJwApACwAIABtAG8AZAB1AGwAZQAuAF8AXwBkAGkAYwB0AF8AXwApACcALAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcgBlAHMAbwB1AHIAYwBlAHMAJwAsACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXAByAGUAcwBvAHUAcgBjAGUAcwAnACwAJwB7ACIAYwBhAHAAdAB1AHIAZQAiADoAIgBiADAAMwBhADEAZAAxADQAMgA2AGIANwA1ADUAOAAyAGEAYQAyADcAOQAwADkANgBhAGEAMwA3ADMAZAAzADYAMQA1AGIAMQA3ADQAYwA3ADEANAA5ADgAMAA1ADgAYgBlAGYANgAxAGIAMAA5AGIAMgA4ADAAZABhAGYAZQBiACIALAAiAGMAbwBuAGYAaQBnAF8AdQB0AGkAbABzACIAOgAiADkAOAA5ADQAMQAwAGMANAAwADAAOQBiADkAMAA4ADEAMgAxAGIAYgBiADAAZgBlADUANQAxAGEAMgBkADcAZABiADIAOQBmADgAOQAzADgANQBkADAANgA4ADgAYwBkAGEANQBjAGIAZgBjADEANgAyAGEANQA1ADEAMQBhADEAIgAsACIAawBuAG8AdwBsAGUAZABnAGUAIgA6ACIANgAyAGUAYwA1ADMAZQBjAGQANQA2ADkANgBkAGYAZABiADkAMQA5AGEAYQA2AGQAZQA4ADMAMgAxAGUAOAA2ADAANQA4ADYANgAyADQAMwAxADIAOQAzADgANQBiADgANwA1ADAAZABhAGIANAAwAGQAZQA1ADUAZgAyAGMAZAAiACwAIgByAGUAcwBvAGwAdgBlAF8AYwBvAG4AZgBpAGcAIgA6ACIAZABlADYAMQAyADYANAA1AGQANQA0ADYAMAAwADEAZQAxAGQAZAAzAGYANQBhAGYANgA5AGQAZQA2ADUANQA5AGEAZgBlADQANwAzADMAYgBiAGIANQA0AGUAYQA0ADAANAAyADkANwAxADUAZQA5ADQAMwAyADQAYQA3ADYAMgAiACwAIgByAHUAbgB0AGkAbQBlAF8AZwB1AGEAcgBkACIAOgAiADkAMAAxAGEANgAxADAANwA2ADQANgBkADQANABiADYAZQBhAGQAMwA4AGUANAA3ADEAYQBkADQAMwAzADkANQA3ADQAZgBkADYAYwA2AGYANQA5ADUANABiAGEAMgBhADAAOQAzADQAOAAxAGQAOQBhADMAOQA3ADMAZAA0ADkAIgAsACIAdwBvAHIAawBlAHIAIgA6ACIAOAA5ADYANwBmAGQAOQBkAGQAZAAxADEAOQA5ADMAOQAyADkANAAwADEANwBkADgAYwBhAGUANAAyADUANABmADgAMABjADEANQBmADEAMwAxADIAZQAwADIAMAAyAGEAMAA2ADcAOAA3ADMAYgA4AGIAZgAxAGIAYQBkAGUANgAiACwAIgBwAHIAbwBnAHIAZQBzAHMAIgA6ACIAMAAzADgAMgA0ADUANgAyAGUANQAxADAAOQAxADcAMABiAGIAYwA2ADMAYgAxADQAOAA3AGEANgA2ADYAMQAyADcAYQA5AGYAMABkAGUANwA3ADEAMgBlADEAYgA1AGMANgA5ADMAOAA0ADUAMgA1ADgANQAyADkANgA0ADIAMAAiACwAIgBjAGEAcwBlAHMAIgA6ACIAZQBhADMAYgA3ADUAYgA5AGIAZQAwAGQAYwA3AGUAYQAyADQAZgBiADMANgBlADUAZQBiADkAYQBhADQAMgA4AGUAZQA4ADMAOAA5ADMAOABkADQAOQBjADgAOAA4ADMANQA1ADUAZQA5ADYAZgBiADgAOAAxADAAZQAxADUAZgAiAH0AJwAsACcAYwBhAHMAZQBzACcALAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHACcAKQApAHsAWwB2AG8AaQBkAF0AJABzAC4AQQByAGcAdQBtAGUAbgB0AEwAaQBzAHQALgBBAGQAZAAoACQAYQApAH0ACgAkAHMALgBXAG8AcgBrAGkAbgBnAEQAaQByAGUAYwB0AG8AcgB5AD0AJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBmAG4AcgBOADgARwAnADsAJABzAC4AVQBzAGUAUwBoAGUAbABsAEUAeABlAGMAdQB0AGUAPQAkAGYAYQBsAHMAZQA7ACQAcwAuAEMAcgBlAGEAdABlAE4AbwBXAGkAbgBkAG8AdwA9ACQAdAByAHUAZQAKACQAcwB0AGEAdABlAD0AJABuAHUAbABsADsAJAByAD0ASQBuAHYAbwBrAGUALQBCAG0AYQBkAFMAdQBwAGUAcgB2AGkAcwBlAGQAIAAkAHMAIAAxADIAMAAwADAAMAAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXABlAHgAZQBjAHUAdABpAG8AbgAuAGoAcwBvAG4AJwAgAEAAKAApACAAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBmAG4AcgBOADgARwAnACAAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBmAG4AcgBOADgARwBcAHMAdABkAG8AdQB0AC4AagBzAG8AbgAnACAAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBmAG4AcgBOADgARwBcAHMAdABkAGUAcgByAC4AbABvAGcAJwAgACcAJwAgACgAWwByAGUAZgBdACQAcwB0AGEAdABlACkA
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at ChildProcess.exithandler (node:child_process:417:12)
+      at ChildProcess.emit (node:events:508:28)
+      at maybeClose (node:internal/child_process:1101:16)
+      at ChildProcess._handle.onexit (node:internal/child_process:305:5) {
+    code: null,
+    killed: true,
+    signal: 'SIGTERM',
+    cmd: 'C:\\Users\\UP60066553\\.dotnet\\tools\\.store\\powershell\\7.5.4\\powershell\\7.5.4\\tools\\net9.0\\any\\win\\pwsh.exe -NoProfile -NonInteractive -EncodedCommand JABFAHIAcgBvAHIAQQBjAHQAaQBvAG4AUAByAGUAZgBlAHIAZQBuAGMAZQA9ACcAUwB0AG8AcAAnAAoALgAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXAByAGUAcwBvAHUAcgBjAGUAcwBcAHAAcgBlAGYAbABpAGcAaAB0AC4AcABzADEAJwAKAC4AIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcgBlAHMAbwB1AHIAYwBlAHMAXABzAHUAcABlAHIAdgBpAHMAaQBvAG4ALgBwAHMAMQAnAAoAJABtAD0ARwBlAHQALQBDAG8AbgB0AGUAbgB0ACAALQBMAGkAdABlAHIAYQBsAFAAYQB0AGgAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcgBlAHMAbwB1AHIAYwBlAHMAXAByAHUAbgB0AGkAbQBlAC4AagBzAG8AbgAnACAALQBSAGEAdwB8AEMAbwBuAHYAZQByAHQARgByAG8AbQAtAEoAcwBvAG4ACgBBAHMAcwBlAHIAdAAtAEIAbQBhAGQAQwBsAG8AcwBlAGQAUgB1AG4AdABpAG0AZQAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXABwAHkAdABoAG8AbgAnACAAJABtAC4AZgBpAGwAZQBzAAoAJABnAHUAYQByAGQAcwA9AFsAQwBvAGwAbABlAGMAdABpAG8AbgBzAC4ARwBlAG4AZQByAGkAYwAuAEwAaQBzAHQAWwBzAHQAcgBpAG4AZwBdAF0AOgA6AG4AZQB3ACgAKQAKAFsAdgBvAGkAZABdAFsASQBPAC4ARABpAHIAZQBjAHQAbwByAHkAXQA6ADoAQwByAGUAYQB0AGUARABpAHIAZQBjAHQAbwByAHkAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAHMAaQB0AGUALQBwAGEAYwBrAGEAZwBlAHMAJwApADsAWwBJAE8ALgBGAGkAbABlAF0AOgA6AFcAcgBpAHQAZQBBAGwAbABUAGUAeAB0ACgAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBmAG4AcgBOADgARwBcAHAAeQB0AGgAbwBuAFwATABpAGIAXABzAGkAdABlAC0AcABhAGMAawBhAGcAZQBzAFwAcwBpAHQAZQBjAHUAcwB0AG8AbQBpAHoAZQAuAHAAeQAnACwAIgBOAEUAVgBFAFIAXwBFAFgARQBDAFUAVABFACIAKQAKACQAcgBlAGYAdQBzAGUAZAA9ACQAZgBhAGwAcwBlADsAdAByAHkAewBBAHMAcwBlAHIAdAAtAEIAbQBhAGQAQwBsAG8AcwBlAGQAUgB1AG4AdABpAG0AZQAgACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXABwAHkAdABoAG8AbgAnACAAJABtAC4AZgBpAGwAZQBzAH0AYwBhAHQAYwBoAHsAJAByAGUAZgB1AHMAZQBkAD0AJAB0AHIAdQBlAH0AOwBpAGYAKAAtAG4AbwB0ACAAJAByAGUAZgB1AHMAZQBkACkAewB0AGgAcgBvAHcAIAAnAFAAUgBFAEYATABJAEcASABUAF8ARABJAEQAXwBOAE8AVABfAFIARQBGAFUAUwBFACcAfQAKAFsASQBPAC4ARgBpAGwAZQBdADoAOgBEAGUAbABlAHQAZQAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXABwAHkAdABoAG8AbgBcAEwAaQBiAFwAcwBpAHQAZQAtAHAAYQBjAGsAYQBnAGUAcwBcAHMAaQB0AGUAYwB1AHMAdABvAG0AaQB6AGUALgBwAHkAJwApADsAJABnAHUAYQByAGQAcwAuAEEAZABkACgAJwBzAGkAdABlAGMAdQBzAHQAbwBtAGkAegBlACcAKQAKAFsAdgBvAGkAZABdAFsASQBPAC4ARABpAHIAZQBjAHQAbwByAHkAXQA6ADoAQwByAGUAYQB0AGUARABpAHIAZQBjAHQAbwByAHkAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAF8AXwBwAHkAYwBhAGMAaABlAF8AXwAnACkAOwBbAEkATwAuAEYAaQBsAGUAXQA6ADoAVwByAGkAdABlAEEAbABsAFQAZQB4AHQAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAF8AXwBwAHkAYwBhAGMAaABlAF8AXwBcAG4AbwB0AC0AYQBkAG0AaQB0AHQAZQBkAC4AcAB5AGMAJwAsACIATgBFAFYARQBSAF8ARQBYAEUAQwBVAFQARQAiACkACgAkAHIAZQBmAHUAcwBlAGQAPQAkAGYAYQBsAHMAZQA7AHQAcgB5AHsAQQBzAHMAZQByAHQALQBCAG0AYQBkAEMAbABvAHMAZQBkAFIAdQBuAHQAaQBtAGUAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AJwAgACQAbQAuAGYAaQBsAGUAcwB9AGMAYQB0AGMAaAB7ACQAcgBlAGYAdQBzAGUAZAA9ACQAdAByAHUAZQB9ADsAaQBmACgALQBuAG8AdAAgACQAcgBlAGYAdQBzAGUAZAApAHsAdABoAHIAbwB3ACAAJwBQAFIARQBGAEwASQBHAEgAVABfAEQASQBEAF8ATgBPAFQAXwBSAEUARgBVAFMARQAnAH0ACgBbAEkATwAuAEYAaQBsAGUAXQA6ADoARABlAGwAZQB0AGUAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AXABMAGkAYgBcAF8AXwBwAHkAYwBhAGMAaABlAF8AXwBcAG4AbwB0AC0AYQBkAG0AaQB0AHQAZQBkAC4AcAB5AGMAJwApADsAJABnAHUAYQByAGQAcwAuAEEAZABkACgAJwBjAGEAYwBoAGUAJwApAAoAWwBJAE8ALgBEAGkAcgBlAGMAdABvAHIAeQBdADoAOgBEAGUAbABlAHQAZQAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXABwAHkAdABoAG8AbgBcAEwAaQBiAFwAXwBfAHAAeQBjAGEAYwBoAGUAXwBfACcALAAkAGYAYQBsAHMAZQApAAoAWwB2AG8AaQBkAF0AWwBJAE8ALgBEAGkAcgBlAGMAdABvAHIAeQBdADoAOgBDAHIAZQBhAHQAZQBEAGkAcgBlAGMAdABvAHIAeQAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAJwApADsAWwBJAE8ALgBGAGkAbABlAF0AOgA6AFcAcgBpAHQAZQBBAGwAbABUAGUAeAB0ACgAJwBDADoAXABVAHMAZQByAHMAXABVAFAANgAwADAANgA2ADUANQAzAFwAQQBwAHAARABhAHQAYQBcAEwAbwBjAGEAbABcAFQAZQBtAHAAXABtAGEAZABuAGUAcwBzAC0AaABlAGwAcAAtAGIAbwB1AG4AZABhAHIAaQBlAHMALQBmAG4AcgBOADgARwBcAHAAeQB2AGUAbgB2AC4AYwBmAGcAJwAsACIATgBFAFYARQBSAF8ARQBYAEUAQwBVAFQARQAiACkACgAkAHIAZQBmAHUAcwBlAGQAPQAkAGYAYQBsAHMAZQA7AHQAcgB5AHsAQQBzAHMAZQByAHQALQBCAG0AYQBkAEMAbABvAHMAZQBkAFIAdQBuAHQAaQBtAGUAIAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AJwAgACQAbQAuAGYAaQBsAGUAcwB9AGMAYQB0AGMAaAB7ACQAcgBlAGYAdQBzAGUAZAA9ACQAdAByAHUAZQB9ADsAaQBmACgALQBuAG8AdAAgACQAcgBlAGYAdQBzAGUAZAApAHsAdABoAHIAbwB3ACAAJwBQAFIARQBGAEwASQBHAEgAVABfAEQASQBEAF8ATgBPAFQAXwBSAEUARgBVAFMARQAnAH0ACgBbAEkATwAuAEYAaQBsAGUAXQA6ADoARABlAGwAZQB0AGUAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHYAZQBuAHYALgBjAGYAZwAnACkAOwAkAGcAdQBhAHIAZABzAC4AQQBkAGQAKAAnAHAAYQByAGUAbgB0AC0AdgBlAG4AdgAnACkACgBbAEkATwAuAEYAaQBsAGUAXQA6ADoAVwByAGkAdABlAEEAbABsAFQAZQB4AHQAKAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAByAGUAZgBsAGkAZwBoAHQALgBqAHMAbwBuACcALAAoACQAZwB1AGEAcgBkAHMALgBUAG8AQQByAHIAYQB5ACgAKQB8AEMAbwBuAHYAZQByAHQAVABvAC0ASgBzAG8AbgAgAC0AQwBvAG0AcAByAGUAcwBzACkAKQAKACQAcwA9AFsARABpAGEAZwBuAG8AcwB0AGkAYwBzAC4AUAByAG8AYwBlAHMAcwBTAHQAYQByAHQASQBuAGYAbwBdADoAOgBuAGUAdwAoACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAHMAYwBvAG8AcABcAGEAcABwAHMAXAB1AHYAXAAwAC4AMQAzAC4AMABcAHUAdgAuAGUAeABlACcAKQAKAGYAbwByAGUAYQBjAGgAKAAkAGEAIABpAG4AIABAACgAJwByAHUAbgAnACwAJwAtAC0AbwBmAGYAbABpAG4AZQAnACwAJwAtAC0AbgBvAC0AcAByAG8AagBlAGMAdAAnACwAJwAtAC0AbgBvAC0AYwBvAG4AZgBpAGcAJwAsACcALQAtAG4AbwAtAGMAYQBjAGgAZQAnACwAJwAtAC0AcAB5AHQAaABvAG4AJwAsACcAQwA6AFwAVQBzAGUAcgBzAFwAVQBQADYAMAAwADYANgA1ADUAMwBcAEEAcABwAEQAYQB0AGEAXABMAG8AYwBhAGwAXABUAGUAbQBwAFwAbQBhAGQAbgBlAHMAcwAtAGgAZQBsAHAALQBiAG8AdQBuAGQAYQByAGkAZQBzAC0AZgBuAHIATgA4AEcAXABwAHkAdABoAG8AbgBcAHAAeQB0AGgAbwBuAC4AZQB4AGUAJwAsACcALQAtACcALAAnAEMAOgBcAFUAcwBlAHIAcwBcAFUAUAA2ADAAMAA2ADYANQA1ADMAXABBAHAAcABEAGEAdABhAFwATABvAGMAYQBsAFwAVABlAG0AcABcAG0AYQBkAG4AZQBzAHMALQBoAGUAbABwAC0AYgBvAHUAbgBkAGEAcgBpAGUAcwAtAGYAbgByAE4AOABHAFwAcAB5AHQAaABvAG4AXABwAHkAdABoAG8AbgAuAGUAeABlACcALAAnAC0ASQAnACwAJwAtAFMAJwAsACcALQBCACcALAAnAC0AYwAnACwAJwAiACIAIgBTAG8AdQByAGMAZQAtAG8AbgBsAHkAIABiAG8AbwB0AHMAdAByAGEAcAAsACAAcABhAHMAcwBlAGQAIABhAHMAIAAtAGMAIABiAGUAZgBvAHIAZQAgAGEAbgB5ACAAaABhAHIAbgBlAHMAcwAgAG0AbwBkAHUAbABlACAAaQBzACAAaQBtAHAAbwByAHQAZQBkAC4AIgAiACIACgBpAG0AcABvAHIAdAAgAGgAYQBzAGgAbABpAGIACgBpAG0AcABvAHIAdAAgAGkAbQBwAG8AcgB0AGwAaQBiAC4AYQBiAGMACgBpAG0AcABvAHIAdAAgAGkAbQBwAG8AcgB0AGwAaQBiAC4AdQB0AGkAbAAKAGkAbQBwAG8AcgB0ACAAagBzAG8AbgAKAGkAbQBwAG8AcgB0ACAAbwBzAAoAZgByAG8AbQAgAHAAYQB0AGgAbABpAGIAIABpAG0AcABvAHIAdAAgAFAAYQB0AGgACgBpAG0AcABvAHIAdAAgAHMAdABhAHQACgBpAG0AcABvAHIAdAAgAHMAeQBzAAoAaQBtAHAAbwByAHQAIAB0AHkAcABlAHMACgAKAHIAbwBvAHQALAAgAGwAbwBnAGkAYwBhAGwALAAgAG0AYQBuAGkAZgBlAHMAdABfAHQAZQB4AHQALAAgAGUAbgB0AHIAeQAsACAAKgBhAHIAZwB1AG0AZQBuAHQAcwAgAD0AIABzAHkAcwAuAGEAcgBnAHYAWwAxADoAXQAKAHIAbwBvAHQALAAgAGwAbwBnAGkAYwBhAGwAIAA9ACAAUABhAHQAaAAoAHIAbwBvAHQAKQAsACAAUABhAHQAaAAoAGwAbwBnAGkAYwBhAGwAKQAKAG0AYQBuAGkAZgBlAHMAdAAgAD0AIABqAHMAbwBuAC4AbABvAGEAZABzACgAbQBhAG4AaQBmAGUAcwB0AF8AdABlAHgAdAApAAoAcwBvAHUAcgBjAGUAcwAgAD0AIAB7AH0ACgBmAG8AcgAgAG4AYQBtAGUALAAgAGUAeABwAGUAYwB0AGUAZAAgAGkAbgAgAG0AYQBuAGkAZgBlAHMAdAAuAGkAdABlAG0AcwAoACkAOgAKACAAIAAgACAAaQBmACAAbgBvAHQAIABuAGEAbQBlAC4AaQBzAGkAZABlAG4AdABpAGYAaQBlAHIAKAApADoACgAgACAAIAAgACAAIAAgACAAcgBhAGkAcwBlACAAVgBhAGwAdQBlAEUAcgByAG8AcgAoACcAJwBTAE8AVQBSAEMARQBfAE4AQQBNAEUAJwAnACkACgAgACAAIAAgAHAAYQB0AGgAIAA9ACAAcgBvAG8AdAAgAC8AIAAoAG4AYQBtAGUAIAArACAAJwAnAC4AcAB5ACcAJwApAAoAIAAgACAAIABmAG8AcgAgAHAAYQByAHQAIABpAG4AIABbACoAcgBlAHYAZQByAHMAZQBkACgAcABhAHQAaAAuAHAAYQByAGUAbgB0AHMAKQAsACAAcABhAHQAaABdADoACgAgACAAIAAgACAAIAAgACAAaQBuAGYAbwAgAD0AIABwAGEAcgB0AC4AbABzAHQAYQB0ACgAKQAKACAAIAAgACAAIAAgACAAIABpAGYAIABz'... 9620 more characters,
+    stdout: '',
+    stderr: ''
+  }
+
+test at tests\bmad-help-supervision.test.mjs:13:1
+✖ real Windows Job owns descendants before Resume and returns finitely for root0, timeout, overflow and start failure (90047.9068ms)
+  AssertionError [ERR_ASSERTION]: normal finite return
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-help-supervision.test.mjs:46:11)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\connection-probe.test.mjs:87:1
+✖ découverte native exige le chemin standard, le manifeste et un fichier PE (620.3118ms)
+  Error: UNKNOWN: unknown error, open 'C:\Users\UP60066553\AppData\Local\Temp\madness-native-7CBjYR\npm\node_modules\@openai\codex\node_modules\@openai\codex-win32-x64\vendor\x86_64-pc-windows-msvc\bin\codex.exe'
+      at async open (node:internal/fs/promises:637:25)
+      at async writeFile (node:internal/fs/promises:1239:14)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-probe.test.mjs:97:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -4094,
+    code: 'UNKNOWN',
+    syscall: 'open',
+    path: 'C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-native-7CBjYR\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe'
+  }
+
+test at tests\connection-ui.test.mjs:335:1
+✖ initiatives: clavier, noms longs, compact, deux thèmes et zoom200 sans fuite horizontale (12536.8609ms)
+  locator.click: Error: strict mode violation: getByRole('button', { name: 'Choisir une initiative', exact: true }) resolved to 2 elements:
+      1) <button type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Choisir une initiative" class="initiative-trigger text-button">…</button> aka getByLabel('Choisir une initiative')
+      2) <button type="button" class="text-button">Choisir une initiative</button> aka getByRole('tabpanel', { name: 'Parcours' }).getByRole('button', { name: 'Choisir une initiative' })
+  
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:340:77) {
+    log: [ "  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })" ]
+  }
+
+test at tests\connection-ui.test.mjs:350:1
+✖ initiatives: couleurs locales lisibles et métadonnées alignées dans le thème clair (4300.3572ms)
+  locator.click: Error: strict mode violation: getByRole('button', { name: 'Choisir une initiative', exact: true }) resolved to 2 elements:
+      1) <button type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Choisir une initiative" class="initiative-trigger text-button">…</button> aka getByLabel('Choisir une initiative')
+      2) <button type="button" class="text-button">Choisir une initiative</button> aka getByRole('tabpanel', { name: 'Parcours' }).getByRole('button', { name: 'Choisir une initiative' })
+  
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:352:76) {
+    log: [ "  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })" ]
+  }
+
+test at tests\connection-ui.test.mjs:385:1
+✖ initiatives: choix courant focalisé sans masquer titre et fermeture au compact et zoom200 (3934.009ms)
+  locator.click: Error: strict mode violation: getByRole('button', { name: 'Choisir une initiative', exact: true }) resolved to 2 elements:
+      1) <button type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Choisir une initiative" class="initiative-trigger text-button">…</button> aka getByLabel('Choisir une initiative')
+      2) <button type="button" class="text-button">Choisir une initiative</button> aka getByRole('tabpanel', { name: 'Parcours' }).getByRole('button', { name: 'Choisir une initiative' })
+  
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:394:99) {
+    log: [ "  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })" ]
+  }
+
+test at tests\connection-ui.test.mjs:427:1
+✖ atelier : disposition compacte, buste complet et conteneurs confinés dans les deux thèmes (9386.4721ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(geometry.banner.height<=130)
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:443:178)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\connection-ui.test.mjs:600:1
+✖ atelier : la saisie et son action restent ensemble au premier écran (8060.2331ms)
+  AssertionError [ERR_ASSERTION]: {"fieldTop":703.7999877929688,"actionBottom":856.5999870300293,"height":820,"scroll":0}
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:609:41)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\connection-ui.test.mjs:828:1
+✖ le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (15595.0859ms)
+  locator.click: Error: strict mode violation: locator('[data-recap-id="conversation-new"] > summary') resolved to 2 elements:
+      1) <summary>…</summary> aka locator('summary').nth(1)
+      2) <summary>…</summary> aka locator('summary').nth(3)
+  
+  Call log:
+  [2m  - waiting for locator('[data-recap-id="conversation-new"] > summary')[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:850:90) {
+    log: [ `  - waiting for locator('[data-recap-id="conversation-new"] > summary')` ]
+  }
+
+test at tests\connection-ui.test.mjs:1129:1
+✖ navigation: les infobulles projets restent peintes devant bannière et onglets (2574.2529ms)
+  locator.click: Error: strict mode violation: getByRole('button', { name: 'Choisir une initiative', exact: true }) resolved to 2 elements:
+      1) <button type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Choisir une initiative" class="initiative-trigger text-button">…</button> aka getByLabel('Choisir une initiative')
+      2) <button type="button" class="text-button">Choisir une initiative</button> aka getByRole('tabpanel', { name: 'Parcours' }).getByRole('button', { name: 'Choisir une initiative' })
+  
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1163:76) {
+    log: [ "  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })" ]
+  }

@@ -1,0 +1,104 @@
+{
+  "fixtureVersion": 1,
+  "source": {
+    "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/qualification-graphe/runs/matrix-006/G2-nominal/native-graph.json",
+    "sha256": "6edacf27e2a860b218b4301f936ef5d4513afde9505335dbc3fd833028c56339",
+    "kind": "Read-only derivation authored for tests, no production decoder; identity, scope and relation id are fixture-owned. Labels, endpoints, calls, source-target direction, confidence/score and source files/lines copied from the qualified witness."
+  },
+  "snapshot": {
+    "schemaVersion": 1,
+    "identity": {
+      "projectId": "fixture-subset",
+      "rootPath": "C:/fixture-subset",
+      "rootIdentity": "synthetic-root",
+      "scopeId": "qualified-two-node-subset",
+      "scopeRevision": "7d115c8cb2ea25cfd79e785d80922ffd056081da9f99f55d2900bc27f9d19c7d",
+      "analysisId": "fixture:matrix006-subset",
+      "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168"
+    },
+    "provenance": {
+      "profile": "graphifyy-0.9.101-windows-cpython312-code-only-local-spike-v1",
+      "tool": "graphifyy",
+      "toolVersion": "0.9.101",
+      "nativeSchemaVersion": 1,
+      "artifact": "clustered-node-link",
+      "nativeSha256": "6edacf27e2a860b218b4301f936ef5d4513afde9505335dbc3fd833028c56339",
+      "assemblyRevision": "18b5fdc1117d09ee438667eb9d5dd77709ae855ad5f51b2e1452fccb6cbb40ce",
+      "normalizerVersion": 1
+    },
+    "collectedAt": null,
+    "coverage": {
+      "status": "partial",
+      "included": [
+        "qualified-two-node-subset"
+      ],
+      "excluded": [
+        "remaining-native-graph"
+      ],
+      "limitations": [
+        "Subset of the qualified 73-node / 57-relation witness; no new native execution."
+      ]
+    },
+    "sources": [
+      {
+        "relativePath": "typed/client.ts",
+        "sha256": "439628eaf6c9292f201a9966b43c37064aa7630ddcb268508ae06e528db6e046",
+        "lineCount": 3,
+        "kind": "file"
+      },
+      {
+        "relativePath": "typed/service.ts",
+        "sha256": "4173740313e6a15fb5df5e6733c383bda52677eb88e1963398ef3f6f0fd59e20",
+        "lineCount": 2,
+        "kind": "file"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "typed_client_useservice",
+        "label": "useService()",
+        "kind": "code",
+        "reference": {
+          "status": "known",
+          "relativePath": "typed/client.ts",
+          "line": {
+            "status": "known",
+            "value": 2
+          }
+        }
+      },
+      {
+        "id": "typed_service_service_act",
+        "label": ".act()",
+        "kind": "code",
+        "reference": {
+          "status": "known",
+          "relativePath": "typed/service.ts",
+          "line": {
+            "status": "known",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "relations": [
+      {
+        "id": "fixture-call-1",
+        "source": "typed_client_useservice",
+        "target": "typed_service_service_act",
+        "kind": "calls",
+        "directionSource": "source-target",
+        "confidence": "INFERRED",
+        "score": 0.85,
+        "reference": {
+          "status": "known",
+          "relativePath": "typed/client.ts",
+          "line": {
+            "status": "known",
+            "value": 2
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+✔ C1 normalized code-only witness retains directed INFERRED 0.85 and independent copies (4.1807ms)
+✔ C3/C4 refuses version without altering input (0.2795ms)
+✔ C3/C4 refuses profile without altering input (0.1983ms)
+✔ C3/C4 refuses tool without altering input (0.1554ms)
+✔ C3/C4 refuses raw without altering input (0.1736ms)
+✔ C3/C4 refuses schema without altering input (0.1907ms)
+✔ C3/C4 refuses extra payload without altering input (0.1645ms)
+✔ C3/C4 refuses duplicate nodes without altering input (0.2497ms)
+✔ C3/C4 refuses duplicate relations without altering input (0.287ms)
+✔ C3/C4 refuses endpoint without altering input (0.2952ms)
+✔ C3/C4 refuses direction without altering input (0.248ms)
+✔ C3/C4 refuses confidence without altering input (0.1883ms)
+✔ C3/C4 refuses boolean score without altering input (0.2834ms)
+✔ C3/C4 refuses nan score without altering input (0.2328ms)
+✔ C3/C4 refuses infinite score without altering input (0.1548ms)
+✔ C3/C4 refuses large score without altering input (0.1728ms)
+✔ C3/C4 refuses missing value without altering input (0.1742ms)
+✔ C3/C4 refuses line zero without altering input (0.1419ms)
+✔ C3/C4 refuses line out of corpus without altering input (0.1292ms)
+✔ C3/C4 refuses fractional line without altering input (0.1277ms)
+✔ C3/C4 refuses unattested line without altering input (0.1193ms)
+✔ C3/C4 refuses declared link without altering input (0.59ms)
+✔ C3/C4 refuses unknown file without altering input (0.1565ms)
+✔ C3/C4 refuses duplicate sources without altering input (0.1251ms)
+✔ C3/C4 refuses complete with omissions without altering input (0.107ms)
+✔ C3/C4 refuses ../outside.ts without altering input (0.1271ms)
+✔ C3/C4 refuses /absolute.ts without altering input (0.0932ms)
+✔ C3/C4 refuses C:/outside.ts without altering input (0.0896ms)
+✔ C3/C4 refuses src\file.ts without altering input (0.0885ms)
+✔ C3/C4 refuses src/../outside.ts without altering input (0.091ms)
+✔ C3/C4 refuses ./src/client.ts without altering input (0.0893ms)
+✔ C3/C4 refuses src//client.ts without altering input (0.0873ms)
+✔ C3/C4 refuses src/a:b.ts without altering input (0.1252ms)
+✔ C3 cycles, accessors, prototypes and hostile values have controlled refusals without getter calls (0.6584ms)
+✔ C4 all three levels, unknown file/line and absent score remain explicit without promotion (0.3754ms)
+✔ C1 multiple proofs between identical endpoints keep ids, source direction and opaque native ids (0.1827ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 211.0168

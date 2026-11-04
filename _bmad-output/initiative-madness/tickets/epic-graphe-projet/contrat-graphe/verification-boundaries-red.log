@@ -1,0 +1,124 @@
+✔ C1 normalized code-only witness retains directed INFERRED 0.85 and independent copies (4.4758ms)
+✔ C3/C4 refuses version without altering input (0.3064ms)
+✔ C3/C4 refuses profile without altering input (0.1979ms)
+✔ C3/C4 refuses tool without altering input (0.1623ms)
+✔ C3/C4 refuses raw without altering input (0.2012ms)
+✔ C3/C4 refuses schema without altering input (0.2173ms)
+✔ C3/C4 refuses extra payload without altering input (0.1767ms)
+✔ C3/C4 refuses duplicate nodes without altering input (0.3186ms)
+✔ C3/C4 refuses duplicate relations without altering input (0.2837ms)
+✔ C3/C4 refuses endpoint without altering input (0.3616ms)
+✔ C3/C4 refuses direction without altering input (0.2447ms)
+✔ C3/C4 refuses confidence without altering input (0.1928ms)
+✔ C3/C4 refuses boolean score without altering input (0.2133ms)
+✔ C3/C4 refuses nan score without altering input (0.1386ms)
+✔ C3/C4 refuses infinite score without altering input (0.1073ms)
+✔ C3/C4 refuses large score without altering input (0.17ms)
+✔ C3/C4 refuses missing value without altering input (0.1411ms)
+✔ C3/C4 refuses line zero without altering input (0.1421ms)
+✔ C3/C4 refuses line out of corpus without altering input (0.5947ms)
+✔ C3/C4 refuses fractional line without altering input (0.1505ms)
+✔ C3/C4 refuses unattested line without altering input (0.1207ms)
+✔ C3/C4 refuses declared link without altering input (0.1122ms)
+✔ C3/C4 refuses unknown file without altering input (0.1128ms)
+✔ C3/C4 refuses duplicate sources without altering input (0.1178ms)
+✔ C3/C4 refuses complete with omissions without altering input (0.1063ms)
+✔ C3/C4 refuses ../outside.ts without altering input (0.1337ms)
+✔ C3/C4 refuses /absolute.ts without altering input (0.0981ms)
+✔ C3/C4 refuses C:/outside.ts without altering input (0.1233ms)
+✔ C3/C4 refuses src\file.ts without altering input (0.131ms)
+✔ C3/C4 refuses src/../outside.ts without altering input (0.1271ms)
+✔ C3/C4 refuses ./src/client.ts without altering input (0.1268ms)
+✔ C3/C4 refuses src//client.ts without altering input (0.1114ms)
+✔ C3/C4 refuses src/a:b.ts without altering input (0.1037ms)
+✔ C3 cycles, accessors, prototypes and hostile values have controlled refusals without getter calls (0.8428ms)
+✔ C4 all three levels, unknown file/line and absent score remain explicit without promotion (0.4328ms)
+✔ C1 multiple proofs between identical endpoints keep ids, source direction and opaque native ids (0.1995ms)
+✔ C2 candidate claims cannot override independently held expected identities, manifest or generation (2.5624ms)
+✔ C2 a newer wall clock never publishes an older attempt or different scope/project (3.5714ms)
+✔ C5 observing a complete result does not prove terminal stop, persistence or a new last complete (1.5555ms)
+✔ C5 partial, failure, incompatible and changed-during-collection preserve previous complete (3.7835ms)
+✔ C5 terminal order and owned attempt are checked against core facts, without promotion on stop request (0.5908ms)
+✔ C6 restoration is historical, non-revalidating and starts no fictitious port or derived command (2.0289ms)
+✔ C7 command declarations reject paths, native effects, invalid discriminants/correlation and unknown versions (0.3548ms)
+✔ C7 event validation rejects correlation/discriminant/identity incoherence and controls replay order (2.3773ms)
+✔ C8 all pure decisions detach candidate, expected corpus, previous result and returned last complete (4.6022ms)
+✖ C7 port requests are versioned data: authority and live effects cannot enter through payloads (0.9236ms)
+✖ C2 source revision captured at start cannot be silently reassigned by later expected facts (0.7439ms)
+✖ C3/C6 malformed expected facts and historical stop ambiguity cannot be repaired or used as permission (2.1718ms)
+✔ C5 unknown source observation is never promoted, and terminal corpus is checked again (2.3749ms)
+✔ C5 complete, partial, failures, timeout and interruption each require coherent terminal observations (0.6645ms)
+✔ C4 expected scope disclosure, uncommitted revision and missing line facts stay distinct (0.5535ms)
+ℹ tests 51
+ℹ suites 0
+ℹ pass 48
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 282.4174
+
+✖ failing tests:
+
+test at tests\bmad-graph.test.mjs:113:1
+✖ C7 port requests are versioned data: authority and live effects cannot enter through payloads (0.9236ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:115:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:121:1
+✖ C2 source revision captured at start cannot be silently reassigned by later expected facts (0.7439ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:124:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:126:1
+✖ C3/C6 malformed expected facts and historical stop ambiguity cannot be repaired or used as permission (2.1718ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:131:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

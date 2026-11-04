@@ -1,0 +1,231 @@
+✔ C1 normalized code-only witness retains directed INFERRED 0.85 and independent copies (6.4904ms)
+✔ C3/C4 refuses version without altering input (0.55ms)
+✔ C3/C4 refuses profile without altering input (0.4699ms)
+✔ C3/C4 refuses tool without altering input (1.0802ms)
+✔ C3/C4 refuses raw without altering input (0.3675ms)
+✔ C3/C4 refuses schema without altering input (0.3479ms)
+✔ C3/C4 refuses extra payload without altering input (0.3907ms)
+✔ C3/C4 refuses duplicate nodes without altering input (0.6038ms)
+✔ C3/C4 refuses duplicate relations without altering input (0.53ms)
+✔ C3/C4 refuses endpoint without altering input (0.9946ms)
+✔ C3/C4 refuses direction without altering input (0.5951ms)
+✔ C3/C4 refuses confidence without altering input (0.7677ms)
+✔ C3/C4 refuses boolean score without altering input (0.5462ms)
+✔ C3/C4 refuses nan score without altering input (0.39ms)
+✔ C3/C4 refuses infinite score without altering input (0.3149ms)
+✔ C3/C4 refuses large score without altering input (0.3789ms)
+✔ C3/C4 refuses missing value without altering input (0.3697ms)
+✔ C3/C4 refuses line zero without altering input (0.378ms)
+✔ C3/C4 refuses line out of corpus without altering input (0.3315ms)
+✔ C3/C4 refuses fractional line without altering input (2.1742ms)
+✔ C3/C4 refuses unattested line without altering input (0.5131ms)
+✔ C3/C4 refuses declared link without altering input (0.1984ms)
+✔ C3/C4 refuses unknown file without altering input (0.1813ms)
+✔ C3/C4 refuses duplicate sources without altering input (0.1842ms)
+✔ C3/C4 refuses complete with omissions without altering input (0.1668ms)
+✔ C3/C4 refuses ../outside.ts without altering input (0.2408ms)
+✔ C3/C4 refuses /absolute.ts without altering input (0.193ms)
+✔ C3/C4 refuses C:/outside.ts without altering input (0.1967ms)
+✔ C3/C4 refuses src\file.ts without altering input (0.2012ms)
+✔ C3/C4 refuses src/../outside.ts without altering input (0.2741ms)
+✔ C3/C4 refuses ./src/client.ts without altering input (0.233ms)
+✔ C3/C4 refuses src//client.ts without altering input (10.6837ms)
+✔ C3/C4 refuses src/a:b.ts without altering input (0.9757ms)
+✔ C3 cycles, accessors, prototypes and hostile values have controlled refusals without getter calls (4.9749ms)
+✔ C4 all three levels, unknown file/line and absent score remain explicit without promotion (3.843ms)
+✔ C1 multiple proofs between identical endpoints keep ids, source direction and opaque native ids (11.5763ms)
+✖ C2 candidate claims cannot override independently held expected identities, manifest or generation (0.6402ms)
+✖ C2 a newer wall clock never publishes an older attempt or different scope/project (2.7612ms)
+✖ C5 observing a complete result does not prove terminal stop, persistence or a new last complete (1.3795ms)
+✖ C5 partial, failure, incompatible and changed-during-collection preserve previous complete (0.314ms)
+✖ C5 terminal order and owned attempt are checked against core facts, without promotion on stop request (0.1803ms)
+✖ C6 restoration is historical, non-revalidating and starts no fictitious port or derived command (0.4333ms)
+✔ C7 command declarations reject paths, native effects, invalid discriminants/correlation and unknown versions (1.3351ms)
+✖ C7 event validation rejects correlation/discriminant/identity incoherence and controls replay order (1.0624ms)
+✖ C8 all pure decisions detach candidate, expected corpus, previous result and returned last complete (0.4545ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 37
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 687.205
+
+✖ failing tests:
+
+test at tests\bmad-graph.test.mjs:43:1
+✖ C2 candidate claims cannot override independently held expected identities, manifest or generation (0.6402ms)
+  TypeError: Cannot read properties of undefined (reading 'code')
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:44:288)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at tests\bmad-graph.test.mjs:48:1
+✖ C2 a newer wall clock never publishes an older attempt or different scope/project (2.7612ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at initial (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:39:68)
+      at running (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:40:37)
+      at observed (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:41:55)
+      at completed (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:42:34)
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:49:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:53:1
+✖ C5 observing a complete result does not prove terminal stop, persistence or a new last complete (1.3795ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at initial (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:39:68)
+      at running (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:40:37)
+      at observed (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:41:55)
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:54:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:59:1
+✖ C5 partial, failure, incompatible and changed-during-collection preserve previous complete (0.314ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at initial (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:39:68)
+      at running (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:40:37)
+      at observed (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:41:55)
+      at completed (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:42:34)
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:60:17)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:68:1
+✖ C5 terminal order and owned attempt are checked against core facts, without promotion on stop request (0.1803ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at initial (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:39:68)
+      at running (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:40:37)
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:69:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:77:1
+✖ C6 restoration is historical, non-revalidating and starts no fictitious port or derived command (0.4333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at initial (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:39:68)
+      at running (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:40:37)
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:80:23)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:94:1
+✖ C7 event validation rejects correlation/discriminant/identity incoherence and controls replay order (1.0624ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at initial (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:39:68)
+      at running (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:40:37)
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:95:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-graph.test.mjs:104:1
+✖ C8 all pure decisions detach candidate, expected corpus, previous result and returned last complete (0.4545ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at initial (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:39:68)
+      at running (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:40:37)
+      at observed (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:41:55)
+      at completed (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:42:34)
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-graph.test.mjs:105:17)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,186 @@
+{
+  "at": "2026-11-04T02:54:27.847187+00:00",
+  "baseline": "e7713cc9c56d48bc7366be04a02afe4dd0fe5b73",
+  "frozenLF": "738d619b809aef87c393b947b1e02ee29cfab5f0724a59ae23f67bda0891bf65",
+  "sources": [
+    {
+      "path": "src/contracts/bmad-graph.ts",
+      "workingSha256": "aa1b05316648b1494d55f5a850b8a880386dc17c3bc43af20fa08b9129d2c400",
+      "lfSha256": "72b0e55ba4b30bffef9ecb233934dc167ab81a0a6da330fa8e9f1c3fd6878db7"
+    },
+    {
+      "path": "src/core/bmad-graph.ts",
+      "workingSha256": "de8aee46dd4003e54320ecd93438b7fce1c07a80cd9a867b292c6a1a95851ee1",
+      "lfSha256": "0ea914572848bec25146b99b565801ed34bb127c0c2ea8565e99f65d8d0c656e"
+    },
+    {
+      "path": "src/core/bmad-graph-port.ts",
+      "workingSha256": "3b5557879073eadd5c2b0b326d9e0cbd4ae3dc8bd1c54d2ed50ae7b542fd6c4e",
+      "lfSha256": "78de60a84600ebf62a9d8f030391d00154c7c6fdb064a86f291089abecff9b67"
+    },
+    {
+      "path": "tests/bmad-graph.test.mjs",
+      "workingSha256": "07b1f1bdfe304f9831ddb6f6903077cf83243d8fe975375773f137e754c7d3db",
+      "lfSha256": "cacd2dced1bca34e91682510d1a804aaecfb600a83e9aab67eff484c05653d5d"
+    },
+    {
+      "path": "tests/fixtures/bmad-graph/known-normalized.json",
+      "workingSha256": "0c6f01c160ce5e47127a721643f7957e1b3e395cc189986feffb80b9161d0943",
+      "lfSha256": "0c6f01c160ce5e47127a721643f7957e1b3e395cc189986feffb80b9161d0943"
+    }
+  ],
+  "verification": {
+    "targeted": 67,
+    "skipped": 0,
+    "types": 0,
+    "build": 0
+  },
+  "reviews": {
+    "high": "H1 resolved same auditor",
+    "quick": "Q1/Q2 resolved same Quick"
+  },
+  "functionalDeferred": [],
+  "globalDiagnostic": "non-final source,11 failures retained in verification.json/verification-suite.log",
+  "files": [
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/.gitattributes",
+      "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/handoff.md",
+      "sha256": "540df21e108d4a6e30ac46aa64fcf2c6760663c2a0f0d74024fa8554e56a0ed4"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/high-review-001.json",
+      "sha256": "bc6288e0a63ff8c385b4f9a068c7eb6cf08096b98e2c61fd119480d827b4643a"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/parent-final-build.log",
+      "sha256": "cc290246885a8a1803395808b4ff5ff56c324f546facae77d6f1e550295839eb"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/parent-final-tests.log",
+      "sha256": "099730182fb2db62123538cdd58a4b08bee3803d2845a4be05c869fceac9a7db"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/parent-final-types.log",
+      "sha256": "4cb0982df45255b62bedb5d769264397f36594f10ab353fb78bb064fe4a288ab"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/parent-matrix-audit.json",
+      "sha256": "4db61baf39c33a04fd740142af8af36eea010fb27ab0f9711cb977fe29b38e3e"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/parent-postquick-build.log",
+      "sha256": "9689d3ce617e11e2174bd22c15530cc38de71fb14e4c9cdff282478ac21ef231"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/parent-postquick-tests.log",
+      "sha256": "d5cbcadfacdec466b5e9511095dc2324b7ab348a4f31b83b142bab268bb8af03"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/parent-postquick-types.log",
+      "sha256": "4cb0982df45255b62bedb5d769264397f36594f10ab353fb78bb064fe4a288ab"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/parent-verification.md",
+      "sha256": "937cc9b8361f71139450e44e7267d230dae9eed503f9efa4b4ec43a1b5431b49"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/protected-closure.json",
+      "sha256": "07cd9507a8ef89e2f5baf8b4668731c2c88f3b2eefff30c3682ee7df8cbeb3b7"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/quick-review-001.json",
+      "sha256": "43a2a37fc8403a1fde8e5eb6060d8b52318e2cd7f2fa48e25ed5d6c3b42be47f"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-before.json",
+      "sha256": "ff48f7ed1987062b3f47d4e6669ed527a86782967356b305f32b3cf1a0deb83d"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-boundaries-green.log",
+      "sha256": "93d5539c55fa65f57c74bd4599435c92045ea1e0cf05c087578a3384a563c560"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-boundaries-red.log",
+      "sha256": "6381ac09e65943f0cd42861ad6056e60aea3726035d879dfe0dd4c1e43f8c04b"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-build.log",
+      "sha256": "24def151061352f7d9021dca8ae1644f1439000babaf519963722687e5452cc6"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-contract-green.log",
+      "sha256": "f23e7b45480e10bfd11dded7eba603a3fd1c4db87a9616da7a26ab7a4b041600"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-contract-red.log",
+      "sha256": "0ddf89e106974615b51d3bd45ce07a72c971dfc7d136ba117788bc9350676904"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-final-build.log",
+      "sha256": "20434dc0d50383a27091b2a3a3b4eec31f1a5503e946278801515b7a1a2e7854"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-final-tests.log",
+      "sha256": "bca36060365f2e058f15ff5cd00e661bc7f16480ea621458c01ff00864a83dff"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-policy-green.log",
+      "sha256": "9301ab21fc1223d5d46e0c17d434035c77531d2171e203da6ae8add50616c458"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-policy-red.log",
+      "sha256": "688362054ddee6add47dc52964a01f4467e3ee3da19105aa36692f17d31fc71a"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-preservation-red.log",
+      "sha256": "1e81126fd719346aff2269cea36fc768d9cac858cbcf63c299461e90edd0dbbd"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-q1-coherence-red.log",
+      "sha256": "29a94b0904d060cfb4b310c3537443cd9a3d3cbc5f69cf97720b7a53e6a3d842"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-q1-green.log",
+      "sha256": "f527ccd52706ec8a64b65747d54caedda3a18a838573ebec0d58679da64c1fc7"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-q1-red.log",
+      "sha256": "0cc934f63904b540cd35fb7601116c78adf6a3a7b4da68affdc7809a977b048a"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-q2-q3-green.log",
+      "sha256": "221714868acd9514d972f9bdc947c3698d1235f68bb4cc7dbe94585b95a568e6"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-q2-q3-red.log",
+      "sha256": "5dada813c35498a38d354eda30c9b1fe27e82932d9a04926f08e0d621c1f1682"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-red.log",
+      "sha256": "95af1aa8f71f3cee51564ceaf00e54418537ab1a29ae11c0de93d01e20964c04"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-suite.log",
+      "sha256": "a5850ed635eb44514879692f3df58845dcb4544999607aef1c06326b26b8e0ad"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-types-final.log",
+      "sha256": "4cb0982df45255b62bedb5d769264397f36594f10ab353fb78bb064fe4a288ab"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification-types-first.log",
+      "sha256": "4cb0982df45255b62bedb5d769264397f36594f10ab353fb78bb064fe4a288ab"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification.json",
+      "sha256": "a3833a5b6220d1ac4848aec1767bc6badd12a88d54fba2381d935b87dc0097e9"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-graphe-projet/contrat-graphe/verification.md",
+      "sha256": "70bd03956e913abefaa417bd8a08d0e5b2f5fff1fdf06d179a9b14e6a82d5c13"
+    }
+  ]
+}

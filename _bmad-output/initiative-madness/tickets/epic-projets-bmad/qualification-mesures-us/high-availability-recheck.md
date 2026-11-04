@@ -1,0 +1,2 @@
+H1 resolved — us-metrics.mjs:69 clears bindingKey/captured for contradictory bindings. The turn stays unknown/unassigned. same-turn-contradictory-us requires usCount0, null capture and full equality for[a,b],[b,a],[a,b,a]. Time-only conflicts keep the identical known binding with unknown duration.
+Same metrics210_high, current diff/source hashes and parent exit0 receipt89cases/0skip checked passively. Recheck only H1, no execution/edit. Diff e48eba17468334dd594cad4126c0fbf5175ad8ee093a5bcf8a2e53b93841a4fd.

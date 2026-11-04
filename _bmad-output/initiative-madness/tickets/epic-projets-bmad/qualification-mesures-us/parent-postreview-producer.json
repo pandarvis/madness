@@ -1,0 +1,20 @@
+{
+  "startedAt": "2026-11-04T23:38:19.248727+00:00",
+  "finishedAt": "2026-11-04T23:38:21.013349+00:00",
+  "command": [
+    "node",
+    "--experimental-strip-types",
+    "scripts/qualification/us-metrics.mjs",
+    "--output=_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-mesures-us\\runs\\parent-postreview-002"
+  ],
+  "exit": 0,
+  "before": {
+    "scripts/qualification/us-metrics.mjs": "7a10ea86c9cb46497f1d896764f945d3d1d3db062153b1e7fbcd2ac48339151f",
+    "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-mesures-us\\decisions-et-donnees.md": "8d6e96789bf087740c076ff85a0d4997ea5993e6095a30a21d578e06463e7be8"
+  },
+  "after": {
+    "scripts/qualification/us-metrics.mjs": "7a10ea86c9cb46497f1d896764f945d3d1d3db062153b1e7fbcd2ac48339151f",
+    "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-mesures-us\\decisions-et-donnees.md": "8d6e96789bf087740c076ff85a0d4997ea5993e6095a30a21d578e06463e7be8"
+  },
+  "exact": true
+}

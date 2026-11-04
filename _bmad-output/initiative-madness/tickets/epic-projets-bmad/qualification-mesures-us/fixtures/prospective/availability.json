@@ -1,0 +1,27 @@
+{
+  "evidenceClass": "local-prospective-not-product",
+  "matrix": "M6",
+  "facts": {
+    "schemaDeclared": true,
+    "receivedAttributedUsage": false,
+    "persistedUsage": false,
+    "receivedNativeDuration": false,
+    "currentLocalTiming": false,
+    "currency": null,
+    "price": null
+  },
+  "expected": {
+    "usage": "unavailable",
+    "cost": "unavailable",
+    "currency": null,
+    "nativeDuration": "schema-only",
+    "localDuration": "future-instrumentation"
+  },
+  "forbiddenInferences": [
+    "last-plus-total",
+    "account-total-to-us",
+    "api-price-times-tokens",
+    "subscription-cost-zero",
+    "historical-filter-proves-absence"
+  ]
+}

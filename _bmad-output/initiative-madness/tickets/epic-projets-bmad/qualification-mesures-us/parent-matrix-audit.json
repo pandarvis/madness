@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "parentCases": 89,
+  "skip": 0,
+  "rows": {
+    "M1": {
+      "executedCases": 33,
+      "caseIds": [
+        "story-with-leaf",
+        "story-without-leaf",
+        "story-renamed",
+        "other-project",
+        "other-root",
+        "other-initiative",
+        "moved-container",
+        "reappeared",
+        "detected-reuse",
+        "silent-reuse-unobserved",
+        "unknown-type",
+        "spike-type",
+        "file-only",
+        "missing-id",
+        "duplicate-entry",
+        "not-explicit",
+        "late-selection",
+        "stale-proof",
+        "unknown-type-source",
+        "missing-occurrence",
+        "changed-context",
+        "duplicate-leaf",
+        "foreign-ticket-type-source",
+        "undeclared-type-source",
+        "identity-pair:story-with-leaf/story-without-leaf",
+        "identity-pair:story-with-leaf/story-renamed",
+        "identity-pair:story-with-leaf/other-project",
+        "identity-pair:story-with-leaf/other-root",
+        "identity-pair:story-with-leaf/other-initiative",
+        "identity-pair:story-with-leaf/moved-container",
+        "identity-pair:story-with-leaf/reappeared",
+        "identity-pair:story-with-leaf/detected-reuse",
+        "identity-pair:story-with-leaf/silent-reuse-unobserved"
+      ]
+    },
+    "M2": {
+      "executedCases": 3,
+      "caseIds": [
+        "wait-and-tools",
+        "native-independent",
+        "wall-clock-independent"
+      ]
+    },
+    "M3": {
+      "executedCases": 8,
+      "caseIds": [
+        "duplicate-events",
+        "duplicate-terminal-id-diff",
+        "event-conflict",
+        "boundary-conflict",
+        "late-after-navigation",
+        "same-turn-duration-conflict",
+        "same-turn-contradictory-us",
+        "no-retroactive-reassignment"
+      ]
+    },
+    "M4": {
+      "executedCases": 23,
+      "caseIds": [
+        "confirmed-stop",
+        "unconfirmed-stop",
+        "stopped-without-endpoint",
+        "no-ack",
+        "no-terminal",
+        "crash",
+        "timeout-reopen",
+        "old-history",
+        "clock-restarted",
+        "backwards-clock",
+        "unpersisted-end",
+        "unpersisted-ack",
+        "terminal-not-received",
+        "in-progress-terminal",
+        "failed-terminal",
+        "interrupted-terminal",
+        "measured-zero",
+        "unbound-turn",
+        "ambiguous-binding",
+        "parallel-second",
+        "other-us-turn",
+        "other-conversation",
+        "second-clock-domain"
+      ]
+    },
+    "M5": {
+      "executedCases": 8,
+      "caseIds": [
+        "parallel-twice-ten-minutes",
+        "same-turn-repeated",
+        "partial-history",
+        "all-unknown",
+        "several-us-conversations",
+        "unassigned-preserved",
+        "true-zero",
+        "different-clock-overlap-unknown"
+      ]
+    },
+    "M6": {
+      "executedCases": 7,
+      "caseIds": [
+        "fixtures/schema/TurnStartedNotification.json",
+        "fixtures/schema/TurnCompletedNotification.json",
+        "fixtures/schema/ThreadTokenUsageUpdatedNotification.json",
+        "fixtures/schema/GetAccountTokenUsageResponse.json",
+        "schema-semantics",
+        "availability-remains-unavailable",
+        "schema-cannot-supply-attributable-money"
+      ]
+    },
+    "M7": {
+      "executedCases": 2,
+      "caseIds": [
+        "passive-documentary-reopen",
+        "161-product-inputs-and-asar-identical"
+      ]
+    },
+    "M8": {
+      "executedCases": 5,
+      "caseIds": [
+        "fixtures/historical/observer-01.json",
+        "fixtures/historical/observer-02.json",
+        "fixtures/historical/observer-03.json",
+        "fixtures/historical/observer-04.json",
+        "sanitizer-counterexamples"
+      ]
+    }
+  },
+  "reading": "Full documentary JS and decision text read; staged unified diff199488bytes inspected, first large raw output truncated. All prospective fixture fields recovered and read via lossless identity base+patch (reconstruction equality checked), complete timeline/aggregate/availability semantic views, full source/excerpt index and schema/provenance data; source meanings compared with staged paths and actual files. Large raw historical/report/inventory data are explicit binary diff markers and audited by reproduction/hash checks, not claimed read as native raw messages.",
+  "scope": "No product source edits. Inputs161 and current ASAR exact. Existing independent cleanup commit b040cf33a9d99ff4ac0708072f1d58d1a7cb2979 is incidental since preserved baseline c6c482028c8e63772cbc99830183cb05f89aeaa6. No G2/G3/G5/native usage reception/instrumented product claim.",
+  "findingP1": "All-unknown prose clarified by sameworker before reviews, no behavior/oracle change; parent-final85 passed after correction.",
+  "postReview": "Duplicate leaves, present foreign type sources and order-invariant conflicting bindings now covered; original85 receipt retained only as its earlier subset. Three sameworker fixes, original reviewers resolved."
+}

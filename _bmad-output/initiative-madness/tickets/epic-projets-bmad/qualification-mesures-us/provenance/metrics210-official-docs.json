@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "at": "2026-11-04T22:54:51.524279+00:00",
+  "sources": [
+    {
+      "url": "https://learn.chatgpt.com/docs/app-server",
+      "openedVia": "https://developers.openai.com/codex/app-server",
+      "scope": "Official current app-server general reference; not a0.144.6 export nor proof received on SIWC",
+      "supportedClaim": "Documents thread/tokenUsage/updated as an active-thread usage notification, and turn completed/interrupted/failed lifecycle. No last/total schema, token units, monetary value or per-US allocation established by the cited passage."
+    },
+    {
+      "url": "https://developers.openai.com/siwc/token-sharing-open-source/codex-app-server",
+      "scope": "Official SIWC lifecycle reference, not a new permission/authentication choice",
+      "supportedClaim": "A turn/completed event requires checking turn.status; completion is separate from failure/interruption."
+    }
+  ],
+  "limits": "Do not substitute other Agents/Assistants/Responses usages for this pinned app-server interface; no OpenAI model or auth/network app test performed."
+}

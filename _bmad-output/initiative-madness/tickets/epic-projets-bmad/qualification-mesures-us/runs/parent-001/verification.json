@@ -1,0 +1,3750 @@
+{
+  "schemaVersion": 1,
+  "scope": "documentary-spike-only-not-product-instrumentation",
+  "at": "2026-11-04T23:21:51.256Z",
+  "status": "passed",
+  "executedCases": 85,
+  "skipped": 0,
+  "cases": [
+    {
+      "id": "fixtures/historical/observer-01.json",
+      "matrix": "M8",
+      "evidenceClass": "historical-filtered-observer",
+      "status": "passed"
+    },
+    {
+      "id": "fixtures/historical/observer-02.json",
+      "matrix": "M8",
+      "evidenceClass": "historical-filtered-observer",
+      "status": "passed"
+    },
+    {
+      "id": "fixtures/historical/observer-03.json",
+      "matrix": "M8",
+      "evidenceClass": "historical-filtered-observer",
+      "status": "passed"
+    },
+    {
+      "id": "fixtures/historical/observer-04.json",
+      "matrix": "M8",
+      "evidenceClass": "historical-filtered-observer",
+      "status": "passed"
+    },
+    {
+      "id": "fixtures/schema/TurnStartedNotification.json",
+      "matrix": "M6",
+      "evidenceClass": "native-schema-only",
+      "status": "passed"
+    },
+    {
+      "id": "fixtures/schema/TurnCompletedNotification.json",
+      "matrix": "M6",
+      "evidenceClass": "native-schema-only",
+      "status": "passed"
+    },
+    {
+      "id": "fixtures/schema/ThreadTokenUsageUpdatedNotification.json",
+      "matrix": "M6",
+      "evidenceClass": "native-schema-only",
+      "status": "passed"
+    },
+    {
+      "id": "fixtures/schema/GetAccountTokenUsageResponse.json",
+      "matrix": "M6",
+      "evidenceClass": "native-schema-only",
+      "status": "passed"
+    },
+    {
+      "id": "schema-semantics",
+      "matrix": "M6",
+      "evidenceClass": "native-schema-only",
+      "status": "passed"
+    },
+    {
+      "id": "story-with-leaf",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "story-without-leaf",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "story-renamed",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "other-project",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "other-root",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "other-initiative",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "moved-container",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "reappeared",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "detected-reuse",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "silent-reuse-unobserved",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "unknown-type",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "spike-type",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "file-only",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "missing-id",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "duplicate-entry",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "not-explicit",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "late-selection",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "stale-proof",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "unknown-type-source",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "missing-occurrence",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "changed-context",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "identity-pair:story-with-leaf/story-without-leaf",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "identity-pair:story-with-leaf/story-renamed",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "identity-pair:story-with-leaf/other-project",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "identity-pair:story-with-leaf/other-root",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "identity-pair:story-with-leaf/other-initiative",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "identity-pair:story-with-leaf/moved-container",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "identity-pair:story-with-leaf/reappeared",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "identity-pair:story-with-leaf/detected-reuse",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "identity-pair:story-with-leaf/silent-reuse-unobserved",
+      "matrix": "M1",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "wait-and-tools",
+      "matrix": "M2",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "native-independent",
+      "matrix": "M2",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "wall-clock-independent",
+      "matrix": "M2",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "duplicate-events",
+      "matrix": "M3",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "duplicate-terminal-id-diff",
+      "matrix": "M3",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "event-conflict",
+      "matrix": "M3",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "boundary-conflict",
+      "matrix": "M3",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "late-after-navigation",
+      "matrix": "M3",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "confirmed-stop",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "unconfirmed-stop",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "stopped-without-endpoint",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "no-ack",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "no-terminal",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "crash",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "timeout-reopen",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "old-history",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "clock-restarted",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "backwards-clock",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "unpersisted-end",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "unpersisted-ack",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "terminal-not-received",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "in-progress-terminal",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "failed-terminal",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "interrupted-terminal",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "measured-zero",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "unbound-turn",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "ambiguous-binding",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "parallel-second",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "other-us-turn",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "other-conversation",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "second-clock-domain",
+      "matrix": "M4",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "parallel-twice-ten-minutes",
+      "matrix": "M5",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "same-turn-repeated",
+      "matrix": "M5",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "partial-history",
+      "matrix": "M5",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "all-unknown",
+      "matrix": "M5",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "several-us-conversations",
+      "matrix": "M5",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "unassigned-preserved",
+      "matrix": "M5",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "true-zero",
+      "matrix": "M5",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "different-clock-overlap-unknown",
+      "matrix": "M5",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "conflicting-same-turn-payload",
+      "matrix": "M3",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "no-retroactive-reassignment",
+      "matrix": "M3",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "availability-remains-unavailable",
+      "matrix": "M6",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "schema-cannot-supply-attributable-money",
+      "matrix": "M6",
+      "evidenceClass": "native-schema-only",
+      "status": "passed"
+    },
+    {
+      "id": "sanitizer-counterexamples",
+      "matrix": "M8",
+      "evidenceClass": "historical-filtered-observer",
+      "status": "passed"
+    },
+    {
+      "id": "passive-documentary-reopen",
+      "matrix": "M7",
+      "evidenceClass": "local-prospective-not-product",
+      "status": "passed"
+    },
+    {
+      "id": "161-product-inputs-and-asar-identical",
+      "matrix": "M7",
+      "evidenceClass": "scope",
+      "status": "passed"
+    }
+  ],
+  "matrix": {
+    "M1": [
+      "story-with-leaf",
+      "story-without-leaf",
+      "story-renamed",
+      "other-project",
+      "other-root",
+      "other-initiative",
+      "moved-container",
+      "reappeared",
+      "detected-reuse",
+      "silent-reuse-unobserved",
+      "unknown-type",
+      "spike-type",
+      "file-only",
+      "missing-id",
+      "duplicate-entry",
+      "not-explicit",
+      "late-selection",
+      "stale-proof",
+      "unknown-type-source",
+      "missing-occurrence",
+      "changed-context",
+      "identity-pair:story-with-leaf/story-without-leaf",
+      "identity-pair:story-with-leaf/story-renamed",
+      "identity-pair:story-with-leaf/other-project",
+      "identity-pair:story-with-leaf/other-root",
+      "identity-pair:story-with-leaf/other-initiative",
+      "identity-pair:story-with-leaf/moved-container",
+      "identity-pair:story-with-leaf/reappeared",
+      "identity-pair:story-with-leaf/detected-reuse",
+      "identity-pair:story-with-leaf/silent-reuse-unobserved"
+    ],
+    "M2": [
+      "wait-and-tools",
+      "native-independent",
+      "wall-clock-independent"
+    ],
+    "M3": [
+      "duplicate-events",
+      "duplicate-terminal-id-diff",
+      "event-conflict",
+      "boundary-conflict",
+      "late-after-navigation",
+      "conflicting-same-turn-payload",
+      "no-retroactive-reassignment"
+    ],
+    "M4": [
+      "confirmed-stop",
+      "unconfirmed-stop",
+      "stopped-without-endpoint",
+      "no-ack",
+      "no-terminal",
+      "crash",
+      "timeout-reopen",
+      "old-history",
+      "clock-restarted",
+      "backwards-clock",
+      "unpersisted-end",
+      "unpersisted-ack",
+      "terminal-not-received",
+      "in-progress-terminal",
+      "failed-terminal",
+      "interrupted-terminal",
+      "measured-zero",
+      "unbound-turn",
+      "ambiguous-binding",
+      "parallel-second",
+      "other-us-turn",
+      "other-conversation",
+      "second-clock-domain"
+    ],
+    "M5": [
+      "parallel-twice-ten-minutes",
+      "same-turn-repeated",
+      "partial-history",
+      "all-unknown",
+      "several-us-conversations",
+      "unassigned-preserved",
+      "true-zero",
+      "different-clock-overlap-unknown"
+    ],
+    "M6": [
+      "fixtures/schema/TurnStartedNotification.json",
+      "fixtures/schema/TurnCompletedNotification.json",
+      "fixtures/schema/ThreadTokenUsageUpdatedNotification.json",
+      "fixtures/schema/GetAccountTokenUsageResponse.json",
+      "schema-semantics",
+      "availability-remains-unavailable",
+      "schema-cannot-supply-attributable-money"
+    ],
+    "M7": [
+      "passive-documentary-reopen",
+      "161-product-inputs-and-asar-identical"
+    ],
+    "M8": [
+      "fixtures/historical/observer-01.json",
+      "fixtures/historical/observer-02.json",
+      "fixtures/historical/observer-03.json",
+      "fixtures/historical/observer-04.json",
+      "sanitizer-counterexamples"
+    ]
+  },
+  "classCounts": {
+    "historical-filtered-observer": 5,
+    "native-schema-only": 6,
+    "local-prospective-not-product": 73,
+    "scope": 1
+  },
+  "historical": [
+    {
+      "fixture": "fixtures/historical/observer-01.json",
+      "events": 120,
+      "turns": 1,
+      "completeWithinFilter": true,
+      "usage": "not-preserved-by-filter",
+      "duration": "not-preserved-by-filter"
+    },
+    {
+      "fixture": "fixtures/historical/observer-02.json",
+      "events": 0,
+      "turns": 0,
+      "completeWithinFilter": true,
+      "usage": "not-preserved-by-filter",
+      "duration": "not-preserved-by-filter"
+    },
+    {
+      "fixture": "fixtures/historical/observer-03.json",
+      "events": 402,
+      "turns": 8,
+      "completeWithinFilter": true,
+      "usage": "not-preserved-by-filter",
+      "duration": "not-preserved-by-filter"
+    },
+    {
+      "fixture": "fixtures/historical/observer-04.json",
+      "events": 0,
+      "turns": 0,
+      "completeWithinFilter": true,
+      "usage": "not-preserved-by-filter",
+      "duration": "not-preserved-by-filter"
+    }
+  ],
+  "schema": {
+    "cliVersion": "0.144.6",
+    "inventoryCount": 267,
+    "excerptCount": 4,
+    "receivedUsage": false,
+    "receivedNativeTiming": false,
+    "monetaryValue": false
+  },
+  "availability": {
+    "usage": "unavailable",
+    "cost": "unavailable",
+    "currency": null,
+    "nativeDuration": "schema-only",
+    "localDuration": "future-instrumentation"
+  },
+  "localResults": [
+    {
+      "id": "wait-and-tools",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "wait-and-tools",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"wait-and-tools\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "wait-and-tools",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 600000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000,
+        "end": 601000
+      }
+    },
+    {
+      "id": "native-independent",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "native-independent",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"native-independent\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "native-independent",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 600000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000,
+        "end": 601000
+      }
+    },
+    {
+      "id": "wall-clock-independent",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "wall-clock-independent",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"wall-clock-independent\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "wall-clock-independent",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 600000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000,
+        "end": 601000
+      }
+    },
+    {
+      "id": "duplicate-events",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "duplicate-events",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"duplicate-events\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "duplicate-events",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 600000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000,
+        "end": 601000
+      }
+    },
+    {
+      "id": "duplicate-terminal-id-diff",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "duplicate-terminal-id-diff",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"duplicate-terminal-id-diff\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "duplicate-terminal-id-diff",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 600000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000,
+        "end": 601000
+      }
+    },
+    {
+      "id": "event-conflict",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "event-conflict",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"event-conflict\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "event-conflict",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "event-conflict",
+      "interval": null
+    },
+    {
+      "id": "boundary-conflict",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "boundary-conflict",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"boundary-conflict\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "boundary-conflict",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "boundary-conflict",
+      "interval": null
+    },
+    {
+      "id": "late-after-navigation",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "late-after-navigation",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"late-after-navigation\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "late-after-navigation",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 600000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000,
+        "end": 601000
+      }
+    },
+    {
+      "id": "confirmed-stop",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "confirmed-stop",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"confirmed-stop\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "confirmed-stop",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 60000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000,
+        "end": 61000
+      }
+    },
+    {
+      "id": "unconfirmed-stop",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "unconfirmed-stop",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"unconfirmed-stop\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "unconfirmed-stop",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "stop-unconfirmed",
+      "interval": null
+    },
+    {
+      "id": "stopped-without-endpoint",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "stopped-without-endpoint",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"stopped-without-endpoint\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "stopped-without-endpoint",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "invalid-boundary",
+      "interval": null
+    },
+    {
+      "id": "no-ack",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "no-ack",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"no-ack\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "no-ack",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "missing-ack",
+      "interval": null
+    },
+    {
+      "id": "no-terminal",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "no-terminal",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"no-terminal\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "no-terminal",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "missing-end",
+      "interval": null
+    },
+    {
+      "id": "crash",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "crash",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"crash\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "crash",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "missing-end",
+      "interval": null
+    },
+    {
+      "id": "timeout-reopen",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "timeout-reopen",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"timeout-reopen\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "timeout-reopen",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "missing-end",
+      "interval": null
+    },
+    {
+      "id": "old-history",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "old-history",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"old-history\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "old-history",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "missing-ack",
+      "interval": null
+    },
+    {
+      "id": "clock-restarted",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "clock-restarted",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"clock-restarted\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "clock-restarted",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "clock-mismatch",
+      "interval": null
+    },
+    {
+      "id": "backwards-clock",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "backwards-clock",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"backwards-clock\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "backwards-clock",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "non-monotone",
+      "interval": null
+    },
+    {
+      "id": "unpersisted-end",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "unpersisted-end",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"unpersisted-end\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "unpersisted-end",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "undurable-boundary",
+      "interval": null
+    },
+    {
+      "id": "unpersisted-ack",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "unpersisted-ack",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"unpersisted-ack\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "unpersisted-ack",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "undurable-boundary",
+      "interval": null
+    },
+    {
+      "id": "terminal-not-received",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "terminal-not-received",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"terminal-not-received\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "terminal-not-received",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "missing-end",
+      "interval": null
+    },
+    {
+      "id": "in-progress-terminal",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "in-progress-terminal",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"in-progress-terminal\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "in-progress-terminal",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": null,
+      "reason": "missing-end",
+      "interval": null
+    },
+    {
+      "id": "failed-terminal",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "failed-terminal",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"failed-terminal\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "failed-terminal",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 600000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000,
+        "end": 601000
+      }
+    },
+    {
+      "id": "interrupted-terminal",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "interrupted-terminal",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"interrupted-terminal\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "interrupted-terminal",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 600000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000,
+        "end": 601000
+      }
+    },
+    {
+      "id": "measured-zero",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "measured-zero",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"measured-zero\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "measured-zero",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 0,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000,
+        "end": 1000
+      }
+    },
+    {
+      "id": "unbound-turn",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "unbound-turn",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"unbound-turn\",\"conversation-a\"]",
+      "bindingKey": null,
+      "captured": null,
+      "durationMs": 600000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000,
+        "end": 601000
+      }
+    },
+    {
+      "id": "ambiguous-binding",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "ambiguous-binding",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"ambiguous-binding\",\"conversation-a\"]",
+      "bindingKey": null,
+      "captured": null,
+      "durationMs": 600000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000,
+        "end": 601000
+      }
+    },
+    {
+      "id": "parallel-second",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "parallel-second",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"parallel-second\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "parallel-second",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 600000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 301000,
+        "end": 901000
+      }
+    },
+    {
+      "id": "other-us-turn",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "other-us-turn",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"other-us-turn\",\"conversation-a\"]",
+      "bindingKey": "[\"project-b\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-b",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-b",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "other-us-turn",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 300000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 1000001,
+        "end": 1300001
+      }
+    },
+    {
+      "id": "other-conversation",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "other-conversation",
+        "conversationId": "conversation-b",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"other-conversation\",\"conversation-b\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-a",
+          "threadId": "thread-a",
+          "turnId": "other-conversation",
+          "conversationId": "conversation-b",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 60000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-a",
+        "start": 2000001,
+        "end": 2060001
+      }
+    },
+    {
+      "id": "second-clock-domain",
+      "scope": {
+        "runId": "run-b",
+        "threadId": "thread-a",
+        "turnId": "second-clock-domain",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "turnKey": "[\"run-b\",\"codex\",\"connection-a\",\"thread-a\",\"second-clock-domain\",\"conversation-a\"]",
+      "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+      "captured": {
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "occurrenceId": "occurrence-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "context": {
+          "projectId": "project-a",
+          "initiativeId": "initiative-a",
+          "runId": "run-b",
+          "threadId": "thread-a",
+          "turnId": "second-clock-domain",
+          "conversationId": "conversation-a",
+          "providerId": "codex",
+          "connectionId": "connection-a"
+        }
+      },
+      "durationMs": 600000,
+      "reason": "closed",
+      "interval": {
+        "clock": "clock-b",
+        "start": 301000,
+        "end": 901000
+      }
+    }
+  ],
+  "aggregateResults": [
+    {
+      "id": "parallel-twice-ten-minutes",
+      "knownDurationMs": 1200000,
+      "knownTurns": 2,
+      "unknownTurns": 0,
+      "coverage": "complete",
+      "overlapPairs": 1,
+      "overlapUnknownPairs": 0,
+      "usCount": 1,
+      "groups": [
+        {
+          "key": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "knownDurationMs": 1200000,
+          "knownTurns": 2,
+          "unknownTurns": 0,
+          "conversations": [
+            "conversation-a"
+          ]
+        }
+      ],
+      "turns": [
+        {
+          "id": "wait-and-tools",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "wait-and-tools",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"wait-and-tools\",\"conversation-a\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "wait-and-tools",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": 600000,
+          "reason": "closed",
+          "interval": {
+            "clock": "clock-a",
+            "start": 1000,
+            "end": 601000
+          }
+        },
+        {
+          "id": "parallel-second",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "parallel-second",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"parallel-second\",\"conversation-a\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "parallel-second",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": 600000,
+          "reason": "closed",
+          "interval": {
+            "clock": "clock-a",
+            "start": 301000,
+            "end": 901000
+          }
+        }
+      ]
+    },
+    {
+      "id": "same-turn-repeated",
+      "knownDurationMs": 600000,
+      "knownTurns": 1,
+      "unknownTurns": 0,
+      "coverage": "complete",
+      "overlapPairs": 0,
+      "overlapUnknownPairs": 0,
+      "usCount": 1,
+      "groups": [
+        {
+          "key": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "knownDurationMs": 600000,
+          "knownTurns": 1,
+          "unknownTurns": 0,
+          "conversations": [
+            "conversation-a"
+          ]
+        }
+      ],
+      "turns": [
+        {
+          "id": "wait-and-tools",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "wait-and-tools",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"wait-and-tools\",\"conversation-a\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "wait-and-tools",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": 600000,
+          "reason": "closed",
+          "interval": {
+            "clock": "clock-a",
+            "start": 1000,
+            "end": 601000
+          }
+        }
+      ]
+    },
+    {
+      "id": "partial-history",
+      "knownDurationMs": 600000,
+      "knownTurns": 1,
+      "unknownTurns": 2,
+      "coverage": "partial",
+      "overlapPairs": 0,
+      "overlapUnknownPairs": 0,
+      "usCount": 1,
+      "groups": [
+        {
+          "key": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "knownDurationMs": 600000,
+          "knownTurns": 1,
+          "unknownTurns": 2,
+          "conversations": [
+            "conversation-a"
+          ]
+        }
+      ],
+      "turns": [
+        {
+          "id": "wait-and-tools",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "wait-and-tools",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"wait-and-tools\",\"conversation-a\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "wait-and-tools",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": 600000,
+          "reason": "closed",
+          "interval": {
+            "clock": "clock-a",
+            "start": 1000,
+            "end": 601000
+          }
+        },
+        {
+          "id": "crash",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "crash",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"crash\",\"conversation-a\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "crash",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": null,
+          "reason": "missing-end",
+          "interval": null
+        },
+        {
+          "id": "old-history",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "old-history",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"old-history\",\"conversation-a\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "old-history",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": null,
+          "reason": "missing-ack",
+          "interval": null
+        }
+      ]
+    },
+    {
+      "id": "all-unknown",
+      "knownDurationMs": null,
+      "knownTurns": 0,
+      "unknownTurns": 2,
+      "coverage": "unknown",
+      "overlapPairs": 0,
+      "overlapUnknownPairs": 0,
+      "usCount": 1,
+      "groups": [
+        {
+          "key": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "knownDurationMs": null,
+          "knownTurns": 0,
+          "unknownTurns": 2,
+          "conversations": [
+            "conversation-a"
+          ]
+        }
+      ],
+      "turns": [
+        {
+          "id": "crash",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "crash",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"crash\",\"conversation-a\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "crash",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": null,
+          "reason": "missing-end",
+          "interval": null
+        },
+        {
+          "id": "old-history",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "old-history",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"old-history\",\"conversation-a\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "old-history",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": null,
+          "reason": "missing-ack",
+          "interval": null
+        }
+      ]
+    },
+    {
+      "id": "several-us-conversations",
+      "knownDurationMs": 960000,
+      "knownTurns": 3,
+      "unknownTurns": 0,
+      "coverage": "complete",
+      "overlapPairs": 0,
+      "overlapUnknownPairs": 0,
+      "usCount": 2,
+      "groups": [
+        {
+          "key": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "knownDurationMs": 660000,
+          "knownTurns": 2,
+          "unknownTurns": 0,
+          "conversations": [
+            "conversation-a",
+            "conversation-b"
+          ]
+        },
+        {
+          "key": "[\"project-b\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "knownDurationMs": 300000,
+          "knownTurns": 1,
+          "unknownTurns": 0,
+          "conversations": [
+            "conversation-a"
+          ]
+        }
+      ],
+      "turns": [
+        {
+          "id": "wait-and-tools",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "wait-and-tools",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"wait-and-tools\",\"conversation-a\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "wait-and-tools",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": 600000,
+          "reason": "closed",
+          "interval": {
+            "clock": "clock-a",
+            "start": 1000,
+            "end": 601000
+          }
+        },
+        {
+          "id": "other-us-turn",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "other-us-turn",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"other-us-turn\",\"conversation-a\"]",
+          "bindingKey": "[\"project-b\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-b",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-b",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "other-us-turn",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": 300000,
+          "reason": "closed",
+          "interval": {
+            "clock": "clock-a",
+            "start": 1000001,
+            "end": 1300001
+          }
+        },
+        {
+          "id": "other-conversation",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "other-conversation",
+            "conversationId": "conversation-b",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"other-conversation\",\"conversation-b\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "other-conversation",
+              "conversationId": "conversation-b",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": 60000,
+          "reason": "closed",
+          "interval": {
+            "clock": "clock-a",
+            "start": 2000001,
+            "end": 2060001
+          }
+        }
+      ]
+    },
+    {
+      "id": "unassigned-preserved",
+      "knownDurationMs": 1200000,
+      "knownTurns": 2,
+      "unknownTurns": 0,
+      "coverage": "complete",
+      "overlapPairs": 1,
+      "overlapUnknownPairs": 0,
+      "usCount": 0,
+      "groups": [
+        {
+          "key": "unassigned",
+          "knownDurationMs": 1200000,
+          "knownTurns": 2,
+          "unknownTurns": 0,
+          "conversations": [
+            "conversation-a"
+          ]
+        }
+      ],
+      "turns": [
+        {
+          "id": "unbound-turn",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "unbound-turn",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"unbound-turn\",\"conversation-a\"]",
+          "bindingKey": null,
+          "captured": null,
+          "durationMs": 600000,
+          "reason": "closed",
+          "interval": {
+            "clock": "clock-a",
+            "start": 1000,
+            "end": 601000
+          }
+        },
+        {
+          "id": "ambiguous-binding",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "ambiguous-binding",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"ambiguous-binding\",\"conversation-a\"]",
+          "bindingKey": null,
+          "captured": null,
+          "durationMs": 600000,
+          "reason": "closed",
+          "interval": {
+            "clock": "clock-a",
+            "start": 1000,
+            "end": 601000
+          }
+        }
+      ]
+    },
+    {
+      "id": "true-zero",
+      "knownDurationMs": 0,
+      "knownTurns": 1,
+      "unknownTurns": 0,
+      "coverage": "complete",
+      "overlapPairs": 0,
+      "overlapUnknownPairs": 0,
+      "usCount": 1,
+      "groups": [
+        {
+          "key": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "knownDurationMs": 0,
+          "knownTurns": 1,
+          "unknownTurns": 0,
+          "conversations": [
+            "conversation-a"
+          ]
+        }
+      ],
+      "turns": [
+        {
+          "id": "measured-zero",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "measured-zero",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"measured-zero\",\"conversation-a\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "measured-zero",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": 0,
+          "reason": "closed",
+          "interval": {
+            "clock": "clock-a",
+            "start": 1000,
+            "end": 1000
+          }
+        }
+      ]
+    },
+    {
+      "id": "different-clock-overlap-unknown",
+      "knownDurationMs": 1200000,
+      "knownTurns": 2,
+      "unknownTurns": 0,
+      "coverage": "complete",
+      "overlapPairs": 0,
+      "overlapUnknownPairs": 1,
+      "usCount": 1,
+      "groups": [
+        {
+          "key": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "knownDurationMs": 1200000,
+          "knownTurns": 2,
+          "unknownTurns": 0,
+          "conversations": [
+            "conversation-a"
+          ]
+        }
+      ],
+      "turns": [
+        {
+          "id": "wait-and-tools",
+          "scope": {
+            "runId": "run-a",
+            "threadId": "thread-a",
+            "turnId": "wait-and-tools",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-a\",\"codex\",\"connection-a\",\"thread-a\",\"wait-and-tools\",\"conversation-a\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-a",
+              "threadId": "thread-a",
+              "turnId": "wait-and-tools",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": 600000,
+          "reason": "closed",
+          "interval": {
+            "clock": "clock-a",
+            "start": 1000,
+            "end": 601000
+          }
+        },
+        {
+          "id": "second-clock-domain",
+          "scope": {
+            "runId": "run-b",
+            "threadId": "thread-a",
+            "turnId": "second-clock-domain",
+            "conversationId": "conversation-a",
+            "providerId": "codex",
+            "connectionId": "connection-a"
+          },
+          "turnKey": "[\"run-b\",\"codex\",\"connection-a\",\"thread-a\",\"second-clock-domain\",\"conversation-a\"]",
+          "bindingKey": "[\"project-a\",\"physical-a\",\"initiative-a\",\"tickets/epic-a\",\"10\",\"occurrence-a\"]",
+          "captured": {
+            "projectId": "project-a",
+            "rootPath": "C:/prospective/project-a",
+            "rootIdentity": "physical-a",
+            "initiativeId": "initiative-a",
+            "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "type": "story",
+            "typeSourceId": "entry-source",
+            "occurrenceId": "occurrence-a",
+            "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sources": [
+              {
+                "id": "entry-source",
+                "kind": "entry",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+                "relativePath": "tickets/epic-a/tickets/tickets.toml",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              },
+              {
+                "id": "leaf-source",
+                "kind": "leaf",
+                "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+                "relativePath": "tickets/epic-a/tickets/story-a.md",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bytes": 100,
+                "modifiedAt": "2026-11-05T00:00:00.000Z"
+              }
+            ],
+            "context": {
+              "projectId": "project-a",
+              "initiativeId": "initiative-a",
+              "runId": "run-b",
+              "threadId": "thread-a",
+              "turnId": "second-clock-domain",
+              "conversationId": "conversation-a",
+              "providerId": "codex",
+              "connectionId": "connection-a"
+            }
+          },
+          "durationMs": 600000,
+          "reason": "closed",
+          "interval": {
+            "clock": "clock-b",
+            "start": 301000,
+            "end": 901000
+          }
+        }
+      ]
+    }
+  ],
+  "cleanup": {
+    "onlyOwnedDuplicateReopenFixture": true,
+    "bytes": 59587,
+    "sha256": "8a717592ab6ba2040fc82459ad2789659d00eb8cda12b85f0750caaed87d51b9",
+    "removed": true,
+    "retained": "canonical fixtures and verification report"
+  },
+  "protected": {
+    "count": 161,
+    "beforeMatched": true,
+    "afterMatched": true,
+    "candidate": {
+      "asar": "dist\\catalog-launch-reviewed\\win-unpacked\\resources\\app.asar",
+      "sha256": "74bf2eed593ed0256ea7cc18aeb0064272888e3adc310b96ec6e88b51d2ea03b"
+    }
+  },
+  "fixtureInventory": [
+    {
+      "path": "fixtures/historical/observer-01.json",
+      "sha256": "47cd836793e38eeba863313eb49d1cd7381ab96b0e7b12180e388c4090dbc5ea"
+    },
+    {
+      "path": "fixtures/historical/observer-02.json",
+      "sha256": "d5b3a3b243f497cb4578ccc00fcd5f92839ec886e71b115c78f8e5f60adbfef6"
+    },
+    {
+      "path": "fixtures/historical/observer-03.json",
+      "sha256": "432b3d3f41ffbd66f37e5f789c5a04a3c048d256fa4d13cdc1be8903ee51e08a"
+    },
+    {
+      "path": "fixtures/historical/observer-04.json",
+      "sha256": "e1d2992d5e2a2de74c6418124dead3b5ad4c1c68f6f4e31163c346a328bda53f"
+    },
+    {
+      "path": "fixtures/index.json",
+      "sha256": "ecf0a21bc291e606bd8c3bf14e9c6bacf889dba9681e74e1ac5f9defbd2d4e22"
+    },
+    {
+      "path": "fixtures/prospective/aggregate.json",
+      "sha256": "3fe1148c2e580beaf07161fca5e9bc2481c048513c9bb659dbd0d2e12a1698e5"
+    },
+    {
+      "path": "fixtures/prospective/availability.json",
+      "sha256": "29e46b0b7ddada60d2a80c9d00a48889f13160bfade6ee41e73aafe22e103b92"
+    },
+    {
+      "path": "fixtures/prospective/identity.json",
+      "sha256": "efb3164832596ead94875238067552fb92d3ac92ec22d62180d731f9986002de"
+    },
+    {
+      "path": "fixtures/prospective/timeline.json",
+      "sha256": "0b398df392b7d97ee2f00c96c47dd87f445de62f0659c18e18b596b1038c514d"
+    },
+    {
+      "path": "fixtures/schema/GetAccountTokenUsageResponse.json",
+      "sha256": "d71a0cf39621d0f709fc90af23ba02492f6ab777c998a51742d25911b0921bc1"
+    },
+    {
+      "path": "fixtures/schema/ThreadTokenUsageUpdatedNotification.json",
+      "sha256": "6ed4021134b808ed125c46efab58778ae551db5eb7d8625b4b3d8ad698915ba0"
+    },
+    {
+      "path": "fixtures/schema/TurnCompletedNotification.json",
+      "sha256": "8ad1232177e6fa59bcafe46293997e41b25869e7549cdb8311581e6d76b341ee"
+    },
+    {
+      "path": "fixtures/schema/TurnStartedNotification.json",
+      "sha256": "e4c651fde356a487879f747035245ee2dbdfc31db8ab1ffe0f935fd5320d5968"
+    },
+    {
+      "path": "provenance/metrics210-investigation.json",
+      "sha256": "7aae685ac31cc056fd398364fa582767dd9a5b2168a6d61a6852b230536ce9e6"
+    },
+    {
+      "path": "provenance/metrics210-official-docs.json",
+      "sha256": "050f07cb18f645ddd18cbe005fc49f38d1d5178ba4f9c2dc9d99ed6680ea8729"
+    },
+    {
+      "path": "provenance/metrics210-winston-sofia-decisions.json",
+      "sha256": "a536d43ce6c12fa2078405d5d008ae362d26b0bf8a7bc499104cd7781a8c6c46"
+    },
+    {
+      "path": "provenance/protected-before.json",
+      "sha256": "bb1473229958f4ab1f6ddc3cf0dca4448d112f18ad2903d39a982f4c932a9204"
+    },
+    {
+      "path": "provenance/protected-inputs.json",
+      "sha256": "07fefdd3c87be0bd81cdba31a7bf339fc1e61e84a65967798ed8117a02dea54a"
+    },
+    {
+      "path": "provenance/schema-export-receipt.json",
+      "sha256": "99849e6b609bbd2894f2ba78f102e4acf2dd42d758e23b3ee5c6a90d63666db8"
+    },
+    {
+      "path": "provenance/schema-inventory.json",
+      "sha256": "ac334072cca622fca3abdfce03480bf7daf515a1c73172aff5aaed62643a7067"
+    },
+    {
+      "path": "provenance/worker-001-cleanup.json",
+      "sha256": "54f592e7d0eb57081a650b1c8b707e06c8f0c3148a8f4411d2ae6d5d42762b01"
+    }
+  ],
+  "passivity": {
+    "implementation": "fs,crypto,path,url,assert plus existing progress validators/projection; no provider/process/network code invoked",
+    "reopen": "only owned documentary fixture file; no app/profile or product persistence touched"
+  },
+  "limitations": [
+    "Local fixtures describe future 2.11 instrumentation, not current product capability.",
+    "Old observers remove unlisted methods and deltas; they cannot prove native usage absence.",
+    "Native timing and usage are schema-only; receipt, semantics and durable storage remain unqualified.",
+    "Account aggregates cannot be allocated to stories; monetary cost and currency are unavailable.",
+    "Silent occurrence reuse without an observed discontinuity cannot universally be detected.",
+    "Cross-clock overlap comparisons are unknown; sums are distinct turn durations, not elapsed/human/CPU time."
+  ]
+}

@@ -1,0 +1,1207 @@
+{
+  "evidenceClass": "local-prospective-not-product",
+  "timeUnit": "monotonic milliseconds within one clock domain",
+  "note": "Static numeric expected values authored independently of harness reducer; no native event payloads or measured model calls.",
+  "cases": [
+    {
+      "id": "wait-and-tools",
+      "matrix": "M2",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "wait-and-tools",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "preparation",
+          "kind": "preparation",
+          "monoMs": 0,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "tool",
+          "kind": "tool",
+          "monoMs": 2000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "question",
+          "kind": "question",
+          "monoMs": 3000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "question-answer",
+          "kind": "question-answer",
+          "monoMs": 301000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        },
+        {
+          "id": "drain",
+          "kind": "drain",
+          "monoMs": 701000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "save",
+          "kind": "save",
+          "monoMs": 801000,
+          "clock": "clock-a",
+          "durable": true
+        }
+      ],
+      "expected": {
+        "durationMs": 600000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "native-independent",
+      "matrix": "M2",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "native-independent",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "native-duration",
+          "kind": "native-duration",
+          "monoMs": 1001,
+          "clock": "clock-a",
+          "durable": true,
+          "valueMs": 7,
+          "startedAt": 1700000000,
+          "completedAt": 1700000999
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 600000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "wall-clock-independent",
+      "matrix": "M2",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "wall-clock-independent",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "wall-clock",
+          "kind": "wall-clock",
+          "monoMs": 2000,
+          "clock": "clock-a",
+          "durable": true,
+          "unixMs": 999999999
+        },
+        {
+          "id": "wall-clock-2",
+          "kind": "wall-clock",
+          "monoMs": 3000,
+          "clock": "clock-a",
+          "durable": true,
+          "unixMs": 1
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 600000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "duplicate-events",
+      "matrix": "M3",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "duplicate-events",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 600000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "duplicate-terminal-id-diff",
+      "matrix": "M3",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "duplicate-terminal-id-diff",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        },
+        {
+          "id": "terminal-again",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 600000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "event-conflict",
+      "matrix": "M3",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "event-conflict",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 701000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "event-conflict"
+      }
+    },
+    {
+      "id": "boundary-conflict",
+      "matrix": "M3",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "boundary-conflict",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        },
+        {
+          "id": "terminal-alternate",
+          "kind": "terminal",
+          "monoMs": 701000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "boundary-conflict"
+      }
+    },
+    {
+      "id": "late-after-navigation",
+      "matrix": "M3",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "late-after-navigation",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "navigation",
+          "kind": "navigation",
+          "monoMs": 2000,
+          "clock": "clock-a",
+          "durable": true,
+          "activeBinding": "other-project"
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 600000,
+        "reason": "closed"
+      },
+      "expectedBinding": "story-with-leaf"
+    },
+    {
+      "id": "confirmed-stop",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "confirmed-stop",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "stop-request",
+          "kind": "stop-request",
+          "monoMs": 40000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "stop-confirmed",
+          "kind": "stop-confirmed",
+          "monoMs": 61000,
+          "clock": "clock-a",
+          "durable": true,
+          "confirmed": true
+        }
+      ],
+      "expected": {
+        "durationMs": 60000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "unconfirmed-stop",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "unconfirmed-stop",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "stop-request",
+          "kind": "stop-request",
+          "monoMs": 61000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "stop-unknown",
+          "kind": "stop-unknown",
+          "monoMs": 61001,
+          "clock": "clock-a",
+          "durable": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "stop-unconfirmed"
+      }
+    },
+    {
+      "id": "stopped-without-endpoint",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "stopped-without-endpoint",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "stop-confirmed",
+          "kind": "stop-confirmed",
+          "monoMs": null,
+          "clock": "clock-a",
+          "durable": true,
+          "confirmed": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "invalid-boundary"
+      }
+    },
+    {
+      "id": "no-ack",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "no-ack",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "missing-ack"
+      }
+    },
+    {
+      "id": "no-terminal",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "no-terminal",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "missing-end"
+      }
+    },
+    {
+      "id": "crash",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "crash",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "crash",
+          "kind": "crash",
+          "monoMs": 61000,
+          "clock": "clock-a",
+          "durable": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "missing-end"
+      }
+    },
+    {
+      "id": "timeout-reopen",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "timeout-reopen",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "timeout",
+          "kind": "timeout",
+          "monoMs": 61000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "reopen",
+          "kind": "reopen",
+          "monoMs": 3600000,
+          "clock": "clock-a",
+          "durable": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "missing-end"
+      }
+    },
+    {
+      "id": "old-history",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "old-history",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "historical-activity",
+          "kind": "historical-activity",
+          "monoMs": 61000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "file-date",
+          "kind": "file-date",
+          "monoMs": 999999,
+          "clock": "clock-a",
+          "durable": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "missing-ack"
+      }
+    },
+    {
+      "id": "clock-restarted",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "clock-restarted",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-b",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "clock-mismatch"
+      }
+    },
+    {
+      "id": "backwards-clock",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "backwards-clock",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 10000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "non-monotone"
+      }
+    },
+    {
+      "id": "unpersisted-end",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "unpersisted-end",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": false,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "undurable-boundary"
+      }
+    },
+    {
+      "id": "unpersisted-ack",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "unpersisted-ack",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": false
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "undurable-boundary"
+      }
+    },
+    {
+      "id": "terminal-not-received",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "terminal-not-received",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": false
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "missing-end"
+      }
+    },
+    {
+      "id": "in-progress-terminal",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "in-progress-terminal",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "inProgress",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": null,
+        "reason": "missing-end"
+      }
+    },
+    {
+      "id": "failed-terminal",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "failed-terminal",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "failed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 600000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "interrupted-terminal",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "interrupted-terminal",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "interrupted",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 600000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "measured-zero",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "measured-zero",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 0,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "unbound-turn",
+      "matrix": "M4",
+      "bindingRef": null,
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "unbound-turn",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 600000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "ambiguous-binding",
+      "matrix": "M4",
+      "bindingRef": "duplicate-entry",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "ambiguous-binding",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 601000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 600000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "parallel-second",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "parallel-second",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 301000,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 901000,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 600000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "other-us-turn",
+      "matrix": "M4",
+      "bindingRef": "other-project",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "other-us-turn",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 1000001,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 1300001,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 300000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "other-conversation",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-a",
+        "threadId": "thread-a",
+        "turnId": "other-conversation",
+        "conversationId": "conversation-b",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 2000001,
+          "clock": "clock-a",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 2060001,
+          "clock": "clock-a",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 60000,
+        "reason": "closed"
+      }
+    },
+    {
+      "id": "second-clock-domain",
+      "matrix": "M4",
+      "bindingRef": "story-with-leaf",
+      "scope": {
+        "runId": "run-b",
+        "threadId": "thread-a",
+        "turnId": "second-clock-domain",
+        "conversationId": "conversation-a",
+        "providerId": "codex",
+        "connectionId": "connection-a"
+      },
+      "events": [
+        {
+          "id": "accepted",
+          "kind": "accepted",
+          "monoMs": 301000,
+          "clock": "clock-b",
+          "durable": true
+        },
+        {
+          "id": "terminal",
+          "kind": "terminal",
+          "monoMs": 901000,
+          "clock": "clock-b",
+          "durable": true,
+          "status": "completed",
+          "received": true
+        }
+      ],
+      "expected": {
+        "durationMs": 600000,
+        "reason": "closed"
+      }
+    }
+  ]
+}

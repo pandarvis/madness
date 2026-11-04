@@ -1,0 +1,34 @@
+{
+  "findings": [
+    {
+      "id": "Q1",
+      "verdict": "medium",
+      "route": "patch",
+      "location": "scripts/qualification/us-metrics.mjs:41",
+      "evidence": "Inspection confirms identity() counts only existence=entry once, not duplicate existence=leaf. Projection groups samecontainer/id; actual parser reports duplicate leaves. A single entry plus two leaves therefore retains eligible:true contrary to M1 ambiguity rule. Existing duplicate-entry fixture does not settle this case.",
+      "resolution": "resolved",
+      "recheck": "bmad-quick-recheck.md"
+    },
+    {
+      "id": "Q2",
+      "verdict": "medium",
+      "route": "patch",
+      "location": "scripts/qualification/us-metrics.mjs:38",
+      "evidence": "identity() accepts typeSourceId present anywhere in snapshot.sources before resolving selected rows, without requiring a declaration of that selected ticket from the type source. Prospective foreign-ticket/document source can therefore certify type for another id. Existing absent-source case misses this reachable fixture input; only the demonstrated source-to-selected-ticket joint needs correcting.",
+      "resolution": "resolved",
+      "recheck": "bmad-quick-recheck.md"
+    },
+    {
+      "id": "H1",
+      "verdict": "medium",
+      "route": "patch",
+      "location": "scripts/qualification/us-metrics.mjs:68-73",
+      "evidence": "aggregate() same scope/different binding payload sets duration null through ...previous while retaining previous.bindingKey/captured. Reversing contradictory bindings changes which US gets the unknown turn and usCount/group context. Existing test changes duration only. Neutralize contradictory attribution and prove order invariance, retaining source/coverage honesty.",
+      "resolution": "resolved",
+      "recheck": "high-availability-recheck.md"
+    }
+  ],
+  "routes": "Three private documentary bench corrections, no public/product surface or intent change, no loopback",
+  "reviews": "Quick and separate high source-first, inspection only",
+  "status": "all resolved by original reviewers"
+}

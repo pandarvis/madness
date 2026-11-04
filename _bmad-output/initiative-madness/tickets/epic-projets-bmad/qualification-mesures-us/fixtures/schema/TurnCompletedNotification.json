@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "evidenceClass": "native-schema-only",
+  "cliVersion": "0.144.6",
+  "executableSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+  "sourceSha256": "900bc6e40f0aeb5aa498ec874f026a2a077356ac1dc740c1928cfdca29630345",
+  "receivedValues": false,
+  "declarations": [
+    {
+      "pointer": "/title",
+      "declaration": "TurnCompletedNotification"
+    },
+    {
+      "pointer": "/type",
+      "declaration": "object"
+    },
+    {
+      "pointer": "/required",
+      "declaration": [
+        "threadId",
+        "turn"
+      ]
+    },
+    {
+      "pointer": "/properties/threadId",
+      "declaration": {
+        "type": "string"
+      }
+    },
+    {
+      "pointer": "/properties/turn",
+      "declaration": {
+        "$ref": "#/definitions/Turn"
+      }
+    },
+    {
+      "pointer": "/definitions/Turn/type",
+      "declaration": "object"
+    },
+    {
+      "pointer": "/definitions/Turn/required",
+      "declaration": [
+        "id",
+        "items",
+        "status"
+      ]
+    },
+    {
+      "pointer": "/definitions/Turn/properties/id",
+      "declaration": {
+        "description": "Identifier for this turn. Codex-generated turn IDs are UUIDv7.",
+        "type": "string"
+      }
+    },
+    {
+      "pointer": "/definitions/Turn/properties/status",
+      "declaration": {
+        "$ref": "#/definitions/TurnStatus"
+      }
+    },
+    {
+      "pointer": "/definitions/Turn/properties/startedAt",
+      "declaration": {
+        "description": "Unix timestamp (in seconds) when the turn started.",
+        "type": [
+          "integer",
+          "null"
+        ],
+        "format": "int64"
+      }
+    },
+    {
+      "pointer": "/definitions/Turn/properties/completedAt",
+      "declaration": {
+        "description": "Unix timestamp (in seconds) when the turn completed.",
+        "type": [
+          "integer",
+          "null"
+        ],
+        "format": "int64"
+      }
+    },
+    {
+      "pointer": "/definitions/Turn/properties/durationMs",
+      "declaration": {
+        "description": "Duration between turn start and completion in milliseconds, if known.",
+        "type": [
+          "integer",
+          "null"
+        ],
+        "format": "int64"
+      }
+    },
+    {
+      "pointer": "/definitions/TurnStatus",
+      "declaration": {
+        "type": "string",
+        "enum": [
+          "completed",
+          "interrupted",
+          "failed",
+          "inProgress"
+        ]
+      }
+    }
+  ]
+}

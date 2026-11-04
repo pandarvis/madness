@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "classes": {
+    "historical": "historical-filtered-observer",
+    "schema": "native-schema-only",
+    "prospective": "local-prospective-not-product"
+  },
+  "sources": [
+    {
+      "source": "_bmad-output/initiative-madness/.working/metrics210-winston-sofia-decisions.json",
+      "sourceSha256": "a536d43ce6c12fa2078405d5d008ae362d26b0bf8a7bc499104cd7781a8c6c46",
+      "copy": "provenance/metrics210-winston-sofia-decisions.json",
+      "copySha256": "a536d43ce6c12fa2078405d5d008ae362d26b0bf8a7bc499104cd7781a8c6c46"
+    },
+    {
+      "source": "_bmad-output/initiative-madness/.working/metrics210-investigation.json",
+      "sourceSha256": "7aae685ac31cc056fd398364fa582767dd9a5b2168a6d61a6852b230536ce9e6",
+      "copy": "provenance/metrics210-investigation.json",
+      "copySha256": "7aae685ac31cc056fd398364fa582767dd9a5b2168a6d61a6852b230536ce9e6"
+    },
+    {
+      "source": "_bmad-output/initiative-madness/.working/metrics210-official-docs.json",
+      "sourceSha256": "050f07cb18f645ddd18cbe005fc49f38d1d5178ba4f9c2dc9d99ed6680ea8729",
+      "copy": "provenance/metrics210-official-docs.json",
+      "copySha256": "050f07cb18f645ddd18cbe005fc49f38d1d5178ba4f9c2dc9d99ed6680ea8729"
+    },
+    {
+      "source": "src/contracts/bmad-progress.ts",
+      "sourceSha256": "965562c6ae88c60c62f5353dc65fdcde95670f609482202c5da1491d927af5e3"
+    },
+    {
+      "source": "src/core/bmad-progress.ts",
+      "sourceSha256": "4a94fe23bc23800d3768a9b53f98228bcad71be68aa26bb0794f82501359f332"
+    },
+    {
+      "source": "resources/bmad-help/progress.py",
+      "sourceSha256": "8f961776a7ace94d7b5a69d61dcf525c37731bdb7c560000608e38bd82149465"
+    },
+    {
+      "source": "src/contracts/index.ts",
+      "sourceSha256": "a0e2bdba6558719cab40bccc55e4e669991c4e35368751eda90b2ee58c9c0ccf"
+    },
+    {
+      "source": "src/contracts/dialogue.ts",
+      "sourceSha256": "ca7532d4d2f1b9dcc115dd2e0be1fd47ae4f2fff155af3b27699576df6c12cb9"
+    },
+    {
+      "source": "src/core/ports.ts",
+      "sourceSha256": "921fed40c510ffa66b6ee053064a30f9c2968357e9968fbe540146b6c9dc3f49"
+    },
+    {
+      "source": "src/core/dialogue.ts",
+      "sourceSha256": "48682ef080ad76184e2d6ea8886fae61e28c817d32772262e8587f49c8b0cc1e"
+    },
+    {
+      "source": "src/adapters/codex/dialogue.ts",
+      "sourceSha256": "53f21c12e45c1786b8430e6e907e40a2a856c52796be5dd9de1eadfea86c5a63"
+    },
+    {
+      "source": "scripts/qualification/epic-one-control-trace.mjs",
+      "sourceSha256": "643dd179b3cf57249620ea09ae3a67af4ab923c2659a4eb6fbe36601c604741b"
+    },
+    {
+      "source": "scripts/qualification/epic-one-personal.mjs",
+      "sourceSha256": "45cd3ebe898ddce90df19b0927e0d6784888ff9db6f9ba3eef88b16c54f34f92"
+    }
+  ],
+  "historical": [
+    {
+      "source": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-aide-native/reprise-2026-11-03/native010-native-events-1.json",
+      "sourceSha256": "be736ad25e60902a4264be127d06f77f73be82767576a48f306de6d9733c6cef",
+      "fixture": "fixtures/historical/observer-01.json",
+      "fixtureSha256": "47cd836793e38eeba863313eb49d1cd7381ab96b0e7b12180e388c4090dbc5ea",
+      "events": 120,
+      "turns": 1
+    },
+    {
+      "source": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-aide-native/reprise-2026-11-03/native010-native-events-2.json",
+      "sourceSha256": "b94f413086df11740a270cd4d5f638035de642d1580f5ce7e2b43cadcb524876",
+      "fixture": "fixtures/historical/observer-02.json",
+      "fixtureSha256": "d5b3a3b243f497cb4578ccc00fcd5f92839ec886e71b115c78f8e5f60adbfef6",
+      "events": 0,
+      "turns": 0
+    },
+    {
+      "source": "_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-e2e/personal-current-002/native-events-1.json",
+      "sourceSha256": "80afd6fb09043a3a6669762b767b2888340c617f57424f30cd085215f5883fd7",
+      "fixture": "fixtures/historical/observer-03.json",
+      "fixtureSha256": "432b3d3f41ffbd66f37e5f789c5a04a3c048d256fa4d13cdc1be8903ee51e08a",
+      "events": 402,
+      "turns": 8
+    },
+    {
+      "source": "_bmad-output/initiative-madness/tickets/epic-boucle-codex/qualification-e2e/personal-current-002/native-events-2.json",
+      "sourceSha256": "fa62bdf6e444718dd72a8b46ff063cec7cbcab3a3a02471b90081cc856c7c9a7",
+      "fixture": "fixtures/historical/observer-04.json",
+      "fixtureSha256": "e1d2992d5e2a2de74c6418124dead3b5ad4c1c68f6f4e31163c346a328bda53f",
+      "events": 0,
+      "turns": 0
+    }
+  ],
+  "schemas": [
+    {
+      "source": "_bmad-output/initiative-madness/.working/metrics210-schema-966mEd/schemas/v2/TurnStartedNotification.json",
+      "sourceSha256": "8fa9297e89172a4430b8a023dc6fe6f4b5764578fb64df0d41886be25e64e669",
+      "fixture": "fixtures/schema/TurnStartedNotification.json",
+      "fixtureSha256": "e4c651fde356a487879f747035245ee2dbdfc31db8ab1ffe0f935fd5320d5968",
+      "pointers": [
+        "/title",
+        "/type",
+        "/required",
+        "/properties/threadId",
+        "/properties/turn",
+        "/definitions/Turn/type",
+        "/definitions/Turn/required",
+        "/definitions/Turn/properties/id",
+        "/definitions/Turn/properties/status",
+        "/definitions/Turn/properties/startedAt",
+        "/definitions/Turn/properties/completedAt",
+        "/definitions/Turn/properties/durationMs",
+        "/definitions/TurnStatus"
+      ]
+    },
+    {
+      "source": "_bmad-output/initiative-madness/.working/metrics210-schema-966mEd/schemas/v2/TurnCompletedNotification.json",
+      "sourceSha256": "900bc6e40f0aeb5aa498ec874f026a2a077356ac1dc740c1928cfdca29630345",
+      "fixture": "fixtures/schema/TurnCompletedNotification.json",
+      "fixtureSha256": "8ad1232177e6fa59bcafe46293997e41b25869e7549cdb8311581e6d76b341ee",
+      "pointers": [
+        "/title",
+        "/type",
+        "/required",
+        "/properties/threadId",
+        "/properties/turn",
+        "/definitions/Turn/type",
+        "/definitions/Turn/required",
+        "/definitions/Turn/properties/id",
+        "/definitions/Turn/properties/status",
+        "/definitions/Turn/properties/startedAt",
+        "/definitions/Turn/properties/completedAt",
+        "/definitions/Turn/properties/durationMs",
+        "/definitions/TurnStatus"
+      ]
+    },
+    {
+      "source": "_bmad-output/initiative-madness/.working/metrics210-schema-966mEd/schemas/v2/ThreadTokenUsageUpdatedNotification.json",
+      "sourceSha256": "fe70a73653ae9e3fffb0db84d1312f47ac47d92526c2d44461492cd864ada3ad",
+      "fixture": "fixtures/schema/ThreadTokenUsageUpdatedNotification.json",
+      "fixtureSha256": "6ed4021134b808ed125c46efab58778ae551db5eb7d8625b4b3d8ad698915ba0",
+      "pointers": [
+        "/title",
+        "/type",
+        "/required",
+        "/properties",
+        "/definitions"
+      ]
+    },
+    {
+      "source": "_bmad-output/initiative-madness/.working/metrics210-schema-966mEd/schemas/v2/GetAccountTokenUsageResponse.json",
+      "sourceSha256": "b4cb098e35c43a7e3b8c9211c3c1b12a79e5d89afdcf40304e6b777e25a8c74b",
+      "fixture": "fixtures/schema/GetAccountTokenUsageResponse.json",
+      "fixtureSha256": "d71a0cf39621d0f709fc90af23ba02492f6ab777c998a51742d25911b0921bc1",
+      "pointers": [
+        "/title",
+        "/type",
+        "/required",
+        "/properties",
+        "/definitions"
+      ]
+    }
+  ],
+  "limits": "Completeness of the filtered observer is not completeness of native payloads. No values of usage/time/currency received by this spike.",
+  "schemaExport": {
+    "receipt": "_bmad-output/initiative-madness/.working/metrics210-schema-966mEd/export-receipt.json",
+    "receiptSha256": "99849e6b609bbd2894f2ba78f102e4acf2dd42d758e23b3ee5c6a90d63666db8",
+    "schemaCount": 267,
+    "inventory": "provenance/schema-inventory.json"
+  }
+}

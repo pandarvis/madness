@@ -1,0 +1,3 @@
+- H1 scripts/qualification/us-metrics.mjs:68–73 — Same scope/different bindings preserves the first bindingKey/capture through ...previous after nulling duration; reversed inputs change the unknown-turn US attribution. D3 forbids choosing the first arbitrarily. Existing test varies only the timestamp. Neutralize contradictory attribution and check order invariance.
+
+No other contradiction found in fields/units/availability: schema≠receipt≠persistence, filtered historical observations, cost/currency unavailable and no API/subscription conversion. Source/index hashes and85cases/0skip checked passively; no campaign/test/build/export/model or edits. Original metrics210_high, initial diff e2ec6f50707e0c96c5b0de50872a4b64b26d660b140e120ce7fad35662c056d3.

@@ -1,0 +1,198 @@
+{
+  "evidenceClass": "local-prospective-not-product",
+  "matrix": "M5",
+  "cases": [
+    {
+      "id": "parallel-twice-ten-minutes",
+      "refs": [
+        "wait-and-tools",
+        "parallel-second"
+      ],
+      "expected": {
+        "knownDurationMs": 1200000,
+        "knownTurns": 2,
+        "unknownTurns": 0,
+        "coverage": "complete",
+        "overlapPairs": 1,
+        "usCount": 1
+      }
+    },
+    {
+      "id": "same-turn-repeated",
+      "refs": [
+        "wait-and-tools",
+        "wait-and-tools"
+      ],
+      "expected": {
+        "knownDurationMs": 600000,
+        "knownTurns": 1,
+        "unknownTurns": 0,
+        "coverage": "complete",
+        "overlapPairs": 0,
+        "usCount": 1
+      }
+    },
+    {
+      "id": "partial-history",
+      "refs": [
+        "wait-and-tools",
+        "crash",
+        "old-history"
+      ],
+      "expected": {
+        "knownDurationMs": 600000,
+        "knownTurns": 1,
+        "unknownTurns": 2,
+        "coverage": "partial",
+        "overlapPairs": 0,
+        "usCount": 1
+      }
+    },
+    {
+      "id": "all-unknown",
+      "refs": [
+        "crash",
+        "old-history"
+      ],
+      "expected": {
+        "knownDurationMs": null,
+        "knownTurns": 0,
+        "unknownTurns": 2,
+        "coverage": "unknown",
+        "overlapPairs": 0,
+        "usCount": 1
+      }
+    },
+    {
+      "id": "several-us-conversations",
+      "refs": [
+        "wait-and-tools",
+        "other-us-turn",
+        "other-conversation"
+      ],
+      "expected": {
+        "knownDurationMs": 960000,
+        "knownTurns": 3,
+        "unknownTurns": 0,
+        "coverage": "complete",
+        "overlapPairs": 0,
+        "usCount": 2
+      },
+      "expectedGroups": [
+        {
+          "bindingRef": "story-with-leaf",
+          "knownDurationMs": 660000,
+          "knownTurns": 2,
+          "unknownTurns": 0,
+          "conversations": [
+            "conversation-a",
+            "conversation-b"
+          ]
+        },
+        {
+          "bindingRef": "other-project",
+          "knownDurationMs": 300000,
+          "knownTurns": 1,
+          "unknownTurns": 0,
+          "conversations": [
+            "conversation-a"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unassigned-preserved",
+      "refs": [
+        "unbound-turn",
+        "ambiguous-binding"
+      ],
+      "expected": {
+        "knownDurationMs": 1200000,
+        "knownTurns": 2,
+        "unknownTurns": 0,
+        "coverage": "complete",
+        "overlapPairs": 1,
+        "usCount": 0
+      },
+      "expectedGroups": [
+        {
+          "bindingRef": null,
+          "knownDurationMs": 1200000,
+          "knownTurns": 2,
+          "unknownTurns": 0,
+          "conversations": [
+            "conversation-a"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "true-zero",
+      "refs": [
+        "measured-zero"
+      ],
+      "expected": {
+        "knownDurationMs": 0,
+        "knownTurns": 1,
+        "unknownTurns": 0,
+        "coverage": "complete",
+        "overlapPairs": 0,
+        "usCount": 1
+      }
+    },
+    {
+      "id": "different-clock-overlap-unknown",
+      "refs": [
+        "wait-and-tools",
+        "second-clock-domain"
+      ],
+      "expected": {
+        "knownDurationMs": 1200000,
+        "knownTurns": 2,
+        "unknownTurns": 0,
+        "coverage": "complete",
+        "overlapPairs": 0,
+        "overlapUnknownPairs": 1,
+        "usCount": 1
+      }
+    }
+  ],
+  "conflictCases": [
+    {
+      "id": "same-turn-duration-conflict",
+      "baseRef": "wait-and-tools",
+      "alternate": {
+        "terminalMs": 701000
+      },
+      "expected": {
+        "knownDurationMs": null,
+        "knownTurns": 0,
+        "unknownTurns": 1,
+        "coverage": "unknown",
+        "overlapPairs": 0,
+        "usCount": 1
+      },
+      "expectedBindingRef": "story-with-leaf",
+      "expectedReason": "turn-identity-conflict",
+      "orderInvariant": true
+    },
+    {
+      "id": "same-turn-contradictory-us",
+      "baseRef": "wait-and-tools",
+      "alternate": {
+        "bindingRef": "other-project"
+      },
+      "expected": {
+        "knownDurationMs": null,
+        "knownTurns": 0,
+        "unknownTurns": 1,
+        "coverage": "unknown",
+        "overlapPairs": 0,
+        "usCount": 0
+      },
+      "expectedBindingRef": null,
+      "expectedReason": "turn-identity-conflict",
+      "orderInvariant": true
+    }
+  ]
+}

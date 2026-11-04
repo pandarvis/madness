@@ -1,0 +1,1914 @@
+{
+  "evidenceClass": "local-prospective-not-product",
+  "typeProvenance": "Prospective 2.11 qualified type; current progress contract does not expose type.",
+  "cases": [
+    {
+      "id": "story-with-leaf",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": true,
+        "reason": "eligible"
+      }
+    },
+    {
+      "id": "story-without-leaf",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": true,
+        "reason": "eligible"
+      }
+    },
+    {
+      "id": "story-renamed",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Autre titre",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Autre titre",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": true,
+        "reason": "eligible"
+      }
+    },
+    {
+      "id": "other-project",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-b",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-b",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": true,
+        "reason": "eligible"
+      }
+    },
+    {
+      "id": "other-root",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-b",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-b",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": true,
+        "reason": "eligible"
+      }
+    },
+    {
+      "id": "other-initiative",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-b",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-b",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": true,
+        "reason": "eligible"
+      }
+    },
+    {
+      "id": "moved-container",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-b",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-b",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-b",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-moved",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": true,
+        "reason": "eligible"
+      }
+    },
+    {
+      "id": "reappeared",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-reappeared",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": true,
+        "reason": "eligible"
+      }
+    },
+    {
+      "id": "detected-reuse",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-reused",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": true,
+        "reason": "eligible"
+      }
+    },
+    {
+      "id": "silent-reuse-unobserved",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": true,
+        "reason": "eligible"
+      }
+    },
+    {
+      "id": "unknown-type",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": null,
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "type-not-qualified"
+      }
+    },
+    {
+      "id": "spike-type",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "spike",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "type-not-qualified"
+      }
+    },
+    {
+      "id": "file-only",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "@file:opaque",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "@file:opaque",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "@file:opaque",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "ambiguous-id"
+      }
+    },
+    {
+      "id": "missing-id",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": null,
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": null,
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": null,
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "ambiguous-id"
+      }
+    },
+    {
+      "id": "duplicate-entry",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          },
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 2
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "ambiguous-id"
+      }
+    },
+    {
+      "id": "not-explicit",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": false,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "not-selected-before-turn"
+      }
+    },
+    {
+      "id": "late-selection",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": false,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "not-selected-before-turn"
+      }
+    },
+    {
+      "id": "stale-proof",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "stale-proof"
+      }
+    },
+    {
+      "id": "unknown-type-source",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "not-observed",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "type-not-qualified"
+      }
+    },
+    {
+      "id": "missing-occurrence",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": null,
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "unknown-occurrence"
+      }
+    },
+    {
+      "id": "changed-context",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-b",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "context-mismatch"
+      }
+    },
+    {
+      "id": "duplicate-leaf",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "other-leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a-copy.md",
+            "relativePath": "tickets/epic-a/tickets/story-a-copy.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          },
+          {
+            "sourceId": "other-leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "entry-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "ambiguous-id"
+      }
+    },
+    {
+      "id": "foreign-ticket-type-source",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "foreign-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/foreign.md",
+            "relativePath": "tickets/epic-a/tickets/foreign.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          },
+          {
+            "sourceId": "foreign-source",
+            "container": "tickets/epic-a",
+            "ticketId": "11",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "foreign-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "type-not-qualified"
+      }
+    },
+    {
+      "id": "undeclared-type-source",
+      "matrix": "M1",
+      "snapshot": {
+        "schemaVersion": 1,
+        "projectId": "project-a",
+        "rootPath": "C:/prospective/project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "initiativePath": "C:/prospective/project-a/_bmad-output/initiative-a",
+        "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "observedAt": "2026-11-05T00:00:00.000Z",
+        "coverage": "complete",
+        "sources": [
+          {
+            "id": "entry-source",
+            "kind": "entry",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/tickets.toml",
+            "relativePath": "tickets/epic-a/tickets/tickets.toml",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "leaf-source",
+            "kind": "leaf",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/story-a.md",
+            "relativePath": "tickets/epic-a/tickets/story-a.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          },
+          {
+            "id": "foreign-source",
+            "kind": "document",
+            "path": "C:/prospective/project-a/_bmad-output/initiative-a/tickets/epic-a/tickets/foreign.md",
+            "relativePath": "tickets/epic-a/tickets/foreign.md",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 100,
+            "modifiedAt": "2026-11-05T00:00:00.000Z"
+          }
+        ],
+        "declarations": [
+          {
+            "sourceId": "entry-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "entry",
+            "line": 1
+          },
+          {
+            "sourceId": "leaf-source",
+            "container": "tickets/epic-a",
+            "ticketId": "10",
+            "title": "Titre de story",
+            "field": "existence",
+            "value": "leaf",
+            "line": 1
+          }
+        ],
+        "excerpts": [],
+        "problems": []
+      },
+      "selection": {
+        "projectId": "project-a",
+        "rootIdentity": "physical-a",
+        "initiativeId": "initiative-a",
+        "container": "tickets/epic-a",
+        "ticketId": "10",
+        "occurrenceId": "occurrence-a",
+        "type": "story",
+        "typeSourceId": "foreign-source",
+        "proofRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "explicit": true,
+        "beforeTurn": true,
+        "observation": "current"
+      },
+      "expected": {
+        "eligible": false,
+        "reason": "type-not-qualified"
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "left": "story-with-leaf",
+      "right": "story-without-leaf",
+      "same": true
+    },
+    {
+      "left": "story-with-leaf",
+      "right": "story-renamed",
+      "same": true
+    },
+    {
+      "left": "story-with-leaf",
+      "right": "other-project",
+      "same": false
+    },
+    {
+      "left": "story-with-leaf",
+      "right": "other-root",
+      "same": false
+    },
+    {
+      "left": "story-with-leaf",
+      "right": "other-initiative",
+      "same": false
+    },
+    {
+      "left": "story-with-leaf",
+      "right": "moved-container",
+      "same": false
+    },
+    {
+      "left": "story-with-leaf",
+      "right": "reappeared",
+      "same": false
+    },
+    {
+      "left": "story-with-leaf",
+      "right": "detected-reuse",
+      "same": false
+    },
+    {
+      "left": "story-with-leaf",
+      "right": "silent-reuse-unobserved",
+      "same": true,
+      "limitation": "Silent reuse with no observed discontinuity cannot universally be detected."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "evidenceClass": "historical-filtered-observer",
+  "sourceSha256": "fa62bdf6e444718dd72a8b46ff063cec7cbcab3a3a02471b90081cc856c7c9a7",
+  "filter": {
+    "originalMethodWhitelist": "scripts/qualification/epic-one-control-trace.mjs:14",
+    "unknownMethod": "other",
+    "deltas": "suppressed",
+    "contentArgumentsPidsPathsRawIds": "omitted"
+  },
+  "observer": {
+    "complete": true,
+    "limits": {
+      "maxEvents": 2048,
+      "maxLineBytes": 1048576,
+      "maxBytes": 8388608
+    },
+    "droppedEvents": 0,
+    "suppressedDeltas": 0,
+    "incomplete": {
+      "eventLimit": false,
+      "lineLimit": false,
+      "byteLimit": false,
+      "parseFailure": false,
+      "partialLine": false,
+      "observerFailure": false,
+      "restoreConflict": false
+    }
+  },
+  "events": [],
+  "turns": [],
+  "metrics": {
+    "localDuration": "unavailable",
+    "nativeDuration": "not-preserved-by-filter",
+    "usage": "not-preserved-by-filter",
+    "cost": "unavailable",
+    "currency": null
+  }
+}

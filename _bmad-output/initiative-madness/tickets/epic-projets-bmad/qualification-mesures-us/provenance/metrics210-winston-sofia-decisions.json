@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "at": "2026-11-04T23:08:01.579959+00:00",
+  "source": "Parent record of collaboration messages from actual metrics210_winston activation and its focused schema recheck; not a raw native protocol receipt",
+  "activationReported": {
+    "skill": "bmad-agent-architect",
+    "resolverAgent": true,
+    "resolverConfig": true,
+    "prepend": [],
+    "persistentFacts": [],
+    "append": [],
+    "epicAndArchitectureRead": true
+  },
+  "adoption": "Parent in Sofia persona adopted D1-D6 under existing explicit full-autonomy/checkpointsfalse human mandate; no fresh human or product validation claimed",
+  "decisions": {
+    "D1": "Durée cumulée des tours observés : bornes locales monotones accepted→terminal reçu ou arrêt confirmé, attentes/outils inclus, préparation et traitements après borne exclus. Pas CPU/effort humain/durée de réalisation. Native startedAt/completedAt/durationMs candidat séparé, aucune fusion ou remplacement automatique.",
+    "D2": "Une story choisie explicitement avant chaque tour ; type story doit être fourni par2.11, sans feuille admissible, @file/doublons/type inconnu refusés. Tuple physique/documentaire+preuves et ContextRef capturés. Titre seul ne réaffecte rien. Déplacement/suppression-réapparition/réemploi détecté ne fusionnent pas ; réemploi silencieux indétectable universellement.",
+    "D3": "Somme des intervalles clos prouvés une fois par tour distinct, chevauchements annoncés : deux tours parallèles10min donnent20min cumulées. Identité locale stable pour déduplication, jamais timestamp seul. Absence ≠ zéro.",
+    "D4": "Clic Arrêter sans confirmation ne ferme rien. Borne absente/crash/fermeture sans preuve durable = durée inconnue de ce tour ; les autres tours connus restent en couverture partielle. Pas de reconstruction depuis timeout, activités, dates de questions/fichiers ou réouverture.",
+    "D5": "Export primaire exactCLI0.144.6 prouve champs/units temporels et usage threadId+turnId+last/total, pas émission/réception/conservation SIWC actuelle. Aucun montant/devise prouvé, agrégats de compte non attribuables aux US. Pas last+total, répartition de cumul, APIprice ou coût abonnement inventé ; coût indisponible ≠0.",
+    "D6": "Après Sally2.12, instrumenter2.11 bornes locales/type-US/correspondance identités/provenance/fin/couverture/durable. Native reception et sémantique séparément qualifiées avant disponibilité. Fixtures distinguées local prospectif/natif schema-only/ancien observateur expurgé ; UI2.13 ensuite, aucun nouveau gate humain/auth/fournisseur."
+  },
+  "clarificationForCoverage": "Si une borne ne peut pas être prouvée selon la définition, un statut stopped seul ne suffit pas à fabriquer la durée. Le banc est prospectif, le produit actuel ne porte pas encore cette instrumentation."
+}

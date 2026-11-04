@@ -1,0 +1,6 @@
+** -text
+runs/**/verification.json -diff
+verification.json -diff
+fixtures/historical/*.json -diff
+provenance/protected*.json -diff
+provenance/schema-inventory.json -diff

@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "evidenceClass": "native-schema-only",
+  "cliVersion": "0.144.6",
+  "executableSha256": "4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7",
+  "sourceSha256": "b4cb098e35c43a7e3b8c9211c3c1b12a79e5d89afdcf40304e6b777e25a8c74b",
+  "receivedValues": false,
+  "declarations": [
+    {
+      "pointer": "/title",
+      "declaration": "GetAccountTokenUsageResponse"
+    },
+    {
+      "pointer": "/type",
+      "declaration": "object"
+    },
+    {
+      "pointer": "/required",
+      "declaration": [
+        "summary"
+      ]
+    },
+    {
+      "pointer": "/properties",
+      "declaration": {
+        "dailyUsageBuckets": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/AccountTokenUsageDailyBucket"
+          }
+        },
+        "summary": {
+          "$ref": "#/definitions/AccountTokenUsageSummary"
+        }
+      }
+    },
+    {
+      "pointer": "/definitions",
+      "declaration": {
+        "AccountTokenUsageDailyBucket": {
+          "type": "object",
+          "required": [
+            "startDate",
+            "tokens"
+          ],
+          "properties": {
+            "startDate": {
+              "type": "string"
+            },
+            "tokens": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "AccountTokenUsageSummary": {
+          "type": "object",
+          "properties": {
+            "currentStreakDays": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            },
+            "lifetimeTokens": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            },
+            "longestRunningTurnSec": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            },
+            "longestStreakDays": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            },
+            "peakDailyTokens": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

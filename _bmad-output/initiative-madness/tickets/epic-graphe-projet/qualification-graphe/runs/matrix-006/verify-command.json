@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-graphe-projet\\qualification-graphe\\verify.py",
+    "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-graphe-projet\\qualification-graphe\\runs\\matrix-006",
+    "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-graphe-projet\\qualification-graphe\\assembly-manifest.json"
+  ],
+  "status": 0,
+  "stdout": "{\"passed\": true, \"cases\": 18, \"skips\": 0, \"checks\": 7839, \"formatMutants\": [{\"case\": \"schema-unknown\", \"outcome\": \"refused\", \"reason\": \"FORMAT_IDENTITY\"}, {\"case\": \"tool-unknown\", \"outcome\": \"refused\", \"reason\": \"FORMAT_IDENTITY\"}, {\"case\": \"traversal\", \"outcome\": \"refused\", \"reason\": \"SOURCE_REFERENCE\"}, {\"case\": \"absolute\", \"outcome\": \"refused\", \"reason\": \"SOURCE_REFERENCE\"}, {\"case\": \"confidence-unknown\", \"outcome\": \"refused\", \"reason\": \"CONFIDENCE\"}, {\"case\": \"confidence-score-invalid\", \"outcome\": \"refused\", \"reason\": \"CONFIDENCE_SCORE\"}, {\"case\": \"missing-endpoint\", \"outcome\": \"refused\", \"reason\": \"EDGE_REFERENCE\"}, {\"case\": \"location-outside-file\", \"outcome\": \"refused\", \"reason\": \"SOURCE_LINE\"}], \"cleanupEligible\": true, \"ownedRoot\": \"C:\\\\Users\\\\UP60066553\\\\AppData\\\\Local\\\\Temp\\\\mg41-9NPKXq\\\\tmp\\\\mgs41-cmb9bx72\", \"G5Final\": false, \"verifierSha256\": \"170234232e7d78bd71ad1d264c91345d7562769ff378d4a4f1672df78098f70d\"}\r\n",
+  "stderr": ""
+}

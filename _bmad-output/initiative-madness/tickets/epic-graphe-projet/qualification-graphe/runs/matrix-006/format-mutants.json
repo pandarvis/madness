@@ -1,0 +1,42 @@
+[
+  {
+    "case": "schema-unknown",
+    "outcome": "refused",
+    "reason": "FORMAT_IDENTITY"
+  },
+  {
+    "case": "tool-unknown",
+    "outcome": "refused",
+    "reason": "FORMAT_IDENTITY"
+  },
+  {
+    "case": "traversal",
+    "outcome": "refused",
+    "reason": "SOURCE_REFERENCE"
+  },
+  {
+    "case": "absolute",
+    "outcome": "refused",
+    "reason": "SOURCE_REFERENCE"
+  },
+  {
+    "case": "confidence-unknown",
+    "outcome": "refused",
+    "reason": "CONFIDENCE"
+  },
+  {
+    "case": "confidence-score-invalid",
+    "outcome": "refused",
+    "reason": "CONFIDENCE_SCORE"
+  },
+  {
+    "case": "missing-endpoint",
+    "outcome": "refused",
+    "reason": "EDGE_REFERENCE"
+  },
+  {
+    "case": "location-outside-file",
+    "outcome": "refused",
+    "reason": "SOURCE_LINE"
+  }
+]

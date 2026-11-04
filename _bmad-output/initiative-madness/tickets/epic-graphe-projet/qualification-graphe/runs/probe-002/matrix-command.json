@@ -1,0 +1,25 @@
+{
+  "command": [
+    "C:\\Users\\UP60066553\\scoop\\apps\\uv\\0.13.0\\uv.exe",
+    "run",
+    "--offline",
+    "--no-project",
+    "--no-config",
+    "--no-cache",
+    "--python",
+    "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\python.exe",
+    "--",
+    "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-graphe-projet\\qualification-graphe\\fixtures.py",
+    "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-graphe-projet\\qualification-graphe\\runs\\probe-002",
+    "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-graphe-projet\\qualification-graphe\\assembly-manifest.json"
+  ],
+  "status": 4294967295,
+  "stdout": "G2-nominal failed SystemExit:1\r\nG5-raw failed SystemExit:1\r\nG3-inherited None None\r\n",
+  "stderr": ""
+}

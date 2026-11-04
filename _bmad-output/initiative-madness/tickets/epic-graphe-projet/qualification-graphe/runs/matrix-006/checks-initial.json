@@ -1,0 +1,417 @@
+[
+  {
+    "check": "runtime-base735",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "binary-wheels31",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "closed-runtime",
+    "passed": true,
+    "detail": 735
+  },
+  {
+    "check": "closed-packages",
+    "passed": true,
+    "detail": 2340
+  },
+  {
+    "check": "wheel:graphifyy",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:networkx",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:numpy",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:pyyaml",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:rapidfuzz",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-bash",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-c",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-c-sharp",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-cpp",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-elixir",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-fortran",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-go",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-groovy",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-java",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-javascript",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-julia",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-kotlin",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-lua",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-objc",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-php",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-powershell",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-python",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-ruby",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-rust",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-scala",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-swift",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-typescript",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-verilog",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "wheel:tree-sitter-zig",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "research-wheel8-identical",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "extras-absent",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "analyses-distinct",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:known-stop",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:source-receipts",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:freshness-observed",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:preserved-source",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:preserved-home",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact-inventory",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/.graphify_analysis.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/.graphify_build.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/.graphify_root",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/graph.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/manifest.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/stat-index.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/054140c06b360f82bb683ff5b1660edb960d35fcf2267ae631e535b7a108e071.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/097383584bcba43db7fb79b49f52550433594350ee1486baa899bab8206384ca.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/255dded4aeb743d0559245423b0262d43e860fcc9c36c9a981dfa7101365c6e4.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/35f5d92c17b3496a2688f38add72d949279d0175eeb6179ce8471a67e83b20b4.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/39db79bfbf787e605de00108b32fd3027427d019cb0fadc0940942fd9e769341.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/48cdf2821c5467d57a24912550a3e8508d887e9b738cebb8b5f69aa2d60bd387.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/54567db23de2839cbd82a12a1470fa37dc21d0dfd80cd7b8c374d4687fe210e2.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/57e7544afc86e16add7db80603568c501545c85c6d160531be3ce7dc356a422e.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/678466bdc898db1fd7189a0caf84cff8ba7042d44a868dbbf38e36d6cb984e3a.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/6e2a37fad2c38db04540cbd50ab5beceefe18797dbe97ad1760be4580357f60f.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/7025c522e64b5890489000a9cf641b345a03ee133a5bba63b8347f40107ea9e9.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/86c37817e96ce3e9241cfe3303f7d553f53fd8baed5eefa5c3c2429d4c427d77.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/8b2e1519114d43dbaed610e6a46522b3d09a4768f2413317c31d8d17561ef8f1.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/8b4e5f0e00bab4f557f0beb10f21f15c69dcddf48601c9cf766f541a3a850d2d.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/902b5baa5fe5c306293cea26877a7ea5906fb0736bfc499aad0a6fc83c1e6575.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/994a683e970aeb6e356e24355e9aad221c77905f66241cf6edd2acb8a897442a.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/a8dcd26884b630b692d0bee392a4de8d2c0772b8d71e1b9de2400014242cb872.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/ba17eeda744c35f6b33f825effe3dd339c79135c2b721a1312672067f5860fb2.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/c6fbd475b0e09d1af277d6e682a728c3e3ef68bd146cc69d3577bb099613e0d6.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/cb05a3fe8abd9fb6ead6b66e7ed8533ca17f13dfd570fd4b5414dc653d741e50.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/d6d9cba13e6f7e6ba159b1e5d7ba6d1b056e1125995d7f17ce641f86a51b2388.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/db384ac8ea4a0c29f9dde624379e44c887b52b458765dd39ae8da3ab5c4c3639.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/dedeeaa7bd311a8754d2a86fd1304ec40ccd7daa6c28ec3ca601801dfb047f0b.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/e44377f095a6b64901dce7576a3d42f3a998fa43363e47edad79e70877202f3f.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/e531f5f9b968560c49a6633960c09fc8d83e0677c15c9b1c072cba50635da7a9.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/f60d9780d975abf315371b77649466dd014c7ab758ccf23a83250eccb9ba65bf.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:artifact:graphify-out/cache/ast/v0.9.101-s36-g1339418af9f9/f7dd073b7cdc1392b1977158b00aca3b51bac62376b5d2671af1c83f9bbb8a05.json",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:identity",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:python-isolation",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:controls-active",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:no-network-attempt",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:no-outside-write-attempt",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "check": "G2-nominal:no-credentials-env",
+    "passed": false,
+    "detail": null
+  }
+]

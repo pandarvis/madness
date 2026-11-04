@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "functionalCases": {
+    "base": 18,
+    "targetedSupplement": 3,
+    "skips": 0
+  },
+  "assertions": {
+    "baseVerifier": 7839,
+    "finalLinkage": 13975
+  },
+  "sourceVersions": {
+    "matrix-006": "001",
+    "supplement-007": "002",
+    "reconstruction-and-final-verification": "003"
+  },
+  "verifierSha256": "e18bbf093e2a2eccd661c0adaf7f3c577649635c79effd5426a99707a82407e9",
+  "observations": [
+    {
+      "case": "G3-inherited",
+      "nodes": 73,
+      "links": 57,
+      "workerMs": 28515,
+      "peakWorkingSetBytes": 78012416,
+      "artifactBytes": 71008
+    },
+    {
+      "case": "G4-valid-config",
+      "nodes": 75,
+      "links": 58,
+      "workerMs": 25141,
+      "peakWorkingSetBytes": 77676544,
+      "artifactBytes": 72177
+    },
+    {
+      "case": "G7-cancel",
+      "processes": {
+        "rootPid": 41320,
+        "phase": {
+          "phase": "extract-entry-before-parsing",
+          "files": 33
+        },
+        "processes": [
+          {
+            "pid": 41320,
+            "parent": 30052,
+            "exe": "uv.exe"
+          },
+          {
+            "pid": 44608,
+            "parent": 41320,
+            "exe": "conhost.exe"
+          },
+          {
+            "pid": 21856,
+            "parent": 41320,
+            "exe": "python.exe"
+          }
+        ],
+        "limitation": "instantané Toolhelp32, pas trace exhaustive"
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "cancelled",
+        "exit": 1,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 41320,
+        "active_before_stop": 3,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 102,
+        "elapsed_ms": 15670
+      }
+    }
+  ],
+  "reconstruction": {
+    "wheels": 31,
+    "runtime": 735,
+    "packages": 2340,
+    "generatedDifferences": 97,
+    "noDependencyResolution": true,
+    "noGraphifyReplay": true,
+    "canonicalOwner": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-BYMYFo"
+  },
+  "G5Final": false
+}

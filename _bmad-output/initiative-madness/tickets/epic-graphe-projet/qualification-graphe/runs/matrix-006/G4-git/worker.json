@@ -1,0 +1,2852 @@
+{
+  "case": "G4-git",
+  "project": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\git projet é",
+  "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git",
+  "pid": 35936,
+  "parentPid": 11092,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "flags": {
+    "isolated": 1,
+    "no_site": 1,
+    "bytecode": true
+  },
+  "sys_path": [
+    "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib",
+    "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs",
+    "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages"
+  ],
+  "env": {
+    "APPDATA": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\home",
+    "GIT_CONFIG_COUNT": "3",
+    "GIT_CONFIG_GLOBAL": "NUL",
+    "GIT_CONFIG_KEY_0": "core.hooksPath",
+    "GIT_CONFIG_KEY_1": "core.fsmonitor",
+    "GIT_CONFIG_KEY_2": "core.untrackedCache",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_CONFIG_VALUE_0": "NUL",
+    "GIT_CONFIG_VALUE_1": "false",
+    "GIT_CONFIG_VALUE_2": "false",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "GIT_TERMINAL_PROMPT": "0",
+    "GRAPHIFY_BACKEND": "none",
+    "GRAPHIFY_NO_AUTO_REFRESH": "1",
+    "GRAPHIFY_OUT": "graphify-out",
+    "HOME": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\home",
+    "LOCALAPPDATA": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\home",
+    "PATH": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Scripts;C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime;C:\\Program Files\\Git\\cmd",
+    "PYTHONHASHSEED": "42",
+    "SYSTEMROOT": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\tmp",
+    "TIKTOKEN_CACHE_DIR": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\home",
+    "TMP": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\tmp",
+    "USERPROFILE": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\home",
+    "UV": "C:\\Users\\UP60066553\\scoop\\apps\\uv\\0.13.0\\uv.exe",
+    "UV_CACHE_DIR": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\tmp",
+    "UV_RUN_RECURSION_DEPTH": "1",
+    "WINDIR": "C:\\WINDOWS",
+    "XDG_CACHE_HOME": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\home",
+    "XDG_CONFIG_HOME": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\home"
+  },
+  "events": [
+    {
+      "phase": "control-probes",
+      "event": "network-denied",
+      "detail": "socket.connect"
+    },
+    {
+      "phase": "control-probes",
+      "event": "subprocess-attempt",
+      "detail": {
+        "argv": [
+          "unqualified-program"
+        ],
+        "cwd": "None"
+      }
+    },
+    {
+      "phase": "control-probes",
+      "event": "write-denied",
+      "detail": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\git projet é\\forbidden-write"
+    },
+    {
+      "phase": "graphify",
+      "event": "subprocess-attempt",
+      "detail": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\git projet é",
+          "config",
+          "--path",
+          "--get",
+          "core.excludesFile"
+        ],
+        "cwd": "None"
+      }
+    },
+    {
+      "phase": "graphify",
+      "event": "subprocess-started",
+      "detail": {
+        "pid": 27156,
+        "exe": "C:\\Program Files\\Git\\cmd\\git.exe",
+        "argv": [
+          "-C",
+          "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\git projet é",
+          "config",
+          "--path",
+          "--get",
+          "core.excludesFile"
+        ],
+        "cwd": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git"
+      }
+    },
+    {
+      "phase": "graphify",
+      "event": "subprocess-attempt",
+      "detail": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\git projet é",
+          "ls-files",
+          "-z",
+          "--cached"
+        ],
+        "cwd": "None"
+      }
+    },
+    {
+      "phase": "graphify",
+      "event": "subprocess-started",
+      "detail": {
+        "pid": 48620,
+        "exe": "C:\\Program Files\\Git\\cmd\\git.exe",
+        "argv": [
+          "-C",
+          "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\git projet é",
+          "ls-files",
+          "-z",
+          "--cached"
+        ],
+        "cwd": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git"
+      }
+    },
+    {
+      "phase": "graphify",
+      "event": "subprocess-attempt",
+      "detail": {
+        "argv": [
+          "git",
+          "rev-parse",
+          "HEAD"
+        ],
+        "cwd": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\git projet é"
+      }
+    },
+    {
+      "phase": "graphify",
+      "event": "subprocess-started",
+      "detail": {
+        "pid": 44316,
+        "exe": "C:\\Program Files\\Git\\cmd\\git.exe",
+        "argv": [
+          "rev-parse",
+          "HEAD"
+        ],
+        "cwd": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\git projet é"
+      }
+    },
+    {
+      "phase": "graphify",
+      "event": "subprocess-attempt",
+      "detail": {
+        "argv": [
+          "git",
+          "rev-parse",
+          "HEAD"
+        ],
+        "cwd": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\out\\graphify-out"
+      }
+    },
+    {
+      "phase": "graphify",
+      "event": "subprocess-started",
+      "detail": {
+        "pid": 53124,
+        "exe": "C:\\Program Files\\Git\\cmd\\git.exe",
+        "argv": [
+          "rev-parse",
+          "HEAD"
+        ],
+        "cwd": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\out\\graphify-out"
+      }
+    }
+  ],
+  "network_probe_refused": true,
+  "process_probe_refused": true,
+  "write_probe_refused": true,
+  "argv": [
+    "graphify",
+    "extract",
+    "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\git projet é",
+    "--code-only",
+    "--max-workers",
+    "1",
+    "--out",
+    "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\out"
+  ],
+  "outcome": "completed",
+  "elapsed_ms": 24203,
+  "peakWorkingSetBytes": 78123008,
+  "imports": [
+    {
+      "name": "_frozen_importlib",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\_bootstrap.py"
+    },
+    {
+      "name": "_frozen_importlib_external",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\_bootstrap_external.py"
+    },
+    {
+      "name": "zipimport",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\zipimport.py"
+    },
+    {
+      "name": "codecs",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\codecs.py"
+    },
+    {
+      "name": "encodings.aliases",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\encodings\\aliases.py"
+    },
+    {
+      "name": "encodings",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\encodings\\__init__.py"
+    },
+    {
+      "name": "encodings.utf_8",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\encodings\\utf_8.py"
+    },
+    {
+      "name": "abc",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\abc.py"
+    },
+    {
+      "name": "io",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\io.py"
+    },
+    {
+      "name": "__main__",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-graphe-projet\\qualification-graphe\\worker.py"
+    },
+    {
+      "name": "stat",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\stat.py"
+    },
+    {
+      "name": "_collections_abc",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\_collections_abc.py"
+    },
+    {
+      "name": "genericpath",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\genericpath.py"
+    },
+    {
+      "name": "ntpath",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\ntpath.py"
+    },
+    {
+      "name": "os.path",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\ntpath.py"
+    },
+    {
+      "name": "os",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\os.py"
+    },
+    {
+      "name": "types",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\types.py"
+    },
+    {
+      "name": "operator",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\operator.py"
+    },
+    {
+      "name": "keyword",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\keyword.py"
+    },
+    {
+      "name": "reprlib",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\reprlib.py"
+    },
+    {
+      "name": "collections",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\collections\\__init__.py"
+    },
+    {
+      "name": "functools",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\functools.py"
+    },
+    {
+      "name": "enum",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\enum.py"
+    },
+    {
+      "name": "re._constants",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\re\\_constants.py"
+    },
+    {
+      "name": "re._parser",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\re\\_parser.py"
+    },
+    {
+      "name": "re._casefix",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\re\\_casefix.py"
+    },
+    {
+      "name": "re._compiler",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\re\\_compiler.py"
+    },
+    {
+      "name": "copyreg",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\copyreg.py"
+    },
+    {
+      "name": "re",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\re\\__init__.py"
+    },
+    {
+      "name": "json.scanner",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\json\\scanner.py"
+    },
+    {
+      "name": "json.decoder",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\json\\decoder.py"
+    },
+    {
+      "name": "json.encoder",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\json\\encoder.py"
+    },
+    {
+      "name": "json",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\json\\__init__.py"
+    },
+    {
+      "name": "_hashlib",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs\\_hashlib.pyd"
+    },
+    {
+      "name": "hashlib",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\hashlib.py"
+    },
+    {
+      "name": "collections.abc",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\collections\\abc.py"
+    },
+    {
+      "name": "token",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\token.py"
+    },
+    {
+      "name": "tokenize",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\tokenize.py"
+    },
+    {
+      "name": "linecache",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\linecache.py"
+    },
+    {
+      "name": "textwrap",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\textwrap.py"
+    },
+    {
+      "name": "contextlib",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\contextlib.py"
+    },
+    {
+      "name": "traceback",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\traceback.py"
+    },
+    {
+      "name": "importlib._bootstrap",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\_bootstrap.py"
+    },
+    {
+      "name": "importlib._bootstrap_external",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\_bootstrap_external.py"
+    },
+    {
+      "name": "warnings",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\warnings.py"
+    },
+    {
+      "name": "importlib",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\__init__.py"
+    },
+    {
+      "name": "importlib.machinery",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\machinery.py"
+    },
+    {
+      "name": "importlib._abc",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\_abc.py"
+    },
+    {
+      "name": "importlib.util",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\util.py"
+    },
+    {
+      "name": "runpy",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\runpy.py"
+    },
+    {
+      "name": "locale",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\locale.py"
+    },
+    {
+      "name": "signal",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\signal.py"
+    },
+    {
+      "name": "_weakrefset",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\_weakrefset.py"
+    },
+    {
+      "name": "threading",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\threading.py"
+    },
+    {
+      "name": "subprocess",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\subprocess.py"
+    },
+    {
+      "name": "_ctypes",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs\\_ctypes.pyd"
+    },
+    {
+      "name": "struct",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\struct.py"
+    },
+    {
+      "name": "ctypes._endian",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\ctypes\\_endian.py"
+    },
+    {
+      "name": "ctypes",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\ctypes\\__init__.py"
+    },
+    {
+      "name": "posixpath",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\posixpath.py"
+    },
+    {
+      "name": "fnmatch",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\fnmatch.py"
+    },
+    {
+      "name": "urllib",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\urllib\\__init__.py"
+    },
+    {
+      "name": "ipaddress",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\ipaddress.py"
+    },
+    {
+      "name": "urllib.parse",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\urllib\\parse.py"
+    },
+    {
+      "name": "pathlib",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\pathlib.py"
+    },
+    {
+      "name": "encodings.utf_8_sig",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\encodings\\utf_8_sig.py"
+    },
+    {
+      "name": "_socket",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs\\_socket.pyd"
+    },
+    {
+      "name": "select",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs\\select.pyd"
+    },
+    {
+      "name": "selectors",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\selectors.py"
+    },
+    {
+      "name": "socket",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\socket.py"
+    },
+    {
+      "name": "graphify",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\__init__.py"
+    },
+    {
+      "name": "__future__",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\__future__.py"
+    },
+    {
+      "name": "_wmi",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs\\_wmi.pyd"
+    },
+    {
+      "name": "platform",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\platform.py"
+    },
+    {
+      "name": "_compression",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\_compression.py"
+    },
+    {
+      "name": "_bz2",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs\\_bz2.pyd"
+    },
+    {
+      "name": "bz2",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\bz2.py"
+    },
+    {
+      "name": "_lzma",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs\\_lzma.pyd"
+    },
+    {
+      "name": "lzma",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\lzma.py"
+    },
+    {
+      "name": "shutil",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\shutil.py"
+    },
+    {
+      "name": "csv",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\csv.py"
+    },
+    {
+      "name": "email",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\__init__.py"
+    },
+    {
+      "name": "zipfile._path.glob",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\zipfile\\_path\\glob.py"
+    },
+    {
+      "name": "zipfile._path",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\zipfile\\_path\\__init__.py"
+    },
+    {
+      "name": "zipfile",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\zipfile\\__init__.py"
+    },
+    {
+      "name": "ast",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\ast.py"
+    },
+    {
+      "name": "opcode",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\opcode.py"
+    },
+    {
+      "name": "dis",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\dis.py"
+    },
+    {
+      "name": "weakref",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\weakref.py"
+    },
+    {
+      "name": "inspect",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\inspect.py"
+    },
+    {
+      "name": "quopri",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\quopri.py"
+    },
+    {
+      "name": "bisect",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\bisect.py"
+    },
+    {
+      "name": "random",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\random.py"
+    },
+    {
+      "name": "datetime",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\datetime.py"
+    },
+    {
+      "name": "calendar",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\calendar.py"
+    },
+    {
+      "name": "email._parseaddr",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\_parseaddr.py"
+    },
+    {
+      "name": "base64",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\base64.py"
+    },
+    {
+      "name": "email.base64mime",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\base64mime.py"
+    },
+    {
+      "name": "string",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\string.py"
+    },
+    {
+      "name": "email.quoprimime",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\quoprimime.py"
+    },
+    {
+      "name": "email.errors",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\errors.py"
+    },
+    {
+      "name": "email.encoders",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\encoders.py"
+    },
+    {
+      "name": "email.charset",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\charset.py"
+    },
+    {
+      "name": "email.utils",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\utils.py"
+    },
+    {
+      "name": "email.header",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\header.py"
+    },
+    {
+      "name": "email._policybase",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\_policybase.py"
+    },
+    {
+      "name": "email._encoded_words",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\_encoded_words.py"
+    },
+    {
+      "name": "email.iterators",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\iterators.py"
+    },
+    {
+      "name": "email.message",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\message.py"
+    },
+    {
+      "name": "importlib.metadata._functools",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\metadata\\_functools.py"
+    },
+    {
+      "name": "importlib.metadata._text",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\metadata\\_text.py"
+    },
+    {
+      "name": "importlib.metadata._adapters",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\metadata\\_adapters.py"
+    },
+    {
+      "name": "typing",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\typing.py"
+    },
+    {
+      "name": "importlib.metadata._meta",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\metadata\\_meta.py"
+    },
+    {
+      "name": "importlib.metadata._collections",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\metadata\\_collections.py"
+    },
+    {
+      "name": "importlib.metadata._itertools",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\metadata\\_itertools.py"
+    },
+    {
+      "name": "tempfile",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\tempfile.py"
+    },
+    {
+      "name": "importlib.resources.abc",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\resources\\abc.py"
+    },
+    {
+      "name": "importlib.resources._adapters",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\resources\\_adapters.py"
+    },
+    {
+      "name": "importlib.resources._common",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\resources\\_common.py"
+    },
+    {
+      "name": "importlib.resources._legacy",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\resources\\_legacy.py"
+    },
+    {
+      "name": "importlib.resources",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\resources\\__init__.py"
+    },
+    {
+      "name": "importlib.abc",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\abc.py"
+    },
+    {
+      "name": "importlib.metadata",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\metadata\\__init__.py"
+    },
+    {
+      "name": "email.feedparser",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\feedparser.py"
+    },
+    {
+      "name": "email.parser",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\email\\parser.py"
+    },
+    {
+      "name": "graphify.paths",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\paths.py"
+    },
+    {
+      "name": "graphify.install",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\install.py"
+    },
+    {
+      "name": "graphify.cli",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\cli.py"
+    },
+    {
+      "name": "logging",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\logging\\__init__.py"
+    },
+    {
+      "name": "multiprocessing.process",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\multiprocessing\\process.py"
+    },
+    {
+      "name": "_compat_pickle",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\_compat_pickle.py"
+    },
+    {
+      "name": "pickle",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\pickle.py"
+    },
+    {
+      "name": "multiprocessing.reduction",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\multiprocessing\\reduction.py"
+    },
+    {
+      "name": "multiprocessing.context",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\multiprocessing\\context.py"
+    },
+    {
+      "name": "__mp_main__",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\__main__.py"
+    },
+    {
+      "name": "multiprocessing",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\multiprocessing\\__init__.py"
+    },
+    {
+      "name": "shlex",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\shlex.py"
+    },
+    {
+      "name": "unicodedata",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs\\unicodedata.pyd"
+    },
+    {
+      "name": "concurrent",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\concurrent\\__init__.py"
+    },
+    {
+      "name": "concurrent.futures._base",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\concurrent\\futures\\_base.py"
+    },
+    {
+      "name": "concurrent.futures",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\concurrent\\futures\\__init__.py"
+    },
+    {
+      "name": "heapq",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\heapq.py"
+    },
+    {
+      "name": "_queue",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs\\_queue.pyd"
+    },
+    {
+      "name": "queue",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\queue.py"
+    },
+    {
+      "name": "concurrent.futures.thread",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\concurrent\\futures\\thread.py"
+    },
+    {
+      "name": "graphify.google_workspace",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\google_workspace.py"
+    },
+    {
+      "name": "graphify.rcfile",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\rcfile.py"
+    },
+    {
+      "name": "graphify.detect",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\detect.py"
+    },
+    {
+      "name": "graphify.watch",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\watch.py"
+    },
+    {
+      "name": "xml",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\xml\\__init__.py"
+    },
+    {
+      "name": "xml.etree",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\xml\\etree\\__init__.py"
+    },
+    {
+      "name": "xml.etree.ElementPath",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\xml\\etree\\ElementPath.py"
+    },
+    {
+      "name": "copy",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\copy.py"
+    },
+    {
+      "name": "pyexpat",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs\\pyexpat.pyd"
+    },
+    {
+      "name": "_elementtree",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs\\_elementtree.pyd"
+    },
+    {
+      "name": "xml.etree.ElementTree",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\xml\\etree\\ElementTree.py"
+    },
+    {
+      "name": "graphify.ids",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\ids.py"
+    },
+    {
+      "name": "graphify.manifest_ingest",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\manifest_ingest.py"
+    },
+    {
+      "name": "graphify.cache",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\cache.py"
+    },
+    {
+      "name": "dataclasses",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\dataclasses.py"
+    },
+    {
+      "name": "graphify.extractors.base",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\base.py"
+    },
+    {
+      "name": "graphify.extractors.apex",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\apex.py"
+    },
+    {
+      "name": "graphify.extractors.bash",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\bash.py"
+    },
+    {
+      "name": "graphify.extractors.blade",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\blade.py"
+    },
+    {
+      "name": "graphify.extractors.cobol",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\cobol.py"
+    },
+    {
+      "name": "html.entities",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\html\\entities.py"
+    },
+    {
+      "name": "html",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\html\\__init__.py"
+    },
+    {
+      "name": "http",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\http\\__init__.py"
+    },
+    {
+      "name": "_ssl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\DLLs\\_ssl.pyd"
+    },
+    {
+      "name": "ssl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\ssl.py"
+    },
+    {
+      "name": "http.client",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\http\\client.py"
+    },
+    {
+      "name": "urllib.response",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\urllib\\response.py"
+    },
+    {
+      "name": "urllib.error",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\urllib\\error.py"
+    },
+    {
+      "name": "nturl2path",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\nturl2path.py"
+    },
+    {
+      "name": "urllib.request",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\urllib\\request.py"
+    },
+    {
+      "name": "graphify.security",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\security.py"
+    },
+    {
+      "name": "graphify.extractors.commonlisp",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\commonlisp.py"
+    },
+    {
+      "name": "graphify.extractors.dart",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\dart.py"
+    },
+    {
+      "name": "graphify.extractors.dm",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\dm.py"
+    },
+    {
+      "name": "graphify.extractors.elixir",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\elixir.py"
+    },
+    {
+      "name": "tree_sitter._binding",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\tree_sitter\\_binding.cp312-win_amd64.pyd"
+    },
+    {
+      "name": "tree_sitter",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\tree_sitter\\__init__.py"
+    },
+    {
+      "name": "graphify.extractors.erlang",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\erlang.py"
+    },
+    {
+      "name": "graphify.extractors.fortran",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\fortran.py"
+    },
+    {
+      "name": "graphify.extractors.go",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\go.py"
+    },
+    {
+      "name": "graphify.extractors.json_config",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\json_config.py"
+    },
+    {
+      "name": "graphify.extractors.models",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\models.py"
+    },
+    {
+      "name": "graphify.extractors.resolution",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\resolution.py"
+    },
+    {
+      "name": "graphify.extractors.engine",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\engine.py"
+    },
+    {
+      "name": "graphify.extractors.julia",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\julia.py"
+    },
+    {
+      "name": "graphify.extractors.markdown",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\markdown.py"
+    },
+    {
+      "name": "graphify.extractors.objc",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\objc.py"
+    },
+    {
+      "name": "graphify.extractors.pascal",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\pascal.py"
+    },
+    {
+      "name": "graphify.extractors.pascal_forms",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\pascal_forms.py"
+    },
+    {
+      "name": "graphify.extractors.powershell",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\powershell.py"
+    },
+    {
+      "name": "graphify.extractors.r",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\r.py"
+    },
+    {
+      "name": "graphify.extractors.razor",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\razor.py"
+    },
+    {
+      "name": "graphify.extractors.rust",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\rust.py"
+    },
+    {
+      "name": "graphify.extractors.sln",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\sln.py"
+    },
+    {
+      "name": "graphify.extractors.solidity",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\solidity.py"
+    },
+    {
+      "name": "graphify.extractors.sql",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\sql.py"
+    },
+    {
+      "name": "graphify.extractors.terraform",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\terraform.py"
+    },
+    {
+      "name": "graphify.extractors.verilog",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\verilog.py"
+    },
+    {
+      "name": "graphify.extractors.vbnet",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\vbnet.py"
+    },
+    {
+      "name": "graphify.extractors.zig",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\zig.py"
+    },
+    {
+      "name": "graphify.extractors",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\__init__.py"
+    },
+    {
+      "name": "graphify.file_slice",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\file_slice.py"
+    },
+    {
+      "name": "graphify.llm",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\llm.py"
+    },
+    {
+      "name": "graphify.cargo_introspect",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\cargo_introspect.py"
+    },
+    {
+      "name": "graphify.mcp_ingest",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\mcp_ingest.py"
+    },
+    {
+      "name": "graphify.resolver_registry",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\resolver_registry.py"
+    },
+    {
+      "name": "networkx.lazy_imports",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\lazy_imports.py"
+    },
+    {
+      "name": "networkx.exception",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\exception.py"
+    },
+    {
+      "name": "networkx.utils.misc",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\utils\\misc.py"
+    },
+    {
+      "name": "gzip",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\gzip.py"
+    },
+    {
+      "name": "networkx.utils.decorators",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\utils\\decorators.py"
+    },
+    {
+      "name": "networkx.utils.random_sequence",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\utils\\random_sequence.py"
+    },
+    {
+      "name": "networkx.utils.union_find",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\utils\\union_find.py"
+    },
+    {
+      "name": "networkx.utils.rcm",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\utils\\rcm.py"
+    },
+    {
+      "name": "networkx.utils.heaps",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\utils\\heaps.py"
+    },
+    {
+      "name": "networkx.utils.configs",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\utils\\configs.py"
+    },
+    {
+      "name": "networkx.utils.backends",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\utils\\backends.py"
+    },
+    {
+      "name": "networkx.utils",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\utils\\__init__.py"
+    },
+    {
+      "name": "networkx.convert",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\convert.py"
+    },
+    {
+      "name": "networkx.classes.coreviews",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\classes\\coreviews.py"
+    },
+    {
+      "name": "networkx.classes.reportviews",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\classes\\reportviews.py"
+    },
+    {
+      "name": "networkx.classes.graph",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\classes\\graph.py"
+    },
+    {
+      "name": "networkx.classes.digraph",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\classes\\digraph.py"
+    },
+    {
+      "name": "networkx.classes.multigraph",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\classes\\multigraph.py"
+    },
+    {
+      "name": "networkx.classes.multidigraph",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\classes\\multidigraph.py"
+    },
+    {
+      "name": "networkx.classes.function",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\classes\\function.py"
+    },
+    {
+      "name": "networkx.classes.filters",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\classes\\filters.py"
+    },
+    {
+      "name": "networkx.classes.graphviews",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\classes\\graphviews.py"
+    },
+    {
+      "name": "networkx.classes",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\classes\\__init__.py"
+    },
+    {
+      "name": "networkx.convert_matrix",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\convert_matrix.py"
+    },
+    {
+      "name": "networkx.relabel",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\relabel.py"
+    },
+    {
+      "name": "importlib.resources._itertools",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\resources\\_itertools.py"
+    },
+    {
+      "name": "importlib.resources.readers",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\resources\\readers.py"
+    },
+    {
+      "name": "importlib.readers",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\importlib\\readers.py"
+    },
+    {
+      "name": "networkx.generators.atlas",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\atlas.py"
+    },
+    {
+      "name": "numbers",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\numbers.py"
+    },
+    {
+      "name": "networkx.generators.classic",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\classic.py"
+    },
+    {
+      "name": "networkx.generators.cographs",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\cographs.py"
+    },
+    {
+      "name": "networkx.generators.community",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\community.py"
+    },
+    {
+      "name": "networkx.generators.degree_seq",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\degree_seq.py"
+    },
+    {
+      "name": "networkx.generators.directed",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\directed.py"
+    },
+    {
+      "name": "networkx.generators.duplication",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\duplication.py"
+    },
+    {
+      "name": "networkx.generators.ego",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\ego.py"
+    },
+    {
+      "name": "networkx.generators.expanders",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\expanders.py"
+    },
+    {
+      "name": "networkx.generators.geometric",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\geometric.py"
+    },
+    {
+      "name": "networkx.generators.harary_graph",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\harary_graph.py"
+    },
+    {
+      "name": "networkx.generators.internet_as_graphs",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\internet_as_graphs.py"
+    },
+    {
+      "name": "networkx.generators.intersection",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\intersection.py"
+    },
+    {
+      "name": "networkx.generators.interval_graph",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\interval_graph.py"
+    },
+    {
+      "name": "networkx.generators.joint_degree_seq",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\joint_degree_seq.py"
+    },
+    {
+      "name": "networkx.generators.lattice",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\lattice.py"
+    },
+    {
+      "name": "networkx.generators.line",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\line.py"
+    },
+    {
+      "name": "networkx.generators.mycielski",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\mycielski.py"
+    },
+    {
+      "name": "networkx.generators.nonisomorphic_trees",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\nonisomorphic_trees.py"
+    },
+    {
+      "name": "networkx.generators.random_clustered",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\random_clustered.py"
+    },
+    {
+      "name": "networkx.generators.random_graphs",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\random_graphs.py"
+    },
+    {
+      "name": "networkx.generators.small",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\small.py"
+    },
+    {
+      "name": "networkx.generators.social",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\social.py"
+    },
+    {
+      "name": "networkx.generators.spectral_graph_forge",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\spectral_graph_forge.py"
+    },
+    {
+      "name": "networkx.generators.stochastic",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\stochastic.py"
+    },
+    {
+      "name": "networkx.generators.sudoku",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\sudoku.py"
+    },
+    {
+      "name": "networkx.generators.time_series",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\time_series.py"
+    },
+    {
+      "name": "networkx.generators.trees",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\trees.py"
+    },
+    {
+      "name": "networkx.generators.triads",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\triads.py"
+    },
+    {
+      "name": "networkx.generators",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\generators\\__init__.py"
+    },
+    {
+      "name": "networkx.readwrite.adjlist",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\adjlist.py"
+    },
+    {
+      "name": "networkx.readwrite.multiline_adjlist",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\multiline_adjlist.py"
+    },
+    {
+      "name": "networkx.readwrite.edgelist",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\edgelist.py"
+    },
+    {
+      "name": "networkx.readwrite.pajek",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\pajek.py"
+    },
+    {
+      "name": "networkx.readwrite.leda",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\leda.py"
+    },
+    {
+      "name": "networkx.readwrite.graph6",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\graph6.py"
+    },
+    {
+      "name": "networkx.readwrite.sparse6",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\sparse6.py"
+    },
+    {
+      "name": "networkx.readwrite.gml",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\gml.py"
+    },
+    {
+      "name": "networkx.readwrite.graphml",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\graphml.py"
+    },
+    {
+      "name": "networkx.readwrite.gexf",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\gexf.py"
+    },
+    {
+      "name": "networkx.readwrite.json_graph.node_link",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\json_graph\\node_link.py"
+    },
+    {
+      "name": "networkx.readwrite.json_graph.adjacency",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\json_graph\\adjacency.py"
+    },
+    {
+      "name": "networkx.readwrite.json_graph.tree",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\json_graph\\tree.py"
+    },
+    {
+      "name": "networkx.readwrite.json_graph.cytoscape",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\json_graph\\cytoscape.py"
+    },
+    {
+      "name": "networkx.readwrite.json_graph",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\json_graph\\__init__.py"
+    },
+    {
+      "name": "networkx.readwrite.text",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\text.py"
+    },
+    {
+      "name": "networkx.readwrite",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\readwrite\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.assortativity.connectivity",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\assortativity\\connectivity.py"
+    },
+    {
+      "name": "networkx.algorithms.assortativity.pairs",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\assortativity\\pairs.py"
+    },
+    {
+      "name": "networkx.algorithms.assortativity.mixing",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\assortativity\\mixing.py"
+    },
+    {
+      "name": "networkx.algorithms.assortativity.correlation",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\assortativity\\correlation.py"
+    },
+    {
+      "name": "networkx.algorithms.assortativity.neighbor_degree",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\assortativity\\neighbor_degree.py"
+    },
+    {
+      "name": "networkx.algorithms.assortativity",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\assortativity\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.asteroidal",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\asteroidal.py"
+    },
+    {
+      "name": "networkx.algorithms.boundary",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\boundary.py"
+    },
+    {
+      "name": "networkx.algorithms.broadcasting",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\broadcasting.py"
+    },
+    {
+      "name": "networkx.algorithms.bridges",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bridges.py"
+    },
+    {
+      "name": "networkx.algorithms.chains",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\chains.py"
+    },
+    {
+      "name": "networkx.algorithms.shortest_paths.generic",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\shortest_paths\\generic.py"
+    },
+    {
+      "name": "networkx.algorithms.shortest_paths.unweighted",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\shortest_paths\\unweighted.py"
+    },
+    {
+      "name": "networkx.algorithms.shortest_paths.weighted",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\shortest_paths\\weighted.py"
+    },
+    {
+      "name": "networkx.algorithms.shortest_paths.astar",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\shortest_paths\\astar.py"
+    },
+    {
+      "name": "networkx.algorithms.shortest_paths.dense",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\shortest_paths\\dense.py"
+    },
+    {
+      "name": "networkx.algorithms.shortest_paths",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\shortest_paths\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.betweenness",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\betweenness.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.betweenness_subset",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\betweenness_subset.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.closeness",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\closeness.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.flow_matrix",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\flow_matrix.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.current_flow_betweenness",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\current_flow_betweenness.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.current_flow_betweenness_subset",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\current_flow_betweenness_subset.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.current_flow_closeness",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\current_flow_closeness.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.degree_alg",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\degree_alg.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.dispersion",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\dispersion.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.eigenvector",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\eigenvector.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.group",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\group.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.harmonic",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\harmonic.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.katz",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\katz.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.load",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\load.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.percolation",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\percolation.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.reaching",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\reaching.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.second_order",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\second_order.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.subgraph_alg",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\subgraph_alg.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.trophic",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\trophic.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.voterank_alg",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\voterank_alg.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality.laplacian",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\laplacian.py"
+    },
+    {
+      "name": "networkx.algorithms.centrality",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\centrality\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.components.connected",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\components\\connected.py"
+    },
+    {
+      "name": "networkx.algorithms.components.strongly_connected",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\components\\strongly_connected.py"
+    },
+    {
+      "name": "networkx.algorithms.components.weakly_connected",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\components\\weakly_connected.py"
+    },
+    {
+      "name": "networkx.algorithms.components.attracting",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\components\\attracting.py"
+    },
+    {
+      "name": "networkx.algorithms.components.biconnected",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\components\\biconnected.py"
+    },
+    {
+      "name": "networkx.algorithms.components.semiconnected",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\components\\semiconnected.py"
+    },
+    {
+      "name": "networkx.algorithms.components",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\components\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.chordal",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\chordal.py"
+    },
+    {
+      "name": "networkx.algorithms.cluster",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\cluster.py"
+    },
+    {
+      "name": "networkx.algorithms.clique",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\clique.py"
+    },
+    {
+      "name": "networkx.algorithms.communicability_alg",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\communicability_alg.py"
+    },
+    {
+      "name": "networkx.algorithms.coloring.greedy_coloring",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\coloring\\greedy_coloring.py"
+    },
+    {
+      "name": "networkx.algorithms.coloring.equitable_coloring",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\coloring\\equitable_coloring.py"
+    },
+    {
+      "name": "networkx.algorithms.coloring",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\coloring\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.core",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\core.py"
+    },
+    {
+      "name": "networkx.algorithms.covering",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\covering.py"
+    },
+    {
+      "name": "networkx.algorithms.cycles",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\cycles.py"
+    },
+    {
+      "name": "networkx.algorithms.cuts",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\cuts.py"
+    },
+    {
+      "name": "networkx.algorithms.d_separation",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\d_separation.py"
+    },
+    {
+      "name": "networkx.algorithms.dag",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\dag.py"
+    },
+    {
+      "name": "networkx.algorithms.distance_measures",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\distance_measures.py"
+    },
+    {
+      "name": "networkx.algorithms.distance_regular",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\distance_regular.py"
+    },
+    {
+      "name": "networkx.algorithms.dominance",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\dominance.py"
+    },
+    {
+      "name": "networkx.algorithms.dominating",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\dominating.py"
+    },
+    {
+      "name": "networkx.algorithms.efficiency_measures",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\efficiency_measures.py"
+    },
+    {
+      "name": "networkx.algorithms.euler",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\euler.py"
+    },
+    {
+      "name": "networkx.algorithms.graphical",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\graphical.py"
+    },
+    {
+      "name": "networkx.algorithms.hierarchy",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\hierarchy.py"
+    },
+    {
+      "name": "networkx.algorithms.hybrid",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\hybrid.py"
+    },
+    {
+      "name": "networkx.algorithms.link_analysis.hits_alg",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\link_analysis\\hits_alg.py"
+    },
+    {
+      "name": "networkx.algorithms.link_analysis.pagerank_alg",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\link_analysis\\pagerank_alg.py"
+    },
+    {
+      "name": "networkx.algorithms.link_analysis",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\link_analysis\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.link_prediction",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\link_prediction.py"
+    },
+    {
+      "name": "networkx.algorithms.lowest_common_ancestors",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\lowest_common_ancestors.py"
+    },
+    {
+      "name": "networkx.algorithms.isolate",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\isolate.py"
+    },
+    {
+      "name": "networkx.algorithms.matching",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\matching.py"
+    },
+    {
+      "name": "networkx.algorithms.minors.contraction",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\minors\\contraction.py"
+    },
+    {
+      "name": "networkx.algorithms.minors",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\minors\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.mis",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\mis.py"
+    },
+    {
+      "name": "networkx.algorithms.moral",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\moral.py"
+    },
+    {
+      "name": "networkx.algorithms.non_randomness",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\non_randomness.py"
+    },
+    {
+      "name": "networkx.algorithms.operators.all",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\operators\\all.py"
+    },
+    {
+      "name": "networkx.algorithms.operators.binary",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\operators\\binary.py"
+    },
+    {
+      "name": "networkx.algorithms.operators.product",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\operators\\product.py"
+    },
+    {
+      "name": "networkx.algorithms.operators.unary",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\operators\\unary.py"
+    },
+    {
+      "name": "networkx.algorithms.operators",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\operators\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.planarity",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\planarity.py"
+    },
+    {
+      "name": "networkx.algorithms.planar_drawing",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\planar_drawing.py"
+    },
+    {
+      "name": "networkx.algorithms.polynomials",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\polynomials.py"
+    },
+    {
+      "name": "networkx.algorithms.perfect_graph",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\perfect_graph.py"
+    },
+    {
+      "name": "networkx.algorithms.reciprocity",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\reciprocity.py"
+    },
+    {
+      "name": "networkx.algorithms.regular",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\regular.py"
+    },
+    {
+      "name": "networkx.algorithms.richclub",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\richclub.py"
+    },
+    {
+      "name": "networkx.algorithms.similarity",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\similarity.py"
+    },
+    {
+      "name": "networkx.algorithms.graph_hashing",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\graph_hashing.py"
+    },
+    {
+      "name": "networkx.algorithms.simple_paths",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\simple_paths.py"
+    },
+    {
+      "name": "networkx.algorithms.smallworld",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\smallworld.py"
+    },
+    {
+      "name": "networkx.algorithms.smetric",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\smetric.py"
+    },
+    {
+      "name": "networkx.algorithms.structuralholes",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\structuralholes.py"
+    },
+    {
+      "name": "networkx.algorithms.sparsifiers",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\sparsifiers.py"
+    },
+    {
+      "name": "networkx.algorithms.summarization",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\summarization.py"
+    },
+    {
+      "name": "networkx.algorithms.swap",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\swap.py"
+    },
+    {
+      "name": "networkx.algorithms.time_dependent",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\time_dependent.py"
+    },
+    {
+      "name": "networkx.algorithms.traversal.beamsearch",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\traversal\\beamsearch.py"
+    },
+    {
+      "name": "networkx.algorithms.traversal.breadth_first_search",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\traversal\\breadth_first_search.py"
+    },
+    {
+      "name": "networkx.algorithms.traversal.depth_first_search",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\traversal\\depth_first_search.py"
+    },
+    {
+      "name": "networkx.algorithms.traversal.edgedfs",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\traversal\\edgedfs.py"
+    },
+    {
+      "name": "networkx.algorithms.traversal.edgebfs",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\traversal\\edgebfs.py"
+    },
+    {
+      "name": "networkx.algorithms.traversal",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\traversal\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.triads",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\triads.py"
+    },
+    {
+      "name": "networkx.algorithms.vitality",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\vitality.py"
+    },
+    {
+      "name": "networkx.algorithms.voronoi",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\voronoi.py"
+    },
+    {
+      "name": "networkx.algorithms.walks",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\walks.py"
+    },
+    {
+      "name": "networkx.algorithms.wiener",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\wiener.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.clustering_coefficient",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\clustering_coefficient.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.ramsey",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\ramsey.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.clique",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\clique.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.connectivity",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\connectivity.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.distance_measures",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\distance_measures.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.dominating_set",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\dominating_set.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.kcomponents",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\kcomponents.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.matching",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\matching.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.steinertree",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\steinertree.py"
+    },
+    {
+      "name": "networkx.algorithms.tree.recognition",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\tree\\recognition.py"
+    },
+    {
+      "name": "networkx.algorithms.tree.branchings",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\tree\\branchings.py"
+    },
+    {
+      "name": "networkx.algorithms.tree.coding",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\tree\\coding.py"
+    },
+    {
+      "name": "networkx.algorithms.tree.distance_measures",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\tree\\distance_measures.py"
+    },
+    {
+      "name": "networkx.algorithms.tree.mst",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\tree\\mst.py"
+    },
+    {
+      "name": "networkx.algorithms.tree.operations",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\tree\\operations.py"
+    },
+    {
+      "name": "networkx.algorithms.tree.decomposition",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\tree\\decomposition.py"
+    },
+    {
+      "name": "networkx.algorithms.tree",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\tree\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.traveling_salesman",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\traveling_salesman.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.treewidth",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\treewidth.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.vertex_cover",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\vertex_cover.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.maxcut",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\maxcut.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation.density",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\density.py"
+    },
+    {
+      "name": "networkx.algorithms.approximation",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\approximation\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.basic",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\basic.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.centrality",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\centrality.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.cluster",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\cluster.py"
+    },
+    {
+      "name": "networkx.algorithms.community.asyn_fluid",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\asyn_fluid.py"
+    },
+    {
+      "name": "networkx.algorithms.community.bipartitions",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\bipartitions.py"
+    },
+    {
+      "name": "networkx.algorithms.community.centrality",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\centrality.py"
+    },
+    {
+      "name": "networkx.algorithms.community.divisive",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\divisive.py"
+    },
+    {
+      "name": "networkx.algorithms.community.kclique",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\kclique.py"
+    },
+    {
+      "name": "networkx.algorithms.community.label_propagation",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\label_propagation.py"
+    },
+    {
+      "name": "networkx.algorithms.community.lukes",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\lukes.py"
+    },
+    {
+      "name": "networkx.algorithms.community.community_utils",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\community_utils.py"
+    },
+    {
+      "name": "networkx.algorithms.community.quality",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\quality.py"
+    },
+    {
+      "name": "networkx.utils.mapped_queue",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\utils\\mapped_queue.py"
+    },
+    {
+      "name": "networkx.algorithms.community.modularity_max",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\modularity_max.py"
+    },
+    {
+      "name": "networkx.algorithms.community.louvain",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\louvain.py"
+    },
+    {
+      "name": "networkx.algorithms.community.leiden",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\leiden.py"
+    },
+    {
+      "name": "networkx.algorithms.community.local",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\local.py"
+    },
+    {
+      "name": "networkx.algorithms.community",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\community\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.community",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\community.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.matrix",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\matrix.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.matching",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\matching.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.covering",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\covering.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.edgelist",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\edgelist.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.projection",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\projection.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.redundancy",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\redundancy.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.spectral",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\spectral.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.generators",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\generators.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.extendability",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\extendability.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite.link_analysis",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\link_analysis.py"
+    },
+    {
+      "name": "networkx.algorithms.bipartite",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\bipartite\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.node_classification",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\node_classification.py"
+    },
+    {
+      "name": "networkx.algorithms.flow.utils",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\flow\\utils.py"
+    },
+    {
+      "name": "networkx.algorithms.flow.boykovkolmogorov",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\flow\\boykovkolmogorov.py"
+    },
+    {
+      "name": "networkx.algorithms.flow.dinitz_alg",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\flow\\dinitz_alg.py"
+    },
+    {
+      "name": "networkx.algorithms.flow.edmondskarp",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\flow\\edmondskarp.py"
+    },
+    {
+      "name": "networkx.algorithms.flow.preflowpush",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\flow\\preflowpush.py"
+    },
+    {
+      "name": "networkx.algorithms.flow.shortestaugmentingpath",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\flow\\shortestaugmentingpath.py"
+    },
+    {
+      "name": "networkx.algorithms.flow.maxflow",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\flow\\maxflow.py"
+    },
+    {
+      "name": "networkx.algorithms.flow.mincost",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\flow\\mincost.py"
+    },
+    {
+      "name": "networkx.algorithms.flow.gomory_hu",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\flow\\gomory_hu.py"
+    },
+    {
+      "name": "networkx.algorithms.flow.capacityscaling",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\flow\\capacityscaling.py"
+    },
+    {
+      "name": "networkx.algorithms.flow.networksimplex",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\flow\\networksimplex.py"
+    },
+    {
+      "name": "networkx.algorithms.flow",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\flow\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.isomorphism.isomorph",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\isomorphism\\isomorph.py"
+    },
+    {
+      "name": "networkx.algorithms.isomorphism.isomorphvf2",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\isomorphism\\isomorphvf2.py"
+    },
+    {
+      "name": "networkx.algorithms.isomorphism.vf2userfunc",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\isomorphism\\vf2userfunc.py"
+    },
+    {
+      "name": "networkx.algorithms.isomorphism.matchhelpers",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\isomorphism\\matchhelpers.py"
+    },
+    {
+      "name": "networkx.algorithms.isomorphism.temporalisomorphvf2",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\isomorphism\\temporalisomorphvf2.py"
+    },
+    {
+      "name": "networkx.algorithms.isomorphism.ismags",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\isomorphism\\ismags.py"
+    },
+    {
+      "name": "networkx.algorithms.isomorphism.tree_isomorphism",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\isomorphism\\tree_isomorphism.py"
+    },
+    {
+      "name": "networkx.algorithms.isomorphism.vf2pp",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\isomorphism\\vf2pp.py"
+    },
+    {
+      "name": "networkx.algorithms.isomorphism",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\isomorphism\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms.tournament",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\tournament.py"
+    },
+    {
+      "name": "networkx.algorithms.connectivity.utils",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\connectivity\\utils.py"
+    },
+    {
+      "name": "networkx.algorithms.connectivity.connectivity",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\connectivity\\connectivity.py"
+    },
+    {
+      "name": "networkx.algorithms.connectivity.cuts",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\connectivity\\cuts.py"
+    },
+    {
+      "name": "networkx.algorithms.connectivity.edge_augmentation",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\connectivity\\edge_augmentation.py"
+    },
+    {
+      "name": "networkx.algorithms.connectivity.edge_kcomponents",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\connectivity\\edge_kcomponents.py"
+    },
+    {
+      "name": "networkx.algorithms.connectivity.disjoint_paths",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\connectivity\\disjoint_paths.py"
+    },
+    {
+      "name": "networkx.algorithms.connectivity.kcomponents",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\connectivity\\kcomponents.py"
+    },
+    {
+      "name": "networkx.algorithms.connectivity.kcutsets",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\connectivity\\kcutsets.py"
+    },
+    {
+      "name": "networkx.algorithms.connectivity.stoerwagner",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\connectivity\\stoerwagner.py"
+    },
+    {
+      "name": "networkx.algorithms.connectivity",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\connectivity\\__init__.py"
+    },
+    {
+      "name": "networkx.algorithms",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\algorithms\\__init__.py"
+    },
+    {
+      "name": "networkx.linalg.attrmatrix",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\linalg\\attrmatrix.py"
+    },
+    {
+      "name": "networkx.linalg.spectrum",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\linalg\\spectrum.py"
+    },
+    {
+      "name": "networkx.linalg.graphmatrix",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\linalg\\graphmatrix.py"
+    },
+    {
+      "name": "networkx.linalg.laplacianmatrix",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\linalg\\laplacianmatrix.py"
+    },
+    {
+      "name": "networkx.linalg.algebraicconnectivity",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\linalg\\algebraicconnectivity.py"
+    },
+    {
+      "name": "networkx.linalg.modularitymatrix",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\linalg\\modularitymatrix.py"
+    },
+    {
+      "name": "networkx.linalg.bethehessianmatrix",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\linalg\\bethehessianmatrix.py"
+    },
+    {
+      "name": "networkx.linalg",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\linalg\\__init__.py"
+    },
+    {
+      "name": "networkx.drawing.layout",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\drawing\\layout.py"
+    },
+    {
+      "name": "networkx.drawing.nx_latex",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\drawing\\nx_latex.py"
+    },
+    {
+      "name": "networkx.drawing.nx_pylab",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\drawing\\nx_pylab.py"
+    },
+    {
+      "name": "networkx.drawing.nx_agraph",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\drawing\\nx_agraph.py"
+    },
+    {
+      "name": "networkx.drawing.nx_pydot",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\drawing\\nx_pydot.py"
+    },
+    {
+      "name": "networkx.drawing",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\drawing\\__init__.py"
+    },
+    {
+      "name": "networkx",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\networkx\\__init__.py"
+    },
+    {
+      "name": "graphify.validate",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\validate.py"
+    },
+    {
+      "name": "graphify.build",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\build.py"
+    },
+    {
+      "name": "graphify.ruby_resolution",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\ruby_resolution.py"
+    },
+    {
+      "name": "graphify.interface_dispatch",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\interface_dispatch.py"
+    },
+    {
+      "name": "graphify.csharp_dispatch",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\csharp_dispatch.py"
+    },
+    {
+      "name": "graphify.swift_dispatch",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\swift_dispatch.py"
+    },
+    {
+      "name": "graphify.pascal_resolution",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\pascal_resolution.py"
+    },
+    {
+      "name": "graphify.markdown_resolution",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\markdown_resolution.py"
+    },
+    {
+      "name": "graphify.extractors.csharp",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\csharp.py"
+    },
+    {
+      "name": "graphify.extractors.yaml_config",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\yaml_config.py"
+    },
+    {
+      "name": "graphify.extractors.ocaml",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\ocaml.py"
+    },
+    {
+      "name": "graphify.extractors.robot",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extractors\\robot.py"
+    },
+    {
+      "name": "graphify.symbol_resolution",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\symbol_resolution.py"
+    },
+    {
+      "name": "graphify.extract",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\extract.py"
+    },
+    {
+      "name": "tree_sitter_json._binding",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\tree_sitter_json\\_binding.pyd"
+    },
+    {
+      "name": "tree_sitter_json",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\tree_sitter_json\\__init__.py"
+    },
+    {
+      "name": "tree_sitter_c_sharp._binding",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\tree_sitter_c_sharp\\_binding.pyd"
+    },
+    {
+      "name": "tree_sitter_c_sharp",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\tree_sitter_c_sharp\\__init__.py"
+    },
+    {
+      "name": "tree_sitter_python._binding",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\tree_sitter_python\\_binding.pyd"
+    },
+    {
+      "name": "tree_sitter_python",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\tree_sitter_python\\__init__.py"
+    },
+    {
+      "name": "tree_sitter_typescript._binding",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\tree_sitter_typescript\\_binding.pyd"
+    },
+    {
+      "name": "tree_sitter_typescript",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\tree_sitter_typescript\\__init__.py"
+    },
+    {
+      "name": "tree_sitter_javascript._binding",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\tree_sitter_javascript\\_binding.pyd"
+    },
+    {
+      "name": "tree_sitter_javascript",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\tree_sitter_javascript\\__init__.py"
+    },
+    {
+      "name": "graphify.cluster",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\cluster.py"
+    },
+    {
+      "name": "graphify.analyze",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\analyze.py"
+    },
+    {
+      "name": "graphify.exporters",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\exporters\\__init__.py"
+    },
+    {
+      "name": "graphify.exporters.graphdb",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\exporters\\graphdb.py"
+    },
+    {
+      "name": "graphify.exporters.base",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\exporters\\base.py"
+    },
+    {
+      "name": "graphify.exporters.html",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\exporters\\html.py"
+    },
+    {
+      "name": "graphify.export",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\export.py"
+    },
+    {
+      "name": "numpy.version",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\version.py"
+    },
+    {
+      "name": "numpy._expired_attrs_2_0",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_expired_attrs_2_0.py"
+    },
+    {
+      "name": "numpy._utils._conversions",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_utils\\_conversions.py"
+    },
+    {
+      "name": "numpy._utils",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_utils\\__init__.py"
+    },
+    {
+      "name": "numpy._globals",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_globals.py"
+    },
+    {
+      "name": "numpy._distributor_init",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_distributor_init.py"
+    },
+    {
+      "name": "numpy.exceptions",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\exceptions.py"
+    },
+    {
+      "name": "numpy._core._exceptions",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\_exceptions.py"
+    },
+    {
+      "name": "contextvars",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\runtime\\Lib\\contextvars.py"
+    },
+    {
+      "name": "numpy._core.printoptions",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\printoptions.py"
+    },
+    {
+      "name": "numpy.dtypes",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\dtypes.py"
+    },
+    {
+      "name": "numpy._core._multiarray_umath",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\_multiarray_umath.cp312-win_amd64.pyd"
+    },
+    {
+      "name": "numpy._utils._inspect",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_utils\\_inspect.py"
+    },
+    {
+      "name": "numpy._core.overrides",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\overrides.py"
+    },
+    {
+      "name": "numpy._core.multiarray",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\multiarray.py"
+    },
+    {
+      "name": "numpy._core.umath",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\umath.py"
+    },
+    {
+      "name": "numpy._core._string_helpers",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\_string_helpers.py"
+    },
+    {
+      "name": "numpy._core._type_aliases",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\_type_aliases.py"
+    },
+    {
+      "name": "numpy._core.numerictypes",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\numerictypes.py"
+    },
+    {
+      "name": "numpy._core._methods",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\_methods.py"
+    },
+    {
+      "name": "numpy._core.fromnumeric",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\fromnumeric.py"
+    },
+    {
+      "name": "numpy._core.shape_base",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\shape_base.py"
+    },
+    {
+      "name": "numpy._core._ufunc_config",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\_ufunc_config.py"
+    },
+    {
+      "name": "numpy._core._asarray",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\_asarray.py"
+    },
+    {
+      "name": "numpy._core.arrayprint",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\arrayprint.py"
+    },
+    {
+      "name": "numpy._core.numeric",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\numeric.py"
+    },
+    {
+      "name": "numpy._core.einsumfunc",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\einsumfunc.py"
+    },
+    {
+      "name": "numpy._core.function_base",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\function_base.py"
+    },
+    {
+      "name": "numpy._core.getlimits",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\getlimits.py"
+    },
+    {
+      "name": "numpy._core.memmap",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\memmap.py"
+    },
+    {
+      "name": "numpy._core.records",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\records.py"
+    },
+    {
+      "name": "numpy._core._add_newdocs",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\_add_newdocs.py"
+    },
+    {
+      "name": "numpy._core._add_newdocs_scalars",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\_add_newdocs_scalars.py"
+    },
+    {
+      "name": "numpy._core._dtype",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\_dtype.py"
+    },
+    {
+      "name": "numpy._core._dtype_ctypes",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\_dtype_ctypes.py"
+    },
+    {
+      "name": "numpy._core._internal",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\_internal.py"
+    },
+    {
+      "name": "numpy._pytesttester",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_pytesttester.py"
+    },
+    {
+      "name": "numpy._core",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_core\\__init__.py"
+    },
+    {
+      "name": "numpy.__config__",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\__config__.py"
+    },
+    {
+      "name": "numpy._typing._nbit_base",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_typing\\_nbit_base.py"
+    },
+    {
+      "name": "numpy._typing._nested_sequence",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_typing\\_nested_sequence.py"
+    },
+    {
+      "name": "numpy._typing._shape",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_typing\\_shape.py"
+    },
+    {
+      "name": "numpy._typing._array_like",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_typing\\_array_like.py"
+    },
+    {
+      "name": "numpy._typing._char_codes",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_typing\\_char_codes.py"
+    },
+    {
+      "name": "numpy._typing._dtype_like",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_typing\\_dtype_like.py"
+    },
+    {
+      "name": "numpy._typing._nbit",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_typing\\_nbit.py"
+    },
+    {
+      "name": "numpy._typing._scalars",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_typing\\_scalars.py"
+    },
+    {
+      "name": "numpy._typing._ufunc",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_typing\\_ufunc.py"
+    },
+    {
+      "name": "numpy._typing",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_typing\\__init__.py"
+    },
+    {
+      "name": "numpy.lib._array_utils_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_array_utils_impl.py"
+    },
+    {
+      "name": "numpy.lib._stride_tricks_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_stride_tricks_impl.py"
+    },
+    {
+      "name": "numpy.lib._twodim_base_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_twodim_base_impl.py"
+    },
+    {
+      "name": "numpy.lib.array_utils",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\array_utils.py"
+    },
+    {
+      "name": "numpy.linalg._umath_linalg",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\linalg\\_umath_linalg.cp312-win_amd64.pyd"
+    },
+    {
+      "name": "numpy.linalg._linalg",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\linalg\\_linalg.py"
+    },
+    {
+      "name": "numpy.linalg",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\linalg\\__init__.py"
+    },
+    {
+      "name": "numpy.matrixlib.defmatrix",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\matrixlib\\defmatrix.py"
+    },
+    {
+      "name": "numpy.matrixlib",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\matrixlib\\__init__.py"
+    },
+    {
+      "name": "numpy.lib._histograms_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_histograms_impl.py"
+    },
+    {
+      "name": "numpy.lib._function_base_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_function_base_impl.py"
+    },
+    {
+      "name": "numpy.lib._index_tricks_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_index_tricks_impl.py"
+    },
+    {
+      "name": "numpy.lib._arraypad_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_arraypad_impl.py"
+    },
+    {
+      "name": "numpy.lib._arraysetops_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_arraysetops_impl.py"
+    },
+    {
+      "name": "numpy.lib._arrayterator_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_arrayterator_impl.py"
+    },
+    {
+      "name": "numpy.lib._nanfunctions_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_nanfunctions_impl.py"
+    },
+    {
+      "name": "numpy.lib._utils_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_utils_impl.py"
+    },
+    {
+      "name": "numpy.lib._format_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_format_impl.py"
+    },
+    {
+      "name": "numpy.lib.format",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\format.py"
+    },
+    {
+      "name": "numpy.lib._datasource",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_datasource.py"
+    },
+    {
+      "name": "numpy.lib._iotools",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_iotools.py"
+    },
+    {
+      "name": "numpy.lib._npyio_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_npyio_impl.py"
+    },
+    {
+      "name": "numpy.lib._ufunclike_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_ufunclike_impl.py"
+    },
+    {
+      "name": "numpy.lib._type_check_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_type_check_impl.py"
+    },
+    {
+      "name": "numpy.lib._polynomial_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_polynomial_impl.py"
+    },
+    {
+      "name": "numpy.lib._shape_base_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_shape_base_impl.py"
+    },
+    {
+      "name": "numpy.lib._version",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_version.py"
+    },
+    {
+      "name": "numpy.lib.introspect",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\introspect.py"
+    },
+    {
+      "name": "numpy.lib.mixins",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\mixins.py"
+    },
+    {
+      "name": "numpy.lib.npyio",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\npyio.py"
+    },
+    {
+      "name": "numpy.lib._scimath_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\_scimath_impl.py"
+    },
+    {
+      "name": "numpy.lib.scimath",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\scimath.py"
+    },
+    {
+      "name": "numpy.lib.stride_tricks",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\stride_tricks.py"
+    },
+    {
+      "name": "numpy.lib",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\lib\\__init__.py"
+    },
+    {
+      "name": "numpy._array_api_info",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\_array_api_info.py"
+    },
+    {
+      "name": "numpy",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\numpy\\__init__.py"
+    },
+    {
+      "name": "graphify._minhash",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\_minhash.py"
+    },
+    {
+      "name": "rapidfuzz._feature_detector_cpp",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\_feature_detector_cpp.cp312-win_amd64.pyd"
+    },
+    {
+      "name": "rapidfuzz._feature_detector",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\_feature_detector.py"
+    },
+    {
+      "name": "rapidfuzz.distance._initialize_cpp",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\_initialize_cpp.cp312-win_amd64.pyd"
+    },
+    {
+      "name": "rapidfuzz._utils",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\_utils.py"
+    },
+    {
+      "name": "rapidfuzz._common_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\_common_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance.DamerauLevenshtein_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\DamerauLevenshtein_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance._initialize_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\_initialize_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance.Hamming_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\Hamming_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance.LCSseq_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\LCSseq_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance.Indel_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\Indel_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance.Jaro_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\Jaro_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance.JaroWinkler_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\JaroWinkler_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance.Levenshtein_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\Levenshtein_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance.OSA_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\OSA_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance.Postfix_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\Postfix_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance.Prefix_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\Prefix_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance.metrics_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\metrics_py.py"
+    },
+    {
+      "name": "rapidfuzz.distance.metrics_cpp_avx2",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\metrics_cpp_avx2.cp312-win_amd64.pyd"
+    },
+    {
+      "name": "rapidfuzz.distance.OSA",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\OSA.py"
+    },
+    {
+      "name": "rapidfuzz.distance.DamerauLevenshtein",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\DamerauLevenshtein.py"
+    },
+    {
+      "name": "rapidfuzz.distance.Hamming",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\Hamming.py"
+    },
+    {
+      "name": "rapidfuzz.distance.Indel",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\Indel.py"
+    },
+    {
+      "name": "rapidfuzz.distance.Jaro",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\Jaro.py"
+    },
+    {
+      "name": "rapidfuzz.distance.JaroWinkler",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\JaroWinkler.py"
+    },
+    {
+      "name": "rapidfuzz.distance.LCSseq",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\LCSseq.py"
+    },
+    {
+      "name": "rapidfuzz.distance.Levenshtein",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\Levenshtein.py"
+    },
+    {
+      "name": "rapidfuzz.distance.Postfix",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\Postfix.py"
+    },
+    {
+      "name": "rapidfuzz.distance.Prefix",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\Prefix.py"
+    },
+    {
+      "name": "rapidfuzz.distance._initialize",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\_initialize.py"
+    },
+    {
+      "name": "rapidfuzz.distance",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\distance\\__init__.py"
+    },
+    {
+      "name": "rapidfuzz.fuzz_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\fuzz_py.py"
+    },
+    {
+      "name": "rapidfuzz.fuzz_cpp_avx2",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\fuzz_cpp_avx2.cp312-win_amd64.pyd"
+    },
+    {
+      "name": "rapidfuzz.fuzz",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\fuzz.py"
+    },
+    {
+      "name": "rapidfuzz.process_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\process_py.py"
+    },
+    {
+      "name": "rapidfuzz.process_cpp_impl",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\process_cpp_impl.cp312-win_amd64.pyd"
+    },
+    {
+      "name": "rapidfuzz.process_cpp",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\process_cpp.py"
+    },
+    {
+      "name": "rapidfuzz.process",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\process.py"
+    },
+    {
+      "name": "rapidfuzz.utils_py",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\utils_py.py"
+    },
+    {
+      "name": "rapidfuzz.utils_cpp",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\utils_cpp.cp312-win_amd64.pyd"
+    },
+    {
+      "name": "rapidfuzz.utils",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\utils.py"
+    },
+    {
+      "name": "rapidfuzz",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\rapidfuzz\\__init__.py"
+    },
+    {
+      "name": "graphify.dedup",
+      "file": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\packages\\graphify\\dedup.py"
+    }
+  ]
+}

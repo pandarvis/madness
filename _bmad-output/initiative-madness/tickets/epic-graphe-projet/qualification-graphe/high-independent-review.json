@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-04T00:44:51.247Z",
+  "agent": "/root/graph41_boundaries_review",
+  "kind": "independent high runtime/effects/provenance",
+  "findings": [],
+  "readOnly": true,
+  "verification": [
+    "21 archived corpora match source-after SHA256 and bytes excluding explicit .git/reparse omissions",
+    "31 wheels match lock",
+    "source archives001/002/003 match seals",
+    "real G1 MISSING/CHANGED/EXTRA,G3 OUTPUT_REUSED,G4 PROJECT_LINK linked",
+    "ZIP and parsed native graph byte linkage checked"
+  ],
+  "limits": [
+    "No OS sandbox or exhaustive native trace",
+    "Only pinned Git executable/profile; arbitrary installations/configuration not qualified",
+    "Cancellation/timeout before parsing; descendant identities collected in007 only",
+    "Minimal mixed documents, external config and actual cpp trigger not generalizable",
+    "Reconstruction has no new Graphify run;97 generated metadata/launcher differences",
+    "owners.json was finalizing at review time; parent must check"
+  ],
+  "noGraphifyModelOrNetworkRunByReviewer": true,
+  "G5Final": false
+}

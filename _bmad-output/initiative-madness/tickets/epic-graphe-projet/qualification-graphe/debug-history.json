@@ -1,0 +1,49 @@
+{
+  "provisioning": {
+    "owner": "C:/Users/UP60066553/AppData/Local/Temp/mg41-9NPKXq",
+    "initialOutcome": "WHEEL_SELECTION:tree-sitter-swift",
+    "cause": "Sélecteur du banc omettait cp38-abi3 alors que la résolution binaire avait choisi tree-sitter-swift0.7.4 et que sa wheel win_amd64 existe.",
+    "correction": "Admettre ABI3cp38 compatible CPython3.12; même version et hash officiel vérifiés, aucune compilation/sdist ni patch tiers.",
+    "resume": "Explicite dans le même provisioning possédé, cache téléchargé recontrôlé.31wheels/735base/2340tiers."
+  },
+  "runs": [
+    {
+      "path": "runs/run-b576fce0-e58f-4135-bf71-a0ffe06b0f79",
+      "scope": "debug initial",
+      "outcome": "shim PowerShell bloqué avec environnement filtré; processus exact arrêté, témoins conservés",
+      "qualified": false
+    },
+    {
+      "path": "runs/probe-002",
+      "scope": "debug initial",
+      "outcome": "nominal refusé par le banc sur préfixe Windows \\?\\; matrice interrompue avant correction",
+      "qualified": false
+    },
+    {
+      "path": "runs/nominal-003",
+      "scope": "nominal ciblé",
+      "outcome": "SyntaxError du banc avant sa logique; reçu Job fermé0",
+      "qualified": false
+    },
+    {
+      "path": "runs/nominal-004",
+      "scope": "nominal ciblé",
+      "outcome": "Graphify completed et graphe réel, mais copie des caches vers reçu trop longue sous Windows; code retour commande1, aucune promotion comme matrice réussie",
+      "qualified": false
+    },
+    {
+      "path": "runs/nominal-005",
+      "scope": "nominal ciblé seulement",
+      "outcome": "commande0, graphe natif73nœuds/57relations et Job fermé0; aucune qualification18cas déduite",
+      "qualified": false
+    },
+    {
+      "path": "runs/matrix-006",
+      "scope": "matrice groupée après harness-seal-001",
+      "outcome": "18cas exécutés code0, vérifiés; compléments007 et reconstruction séparés",
+      "qualified": true
+    }
+  ],
+  "cleanupPolicy": "Ne pas nettoyer les premiers propriétaires sans arrêt complet établi. Aucun retour du lanceur ni interruption de debug ne crée une preuve terminale manquante.",
+  "qualificationScope": "spike local seulement; G5 final ouvert"
+}

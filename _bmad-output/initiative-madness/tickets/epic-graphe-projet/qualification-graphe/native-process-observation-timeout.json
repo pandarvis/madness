@@ -1,0 +1,22 @@
+{
+  "case": "G7-timeout",
+  "processes": [],
+  "executionAtObservation": {
+    "schema": 5,
+    "outcome": "timeout",
+    "exit": 1,
+    "started": true,
+    "owned": [],
+    "cleanup": [],
+    "results_present": false,
+    "job_assigned_before_resume": true,
+    "pid": 21684,
+    "active_before_stop": 3,
+    "job_active_after_stop": 0,
+    "stop_ms": 0,
+    "drain_ms": 86,
+    "elapsed_ms": 45485
+  },
+  "limitation": "Instantané WMI, pas un traceur exhaustif; seule appartenance Job et arrêt0 font autorité de fermeture.",
+  "observedAt": "2026-11-04T00:25:57.4455636Z"
+}

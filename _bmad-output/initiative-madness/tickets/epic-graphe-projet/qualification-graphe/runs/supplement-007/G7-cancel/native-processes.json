@@ -1,0 +1,25 @@
+{
+  "rootPid": 41320,
+  "phase": {
+    "phase": "extract-entry-before-parsing",
+    "files": 33
+  },
+  "processes": [
+    {
+      "pid": 41320,
+      "parent": 30052,
+      "exe": "uv.exe"
+    },
+    {
+      "pid": 44608,
+      "parent": 41320,
+      "exe": "conhost.exe"
+    },
+    {
+      "pid": 21856,
+      "parent": 41320,
+      "exe": "python.exe"
+    }
+  ],
+  "limitation": "instantané Toolhelp32, pas trace exhaustive"
+}

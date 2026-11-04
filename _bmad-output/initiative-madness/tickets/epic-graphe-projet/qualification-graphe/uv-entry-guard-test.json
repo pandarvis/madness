@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "scope": "isolated main() UV admission; all child starts intercepted; no Graphify analysis",
+  "candidateSha256": "d79374fc6fe1d68a9fc95af6c2e055345d50425b75ff18ed66e4dc6b9d921c86",
+  "historicalSha256": "a5cef50ea2a1c94af43ff4a5fcb1b764e2964c82b08716ac0c82b74f366ea70e",
+  "cases": [
+    {
+      "case": "red-historical-content-not-checked",
+      "exit": 0,
+      "interceptedRunEntries": 1,
+      "error": null,
+      "outputCreated": true
+    },
+    {
+      "case": "green-content-change-refused",
+      "exit": 1,
+      "interceptedRunEntries": 0,
+      "error": "UV_CHANGED",
+      "outputCreated": false
+    },
+    {
+      "case": "green-manifest-pin-change-refused",
+      "exit": 1,
+      "interceptedRunEntries": 0,
+      "error": "UV_CHANGED",
+      "outputCreated": false
+    },
+    {
+      "case": "green-unpinned-path-refused",
+      "exit": 1,
+      "interceptedRunEntries": 0,
+      "error": "UV_CHANGED",
+      "outputCreated": false
+    },
+    {
+      "case": "green-chain-hardlink-refused",
+      "exit": 1,
+      "interceptedRunEntries": 0,
+      "error": "LINK:",
+      "outputCreated": false
+    },
+    {
+      "case": "green-pinned-uv-reaches-intercept-only",
+      "exit": 0,
+      "interceptedRunEntries": 1,
+      "error": null,
+      "outputCreated": true
+    }
+  ]
+}

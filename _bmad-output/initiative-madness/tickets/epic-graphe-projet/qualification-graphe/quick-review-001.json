@@ -1,0 +1,21 @@
+{
+  "agent": "/root/graph41_quick",
+  "findings": [
+    {
+      "id": "Q1",
+      "path": "qualify.mjs:153",
+      "claim": "UV run before integrity check",
+      "verdict": "medium",
+      "route": "patch",
+      "evidence": "main only closes runtime/packages, provision/runner UV checks occur before or after this outer first UV respectively",
+      "status": "resolved"
+    }
+  ],
+  "recheck": {
+    "agent": "/root/graph41_quick",
+    "inspectionOnly": true,
+    "result": "Q1 resolved; guard before outputs and first run; historical regression, four negatives and nominal intercepted",
+    "parentTestExit": 0,
+    "parentTestCases": 6
+  }
+}

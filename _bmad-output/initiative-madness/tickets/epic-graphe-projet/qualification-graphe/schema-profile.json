@@ -1,0 +1,92 @@
+{
+  "profile": "graphifyy-0.9.101-windows-cpython312-code-only-local-spike-v1",
+  "status": "profil local qualifié4.1; ne vaut pas G5 intégré",
+  "tool": {
+    "distribution": "graphifyy",
+    "version": "0.9.101",
+    "wheelSha256": "be7745d4779e6f604d7412863a79e6570b8d659035d0eaf396f7ba49c3b7997c"
+  },
+  "artifact": {
+    "kind": "clustered node-link graph JSON",
+    "relativePath": "out/graphify-out/graph.json",
+    "schemaField": "graph.schema_version",
+    "schemaValue": 1,
+    "versionField": "graph.graphify_version",
+    "nodesField": "nodes",
+    "relationsField": "links",
+    "hyperedgesField": "hyperedges à la racine; copie graph.hyperedges possible, ensemble vide observé en code-only"
+  },
+  "provenanceRequired": [
+    "identité projet/analyse du reçu",
+    "empreinte racine et corpus incluant non-commités",
+    "assemblage et invocations fermés",
+    "Job avant Resume et état terminal connu",
+    "empreintes des octets JSON natifs"
+  ],
+  "direction": {
+    "priority": [
+      "_src et _tgt ensemble",
+      "source vers target"
+    ],
+    "directedFalseDoesNotReverseCalls": true,
+    "singleMarker": "refus"
+  },
+  "confidence": {
+    "values": [
+      "EXTRACTED",
+      "INFERRED",
+      "AMBIGUOUS"
+    ],
+    "scoreField": "confidence_score",
+    "scoreRange": [
+      0,
+      1
+    ],
+    "scoreIsDistinctFromConfidence": true,
+    "observedInferredWitness": "typed_client_useservice vers typed_service_service_act, calls, INFERRED, 0.85"
+  },
+  "references": {
+    "fileField": "source_file",
+    "locationField": "source_location",
+    "observed": [
+      "L<n>"
+    ],
+    "absentNullEmpty": "inconnu",
+    "numericPositive": "ligne si entier positif validé; variante native non encore observée",
+    "otherText": "inconnu, octets conservés; aucune plage de lignes devinée",
+    "admission": "fichier relatif existant dans les octets du corpus, sans parent, lettre disque, séparateur inverse, lien ni référence hors racine"
+  },
+  "rawNoCluster": {
+    "admittedAsSchema1": false,
+    "reason": "sortie raw distincte non estampillée; aucune conversion implicite"
+  },
+  "formatRefusals": [
+    "outil/version inconnus",
+    "schema inconnu",
+    "raw non estampillé",
+    "endpoint absent",
+    "direction partielle",
+    "référence absolue ou traversante",
+    "confiance inconnue",
+    "score hors domaine",
+    "ligne hors fichier"
+  ],
+  "scope": "Profil de qualification hors produit. Ne définit pas GraphSnapshot, UI, packaging Graphify produit ni acceptation humaine.",
+  "limitations": [
+    "Les champs réellement absents restent inconnus",
+    "La présence de flags ne constitue pas la preuve des effets",
+    "Les hooks Python et canaris sont des observations/refus, pas un sandbox OS",
+    "Un graphe complet produit avant mutation ne devient pas actuel après modification de source"
+  ],
+  "evidence": {
+    "matrix": "runs/matrix-006/verification.json",
+    "supplementAndReconstruction": "final-verification.json",
+    "sourceVersions": "source-versions/{001,002,003}/seal.json"
+  },
+  "configuration": {
+    "validObserved": "language.tpl=typescript et viz_node_limit=0, fichier configured.tpl effectivement extrait",
+    "unknownKeysObserved": "GRAPHIFY_OUT/out/GRAPHIFY_BACKEND/backend ignorées par rcfile; environnement backend=none et sortie explicite restent effectifs",
+    "invalidObserved": "JSON ignoré avec warning expected key=value",
+    "limits": "Autres remappings/configurations et extends externes non généralisés"
+  }
+}

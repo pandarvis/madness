@@ -1,0 +1,243 @@
+{
+  "communities": {
+    "0": [
+      "package",
+      "package_dependencies",
+      "package_dependencies_example_library",
+      "package_name",
+      "package_scripts",
+      "package_scripts_prepare",
+      "package_version",
+      "ref_example_library"
+    ],
+    "1": [
+      "csharp_namespace:e52c854d5631eec7",
+      "dotnet_math",
+      "dotnet_math_demo_mathops",
+      "dotnet_math_demo_mathops_add",
+      "dotnet_program",
+      "dotnet_program_demo_program",
+      "dotnet_program_demo_program_compute"
+    ],
+    "2": [
+      "main",
+      "main_compute",
+      "math_ops",
+      "math_ops_add"
+    ],
+    "3": [
+      "typed_main",
+      "typed_main_run",
+      "typed_util",
+      "typed_util_double"
+    ],
+    "4": [
+      "web_main",
+      "web_main_start",
+      "web_util",
+      "web_util_greet"
+    ],
+    "5": [
+      "modules_module_00",
+      "modules_module_00_item_0"
+    ],
+    "6": [
+      "modules_module_01",
+      "modules_module_01_item_1"
+    ],
+    "7": [
+      "modules_module_02",
+      "modules_module_02_item_2"
+    ],
+    "8": [
+      "modules_module_03",
+      "modules_module_03_item_3"
+    ],
+    "9": [
+      "modules_module_04",
+      "modules_module_04_item_4"
+    ],
+    "10": [
+      "modules_module_05",
+      "modules_module_05_item_5"
+    ],
+    "11": [
+      "modules_module_06",
+      "modules_module_06_item_6"
+    ],
+    "12": [
+      "modules_module_07",
+      "modules_module_07_item_7"
+    ],
+    "13": [
+      "modules_module_08",
+      "modules_module_08_item_8"
+    ],
+    "14": [
+      "modules_module_09",
+      "modules_module_09_item_9"
+    ],
+    "15": [
+      "modules_module_10",
+      "modules_module_10_item_10"
+    ],
+    "16": [
+      "modules_module_11",
+      "modules_module_11_item_11"
+    ],
+    "17": [
+      "modules_module_12",
+      "modules_module_12_item_12"
+    ],
+    "18": [
+      "modules_module_13",
+      "modules_module_13_item_13"
+    ],
+    "19": [
+      "modules_module_14",
+      "modules_module_14_item_14"
+    ],
+    "20": [
+      "modules_module_15",
+      "modules_module_15_item_15"
+    ],
+    "21": [
+      "modules_module_16",
+      "modules_module_16_item_16"
+    ],
+    "22": [
+      "modules_module_17",
+      "modules_module_17_item_17"
+    ],
+    "23": [
+      "modules_module_18",
+      "modules_module_18_item_18"
+    ],
+    "24": [
+      "modules_module_19",
+      "modules_module_19_item_19"
+    ],
+    "25": [
+      "source_canary"
+    ]
+  },
+  "cohesion": {
+    "0": 0.2857142857142857,
+    "1": 0.3333333333333333,
+    "2": 0.8333333333333334,
+    "3": 0.8333333333333334,
+    "4": 0.8333333333333334,
+    "5": 1.0,
+    "6": 1.0,
+    "7": 1.0,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0,
+    "17": 1.0,
+    "18": 1.0,
+    "19": 1.0,
+    "20": 1.0,
+    "21": 1.0,
+    "22": 1.0,
+    "23": 1.0,
+    "24": 1.0,
+    "25": 1.0
+  },
+  "gods": [
+    {
+      "id": "math_ops_add",
+      "label": "add()",
+      "degree": 3
+    },
+    {
+      "id": "typed_util_double",
+      "label": "double()",
+      "degree": 3
+    },
+    {
+      "id": "web_util_greet",
+      "label": "greet()",
+      "degree": 3
+    },
+    {
+      "id": "csharp_namespace:e52c854d5631eec7",
+      "label": "Demo",
+      "degree": 2
+    },
+    {
+      "id": "dotnet_math_demo_mathops",
+      "label": "MathOps",
+      "degree": 2
+    },
+    {
+      "id": "dotnet_program_demo_program",
+      "label": "Program",
+      "degree": 2
+    },
+    {
+      "id": "main_compute",
+      "label": "compute()",
+      "degree": 2
+    },
+    {
+      "id": "package_dependencies_example_library",
+      "label": "example-library@1.2.3",
+      "degree": 2
+    },
+    {
+      "id": "ref_example_library",
+      "label": "example-library",
+      "degree": 2
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 2
+    }
+  ],
+  "surprises": [
+    {
+      "source": "compute()",
+      "target": "add()",
+      "source_files": [
+        "main.py",
+        "math_ops.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "run()",
+      "target": "double()",
+      "source_files": [
+        "typed/main.ts",
+        "typed/util.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "start()",
+      "target": "greet()",
+      "source_files": [
+        "web/main.js",
+        "web/util.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

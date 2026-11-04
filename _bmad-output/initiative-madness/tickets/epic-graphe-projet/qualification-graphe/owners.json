@@ -1,0 +1,384 @@
+{
+  "policy": "Aucun nettoyage d’arrêt inconnu. Les reçus Job font autorité. Espaces disponibles pour audit parent; aucune suppression par l’implémenteur.",
+  "owners": [
+    {
+      "owner": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-04_4cjyx",
+      "kind": "owned-fixture-matrix",
+      "analyses": [
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-04_4cjyx\\a-G2-nominal",
+          "terminal": {
+            "jobActive": 0,
+            "jobAssigned": true,
+            "knownStopped": true,
+            "neverStarted": false
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-04_4cjyx\\a-G2-nominal\\terminal.json"
+        }
+      ],
+      "cleanupEligibleFromTerminal": true,
+      "decision": "nettoyable après audit parent et contrôle des copies de preuves",
+      "deleted": false
+    },
+    {
+      "owner": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-byuk3qcw",
+      "kind": "owned-fixture-matrix",
+      "analyses": [
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-byuk3qcw\\a-G2-nominal",
+          "terminal": {
+            "jobActive": 0,
+            "jobAssigned": false,
+            "knownStopped": true,
+            "neverStarted": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-byuk3qcw\\a-G2-nominal\\terminal.json"
+        }
+      ],
+      "cleanupEligibleFromTerminal": true,
+      "decision": "nettoyable après audit parent et contrôle des copies de preuves",
+      "deleted": false
+    },
+    {
+      "owner": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72",
+      "kind": "owned-fixture-matrix",
+      "analyses": [
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G1-extra",
+          "terminal": {
+            "neverStarted": true,
+            "knownStopped": true,
+            "jobAssigned": false,
+            "jobActive": 0
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G1-extra\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G1-hash",
+          "terminal": {
+            "jobActive": 0,
+            "knownStopped": true,
+            "jobAssigned": false,
+            "neverStarted": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G1-hash\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G1-missing",
+          "terminal": {
+            "jobActive": 0,
+            "jobAssigned": false,
+            "knownStopped": true,
+            "neverStarted": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G1-missing\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G2-nominal",
+          "terminal": {
+            "jobAssigned": true,
+            "jobActive": 0,
+            "knownStopped": true,
+            "neverStarted": false
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G2-nominal\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G3-inherited",
+          "terminal": {
+            "knownStopped": true,
+            "jobAssigned": true,
+            "jobActive": 0,
+            "neverStarted": false
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G3-inherited\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G3-reused-output",
+          "terminal": {
+            "jobActive": 0,
+            "knownStopped": true,
+            "jobAssigned": false,
+            "neverStarted": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G3-reused-output\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-config",
+          "terminal": {
+            "neverStarted": false,
+            "knownStopped": true,
+            "jobActive": 0,
+            "jobAssigned": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-config\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-cpp",
+          "terminal": {
+            "jobAssigned": true,
+            "knownStopped": true,
+            "neverStarted": false,
+            "jobActive": 0
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-cpp\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git",
+          "terminal": {
+            "jobActive": 0,
+            "jobAssigned": true,
+            "knownStopped": true,
+            "neverStarted": false
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-git\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-link",
+          "terminal": {
+            "knownStopped": true,
+            "jobAssigned": false,
+            "jobActive": 0,
+            "neverStarted": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-link\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-mixed",
+          "terminal": {
+            "jobActive": 0,
+            "jobAssigned": true,
+            "neverStarted": false,
+            "knownStopped": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-mixed\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-outside-config",
+          "terminal": {
+            "jobAssigned": true,
+            "neverStarted": false,
+            "jobActive": 0,
+            "knownStopped": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G4-outside-config\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G5-raw",
+          "terminal": {
+            "jobActive": 0,
+            "jobAssigned": true,
+            "neverStarted": false,
+            "knownStopped": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G5-raw\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G6-beta",
+          "terminal": {
+            "jobAssigned": true,
+            "jobActive": 0,
+            "neverStarted": false,
+            "knownStopped": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G6-beta\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G6-mutation",
+          "terminal": {
+            "knownStopped": true,
+            "jobAssigned": true,
+            "jobActive": 0,
+            "neverStarted": false
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G6-mutation\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G7-cancel",
+          "terminal": {
+            "jobAssigned": true,
+            "knownStopped": true,
+            "jobActive": 0,
+            "neverStarted": false
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G7-cancel\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G7-timeout",
+          "terminal": {
+            "knownStopped": true,
+            "jobAssigned": true,
+            "jobActive": 0,
+            "neverStarted": false
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G7-timeout\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G8-incomplete",
+          "terminal": {
+            "jobActive": 0,
+            "neverStarted": false,
+            "jobAssigned": true,
+            "knownStopped": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-cmb9bx72\\a-G8-incomplete\\terminal.json"
+        }
+      ],
+      "cleanupEligibleFromTerminal": true,
+      "decision": "nettoyable après audit parent et contrôle des copies de preuves",
+      "deleted": false
+    },
+    {
+      "owner": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-eyz1k0qz",
+      "kind": "owned-fixture-matrix",
+      "analyses": [
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-eyz1k0qz\\a-G2-nominal",
+          "terminal": {
+            "neverStarted": false,
+            "jobActive": 0,
+            "knownStopped": true,
+            "jobAssigned": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-eyz1k0qz\\a-G2-nominal\\terminal.json"
+        }
+      ],
+      "cleanupEligibleFromTerminal": true,
+      "decision": "nettoyable après audit parent et contrôle des copies de preuves",
+      "deleted": false
+    },
+    {
+      "owner": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-go2x_g_2",
+      "kind": "owned-fixture-matrix",
+      "analyses": [
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-go2x_g_2\\a-G2-nominal",
+          "terminal": {
+            "jobAssigned": true,
+            "jobActive": 0,
+            "knownStopped": true,
+            "neverStarted": false
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-go2x_g_2\\a-G2-nominal\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-go2x_g_2\\a-G3-inherited",
+          "terminal": {
+            "jobActive": 0,
+            "knownStopped": true,
+            "jobAssigned": true,
+            "neverStarted": false
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-go2x_g_2\\a-G3-inherited\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-go2x_g_2\\a-G4-config",
+          "terminal": {
+            "knownStopped": true,
+            "neverStarted": true,
+            "jobAssigned": false,
+            "jobActive": 0
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-go2x_g_2\\a-G4-config\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-go2x_g_2\\a-G5-raw",
+          "terminal": {
+            "neverStarted": false,
+            "knownStopped": true,
+            "jobActive": 0,
+            "jobAssigned": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-go2x_g_2\\a-G5-raw\\terminal.json"
+        }
+      ],
+      "cleanupEligibleFromTerminal": true,
+      "decision": "nettoyable après audit parent et contrôle des copies de preuves",
+      "deleted": false
+    },
+    {
+      "owner": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-kuk0bc_f",
+      "kind": "owned-fixture-matrix",
+      "analyses": [
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-kuk0bc_f\\a-G2-nominal",
+          "terminal": {
+            "jobAssigned": true,
+            "neverStarted": false,
+            "knownStopped": true,
+            "jobActive": 0
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-kuk0bc_f\\a-G2-nominal\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-kuk0bc_f\\a-G5-raw",
+          "terminal": {
+            "knownStopped": true,
+            "jobActive": 0,
+            "jobAssigned": true,
+            "neverStarted": false
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-kuk0bc_f\\a-G5-raw\\terminal.json"
+        }
+      ],
+      "cleanupEligibleFromTerminal": true,
+      "decision": "nettoyable après audit parent et contrôle des copies de preuves",
+      "deleted": false
+    },
+    {
+      "owner": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-zapklm75",
+      "kind": "owned-fixture-matrix",
+      "analyses": [
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-zapklm75\\a-G3-inherited",
+          "terminal": {
+            "jobActive": 0,
+            "neverStarted": false,
+            "knownStopped": true,
+            "jobAssigned": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-zapklm75\\a-G3-inherited\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-zapklm75\\a-G4-valid-config",
+          "terminal": {
+            "neverStarted": false,
+            "jobActive": 0,
+            "jobAssigned": true,
+            "knownStopped": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-zapklm75\\a-G4-valid-config\\terminal.json"
+        },
+        {
+          "analysis": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-zapklm75\\a-G7-cancel",
+          "terminal": {
+            "neverStarted": false,
+            "jobActive": 0,
+            "knownStopped": true,
+            "jobAssigned": true
+          },
+          "proof": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq\\tmp\\mgs41-zapklm75\\a-G7-cancel\\terminal.json"
+        }
+      ],
+      "cleanupEligibleFromTerminal": true,
+      "decision": "nettoyable après audit parent et contrôle des copies de preuves",
+      "deleted": false
+    },
+    {
+      "owner": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-9NPKXq",
+      "originalSpelling": "C:/Users/UP60066553/AppData/Local/Temp/mg41-9NPKXq",
+      "kind": "primary-runtime-wheels",
+      "cleanupEligibleFromTerminal": false,
+      "decision": "garder pour les recontrôles parent et les vérificateurs qui référencent cette fermeture",
+      "deleted": false
+    },
+    {
+      "owner": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg41-BYMYFo",
+      "originalSpelling": "C:\\Users\\UP6006~1\\AppData\\Local\\Temp\\mg41-BYMYFo",
+      "kind": "lock-reconstruction-runtime-wheels",
+      "cleanupEligibleFromTerminal": false,
+      "decision": "garder pour les recontrôles parent et les vérificateurs qui référencent cette fermeture",
+      "deleted": false
+    }
+  ]
+}

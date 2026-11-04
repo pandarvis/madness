@@ -1,0 +1,3 @@
+#include <stdio.h>
+#define VALUE 1
+int main(void) {return VALUE;}

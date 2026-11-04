@@ -1,0 +1,13 @@
+✔ profil réel qualifie Mary, ses dépendances et les deux resolvers exécutables (7393.1101ms)
+✔ agent absent, altéré et surcharge inconnue bloquent avant invocation (324.799ms)
+✔ un module Python et un interpréteur ajoutés au projet ne remplacent pas le runtime du resolver (3346.7083ms)
+✔ le runtime choisi est hors projet et une copie binaire altérée ne peut pas être exécutée (2452.1494ms)
+✔ legacy runtime PEM guard rejects altered or missing copied CA data before Mary or Forge can start UV (16901.7154ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19779.842

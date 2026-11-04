@@ -1,0 +1,52 @@
+{
+  "quick": "catalog27_quick",
+  "high": "catalog27_protocol_map",
+  "findings": [
+    {
+      "id": "Q1",
+      "location": "CatalogPanel.tsx:30-36",
+      "verdict": "medium",
+      "route": "patch",
+      "evidence": "Copier et Préparer incrémentent copyToken sans exclusion mutuelle ; leurs finally conditionnels laissent le drapeau de l’autre opération vrai. Close/reopen peut le réinitialiser mais la fiche reste sinon bloquée. Correction directe des deux commandes/contrôles existants.",
+      "resolution": "resolved",
+      "recheck": "bmad-quick-recheck.md"
+    },
+    {
+      "id": "Q2",
+      "location": "main/index.ts:246; withCatalogQualification",
+      "verdict": "high",
+      "route": "patch",
+      "evidence": "resolveBmad/runForgeScript lèvent réellement STOP_UNCONFIRMED si stopNative ne confirme pas. Le helper lease est pourtant libéré ; seule une erreur locale est stockée. recovery.status/observeStop ne consultent que trois autres propriétaires et peuvent donc admettre ou réadmettre un travail. Réutiliser la propriété/récupération privées existantes pour cette qualification et conserver son inconnue, y compris après restauration et observation des autres propriétaires ; aucune nouvelle capacité publique.",
+      "resolution": "resolved",
+      "recheck": "bmad-quick-recheck.md"
+    },
+    {
+      "id": "Q3",
+      "location": "App.tsx:626",
+      "verdict": "medium",
+      "route": "patch",
+      "evidence": "La sélection locale peut changer sa revision sans toucher le catalogue. La préparation garde selectionRevision mais stale ne la compare pas : ancienne initiative et Lancer restent actifs jusqu’au refus backend. Comparaison UI directe au fait déjà capturé.",
+      "resolution": "resolved",
+      "recheck": "bmad-quick-recheck.md"
+    },
+    {
+      "id": "H1",
+      "location": "core/dialogue.ts:227; catalog-launch.failed",
+      "verdict": "high",
+      "route": "patch",
+      "evidence": "Le catch attend failed() et sa sauvegarde unknown avant stopSession. Une session déjà ouverte, un échec avant ACK puis une écriture secondaire suspendue retardent sa fermeture ; stop/shutdown attendent active. Fermer le natif possédé avant cette écriture secondaire, sans transformer un échec de conservation en succès.",
+      "resolution": "resolved",
+      "recheck": "high-boundaries-recheck.md"
+    }
+  ],
+  "routes": "Four bounded internal corrections to existing controls/ownership/persistence order; no intent gap or new public execution capability",
+  "nativeLimits": "No new provider ACK/effects or whole-current-three-profile native path acquired; help-only compiled pass scoped, third partial cause unknown.",
+  "postReview": {
+    "core": 32,
+    "ui": 7,
+    "nativeProfileDependencies": 5,
+    "skip": 0,
+    "buildExit": 0,
+    "wholeSuite": false
+  }
+}

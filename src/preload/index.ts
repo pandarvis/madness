@@ -59,14 +59,14 @@ const connectionBridge: ConnectionBridge = {
   }
 }
 contextBridge.exposeInMainWorld('madnessConnection', Object.freeze(connectionBridge))
-const dialogueRequest = async (payload: Omit<DialogueCommand, 'contractVersion' | 'correlationId'> | Record<string, unknown>): Promise<DialogueState> => {
-  const correlationId = crypto.randomUUID()
+const dialogueRequest = async (payload: Omit<DialogueCommand, 'contractVersion' | 'correlationId'> | Record<string, unknown>,requestId?:string): Promise<DialogueState> => {
+  const correlationId = requestId??crypto.randomUUID()
   const reply: unknown = await ipcRenderer.invoke(DIALOGUE_COMMAND_CHANNEL, { ...payload, contractVersion: 1, correlationId })
   if (!isDialogueReply(reply)) throw new Error('INVALID_DIALOGUE_REPLY')
   if (reply.correlationId !== correlationId && (reply.correlationId !== 'rejected-request' || !['INVALID_COMMAND', 'UNTRUSTED_CALLER'].includes(reply.state.errorCode ?? ''))) throw new Error('UNRELATED_DIALOGUE_REPLY')
   return reply.state
 }
-const dialogueBridge: DialogueBridge = {launchHelp:projectId=>dialogueRequest({type:'launch-help',projectId}),
+const dialogueBridge: DialogueBridge = {launchCatalog:(projectId,preparationId)=>dialogueRequest({type:'launch-catalog',projectId,preparationId},preparationId),launchHelp:projectId=>dialogueRequest({type:'launch-help',projectId}),
   inspectApproval:approvalId=>dialogueRequest({type:'inspect-approval',approvalId}),observeStop:()=>dialogueRequest({type:'observe-stop'}),
   saveApproval:(approvalId,adjustment)=>dialogueRequest({type:'save-approval',approvalId,adjustment}),decideApproval:(approvalId,decision)=>dialogueRequest({type:'decide-approval',approvalId,decision}),sendAdjustment:approvalId=>dialogueRequest({type:'send-adjustment',approvalId}),
   saveQuestion:(questionId,values)=>dialogueRequest({type:'save-question',questionId,values}),answerQuestion:(questionId,values)=>dialogueRequest({type:'answer-question',questionId,values}),
@@ -132,3 +132,13 @@ import type {GraphBridge,GraphWorkspace} from '../contracts/bmad-graph.ts'
 const graphRequest=async(payload:Record<string,unknown>):Promise<GraphWorkspace>=>{const correlationId=crypto.randomUUID(),reply:unknown=await ipcRenderer.invoke(GRAPH_COMMAND_CHANNEL,{...payload,contractVersion:1,correlationId});if(!reply||typeof reply!=='object'||Object.keys(reply).length!==3||!('contractVersion' in reply)||reply.contractVersion!==1||!('correlationId' in reply)||reply.correlationId!==correlationId||!('state' in reply)||!isGraphWorkspace(reply.state))throw Error('INVALID_GRAPH_REPLY');return reply.state}
 const graphBridge:GraphBridge={read:()=>graphRequest({type:'read'}),generate:projectId=>graphRequest({type:'generate',projectId,scopeId:'code'}),interrupt:(projectId,analysisId)=>graphRequest({type:'interrupt',projectId,scopeId:'code',analysisId}),retrySave:projectId=>graphRequest({type:'retry-save',projectId,scopeId:'code'}),revalidateFiles:projectId=>graphRequest({type:'revalidate-files',projectId,scopeId:'code'}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isGraphWorkspace(value))listener(value)};ipcRenderer.on(GRAPH_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(GRAPH_EVENT_CHANNEL,receive)}}
 contextBridge.exposeInMainWorld('madnessGraph',Object.freeze(graphBridge))
+
+import {CATALOG_LAUNCH_COMMAND_CHANNEL,CATALOG_LAUNCH_EVENT_CHANNEL,isCatalogLaunchState} from '../contracts/bmad-catalog-launch.ts'
+import type {CatalogLaunchBridge,CatalogLaunchState} from '../contracts/bmad-catalog-launch.ts'
+const catalogLaunchRequest=async(payload:Record<string,unknown>):Promise<CatalogLaunchState>=>{
+ const correlationId=crypto.randomUUID(),reply:unknown=await ipcRenderer.invoke(CATALOG_LAUNCH_COMMAND_CHANNEL,{...payload,contractVersion:1,correlationId})
+ if(!reply||typeof reply!=='object'||Object.keys(reply).length!==3||!('contractVersion' in reply)||reply.contractVersion!==1||!('correlationId' in reply)||reply.correlationId!==correlationId||!('state' in reply)||!isCatalogLaunchState(reply.state))throw Error('INVALID_CATALOG_LAUNCH_REPLY')
+ return reply.state
+}
+const catalogLaunchBridge:CatalogLaunchBridge={read:()=>catalogLaunchRequest({type:'read'}),prepare:(projectId,itemId,revision,mode='read-only')=>catalogLaunchRequest({type:'prepare',projectId,itemId,revision,mode}),cancel:preparationId=>catalogLaunchRequest({type:'cancel',preparationId}),retrySave:conversationId=>catalogLaunchRequest({type:'retry-save',conversationId}),onChanged:fn=>{const receive=(_event:Electron.IpcRendererEvent,v:unknown):void=>{if(isCatalogLaunchState(v))fn(v)};ipcRenderer.on(CATALOG_LAUNCH_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(CATALOG_LAUNCH_EVENT_CHANNEL,receive)}}
+contextBridge.exposeInMainWorld('madnessCatalogLaunch',Object.freeze(catalogLaunchBridge))

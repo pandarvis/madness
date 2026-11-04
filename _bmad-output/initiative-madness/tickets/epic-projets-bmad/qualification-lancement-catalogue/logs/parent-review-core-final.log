@@ -1,0 +1,40 @@
+✔ K2 strict references reject renderer invocation, paths, mode escalation and unrelated commands (3.3282ms)
+✔ K1 K4 K5 mary uses the single dialogue, never sends draft and correlates ACK (synthetic port) (38.1957ms)
+✔ K1 K4 K5 forge uses the single dialogue, never sends draft and correlates ACK (synthetic port) (10.0385ms)
+✔ K1 K4 K5 help uses the single dialogue, never sends draft and correlates ACK (synthetic port) (6.3811ms)
+✔ K2 winners, masked sources, unknown versions and unsupported family remain documentary (8.6057ms)
+✔ K3 rejects changed mutateProfile before open (3.3294ms)
+✔ K3 rejects changed mutateContext before open (2.7102ms)
+✔ K3 rejects changed mutateSelection before open (2.3704ms)
+✔ K3 rejects changed mutateConnection before open (1.8701ms)
+✔ K3 rejects changed stale before open (2.0842ms)
+✔ K3 rejects changed invalidate before open (2.2754ms)
+✔ K3 mutation inside open closes owned session before persistence and turn (5.3919ms)
+✔ K3 mutation during conversation save preserves capture and refuses first native turn (4.0112ms)
+✔ K4 unsupported file mode on Forge is refused without open (1.246ms)
+✔ K6 duplicate launch consumes one preparation and retains global unknown stop (9.1064ms)
+✔ K5 K6 disk refusal before turn cannot send; ACK-save failure preserves known transmission and retry does not replay (12.5969ms)
+✔ K5 wrong ACK cannot attach to another request or conversation (8.1724ms)
+✔ K7 cancellation is passive and does not turn a restored origin into a preparation (10.4609ms)
+✔ K7 versioned origin annex is atomic, absent-compatible and preserves corrupt/foreign bytes (162.9432ms)
+✔ K6 shared ActivityAdmission refuses graph, collection and connection throughout local qualification awaits (4.6835ms)
+✔ K3 selection mutation while native preparation awaits is refused before publication (6.4656ms)
+✔ K3 source replacement after qualifier refuses publication without any provenance reread (6.5221ms)
+✔ K4 K5 catalogue Mary file mode preserves opt-in; read-only rejects an unexpected approval without weakening origin (15.2599ms)
+✔ K5 catalogue question uses the existing exact turn/context and explicit answer owner (8.9745ms)
+✔ K3 K5 foreign connection receipt cannot persist a conversation under the prepared identity (2.7146ms)
+✔ native stop precedes a suspended secondary catalogue write: stopped (10.5703ms)
+✔ native stop precedes a suspended secondary catalogue write: unknown (8.5886ms)
+✔ qualification uses its own durable preflight batch; unknown survives restart and foreign stop proof (147.4557ms)
+✔ live qualification recovery aborts and drains its own work before a private stop result true (83.6126ms)
+✔ live qualification recovery aborts and drains its own work before a private stop result false (69.3791ms)
+✔ native Mary/Forge open routes its prequalification through the private owner before any profile read (110.7506ms)
+✔ native help open retains its existing helper owner instead of borrowing qualification identity (0.8596ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1144.9302

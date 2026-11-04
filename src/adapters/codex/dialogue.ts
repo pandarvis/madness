@@ -378,8 +378,9 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
     } finally {invalidateQuestion('CANCELLED');invalidateApproval('CANCELLED');questionObserver=undefined;approvalObserver=undefined; release(); busy = false }
   } }
 }
-export async function openCodexDialogue(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, connection: CodexConnection, options: { root: string; appData: string; repository: string;dataRoot?:string;ownedRun?:OwnedRun; environment: NodeJS.ProcessEnv;assertContext?():Promise<void>; runner?:string;helpAdapter?:BmadHelpAdapter }): Promise<DialogueSession> {
+export async function openCodexDialogue(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, connection: CodexConnection, options: { root: string; appData: string; repository: string;dataRoot?:string;ownedRun?:OwnedRun; environment: NodeJS.ProcessEnv;assertContext?():Promise<void>; qualification?<T>(work:()=>Promise<T>):Promise<T>; runner?:string;helpAdapter?:BmadHelpAdapter }): Promise<DialogueSession> {
   // Les resolvers doivent fonctionner avant de demander le moindre appel au forfait.
+  const qualify=async()=>{
   let forge:ForgeHost|undefined,help:HelpHost|undefined,initiative:string|null
   if(profile.kind==='help'){if(!profile.help||!options.helpAdapter)throw dialogueFailure('PROFILE_UNRECOGNIZED');help=options.helpAdapter.host(profile.help.bundleId,signal);await help.assertFresh();initiative=profile.help.initiativeId
   }else if(profile.kind==='forge'){
@@ -391,6 +392,9 @@ export async function openCodexDialogue(profile: BmadProfile, signal: AbortSigna
     const configuration=JSON.parse(await resolveBmad(profile,'config',signal));initiative=configuration['core.active_initiative']??null
   }
   if (initiative !== null && (typeof initiative !== 'string' || !/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(initiative))) throw dialogueFailure('PROFILE_UNRECOGNIZED')
+  return {forge,help,initiative}
+  }
+  const {forge,help,initiative}=await (profile.kind!=='help'&&options.qualification?options.qualification(qualify):qualify())
   const executable=await findNativeExecutable(options.appData)
   await assertQuestionRuntime(executable);signal.throwIfAborted()
   const lease = await connection.acquireDialogue(signal)

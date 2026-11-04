@@ -52,6 +52,16 @@ export class BmadCatalogCoordinator{
   }catch(e){result={...result,status:String((e as Error).message)==='STALE'?'stale':'failed',reason:String((e as Error).message)==='STALE'?result.reason:'Copie impossible — sélectionnez le texte.'}}
   if(!this.closing)this.update(id,{copy:result})
  });this.tail=work.catch(()=>{});await work}
+ /** Resolve current winning references without clipboard or a new collection. */
+ async capture(projectId:string,itemId:string,revision:string,signal:AbortSignal):Promise<{snapshot:BmadCatalogSnapshot;generation:number}>{
+  const p=this.project(projectId),generation=p.generation,snapshot=p.snapshot,lease=this.leases.get(projectId)
+  const current=()=>{signal.throwIfAborted();const now=this.project(projectId);if(this.closing||!snapshot||now.generation!==generation||now.freshness!=='current'||now.status!=='ready'||now.snapshot?.revision!==revision)throw dialogueFailure('PROFILE_CHANGED')}
+  current();if(!snapshot||snapshot.revision!==revision||!snapshot.items.some(i=>i.id===itemId)||!lease)throw dialogueFailure('PROFILE_CHANGED')
+  if(!await lease.reconcile())throw dialogueFailure('PROFILE_CHANGED');current()
+  const destination=await this.deps.application.dialogueProject(projectId);current()
+  if(canonical(destination.rootPath)!==canonical(snapshot.rootPath)||!await lease.reconcile())throw dialogueFailure('PROFILE_CHANGED');current()
+  return {snapshot:structuredClone(snapshot),generation}
+ }
  async settled():Promise<void>{await this.tail;while(this.jobs.size)await Promise.all([...this.jobs.values()])}
  async shutdown():Promise<void>{this.closing=true;for(const off of this.off)off();for(const lease of this.leases.values())lease.close();this.leases.clear();this.pending.clear();for(const c of this.controllers.values())c.abort();await this.settled()}
 }

@@ -1,0 +1,33 @@
+✔ K2 strict references reject renderer invocation, paths, mode escalation and unrelated commands (2.7355ms)
+✔ K1 K4 K5 mary uses the single dialogue, never sends draft and correlates ACK (synthetic port) (20.1233ms)
+✔ K1 K4 K5 forge uses the single dialogue, never sends draft and correlates ACK (synthetic port) (4.4695ms)
+✔ K1 K4 K5 help uses the single dialogue, never sends draft and correlates ACK (synthetic port) (2.534ms)
+✔ K2 winners, masked sources, unknown versions and unsupported family remain documentary (3.8937ms)
+✔ K3 rejects changed mutateProfile before open (3.5363ms)
+✔ K3 rejects changed mutateContext before open (2.9467ms)
+✔ K3 rejects changed mutateSelection before open (1.6213ms)
+✔ K3 rejects changed mutateConnection before open (1.4591ms)
+✔ K3 rejects changed stale before open (1.7001ms)
+✔ K3 rejects changed invalidate before open (1.9321ms)
+✔ K3 mutation inside open closes owned session before persistence and turn (5.0632ms)
+✔ K3 mutation during conversation save preserves capture and refuses first native turn (3.2013ms)
+✔ K4 unsupported file mode on Forge is refused without open (1.3106ms)
+✔ K6 duplicate launch consumes one preparation and retains global unknown stop (6.6815ms)
+✔ K5 K6 disk refusal before turn cannot send; ACK-save failure preserves known transmission and retry does not replay (8.6875ms)
+✔ K5 wrong ACK cannot attach to another request or conversation (4.7886ms)
+✔ K7 cancellation is passive and does not turn a restored origin into a preparation (4.3438ms)
+✔ K7 versioned origin annex is atomic, absent-compatible and preserves corrupt/foreign bytes (75.4237ms)
+✔ K6 shared ActivityAdmission refuses graph, collection and connection throughout local qualification awaits (3.8489ms)
+✔ K3 selection mutation while native preparation awaits is refused before publication (2.4848ms)
+✔ K3 source replacement after qualifier refuses publication without any provenance reread (0.6592ms)
+✔ K4 K5 catalogue Mary file mode preserves opt-in; read-only rejects an unexpected approval without weakening origin (5.6788ms)
+✔ K5 catalogue question uses the existing exact turn/context and explicit answer owner (5.0897ms)
+✔ K3 K5 foreign connection receipt cannot persist a conversation under the prepared identity (3.8393ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 635.5398

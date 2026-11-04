@@ -1,3 +1,5 @@
+import {CatalogLaunchPanel,CatalogOrigin,useCatalogLaunch} from './CatalogLaunchPanel.tsx'
+import type {CatalogPreparation} from '../../contracts/bmad-catalog-launch.ts'
 import {ProjectLibrary} from './ProjectLibrary.tsx'
 import {projectLibrary} from '../../core/project-library.ts'
 import {consultationKey,navigationCurrent} from './consultation-navigation.ts'
@@ -111,6 +113,9 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [helpState,acceptHelp]=useBmadHelp()
   const [progressState,acceptProgress]=useBmadProgress()
   const [catalogState,acceptCatalog]=useBmadCatalog()
+  const [catalogLaunch,acceptCatalogLaunch]=useCatalogLaunch()
+  const [catalogPreparation,setCatalogPreparation]=useState<CatalogPreparation|null>(null)
+  const catalogLaunchLock=useRef(false)
   const catalogViews=useRef(new Map<string,CatalogView>())
   const [initiativeConflict,setInitiativeConflict]=useState(false)
   const [state, setState] = useState<AppState | null>(null)
@@ -121,7 +126,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [workReturn,setWorkReturn]=useState<ConsultationPosition|null>(null)
   const [page, setPage] = useState<'home' | 'project'>('home')
   const navigationToken=useRef(0)
-  const pendingLaunch=useRef<{token:number;projectId:string;previousConversationId:string|null;sequence:number}|null>(null)
+  const pendingLaunch=useRef<{token:number;projectId:string;previousConversationId:string|null;sequence:number;requestId?:string}|null>(null)
   const [conversationSelections,setConversationSelections]=useState<Record<string,string>>({})
   const [focusTarget,setFocusTarget]=useState<{token:number;target:OverviewTarget}|null>(null)
   const [overviewClock,setOverviewClock]=useState(0)
@@ -164,6 +169,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const connectionLabel = 'Connexion Codex : ' + fr.connectionStatus[connection.status]
   const project = state?.projects.find((p) => p.id === displayedProjectId)
   const initiativeContext=bmadContext.projects.find(p=>p.projectId===project?.id)
+  const catalogSelectionChanged=!!catalogPreparation&&(initiativeContext?.selection?.revision??null)!==catalogPreparation.selectionRevision
   const fileScope=tab==='graphe'?JSON.stringify([project?.id,project?.rootPath,'corpus']):JSON.stringify([project?.id,project?.rootPath,initiativeContext?.selection?.rootIdentity,initiativeContext?.selection?.initiativeId])
   const fileConsultation=page==='project'?fileViews[fileScope]:undefined
   const fileScopeRef=useRef(fileScope);fileScopeRef.current=fileScope
@@ -252,11 +258,13 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     if(dialogue.sequence<=launch.sequence)return
     if(launch.token!==navigationToken.current||dialogue.errorCode||['error','unknown','stopped'].includes(dialogue.status)){pendingLaunch.current=null;return}
     const context=dialogue.context
+    if(launch.requestId&&dialogue.turn?.requestId!==launch.requestId)return
+    if(launch.requestId&&!catalogLaunch.records.some(r=>r.requestId===launch.requestId&&r.context.conversationId===context.conversationId&&r.transmission==='sent'&&r.storage==='stored'))return
     if(context.projectId!==launch.projectId||!context.conversationId||context.conversationId===launch.previousConversationId||!(dialogue.status==='ready'||dialogue.acknowledged&&['running','waiting-question','waiting-approval'].includes(dialogue.status)))return
     if(!state?.conversations.some(c=>c.id===context.conversationId&&sameContext(c.context,context)))return
     pendingLaunch.current=null
-    setConversationSelections(current=>({...current,[launch.projectId]:context.conversationId!}));setTab('conversation')
-  },[dialogue,state])
+    setConversationSelections(current=>({...current,[launch.projectId]:context.conversationId!}));setTab('conversation');if(launch.requestId)requestAnimationFrame(()=>{if(launch.token===navigationToken.current)document.getElementById('conversation-heading')?.focus()})
+  },[dialogue,state,catalogLaunch])
   useEffect(()=>{const now=Date.now(),expiry=[...dialogue.questions,...dialogue.approvals].filter(q=>q.status==='waiting'||q.status==='sending').map(q=>q.expiresAt).filter((v):v is number=>v!==null&&v>now).sort((a,b)=>a-b)[0];if(!expiry)return;const timer=setTimeout(()=>setOverviewClock(v=>v+1),Math.min(2147483647,Math.max(1,expiry-now)));return()=>clearTimeout(timer)},[dialogue,overviewClock])
   useLayoutEffect(()=>{
     if(!focusTarget||focusTarget.token!==navigationToken.current)return
@@ -358,6 +366,12 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     catch { if(launch&&pendingLaunch.current===launch)pendingLaunch.current=null;setDialogueBridgeError(true) }
     finally { setDialoguePending(false) }
   }
+  async function launchFromCatalog():Promise<void>{
+    const p=catalogPreparation;if(!p||p.projectId!==project?.id||catalogLaunchLock.current||dialoguePending)return
+    catalogLaunchLock.current=true;const launch={token:++navigationToken.current,projectId:p.projectId,previousConversationId:dialogue.context.conversationId,sequence:dialogue.sequence,requestId:p.id};pendingLaunch.current=launch;setDialoguePending(true)
+    try{const next=await window.madnessDialogue.launchCatalog(p.projectId,p.id);acceptDialogue(next);setDialogueBridgeError(false)}catch{if(pendingLaunch.current===launch)pendingLaunch.current=null;setDialogueBridgeError(true)}finally{catalogLaunchLock.current=false;setDialoguePending(false)}
+  }
+  function cancelCatalog():void{const p=catalogPreparation;if(!p)return;navigationToken.current++;pendingLaunch.current=null;setCatalogPreparation(null);void window.madnessCatalogLaunch.cancel(p.id).then(acceptCatalogLaunch).catch(()=>{});setTab('catalogue')}
   async function inspectApproval(id:string):Promise<void>{if(dialoguePending)return;setDialoguePending(true);try{acceptDialogue(await window.madnessDialogue.inspectApproval(id));setDialogueBridgeError(false)}catch{setDialogueBridgeError(true)}finally{setDialoguePending(false)}}
   async function copyWorkflow(conversationId:string,target:'invocation'|'workspace'):Promise<DialogueState>{
     const next=await window.madnessDialogue.copyWorkflow(conversationId,target);acceptDialogue(next);return next
@@ -397,7 +411,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     if (!connection.needsPlanAcknowledgement && planConfirmation.current?.open) { planConfirmation.current.close(); if (connectionOpen) connectionHeading.current?.focus(); else connectionTrigger.current?.focus() }
   }, [connection.needsPlanAcknowledgement, connection.accountStored, connection.status, connectionOpen])
   function closeDrawer(): void { drawer.current?.close(); drawerTrigger.current?.focus() }
-  function rootIdentity(id:string,path:string):string|null {const value=bmadContext.projects.find(p=>p.projectId===id)?.observation;return value&&value.rootPath===path?value.rootIdentity:graphState.projects.find(p=>p.scope.projectId===id&&p.scope.rootPath===path)?.scope.rootIdentity??null}
+  function rootIdentity(id:string,path:string):string|null {const value=bmadContext.projects.find(p=>p.projectId===id)?.observation;return value&&value.rootPath===path?value.rootIdentity:graphState.projects.find(p=>p.scope.projectId===id&&p.scope.rootPath===path)?.scope.rootIdentity??catalogState.projects.find(p=>p.projectId===id&&p.snapshot?.rootPath===path)?.snapshot?.rootIdentity??null}
   function remember():ConsultationPosition|null {
     if(page!=='project'||!project)return null
     const focus=workFocus.current,input=focus instanceof HTMLInputElement||focus instanceof HTMLTextAreaElement?focus:null
@@ -552,7 +566,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
             </> : <>
               <section id={'panel-' + tab} role="tabpanel" aria-labelledby={'tab-' + tab}>
                 {tab==='graphe'&&<GraphPanel key={project.id+':'+project.rootPath} projectId={project.id} rootPath={project.rootPath} workspace={graphState} accept={acceptGraph} views={graphViews.current} active={tab==='graphe'} onReturn={returnFromGraph} returnLabel={graphReturns.current.get(project.id)?.tab==='conversation'?'Conversation':graphReturns.current.get(project.id)?.tab==='catalogue'?'Toutes les possibilités':'Parcours'}/>}
-                <div hidden={tab!=='catalogue'}><CatalogPanel key={project.id} projectId={project.id} rootPath={project.rootPath} value={catalogState.projects.find(p=>p.projectId===project.id)} accept={acceptCatalog} views={catalogViews.current} active={tab==='catalogue'}/></div>
+                <div hidden={tab!=='catalogue'}><CatalogPanel key={project.id} projectId={project.id} rootPath={project.rootPath} value={catalogState.projects.find(p=>p.projectId===project.id)} accept={acceptCatalog} views={catalogViews.current} active={tab==='catalogue'} onPrepared={(p,next)=>{if(currentProjectId.current!==p.projectId)return;acceptCatalogLaunch(next);const destination={token:++navigationToken.current,projectId:p.projectId};setConversationSelections(current=>({...current,[p.projectId]:conversation?.id??''}));setCatalogPreparation(p);setTab('conversation');requestAnimationFrame(()=>{if(navigationCurrent(destination,navigationToken.current,currentProjectId.current))document.getElementById('catalog-launch-heading')?.focus()})}} onRefused={code=>{if(currentProjectId.current===project.id&&code==='CONTEXT_MISMATCH')setInitiativeConflict(true)}}/></div>
                 <div hidden={tab!=='parcours'}><ProjectResume active={tab==='parcours'} rootPath={project.rootPath} projectId={project.id} context={initiativeContext} value={progressState.projects.find(p=>p.projectId===project.id)} overview={overview} accept={acceptProgress} onNavigate={target=>void navigateOverview(target)} onChoose={()=>document.querySelector<HTMLButtonElement>('.initiative-trigger')?.click()} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'}/></div>
                 {tab==='parcours'&&<HelpPanel stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} state={helpState} onChanged={acceptHelp} onOpen={record=>void navigateOverview({kind:'conversation',context:record.context,id:'bmad-receipt-'+record.conversationId})} onObserveStop={()=>void dialogueAction('observeStop')} projectId={project.id} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} allowed={connection.accountStored&&!connection.needsPlanAcknowledgement&&!connectionBusy&&!dialogueBridgeError} onLaunch={()=>void dialogueAction('launchHelp')}/>}
                 {tab === 'parcours' && <div className="exchange-preparation"><p className="preparation-intro">Préparez un échange avec Mary pour préciser votre projet, ou avec Forge pour éprouver une nouvelle idée. Qualification et lancement restent explicites.</p><section className="forge-launch" aria-labelledby="forge-title">
@@ -610,10 +624,12 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   <div className="composer-bottom"><p id="draft-status">{dirty ? fr.unsaved : saved ? fr.saved : fr.noDraft}</p><div className="composer-actions"><button className="secondary" type="submit" disabled={pending || !dirty}>{pending ? fr.saving : fr.save}</button>{dialogueConversationHere && sessionPresent && <button className="primary" type="button" onClick={() => void sendToMary()} disabled={!canReply || dialoguePending || !text.trim()}><Icon name="arrow" />Envoyer à {recipient}</button>}</div></div>
                   <p className="small muted" id="draft-limit">{nativeAwaiting?'La réponse ou la décision se donne dans le formulaire de la demande corrélée lorsqu’elle est active. Ce brouillon libre se sauvegarde séparément, sans envoi.':canReply ? 'Seul « Envoyer à '+recipient+' » transmet ce texte. Le brouillon est enregistré avant l’envoi et reste disponible.' : 'Saisie conservée localement · aucun envoi automatique'} · 100 000 caractères maximum</p>
                 </form>}
+                {tab==='conversation'&&catalogPreparation?.projectId===project.id&&(catalogLaunch.preparation?.id===catalogPreparation.id||catalogLaunch.status==='error')&&<CatalogLaunchPanel preparation={catalogPreparation} busy={dialoguePending||dialogueBusy||catalogLaunch.status==='launching'} stale={catalogSelectionChanged||catalogLaunch.status!=='prepared'||catalogState.projects.find(p=>p.projectId===project.id)?.freshness!=='current'||catalogState.projects.find(p=>p.projectId===project.id)?.snapshot?.revision!==catalogPreparation.snapshot.revision||catalogState.projects.find(p=>p.projectId===project.id)?.generation!==catalogPreparation.generation} error={catalogSelectionChanged?'Sélection d’initiative modifiée — cette préparation est périmée. Retournez à la fiche puis préparez de nouveau.':catalogLaunch.error} onLaunch={()=>void launchFromCatalog()} onCancel={cancelCatalog}/>}
+                {tab==='conversation'&&conversation&&<CatalogOrigin record={catalogLaunch.records.find(r=>r.conversationId===conversation.id&&sameContext(r.context,conversation.context))} onRetry={id=>void window.madnessCatalogLaunch.retrySave(id).then(acceptCatalogLaunch).catch(()=>setNotice('Enregistrement de l’origine impossible ; aucun nouvel envoi.'))}/>}
                 {tab==='conversation'&&<button className="text-button prepare-exchange" type="button" onClick={prepareExchange}>Préparer un échange</button>}
                 {(dialogue.recovery.stop==='unconfirmed'||dialogue.approvals.some(a=>a.context.projectId===project.id&&a.decision==='accept'&&(['unknown','pending'].includes(a.effect)||a.storage!=='stored')))&&<details className="recovery-details"><summary>Détails de récupération et inspection</summary><div id={dialogue.context.projectId!==null?"overview-session-recovery":undefined} tabIndex={-1}><RecoveryPanel state={dialogue} projectId={project.id} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={id=>void inspectApproval(id)} onPrepare={prepareExchange}/></div></details>}
                 {tab==='conversation'&&(historicalQuestions.length>0||historicalApprovals.length>0)&&<details className="request-history"><summary>Demandes conservées · inactives ({historicalQuestions.length+historicalApprovals.length})</summary>{historicalQuestions.map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{historicalApprovals.map(approvalPanel)}</details>}
-                  {tab==='conversation'&&conversation&&projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><HelpReceiptPanel record={helpState.records.find(r=>r.conversationId===c.id)} onChanged={acceptHelp}/><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current} onConsult={consultAgent}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.approvals.filter(a=>a.context.conversationId===c.id).map(approvalPanel)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
+                  {tab==='conversation'&&conversation&&projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><CatalogOrigin record={catalogLaunch.records.find(r=>r.conversationId===c.id&&sameContext(r.context,c.context))} onRetry={id=>void window.madnessCatalogLaunch.retrySave(id).then(acceptCatalogLaunch).catch(()=>{})}/><HelpReceiptPanel record={helpState.records.find(r=>r.conversationId===c.id)} onChanged={acceptHelp}/><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current} onConsult={consultAgent}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.approvals.filter(a=>a.context.conversationId===c.id).map(approvalPanel)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
                 {tab==='conversation'&&conversation&&<HelpReceiptPanel record={helpState.records.find(r=>r.conversationId===conversation.id)} onChanged={acceptHelp}/>}
                 {workflow&&<WorkflowResult key={workflow.conversationId} workflow={workflow} onCopy={copyWorkflow}/>}
                 {dialogueHere && dialogue.activities.length > 0 && <details className="dialogue-activity"><summary>Activité du dialogue ({dialogue.activities.length})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{entry}</li>)}</ol></details>}

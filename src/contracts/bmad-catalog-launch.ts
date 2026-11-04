@@ -1,0 +1,38 @@
+import {isRecord,isCorrelationId} from './index.ts'
+import type {ContextRef} from './index.ts'
+import {contextId,isBmadConfigurationObservation,isBmadContextObservation} from './bmad-context.ts'
+import type {CapturedBmadContext} from './bmad-context.ts'
+import {isBmadCatalogSnapshot} from './bmad-catalog.ts'
+import type {BmadCatalogSnapshot} from './bmad-catalog.ts'
+import {dialogueErrors} from './dialogue.ts'
+import type {DialogueErrorCode} from './dialogue.ts'
+import type {DialogueMode} from './approvals.ts'
+export const CATALOG_LAUNCH_COMMAND_CHANNEL='madness:catalog-launch:command:v1'
+export const CATALOG_LAUNCH_EVENT_CHANNEL='madness:catalog-launch:event:v1'
+export const catalogFamilies={'bmad-agent-analyst':'mary','bmad-forge-idea':'forge','bmad':'help'} as const
+export type CatalogFamily=typeof catalogFamilies[keyof typeof catalogFamilies]
+export type CatalogPreparation={schemaVersion:1;id:string;projectId:string;itemId:string;generation:number;snapshot:BmadCatalogSnapshot;captured:CapturedBmadContext;selectionRevision:number|null;nativeContext:{outputBase:string|null;contextDigest:string|null;bundleId:string|null};family:CatalogFamily;mode:DialogueMode;fingerprint:string;skillPath:string;firstInput:string;effects:string;preparedAt:string}
+export type CatalogLaunchRecord={schemaVersion:1;conversationId:string;context:ContextRef;requestId:string;preparation:CatalogPreparation;transmission:'none'|'sent'|'unknown';turnId:string|null;storage:'pending'|'stored'|'failed'}
+export type CatalogLaunchState={contractVersion:1;sequence:number;status:'idle'|'preparing'|'prepared'|'launching'|'error';preparation:CatalogPreparation|null;records:CatalogLaunchRecord[];error:string|null;errorCode:DialogueErrorCode|null}
+export type CatalogLaunchCommand={contractVersion:1;correlationId:string}&({type:'read'}|{type:'prepare';projectId:string;itemId:string;revision:string;mode:DialogueMode}|{type:'cancel';preparationId:string}|{type:'retry-save';conversationId:string})
+export interface CatalogLaunchBridge{read():Promise<CatalogLaunchState>;prepare(projectId:string,itemId:string,revision:string,mode?:DialogueMode):Promise<CatalogLaunchState>;cancel(preparationId:string):Promise<CatalogLaunchState>;retrySave(conversationId:string):Promise<CatalogLaunchState>;onChanged(fn:(s:CatalogLaunchState)=>void):()=>void}
+const exact=(v:Record<string,unknown>,keys:string[])=>Object.keys(v).length===keys.length&&keys.every(k=>Object.hasOwn(v,k))
+const text=(v:unknown,max=32767):v is string=>typeof v==='string'&&v.length>0&&v.length<=max&&!v.includes('\0')
+const sha=(v:unknown):v is string=>typeof v==='string'&&/^[a-f0-9]{64}$/.test(v)
+const integer=(v:unknown):v is number=>Number.isSafeInteger(v)&&Number(v)>=0
+const context=(v:unknown):v is ContextRef=>isRecord(v)&&exact(v,['projectId','initiativeId','conversationId','providerId','connectionId'])&&Object.values(v).every(x=>x===null||contextId(x))
+export const initialCatalogLaunchState=():CatalogLaunchState=>({contractVersion:1,sequence:0,status:'idle',preparation:null,records:[],error:null,errorCode:null})
+export const catalogFamily=(name:string):CatalogFamily|null=>Object.hasOwn(catalogFamilies,name)?catalogFamilies[name as keyof typeof catalogFamilies]:null
+export function catalogUnavailable(snapshot:BmadCatalogSnapshot,itemId:string):string|null{const item=snapshot.items.find(i=>i.id===itemId);if(!item)return 'Fiche absente de cette observation.';if(!item.copyable||!item.sourceId||!item.invocation)return 'Source gagnante refusée ou invocation non admise ; aucune copie masquée ne peut la remplacer.';if(snapshot.diagnostic==='unknown'||snapshot.diagnostic==='absent')return 'Version installée inconnue ou non qualifiée.';if(!catalogFamily(itemId))return 'Aucun profil natif qualifié pour cette compétence.';return null}
+export function isCatalogPreparation(v:unknown):v is CatalogPreparation{
+ if(!isRecord(v)||!exact(v,['schemaVersion','id','projectId','itemId','generation','snapshot','captured','selectionRevision','nativeContext','family','mode','fingerprint','skillPath','firstInput','effects','preparedAt'])||v.schemaVersion!==1||!contextId(v.id)||!contextId(v.projectId)||!text(v.itemId,255)||!integer(v.generation)||!isBmadCatalogSnapshot(v.snapshot)||v.snapshot.projectId!==v.projectId||catalogUnavailable(v.snapshot,v.itemId)!==null||catalogFamily(v.itemId)!==v.family||!['read-only','file-approval'].includes(String(v.mode))||v.mode==='file-approval'&&v.family!=='mary'||!sha(v.fingerprint)||!text(v.skillPath)||!text(v.firstInput,1000)||!text(v.effects,4000)||!text(v.preparedAt,100)||!Number.isFinite(Date.parse(v.preparedAt))||!(v.selectionRevision===null||integer(v.selectionRevision)))return false
+ const n=v.nativeContext
+ if(!isRecord(n)||!exact(n,['outputBase','contextDigest','bundleId'])||!(v.family==='forge'?text(n.outputBase)&&sha(n.contextDigest)&&n.bundleId===null:v.family==='help'?n.outputBase===null&&n.contextDigest===null&&contextId(n.bundleId):n.outputBase===null&&n.contextDigest===null&&n.bundleId===null))return false
+ const c=v.captured
+ if(!isRecord(c)||!exact(c,['scope','observation','initiativeId'])||!(c.scope==='configuration'?isBmadConfigurationObservation(c.observation):c.scope==='initiatives'&&isBmadContextObservation(c.observation)))return false
+ const observation=c.observation as CapturedBmadContext['observation']
+ return (c.initiativeId===null||contextId(c.initiativeId))&&observation.projectId===v.projectId&&observation.rootPath===v.snapshot.rootPath&&c.initiativeId===(observation.activeStatus==='valid'?observation.activeInitiative:null)&&v.firstInput===(v.family==='help'?'$bmad\nQue faire ensuite ?':'$'+v.itemId)
+}
+export function isCatalogLaunchRecord(v:unknown):v is CatalogLaunchRecord{return isRecord(v)&&exact(v,['schemaVersion','conversationId','context','requestId','preparation','transmission','turnId','storage'])&&v.schemaVersion===1&&contextId(v.conversationId)&&context(v.context)&&v.context.conversationId===v.conversationId&&v.context.providerId==='codex'&&contextId(v.context.connectionId)&&isCorrelationId(v.requestId)&&isCatalogPreparation(v.preparation)&&v.context.projectId===v.preparation.projectId&&v.context.initiativeId===v.preparation.captured.initiativeId&&['none','sent','unknown'].includes(String(v.transmission))&&(v.turnId===null||contextId(v.turnId))&&(v.transmission!=='sent'||v.turnId!==null)&&['pending','stored','failed'].includes(String(v.storage))}
+export function isCatalogLaunchCommand(v:unknown):v is CatalogLaunchCommand{if(!isRecord(v)||v.contractVersion!==1||!isCorrelationId(v.correlationId))return false;const k=['contractVersion','correlationId','type'];return v.type==='read'&&exact(v,k)||v.type==='prepare'&&exact(v,[...k,'projectId','itemId','revision','mode'])&&contextId(v.projectId)&&text(v.itemId,255)&&sha(v.revision)&&['read-only','file-approval'].includes(String(v.mode))||v.type==='cancel'&&exact(v,[...k,'preparationId'])&&contextId(v.preparationId)||v.type==='retry-save'&&exact(v,[...k,'conversationId'])&&contextId(v.conversationId)}
+export function isCatalogLaunchState(v:unknown):v is CatalogLaunchState{return isRecord(v)&&exact(v,['contractVersion','sequence','status','preparation','records','error','errorCode'])&&v.contractVersion===1&&integer(v.sequence)&&['idle','preparing','prepared','launching','error'].includes(String(v.status))&&(v.preparation===null||isCatalogPreparation(v.preparation))&&Array.isArray(v.records)&&v.records.length<=200&&v.records.every(isCatalogLaunchRecord)&&new Set(v.records.map(r=>r.conversationId)).size===v.records.length&&(v.error===null||text(v.error,4000))&&(v.errorCode===null||dialogueErrors.includes(v.errorCode as DialogueErrorCode))}

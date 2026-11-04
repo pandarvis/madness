@@ -1,3 +1,6 @@
+import {BmadCatalogLaunchCoordinator,withCatalogQualification} from '../core/bmad-catalog-launch.ts'
+import {BmadCatalogLaunchStore} from '../adapters/persistence/bmad-catalog-launch-store.ts'
+import {CATALOG_LAUNCH_COMMAND_CHANNEL,CATALOG_LAUNCH_EVENT_CHANNEL,isCatalogLaunchCommand,isCatalogLaunchState,initialCatalogLaunchState} from '../contracts/bmad-catalog-launch.ts'
 import {GraphifyAdapter} from '../adapters/analysis/graphify.ts'
 import {GraphOwnedRun} from '../adapters/analysis/graph-owned-run.ts'
 import {GraphStore} from '../adapters/persistence/graph-store.ts'
@@ -143,10 +146,13 @@ else {
     const transport = createTransport(net.fetch.bind(net) as typeof fetch)
     await mkdir(app.getPath('userData'),{recursive:true})
     const ownedRun=new OwnedRun(new RecoveryStore(join(app.getPath('userData'),'codex-owned-run-v1.json')))
+    // This owner is distinct from Codex/help; an unidentified lost batch stays unknown.
+    const qualificationOwner=new OwnedRun(new RecoveryStore(join(app.getPath('userData'),'bmad-qualification-owned-v1.json')))
+    let catalogQualification:BmadCatalogLaunchCoordinator|null=null
     const helperOwner=new HelpOwnedRun(join(app.getPath('userData'),'bmad-help-owned-v1.json'))
     const admission=new ActivityAdmission()
     const graphOwner=new GraphOwnedRun(join(app.getPath('userData'),'graph-owned-v1.json'))
-    const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),helperOwner.status(),graphOwner.status()])).every(s=>s==='stopped')?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await Promise.all([helperOwner.cancel().catch(()=>{}),graphOwner.cancel().catch(()=>{})]);const states=await Promise.all([ownedRun.observeStop(),helperOwner.observeStop(),graphOwner.observeStop()]);if(states.every(s=>s==='stopped')){await graphCoordinator.reconcileNativeStop(await graphOwner.stopProof());admission.clearBlock();return 'stopped'}return 'unknown'}}
+    const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),helperOwner.status(),graphOwner.status(),qualificationOwner.status()])).every(s=>s==='stopped')?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await catalogQualification?.stopQualification();await Promise.all([helperOwner.cancel().catch(()=>{}),graphOwner.cancel().catch(()=>{})]);const states=await Promise.all([ownedRun.observeStop(),helperOwner.observeStop(),graphOwner.observeStop(),qualificationOwner.observeStop()]);if(states.every(s=>s==='stopped')){await graphCoordinator.reconcileNativeStop(await graphOwner.stopProof());admission.clearBlock();return 'stopped'}return 'unknown'}}
     if(await recovery.status()!=='stopped')admission.block()
     const graphAdapter=new GraphifyAdapter({root:join(app.getPath('userData'),'graph-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'graphify'):join(app.getAppPath(),'resources/graphify'),owner:graphOwner,admission,admit:async()=>{if(connection?.hasOperation())throw Error('BUSY');if(await recovery.status()!=='stopped'){admission.block();throw Error('STOP_UNCONFIRMED')}},onUnknown:()=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()}})
     const helpAdapter=new BmadHelpAdapter({root:join(app.getPath('userData'),'bmad-help-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'bmad-help'):join(app.getAppPath(),'resources/bmad-help'),owner:helperOwner,admission,onUnknown:()=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()},admit:async internal=>{
@@ -225,7 +231,40 @@ else {
       checkPublicKeys:signal=>checkPublicKeysAccess(transport,signal)
     })
     application.lifecycle.register({ id: 'codex-connection', context: { ...emptyContext(), providerId: 'codex' }, stop: () => connection!.shutdown() })
+
+    const qualifyMary=async(root:string,signal:AbortSignal)=>{const profile=await qualifyBmadProfile(root);await resolveBmad(profile,'agent',signal);await resolveBmad(profile,'config',signal);return profile}
+    const qualifyNativeForge=(root:string,signal:AbortSignal)=>qualifyForge(root,signal,app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py'))
+    const ownQualification=<T>(work:()=>Promise<T>):Promise<T>=>withCatalogQualification(admission,async()=>{if(connection?.hasOperation())throw Object.assign(Error('BUSY'),{code:'BUSY'});if(await recovery.status()!=='stopped')throw Object.assign(Error('STOP_UNCONFIRMED'),{code:'STOP_UNCONFIRMED'})},work,{owner:qualificationOwner,onUnknown:()=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()}})
+    const catalogLaunch=new BmadCatalogLaunchCoordinator({catalog:catalogCoordinator,contexts:contextCoordinator,connectionIdentity:()=>connection!.catalogueIdentity(),store:new BmadCatalogLaunchStore(join(app.getPath('userData'),'catalog-launch-v1')),qualify:async(family,projectId,root,signal,previous)=>{
+      if(connection?.hasOperation())throw Object.assign(Error('BUSY'),{code:'BUSY'})
+      if(await recovery.status()!=='stopped')throw Object.assign(Error('STOP_UNCONFIRMED'),{code:'STOP_UNCONFIRMED'})
+      if(family==='help'){
+        if(!previous){await helpCoordinator.execute({contractVersion:1,correlationId:'catalog-help-prepare',type:'prepare',projectId});await helpCoordinator.settled()}
+        const profile=await helpCoordinator.profile(projectId,signal),bundle=helpCoordinator.read().bundle
+        if(!bundle||previous?.help?.bundleId&&previous.help.bundleId!==profile.help?.bundleId)throw Object.assign(Error('PROFILE_CHANGED'),{code:'PROFILE_CHANGED'})
+        await helpAdapter.assertFresh(profile.help!.bundleId,signal)
+        const source=bundle.sources.find(s=>s.snapshot===profile.skillPath)
+        if(!source)throw Object.assign(Error('PROFILE_UNRECOGNIZED'),{code:'PROFILE_UNRECOGNIZED'})
+        return {profile,source:{path:source.source,sha256:source.sha256,bytes:source.bytes}}
+      }
+      return ownQualification(async()=>{
+        signal.throwIfAborted()
+        const profile=await (family==='forge'?qualifyNativeForge:qualifyMary)(root,signal);signal.throwIfAborted()
+        if(!profile.catalogSource)throw Object.assign(Error('PROFILE_UNRECOGNIZED'),{code:'PROFILE_UNRECOGNIZED'})
+        return {profile,source:profile.catalogSource}
+      })
+    }})
+    catalogQualification=catalogLaunch
+    application.lifecycle.register({id:'bmad-qualification',context:emptyContext(),stop:async()=>{await catalogLaunch.stopQualification();await dialogueCoordinator?.settled();return qualificationOwner.observeStop()}})
+    application.lifecycle.register({id:'catalog-launch',context:emptyContext(),stop:async()=>{await catalogLaunch.shutdown();return 'stopped'}})
+    ipcMain.handle(CATALOG_LAUNCH_COMMAND_CHANNEL,async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isCatalogLaunchCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialCatalogLaunchState()}
+      const state=await catalogLaunch.execute(input);if(!isCatalogLaunchState(state))throw Error('INVALID_CATALOG_LAUNCH_STATE')
+      return {contractVersion:1,correlationId:input.correlationId,state}
+    })
+    catalogLaunch.subscribe(state=>{if(isCatalogLaunchState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(CATALOG_LAUNCH_EVENT_CHANNEL,state)})
     dialogueCoordinator = new DialogueCoordinator({
+      catalogLaunch,
       application,
       help:helpCoordinator,
       contexts:contextCoordinator,
@@ -235,13 +274,9 @@ else {
       approvals:new ApprovalStore(join(app.getPath('userData'),'approvals-v1')),
       questions:new QuestionStore(join(app.getPath('userData'),'questions-v1')),
       copyText:async text=>{await clipboard.writeText(text);if(await clipboard.readText()!==text)throw Error('COPY_FAILED')},
-      qualifyForge:(root,signal)=>qualifyForge(root,signal,app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py')),
-      qualify: async (root, signal) => {
-        const profile = await qualifyBmadProfile(root)
-        await resolveBmad(profile, 'agent', signal); await resolveBmad(profile, 'config', signal)
-        return profile
-      },
-      open: (profile, signal, activity,assertContext) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun,helpAdapter,assertContext, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
+      qualifyForge:(root,signal)=>ownQualification(()=>qualifyNativeForge(root,signal)),
+      qualify:(root,signal)=>ownQualification(()=>qualifyMary(root,signal)),
+      open: (profile, signal, activity,assertContext) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun,helpAdapter,assertContext,qualification:ownQualification, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
     ipcMain.handle(DIALOGUE_COMMAND_CHANNEL, async (event, input: unknown) => {

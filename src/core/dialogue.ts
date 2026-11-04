@@ -1,3 +1,4 @@
+import type {BmadCatalogLaunchCoordinator,ResolvedCatalogLaunch} from './bmad-catalog-launch.ts'
 import type {BmadContextCoordinator} from './bmad-context.ts'
 import type {CapturedBmadContext} from '../contracts/bmad-context.ts'
 import type {BmadHelpCoordinator} from './bmad-help.ts'
@@ -17,7 +18,7 @@ import type {RunRecoveryPort} from './ports.ts'
 import type {ApprovalFile} from '../contracts/approvals.ts'
 import {INSPECTION_MAX_AGE_MS} from '../contracts/recovery.ts'
 import type {FileInspection} from '../contracts/recovery.ts'
-type Dependencies = { application: Application;contexts?:BmadContextCoordinator;help?:BmadHelpCoordinator;recovery?:RunRecoveryPort;inspectApproval?(rootPath:string,files:ApprovalFile[]):Promise<FileInspection>; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, assertContext?:()=>Promise<void>): Promise<DialogueSession> }
+type Dependencies = { application: Application;catalogLaunch?:BmadCatalogLaunchCoordinator;contexts?:BmadContextCoordinator;help?:BmadHelpCoordinator;recovery?:RunRecoveryPort;inspectApproval?(rootPath:string,files:ApprovalFile[]):Promise<FileInspection>; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, assertContext?:()=>Promise<void>): Promise<DialogueSession> }
 /** Une seule session native possédée. Les travaux longs ne monopolisent jamais la queue disque. */
 export class DialogueCoordinator {
   private state = initialDialogueState()
@@ -30,9 +31,10 @@ export class DialogueCoordinator {
   private blocked = false
   private restored = false
   private qualifiedForge: { projectId: string; profile: BmadProfile } | null = null
+  private catalog:ResolvedCatalogLaunch|null=null
   private capturedContext:CapturedBmadContext|null=null
   private contextRefusal=false
-  private async assertCaptured():Promise<void>{if(this.capturedContext&&this.deps.contexts)try{await this.deps.contexts.assertFresh(this.capturedContext,this.controller!.signal)}catch(e){if((e as {code?:string}).code==='PROFILE_CHANGED')this.contextRefusal=true;throw e}}
+  private async assertCaptured():Promise<void>{if(this.catalog)await this.catalog.assertFresh();if(this.capturedContext&&this.deps.contexts)try{await this.deps.contexts.assertFresh(this.capturedContext,this.controller!.signal)}catch(e){if((e as {code?:string}).code==='PROFILE_CHANGED')this.contextRefusal=true;throw e}}
   private turnSequence = 0
   private questionWrites:Promise<unknown>=Promise.resolve()
   private questionLocks=new Set<string>()
@@ -69,7 +71,7 @@ export class DialogueCoordinator {
     if (this.blocked) return { ...this.read(), errorCode: 'STOP_UNCONFIRMED' }
     if (this.active) return { ...this.read(), errorCode: 'BUSY' }
     if(input.type==='inspect-approval'){if(this.session)return {...this.read(),errorCode:'BUSY'};this.controller=new AbortController();this.update({status:'inspecting'});this.schedule(()=>this.inspect(input.approvalId));return this.read()}
-    if ((input.type==='send'||input.type==='launch'||input.type==='launch-forge'||input.type==='launch-help')&&this.outputFull())return {...this.read(),errorCode:'OUTPUT_REFUSED'}
+    if ((input.type==='send'||input.type==='launch'||input.type==='launch-forge'||input.type==='launch-help'||input.type==='launch-catalog')&&this.outputFull())return {...this.read(),errorCode:'OUTPUT_REFUSED'}
     if (input.type === 'send') {
       if (!this.session || input.projectId !== this.state.context.projectId || input.conversationId !== this.state.context.conversationId || this.state.status !== 'ready') return { ...this.read(), errorCode: 'CONTEXT_MISMATCH' }
       this.update({ status: 'running', acknowledged: false, errorCode: null })
@@ -77,6 +79,7 @@ export class DialogueCoordinator {
     } else if ('projectId' in input) {
       if (this.session) return { ...this.read(), errorCode: 'BUSY' }
       if(input.type!=='launch-forge')this.qualifiedForge=null
+      this.catalog=null
       this.controller = new AbortController()
       this.update({ status: 'qualifying', context: { ...initialDialogueState().context, projectId: input.projectId }, mode:input.type==='launch'?(input.mode??'read-only'):'read-only',invocation:input.type==='launch-help'?'$bmad':input.type.endsWith('forge')?'$bmad-forge-idea':'$bmad-agent-analyst', acknowledged: false, errorCode: null, profile: input.type==='launch-forge'?this.state.profile:null, activities: [], turn:null })
       this.schedule(() => this.launch(input))
@@ -228,9 +231,10 @@ export class DialogueCoordinator {
     if (stopped === 'unknown') this.blocked = true
     if(this.state.turn)this.update({turn:{...this.state.turn,phase:stopped==='unknown'?'unknown':'interrupted'}})
     this.update({ status: stopped === 'unknown' ? 'unknown' : code === 'CANCELLED' ? 'stopped' : 'error', errorCode: stopped === 'unknown' ? 'STOP_UNCONFIRMED' : code })
-    await this.persistActivity(stopped === 'unknown' ? 'unknown' : 'interrupted').catch(() => this.update({ status: 'unknown', errorCode: 'STORAGE_WRITE_FAILED' }))
+    if(this.catalog)await this.deps.catalogLaunch!.failed(this.state.context.conversationId)
+    await this.persistActivity(stopped === 'unknown' ? 'unknown' : 'interrupted').catch(() => this.update({ status: 'unknown', errorCode: stopped==='unknown'?'STOP_UNCONFIRMED':'STORAGE_WRITE_FAILED' }))
   }).finally(() => { this.active = null }) }
-  private async launch(input: Extract<DialogueCommand, { projectId: string }> & {type:'qualify'|'launch'|'qualify-forge'|'launch-forge'|'launch-help'}): Promise<void> {
+  private async launch(input: Extract<DialogueCommand, { projectId: string }> & {type:'qualify'|'launch'|'qualify-forge'|'launch-forge'|'launch-help'|'launch-catalog'}): Promise<void> {
     this.contextRefusal=false
     const prepared=this.qualifiedForge
     if(input.type==='launch-forge'){
@@ -240,8 +244,14 @@ export class DialogueCoordinator {
     const project = await this.deps.application.dialogueProject(input.projectId)
     const qualify=input.type.endsWith('forge')?this.deps.qualifyForge:this.deps.qualify
     if(!qualify)throw dialogueFailure('UNSUPPORTED_INTERACTION')
-    const profile = {...await (input.type==='launch-help'?this.deps.help!.profile(project.id,this.controller!.signal):qualify(project.rootPath, this.controller!.signal)),mode:this.state.mode}
+    if(input.type==='launch-catalog'){
+      if(!this.deps.catalogLaunch)throw dialogueFailure('UNSUPPORTED_INTERACTION')
+      this.catalog=await this.deps.catalogLaunch.consume(project.id,input.preparationId,this.controller!.signal)
+      this.update({mode:this.catalog.preparation.mode,invocation:('$'+this.catalog.preparation.itemId) as DialogueState['invocation']})
+    }
+    const profile = this.catalog?this.catalog.profile:{...await (input.type==='launch-help'?this.deps.help!.profile(project.id,this.controller!.signal):qualify(project.rootPath, this.controller!.signal)),mode:this.state.mode}
     this.controller!.signal.throwIfAborted()
+    if(this.catalog&&profile.kind==='forge'&&this.state.workflows.length>=MAX_WORKFLOWS)throw dialogueFailure('OUTPUT_REFUSED')
     if(input.type==='launch-forge'){
       const previous=prepared!.profile
       if(profile.kind!=='forge'||!profile.forge||profile.rootPath!==previous.rootPath||profile.fingerprint!==previous.fingerprint||profile.skillPath!==previous.skillPath||profile.forge.outputBase!==previous.forge!.outputBase||profile.forge.initiativeId!==previous.forge!.initiativeId||profile.forge.contextDigest!==previous.forge!.contextDigest)throw dialogueFailure('PROFILE_CHANGED')
@@ -255,18 +265,21 @@ export class DialogueCoordinator {
     if (input.type.startsWith('qualify')) return
     this.update({ status: 'starting' })
     await this.freshInspections(project.id,profile.kind==='forge'||profile.mode==='file-approval');
-    this.capturedContext=this.deps.contexts?await this.deps.contexts.capture(project.id,(profile.kind==='forge'&&profile.forge?.initiativeId!=null)||(profile.kind==='help'&&profile.help?.initiativeId!=null),this.controller!.signal):null
+    this.capturedContext=this.catalog?this.catalog.preparation.captured:this.deps.contexts?await this.deps.contexts.capture(project.id,(profile.kind==='forge'&&profile.forge?.initiativeId!=null)||(profile.kind==='help'&&profile.help?.initiativeId!=null),this.controller!.signal):null
     await this.assertCaptured()
     if(this.capturedContext&&((profile.kind==='forge'&&profile.forge?.initiativeId!==this.capturedContext.initiativeId)||(profile.kind==='help'&&profile.help?.initiativeId!==this.capturedContext.initiativeId)))throw dialogueFailure('PROFILE_CHANGED')
     const captured=this.capturedContext,controller=this.controller!
-    const assertContext=async():Promise<void>=>{if(!captured||!this.deps.contexts)return;try{await this.deps.contexts.assertFresh(captured,controller.signal)}catch(e){if(this.capturedContext===captured&&this.controller===controller&&(e as {code?:string}).code==='PROFILE_CHANGED')this.contextRefusal=true;throw e}}
+    const catalog=this.catalog
+    const assertContext=async():Promise<void>=>{if(catalog)await catalog.assertFresh();if(!captured||!this.deps.contexts)return;try{await this.deps.contexts.assertFresh(captured,controller.signal)}catch(e){if(this.capturedContext===captured&&this.controller===controller&&(e as {code?:string}).code==='PROFILE_CHANGED')this.contextRefusal=true;throw e}}
     this.session = await this.deps.open(profile, controller.signal, this.activity,assertContext)
     this.stopControl=this.session
+    if(this.catalog&&(!this.catalog.connectionId||this.session.context.connectionId!==this.catalog.connectionId))throw dialogueFailure('PROFILE_CHANGED')
     this.controller!.signal.throwIfAborted()
     await this.assertCaptured()
     if(this.capturedContext&&this.session.context.initiativeId!==this.capturedContext.initiativeId)throw dialogueFailure('PROFILE_CHANGED')
     const conversation = await this.deps.application.dialoguePersist(project.id, null, value => { value.lastKnownActivity = 'running' }, this.session.context,input.correlationId)
     this.update({ context: conversation.context })
+    if(this.catalog){await this.catalog.assertFresh();await this.deps.catalogLaunch!.begin(this.catalog.preparation,conversation.context,input.correlationId);await this.catalog.assertFresh()}
     if(this.session.help){if(!this.deps.help)throw dialogueFailure('STORAGE_WRITE_FAILED');await this.deps.help.begin(this.session.help.bundle,conversation.context);this.session.help.bind(r=>this.deps.help!.tool(conversation.id,r))}
     if(this.session.workflow){
       if(!this.deps.workflows)throw dialogueFailure('STORAGE_WRITE_FAILED')
@@ -357,6 +370,7 @@ export class DialogueCoordinator {
       await this.deps.application.dialoguePersist(projectId, conversationId, value => { value.lastKnownActivity = 'running' },undefined,requestId)
       const text = await this.session.turn(input?.text ?? null, async () => {
         if(acknowledged)throw dialogueFailure('CONTEXT_MISMATCH')
+        if(!input&&this.catalog)await this.deps.catalogLaunch!.acknowledge(conversationId,requestId,turnId)
         await this.deps.application.dialoguePersist(projectId, conversationId, value => { value.messages.push({ id:turnId+'-request', role: 'user', text: input?.text ?? (this.state.invocation==='$bmad'?'$bmad\nQue faire ensuite ?':this.state.invocation) }) },undefined,requestId)
         acknowledged=true;this.update({ status:this.controller?.signal.aborted?'stopping':'running', acknowledged: true,turn:{id:turnId,requestId,context,phase:this.controller?.signal.aborted?'interrupted':'streaming'} }); this.activity('Envoi acquitté par Codex · conversation capturée')
       },observe,onQuestion,onApproval)

@@ -30,12 +30,12 @@ function selfContainedHtml(text:string):boolean {
   for(const match of text.matchAll(/url\s*\(([^)]*)\)/gi))if(!match[1].trim().replace(/^['"]|['"]$/g,'').startsWith('#'))return false
   return true
 }
-async function inputs(root: string): Promise<string> {
+async function inputs(root: string,capture?:(source:NonNullable<BmadProfile['catalogSource']>)=>void): Promise<string> {
   const values: string[]=[]
   const expectedNames=[...new Set(Object.keys(FORGE_MANIFEST).filter(p=>p.startsWith('.agents/skills/')).map(p=>p.split('/')[2]))].sort()
   const actualNames=(await readdir(join(root,'.agents/skills'),{withFileTypes:true})).filter(p=>p.isDirectory()||p.isSymbolicLink()).map(p=>p.name).sort()
   if(JSON.stringify(expectedNames)!==JSON.stringify(actualNames)) throw dialogueFailure('PROFILE_CHANGED')
-  for(const [path,expected] of Object.entries(FORGE_MANIFEST)) { const actual=hash(await bytes(root,join(root,path))); if(actual!==expected) throw dialogueFailure('PROFILE_CHANGED'); values.push(path+':'+actual) }
+  for(const [path,expected] of Object.entries(FORGE_MANIFEST)) { const captured=await bytes(root,join(root,path)),actual=hash(captured);if(path==='.agents/skills/bmad-forge-idea/SKILL.md')capture?.({path:join(root,path),sha256:actual,bytes:captured.length}); if(actual!==expected) throw dialogueFailure('PROFILE_CHANGED'); values.push(path+':'+actual) }
   for(const name of expectedNames) for(const file of ['bmod.toml','customize.toml','roster.toml','SKILL.md']) { const path='.agents/skills/'+name+'/'+file; if(Object.hasOwn(FORGE_MANIFEST,path)) continue; try { await lstat(join(root,path)); throw dialogueFailure('PROFILE_CHANGED') } catch(e) { if(!missing(e)) throw e } }
   values.push('_bmad/config.toml:'+hash(await bytes(root,join(root,'_bmad/config.toml'),32768)))
   const custom=join(root,'_bmad/custom')
@@ -127,8 +127,8 @@ async function sessionCheck(profile:BmadProfile):Promise<string> {
 }
 export async function qualifyForge(rootPath:string,signal:AbortSignal,runner?:string):Promise<BmadProfile> {
   let root:string;try{root=await realpath(rootPath)}catch{throw dialogueFailure('PROFILE_ABSENT')}
-  let fingerprint:string;try{fingerprint=await inputs(root)}catch(e){if(missing(e))throw dialogueFailure('PROFILE_ABSENT');throw e}
-  const profile:BmadProfile={rootPath:root,skillPath:join(root,'.agents/skills/bmad-forge-idea/SKILL.md'),fingerprint,kind:'forge'}
+  let catalogSource:BmadProfile['catalogSource'];let fingerprint:string;try{fingerprint=await inputs(root,source=>catalogSource=source)}catch(e){if(missing(e))throw dialogueFailure('PROFILE_ABSENT');throw e}
+  const profile:BmadProfile={catalogSource,rootPath:root,skillPath:join(root,'.agents/skills/bmad-forge-idea/SKILL.md'),fingerprint,kind:'forge'}
   const workflow=JSON.parse(await resolved(profile,'workflow',signal,runner)).workflow
   if(!isRecord(workflow)||['activation_steps_prepend','activation_steps_append','persistent_facts','on_complete'].some(k=>!Array.isArray(workflow[k])||workflow[k].length!==0)||workflow.forge_output_path!=='{output_folder}/{active_initiative}'||workflow.run_folder_pattern!=='forge-{slug}')throw dialogueFailure('PROFILE_UNRECOGNIZED')
   const config=JSON.parse(await resolved(profile,'config',signal,runner)),initiative=config['core.active_initiative']??null,output=config['core.output_folder']

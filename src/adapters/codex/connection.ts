@@ -120,6 +120,8 @@ export class CodexConnection implements ConnectionPort {
       this.update({ status: code === 'STOP_UNCONFIRMED' ? 'unknown' : signal.aborted ? 'cancelled' : 'error', errorCode: code, verifiedAt: null })
     }finally{admissionRelease?.()}
   }
+  /** Internal, non-secret identity for a captured preparation. Never exposed by IPC. */
+  async catalogueIdentity():Promise<string|null>{await this.ready;if(this.closing)throw dialogueFailure('APP_CLOSING');return this.credentials?'c-'+createHash('sha256').update(this.credentials.clientId+'\0'+this.credentials.subject).digest('hex')+':'+String(this.credentials.planAcknowledged):null}
   /** Accès interne à l’adaptateur : aucun jeton ne traverse le pont renderer. */
   async acquireDialogue(signal: AbortSignal): Promise<{ credentials: Credentials; connectionId: string; release(stopped?: boolean): void }> {
     await this.ready; signal.throwIfAborted()

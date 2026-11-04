@@ -1,0 +1,18 @@
+K7 passive origin restore without qualification or collection
+K2 actual installed winning sources captured
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: NATIVE_CAPTURE_SCALE_AND_DPR_DISAGREE: {"name":"qualified-fiche-dark","method":"native capturePage() without rectangle, crop or image resize; existing native PNG representation","pngIHDR":{"width":1800,"height":1150},"contentBounds":{"x":107,"y":0,"width":1440,"height":920},"innerWidth":1440,"innerHeight":920,"devicePixelRatio":1.25,"zoom":1,"theme":"dark","scaleFactors":[1],"selectedScale":1,"before":{"innerWidth":1440,"innerHeight":920,"devicePixelRatio":1.25,"theme":"dark"},"after":{"innerWidth":1440,"innerHeight":920,"devicePixelRatio":1.25,"theme":"dark"},"nativeAfter":{"contentBounds":{"x":107,"y":0,"width":1440,"height":920},"zoom":1},"coherence":{"tolerance":{"contentDips":1,"pngPixels":2},"contentWidthDelta":0,"contentHeightDelta":0,"pngWidthDelta":0,"pngHeightDelta":0,"nativeScaleDelta":0.25}}
+    at capture (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/catalog-launch.mjs:95:9)
+    at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/catalog-launch.mjs:131:97 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.13.0

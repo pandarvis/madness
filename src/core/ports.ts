@@ -11,7 +11,7 @@ export interface QuestionPort {read():Promise<QuestionRecord[]>;write(record:Que
 export type DialogueQuestion={id:string;fields:QuestionField[];identity:MessageIdentity;expiresAt:number|null}
 export type QuestionResponder={answer(values:QuestionValues):Promise<void>;invalidated:Promise<void>}
 export type QuestionObserver=(question:DialogueQuestion,responder:QuestionResponder)=>Promise<void>
-export type BmadProfile = { rootPath: string; mode?:DialogueMode; skillPath: string; fingerprint: string; kind?: 'forge'|'help'; help?:{bundleId:string;initiativeId:string|null}; forge?: { outputBase: string; initiativeId: string | null; contextDigest: string } }
+export type BmadProfile = { catalogSource?:{path:string;sha256:string;bytes:number}; rootPath: string; mode?:DialogueMode; skillPath: string; fingerprint: string; kind?: 'forge'|'help'; help?:{bundleId:string;initiativeId:string|null}; forge?: { outputBase: string; initiativeId: string | null; contextDigest: string } }
 export interface WorkflowPort { read(): Promise<WorkflowRecord[]>; write(record: WorkflowRecord): Promise<void> }
 /** Les identifiants de cette projection sont locaux au connecteur, jamais ceux du fournisseur. */
 export type DialogueMessageUpdate = { id: string; order: number; text: string; completed: boolean; identity: MessageIdentity }

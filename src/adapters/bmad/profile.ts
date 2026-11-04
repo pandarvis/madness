@@ -36,15 +36,15 @@ async function trustedFile(root: string, path: string, limit = 262144): Promise<
 export async function qualifyBmadProfile(rootPath: string): Promise<BmadProfile> {
   let root: string
   try { root = await realpath(rootPath) } catch { throw dialogueFailure('PROFILE_ABSENT') }
-  const hashes: string[] = []
+  const hashes: string[] = [];let skillBytes=0
   try {
-    for (const path of PROFILE_FILES) { const actual = hash(await trustedFile(root, path)); if (actual !== fingerprints[path]) throw dialogueFailure('PROFILE_CHANGED'); hashes.push(path + ':' + actual) }
+    for (const path of PROFILE_FILES) { const captured=await trustedFile(root,path);if(path==='.agents/skills/bmad-agent-analyst/SKILL.md')skillBytes=captured.length;const actual = hash(captured); if (actual !== fingerprints[path]) throw dialogueFailure('PROFILE_CHANGED'); hashes.push(path + ':' + actual) }
     for (const layer of optionalLayers) { try { await lstat(join(root, layer)); throw dialogueFailure('PROFILE_UNRECOGNIZED') } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error } }
     const config = await trustedFile(root, '_bmad/config.toml', 32768)
     hashes.push('_bmad/config.toml:' + hash(config))
     for (const layer of configLayers) { try { hashes.push(layer + ':' + hash(await trustedFile(root, layer, 32768))) } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; hashes.push(layer + ':absent') } }
   } catch (error) { if ((error as NodeJS.ErrnoException).code === 'ENOENT') throw dialogueFailure('PROFILE_ABSENT'); throw error }
-  return { rootPath: root, skillPath: join(root, '.agents/skills/bmad-agent-analyst/SKILL.md'), fingerprint: hash(hashes.join('\n')) }
+  return { rootPath: root, skillPath: join(root, '.agents/skills/bmad-agent-analyst/SKILL.md'), fingerprint: hash(hashes.join('\n')),catalogSource:{path:join(root,'.agents/skills/bmad-agent-analyst/SKILL.md'),sha256:fingerprints['.agents/skills/bmad-agent-analyst/SKILL.md'],bytes:skillBytes} }
 }
 export async function assertBmadProfile(profile: BmadProfile): Promise<void> { if ((await qualifyBmadProfile(profile.rootPath)).fingerprint !== profile.fingerprint) throw dialogueFailure('PROFILE_CHANGED') }
 export async function readBmadFile(profile: BmadProfile, path: string): Promise<string> {

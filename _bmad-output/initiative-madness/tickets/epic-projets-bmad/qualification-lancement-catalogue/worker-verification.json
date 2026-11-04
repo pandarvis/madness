@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "worker": "catalog27_implementation",
+  "version": "0.2.14",
+  "status": "worker-implementation-verified-parent-review-pending",
+  "workspace": "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness",
+  "implementation": [
+    "Strict versioned preparation/origin/receipt references; catalogue remains documentary launchable:false.",
+    "Only Mary, Forge and help; matching qualified metadata comes from captured bounded native source bytes.",
+    "Same DialogueCoordinator/session, common ActivityAdmission for Mary/Forge qualification; exact first native input and separately retained draft.",
+    "Physical root/catalogue generation/context/selection/connection guards before effects; exact connection receipt checked before conversation persistence.",
+    "Atomic versioned annex outside Snapshot v1; native ACK kept independently of invocation snapshot save; historical descriptor text remains local/passive.",
+    "Fiche -> secondary preparation -> explicit launch; exact correlated route, cancel/filters/focus, typed initiative conflict, guarded late focus."
+  ],
+  "verification": [
+    {
+      "command": "npm run build",
+      "result": "passed",
+      "log": ".working/catalog-launch-build-final.log"
+    },
+    {
+      "command": "node --experimental-strip-types --test tests/catalog-launch.test.mjs",
+      "result": "25/25 passed, no skip",
+      "log": ".working/catalog-launch-core-final.log"
+    },
+    {
+      "command": "node --experimental-strip-types --test --test-name-pattern='catalogue lancement:' tests/connection-ui.test.mjs",
+      "result": "5/5 passed, no skip; real Electron/CSS, two themes, compact, native zoom200; synthetic bridges",
+      "log": ".working/catalog-launch-ui-final.log"
+    },
+    {
+      "command": "node --experimental-strip-types --test tests/dialogue-profile.test.mjs tests/dialogue-runtime.test.mjs",
+      "result": "5/5 passed, no skip; local native profile/runtime dependencies",
+      "log": ".working/catalog-launch-native-profile-dependencies.log"
+    },
+    {
+      "command": "node --experimental-strip-types --test tests/catalog-launch.test.mjs tests/dialogue.test.mjs tests/bmad-context-dialogue.test.mjs tests/bmad-catalog.test.mjs tests/dialogue-protocol.test.mjs tests/forge-protocol.test.mjs tests/bmad-help-protocol.test.mjs tests/approvals-protocol.test.mjs tests/connection.test.mjs",
+      "result": "169/169 passed at the then-current 24 core cases, before final connection receipt guard; final core25 passed separately"
+    }
+  ],
+  "compiledRuns": [
+    {
+      "path": ".working/catalog-launch-compiled-1793825980/verification.json",
+      "result": "partial; all three local native preparations prepared; UI default 30s wait expired; owned closure and cleanup true"
+    },
+    {
+      "path": ".working/catalog-launch-compiled-final-1793826496/verification.json",
+      "result": "partial; Forge/help/Mary UI prepared; terminal polling stopped at30s with errorCode null; exact status/cause not retained; owned closure and cleanup true"
+    },
+    {
+      "path": ".working/catalog-launch-compiled-final-1793826890/verification.json",
+      "result": "partial; Forge prepared, help PROFILE_CHANGED; precise source of invalidation not yet established; owned closure and cleanup true"
+    },
+    {
+      "path": ".working/catalog-launch-help-diagnostic-001/verification.json",
+      "result": "passed: local help prepared; changed config refused PROFILE_CHANGED; passive reopen exact, 2 owned closures, cleanup true, no network/app-server; historical check-label correction sidecar applies",
+      "correction": ".working/catalog-launch-help-diagnostic-001/diagnostic-label-correction.json"
+    }
+  ],
+  "boundaries": [
+    "No package/NSIS/install/capture/detector/external model or personal profile operation by worker.",
+    "No source/runtime pins/dependencies changed; no commit/stage/reset/stash/plan status edits.",
+    "tests/bmad-help-boundaries.test.mjs pre-existing EOL-only modification preserved and not owned by this worker."
+  ],
+  "remaining": [
+    "Default full bench has three conserved failed runs; the third help PROFILE_CHANGED cause remains unestablished. The successful targeted help diagnostic does not retrospectively explain it. Parent can run the corrected default bench against the reviewed final package.",
+    "Parent Quick/high review and targeted corrections; final candidate/packaged/native checks, Impeccable finish/documenter, report/commit remain parent-owned."
+  ],
+  "finishedAt": "2026-11-04T21:23:48.793Z"
+}

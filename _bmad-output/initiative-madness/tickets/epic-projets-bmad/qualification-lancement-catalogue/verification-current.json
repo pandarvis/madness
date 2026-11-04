@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "at": "2026-11-04T22:35:24.103684+00:00",
+  "status": "built",
+  "story": "2.7",
+  "softwareVersion": "0.2.14",
+  "baseline": "c81a4c887f915a8da97ef5d4e6767da26111c89f",
+  "frozenSha256LF": "33a094bf423c5e49303bcdf26acf22965619b32c3e1866d2a9164e4c876627f6",
+  "targetedTests": {
+    "core": 32,
+    "ui": 7,
+    "nativeProfiles": 5,
+    "totalDistinct": 44,
+    "skip": 0,
+    "buildExit": 0
+  },
+  "reviews": {
+    "Quick": [
+      "Q1 resolved",
+      "Q2 resolved",
+      "Q3 resolved"
+    ],
+    "high": [
+      "H1 resolved",
+      "Q2 boundary resolved"
+    ]
+  },
+  "package": {
+    "schemaVersion": 1,
+    "at": "2026-11-04T22:22:22.812Z",
+    "status": "passed",
+    "compiledFiles": 19,
+    "externalResourceFilesByteIdentical": 3069,
+    "resourceComparison": "0.2.13 library-reviewed-postquick; Main/preload changed and checked against current out, not asserted equivalent to older backend",
+    "candidate": {
+      "asarSha256": "74bf2eed593ed0256ea7cc18aeb0064272888e3adc310b96ec6e88b51d2ea03b",
+      "executableSha256": "6acbf720a23680f75fe40eac768edd12dc6e8d352612b6c726ca07782b201e17",
+      "installerSha256": "15c96967ccb4936bae204c0a220fb8209a30487f211e9e6f284e4d0b174840a1"
+    },
+    "nsisReceipt": "Completed artifacts and final blockmap log observed; initial process tool return was lost, no numerical exit code claimed",
+    "installed": false
+  },
+  "packagedLocalNative": {
+    "groups": 6,
+    "families": [
+      "bmad-agent-analyst"
+    ],
+    "closures": 2,
+    "cleanup": true,
+    "captures": 4,
+    "noProvider": true
+  },
+  "impeccable": {
+    "detectorPasses": 1,
+    "detector": [],
+    "documenter": "No changes system; parent narrow surface extension",
+    "finish": "ship at delta2.7 and four current-ASAR frames, official fresh technical substitute"
+  },
+  "installed": false,
+  "deferred": [
+    "deferred-integration.json",
+    "external clipboard2.16/G3",
+    "nine UI discrepancies2.15 unattributed",
+    "G2-G5/globalhuman/WCAG not inferred"
+  ],
+  "proofIndex": "index-audit.json"
+}

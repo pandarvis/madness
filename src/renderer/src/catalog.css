@@ -33,3 +33,11 @@
 .catalog-command { padding:12px 0; font-size:16px; }
 .project-tabs { flex-wrap:wrap; }
 @media(max-width:720px) { .catalog-dialog { width:calc(100vw - 16px); max-width:calc(100vw - 16px); max-height:calc(100dvh - 16px); } .catalog-dialog-header { padding:12px; } .catalog-dialog-body { padding:4px 12px 20px; } .catalog-filters { gap:12px; } }
+
+.catalog-launch-preparation { margin-block:24px; padding:20px; background:var(--panel); border:1px solid var(--line); }
+.catalog-launch-preparation dl { display:grid; grid-template-columns:minmax(130px,1fr) minmax(0,3fr); gap:8px 16px; }
+.catalog-launch-preparation dd { margin:0; min-width:0; }
+.catalog-launch-preparation pre,.catalog-origin pre { white-space:pre-wrap; overflow-wrap:anywhere; }
+.catalog-launch-preparation code,.catalog-origin code { overflow-wrap:anywhere; }
+.catalog-mode { display:flex; align-items:center; gap:10px; margin-block:16px; }
+@media(max-width:720px) { .catalog-launch-preparation dl { grid-template-columns:minmax(0,1fr); } .catalog-launch-preparation { padding:16px; } }

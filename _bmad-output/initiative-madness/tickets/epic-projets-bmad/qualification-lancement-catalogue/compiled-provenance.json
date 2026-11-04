@@ -1,0 +1,136 @@
+[
+  {
+    "source": ".working\\catalog-launch-compiled-1793825980",
+    "copy": "compiled-initial-001",
+    "sha256": "25c277a512c675fcd332c9f34d8775e6014d9e5e6c21ee46e599e7436c960fd3",
+    "status": "partial",
+    "checks": [
+      "K7 passive origin restore without qualification or collection",
+      "K2 actual installed winning sources captured",
+      "K1 three real native profiles prepare locally without open, first input or free draft"
+    ],
+    "prepared": [
+      "bmad-agent-analyst",
+      "bmad-forge-idea",
+      "bmad"
+    ],
+    "closureCount": 1,
+    "cleanup": true,
+    "producer": {
+      "out/main/index.js": "ffd2d7ea8c1b76f5e4574c7760479006532a24a296b164d48d918210ab50c083",
+      "out/preload/index.js": "6cd2e9ae1c80e8696e50c047d46cbf2a74db5ba4cf44aafd6cba73768c91516c",
+      "package.json": "91bd25ff50d7eb901dab6106ce34ca93e07093e1fa6a488b660563293343b765",
+      "package-lock.json": "0dd80525fc962203bd408ef59db755f7ab8b2e7f53a830fb7e2bbd6ce0534018",
+      "src/contracts/bmad-catalog-launch.ts": "6df757e1c26e7e4779f41f2db15a96503dad880f239f4bf690e537bd4d7a0368",
+      "src/core/bmad-catalog-launch.ts": "162b0417405c9bc1fad4b2ccc11bf4d7ae66d8277f85a7df6579c7f3fba5c1e8",
+      "scripts/qualification/catalog-launch.mjs": "9dfa140ae261bef147e004239f4113cfe5e6aa1a52b2428f6804bebe2d20718c"
+    },
+    "refusalStatus": null,
+    "refusalCode": null,
+    "rawFile": "verification.json.gz",
+    "archiveSha256": "a0a400d42f46ba4478cb876647e12ac7f745d8d74fbaade405dff6b6c2af8e9e",
+    "rawBytes": 1024386,
+    "archivedBytes": 258022,
+    "representation": "lossless gzip of raw producer JSON; original unchanged under .working; binary diff marker keeps repeated captured skill text out of review prompt"
+  },
+  {
+    "source": ".working\\catalog-launch-compiled-final-1793826496",
+    "copy": "compiled-initial-002",
+    "sha256": "057d33248a3dcacdb734ffc732c12bee64bc702d2bbc382548044ef5decdb977",
+    "status": "partial",
+    "checks": [
+      "K7 passive origin restore without qualification or collection",
+      "K2 actual installed winning sources captured",
+      "K1 Forge and help native profiles prepare locally without provider",
+      "K1 K4 actual UI Mary preparation retains free draft without provider"
+    ],
+    "prepared": [
+      "bmad-forge-idea",
+      "bmad",
+      "bmad-agent-analyst"
+    ],
+    "closureCount": 1,
+    "cleanup": true,
+    "producer": {
+      "out/main/index.js": "b749b490051b9cd403f58f312b21c055c45b84e345eea67bd4c1cf0458b0b88e",
+      "out/preload/index.js": "0de39ab7d5d87946176fe57da48764195858a4bc595e3200aadf11c37551c6c3",
+      "package.json": "91bd25ff50d7eb901dab6106ce34ca93e07093e1fa6a488b660563293343b765",
+      "package-lock.json": "0dd80525fc962203bd408ef59db755f7ab8b2e7f53a830fb7e2bbd6ce0534018",
+      "src/contracts/bmad-catalog-launch.ts": "c46886cd773e7b59f01eb24f163358260c4d50dea7a67a694ada6602af20c8d7",
+      "src/core/bmad-catalog-launch.ts": "5e0c6691aab12e72714bd6d6f27c7cd572371cf287f28bfa9ce87f39b6a2598c",
+      "scripts/qualification/catalog-launch.mjs": "561d3e00ffa48c73f5dcc1e0515cb99e2ddc7e9884096be3a6d167bbfcedbb06"
+    },
+    "refusalStatus": null,
+    "refusalCode": null,
+    "rawFile": "verification.json.gz",
+    "archiveSha256": "30465f4663aa41dd247f68660cfd096b6163a9d6aa3e1d38b220e0138f94dfc6",
+    "rawBytes": 1025595,
+    "archivedBytes": 258316,
+    "representation": "lossless gzip of raw producer JSON; original unchanged under .working; binary diff marker keeps repeated captured skill text out of review prompt"
+  },
+  {
+    "source": ".working\\catalog-launch-compiled-final-1793826890",
+    "copy": "compiled-initial-003",
+    "sha256": "55ebb413b2daa7d350b00419916e816da51ace89ee051a93d8f40b85fae47e05",
+    "status": "partial",
+    "checks": [
+      "K7 passive origin restore without qualification or collection",
+      "K2 actual installed winning sources captured"
+    ],
+    "prepared": [
+      "bmad-forge-idea"
+    ],
+    "closureCount": 1,
+    "cleanup": true,
+    "producer": {
+      "out/main/index.js": "2da41571e3be90b0972f9a8e8462d35df72d44a1097bd79fcccb4d0ad004c821",
+      "out/preload/index.js": "0de39ab7d5d87946176fe57da48764195858a4bc595e3200aadf11c37551c6c3",
+      "package.json": "91bd25ff50d7eb901dab6106ce34ca93e07093e1fa6a488b660563293343b765",
+      "package-lock.json": "0dd80525fc962203bd408ef59db755f7ab8b2e7f53a830fb7e2bbd6ce0534018",
+      "src/contracts/bmad-catalog-launch.ts": "c46886cd773e7b59f01eb24f163358260c4d50dea7a67a694ada6602af20c8d7",
+      "src/core/bmad-catalog-launch.ts": "9ffc5b4fa8bb2f85e9a22398dfabdb33a30fef115a4d21558c304c7bb8d1154c",
+      "scripts/qualification/catalog-launch.mjs": "a4d6bcaaeaad5d3c57eff0cc47fe880c3ba2beb5b7edde7ab322b5730320caec"
+    },
+    "refusalStatus": null,
+    "refusalCode": null,
+    "rawFile": "verification.json.gz",
+    "archiveSha256": "bf5b24ab2705de0733af6ec7b177edf0ad250dc73e5634d80716336ce2f039e5",
+    "rawBytes": 350021,
+    "archivedBytes": 88223,
+    "representation": "lossless gzip of raw producer JSON; original unchanged under .working; binary diff marker keeps repeated captured skill text out of review prompt"
+  },
+  {
+    "source": ".working\\catalog-launch-help-diagnostic-001",
+    "copy": "compiled-help-001",
+    "sha256": "3fd691498d6790ad39ab2c126cd9b4348b0275c2b984dee02df0f1f3fb64eac8",
+    "status": "passed",
+    "checks": [
+      "K7 passive origin restore without qualification or collection",
+      "K2 actual installed winning sources captured",
+      "K1 Forge and help native profiles prepare locally without provider",
+      "K3 diagnostic help mutation refused before provider",
+      "K7 exact passive reopen with owned closure and draft/history preservation"
+    ],
+    "prepared": [
+      "bmad"
+    ],
+    "closureCount": 2,
+    "cleanup": true,
+    "producer": {
+      "out/main/index.js": "2da41571e3be90b0972f9a8e8462d35df72d44a1097bd79fcccb4d0ad004c821",
+      "out/preload/index.js": "0de39ab7d5d87946176fe57da48764195858a4bc595e3200aadf11c37551c6c3",
+      "package.json": "91bd25ff50d7eb901dab6106ce34ca93e07093e1fa6a488b660563293343b765",
+      "package-lock.json": "0dd80525fc962203bd408ef59db755f7ab8b2e7f53a830fb7e2bbd6ce0534018",
+      "src/contracts/bmad-catalog-launch.ts": "c46886cd773e7b59f01eb24f163358260c4d50dea7a67a694ada6602af20c8d7",
+      "src/core/bmad-catalog-launch.ts": "9ffc5b4fa8bb2f85e9a22398dfabdb33a30fef115a4d21558c304c7bb8d1154c",
+      "scripts/qualification/catalog-launch.mjs": "d8ef9353cd00754670917f014f1f08e68d9ff4e6c13a27c2d887543775092c03"
+    },
+    "refusalStatus": "error",
+    "refusalCode": "PROFILE_CHANGED",
+    "rawFile": "verification.json.gz",
+    "archiveSha256": "b2c28c50439e1a0a4b3bfc1f56106918cdb4824324e6e7f8bfbc51d08d8b3a59",
+    "rawBytes": 347836,
+    "archivedBytes": 88249,
+    "representation": "lossless gzip of raw producer JSON; original unchanged under .working; binary diff marker keeps repeated captured skill text out of review prompt"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "receipt": ".working/catalog-launch-help-diagnostic-001/verification.json",
+  "receiptSha256": "3fd691498d6790ad39ab2c126cd9b4348b0275c2b984dee02df0f1f3fb64eac8",
+  "kind": "label-only-correction",
+  "incorrectCheck": "K1 Forge and help native profiles prepare locally without provider",
+  "correctScope": "K1 help native profile prepares locally without provider",
+  "actualPreparedProfiles": [
+    {
+      "name": "bmad",
+      "status": "prepared",
+      "family": "help"
+    }
+  ],
+  "note": "The diagnostic-help branch prepares help only. The original receipt remains unchanged; no Forge preparation is claimed for this diagnostic."
+}

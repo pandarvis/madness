@@ -1,0 +1,3 @@
+H1 résolu : stopSession et projection de son résultat précèdent failed et l’écriture secondaire. Régression suspendant cette écriture pour arrêt confirmé et inconnu.
+Frontière Q2 résolue dans le périmètre relu : réservation admission/lot durable avant travail natif, STOP_UNCONFIRMED conservé et bloquant ; restauration/agrégation, annulation/drain ; Mary/Forge enveloppées avant acquireDialogue. Help conserve son propriétaire séparé, aucun PID/reçu inventé.
+Même catalog27_protocol_map, diff SHA256 bf2396027f8a10cea0ad5e6fadf8f0a0da84f4ed70586077d41b55b49f58f6a6 ; inspection et lecture des journaux parent32/32+7/7 et build0, aucun contrôle exécuté par lui. Anciens reçus compilés historiques : ils ne qualifient pas le backend corrigé. Paquet/native à produire par le parent.

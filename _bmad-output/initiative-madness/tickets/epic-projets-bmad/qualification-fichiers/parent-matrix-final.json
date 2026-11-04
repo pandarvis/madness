@@ -1,0 +1,116 @@
+{
+  "at": "2026-11-04T15:46:12.149498+00:00",
+  "runs": {
+    "logs/parent-backend-final.log": {
+      "tests": 60,
+      "pass": 60,
+      "fail": 0,
+      "skipped": 0,
+      "sha256": "98f9f2faa8d1fc2e1431ff3eb6b5ff0a1f008eb110d57cf58b1870ed3d07d754"
+    },
+    "logs/parent-ui-final.log": {
+      "tests": 16,
+      "pass": 16,
+      "fail": 0,
+      "skipped": 0,
+      "sha256": "d8d2c4b490d53622e6a14e4e0c6d02877ac07bdc05669ab907238694514f2472"
+    },
+    "logs/parent-report-001.log": {
+      "tests": 7,
+      "pass": 7,
+      "fail": 0,
+      "skipped": 0,
+      "sha256": "dbca67cd3900e3c24358a9f17279e9c9d6e6e84592113bd3188de30bcdbaa54a"
+    },
+    "main-004-read-diagnostic/ui-geometry.log": {
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "sha256": "a77c86c731e66dc2de641f697f071cf51a453a3a865118a025447aabf98b431a"
+    }
+  },
+  "uiConsolidation": "16 distinct UI cases: the geometry case is replaced by final1/1 with actual light/dark App handler; 15 unchanged cases retain previous final16 run. Not17unique.",
+  "source": "parent-source-003/producer-manifest.json + parent-source-final-link.json; only UItest themefixture changed after production build",
+  "matrix": {
+    "F1": {
+      "coverage": "Original native grants from accepted producers, exact literal source and code-only host port",
+      "receipts": [
+        "logs/parent-backend-final.log",
+        "main-004-read-diagnostic/verification.json"
+      ]
+    },
+    "F2": {
+      "coverage": "Hostile literal UTF8 inert, type/size/encoding refusal, no HTML/script/link execution",
+      "receipts": [
+        "logs/parent-backend-final.log",
+        "main-004-read-diagnostic/verification.json"
+      ]
+    },
+    "F3": {
+      "coverage": "Captured chain/identity before first os.read, replacement/hardlink/junction/ancestor/races, verify last await before effect",
+      "receipts": [
+        "logs/parent-backend-final.log",
+        "high-risk-fix-001/verification-summary.json",
+        "main-004-read-diagnostic/verification.json"
+      ],
+      "limit": "File-symlink native variant not privileged; do not generalize all Windows filesystem variants."
+    },
+    "F4": {
+      "coverage": "Old exact text retained; invalidation refuses copy; new revision exactly one voluntary read/no replay",
+      "receipts": [
+        "logs/parent-ui-final.log",
+        "main-004-read-diagnostic/verification.json"
+      ]
+    },
+    "F5": {
+      "coverage": "Strict encoded VSCode URI and simulated transmitted/failed/unavailable/unknown outcomes, independent UI results",
+      "receipts": [
+        "logs/parent-backend-final.log",
+        "logs/parent-ui-final.log",
+        "main-001-parent-observation.json"
+      ],
+      "limit": "Only historical efcacb8 OS UI transmission proof, no raw result and no current-package OSrequest. Optionalintegration; VSCode not required by Madness/Graph."
+    },
+    "F6": {
+      "coverage": "Current exact negative native clipboard failure; delayed readback/invalidation and positive-core simulation",
+      "receipts": [
+        "logs/parent-backend-final.log",
+        "main-004-read-diagnostic/verification.json",
+        "clipboard-diagnostic-002/verification.json",
+        "clipboard-diagnostic-003/verification.json"
+      ],
+      "deferred": "Current positive Windows clipboard validation until direct Electron marker readback works; unchanged standard bank replay in2.16/G3."
+    },
+    "F7": {
+      "coverage": "Two project opaque refs/context/source isolation, BUSY/STOP no replay, late responses and separate outcomes",
+      "receipts": [
+        "logs/parent-backend-final.log",
+        "logs/parent-ui-final.log",
+        "main-004-read-diagnostic/verification.json"
+      ]
+    },
+    "F8": {
+      "coverage": "Ready dock/expanded/overlaylight/nativezoom200, focus/escape/no overflow and actual themes",
+      "receipts": [
+        "logs/parent-ui-final.log",
+        "main-004-read-diagnostic/ui-geometry.log",
+        "visual-selection-final.json"
+      ],
+      "limit": "Themehandler tested programmatically under modal, not physical pointer on inert outside control; not global WCAG/human acceptance."
+    },
+    "F9": {
+      "coverage": "Actual read Job3->0/cancelled/drain, two exact passive closures/reopen and temporary profile cleanup",
+      "receipts": [
+        "logs/parent-backend-final.log",
+        "main-004-read-diagnostic/verification.json",
+        "main-001-owned-cleanup-later.json"
+      ],
+      "limit": "Native004 remains overall partial for F6; first001 missing receipt is never reconstructed."
+    }
+  },
+  "limits": [
+    "No all-green native claim: standard002 failed and diagnostic003 failed instrumentation retained;004 partial onlyclipboardpositive.",
+    "No installedpersonalapp change, globaltests pass, provider/network, gate G2/G3/G4/G5 or wholeV1 claim."
+  ]
+}

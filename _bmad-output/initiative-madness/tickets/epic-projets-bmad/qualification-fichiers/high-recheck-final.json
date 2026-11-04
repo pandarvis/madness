@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-04T14:32:10.279956+00:00",
+  "reviewer": "/root/files28_security_audit",
+  "H1": "resolved original finding in final source: original handle identity/size + full lstat stamp + original ancestor chain before os.read; default callers unchanged",
+  "H2": "resolved original finding: requested:false on explicit new revision only",
+  "sourceHashes": {
+    "resources/bmad-help/capture.py": "ea6965f0578b223fda14f5d38f5c09d7cf2ea94b8d0dc275493e5acbf42ced54",
+    "resources/bmad-help/files.py": "46769032c6bc463f9dad044d6ad708d785b139a787f5ed997683ffd7f5e72ed4",
+    "src/adapters/bmad/help-manifest.ts": "e666c22fe9b3c0ac5ebbae39bcb1f4b63a98fcf5abe8ff00238fb4c203a0cb2d",
+    "src/renderer/src/FilePreview.tsx": "9e7d5b151fbbbead8fe6dab706849efc88df8495e9553929d812cae693f1590f"
+  },
+  "scope": "Static only; native54/UI14 are separate parent-inspected receipts. No test/app/network/human acceptance by reviewer."
+}

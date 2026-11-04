@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-04T15:07:56.213401+00:00",
+  "scope": "Existing runtime/Windows clipboard availability failure, not reproduced as a new FileCore defect",
+  "measured": [
+    {
+      "source": "main-002/verification.json",
+      "asar": "689656002d07550c1b3fe86db6b8a0adf344f5fa30d31be99c4842714ad5c21e",
+      "actual": "FileCore copy returned failed and actual clipboard empty;3groups passed, no captures, stopped/cleanuptrue"
+    },
+    {
+      "source": "clipboard-diagnostic-002/verification.json",
+      "actual": "Direct async Electron45 API in packaged Main: plain marker, after macrotask, focused path marker all empty/hasTextfalse"
+    },
+    {
+      "source": "clipboard-diagnostic-003/verification.json",
+      "actual": "Same with stock Electron45, own blank app/no Madness code or permissions: all empty, focusedtrue"
+    }
+  ],
+  "known": "Current clipboard has no text even after writeText Promise resolution; copy failure is honestly reported. No global clipboard/private content persisted.",
+  "unknown": "Runtime/Windows/session/policy cause not established; not attributed to Zscaler, user machine lock, corporate settings, or source code without evidence.",
+  "historicalPositive": "main001 efcacb8 log asserts actual exact clipboard readback and image shows OS editor transmission; old narrow proof, no equivalence to689656/current final candidate.",
+  "replayCondition": "After native clipboard API in the same current desktop successfully returns an owned marker, rerun the unmodified standard project-files qualification on final candidate before integrated2.16/G3 claim. No user question or IT change required now.",
+  "next": "Parent may run a separately labeled diagnostic to finish native read/invalidations/stop checks while keeping F6 positive-current validation explicitly deferred. Default success assertion stays unchanged; no fake all-green/G3."
+}

@@ -1,3 +1,5 @@
+import {FilePreview,FilesContext,useProjectFiles} from './FilePreview.tsx'
+import type {FileConsultation} from './FilePreview.tsx'
 import {CatalogPanel,useBmadCatalog} from './CatalogPanel.tsx'
 import type {CatalogView} from './CatalogPanel.tsx'
 import {InitiativeSelector,InitiativeContext,useBmadContext} from './InitiativeSelector.tsx'
@@ -94,6 +96,8 @@ function WorkflowResult({workflow,onCopy}:{workflow:WorkflowRecord;onCopy:(conve
 }
 
 export function App({ initialAppearance = window.madnessAppearance.initial, appearanceReadFailed = false }: { initialAppearance?: AppearanceState; appearanceReadFailed?: boolean } = {}): ReactNode {
+  const [filesState,acceptFiles]=useProjectFiles()
+  const [fileViews,setFileViews]=useState<Record<string,FileConsultation>>({})
   const [helpState,acceptHelp]=useBmadHelp()
   const [progressState,acceptProgress]=useBmadProgress()
   const [catalogState,acceptCatalog]=useBmadCatalog()
@@ -146,6 +150,12 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const connectionLabel = 'Connexion Codex : ' + fr.connectionStatus[connection.status]
   const project = state?.projects.find((p) => p.id === state.activeProjectId)
   const initiativeContext=bmadContext.projects.find(p=>p.projectId===project?.id)
+  const fileScope=JSON.stringify([project?.id,project?.rootPath,initiativeContext?.selection?.rootIdentity,initiativeContext?.selection?.initiativeId])
+  const fileConsultation=page==='project'?fileViews[fileScope]:undefined
+  const fileScopeRef=useRef(fileScope);fileScopeRef.current=fileScope
+  function closeFile(restore=true):void{const current=fileViews[fileScope];setFileViews(previous=>{const next={...previous};delete next[fileScope];return next});if(restore&&current){const scope=fileScope;requestAnimationFrame(()=>{if(fileScopeRef.current!==scope)return;const target=current.trigger.isConnected?current.trigger:current.fallback?.isConnected?current.fallback:heading.current;target?.focus({preventScroll:true});if(!current.trigger.isConnected)setNotice('Retour au résultat — le déclencheur exact est indisponible.')})}}
+  function openFile(value:FileConsultation):void{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(false);setFileViews(previous=>({...Object.fromEntries(Object.entries(previous).slice(-31)),[fileScope]:value}))}
+
   const currentProjectId=useRef<string|undefined>(undefined),dialogueSequence=useRef(-1)
   currentProjectId.current=page==='project'?project?.id:undefined
   useEffect(()=>{setInitiativeConflict(false)},[project?.id])
@@ -204,6 +214,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   function consultAgent(message:DialogueMessage,trigger:HTMLButtonElement):void {
     if(!agentPresentation(message.identity))return
     setConnectionOpen(false);setContextOpen(false)
+    closeFile(false)
     setAgentConsultation({message:structuredClone(message),trigger,viewConversationId:conversation?.id??null})
   }
   useEffect(()=>{
@@ -415,7 +426,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     {state?.projects.map(p => <button key={p.id} className={'nav-button project-link ' + (page === 'project' && p.id === project?.id ? 'selected' : '')} aria-label={'Ouvrir le projet ' + p.name} aria-current={page === 'project' && p.id === project?.id ? 'page' : undefined} title={p.name + '\n' + p.rootPath} disabled={pending} onClick={() => select(p.id)}><span className="project-glyph" aria-hidden="true"><ProjectMark name={p.name} /></span><span className="nav-label truncate">{p.name}</span></button>)}
     {!state?.projects.length && <p className="nav-note nav-label">Vos dossiers ouverts apparaîtront ici.</p>}
   </>
-  return <div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>captureRequestFocus(event.target)} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open||document.querySelector('.initiative-dialog[open],.catalog-dialog[open]')) return; if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
+  return <FilesContext.Provider value={{state:filesState,open:openFile}}><div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>captureRequestFocus(event.target)} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open||document.querySelector('.initiative-dialog[open],.catalog-dialog[open]')) return; if(fileConsultation){event.preventDefault();event.stopPropagation();closeFile()}else if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
     <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>Aller au contenu</a>
     <header className="topbar" onMouseLeave={()=>setTooltipsDismissed(false)} onFocusCapture={()=>setTooltipsDismissed(false)}>
       <div className="breadcrumb">
@@ -550,6 +561,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
             <p className="status-line" role="status" aria-live="polite">{notice}</p>
           </div>
         </main>
+        {fileConsultation&&<FilePreview key={fileConsultation.reference.id} consultation={fileConsultation} state={filesState} accept={acceptFiles} onClose={closeFile}/>}
         {agentConsultation&&<AgentInfoPanel key={agentConsultation.message.context.conversationId+':'+agentConsultation.message.id} consultation={agentConsultation} entries={overview?.entries??[]} onClose={()=>closeAgentInfo()} onNavigate={target=>{closeAgentInfo(false);void navigateOverview(target)}}/>}
       </div>
     </div>
@@ -566,5 +578,5 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       <button className="primary" type="button" onClick={() => void connectionAction('acknowledgePlan')} disabled={connectionPending}>J’ai compris</button>
       {' '}<button className="secondary" type="button" onClick={() => planConfirmation.current?.close()}>Fermer</button>
     </dialog>
-  </div>
+  </div></FilesContext.Provider>
 }

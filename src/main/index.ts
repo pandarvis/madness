@@ -1,3 +1,5 @@
+import {ProjectFilesCoordinator} from '../core/project-files.ts'
+import {PROJECT_FILES_COMMAND_CHANNEL,PROJECT_FILES_EVENT_CHANNEL,isProjectFilesCommand,isProjectFilesState,initialProjectFilesState} from '../contracts/project-files.ts'
 import {BmadCatalogAdapter} from '../adapters/bmad/catalog.ts'
 import {BmadCatalogCoordinator} from '../core/bmad-catalog.ts'
 import {BMAD_CATALOG_COMMAND_CHANNEL,BMAD_CATALOG_EVENT_CHANNEL,isBmadCatalogCommand,isBmadCatalogState,initialBmadCatalogState} from '../contracts/bmad-catalog.ts'
@@ -164,8 +166,17 @@ else {
       return {contractVersion:1,correlationId:input.correlationId,state}
     })
     contextCoordinator.subscribe(state=>{if(isBmadContextState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(BMAD_CONTEXT_EVENT_CHANNEL,state)})
+    const projectFiles=new ProjectFilesCoordinator({application,authority:value=>helpAdapter.filesAuthority(value),clipboard,admission,editor:uri=>shell.openExternal(uri)})
+    application.lifecycle.register({id:'project-files',context:emptyContext(),stop:async()=>{await projectFiles.shutdown();return 'stopped'}})
+    ipcMain.handle(PROJECT_FILES_COMMAND_CHANNEL,async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isProjectFilesCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialProjectFilesState()}
+      const state=await projectFiles.execute(input)
+      if(!isProjectFilesState(state))throw Error('INVALID_FILES_STATE')
+      return {contractVersion:1,correlationId:input.correlationId,state}
+    })
+    projectFiles.subscribe(state=>{if(isProjectFilesState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(PROJECT_FILES_EVENT_CHANNEL,state)})
     const progressAdapter=new BmadProgressAdapter(helpAdapter)
-    const progressCoordinator=new BmadProgressCoordinator({application,observation,available:fn=>admission.subscribeAvailable(fn),contexts:contextCoordinator,collect:(id,root,selection,observation,signal)=>progressAdapter.collect(id,root,selection,observation,signal)})
+    const progressCoordinator=new BmadProgressCoordinator({application,observation,files:projectFiles,available:fn=>admission.subscribeAvailable(fn),contexts:contextCoordinator,collect:(id,root,selection,observation,signal)=>progressAdapter.collect(id,root,selection,observation,signal)})
     application.lifecycle.register({id:'bmad-progress',context:emptyContext(),stop:async()=>{await progressCoordinator.shutdown();return 'stopped'}})
     ipcMain.handle(BMAD_PROGRESS_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadProgressCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadProgressState()}
@@ -175,7 +186,7 @@ else {
     })
     progressCoordinator.subscribe(state=>{if(isBmadProgressState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(BMAD_PROGRESS_EVENT_CHANNEL,state)})
     const catalogAdapter=new BmadCatalogAdapter(helpAdapter)
-    const catalogCoordinator=new BmadCatalogCoordinator({application,observation,available:fn=>admission.subscribeAvailable(fn),collect:(id,root,signal)=>catalogAdapter.collect(id,root,signal),clipboard})
+    const catalogCoordinator=new BmadCatalogCoordinator({application,observation,files:projectFiles,available:fn=>admission.subscribeAvailable(fn),collect:(id,root,signal)=>catalogAdapter.collect(id,root,signal),clipboard})
     application.lifecycle.register({id:'bmad-catalog',context:emptyContext(),stop:async()=>{await catalogCoordinator.shutdown();return 'stopped'}})
     ipcMain.handle(BMAD_CATALOG_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadCatalogCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadCatalogState()}

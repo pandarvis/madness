@@ -1,0 +1,26 @@
+✔ F1/F2 original grant yields exact inert text; clone has no authority (1.7526ms)
+✔ F3/F4 stale reference refuses effects and retains historical text (0.8756ms)
+✔ F5/F6 strict VSCode URI and observable independent copy (1.6698ms)
+✔ F7/F9 late read after shutdown never promotes content (3.0342ms)
+✔ F1 mutated original producer cannot receive a grant after validation awaits (0.2543ms)
+✔ F6 delayed clipboard readback cannot confirm an invalidated grant (0.7635ms)
+✔ F5 rejected editor and absent editor remain distinct; copy still succeeds (0.5704ms)
+✔ F7 BUSY and STOP remain explicit without an automatic replay (0.9996ms)
+✔ F9 shutdown detaches unresolved editor handoff and does not replay after close (0.6309ms)
+✔ F8 native wait predicate is synchronous, rejects missing/pending and returns actual revision (0.2119ms)
+✔ F1 file-only grant capacity is explicit without failing the independent producer (18.3301ms)
+✔ F6 post-write BUSY verification is unknown, never a known no-effect failure (0.7395ms)
+✔ Q1 copy refuses file replaced during delayed context lookup before any effect (2.3471ms)
+✔ Q1 copy refuses ancestor replaced during delayed context lookup before any effect (0.4407ms)
+✔ Q1 editor refuses file replaced during delayed context lookup before any effect (0.2667ms)
+✔ Q1 editor refuses ancestor replaced during delayed context lookup before any effect (0.2615ms)
+✔ Q2 editor deadline stays explicitly unknown while rejection and absence remain distinct (0.8651ms)
+✔ Q2 a dispatched editor with uncertain final verification says unknown rather than failure (0.2731ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 210.4923

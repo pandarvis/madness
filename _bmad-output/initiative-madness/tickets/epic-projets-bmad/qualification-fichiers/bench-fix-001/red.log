@@ -1,0 +1,101 @@
+✔ counterexample: old finalizer cleanup masks original failure and prevents report persistence (0.8438ms)
+✖ report checkpoints are atomic and ordered; last complete stage remains readable (7.8568ms)
+✖ cleanup EBUSY persists original error and separate cleanup failure (5.4818ms)
+✖ external editor stop unknown retains fixture without attempted deletion or closure invention (5.2924ms)
+✖ closure failure is saved and prevents cleanup, original error preserved (4.2635ms)
+✖ no external handoff and proved owned closure permit cleanup and final persisted success (4.8061ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 1
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 160.2182
+
+✖ failing tests:
+
+test at tests\project-files-report.test.mjs:9:1
+✖ report checkpoints are atomic and ordered; last complete stage remains readable (7.8568ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\scripts\qualification\project-files-report.mjs' imported from C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\project-files-report.test.mjs
+      at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+      at moduleResolve (node:internal/modules/esm/resolve:864:10)
+      at defaultResolve (node:internal/modules/esm/resolve:990:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:718:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:735:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:764:52)
+      at #resolve (node:internal/modules/esm/loader:700:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:620:35)
+      at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:649:32)
+      at TracingChannel.tracePromise (node:diagnostics_channel:350:14) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/project-files-report.mjs'
+  }
+
+test at tests\project-files-report.test.mjs:10:1
+✖ cleanup EBUSY persists original error and separate cleanup failure (5.4818ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\scripts\qualification\project-files-report.mjs' imported from C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\project-files-report.test.mjs
+      at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+      at moduleResolve (node:internal/modules/esm/resolve:864:10)
+      at defaultResolve (node:internal/modules/esm/resolve:990:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:718:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:735:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:764:52)
+      at #resolve (node:internal/modules/esm/loader:700:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:620:35)
+      at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:649:32)
+      at TracingChannel.tracePromise (node:diagnostics_channel:350:14) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/project-files-report.mjs'
+  }
+
+test at tests\project-files-report.test.mjs:11:1
+✖ external editor stop unknown retains fixture without attempted deletion or closure invention (5.2924ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\scripts\qualification\project-files-report.mjs' imported from C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\project-files-report.test.mjs
+      at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+      at moduleResolve (node:internal/modules/esm/resolve:864:10)
+      at defaultResolve (node:internal/modules/esm/resolve:990:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:718:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:735:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:764:52)
+      at #resolve (node:internal/modules/esm/loader:700:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:620:35)
+      at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:649:32)
+      at TracingChannel.tracePromise (node:diagnostics_channel:350:14) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/project-files-report.mjs'
+  }
+
+test at tests\project-files-report.test.mjs:12:1
+✖ closure failure is saved and prevents cleanup, original error preserved (4.2635ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\scripts\qualification\project-files-report.mjs' imported from C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\project-files-report.test.mjs
+      at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+      at moduleResolve (node:internal/modules/esm/resolve:864:10)
+      at defaultResolve (node:internal/modules/esm/resolve:990:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:718:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:735:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:764:52)
+      at #resolve (node:internal/modules/esm/loader:700:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:620:35)
+      at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:649:32)
+      at TracingChannel.tracePromise (node:diagnostics_channel:350:14) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/project-files-report.mjs'
+  }
+
+test at tests\project-files-report.test.mjs:13:1
+✖ no external handoff and proved owned closure permit cleanup and final persisted success (4.8061ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\scripts\qualification\project-files-report.mjs' imported from C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\project-files-report.test.mjs
+      at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+      at moduleResolve (node:internal/modules/esm/resolve:864:10)
+      at defaultResolve (node:internal/modules/esm/resolve:990:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:718:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:735:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:764:52)
+      at #resolve (node:internal/modules/esm/loader:700:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:620:35)
+      at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:649:32)
+      at TracingChannel.tracePromise (node:diagnostics_channel:350:14) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/project-files-report.mjs'
+  }

@@ -1,0 +1,39 @@
+✖ fichiers: explicit new revision reads once and returning to its project never replays it (2864.5262ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-eFxZEi\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-eFxZEi\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6228.4324
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1221:1
+✖ fichiers: explicit new revision reads once and returning to its project never replays it (2864.5262ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        action: 'preview',
+        referenceId: 'ref-ui-0'
+      },
+  -   {
+  -     action: 'preview',
+  -     referenceId: 'ref-ui-new'
+  -   }
+    ]
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:1221:1084)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { action: 'preview', referenceId: 'ref-ui-0' } ],
+    expected: [ { action: 'preview', referenceId: 'ref-ui-0' }, { action: 'preview', referenceId: 'ref-ui-new' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

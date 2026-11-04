@@ -1,0 +1,100 @@
+{
+  "at": "2026-11-04T15:35:11.041174+00:00",
+  "status": "four-final-ready-captures-parent-opened-finish-pending",
+  "visualBatchesExecuted": 2,
+  "batch2": "main003 two valid frames; instrument-only theme API error interrupted rest; main004 resumes only missing variants, no product edits or selfpolish",
+  "detectorRuns": 1,
+  "detectorTriage": {
+    "rule": "border-accent-on-rounded",
+    "route": "reject",
+    "evidence": "files.css first declaration explicitly border-radius:0; both actual ready screenshots have square edges, no rounded card. Regex sees border-top but premise false. No ignore added."
+  },
+  "captures": [
+    {
+      "source": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/dock-dark.png",
+      "review": ".impeccable/review/files28-final-dock-dark-native.png",
+      "sha256": "bfffb62d1278df0cabde730a362c8b841dde0f1ea9fa03e22ee0fb94c1820930",
+      "parentOpened": true,
+      "scope": "Actual final package b723a0f9… ready exact source, honest negative clipboard receipt. No OSeditor."
+    },
+    {
+      "source": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/expanded-dark.png",
+      "review": ".impeccable/review/files28-final-expanded-dark-native.png",
+      "sha256": "f69a7257ad5b060a5f4c62bb2ba12c08cde9c2a6e7c14a7d8adf64099d37b3fc",
+      "parentOpened": true,
+      "scope": "Actual final package b723a0f9… ready exact source, honest negative clipboard receipt. No OSeditor."
+    },
+    {
+      "source": "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-004-read-diagnostic/overlay-light.png",
+      "review": ".impeccable/review/files28-final-overlay-light-native.png",
+      "sha256": "f27d189d4a87f2262cfcd369d9ab6e0b0dc7733c9f20273299672bd8f11b7955",
+      "parentOpened": true,
+      "metrics": {
+        "name": "overlay-light",
+        "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-fichiers\\main-004-read-diagnostic\\overlay-light.png",
+        "metrics": {
+          "width": 720,
+          "height": 820,
+          "theme": "light",
+          "modal": true,
+          "scrollWidth": 720
+        },
+        "size": {
+          "width": 900,
+          "height": 1025
+        },
+        "zoom": 1,
+        "contentSize": [
+          720,
+          820
+        ],
+        "pixels": {
+          "width": 900,
+          "height": 1025
+        },
+        "method": "webContents.capturePage without rect"
+      },
+      "scope": "Only missing variants continued after bench-only theme state correction; actual ready current package. No additional polish."
+    },
+    {
+      "source": "C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-004-read-diagnostic/zoom200-dark.png",
+      "review": ".impeccable/review/files28-final-zoom200-dark-native.png",
+      "sha256": "3d889d500988bd05703b2392527e431536ddd1617d9c41f45057a5e9c93fdf87",
+      "parentOpened": true,
+      "metrics": {
+        "name": "zoom200-dark",
+        "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-fichiers\\main-004-read-diagnostic\\zoom200-dark.png",
+        "metrics": {
+          "width": 720,
+          "height": 460,
+          "theme": "dark",
+          "modal": true,
+          "scrollWidth": 720
+        },
+        "size": {
+          "width": 1800,
+          "height": 1150
+        },
+        "zoom": 2,
+        "contentSize": [
+          1440,
+          920
+        ],
+        "pixels": {
+          "width": 1800,
+          "height": 1150
+        },
+        "method": "webContents.capturePage without rect"
+      },
+      "scope": "Only missing variants continued after bench-only theme state correction; actual ready current package. No additional polish."
+    }
+  ],
+  "limits": [
+    "The failed main003 bank is retained, not green.",
+    "No actual current positive clipboard result or current OSeditor request.",
+    "No human/WCAG/G3/globalship."
+  ],
+  "updatedAt": "2026-11-04T15:40:45.700978+00:00",
+  "nativeStatus": "main004partialonlyF6positive; independentlocalcheckscompleted/cleanuptrue",
+  "nativeReceipt": "main-004-read-diagnostic/verification.json"
+}

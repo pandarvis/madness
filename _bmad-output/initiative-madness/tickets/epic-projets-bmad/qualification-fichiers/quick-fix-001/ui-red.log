@@ -1,0 +1,32 @@
+✖ fichiers: Q3 refused preview keeps independent unknown/failed editor and confirmed copy outcomes readable (32004.7934ms)
+✖ fichiers: Q4 invalidation removes Progress preview trigger and returns focus to exact resume title (40089.7868ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-iO9H2V\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-iO9H2V\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 74034.9568
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1223:1
+✖ fichiers: Q3 refused preview keeps independent unknown/failed editor and confirmed copy outcomes readable (32004.7934ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for locator('.file-preview').getByText('Résultat de la demande d’ouverture inconnu — ouverture non confirmée.', { exact: true }) to be visible[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1223:804) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for locator('.file-preview').getByText('Résultat de la demande d’ouverture inconnu — ouverture non confirmée.', { exact: true }) to be visible" ]
+  }
+
+test at tests\connection-ui.test.mjs:1224:1
+✖ fichiers: Q4 invalidation removes Progress preview trigger and returns focus to exact resume title (40089.7868ms)
+  page.waitForFunction: Timeout 30000ms exceeded.
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1224:1802) {
+    name: 'TimeoutError',
+    log: []
+  }

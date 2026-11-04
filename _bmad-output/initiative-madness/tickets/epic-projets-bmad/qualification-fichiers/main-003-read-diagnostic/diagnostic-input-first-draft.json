@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-04T15:12:44.973777+00:00",
+  "entry": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/diagnostic-entry.mjs",
+  "sha256": "0f134cb135f8db50b4e212c372b72721d585009caa8f7e1ed12caa9af354700a",
+  "standardBank": {
+    "path": "scripts/qualification/project-files.mjs",
+    "sha256": "213167178712129599ce546547e73df0cd74ceee21a4371984744d7de0d1d32e",
+    "modified": false
+  },
+  "scope": "Separately labeled DIAGNOSTIC, not standard all-green. Replaces only positive clipboard assertion by exact known-empty/failed negative expectation and keeps overall partial. All physical read/invalidation/Job/restore checks unchanged. No OSeditor requested.",
+  "basis": "clipboard-availability-deferred.json, actual package and stock Electron direct API failures",
+  "visual": "If screenshots requested, final batched round2 only; no previous main002 captures were produced."
+}

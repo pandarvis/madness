@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-04T15:12:44.973777+00:00",
+  "entry": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/diagnostic-entry.mjs",
+  "sha256": "b46ae22173196b4ff91d6b48f74cb0f0249d9850ff1c3f6d45dd8dce835a81e3",
+  "standardBank": {
+    "path": "scripts/qualification/project-files.mjs",
+    "sha256": "213167178712129599ce546547e73df0cd74ceee21a4371984744d7de0d1d32e",
+    "modified": false
+  },
+  "scope": "Separately labeled DIAGNOSTIC, not standard all-green. Replaces only positive clipboard assertion by exact known-empty/failed negative expectation and keeps overall partial. All physical read/invalidation/Job/restore checks unchanged. No OSeditor requested.",
+  "basis": "clipboard-availability-deferred.json, actual package and stock Electron direct API failures",
+  "visual": "One final batched round2: actual-ready dockdark, expanded dark, narrow overlay light, native application zoom200 dark. Source is diagnostic known clipboard failure; not all-green.",
+  "updatedBeforeAnyExecutionAt": "2026-11-04T15:14:58.204387+00:00"
+}

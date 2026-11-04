@@ -1,0 +1,71 @@
+{
+  "at": "2026-11-04T15:50:27.842639+00:00",
+  "scope": "2.8 code completed/reviewed, external positive clipboard validation explicitly deferred; not native all-green/G3/wholeV1",
+  "baseline": "efbfdb6b5d16d541ccb866aca917ad316337486b",
+  "version": "0.2.11",
+  "candidate": {
+    "asar": {
+      "path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\resources\\app.asar",
+      "sha256": "b723a0f9a3035a51fd0974071d757d53eb459fa5cf814708f55c8b2ed605331a"
+    },
+    "installer": {
+      "path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\Madness-0.2.11-x64-setup.exe",
+      "sha256": "524da8857ee0754243b795301fa3a42534903860ad93fbbd3c6b1cff39485baf"
+    },
+    "installed": false
+  },
+  "verification": {
+    "backend": 60,
+    "uiConsolidated": 16,
+    "reporter": 7,
+    "finalThemeCase": 1,
+    "nativeIndependentGroups": 8,
+    "nativeOverallStatus": "partial",
+    "sourceInputs": 122,
+    "nativeSealedInputs": 59,
+    "protectedFiles": 5848,
+    "resourceChecks": 32,
+    "runtimeFiles": 735,
+    "compiledOutputs": 19,
+    "jobBeforeStop": 3,
+    "jobAfterStop": 0,
+    "closures": 2,
+    "ownedCleanup": true
+  },
+  "reviews": {
+    "quick": "Q1–Q4 resolved original reviewer by inspection; parent tests separate",
+    "high": "H1/H2 resolved original auditor; native/input bytes unchanged by Quick",
+    "finish": "ship limited FilePreview",
+    "documenter": "No design system change; source recheck"
+  },
+  "visual": {
+    "batches": 2,
+    "batch2Attempts": 2,
+    "finalCaptures": 4,
+    "detectorRuns": 1,
+    "detectorFinding": "border-accent-on-rounded rejected by explicit border-radius:0 and square native frames"
+  },
+  "deferred": [
+    "Current positive native clipboard F6: direct package and stock Electron API empty; unchanged standard bank replay in2.16/G3 after direct marker readback works. No cause/IT/useraction invented."
+  ],
+  "limits": [
+    "Current OS editor request intentionally not repeated; historical efcacb8 UI transmission only, raw result absent.",
+    "File-symlink native privilege variant not exercised; no global filesystem or WCAG/human claim.",
+    "Personal app/profile/account/provider not changed; candidate noninstalled.",
+    "No global npm suite green inferred. Main001 partial/missing receipt and native002/003 failures preserved."
+  ],
+  "receipts": [
+    "parent-matrix-final.json",
+    "parent-source-final-link.json",
+    "parent-audit-003.json",
+    "quick-recheck-final.json",
+    "high-recheck-final.json",
+    "impeccable-finish.md",
+    "impeccable-documentation.md",
+    "visual-selection-final.json",
+    "clipboard-availability-deferred.json",
+    "main-004-read-diagnostic/verification.json",
+    "main-001-owned-cleanup-later.json"
+  ],
+  "next": "bmad-build4.4 actualGraphifyview with no extra prerequisite project; preserve completed2.8/commonpane"
+}

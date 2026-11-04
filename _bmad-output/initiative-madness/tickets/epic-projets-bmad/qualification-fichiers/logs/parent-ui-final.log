@@ -1,0 +1,27 @@
+✔ navigation: les infobulles projets restent peintes devant bannière et onglets (7051.0837ms)
+✔ actualisation: async stale/reading/error/new revision preserves displayed proof and composer focus (22613.9591ms)
+✔ catalogue: manual three-tab keyboard navigation, literal search, filters, source details and confirmed copy (8269.0653ms)
+✔ catalogue: old details survive refresh and latest observation requires voluntary switch (7027.5752ms)
+✔ catalogue: delayed copy cannot confirm another details view and failure keeps selectable invocation (3703.6396ms)
+✔ catalogue: compact two themes and native zoom200 preserve details controls without window overflow (3402.4933ms)
+✔ catalogue: voluntary observation switch retains keyboard focus and stays a no-op until another admissible capture (4141.348ms)
+{"catalogueArrivalGeometry":{"viewport":[1440,920],"scroll":0,"bannerNote":"Initiative capturée par cet échange : non identifiée","banner":{"top":76,"bottom":239.6999969482422,"height":163.6999969482422},"overview":{"top":317.3000183105469,"bottom":379.0000190734863,"height":61.70000076293945},"panel":{"top":391,"bottom":1091.9000244140625,"height":700.9000244140625},"observation":{"top":484.6000061035156,"bottom":535.8000068664551,"height":51.20000076293945},"filters":{"top":551.7999877929688,"bottom":632.5999908447266,"height":80.80000305175781},"row":{"top":701.5,"bottom":861.5,"height":160},"purpose":"Mary explores documented intentions","invocation":"$alpha","observationText":"Observé le 04/11/2026 11:00:00 · Couverture : PartielleVersion affichée : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}}
+✔ catalogue: first complete representative row is visible on arrival at1440x920 with source context intact (2210.4408ms)
+✔ catalogue: compact overview keeps active question reachable and other tab presentation unchanged (14162.1825ms)
+✔ fichiers: dock inert text, exact source metadata, expansion/reduction/focus and independent receipts (3856.8258ms)
+✔ fichiers: source invalidation keeps old text and geometry/themes/native zoom200 preserve controls (2944.9694ms)
+✔ fichiers: late A response never steals B focus and return does not replay a read (2300.0532ms)
+{"filesReadyDockGeometry":{"viewport":[1440,920],"contentTop":730,"lineHeight":23.1,"bodyTop":0,"buttons":[{"name":"Agrandir","bottom":670,"top":630},{"name":"Ouvrir dans l’éditeur","bottom":670,"top":630},{"name":"Copier le chemin","bottom":718,"top":678}],"sha":"Projet et racinecatalog-a · C:/Users/UP60066553/AppData/Local/Temp/mfiles-main-native-sized/catalog-aProvenancecatalog · catalog-sourceChemin completC:/Users/UP60066553/AppData/Local/Temp/mfiles-main-native-sized/catalog-a/.agents/skills/alpha/SKILL.mdRévision de collecteaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSHA-256ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccObservé le04/11/2026 11:00:00Taille30 octets"}}
+✔ fichiers: dense ready dock exposes representative text and every named command at arrival (2093.0421ms)
+✔ fichiers: explicit new revision reads once and returning to its project never replays it (2046.3349ms)
+✔ fichiers: Q3 refused preview keeps independent unknown/failed editor and confirmed copy outcomes readable (2342.6758ms)
+✔ fichiers: Q4 invalidation removes Progress preview trigger and returns focus to exact resume title (11513.1809ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-PsQtGf\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-PsQtGf\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 102485.675

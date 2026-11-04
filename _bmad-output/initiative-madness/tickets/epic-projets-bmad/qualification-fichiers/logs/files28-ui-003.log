@@ -1,0 +1,22 @@
+✔ navigation: les infobulles projets restent peintes devant bannière et onglets (2519.8226ms)
+✔ actualisation: async stale/reading/error/new revision preserves displayed proof and composer focus (15358.4993ms)
+✔ catalogue: manual three-tab keyboard navigation, literal search, filters, source details and confirmed copy (1448.8353ms)
+✔ catalogue: old details survive refresh and latest observation requires voluntary switch (2374.5083ms)
+✔ catalogue: delayed copy cannot confirm another details view and failure keeps selectable invocation (3448.8046ms)
+✔ catalogue: compact two themes and native zoom200 preserve details controls without window overflow (7260.4396ms)
+✔ catalogue: voluntary observation switch retains keyboard focus and stays a no-op until another admissible capture (3489.2915ms)
+{"catalogueArrivalGeometry":{"viewport":[1440,920],"scroll":0,"bannerNote":"Initiative capturée par cet échange : non identifiée","banner":{"top":76,"bottom":239.6999969482422,"height":163.6999969482422},"overview":{"top":317.3000183105469,"bottom":379.0000190734863,"height":61.70000076293945},"panel":{"top":391,"bottom":1091.9000244140625,"height":700.9000244140625},"observation":{"top":484.6000061035156,"bottom":535.8000068664551,"height":51.20000076293945},"filters":{"top":551.7999877929688,"bottom":632.5999908447266,"height":80.80000305175781},"row":{"top":701.5,"bottom":861.5,"height":160},"purpose":"Mary explores documented intentions","invocation":"$alpha","observationText":"Observé le 04/11/2026 11:00:00 · Couverture : PartielleVersion affichée : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}}
+✔ catalogue: first complete representative row is visible on arrival at1440x920 with source context intact (2498.1951ms)
+✔ catalogue: compact overview keeps active question reachable and other tab presentation unchanged (13841.7918ms)
+✔ fichiers: dock inert text, exact source metadata, expansion/reduction/focus and independent receipts (2957.5496ms)
+✔ fichiers: source invalidation keeps old text and geometry/themes/native zoom200 preserve controls (2760.4412ms)
+✔ fichiers: late A response never steals B focus and return does not replay a read (2226.0213ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-YfW6KR\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-YfW6KR\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 63204.5295

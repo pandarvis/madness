@@ -1,0 +1,93 @@
+/* The illustrated workshop continues through the working centre.
+   Decoration is separate from hit targets, focus rings and reading surfaces. */
+.topbar { position: relative; isolation: isolate; box-shadow: inset 0 1px var(--atelier-edge), 0 3px 12px var(--panel-shadow) }
+.topbar::after { content: ''; position: absolute; inset: 5px 0; border-block: 1px solid var(--atelier-ink); pointer-events: none; z-index: -1 }
+.topbar .breadcrumb { padding-inline-end: 12px }
+.topbar-actions { padding-inline: 8px; border-inline-start: 1px solid var(--atelier-edge) }
+.topbar .command-control, .codex-trigger { border: 1px solid transparent }
+.topbar .command-control:hover, .codex-trigger:hover { border-color: var(--atelier-edge); background: var(--panel) }
+.brand-label { text-shadow: 1px 2px 2px var(--atelier-ink) }
+.nav-section { display: flex; align-items: center; gap: 12px; text-transform: uppercase }
+.nav-section::after { content: ''; height: 1px; background: var(--atelier-edge); flex: 1; opacity: .7 }
+.nav-button.selected { box-shadow: inset 0 1px 0 var(--atelier-edge), 0 3px 8px var(--panel-shadow) }
+.project-tabs { padding-block-start: 6px; gap: 8px }
+.project-tabs button { min-height: 44px; padding-inline: 22px; letter-spacing: .025em }
+.project-tabs button::after { content: ''; position: absolute; inset: 3px 10px auto; height: 1px; background: var(--control-line); opacity: .7; pointer-events: none }
+.project-tabs button[aria-selected='true']::after { background: var(--accent-text); opacity: .4 }
+.main-inner:has(#panel-conversation) .project-banner { position: relative; padding: 14px 16px; min-height: 72px; border-bottom: 1px solid var(--atelier-edge); background: var(--panel); box-shadow: inset 0 2px 0 var(--atelier-plate) }
+.main-inner:has(#panel-conversation) .project-banner h1 { font-size: 28px; max-width: 48ch; line-height: 1.15 }
+.main-inner:has(#panel-conversation) .project-banner .context-trigger { margin-inline-start: 12px; background: var(--atelier-chrome) }
+.conversation-history > h2 { display: flex; align-items: center; gap: 14px; margin-block: 22px 8px; font-size: 18px; letter-spacing: .05em; text-transform: uppercase }
+.conversation-history > h2::after { content: ''; height: 1px; flex: 1; background: var(--line) }
+.conversation-messages { max-height: clamp(240px,44dvh,640px); padding: 12px 14px 12px 4px; scrollbar-gutter: stable }
+.dialogue-message { position: relative; padding: 20px 4px 24px; border-bottom: 0; margin-block-end: 10px }
+.message-author { position: sticky; top: 0; z-index: 2; margin-bottom: 6px; gap: 12px; padding-block: 4px; background: var(--surface) }
+.dialogue-message.assistant:has(.agent-portrait-trigger) .message-author h3 { position: relative; isolation: isolate; background: none; color: var(--accent-text); padding: 5px 18px 6px 12px; font-size: 19px; letter-spacing: .015em }
+.dialogue-message.assistant:has(.agent-portrait-trigger) .message-author h3::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--accent); clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,calc(100% - 7px) 100%,0 100%); pointer-events: none }
+.agent-portrait { border-color: var(--atelier-edge); box-shadow: 0 2px 6px var(--panel-shadow) }
+.message-state { font-size: 12px; margin-block: 8px 10px; color: var(--muted) }
+.dialogue-message.assistant .message-text { position: relative; padding: 16px 18px; border: 1px solid var(--line); border-top-color: var(--atelier-edge); background: var(--panel); border-radius: 3px; box-shadow: 0 4px 12px var(--composer-shadow); line-height: 1.8 }
+.dialogue-message.assistant .message-text::before { content: ''; position: absolute; top: -1px; left: 0; width: 9px; height: 9px; background: var(--atelier-edge); clip-path: polygon(0 0,100% 0,0 100%); pointer-events: none }
+.dialogue-message.user { max-width: 62ch; margin-block: 12px 20px; padding: 14px 18px; border-color: var(--control-line); box-shadow: 0 4px 12px var(--composer-shadow) }
+.dialogue-message.user .message-author { background: var(--selected) }
+.message-provenance { margin-block: 10px 0; font-size: 11px; line-height: 1.6; color: var(--muted) }
+.agent-info-link.text-button { text-underline-offset: 4px }
+.composer { isolation: isolate; border: 1px solid var(--atelier-edge); padding: 18px 20px; margin-block-start: 22px; margin-inline: 7px; background: var(--panel); box-shadow: 0 6px 18px var(--composer-shadow) }
+.composer::before { content: ''; position: absolute; inset: -7px; z-index: -1; border: 0 solid transparent; border-image-source: url('./assets/atelier/chrome-plate-frame.png'); border-image-slice: 128; border-image-width: 22px; border-image-repeat: stretch; pointer-events: none }
+.composer::after { display: none }
+.composer label { font-size: 12px; line-height: 1.5; color: var(--muted) }
+.composer textarea { min-height: 88px; padding: 14px 0; line-height: 1.75; background: transparent }
+.composer-bottom { border-top: 1px solid var(--line); padding-top: 10px }
+.composer-actions { gap: 10px }
+.primary, .secondary { position: relative; min-height: 40px; border-radius: 3px; box-shadow: 0 3px 8px var(--composer-shadow) }
+.primary { border: 1px solid var(--accent-active); box-shadow: inset 0 1px 0 var(--accent-hover), 0 3px 8px var(--composer-shadow) }
+.primary:hover { box-shadow: inset 0 1px 0 var(--accent), 0 4px 10px var(--panel-shadow) }
+.primary:active, .secondary:active { box-shadow: inset 0 1px 3px var(--composer-shadow) }
+.secondary { border-color: var(--control-line); background: var(--atelier-chrome) }
+.composer > .small { font-size: 11px; line-height: 1.65; margin-top: 10px }
+.agent-panel-heading { padding-block: 10px; box-shadow: inset 0 1px 0 var(--atelier-edge) }
+.agent-panel-heading h2 { font-size: 20px; letter-spacing: .025em }
+.agent-name { background: none; isolation: isolate; padding-inline-end: 24px }
+.agent-name::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--accent); clip-path: polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%); pointer-events: none }
+.agent-panel-body dt { font-family: 'Barlow Condensed','Segoe UI',sans-serif; font-size: 17px; text-transform: uppercase; letter-spacing: .035em }
+.agent-panel-body dd { margin-inline-start: 0; margin-block: 8px 18px; overflow-wrap: anywhere }
+.agent-role { font-size: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--atelier-edge) }
+.agent-bust { border-color: var(--atelier-edge); box-shadow: 0 4px 10px var(--composer-shadow) }
+.connection-heading, .context-heading { padding-bottom: 12px; border-bottom: 1px solid var(--atelier-edge) }
+.question-panel, .approval-panel { box-shadow: inset 0 1px 0 var(--atelier-plate); padding-block-start: 20px }
+@media (max-width: 720px) {
+  .main-inner:has(#panel-conversation) .project-banner { min-height: 0; padding: 12px }
+  .main-inner:has(#panel-conversation) .project-banner h1 { font-size: 24px }
+  .conversation-messages { padding-inline: 2px 8px; max-height: 42dvh }
+  .dialogue-message.assistant .message-text { padding: 14px 12px }
+  .dialogue-message.user { margin-inline-start: 14px; padding: 12px }
+  .composer { padding: 14px; margin-inline: 7px }
+  .composer-actions { flex-wrap: wrap }
+  .topbar-actions { gap: 4px; padding-inline: 2px }
+}
+@media (max-height: 700px) {
+  .main-inner:has(#panel-conversation) .project-banner { min-height: 0; padding-block: 10px }
+  .conversation-messages { max-height: 40dvh }
+  .composer textarea { min-height: 64px }
+}
+/* Give ordinary dialogue the remaining window height. Active request forms retain
+   the natural page flow so a patch or a question is never squeezed or hidden. */
+.main-inner:has(#panel-conversation):not(:has(.conversation-history > .question-panel, .conversation-history > .approval-panel)) {
+  height: 100%; display: flex; flex-direction: column; padding-block: 12px 20px;
+  > * { flex-shrink: 0 }
+  .project-banner { padding: 8px 12px; min-height: 0 }
+  .project-banner h1 { font-size: 24px }
+  #panel-conversation { display: flex; flex-direction: column; flex: 1 0 480px; min-height: min-content }
+  #panel-conversation > details { flex: none }
+  .conversation-history { display: flex; flex-direction: column; flex: 1 1 240px; height: 240px; min-height: 240px; margin-top: 8px }
+  .conversation-history > h2 { flex: none; margin-block: 8px 4px }
+  .history-note, .turn-status { flex: none; margin-top: 4px }
+  .turn-status { padding-block: 6px }
+  .conversation-messages { flex: 1; min-height: 160px; max-height: none; padding-block: 6px }
+  .composer { flex: none; margin-block-start: 12px; padding: 10px 14px }
+  .composer label { margin-bottom: 4px }
+  .composer textarea { display: block; min-height: 64px; padding-block: 8px }
+  .composer-bottom { padding-top: 6px; margin-bottom: 4px }
+  .composer > .small { margin-top: 6px }
+  .prepare-exchange { flex: none; margin-block: 6px 0; padding-block: 6px }
+}

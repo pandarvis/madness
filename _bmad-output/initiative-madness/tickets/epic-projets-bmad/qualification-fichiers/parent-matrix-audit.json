@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-04T14:32:10.279956+00:00",
+  "matrix": {
+    "F1": {
+      "receipt": "high-risk-fix-001/backend-002.log",
+      "passedCase": "✔ F1/F2 original grant yields exact inert text; clone has no authority (3.0694ms)"
+    },
+    "F2": {
+      "receipt": "high-risk-fix-001/backend-002.log",
+      "passedCase": "✔ F1/F2/F3/F4 native physical grants with code-only capture and exact closed runtime (28911.4014ms)"
+    },
+    "F3": {
+      "receipt": "high-risk-fix-001/backend-002.log",
+      "passedCase": "✔ H1 captured physical grant survives no reader re-baselining and rejects before any os.read (26046.6478ms)"
+    },
+    "F4": {
+      "receipt": "focus-fix-001/combined-014.log",
+      "passedCase": "✔ fichiers: explicit new revision reads once and returning to its project never replays it (1467.6525ms)"
+    },
+    "F5": {
+      "receipt": "high-risk-fix-001/backend-002.log",
+      "passedCase": "✔ F5 rejected editor and absent editor remain distinct; copy still succeeds (1.1218ms)"
+    },
+    "F6": {
+      "receipt": "high-risk-fix-001/backend-002.log",
+      "passedCase": "✔ F6 delayed clipboard readback cannot confirm an invalidated grant (1.4784ms)"
+    },
+    "F7": {
+      "receipt": "high-risk-fix-001/backend-002.log",
+      "passedCase": "✔ F7 BUSY and STOP remain explicit without an automatic replay (1.8733ms)"
+    },
+    "F8": {
+      "receipt": "focus-fix-001/combined-014.log",
+      "passedCase": "✔ fichiers: dense ready dock exposes representative text and every named command at arrival (1346.0656ms)"
+    },
+    "F9": {
+      "receipt": "high-risk-fix-001/backend-002.log",
+      "passedCase": "✔ F9 shutdown detaches unresolved editor handoff and does not replay after close (1.3842ms)"
+    }
+  },
+  "runs": {
+    "high-risk-fix-001/backend-002.log": {
+      "tests": 54,
+      "pass": 54,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "bd4ee84cfd0a1157102fd1c3d241f3c3c9bbeacdd346f62d6c7b18f1ae6dd190"
+    },
+    "focus-fix-001/combined-014.log": {
+      "tests": 14,
+      "pass": 14,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "527bf1ffb3626065fa56d585251f937f22be0285eff23d533ea0fdbfabae6211"
+    },
+    "logs/parent-report-001.log": {
+      "tests": 7,
+      "pass": 7,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "dbca67cd3900e3c24358a9f17279e9c9d6e6e84592113bd3188de30bcdbaa54a"
+    }
+  },
+  "source": "parent-source-002/producer-manifest.json + focus-fix-001 before/after single test-only wait delta",
+  "limits": [
+    "Row coverage does not claim all physical Windows variants: native file-symlink privilege not exercised.",
+    "Real final Main/package and editor/G3 integration remain separate qualification; main001 partial stays partial.",
+    "Initial UI003 lacked files.css and did not establish geometry; current14 includes actual file CSS."
+  ]
+}

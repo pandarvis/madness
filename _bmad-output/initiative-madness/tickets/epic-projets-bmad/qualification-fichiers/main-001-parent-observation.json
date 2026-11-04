@@ -1,0 +1,50 @@
+{
+  "at": "2026-11-04T14:01:07.694451+00:00",
+  "status": "partial",
+  "asar": "efcacb8e3cd40fb81ac25c6f8527961abb2b0e36f9b3486a607e1c6c0bff42db",
+  "mainReceiptAbsent": true,
+  "observedGroups": 8,
+  "log": "logs/parent-main-001.log",
+  "error": "Finally recursive cleanup EBUSY appdata/Code/Network/Cookies masked original failure and prevented verification.json; exact original failing assertion unknown.",
+  "externalEditor": {
+    "requestedOnce": true,
+    "UIReceiptActuallyVisible": "expanded-dark.png: Demande transmise à l’éditeur. Ouverture non confirmée.",
+    "rawResultJson": "Not persisted, not reconstructed from screenshot",
+    "codeWindowObserved": {
+      "id": 723024,
+      "app": "Microsoft.VisualStudioCode",
+      "title": "Visual Studio Code"
+    },
+    "computerUse": "get_window_state app approval timed out; no input/close action",
+    "laterProcessObservation": "Get-CimInstance Code.exe returned none; no claim we closed it.",
+    "noRepeatOSRequest": true
+  },
+  "temporaryRoot": "C:/Users/UP60066553/AppData/Local/Temp/mfiles-main-l3sIzq",
+  "cleanup": "Partial rm already happened; do not infer a complete stopped/cleanup receipt. Remaining root retained for explicit later checks.",
+  "visuals": {
+    "batch": 1,
+    "captures": [
+      {
+        "name": "dock-dark",
+        "source": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-fichiers\\main-001\\dock-dark.png",
+        "review": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\.impeccable\\review\\files28-first-dock-dark-reading-native.png",
+        "sha256": "3b87f28378e1f510553d522279a5828cdf1ade44c3be0d644cffb99a2f393005",
+        "parentActuallyOpened": true,
+        "scope": "Native batch1, reader reading/cached text; not a completed-ready first view"
+      },
+      {
+        "name": "expanded-dark",
+        "source": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-fichiers\\main-001\\expanded-dark.png",
+        "review": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\.impeccable\\review\\files28-first-expanded-dark-reading-native.png",
+        "sha256": "dfd78e3bc75c237499b8c4af562ec71f146a5a9e8e416d25a0a4930ac3656440",
+        "parentActuallyOpened": true,
+        "scope": "Native batch1, reader reading/cached text; not a completed-ready first view"
+      }
+    ],
+    "findings": [
+      "Metadata consumes complete dock first view; first plaintext and most actions below fold.",
+      "Bank did not await fresh ready after UI selection, merely reused already-present pre. Do not call these ready frames."
+    ],
+    "handoff": "Same worker local density/compact named controls, metadata retained, real-ready geometry test; one final batch2 after source reviews. No detector/finish yet."
+  }
+}

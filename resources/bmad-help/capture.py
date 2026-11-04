@@ -115,7 +115,7 @@ def handle_path(fd):
         value = value[4:]
     return Path(value)
 
-def read_safe(path, *, before_open=None, file_limit=FILE_LIMIT, utf8=True):
+def read_safe(path, *, before_open=None, file_limit=FILE_LIMIT, utf8=True, expected=None):
     chain = inspect_chain(path)
     original = path.lstat()
     if not stat.S_ISREG(original.st_mode):
@@ -132,6 +132,17 @@ def read_safe(path, *, before_open=None, file_limit=FILE_LIMIT, utf8=True):
             raise Refusal('HANDLE_REDIRECTED')
         if identity(opened) != identity(original) or inspect_chain(path) != chain:
             raise Refusal('CHANGED')
+        if expected is not None:
+            # A producer's grant predates this reader. Do not re-baseline it to
+            # the file now occupying the path, even when its bytes are identical.
+            # Windows lstat/fstat ctime values are not interchangeable. Bind
+            # the handle's physical identity/size, and compare the complete
+            # captured path stamp with lstat again after opening, before bytes.
+            current = path.lstat()
+            current_stamp = [*identity(current), current.st_size, current.st_mtime_ns, current.st_ctime_ns]
+            if (list(identity(opened)) != expected['stamp'][:5] or opened.st_size != expected['stamp'][5]
+                    or current_stamp != expected['stamp'] or json.dumps(chain) != json.dumps(expected['chain'])):
+                raise Refusal('GRANT_CHANGED')
         data = bytearray()
         while True:
             chunk = os.read(fd, min(65536, file_limit + 1 - len(data)))

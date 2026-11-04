@@ -1,0 +1,40 @@
+{
+  "at": "2026-11-04T14:57:58.613Z",
+  "scope": "Direct Electron clipboard API diagnostic only, no product feature success or private clipboard content persisted",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-clipboard-YzBxP9",
+  "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-clipboard-YzBxP9\\profile",
+  "cleanup": true,
+  "asar": "689656002d07550c1b3fe86db6b8a0adf344f5fa30d31be99c4842714ad5c21e",
+  "main": {
+    "pid": 35384,
+    "startedAt": "639294010787159081",
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe"
+  },
+  "error": "electronApplication.evaluate: TypeError: clipboard.availableFormats is not a function\n    at run (eval at evaluate (:370:30), <anonymous>:1:266)\n    at eval (eval at evaluate (:370:30), <anonymous>:1:313)\n    at UtilityScript.evaluate (<anonymous>:372:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\.working\\files28-clipboard-diagnostic.mjs:12:23",
+  "closure": {
+    "main": {
+      "pid": 35384,
+      "startedAt": "639294010787159081",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe"
+    },
+    "wrapperPid": 50596,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-04T14:58:00.645Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  }
+}

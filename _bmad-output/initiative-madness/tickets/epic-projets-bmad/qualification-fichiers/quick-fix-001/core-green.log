@@ -1,0 +1,130 @@
+✔ F1/F2 original grant yields exact inert text; clone has no authority (1.7296ms)
+✔ F3/F4 stale reference refuses effects and retains historical text (0.4096ms)
+✔ F5/F6 strict VSCode URI and observable independent copy (0.7038ms)
+✔ F7/F9 late read after shutdown never promotes content (2.9528ms)
+✔ F1 mutated original producer cannot receive a grant after validation awaits (0.1364ms)
+✔ F6 delayed clipboard readback cannot confirm an invalidated grant (0.5484ms)
+✔ F5 rejected editor and absent editor remain distinct; copy still succeeds (0.4941ms)
+✔ F7 BUSY and STOP remain explicit without an automatic replay (0.9823ms)
+✔ F9 shutdown detaches unresolved editor handoff and does not replay after close (0.6287ms)
+✔ F8 native wait predicate is synchronous, rejects missing/pending and returns actual revision (0.2019ms)
+✔ F1 file-only grant capacity is explicit without failing the independent producer (15.917ms)
+✔ F6 post-write BUSY verification is unknown, never a known no-effect failure (0.4088ms)
+✖ Q1 copy refuses file replaced during delayed context lookup before any effect (2.4227ms)
+✖ Q1 copy refuses ancestor replaced during delayed context lookup before any effect (0.8274ms)
+✖ Q1 editor refuses file replaced during delayed context lookup before any effect (0.7941ms)
+✖ Q1 editor refuses ancestor replaced during delayed context lookup before any effect (0.5475ms)
+✖ Q2 editor deadline stays explicitly unknown while rejection and absence remain distinct (1.1126ms)
+✖ Q2 a dispatched editor with uncertain final verification says unknown rather than failure (0.374ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 12
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 211.3942
+
+✖ failing tests:
+
+test at tests\project-files.test.mjs:23:81
+✖ Q1 copy refuses file replaced during delayed context lookup before any effect (2.4227ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/project-files.test.mjs:23:909)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\project-files.test.mjs:23:81
+✖ Q1 copy refuses ancestor replaced during delayed context lookup before any effect (0.8274ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/project-files.test.mjs:23:909)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\project-files.test.mjs:23:81
+✖ Q1 editor refuses file replaced during delayed context lookup before any effect (0.7941ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/project-files.test.mjs:23:909)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\project-files.test.mjs:23:81
+✖ Q1 editor refuses ancestor replaced during delayed context lookup before any effect (0.5475ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/project-files.test.mjs:23:909)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\project-files.test.mjs:24:1
+✖ Q2 editor deadline stays explicitly unknown while rejection and absence remain distinct (1.1126ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /inconnu/. Input:
+  
+  'Demande d’ouverture échouée — vous pouvez copier le chemin.'
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/project-files.test.mjs:24:547)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Demande d’ouverture échouée — vous pouvez copier le chemin.',
+    expected: /inconnu/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\project-files.test.mjs:25:1
+✖ Q2 a dispatched editor with uncertain final verification says unknown rather than failure (0.374ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /inconnu/. Input:
+  
+  'Une activité possède déjà les outils locaux. Réessayez après sa fin.'
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/project-files.test.mjs:25:524)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Une activité possède déjà les outils locaux. Réessayez après sa fin.',
+    expected: /inconnu/,
+    operator: 'match',
+    diff: 'simple'
+  }

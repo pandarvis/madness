@@ -1,0 +1,25 @@
+.file-preview { color:var(--text); background:var(--panel); padding:0; border:0; border-top:3px solid var(--atelier-edge); min-width:0; border-radius:0; }
+.file-preview.is-docked[open] { display:flex; flex-direction:column; position:relative; flex:0 0 318px; width:318px; height:100%; max-height:none; max-width:none; margin:0; border-left:1px solid var(--line); }
+.file-preview.is-modal[open] { display:flex; flex-direction:column; position:fixed; inset:16px 16px 16px auto; width:min(340px,calc(100vw - 32px)); height:calc(100dvh - 32px); max-height:none; max-width:none; margin:0; box-shadow:-12px 0 36px var(--panel-shadow); }
+.file-preview.is-expanded[open] { inset:16px; width:auto; max-width:1000px; margin-inline:auto; }
+.file-preview::backdrop { background:var(--backdrop); }
+.file-preview-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px; border-bottom:1px solid var(--line); flex:none; }
+.file-preview-heading h2 { margin:0; font-size:25px; }
+.file-preview-heading button { min-width:40px; min-height:40px; flex:none; }
+.file-preview-body { overflow:auto; min-height:0; padding:12px; scrollbar-color:var(--control-line) var(--panel); }
+.file-preview-body h3 { margin:0 0 6px; font-size:20px; line-height:1.2; overflow-wrap:anywhere; }
+.file-preview-facts { margin-block:12px; font-size:14px; }
+.file-preview-facts dt { display:inline; color:var(--muted); margin:0; font-size:14px; line-height:1.4; }
+.file-preview-facts dt::after { content:" : "; }
+.file-preview-facts dd { display:inline; margin:0; font-size:14px; line-height:1.4; overflow-wrap:anywhere; user-select:text; }
+.file-preview-facts dd::after { content:""; display:block; height:4px; }
+.file-preview-actions { display:flex; flex-wrap:wrap; gap:8px; }
+.file-preview .file-preview-actions button { flex:0 1 auto; width:auto; min-height:40px; margin:0; padding:6px 8px; font-size:17px; }
+.file-preview-content { margin-top:12px; }
+.file-preview-content pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:14px; line-height:1.65; margin:0; user-select:text; }
+.file-preview-freshness { margin:6px 0 10px; font-size:14px; line-height:1.4; color:var(--muted); }
+.file-preview-notice { margin:8px 0; font-size:14px; line-height:1.4; }
+.file-preview-notice:empty { margin:0; }
+.file-preview-trigger { margin-block:6px; }
+@media (max-width:720px) { .file-preview.is-modal[open] { inset:8px; width:auto; height:calc(100dvh - 16px); } }
+@media (forced-colors:active) { .file-preview { border:1px solid CanvasText; } }

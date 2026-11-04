@@ -15,7 +15,7 @@ import tomllib
 import unicodedata
 from bisect import bisect_right
 from tomllib import _parser as toml_parser
-import capture
+import capture,files
 
 MAX_FILES = 512
 MAX_ENTRIES = 4096
@@ -128,6 +128,7 @@ def collect(req, context):
     sources, declarations, excerpts, problems = [], [], [], []
     readings, inventories, missing, refused = [], [], [], []
     source_cache = {}
+    file_grants = []
     total = 0
     entries = 0
 
@@ -159,7 +160,9 @@ def collect(req, context):
         try:
             before = path.lstat()
             stamp = [*capture.identity(before), before.st_size, before.st_mtime_ns, before.st_ctime_ns]
+            physical = {'sourceId':'pending','path':str(path),'chain':capture.inspect_chain(path),'stamp':stamp}
             raw = capture.read_safe(path)
+            physical.update(sha256=capture.sha(raw),bytes=len(raw))
             if total + len(raw) > MAX_BYTES:raise ValueError('TOTAL_BYTE_LIMIT')
             text = raw.decode('utf-8', errors='strict')
         except (OSError, ValueError) as error:
@@ -172,6 +175,7 @@ def collect(req, context):
         relative = path.relative_to(initiative).as_posix()
         source_id = 'source-'+capture.sha((context['rootIdentity']+'\n'+req['initiativeId']+'\n'+relative).encode('utf-8'))
         item = {'id': source_id, 'kind': kind, 'path': capture.display_path(path), 'relativePath': relative, 'sha256': capture.sha(raw), 'bytes': len(raw), 'modifiedAt': datetime.datetime.fromtimestamp(before.st_mtime, datetime.timezone.utc).isoformat()}
+        physical['sourceId'] = source_id;file_grants.append(physical)
         sources.append(item);readings.append((path, stamp, item['sha256']))
         source_cache[path] = item, text
         return item, text
@@ -379,4 +383,6 @@ def collect(req, context):
         if [*capture.identity(info), info.st_size, info.st_mtime_ns, info.st_ctime_ns] != stamp:raise ValueError('PROGRESS_REFUSAL_CHANGED: '+capture.display_path(path))
     if capture.inspect_chain(project) != root_chain or capture.inspect_chain(initiative) != initiative_chain:raise ValueError('PROGRESS_ROOT_CHANGED')
     state = {'sources': sources, 'declarations': declarations, 'excerpts': excerpts, 'problems': problems, 'inventories': [(capture.display_path(p), i, n) for p, i, n in inventories], 'fileIdentities': [(capture.display_path(p), stamp) for p, stamp, _ in readings]}
-    return {'_observationHints':hints,'rootIdentity': context['rootIdentity'], 'initiativeId': req['initiativeId'], 'initiativePath': capture.display_path(initiative), 'contextRevision': context['revision'], 'revision': capture.sha(json.dumps(state, sort_keys=True, ensure_ascii=False).encode('utf-8')), 'coverage': 'partial' if problems else 'complete', 'sources': sources, 'declarations': declarations, 'excerpts': excerpts, 'problems': problems}
+    revision = capture.sha(json.dumps(state, sort_keys=True, ensure_ascii=False).encode('utf-8'))
+    file_grant=files.grant(req['folder'], project, 'progress', revision, file_grants, req['initiativeId'])
+    return {'_fileGrant':file_grant,'_observationHints':hints,'rootIdentity': context['rootIdentity'], 'initiativeId': req['initiativeId'], 'initiativePath': capture.display_path(initiative), 'contextRevision': context['revision'], 'revision': revision, 'coverage': 'partial' if problems else 'complete', 'sources': sources, 'declarations': declarations, 'excerpts': excerpts, 'problems': problems}

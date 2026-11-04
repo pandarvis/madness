@@ -1,0 +1,61 @@
+{
+  "at": "2026-11-04T15:04:09.348099+00:00",
+  "fixes": {
+    "Q1": "Awaited context lookups now precede the physical verification immediately guarding copy/editor effects and final receipts; synchronous active/admission guards remain. Four delayed lookup + file/ancestor replacement regressions prove zero effects.",
+    "Q2": "Deadline/uncertain editor handoffs say explicitly unknown; known rejection and unavailable integration remain distinct.",
+    "Q3": "Preview, latest editor outcome and latest copy outcome render independently; preview refusal cannot hide unknown/failure or confirmed copy.",
+    "Q4": "Default return uses a focusable heading, and ProjectResume title is programmatically focusable; invalidation removing its trigger returns focus to that exact title."
+  },
+  "changedInputs": {
+    "src/core/project-files.ts": {
+      "beforeSha256": "301186634b9806f8521f8dbce6ac61fb7f9878346f62ed1596b7ea1b2f6f3521",
+      "afterSha256": "d07eecee0b67ee41d670d9b88d4df4fae3e0be9c43fe063c9d3f881db208b419",
+      "bytes": 12385
+    },
+    "src/renderer/src/FilePreview.tsx": {
+      "beforeSha256": "9e7d5b151fbbbead8fe6dab706849efc88df8495e9553929d812cae693f1590f",
+      "afterSha256": "68fe036a2b3e1fd0318199570e8fb06f023b792f5096c08f0395fa86e50f4d7e",
+      "bytes": 9120
+    },
+    "src/renderer/src/ProjectResume.tsx": {
+      "beforeSha256": "fbe0b489eb3d56a8afb1ea1c8cac65fb37a4f433b9f7b6ce2e8f087570ae6c02",
+      "afterSha256": "b347250260812825edb7ac0af8c62b0e07203b2e8a70c01c3e841e088acbd91d",
+      "bytes": 13760
+    },
+    "tests/project-files.test.mjs": {
+      "beforeSha256": "6690ca8fe949b909868cfc7caa1ddbbbbfcfb00ecd113f8fa2013214ed881b7e",
+      "afterSha256": "131e5da39d7d4814e2d66de63625e9676b55054322d9d78c5a1ce4a06b6d01b6",
+      "bytes": 9547
+    },
+    "tests/connection-ui.test.mjs": {
+      "beforeSha256": "951feaa00977c60e47a992d69c881731cb74a054dfa3d002b8fa149d876700c4",
+      "afterSha256": "70cf8d0704989a2c1a3da13c9a57432267bb24a49be07d84ab023585d5b6aaa8",
+      "bytes": 198463
+    }
+  },
+  "sealedInputsStillExact": true,
+  "verification": {
+    "core": {
+      "tests": 18,
+      "pass": 18,
+      "skip": 0,
+      "log": "core-green-002.log",
+      "command": "node --experimental-strip-types --test tests/project-files.test.mjs"
+    },
+    "ui": {
+      "tests": 7,
+      "pass": 7,
+      "skip": 0,
+      "durationMs": 23231.4319,
+      "log": "ui-green.log",
+      "command": "node --experimental-strip-types --test --test-name-pattern='fichiers:' tests/connection-ui.test.mjs"
+    }
+  },
+  "redHistory": {
+    "core-red.log": "Six deterministic Q1/Q2 regressions fail on original core.",
+    "ui-red.log": "Q3 hidden receipt and Q4 vanished-trigger fallback both fail on original product.",
+    "core-green.log": "Despite its filename, this is not green: first patch script stopped at EOL-sensitive assertion before writing; old core still fails six cases. Preserved; only core-green-002 is final."
+  },
+  "scopeLimits": "Only tests covering edited files were run. No wider/full verification, typecheck, native run, Main bank, resource/pin change, build, installation, screenshot or detector. Parent owns full verification.",
+  "ownedFixtures": "UI final log confirms no remaining owned Main/descendants before cleanup."
+}

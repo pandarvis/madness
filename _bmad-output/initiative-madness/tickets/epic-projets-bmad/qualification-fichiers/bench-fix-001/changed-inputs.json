@@ -1,0 +1,74 @@
+{
+  "createdAt": "2026-11-04T14:06:20.040426+00:00",
+  "beforeAuthority": "parent-source-001/producer (read-only; historical capsule untouched)",
+  "afterAuthority": "bench-fix-001/producer",
+  "changedInputs": [
+    {
+      "path": "scripts/qualification/project-files.mjs",
+      "beforeExists": true,
+      "beforeSha256": "359e72a791d2794b70f415a6bd5373794f60721ebba213d7a7268b7a0c63d9cf",
+      "afterSha256": "213167178712129599ce546547e73df0cd74ceee21a4371984744d7de0d1d32e",
+      "bytes": 16808,
+      "scope": "qualification only"
+    },
+    {
+      "path": "scripts/qualification/project-files-report.mjs",
+      "beforeExists": false,
+      "beforeSha256": null,
+      "afterSha256": "58577534bffe51d1117ed7fb70682680b17128d6b4a93cf3b9fc94043305cc9d",
+      "bytes": 2032,
+      "scope": "qualification only"
+    },
+    {
+      "path": "scripts/qualification/project-files-wait.mjs",
+      "beforeExists": true,
+      "beforeSha256": "56ba7889b8a8d7f40f1c4d5421f6ae5f5f868853191e401cbf0c03f415ec6da2",
+      "afterSha256": "2e9d1b6e9adcc3444e24f8b4c30bc20950cecc08ba366bbfd25afa53dcce4821",
+      "bytes": 1952,
+      "scope": "qualification only"
+    },
+    {
+      "path": "tests/project-files-report.test.mjs",
+      "beforeExists": false,
+      "beforeSha256": null,
+      "afterSha256": "2dcdecbac4554badd88f31c10cc95fbfad1d1e323eb5576479afd14807d94f2d",
+      "bytes": 5441,
+      "scope": "qualification only"
+    },
+    {
+      "path": "tests/connection-ui.test.mjs",
+      "beforeExists": true,
+      "beforeSha256": "3bc8241bfb2d6cdf62fe766a02e6693b7e02ecfbd3e47d2b220e2768d67158a4",
+      "afterSha256": "f40425d51590ee3deaab01b907d05277fcbd3e559e88b7d85d698e0313d8fec6",
+      "bytes": 192106,
+      "scope": "qualification only"
+    },
+    {
+      "path": "src/renderer/src/FilePreview.tsx",
+      "beforeExists": true,
+      "beforeSha256": "86bf73245146861bfce22b01233890094155c4f512eb849ddfef467b05bccf54",
+      "afterSha256": "a06555b512be1cc59bd4a1da708e45f0f70cdc6f49b0e5da573b13ac8adc56ed",
+      "bytes": 8718,
+      "scope": "product UI density/readiness"
+    },
+    {
+      "path": "src/renderer/src/files.css",
+      "beforeExists": true,
+      "beforeSha256": "480d1902d3a7686aafb9fccb6b8d574d8f78e56d82fcdf7fd67e9677f149a423",
+      "afterSha256": "aaab3c8c65684def6821bbca29cffdea911fb3868bce89591c9eb33ec2a6bb6e",
+      "bytes": 2567,
+      "scope": "product UI density/readiness"
+    }
+  ],
+  "notRun": [
+    "Main bank",
+    "OS editor handoff",
+    "screenshots",
+    "detector"
+  ],
+  "retainedHistoricalRun": "main-001 remains partial, no reconstructed verification.json",
+  "productScope": [
+    "src/renderer/src/FilePreview.tsx",
+    "src/renderer/src/files.css"
+  ]
+}

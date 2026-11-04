@@ -1,0 +1,52 @@
+{
+  "at": "2026-11-04T15:38:07.713851+00:00",
+  "nativeExecution": "not run by worker",
+  "source003AllFilesPreserved": true,
+  "source003FileCount": 66,
+  "standardBankUnchanged": true,
+  "repositorySourceDelta": {
+    "path": "tests/connection-ui.test.mjs",
+    "changedLine": 1216,
+    "beforeSha256": "70cf8d0704989a2c1a3da13c9a57432267bb24a49be07d84ab023585d5b6aaa8",
+    "afterSha256": "45f7a76f1fe236a2f1994f960699b61d8916a9f5eaf644dc4e1a485ed07a77d8"
+  },
+  "diagnosticVariant": {
+    "entry": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-004-read-diagnostic/diagnostic-entry.mjs",
+    "sha256": "8a9bc45720f7a53ee9de0eea49248545474ec5b68bfbdc9e0e495a93490e0a74",
+    "inputMetadataSha256": "4c00dc1e648da843c8377f5d5e131a2a981786c3b75d51dd714a4f214682f3c9",
+    "producerInputs": 59,
+    "allInputSnapshotsMatch": true,
+    "knownClipboardNegativeAssertionPreserved": true,
+    "physicalLifecycleTailIdenticalTo003": true,
+    "overallPartialPreserved": true,
+    "osEditorForbidden": true,
+    "captureCallsOnly": [
+      "overlay-light",
+      "zoom200-dark"
+    ]
+  },
+  "uiGeometry": {
+    "tests": 1,
+    "pass": 1,
+    "skip": 0,
+    "log": "ui-geometry.log",
+    "actualStates": [
+      {
+        "theme": "light",
+        "width": 720,
+        "height": 820,
+        "modal": true
+      },
+      {
+        "theme": "dark",
+        "width": 720,
+        "height": 460,
+        "modal": true
+      }
+    ],
+    "interactionScope": "Programmatic DOM.click on actual App theme handler beneath open modal. State/theming coverage; no physical pointer accessibility claim."
+  },
+  "commandForParent": "node --experimental-strip-types '_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-004-read-diagnostic/diagnostic-entry.mjs' --executable='C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe' --output='_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-004-read-diagnostic' --screenshots",
+  "expectedExit": "1 with status partial even if independent checks complete; no clipboard-positive success claimed",
+  "noNativeAppProviderBuildScreenshotsOrDetectorByWorker": true
+}

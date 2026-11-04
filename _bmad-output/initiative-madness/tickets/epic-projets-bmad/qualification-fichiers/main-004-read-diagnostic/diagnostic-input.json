@@ -1,0 +1,364 @@
+{
+  "at": "2026-11-04T15:35:45.717374+00:00",
+  "entry": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-004-read-diagnostic/diagnostic-entry.mjs",
+  "sha256": "8a9bc45720f7a53ee9de0eea49248545474ec5b68bfbdc9e0e495a93490e0a74",
+  "copiedFrom": {
+    "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/diagnostic-entry.mjs",
+    "sha256": "b46ae22173196b4ff91d6b48f74cb0f0249d9850ff1c3f6d45dd8dce835a81e3",
+    "preserved": true
+  },
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe",
+    "executableSha256": "bf0df2da3179fbb0bd8828fef1374f575c11c393eb99e480c459acc15095dbb2",
+    "asarSha256": "b723a0f9a3035a51fd0974071d757d53eb459fa5cf814708f55c8b2ed605331a"
+  },
+  "standardBank": {
+    "path": "scripts/qualification/project-files.mjs",
+    "sha256": "213167178712129599ce546547e73df0cd74ceee21a4371984744d7de0d1d32e",
+    "modified": false,
+    "hasDirectSetThemeCall": false
+  },
+  "scope": "Separate DIAGNOSTIC004. Actual App-handler theme correction only; known clipboard-negative assertion, overall partial and all independent physical/lifecycle assertions retained. OS editor forbidden.",
+  "visualContinuation": {
+    "kind": "continuation of final batch2 after instrumentation failure; no polish or product changes",
+    "priorRun": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic",
+    "priorReportSha256": "de22e189bf54d5f73dc2af72178e2315ae283d262da7042c88841f1e7df27a65",
+    "validFramesNotRecaptured": [
+      {
+        "name": "dock-dark",
+        "file": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/dock-dark.png",
+        "sha256": "bfffb62d1278df0cabde730a362c8b841dde0f1ea9fa03e22ee0fb94c1820930",
+        "metrics": {
+          "width": 1440,
+          "height": 920,
+          "theme": "dark",
+          "modal": false,
+          "scrollWidth": 1440
+        }
+      },
+      {
+        "name": "expanded-dark",
+        "file": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/expanded-dark.png",
+        "sha256": "f69a7257ad5b060a5f4c62bb2ba12c08cde9c2a6e7c14a7d8adf64099d37b3fc",
+        "metrics": {
+          "width": 1440,
+          "height": 920,
+          "theme": "dark",
+          "modal": true,
+          "scrollWidth": 1440
+        }
+      }
+    ],
+    "plannedFrames": [
+      "overlay-light",
+      "zoom200-dark"
+    ]
+  },
+  "producerInputs": {
+    "scripts/qualification/project-files-report.mjs": {
+      "sha256": "58577534bffe51d1117ed7fb70682680b17128d6b4a93cf3b9fc94043305cc9d",
+      "bytes": 2032,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/scripts/qualification/project-files-report.mjs"
+    },
+    "tests/project-files-report.test.mjs": {
+      "sha256": "2dcdecbac4554badd88f31c10cc95fbfad1d1e323eb5576479afd14807d94f2d",
+      "bytes": 5441,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/tests/project-files-report.test.mjs"
+    },
+    "scripts/qualification/project-files.mjs": {
+      "sha256": "213167178712129599ce546547e73df0cd74ceee21a4371984744d7de0d1d32e",
+      "bytes": 16808,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/scripts/qualification/project-files.mjs"
+    },
+    "scripts/qualification/project-files-wait.mjs": {
+      "sha256": "2e9d1b6e9adcc3444e24f8b4c30bc20950cecc08ba366bbfd25afa53dcce4821",
+      "bytes": 1952,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/scripts/qualification/project-files-wait.mjs"
+    },
+    "scripts/qualification/workspace-design.mjs": {
+      "sha256": "f8188789cc7d10796cbf25256b6d3bf182e3491b994ab55032408b132fc4f805",
+      "bytes": 55515,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/scripts/qualification/workspace-design.mjs"
+    },
+    "src/core/project-files.ts": {
+      "sha256": "d07eecee0b67ee41d670d9b88d4df4fae3e0be9c43fe063c9d3f881db208b419",
+      "bytes": 12385,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/core/project-files.ts"
+    },
+    "src/contracts/project-files.ts": {
+      "sha256": "3c676867201813393700b588eb6d5fa64d633971788f50ba96f169b155285493",
+      "bytes": 4513,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/contracts/project-files.ts"
+    },
+    "src/core/bmad-progress.ts": {
+      "sha256": "4a94fe23bc23800d3768a9b53f98228bcad71be68aa26bb0794f82501359f332",
+      "bytes": 11069,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/core/bmad-progress.ts"
+    },
+    "src/core/bmad-catalog.ts": {
+      "sha256": "dccee3ecee588c09cbaf20ae437fbd0a3db4056952aad4c0513b110209692686",
+      "bytes": 10005,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/core/bmad-catalog.ts"
+    },
+    "src/adapters/bmad/help.ts": {
+      "sha256": "1b3330fef15426d3b1268e7c4bb43b0e0c3ef3a649629d206fa531acba88e084",
+      "bytes": 19068,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/adapters/bmad/help.ts"
+    },
+    "src/adapters/bmad/help-manifest.ts": {
+      "sha256": "e666c22fe9b3c0ac5ebbae39bcb1f4b63a98fcf5abe8ff00238fb4c203a0cb2d",
+      "bytes": 1425,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/adapters/bmad/help-manifest.ts"
+    },
+    "src/adapters/bmad/change-observer.ts": {
+      "sha256": "46d5ceb4dfda2e5bd2084754ad746d1a82ef3beb0ff57c4fa29aaa2d8ce8ba62",
+      "bytes": 7934,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/adapters/bmad/change-observer.ts"
+    },
+    "src/main/index.ts": {
+      "sha256": "8ad50b5e5415058b1345f53815c70ef1e2ff1a0412e134d2b7acea8aa87d4614",
+      "bytes": 25970,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/main/index.ts"
+    },
+    "src/preload/index.ts": {
+      "sha256": "503131f40951c1cae8a743cf7dfa97a6534165d320f1df31247c5ba8ddbca7e8",
+      "bytes": 13341,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/preload/index.ts"
+    },
+    "src/renderer/src/App.tsx": {
+      "sha256": "ba16154dd6cb28f92825013d69ece3454bf0e3b0eecdd95f7cd7096f26bf01b3",
+      "bytes": 74584,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/renderer/src/App.tsx"
+    },
+    "src/renderer/src/FilePreview.tsx": {
+      "sha256": "68fe036a2b3e1fd0318199570e8fb06f023b792f5096c08f0395fa86e50f4d7e",
+      "bytes": 9120,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/renderer/src/FilePreview.tsx"
+    },
+    "src/renderer/src/files.css": {
+      "sha256": "aaab3c8c65684def6821bbca29cffdea911fb3868bce89591c9eb33ec2a6bb6e",
+      "bytes": 2567,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/renderer/src/files.css"
+    },
+    "src/renderer/src/file-strings.ts": {
+      "sha256": "5404f3394c451a04b28ef1ff8a8e5b3d58e58bd1a04be3b24ac44d44bfa831c5",
+      "bytes": 1473,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/renderer/src/file-strings.ts"
+    },
+    "src/renderer/src/ProjectResume.tsx": {
+      "sha256": "b347250260812825edb7ac0af8c62b0e07203b2e8a70c01c3e841e088acbd91d",
+      "bytes": 13760,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/renderer/src/ProjectResume.tsx"
+    },
+    "src/renderer/src/CatalogPanel.tsx": {
+      "sha256": "aad9439eef38831c2798cd3d65ee34be931cd38bff7c8f2f45b97d93db995041",
+      "bytes": 11378,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/src/renderer/src/CatalogPanel.tsx"
+    },
+    "package.json": {
+      "sha256": "6707c87ce51e55eacb33bf1163988c1799bcc32ec8d0627de57897d40fbc41b5",
+      "bytes": 1224,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/package.json"
+    },
+    "package-lock.json": {
+      "sha256": "7598fe51b2e2d94421ad12aa416822247c6f64857b79e62a80566fdd04385a8f",
+      "bytes": 186728,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/package-lock.json"
+    },
+    "resources/bmad-help/files.py": {
+      "sha256": "46769032c6bc463f9dad044d6ad708d785b139a787f5ed997683ffd7f5e72ed4",
+      "bytes": 4612,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/files.py"
+    },
+    "resources/bmad-help/catalog.py": {
+      "sha256": "30f1aab3a7a81f08f8c104653be7fd2f601e73a2d5b11729a1a11b18260770c7",
+      "bytes": 14617,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/catalog.py"
+    },
+    "resources/bmad-help/bmad-help.md": {
+      "sha256": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+      "bytes": 2120,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/bmad-help.md"
+    },
+    "resources/bmad-help/bmad-SKILL.md": {
+      "sha256": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+      "bytes": 2524,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/bmad-SKILL.md"
+    },
+    "resources/bmad-help/bootstrap.py": {
+      "sha256": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+      "bytes": 2728,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/bootstrap.py"
+    },
+    "resources/bmad-help/capture.py": {
+      "sha256": "ea6965f0578b223fda14f5d38f5c09d7cf2ea94b8d0dc275493e5acbf42ced54",
+      "bytes": 10867,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/capture.py"
+    },
+    "resources/bmad-help/config_utils.py": {
+      "sha256": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+      "bytes": 4212,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/config_utils.py"
+    },
+    "resources/bmad-help/knowledge.py": {
+      "sha256": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+      "bytes": 19356,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/knowledge.py"
+    },
+    "resources/bmad-help/launcher.ps1": {
+      "sha256": "a4722f06adad45b8939cf80b7c58e6d277bf1a5434ab2be6725436eb5fa9b356",
+      "bytes": 4910,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/launcher.ps1"
+    },
+    "resources/bmad-help/preflight.ps1": {
+      "sha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "bytes": 8728,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/preflight.ps1"
+    },
+    "resources/bmad-help/resolve_config.py": {
+      "sha256": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+      "bytes": 2459,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/resolve_config.py"
+    },
+    "resources/bmad-help/runtime_guard.py": {
+      "sha256": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+      "bytes": 15890,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/runtime_guard.py"
+    },
+    "resources/bmad-help/runtime.json": {
+      "sha256": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+      "bytes": 100459,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/runtime.json"
+    },
+    "resources/bmad-help/supervision.ps1": {
+      "sha256": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+      "bytes": 14507,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/supervision.ps1"
+    },
+    "resources/bmad-help/worker.py": {
+      "sha256": "7429e4c4521cd9dcea658b08344906e582ce6ebda90595ab190a5534a72bf72b",
+      "bytes": 26837,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/worker.py"
+    },
+    "resources/bmad-help/progress.py": {
+      "sha256": "8f961776a7ace94d7b5a69d61dcf525c37731bdb7c560000608e38bd82149465",
+      "bytes": 23625,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/resources/bmad-help/progress.py"
+    },
+    "out/main/index.js": {
+      "sha256": "fc0c6ac7911c49157cfd49d7d98ba3fd67c4ecb14e1e00b464f61b26252ee1c8",
+      "bytes": 405026,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/main/index.js"
+    },
+    "out/preload/index.js": {
+      "sha256": "c4e071c1aee87c18f0cf3091bd874439560901134e5e8c792a78579a1f44f542",
+      "bytes": 58519,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/preload/index.js"
+    },
+    "out/renderer/assets/amelia-bust-BhMfUzyU.png": {
+      "sha256": "79e08e75593f756c4714f1cbb8d7acfb3f75596c17a0d8436c2a125b2779a600",
+      "bytes": 2362202,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/amelia-bust-BhMfUzyU.png"
+    },
+    "out/renderer/assets/BarlowCondensed-Bold-v1X23fbx.ttf": {
+      "sha256": "e476562ec9c1e16cf16475895b511f08c804f438cc9a9f80a44ea50a0eeb5b65",
+      "bytes": 109912,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/BarlowCondensed-Bold-v1X23fbx.ttf"
+    },
+    "out/renderer/assets/chatgpt-mark-BzeLsF5q.svg": {
+      "sha256": "88238fe3c01827061444b1732e28e0709e10f61b7941295955cb5889102264a7",
+      "bytes": 4219,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/chatgpt-mark-BzeLsF5q.svg"
+    },
+    "out/renderer/assets/chrome-plate-frame-CEUOVTY4.png": {
+      "sha256": "cee7d64112d445b0f3ef3a666bc6f7d9e7c7edfc6c63135fed40823d63e0f9ad",
+      "bytes": 357118,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/chrome-plate-frame-CEUOVTY4.png"
+    },
+    "out/renderer/assets/index-B6P9mSF2.css": {
+      "sha256": "e6f36dc7a8a4769bef4a07c6c3933abef0ef66787f14f0234fdbf0bace897fbb",
+      "bytes": 84264,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/index-B6P9mSF2.css"
+    },
+    "out/renderer/assets/index-Cukfbeae.js": {
+      "sha256": "9205952e018fef91d303e73e0a9d88e62472b621c4b139cf2a706156b39fc5b3",
+      "bytes": 855625,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/index-Cukfbeae.js"
+    },
+    "out/renderer/assets/john-bust-BFR8uFSt.png": {
+      "sha256": "04d5fb86a4cf814ac260dae3ca44ab8508ef174ab4cce28bbd13457484a78b87",
+      "bytes": 2473860,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/john-bust-BFR8uFSt.png"
+    },
+    "out/renderer/assets/madness-64-CLfbpCIt.png": {
+      "sha256": "cfcb8389875b74f2e6ddc1d0a14d46a765c2bb7895247c6580dc7f40f4e2b5bb",
+      "bytes": 6601,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/madness-64-CLfbpCIt.png"
+    },
+    "out/renderer/assets/mary-bust-MARKPnXB.png": {
+      "sha256": "c157bb6a0d7f5a423c2e84e627776af4650bdbce7bace92d3992a4de0bc52360",
+      "bytes": 2367076,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/mary-bust-MARKPnXB.png"
+    },
+    "out/renderer/assets/Oxanium-Variable-Cxng1r8B.ttf": {
+      "sha256": "2ce01d946e1e1ffc8d7eecfffbda8623bedd63eaf811a20488c4b69af45babb0",
+      "bytes": 43536,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/Oxanium-Variable-Cxng1r8B.ttf"
+    },
+    "out/renderer/assets/sally-bust-V3QCidDb.png": {
+      "sha256": "f6d328b6765d973bc6951fdae69ceba9e633950bcf496f7bbc991113b3995662",
+      "bytes": 2545762,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/sally-bust-V3QCidDb.png"
+    },
+    "out/renderer/assets/smithy-bust-5fAwEfcm.png": {
+      "sha256": "ac69746654a76fbfca5bcf486acffff685fff06114acb5c33807dc1ada66da25",
+      "bytes": 2732553,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/smithy-bust-5fAwEfcm.png"
+    },
+    "out/renderer/assets/sofia-bust-BfDgrm10.png": {
+      "sha256": "658dae6271a2dd378b2c1e814f335aa930451856a5296b8858dfc5091a2435a5",
+      "bytes": 2238535,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/sofia-bust-BfDgrm10.png"
+    },
+    "out/renderer/assets/winston-bust-CX7w_Rgd.png": {
+      "sha256": "a65c87f53c895cd4e7240d86ef22a9807d4adaad6a6f194d84a689157ee33d7d",
+      "bytes": 2391038,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/winston-bust-CX7w_Rgd.png"
+    },
+    "out/renderer/assets/workshop-header-CzuHm831.png": {
+      "sha256": "37c06960a882d14504853a93b2025dd32edf58a958a0c4e80c1bb90905925472",
+      "bytes": 2173584,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/workshop-header-CzuHm831.png"
+    },
+    "out/renderer/assets/workshop-sidebar-BKMFHWB8.png": {
+      "sha256": "4d4ba515ef3be958d7f034815586c4a1709242f6c4ae1de6fc2b52bbcbd45b38",
+      "bytes": 2210435,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/assets/workshop-sidebar-BKMFHWB8.png"
+    },
+    "out/renderer/index.html": {
+      "sha256": "d3f2dab41a8ff277edf760f005a3bc5056b6522e4cce9f36691a26692c00aba7",
+      "bytes": 454,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/producer/out/renderer/index.html"
+    },
+    "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-004-read-diagnostic/diagnostic-entry.mjs": {
+      "sha256": "8a9bc45720f7a53ee9de0eea49248545474ec5b68bfbdc9e0e495a93490e0a74",
+      "bytes": 21244,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-004-read-diagnostic/inputs/diagnostic-entry.mjs"
+    },
+    "tests/connection-ui.test.mjs": {
+      "sha256": "45f7a76f1fe236a2f1994f960699b61d8916a9f5eaf644dc4e1a485ed07a77d8",
+      "bytes": 199427,
+      "capturedInput": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-004-read-diagnostic/inputs/tests/connection-ui.test.mjs"
+    }
+  },
+  "uiFixtureCorrection": {
+    "path": "tests/connection-ui.test.mjs",
+    "beforeSha256": "70cf8d0704989a2c1a3da13c9a57432267bb24a49be07d84ab023585d5b6aaa8",
+    "afterSha256": "45f7a76f1fe236a2f1994f960699b61d8916a9f5eaf644dc4e1a485ed07a77d8",
+    "scope": "Only files source-invalidation geometry theme handling and actual dataset/viewport/modal assertions; programmatic App handler DOM.click is state coverage."
+  },
+  "commandForParent": "node --experimental-strip-types '_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-004-read-diagnostic/diagnostic-entry.mjs' --executable='C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe' --output='_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-004-read-diagnostic' --screenshots",
+  "expectedExit": "1 with status partial even if independent checks complete; no clipboard-positive success claimed",
+  "nativeExecution": "NOT RUN by worker",
+  "noProviderBuildDetectorOrNewCapturesByWorker": true
+}

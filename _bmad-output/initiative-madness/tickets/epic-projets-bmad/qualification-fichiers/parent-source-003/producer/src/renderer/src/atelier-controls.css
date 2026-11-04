@@ -1,0 +1,187 @@
+/* One readable, inked control language across the entire workshop. */
+@font-face { font-family: 'Oxanium'; src: url('./assets/atelier/Oxanium-Variable.ttf') format('truetype'); font-style: normal; font-weight: 200 800; font-display: swap }
+:root { font-family: 'Oxanium','Segoe UI',sans-serif; font-weight: 450; font-size: 16px }
+p, li, dd, dt, label, legend { font-size: 16px; line-height: 1.6 }
+code { font-size: 14px }
+h1 { font-size: 36px }
+h2 { font-size: 28px }
+h3 { font-family: 'Barlow Condensed','Segoe UI',sans-serif; font-size: 22px; font-weight: 700 }
+button:not(.agent-portrait-trigger) { font-family: 'Barlow Condensed','Segoe UI',sans-serif; font-size: 19px; font-weight: 700; line-height: 1.2; letter-spacing: .015em }
+button:disabled, button[aria-disabled='true'] { opacity: 1 }
+.main-inner { max-width: none; width: 100%; padding-inline: 28px }
+.page-intro h1, .project-banner h1 { text-wrap: pretty }
+.small, .context-note, .question-context, .message-state, .message-provenance, .history-note, .turn-status, .overview-details, .recovery-details, .request-history, .sidebar-bottom, .nav-note, .status-line, .preference-note { font-size: 14px; line-height: 1.55 }
+.message-text, .composer textarea, .question-field > p, .question-field legend, .question-option strong, .approval-file h3 { font-size: 16px; line-height: 1.65 }
+.question-option small, .question-other label, .composer label, .composer-bottom p, .composer > .small, .project-info small, .project-info code { font-size: 14px }
+.agent-role-note, .agent-attention-announcement, .agent-attention p { font-size: 14px }
+.agent-info-link.text-button { font-size: 17px }
+.project-info strong { font-family: 'Barlow Condensed','Segoe UI',sans-serif; font-size: 23px; font-weight: 700 }
+.project-glyph, .project-avatar { border: 0; border-radius: 0; background: transparent; box-shadow: none; color: var(--link) }
+.project-glyph { width: 22px; height: 24px; flex: 0 0 22px }
+.project-avatar { width: 36px; height: 40px; flex: 0 0 36px }
+.project-glyph svg { width: 21px; height: 21px; stroke-width: 1.6 }
+.project-avatar svg { width: 30px; height: 30px; stroke-width: 1.5 }
+.nav-button { gap: 12px; min-height: 46px }
+.nav-button.selected { outline: none; box-shadow: none; background: var(--selected) }
+.nav-button.selected::before { width: 2px; left: -3px }
+.sidebar::before, .navigation-drawer::before, .agent-info-panel::after { border-image-width: 16px; border-image-outset: 6px }
+.composer::before { border-image-width: 12px }
+
+/* Two flat polygon layers make an inked edge; the control itself and its
+   focus outline stay rectangular and fully targetable. No clipped text. */
+:is(.primary,.secondary,.text-button,.toolbar-toggle,.codex-trigger) {
+  --control-face: var(--atelier-plate); --control-ink: var(--atelier-ink);
+  position: relative; isolation: isolate; border: 0; border-radius: 2px;
+  color: var(--text); background: transparent; box-shadow: none;
+  min-height: 44px; padding: 10px 16px; text-decoration: none;
+}
+:is(.primary,.secondary,.text-button,.toolbar-toggle,.codex-trigger)::before,
+:is(.primary,.secondary,.text-button,.toolbar-toggle,.codex-trigger)::after {
+  content: ''; position: absolute; pointer-events: none;
+  clip-path: polygon(6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+}
+:is(.primary,.secondary,.text-button,.toolbar-toggle,.codex-trigger)::before { inset: 0; z-index: -2; background: var(--control-ink) }
+:is(.primary,.secondary,.text-button,.toolbar-toggle,.codex-trigger)::after { inset: 1px; z-index: -1; background: var(--control-face); box-shadow: inset 0 1px 0 var(--control-line), inset 0 -2px 0 var(--atelier-ink) }
+.primary { --control-face: var(--accent); color: var(--accent-text) }
+.primary:hover { --control-face: var(--accent-hover); background: transparent; box-shadow: none }
+.primary:active { --control-face: var(--accent-active); background: transparent; box-shadow: none }
+.secondary:hover, .text-button:hover, .toolbar-toggle:hover, .codex-trigger:hover { --control-face: var(--hover); background: transparent; box-shadow: none }
+.secondary:active, .text-button:active { --control-face: var(--active); box-shadow: none }
+:is(.primary,.secondary,.text-button):is(:disabled,[aria-disabled='true']) { --control-face: var(--neutral); color: var(--neutral-text) }
+.text-button { color: var(--link); margin-block: 6px; padding: 9px 14px; width: fit-content; max-width: 100%; white-space: normal; text-align: start }
+.text-button::after { --control-face: var(--panel) }
+.text-button:hover::after { --control-face: var(--hover) }
+.text-button:disabled::after { --control-face: var(--neutral) }
+.project-tabs button, .main-inner:has(#panel-conversation) .project-tabs button { font-size: 21px; min-height: 44px }
+.composer-bottom button, .dialogue-actions button, .connection-actions button { font-size: 19px }
+.composer-actions { gap: 10px }
+.agent-panel-heading button, .connection-heading > button, .context-panel > div > button { padding: 0; min-height: 40px; width: 40px }
+.agent-panel-body dd { font-size: 16px }
+.agent-panel-body dt { font-size: 19px }
+.agent-panel-heading h2 { font-size: 25px }
+.agent-role { font-size: 18px }
+
+/* Windows hit testing: only the title label can drag. Neither a decorative
+   pseudo-element nor an ancestor of a command owns a draggable rectangle. */
+.topbar { app-region: no-drag; z-index: 40; box-shadow: inset 0 -1px 0 var(--atelier-ink) }
+.topbar::after { display: none }
+.topbar .breadcrumb, .topbar .topbar-actions { app-region: no-drag }
+.topbar .breadcrumb { flex: 1; min-width: 0; padding-inline-end: 0 }
+.topbar .breadcrumb > span { app-region: drag; flex: 1; min-width: 0; min-height: 40px; display: flex; align-items: center; font-size: 15px }
+.topbar button, .topbar button *, .topbar button::before, .topbar button::after { app-region: no-drag }
+.topbar .toolbar-toggle, .topbar .codex-trigger { min-height: 40px; width: 40px; padding: 9px; flex: 0 0 40px }
+.context-trigger { min-height: 40px; width: 40px; padding: 0; flex: 0 0 40px }
+.atelier-header .context-trigger { --control-face: var(--panel); color: var(--text) }
+.topbar .topbar-actions { border: 0; gap: 8px; padding-inline: 0 }
+.topbar .command-control:hover, .topbar .codex-trigger:hover { border: 0; background: transparent }
+.codex-trigger img { opacity: 1 }
+.codex-trigger[aria-expanded='true'] .connection-tooltip { display: none }
+.command-tooltip, .connection-tooltip { font-family: 'Oxanium','Segoe UI',sans-serif; font-size: 14px; font-weight: 450; letter-spacing: normal }
+.connection-scope p, .connection-network-help > p, .context-panel p { font-size: 14px }
+
+/* Preparation and provenance share the useful width instead of leaving one
+   enormous empty card. All reasons, guards and original sources stay present. */
+.help-panel { border: 0; padding-block: 12px 20px; margin-block: 12px 20px }
+.help-panel h2 { font-size: 30px }
+.help-panel h3 { font-size: 23px; margin-block: 16px 8px }
+.help-panel p, .help-panel li, .help-panel dd, .help-panel dt { font-size: 16px }
+.help-panel .small { font-size: 14px }
+.help-panel button:disabled { color: var(--neutral-text) }
+.help-panel #loaded-help { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(280px,1fr); gap: 12px 24px; align-items: start }
+.help-panel #loaded-help > h3, .help-panel #loaded-help > p, .help-panel #loaded-help > .help-summary, .help-panel #loaded-help > button { grid-column: 1 / -1 }
+.help-panel .help-preparation { margin: 0; padding: 22px; background: var(--panel); border: 1px solid var(--control-line); border-radius: 2px; box-shadow: inset 0 2px 0 var(--atelier-edge) }
+.help-panel #loaded-help > details { margin: 0; padding: 16px; border-top: 1px solid var(--atelier-edge); min-width: 0 }
+.help-panel summary { font-size: 16px; padding-block: 10px; text-underline-offset: 4px }
+.help-command { justify-content: space-between; gap: 12px }
+.help-command > code { font-size: 20px; font-weight: 600; color: var(--text) }
+.help-preparation > .primary { margin-block-start: 8px }
+.help-panel .help-feedback { font-size: 16px }
+.help-panel pre { font-size: 15px; line-height: 1.6 }
+.help-panel .help-history button { font-size: 18px }
+.help-panel dl { gap: 10px 20px }
+.help-panel #loaded-help:has(.help-preparation) { grid-template-areas: 'loaded refresh' 'preparation summary' 'return provenance' }
+.help-panel #loaded-help:has(.help-preparation) > h3 { grid-area: loaded; margin: 0; align-self: center }
+.help-panel #loaded-help:has(.help-preparation) > button:first-of-type { grid-area: refresh; justify-self: end; margin: 0 }
+.help-panel #loaded-help:has(.help-preparation) > .help-preparation { grid-area: preparation }
+.help-panel #loaded-help:has(.help-preparation) > .help-summary { grid-area: summary; margin: 0; padding: 14px 16px; border-top: 1px solid var(--atelier-edge) }
+.help-panel #loaded-help:has(.help-preparation) > details { grid-area: provenance }
+.help-panel #loaded-help:has(.help-preparation) > button:last-child { grid-area: return; justify-self: start; margin: 0 }
+@media (max-width: 1080px) {
+  .main-inner { padding-inline: 22px }
+  .help-panel #loaded-help { grid-template-columns: minmax(0,1fr) }
+  .help-panel #loaded-help:has(.help-preparation) { grid-template-areas: 'loaded' 'refresh' 'preparation' 'summary' 'provenance' 'return' }
+  .help-panel #loaded-help:has(.help-preparation) > button:first-of-type { justify-self: start }
+  .help-panel #loaded-help > details { grid-column: 1 }
+}
+@media (max-width: 720px) {
+  .main-inner { padding-inline: 16px }
+  .help-panel .help-preparation { padding: 18px }
+  .help-command { align-items: flex-start }
+  .project-tabs button, .main-inner:has(#panel-conversation) .project-tabs button { font-size: 20px }
+  .topbar .topbar-actions { gap: 4px }
+  .main-inner:has(#panel-conversation) .project-banner h1 { font-size: 25px }
+}
+
+/* Navigation stays a petrol workshop strip in either reading theme. These
+   aliases reuse the existing atelier palette; the reading field is untouched. */
+:root { --rail-surface: #20343c; --rail-face: #294652; --rail-ink: #111819; --rail-text: #f4dfc1; --rail-muted: #bcb0a8; --rail-active: #e49b7a; --rail-active-text: #231a15; --rail-focus: #9dc7e1 }
+.workshop-icon { stroke-width: 1.5; stroke-linecap: square; stroke-linejoin: miter }
+.workshop-icon .icon-face { fill: currentColor; fill-opacity: .2; stroke: none }
+.sidebar, .navigation-drawer { background: var(--rail-surface); color: var(--rail-text); border-color: var(--rail-ink) }
+.sidebar { border-right-width: 1px }
+.sidebar::before, .navigation-drawer::before { display: none }
+.sidebar .brand-label { color: var(--rail-text); text-shadow: none }
+.sidebar .brand, .navigation-drawer .drawer-heading { border-color: var(--atelier-edge) }
+.sidebar .nav-section, .sidebar .nav-note, .navigation-drawer .nav-section, .navigation-drawer .nav-note { color: var(--rail-muted) }
+.sidebar .sidebar-bottom { color: var(--rail-muted); background: transparent }
+:is(.sidebar,.navigation-drawer) .nav-button { color: var(--rail-text); min-height: 52px; padding: 8px 10px; border: 1px solid transparent }
+:is(.sidebar,.navigation-drawer) .nav-button:hover { background: var(--rail-face); border-color: var(--atelier-edge) }
+:is(.sidebar,.navigation-drawer) .nav-button.selected { color: var(--rail-active-text); background: var(--rail-active); border-color: var(--rail-ink) }
+:is(.sidebar,.navigation-drawer) .nav-button.selected:hover { background: #eeae8f }
+:is(.sidebar,.navigation-drawer) .nav-button.selected::before { background: var(--rail-active-text); left: 0; width: 2px }
+.sidebar .nav-button:focus-visible, .navigation-drawer button:focus-visible { outline: 2px solid var(--rail-focus); outline-offset: 2px; box-shadow: none }
+:is(.sidebar,.navigation-drawer) .nav-button > .workshop-icon { width: 24px; height: 24px; margin-inline: 4px }
+.project-glyph { width: 32px; height: 32px; flex: 0 0 32px }
+.project-mark { --mark-face: var(--atelier-plate); --mark-ink: var(--atelier-ink); --mark-text: var(--text); width: 100%; height: 100%; position: relative; isolation: isolate; display: grid; place-items: center; color: var(--mark-text); font: 700 18px/1 'Barlow Condensed','Oxanium',sans-serif; letter-spacing: .02em }
+.project-mark::before, .project-mark::after { content: ''; position: absolute; pointer-events: none; z-index: -1; clip-path: polygon(0 5px,5px 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%) }
+.project-mark::before { inset: 0; background: var(--mark-ink) }
+.project-mark::after { inset: 1px; background: var(--mark-face) }
+.project-mark > span { display: grid; place-items: center }
+:is(.sidebar,.navigation-drawer) .project-mark { --mark-face: var(--rail-face); --mark-ink: var(--atelier-edge); --mark-text: var(--rail-text) }
+:is(.sidebar,.navigation-drawer) .selected .project-mark { --mark-face: var(--rail-surface); --mark-ink: var(--rail-ink) }
+.rail-signature { display: none }
+.window-caption-plates { --caption-unit: calc(env(titlebar-area-height,56px) / 56); position: fixed; top: env(titlebar-area-y,0px); left: calc(env(titlebar-area-x,0px) + env(titlebar-area-width,100vw)); right: 0; height: env(titlebar-area-height,56px); display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); padding-block: calc(var(--caption-unit) * 8); background: var(--atelier-chrome); pointer-events: none; app-region: no-drag; z-index: 41 }
+.window-caption-plates > span { --caption-cut: calc(var(--caption-unit) * 6); position: relative; isolation: isolate; margin-inline: calc(var(--caption-unit) * 4); pointer-events: none; app-region: no-drag }
+.window-caption-plates > span::before, .window-caption-plates > span::after { content: ''; position: absolute; pointer-events: none; clip-path: polygon(var(--caption-cut) 0,calc(100% - var(--caption-cut)) 0,100% var(--caption-cut),100% calc(100% - var(--caption-cut)),calc(100% - var(--caption-cut)) 100%,0 100%,0 var(--caption-cut)) }
+.window-caption-plates > span::before { inset: 0; background: var(--atelier-ink) }
+.window-caption-plates > span::after { inset: var(--caption-unit); background: var(--atelier-plate) }
+.window-caption-plates > span:last-child::after { background: var(--accent-soft) }
+input:is([type='checkbox'],[type='radio']) { appearance: none; width: 20px; height: 20px; flex: 0 0 20px; margin: 0; display: inline-grid; place-content: center; border: 1px solid var(--control-line); border-radius: 2px; background: var(--panel); vertical-align: middle; cursor: pointer }
+input:is([type='checkbox'],[type='radio']):checked, input[type='checkbox']:indeterminate { border-color: var(--accent-active); background: var(--accent) }
+input[type='checkbox']::after { content: ''; width: 10px; height: 6px; border-left: 2px solid var(--accent-text); border-bottom: 2px solid var(--accent-text); transform: rotate(-45deg) translateY(-1px); opacity: 0 }
+input[type='checkbox']:checked::after { opacity: 1 }
+input[type='checkbox']:indeterminate::after { opacity: 1; height: 0; transform: none; border-left: 0 }
+input[type='radio'] { border-radius: 50% }
+input[type='radio']::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-text); opacity: 0 }
+input[type='radio']:checked::after { opacity: 1 }
+input:is([type='checkbox'],[type='radio']):focus-visible { outline: 2px solid var(--focus); outline-offset: 3px }
+input:is([type='checkbox'],[type='radio']):disabled { opacity: .65; cursor: not-allowed }
+@media (forced-colors: active) {
+  .window-caption-plates { display: none }
+  input:is([type='checkbox'],[type='radio']) { appearance: auto; background: revert; border: revert }
+  input:is([type='checkbox'],[type='radio'])::after { display: none }
+}
+@media (min-width: 721px) {
+  .nav-compact .sidebar { padding-top: 20px }
+  .nav-compact .sidebar nav { gap: 10px }
+  .nav-compact .sidebar .nav-button { min-height: 44px; height: 44px; width: 40px; padding: 0; border-color: transparent }
+  .nav-compact .sidebar .nav-button:first-child { margin-bottom: 14px }
+  .nav-compact .sidebar .nav-button > .workshop-icon { margin: 0 }
+  .nav-compact .sidebar .project-glyph { width: 30px; height: 30px; flex-basis: 30px }
+  .nav-compact .sidebar .nav-button.selected { background: var(--rail-surface); color: var(--rail-text) }
+  .nav-compact .sidebar .nav-button.selected:hover { background: var(--rail-face) }
+  .nav-compact .sidebar .nav-button.selected::before { background: var(--rail-active); left: -4px; top: 13px; bottom: 13px }
+  .nav-compact .sidebar .selected .project-mark { --mark-face: var(--rail-active); --mark-text: var(--rail-active-text) }
+  .nav-compact .sidebar .rail-signature { display: flex; justify-content: center; width: 40px; padding-block: 20px 8px; margin-top: auto; order: 2 }
+  .nav-compact:not(.tooltips-dismissed) .sidebar .nav-button:is(:hover,:focus-visible)::after { font: 450 14px/1.5 'Oxanium','Segoe UI',sans-serif; padding: 9px 12px }
+}

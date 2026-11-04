@@ -116,3 +116,13 @@ const catalogRequest=async(payload:Record<string,unknown>):Promise<BmadCatalogSt
 }
 const bmadCatalogBridge:BmadCatalogBridge={read:()=>catalogRequest({type:'read'}),collect:projectId=>catalogRequest({type:'collect',projectId}),copy:(projectId,itemId,revision)=>catalogRequest({type:'copy',projectId,itemId,revision}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isBmadCatalogState(value))listener(value)};ipcRenderer.on(BMAD_CATALOG_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(BMAD_CATALOG_EVENT_CHANNEL,receive)}}
 contextBridge.exposeInMainWorld('madnessBmadCatalog',Object.freeze(bmadCatalogBridge))
+
+import {PROJECT_FILES_COMMAND_CHANNEL,PROJECT_FILES_EVENT_CHANNEL,isProjectFilesState} from '../contracts/project-files.ts'
+import type {ProjectFilesBridge,ProjectFilesState} from '../contracts/project-files.ts'
+const filesRequest=async(payload:Record<string,unknown>):Promise<ProjectFilesState>=>{
+ const correlationId=crypto.randomUUID(),reply:unknown=await ipcRenderer.invoke(PROJECT_FILES_COMMAND_CHANNEL,{...payload,contractVersion:1,correlationId})
+ if(!reply||typeof reply!=='object'||Object.keys(reply).length!==3||!('contractVersion' in reply)||reply.contractVersion!==1||!('state' in reply)||!('correlationId' in reply)||reply.correlationId!==correlationId||!isProjectFilesState(reply.state))throw Error('INVALID_FILES_REPLY')
+ return reply.state
+}
+const projectFilesBridge:ProjectFilesBridge={read:()=>filesRequest({type:'read'}),preview:referenceId=>filesRequest({type:'preview',referenceId}),copy:referenceId=>filesRequest({type:'copy',referenceId}),editor:referenceId=>filesRequest({type:'editor',referenceId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isProjectFilesState(value))listener(value)};ipcRenderer.on(PROJECT_FILES_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(PROJECT_FILES_EVENT_CHANNEL,receive)}}
+contextBridge.exposeInMainWorld('projectFiles',Object.freeze(projectFilesBridge))

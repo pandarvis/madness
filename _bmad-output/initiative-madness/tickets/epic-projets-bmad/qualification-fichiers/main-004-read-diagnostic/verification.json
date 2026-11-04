@@ -1,0 +1,660 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-04T15:38:53.084Z",
+  "status": "partial",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-7TMGVe",
+  "checks": [
+    "F9 passive first launch starts no file capture",
+    "F1 F7 real Main native two-project opaque grants",
+    "F1 F2 exact hostile UTF8 source remains inert",
+    "F6 native clipboard unavailable is an explicit failure, no success invented",
+    "F8 native Main reader source metadata and exact return surface",
+    "F3 F4 mutation refuses effect and retains historical preview",
+    "F9 exact passive reopen conservation",
+    "F9 actual in-flight file read cancelled and Job drained"
+  ],
+  "launches": [
+    {
+      "main": {
+        "pid": 46984,
+        "startedAt": "639294035336676443",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-7TMGVe\\profile",
+      "runtime": {
+        "pid": 46984,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-7TMGVe\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-fichiers\\main-004-read-diagnostic\\observation-1.json"
+    },
+    {
+      "main": {
+        "pid": 53456,
+        "startedAt": "639294036104238273",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-7TMGVe\\profile",
+      "runtime": {
+        "pid": 53456,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-7TMGVe\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-fichiers\\main-004-read-diagnostic\\observation-2.json"
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 46984,
+        "startedAt": "639294035336676443",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 39836,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T15:38:55.860Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "helperAfter": "stopped"
+    },
+    {
+      "main": {
+        "pid": 53456,
+        "startedAt": "639294036104238273",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 50056,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T15:40:12.710Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "helperAfter": "stopped"
+    }
+  ],
+  "captures": [
+    {
+      "name": "overlay-light",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-fichiers\\main-004-read-diagnostic\\overlay-light.png",
+      "metrics": {
+        "width": 720,
+        "height": 820,
+        "theme": "light",
+        "modal": true,
+        "scrollWidth": 720
+      },
+      "size": {
+        "width": 900,
+        "height": 1025
+      },
+      "zoom": 1,
+      "contentSize": [
+        720,
+        820
+      ],
+      "pixels": {
+        "width": 900,
+        "height": 1025
+      },
+      "method": "webContents.capturePage without rect"
+    },
+    {
+      "name": "zoom200-dark",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-fichiers\\main-004-read-diagnostic\\zoom200-dark.png",
+      "metrics": {
+        "width": 720,
+        "height": 460,
+        "theme": "dark",
+        "modal": true,
+        "scrollWidth": 720
+      },
+      "size": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 2,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "method": "webContents.capturePage without rect"
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Synthetic projects only; no account/provider. Counters start after hook.",
+    "Native protocol tests separately cover code-only grants, replacements, hardlinks and hostile formats.",
+    "Editor receipt never proves an opened window/file or human reading. G3 integrated remains outside this qualification.",
+    "Positive clipboard is NOT verified. Stock Electron45 and packaged native APIs returned empty; this diagnostic asserts the honest failure then continues independent reads/lifecycle.",
+    "Actual OS editor handoff was not requested for this run; no editor integration success claimed."
+  ],
+  "externalEditor": {
+    "requested": false,
+    "ownership": "external-unowned",
+    "stop": "not-started"
+  },
+  "visualContinuation": {
+    "kind": "continuation of final batch2 after instrumentation failure; no polish or product changes",
+    "priorRun": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic",
+    "priorReportSha256": "de22e189bf54d5f73dc2af72178e2315ae283d262da7042c88841f1e7df27a65",
+    "validFramesNotRecaptured": [
+      {
+        "name": "dock-dark",
+        "file": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/dock-dark.png",
+        "sha256": "bfffb62d1278df0cabde730a362c8b841dde0f1ea9fa03e22ee0fb94c1820930",
+        "metrics": {
+          "width": 1440,
+          "height": 920,
+          "theme": "dark",
+          "modal": false,
+          "scrollWidth": 1440
+        }
+      },
+      {
+        "name": "expanded-dark",
+        "file": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-fichiers/main-003-read-diagnostic/expanded-dark.png",
+        "sha256": "f69a7257ad5b060a5f4c62bb2ba12c08cde9c2a6e7c14a7d8adf64099d37b3fc",
+        "metrics": {
+          "width": 1440,
+          "height": 920,
+          "theme": "dark",
+          "modal": true,
+          "scrollWidth": 1440
+        }
+      }
+    ],
+    "plannedFrames": [
+      "overlay-light",
+      "zoom200-dark"
+    ]
+  },
+  "themeControlScope": "Programmatic DOM.click invokes the actual App theme handler while the file modal blocks physical pointer access; no claim of physical pointer coverage.",
+  "stage": "finished",
+  "checkpointSequence": 33,
+  "updatedAt": "2026-11-04T15:40:38.371Z",
+  "stages": [
+    {
+      "sequence": 1,
+      "stage": "initialized",
+      "at": "2026-11-04T15:38:53.084Z"
+    },
+    {
+      "sequence": 2,
+      "stage": "app-created",
+      "at": "2026-11-04T15:38:54.460Z"
+    },
+    {
+      "sequence": 3,
+      "stage": "owned-launch-observed",
+      "at": "2026-11-04T15:38:55.867Z"
+    },
+    {
+      "sequence": 4,
+      "stage": "passed",
+      "at": "2026-11-04T15:38:55.942Z",
+      "details": {
+        "check": "F9 passive first launch starts no file capture"
+      }
+    },
+    {
+      "sequence": 5,
+      "stage": "passed",
+      "at": "2026-11-04T15:39:22.521Z",
+      "details": {
+        "check": "F1 F7 real Main native two-project opaque grants"
+      }
+    },
+    {
+      "sequence": 6,
+      "stage": "action-requested",
+      "at": "2026-11-04T15:39:22.539Z"
+    },
+    {
+      "sequence": 7,
+      "stage": "action-received",
+      "at": "2026-11-04T15:39:33.540Z"
+    },
+    {
+      "sequence": 8,
+      "stage": "passed",
+      "at": "2026-11-04T15:39:33.553Z",
+      "details": {
+        "check": "F1 F2 exact hostile UTF8 source remains inert"
+      }
+    },
+    {
+      "sequence": 9,
+      "stage": "action-requested",
+      "at": "2026-11-04T15:39:33.567Z"
+    },
+    {
+      "sequence": 10,
+      "stage": "action-received",
+      "at": "2026-11-04T15:39:52.383Z"
+    },
+    {
+      "sequence": 11,
+      "stage": "passed",
+      "at": "2026-11-04T15:39:52.562Z",
+      "details": {
+        "check": "F6 native clipboard unavailable is an explicit failure, no success invented"
+      }
+    },
+    {
+      "sequence": 12,
+      "stage": "ui-file-ready-current",
+      "at": "2026-11-04T15:40:02.067Z"
+    },
+    {
+      "sequence": 13,
+      "stage": "theme-via-app-handler",
+      "at": "2026-11-04T15:40:02.173Z",
+      "details": {
+        "theme": "light"
+      }
+    },
+    {
+      "sequence": 14,
+      "stage": "capture-recorded",
+      "at": "2026-11-04T15:40:02.262Z",
+      "details": {
+        "name": "overlay-light"
+      }
+    },
+    {
+      "sequence": 15,
+      "stage": "theme-via-app-handler",
+      "at": "2026-11-04T15:40:02.389Z",
+      "details": {
+        "theme": "dark"
+      }
+    },
+    {
+      "sequence": 16,
+      "stage": "capture-recorded",
+      "at": "2026-11-04T15:40:02.527Z",
+      "details": {
+        "name": "zoom200-dark"
+      }
+    },
+    {
+      "sequence": 17,
+      "stage": "passed",
+      "at": "2026-11-04T15:40:02.562Z",
+      "details": {
+        "check": "F8 native Main reader source metadata and exact return surface"
+      }
+    },
+    {
+      "sequence": 18,
+      "stage": "mutation-reference-invalidated",
+      "at": "2026-11-04T15:40:02.751Z"
+    },
+    {
+      "sequence": 19,
+      "stage": "mutation-effect-refused",
+      "at": "2026-11-04T15:40:02.771Z"
+    },
+    {
+      "sequence": 20,
+      "stage": "passed",
+      "at": "2026-11-04T15:40:02.949Z",
+      "details": {
+        "check": "F3 F4 mutation refuses effect and retains historical preview"
+      }
+    },
+    {
+      "sequence": 21,
+      "stage": "owned-close-received",
+      "at": "2026-11-04T15:40:10.309Z"
+    },
+    {
+      "sequence": 22,
+      "stage": "helper-close-observed",
+      "at": "2026-11-04T15:40:10.351Z"
+    },
+    {
+      "sequence": 23,
+      "stage": "app-created",
+      "at": "2026-11-04T15:40:11.030Z"
+    },
+    {
+      "sequence": 24,
+      "stage": "owned-launch-observed",
+      "at": "2026-11-04T15:40:12.718Z"
+    },
+    {
+      "sequence": 25,
+      "stage": "passed",
+      "at": "2026-11-04T15:40:12.802Z",
+      "details": {
+        "check": "F9 exact passive reopen conservation"
+      }
+    },
+    {
+      "sequence": 26,
+      "stage": "native-file-job-observed",
+      "at": "2026-11-04T15:40:35.684Z"
+    },
+    {
+      "sequence": 27,
+      "stage": "owned-close-received",
+      "at": "2026-11-04T15:40:38.004Z"
+    },
+    {
+      "sequence": 28,
+      "stage": "helper-close-observed",
+      "at": "2026-11-04T15:40:38.041Z"
+    },
+    {
+      "sequence": 29,
+      "stage": "native-file-job-terminal",
+      "at": "2026-11-04T15:40:38.059Z"
+    },
+    {
+      "sequence": 30,
+      "stage": "passed",
+      "at": "2026-11-04T15:40:38.070Z",
+      "details": {
+        "check": "F9 actual in-flight file read cancelled and Job drained"
+      }
+    },
+    {
+      "sequence": 31,
+      "stage": "diagnostic-local-checks-complete",
+      "at": "2026-11-04T15:40:38.081Z"
+    },
+    {
+      "sequence": 32,
+      "stage": "cleanup-started",
+      "at": "2026-11-04T15:40:38.093Z"
+    },
+    {
+      "sequence": 33,
+      "stage": "finished",
+      "at": "2026-11-04T15:40:38.371Z"
+    }
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe",
+    "executableSha256": "bf0df2da3179fbb0bd8828fef1374f575c11c393eb99e480c459acc15095dbb2",
+    "asarSha256": "b723a0f9a3035a51fd0974071d757d53eb459fa5cf814708f55c8b2ed605331a"
+  },
+  "lastAction": {
+    "type": "copy",
+    "referenceId": "ref-2aaeb6e4-26f7-4b3f-b073-aca9e06d5020",
+    "beforeSequence": 4,
+    "status": "received",
+    "at": "2026-11-04T15:39:33.567Z",
+    "sequence": 6,
+    "result": {
+      "correlationId": "d850198c-edd3-43f1-aa50-feb263e568c5",
+      "referenceId": "ref-2aaeb6e4-26f7-4b3f-b073-aca9e06d5020",
+      "action": "copy",
+      "status": "failed",
+      "reason": "Copie impossible — sélectionnez le texte."
+    },
+    "preview": {
+      "status": "ready",
+      "reason": null,
+      "textSha256": "9f1df050eca22852e0049ec4ccea3dc5bec2d72469c8525dd537fe6e6804a608"
+    }
+  },
+  "actions": [
+    {
+      "type": "preview",
+      "referenceId": "ref-2aaeb6e4-26f7-4b3f-b073-aca9e06d5020",
+      "beforeSequence": 2,
+      "status": "received",
+      "at": "2026-11-04T15:39:22.539Z",
+      "sequence": 4,
+      "preview": {
+        "status": "ready",
+        "reason": null,
+        "textSha256": "9f1df050eca22852e0049ec4ccea3dc5bec2d72469c8525dd537fe6e6804a608"
+      }
+    },
+    {
+      "type": "copy",
+      "referenceId": "ref-2aaeb6e4-26f7-4b3f-b073-aca9e06d5020",
+      "beforeSequence": 4,
+      "status": "received",
+      "at": "2026-11-04T15:39:33.567Z",
+      "sequence": 6,
+      "result": {
+        "correlationId": "d850198c-edd3-43f1-aa50-feb263e568c5",
+        "referenceId": "ref-2aaeb6e4-26f7-4b3f-b073-aca9e06d5020",
+        "action": "copy",
+        "status": "failed",
+        "reason": "Copie impossible — sélectionnez le texte."
+      },
+      "preview": {
+        "status": "ready",
+        "reason": null,
+        "textSha256": "9f1df050eca22852e0049ec4ccea3dc5bec2d72469c8525dd537fe6e6804a608"
+      }
+    }
+  ],
+  "qualificationMode": "diagnostic-only-clipboard-unavailable",
+  "unverified": [
+    "F6 native positive clipboard on current candidate; replay standard unchanged bank after direct API succeeds"
+  ],
+  "uiReady": {
+    "sequence": 8,
+    "reference": {
+      "id": "ref-2aaeb6e4-26f7-4b3f-b073-aca9e06d5020",
+      "producer": "catalog",
+      "projectId": "files-a",
+      "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-7TMGVe\\files-a",
+      "rootIdentity": "420db52866fd1ee6a0ac79f7e1094514032742f3184ab50c8a0ffa18b588bd56",
+      "initiativeId": null,
+      "revision": "10c8f575ee657b3f2dc835e973f028ffd717105e83b1af48dee1bc23909a5870",
+      "sourceId": "catalog-source-3",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-7TMGVe\\files-a\\.agents\\skills\\files28-alpha\\SKILL.md",
+      "sha256": "9f1df050eca22852e0049ec4ccea3dc5bec2d72469c8525dd537fe6e6804a608",
+      "bytes": 122,
+      "observedAt": "2026-11-04T15:39:11.583Z",
+      "current": true
+    },
+    "preview": {
+      "referenceId": "ref-2aaeb6e4-26f7-4b3f-b073-aca9e06d5020",
+      "status": "ready",
+      "text": "---\nname: files28-alpha\ndescription: Literal document\n---\n<script>notExecuted()</script>\n[link](https://example.invalid/)\n",
+      "reason": null
+    }
+  },
+  "themeChanges": [
+    {
+      "before": "dark",
+      "requested": "light",
+      "clicked": true,
+      "method": "programmatic DOM.click on actual App handler under file modal",
+      "observed": "light"
+    },
+    {
+      "before": "light",
+      "requested": "dark",
+      "clicked": true,
+      "method": "programmatic DOM.click on actual App handler under file modal",
+      "observed": "dark"
+    }
+  ],
+  "mutationInvalidation": {
+    "sequence": 9,
+    "reference": {
+      "id": "ref-2aaeb6e4-26f7-4b3f-b073-aca9e06d5020",
+      "producer": "catalog",
+      "projectId": "files-a",
+      "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-7TMGVe\\files-a",
+      "rootIdentity": "420db52866fd1ee6a0ac79f7e1094514032742f3184ab50c8a0ffa18b588bd56",
+      "initiativeId": null,
+      "revision": "10c8f575ee657b3f2dc835e973f028ffd717105e83b1af48dee1bc23909a5870",
+      "sourceId": "catalog-source-3",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-7TMGVe\\files-a\\.agents\\skills\\files28-alpha\\SKILL.md",
+      "sha256": "9f1df050eca22852e0049ec4ccea3dc5bec2d72469c8525dd537fe6e6804a608",
+      "bytes": 122,
+      "observedAt": "2026-11-04T15:39:11.583Z",
+      "current": false
+    }
+  },
+  "mutationRefusal": {
+    "correlationId": "f2559362-e966-498b-9e2f-629e99785fcc",
+    "referenceId": "ref-2aaeb6e4-26f7-4b3f-b073-aca9e06d5020",
+    "action": "copy",
+    "status": "stale",
+    "reason": "Référence ancienne ou non vérifiée — relisez les preuves."
+  },
+  "closeDuringRead": {
+    "owner": {
+      "schemaVersion": 1,
+      "generation": "help-247543a1-428f-40ef-8a4b-f50c6ecf61cc",
+      "purpose": "bmad-readonly",
+      "status": "unknown",
+      "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-7TMGVe\\profile\\bmad-help-runs-v1\\operation-963cd944-2e11-44b8-8fdf-2f181ed59c15"
+    },
+    "execution": {
+      "schema": 5,
+      "outcome": "running",
+      "exit": null,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 23444
+    },
+    "process": {
+      "pid": 23444,
+      "startedAt": "639294036342653296",
+      "executable": "C:\\Users\\UP60066553\\scoop\\apps\\uv\\0.13.0\\uv.exe"
+    }
+  },
+  "liveStop": {
+    "terminal": {
+      "schemaVersion": 1,
+      "generation": "help-247543a1-428f-40ef-8a4b-f50c6ecf61cc",
+      "purpose": "bmad-readonly",
+      "terminal": true,
+      "jobAssigned": true,
+      "jobActive": 0,
+      "neverStarted": false
+    },
+    "execution": {
+      "schema": 5,
+      "outcome": "cancelled",
+      "exit": 1,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 23444,
+      "active_before_stop": 3,
+      "job_active_after_stop": 0,
+      "stop_ms": 1,
+      "drain_ms": 161,
+      "elapsed_ms": 2201
+    }
+  },
+  "localFunctionalChecks": "completed-with-native-clipboard-negative-only",
+  "functionalStatus": "partial",
+  "cleanupStatus": "removed-after-owned-stop-proof",
+  "finishedAt": "2026-11-04T15:40:38.371Z"
+}

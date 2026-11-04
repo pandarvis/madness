@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-04T15:43:39.993759+00:00",
+  "parentSource003": "88179bbb2a633db26915ab977702d29ff5a184619c6ed7db573c94a8fa7527b9",
+  "allProductAndBankInputsUnchanged": true,
+  "sourceCount": 122,
+  "onlyDeltaAfterParent003": {
+    "path": "tests/connection-ui.test.mjs",
+    "sha256": "45f7a76f1fe236a2f1994f960699b61d8916a9f5eaf644dc4e1a485ed07a77d8",
+    "scope": "UI test theme control correction only; actual Apphandler/dataset asserted. No runtime/product change."
+  },
+  "actualMain004SealedInputsChecked": 59,
+  "native": {
+    "status": "partial",
+    "checks": 8,
+    "negativeClipboardOnly": true,
+    "activeBeforeStop": 3,
+    "jobAfterStop": 0,
+    "closures": 2,
+    "cleanup": true
+  },
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe",
+    "executableSha256": "bf0df2da3179fbb0bd8828fef1374f575c11c393eb99e480c459acc15095dbb2",
+    "asarSha256": "b723a0f9a3035a51fd0974071d757d53eb459fa5cf814708f55c8b2ed605331a"
+  },
+  "limits": [
+    "F6 native positive clipboard on current candidate; replay standard unchanged bank after direct API succeeds"
+  ]
+}

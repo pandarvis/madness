@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-04T15:24:28.861Z",
+  "status": "failed",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-fdl1wf",
+  "checks": [
+    "F9 passive first launch starts no file capture",
+    "F1 F7 real Main native two-project opaque grants",
+    "F1 F2 exact hostile UTF8 source remains inert",
+    "F6 native clipboard unavailable is an explicit failure, no success invented"
+  ],
+  "launches": [
+    {
+      "main": {
+        "pid": 20612,
+        "startedAt": "639294026705646980",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-fdl1wf\\profile",
+      "runtime": {
+        "pid": 20612,
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-fdl1wf\\profile",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe",
+        "versions": {
+          "node": "24.22.0",
+          "acorn": "8.18.0",
+          "ada": "4.0.0",
+          "amaro": "1.1.11",
+          "ares": "1.34.8",
+          "brotli": "1.2.0",
+          "cldr": "48.0",
+          "icu": "78.2",
+          "llhttp": "9.4.3",
+          "merve": "1.2.2",
+          "modules": "150",
+          "napi": "10",
+          "nbytes": "0.1.4",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.70.0",
+          "nghttp3": "",
+          "ngtcp2": "",
+          "openssl": "0.0.0",
+          "simdjson": "4.6.11",
+          "simdutf": "7.7.0",
+          "sqlite": "3.53.4",
+          "tz": "2026e",
+          "undici": "7.29.1",
+          "unicode": "17.0",
+          "uv": "1.52.1",
+          "uvwasi": "0.0.23",
+          "v8": "15.6.75.19-electron.0",
+          "zlib": "1.3.2.1-motley",
+          "zstd": "1.6.0",
+          "electron": "45.0.0",
+          "chrome": "156.0.8078.48"
+        }
+      },
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-fichiers\\main-003-read-diagnostic\\observation-1.json"
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 20612,
+        "startedAt": "639294026705646980",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 41472,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T15:24:36.968Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "helperAfter": "stopped"
+    }
+  ],
+  "captures": [
+    {
+      "name": "dock-dark",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-fichiers\\main-003-read-diagnostic\\dock-dark.png",
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "theme": "dark",
+        "modal": false,
+        "scrollWidth": 1440
+      },
+      "size": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "method": "webContents.capturePage without rect"
+    },
+    {
+      "name": "expanded-dark",
+      "file": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-fichiers\\main-003-read-diagnostic\\expanded-dark.png",
+      "metrics": {
+        "width": 1440,
+        "height": 920,
+        "theme": "dark",
+        "modal": true,
+        "scrollWidth": 1440
+      },
+      "size": {
+        "width": 1800,
+        "height": 1150
+      },
+      "zoom": 1,
+      "contentSize": [
+        1440,
+        920
+      ],
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "method": "webContents.capturePage without rect"
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Synthetic projects only; no account/provider. Counters start after hook.",
+    "Native protocol tests separately cover code-only grants, replacements, hardlinks and hostile formats.",
+    "Editor receipt never proves an opened window/file or human reading. G3 integrated remains outside this qualification.",
+    "Positive clipboard is NOT verified. Stock Electron45 and packaged native APIs returned empty; this diagnostic asserts the honest failure then continues independent reads/lifecycle.",
+    "Actual OS editor handoff was not requested for this run; no editor integration success claimed."
+  ],
+  "externalEditor": {
+    "requested": false,
+    "ownership": "external-unowned",
+    "stop": "not-started"
+  },
+  "stage": "finished",
+  "checkpointSequence": 19,
+  "updatedAt": "2026-11-04T15:26:40.952Z",
+  "stages": [
+    {
+      "sequence": 1,
+      "stage": "initialized",
+      "at": "2026-11-04T15:24:28.862Z"
+    },
+    {
+      "sequence": 2,
+      "stage": "app-created",
+      "at": "2026-11-04T15:24:31.863Z"
+    },
+    {
+      "sequence": 3,
+      "stage": "owned-launch-observed",
+      "at": "2026-11-04T15:24:36.976Z"
+    },
+    {
+      "sequence": 4,
+      "stage": "passed",
+      "at": "2026-11-04T15:24:37.086Z",
+      "details": {
+        "check": "F9 passive first launch starts no file capture"
+      }
+    },
+    {
+      "sequence": 5,
+      "stage": "passed",
+      "at": "2026-11-04T15:25:17.032Z",
+      "details": {
+        "check": "F1 F7 real Main native two-project opaque grants"
+      }
+    },
+    {
+      "sequence": 6,
+      "stage": "action-requested",
+      "at": "2026-11-04T15:25:17.049Z"
+    },
+    {
+      "sequence": 7,
+      "stage": "action-received",
+      "at": "2026-11-04T15:25:30.036Z"
+    },
+    {
+      "sequence": 8,
+      "stage": "passed",
+      "at": "2026-11-04T15:25:30.047Z",
+      "details": {
+        "check": "F1 F2 exact hostile UTF8 source remains inert"
+      }
+    },
+    {
+      "sequence": 9,
+      "stage": "action-requested",
+      "at": "2026-11-04T15:25:30.061Z"
+    },
+    {
+      "sequence": 10,
+      "stage": "action-received",
+      "at": "2026-11-04T15:25:56.304Z"
+    },
+    {
+      "sequence": 11,
+      "stage": "passed",
+      "at": "2026-11-04T15:25:56.471Z",
+      "details": {
+        "check": "F6 native clipboard unavailable is an explicit failure, no success invented"
+      }
+    },
+    {
+      "sequence": 12,
+      "stage": "ui-file-ready-current",
+      "at": "2026-11-04T15:26:08.711Z"
+    },
+    {
+      "sequence": 13,
+      "stage": "capture-recorded",
+      "at": "2026-11-04T15:26:08.911Z",
+      "details": {
+        "name": "dock-dark"
+      }
+    },
+    {
+      "sequence": 14,
+      "stage": "capture-recorded",
+      "at": "2026-11-04T15:26:09.080Z",
+      "details": {
+        "name": "expanded-dark"
+      }
+    },
+    {
+      "sequence": 15,
+      "stage": "failed",
+      "at": "2026-11-04T15:26:39.217Z"
+    },
+    {
+      "sequence": 16,
+      "stage": "owned-close-received",
+      "at": "2026-11-04T15:26:40.678Z"
+    },
+    {
+      "sequence": 17,
+      "stage": "helper-close-observed",
+      "at": "2026-11-04T15:26:40.713Z"
+    },
+    {
+      "sequence": 18,
+      "stage": "cleanup-started",
+      "at": "2026-11-04T15:26:40.722Z"
+    },
+    {
+      "sequence": 19,
+      "stage": "finished",
+      "at": "2026-11-04T15:26:40.952Z"
+    }
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe",
+    "executableSha256": "bf0df2da3179fbb0bd8828fef1374f575c11c393eb99e480c459acc15095dbb2",
+    "asarSha256": "b723a0f9a3035a51fd0974071d757d53eb459fa5cf814708f55c8b2ed605331a"
+  },
+  "lastAction": {
+    "type": "copy",
+    "referenceId": "ref-b10f9b41-90f2-4107-adcb-c0234f996522",
+    "beforeSequence": 4,
+    "status": "received",
+    "at": "2026-11-04T15:25:30.061Z",
+    "sequence": 6,
+    "result": {
+      "correlationId": "d5570019-45ef-47d4-bb3e-2dd3f3abab72",
+      "referenceId": "ref-b10f9b41-90f2-4107-adcb-c0234f996522",
+      "action": "copy",
+      "status": "failed",
+      "reason": "Copie impossible — sélectionnez le texte."
+    },
+    "preview": {
+      "status": "ready",
+      "reason": null,
+      "textSha256": "9f1df050eca22852e0049ec4ccea3dc5bec2d72469c8525dd537fe6e6804a608"
+    }
+  },
+  "actions": [
+    {
+      "type": "preview",
+      "referenceId": "ref-b10f9b41-90f2-4107-adcb-c0234f996522",
+      "beforeSequence": 2,
+      "status": "received",
+      "at": "2026-11-04T15:25:17.049Z",
+      "sequence": 4,
+      "preview": {
+        "status": "ready",
+        "reason": null,
+        "textSha256": "9f1df050eca22852e0049ec4ccea3dc5bec2d72469c8525dd537fe6e6804a608"
+      }
+    },
+    {
+      "type": "copy",
+      "referenceId": "ref-b10f9b41-90f2-4107-adcb-c0234f996522",
+      "beforeSequence": 4,
+      "status": "received",
+      "at": "2026-11-04T15:25:30.061Z",
+      "sequence": 6,
+      "result": {
+        "correlationId": "d5570019-45ef-47d4-bb3e-2dd3f3abab72",
+        "referenceId": "ref-b10f9b41-90f2-4107-adcb-c0234f996522",
+        "action": "copy",
+        "status": "failed",
+        "reason": "Copie impossible — sélectionnez le texte."
+      },
+      "preview": {
+        "status": "ready",
+        "reason": null,
+        "textSha256": "9f1df050eca22852e0049ec4ccea3dc5bec2d72469c8525dd537fe6e6804a608"
+      }
+    }
+  ],
+  "qualificationMode": "diagnostic-only-clipboard-unavailable",
+  "unverified": [
+    "F6 native positive clipboard on current candidate; replay standard unchanged bank after direct API succeeds"
+  ],
+  "uiReady": {
+    "sequence": 8,
+    "reference": {
+      "id": "ref-b10f9b41-90f2-4107-adcb-c0234f996522",
+      "producer": "catalog",
+      "projectId": "files-a",
+      "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-fdl1wf\\files-a",
+      "rootIdentity": "5c4f61f6895641c732a62dff920adb947fba71c69edbfe357101a18be430fda8",
+      "initiativeId": null,
+      "revision": "e90a1f7b8943f3f5d663544765345e4e4c25907570ccf44c8c1bdc7d7e8a2ecf",
+      "sourceId": "catalog-source-3",
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-fdl1wf\\files-a\\.agents\\skills\\files28-alpha\\SKILL.md",
+      "sha256": "9f1df050eca22852e0049ec4ccea3dc5bec2d72469c8525dd537fe6e6804a608",
+      "bytes": 122,
+      "observedAt": "2026-11-04T15:25:01.720Z",
+      "current": true
+    },
+    "preview": {
+      "referenceId": "ref-b10f9b41-90f2-4107-adcb-c0234f996522",
+      "status": "ready",
+      "text": "---\nname: files28-alpha\ndescription: Literal document\n---\n<script>notExecuted()</script>\n[link](https://example.invalid/)\n",
+      "reason": null
+    }
+  },
+  "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-fichiers\\main-003-read-diagnostic\\diagnostic-entry.mjs:66:149",
+  "functionalStatus": "failed",
+  "cleanupStatus": "removed-after-owned-stop-proof",
+  "finishedAt": "2026-11-04T15:26:40.952Z"
+}

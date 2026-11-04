@@ -1,0 +1,77 @@
+{
+  "createdAt": "2026-11-04T14:19:27.674119+00:00",
+  "scope": "H1 physical grant before first read; H2 explicit new revision request state",
+  "changedInputs": {
+    "resources/bmad-help/capture.py": {
+      "beforeSha256": "2276e880e49ac53fbb4edf65b04628984abc52d7d6814b3639c6526eff43a494",
+      "finalSha256": "ea6965f0578b223fda14f5d38f5c09d7cf2ea94b8d0dc275493e5acbf42ced54"
+    },
+    "resources/bmad-help/files.py": {
+      "beforeSha256": "d50f6131cc5b6e6fc9a7cede46ff862c8ed782c7efed2f0a19a437a42373777c",
+      "finalSha256": "46769032c6bc463f9dad044d6ad708d785b139a787f5ed997683ffd7f5e72ed4"
+    },
+    "src/adapters/bmad/help-manifest.ts": {
+      "beforeSha256": "25a200f225547bf9ed4109e5e6f495112133be62682c5775c1b4567b146ebbfc",
+      "finalSha256": "e666c22fe9b3c0ac5ebbae39bcb1f4b63a98fcf5abe8ff00238fb4c203a0cb2d"
+    },
+    "src/renderer/src/FilePreview.tsx": {
+      "beforeSha256": "a06555b512be1cc59bd4a1da708e45f0f70cdc6f49b0e5da573b13ac8adc56ed",
+      "finalSha256": "9e7d5b151fbbbead8fe6dab706849efc88df8495e9553929d812cae693f1590f"
+    },
+    "tests/project-files-protocol.test.mjs": {
+      "beforeSha256": "26d5804390750fd9fec27f63ce4a5375b13f6c11f35ee6670591e754a869663c",
+      "finalSha256": "36a3045f4fef8fc472646bd425e5cc264305ecf761dfc96bc6919e4edf227c98"
+    },
+    "tests/connection-ui.test.mjs": {
+      "beforeSha256": "f40425d51590ee3deaab01b907d05277fcbd3e559e88b7d85d698e0313d8fec6",
+      "finalSha256": "8f9058a8f93d5a19e630af3ce680dc9f2d88a0556fce18d8fe5f0efd8d98bf5b"
+    }
+  },
+  "sealedInputsStillExact": true,
+  "verification": {
+    "backend": {
+      "tests": 54,
+      "pass": 54,
+      "fail": 0,
+      "skip": 0,
+      "durationMs": 88810.3701,
+      "log": "backend-002.log",
+      "closedRuntimeFiles": 735,
+      "h1NativeObservations": 6
+    },
+    "ui": {
+      "tests": 5,
+      "pass": 5,
+      "fail": 0,
+      "skip": 0,
+      "durationMs": 22994.2925,
+      "log": "ui-green.log",
+      "newRevision": "old reference read once; explicit new reference read once; returning project performs no replay"
+    },
+    "types": {
+      "log": "types-002.log",
+      "result": "passed"
+    }
+  },
+  "history": {
+    "h1-red.log": "replacement bytes reached os.read before late rejection; deterministic red",
+    "h2-red.log": "explicit new reference produced no read; deterministic red",
+    "backend-green.log": "despite its original filename, this run is RED:50/54; four valid grants refused by cross-API ctime comparison; never final evidence",
+    "stamp-diagnostic.log": "measured lstat/fstat ctime discrepancy on same physical file; final code compares full path stamp via lstat plus opened identity/size before first read"
+  },
+  "logsSha256": {
+    "h1-red.log": "d37e7c152c815895a5c63ce2edac1e1125f6305db609f7da683c94c77357a620",
+    "h2-red.log": "f15a73f328cc99ea5f075235186c2109b9f0416b377bfe5b9b34ff4e857034a3",
+    "backend-green.log": "d5a4ab26e979ad977ad635e6eb8601c3ec2e29a6c321743d08f0e29d4c26cdf1",
+    "stamp-diagnostic.log": "4362b7ce94e903bb339f9f13ca33938a01769311fdb3b359c2ef6c4f930600d1",
+    "backend-002.log": "bd4ee84cfd0a1157102fd1c3d241f3c3c9bbeacdd346f62d6c7b18f1ae6dd190",
+    "ui-green.log": "d6e1559014214c6a71da53438ffc15bb664c08fe07e111632b12ca2a22af6f9d",
+    "types-002.log": "c8c0ca54ad3c2d2a2c9d49a79028ade26ac6a8a54ec058b6f8c52c340bed5b9e"
+  },
+  "limits": [
+    "No Main/OS request/build/screenshot/detector executed by this worker in H1/H2.",
+    "No new candidate ASAR or integrated gate claimed. Parent owns fresh build/native qualification/reviews.",
+    "Existing symlink-file privilege limitation remains explicit in the closed-runtime boundary suite."
+  ],
+  "ownedFixtures": "Native harnesses require Job0 before cleanup; UI log confirms no owned Main/descendants before cleanup. No retained-fixture notice in the fresh successful logs."
+}

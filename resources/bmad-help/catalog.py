@@ -2,7 +2,7 @@
 from __future__ import annotations
 import json,re,stat,tomllib
 from pathlib import Path
-import capture,knowledge
+import capture,knowledge,files
 
 NAME=re.compile(r'[A-Za-z0-9][A-Za-z0-9_-]{0,127}')
 
@@ -67,7 +67,7 @@ def collect(req):
     folder=capture.long_path(req['folder']);project=capture.long_path(req['project'])
     chain=capture.inspect_chain(project);capture.inspect_chain(folder)
     state={'roots':[],'lists':[],'optional':[],'fileIdentities':[],'refused':[]};sources=[];problems=[];total=0;entries=0
-    winners={};staged=[];by_path={};unreadable=set()
+    winners={};staged=[];by_path={};unreadable=set();file_grants=[]
     def issue(path,error):
         message=(capture.display_path(path)+': '+str(error))[:4000]
         problems.append(message)
@@ -98,7 +98,7 @@ def collect(req):
         capture.inspect_chain(path,missing=True)
         present=path.exists();state['optional'].append((str(path),present))
         if not present:return None
-        before=list(capture.identity(path.lstat()))
+        before=list(capture.identity(path.lstat()));physical_stamp=files.stamp(path)
         raw=capture.read_safe(path,utf8=False)
         if list(capture.identity(path.lstat()))!=before:raise capture.Refusal('SOURCE_REPLACED')
         total+=len(raw)
@@ -112,6 +112,9 @@ def collect(req):
         text=raw.decode('utf-8',errors='strict')
         if '\x00' in text:raise capture.Refusal('TEXT_NUL')
         s={'id':'catalog-source-'+str(len(sources)+1),'path':capture.display_path(path),'sha256':capture.sha(raw),'bytes':len(raw),'text':text}
+        physical=files.record(path,s['id'],raw)
+        if physical['stamp']!=physical_stamp:raise capture.Refusal('SOURCE_REPLACED')
+        file_grants.append(physical)
         sources.append(s);by_path[str(path)]=s;return s
     for index,root_name in enumerate(req['roots']):
         root=capture.long_path(root_name);stage=folder/('catalog-skills-'+str(index));stage.mkdir();staged.append(stage)
@@ -218,7 +221,8 @@ def collect(req):
         except OSError:signature=None
         if signature!=source['identity']:raise capture.Refusal('CHANGED')
     revision=capture.sha(json.dumps(state,sort_keys=True).encode());(folder/'capture.json').write_text(json.dumps(state),encoding='utf-8')
+    file_grant=files.grant(folder,project,'catalog',revision,file_grants)
     hints=capture.observation_hints(state)
     versions={m['version'] for m in modules}
     diagnostic='absent' if not modules and not items and not problems else 'unknown' if versions!={'6.13.0-next'} else 'partial' if problems else 'candidate-observed'
-    return {'rootIdentity':capture.sha(json.dumps(chain,separators=(',',':')).encode()),'revision':revision,'diagnostic':diagnostic,'coverage':'partial' if problems else 'complete','roots':[capture.display_path(r) for r in req['roots']],'sources':sources,'modules':modules,'items':sorted(items,key=lambda i:i['name']),'problems':list(dict.fromkeys(problems)),'_observationHints':hints}
+    return {'_fileGrant':file_grant,'rootIdentity':capture.sha(json.dumps(chain,separators=(',',':')).encode()),'revision':revision,'diagnostic':diagnostic,'coverage':'partial' if problems else 'complete','roots':[capture.display_path(r) for r in req['roots']],'sources':sources,'modules':modules,'items':sorted(items,key=lambda i:i['name']),'problems':list(dict.fromkeys(problems)),'_observationHints':hints}

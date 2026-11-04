@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-04T14:52:40.465613+00:00",
+  "reviewer": "/root/files28_quick",
+  "diff": "C:/Users/UP6006~1/AppData/Local/Temp/madness-files28-review-005.diff",
+  "sha256": "e80cac1315bc78dfb4b5b274aec27a32d6b37d68888f2eb997be3b00bb973214",
+  "findings": [
+    {
+      "id": "Q1",
+      "verdict": "high",
+      "route": "patch",
+      "location": "src/core/project-files.ts:52",
+      "status": "pending"
+    },
+    {
+      "id": "Q2",
+      "verdict": "medium",
+      "route": "patch",
+      "location": "src/core/project-files.ts:66",
+      "status": "pending"
+    },
+    {
+      "id": "Q3",
+      "verdict": "medium",
+      "route": "patch",
+      "location": "src/renderer/src/FilePreview.tsx:41",
+      "status": "pending"
+    },
+    {
+      "id": "Q4",
+      "verdict": "medium",
+      "route": "patch",
+      "location": "src/renderer/src/FilePreview.tsx:19 and ProjectResume:49",
+      "status": "pending"
+    }
+  ],
+  "allActiveLensesReported": true,
+  "lensesRan": [
+    "quick"
+  ],
+  "loopback": false,
+  "deferred": []
+}

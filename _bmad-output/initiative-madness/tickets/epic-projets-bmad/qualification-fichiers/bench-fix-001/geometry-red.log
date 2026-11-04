@@ -1,0 +1,24 @@
+✖ fichiers: dense ready dock exposes representative text and every named command at arrival (31804.8614ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-XAgrCP\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-XAgrCP\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 33713.0925
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1219:1
+✖ fichiers: dense ready dock exposes representative text and every named command at arrival (31804.8614ms)
+  locator.click: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Fiche compétence alpha', exact: true })[22m
+  
+      at openFilesUI (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1214:104)
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1219:1628) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('button', { name: 'Fiche compétence alpha', exact: true })" ]
+  }

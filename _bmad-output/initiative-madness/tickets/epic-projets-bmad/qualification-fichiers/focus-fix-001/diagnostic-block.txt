@@ -1,0 +1,13 @@
+const returnTarget=await page.getByRole('button',{name:'Fiche compétence alpha',exact:true}).elementHandle();assert.ok(returnTarget);
+ await returnTarget.evaluate(target=>{
+  const trace=[],describe=()=>{const el=document.activeElement;return {tag:el?.tagName,label:el?.getAttribute('aria-label'),text:el?.textContent?.slice(0,100),isExactTarget:el===target,targetConnected:target.isConnected,at:performance.now()}};
+  const record=phase=>{if(trace.length<12)trace.push({phase,...describe()})},isClose=event=>event.target instanceof Element&&!!event.target.closest('button[aria-label="Fermer le panneau de fichiers"]');
+  const capture=event=>{if(isClose(event))record('before-close-handler')},bubble=event=>{if(isClose(event))record('immediately-after-close-handler')},original=window.requestAnimationFrame;
+  document.addEventListener('click',capture,true);window.addEventListener('click',bubble);
+  window.requestAnimationFrame=callback=>original.call(window,time=>{record('before-raf-callback');Reflect.apply(callback,window,[time]);record('after-raf-callback')});
+  window.__filesFocusProbe={trace,record,stop:()=>{window.requestAnimationFrame=original;document.removeEventListener('click',capture,true);window.removeEventListener('click',bubble)}};record('probe-installed');
+ });
+ await panel.getByRole('button',{name:'Fermer le panneau de fichiers',exact:true}).click();
+ await page.evaluate(()=>window.__filesFocusProbe.record('after-playwright-click'));
+ await page.waitForFunction(target=>target.isConnected&&target===document.activeElement,returnTarget);
+ const focusTrace=await page.evaluate(()=>{const probe=window.__filesFocusProbe;probe.record('actual-restoration-observed');probe.stop();return probe.trace});console.log(JSON.stringify({filesCloseFocusProbe:focusTrace}));assert.equal(await returnTarget.evaluate(e=>e===document.activeElement),true);await returnTarget.dispose();

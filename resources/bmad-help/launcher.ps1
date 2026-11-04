@@ -49,7 +49,7 @@ try {
   $start=[Diagnostics.ProcessStartInfo]::new($uv)
   $python=Join-Path $runtime 'python.exe'
   $modules=@{}
-  foreach($name in @('capture','runtime_guard','worker','knowledge','resolve_config','config_utils','progress','catalog')){$modules[$name]=$pins[$name+'.py']}
+  foreach($name in @('capture','runtime_guard','worker','knowledge','resolve_config','config_utils','progress','catalog','files')){$modules[$name]=$pins[$name+'.py']}
   $bootstrap=[IO.File]::ReadAllText((Join-Path $resource 'bootstrap.py'),[Text.UTF8Encoding]::new($false,$true))
   foreach($arg in @('run','--offline','--no-project','--no-config','--no-cache','--python',$python,'--',$python,'-I','-S','-B','-c',$bootstrap,$resource,$resource,($modules|ConvertTo-Json -Compress),'worker',(Join-Path $TaskFolder 'request.json'))){[void]$start.ArgumentList.Add($arg)}
   $start.WorkingDirectory=$TaskFolder

@@ -1,0 +1,23 @@
+F9 passive first launch starts no file capture
+F1 F7 real Main native two-project opaque grants
+F1 F2 exact hostile UTF8 source remains inert
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ ''
+- 'C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-VC52NT\\files-a\\.agents\\skills\\files28-alpha\\SKILL.md'
+
+    at file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/project-files.mjs:61:40 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '',
+  expected: 'C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-main-VC52NT\\files-a\\.agents\\skills\\files28-alpha\\SKILL.md',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.13.0

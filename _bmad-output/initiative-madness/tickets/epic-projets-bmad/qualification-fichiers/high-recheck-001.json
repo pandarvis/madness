@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-04T14:17:44.278097+00:00",
+  "reviewer": "/root/files28_security_audit",
+  "scope": "First static recheck before normal-file verification discovered lstat/fstat ctime disagreement. Not final functional resolution.",
+  "sourceVerdicts": {
+    "H1": "opened handle/stamp + original chain checked before os.read in inspected source",
+    "H2": "explicit new revision resets requested:false"
+  },
+  "hashes": {
+    "resources/bmad-help/files.py": "46769032c6bc463f9dad044d6ad708d785b139a787f5ed997683ffd7f5e72ed4",
+    "resources/bmad-help/capture.py": "e7316ac8933a8b266a7823b83955d261ea353f2874fdeb993c59ea4ba804453d",
+    "src/renderer/src/FilePreview.tsx": "9e7d5b151fbbbead8fe6dab706849efc88df8495e9553929d812cae693f1590f",
+    "src/adapters/bmad/help-manifest.ts": "b591da63e65d5c3a49a263940c0706a6f8fced70ed413e77fd4ef21c8b7c86cd"
+  },
+  "subsequentVerification": "H1 negative race passes, but positive stable file fails GRANT_CHANGED because lstat/fstat ctime differs in closed runtime. Deterministic measured diagnostic preserved by implementer; same-field/same-API comparison now being corrected without dropping grant metadata. Need final recheck/tests.",
+  "testsRunByReviewer": false,
+  "otherActions": false
+}

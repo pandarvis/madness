@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-04T14:09:56.635045+00:00",
+  "scope": "Independent additional high-risk verification during Step3, before pinned Buildreview. Read-only code, no plan/test success/review claims, test/app/network/provider action.",
+  "reviewer": "/root/files28_security_audit",
+  "baseline": "efbfdb6b5d16d541ccb866aca917ad316337486b",
+  "findings": [
+    {
+      "id": "H1",
+      "severity": "medium",
+      "location": "resources/bmad-help/files.py:16–18",
+      "trigger": "Replace ordinary file after grant check and before read_safe starts; read_safe takes fresh baseline.",
+      "impact": "New inode body read before grant postcheck refuses; not published to renderer.",
+      "verdict": "patch",
+      "reason": "Original physical grant must gate opened handle before os.read, same frozenF3; no new renderer surface.",
+      "status": "same implementer patch/regression pending"
+    },
+    {
+      "id": "H2",
+      "severity": "medium",
+      "location": "src/renderer/src/FilePreview.tsx:newRevision",
+      "trigger": "First consultation requested=true then spread into explicit new revision consultation.",
+      "impact": "Explicit new revision selected but no preview read starts.",
+      "verdict": "patch",
+      "reason": "ExistingF4 explicit reread, reset request state on intentional new selection.",
+      "status": "same implementer patch/UI regression pending"
+    }
+  ],
+  "sourceHashes": {
+    "resources/bmad-help/files.py": "d50f6131cc5b6e6fc9a7cede46ff862c8ed782c7efed2f0a19a437a42373777c",
+    "resources/bmad-help/catalog.py": "30f1aab3a7a81f08f8c104653be7fd2f601e73a2d5b11729a1a11b18260770c7",
+    "resources/bmad-help/progress.py": "8f961776a7ace94d7b5a69d61dcf525c37731bdb7c560000608e38bd82149465",
+    "resources/bmad-help/worker.py": "7429e4c4521cd9dcea658b08344906e582ce6ebda90595ab190a5534a72bf72b",
+    "resources/bmad-help/launcher.ps1": "a4722f06adad45b8939cf80b7c58e6d277bf1a5434ab2be6725436eb5fa9b356",
+    "resources/bmad-help/capture.py": "2276e880e49ac53fbb4edf65b04628984abc52d7d6814b3639c6526eff43a494",
+    "src/adapters/bmad/help.ts": "1b3330fef15426d3b1268e7c4bb43b0e0c3ef3a649629d206fa531acba88e084",
+    "src/adapters/bmad/help-manifest.ts": "25a200f225547bf9ed4109e5e6f495112133be62682c5775c1b4567b146ebbfc",
+    "src/contracts/project-files.ts": "3c676867201813393700b588eb6d5fa64d633971788f50ba96f169b155285493",
+    "src/core/project-files.ts": "301186634b9806f8521f8dbce6ac61fb7f9878346f62ed1596b7ea1b2f6f3521",
+    "src/core/bmad-catalog.ts": "dccee3ecee588c09cbaf20ae437fbd0a3db4056952aad4c0513b110209692686",
+    "src/core/bmad-progress.ts": "4a94fe23bc23800d3768a9b53f98228bcad71be68aa26bb0794f82501359f332",
+    "src/core/bmad-context.ts": "28c631b9b41a0f989c8957745d7edc3f55b6ebfb43c5f62bf5264662c144ef50",
+    "src/adapters/bmad/change-observer.ts": "46d5ceb4dfda2e5bd2084754ad746d1a82ef3beb0ff57c4fa29aaa2d8ce8ba62",
+    "src/core/lifecycle.ts": "eeac2a177c5f4dc1b982f3b6e06e5d8f9ddfb61b6674d81e3e4921fc5944760c",
+    "src/core/application.ts": "67c313429130973e4e480e8b02cffe6a8dea4048e80f5b30441b62a379fd7b3c",
+    "src/main/index.ts": "8ad50b5e5415058b1345f53815c70ef1e2ff1a0412e134d2b7acea8aa87d4614",
+    "src/preload/index.ts": "503131f40951c1cae8a743cf7dfa97a6534165d320f1df31247c5ba8ddbca7e8",
+    "src/renderer/src/FilePreview.tsx": "a06555b512be1cc59bd4a1da708e45f0f70cdc6f49b0e5da573b13ac8adc56ed",
+    "src/adapters/bmad/catalog.ts": "ec3b11f8a10be0ca5ec06f0d444fe17680518969222953e4b5c6969217294825",
+    "src/adapters/bmad/progress.ts": "53a1b3011f226fdd222f1124c8d352822f28854bbad6aab11997df22b57bd896"
+  }
+}

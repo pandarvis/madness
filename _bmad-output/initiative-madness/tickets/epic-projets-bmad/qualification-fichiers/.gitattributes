@@ -1,0 +1,10 @@
+* -text
+# Preserve executed producer bytes; manifests and receipts remain reviewable.
+**/producer/** -diff
+producer/** -diff
+parent-audit-*.json -diff
+
+# Duplicate diagnostic/source snapshots remain byte-preserved; manifests and focused changes are textual.
+focus-fix-001/diagnostic-test.mjs -diff
+high-risk-fix-001/before/** -diff
+high-risk-fix-001/after/** -diff

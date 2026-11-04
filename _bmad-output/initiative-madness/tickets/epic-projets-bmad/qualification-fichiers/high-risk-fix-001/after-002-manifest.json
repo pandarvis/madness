@@ -1,0 +1,91 @@
+{
+  "createdAt": "2026-11-04T14:16:23.649349+00:00",
+  "purpose": "before fresh relevant verification after measured lstat/fstat ctime distinction",
+  "files": {
+    "resources/bmad-help/capture.py": {
+      "sha256": "ea6965f0578b223fda14f5d38f5c09d7cf2ea94b8d0dc275493e5acbf42ced54",
+      "bytes": 10867
+    },
+    "resources/bmad-help/files.py": {
+      "sha256": "46769032c6bc463f9dad044d6ad708d785b139a787f5ed997683ffd7f5e72ed4",
+      "bytes": 4612
+    },
+    "src/adapters/bmad/help-manifest.ts": {
+      "sha256": "e666c22fe9b3c0ac5ebbae39bcb1f4b63a98fcf5abe8ff00238fb4c203a0cb2d",
+      "bytes": 1425
+    },
+    "src/renderer/src/FilePreview.tsx": {
+      "sha256": "9e7d5b151fbbbead8fe6dab706849efc88df8495e9553929d812cae693f1590f",
+      "bytes": 8734
+    },
+    "tests/project-files-protocol.test.mjs": {
+      "sha256": "36a3045f4fef8fc472646bd425e5cc264305ecf761dfc96bc6919e4edf227c98",
+      "bytes": 9956
+    },
+    "tests/connection-ui.test.mjs": {
+      "sha256": "8f9058a8f93d5a19e630af3ce680dc9f2d88a0556fce18d8fe5f0efd8d98bf5b",
+      "bytes": 194098
+    },
+    "tests/project-files.test.mjs": {
+      "sha256": "6690ca8fe949b909868cfc7caa1ddbbbbfcfb00ecd113f8fa2013214ed881b7e",
+      "bytes": 7305
+    },
+    "tests/bmad-progress.test.mjs": {
+      "sha256": "1511b4639de5f5d48372f6d27fc807575cb06d9068e3ff44044b18af5329c81e",
+      "bytes": 8902
+    },
+    "tests/bmad-catalog.test.mjs": {
+      "sha256": "3416cace7db91ed74f071e5f37d67af1f630c79ff69d0d0f12504111054327ae",
+      "bytes": 15359
+    },
+    "tests/bmad-progress-protocol.test.mjs": {
+      "sha256": "498e892f00ae38f9ea49049b3e7edc3e9b6189c39f6d5074980486270c752b13",
+      "bytes": 6009
+    },
+    "tests/bmad-catalog-protocol.test.mjs": {
+      "sha256": "f607827bf2144e38034f44a20c87bc3c9a48841c4083d0cd53718b2c62661cf1",
+      "bytes": 11029
+    },
+    "tests/bmad-help-boundaries.test.mjs": {
+      "sha256": "66564b361c07e35d7ac8c8f0f1899cc34cc40b841d39001b48fe0999dd711639",
+      "bytes": 7566
+    },
+    "tests/bmad-context-sources.test.mjs": {
+      "sha256": "8005d430e717c341f53141560408dc321541f6a454d5d859626696da76bf44fb",
+      "bytes": 7620
+    },
+    "tests/helpers/help-native.mjs": {
+      "sha256": "eaf020bc71cb064cc266575b9e4429c41664d824465e4e392ce67652d1ae8a03",
+      "bytes": 4897
+    },
+    "resources/bmad-help/runtime.json": {
+      "sha256": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+      "bytes": 100459
+    },
+    "resources/bmad-help/runtime_guard.py": {
+      "sha256": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+      "bytes": 15890
+    },
+    "resources/bmad-help/launcher.ps1": {
+      "sha256": "a4722f06adad45b8939cf80b7c58e6d277bf1a5434ab2be6725436eb5fa9b356",
+      "bytes": 4910
+    },
+    "resources/bmad-help/worker.py": {
+      "sha256": "7429e4c4521cd9dcea658b08344906e582ce6ebda90595ab190a5534a72bf72b",
+      "bytes": 26837
+    },
+    "src/adapters/bmad/help.ts": {
+      "sha256": "1b3330fef15426d3b1268e7c4bb43b0e0c3ef3a649629d206fa531acba88e084",
+      "bytes": 19068
+    },
+    "src/core/project-files.ts": {
+      "sha256": "301186634b9806f8521f8dbce6ac61fb7f9878346f62ed1596b7ea1b2f6f3521",
+      "bytes": 11853
+    }
+  },
+  "changedSinceAfter001": [
+    "resources/bmad-help/capture.py",
+    "src/adapters/bmad/help-manifest.ts",
+    "tests/project-files-protocol.test.mjs"
+  ]
+}

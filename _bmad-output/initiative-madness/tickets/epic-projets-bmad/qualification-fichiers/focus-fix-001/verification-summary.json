@@ -1,0 +1,56 @@
+{
+  "at": "2026-11-04T14:29:51.281810+00:00",
+  "diagnosis": "Test asserted before its known scheduled focus restoration; no product fault observed.",
+  "evidence": {
+    "immediatelyAfterHandler": {
+      "phase": "immediately-after-close-handler",
+      "tag": "BODY",
+      "label": null,
+      "text": "Aller au contenuOuvrir la navigationcatalog-aOuvrir un projetPasser au th\u00e8me clairConnexion Codex : ",
+      "isExactTarget": false,
+      "targetConnected": true,
+      "at": 1326.7000000029802
+    },
+    "actualRestoration": {
+      "phase": "after-raf-callback",
+      "tag": "BUTTON",
+      "label": "Fiche comp\u00e9tence alpha",
+      "text": "alpha",
+      "isExactTarget": true,
+      "targetConnected": true,
+      "at": 1337.2000000029802
+    },
+    "observedRestorationDelayMs": 10.5,
+    "originalRed": "parent-ui-004.red.log",
+    "diagnosticVariant": "diagnostic-test.mjs",
+    "diagnosticLog": "diagnostic.log"
+  },
+  "change": {
+    "path": "tests/connection-ui.test.mjs",
+    "beforeSha256": "8f9058a8f93d5a19e630af3ce680dc9f2d88a0556fce18d8fe5f0efd8d98bf5b",
+    "afterSha256": "951feaa00977c60e47a992d69c881731cb74a054dfa3d002b8fa149d876700c4"
+  },
+  "scope": "bench only: tests/connection-ui.test.mjs one close-focus assertion",
+  "condition": "synchronous isConnected && exact ElementHandle === document.activeElement",
+  "timeout": "unchanged default, no override",
+  "verification": {
+    "targeted": {
+      "tests": 1,
+      "pass": 1,
+      "skip": 0,
+      "log": "targeted.log",
+      "durationMs": 4054.5671
+    },
+    "combinedOnce": {
+      "tests": 14,
+      "pass": 14,
+      "skip": 0,
+      "log": "combined-014.log",
+      "durationMs": 51747.0542
+    }
+  },
+  "sourceInputsStillExact": true,
+  "productAndResourcesUnchanged": true,
+  "noProductMainProviderOrCaptures": true,
+  "ownedFixtures": "All three synthetic UI logs record no remaining owned Main/descendants before safe cleanup."
+}

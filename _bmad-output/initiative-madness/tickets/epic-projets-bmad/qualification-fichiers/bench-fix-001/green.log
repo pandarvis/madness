@@ -1,0 +1,14 @@
+✔ counterexample: old finalizer cleanup masks original failure and prevents report persistence (0.8267ms)
+✔ report checkpoints are atomic and ordered; last complete stage remains readable (40.6711ms)
+✔ cleanup EBUSY persists original error and separate cleanup failure (17.2443ms)
+✔ external editor stop unknown retains fixture without attempted deletion or closure invention (13.7949ms)
+✔ closure failure is saved and prevents cleanup, original error preserved (13.6144ms)
+✔ no external handoff and proved owned closure permit cleanup and final persisted success (17.7284ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 230.9618

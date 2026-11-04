@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-04T15:02:06.533Z",
+  "scope": "Direct Electron clipboard API diagnostic only, no product feature success or private clipboard content persisted",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-clipboard-hD0kBu",
+  "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-clipboard-hD0kBu\\profile",
+  "cleanup": true,
+  "asar": "689656002d07550c1b3fe86db6b8a0adf344f5fa30d31be99c4842714ad5c21e",
+  "main": {
+    "pid": 27424,
+    "startedAt": "639294013266392823",
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe"
+  },
+  "api": {
+    "cases": [
+      {
+        "name": "same-callback plain marker",
+        "match": false,
+        "empty": true,
+        "characters": 0,
+        "hasText": false
+      },
+      {
+        "name": "after-native-macrotask",
+        "match": false,
+        "empty": true,
+        "characters": 0
+      },
+      {
+        "name": "focused-window path marker",
+        "match": false,
+        "empty": true,
+        "characters": 0,
+        "hasText": false
+      }
+    ],
+    "focused": true,
+    "priorWasEmpty": true,
+    "restorationObserved": true,
+    "versions": {
+      "electron": "45.0.0",
+      "chrome": "156.0.8078.48"
+    }
+  },
+  "closure": {
+    "main": {
+      "pid": 27424,
+      "startedAt": "639294013266392823",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\files-reviewed\\win-unpacked\\Madness.exe"
+    },
+    "wrapperPid": 30672,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-04T15:02:08.511Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  }
+}

@@ -1,0 +1,19 @@
+✖ H1 captured physical grant survives no reader re-baselining and rejects before any os.read (19057.2438ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19301.3355
+
+✖ failing tests:
+
+test at tests\project-files-protocol.test.mjs:99:1
+✖ H1 captured physical grant survives no reader re-baselining and rejects before any os.read (19057.2438ms)
+  Error: {"execution":{"schema":5,"outcome":"completed","exit":1,"started":true,"owned":[],"cleanup":[],"results_present":false,"job_assigned_before_resume":true,"pid":15852,"active_before_stop":0,"job_active_after_stop":0,"stop_ms":4,"drain_ms":217,"elapsed_ms":2719},"stdout":"","stderr":"Traceback (most recent call last):\r\n  File \"<string>\", line 68, in <module>\r\n  File \"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-boundaries-WpL1AZ\\resources\\cases.py\", line 23, in <module>\r\n    assert reads==[],'UNAUTHORIZED_OS_READ_BEFORE_LATE_REJECTION: '+str(reads)\r\n           ^^^^^^^^^\r\nAssertionError: UNAUTHORIZED_OS_READ_BEFORE_LATE_REJECTION: [65536, 65536]\r\n"}
+      at runHelpSourcesCase (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/helpers/help-native.mjs:40:64)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/project-files-protocol.test.mjs:99:117)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

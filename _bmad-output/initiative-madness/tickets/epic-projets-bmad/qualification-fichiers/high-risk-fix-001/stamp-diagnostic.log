@@ -1,0 +1,59 @@
+{
+  "value": {
+    "expected": [
+      8708507883820909000,
+      19140298416570200,
+      33206,
+      1,
+      32,
+      20,
+      1793801703019494100,
+      1793801703018496000
+    ],
+    "opened": [
+      8708507883820909000,
+      19140298416570200,
+      33206,
+      1,
+      32,
+      20,
+      1793801703019494100,
+      1793801703019494100
+    ],
+    "differences": [
+      {
+        "index": 7,
+        "expected": 1793801703018496000,
+        "opened": 1793801703019494100
+      }
+    ],
+    "chainEqual": true,
+    "lstat": "os.stat_result(st_mode=33206, st_ino=19140298416570201, st_dev=8708507883820908980, st_nlink=1, st_uid=0, st_gid=0, st_size=20, st_atime=1793801703, st_mtime=1793801703, st_ctime=1793801703)",
+    "fstat": "os.stat_result(st_mode=33206, st_ino=19140298416570201, st_dev=8708507883820908980, st_nlink=1, st_uid=0, st_gid=0, st_size=20, st_atime=1793801703, st_mtime=1793801703, st_ctime=1793801703)",
+    "birthtime_ns": [
+      1793801703018496000,
+      1793801703018496000
+    ]
+  },
+  "execution": {
+    "schema": 5,
+    "outcome": "completed",
+    "exit": 0,
+    "started": true,
+    "owned": [],
+    "cleanup": [],
+    "results_present": false,
+    "job_assigned_before_resume": true,
+    "pid": 13320,
+    "active_before_stop": 0,
+    "job_active_after_stop": 0,
+    "stop_ms": 0,
+    "drain_ms": 159,
+    "elapsed_ms": 2551
+  },
+  "preflight": [
+    "sitecustomize",
+    "cache",
+    "parent-venv"
+  ]
+}

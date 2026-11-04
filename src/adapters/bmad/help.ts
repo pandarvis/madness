@@ -1,3 +1,4 @@
+import type {FileAuthority} from '../../core/project-files.ts'
 import {realpath as nativeRealpath} from 'node:fs'
 import {promisify} from 'node:util'
 import {spawn} from 'node:child_process'
@@ -23,6 +24,20 @@ async function safe(path:string,limit=32*1024*1024):Promise<Buffer>{
 }
 export type HelpAdapterOptions={root:string;resources:string;owner:HelpOwnedRun;onUnknown?():void;admission?:{enter(kind:'provider'|'helper',nested?:boolean):()=>void};admit?(internal:boolean):Promise<void>;roots?(project:string):string[]}
 export class BmadHelpAdapter{
+ private fileCaptures=new WeakMap<object,FileAuthority>();
+ filesAuthority(value:object):FileAuthority|undefined{return this.fileCaptures.get(value)}
+ private async captureFiles<T extends {projectId:string;rootPath:string;rootIdentity:string;revision:string;observedAt:string;sources:{id:string;path:string;sha256:string;bytes:number}[]}>(value:T,folder:string,grant:any):Promise<T>{
+  if(!grant||grant.rootIdentity!==value.rootIdentity||grant.revision!==value.revision||!['progress','catalog'].includes(grant.producer)||!Array.isArray(grant.sources)||grant.sources.length>2048)throw dialogueFailure('PROFILE_CHANGED')
+  const sources=grant.sources.map((s:any)=>{const source=value.sources.find(v=>v.id===s.id);if(!source||source.path!==s.path||source.sha256!==s.sha256||source.bytes!==s.bytes)throw dialogueFailure('PROFILE_CHANGED');return Object.freeze({id:s.id,path:s.path,sha256:s.sha256,bytes:s.bytes})})
+  const receiptSha=grant.refusal?null:sha(await safe(join(folder,'files.json'),4*1024*1024)),producer=grant.producer,revision=value.revision
+  const operate=async(sourceId:string,signal:AbortSignal,read:boolean):Promise<any>=>{
+   if(!sources.some((s:any)=>s.id===sourceId))throw dialogueFailure('PROFILE_CHANGED')
+   if(sha(await safe(join(folder,'files.json'),4*1024*1024))!==receiptSha)throw dialogueFailure('PROFILE_CHANGED')
+   try{const {result}=await this.run({op:read?'files-read':'files-verify',prepared:folder,receiptSha,producer,revision,sourceId},signal,false);return result}catch(e){const detail=String((e as {detail?:string}).detail??'');const code=/^(PREVIEW_TYPE|PREVIEW_UTF8|PREVIEW_BINARY|FILE_LIMIT)(:|$)/.exec(detail)?.[1];if(code)throw Object.assign(new Error(code),{code});throw e}
+  }
+  this.fileCaptures.set(value,Object.freeze({...(typeof grant.refusal==='string'?{refusal:grant.refusal}:{}),producer,projectId:value.projectId,rootPath:value.rootPath,rootIdentity:value.rootIdentity,initiativeId:grant.initiativeId??null,revision,observedAt:value.observedAt,sources,read:(id:string,signal:AbortSignal)=>operate(id,signal,true),verify:(id:string,signal:AbortSignal)=>operate(id,signal,false)}))
+  return value
+ }
  private captures=new WeakMap<object,ObservationHints>();
  dependencies(value:object):ObservationHints|undefined{return this.captures.get(value)}
  private captured<T extends object>(value:T,hints:ObservationHints|undefined):T{if(hints)this.captures.set(value,hints);return value}
@@ -68,9 +83,10 @@ export class BmadHelpAdapter{
    const raw=new TextDecoder('utf-8',{fatal:true}).decode(await safe(join(folder,'stdout.json'),4*1024*1024))
    const result=JSON.parse(raw)
    const hints=result._observationHints as ObservationHints|undefined;delete result._observationHints
+   const fileGrant=result._fileGrant;delete result._fileGrant
    if(result._timings){await writeFile(join(folder,'native-timings.json'),JSON.stringify(result._timings));delete result._timings}
    if(execution.outcome!=='completed'||execution.exit!==0||errors>65536||result.error)throw Object.assign(dialogueFailure('RESOLVER_FAILED'),{detail:result.error})
-   return {result,folder:data,raw,hints}
+   return {result,folder:data,raw,hints,fileGrant}
   }finally{
    try{
     if(generation&&!spawned){await writeFile(join(folder,'terminal.json'),JSON.stringify({schemaVersion:1,generation,purpose:'bmad-readonly',terminal:true,jobAssigned:false,jobActive:0,neverStarted:true}),{flag:'wx'}).catch(()=>{})}
@@ -98,15 +114,15 @@ export class BmadHelpAdapter{
  async observeCatalog(projectId:string,rootPath:string,signal:AbortSignal):Promise<import('../../contracts/bmad-catalog.ts').BmadCatalogSnapshot>{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
   for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
-  const {result,hints}=await this.run({op:'catalog',project:root,roots},signal,false)
-  return this.captured({schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result},hints)
+  const {result,hints,folder,fileGrant}=await this.run({op:'catalog',project:root,roots},signal,false)
+  return this.captureFiles(this.captured({schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result},hints),folder,fileGrant)
  }
  async observeProgress(projectId:string,rootPath:string,selection:import('../../contracts/bmad-context.ts').BmadSelection,observation:import('../../contracts/bmad-context.ts').BmadContextObservation,signal:AbortSignal):Promise<import('../../contracts/bmad-progress.ts').BmadProgressSnapshot>{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
   for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
   // This is a local consultation, never a provider-nested admission.
-  const {result,hints}=await this.run({op:'progress',project:root,roots,initiativeId:selection.initiativeId,rootIdentity:selection.rootIdentity,contextRevision:observation.revision},signal)
-  return this.captured({schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result},hints)
+  const {result,hints,folder,fileGrant}=await this.run({op:'progress',project:root,roots,initiativeId:selection.initiativeId,rootIdentity:selection.rootIdentity,contextRevision:observation.revision},signal)
+  return this.captureFiles(this.captured({schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result},hints),folder,fileGrant)
  }
  async prepare(projectId:string,rootPath:string,signal:AbortSignal):Promise<HelpBundle>{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]

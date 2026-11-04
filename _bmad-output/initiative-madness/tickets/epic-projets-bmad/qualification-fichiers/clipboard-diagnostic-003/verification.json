@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-04T15:04:35.157Z",
+  "scope": "Direct Electron clipboard API diagnostic only, no product feature success or private clipboard content persisted",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-clipboard-e9zv5x",
+  "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mfiles-clipboard-e9zv5x\\profile",
+  "cleanup": true,
+  "runtimeOnly": true,
+  "main": {
+    "pid": 40452,
+    "startedAt": "639294014752251411",
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+  },
+  "api": {
+    "cases": [
+      {
+        "name": "same-callback plain marker",
+        "match": false,
+        "empty": true,
+        "characters": 0,
+        "hasText": false
+      },
+      {
+        "name": "after-native-macrotask",
+        "match": false,
+        "empty": true,
+        "characters": 0
+      },
+      {
+        "name": "focused-window path marker",
+        "match": false,
+        "empty": true,
+        "characters": 0,
+        "hasText": false
+      }
+    ],
+    "focused": true,
+    "priorWasEmpty": true,
+    "restorationObserved": true,
+    "versions": {
+      "electron": "45.0.0",
+      "chrome": "156.0.8078.48"
+    }
+  },
+  "closure": {
+    "main": {
+      "pid": 40452,
+      "startedAt": "639294014752251411",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+    },
+    "wrapperPid": 29564,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-04T15:04:36.884Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  }
+}

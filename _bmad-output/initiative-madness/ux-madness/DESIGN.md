@@ -380,3 +380,9 @@ Portrait, fiche et signalements décrivent le candidat atelier ; catalogue, init
 | Nommer couverture, provenance, fraîcheur et sélection locale. | Faire d’un diagnostic partiel un refus global ou d’une sélection un changement BMad. |
 | Illustrer une identité attestée ; conserver nom exact hors casting ou repli inconnu. | Déduire une activation, une compétence ou une activité d’un visage. |
 | Conserver saisie, focus, provenance et mouvement réduit. | Présenter une simulation, un état historique ou un test technique comme une validation humaine. |
+
+
+<a id="graphe-produit44"></a>
+## Graphe du projet — intégration4.4
+
+Parcours · Conversation · Toutes les possibilités · Graphe forment les quatre onglets du même projet. Le [supplément Graphe](../tickets/epic-graphe-projet/ux-graphe/EXPERIENCE.md) étend les destinations : analyse locale explicite sans BMad/IA/Git, SVG local et liste équivalente, recherche/relations, provenance/fraîcheur datée, puis panneau de fichiers2.8 et retour exact. L’exploration est attachée à projet/racine/périmètre/analyse/révision, indépendamment de l’initiative. Entrer/restaurer/zoomer ne lance aucune analyse. La réouverture historique n’accorde aucune autorité fichier ; revalidation volontaire avant lecture. Atelier, palette/fonts, conversations et saisies restent ceux du monde livré.

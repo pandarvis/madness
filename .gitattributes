@@ -1,3 +1,7 @@
 
 # Native copies and source-only helper resources are pinned byte for byte.
 resources/bmad-help/** -text
+
+# Closed Graphify resources retain their pinned bytes; literal inventory is machine-audited.
+resources/graphify/** -text
+resources/graphify/assembly.json -diff

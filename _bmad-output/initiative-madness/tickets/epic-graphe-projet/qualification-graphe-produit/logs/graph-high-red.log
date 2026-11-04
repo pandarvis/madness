@@ -1,0 +1,82 @@
+✖ HIGH-1 explicit native recovery reconciles the matching restored unknown without replay, freshness promotion or file authority (88.1551ms)
+✖ HIGH-1 unconfirmed or foreign native generations cannot unlock another logical attempt (65.0151ms)
+✖ HIGH-2 actual PowerShell launcher aggregates second child missing-zero (3703.5018ms)
+✖ HIGH-2 actual PowerShell launcher aggregates second child no-observation (2962.4596ms)
+✖ HIGH-2 actual PowerShell launcher aggregates second child positive-active (2638.4816ms)
+✔ HIGH-2 actual PowerShell launcher aggregates second child known-zero-after-throw (3601.1326ms)
+✔ HIGH-2 actual PowerShell launcher aggregates second child normal (2709.7526ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 2
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15830.6876
+
+✖ failing tests:
+
+test at tests\graph-recovery.test.mjs:14:1
+✖ HIGH-1 explicit native recovery reconciles the matching restored unknown without replay, freshness promotion or file authority (88.1551ms)
+  TypeError: owner.stopProof is not a function
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graph-recovery.test.mjs:14:498)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)
+
+test at tests\graph-recovery.test.mjs:15:1
+✖ HIGH-1 unconfirmed or foreign native generations cannot unlock another logical attempt (65.0151ms)
+  TypeError: owner.stopProof is not a function
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graph-recovery.test.mjs:15:406)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at tests\graphify-supervision.test.mjs:11:145
+✖ HIGH-2 actual PowerShell launcher aggregates second child missing-zero (3703.5018ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== null
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graphify-supervision.test.mjs:24:571)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\graphify-supervision.test.mjs:11:145
+✖ HIGH-2 actual PowerShell launcher aggregates second child no-observation (2962.4596ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== null
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graphify-supervision.test.mjs:24:571)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\graphify-supervision.test.mjs:11:145
+✖ HIGH-2 actual PowerShell launcher aggregates second child positive-active (2638.4816ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== null
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graphify-supervision.test.mjs:24:571)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -27,7 +27,7 @@ export type ExpectedGraphContext = {
 export type GraphCommand = {contractVersion:1; correlationId:string}&(
  {type:'read'}|{type:'generate'; projectId:string; scopeId:string}|
  {type:'interrupt'; projectId:string; scopeId:string; analysisId:string}|
- {type:'retry-save'; projectId:string; scopeId:string})
+ {type:'retry-save'|'revalidate-files'; projectId:string; scopeId:string})
 export type GraphFailure = {code:'ANALYSIS_FAILED'|'INCOMPATIBLE'|'STOP_UNCONFIRMED'; messageKey:string; outcome:'failed'|'unknown'; recovery:'retry-after-check'|'inspect-profile'|'check-stop'}
 type GraphEventBase = {contractVersion:1; correlationId:string; identity:GraphIdentity; generation:number; order:number}
 export type GraphAnalysisEvent = GraphEventBase & (
@@ -197,7 +197,7 @@ function command(input:unknown):void{
  const type=(input as DataRecord).type,base=['contractVersion','correlationId','type']
  const keys=type==='read'?base:type==='interrupt'?[...base,'projectId','scopeId','analysisId']:[...base,'projectId','scopeId']
  const v=record(input,keys,'$');one(v.contractVersion,[1],'$.contractVersion','INCOMPATIBLE_VERSION');text(v.correlationId,'$.correlationId')
- one(type,['read','generate','interrupt','retry-save'],'$.type')
+ one(type,['read','generate','interrupt','retry-save','revalidate-files'],'$.type')
  if(type!=='read'){text(v.projectId,'$.projectId');if(!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(v.projectId as string))refuse('INVALID_SHAPE','$.projectId');text(v.scopeId,'$.scopeId')}
  if(type==='interrupt')text(v.analysisId,'$.analysisId')
 }
@@ -282,3 +282,21 @@ export function validateGraphStopRequest(input:unknown):GraphValidation<GraphSto
   one(v.contractVersion,[1],'$.contractVersion','INCOMPATIBLE_VERSION');scope(v.identity,'$.identity',true);integer(v.generation,'$.generation',1);text(v.correlationId,'$.correlationId')
  })
 }
+
+
+/** Business bridge only. Native capture, original paths and receipts stay in Main. */
+export const GRAPH_COMMAND_CHANNEL='madness:graph-command'
+export const GRAPH_EVENT_CHANNEL='madness:graph-event'
+export type GraphFileBinding={projectId:string;rootIdentity:string;analysisId:string;revision:string;relativePath:string;sourceId:string}
+export type GraphWorkspace={contractVersion:1;sequence:number;projects:GraphState[];fileBindings:GraphFileBinding[];preparing:string|null;issues:{projectId:string;reason:string}[]}
+export const initialGraphWorkspace=():GraphWorkspace=>({contractVersion:1,sequence:0,projects:[],fileBindings:[],preparing:null,issues:[]})
+export function isGraphWorkspace(v:unknown):v is GraphWorkspace{
+ return validate<GraphWorkspace>(v,input=>{
+  const r=record(input,['contractVersion','sequence','projects','fileBindings','preparing','issues'],'$');one(r.contractVersion,[1],'$.contractVersion');integer(r.sequence,'$.sequence')
+  array(r.projects,'$.projects',(v,p)=>{if(!validateGraphState(v).ok)refuse('INVALID_SHAPE',p)});unique((r.projects as GraphState[]).map(s=>s.scope.projectId),'$.projects')
+  array(r.fileBindings,'$.fileBindings',(v,p)=>{const b=record(v,['projectId','rootIdentity','analysisId','revision','relativePath','sourceId'],p);for(const k of ['projectId','rootIdentity','analysisId','sourceId'])text(b[k],p+'.'+k);sha(b.revision,p+'.revision');relative(b.relativePath,p+'.relativePath')})
+  if(r.preparing!==null)text(r.preparing,'$.preparing')
+  array(r.issues,'$.issues',(v,p)=>{const i=record(v,['projectId','reason'],p);text(i.projectId,p+'.projectId');text(i.reason,p+'.reason')})
+ }).ok
+}
+export type GraphBridge={read():Promise<GraphWorkspace>;generate(projectId:string):Promise<GraphWorkspace>;interrupt(projectId:string,analysisId:string):Promise<GraphWorkspace>;retrySave(projectId:string):Promise<GraphWorkspace>;revalidateFiles(projectId:string):Promise<GraphWorkspace>;onChanged(listener:(state:GraphWorkspace)=>void):()=>void}

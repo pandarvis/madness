@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-iSyiQv",
+  "startedAt": "2026-11-04T16:31:52.707Z",
+  "status": "failed",
+  "checks": [],
+  "captures": [],
+  "closures": [
+    {
+      "main": {
+        "pid": 43736,
+        "startedAt": "639294067133364293",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 17696,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T16:31:54.234Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "graphOwner": "stopped"
+    }
+  ],
+  "launches": [
+    {
+      "pid": 43736,
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-iSyiQv\\profile",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed\\win-unpacked\\Madness.exe"
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "One owned synthetic Windows project, no BMad/account/AI/Git. Not extended4.5–4.9 or finalG5.",
+    "Python hooks and pinned native libraries are not an OS sandbox.",
+    "Counters cover the interval after the explicit observation hook. No OS editor or external clipboard claim."
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed\\win-unpacked\\Madness.exe",
+    "sha256": "46144855b1faa3104278f0e6ec8dcea5eee211788c7d83dbd4d460345b2cf3c5",
+    "asarSha256": "eab6124af8e9a933f44334b04effe44d88c057ebd336aede5483cda363fe5991"
+  },
+  "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.project-row').filter({ hasText: 'Graph code witness' })\u001b[22m\n\n    at C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\scripts\\qualification\\graph-project.mjs:28:486",
+  "uiText": "Aller au contenu\nGraph code witness\nMADNESS\nAccueil\nPROJETS RÉCENTS\nGC\nGraph code witness\n\nDonnées locales\nFrançais · thème sombre\n\nGraph code witness\nChoisir une initiative\nParcours\nConversation\nToutes les possibilités\nGraphe\nActivité\n\nAucune demande active connue. Les livrables et leur acceptation restent à vérifier.\n\nConnexion et récapitulatifs\nReprise du projet\n\nSélection consultée : aucune · Acceptation humaine inconnue\n\nLire les preuves du projet\n\nChoisissez une initiative pour lire ses preuves. Choisir une initiative\n\nLes preuves du projet n’ont pas été lues dans cette session.\n\nÉtat connu\nRésultats et décisions connus\nRécapitulatifs disponibles\nTravail restant connu\nÉtat connu\n\nInformation non établie\n\nRésultats et décisions connus\n\nExtraits littéraux des documents, sans synthèse IA ni validation implicite.\n\nInformation non établie\n\nRécapitulatifs disponibles\n\nAucun récapitulatif local retrouvé\n\nTravail restant connu\n\nTravail restant non établi\n\nQue faire ensuite ?\nVoir les aides\n\nConsultez l’aide des modules installés, puis demandez une prochaine action à BMad.\n\nPréparez un échange avec Mary pour préciser votre projet, ou avec Forge pour éprouver une nouvelle idée. Qualification et lancement restent explicites.\n\nMettre une idée à l’épreuve\n\nForge confronte une nouvelle idée à plusieurs points de vue, puis conserve un journal et un rapport. Chaque tour utilise votre forfait ChatGPT.\n\nPréparer Forge\nMary\nAnalyste BMad · Codex\n\n$bmad-agent-analyst\n\nLe lancement vérifie les vrais fichiers BMad puis demande l’accueil de Mary. Chaque tour utilise votre forfait ChatGPT.\n\nProposer des modifications avec approbation\n\nLecture seule par défaut ; aucune écriture native autorisée.\n\nLes workflows du menu restent indisponibles dans ce pilote. Le mode fichiers ajoute seulement des patches natifs avec accord ponctuel ; chaque nouvelle proposition demande un nouveau choix.\n\nLancer Mary avec Codex\nVérifier ce projet\n\nConnectez d’abord votre compte dans le panneau Codex.\n\nContexte local chargé. Aucun agent n’a été relancé.",
+  "application": {
+    "contractVersion": 1,
+    "correlationId": "a1b49877-8438-4a75-99be-ee1e13434f7c",
+    "ok": true,
+    "value": {
+      "state": {
+        "schemaVersion": 1,
+        "revision": 0,
+        "projects": [
+          {
+            "id": "graph-a",
+            "name": "Graph code witness",
+            "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-iSyiQv\\project",
+            "openedAt": "2026-11-04T16:31:53.228Z"
+          }
+        ],
+        "activeProjectId": "graph-a",
+        "drafts": [
+          {
+            "projectId": "graph-a",
+            "text": "Exact graph draft 🧭",
+            "savedAt": "2026-11-04T16:31:53.228Z"
+          }
+        ],
+        "preferences": {
+          "navigationCollapsed": false
+        },
+        "conversations": [],
+        "capabilities": {
+          "codex": {
+            "available": false,
+            "reasonKey": "codex.unqualified"
+          }
+        },
+        "lifecycle": "idle"
+      },
+      "effect": "read"
+    }
+  },
+  "finishedAt": "2026-11-04T16:32:28.005Z"
+}

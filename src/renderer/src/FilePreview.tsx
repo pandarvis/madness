@@ -13,10 +13,10 @@ export function useProjectFiles():[ProjectFilesState,(value:ProjectFilesState)=>
  return [state,accept]
 }
 export function FileAvailabilityNotice({projectId,producer,revision}:{projectId:string;producer:FileProducer;revision:string|undefined}):ReactNode{const {state}=useContext(FilesContext),issue=state.issues.find(i=>i.projectId===projectId&&i.producer===producer&&i.revision===revision);return issue?<p className="small" role="status">{issue.reason}</p>:null}
-export function FilePreviewButton({producer,projectId,revision,sourceId,beforeOpen}:{producer:FileProducer;projectId:string;revision:string;sourceId:string;beforeOpen?:()=>{trigger:HTMLElement;fallback:HTMLElement|null;top?:number;expanded?:boolean;requested?:boolean}|null}):ReactNode{
+export function FilePreviewButton({producer,projectId,revision,sourceId,beforeOpen,label}:{producer:FileProducer;projectId:string;revision:string;sourceId:string;label?:string;beforeOpen?:()=>{trigger:HTMLElement;fallback:HTMLElement|null;top?:number;expanded?:boolean;requested?:boolean}|null}):ReactNode{
  const {state,open}=useContext(FilesContext),ref=state.references.find(r=>r.producer===producer&&r.projectId===projectId&&r.revision===revision&&r.sourceId===sourceId&&r.current)
  if(!ref)return null
- return <button type="button" className="text-button file-preview-trigger" aria-label={'Aperçu · '+ref.path} onClick={event=>{const target=beforeOpen?.();open({reference:ref,trigger:target?.trigger??event.currentTarget,fallback:target?.fallback??event.currentTarget.closest('section')?.querySelector<HTMLElement>('h2[tabindex],h3[tabindex]')??null})}}>Aperçu</button>
+ return <button type="button" className="text-button file-preview-trigger" aria-label={(label??'Aperçu')+' · '+ref.path} onClick={event=>{const target=beforeOpen?.();open({reference:ref,trigger:target?.trigger??event.currentTarget,fallback:target?.fallback??event.currentTarget.closest('section')?.querySelector<HTMLElement>('h2[tabindex],h3[tabindex]')??null})}}>{label??'Aperçu'}</button>
 }
 export function FilePreview({consultation,state,accept,onClose}:{consultation:FileConsultation;state:ProjectFilesState;accept:(s:ProjectFilesState)=>void;onClose:(restore?:boolean)=>void}):ReactNode{
  const w=fileLabels.fr,id=useId(),panel=useRef<HTMLDialogElement>(null),title=useRef<HTMLHeadingElement>(null),body=useRef<HTMLDivElement>(null),reading=useRef(consultation.top??0),expandButton=useRef<HTMLButtonElement>(null),lastMode=useRef({modal:false,expanded:false}),alive=useRef(true),token=useRef(0)

@@ -2,7 +2,7 @@
 version: 1
 slug: "src-renderer-src-app-tsx"
 primary_target: "src/renderer/src/App.tsx"
-related_targets: ["src/renderer/src/styles.css","src/renderer/src/atelier-immersion.css","src/renderer/src/atelier-controls.css","src/renderer/src/main.tsx","src/renderer/src/HelpPanel.tsx","src/renderer/src/help.css","src/renderer/src/AgentInfoPanel.tsx","src/renderer/src/WindowCaptionPlates.tsx","src/main/index.ts"]
+related_targets: ["src/renderer/src/styles.css","src/renderer/src/atelier-immersion.css","src/renderer/src/atelier-controls.css","src/renderer/src/main.tsx","src/renderer/src/HelpPanel.tsx","src/renderer/src/help.css","src/renderer/src/AgentInfoPanel.tsx","src/renderer/src/WindowCaptionPlates.tsx","src/main/index.ts","src/renderer/src/GraphPanel.tsx","src/renderer/src/graph.css","src/renderer/src/graph-strings.ts"]
 ---
 
 # Espace de travail Madness

@@ -18,7 +18,7 @@ La génération du profil [4.1](../qualification-graphe/profil-g5.md) est locale
 <a id="d2"></a>
 ## D2 — Place et premier écran
 
-L’ordre cible des onglets du même projet est **Parcours · Conversation · Graphe**. Graphe est le troisième onglet ; un futur catalogue conserve sa propre destination, sans renommer Conversation ou produire une seconde navigation. Ce choix complète le contrat des spines en 4.4 ; le code actuel n’a que deux onglets. Le nom du projet et le contexte d’initiative consultée restent dans le shell. Le graphe porte le projet et le périmètre analysé ; il ne devient pas le graphe d’une initiative parce que la sélection de consultation change.
+L’ordre cible des onglets du même projet est **Parcours · Conversation · Toutes les possibilités · Graphe**. Graphe est le quatrième onglet ; le catalogue livré conserve sa propre destination, sans renommer Conversation ou produire une seconde navigation. Ce choix réconcilie le contrat des spines avec le shell courant en4.4 ; le relevé initial de4.2 à deux onglets reste historique. Le nom du projet et le contexte d’initiative consultée restent dans le shell. Le graphe porte le projet et le périmètre analysé ; il ne devient pas le graphe d’une initiative parce que la sélection de consultation change.
 
 Ordre visuel et de lecture dans le slot de contenu, après les onglets et la récupération commune :
 
@@ -53,7 +53,7 @@ La date d’observation et la révision portent toujours le résultat affiché, 
 
 Les utilitaires héritent des cibles de 40 px, icônes SVG existantes ou de leur langage, nom accessible et focus entier de 2 px décalé de 3 px ; les commandes textuelles héritent du minimum 44 px. Aucun nouvel asset n’est produit. Une icône ne remplace pas les textes Générer, Interrompre, motif de refus ou retour. Le nom accessible existe indépendamment de l’infobulle ; l’aide identique apparaît au focus et au survol, hors rognage.
 
-Les détails du nœud donnent chemin relatif connu, origine du rattachement, révision et ligne connue/inconnue, puis Voir le fichier seulement si la référence est admise. Cette intention rejoint le futur Panneau de fichiers **2.8** ; ce panneau n’existe pas dans la livraison présente. Sa largeur de référence 318 px et sa superposition sous 1080 px restent celles du spine, distinctes du dock agent 1323 px. Aucun nouveau panneau permanent n’est inventé. À faible largeur ou zoom, titre, fermeture et actions restent atteignables dans la largeur utile ; sélection et position sont conservées à la fermeture.
+Les détails du nœud donnent chemin relatif connu, origine du rattachement, révision et ligne connue/inconnue, puis Voir le fichier seulement si la référence est admise. Cette intention rejoint le Panneau de fichiers **2.8** déjà livré, avec ses grants privés et sa revalidation native. Sa largeur de référence 318 px et sa superposition sous 1080 px restent celles du spine, distinctes du dock agent 1323 px. Aucun nouveau panneau permanent n’est inventé. À faible largeur ou zoom, titre, fermeture et actions restent atteignables dans la largeur utile ; sélection et position sont conservées à la fermeture.
 
 La région de détails du graphe n’est pas un aperçu de fichier et n’exécute ni source, URL, HTML Graphify ni commande. Les ressources de rendu seront locales et les données admises proviendront du cœur normalisé par 4.3/4.4, jamais d’un payload natif confié au renderer.
 
@@ -72,3 +72,8 @@ Pas d’animation de force continue, de recentrage automatique ou de pulsation s
 Les références [grand sombre](../../epic-projets-bmad/qualification-reprise-projet/visual-finish-001/resume-large-dark-native.png) et [compact clair](../../epic-projets-bmad/qualification-reprise-projet/visual-finish-001/resume-compact-light-native.png) ont été ouvertes dans cette session. La [provenance](../../epic-projets-bmad/qualification-reprise-projet/impeccable-documentation.md) les décrit comme projections Main004 historiques, avant patches Quick. Elles montrent reprise et preuves de `project-a`, sélection beta avec échanges alpha ; aucun de ces contenus n’est attribué au futur graphe.
 
 Observations retenues : chrome pétrole, corps sombre/ivoire calme, titres condensés, commandes à coins coupés, détails textuels extensibles et passage au flux compact. Ces captures sont des références de composition, sans graphe rendu ni validation du paquet final. Les identités approuvées de fonte/casting restent acquises à leur portée historique, sans nouvelle acceptation humaine du supplément. [Qualification](qualification/verification.md) précise les seuls contrôles documentaires exécutés.
+
+
+## Réconciliation produit4.4 — 4 novembre2026
+
+Le catalogue2.6 et le panneau2.8 sont livrés. Graphe est la quatrième destination du même shell. Premier rendu4.4 : SVG géométrique local déterministe, liste exhaustive des nœuds admis, sens textuel et flèches, recherche, relations, fichier et retour ; approfondissement4.8 et matrices4.5–4.9 restent ouverts. Le clavier des onglets déplace le focus sans activation aux flèches, puis Entrée/Espace active. Réouverture passive ; revalidation volontaire des fichiers sans analyse. Le replan dispense4.4 des dépendances historiques2.14/3.9. Le présent ajout actualise ces seuls constats historiques ; source Sally4.2 conservée, aucune nouvelle activation ou preuve de rendu déduite.

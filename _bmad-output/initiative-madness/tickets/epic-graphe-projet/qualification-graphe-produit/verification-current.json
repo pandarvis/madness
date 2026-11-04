@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "at": "2026-11-04T18:35:36.849582+00:00",
+  "status": "built",
+  "version": "0.2.12",
+  "candidate": {
+    "directory": "dist/graph-reviewed-quick",
+    "executable": "dist/graph-reviewed-quick/win-unpacked/Madness.exe",
+    "executableSha256": "6dcb48c6b1b1218bf69396c9f5abeb3a2892cfbe2d892e622e47e39a2ee2f420",
+    "asarSha256": "fe0d700698031e42abea38645935727a02fa016602834448e907d011ecfaf591",
+    "installer": "dist/graph-reviewed-quick/Madness-0.2.12-x64-setup.exe",
+    "installerSha256": "c37100dad0fb061d92f0bb85f1835e9bc09e4f02f450fdc412cf3574d8fcfc32"
+  },
+  "parentVerification": {
+    "affectedPostQuick": 24,
+    "failed": 0,
+    "skipped": 0,
+    "buildExit": 0,
+    "packageExit": 0,
+    "compiledFilesByteIdentical": 19,
+    "graphPinsExact": 10
+  },
+  "nativeFinal": {
+    "path": "vertical-006/report.json",
+    "status": "passed",
+    "checks": 8,
+    "closures": 2,
+    "cleanup": true,
+    "sourceInputsExact": 30,
+    "screenshots": 0
+  },
+  "reviews": {
+    "quick": "Q1-Q5 resolved same reviewer",
+    "high": "HIGH1/2 resolved same reviewer; ownership launcher retained, current recovery tests pass",
+    "finish": "F1/F2 scored ship fb688 only; Q4 source/test favorable, not pictured",
+    "documenter": "impeccable-documentation.md updated narrow delta"
+  },
+  "visual": {
+    "native005HistoricalFrames": 5,
+    "correctiveReplayFb688Frames": 2,
+    "batches": 3,
+    "captureAttempts": 4,
+    "detectorRuns": 1,
+    "detectorFindings": []
+  },
+  "matrix": "matrix-audit.md",
+  "limitations": [
+    "9 unattributed UI suite discrepancies to2.15; no globalgreen",
+    "External clipboardpositive2.8 to2.16/G3",
+    "Extended4.5–4.9/finalG4/G5/English2.14 not acquired",
+    "Operational mirror retention/volume to4.7/4.9; no unknowncleaned",
+    "Interactive preview and personal install/profile preserved"
+  ]
+}

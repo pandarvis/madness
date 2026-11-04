@@ -1,0 +1,1185 @@
+{
+  "schemaVersion": 1,
+  "batch": 3,
+  "scoringAttempt": 2,
+  "captureAttemptOverall": 4,
+  "initialWorkerBatches": 2,
+  "priorInvalidAttempt": "attempt1-invalid/report.json",
+  "kind": "third-finish-directed-batch-corrective-second-attempt-fourth-capture-overall",
+  "source": "native005 graph + held original corpus; synthetic interrupted/timeout lifecycle composition",
+  "scope": "Only interrupted/retained status and the same45-node graph after Fit/Reset. No new native graph, no authority, no human/WCAG claim.",
+  "frames": [
+    {
+      "name": "interrupted-retained-dark",
+      "method": "native Electron webContents.capturePage without rect; source renderer replay",
+      "size": {
+        "width": 2062,
+        "height": 1437
+      },
+      "zoom": 1,
+      "sha256": "ca90f185cb17fa59fc53a1492ab3ddd1721c2ea129921da292cf766104c8e6b0"
+    },
+    {
+      "name": "fit-45-dark",
+      "method": "native Electron webContents.capturePage without rect; source renderer replay",
+      "size": {
+        "width": 2062,
+        "height": 1437
+      },
+      "zoom": 1,
+      "sha256": "df61aa01baed1e80cb204234cb4ec7cb3e4b78d802b3bfca256dc54a12254f44"
+    }
+  ],
+  "inputs": {
+    "src/renderer/src/GraphPanel.tsx": "f925708a671ef11368cd50c71861a41e512675af45ae09c34807307b1b0931c8",
+    "src/renderer/src/graph.css": "34cd5ce8905185aec506666238b08ad98fee7807e7957dff8fc381e8fc0d2187",
+    "src/renderer/src/graph-strings.ts": "dd7ee7b5c1b42fc33d9e6a91c809e7bf1aad84bfd22086fbf9c816600d93f0f4",
+    "scripts/qualification/graph-finish-replay.mjs": "384ebe073c61061b99a5fc8ac82b1f5aa96ee2694539f023c053fb139657e033",
+    "tests/helpers/graph-native-replay.mjs": "2e95f32956fd774917faf2fe49bc39e7fe61ff0235de2cbdd63fcef57364f327"
+  },
+  "viewport": {
+    "requested": {
+      "width": 1650,
+      "height": 1150
+    },
+    "actual": {
+      "width": 1650,
+      "height": 1150,
+      "layoutWidth": 1649.5999755859375,
+      "devicePixelRatio": 1.25,
+      "settledBy": "bounded-timeout",
+      "queries": [
+        {
+          "query": "(max-width: 720px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(max-width: 1080px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(max-width: 1280px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(min-width: 1323px)",
+          "expected": true,
+          "matches": true
+        },
+        {
+          "query": "(min-width: 1600px)",
+          "expected": true,
+          "matches": true
+        },
+        {
+          "query": "(max-height: 700px)",
+          "expected": false,
+          "matches": false
+        }
+      ]
+    },
+    "native": {
+      "contentSize": [
+        1649,
+        1149
+      ],
+      "zoomFactor": 1
+    },
+    "exact": true,
+    "limitation": null,
+    "attempts": [
+      {
+        "requestedNative": {
+          "width": 1650,
+          "height": 1150
+        },
+        "native": {
+          "contentSize": [
+            1652,
+            1151
+          ],
+          "zoomFactor": 1
+        },
+        "actual": {
+          "width": 1652,
+          "height": 1151,
+          "layoutWidth": 1652,
+          "devicePixelRatio": 1.25,
+          "settledBy": "animation-frames",
+          "queries": [
+            {
+              "query": "(max-width: 720px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1080px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1280px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(min-width: 1323px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(min-width: 1600px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(max-height: 700px)",
+              "expected": false,
+              "matches": false
+            }
+          ]
+        }
+      },
+      {
+        "requestedNative": {
+          "width": 1649,
+          "height": 1150
+        },
+        "native": {
+          "contentSize": [
+            1649,
+            1151
+          ],
+          "zoomFactor": 1
+        },
+        "actual": {
+          "width": 1650,
+          "height": 1151,
+          "layoutWidth": 1649.5999755859375,
+          "devicePixelRatio": 1.25,
+          "settledBy": "animation-frames",
+          "queries": [
+            {
+              "query": "(max-width: 720px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1080px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1280px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(min-width: 1323px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(min-width: 1600px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(max-height: 700px)",
+              "expected": false,
+              "matches": false
+            }
+          ]
+        }
+      },
+      {
+        "requestedNative": {
+          "width": 1651,
+          "height": 1150
+        },
+        "native": {
+          "contentSize": [
+            1652,
+            1151
+          ],
+          "zoomFactor": 1
+        },
+        "actual": {
+          "width": 1652,
+          "height": 1151,
+          "layoutWidth": 1652,
+          "devicePixelRatio": 1.25,
+          "settledBy": "bounded-timeout",
+          "queries": [
+            {
+              "query": "(max-width: 720px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1080px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1280px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(min-width: 1323px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(min-width: 1600px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(max-height: 700px)",
+              "expected": false,
+              "matches": false
+            }
+          ]
+        }
+      },
+      {
+        "requestedNative": {
+          "width": 1650,
+          "height": 1149
+        },
+        "native": {
+          "contentSize": [
+            1652,
+            1149
+          ],
+          "zoomFactor": 1
+        },
+        "actual": {
+          "width": 1652,
+          "height": 1150,
+          "layoutWidth": 1652,
+          "devicePixelRatio": 1.25,
+          "settledBy": "bounded-timeout",
+          "queries": [
+            {
+              "query": "(max-width: 720px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1080px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1280px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(min-width: 1323px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(min-width: 1600px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(max-height: 700px)",
+              "expected": false,
+              "matches": false
+            }
+          ]
+        }
+      },
+      {
+        "requestedNative": {
+          "width": 1650,
+          "height": 1151
+        },
+        "native": {
+          "contentSize": [
+            1652,
+            1151
+          ],
+          "zoomFactor": 1
+        },
+        "actual": {
+          "width": 1652,
+          "height": 1151,
+          "layoutWidth": 1652,
+          "devicePixelRatio": 1.25,
+          "settledBy": "bounded-timeout",
+          "queries": [
+            {
+              "query": "(max-width: 720px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1080px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1280px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(min-width: 1323px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(min-width: 1600px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(max-height: 700px)",
+              "expected": false,
+              "matches": false
+            }
+          ]
+        }
+      },
+      {
+        "requestedNative": {
+          "width": 1649,
+          "height": 1149
+        },
+        "native": {
+          "contentSize": [
+            1649,
+            1149
+          ],
+          "zoomFactor": 1
+        },
+        "actual": {
+          "width": 1650,
+          "height": 1150,
+          "layoutWidth": 1649.5999755859375,
+          "devicePixelRatio": 1.25,
+          "settledBy": "bounded-timeout",
+          "queries": [
+            {
+              "query": "(max-width: 720px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1080px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1280px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(min-width: 1323px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(min-width: 1600px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(max-height: 700px)",
+              "expected": false,
+              "matches": false
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "fonts": [
+    [
+      {
+        "family": "Oxanium",
+        "status": "loaded",
+        "weight": "200 800"
+      }
+    ],
+    [
+      {
+        "family": "Barlow Condensed",
+        "status": "loaded",
+        "weight": "700"
+      }
+    ]
+  ],
+  "background": "rgb(33, 31, 30)",
+  "bundleSha256": "96f534c5d56ec73e9b5d3bcac125364b6ca4431f17b576bed3565d480ce121cc",
+  "fit": {
+    "frame": {
+      "width": 1341.5999755859375,
+      "height": 418.3999938964844,
+      "left": 268.8000183105469,
+      "right": 1610.3999938964844,
+      "top": 682.5,
+      "bottom": 1100.8999938964844
+    },
+    "nodeCount": 45,
+    "labels": [
+      {
+        "text": "client.ts",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 52.557861328125,
+        "left": 601.8914184570312,
+        "right": 654.4492797851562
+      },
+      {
+        "text": "useService()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 80.2750015258789,
+        "left": 715.4571533203125,
+        "right": 795.7321548461914
+      },
+      {
+        "text": "extra0.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 829.0228881835938,
+        "right": 890.6874389648438
+      },
+      {
+        "text": "helper0()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.174903869628906,
+        "left": 942.5885620117188,
+        "right": 1001.7634658813477
+      },
+      {
+        "text": "extra1.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 1056.154296875,
+        "right": 1117.81884765625
+      },
+      {
+        "text": "helper1()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 1169.7200927734375,
+        "right": 1228.895092010498
+      },
+      {
+        "text": "extra10.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 1283.2857666015625,
+        "right": 1353.0469970703125
+      },
+      {
+        "text": "helper10()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.2750015258789,
+        "left": 601.8914184570312,
+        "right": 669.1664199829102
+      },
+      {
+        "text": "extra11.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 715.4571533203125,
+        "right": 785.2183837890625
+      },
+      {
+        "text": "helper11()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.2750015258789,
+        "left": 829.0228881835938,
+        "right": 896.2978897094727
+      },
+      {
+        "text": "extra12.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 942.5885620117188,
+        "right": 1012.3497924804688
+      },
+      {
+        "text": "helper12()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.27490234375,
+        "left": 1056.154296875,
+        "right": 1123.42919921875
+      },
+      {
+        "text": "extra13.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 1169.7200927734375,
+        "right": 1239.4813232421875
+      },
+      {
+        "text": "helper13()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.27490234375,
+        "left": 1283.2857666015625,
+        "right": 1350.5606689453125
+      },
+      {
+        "text": "extra14.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 601.8914184570312,
+        "right": 671.6526489257812
+      },
+      {
+        "text": "helper14()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.2750015258789,
+        "left": 715.4571533203125,
+        "right": 782.7321548461914
+      },
+      {
+        "text": "extra15.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.7611312866211,
+        "left": 829.0228881835938,
+        "right": 898.7840194702148
+      },
+      {
+        "text": "helper15()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.27490234375,
+        "left": 942.5885620117188,
+        "right": 1009.8634643554688
+      },
+      {
+        "text": "extra16.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.7611312866211,
+        "left": 1056.154296875,
+        "right": 1125.915428161621
+      },
+      {
+        "text": "helper16()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.27490234375,
+        "left": 1169.7200927734375,
+        "right": 1236.9949951171875
+      },
+      {
+        "text": "extra17.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 1283.2857666015625,
+        "right": 1353.0469970703125
+      },
+      {
+        "text": "helper17()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.2750015258789,
+        "left": 601.8914184570312,
+        "right": 669.1664199829102
+      },
+      {
+        "text": "extra18.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 715.4571533203125,
+        "right": 785.2183837890625
+      },
+      {
+        "text": "helper18()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.2750015258789,
+        "left": 829.0228881835938,
+        "right": 896.2978897094727
+      },
+      {
+        "text": "extra19.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 942.5885620117188,
+        "right": 1012.3497924804688
+      },
+      {
+        "text": "helper19()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.27490234375,
+        "left": 1056.154296875,
+        "right": 1123.42919921875
+      },
+      {
+        "text": "extra2.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 1169.7200927734375,
+        "right": 1231.3846435546875
+      },
+      {
+        "text": "helper2()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 1283.2857666015625,
+        "right": 1342.460765838623
+      },
+      {
+        "text": "extra3.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.664649963378906,
+        "left": 601.8914184570312,
+        "right": 663.5560684204102
+      },
+      {
+        "text": "helper3()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 715.4571533203125,
+        "right": 774.632152557373
+      },
+      {
+        "text": "extra4.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 829.0228881835938,
+        "right": 890.6874389648438
+      },
+      {
+        "text": "helper4()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.174903869628906,
+        "left": 942.5885620117188,
+        "right": 1001.7634658813477
+      },
+      {
+        "text": "extra5.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 1056.154296875,
+        "right": 1117.81884765625
+      },
+      {
+        "text": "helper5()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 1169.7200927734375,
+        "right": 1228.895092010498
+      },
+      {
+        "text": "extra6.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 1283.2857666015625,
+        "right": 1344.9503173828125
+      },
+      {
+        "text": "helper6()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 601.8914184570312,
+        "right": 661.0664176940918
+      },
+      {
+        "text": "extra7.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66460037231445,
+        "left": 715.4571533203125,
+        "right": 777.121753692627
+      },
+      {
+        "text": "helper7()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 829.0228881835938,
+        "right": 888.1978874206543
+      },
+      {
+        "text": "extra8.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 942.5885620117188,
+        "right": 1004.2531127929688
+      },
+      {
+        "text": "helper8()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.174903869628906,
+        "left": 1056.154296875,
+        "right": 1115.329200744629
+      },
+      {
+        "text": "extra9.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 1169.7200927734375,
+        "right": 1231.3846435546875
+      },
+      {
+        "text": "helper9()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 1283.2857666015625,
+        "right": 1342.460765838623
+      },
+      {
+        "text": "service.ts",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 62.74169921875,
+        "left": 601.8914184570312,
+        "right": 664.6331176757812
+      },
+      {
+        "text": "Service",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 47.42499923706055,
+        "left": 715.4571533203125,
+        "right": 762.882152557373
+      },
+      {
+        "text": ".act()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 33.5,
+        "left": 829.0228881835938,
+        "right": 862.5228881835938
+      }
+    ],
+    "allNodesInFrame": true,
+    "window": {
+      "width": 1650,
+      "height": 1150,
+      "scroll": 1650
+    }
+  },
+  "reset": {
+    "frame": {
+      "width": 1341.5999755859375,
+      "height": 418.3999938964844,
+      "left": 268.8000183105469,
+      "right": 1610.3999938964844,
+      "top": 682.5,
+      "bottom": 1100.8999938964844
+    },
+    "nodeCount": 45,
+    "labels": [
+      {
+        "text": "client.ts",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 52.557861328125,
+        "left": 601.8914184570312,
+        "right": 654.4492797851562
+      },
+      {
+        "text": "useService()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 80.2750015258789,
+        "left": 715.4571533203125,
+        "right": 795.7321548461914
+      },
+      {
+        "text": "extra0.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 829.0228881835938,
+        "right": 890.6874389648438
+      },
+      {
+        "text": "helper0()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.174903869628906,
+        "left": 942.5885620117188,
+        "right": 1001.7634658813477
+      },
+      {
+        "text": "extra1.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 1056.154296875,
+        "right": 1117.81884765625
+      },
+      {
+        "text": "helper1()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 1169.7200927734375,
+        "right": 1228.895092010498
+      },
+      {
+        "text": "extra10.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 1283.2857666015625,
+        "right": 1353.0469970703125
+      },
+      {
+        "text": "helper10()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.2750015258789,
+        "left": 601.8914184570312,
+        "right": 669.1664199829102
+      },
+      {
+        "text": "extra11.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 715.4571533203125,
+        "right": 785.2183837890625
+      },
+      {
+        "text": "helper11()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.2750015258789,
+        "left": 829.0228881835938,
+        "right": 896.2978897094727
+      },
+      {
+        "text": "extra12.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 942.5885620117188,
+        "right": 1012.3497924804688
+      },
+      {
+        "text": "helper12()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.27490234375,
+        "left": 1056.154296875,
+        "right": 1123.42919921875
+      },
+      {
+        "text": "extra13.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 1169.7200927734375,
+        "right": 1239.4813232421875
+      },
+      {
+        "text": "helper13()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.27490234375,
+        "left": 1283.2857666015625,
+        "right": 1350.5606689453125
+      },
+      {
+        "text": "extra14.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 601.8914184570312,
+        "right": 671.6526489257812
+      },
+      {
+        "text": "helper14()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.2750015258789,
+        "left": 715.4571533203125,
+        "right": 782.7321548461914
+      },
+      {
+        "text": "extra15.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.7611312866211,
+        "left": 829.0228881835938,
+        "right": 898.7840194702148
+      },
+      {
+        "text": "helper15()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.27490234375,
+        "left": 942.5885620117188,
+        "right": 1009.8634643554688
+      },
+      {
+        "text": "extra16.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.7611312866211,
+        "left": 1056.154296875,
+        "right": 1125.915428161621
+      },
+      {
+        "text": "helper16()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.27490234375,
+        "left": 1169.7200927734375,
+        "right": 1236.9949951171875
+      },
+      {
+        "text": "extra17.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 1283.2857666015625,
+        "right": 1353.0469970703125
+      },
+      {
+        "text": "helper17()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.2750015258789,
+        "left": 601.8914184570312,
+        "right": 669.1664199829102
+      },
+      {
+        "text": "extra18.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 715.4571533203125,
+        "right": 785.2183837890625
+      },
+      {
+        "text": "helper18()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.2750015258789,
+        "left": 829.0228881835938,
+        "right": 896.2978897094727
+      },
+      {
+        "text": "extra19.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 69.76123046875,
+        "left": 942.5885620117188,
+        "right": 1012.3497924804688
+      },
+      {
+        "text": "helper19()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 67.27490234375,
+        "left": 1056.154296875,
+        "right": 1123.42919921875
+      },
+      {
+        "text": "extra2.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 1169.7200927734375,
+        "right": 1231.3846435546875
+      },
+      {
+        "text": "helper2()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 1283.2857666015625,
+        "right": 1342.460765838623
+      },
+      {
+        "text": "extra3.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.664649963378906,
+        "left": 601.8914184570312,
+        "right": 663.5560684204102
+      },
+      {
+        "text": "helper3()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 715.4571533203125,
+        "right": 774.632152557373
+      },
+      {
+        "text": "extra4.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 829.0228881835938,
+        "right": 890.6874389648438
+      },
+      {
+        "text": "helper4()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.174903869628906,
+        "left": 942.5885620117188,
+        "right": 1001.7634658813477
+      },
+      {
+        "text": "extra5.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 1056.154296875,
+        "right": 1117.81884765625
+      },
+      {
+        "text": "helper5()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 1169.7200927734375,
+        "right": 1228.895092010498
+      },
+      {
+        "text": "extra6.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 1283.2857666015625,
+        "right": 1344.9503173828125
+      },
+      {
+        "text": "helper6()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 601.8914184570312,
+        "right": 661.0664176940918
+      },
+      {
+        "text": "extra7.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66460037231445,
+        "left": 715.4571533203125,
+        "right": 777.121753692627
+      },
+      {
+        "text": "helper7()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 829.0228881835938,
+        "right": 888.1978874206543
+      },
+      {
+        "text": "extra8.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 942.5885620117188,
+        "right": 1004.2531127929688
+      },
+      {
+        "text": "helper8()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.174903869628906,
+        "left": 1056.154296875,
+        "right": 1115.329200744629
+      },
+      {
+        "text": "extra9.py",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 61.66455078125,
+        "left": 1169.7200927734375,
+        "right": 1231.3846435546875
+      },
+      {
+        "text": "helper9()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 59.17499923706055,
+        "left": 1283.2857666015625,
+        "right": 1342.460765838623
+      },
+      {
+        "text": "service.ts",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 62.74169921875,
+        "left": 601.8914184570312,
+        "right": 664.6331176757812
+      },
+      {
+        "text": "Service",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 47.42499923706055,
+        "left": 715.4571533203125,
+        "right": 762.882152557373
+      },
+      {
+        "text": ".act()",
+        "effectiveFont": 14.013411432963354,
+        "height": 14.40000057220459,
+        "width": 33.5,
+        "left": 829.0228881835938,
+        "right": 862.5228881835938
+      }
+    ],
+    "allNodesInFrame": true,
+    "window": {
+      "width": 1650,
+      "height": 1150,
+      "scroll": 1650
+    }
+  },
+  "status": "passed"
+}

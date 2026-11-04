@@ -1,0 +1,24 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import {build} from 'vite'
+import react from '@vitejs/plugin-react'
+import {mkdtemp,writeFile,readFile,rm} from 'node:fs/promises'
+import {join,resolve} from 'node:path'
+import {tmpdir} from 'node:os'
+import {createRequire} from 'node:module'
+import {_electron as electron} from 'playwright-core'
+import {createGraphState} from '../src/core/bmad-graph.ts'
+const require=createRequire(import.meta.url)
+test('graph UI searches, preserves direction and local view without analysis, with named keyboard controls',async()=>{
+ const root=await mkdtemp(join(tmpdir(),'madness-graph-ui-'));let app
+ try{
+  const s=JSON.parse(await readFile('tests/fixtures/bmad-graph/known-normalized.json','utf8')).snapshot,scope={...s.identity};delete scope.analysisId;delete scope.sourceRevision
+  const state=createGraphState(scope).value;state.result={status:'partial',snapshot:s,error:null};state.freshness={status:'unverified',sourceRevision:s.identity.sourceRevision,observedAt:s.collectedAt}
+  const workspace={contractVersion:1,sequence:0,projects:[state],fileBindings:[],preparing:null,issues:[]}
+  const result=await build({configFile:false,logLevel:'silent',define:{'process.env.NODE_ENV':'"production"'},plugins:[react(),{name:'graph-fixture',resolveId:id=>(id==='graph-fixture'||id.replaceAll(String.fromCharCode(92),'/').endsWith('/graph-fixture'))?'\0graph-fixture':null,load:id=>id==='\0graph-fixture'?'import React from "react";import {createRoot} from "react-dom/client";import {GraphPanel} from '+JSON.stringify(resolve('src/renderer/src/GraphPanel.tsx').replaceAll('\\','/'))+';createRoot(document.getElementById("root")).render(React.createElement(GraphPanel,{projectId:"fixture-subset",rootPath:"C:/fixture-subset",workspace:'+JSON.stringify(workspace)+',accept:()=>{},views:new Map(),active:true,onReturn:()=>{},returnLabel:"Conversation"}));':null}],build:{write:false,minify:false,lib:{entry:'graph-fixture',formats:['iife'],name:'GraphFixture'}}})
+  const output=(Array.isArray(result)?result[0]:result).output,js=output.find(v=>v.type==='chunk').code,css=output.filter(v=>v.type==='asset'&&v.fileName.endsWith('.css')).map(v=>v.source).join('\n')
+  await writeFile(join(root,'main.cjs'),'const {app,BrowserWindow}=require("electron");app.setPath("userData",'+JSON.stringify(join(root,'profile'))+');app.whenReady().then(()=>{const w=new BrowserWindow({show:false,width:1200,height:900,webPreferences:{contextIsolation:false,nodeIntegration:false}});w.loadFile('+JSON.stringify(join(root,'index.html'))+');});')
+  await writeFile(join(root,'index.html'),'<html><head><meta charset="utf-8"><style>'+css+'</style></head><body><div id="root"></div><script>window.analysisCalls=0;window.madnessGraph={generate:async()=>{window.analysisCalls++;return '+JSON.stringify(workspace)+'},interrupt:async()=>{},retrySave:async()=>{},revalidateFiles:async()=>{}}</script><script>'+js+'</script></body></html>')
+  app=await electron.launch({executablePath:require('electron'),args:[join(root,'main.cjs')],cwd:root});const page=await app.firstWindow();await page.getByLabel('Rechercher dans ce graphe',{exact:true}).fill('useService');await page.getByRole('button',{name:/Sélectionner useService/}).waitFor();assert.equal(await page.getByRole('button',{name:/Sélectionner useService/}).count(),1);await page.getByRole('button',{name:/Sélectionner useService/}).click();await page.getByText('Score Graphify : 0.85',{exact:false}).waitFor();assert.ok((await page.getByText(/Origine : useService/).first().textContent()).includes('Destination : .act()'));const arrow=await page.locator('.graph-drawing').evaluate(el=>{const line=el.querySelector('line'),nodes=[...el.querySelectorAll('circle')];return {end:[Number(line.getAttribute('x2')),Number(line.getAttribute('y2'))],target:[Number(nodes[1].getAttribute('cx')),Number(nodes[1].getAttribute('cy'))],radius:Number(nodes[1].getAttribute('r'))}});assert.ok(Math.hypot(arrow.end[0]-arrow.target[0],arrow.end[1]-arrow.target[1])>arrow.radius,'An arrow ending at the node centre is covered by the node');await page.getByRole('button',{name:'Zoom avant',exact:true}).click();await page.getByText(/Zoom du graphe : 125 %/).waitFor();assert.equal(await page.getByText(/Zoom du graphe : 125 %/).count(),1);await page.getByRole('button',{name:'Déplacer vers la droite',exact:true}).click();assert.equal(await page.evaluate(()=>window.analysisCalls),0);await page.getByLabel('Rechercher dans ce graphe',{exact:true}).fill('no-such-node');await page.getByText('Aucun résultat pour cette recherche',{exact:true}).waitFor();await page.getByRole('button',{name:'Effacer la recherche',exact:true}).click();assert.equal(await page.locator('.graph-results').getByRole('button',{name:/^Sélectionner /}).count(),2)
+ }finally{await app?.close();await rm(root,{recursive:true,force:true})}
+})

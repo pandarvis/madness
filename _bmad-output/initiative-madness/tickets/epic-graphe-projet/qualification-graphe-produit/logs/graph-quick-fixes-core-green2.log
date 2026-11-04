@@ -1,0 +1,23 @@
+✔ generation admits the original corpus only after normalized result and keeps unsaved session distinct (13.9697ms)
+✔ restoration stays passive and historical without granting any file authority (3.9442ms)
+✔ foreign terminal result cannot gain corpus authority and previous complete remains (3.5168ms)
+✔ explicit source revalidation grants only the matching original revision without rerunning analysis (2.8375ms)
+✔ changed explicit revalidation removes old corpus bindings and marks freshness changed (2.2395ms)
+✔ failed source revalidation has unknown freshness rather than claiming an observed mutation (1.9241ms)
+✔ registered project changing during explicit source recapture cannot gain authority (2.5755ms)
+✔ interrupting preparation cancels its owned capture without starting Graphify (0.9399ms)
+✔ complete then failed can revalidate only the retained complete without changing failure or starting analysis, and generate again (7.2394ms)
+✔ native corpus includes untracked code only, refuses replaced grants and observes additions (3083.8554ms)
+✔ all six admitted code text extensions read the exact originals, retaining UTF8 binary and physical refusals (6215.521ms)
+✔ native code inventory and mirror include packages and terminal observes its source mutation (1571.8952ms)
+✔ native code inventory and mirror include resources and terminal observes its source mutation (1587.5501ms)
+✔ adapter converts actual launcher GRAPH_CHILD_timeout with proven zero without claiming analysis failure (4333.9417ms)
+✔ adapter converts actual launcher GRAPH_CHILD_timeout with unknown stop without claiming analysis failure (3436.4491ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12676.6122

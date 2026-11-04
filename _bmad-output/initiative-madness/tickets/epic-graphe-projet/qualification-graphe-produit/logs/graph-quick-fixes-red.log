@@ -1,0 +1,91 @@
+✔ generation admits the original corpus only after normalized result and keeps unsaved session distinct (10.4469ms)
+✔ restoration stays passive and historical without granting any file authority (3.9537ms)
+✔ foreign terminal result cannot gain corpus authority and previous complete remains (3.2332ms)
+✔ explicit source revalidation grants only the matching original revision without rerunning analysis (2.6878ms)
+✔ changed explicit revalidation removes old corpus bindings and marks freshness changed (2.0185ms)
+✔ failed source revalidation has unknown freshness rather than claiming an observed mutation (2.0922ms)
+✔ registered project changing during explicit source recapture cannot gain authority (2.7655ms)
+✔ interrupting preparation cancels its owned capture without starting Graphify (1.086ms)
+✖ complete then failed can revalidate only the retained complete without changing failure or starting analysis, and generate again (5.1376ms)
+✔ native corpus includes untracked code only, refuses replaced grants and observes additions (2744.6762ms)
+✖ all six admitted code text extensions read the exact originals, retaining UTF8 binary and physical refusals (1667.186ms)
+✖ native code inventory and mirror include packages and terminal observes its source mutation (610.0055ms)
+✖ native code inventory and mirror include resources and terminal observes its source mutation (587.6746ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 9
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5837.5587
+
+✖ failing tests:
+
+test at tests\graph-coordinator.test.mjs:24:1
+✖ complete then failed can revalidate only the retained complete without changing failure or starting analysis, and generate again (5.1376ms)
+  AssertionError [ERR_ASSERTION]: {"ok":false,"issues":[{"code":"INVALID_SHAPE","path":"$.freshness","messageKey":"graph.error.invalid_shape"}]}
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graph-coordinator.test.mjs:24:1065)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\graphify-corpus.test.mjs:12:1
+✖ all six admitted code text extensions read the exact originals, retaining UTF8 binary and physical refusals (1667.186ms)
+  Error: PREVIEW_TYPE
+      at invokeCapture (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graphify-corpus.test.mjs:11:357)
+      at read (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graphify-corpus.test.mjs:12:725)
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graphify-corpus.test.mjs:12:983)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at tests\graphify-corpus.test.mjs:13:46
+✖ native code inventory and mirror include packages and terminal observes its source mutation (610.0055ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'index.ts',
+  -   'packages/service.ts'
+    ]
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graphify-corpus.test.mjs:13:626)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'index.ts' ],
+    expected: [ 'index.ts', 'packages/service.ts' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\graphify-corpus.test.mjs:13:46
+✖ native code inventory and mirror include resources and terminal observes its source mutation (587.6746ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'index.ts',
+  -   'resources/service.ts'
+    ]
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graphify-corpus.test.mjs:13:626)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'index.ts' ],
+    expected: [ 'index.ts', 'resources/service.ts' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

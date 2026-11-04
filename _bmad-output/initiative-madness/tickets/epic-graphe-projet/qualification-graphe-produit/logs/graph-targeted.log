@@ -1,0 +1,371 @@
+✔ C1 normalized code-only witness retains directed INFERRED 0.85 and independent copies (9.4347ms)
+✔ C3/C4 refuses version without altering input (0.8203ms)
+✔ C3/C4 refuses profile without altering input (0.9708ms)
+✔ C3/C4 refuses tool without altering input (0.6736ms)
+✔ C3/C4 refuses raw without altering input (0.6423ms)
+✔ C3/C4 refuses schema without altering input (0.6453ms)
+✔ C3/C4 refuses extra payload without altering input (0.655ms)
+✔ C3/C4 refuses duplicate nodes without altering input (0.7939ms)
+✔ C3/C4 refuses duplicate relations without altering input (0.8418ms)
+✔ C3/C4 refuses endpoint without altering input (0.7287ms)
+✔ C3/C4 refuses direction without altering input (0.5565ms)
+✔ C3/C4 refuses confidence without altering input (0.5478ms)
+✔ C3/C4 refuses boolean score without altering input (0.4244ms)
+✔ C3/C4 refuses nan score without altering input (0.327ms)
+✔ C3/C4 refuses infinite score without altering input (1.8739ms)
+✔ C3/C4 refuses large score without altering input (0.6242ms)
+✔ C3/C4 refuses missing value without altering input (0.5009ms)
+✔ C3/C4 refuses line zero without altering input (0.5973ms)
+✔ C3/C4 refuses line out of corpus without altering input (0.5016ms)
+✔ C3/C4 refuses fractional line without altering input (0.4114ms)
+✔ C3/C4 refuses unattested line without altering input (0.3786ms)
+✔ C3/C4 refuses declared link without altering input (0.5234ms)
+✔ C3/C4 refuses unknown file without altering input (0.4179ms)
+✔ C3/C4 refuses duplicate sources without altering input (0.6021ms)
+✔ C3/C4 refuses complete with omissions without altering input (0.368ms)
+✔ C3/C4 refuses ../outside.ts without altering input (0.4325ms)
+✔ C3/C4 refuses /absolute.ts without altering input (0.3977ms)
+✔ C3/C4 refuses C:/outside.ts without altering input (0.3193ms)
+✔ C3/C4 refuses src\file.ts without altering input (0.3596ms)
+✔ C3/C4 refuses src/../outside.ts without altering input (0.3908ms)
+✔ C3/C4 refuses ./src/client.ts without altering input (0.3322ms)
+✔ C3/C4 refuses src//client.ts without altering input (0.3123ms)
+✔ C3/C4 refuses src/a:b.ts without altering input (0.2886ms)
+✔ C3 cycles, accessors, prototypes and hostile values have controlled refusals without getter calls (3.5276ms)
+✔ C4 all three levels, unknown file/line and absent score remain explicit without promotion (0.8967ms)
+✔ C1 multiple proofs between identical endpoints keep ids, source direction and opaque native ids (0.4055ms)
+✔ C2 candidate claims cannot override independently held expected identities, manifest or generation (5.4024ms)
+✔ C2 a newer wall clock never publishes an older attempt or different scope/project (6.4485ms)
+✔ C5 observing a complete result does not prove terminal stop, persistence or a new last complete (2.836ms)
+✔ C5 partial, failure, incompatible and changed-during-collection preserve previous complete (7.2036ms)
+✔ C5 terminal order and owned attempt are checked against core facts, without promotion on stop request (1.1366ms)
+✔ C6 restoration is historical, non-revalidating and starts no fictitious port or derived command (3.7103ms)
+✔ C7 command declarations reject paths, native effects, invalid discriminants/correlation and unknown versions (0.6448ms)
+✔ C7 event validation rejects correlation/discriminant/identity incoherence and controls replay order (3.4794ms)
+✔ C8 all pure decisions detach candidate, expected corpus, previous result and returned last complete (10.6288ms)
+✔ C7 port requests are versioned data: authority and live effects cannot enter through payloads (0.9844ms)
+✔ C2 source revision captured at start cannot be silently reassigned by later expected facts (0.4994ms)
+✔ C3/C6 malformed expected facts and historical stop ambiguity cannot be repaired or used as permission (4.6704ms)
+✔ C5 unknown source observation is never promoted, and terminal corpus is checked again (4.7459ms)
+✔ C5 complete, partial, failures, timeout and interruption each require coherent terminal observations (1.2825ms)
+✔ C4 expected scope disclosure, uncommitted revision and missing line facts stay distinct (1.1918ms)
+✔ C5 a new session result never inherits a prior successful save acknowledgement (3.2178ms)
+✔ C1 qualified witness subset preserves actual labels, source-target orientation and known lines (43.7698ms)
+✔ Q1 ANALYSIS_FAILED locks a failed attempt against late result and complete promotion until explicit fresh start (12.4524ms)
+✔ Q1 INCOMPATIBLE locks a failed attempt against late result and complete promotion until explicit fresh start (10.4163ms)
+✔ Q2 progress reflects changed source facts for an already observed result (17.4223ms)
+✔ Q2 stopped reflects changed source facts for an already observed result (19.4404ms)
+✔ Q2 progress reflects unknown source facts for an already observed result (3.9723ms)
+✔ Q2 stopped reflects unknown source facts for an already observed result (9.1169ms)
+✔ Q2 non-result events never promote an earlier or unverified result from current attempt facts (7.6238ms)
+✔ Q3 complete outcome rejects result analysis mismatch on validation and restore (2.8072ms)
+✔ Q3 complete outcome rejects result source-revision mismatch on validation and restore (2.4873ms)
+✔ Q3 complete outcome rejects result status mismatch on validation and restore (1.7134ms)
+✔ Q3 partial outcome rejects result analysis mismatch on validation and restore (1.5524ms)
+✔ Q3 partial outcome rejects result source-revision mismatch on validation and restore (1.6118ms)
+✔ Q3 partial outcome rejects result status mismatch on validation and restore (2.0328ms)
+✔ Q3 matching terminal and historical outcomes restore passively while a new running attempt may retain a previous result (6.3685ms)
+{"resumeUiViewport":{"case":"offline-captured-conversation","viewport":{"requested":{"width":1440,"height":920},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[1440,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":1440,"height":920},"native":{"contentSize":[1440,920],"zoomFactor":1},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]}}}
+✔ reprise: hors ligne, declarations exactes, preuves inertes et retour capture alpha conservent la saisie (5965.9979ms)
+✔ reprise: Q2 identite de fichier ne se presente pas comme id natif (5837.7227ms)
+✔ reprise: Q3 retour de conversation restaure preuves recap et position de la meme capture seulement (5199.4668ms)
+{"resumeUiViewport":{"theme":"dark","width":1440,"zoom":1,"viewportAt100":{"requested":{"width":1440,"height":920},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[1440,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":1440,"height":920},"native":{"contentSize":[1440,920],"zoomFactor":1},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]},"geometry":{"width":1440,"height":920,"compact":false,"docked":true,"scroll":1440,"region":1133.5999755859375,"client":1134,"scrollRegion":1134,"font":"Oxanium, \"Segoe UI\", sans-serif"}}}
+{"resumeUiViewport":{"theme":"dark","width":720,"zoom":1,"viewportAt100":{"requested":{"width":720,"height":920},"actual":{"width":720,"height":920,"layoutWidth":720,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":true,"matches":true},{"query":"(max-width: 1080px)","expected":true,"matches":true},{"query":"(max-width: 1280px)","expected":true,"matches":true},{"query":"(min-width: 1323px)","expected":false,"matches":false},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[720,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":720,"height":920},"native":{"contentSize":[720,920],"zoomFactor":1},"actual":{"width":720,"height":920,"layoutWidth":720,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":true,"matches":true},{"query":"(max-width: 1080px)","expected":true,"matches":true},{"query":"(max-width: 1280px)","expected":true,"matches":true},{"query":"(min-width: 1323px)","expected":false,"matches":false},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]},"geometry":{"width":720,"height":920,"compact":true,"docked":false,"scroll":720,"region":677.6000366210938,"client":678,"scrollRegion":678,"font":"Oxanium, \"Segoe UI\", sans-serif"}}}
+{"resumeUiViewport":{"theme":"dark","width":1440,"zoom":2,"viewportAt100":{"requested":{"width":1440,"height":920},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[1440,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":1440,"height":920},"native":{"contentSize":[1440,920],"zoomFactor":1},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]},"geometry":{"width":720,"height":460,"compact":true,"docked":false,"scroll":720,"region":682.7999877929688,"client":683,"scrollRegion":683,"font":"Oxanium, \"Segoe UI\", sans-serif"}}}
+{"resumeUiViewport":{"theme":"light","width":1440,"zoom":1,"viewportAt100":{"requested":{"width":1440,"height":920},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[1440,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":1440,"height":920},"native":{"contentSize":[1440,920],"zoomFactor":1},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]},"geometry":{"width":1440,"height":920,"compact":false,"docked":true,"scroll":1440,"region":1133.5999755859375,"client":1134,"scrollRegion":1134,"font":"Oxanium, \"Segoe UI\", sans-serif"}}}
+{"resumeUiViewport":{"theme":"light","width":720,"zoom":1,"viewportAt100":{"requested":{"width":720,"height":920},"actual":{"width":720,"height":920,"layoutWidth":720,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":true,"matches":true},{"query":"(max-width: 1080px)","expected":true,"matches":true},{"query":"(max-width: 1280px)","expected":true,"matches":true},{"query":"(min-width: 1323px)","expected":false,"matches":false},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[720,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":720,"height":920},"native":{"contentSize":[720,920],"zoomFactor":1},"actual":{"width":720,"height":920,"layoutWidth":720,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":true,"matches":true},{"query":"(max-width: 1080px)","expected":true,"matches":true},{"query":"(max-width: 1280px)","expected":true,"matches":true},{"query":"(min-width: 1323px)","expected":false,"matches":false},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]},"geometry":{"width":720,"height":920,"compact":true,"docked":false,"scroll":720,"region":677.6000366210938,"client":678,"scrollRegion":678,"font":"Oxanium, \"Segoe UI\", sans-serif"}}}
+{"resumeUiViewport":{"theme":"light","width":1440,"zoom":2,"viewportAt100":{"requested":{"width":1440,"height":920},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]},"native":{"contentSize":[1440,920],"zoomFactor":1},"exact":true,"limitation":null,"attempts":[{"requestedNative":{"width":1440,"height":920},"native":{"contentSize":[1440,920],"zoomFactor":1},"actual":{"width":1440,"height":920,"layoutWidth":1440,"devicePixelRatio":1.25,"settledBy":"animation-frames","queries":[{"query":"(max-width: 720px)","expected":false,"matches":false},{"query":"(max-width: 1080px)","expected":false,"matches":false},{"query":"(max-width: 1280px)","expected":false,"matches":false},{"query":"(min-width: 1323px)","expected":true,"matches":true},{"query":"(min-width: 1600px)","expected":false,"matches":false},{"query":"(max-height: 700px)","expected":false,"matches":false}]}}]},"geometry":{"width":720,"height":460,"compact":true,"docked":false,"scroll":720,"region":682.7999877929688,"client":683,"scrollRegion":683,"font":"Oxanium, \"Segoe UI\", sans-serif"}}}
+✔ reprise: captures anciennes, details clavier, deux themes, compact et zoom 200 sans debordement (4765.9401ms)
+✖ reprise: annonce du projet precedent effacee dans une destination sans projection (34690.6765ms)
+✔ reprise: liste longue repliee et acces clavier aux quatre groupes avant les tickets (5318.3521ms)
+✔ initiatives: restauration et changement de projet restent passifs, observation explicite conservée (12166.4466ms)
+✖ initiatives: diagnostics explicites dans le choix et le contexte même sans problems (3800.0043ms)
+✔ initiatives: conflit asynchrone reçu par abonnement vise seulement le projet courant (9665.8956ms)
+✔ initiatives: choix tardif après fermeture ne reprend ni focus ni nouvelle ouverture (28890.0746ms)
+✔ initiatives: choix local, focus et brouillon conservés sans lancement ni réattribution (11851.3343ms)
+✔ initiatives: consultation beta garde la demande alpha et sa réponse exacte (11825.6317ms)
+✖ initiatives: conservation échouée et ancien résultat restent honnêtes (3736.8606ms)
+✖ initiatives: clavier, noms longs, compact, deux thèmes et zoom200 sans fuite horizontale (3577.3736ms)
+✖ initiatives: couleurs locales lisibles et métadonnées alignées dans le thème clair (3886.5955ms)
+✔ initiatives: seul un échange porte le libellé de capture, indépendamment du choix local (7876.615ms)
+✖ initiatives: choix courant focalisé sans masquer titre et fermeture au compact et zoom200 (3620.0308ms)
+✔ barre : les emprises de déplacement sont séparées des quatre commandes (8852.1445ms)
+ℹ []
+✖ atelier : disposition compacte, buste complet et conteneurs confinés dans les deux thèmes (8649.0052ms)
+ℹ {"size":{"width":1600,"height":1000},"theme":"dark","viewport":{"width":1600,"height":1000},"title":{"text":"Projet personnel de qualification de la refonte avec un nom réellement très long sans abréviation","scrollWidth":522,"clientWidth":522},"banner":{"x":264,"y":68,"right":1215.6000366210938,"bottom":233.6999969482422,"width":951.6000366210938,"height":165.6999969482422,"backgroundImage":"none"},"tabs":[{"x":268,"y":247.6999969482422,"right":383.5500030517578,"bottom":291.6999969482422,"width":115.55000305175781,"height":44},{"x":391.5500183105469,"y":247.6999969482422,"right":539.6750183105469,"bottom":291.6999969482422,"width":148.125,"height":44},{"x":547.6749877929688,"y":247.6999969482422,"right":767.6624908447266,"bottom":291.6999969482422,"width":219.9875030517578,"height":44},{"x":775.6625366210938,"y":247.6999969482422,"right":875.3875350952148,"bottom":291.6999969482422,"width":99.7249984741211,"height":44}],"bust":{"x":1271.5999755859375,"y":136,"right":1569.5999755859375,"bottom":370,"width":298,"height":234},"image":{"x":1272.4000244140625,"y":136.8000030517578,"right":1568.8000183105469,"bottom":369.20001220703125,"width":296.3999938964844,"height":232.40000915527344,"objectFit":"contain","transform":"none","naturalWidth":1254,"naturalHeight":1254},"containers":[{"element":"html","x":0,"y":0,"right":1600,"bottom":1000,"width":1600,"height":1000,"clientWidth":1600,"scrollWidth":1600},{"element":"body","x":0,"y":0,"right":1600,"bottom":1000,"width":1600,"height":1000,"clientWidth":1600,"scrollWidth":1600},{"element":"#root","x":0,"y":0,"right":1600,"bottom":1000,"width":1600,"height":1000,"clientWidth":1600,"scrollWidth":1600},{"element":"app-shell agent-info-open ","x":0,"y":0,"right":1600,"bottom":1000,"width":1600,"height":1000,"clientWidth":1600,"scrollWidth":1600},{"element":"app-body","x":0,"y":56,"right":1600,"bottom":1000,"width":1600,"height":944,"clientWidth":1600,"scrollWidth":1600},{"element":"sidebar","x":0,"y":56,"right":240,"bottom":1000,"width":240,"height":944,"clientWidth":239,"scrollWidth":239},{"element":"workspace","x":240,"y":56,"right":1600,"bottom":1000,"width":1360,"height":944,"clientWidth":1360,"scrollWidth":1360},{"element":"workspace-body","x":240,"y":56,"right":1600,"bottom":1000,"width":1360,"height":944,"clientWidth":1360,"scrollWidth":1360},{"element":"#main","x":240,"y":56,"right":1250,"bottom":1000,"width":1010,"height":944,"clientWidth":1000,"scrollWidth":1000},{"element":"main-inner","x":240,"y":56,"right":1239.6000366210938,"bottom":1000,"width":999.6000366210938,"height":944,"clientWidth":1000,"scrollWidth":1000},{"element":"#panel-conversation","x":264,"y":387,"right":1215.6000366210938,"bottom":973,"width":951.6000366210938,"height":586,"clientWidth":952,"scrollWidth":952},{"element":"conversation-messages","x":264,"y":487.3999938964844,"right":1215.6000366210938,"bottom":647.3999938964844,"width":951.6000366210938,"height":160,"clientWidth":941,"scrollWidth":941},{"element":"agent-info-panel is-docked","x":1250,"y":56,"right":1600,"bottom":1000,"width":350,"height":944,"clientWidth":348,"scrollWidth":348},{"element":"agent-panel-heading","x":1251.5999755859375,"y":58.400001525878906,"right":1599.9999694824219,"bottom":120.00000381469727,"width":348.3999938964844,"height":61.60000228881836,"clientWidth":348,"scrollWidth":348},{"element":"agent-panel-body","x":1251.5999755859375,"y":120,"right":1599.9999694824219,"bottom":951,"width":348.3999938964844,"height":831,"clientWidth":338,"scrollWidth":338}]}
+✔ atelier : seuls les sept auteurs attestés exacts ont un portrait, les replis gardent nom et provenance (6345.6453ms)
+✔ atelier : fiche dockée locale, provenance stable, fermeture restitue largeur, focus et saisie sans effet métier (7971.8811ms)
+✔ atelier : modale étroite inerte, seuil conservé, Échap unique et connexion engagée jamais annulée par consultation (19714.8956ms)
+ℹ {"requestedScrollTop":70,"beforeScrollTop":70.4000015258789,"afterScrollTop":70.4000015258789,"devicePixelRatio":1.25}
+✔ atelier : source disparue ferme la fiche vers le titre neutre, contexte et thème préservent le brouillon (20628.7926ms)
+✔ atelier : arrivée question, approbation et récupération gardent le focus, expiration rejoint seulement son historique exact (18047.2803ms)
+✔ atelier : arrivée visible au-dessus du rôle à600×650 et zoom200 sans déplacement de focus ni décision (19354.9864ms)
+ℹ {"zoom":1,"height":651,"status":{"top":80,"bottom":101,"width":550.4000244140625,"height":21},"button":{"top":105,"bottom":149,"width":182.41250610351562,"height":44},"body":{"top":157.8000030517578,"bottom":643.1999969482422,"width":582.4000244140625,"height":485.3999938964844},"bodyScroll":0,"focus":"agent-info-title"}
+ℹ {"zoom":2,"height":325,"status":{"top":80.80000305175781,"bottom":122.80000305175781,"width":250,"height":42},"button":{"top":126.80000305175781,"bottom":170.8000030517578,"width":182.41250610351562,"height":44},"body":{"top":216.0625,"bottom":317.5999984741211,"width":282,"height":101.5374984741211},"bodyScroll":0,"focus":"agent-info-title"}
+✔ atelier : chaque nouvelle demande identique est annoncée une fois et conserve sa destination après expiration (10766.5834ms)
+✔ atelier : aides partielles et reçus non conservés utilisent un HelpBridge synthétique strict, sans transmission (12144.2796ms)
+✔ une question corrélée et sa saisie restent visibles avant les demandes conservées et un long échange (8198.1884ms)
+✔ une approbation corrélée montre sa portée et son patch avant tout ancien formulaire (5767.4499ms)
+✔ un historique simple avec nom long garde le point de saisie libre repérable au premier écran (7967.6767ms)
+ℹ {"requested":{"width":1440,"height":920},"top":682.7999877929688,"bottom":751.5999908447266,"width":1440,"height":920,"mainScroll":0,"requests":0}
+ℹ {"requested":{"width":720,"height":820},"top":703.7999877929688,"bottom":772.5999908447266,"width":720,"height":820,"mainScroll":0,"requests":0}
+✖ atelier : la saisie et son action restent ensemble au premier écran (9096.3577ms)
+ℹ {"requested":{"width":1440,"height":920},"fieldTop":682.7999877929688,"actionBottom":801.200023651123,"height":920,"scroll":0}
+ℹ {"requested":{"width":720,"height":820},"fieldTop":703.7999877929688,"actionBottom":856.5999870300293,"height":820,"scroll":0}
+✔ atelier : le dernier message garde son auteur et du texte lisibles ensemble (7829.4203ms)
+ℹ {"requested":{"width":1440,"height":920},"authorVisible":48,"textVisible":62.400001525878906}
+ℹ {"requested":{"width":720,"height":820},"authorVisible":48,"textVisible":58.400001525878906}
+✔ le focus de réponse reste neutre pendant envoi puis historique, sans détourner une autre saisie (5553.3527ms)
+✔ expiration et décision retirent leurs contrôles vers un titre neutre dans l’historique (8448.7249ms)
+✔ la conversation donne accès au travail avant la préparation et conserve la saisie en consultant le contexte (8468.9632ms)
+✔ ouvrir Codex depuis la projection ferme le contexte et focalise le panneau visible (5499.8296ms)
+✖ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (3588.8517ms)
+✔ un lancement Mary rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec (18601.4887ms)
+✔ un lancement Forge rejoint sa nouvelle conversation et conserve la sélection historique lors d’un échec (24658.1702ms)
+✔ les annonces polies de l’accueil couvrent arrivée, envoi et résolution sans annoncer les fragments (3271.7625ms)
+✔ les récapitulatifs repliés nomment le fait du tour et gardent leur identifiant secondaire (5702.2547ms)
+✔ accueil rejoint la conversation exacte par clavier, préserve les saisies et retire l’attente résolue (13667.6515ms)
+✔ deux destinations concurrentes et retour tardif gardent le dernier contexte et focus demandés (12863.2114ms)
+✔ préparer un échange annule une sélection différée et libère les commandes sans détour tardif (12555.9675ms)
+✔ une attente expirée pendant la sélection conserve sa saisie et explique l’absence d’envoi (4822.5537ms)
+✔ activité native reste nommée à l’accueil et un échec de sélection ne déplace ni contexte ni focus (3610.234ms)
+✔ les articles progressifs gardent leur nœud, identité sourcée, lecture et saisie sans annoncer chaque fragment (6461.2981ms)
+✖ le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (15508.5691ms)
+✔ les indicateurs de question distinguent saisie et envoi et utilisent son destinataire réel (7435.676ms)
+✔ le thème change au clavier sans perdre le brouillon ni le contexte en fenêtre compacte (8443.2208ms)
+✔ Forge prépare la portée inline, exige qualification et lancement explicites puis conserve le brouillon et le destinataire (17571.177ms)
+✔ les contrôles partagés sont attribués à la session Forge (14177.7811ms)
+✔ les contrôles partagés sont attribués à la session Mary (9947.441ms)
+✔ la préparation Forge explique le prérequis account et sa récupération en fenêtre compacte (14245.1264ms)
+✔ la préparation Forge explique le prérequis plan et sa récupération en fenêtre compacte (14955.5953ms)
+✔ Forge historique après Mary conserve résultat, contexte, observations et copie du chemin correspondant (23984.3084ms)
+✔ un thème non sauvegardé garde un avertissement accessible et la saisie (true) (11930.4969ms)
+✔ un thème non sauvegardé garde un avertissement accessible et la saisie (bridge) (2475.0489ms)
+✔ le rappel forfait affiche l’erreur connue et reste fermable après un échec durable (5437.4413ms)
+✔ Échap ferme le tiroir compact actif et conserve le panneau Codex en arrière-plan (7159.3922ms)
+✔ Mary expose son invocation et son forfait puis envoie uniquement le brouillon capturé (7396.9683ms)
+✔ un arrêt inconnu depuis un autre projet garde le motif du blocage et le retour au propriétaire (19113.5649ms)
+✔ l’aide aux clés publiques est absente sans erreur réseau (3479.8566ms)
+✔ l’aide réseau ouvre ou copie l’unique URL publique sans masquer l’erreur ni relancer Codex (7541.1663ms)
+✔ l’aide réseau garde une récupération locale après échec copyPublicKeys (5686.2927ms)
+✔ l’aide réseau garde une récupération locale après échec openPublicKeys (3351.5298ms)
+✔ approbation expose tout le patch sans choix présélectionné et sépare refus, ajustement et nouvel envoi (12939.7212ms)
+✔ un arrêt du témoin connexion non confirmé expose la récupération explicite sans projet (3434.0706ms)
+✔ navigation: les infobulles projets restent peintes devant bannière et onglets (2301.1584ms)
+✔ actualisation: async stale/reading/error/new revision preserves displayed proof and composer focus (15466.5506ms)
+✖ catalogue: manual three-tab keyboard navigation, literal search, filters, source details and confirmed copy (1705.1998ms)
+✔ catalogue: old details survive refresh and latest observation requires voluntary switch (2509.005ms)
+✔ catalogue: delayed copy cannot confirm another details view and failure keeps selectable invocation (1905.9183ms)
+✔ catalogue: compact two themes and native zoom200 preserve details controls without window overflow (2097.9358ms)
+✔ catalogue: voluntary observation switch retains keyboard focus and stays a no-op until another admissible capture (2242.9991ms)
+{"catalogueArrivalGeometry":{"viewport":[1440,920],"scroll":0,"bannerNote":"Initiative capturée par cet échange : non identifiée","banner":{"top":76,"bottom":239.6999969482422,"height":163.6999969482422},"overview":{"top":317.3000183105469,"bottom":379.0000190734863,"height":61.70000076293945},"panel":{"top":391,"bottom":1091.9000244140625,"height":700.9000244140625},"observation":{"top":484.6000061035156,"bottom":535.8000068664551,"height":51.20000076293945},"filters":{"top":551.7999877929688,"bottom":632.5999908447266,"height":80.80000305175781},"row":{"top":701.5,"bottom":861.5,"height":160},"purpose":"Mary explores documented intentions","invocation":"$alpha","observationText":"Observé le 04/11/2026 11:00:00 · Couverture : PartielleVersion affichée : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}}
+✔ catalogue: first complete representative row is visible on arrival at1440x920 with source context intact (1624.0424ms)
+✔ catalogue: compact overview keeps active question reachable and other tab presentation unchanged (11925.8231ms)
+✔ fichiers: dock inert text, exact source metadata, expansion/reduction/focus and independent receipts (2162.7956ms)
+{"filesGeometryActualThemes":[{"theme":"light","width":720,"height":820,"modal":true,"interaction":"programmatic App theme button DOM.click under modal; state coverage, not physical pointer coverage"},{"theme":"dark","width":720,"height":460,"modal":true,"interaction":"programmatic App theme button DOM.click under modal; state coverage, not physical pointer coverage"}]}
+✔ fichiers: source invalidation keeps old text and geometry/themes/native zoom200 preserve controls (2087.0543ms)
+✔ fichiers: late A response never steals B focus and return does not replay a read (1966.2903ms)
+{"filesReadyDockGeometry":{"viewport":[1440,920],"contentTop":730,"lineHeight":23.1,"bodyTop":0,"buttons":[{"name":"Agrandir","bottom":670,"top":630},{"name":"Ouvrir dans l’éditeur","bottom":670,"top":630},{"name":"Copier le chemin","bottom":718,"top":678}],"sha":"Projet et racinecatalog-a · C:/Users/UP60066553/AppData/Local/Temp/mfiles-main-native-sized/catalog-aProvenancecatalog · catalog-sourceChemin completC:/Users/UP60066553/AppData/Local/Temp/mfiles-main-native-sized/catalog-a/.agents/skills/alpha/SKILL.mdRévision de collecteaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSHA-256ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccObservé le04/11/2026 11:00:00Taille30 octets"}}
+✔ fichiers: dense ready dock exposes representative text and every named command at arrival (1997.6733ms)
+✔ fichiers: explicit new revision reads once and returning to its project never replays it (1970.6116ms)
+✔ fichiers: Q3 refused preview keeps independent unknown/failed editor and confirmed copy outcomes readable (1934.1975ms)
+✔ fichiers: Q4 invalidation removes Progress preview trigger and returns focus to exact resume title (11722.8914ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-PlFU6Y\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-PlFU6Y\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+✔ an unknown native stop blocks both helper and provider after lease release until shared recovery confirms (1.5633ms)
+✔ generation admits the original corpus only after normalized result and keeps unsaved session distinct (25.9094ms)
+✔ restoration stays passive and historical without granting any file authority (4.1238ms)
+✔ foreign terminal result cannot gain corpus authority and previous complete remains (4.3895ms)
+✔ explicit source revalidation grants only the matching original revision without rerunning analysis (2.2038ms)
+✔ native corpus includes untracked code only, refuses replaced grants and observes additions (5752.6684ms)
+✔ native graph preserves marker direction, inferred score and absent line without native data escaping (9.1541ms)
+✔ refuses one marker (0.6334ms)
+✔ refuses foreign source (0.1973ms)
+✔ refuses foreign node (0.2339ms)
+✔ refuses confidence (1.55ms)
+✔ refuses schema (0.6352ms)
+✔ refuses line (0.7655ms)
+✔ source-target keeps orientation despite directed false and unrecognized location stays unknown (0.9193ms)
+✔ F1/F5 renderer cannot supply paths, URIs, command lines or registrations (2.1067ms)
+{"platform":"win32","checks":["F1 code without BMad and exact inert hostile text","F1 source id cannot be a path","F3 private receipt hash required","F4 in-place edit refused","F3 same-content replacement refused","F3 hardlink refused","F3 outside bytes never read","F3 replaced project root refused","F2 inert .html","F2 inert .svg","F2 explicit format refusal .bin","F2 explicit format refusal .txt","F2 explicit format refusal .md","F2 no silently truncated large file","F1 catalogue publishes only project originals","F1 file receipt bound preserves independent catalogue with explicit refusal"],"count":16,"network":false,"provider":false}
+✔ F1/F2/F3/F4 native physical grants with code-only capture and exact closed runtime (31484.4857ms)
+{"platform":"win32","checks":["H1 replacement different bytes refused before first os.read/event","H1 replacement same bytes refused before first os.read/event","same-inode revision changed before reader refused before bytes","normal expected grant reads exactly after handle/path guards","old callers without expected grant remain exact","existing before-open guard still refuses before bytes"],"count":6,"network":false,"provider":false}
+✔ H1 captured physical grant survives no reader re-baselining and rejects before any os.read (26514.697ms)
+✔ F1/F2 original grant yields exact inert text; clone has no authority (4.4858ms)
+✔ F3/F4 stale reference refuses effects and retains historical text (1.4816ms)
+✔ F5/F6 strict VSCode URI and observable independent copy (2.1253ms)
+✔ F7/F9 late read after shutdown never promotes content (8.5287ms)
+✔ F1 mutated original producer cannot receive a grant after validation awaits (2.4996ms)
+✔ F6 delayed clipboard readback cannot confirm an invalidated grant (2.2504ms)
+✔ F5 rejected editor and absent editor remain distinct; copy still succeeds (2.8127ms)
+✔ F7 BUSY and STOP remain explicit without an automatic replay (3.8187ms)
+✔ F9 shutdown detaches unresolved editor handoff and does not replay after close (3.9035ms)
+✔ F8 native wait predicate is synchronous, rejects missing/pending and returns actual revision (1.0575ms)
+✔ F1 file-only grant capacity is explicit without failing the independent producer (45.0392ms)
+✔ F6 post-write BUSY verification is unknown, never a known no-effect failure (0.9592ms)
+✔ Q1 copy refuses file replaced during delayed context lookup before any effect (4.2885ms)
+✔ Q1 copy refuses ancestor replaced during delayed context lookup before any effect (0.974ms)
+✔ Q1 editor refuses file replaced during delayed context lookup before any effect (0.8924ms)
+✔ Q1 editor refuses ancestor replaced during delayed context lookup before any effect (1.1046ms)
+✔ Q2 editor deadline stays explicitly unknown while rejection and absence remain distinct (2.5258ms)
+✔ Q2 a dispatched editor with uncertain final verification says unknown rather than failure (0.7185ms)
+ℹ tests 186
+ℹ suites 0
+ℹ pass 175
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 757028.1936
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:209:1
+✖ reprise: annonce du projet precedent effacee dans une destination sans projection (34690.6765ms)
+  page.waitForFunction: Timeout 30000ms exceeded.
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:213:13) {
+    name: 'TimeoutError',
+    log: []
+  }
+
+test at tests\connection-ui.test.mjs:261:1
+✖ initiatives: diagnostics explicites dans le choix et le contexte même sans problems (3800.0043ms)
+  locator.click: Error: strict mode violation: getByRole('button', { name: 'Choisir une initiative', exact: true }) resolved to 2 elements:
+      1) <button type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Choisir une initiative" class="initiative-trigger text-button">…</button> aka getByLabel('Choisir une initiative')
+      2) <button type="button" class="text-button">Choisir une initiative</button> aka getByRole('tabpanel', { name: 'Parcours' }).getByRole('button', { name: 'Choisir une initiative' })
+  
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:268:78) {
+    log: [ "  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })" ]
+  }
+
+test at tests\connection-ui.test.mjs:333:1
+✖ initiatives: conservation échouée et ancien résultat restent honnêtes (3736.8606ms)
+  locator.click: Error: strict mode violation: getByRole('button', { name: 'Choisir une initiative', exact: true }) resolved to 2 elements:
+      1) <button type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Choisir une initiative" class="initiative-trigger text-button">…</button> aka getByLabel('Choisir une initiative')
+      2) <button type="button" class="text-button">Choisir une initiative</button> aka getByRole('tabpanel', { name: 'Parcours' }).getByRole('button', { name: 'Choisir une initiative' })
+  
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:335:76) {
+    log: [ "  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })" ]
+  }
+
+test at tests\connection-ui.test.mjs:345:1
+✖ initiatives: clavier, noms longs, compact, deux thèmes et zoom200 sans fuite horizontale (3577.3736ms)
+  locator.click: Error: strict mode violation: getByRole('button', { name: 'Choisir une initiative', exact: true }) resolved to 2 elements:
+      1) <button type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Choisir une initiative" class="initiative-trigger text-button">…</button> aka getByLabel('Choisir une initiative')
+      2) <button type="button" class="text-button">Choisir une initiative</button> aka getByRole('tabpanel', { name: 'Parcours' }).getByRole('button', { name: 'Choisir une initiative' })
+  
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:350:77) {
+    log: [ "  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })" ]
+  }
+
+test at tests\connection-ui.test.mjs:360:1
+✖ initiatives: couleurs locales lisibles et métadonnées alignées dans le thème clair (3886.5955ms)
+  locator.click: Error: strict mode violation: getByRole('button', { name: 'Choisir une initiative', exact: true }) resolved to 2 elements:
+      1) <button type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Choisir une initiative" class="initiative-trigger text-button">…</button> aka getByLabel('Choisir une initiative')
+      2) <button type="button" class="text-button">Choisir une initiative</button> aka getByRole('tabpanel', { name: 'Parcours' }).getByRole('button', { name: 'Choisir une initiative' })
+  
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:362:76) {
+    log: [ "  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })" ]
+  }
+
+test at tests\connection-ui.test.mjs:395:1
+✖ initiatives: choix courant focalisé sans masquer titre et fermeture au compact et zoom200 (3620.0308ms)
+  locator.click: Error: strict mode violation: getByRole('button', { name: 'Choisir une initiative', exact: true }) resolved to 2 elements:
+      1) <button type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Choisir une initiative" class="initiative-trigger text-button">…</button> aka getByLabel('Choisir une initiative')
+      2) <button type="button" class="text-button">Choisir une initiative</button> aka getByRole('tabpanel', { name: 'Parcours' }).getByRole('button', { name: 'Choisir une initiative' })
+  
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:404:99) {
+    log: [ "  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })" ]
+  }
+
+test at tests\connection-ui.test.mjs:437:1
+✖ atelier : disposition compacte, buste complet et conteneurs confinés dans les deux thèmes (8649.0052ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(geometry.banner.height<=130)
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:453:178)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\connection-ui.test.mjs:610:1
+✖ atelier : la saisie et son action restent ensemble au premier écran (9096.3577ms)
+  AssertionError [ERR_ASSERTION]: {"fieldTop":703.7999877929688,"actionBottom":856.5999870300293,"height":820,"scroll":0}
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:619:41)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\connection-ui.test.mjs:697:1
+✖ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (3588.8517ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:706:28)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\connection-ui.test.mjs:838:1
+✖ le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (15508.5691ms)
+  locator.click: Error: strict mode violation: locator('[data-recap-id="conversation-new"] > summary') resolved to 2 elements:
+      1) <summary>…</summary> aka locator('summary').nth(1)
+      2) <summary>…</summary> aka locator('summary').nth(4)
+  
+  Call log:
+  [2m  - waiting for locator('[data-recap-id="conversation-new"] > summary')[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:860:90) {
+    log: [ `  - waiting for locator('[data-recap-id="conversation-new"] > summary')` ]
+  }
+
+test at tests\connection-ui.test.mjs:1194:1
+✖ catalogue: manual three-tab keyboard navigation, literal search, filters, source details and confirmed copy (1705.1998ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:1195:218)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

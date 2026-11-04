@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "review": "independent-high-risk-contradictory",
+  "baseline": "9dc1d12e69b0bd9006af9c41ac491732f1bbd0ac",
+  "diffSha256": "72107b3376c4648a379fb3ef3e362676feb6de47f88c4da2a888997de2731c5a",
+  "candidateAsarSha256": "2f7ab4a1c03c9ca6373d484956a29f315ec4393e1dfa63f04bf4412f353ee3f4",
+  "mode": "source-and-artifact-read-only; no tests or native executions",
+  "findings": [
+    {
+      "id": "HIGH-1",
+      "severity": "P2",
+      "file": "src/core/graph-coordinator.ts",
+      "line": 37,
+      "title": "Reconcile proven shared recovery with the graph attempt latch",
+      "scenario": "A graph run reaches STOP_UNCONFIRMED, then its generation later obtains a valid terminal Job0 receipt. Shared recovery confirms stopped and clears ActivityAdmission/connection. The graph state remains activity.stop=unknown, so the same scope cannot generate again, including after reopen.",
+      "evidence": [
+        "src/main/index.ts:149 clears only ActivityAdmission after shared proof; :232 confirms only connection recovery.",
+        "src/core/graph-coordinator.ts has no recovery reconciliation path and reuses the previous GraphState at :34-37.",
+        "src/core/bmad-graph.ts:52 rejects activity.stop=unknown even with globalGuard=clear; restoreGraphState preserves unknown.",
+        "src/renderer/src/GraphPanel.ts:18,29 permanently disable generate and revalidate for that state."
+      ],
+      "requestedChange": "Add a host-only reconciliation tied to the actual owned generation and confirmed shared recovery. Preserve historical result/freshness and require explicit generation; do not infer stop from the analysis Promise."
+    },
+    {
+      "id": "HIGH-2",
+      "severity": "P2",
+      "file": "resources/graphify/launcher.ps1",
+      "line": 46,
+      "title": "Include the current supervision observation when a later child throws",
+      "scenario": "The analysis child completes, populating states. The subsequent terminal-capture child starts, but Invoke-BmadSupervised throws in its finally (e.g. final receipt persistence fails). Its current state is ignored because states is already nonempty. If that last child lacks job_active_after_stop=0, the launcher still emits jobActive=0 using the first child alone.",
+      "evidence": [
+        "launcher.ps1:24-25 appends current only after Invoke-BmadSupervised returns.",
+        "launcher.ps1:46 includes the fallback current state only when states.Count=0.",
+        "supervision.ps1:211,219-220 can throw from finally before the return at :222.",
+        "launcher.ps1:47-50 then bases terminal jobActive solely on previously returned states; GraphOwnedRun accepts that terminal as stopped."
+      ],
+      "requestedChange": "Always include the current attempted child observation, avoiding duplicate returned observations. Every started child without assigned-before-resume and proven Job0 must keep the aggregate unknown."
+    }
+  ],
+  "verified": {
+    "frozenSourceInputs": 30,
+    "changedFrozenInputs": 0,
+    "runtimeFiles": 735,
+    "shippedPackageFiles": 2305,
+    "dependencyHashMismatches": 0,
+    "wheels": 31,
+    "omittedProvisioningArtifacts": 35,
+    "nativeNodes": 45,
+    "nativeRelations": 27,
+    "candidateExecutableAndInstallerHashesMatch": true,
+    "filesAndSupervisionAreExactBmadCopies": true
+  },
+  "limits": [
+    "Static findings; no fault injection or tests executed by this reviewer.",
+    "Existing vertical-005 proof read and native JSON counted; its execution is not attributed to this review.",
+    "No implementation, product/test mutation, staging, commit, network/provider/UI/native run, installation or personal profile access.",
+    "Python audit hooks are not an OS sandbox; no extended4.5-4.9/G4/G5 or global UI review claimed."
+  ]
+}

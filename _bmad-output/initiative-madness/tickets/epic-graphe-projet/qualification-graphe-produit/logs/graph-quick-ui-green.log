@@ -1,0 +1,32 @@
+✔ F1 interrupted with an old complete graph names latest attempt, confirmed stop and retained result separately (6003.2073ms)
+✔ F1 timeout with an old complete graph names latest attempt, confirmed stop and retained result separately (5822.9229ms)
+✔ F2 native00545-node labels stay legible in actual screen transforms after Fit and Reset without losing nodes or context (15911.3771ms)
+✖ partial and retained complete can be explored both ways with exact identities and isolated views, without retargeting revalidation (8138.6639ms)
+✔ graph UI searches, preserves direction and local view without analysis, with named keyboard controls (8638.6609ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 36911.7413
+
+✖ failing tests:
+
+test at tests\graph-finish.test.mjs:9:1
+✖ partial and retained complete can be explored both ways with exact identities and isolated views, without retargeting revalidation (8138.6639ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graph-finish.test.mjs:9:1645)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

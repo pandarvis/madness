@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-04T17:29:08.887Z",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-high-4E1LC8",
+  "status": "failed",
+  "checks": [
+    "H1 actual native owned capture Job assigned before resume and drained; receipt deliberately withheld",
+    "H1 common recovery with absent native receipt keeps both logical states locked and grants none"
+  ],
+  "cleanup": true,
+  "limits": [
+    "Two logical states are seeded fault fixtures; one actual native capture Job supplies the bound physical proof.",
+    "No new Graphify analysis, file authority, model, network, personal data, editor or visual qualification is requested by shared recovery.",
+    "Existing vertical005 remains attached to its original ASAR; this targeted result attaches to the patched candidate only."
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed-high\\win-unpacked\\Madness.exe",
+    "executableSha256": "64cb26a08646b1b14e52dfb4fc7d7e3d1ac751bfed5c9d754cf1ce50da4a3de1",
+    "asarSha256": "6c422b60b45517beccad1d6794f4aa250af1a4752cd9042c383be1dd1bad9e9a"
+  },
+  "native": {
+    "generation": "graph-b88f9029-8834-41dd-9036-1c02827309a3",
+    "attempt": {
+      "contractVersion": 1,
+      "identity": {
+        "projectId": "recovery-a",
+        "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-high-4E1LC8\\recovery-a",
+        "rootIdentity": "seeded-recovery-a",
+        "scopeId": "code",
+        "scopeRevision": "7d115c8cb2ea25cfd79e785d80922ffd056081da9f99f55d2900bc27f9d19c7d",
+        "analysisId": "unknown-recovery-a",
+        "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168"
+      },
+      "generation": 3,
+      "correlationId": "recovery-recovery-a"
+    },
+    "terminal": {
+      "schemaVersion": 1,
+      "purpose": "graph-code-only",
+      "neverStarted": false,
+      "terminal": true,
+      "generation": "graph-b88f9029-8834-41dd-9036-1c02827309a3",
+      "jobAssigned": true,
+      "jobActive": 0
+    },
+    "execution": {
+      "schema": 5,
+      "outcome": "completed",
+      "exit": 0,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 22716,
+      "active_before_stop": 0,
+      "job_active_after_stop": 0,
+      "stop_ms": 0,
+      "drain_ms": 205,
+      "elapsed_ms": 1829
+    }
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'unknown'\n- 'confirmed'\n\n    at file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/graph-recovery.mjs:29:404",
+  "closure": {
+    "main": {
+      "pid": 45636,
+      "startedAt": "639294101676607954",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed-high\\win-unpacked\\Madness.exe"
+    },
+    "wrapperPid": 16348,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-04T17:29:33.691Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  },
+  "finishedAt": "2026-11-04T17:29:36.491Z"
+}

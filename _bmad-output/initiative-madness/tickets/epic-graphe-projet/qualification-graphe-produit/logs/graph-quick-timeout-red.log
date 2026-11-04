@@ -1,0 +1,46 @@
+✖ adapter converts actual launcher GRAPH_CHILD_timeout with proven zero without claiming analysis failure (3480.1782ms)
+✖ adapter converts actual launcher GRAPH_CHILD_timeout with unknown stop without claiming analysis failure (2661.9633ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6406.2568
+
+✖ failing tests:
+
+test at tests\graphify-timeout.test.mjs:16:32
+✖ adapter converts actual launcher GRAPH_CHILD_timeout with proven zero without claiming analysis failure (3480.1782ms)
+  AssertionError [ERR_ASSERTION]: [{"contractVersion":1,"identity":{"projectId":"p","rootPath":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-timeout-6dxc7m\\project","rootIdentity":"root","scopeId":"code","scopeRevision":"878a5932a171184b040b835345af3a9b821e2461c8296886f33d849c6993f384","analysisId":"timeout-attempt","sourceRevision":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},"generation":1,"correlationId":"native-timeout","order":1,"type":"started"},{"contractVersion":1,"identity":{"projectId":"p","rootPath":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-timeout-6dxc7m\\project","rootIdentity":"root","scopeId":"code","scopeRevision":"878a5932a171184b040b835345af3a9b821e2461c8296886f33d849c6993f384","analysisId":"timeout-attempt","sourceRevision":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},"generation":1,"correlationId":"native-timeout","order":2,"type":"failed","error":{"code":"ANALYSIS_FAILED","messageKey":"graph.error.analysis_failed","outcome":"failed","recovery":"retry-after-check"}},{"contractVersion":1,"identity":{"projectId":"p","rootPath":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-timeout-6dxc7m\\project","rootIdentity":"root","scopeId":"code","scopeRevision":"878a5932a171184b040b835345af3a9b821e2461c8296886f33d849c6993f384","analysisId":"timeout-attempt","sourceRevision":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},"generation":1,"correlationId":"native-timeout","order":3,"type":"stopped","reason":"failed","stop":"confirmed"}]
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graphify-timeout.test.mjs:20:627)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\graphify-timeout.test.mjs:16:32
+✖ adapter converts actual launcher GRAPH_CHILD_timeout with unknown stop without claiming analysis failure (2661.9633ms)
+  AssertionError [ERR_ASSERTION]: [{"contractVersion":1,"identity":{"projectId":"p","rootPath":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-timeout-pSbCAo\\project","rootIdentity":"root","scopeId":"code","scopeRevision":"878a5932a171184b040b835345af3a9b821e2461c8296886f33d849c6993f384","analysisId":"timeout-attempt","sourceRevision":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},"generation":1,"correlationId":"native-timeout","order":1,"type":"started"},{"contractVersion":1,"identity":{"projectId":"p","rootPath":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-timeout-pSbCAo\\project","rootIdentity":"root","scopeId":"code","scopeRevision":"878a5932a171184b040b835345af3a9b821e2461c8296886f33d849c6993f384","analysisId":"timeout-attempt","sourceRevision":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},"generation":1,"correlationId":"native-timeout","order":2,"type":"failed","error":{"code":"STOP_UNCONFIRMED","messageKey":"graph.error.stop_unconfirmed","outcome":"unknown","recovery":"check-stop"}}]
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graphify-timeout.test.mjs:20:627)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

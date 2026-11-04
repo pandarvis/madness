@@ -29,9 +29,14 @@ export class LifecycleCoordinator {
 export class ActivityAdmission {
  private listeners=new Set<()=>void>()
  subscribeAvailable(fn:()=>void):()=>void{this.listeners.add(fn);return()=>this.listeners.delete(fn)}
+ get activity(): 'blocked'|'busy'|'clear'{return this.blocked?'blocked':this.provider||this.helper?'busy':'clear'}
+ private blocked=false
+ block():void{this.blocked=true}
+ clearBlock():void{this.blocked=false}
  private provider=false
  private helper=false
  enter(kind:'provider'|'helper',nested=false):()=>void {
+  if(this.blocked)throw Object.assign(new Error('STOP_UNCONFIRMED'),{code:'STOP_UNCONFIRMED'})
   if(kind==='provider'){if(this.provider||this.helper)throw Object.assign(new Error('CONNECTION_BUSY'),{code:'CONNECTION_BUSY'});this.provider=true}
   else{if(this.helper||this.provider&&!nested)throw Object.assign(new Error('BUSY'),{code:'BUSY'});this.helper=true}
   let released=false

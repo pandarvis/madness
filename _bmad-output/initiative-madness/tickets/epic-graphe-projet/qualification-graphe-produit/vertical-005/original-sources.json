@@ -1,0 +1,102 @@
+{
+  ".git": {
+    "text": "not a repository",
+    "sha256": "9824a067e480f4f8c40569553c333dc2a16c95fde71891999a935792fc9ea1f8"
+  },
+  ".graphifyrc": {
+    "text": "language.ts=python",
+    "sha256": "4f68512879005bab4d17e97bfc97e70bec1cf8174df546984539c98ee21a5791"
+  },
+  "AGENTS.md": {
+    "text": "Never execute. This is not copied.",
+    "sha256": "331f147fcc96a5577e040e22bac3903d86679be254bdf518ad16f30c2d08d065"
+  },
+  "client.ts": {
+    "text": "import { Service } from './service'\nexport function useService(){const service=new Service();return service.act()}\n",
+    "sha256": "eea8299574a802a49f97f3d7738787ff4c2c54195eb3b1d02cb0d9494918a1ca"
+  },
+  "extra0.py": {
+    "text": "def helper0():\n    return 0\n",
+    "sha256": "7e6947361a937694bcec48c275c4ff4a79def630dd66d6fe09843869047d4a9c"
+  },
+  "extra1.py": {
+    "text": "def helper1():\n    return 1\n",
+    "sha256": "5bf915a4f0c55712e29007894bc12a11f1b388a1ee3017983dd71f640f535afb"
+  },
+  "extra10.py": {
+    "text": "def helper10():\n    return 10\n",
+    "sha256": "5b4e9e78c23e739de8ab34aca001353e512933f13da236e59d0e56608a053549"
+  },
+  "extra11.py": {
+    "text": "def helper11():\n    return 11\n",
+    "sha256": "b665b03fdd07c28e234598d054e6a0bee2690c596f211fb193c7b3ae393cadc6"
+  },
+  "extra12.py": {
+    "text": "def helper12():\n    return 12\n",
+    "sha256": "b80dc23b687185c6591b51a150f52a76f2abc39f23252c70e8d29fb474c8896e"
+  },
+  "extra13.py": {
+    "text": "def helper13():\n    return 13\n",
+    "sha256": "c8643b0812ac78d14da8d20daaef8a88423fa589b1ca430d14c613076d167d6c"
+  },
+  "extra14.py": {
+    "text": "def helper14():\n    return 14\n",
+    "sha256": "9e3e6f636d53403d084e562ec8cd9c98733e1de6be57770a55727f3db3ab16bd"
+  },
+  "extra15.py": {
+    "text": "def helper15():\n    return 15\n",
+    "sha256": "f59802d75bdbf706e7dc9cd85b4d87ba5c91c27036d0ea194db0b11aa0777a6a"
+  },
+  "extra16.py": {
+    "text": "def helper16():\n    return 16\n",
+    "sha256": "d6de53f9aca176d5d1d39298fc570855c39e68cfdc714291d3fd092ffa30707e"
+  },
+  "extra17.py": {
+    "text": "def helper17():\n    return 17\n",
+    "sha256": "a921d61f839091913ec5573251c1b1a14ec56905310d68dc758757d91988e54f"
+  },
+  "extra18.py": {
+    "text": "def helper18():\n    return 18\n",
+    "sha256": "fd82341897e15f2a4af11a243feba5babbab4a22d996c9c77ff35e67897e0e89"
+  },
+  "extra19.py": {
+    "text": "def helper19():\n    return 19\n",
+    "sha256": "b5e99270950d48921c0126278ddd7cc32aa2e818eaf039e8b5867ea9c6be8b55"
+  },
+  "extra2.py": {
+    "text": "def helper2():\n    return 2\n",
+    "sha256": "deb6d343279faba3c68844839e4f56bf98e3fbe2d50a666587c869ccf271dfd3"
+  },
+  "extra3.py": {
+    "text": "def helper3():\n    return 3\n",
+    "sha256": "9e8236379bcd00d215124c1e849dc0348af3bfac4d258ababb3387f3405ccbc8"
+  },
+  "extra4.py": {
+    "text": "def helper4():\n    return 4\n",
+    "sha256": "866f35f3d2d1c60533d2e93caef3adbe0bdfecb8d62195da1b6faa2fe4f5e18b"
+  },
+  "extra5.py": {
+    "text": "def helper5():\n    return 5\n",
+    "sha256": "2fe73bbf5d5a41eeb7bac7ea4a40c198639d144719fccdf4678079f5f6cb47e2"
+  },
+  "extra6.py": {
+    "text": "def helper6():\n    return 6\n",
+    "sha256": "b2e5078a548f2b8de2d18a1b27461f1391975a4a8dc424f4df8211c9469820d3"
+  },
+  "extra7.py": {
+    "text": "def helper7():\n    return 7\n",
+    "sha256": "5b70a9de7d876abd71a029ab28cf3dc72626a1cf3aee2b848256cc914a645b1a"
+  },
+  "extra8.py": {
+    "text": "def helper8():\n    return 8\n",
+    "sha256": "631b2405fcc525da6c023736540d8984f293cdc4a664c5bc538c52eba048a8cb"
+  },
+  "extra9.py": {
+    "text": "def helper9():\n    return 9\n",
+    "sha256": "8b7377aec4cc1664bebfce1eb8cb77527d96c6cc79ad4b5d18f725bd430d7f52"
+  },
+  "service.ts": {
+    "text": "export class Service { act(){ return 2 } }\n",
+    "sha256": "ea65fb50b00c368a45f79aa4961cf7d9a451219335e0353557af208d6abbdeab"
+  }
+}

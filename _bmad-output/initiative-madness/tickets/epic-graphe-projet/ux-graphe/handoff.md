@@ -9,7 +9,7 @@ date: '2026-11-04'
 <a id="h1"></a>
 ## H1 — Ce qui est remis
 
-[DESIGN](DESIGN.md) fixe la composition locale dans le troisième onglet du projet et l’héritage visuel. [EXPERIENCE](EXPERIENCE.md) fixe transitions, identités, recherche/relations, focus, nœud→fichier et copie FR/EN. Les clauses D1–D7/E1–E8 sont des règles UX vérifiables, sans nouveau type public, commande IPC, stockage parallèle ou décision de bibliothèque. Les [walkthroughs U1–U6](qualification/verification.md) vérifient le texte ; aucun parcours produit n’en découle.
+[DESIGN](DESIGN.md) fixe la composition locale dans le quatrième onglet du projet et l’héritage visuel. [EXPERIENCE](EXPERIENCE.md) fixe transitions, identités, recherche/relations, focus, nœud→fichier et copie FR/EN. Les clauses D1–D7/E1–E8 sont des règles UX vérifiables, sans nouveau type public, commande IPC, stockage parallèle ou décision de bibliothèque. Les [walkthroughs U1–U6](qualification/verification.md) vérifient le texte ; aucun parcours produit n’en découle.
 
 Le [plan4.2](../tickets/story-definir-avec-sally-l-exploration-accessible-du-graphe-plan.md) est la source de portée. Les fournisseurs du [tableau4](../tickets/tickets.toml) sont des dépendances à attendre, jamais des capacités livrées par ce supplément. Le [DESIGN racine](../../../../../DESIGN.md) reste l’autorité visuelle actuelle, les deux spines partagés restent inchangés jusqu’à réconciliation explicite en4.4.
 
@@ -18,7 +18,7 @@ Le [plan4.2](../tickets/story-definir-avec-sally-l-exploration-accessible-du-gra
 
 | Exigence locale et source | Clauses remises | Consommateurs et preuve attendue |
 |---|---|---|
-| R1 / parent R28 : génération volontaire du code/modules/fichiers/dépendances du projet ouvert, portée explicite, outil optionnel de V1 | D1–D2 ; E1–E2 : troisième onglet, contexte exact, génération/actualisation explicite et aucun fournisseur requis | 4.3 définit les identités et demandes isolées ; 4.4 raccorde l’unique voie à l’enfant/local et au shell ; 4.9 qualifie le paquet. Aucun lancement n’a eu lieu ici. |
+| R1 / parent R28 : génération volontaire du code/modules/fichiers/dépendances du projet ouvert, portée explicite, outil optionnel de V1 | D1–D2 ; E1–E2 : quatrième onglet, contexte exact, génération/actualisation explicite et aucun fournisseur requis | 4.3 définit les identités et demandes isolées ; 4.4 raccorde l’unique voie à l’enfant/local et au shell ; 4.9 qualifie le paquet. Aucun lancement n’a eu lieu ici. |
 | R2 / parent R29 : recherche/exploration, sens/provenance/certitude, fichier et liste accessible | D3–D6 ; E3–E6 et E8 : sens orienté, confiance/score distincts, recherche/homonymes, relations, zoom/pan et fichier sûr | 4.3 admet les données ; 4.4 établit le tracer jusqu’au fichier2.8 ; 4.5 complète normalisation ; 4.8 réalise et éprouve l’exploration/variantes. |
 | R3 / parent R30 : absent/en cours/disponible/partiel/ancien/incompatible/échec, fraîcheur non commitée, dernier complet, récupération et BMad utilisable | D2/D4 ; E1–E3/E7–E8 : axes distincts, mutation/restauration historiques, arrêt connu/inconnu et sauvegarde séparée | 4.3 définit admission/publication ; 4.6 établit fraîcheur et dernier complet ; 4.7 éprouve arrêts/restauration/disque ; 4.4 réconcilie le coordinateur existant. |
 
@@ -31,16 +31,16 @@ Source des exigences : [epic-graphe-projet](../epic-graphe-projet.md). R4 demeur
 
 Les refus de4.1 restent refus : outil/version/schéma inconnus, raw non estampillé, endpoint absent, un seul marqueur de sens, référence absolue/traversante/liée/hors corpus, confiance inconnue, score hors domaine, ligne hors fichier. `_src/_tgt` ensemble priment, sinon source→target malgré `directed:false`. Les sources/lignes absentes restent inconnues ; aucune plage déduite. Le profil admet uniquement ses variantes explicitement qualifiées : la mention de `links/edges` dans un consommateur futur ne constitue pas admission d’un autre format en4.2.
 
-4.4 attend **2.8 fichiers/éditeur**, **2.14 variantes/langue/clavier** et **3.9 voie d’initialisation locale stabilisée**, puis réconcilie ce supplément et les contrats4.3 avec les spines, cycle de vie, conservation et propriétaires existants. Il branche une seule voie produit, sans nouveau fournisseur, coordinateur ou stockage parallèle. L’onglet local n’est pas bloqué par une absence de connexion IA ou de BMad ; les vraies gardes de possession restent applicables.
+Le replan adopté permet4.4 sur **2.8 fichiers/éditeur livré**, sans attendre2.14 (anglais global) ni3.9 (initialisation). 4.4 réconcilie ce supplément et les contrats4.3 avec les spines, cycle de vie, conservation et propriétaires existants. Il branche une seule voie produit, sans nouveau fournisseur, coordinateur ou stockage parallèle. L’onglet local n’est pas bloqué par une absence de connexion IA ou de BMad ; les vraies gardes de possession restent applicables.
 
-4.8 décide bibliothèque/projection/volumétrie et contrôles locaux à partir de mesures, fournit la liste équivalente et vérifie la recherche/fichier/retour au clavier dans les variantes. Aucun plafond de nœuds, budget mémoire ou durée maximale V1 n’est fixé par ces documents.
+4.4 livre un premier SVG local déterministe et tous les nœuds en liste, avec recherche, relations, zoom et déplacement. 4.8 approfondit projection/volumétrie et contrôles locaux à partir de mesures, conserve la liste équivalente et vérifie la recherche/fichier/retour au clavier dans les variantes. Aucun plafond de nœuds, budget mémoire ou durée maximale V1 n’est fixé par ces documents.
 
 <a id="h4"></a>
 ## H4 — État du dépôt et dépendances non livrées par ce lot
 
 | Sujet | Constat de lecture ou preuve existante | Travail restant du consommateur |
 |---|---|---|
-| Shell et onglets | App.tsx405/466 ne connaît que Parcours et Conversation ; aucun onglet Graphe actuel. Navigation conserve les échanges par identité ; cela ne prouve pas la mémoire d’exploration future. | Ajouter Graphe en troisième position en4.4 ; conserver destinations, brouillons, sélections et focus exacts. |
+| Shell et onglets | App.tsx405/466 ne connaît que Parcours et Conversation ; aucun onglet Graphe actuel. Navigation conserve les échanges par identité ; cela ne prouve pas la mémoire d’exploration future. | Ajouter Graphe en quatrième position en4.4 ; conserver destinations, brouillons, sélections et focus exacts. |
 | Onglets au clavier | App.tsx466 active immédiatement avec les flèches ; le spine EXPERIENCE · Clavier prévoit focus puis Entrée/Espace. Divergence préexistante. | Réconcilier en2.14/4.4 et vérifier le comportement final ; aucune correction produit dans4.2. |
 | Fichiers/éditeur | Les spines portent une intention de panneau318px et superposition1080px ; ProjectResume expose des détails textuels, pas ce panneau. | 2.8 doit livrer lecture sûre, identité/révision, retour et reçus éditeur avant le tracer4.4. E6 n’invente aucune méthode de pont. |
 | Langue/zoom | Application principalement française fixe ; strings.ts ne fournit des paires que pour la reprise. Aucun gestionnaire produit de zoom application repéré. | 2.14 implémente les variantes ; E8 est une copie contractuelle. 4.8 sépare zoom local du dessin et zoom application, vérifie200 %. |
@@ -63,3 +63,8 @@ Les deux références visuelles inspectées sont des replays historiques Main004
 Les walkthroughs locaux livrent la traçabilité U1–U6, la cohérence FR/EN, les liens et la comparaison d’empreintes. Le parent porte la relecture Quick et les statuts du plan. La relecture UX indépendante porte le supplément textuel, sans verdict visuel de ship.
 
 Les consommateurs devront mesurer et tester réellement : génération/refus/arrêt/timeout, mutation non commitée et pendant analyse, deux projets/réponses tardives, recherche longue et projection, relation→fichier de même révision ou refus, erreur éditeur/conservation, retour à la saisie, clavier seul, FR/EN, deux thèmes, zoom200 %, mouvement réduit et technologies d’assistance. 4.11 attend aussi3.10/G4 et le candidat exact du paquet. Ne pas conclure UI rendue, installation, G5, acceptation humaine ou conformité globale de cette remise documentaire.
+
+
+## Réconciliation produit4.4 — 4 novembre2026
+
+Le catalogue2.6 et le panneau2.8 sont livrés. Graphe est la quatrième destination du même shell. Premier rendu4.4 : SVG géométrique local déterministe, liste exhaustive des nœuds admis, sens textuel et flèches, recherche, relations, fichier et retour ; approfondissement4.8 et matrices4.5–4.9 restent ouverts. Le clavier des onglets déplace le focus sans activation aux flèches, puis Entrée/Espace active. Réouverture passive ; revalidation volontaire des fichiers sans analyse. Le replan dispense4.4 des dépendances historiques2.14/3.9. Le présent ajout actualise ces seuls constats historiques ; source Sally4.2 conservée, aucune nouvelle activation ou preuve de rendu déduite.

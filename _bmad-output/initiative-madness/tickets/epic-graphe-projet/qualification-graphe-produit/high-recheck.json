@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "review": "same-reviewer-HIGH-1-HIGH-2-targeted-recheck",
+  "reviewedAtUtc": "2026-11-04T17:38:04.2516748Z",
+  "mode": "read-only source/artifact review; no test/native/provider/network/UI execution by reviewer",
+  "baseline": "9dc1d12e69b0bd9006af9c41ac491732f1bbd0ac",
+  "scope": "Only original HIGH-1 and HIGH-2; no new hunt or complete UI/post-UI candidate verdict",
+  "verdict": "both-resolved",
+  "findings": [
+    {
+      "id": "HIGH-1",
+      "originalSeverity": "P2",
+      "status": "resolved",
+      "codeEvidence": [
+        "graphify.ts:33,67 durably binds the exact validated logical stop request to the analysis owner generation before spawn.",
+        "graph-owned-run.ts:25 validates and clones the attempt; :30 issues frozen WeakSet-authorized proof only after rereading a same-generation/purpose terminal Job0 receipt for a stopped owner. Missing receipt/attempt => no proof.",
+        "graph-coordinator.ts:62-71 refuses forged proof and mismatched project/scope/root identity/source revision/analysis ID/generation/correlation. Only activity phase/stop is reconciled; result/outcome/freshness and file grants are not promoted.",
+        "main/index.ts:149 performs reconciliation only after all three native owners confirm stopped, before releasing the shared latch. The existing beginGraphAttempt stop-unknown refusal remains intact."
+      ],
+      "existingProof": "high-targeted-002: absent receipt keeps both states locked, restored actual native capture Job0 proof unlocks only its bound logical state via the packaged common recovery. Foreign unknown remains; draft/result/freshness/bindings remain exact; closure/cleanup safe.",
+      "proofLimit": "Two seeded logical unknown states and one actual native capture Job, not an observed Graphify timeout. The existing real Graphify runtime log separately checks the analysis-to-owner attempt binding."
+    },
+    {
+      "id": "HIGH-2",
+      "originalSeverity": "P2",
+      "status": "resolved",
+      "codeEvidence": [
+        "launcher.ps1:23-30 appends the current observation exactly once in a per-attempt finally, including supervision throws.",
+        "launcher.ps1:51-56 treats null/malformed observations as unknown and excludes them from neverStarted; every started child requires explicit assignment and integer job_active_after_stop=0.",
+        "Aggregate jobActive remains null for missing/positive/unknown terminal evidence; a thrown receipt-persistence path may report zero only when that child already has explicit Job0 proof."
+      ],
+      "existingProof": "Five recorded PowerShell-launcher tests cover missing-zero, no-observation, positive-active, known-zero-after-throw and normal. First three expect jobActive:null; last two expect0; neverStarted remains false.",
+      "proofLimit": "Tests execute real PowerShell and the exact launcher source with substituted supervision/preflight; they are fault-injected aggregation tests, not live native Job-query failures."
+    }
+  ],
+  "remainingFindings": [],
+  "candidate": {
+    "path": "dist/graph-reviewed-high/win-unpacked",
+    "asarSha256": "6c422b60b45517beccad1d6794f4aa250af1a4752cd9042c383be1dd1bad9e9a",
+    "exeSha256": "64cb26a08646b1b14e52dfb4fc7d7e3d1ac751bfed5c9d754cf1ce50da4a3de1",
+    "matchesTargetedProof": true,
+    "scope": "Targeted H1/H2 candidate only; no claims for later Impeccable/UI rebuilds"
+  },
+  "sourceHashes": [
+    {
+      "path": "src/main/index.ts",
+      "sha256": "3e93719a933df0d158626678dacbfa020743cba5218e98be263cf3b38605c156",
+      "matchesTargetedFreeze": true
+    },
+    {
+      "path": "src/core/graph-coordinator.ts",
+      "sha256": "12d1bd919ff7a68ec13047878e803be01f31d92c82ed6454c6264e302fdf99cd",
+      "matchesTargetedFreeze": true
+    },
+    {
+      "path": "src/adapters/analysis/graph-owned-run.ts",
+      "sha256": "b7f0b3e01235f7956b3325dae13cd2e068cf9726f3361496869841f762a11699",
+      "matchesTargetedFreeze": true
+    },
+    {
+      "path": "src/adapters/analysis/graphify.ts",
+      "sha256": "6c6f403710963cf1a96814df810b87ea34648edb651a4859855e05bdec8a1ca3",
+      "matchesTargetedFreeze": true
+    },
+    {
+      "path": "resources/graphify/launcher.ps1",
+      "sha256": "8f09428fc2d5b4b2209826bd9676073a875bca06d94b12518c8050a41945461c",
+      "matchesTargetedFreeze": true
+    },
+    {
+      "path": "src/adapters/analysis/graphify-manifest.ts",
+      "sha256": "5e1f30d40f3d1550ccb2214fd61d16041a384923a6d46124d6439a167df7367c",
+      "matchesTargetedFreeze": true
+    },
+    {
+      "path": "tests/graph-recovery.test.mjs",
+      "sha256": "bcf270f41399f609dc5548de66f838442e517b789009f5e249e6d30738bc0fd4",
+      "matchesTargetedFreeze": true
+    },
+    {
+      "path": "tests/graphify-supervision.test.mjs",
+      "sha256": "30c40373cea2cc0bc4967b716dd87bc52b25be6fefca4f5cc7981101c71d3b57",
+      "matchesTargetedFreeze": true
+    },
+    {
+      "path": "scripts/qualification/graph-recovery.mjs",
+      "sha256": "c250661a7b0562a1d2824060e11ab164f2094b58244d645baa36664c7ce5f837",
+      "matchesTargetedFreeze": true
+    }
+  ],
+  "resourceHashes": [
+    {
+      "name": "assembly.json",
+      "sha256": "e2155b1cd240cdf9e4b4722a7158ebdba2e648e84c503f4264b60c945bce62c0",
+      "matchesPin": true
+    },
+    {
+      "name": "requirements.lock",
+      "sha256": "2d7e9297b933eba90bc9b09b91e451d9fa0a823d0f42a5924a06d2de182a7da9",
+      "matchesPin": true
+    },
+    {
+      "name": "NOTICES.md",
+      "sha256": "e9c8f7a1cebf8d02b8b034d2379e341ebece9d941a158d0e80fcf4886fb9f1fa",
+      "matchesPin": true
+    },
+    {
+      "name": "preflight.ps1",
+      "sha256": "cac55355414e25957be2f6c51b779419d9dfa3b7ebb75b40cb19f2c6ee43ffb5",
+      "matchesPin": true
+    },
+    {
+      "name": "supervision.ps1",
+      "sha256": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+      "matchesPin": true
+    },
+    {
+      "name": "capture.py",
+      "sha256": "b02724e90b151c4c978f9bf480a2ef17d7556102e9c83cde58d16d77e313964b",
+      "matchesPin": true
+    },
+    {
+      "name": "files.py",
+      "sha256": "46769032c6bc463f9dad044d6ad708d785b139a787f5ed997683ffd7f5e72ed4",
+      "matchesPin": true
+    },
+    {
+      "name": "graph_capture.py",
+      "sha256": "525b2d960273dc1accb34980bdd745ca624268a20157ee5e6cea981b6ec68d6c",
+      "matchesPin": true
+    },
+    {
+      "name": "worker.py",
+      "sha256": "9ff31ac10e7cef2716f67597af8c0d469ec8693ff5eeaca5e75a2e7ff1fe2953",
+      "matchesPin": true
+    },
+    {
+      "name": "launcher.ps1",
+      "sha256": "8f09428fc2d5b4b2209826bd9676073a875bca06d94b12518c8050a41945461c",
+      "matchesPin": true
+    }
+  ],
+  "evidenceHashes": [
+    {
+      "path": "high-targeted-002/report.json",
+      "sha256": "5404e84b67fb9add930b98a6b56abf8d93d3d58a2643068617f98bee1ab70767"
+    },
+    {
+      "path": "high-targeted-002/inputs.json",
+      "sha256": "3b88aacd4c52ff631e63ea5f3dbfa313813208d84b44b0c797abf87275f83749"
+    },
+    {
+      "path": "high-targeted-002/native-terminal.json",
+      "sha256": "0346ec546652f485c256e3b143d9e1dce49a390e784891f88f528de2a6cfcb19"
+    },
+    {
+      "path": "high-targeted-002/native-execution.json",
+      "sha256": "abc2ca32b7457eff06833faacff2634aecff43ee9208bd4f33882aa1b7e08f25"
+    },
+    {
+      "path": "high-targeted-002/observation.json",
+      "sha256": "001d0fc3e6729dd1c0926450654dbef20de932b6b22d2f4a2e0e5542dbbd008e"
+    },
+    {
+      "path": "high-targeted-001/report.json",
+      "sha256": "7ec393a59f3d71ac7db942a3b49843e8509fe293c5d421449e27e2e85bfe183d"
+    }
+  ],
+  "existingLogHashes": [
+    {
+      "path": ".working-graph-high-targeted.log",
+      "sha256": "3b566c3742ae2ee02e911cb5024540ed2d8902b29da4cbb57b0e47f8874f9d52"
+    },
+    {
+      "path": ".working-graph-high-green.log",
+      "sha256": "bd919cc608ef55681eb4aad530c3af82334418c296dcee47a0b3e180bdd70b1d"
+    },
+    {
+      "path": ".working-graph-high-native-graphify.log",
+      "sha256": "989ec8a249f067878266d5f40f3754c5db5ecff50e85a69cd7eca6aac42cabfd"
+    },
+    {
+      "path": ".working-graph-high-native-recovery-002.log",
+      "sha256": "40832e8f135fe03148b05acb5468ae12cae217c3afd2863737e505af54d3fc02"
+    },
+    {
+      "path": ".working-graph-high-red.log",
+      "sha256": "783dd9cc0d8803669a8a530f15d68e8ab381455d8fd7d7ccf663b52917e91781"
+    },
+    {
+      "path": ".working-graph-high-foreign-red.log",
+      "sha256": "cac13e9465fd4d48d5166924d9ed585a0805ccbe8baabd78bf7c051cdaebce78"
+    }
+  ],
+  "existingVerification": {
+    "targetedTests": 19,
+    "passed": 19,
+    "failed": 0,
+    "skipped": 0,
+    "powerShellAggregationCases": 5,
+    "nativeGraphifyLog": "1/1 passed (read, not rerun)",
+    "targetedNativeRecovery": "high-targeted-002 passed (read, not rerun)",
+    "firstNativeRecovery": "high-targeted-001 failed timing assertion retained; not promoted to passed"
+  },
+  "limits": [
+    "Reviewer ran no tests, native/UI/provider/network execution, model or installation. Only this report was written.",
+    "No whole-UI, post-UI ASAR, broad4.5-4.9/G4/G5 or global WCAG verdict.",
+    "Concurrent worker changes preserved; H1/H2 sources and evidence hashes identify this bounded recheck."
+  ]
+}

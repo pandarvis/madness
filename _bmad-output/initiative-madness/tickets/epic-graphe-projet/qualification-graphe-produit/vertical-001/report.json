@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-iJYq4V",
+  "startedAt": "2026-11-04T16:30:04.959Z",
+  "status": "failed",
+  "checks": [],
+  "captures": [],
+  "closures": [
+    {
+      "main": {
+        "pid": 32632,
+        "startedAt": "639294066067963493",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 38396,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T16:30:08.037Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "graphOwner": "stopped"
+    }
+  ],
+  "launches": [
+    {
+      "pid": 32632,
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-iJYq4V\\profile",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed\\win-unpacked\\Madness.exe"
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "One owned synthetic Windows project, no BMad/account/AI/Git. Not extended4.5–4.9 or finalG5.",
+    "Python hooks and pinned native libraries are not an OS sandbox.",
+    "Counters cover the interval after the explicit observation hook. No OS editor or external clipboard claim."
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed\\win-unpacked\\Madness.exe",
+    "sha256": "46144855b1faa3104278f0e6ec8dcea5eee211788c7d83dbd4d460345b2cf3c5",
+    "asarSha256": "eab6124af8e9a933f44334b04effe44d88c057ebd336aede5483cda363fe5991"
+  },
+  "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.project-row').filter({ hasText: 'Graph code witness' })\u001b[22m\n\n    at C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\scripts\\qualification\\graph-project.mjs:28:446",
+  "finishedAt": "2026-11-04T16:30:44.211Z"
+}

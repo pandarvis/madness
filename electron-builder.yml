@@ -8,6 +8,8 @@ files:
   - package.json
 asar: true
 extraResources:
+  - from: resources/graphify
+    to: graphify
   - from: resources/branding/madness.ico
     to: madness.ico
   - from: resources/bmad-help

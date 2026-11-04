@@ -1,0 +1,68 @@
+✖ reprise: annonce du projet precedent effacee dans une destination sans projection (34833.7724ms)
+✔ initiatives: diagnostics explicites dans le choix et le contexte même sans problems (74739.9607ms)
+✖ initiatives: conservation échouée et ancien résultat restent honnêtes (4444.6926ms)
+✖ initiatives: clavier, noms longs, compact, deux thèmes et zoom200 sans fuite horizontale (13259.2617ms)
+✖ atelier : disposition compacte, buste complet et conteneurs confinés dans les deux thèmes (9088.1193ms)
+ℹ {"size":{"width":1600,"height":1000},"theme":"dark","viewport":{"width":1600,"height":1000},"title":{"text":"Projet personnel de qualification de la refonte avec un nom réellement très long sans abréviation","scrollWidth":522,"clientWidth":522},"banner":{"x":264,"y":68,"right":1215.6000366210938,"bottom":233.6999969482422,"width":951.6000366210938,"height":165.6999969482422,"backgroundImage":"none"},"tabs":[{"x":268,"y":247.6999969482422,"right":383.5500030517578,"bottom":291.6999969482422,"width":115.55000305175781,"height":44},{"x":391.5500183105469,"y":247.6999969482422,"right":539.6750183105469,"bottom":291.6999969482422,"width":148.125,"height":44},{"x":547.6749877929688,"y":247.6999969482422,"right":767.6624908447266,"bottom":291.6999969482422,"width":219.9875030517578,"height":44},{"x":775.6625366210938,"y":247.6999969482422,"right":875.3875350952148,"bottom":291.6999969482422,"width":99.7249984741211,"height":44}],"bust":{"x":1271.5999755859375,"y":136,"right":1569.5999755859375,"bottom":370,"width":298,"height":234},"image":{"x":1272.4000244140625,"y":136.8000030517578,"right":1568.8000183105469,"bottom":369.20001220703125,"width":296.3999938964844,"height":232.40000915527344,"objectFit":"contain","transform":"none","naturalWidth":1254,"naturalHeight":1254},"containers":[{"element":"html","x":0,"y":0,"right":1600,"bottom":1000,"width":1600,"height":1000,"clientWidth":1600,"scrollWidth":1600},{"element":"body","x":0,"y":0,"right":1600,"bottom":1000,"width":1600,"height":1000,"clientWidth":1600,"scrollWidth":1600},{"element":"#root","x":0,"y":0,"right":1600,"bottom":1000,"width":1600,"height":1000,"clientWidth":1600,"scrollWidth":1600},{"element":"app-shell agent-info-open ","x":0,"y":0,"right":1600,"bottom":1000,"width":1600,"height":1000,"clientWidth":1600,"scrollWidth":1600},{"element":"app-body","x":0,"y":56,"right":1600,"bottom":1000,"width":1600,"height":944,"clientWidth":1600,"scrollWidth":1600},{"element":"sidebar","x":0,"y":56,"right":240,"bottom":1000,"width":240,"height":944,"clientWidth":239,"scrollWidth":239},{"element":"workspace","x":240,"y":56,"right":1600,"bottom":1000,"width":1360,"height":944,"clientWidth":1360,"scrollWidth":1360},{"element":"workspace-body","x":240,"y":56,"right":1600,"bottom":1000,"width":1360,"height":944,"clientWidth":1360,"scrollWidth":1360},{"element":"#main","x":240,"y":56,"right":1250,"bottom":1000,"width":1010,"height":944,"clientWidth":1000,"scrollWidth":1000},{"element":"main-inner","x":240,"y":56,"right":1239.6000366210938,"bottom":1000,"width":999.6000366210938,"height":944,"clientWidth":1000,"scrollWidth":1000},{"element":"#panel-conversation","x":264,"y":387,"right":1215.6000366210938,"bottom":973,"width":951.6000366210938,"height":586,"clientWidth":952,"scrollWidth":952},{"element":"conversation-messages","x":264,"y":487.3999938964844,"right":1215.6000366210938,"bottom":647.3999938964844,"width":951.6000366210938,"height":160,"clientWidth":941,"scrollWidth":941},{"element":"agent-info-panel is-docked","x":1250,"y":56,"right":1600,"bottom":1000,"width":350,"height":944,"clientWidth":348,"scrollWidth":348},{"element":"agent-panel-heading","x":1251.5999755859375,"y":58.400001525878906,"right":1599.9999694824219,"bottom":120.00000381469727,"width":348.3999938964844,"height":61.60000228881836,"clientWidth":348,"scrollWidth":348},{"element":"agent-panel-body","x":1251.5999755859375,"y":120,"right":1599.9999694824219,"bottom":951,"width":348.3999938964844,"height":831,"clientWidth":338,"scrollWidth":338}]}
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-aQbTXZ\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-aQbTXZ\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 5
+ℹ suites 0
+ℹ pass 1
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 139305.1764
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:209:1
+✖ reprise: annonce du projet precedent effacee dans une destination sans projection (34833.7724ms)
+  page.waitForFunction: Timeout 30000ms exceeded.
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:213:13) {
+    name: 'TimeoutError',
+    log: []
+  }
+
+test at tests\connection-ui.test.mjs:333:1
+✖ initiatives: conservation échouée et ancien résultat restent honnêtes (4444.6926ms)
+  locator.click: Error: strict mode violation: getByRole('button', { name: 'Choisir une initiative', exact: true }) resolved to 2 elements:
+      1) <button type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Choisir une initiative" class="initiative-trigger text-button">…</button> aka getByLabel('Choisir une initiative')
+      2) <button type="button" class="text-button">Choisir une initiative</button> aka getByRole('tabpanel', { name: 'Parcours' }).getByRole('button', { name: 'Choisir une initiative' })
+  
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:335:76) {
+    log: [ "  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })" ]
+  }
+
+test at tests\connection-ui.test.mjs:345:1
+✖ initiatives: clavier, noms longs, compact, deux thèmes et zoom200 sans fuite horizontale (13259.2617ms)
+  locator.click: Error: strict mode violation: getByRole('button', { name: 'Choisir une initiative', exact: true }) resolved to 2 elements:
+      1) <button type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Choisir une initiative" class="initiative-trigger text-button">…</button> aka getByLabel('Choisir une initiative')
+      2) <button type="button" class="text-button">Choisir une initiative</button> aka getByRole('tabpanel', { name: 'Parcours' }).getByRole('button', { name: 'Choisir une initiative' })
+  
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:350:77) {
+    log: [ "  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })" ]
+  }
+
+test at tests\connection-ui.test.mjs:437:1
+✖ atelier : disposition compacte, buste complet et conteneurs confinés dans les deux thèmes (9088.1193ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(geometry.banner.height<=130)
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:453:178)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

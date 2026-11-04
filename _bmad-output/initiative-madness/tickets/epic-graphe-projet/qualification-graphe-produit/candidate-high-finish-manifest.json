@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-11-04T17:55:09.962Z",
+  "kind": "worker-high-and-finish-targeted-supplement",
+  "status": "ready-for-original-reviewers-recheck",
+  "version": "0.2.12",
+  "candidate": {
+    "directory": "dist/graph-reviewed-high-finish",
+    "executableSha256": "0a1daba1177c4925e45e382592862cbbd44021a252e9d0cd888f35fa1c1ff449",
+    "asarSha256": "fb688dfd8e8b0f70751d3f2c5564ade5b5c31f4cfd4cc6df234f7dc0e2743ed4",
+    "installerSha256": "8b99b1df0a53e5ebda603408a294abef6e5a59eb31c501ea08a30109c2baad78"
+  },
+  "backendEquivalence": {
+    "reference": "high-targeted-002/report.json",
+    "referenceAsarSha256": "6c422b60b45517beccad1d6794f4aa250af1a4752cd9042c383be1dd1bad9e9a",
+    "files": {
+      "out/main/index.js": {
+        "high": "eca6eafde5cd4d5dfc7072b0ba2b0ed7ecf3011d21e4e1badafd9d559a03d131",
+        "final": "eca6eafde5cd4d5dfc7072b0ba2b0ed7ecf3011d21e4e1badafd9d559a03d131",
+        "byteIdentical": true
+      },
+      "out/preload/index.js": {
+        "high": "988931a9ffef4cc019c2e3430d20c028dae9dfc595812ee93b0382ddc8ce9595",
+        "final": "988931a9ffef4cc019c2e3430d20c028dae9dfc595812ee93b0382ddc8ce9595",
+        "byteIdentical": true
+      }
+    },
+    "graphifyResourceFileCount": 3050,
+    "graphifyResourcesByteIdentical": true,
+    "highTargetedSourceInputsStillExact": true,
+    "scope": "Only listed backend bytes and the complete graphify resources are transferred by identity; the ASARs differ. Native005 remains historical. Final renderer is verified by tests and explicitly labeled source replay."
+  },
+  "highTargetedInputs": {
+    "src/main/index.ts": "3e93719a933df0d158626678dacbfa020743cba5218e98be263cf3b38605c156",
+    "src/core/graph-coordinator.ts": "12d1bd919ff7a68ec13047878e803be01f31d92c82ed6454c6264e302fdf99cd",
+    "src/adapters/analysis/graph-owned-run.ts": "b7f0b3e01235f7956b3325dae13cd2e068cf9726f3361496869841f762a11699",
+    "src/adapters/analysis/graphify.ts": "6c6f403710963cf1a96814df810b87ea34648edb651a4859855e05bdec8a1ca3",
+    "resources/graphify/launcher.ps1": "8f09428fc2d5b4b2209826bd9676073a875bca06d94b12518c8050a41945461c",
+    "src/adapters/analysis/graphify-manifest.ts": "5e1f30d40f3d1550ccb2214fd61d16041a384923a6d46124d6439a167df7367c",
+    "tests/graph-recovery.test.mjs": "bcf270f41399f609dc5548de66f838442e517b789009f5e249e6d30738bc0fd4",
+    "tests/graphify-supervision.test.mjs": "30c40373cea2cc0bc4967b716dd87bc52b25be6fefca4f5cc7981101c71d3b57",
+    "scripts/qualification/graph-recovery.mjs": "c250661a7b0562a1d2824060e11ab164f2094b58244d645baa36664c7ce5f837"
+  },
+  "rendererInputs": {
+    "src/renderer/src/GraphPanel.tsx": "f925708a671ef11368cd50c71861a41e512675af45ae09c34807307b1b0931c8",
+    "src/renderer/src/graph.css": "34cd5ce8905185aec506666238b08ad98fee7807e7957dff8fc381e8fc0d2187",
+    "src/renderer/src/graph-strings.ts": "dd7ee7b5c1b42fc33d9e6a91c809e7bf1aad84bfd22086fbf9c816600d93f0f4",
+    "tests/graph-finish.test.mjs": "39dfe5ebed8dabe5a33b121995d86d4c32eacf0a5140a1b98cefedeafaa517eb",
+    "tests/helpers/graph-native-replay.mjs": "2e95f32956fd774917faf2fe49bc39e7fe61ff0235de2cbdd63fcef57364f327",
+    "scripts/qualification/graph-finish-replay.mjs": "384ebe073c61061b99a5fc8ac82b1f5aa96ee2694539f023c053fb139657e033"
+  },
+  "verification": {
+    "highFocused": {
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0,
+      "log": ".working-graph-high-targeted.log"
+    },
+    "nativeCommonRecovery": {
+      "status": "passed",
+      "checks": 4,
+      "report": "high-targeted-002/report.json"
+    },
+    "nativeGraphify": {
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "log": ".working-graph-high-native-graphify.log"
+    },
+    "finishAndExistingGraphUI": {
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "log": ".working-graph-finish-green.log"
+    },
+    "correctiveWrapperGuards": {
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "log": ".working-graph-finish-wrapper-check.log"
+    },
+    "build": {
+      "exitCode": 0,
+      "log": ".working-graph-finish-build.log"
+    },
+    "package": {
+      "exitCode": 0,
+      "log": ".working-graph-high-finish-package.log"
+    }
+  },
+  "visual": {
+    "report": "finish-directed-round3/report.json",
+    "batch": 3,
+    "scoringAttempt": 2,
+    "captureAttemptOverall": 4,
+    "initialWorkerBatches": 2,
+    "priorInvalidAttempt": "finish-directed-round3/attempt1-invalid/report.json",
+    "frames": [
+      {
+        "name": "interrupted-retained-dark",
+        "method": "native Electron webContents.capturePage without rect; source renderer replay",
+        "size": {
+          "width": 2062,
+          "height": 1437
+        },
+        "zoom": 1,
+        "sha256": "ca90f185cb17fa59fc53a1492ab3ddd1721c2ea129921da292cf766104c8e6b0"
+      },
+      {
+        "name": "fit-45-dark",
+        "method": "native Electron webContents.capturePage without rect; source renderer replay",
+        "size": {
+          "width": 2062,
+          "height": 1437
+        },
+        "zoom": 1,
+        "sha256": "df61aa01baed1e80cb204234cb4ec7cb3e4b78d802b3bfca256dc54a12254f44"
+      }
+    ],
+    "background": "rgb(33, 31, 30)",
+    "viewport": {
+      "width": 1650,
+      "height": 1150,
+      "layoutWidth": 1649.5999755859375,
+      "devicePixelRatio": 1.25,
+      "settledBy": "bounded-timeout",
+      "queries": [
+        {
+          "query": "(max-width: 720px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(max-width: 1080px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(max-width: 1280px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(min-width: 1323px)",
+          "expected": true,
+          "matches": true
+        },
+        {
+          "query": "(min-width: 1600px)",
+          "expected": true,
+          "matches": true
+        },
+        {
+          "query": "(max-height: 700px)",
+          "expected": false,
+          "matches": false
+        }
+      ]
+    },
+    "minEffectiveFontFit": 14.013411432963354,
+    "minLabelHeightFit": 14.40000057220459,
+    "allNodesInFrameFit": true,
+    "minEffectiveFontReset": 14.013411432963354,
+    "allNodesInFrameReset": true,
+    "workerOpenedBothCorrectivePNGs": true
+  },
+  "limits": [
+    "No new full native vertical is claimed for the final ASAR. Backend-only native proof is linked by exact packaged-byte identity.",
+    "Third finish-directed batch has two attempts; four capture attempts overall. Invalid first attempt and all previous five005 frames are preserved.",
+    "Original high auditor, finisher and parent documenter/review/status/commit remain outside worker ownership. No globalUI, WCAG or human approval claim.",
+    "No personal profile, installed app, interactive parent preview, unknown run or previous evidence cleaned. No stage or commit."
+  ]
+}

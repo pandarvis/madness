@@ -1,0 +1,43 @@
+✔ generation admits the original corpus only after normalized result and keeps unsaved session distinct (14.4885ms)
+✔ restoration stays passive and historical without granting any file authority (4.2533ms)
+✔ foreign terminal result cannot gain corpus authority and previous complete remains (3.9915ms)
+✔ explicit source revalidation grants only the matching original revision without rerunning analysis (3.3846ms)
+✔ changed explicit revalidation removes old corpus bindings and marks freshness changed (1.9578ms)
+✔ failed source revalidation has unknown freshness rather than claiming an observed mutation (1.1008ms)
+✔ registered project changing during explicit source recapture cannot gain authority (2.0984ms)
+✔ interrupting preparation cancels its owned capture without starting Graphify (0.9455ms)
+✔ complete then failed can revalidate only the retained complete without changing failure or starting analysis, and generate again (6.8899ms)
+✔ native corpus includes untracked code only, refuses replaced grants and observes additions (2871.6888ms)
+✖ all six admitted code text extensions read the exact originals, retaining UTF8 binary and physical refusals (2861.1028ms)
+✔ native code inventory and mirror include packages and terminal observes its source mutation (3654.3126ms)
+✔ native code inventory and mirror include resources and terminal observes its source mutation (3568.7625ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 12
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13200.8351
+
+✖ failing tests:
+
+test at tests\graphify-corpus.test.mjs:12:1
+✖ all six admitted code text extensions read the exact originals, retaining UTF8 binary and physical refusals (2861.1028ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '// original � php\n'
+  - '// original é php\n'
+                 ^
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graphify-corpus.test.mjs:12:1001)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '// original � php\n',
+    expected: '// original é php\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

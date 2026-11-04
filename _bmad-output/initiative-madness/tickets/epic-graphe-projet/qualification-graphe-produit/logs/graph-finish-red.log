@@ -1,0 +1,59 @@
+✖ F1 interrupted with an old complete graph names latest attempt, confirmed stop and retained result separately (4956.3802ms)
+✖ F1 timeout with an old complete graph names latest attempt, confirmed stop and retained result separately (2532.4227ms)
+✖ F2 native00545-node labels stay legible in actual screen transforms after Fit and Reset without losing nodes or context (3978.3759ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12560.3
+
+✖ failing tests:
+
+test at tests\graph-finish.test.mjs:5:98
+✖ F1 interrupted with an old complete graph names latest attempt, confirmed stop and retained result separately (4956.3802ms)
+  AssertionError [ERR_ASSERTION]: Analyse terminée
+  
+  Observation datée — sources non revalidées · 2026-11-04T16:53:43.132Z
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graph-finish.test.mjs:5:393)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\graph-finish.test.mjs:5:98
+✖ F1 timeout with an old complete graph names latest attempt, confirmed stop and retained result separately (2532.4227ms)
+  AssertionError [ERR_ASSERTION]: Analyse terminée
+  
+  Observation datée — sources non revalidées · 2026-11-04T16:53:43.132Z
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graph-finish.test.mjs:5:393)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\graph-finish.test.mjs:6:1
+✖ F2 native00545-node labels stay legible in actual screen transforms after Fit and Reset without losing nodes or context (3978.3759ms)
+  AssertionError [ERR_ASSERTION]: [{"text":"client.ts","effectiveFont":7.172571430819374,"height":7.200000286102295,"width":27.20991325378418,"left":538.2914428710938,"right":565.5013561248779},{"text":"useService()","effectiveFont":7.172571430819374,"height":7.200000286102295,"width":41.20751953125,"left":651.8571166992188,"right":693.0646362304688},{"text":"extra0.py","effectiveFont":7.172571430819374,"height":7.200000286102295,"width":31.460546493530273,"left":765.4228515625,"right":796.8833980560303},{"text":"helper0()","effectiveFont":7.172571430819374,"height":7.200000286102295,"width":30.412500381469727,"left":878.9885864257812,"right":909.401086807251}]
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/graph-finish.test.mjs:6:661)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

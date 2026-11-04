@@ -1,0 +1,9 @@
+H1 actual native owned capture Job assigned before resume and drained; receipt deliberately withheld
+H1 common recovery with absent native receipt keeps both logical states locked and grants none
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'unknown'
+- 'confirmed'
+
+    at file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/graph-recovery.mjs:29:404

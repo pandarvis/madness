@@ -342,6 +342,10 @@ Les onglets sont des silhouettes de dossier : un pseudo-élément reçoit les co
 
 ## Components
 
+### Graphe du projet
+
+Graphe est la quatrième destination du projet. Une liste HTML intégrale et des relations textuelles accompagnent un SVG local déterministe ; sens, confiance, score et date d’observation restent explicites. La dernière tentative et le résultat conservé portent des états et identités séparés. Si un partiel coexiste avec le dernier complet, une commande locale permet de consulter chacun avec son identité et ses réglages ; le complet historique ne propose pas une revalidation qui ciblerait le partiel. Les labels du dessin compensent son échelle effective, sans réduire le texte de lecture. Recherche, sélection et zoom/pan sont locaux à l’identité de l’analyse en session ; l’accès aux fichiers rejoint le panneau commun 2.8 après revalidation.
+
 ### Buttons
 
 Les commandes principales, secondaires, textuelles et les bascules de barre adoptent deux plaques plates : une silhouette encrée extérieure et une face intérieure en retrait de 1 px, avec un trait clair en haut et un trait d’encre en bas. Les coins coupés de 6 px appartiennent aux pseudo-éléments ; le bouton et son focus restent rectangulaires et entièrement ciblables. Barlow Condensed Bold, taille 19 px et hauteur minimale de 44 px rendent les décisions lisibles ; les utilitaires à icône et les fermetures gardent 40 px.

@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-lMuZgi",
+  "startedAt": "2026-11-04T16:33:12.587Z",
+  "status": "failed",
+  "checks": [
+    "T1 T5 graph tab is passive and independent of BMad/AI/Git"
+  ],
+  "captures": [],
+  "closures": [
+    {
+      "main": {
+        "pid": 41092,
+        "startedAt": "639294067938121523",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 40012,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T16:33:14.490Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "graphOwner": "stopped"
+    }
+  ],
+  "launches": [
+    {
+      "pid": 41092,
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-lMuZgi\\profile",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed\\win-unpacked\\Madness.exe"
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "One owned synthetic Windows project, no BMad/account/AI/Git. Not extended4.5–4.9 or finalG5.",
+    "Python hooks and pinned native libraries are not an OS sandbox.",
+    "Counters cover the interval after the explicit observation hook. No OS editor or external clipboard claim."
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed\\win-unpacked\\Madness.exe",
+    "sha256": "46144855b1faa3104278f0e6ec8dcea5eee211788c7d83dbd4d460345b2cf3c5",
+    "asarSha256": "eab6124af8e9a933f44334b04effe44d88c057ebd336aede5483cda363fe5991"
+  },
+  "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\scripts\\qualification\\graph-project.mjs:29:90",
+  "uiText": "Aller au contenu\nGraph code witness\nMADNESS\nAccueil\nPROJETS RÉCENTS\nGC\nGraph code witness\n\nDonnées locales\nFrançais · thème sombre\n\nGraph code witness\nChoisir une initiative\nParcours\nConversation\nToutes les possibilités\nGraphe\nActivité\n\nAucune demande active connue.\n\nConnexion et récapitulatifs\nGraphe du projet\n\nAnalyse locale du code et des dépendances, sans modèle\n\nRevenir au travail · Parcours\n\nAnalyse en cours\n\nPérimètre fixe : code capturé, y compris sources non suivies. Configurations, instructions, hooks, liens, métadonnées et sorties générées exclus. Alias de configuration non résolus.\n\nGénérer le graphe\nInterrompre l’analyse\nDétails de l’analyse\n\nContexte local chargé. Aucun agent n’a été relancé.",
+  "application": {
+    "contractVersion": 1,
+    "correlationId": "df370b22-cd86-46ed-9801-412cd4f9488b",
+    "ok": true,
+    "value": {
+      "state": {
+        "schemaVersion": 1,
+        "revision": 0,
+        "projects": [
+          {
+            "id": "graph-a",
+            "name": "Graph code witness",
+            "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-lMuZgi\\project",
+            "openedAt": "2026-11-04T16:33:13.670Z"
+          }
+        ],
+        "activeProjectId": "graph-a",
+        "drafts": [
+          {
+            "projectId": "graph-a",
+            "text": "Exact graph draft 🧭",
+            "savedAt": "2026-11-04T16:33:13.670Z"
+          }
+        ],
+        "preferences": {
+          "navigationCollapsed": false
+        },
+        "conversations": [],
+        "capabilities": {
+          "codex": {
+            "available": false,
+            "reasonKey": "codex.unqualified"
+          }
+        },
+        "lifecycle": "idle"
+      },
+      "effect": "read"
+    }
+  },
+  "finishedAt": "2026-11-04T16:34:03.793Z"
+}

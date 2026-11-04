@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-ewOk7j",
+  "startedAt": "2026-11-04T18:30:50.288Z",
+  "status": "passed",
+  "checks": [
+    "T1 T5 graph tab is passive and independent of BMad/AI/Git",
+    "T1 T2 T3 real code-only Graphify produced oriented INFERRED0.85 from captured sources",
+    "T5 T6 search relation zoom original file and exact graph return",
+    "T2 original sources configs instructions and git-file remain byte-identical",
+    "T4 native terminal inventory observes added untracked source without relaunch",
+    "T7 real active Graphify Job interrupted and drained to zero",
+    "T8 passive historical reopen preserves draft and grants no file authority",
+    "T1–T9 exact input freeze retained throughout the bounded vertical witness"
+  ],
+  "captures": [],
+  "closures": [
+    {
+      "main": {
+        "pid": 36976,
+        "startedAt": "639294138508463625",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed-quick\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 49288,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T18:30:51.984Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "graphOwner": "stopped"
+    },
+    {
+      "main": {
+        "pid": 32044,
+        "startedAt": "639294140029685534",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed-quick\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 37548,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T18:33:23.406Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true,
+      "graphOwner": "stopped"
+    }
+  ],
+  "launches": [
+    {
+      "pid": 36976,
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-ewOk7j\\profile",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed-quick\\win-unpacked\\Madness.exe"
+    },
+    {
+      "pid": 32044,
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-ewOk7j\\profile",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed-quick\\win-unpacked\\Madness.exe"
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "One owned synthetic Windows project, no BMad/account/AI/Git. Not extended4.5–4.9 or finalG5.",
+    "Python hooks and pinned native libraries are not an OS sandbox.",
+    "Counters cover the interval after the explicit observation hook. No OS editor or external clipboard claim."
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed-quick\\win-unpacked\\Madness.exe",
+    "sha256": "6dcb48c6b1b1218bf69396c9f5abeb3a2892cfbe2d892e622e47e39a2ee2f420",
+    "asarSha256": "fe0d700698031e42abea38645935727a02fa016602834448e907d011ecfaf591"
+  },
+  "first": {
+    "identity": {
+      "projectId": "graph-a",
+      "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-ewOk7j\\project",
+      "rootIdentity": "d9ab17ce195ae46ff7bd8881da2f1dfeb6ec3c07d38f886717cf9827c42a9332",
+      "scopeId": "code",
+      "scopeRevision": "878a5932a171184b040b835345af3a9b821e2461c8296886f33d849c6993f384",
+      "analysisId": "analysis-6dc0643b-9eda-4138-bed4-88a12e1d30eb",
+      "sourceRevision": "d239e987384f83627885c586926bc0e05f754fdd14ecad4075acfa953ff5f57d"
+    },
+    "nodes": 45,
+    "relations": 27,
+    "coverage": {
+      "included": [
+        "captured-code",
+        "code-dependencies"
+      ],
+      "excluded": [
+        "configuration",
+        "instructions",
+        "hooks",
+        "links",
+        "metadata",
+        "generated-output",
+        "semantic-enrichment"
+      ],
+      "status": "complete",
+      "limitations": []
+    },
+    "freshness": {
+      "status": "observed",
+      "sourceRevision": "d239e987384f83627885c586926bc0e05f754fdd14ecad4075acfa953ff5f57d",
+      "observedAt": "2026-11-04T18:31:53.308Z"
+    },
+    "preservation": {
+      "status": "pending",
+      "durableAnalysisId": null
+    }
+  },
+  "mutation": {
+    "job": {
+      "owner": {
+        "schemaVersion": 1,
+        "generation": "graph-6c2bd6aa-a0a7-4b76-8876-c65902998221",
+        "purpose": "graph-code-only",
+        "status": "unknown",
+        "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-ewOk7j\\profile\\graph-runs-v1\\graph-905b82a4-12d1-4f20-adfd-db25835b5558",
+        "attempt": {
+          "contractVersion": 1,
+          "identity": {
+            "projectId": "graph-a",
+            "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-ewOk7j\\project",
+            "rootIdentity": "d9ab17ce195ae46ff7bd8881da2f1dfeb6ec3c07d38f886717cf9827c42a9332",
+            "scopeId": "code",
+            "scopeRevision": "878a5932a171184b040b835345af3a9b821e2461c8296886f33d849c6993f384",
+            "analysisId": "analysis-ad8f84cd-65b0-40bb-9d9f-64d8f69ddbe7",
+            "sourceRevision": "d239e987384f83627885c586926bc0e05f754fdd14ecad4075acfa953ff5f57d"
+          },
+          "generation": 2,
+          "correlationId": "97dc2411-eaed-473b-ab72-4e8bcb7b08bb"
+        }
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "running",
+        "exit": null,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 42648
+      },
+      "process": {
+        "pid": 42648,
+        "startedAt": "639294139533525633",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed-quick\\win-unpacked\\resources\\graphify\\assembly\\runtime\\python.exe"
+      }
+    },
+    "activity": {
+      "phase": "terminal",
+      "analysisId": "analysis-ad8f84cd-65b0-40bb-9d9f-64d8f69ddbe7",
+      "sourceRevision": "d239e987384f83627885c586926bc0e05f754fdd14ecad4075acfa953ff5f57d",
+      "correlationId": "97dc2411-eaed-473b-ab72-4e8bcb7b08bb",
+      "generation": 2,
+      "outcome": "complete",
+      "stop": "confirmed"
+    },
+    "freshness": {
+      "status": "changed",
+      "sourceRevision": "d239e987384f83627885c586926bc0e05f754fdd14ecad4075acfa953ff5f57d",
+      "observedAt": "2026-11-04T18:32:50.156Z"
+    }
+  },
+  "stop": {
+    "job": {
+      "owner": {
+        "schemaVersion": 1,
+        "generation": "graph-be86cfc3-5197-4d76-b050-d3bba66a2bef",
+        "purpose": "graph-code-only",
+        "status": "unknown",
+        "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-ewOk7j\\profile\\graph-runs-v1\\graph-d5e8b18d-e71b-4bea-a895-3f06fbc1d44e",
+        "attempt": {
+          "contractVersion": 1,
+          "identity": {
+            "projectId": "graph-a",
+            "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-product-ewOk7j\\project",
+            "rootIdentity": "d9ab17ce195ae46ff7bd8881da2f1dfeb6ec3c07d38f886717cf9827c42a9332",
+            "scopeId": "code",
+            "scopeRevision": "878a5932a171184b040b835345af3a9b821e2461c8296886f33d849c6993f384",
+            "analysisId": "analysis-e389b9a8-0f9f-420d-bcb6-f404fb9d23e1",
+            "sourceRevision": "2908c50ae7e66e516db2efbc9193525f8332ca2e32fec1fb34f1585e77f0b9f6"
+          },
+          "generation": 3,
+          "correlationId": "b4b18463-55ec-4279-86b4-a75dd0e30b75"
+        }
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "running",
+        "exit": null,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 7916
+      },
+      "process": {
+        "pid": 7916,
+        "startedAt": "639294139997924510",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed-quick\\win-unpacked\\resources\\graphify\\assembly\\runtime\\python.exe"
+      }
+    },
+    "terminal": {
+      "jobActive": 0,
+      "neverStarted": false,
+      "purpose": "graph-code-only",
+      "generation": "graph-be86cfc3-5197-4d76-b050-d3bba66a2bef",
+      "terminal": true,
+      "jobAssigned": true,
+      "schemaVersion": 1
+    },
+    "activity": {
+      "phase": "terminal",
+      "analysisId": "analysis-e389b9a8-0f9f-420d-bcb6-f404fb9d23e1",
+      "sourceRevision": "2908c50ae7e66e516db2efbc9193525f8332ca2e32fec1fb34f1585e77f0b9f6",
+      "correlationId": "b4b18463-55ec-4279-86b4-a75dd0e30b75",
+      "generation": 3,
+      "outcome": "interrupted",
+      "stop": "confirmed"
+    }
+  },
+  "restored": {
+    "activity": {
+      "phase": "historical",
+      "analysisId": "analysis-e389b9a8-0f9f-420d-bcb6-f404fb9d23e1",
+      "sourceRevision": "2908c50ae7e66e516db2efbc9193525f8332ca2e32fec1fb34f1585e77f0b9f6",
+      "correlationId": "b4b18463-55ec-4279-86b4-a75dd0e30b75",
+      "generation": 3,
+      "outcome": "interrupted",
+      "stop": "confirmed"
+    },
+    "freshness": {
+      "status": "unverified",
+      "sourceRevision": "d239e987384f83627885c586926bc0e05f754fdd14ecad4075acfa953ff5f57d",
+      "observedAt": null
+    }
+  },
+  "finishedAt": "2026-11-04T18:33:26.808Z"
+}

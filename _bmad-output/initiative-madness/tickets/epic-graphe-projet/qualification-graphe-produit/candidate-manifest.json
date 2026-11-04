@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "version": "0.2.12",
+  "baseline": "9dc1d12e69b0bd9006af9c41ac491732f1bbd0ac",
+  "createdAt": "2026-11-04T16:59:00.595Z",
+  "status": "implementation-verified-parent-review-pending",
+  "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed\\win-unpacked\\Madness.exe",
+  "asarSha256": "2f7ab4a1c03c9ca6373d484956a29f315ec4393e1dfa63f04bf4412f353ee3f4",
+  "executableSha256": "53ad93cb5aa37198a47280a4e1e9fbc5d952a0d00a8811c9cd467a3f05818b66",
+  "installer": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-reviewed\\Madness-0.2.12-x64-setup.exe",
+  "installerSha256": "9633a86e3604b092a4bfed4667257719fed83882cd28cd2f9a181ebc14bd39e9",
+  "assembly": {
+    "sha256": "e2155b1cd240cdf9e4b4722a7158ebdba2e648e84c503f4264b60c945bce62c0",
+    "runtime": 735,
+    "sourcePackages": 2340,
+    "shippedPackages": 2305,
+    "omittedProvisioningArtifacts": 35,
+    "wheels": 31,
+    "tool": "graphifyy0.9.101",
+    "python": "3.12.14",
+    "graphifyWheelSha256": "be7745d4779e6f604d7412863a79e6570b8d659035d0eaf396f7ba49c3b7997c"
+  },
+  "evidence": {
+    "vertical": "vertical-005/report.json",
+    "inputFreeze": "vertical-005/inputs.json",
+    "nativeGraph": "vertical-005/native-graph.json",
+    "worker": "vertical-005/native-worker.json",
+    "sourceOracle": "vertical-005/original-sources.json",
+    "priorCandidate": "vertical-004/report.json",
+    "images": [
+      {
+        "file": "vertical-005/large-dark-overview.png",
+        "zoom": 1,
+        "theme": "dark",
+        "metrics": {
+          "width": 1650,
+          "height": 1150,
+          "windowScroll": 1650,
+          "theme": "dark",
+          "surface": "#211f1e",
+          "graphWidth": 1344,
+          "graphScroll": 1344
+        }
+      },
+      {
+        "file": "vertical-005/large-dark-relations.png",
+        "zoom": 1,
+        "theme": "dark",
+        "metrics": {
+          "width": 1650,
+          "height": 1150,
+          "windowScroll": 1650,
+          "theme": "dark",
+          "surface": "#211f1e",
+          "graphWidth": 1344,
+          "graphScroll": 1344
+        }
+      },
+      {
+        "file": "vertical-005/node-file-dark.png",
+        "zoom": 1,
+        "theme": "dark",
+        "metrics": {
+          "width": 1650,
+          "height": 1150,
+          "windowScroll": 1650,
+          "theme": "dark",
+          "surface": "#211f1e",
+          "graphWidth": 1026,
+          "graphScroll": 1026
+        }
+      },
+      {
+        "file": "vertical-005/compact-light.png",
+        "zoom": 1,
+        "theme": "light",
+        "metrics": {
+          "width": 720,
+          "height": 900,
+          "windowScroll": 720,
+          "theme": "light",
+          "surface": "#f6f0e4",
+          "graphWidth": 678,
+          "graphScroll": 678
+        }
+      },
+      {
+        "file": "vertical-005/native-zoom200-light.png",
+        "zoom": 2,
+        "theme": "light",
+        "metrics": {
+          "width": 825,
+          "height": 575,
+          "windowScroll": 825,
+          "theme": "light",
+          "surface": "#f6f0e4",
+          "graphWidth": 592,
+          "graphScroll": 592
+        }
+      }
+    ]
+  },
+  "limits": [
+    "No installation or personal profile change. Interactive preview created by parent is separate and preserved.",
+    "Parent independent reviews, single detector, finish/documenter, final plan/status and commit are pending.",
+    "No final G4/G5 or extended4.5–4.9 matrix, global English2.14, OS editor/clipboard2.16 or global WCAG/human approval claim."
+  ]
+}

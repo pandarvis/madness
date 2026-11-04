@@ -1,3 +1,8 @@
+import {GraphifyAdapter} from '../adapters/analysis/graphify.ts'
+import {GraphOwnedRun} from '../adapters/analysis/graph-owned-run.ts'
+import {GraphStore} from '../adapters/persistence/graph-store.ts'
+import {GraphCoordinator,graphAdmissionGuard} from '../core/graph-coordinator.ts'
+import {GRAPH_COMMAND_CHANNEL,GRAPH_EVENT_CHANNEL,isGraphCommand,isGraphWorkspace,initialGraphWorkspace} from '../contracts/bmad-graph.ts'
 import {ProjectFilesCoordinator} from '../core/project-files.ts'
 import {PROJECT_FILES_COMMAND_CHANNEL,PROJECT_FILES_EVENT_CHANNEL,isProjectFilesCommand,isProjectFilesState,initialProjectFilesState} from '../contracts/project-files.ts'
 import {BmadCatalogAdapter} from '../adapters/bmad/catalog.ts'
@@ -140,8 +145,12 @@ else {
     const ownedRun=new OwnedRun(new RecoveryStore(join(app.getPath('userData'),'codex-owned-run-v1.json')))
     const helperOwner=new HelpOwnedRun(join(app.getPath('userData'),'bmad-help-owned-v1.json'))
     const admission=new ActivityAdmission()
-    const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),helperOwner.status()])).every(s=>s==='stopped')?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await helperOwner.cancel().catch(()=>{});const states=await Promise.all([ownedRun.observeStop(),helperOwner.observeStop()]);return states.every(s=>s==='stopped')?'stopped':'unknown'}}
-    const helpAdapter=new BmadHelpAdapter({root:join(app.getPath('userData'),'bmad-help-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'bmad-help'):join(app.getAppPath(),'resources/bmad-help'),owner:helperOwner,admission,onUnknown:()=>{dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()},admit:async internal=>{
+    const graphOwner=new GraphOwnedRun(join(app.getPath('userData'),'graph-owned-v1.json'))
+    const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),helperOwner.status(),graphOwner.status()])).every(s=>s==='stopped')?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await Promise.all([helperOwner.cancel().catch(()=>{}),graphOwner.cancel().catch(()=>{})]);const states=await Promise.all([ownedRun.observeStop(),helperOwner.observeStop(),graphOwner.observeStop()]);if(states.every(s=>s==='stopped')){await graphCoordinator.reconcileNativeStop(await graphOwner.stopProof());admission.clearBlock();return 'stopped'}return 'unknown'}}
+    if(await recovery.status()!=='stopped')admission.block()
+    const graphAdapter=new GraphifyAdapter({root:join(app.getPath('userData'),'graph-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'graphify'):join(app.getAppPath(),'resources/graphify'),owner:graphOwner,admission,admit:async()=>{if(connection?.hasOperation())throw Error('BUSY');if(await recovery.status()!=='stopped'){admission.block();throw Error('STOP_UNCONFIRMED')}},onUnknown:()=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()}})
+    const helpAdapter=new BmadHelpAdapter({root:join(app.getPath('userData'),'bmad-help-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'bmad-help'):join(app.getAppPath(),'resources/bmad-help'),owner:helperOwner,admission,onUnknown:()=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()},admit:async internal=>{
+      if(await graphOwner.status()!=='stopped'){admission.block();throw Object.assign(Error('STOP_UNCONFIRMED'),{code:'STOP_UNCONFIRMED'})}
       if(connection?.hasOperation()&&!(internal&&connection.hasDialogueLease()&&await ownedRun.healthyActive()))throw Object.assign(new Error('BUSY'),{code:'BUSY'})
       if(await ownedRun.status()!=='stopped'&&!(internal&&connection?.hasDialogueLease()&&await ownedRun.healthyActive()))throw Object.assign(new Error('STOP_UNCONFIRMED'),{code:'STOP_UNCONFIRMED'})
     }})
@@ -166,7 +175,7 @@ else {
       return {contractVersion:1,correlationId:input.correlationId,state}
     })
     contextCoordinator.subscribe(state=>{if(isBmadContextState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(BMAD_CONTEXT_EVENT_CHANNEL,state)})
-    const projectFiles=new ProjectFilesCoordinator({application,authority:value=>helpAdapter.filesAuthority(value),clipboard,admission,editor:uri=>shell.openExternal(uri)})
+    const projectFiles=new ProjectFilesCoordinator({application,authority:value=>graphAdapter.filesAuthority(value)??helpAdapter.filesAuthority(value),clipboard,admission,editor:uri=>shell.openExternal(uri)})
     application.lifecycle.register({id:'project-files',context:emptyContext(),stop:async()=>{await projectFiles.shutdown();return 'stopped'}})
     ipcMain.handle(PROJECT_FILES_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isProjectFilesCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialProjectFilesState()}
@@ -175,6 +184,13 @@ else {
       return {contractVersion:1,correlationId:input.correlationId,state}
     })
     projectFiles.subscribe(state=>{if(isProjectFilesState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(PROJECT_FILES_EVENT_CHANNEL,state)})
+    const graphCoordinator=new GraphCoordinator({application,runtime:graphAdapter,store:new GraphStore(join(app.getPath('userData'),'graph-state-v1')),files:projectFiles,guard:()=>graphAdmissionGuard(admission,recovery,connection?.hasOperation()??false)})
+    application.lifecycle.register({id:'graph',context:emptyContext(),stop:()=>graphCoordinator.shutdown()})
+    ipcMain.handle(GRAPH_COMMAND_CHANNEL,async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isGraphCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialGraphWorkspace()}
+      const state=await graphCoordinator.execute(input);if(!isGraphWorkspace(state))throw Error('INVALID_GRAPH_STATE');return {contractVersion:1,correlationId:input.correlationId,state}
+    })
+    graphCoordinator.subscribe(state=>{if(isGraphWorkspace(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(GRAPH_EVENT_CHANNEL,state)})
     const progressAdapter=new BmadProgressAdapter(helpAdapter)
     const progressCoordinator=new BmadProgressCoordinator({application,observation,files:projectFiles,available:fn=>admission.subscribeAvailable(fn),contexts:contextCoordinator,collect:(id,root,selection,observation,signal)=>progressAdapter.collect(id,root,selection,observation,signal)})
     application.lifecycle.register({id:'bmad-progress',context:emptyContext(),stop:async()=>{await progressCoordinator.shutdown();return 'stopped'}})

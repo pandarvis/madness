@@ -12,7 +12,7 @@ Les règles ci-dessous décrivent la future expérience du même projet, selon [
 <a id="e1"></a>
 ## E1 — Entrée, retour et identité capturée
 
-Depuis un projet ouvert, le porteur choisit explicitement le troisième onglet Graphe. La découverte reste visible dans la même liste d’onglets, sans écran de configuration ni contrôle de compte IA préalable. Le titre et la récupération commune restent accessibles. Entrer, changer d’onglet, sélectionner un nœud, rechercher, zoomer ou restaurer ne génère, n’actualise et ne reconnecte rien. Un projet sans BMad ou Codex déconnecté ne rend pas le graphe local dépendant d’un fournisseur.
+Depuis un projet ouvert, le porteur choisit explicitement le quatrième onglet Graphe. La découverte reste visible dans la même liste d’onglets, sans écran de configuration ni contrôle de compte IA préalable. Le titre et la récupération commune restent accessibles. Entrer, changer d’onglet, sélectionner un nœud, rechercher, zoomer ou restaurer ne génère, n’actualise et ne reconnecte rien. Un projet sans BMad ou Codex déconnecté ne rend pas le graphe local dépendant d’un fournisseur.
 
 À l’entrée, mémoriser la destination de travail exacte : projet/racine, onglet, initiative de consultation, échange capturé, brouillon libre ou de demande distinct, sélection et position de saisie/lecture. Revenir au travail nomme cette destination puis la retrouve, sans envoyer, répondre, accepter ni lancer. Si le déclencheur existe encore, rendre son focus ; sinon rejoindre le titre neutre de l’onglet ou du projet avec Retour exact indisponible. Ne jamais choisir le dernier échange, le premier projet ou une commande d’autorisation en remplacement.
 
@@ -148,3 +148,8 @@ Chaque ligne est une paire d’interface à implémenter par les consommateurs ;
 | save | Enregistrement échoué — réouverture non garantie · Résultat de session non enregistré · Réessayer l’enregistrement | Save failed — reopening not guaranteed · Unsaved session result · Retry save |
 
 Les inconnus de nombre/date/révision remplacent la valeur dans le contexte du champ nommé ; ne pas afficher zéro, une date de navigation ou un hash Git à leur place. Aucun nombre ne paraît dans une commande sans donnée admise. Les états/exemples de ce supplément ne constituent aucune capture ou parcours exécuté dans Madness.
+
+
+## Réconciliation produit4.4 — 4 novembre2026
+
+Le catalogue2.6 et le panneau2.8 sont livrés. Graphe est la quatrième destination du même shell. Premier rendu4.4 : SVG géométrique local déterministe, liste exhaustive des nœuds admis, sens textuel et flèches, recherche, relations, fichier et retour ; approfondissement4.8 et matrices4.5–4.9 restent ouverts. Le clavier des onglets déplace le focus sans activation aux flèches, puis Entrée/Espace active. Réouverture passive ; revalidation volontaire des fichiers sans analyse. Le replan dispense4.4 des dépendances historiques2.14/3.9. Le présent ajout actualise ces seuls constats historiques ; source Sally4.2 conservée, aucune nouvelle activation ou preuve de rendu déduite.

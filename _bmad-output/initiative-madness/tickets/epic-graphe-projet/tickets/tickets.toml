@@ -58,7 +58,7 @@ done_checkpoint = false
 id = 5
 type = "story"
 title = "Normaliser les relations et refuser les artefacts hors profil"
-description = "Après la voie locale3.9 stabilisée, préserve le premier onglet4 déjà livré et complète ce chemin avec décodage robuste du seul outil/type/schéma qualifié1 : variantes links/edges admises, priorité _src/_tgt sinon source→target malgré directed=false, provenance et degrés de confiance. Valide références, refus hors projet et erreurs/partiel/incompatible sans inventer de relation ; fournit des snapshots sûrs à la fraîcheur6."
+description = "Après la voie locale3.9 stabilisée, préserve le premier onglet4 déjà livré et complète ce chemin avec décodage robuste du seul outil/type/schéma qualifié1 : relations links du profil épinglé admises ; raw edges traité comme un format distinct non qualifié, priorité _src/_tgt sinon source→target malgré directed=false, provenance et degrés de confiance. Valide références, refus hors projet et erreurs/partiel/incompatible sans inventer de relation ; fournit des snapshots sûrs à la fraîcheur6."
 verify = "Passer le corpus qualifié et ses variantes altérées dans le paquet/banc adaptateur : sens et confiance fidèles aux sources, formats inconnus et références hors portée refusés, aucune charge native ou script HTML exécuté par la UI."
 covers = ["R2", "R3", "R4"]
 after = [4, "3.9"]

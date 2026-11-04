@@ -1,0 +1,44 @@
+{
+  "source": "verification-source-1793763790153.json",
+  "pairedNominalAllAdmitted": true,
+  "localOperations": 5,
+  "allJobsStopped": true,
+  "phases": [
+    {
+      "name": "prepare",
+      "durationMs": 33307
+    },
+    {
+      "name": "fresh",
+      "durationMs": 16078
+    },
+    {
+      "name": "native-knowledge",
+      "durationMs": 15249
+    },
+    {
+      "name": "native-config",
+      "durationMs": 17006
+    },
+    {
+      "name": "read-required-context",
+      "durationMs": 14675
+    }
+  ],
+  "baselineGuards": [
+    17013,
+    14614,
+    17960,
+    17056,
+    15194,
+    18860
+  ],
+  "candidateGuards": [
+    1834,
+    1878,
+    1424,
+    1300,
+    1608,
+    1504
+  ]
+}

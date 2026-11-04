@@ -1,0 +1,86 @@
+{
+  "session": 92278,
+  "exit": 0,
+  "command": "node _bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/qualify.mjs --threshold-supplement",
+  "producerSha256": "47bbcee0ae36c67c0396e143350cf75714434bff262f8122e2d4f1ea7518cc15",
+  "artifact": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-latence-runtime\\logs\\threshold-mg-threshold-rLmpFU",
+  "fixtures": [
+    {
+      "name": "count-bound",
+      "manifestRecords": 4096,
+      "traversedEntries": 4098,
+      "maxComponents": 2,
+      "manifestSha256": "0d53ac728df16812589124c88b26837d20f60761036ec76bb130a97cc50743f6"
+    },
+    {
+      "name": "depth-bound",
+      "manifestRecords": 2,
+      "traversedEntries": 21,
+      "maxComponents": 18,
+      "manifestSha256": "16f77311037e05a08b2ba83b9f093d66d1513db1932743cd0240ad2f32b3a335"
+    }
+  ],
+  "results": [
+    {
+      "implementation": "baseline",
+      "fixture": "count-bound",
+      "error": "RUNTIME_BOUND",
+      "admitted": false,
+      "launchMarker": false,
+      "guardMs": 7857,
+      "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91"
+    },
+    {
+      "implementation": "source-candidate",
+      "fixture": "count-bound",
+      "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_BOUND\"",
+      "admitted": false,
+      "launchMarker": false,
+      "guardMs": 9064,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b"
+    },
+    {
+      "implementation": "package-candidate",
+      "fixture": "count-bound",
+      "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_BOUND\"",
+      "admitted": false,
+      "launchMarker": false,
+      "guardMs": 8432,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b"
+    },
+    {
+      "implementation": "baseline",
+      "fixture": "depth-bound",
+      "error": "RUNTIME_BOUND",
+      "admitted": false,
+      "launchMarker": false,
+      "guardMs": 6507,
+      "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91"
+    },
+    {
+      "implementation": "source-candidate",
+      "fixture": "depth-bound",
+      "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_BOUND\"",
+      "admitted": false,
+      "launchMarker": false,
+      "guardMs": 78,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b"
+    },
+    {
+      "implementation": "package-candidate",
+      "fixture": "depth-bound",
+      "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_BOUND\"",
+      "admitted": false,
+      "launchMarker": false,
+      "guardMs": 75,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b"
+    }
+  ],
+  "packageAsarSha256": "15ef1a728a5cfd414f03db026bf0ba0d7eb9d42499da42b466ff6be408e3a3fe",
+  "cleanup": {
+    "removed": true,
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-threshold-rLmpFU",
+    "id": "615df943-e16b-4ac9-b9e2-72b98b5f83a2"
+  },
+  "scope": "Only corrected threshold supplement; no pairs/full corpus/worker.main/build rerun"
+}

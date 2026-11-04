@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-04T04:15:54.471835+00:00",
+  "baseline": "eaecc68b3a232f46d05c69ba14d9158e49c5efac",
+  "frozenLF": "d4068c39e8e8de6e582664e248d99201d407aaffbc4bcf25ec4c945210c47292",
+  "ownDiff": "madness-latency18-review-001.diff;167sections, read production diffs/new fixture/test/qualifier/auditor and reports, generated native data crosschecked",
+  "reports": [
+    {
+      "name": "verification-source-1793763790153.json",
+      "sha256": "6d99d081006d0052d8c1b129ab97d7482c3f905353bfc873ea5c4e23483d9295",
+      "inputs": 15,
+      "resources": 14,
+      "pairs": 3,
+      "controlsPerImplementation": 6,
+      "nativeOps": 5,
+      "scope": "adapter/worker.main with source or packaged resources; compiled ASAR pin checked, no installed GUI run"
+    },
+    {
+      "name": "verification-package-1793764613701.json",
+      "sha256": "2e65b311a17b70f4913edc9121bc7ee572ab56728a746e04d6dea2f283f4a85e",
+      "inputs": 15,
+      "resources": 14,
+      "pairs": 3,
+      "controlsPerImplementation": 6,
+      "nativeOps": 5,
+      "scope": "adapter/worker.main with source or packaged resources; compiled ASAR pin checked, no installed GUI run"
+    }
+  ],
+  "L1": "three paired processes per implementation, two full guards each, both orders; compilation/process/guard metrics separate; Windows cache not purged",
+  "L2": "13case corpus exact admissions/refusals/noUV markers; corrupt after first admission refused on next call",
+  "L3": "hardlink/junction/replaced ancestor/longpath/lock actual; identity fault injected; targeted threshold supplement6 RUNTIME_BOUND/no-launch; old early refusals not threshold evidence; symlink EPERM not exercised",
+  "L4": "14source+14package resources, pins and ASAR Main/version audited; parent-audit-001.json verifies735originals, unchanged Python/runtime manifests and dependency tree",
+  "L5": "10worker.main operations source/pack resources complete0/Job0, docs equal, shutdown and fixture cleanup; not a personal installed GUI test",
+  "L6": "19targeted tests/0skip, current sources successful; original diagnostic causes unknown;8foreign failures retained for14/16",
+  "L7": "cleanup red→green; normal scopes removed after proof; two newly retained unknowns and two old unknowns untouched",
+  "checks": "worker typecheck/build0, first NSIS UNKNOWN then unchanged retry0; parent byte/audit verifier0; native product bytes unchanged after H1 harness patch so no expensive rerun",
+  "limits": [
+    "source producer capsule reconstructed and hashed after run",
+    "source/package receipts producer versions preserved, no retroactive hash-at-launch claim",
+    "no broad performance/OS/G2/G4/G5/human acceptance claim",
+    "full adapter operations still14–17s, initialprepare33s;2.5 must coalesce/background without lost input"
+  ],
+  "unfinished": "Quick review and local commit pending"
+}

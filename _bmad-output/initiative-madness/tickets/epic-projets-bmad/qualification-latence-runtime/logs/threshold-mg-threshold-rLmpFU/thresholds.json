@@ -1,0 +1,286 @@
+{
+  "schemaVersion": 1,
+  "mode": "focused-traversal-threshold-supplement-no-UV",
+  "owner": {
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-threshold-rLmpFU",
+    "id": "615df943-e16b-4ac9-b9e2-72b98b5f83a2",
+    "prefix": "mg-threshold-"
+  },
+  "producerSha256": "47bbcee0ae36c67c0396e143350cf75714434bff262f8122e2d4f1ea7518cc15",
+  "producerCapsule": "producer.mjs.txt",
+  "resources": [
+    {
+      "name": "bmad-help.md",
+      "pin": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+      "source": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+      "packaged": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369"
+    },
+    {
+      "name": "bmad-SKILL.md",
+      "pin": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+      "source": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+      "packaged": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7"
+    },
+    {
+      "name": "bootstrap.py",
+      "pin": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+      "source": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+      "packaged": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94"
+    },
+    {
+      "name": "capture.py",
+      "pin": "b03a1d1426b75582aa279096aa373d3615b174c71498058bef61b09b280dafeb",
+      "source": "b03a1d1426b75582aa279096aa373d3615b174c71498058bef61b09b280dafeb",
+      "packaged": "b03a1d1426b75582aa279096aa373d3615b174c71498058bef61b09b280dafeb"
+    },
+    {
+      "name": "config_utils.py",
+      "pin": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+      "source": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+      "packaged": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1"
+    },
+    {
+      "name": "knowledge.py",
+      "pin": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+      "source": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+      "packaged": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd"
+    },
+    {
+      "name": "launcher.ps1",
+      "pin": "52f42c1ec152befd03d034ae801f90e37877a41089ebefe2658be5c18e200de1",
+      "source": "52f42c1ec152befd03d034ae801f90e37877a41089ebefe2658be5c18e200de1",
+      "packaged": "52f42c1ec152befd03d034ae801f90e37877a41089ebefe2658be5c18e200de1"
+    },
+    {
+      "name": "preflight.ps1",
+      "pin": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "source": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "packaged": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b"
+    },
+    {
+      "name": "resolve_config.py",
+      "pin": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+      "source": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+      "packaged": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762"
+    },
+    {
+      "name": "runtime_guard.py",
+      "pin": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+      "source": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+      "packaged": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49"
+    },
+    {
+      "name": "runtime.json",
+      "pin": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+      "source": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+      "packaged": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575"
+    },
+    {
+      "name": "supervision.ps1",
+      "pin": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+      "source": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+      "packaged": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493"
+    },
+    {
+      "name": "worker.py",
+      "pin": "8967fd9ddd119939294017d8cae4254f80c15f1312e0202a067873b8bf1bade6",
+      "source": "8967fd9ddd119939294017d8cae4254f80c15f1312e0202a067873b8bf1bade6",
+      "packaged": "8967fd9ddd119939294017d8cae4254f80c15f1312e0202a067873b8bf1bade6"
+    },
+    {
+      "name": "progress.py",
+      "pin": "03824562e5109170bbc63b1487a666127a9f0de7712e1b5c6938452585296420",
+      "source": "03824562e5109170bbc63b1487a666127a9f0de7712e1b5c6938452585296420",
+      "packaged": "03824562e5109170bbc63b1487a666127a9f0de7712e1b5c6938452585296420"
+    }
+  ],
+  "packageRoot": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\runtime-guard-reviewed\\win-unpacked",
+  "asarSha256": "15ef1a728a5cfd414f03db026bf0ba0d7eb9d42499da42b466ff6be408e3a3fe",
+  "existingPackageReceipt": {
+    "name": "verification-package-1793764613701.json",
+    "sha256": "2e65b311a17b70f4913edc9121bc7ee572ab56728a746e04d6dea2f283f4a85e"
+  },
+  "fixtures": [
+    {
+      "name": "count-bound",
+      "runtime": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-threshold-rLmpFU\\count-bound",
+      "manifestPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-threshold-rLmpFU\\count-bound.json",
+      "manifestRecords": 4096,
+      "traversedEntries": 4098,
+      "maxComponents": 2,
+      "manifestSha256": "0d53ac728df16812589124c88b26837d20f60761036ec76bb130a97cc50743f6",
+      "allowedScaffold": [
+        "Lib",
+        "Lib/site-packages"
+      ],
+      "anchor": {
+        "name": "Lib/anchor",
+        "sha256": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881"
+      }
+    },
+    {
+      "name": "depth-bound",
+      "runtime": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-threshold-rLmpFU\\depth-bound",
+      "manifestPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-threshold-rLmpFU\\depth-bound.json",
+      "manifestRecords": 2,
+      "traversedEntries": 21,
+      "maxComponents": 18,
+      "manifestSha256": "16f77311037e05a08b2ba83b9f093d66d1513db1932743cd0240ad2f32b3a335",
+      "allowedScaffold": [
+        "Lib",
+        "Lib/site-packages"
+      ],
+      "anchor": {
+        "name": "Lib/anchor",
+        "sha256": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881"
+      }
+    }
+  ],
+  "observations": [
+    {
+      "implementation": "baseline",
+      "fixture": "count-bound",
+      "loadMs": 31,
+      "results": [
+        {
+          "launchMarker": false,
+          "admitted": false,
+          "error": "RUNTIME_BOUND",
+          "guardMs": 7857,
+          "name": "count-bound"
+        }
+      ],
+      "processInnerMs": 8217,
+      "wallMs": 9650.0091,
+      "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+      "cases": [
+        {
+          "name": "count-bound"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "implementation": "source-candidate",
+      "fixture": "count-bound",
+      "loadMs": 1413,
+      "results": [
+        {
+          "admitted": false,
+          "name": "count-bound",
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_BOUND\"",
+          "launchMarker": false,
+          "guardMs": 9064
+        }
+      ],
+      "processInnerMs": 10695,
+      "wallMs": 12852.1221,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "count-bound"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "implementation": "package-candidate",
+      "fixture": "count-bound",
+      "results": [
+        {
+          "guardMs": 8432,
+          "launchMarker": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_BOUND\"",
+          "admitted": false,
+          "name": "count-bound"
+        }
+      ],
+      "loadMs": 1155,
+      "processInnerMs": 9771,
+      "wallMs": 11392.972800000003,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "count-bound"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "implementation": "baseline",
+      "fixture": "depth-bound",
+      "results": [
+        {
+          "error": "RUNTIME_BOUND",
+          "admitted": false,
+          "name": "depth-bound",
+          "guardMs": 6507,
+          "launchMarker": false
+        }
+      ],
+      "processInnerMs": 6991,
+      "loadMs": 52,
+      "wallMs": 8246.888899999998,
+      "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+      "cases": [
+        {
+          "name": "depth-bound"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "implementation": "source-candidate",
+      "fixture": "depth-bound",
+      "processInnerMs": 1635,
+      "loadMs": 1403,
+      "results": [
+        {
+          "launchMarker": false,
+          "guardMs": 78,
+          "name": "depth-bound",
+          "admitted": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_BOUND\""
+        }
+      ],
+      "wallMs": 3331.2333,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "depth-bound"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "implementation": "package-candidate",
+      "fixture": "depth-bound",
+      "loadMs": 1135,
+      "processInnerMs": 1358,
+      "results": [
+        {
+          "launchMarker": false,
+          "guardMs": 75,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_BOUND\"",
+          "admitted": false,
+          "name": "depth-bound"
+        }
+      ],
+      "wallMs": 2740.2581999999966,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "depth-bound"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "controllersCompleted": true,
+  "probeLimitMs": 180000,
+  "limits": [
+    "Historical count/depth fixtures stopped before the intended threshold and prove no traversal-bound equivalence.",
+    "Only corrected count/depth probes executed; no paired measurements, full corpus, worker.main or build.",
+    "Data-only fixture manifests do not extend the qualified735file runtime."
+  ]
+}

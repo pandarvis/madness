@@ -1,0 +1,717 @@
+{
+  "at": "2026-11-04T04:25:49.471895+00:00",
+  "baseline": "eaecc68b3a232f46d05c69ba14d9158e49c5efac",
+  "frozenLF": "d4068c39e8e8de6e582664e248d99201d407aaffbc4bcf25ec4c945210c47292",
+  "sources": [
+    {
+      "path": "package-lock.json",
+      "workingSha256": "2231cce0fce2589d5d271c62155b0b072bb5cc43c2a51aa9ac4c73e97f84de4a",
+      "lfSha256": "2231cce0fce2589d5d271c62155b0b072bb5cc43c2a51aa9ac4c73e97f84de4a"
+    },
+    {
+      "path": "package.json",
+      "workingSha256": "3227c6f7a568580d21318d68574b55cd6483ae35ac4e4f0b6844b372cab80301",
+      "lfSha256": "3227c6f7a568580d21318d68574b55cd6483ae35ac4e4f0b6844b372cab80301"
+    },
+    {
+      "path": "resources/bmad-help/preflight.ps1",
+      "workingSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "lfSha256": "d65244989b124e9449b28dc0533522c0a44bc35fbbcfbb6d1f1c880dc7803f60"
+    },
+    {
+      "path": "src/adapters/bmad/help-manifest.ts",
+      "workingSha256": "0744194a0c853abe2bb2fe2fb54e58200c71645fc53c33b47f9436b75d09abd3",
+      "lfSha256": "276dd41953143602465de563e3a3a3b0aaac34b0d977bbcbb1b182f7ca95234b"
+    },
+    {
+      "path": "tests/bmad-help-supervision.test.mjs",
+      "workingSha256": "613215163f65a39efe7d1c1a554154ae772432e9d5c11baf5af7a223ad3eee3c",
+      "lfSha256": "b2166becb577a20c70ba26747294fdfab6fa45487d74bd8a11de2b6dcaf21806"
+    },
+    {
+      "path": "tests/bmad-runtime-preflight.test.mjs",
+      "workingSha256": "87dcca3e5548a079907e1b1c31b06321c0ab09fc0990f279117626407125e25b",
+      "lfSha256": "87dcca3e5548a079907e1b1c31b06321c0ab09fc0990f279117626407125e25b"
+    }
+  ],
+  "artifact": {
+    "version": "0.2.8",
+    "asar": "15ef1a728a5cfd414f03db026bf0ba0d7eb9d42499da42b466ff6be408e3a3fe",
+    "nsis": "331cae6fa50afe45c304aa57ca8f2a1ac5535738ccd1599cc71dd26a19af6ede",
+    "installed": false
+  },
+  "reviews": {
+    "high": "boundaries favorable,H1proof resolved same auditor",
+    "quick": "[]"
+  },
+  "files": [
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/.gitattributes",
+      "sha256": "c331874bbd9ab8198b8b21ade0f9f7b10a276abb2eff37570f3c30591a685512"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/analysis-package.json",
+      "sha256": "aa64123ecf53f02ac73564369686a78eae24f50919dd71841f65794b1ccedcf1"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/analysis-source.json",
+      "sha256": "46961a52618b8a7285c95a5ac48f97d6edb57adae39fa4fa1a458644019f6fc5"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/audit-final.json",
+      "sha256": "ad589846a90b3d0235aa02d7b0449eb60c8a35c1798b6a9ad0a6c5960cf3051b"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/audit.mjs",
+      "sha256": "e1fcc14df9d0ce379acb3b309f85a1b3ddeed5d38468ef9f0bc7bf8a12b8aa03"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/build-results.json",
+      "sha256": "6a82a959dee02e8431ca46cd8809be10e4a939220c394fe3e8e41f100d9f12b2"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/diagnostics-a-reprendre.json",
+      "sha256": "58a94eb944731d7b6adb9fadc52f2c3f05f047512c07acb91065bfac2d950ca7"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/diagnostics-results.json",
+      "sha256": "dc25aa1b6eb70bc9f84ff37aac0a3931e293efa5f64d8029a5bfb97374778f0f"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/fixture.mjs",
+      "sha256": "ba844ef9fb2da88df3c47644071b1b5715cea0b224035f7f323f6a5d22a3420e"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/high-boundaries-001.json",
+      "sha256": "1119f0f210485f6c15eacd1df18b59c47bc0ecad5b19f7d690f8a7e1e927cf2b"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/high-proofs-001.json",
+      "sha256": "cd8505f0dc73ebc203e0395724fa0ab051b8a4a5b8341d91941d9641977e0c19"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/audit-final.log",
+      "sha256": "f857301ecfcc774643d46058d4891315342a1541078ccaec298acf8c504529a2"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/audit-initial-crlf.log",
+      "sha256": "478205d58d8949e55712e2c8c8051e67542feeb2bcd7170a020471a12c1e3df0"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/build.log",
+      "sha256": "95420dc5fd4f4f5228063ad4b1574691b71b8ddaa4cc60f2c775503dff92b035"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/cleanup-green.log",
+      "sha256": "572b09b88467c769e454b989a1565208e3c9857d1db75c560681a9170259d8fc"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/cleanup-red.log",
+      "sha256": "95a7d379cd6ddb69128f7ad8ffa2e4f117067666cca64fb97f8ff965bb370a90"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/diagnostics-targeted-001.log",
+      "sha256": "a78354121e890e458e8dafe009c6a16a04a871e1f7c01bb60575471366120370"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/edges-initial.log",
+      "sha256": "5294fcfb5cf0edf1556c02ad2c6d9d2b2562296e949084a7e2ea691256103bb8"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/edges-mg-edge-ZowG2I/edges.json",
+      "sha256": "34394b6ae9b4efd57253125029e3700652c2a9928659c607a461bc0347ff7557"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/edges-mg-edge-ZowG2I/fixture.json",
+      "sha256": "5ef67239a4a64f6f53be57a8967d2924e046dc8322f7a3108d5a512db4cc7546"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/madness-help-job-start-IXx1tV/fixture.json",
+      "sha256": "544a03d5ed8245ab50ea8f8a078e314e0bdaf03a10645b5f66e4297435dea425"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/madness-help-job-start-IXx1tV/state.json",
+      "sha256": "380db81bf2e89ae1b7a0621e85724f35817611f711e02af6b70cd2f540f3ca81"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/madness-help-job-start-IXx1tV/stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/madness-help-job-start-IXx1tV/stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-edge-th4cTo/edges.json",
+      "sha256": "a5b2a0157da0afc6bcbcd411fe6c01a0c3a2b424bbee8464c65abdcc9a30773e"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-edge-th4cTo/fixture.json",
+      "sha256": "0b8d6fcccc3513e1bfdd3fd25313481235daccf26698b957b331aec18343be50"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/fixture.json",
+      "sha256": "4f729972cef153fa3fce168be4d96ff092461dce76721f5816f3da3f73728444"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-5607b704-364b-4a69-99d9-abb91129464b/execution.json",
+      "sha256": "2dad75e0b686acc12b70b84801328360e0bb1e4642f8376d84e2be8a1d2d2934"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-5607b704-364b-4a69-99d9-abb91129464b/native-timings.json",
+      "sha256": "9a939efa2742a65da408c06bcb41289f3d441490e7094820ce4ec06df985396e"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-5607b704-364b-4a69-99d9-abb91129464b/phases.json",
+      "sha256": "fcf169461c9c8ca818abd8709091b77e4bf9b14d6715c8c39e37426a96351311"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-5607b704-364b-4a69-99d9-abb91129464b/request.json",
+      "sha256": "c93caa57f9782a9b08901652da26e2638a0a53f10539d71cdefda1ed475ecd89"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-5607b704-364b-4a69-99d9-abb91129464b/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-5607b704-364b-4a69-99d9-abb91129464b/stdout.json",
+      "sha256": "0cbcdfb6ffe841bc9674760c4a810c336bc917213ce5bfe3f53941f0242dc46a"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-5607b704-364b-4a69-99d9-abb91129464b/terminal.json",
+      "sha256": "8f580a634e0b1947489d2833eec086f2db49763d5bd19d538fa49ee4723970a5"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-86e2878a-0f79-49c8-88d4-0357ebae2461/execution.json",
+      "sha256": "27571ef0316e48b50588dfaf1baaf3b1a9584308f57481e667bef085457edb2b"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-86e2878a-0f79-49c8-88d4-0357ebae2461/native-timings.json",
+      "sha256": "a814e9959330ee920de55017cb37b9b7b259842df4b655953448f1581f5e6cd2"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-86e2878a-0f79-49c8-88d4-0357ebae2461/phases.json",
+      "sha256": "b98a31721969aaae5f55480dc48b72268826a3ac0dc2a909bfc799d2f166b6c8"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-86e2878a-0f79-49c8-88d4-0357ebae2461/request.json",
+      "sha256": "85414738a71d37a4f1f44505b9c297fb251239e168fad9b392837a073b8a0e5c"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-86e2878a-0f79-49c8-88d4-0357ebae2461/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-86e2878a-0f79-49c8-88d4-0357ebae2461/stdout.json",
+      "sha256": "2843b7528ba82ae3a0d2d43bededd2a5fdaf32ef796f5e615211ade85ed39a87"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-86e2878a-0f79-49c8-88d4-0357ebae2461/terminal.json",
+      "sha256": "f6e57f6031778fa45232c90d44462f1a4563b884207395a022b409d43d77ee54"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c1467599-be7b-47a3-99b1-695cf7cf1189/execution.json",
+      "sha256": "5e25623b2e3af08f02bd23dd1cf3d32ac94dd8467dd481ed2d8802d4c99d5d9b"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c1467599-be7b-47a3-99b1-695cf7cf1189/native-timings.json",
+      "sha256": "06ac0ff9175cdb72239d8794cd6dc00856aab96ef40950c30c28078c8965ce1a"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c1467599-be7b-47a3-99b1-695cf7cf1189/phases.json",
+      "sha256": "804a08a2ad88a413dee6f7142d77e7adc534538b9d8c5ea56acb585952a2c72d"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c1467599-be7b-47a3-99b1-695cf7cf1189/request.json",
+      "sha256": "aac26aa5c3f09e3a0ca60fb28247763aa5a3186888bf85710ae069a127916b3a"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c1467599-be7b-47a3-99b1-695cf7cf1189/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c1467599-be7b-47a3-99b1-695cf7cf1189/stdout.json",
+      "sha256": "ca407943e660c3f9bd3a6926540fbce93be107d5c0f9bb0f69b0c3c425e3e145"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c1467599-be7b-47a3-99b1-695cf7cf1189/terminal.json",
+      "sha256": "eda94e7650e2c72ee73b751addfa006d689b7b951cd1dcdb7abfb2691a4d5e5f"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c28c826f-6e5a-469a-9dd4-f25c838d8f15/execution.json",
+      "sha256": "bdfdcbacc621d0152cf7014e924f3fe43ca9dfd625460c9c5654eb14fbe360cb"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c28c826f-6e5a-469a-9dd4-f25c838d8f15/native-timings.json",
+      "sha256": "a35607a4def2e5f6d7771257c2a139525ebaa90b10aed75417e4ad5927971010"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c28c826f-6e5a-469a-9dd4-f25c838d8f15/phases.json",
+      "sha256": "a520c2c261dd2524cdb7ce05cbfb18353724b4e29e18acdc8470a7e984bf57f2"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c28c826f-6e5a-469a-9dd4-f25c838d8f15/request.json",
+      "sha256": "54b7b3567854646965bfeeae760fcf9dcc939e3c6f4ba4c4006e2b263861e5a4"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c28c826f-6e5a-469a-9dd4-f25c838d8f15/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c28c826f-6e5a-469a-9dd4-f25c838d8f15/stdout.json",
+      "sha256": "bde1fcc6686c081b4eecd6c4e98effee14a4e1c428ddfea676529e7d925e5338"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-c28c826f-6e5a-469a-9dd4-f25c838d8f15/terminal.json",
+      "sha256": "b8988f9f88a2227bb7753371313d102ba226ff8f0fd4d4ee6760db14c1950ad6"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-f7f474e2-d8dd-4b02-8103-81414c9d06bd/execution.json",
+      "sha256": "d9f619fb9d0b635f4348b95d5f4330968b2eed6d6b8b06190febe178d36b0235"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-f7f474e2-d8dd-4b02-8103-81414c9d06bd/native-timings.json",
+      "sha256": "8972f57ab5dd246d5d9903ee74ea68f34d5805a9bc660eddf184c47f853f2894"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-f7f474e2-d8dd-4b02-8103-81414c9d06bd/phases.json",
+      "sha256": "3dbc898f20cbc4d00a56f85291bfd6983bb6b541a72cca26e64b2c043d1c61ff"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-f7f474e2-d8dd-4b02-8103-81414c9d06bd/request.json",
+      "sha256": "e4ce44ebf82718002fb98207e5cbab1d5fed9ad813106584523344b1c24802f9"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-f7f474e2-d8dd-4b02-8103-81414c9d06bd/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-f7f474e2-d8dd-4b02-8103-81414c9d06bd/stdout.json",
+      "sha256": "f122b1ece5b789d4d28de9b508fe4c9a116469726bab4376448fa7a2870dcc16"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/operation-f7f474e2-d8dd-4b02-8103-81414c9d06bd/terminal.json",
+      "sha256": "73635dd0242608e80fcd1f85e05c0a97299f3148ed6374d276156e302e945012"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-local-JpvoTe/proof.json",
+      "sha256": "3b9a705759670c4b2ba00ca711e1ce752c7dbee3a7da8cec82c032ecb1827c9c"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-matrix-EUGoy2/baseline.json",
+      "sha256": "58f3241346319139aa49bc109931afe0bd32f73977d6de2a41ec96523b01ec31"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-matrix-EUGoy2/candidate.json",
+      "sha256": "8770b7138ea3eba3e4babb5c10b4740e4ef43280eec4e53ea2974f0fc2645cd2"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-matrix-EUGoy2/fixture.json",
+      "sha256": "44437f1cd69e9e62ef954da0e553c4770406130d20b37fa89fbcbc6ec66b0010"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-matrix-EUGoy2/matrix.json",
+      "sha256": "d6892231f4a89688f09ce150880f0923a93ce57eac2f0181d0a182c7a7bafd58"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-resource-Cg92uj/fixture.json",
+      "sha256": "14ee1c02607dec95fe5e0dff6250225d43f14d8bd43e6efc96f01ad680db6265"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-resource-Cg92uj/operation-893f7a29-92ce-4f9f-a017-c1fe500774ce.json",
+      "sha256": "f6ff09ee5b07b28a4c5adab7a3540a1511f7f2b2cf0ce3fd2eb022da7ace8235"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-mg-resource-Cg92uj/proof.json",
+      "sha256": "4744e883d18b644281d95530920cf5843ca5a13f1abca50359cf0c69cf3f3c9d"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package-retry-001.log",
+      "sha256": "d48daa5f06109eaf33f3217e52e7b296009356ca3fbcab79edff380c095efdbe"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/package.log",
+      "sha256": "d466c86d143b12f3f501a8b4350185f5e83817d2d5e50110aab63b000bd9f231"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/preflight-initial.log",
+      "sha256": "96d74028a6f406a88b7a70445f4092ab88405f5394ed56b1b9b8648a0fd6ba4c"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/preflight-r2.log",
+      "sha256": "d0c634d70f7c5db549d38cefb0acb03faa9aecf8acff652c9ca223861c3b8b1e"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/qualification-package-001.log",
+      "sha256": "48d656f4fed531772e31cdc4d3811f04e376bada7eb834253846a9c9a0517350"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/qualification-package-resume-001.log",
+      "sha256": "865e59b0ca2e3683d836582247f12b7733c347d7093a324db55dfd647f2a60f7"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/qualification-source-001.log",
+      "sha256": "bbd44456068940603e99673a800cff978ace1451a1c7d8903926c179e8ba9df2"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-edge-kCavS4/edges.json",
+      "sha256": "812a1fd1e23c14495736acf801e963a92d5ed1e5415c5c95cba21f0fe1637a2c"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-edge-kCavS4/fixture.json",
+      "sha256": "c8b5cee616ef936db3324c9851083f43c37d69e0a139f83b43a9065eba1bd53c"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/fixture.json",
+      "sha256": "43f49e0e6b5b59d1b630f95177479c06a58e542e5aaca0c2d68d550a60a7626d"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-05dd9dc9-ffce-4efd-ad65-e156aeabee4f/execution.json",
+      "sha256": "e4cc50811fb6286ceeea329e037fa4a19a4945091f562869bb82b2fa8b9d6cec"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-05dd9dc9-ffce-4efd-ad65-e156aeabee4f/native-timings.json",
+      "sha256": "c368d489eb1ca8b415d6f8c64b3a52c068d8636adae1454ce0f11fa4cb5c1d7a"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-05dd9dc9-ffce-4efd-ad65-e156aeabee4f/phases.json",
+      "sha256": "a7c248eb094d29c0a3d6de847ba9beef23ca2e73712d18451fc3989407a030b3"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-05dd9dc9-ffce-4efd-ad65-e156aeabee4f/request.json",
+      "sha256": "555141b5c29451de1f42493edfd4ccf06fbf767bdee39c10f376fbe7cc48665b"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-05dd9dc9-ffce-4efd-ad65-e156aeabee4f/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-05dd9dc9-ffce-4efd-ad65-e156aeabee4f/stdout.json",
+      "sha256": "7ab823cb74729b529193238eb1d1479511eb92c6e506dd58db26c11480a2a62a"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-05dd9dc9-ffce-4efd-ad65-e156aeabee4f/terminal.json",
+      "sha256": "4b6acbb19268106c56c25f62afb115dbf7cc0ca6edadb7b28a537de920d13b64"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-10d956e2-6fbb-427b-bc3d-23fea3160aae/execution.json",
+      "sha256": "4289e9cd8d9acd2d542256084cbf5a4011817e90bbfa42609bc52b7a56d1faae"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-10d956e2-6fbb-427b-bc3d-23fea3160aae/native-timings.json",
+      "sha256": "72b6ee59a254d58a88cd99bfbf37057d66de67a0f80494b5580db61aeff7f68e"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-10d956e2-6fbb-427b-bc3d-23fea3160aae/phases.json",
+      "sha256": "a3f8fc4cbe927a4c18f3ad9bb050b6fbe31f4294d09640a315883f8d2398991f"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-10d956e2-6fbb-427b-bc3d-23fea3160aae/request.json",
+      "sha256": "2cb65f9efe08fa42f824162788cc719e2d699a1c23de6b407ac4af185228f7bb"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-10d956e2-6fbb-427b-bc3d-23fea3160aae/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-10d956e2-6fbb-427b-bc3d-23fea3160aae/stdout.json",
+      "sha256": "927191c1e381745811a7d202c328709921eeb5b72556d10163571cda055d1647"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-10d956e2-6fbb-427b-bc3d-23fea3160aae/terminal.json",
+      "sha256": "e509e8db3878e80247758d4b9bc795eedd952a9c39fd7c65a11f352ad4ce858e"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-84e01849-da95-4b66-bcd4-85fcaf7dde23/execution.json",
+      "sha256": "da24200966a44a94abb9116da8245ea7059fc42ba3ed8c66cac8ee2831daab33"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-84e01849-da95-4b66-bcd4-85fcaf7dde23/native-timings.json",
+      "sha256": "b98fc4f4b79dbf2f6b116c6b35d9b8fbb53956449a5845a3d518df30a0be47a9"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-84e01849-da95-4b66-bcd4-85fcaf7dde23/phases.json",
+      "sha256": "57380e322d80354d617550f1ddd73e3876c72e82796b0793d97d7db4d0170c24"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-84e01849-da95-4b66-bcd4-85fcaf7dde23/request.json",
+      "sha256": "9425fa1ad85f5c8f35552e54fa7748ac230708634260146ba27146fd0f01002d"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-84e01849-da95-4b66-bcd4-85fcaf7dde23/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-84e01849-da95-4b66-bcd4-85fcaf7dde23/stdout.json",
+      "sha256": "f0f7413016def774374c8c1cdce055d53c6609842723b60175a5adf4440ae5e8"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-84e01849-da95-4b66-bcd4-85fcaf7dde23/terminal.json",
+      "sha256": "5d94f745e1dfe74d5b130f7ca7eec49da254fe22775e2d606aac4795da6f859a"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac12650b-437e-4892-9829-cf7018261237/execution.json",
+      "sha256": "d7902f3427c957f9cff2cc1d6b7a1b0832befd46837d955909a5584fe9663bb1"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac12650b-437e-4892-9829-cf7018261237/native-timings.json",
+      "sha256": "63275ce93bf76d766a75e8afbc33dc7a4723c56f610b0112ef8284be93259f63"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac12650b-437e-4892-9829-cf7018261237/phases.json",
+      "sha256": "0c57ca59712ab0d4aa9b8bc3e78a3fb9cb3817c0b15ec7eb340387dc5b89921a"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac12650b-437e-4892-9829-cf7018261237/request.json",
+      "sha256": "294dc195769dfedd1a2657688b71cd7eede7d7c885f087a70ee2f3513b7ba991"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac12650b-437e-4892-9829-cf7018261237/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac12650b-437e-4892-9829-cf7018261237/stdout.json",
+      "sha256": "9ed2c3e92e506a6b7be32f6b4bd09adb5487f75c2adc2c8996002b77288bace2"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac12650b-437e-4892-9829-cf7018261237/terminal.json",
+      "sha256": "b9c0ffdeca90508e321f96c73446b426d6bb8d0d39e0c8165a2706263fc09c77"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac6e929e-f052-4c21-8f42-6920dcbfae01/execution.json",
+      "sha256": "d33c7bc24bfc5f4533bcae55c0004e77c57411c385e0cde55f7d5a4c0bcb638a"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac6e929e-f052-4c21-8f42-6920dcbfae01/native-timings.json",
+      "sha256": "6e0985aeaacc5f87aa9e311fedc695e7845760c8704f6fa594892435d4e4ba9d"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac6e929e-f052-4c21-8f42-6920dcbfae01/phases.json",
+      "sha256": "048e275eec7ea1352298edec5f4d557a27063f3ec88502982cccce3c9836b257"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac6e929e-f052-4c21-8f42-6920dcbfae01/request.json",
+      "sha256": "1ef30b7806d8aff5c55d8223ed3db6077cf940c09340962cacf30cbdfbd7c599"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac6e929e-f052-4c21-8f42-6920dcbfae01/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac6e929e-f052-4c21-8f42-6920dcbfae01/stdout.json",
+      "sha256": "a64f7646bb3a3c050037e801fb6a33c189acde1e2f6ca220e64505d87c91a20c"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/operation-ac6e929e-f052-4c21-8f42-6920dcbfae01/terminal.json",
+      "sha256": "2a59c3383e32da4de218e3dc04042e3603e3088047e71ae42cfccf86c0e6f3d7"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-local-wCIxjH/proof.json",
+      "sha256": "9b4866771ec7cfa8de31d0e73445b2dc6411c9978d31900b50a42709211ac214"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-matrix-6Hyw00/baseline.json",
+      "sha256": "d4e12a477634381b39dad9127fd21ec4383666d0907716afec54238ede25f074"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-matrix-6Hyw00/candidate.json",
+      "sha256": "357b2a94aa2c0447f1156a0898de6579f370a8dcb6cd397f455c240812f085ae"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-matrix-6Hyw00/fixture.json",
+      "sha256": "bb13214e182b111870c70d589ed3eca015b2bfbb4705f09961edc1f2c672c4df"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-matrix-6Hyw00/matrix.json",
+      "sha256": "2bcc9130ece15a48eb7979f4f54618eab408434bfa87b8ef6f96df05ce3ddee6"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-resource-6O1z5G/fixture.json",
+      "sha256": "64524bcae21108867136a4241f675f2451f5d4598709a2634070e3eb5a1e5f3d"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-resource-6O1z5G/operation-78d0b585-5ff6-4a22-8ba7-5a0b8bbd8515.json",
+      "sha256": "48dd3ab7499de78e6afa6c3635ca89eb92b39622e913bc73a623bd57ed62d6a9"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/source-mg-resource-6O1z5G/proof.json",
+      "sha256": "4744e883d18b644281d95530920cf5843ca5a13f1abca50359cf0c69cf3f3c9d"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/test-mg-matrix-f4gy0j/baseline.json",
+      "sha256": "921f6f476abd4db644183a8f3d80affdc8196b04b565b44b128360ac26abaaa9"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/test-mg-matrix-f4gy0j/candidate.json",
+      "sha256": "78815e73ae6c122dd71bd3c90c0b2fcc154684ddaa0828364dcb940973bb04b4"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/test-mg-matrix-f4gy0j/fixture.json",
+      "sha256": "27d8ef6b3487870ef1fe3d207f3fc4c60f901848bbd3fe9522709c04ba2458e1"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/test-mg-matrix-f4gy0j/matrix.json",
+      "sha256": "9fb95c97d0d1c64c3fefd4470fac6704d726b0e94cb37932629d28a0cb8094c7"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/test-mg-matrix-iOAMfK/baseline.json",
+      "sha256": "45ed262c9ac972442c36864fd6b290291011c2120996299bacead0b2adcaf8a8"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/test-mg-matrix-iOAMfK/candidate.json",
+      "sha256": "90c610d4d1e2dbb44e6f2d0e1d133803f1ef6e74c449bbf89385236331330024"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/test-mg-matrix-iOAMfK/fixture.json",
+      "sha256": "866ca9de4a6673dcf3c180bfca1103f2b0bad34f5a7d4013a2c9f870b0cb153c"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/threshold-mg-threshold-rLmpFU/count-bound-baseline.json",
+      "sha256": "e5ea14f6d9777208843e1d4f2e975129c3ea09dbb5322f6e8ddaf278ed2e9103"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/threshold-mg-threshold-rLmpFU/count-bound-package-candidate.json",
+      "sha256": "469b820fb9318814d4dda5af982cfc5937f5ba490d9b5c3c02dd5bade52c66aa"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/threshold-mg-threshold-rLmpFU/count-bound-source-candidate.json",
+      "sha256": "522c716e2a9e1dddc68f2704112b4f523bf10863de7389b174a142557f9ba257"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/threshold-mg-threshold-rLmpFU/depth-bound-baseline.json",
+      "sha256": "9694bc33a2d17b41cbb981293f41ee72ff7c152f1e012dfa8bb88ec2f0e2ca51"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/threshold-mg-threshold-rLmpFU/depth-bound-package-candidate.json",
+      "sha256": "095f6585531d0726f095d0094f0110d73b9a5099715576d1f17e0d91a383f621"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/threshold-mg-threshold-rLmpFU/depth-bound-source-candidate.json",
+      "sha256": "635fe65e5d307448aca27b8b25916903685bba40c7e3f7d7f702ec0869a39c8c"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/threshold-mg-threshold-rLmpFU/fixture.json",
+      "sha256": "9421683ff04b088ea27be88966bfea58e4686ee59bda616a30e93a5cfa3c8f77"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/threshold-mg-threshold-rLmpFU/producer.mjs.txt",
+      "sha256": "47bbcee0ae36c67c0396e143350cf75714434bff262f8122e2d4f1ea7518cc15"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/threshold-mg-threshold-rLmpFU/thresholds.json",
+      "sha256": "80387982b24e656d9851d1c56fd6aac819133f26f8b36de353776b364f2db8a1"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/threshold-supplement-001.log",
+      "sha256": "ce260781ac437a9e89f882b1f3e535c017727ed33a7978990ed39a65955064ed"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs/typecheck.log",
+      "sha256": "a1ab9779013e6024ef16838a33d6fbf5e0b7433ea0ee9adb32d96356d91706fc"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/package-corpus-95279.json",
+      "sha256": "2424c0f665bdf7bd4c0a344fd66669da46499986c6fe51f6a733f7dff29b20fe"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/package-retry-001.json",
+      "sha256": "3d2f0d4fdb7bafd7748108903afbd8f3d36875bfe8753b2ad4bf86bd78ff1cf7"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/parent-audit-001.json",
+      "sha256": "84069682979b9005230e46d83d68f88f1ff1ecd90d35f1ef461b3347c5e5f6ab"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/parent-audit.mjs",
+      "sha256": "17ec2c60d9931d8571b8ca4ffe03a9011fdb234d3a3cbc8859e6edfc2e2ddc12"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/parent-matrix-audit.json",
+      "sha256": "bc7b21f1281105684f9321894cb5ccd95e7b1218b31abaeb97ea6fea4cdf21fb"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/parent-verification.md",
+      "sha256": "19c0b1b18d277789baa0f5892fa344c0f5967635cef104afa6229faa44ba15d4"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/preflight-baseline.ps1",
+      "sha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/producer-package-resume.json",
+      "sha256": "01817ecaa2af6246f54066a974395c8c74c274990c0e85374e51aa7cf66978b4"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/producer-package-resume.mjs.txt",
+      "sha256": "67b919567a7f841779e75a8fef236ebe9b473dcb778d607b97635982cb0a977b"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/producer-package.json",
+      "sha256": "8cc3a39dee270c9f10622be0bfdc977ebe1df73fa62452f63bb8cd1e10ce7ec5"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/producer-package.mjs.txt",
+      "sha256": "a1f05468bd84a89446ad4097d2c8d83578a7da0b3dcb6b7c7a066ead9092e7ce"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/producer-source-71905.json",
+      "sha256": "8707b468175e4754fd172e86a84fec9e9efa04fed614258eb42667970e23eb6d"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/producer-source-71905.mjs.txt",
+      "sha256": "744c4a73514e3ecec0696ce92eb8d4f760e1af8b821d8daad6b1e83be3257cf6"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/qualify.mjs",
+      "sha256": "47bbcee0ae36c67c0396e143350cf75714434bff262f8122e2d4f1ea7518cc15"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/quick-review-001.json",
+      "sha256": "2a80109932529756d3dd1692c6a717c6744402a6db986ac754a5c53705c01475"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/rapport.md",
+      "sha256": "9a1008a62ac2499ffc004e83b1bb166a530f7c4fcba9381de531353a291bf306"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/replan-2026-11-04.json",
+      "sha256": "4d978c7f56c252e7a81024e35e6bb9c0104404ab498344432b2331469ea1b48c"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/retained-fixtures.json",
+      "sha256": "e89552d6111f3b37a0cfb017c0fc4cb34d2ba1e72b723fdca494e2c497c15843"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/runtime-apis-sources.md",
+      "sha256": "c22594a8304ee9bbac87d2efcf6804e0adfa42033bb2747003f866a0c77ab7d4"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/sessions.json",
+      "sha256": "2e5645efd0e11b8dfc9611ac3e706fc7b4715ebb06857a9fcfcb5117d07d0dac"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/source-postvalidation.json",
+      "sha256": "21a3b72832b838b935d5e19f9e974ee47a601c949bf4fdc8318208ba36169707"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/threshold-supplement-execution.json",
+      "sha256": "e02e57fdfc87df82094425390c5dd2f85377fae48b2255765ccb205d6b897c63"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/verification-package-1793764613701.json",
+      "sha256": "2e65b311a17b70f4913edc9121bc7ee572ab56728a746e04d6dea2f283f4a85e"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/verification-source-1793763790153.json",
+      "sha256": "6d99d081006d0052d8c1b129ab97d7482c3f905353bfc873ea5c4e23483d9295"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/verification-threshold-supplement.json",
+      "sha256": "e27e58386a6f0eed70cbb92254522718a2e155923bbd51a84d405b6844994d3d"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/worker-handoff.md",
+      "sha256": "b56cb2c83d635546f3303ec6bc7044c8683eac593e1246fdd15657b111d92c68"
+    }
+  ]
+}

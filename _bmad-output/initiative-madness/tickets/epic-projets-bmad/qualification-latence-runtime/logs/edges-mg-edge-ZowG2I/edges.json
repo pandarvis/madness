@@ -1,0 +1,257 @@
+{
+  "owner": {
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-edge-ZowG2I",
+    "id": "e304b915-30da-4319-908b-19494fe4e226",
+    "prefix": "mg-edge-"
+  },
+  "observations": [
+    {
+      "implementation": "baseline",
+      "name": "long-nominal",
+      "loadMs": 29,
+      "results": [
+        {
+          "launchMarker": true,
+          "guardMs": 15882,
+          "error": null,
+          "name": "long-nominal",
+          "admitted": true
+        }
+      ],
+      "processInnerMs": 16221,
+      "wallMs": 17864.4372,
+      "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+      "cases": [
+        {
+          "name": "long-nominal"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "implementation": "candidate",
+      "name": "long-nominal",
+      "results": [
+        {
+          "launchMarker": true,
+          "error": null,
+          "name": "long-nominal",
+          "admitted": true,
+          "guardMs": 1903
+        }
+      ],
+      "processInnerMs": 3205,
+      "loadMs": 1165,
+      "wallMs": 4746.316299999999,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "long-nominal"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "implementation": "baseline",
+      "name": "replaced-ancestor",
+      "processInnerMs": 489,
+      "results": [
+        {
+          "launchMarker": false,
+          "admitted": false,
+          "name": "replaced-ancestor",
+          "guardMs": 152,
+          "error": "RUNTIME_REPARSE"
+        }
+      ],
+      "loadMs": 39,
+      "wallMs": 1773.045299999998,
+      "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+      "cases": [
+        {
+          "name": "replaced-ancestor"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "implementation": "candidate",
+      "name": "replaced-ancestor",
+      "loadMs": 1257,
+      "processInnerMs": 1423,
+      "results": [
+        {
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_REPARSE\"",
+          "admitted": false,
+          "guardMs": 48,
+          "launchMarker": false,
+          "name": "replaced-ancestor"
+        }
+      ],
+      "wallMs": 3178.125500000002,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "replaced-ancestor"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "implementation": "baseline",
+      "name": "count-bound",
+      "processInnerMs": 973,
+      "loadMs": 31,
+      "results": [
+        {
+          "name": "count-bound",
+          "error": "RUNTIME_EXTRA: Lib",
+          "admitted": false,
+          "launchMarker": false,
+          "guardMs": 617
+        }
+      ],
+      "wallMs": 2794.6057,
+      "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+      "cases": [
+        {
+          "name": "count-bound"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "implementation": "candidate",
+      "name": "count-bound",
+      "loadMs": 1231,
+      "processInnerMs": 1461,
+      "results": [
+        {
+          "name": "count-bound",
+          "admitted": false,
+          "launchMarker": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_RECORD\"",
+          "guardMs": 94
+        }
+      ],
+      "wallMs": 2894.028100000003,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "count-bound"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "implementation": "baseline",
+      "name": "depth-bound",
+      "results": [
+        {
+          "guardMs": 462,
+          "admitted": false,
+          "name": "depth-bound",
+          "error": "RUNTIME_EXTRA: Lib",
+          "launchMarker": false
+        }
+      ],
+      "processInnerMs": 851,
+      "loadMs": 40,
+      "wallMs": 2375.063399999999,
+      "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+      "cases": [
+        {
+          "name": "depth-bound"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "implementation": "candidate",
+      "name": "depth-bound",
+      "results": [
+        {
+          "guardMs": 99,
+          "name": "depth-bound",
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_BOUND\"",
+          "admitted": false,
+          "launchMarker": false
+        }
+      ],
+      "loadMs": 1579,
+      "processInnerMs": 1923,
+      "wallMs": 3387.067600000002,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "depth-bound"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "lexical": {
+    "loadMs": 931,
+    "processInnerMs": 1105,
+    "results": [
+      {
+        "launchMarker": false,
+        "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_RECORD\"",
+        "admitted": false,
+        "guardMs": 47,
+        "name": "lexical-dotdot"
+      }
+    ],
+    "wallMs": 2703.7271,
+    "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+    "cases": [
+      {
+        "name": "lexical-dotdot"
+      }
+    ],
+    "stderr": ""
+  },
+  "identityFault": {
+    "processInnerMs": 1093,
+    "results": [
+      {
+        "name": "metadata-fault",
+        "admitted": false,
+        "launchMarker": false,
+        "guardMs": 47,
+        "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_IDENTITY\""
+      }
+    ],
+    "loadMs": 915,
+    "wallMs": 2609.571100000001,
+    "scriptSha256": "e0eb08ec0cf502e1651b73eebfc8b7c1d47b8445d72c8095af3999b6b074b933",
+    "cases": [
+      {
+        "name": "metadata-fault"
+      }
+    ],
+    "stderr": ""
+  },
+  "longPathChars": 312,
+  "finalRuntime": {
+    "loadMs": 1220,
+    "processInnerMs": 3867,
+    "results": [
+      {
+        "launchMarker": true,
+        "guardMs": 2460,
+        "admitted": true,
+        "name": "restored-nominal",
+        "error": null
+      }
+    ],
+    "wallMs": 5542.772600000004,
+    "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+    "cases": [
+      {
+        "name": "restored-nominal"
+      }
+    ],
+    "stderr": ""
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "owner": {
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-job-start-IXx1tV",
+    "id": "cce2da80-7c42-4c0d-96b7-c691f61a33b3",
+    "prefix": "madness-help-job-start-"
+  },
+  "controllerComplete": true,
+  "state": {
+    "schema": 5,
+    "outcome": "supervision-error",
+    "exit": null,
+    "started": true,
+    "owned": [],
+    "cleanup": [],
+    "results_present": false,
+    "job_assigned_before_resume": false,
+    "start_observation": "root-created-before-failure",
+    "error": "Exception calling \"Start\" with \"1\" argument(s): \"L’opération a réussi.\"",
+    "drain_ms": 98,
+    "elapsed_ms": 574
+  },
+  "cleanup": {
+    "removed": false,
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-job-start-IXx1tV",
+    "id": "cce2da80-7c42-4c0d-96b7-c691f61a33b3",
+    "reason": "correlated controller completion and stop proof unavailable"
+  }
+}

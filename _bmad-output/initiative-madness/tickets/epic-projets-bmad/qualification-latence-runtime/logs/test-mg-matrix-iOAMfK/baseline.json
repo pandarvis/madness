@@ -1,0 +1,161 @@
+{
+  "loadMs": 32,
+  "results": [
+    {
+      "admitted": true,
+      "guardMs": 22159,
+      "name": "nominal",
+      "error": null,
+      "launchMarker": true
+    },
+    {
+      "admitted": false,
+      "guardMs": 968,
+      "name": "changed",
+      "error": "RUNTIME_CHANGED: Lib/codex-rejected-cas.pem",
+      "launchMarker": false
+    },
+    {
+      "admitted": false,
+      "guardMs": 15698,
+      "name": "missing",
+      "error": "RUNTIME_MISSING",
+      "launchMarker": false
+    },
+    {
+      "admitted": false,
+      "guardMs": 6884,
+      "name": "sitecustomize",
+      "error": "RUNTIME_EXTRA: Lib/site-packages/sitecustomize.py",
+      "launchMarker": false
+    },
+    {
+      "admitted": false,
+      "guardMs": 7140,
+      "name": "usercustomize",
+      "error": "RUNTIME_EXTRA: Lib/site-packages/usercustomize.py",
+      "launchMarker": false
+    },
+    {
+      "admitted": false,
+      "guardMs": 768,
+      "name": "cache",
+      "error": "RUNTIME_EXTRA: Lib/__pycache__",
+      "launchMarker": false
+    },
+    {
+      "admitted": false,
+      "guardMs": 460,
+      "name": "extra-dir",
+      "error": "RUNTIME_EXTRA: unexpected",
+      "launchMarker": false
+    },
+    {
+      "admitted": false,
+      "guardMs": 217,
+      "name": "root-venv",
+      "error": "RUNTIME_VENV",
+      "launchMarker": false
+    },
+    {
+      "admitted": false,
+      "guardMs": 218,
+      "name": "parent-venv",
+      "error": "RUNTIME_VENV",
+      "launchMarker": false
+    },
+    {
+      "admitted": false,
+      "guardMs": 237,
+      "name": "invalid-record",
+      "error": "RUNTIME_RECORD",
+      "launchMarker": false
+    },
+    {
+      "admitted": false,
+      "guardMs": 473,
+      "name": "invalid-hash",
+      "error": "RUNTIME_EXTRA: DLLs",
+      "launchMarker": false
+    },
+    {
+      "admitted": false,
+      "guardMs": 766,
+      "name": "read-fault",
+      "error": "The process cannot access the file 'C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\codex-rejected-cas.pem' because it is being used by another process.",
+      "launchMarker": false
+    },
+    {
+      "admitted": true,
+      "guardMs": 16733,
+      "name": "nominal-after-corruption",
+      "error": null,
+      "launchMarker": true
+    }
+  ],
+  "processInnerMs": 73840,
+  "wallMs": 76916.8346,
+  "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+  "cases": [
+    {
+      "name": "nominal"
+    },
+    {
+      "name": "changed",
+      "before": "$saved=[IO.File]::ReadAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\codex-rejected-cas.pem');[IO.File]::AppendAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\codex-rejected-cas.pem',\"CHANGED\")",
+      "after": "[IO.File]::WriteAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\codex-rejected-cas.pem',$saved)"
+    },
+    {
+      "name": "missing",
+      "before": "$saved=[IO.File]::ReadAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\codex-rejected-cas.pem');[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\codex-rejected-cas.pem')",
+      "after": "[IO.File]::WriteAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\codex-rejected-cas.pem',$saved)"
+    },
+    {
+      "name": "sitecustomize",
+      "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\site-packages\\sitecustomize.py',\"NEVER\")",
+      "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\site-packages\\sitecustomize.py')"
+    },
+    {
+      "name": "usercustomize",
+      "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\site-packages\\usercustomize.py',\"NEVER\")",
+      "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\site-packages\\usercustomize.py')"
+    },
+    {
+      "name": "cache",
+      "before": "[void][IO.Directory]::CreateDirectory('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\__pycache__')",
+      "after": "[IO.Directory]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\__pycache__')"
+    },
+    {
+      "name": "extra-dir",
+      "before": "[void][IO.Directory]::CreateDirectory('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\unexpected')",
+      "after": "[IO.Directory]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\unexpected')"
+    },
+    {
+      "name": "root-venv",
+      "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\pyvenv.cfg',\"NEVER\")",
+      "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\pyvenv.cfg')"
+    },
+    {
+      "name": "parent-venv",
+      "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\pyvenv.cfg',\"NEVER\")",
+      "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\pyvenv.cfg')"
+    },
+    {
+      "name": "invalid-record",
+      "before": "$m=@{files=@(@{name='../outside';sha256='0000000000000000000000000000000000000000000000000000000000000000'})}"
+    },
+    {
+      "name": "invalid-hash",
+      "before": "$m=@{files=@(@{name='python.exe';sha256='bad'})}"
+    },
+    {
+      "name": "read-fault",
+      "before": "$handle=[IO.File]::Open('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-iOAMfK\\python\\Lib\\codex-rejected-cas.pem',[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)",
+      "after": "$handle.Dispose();$handle=$null"
+    },
+    {
+      "name": "nominal-after-corruption"
+    }
+  ],
+  "stderr": ""
+}

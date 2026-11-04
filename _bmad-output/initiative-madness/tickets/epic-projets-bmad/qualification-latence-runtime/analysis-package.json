@@ -1,0 +1,250 @@
+{
+  "source": "verification-package-1793764613701.json",
+  "sourceSha256": "2e65b311a17b70f4913edc9121bc7ee572ab56728a746e04d6dea2f283f4a85e",
+  "guardMs": {
+    "baseline": {
+      "min": 14499,
+      "max": 15773,
+      "median": 15370.5
+    },
+    "candidate": {
+      "min": 1268,
+      "max": 1853,
+      "median": 1465.5
+    }
+  },
+  "wallTwoGuardsMs": {
+    "baseline": {
+      "min": 31658.6639,
+      "max": 33389.0691,
+      "median": 32583.545700000002
+    },
+    "candidate": {
+      "min": 5214.3174,
+      "max": 6909.615399999995,
+      "median": 5665.0466000000015
+    }
+  },
+  "candidateLoadAndCompileMs": {
+    "min": 873,
+    "max": 1214,
+    "median": 1186
+  },
+  "package": {
+    "version": "0.2.8",
+    "asarSha256": "15ef1a728a5cfd414f03db026bf0ba0d7eb9d42499da42b466ff6be408e3a3fe",
+    "mainSha256": "0b6e83fedd939533985574b9d953bc42c9a0eec3745479e61081ffdd5568c795"
+  },
+  "producerSha256": "67b919567a7f841779e75a8fef236ebe9b473dcb778d607b97635982cb0a977b",
+  "reusedCorpus": {
+    "session": 95279,
+    "reason": "Completed corpus/edges/resource refusal; subsequent ASAR forward-slash selector failed before pairs/local. Corpus not replayed.",
+    "producer": {
+      "capsule": "producer-package.mjs.txt",
+      "sha256": "a1f05468bd84a89446ad4097d2c8d83578a7da0b3dcb6b7c7a066ead9092e7ce",
+      "capturedBeforeRun": true
+    },
+    "packageAsarSha256": "15ef1a728a5cfd414f03db026bf0ba0d7eb9d42499da42b466ff6be408e3a3fe"
+  },
+  "operations": [
+    {
+      "request": {
+        "op": "fresh",
+        "prepared": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\operations\\operation-c28c826f-6e5a-469a-9dd4-f25c838d8f15\\data",
+        "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\operations\\operation-5607b704-364b-4a69-99d9-abb91129464b\\data"
+      },
+      "phases": {
+        "resources_ms": 1297,
+        "runtime_copy_ms": 64,
+        "runtime_guard_ms": 2087,
+        "native_group_ms": 9601
+      },
+      "python": {
+        "worker_ms": 7401,
+        "runtime_guard_ms": 1298
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 28508,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 144,
+        "elapsed_ms": 9359
+      }
+    },
+    {
+      "request": {
+        "op": "native",
+        "prepared": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\operations\\operation-c28c826f-6e5a-469a-9dd4-f25c838d8f15\\data",
+        "kind": "config",
+        "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\operations\\operation-86e2878a-0f79-49c8-88d4-0357ebae2461\\data"
+      },
+      "phases": {
+        "resources_ms": 1363,
+        "runtime_copy_ms": 98,
+        "runtime_guard_ms": 2530,
+        "native_group_ms": 11992
+      },
+      "python": {
+        "worker_ms": 9432,
+        "runtime_guard_ms": 1514
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 8020,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 184,
+        "elapsed_ms": 11620
+      }
+    },
+    {
+      "request": {
+        "op": "read",
+        "prepared": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\operations\\operation-c28c826f-6e5a-469a-9dd4-f25c838d8f15\\data",
+        "reference": "required-context",
+        "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\operations\\operation-c1467599-be7b-47a3-99b1-695cf7cf1189\\data"
+      },
+      "phases": {
+        "resources_ms": 1554,
+        "runtime_copy_ms": 115,
+        "runtime_guard_ms": 2807,
+        "native_group_ms": 9701
+      },
+      "python": {
+        "worker_ms": 6979,
+        "runtime_guard_ms": 1485
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 24692,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 174,
+        "elapsed_ms": 9331
+      }
+    },
+    {
+      "request": {
+        "op": "prepare",
+        "project": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\project",
+        "roots": [
+          "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\project\\.agents\\skills"
+        ],
+        "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\operations\\operation-c28c826f-6e5a-469a-9dd4-f25c838d8f15\\data"
+      },
+      "phases": {
+        "resources_ms": 1296,
+        "runtime_copy_ms": 6886,
+        "runtime_guard_ms": 2124,
+        "native_group_ms": 14565
+      },
+      "python": {
+        "worker_ms": 11423,
+        "runtime_guard_ms": 1455
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 49948,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 115,
+        "elapsed_ms": 14255
+      }
+    },
+    {
+      "request": {
+        "op": "native",
+        "prepared": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\operations\\operation-c28c826f-6e5a-469a-9dd4-f25c838d8f15\\data",
+        "kind": "knowledge",
+        "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\operations\\operation-f7f474e2-d8dd-4b02-8103-81414c9d06bd\\data"
+      },
+      "phases": {
+        "resources_ms": 1280,
+        "runtime_copy_ms": 63,
+        "runtime_guard_ms": 2099,
+        "native_group_ms": 12097
+      },
+      "python": {
+        "worker_ms": 9690,
+        "runtime_guard_ms": 2398
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 21000,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 206,
+        "elapsed_ms": 11737
+      }
+    }
+  ],
+  "localPhases": [
+    {
+      "name": "prepare",
+      "durationMs": 27021
+    },
+    {
+      "name": "fresh",
+      "durationMs": 15115
+    },
+    {
+      "name": "native-knowledge",
+      "durationMs": 17609
+    },
+    {
+      "name": "native-config",
+      "durationMs": 18089
+    },
+    {
+      "name": "read-required-context",
+      "durationMs": 16555
+    }
+  ],
+  "allJobsStopped": true,
+  "localCleanup": {
+    "removed": true,
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe",
+    "id": "0ef681ab-b463-4f0d-a755-25e796395057"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "session": 71905,
+  "exit": 0,
+  "producerCapsule": "producer-source-71905.mjs.txt",
+  "sha256": "744c4a73514e3ecec0696ce92eb8d4f760e1af8b821d8daad6b1e83be3257cf6",
+  "reconstruction": "Removed exactly the two assertion statements added after session71905 completed. These statements do not change measurements. Capsule hash computed after run, not recorded contemporaneously at launch; preflight hashes were recorded by each probe.",
+  "verifier": "Inline postvalidation used the same two predicates added to qualify.mjs after source71905; it did not produce the measurements",
+  "verifierSha256": "11e7da11b75d240b2eda1c4bf01103fe8bbd69900d49442af17a7f5a18e4278c",
+  "postvalidation": "source-postvalidation.json",
+  "sourceReport": "verification-source-1793763790153.json",
+  "verifierStage": "SHA shown for the intermediate checker after two assertions, before package producer-hash instrumentation",
+  "finalVerifierCapsule": "producer-package.mjs.txt"
+}

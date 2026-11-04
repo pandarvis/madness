@@ -1,0 +1,7 @@
+{
+  "version": "0.2.8",
+  "output": "dist/runtime-guard-reviewed",
+  "exit": 0,
+  "probe": "PE MZ249797632bytes, read/write open succeeded before retry",
+  "firstFailure": "UNKNOWN opening Madness.exe at resEdit.ts:50; cause unknown, no antivirus attribution"
+}

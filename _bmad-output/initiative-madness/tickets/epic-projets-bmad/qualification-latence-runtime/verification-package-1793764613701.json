@@ -1,0 +1,1234 @@
+{
+  "producerSha256": "67b919567a7f841779e75a8fef236ebe9b473dcb778d607b97635982cb0a977b",
+  "startedAt": "2026-11-04T03:53:15.383Z",
+  "label": "package",
+  "packageRoot": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\runtime-guard-reviewed\\win-unpacked",
+  "resourcesProof": [
+    {
+      "name": "bmad-help.md",
+      "pin": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+      "actual": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+      "source": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369"
+    },
+    {
+      "name": "bmad-SKILL.md",
+      "pin": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+      "actual": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+      "source": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7"
+    },
+    {
+      "name": "bootstrap.py",
+      "pin": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+      "actual": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+      "source": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94"
+    },
+    {
+      "name": "capture.py",
+      "pin": "b03a1d1426b75582aa279096aa373d3615b174c71498058bef61b09b280dafeb",
+      "actual": "b03a1d1426b75582aa279096aa373d3615b174c71498058bef61b09b280dafeb",
+      "source": "b03a1d1426b75582aa279096aa373d3615b174c71498058bef61b09b280dafeb"
+    },
+    {
+      "name": "config_utils.py",
+      "pin": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+      "actual": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+      "source": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1"
+    },
+    {
+      "name": "knowledge.py",
+      "pin": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+      "actual": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+      "source": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd"
+    },
+    {
+      "name": "launcher.ps1",
+      "pin": "52f42c1ec152befd03d034ae801f90e37877a41089ebefe2658be5c18e200de1",
+      "actual": "52f42c1ec152befd03d034ae801f90e37877a41089ebefe2658be5c18e200de1",
+      "source": "52f42c1ec152befd03d034ae801f90e37877a41089ebefe2658be5c18e200de1"
+    },
+    {
+      "name": "preflight.ps1",
+      "pin": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "actual": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "source": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b"
+    },
+    {
+      "name": "resolve_config.py",
+      "pin": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+      "actual": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+      "source": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762"
+    },
+    {
+      "name": "runtime_guard.py",
+      "pin": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+      "actual": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+      "source": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49"
+    },
+    {
+      "name": "runtime.json",
+      "pin": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+      "actual": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+      "source": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575"
+    },
+    {
+      "name": "supervision.ps1",
+      "pin": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+      "actual": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+      "source": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493"
+    },
+    {
+      "name": "worker.py",
+      "pin": "8967fd9ddd119939294017d8cae4254f80c15f1312e0202a067873b8bf1bade6",
+      "actual": "8967fd9ddd119939294017d8cae4254f80c15f1312e0202a067873b8bf1bade6",
+      "source": "8967fd9ddd119939294017d8cae4254f80c15f1312e0202a067873b8bf1bade6"
+    },
+    {
+      "name": "progress.py",
+      "pin": "03824562e5109170bbc63b1487a666127a9f0de7712e1b5c6938452585296420",
+      "actual": "03824562e5109170bbc63b1487a666127a9f0de7712e1b5c6938452585296420",
+      "source": "03824562e5109170bbc63b1487a666127a9f0de7712e1b5c6938452585296420"
+    }
+  ],
+  "sourceInputs": [
+    {
+      "name": "resources/bmad-help/preflight.ps1",
+      "sha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b"
+    },
+    {
+      "name": "resources/bmad-help/runtime.json",
+      "sha256": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575"
+    },
+    {
+      "name": "resources/bmad-help/runtime_guard.py",
+      "sha256": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49"
+    },
+    {
+      "name": "src/adapters/bmad/help-manifest.ts",
+      "sha256": "0744194a0c853abe2bb2fe2fb54e58200c71645fc53c33b47f9436b75d09abd3"
+    },
+    {
+      "name": "src/adapters/bmad/help.ts",
+      "sha256": "4979d763f2a7a4c822a199535b45c87af1c1e91bd2ed0b87eb8b1c778a937ed6"
+    },
+    {
+      "name": "src/adapters/bmad/help-owned-run.ts",
+      "sha256": "640e57869c792dabe6bfcfba93e8cb5bc0683c83640f735e4663d1fa5556b621"
+    },
+    {
+      "name": "scripts/qualification/bmad-help.mjs",
+      "sha256": "0589e3037f29c33256b94b2e60124c1e527d0046b0c00fb2a11c35d372d29f45"
+    },
+    {
+      "name": "tests/bmad-runtime-preflight.test.mjs",
+      "sha256": "87dcca3e5548a079907e1b1c31b06321c0ab09fc0990f279117626407125e25b"
+    },
+    {
+      "name": "tests/bmad-help-supervision.test.mjs",
+      "sha256": "613215163f65a39efe7d1c1a554154ae772432e9d5c11baf5af7a223ad3eee3c"
+    },
+    {
+      "name": "tests/helpers/help-native.mjs",
+      "sha256": "eaf020bc71cb064cc266575b9e4429c41664d824465e4e392ce67652d1ae8a03"
+    },
+    {
+      "name": "tests/bmad-context-sources.test.mjs",
+      "sha256": "8005d430e717c341f53141560408dc321541f6a454d5d859626696da76bf44fb"
+    },
+    {
+      "name": "tests/bmad-help-boundaries.test.mjs",
+      "sha256": "66564b361c07e35d7ac8c8f0f1899cc34cc40b841d39001b48fe0999dd711639"
+    },
+    {
+      "name": "tests/bmad-help.test.mjs",
+      "sha256": "09f8ceb2f1c64f45edf43d9410a03f0a37b3a488f745664dee6ca2612fe42dc8"
+    },
+    {
+      "name": "package.json",
+      "sha256": "3227c6f7a568580d21318d68574b55cd6483ae35ac4e4f0b6844b372cab80301"
+    },
+    {
+      "name": "package-lock.json",
+      "sha256": "2231cce0fce2589d5d271c62155b0b072bb5cc43c2a51aa9ac4c73e97f84de4a"
+    }
+  ],
+  "profile": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v24.13.0",
+    "windows": "Windows 11 Enterprise",
+    "release": "10.0.26200",
+    "cpu": "Intel(R) Core(TM) Ultra 7 165U",
+    "cache": "Windows filesystem cache not purged; every admission rehashes all735files"
+  },
+  "baseline": {
+    "revision": "eaecc68b3a232f46d05c69ba14d9158e49c5efac",
+    "sha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91"
+  },
+  "reusedCorpus": {
+    "session": 95279,
+    "reason": "Completed corpus/edges/resource refusal; subsequent ASAR forward-slash selector failed before pairs/local. Corpus not replayed.",
+    "producer": {
+      "capsule": "producer-package.mjs.txt",
+      "sha256": "a1f05468bd84a89446ad4097d2c8d83578a7da0b3dcb6b7c7a066ead9092e7ce",
+      "capturedBeforeRun": true
+    },
+    "packageAsarSha256": "15ef1a728a5cfd414f03db026bf0ba0d7eb9d42499da42b466ff6be408e3a3fe"
+  },
+  "matrix": {
+    "label": "package",
+    "owner": {
+      "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2",
+      "id": "5946026d-307a-4c8c-a47d-b6da8da4667d",
+      "prefix": "mg-matrix-"
+    },
+    "manifestSha256": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+    "files": 735,
+    "baseline": {
+      "processInnerMs": 62554,
+      "loadMs": 30,
+      "results": [
+        {
+          "error": null,
+          "guardMs": 16852,
+          "admitted": true,
+          "name": "nominal",
+          "launchMarker": true
+        },
+        {
+          "error": "RUNTIME_CHANGED: Lib/codex-rejected-cas.pem",
+          "guardMs": 756,
+          "admitted": false,
+          "name": "changed",
+          "launchMarker": false
+        },
+        {
+          "error": "RUNTIME_MISSING",
+          "guardMs": 13956,
+          "admitted": false,
+          "name": "missing",
+          "launchMarker": false
+        },
+        {
+          "error": "RUNTIME_EXTRA: Lib/site-packages/sitecustomize.py",
+          "guardMs": 5484,
+          "admitted": false,
+          "name": "sitecustomize",
+          "launchMarker": false
+        },
+        {
+          "error": "RUNTIME_EXTRA: Lib/site-packages/usercustomize.py",
+          "guardMs": 7641,
+          "admitted": false,
+          "name": "usercustomize",
+          "launchMarker": false
+        },
+        {
+          "error": "RUNTIME_EXTRA: Lib/__pycache__",
+          "guardMs": 732,
+          "admitted": false,
+          "name": "cache",
+          "launchMarker": false
+        },
+        {
+          "error": "RUNTIME_EXTRA: unexpected",
+          "guardMs": 495,
+          "admitted": false,
+          "name": "extra-dir",
+          "launchMarker": false
+        },
+        {
+          "error": "RUNTIME_VENV",
+          "guardMs": 170,
+          "admitted": false,
+          "name": "root-venv",
+          "launchMarker": false
+        },
+        {
+          "error": "RUNTIME_VENV",
+          "guardMs": 181,
+          "admitted": false,
+          "name": "parent-venv",
+          "launchMarker": false
+        },
+        {
+          "error": "RUNTIME_RECORD",
+          "guardMs": 164,
+          "admitted": false,
+          "name": "invalid-record",
+          "launchMarker": false
+        },
+        {
+          "error": "RUNTIME_EXTRA: DLLs",
+          "guardMs": 371,
+          "admitted": false,
+          "name": "invalid-hash",
+          "launchMarker": false
+        },
+        {
+          "error": "The process cannot access the file 'C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem' because it is being used by another process.",
+          "guardMs": 760,
+          "admitted": false,
+          "name": "read-fault",
+          "launchMarker": false
+        },
+        {
+          "error": null,
+          "guardMs": 13934,
+          "admitted": true,
+          "name": "nominal-after-corruption",
+          "launchMarker": true
+        }
+      ],
+      "wallMs": 65711.57979999999,
+      "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+      "cases": [
+        {
+          "name": "nominal"
+        },
+        {
+          "name": "changed",
+          "before": "$saved=[IO.File]::ReadAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem');[IO.File]::AppendAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem',\"CHANGED\")",
+          "after": "[IO.File]::WriteAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem',$saved)"
+        },
+        {
+          "name": "missing",
+          "before": "$saved=[IO.File]::ReadAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem');[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem')",
+          "after": "[IO.File]::WriteAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem',$saved)"
+        },
+        {
+          "name": "sitecustomize",
+          "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\site-packages\\sitecustomize.py',\"NEVER\")",
+          "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\site-packages\\sitecustomize.py')"
+        },
+        {
+          "name": "usercustomize",
+          "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\site-packages\\usercustomize.py',\"NEVER\")",
+          "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\site-packages\\usercustomize.py')"
+        },
+        {
+          "name": "cache",
+          "before": "[void][IO.Directory]::CreateDirectory('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\__pycache__')",
+          "after": "[IO.Directory]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\__pycache__')"
+        },
+        {
+          "name": "extra-dir",
+          "before": "[void][IO.Directory]::CreateDirectory('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\unexpected')",
+          "after": "[IO.Directory]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\unexpected')"
+        },
+        {
+          "name": "root-venv",
+          "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\pyvenv.cfg',\"NEVER\")",
+          "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\pyvenv.cfg')"
+        },
+        {
+          "name": "parent-venv",
+          "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\pyvenv.cfg',\"NEVER\")",
+          "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\pyvenv.cfg')"
+        },
+        {
+          "name": "invalid-record",
+          "before": "$m=@{files=@(@{name='../outside';sha256='0000000000000000000000000000000000000000000000000000000000000000'})}"
+        },
+        {
+          "name": "invalid-hash",
+          "before": "$m=@{files=@(@{name='python.exe';sha256='bad'})}"
+        },
+        {
+          "name": "read-fault",
+          "before": "$handle=[IO.File]::Open('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem',[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)",
+          "after": "$handle.Dispose();$handle=$null"
+        },
+        {
+          "name": "nominal-after-corruption"
+        }
+      ],
+      "stderr": ""
+    },
+    "candidate": {
+      "results": [
+        {
+          "launchMarker": true,
+          "guardMs": 2299,
+          "name": "nominal",
+          "admitted": true,
+          "error": null
+        },
+        {
+          "launchMarker": false,
+          "guardMs": 330,
+          "name": "changed",
+          "admitted": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_CHANGED: Lib/codex-rejected-cas.pem\""
+        },
+        {
+          "launchMarker": false,
+          "guardMs": 1392,
+          "name": "missing",
+          "admitted": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_MISSING\""
+        },
+        {
+          "launchMarker": false,
+          "guardMs": 958,
+          "name": "sitecustomize",
+          "admitted": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_EXTRA: Lib/site-packages/sitecustomize.py\""
+        },
+        {
+          "launchMarker": false,
+          "guardMs": 966,
+          "name": "usercustomize",
+          "admitted": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_EXTRA: Lib/site-packages/usercustomize.py\""
+        },
+        {
+          "launchMarker": false,
+          "guardMs": 1411,
+          "name": "cache",
+          "admitted": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_EXTRA: Lib/__pycache__\""
+        },
+        {
+          "launchMarker": false,
+          "guardMs": 2342,
+          "name": "extra-dir",
+          "admitted": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_EXTRA: unexpected\""
+        },
+        {
+          "launchMarker": false,
+          "guardMs": 16,
+          "name": "root-venv",
+          "admitted": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_VENV\""
+        },
+        {
+          "launchMarker": false,
+          "guardMs": 16,
+          "name": "parent-venv",
+          "admitted": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_VENV\""
+        },
+        {
+          "launchMarker": false,
+          "guardMs": 29,
+          "name": "invalid-record",
+          "admitted": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_RECORD\""
+        },
+        {
+          "launchMarker": false,
+          "guardMs": 9,
+          "name": "invalid-hash",
+          "admitted": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_RECORD\""
+        },
+        {
+          "launchMarker": false,
+          "guardMs": 377,
+          "name": "read-fault",
+          "admitted": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_READ\""
+        },
+        {
+          "launchMarker": true,
+          "guardMs": 2189,
+          "name": "nominal-after-corruption",
+          "admitted": true,
+          "error": null
+        }
+      ],
+      "loadMs": 2874,
+      "processInnerMs": 15955,
+      "wallMs": 19621.8474,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "nominal"
+        },
+        {
+          "name": "changed",
+          "before": "$saved=[IO.File]::ReadAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem');[IO.File]::AppendAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem',\"CHANGED\")",
+          "after": "[IO.File]::WriteAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem',$saved)"
+        },
+        {
+          "name": "missing",
+          "before": "$saved=[IO.File]::ReadAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem');[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem')",
+          "after": "[IO.File]::WriteAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem',$saved)"
+        },
+        {
+          "name": "sitecustomize",
+          "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\site-packages\\sitecustomize.py',\"NEVER\")",
+          "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\site-packages\\sitecustomize.py')"
+        },
+        {
+          "name": "usercustomize",
+          "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\site-packages\\usercustomize.py',\"NEVER\")",
+          "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\site-packages\\usercustomize.py')"
+        },
+        {
+          "name": "cache",
+          "before": "[void][IO.Directory]::CreateDirectory('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\__pycache__')",
+          "after": "[IO.Directory]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\__pycache__')"
+        },
+        {
+          "name": "extra-dir",
+          "before": "[void][IO.Directory]::CreateDirectory('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\unexpected')",
+          "after": "[IO.Directory]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\unexpected')"
+        },
+        {
+          "name": "root-venv",
+          "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\pyvenv.cfg',\"NEVER\")",
+          "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\pyvenv.cfg')"
+        },
+        {
+          "name": "parent-venv",
+          "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\pyvenv.cfg',\"NEVER\")",
+          "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\pyvenv.cfg')"
+        },
+        {
+          "name": "invalid-record",
+          "before": "$m=@{files=@(@{name='../outside';sha256='0000000000000000000000000000000000000000000000000000000000000000'})}"
+        },
+        {
+          "name": "invalid-hash",
+          "before": "$m=@{files=@(@{name='python.exe';sha256='bad'})}"
+        },
+        {
+          "name": "read-fault",
+          "before": "$handle=[IO.File]::Open('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-EUGoy2\\python\\Lib\\codex-rejected-cas.pem',[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)",
+          "after": "$handle.Dispose();$handle=$null"
+        },
+        {
+          "name": "nominal-after-corruption"
+        }
+      ],
+      "stderr": ""
+    },
+    "hardlink": [
+      {
+        "name": "baseline",
+        "results": [
+          {
+            "name": "hardlink",
+            "admitted": false,
+            "launchMarker": false,
+            "guardMs": 1011,
+            "error": "RUNTIME_HARDLINK"
+          }
+        ],
+        "processInnerMs": 1388,
+        "loadMs": 37,
+        "wallMs": 3505.6362999999983,
+        "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+        "cases": [
+          {
+            "name": "hardlink"
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "name": "candidate",
+        "loadMs": 1275,
+        "results": [
+          {
+            "admitted": false,
+            "guardMs": 184,
+            "name": "hardlink",
+            "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_HARDLINK\"",
+            "launchMarker": false
+          }
+        ],
+        "processInnerMs": 1583,
+        "wallMs": 3219.410499999998,
+        "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+        "cases": [
+          {
+            "name": "hardlink"
+          }
+        ],
+        "stderr": ""
+      }
+    ],
+    "junction": [
+      {
+        "name": "baseline",
+        "results": [
+          {
+            "admitted": false,
+            "launchMarker": false,
+            "name": "junction",
+            "error": "RUNTIME_REPARSE",
+            "guardMs": 167
+          }
+        ],
+        "loadMs": 42,
+        "processInnerMs": 586,
+        "wallMs": 2011.9235000000044,
+        "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+        "cases": [
+          {
+            "name": "junction"
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "name": "candidate",
+        "processInnerMs": 1351,
+        "loadMs": 1183,
+        "results": [
+          {
+            "admitted": false,
+            "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_REPARSE\"",
+            "launchMarker": false,
+            "guardMs": 44,
+            "name": "junction"
+          }
+        ],
+        "wallMs": 2606.5141000000003,
+        "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+        "cases": [
+          {
+            "name": "junction"
+          }
+        ],
+        "stderr": ""
+      }
+    ],
+    "symlinkFile": {
+      "exercised": false,
+      "reason": "EPERM"
+    },
+    "canaryExact": true,
+    "limits": [
+      "Data-only UV substitute after the exact guard; no UV invoked by corpus.",
+      "No absence of races or universal filesystem safety claimed."
+    ]
+  },
+  "edges": {
+    "owner": {
+      "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-edge-th4cTo",
+      "id": "0aa00b11-776a-45fd-9a7d-a7b1d59c2a1a",
+      "prefix": "mg-edge-"
+    },
+    "observations": [
+      {
+        "implementation": "baseline",
+        "name": "long-nominal",
+        "results": [
+          {
+            "error": null,
+            "launchMarker": true,
+            "admitted": true,
+            "name": "long-nominal",
+            "guardMs": 19364
+          }
+        ],
+        "loadMs": 48,
+        "processInnerMs": 19821,
+        "wallMs": 21389.657000000007,
+        "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+        "cases": [
+          {
+            "name": "long-nominal"
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "implementation": "candidate",
+        "name": "long-nominal",
+        "results": [
+          {
+            "name": "long-nominal",
+            "admitted": true,
+            "error": null,
+            "guardMs": 1978,
+            "launchMarker": true
+          }
+        ],
+        "loadMs": 1214,
+        "processInnerMs": 3354,
+        "wallMs": 4939.267300000007,
+        "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+        "cases": [
+          {
+            "name": "long-nominal"
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "implementation": "baseline",
+        "name": "replaced-ancestor",
+        "processInnerMs": 544,
+        "loadMs": 39,
+        "results": [
+          {
+            "admitted": false,
+            "guardMs": 158,
+            "name": "replaced-ancestor",
+            "error": "RUNTIME_REPARSE",
+            "launchMarker": false
+          }
+        ],
+        "wallMs": 1763.5818,
+        "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+        "cases": [
+          {
+            "name": "replaced-ancestor"
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "implementation": "candidate",
+        "name": "replaced-ancestor",
+        "processInnerMs": 1637,
+        "loadMs": 1449,
+        "results": [
+          {
+            "guardMs": 51,
+            "admitted": false,
+            "name": "replaced-ancestor",
+            "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_REPARSE\"",
+            "launchMarker": false
+          }
+        ],
+        "wallMs": 2979.546000000002,
+        "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+        "cases": [
+          {
+            "name": "replaced-ancestor"
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "implementation": "baseline",
+        "name": "count-bound",
+        "loadMs": 42,
+        "results": [
+          {
+            "guardMs": 507,
+            "error": "RUNTIME_EXTRA: Lib",
+            "admitted": false,
+            "launchMarker": false,
+            "name": "count-bound"
+          }
+        ],
+        "processInnerMs": 890,
+        "wallMs": 2663.7378999999783,
+        "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+        "cases": [
+          {
+            "name": "count-bound"
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "implementation": "candidate",
+        "name": "count-bound",
+        "results": [
+          {
+            "name": "count-bound",
+            "launchMarker": false,
+            "admitted": false,
+            "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_RECORD\"",
+            "guardMs": 102
+          }
+        ],
+        "processInnerMs": 1406,
+        "loadMs": 1174,
+        "wallMs": 2920.9945000000007,
+        "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+        "cases": [
+          {
+            "name": "count-bound"
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "implementation": "baseline",
+        "name": "depth-bound",
+        "results": [
+          {
+            "name": "depth-bound",
+            "admitted": false,
+            "guardMs": 456,
+            "launchMarker": false,
+            "error": "RUNTIME_EXTRA: Lib"
+          }
+        ],
+        "loadMs": 46,
+        "processInnerMs": 844,
+        "wallMs": 2349.4605999999912,
+        "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+        "cases": [
+          {
+            "name": "depth-bound"
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "implementation": "candidate",
+        "name": "depth-bound",
+        "results": [
+          {
+            "launchMarker": false,
+            "admitted": false,
+            "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_BOUND\"",
+            "name": "depth-bound",
+            "guardMs": 58
+          }
+        ],
+        "loadMs": 1304,
+        "processInnerMs": 1463,
+        "wallMs": 3097.0645000000077,
+        "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+        "cases": [
+          {
+            "name": "depth-bound"
+          }
+        ],
+        "stderr": ""
+      }
+    ],
+    "lexical": {
+      "results": [
+        {
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_RECORD\"",
+          "launchMarker": false,
+          "guardMs": 53,
+          "admitted": false,
+          "name": "lexical-dotdot"
+        }
+      ],
+      "processInnerMs": 1155,
+      "loadMs": 969,
+      "wallMs": 2514.8991000000096,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "lexical-dotdot"
+        }
+      ],
+      "stderr": ""
+    },
+    "identityFault": {
+      "loadMs": 1186,
+      "processInnerMs": 1430,
+      "results": [
+        {
+          "guardMs": 80,
+          "admitted": false,
+          "launchMarker": false,
+          "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_IDENTITY\"",
+          "name": "metadata-fault"
+        }
+      ],
+      "wallMs": 3049.6198999999906,
+      "scriptSha256": "e0eb08ec0cf502e1651b73eebfc8b7c1d47b8445d72c8095af3999b6b074b933",
+      "cases": [
+        {
+          "name": "metadata-fault"
+        }
+      ],
+      "stderr": ""
+    },
+    "longPathChars": 312,
+    "finalRuntime": {
+      "processInnerMs": 2887,
+      "loadMs": 1188,
+      "results": [
+        {
+          "admitted": true,
+          "error": null,
+          "name": "restored-nominal",
+          "guardMs": 1558,
+          "launchMarker": true
+        }
+      ],
+      "wallMs": 4392.292300000001,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "restored-nominal"
+        }
+      ],
+      "stderr": ""
+    }
+  },
+  "resourceRefusal": {
+    "failure": "PROFILE_CHANGED",
+    "shutdown": "stopped",
+    "states": [
+      {
+        "started": false,
+        "outcome": "start-failed"
+      }
+    ],
+    "alteredResourceSha256": "808a48543c41d6cb5722cb359720936894329f7a86e8ded28deb1649222507c3",
+    "expected": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b"
+  },
+  "package": {
+    "version": "0.2.8",
+    "asarSha256": "15ef1a728a5cfd414f03db026bf0ba0d7eb9d42499da42b466ff6be408e3a3fe",
+    "mainSha256": "0b6e83fedd939533985574b9d953bc42c9a0eec3745479e61081ffdd5568c795"
+  },
+  "paired": [
+    {
+      "order": "baseline-candidate",
+      "name": "baseline",
+      "processInnerMs": 31159,
+      "loadMs": 31,
+      "results": [
+        {
+          "launchMarker": true,
+          "admitted": true,
+          "error": null,
+          "guardMs": 15689,
+          "name": "nominal-0"
+        },
+        {
+          "launchMarker": true,
+          "admitted": true,
+          "error": null,
+          "guardMs": 15078,
+          "name": "nominal-1"
+        }
+      ],
+      "wallMs": 33389.0691,
+      "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+      "cases": [
+        {
+          "name": "nominal-0"
+        },
+        {
+          "name": "nominal-1"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "order": "baseline-candidate",
+      "name": "candidate",
+      "processInnerMs": 5042,
+      "loadMs": 1214,
+      "results": [
+        {
+          "error": null,
+          "launchMarker": true,
+          "name": "nominal-0",
+          "guardMs": 1853,
+          "admitted": true
+        },
+        {
+          "error": null,
+          "launchMarker": true,
+          "name": "nominal-1",
+          "guardMs": 1830,
+          "admitted": true
+        }
+      ],
+      "wallMs": 6909.615399999995,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "nominal-0"
+        },
+        {
+          "name": "nominal-1"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "order": "candidate-baseline",
+      "name": "candidate",
+      "results": [
+        {
+          "name": "nominal-0",
+          "launchMarker": true,
+          "guardMs": 1268,
+          "admitted": true,
+          "error": null
+        },
+        {
+          "name": "nominal-1",
+          "launchMarker": true,
+          "guardMs": 1500,
+          "admitted": true,
+          "error": null
+        }
+      ],
+      "loadMs": 873,
+      "processInnerMs": 3805,
+      "wallMs": 5214.3174,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "nominal-0"
+        },
+        {
+          "name": "nominal-1"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "order": "candidate-baseline",
+      "name": "baseline",
+      "processInnerMs": 30387,
+      "loadMs": 40,
+      "results": [
+        {
+          "launchMarker": true,
+          "error": null,
+          "admitted": true,
+          "name": "nominal-0",
+          "guardMs": 15495
+        },
+        {
+          "launchMarker": true,
+          "error": null,
+          "admitted": true,
+          "name": "nominal-1",
+          "guardMs": 14499
+        }
+      ],
+      "wallMs": 31658.6639,
+      "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+      "cases": [
+        {
+          "name": "nominal-0"
+        },
+        {
+          "name": "nominal-1"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "order": "baseline-candidate",
+      "name": "baseline",
+      "results": [
+        {
+          "launchMarker": true,
+          "guardMs": 15773,
+          "error": null,
+          "admitted": true,
+          "name": "nominal-0"
+        },
+        {
+          "launchMarker": true,
+          "guardMs": 15246,
+          "error": null,
+          "admitted": true,
+          "name": "nominal-1"
+        }
+      ],
+      "loadMs": 25,
+      "processInnerMs": 31326,
+      "wallMs": 32583.545700000002,
+      "scriptSha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91",
+      "cases": [
+        {
+          "name": "nominal-0"
+        },
+        {
+          "name": "nominal-1"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "order": "baseline-candidate",
+      "name": "candidate",
+      "loadMs": 1186,
+      "results": [
+        {
+          "error": null,
+          "launchMarker": true,
+          "guardMs": 1431,
+          "name": "nominal-0",
+          "admitted": true
+        },
+        {
+          "error": null,
+          "launchMarker": true,
+          "guardMs": 1421,
+          "name": "nominal-1",
+          "admitted": true
+        }
+      ],
+      "processInnerMs": 4169,
+      "wallMs": 5665.0466000000015,
+      "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "cases": [
+        {
+          "name": "nominal-0"
+        },
+        {
+          "name": "nominal-1"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "pairedCleanup": {
+    "removed": true,
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-pairs-bZzmpZ",
+    "id": "72c5ef9c-6c60-4abb-b972-efbe4cba448d"
+  },
+  "local": {
+    "proof": {
+      "schemaVersion": 1,
+      "mode": "synthetic-real-local-helper-no-provider",
+      "witness": {
+        "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\project",
+        "id": "help-7335360a-e6c8-4fee-98a9-a5f55f2dfcbb",
+        "initiative": "initiative-help-witness"
+      },
+      "bundleRevision": "eff9e81e8b2eeeb6f8298a2ff448016a762a465c8b52c3f54ecc01e259f5bdef",
+      "documents": [
+        {
+          "source": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\project\\.agents\\skills\\bmod-core-tools\\help\\help.md",
+          "sha256": "d06a92b42f77c1ba50369ea6398f191c52042a1e2504a7b306d03a431fecde83",
+          "bytes": 7776,
+          "module": "core-tools"
+        },
+        {
+          "source": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\project\\.agents\\skills\\bmod-method\\help\\help.md",
+          "sha256": "c67ef5332c7e83f5fe8b21bb932416498b33adfe784eacd7e7d27e22be2cfa11",
+          "bytes": 19241,
+          "module": "method"
+        },
+        {
+          "source": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-JpvoTe\\local\\project\\.agents\\skills\\bmod-toolsmith\\help\\help.md",
+          "sha256": "1714dd0e27c8e8b2fd7960c6822240cb8ce387a23c2427b87435b2dca7ab4a9b",
+          "bytes": 11481,
+          "module": "toolsmith"
+        }
+      ],
+      "nativeReady": true,
+      "problems": [
+        "method: missing bmad-retrospective"
+      ],
+      "knowledgeExact": true,
+      "configExact": true,
+      "helperStopped": "stopped",
+      "phases": [
+        {
+          "name": "prepare",
+          "durationMs": 27021
+        },
+        {
+          "name": "fresh",
+          "durationMs": 15115
+        },
+        {
+          "name": "native-knowledge",
+          "durationMs": 17609
+        },
+        {
+          "name": "native-config",
+          "durationMs": 18089
+        },
+        {
+          "name": "read-required-context",
+          "durationMs": 16555
+        }
+      ]
+    },
+    "artifact": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-latence-runtime\\logs\\package-mg-local-JpvoTe",
+    "states": [
+      {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 28508,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 144,
+        "elapsed_ms": 9359
+      },
+      {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 8020,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 184,
+        "elapsed_ms": 11620
+      },
+      {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 24692,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 174,
+        "elapsed_ms": 9331
+      },
+      {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 49948,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 115,
+        "elapsed_ms": 14255
+      },
+      {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 21000,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 206,
+        "elapsed_ms": 11737
+      }
+    ]
+  },
+  "finishedAt": "2026-11-04T03:56:53.701Z"
+}

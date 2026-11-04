@@ -1,0 +1,26 @@
+{
+  "agent": "/root/latency18_boundaries_review",
+  "role": "Security Engineer",
+  "inspectionOnly": true,
+  "scope": "stable batch boundary, callers and fixture cleanup; not final measures/package verdict",
+  "findings": [],
+  "sourceHashesInspected": {
+    "resources/bmad-help/preflight.ps1": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+    "src/adapters/bmad/help-manifest.ts": "0744194a0c853abe2bb2fe2fb54e58200c71645fc53c33b47f9436b75d09abd3",
+    "tests/bmad-runtime-preflight.test.mjs": "87dcca3e5548a079907e1b1c31b06321c0ab09fc0990f279117626407125e25b",
+    "tests/bmad-help-supervision.test.mjs": "613215163f65a39efe7d1c1a554154ae772432e9d5c11baf5af7a223ad3eee3c",
+    "tests/helpers/help-native.mjs": "eaf020bc71cb064cc266575b9e4429c41664d824465e4e392ce67652d1ae8a03",
+    "fixture.mjs": "ba844ef9fb2da88df3c47644071b1b5715cea0b224035f7f323f6a5d22a3420e",
+    "qualify.mjs": "744c4a73514e3ecec0696ce92eb8d4f760e1af8b821d8daad6b1e83be3257cf6",
+    "preflight-baseline.ps1": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91"
+  },
+  "baselineBlob": "811f5474b21febdc4b6d15467b206cdfab797c00",
+  "baselineByteCheck": "exact no-filters; resources/** -text",
+  "limits": [
+    "no test/benchmark/package executed",
+    "19/19 worker-reported not independently rerun",
+    "cases does not establish worker.main",
+    "source/package measurement provenance supplement pending",
+    "old fixtures untouched"
+  ]
+}

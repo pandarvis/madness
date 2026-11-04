@@ -7,11 +7,12 @@ import {tmpdir} from 'node:os'
 import {execFile} from 'node:child_process'
 import {promisify} from 'node:util'
 import {createHash} from 'node:crypto'
+import {ownedTemp,finishFixture} from '../_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/fixture.mjs'
 const execute=promisify(execFile)
 const pwsh=join(process.env.USERPROFILE,'.dotnet/tools/.store/powershell/7.5.4/powershell/7.5.4/tools/net9.0/any/win/pwsh.exe')
 const quote=s=>"'"+s.replaceAll("'","''")+"'"
 test('real Windows Job owns descendants before Resume and returns finitely for root0, timeout, overflow and start failure',async()=>{
- const temporary=await mkdtemp(join(tmpdir(),'madness-help-job-')),root=realpathSync.native(temporary)
+ const owner=await ownedTemp('madness-help-job-'),root=owner.root
  const artifact=resolve('_bmad-output/initiative-madness/.working/help22-supervision-cases',basename(root))
  const caseCeilingMs=15000,startupCeilingMs=15000
  const programs=[
@@ -22,7 +23,7 @@ test('real Windows Job owns descendants before Resume and returns finitely for r
   ['missing','',1000]
  ]
  const controllerTimeoutMs=programs.length*caseCeilingMs+startupCeilingMs
- let controllerFailure=null
+ let controllerFailure=null,controllerComplete=false
  try{
   const resource=resolve('resources/bmad-help')
   const lines=["$ErrorActionPreference='Stop'","$startup=[Diagnostics.Stopwatch]::StartNew()",'. '+quote(join(resource,'preflight.ps1')),'. '+quote(join(resource,'supervision.ps1')),
@@ -37,6 +38,7 @@ test('real Windows Job owns descendants before Resume and returns finitely for r
   }
   try{await execute(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(lines.join('\n'),'utf16le').toString('base64')],{windowsHide:true,timeout:controllerTimeoutMs,maxBuffer:65536})}
   catch(e){controllerFailure={code:e.code??null,killed:e.killed??null,signal:e.signal??null};throw Error('SUPERVISION_CONTROLLER_FAILED '+JSON.stringify(controllerFailure)+' evidence='+artifact)}
+  controllerComplete=true
   const phase=JSON.parse(await readFile(join(root,'phases.json'),'utf8'))
   assert.equal(phase.cases.length,programs.length)
   assert.ok(phase.startup_ms+phase.cases.reduce((sum,c)=>sum+c.duration_ms,0)<controllerTimeoutMs,'complete return within controller phase budget')
@@ -58,13 +60,17 @@ test('real Windows Job owns descendants before Resume and returns finitely for r
   await mkdir(artifact,{recursive:true})
   for(const name of ['phases.json',...programs.flatMap(([name])=>[name+'.json',name+'.out',name+'.err'])])await copyFile(join(root,name),join(artifact,name)).catch(e=>{if(e.code!=='ENOENT')throw e})
   await writeFile(join(artifact,'controller.json'),JSON.stringify({controllerTimeoutMs,startupCeilingMs,caseCeilingMs,controllerFailure,supervisionSha256:createHash('sha256').update(await readFile(resolve('resources/bmad-help/supervision.ps1'))).digest('hex')},null,2)+'\n')
-  await rm(root,{recursive:true,force:true})
+  const states=await Promise.all(programs.map(async([name])=>{try{return JSON.parse(await readFile(join(root,name+'.json'),'utf8'))}catch{return null}}))
+  const cleanup=await finishFixture(owner,{id:owner.id,root,controllerComplete,states})
+  await writeFile(join(artifact,'fixture.json'),JSON.stringify({owner,controllerComplete,states,cleanup},null,2)+'\n')
+  if(!cleanup.removed)console.error(JSON.stringify({retainedHelpFixture:root,artifact,cleanup}))
  }
 })
 
 test('failure after suspended root creation stays started and cannot become a never-started stop proof',async()=>{
  const {writeFile,access,mkdir}=await import('node:fs/promises')
- const folder=realpathSync.native(await mkdtemp(join(tmpdir(),'madness-help-job-start-')))
+ const owner=await ownedTemp('madness-help-job-start-'),folder=owner.root
+ let controllerComplete=false
  try{
   const original=await readFile(resolve('resources/bmad-help/supervision.ps1'),'utf8')
   const needle='Require(AssignProcessToJobObject(owned.job,owned.process));'
@@ -74,6 +80,7 @@ test('failure after suspended root creation stays started and cannot become a ne
   const marker=join(folder,'must-not-run'),program='[IO.File]::WriteAllText('+quote(marker)+',"BAD")'
   const script=["$ErrorActionPreference='Stop'",'. '+quote(resolve('resources/bmad-help/preflight.ps1')),'. '+quote(fault),'$s=[Diagnostics.ProcessStartInfo]::new('+quote(pwsh)+')','foreach($a in @("-NoProfile","-NonInteractive","-EncodedCommand",'+quote(Buffer.from(program,'utf16le').toString('base64'))+')){[void]$s.ArgumentList.Add($a)}','$s.WorkingDirectory='+quote(folder)+';$s.UseShellExecute=$false;$s.CreateNoWindow=$true','$state=$null;$r=Invoke-BmadSupervised $s 1500 '+quote(join(folder,'state.json'))+' @() '+quote(folder)+' '+quote(join(folder,'stdout'))+' '+quote(join(folder,'stderr'))+" '' ([ref]$state)"].join('\n')
   await execute(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,timeout:30000,maxBuffer:65536})
+  controllerComplete=true
   const state=JSON.parse(await readFile(join(folder,'state.json'),'utf8'))
   assert.equal(state.started,true)
   assert.equal(state.start_observation,'root-created-before-failure')
@@ -81,6 +88,13 @@ test('failure after suspended root creation stays started and cannot become a ne
   assert.equal(state.outcome,'supervision-error')
   assert.equal(state.job_active_after_stop,undefined)
   await assert.rejects(access(marker))
- }finally{await rm(folder,{recursive:true,force:true})}
+ }finally{
+  const artifact=resolve('_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs',basename(folder));await mkdir(artifact,{recursive:true})
+  for(const name of ['state.json','stdout','stderr'])await copyFile(join(folder,name),join(artifact,name)).catch(e=>{if(e.code!=='ENOENT')throw e})
+  let state=null;try{state=JSON.parse(await readFile(join(folder,'state.json'),'utf8'))}catch{}
+  const cleanup=await finishFixture(owner,{id:owner.id,root:folder,controllerComplete,states:[state]})
+  await writeFile(join(artifact,'fixture.json'),JSON.stringify({owner,controllerComplete,state,cleanup},null,2)+'\n')
+  if(!cleanup.removed)console.error(JSON.stringify({retainedHelpFixture:folder,artifact,cleanup}))
+ }
 })
 

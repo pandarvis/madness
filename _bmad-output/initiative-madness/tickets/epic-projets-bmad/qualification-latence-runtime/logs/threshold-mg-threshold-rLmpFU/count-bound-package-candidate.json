@@ -1,0 +1,21 @@
+{
+  "results": [
+    {
+      "guardMs": 8432,
+      "launchMarker": false,
+      "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_BOUND\"",
+      "admitted": false,
+      "name": "count-bound"
+    }
+  ],
+  "loadMs": 1155,
+  "processInnerMs": 9771,
+  "wallMs": 11392.972800000003,
+  "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+  "cases": [
+    {
+      "name": "count-bound"
+    }
+  ],
+  "stderr": ""
+}

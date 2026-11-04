@@ -1,0 +1,92 @@
+{
+  "originalDiagnostic": {
+    "source": "../epic-graphe-projet/contrat-graphe/verification-suite.log",
+    "sourceSha256": "a5850ed635eb44514879692f3df58845dcb4544999607aef1c06326b26b8e0ad",
+    "scope": "non-final sources loaded during accidental global diagnostic; no final-pass or causal claim"
+  },
+  "reproduction": {
+    "session": 52645,
+    "exit": 0,
+    "command": "node --test --test-concurrency=1 tests/bmad-context-sources.test.mjs tests/bmad-help-boundaries.test.mjs tests/bmad-help-supervision.test.mjs tests/bmad-help.test.mjs",
+    "log": "logs/diagnostics-targeted-001.log",
+    "sha256": "a78354121e890e458e8dafe009c6a16a04a871e1f7c01bb60575471366120370",
+    "tests": 19,
+    "pass": 19,
+    "fail": 0,
+    "skip": 0
+  },
+  "observations": [
+    {
+      "name": "context-sources",
+      "checks": 25,
+      "outcome": "passed-current-sources",
+      "originalCause": "not established; no transfer from the non-final global diagnostic"
+    },
+    {
+      "name": "help-boundaries",
+      "checks": 25,
+      "outcome": "passed-current-sources",
+      "originalCause": "not established; original two unknown Temp fixtures preserved"
+    },
+    {
+      "name": "supervision",
+      "normalElapsedMs": 2194,
+      "normalDurationMs": 2397,
+      "outcome": "five cases and suspended-start failure passed-current-sources",
+      "originalCause": "not established; this test does not call Assert-BmadClosedRuntime; no causal attribution to runtime hashing",
+      "budgets": "unchanged case15s/controller90s and suspended-fault controller30s",
+      "retainedFixture": "C:/Users/UP60066553/AppData/Local/Temp/madness-help-job-start-IXx1tV",
+      "retainedReason": "root-created-before-failure has no Job0 proof; no cleanup"
+    }
+  ],
+  "untouchedDiagnostics": [
+    {
+      "location": "tests\\connection-probe.test.mjs:87:1",
+      "name": "découverte native exige le chemin standard, le manifeste et un fichier PE (620.3118ms)",
+      "owner": "2.16",
+      "resume": "controlled targeted reproduction with exact sources and owned teardown; preserve first failure and unknown cause"
+    },
+    {
+      "location": "tests\\connection-ui.test.mjs:335:1",
+      "name": "initiatives: clavier, noms longs, compact, deux thèmes et zoom200 sans fuite horizontale (12536.8609ms)",
+      "owner": "2.14/2.16",
+      "resume": "controlled targeted reproduction with exact sources and owned teardown; preserve first failure and unknown cause"
+    },
+    {
+      "location": "tests\\connection-ui.test.mjs:350:1",
+      "name": "initiatives: couleurs locales lisibles et métadonnées alignées dans le thème clair (4300.3572ms)",
+      "owner": "2.14/2.16",
+      "resume": "controlled targeted reproduction with exact sources and owned teardown; preserve first failure and unknown cause"
+    },
+    {
+      "location": "tests\\connection-ui.test.mjs:385:1",
+      "name": "initiatives: choix courant focalisé sans masquer titre et fermeture au compact et zoom200 (3934.009ms)",
+      "owner": "2.14/2.16",
+      "resume": "controlled targeted reproduction with exact sources and owned teardown; preserve first failure and unknown cause"
+    },
+    {
+      "location": "tests\\connection-ui.test.mjs:427:1",
+      "name": "atelier : disposition compacte, buste complet et conteneurs confinés dans les deux thèmes (9386.4721ms)",
+      "owner": "2.14/2.16",
+      "resume": "controlled targeted reproduction with exact sources and owned teardown; preserve first failure and unknown cause"
+    },
+    {
+      "location": "tests\\connection-ui.test.mjs:600:1",
+      "name": "atelier : la saisie et son action restent ensemble au premier écran (8060.2331ms)",
+      "owner": "2.14/2.16",
+      "resume": "controlled targeted reproduction with exact sources and owned teardown; preserve first failure and unknown cause"
+    },
+    {
+      "location": "tests\\connection-ui.test.mjs:828:1",
+      "name": "le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (15595.0859ms)",
+      "owner": "2.14/2.16",
+      "resume": "controlled targeted reproduction with exact sources and owned teardown; preserve first failure and unknown cause"
+    },
+    {
+      "location": "tests\\connection-ui.test.mjs:1129:1",
+      "name": "navigation: les infobulles projets restent peintes devant bannière et onglets (2574.2529ms)",
+      "owner": "2.14/2.16",
+      "resume": "controlled targeted reproduction with exact sources and owned teardown; preserve first failure and unknown cause"
+    }
+  ]
+}

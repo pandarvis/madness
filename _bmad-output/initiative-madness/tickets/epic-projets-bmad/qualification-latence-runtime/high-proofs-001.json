@@ -1,0 +1,36 @@
+{
+  "agent": "/root/latency18_boundaries_review",
+  "role": "Security Engineer",
+  "inspectionOnly": true,
+  "findings": [
+    {
+      "id": "H1",
+      "verdict": "medium",
+      "route": "patch",
+      "location": "qualification-latence-runtime/qualify.mjs:90–98",
+      "claim": "count/depth fixtures refuse before intended traversal threshold, assertions allow any refusal, so claimed threshold equivalence unproved",
+      "parentEvidence": "source and package actual receipts: baseline count/depth RUNTIME_EXTRA Lib; candidate count RUNTIME_RECORD, depth RUNTIME_BOUND. Code read: Lib/site-packages created without Lib manifest record;4097names exceeds candidate manifest bound first",
+      "status": "resolved",
+      "smallestFix": "complete allowed scaffold, names within manifest bound but actual entries exceed traversal4096; depth>17 with no earlier extra; assert exact RUNTIME_BOUND and no launch; focused supplement only, no product changes"
+    }
+  ],
+  "favorableScope": "14resources/pins/source/package,15inputs,ASAR15ef1a72/main0b6e83fe/version0.2.8,10local completed0 Job0/cleanups,paired clocks/orders/producer and reused corpus limits traced",
+  "limits": [
+    "producer source reconstructed after execution, not historical SHA at launch",
+    "symlink file EPERM",
+    "no installed app/global gate/performance generalization"
+  ],
+  "receiptsSha256": {
+    "verification-source-1793763790153.json": "6d99d081006d0052d8c1b129ab97d7482c3f905353bfc873ea5c4e23483d9295",
+    "verification-package-1793764613701.json": "2e65b311a17b70f4913edc9121bc7ee572ab56728a746e04d6dea2f283f4a85e",
+    "package-corpus-95279.json": "2424c0f665bdf7bd4c0a344fd66669da46499986c6fe51f6a733f7dff29b20fe",
+    "qualify.mjs": "67b919567a7f841779e75a8fef236ebe9b473dcb778d607b97635982cb0a977b"
+  },
+  "recheck": {
+    "agent": "/root/latency18_boundaries_review",
+    "inspectionOnly": true,
+    "verdict": "H1 resolved",
+    "thresholdReceiptSha256": "e27e58386a6f0eed70cbb92254522718a2e155923bbd51a84d405b6844994d3d",
+    "evidence": "allowed Lib anchor;4096records/4098entries and depth18/21entries reach exact RUNTIME_BOUND; six source/baseline/package no-launch receipts, same resources/ASAR and correlated cleanup"
+  }
+}

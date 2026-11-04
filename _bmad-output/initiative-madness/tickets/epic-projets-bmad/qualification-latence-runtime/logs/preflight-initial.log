@@ -1,0 +1,20 @@
+✔ owned fixture remains intact without a correlated stop proof (31.1427ms)
+✖ closed Windows runtime repeats all bytes and refuses corruptions before UV substitute (95693.5762ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 96018.8961
+
+✖ failing tests:
+
+test at tests\bmad-runtime-preflight.test.mjs:16:1
+✖ closed Windows runtime repeats all bytes and refuses corruptions before UV substitute (95693.5762ms)
+  Error: CORPUS_MISMATCH {"name":"nominal","launchMarker":true,"admitted":false,"error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_CHANGED\"","guardMs":2115}
+      at matrix (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/qualify.mjs:53:167)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-runtime-preflight.test.mjs:16:117)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

@@ -1,0 +1,26 @@
+node:internal/errors:985
+  const err = new Error(message);
+              ^
+
+Error: Command failed: git diff --check -- resources/bmad-help/preflight.ps1 src/adapters/bmad/help-manifest.ts tests/bmad-help-supervision.test.mjs package.json package-lock.json
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/bmad-help-supervision.test.mjs', LF will be replaced by CRLF the next time Git touches it
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at ChildProcess.exithandler (node:child_process:417:12)
+    at ChildProcess.emit (node:events:508:28)
+    at maybeClose (node:internal/child_process:1101:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:305:5) {
+  code: 2,
+  killed: false,
+  signal: null,
+  cmd: 'git diff --check -- resources/bmad-help/preflight.ps1 src/adapters/bmad/help-manifest.ts tests/bmad-help-supervision.test.mjs package.json package-lock.json',
+  stdout: 'resources/bmad-help/preflight.ps1:134: trailing whitespace.\n+}\r\n',
+  stderr: "warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it\n" +
+    "warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it\n" +
+    "warning: in the working copy of 'tests/bmad-help-supervision.test.mjs', LF will be replaced by CRLF the next time Git touches it\n"
+}
+
+Node.js v24.13.0

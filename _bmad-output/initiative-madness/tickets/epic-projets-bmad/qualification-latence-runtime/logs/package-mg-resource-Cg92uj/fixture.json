@@ -1,0 +1,24 @@
+{
+  "owner": {
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-resource-Cg92uj",
+    "id": "9dd7b3a1-f094-422e-9679-c25be552879b",
+    "prefix": "mg-resource-"
+  },
+  "proof": {
+    "failure": "PROFILE_CHANGED",
+    "shutdown": "stopped",
+    "states": [
+      {
+        "started": false,
+        "outcome": "start-failed"
+      }
+    ],
+    "alteredResourceSha256": "808a48543c41d6cb5722cb359720936894329f7a86e8ded28deb1649222507c3",
+    "expected": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b"
+  },
+  "cleanup": {
+    "removed": true,
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-resource-Cg92uj",
+    "id": "9dd7b3a1-f094-422e-9679-c25be552879b"
+  }
+}

@@ -1,0 +1,11 @@
+C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\node_modules\@electron\asar\lib\filesystem.js:187
+            throw new Error(`"${p}" was not found in this archive`);
+                  ^
+
+Error: "out/main/index.js" was not found in this archive
+    at Filesystem.getFile (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\node_modules\@electron\asar\lib\filesystem.js:187:19)
+    at Module.extractFile (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\node_modules\@electron\asar\lib\asar.js:256:33)
+    at main (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/qualify.mjs:134:190)
+    at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/qualify.mjs:145:79
+
+Node.js v24.13.0

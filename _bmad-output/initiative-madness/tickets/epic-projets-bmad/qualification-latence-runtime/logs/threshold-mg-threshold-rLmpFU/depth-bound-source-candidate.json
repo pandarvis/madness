@@ -1,0 +1,21 @@
+{
+  "processInnerMs": 1635,
+  "loadMs": 1403,
+  "results": [
+    {
+      "launchMarker": false,
+      "guardMs": 78,
+      "name": "depth-bound",
+      "admitted": false,
+      "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_BOUND\""
+    }
+  ],
+  "wallMs": 3331.2333,
+  "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+  "cases": [
+    {
+      "name": "depth-bound"
+    }
+  ],
+  "stderr": ""
+}

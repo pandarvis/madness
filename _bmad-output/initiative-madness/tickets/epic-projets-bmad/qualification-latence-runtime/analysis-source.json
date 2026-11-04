@@ -1,0 +1,212 @@
+{
+  "source": "verification-source-1793763790153.json",
+  "sourceSha256": "6d99d081006d0052d8c1b129ab97d7482c3f905353bfc873ea5c4e23483d9295",
+  "guardMs": {
+    "baseline": {
+      "min": 14614,
+      "max": 18860,
+      "median": 17034.5
+    },
+    "candidate": {
+      "min": 1300,
+      "max": 1878,
+      "median": 1556
+    }
+  },
+  "wallTwoGuardsMs": {
+    "baseline": {
+      "min": 34101.6808,
+      "max": 36681.85030000005,
+      "median": 35624.386699999974
+    },
+    "candidate": {
+      "min": 5258.414100000024,
+      "max": 8536.508700000006,
+      "median": 5978.745400000014
+    }
+  },
+  "candidateLoadAndCompileMs": {
+    "min": 868,
+    "max": 1199,
+    "median": 1178
+  },
+  "operations": [
+    {
+      "operation": {
+        "op": "native",
+        "prepared": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\operations\\operation-ac6e929e-f052-4c21-8f42-6920dcbfae01\\data",
+        "kind": "knowledge",
+        "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\operations\\operation-05dd9dc9-ffce-4efd-ad65-e156aeabee4f\\data"
+      },
+      "phases": {
+        "resources_ms": 1291,
+        "runtime_copy_ms": 62,
+        "runtime_guard_ms": 2112,
+        "native_group_ms": 9716
+      },
+      "python": {
+        "worker_ms": 7372,
+        "runtime_guard_ms": 1388
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 52080,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 169,
+        "elapsed_ms": 9375
+      }
+    },
+    {
+      "operation": {
+        "op": "native",
+        "prepared": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\operations\\operation-ac6e929e-f052-4c21-8f42-6920dcbfae01\\data",
+        "kind": "config",
+        "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\operations\\operation-10d956e2-6fbb-427b-bc3d-23fea3160aae\\data"
+      },
+      "phases": {
+        "resources_ms": 2072,
+        "runtime_copy_ms": 96,
+        "runtime_guard_ms": 2205,
+        "native_group_ms": 9913
+      },
+      "python": {
+        "worker_ms": 7235,
+        "runtime_guard_ms": 1588
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 20456,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 177,
+        "elapsed_ms": 9559
+      }
+    },
+    {
+      "operation": {
+        "op": "read",
+        "prepared": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\operations\\operation-ac6e929e-f052-4c21-8f42-6920dcbfae01\\data",
+        "reference": "required-context",
+        "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\operations\\operation-84e01849-da95-4b66-bcd4-85fcaf7dde23\\data"
+      },
+      "phases": {
+        "resources_ms": 1339,
+        "runtime_copy_ms": 66,
+        "runtime_guard_ms": 1843,
+        "native_group_ms": 9225
+      },
+      "python": {
+        "worker_ms": 6997,
+        "runtime_guard_ms": 1348
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 23504,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 112,
+        "elapsed_ms": 8956
+      }
+    },
+    {
+      "operation": {
+        "op": "fresh",
+        "prepared": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\operations\\operation-ac6e929e-f052-4c21-8f42-6920dcbfae01\\data",
+        "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\operations\\operation-ac12650b-437e-4892-9829-cf7018261237\\data"
+      },
+      "phases": {
+        "resources_ms": 1406,
+        "runtime_copy_ms": 93,
+        "runtime_guard_ms": 2065,
+        "native_group_ms": 10277
+      },
+      "python": {
+        "worker_ms": 7916,
+        "runtime_guard_ms": 1605
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 29928,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 0,
+        "drain_ms": 178,
+        "elapsed_ms": 10023
+      }
+    },
+    {
+      "operation": {
+        "op": "prepare",
+        "project": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\project",
+        "roots": [
+          "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\project\\.agents\\skills"
+        ],
+        "folder": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\operations\\operation-ac6e929e-f052-4c21-8f42-6920dcbfae01\\data"
+      },
+      "phases": {
+        "resources_ms": 2396,
+        "runtime_copy_ms": 8248,
+        "runtime_guard_ms": 2004,
+        "native_group_ms": 17778
+      },
+      "python": {
+        "worker_ms": 14156,
+        "runtime_guard_ms": 1670
+      },
+      "execution": {
+        "schema": 5,
+        "outcome": "completed",
+        "exit": 0,
+        "started": true,
+        "owned": [],
+        "cleanup": [],
+        "results_present": false,
+        "job_assigned_before_resume": true,
+        "pid": 11784,
+        "active_before_stop": 0,
+        "job_active_after_stop": 0,
+        "stop_ms": 1,
+        "drain_ms": 306,
+        "elapsed_ms": 17372
+      }
+    }
+  ],
+  "limits": [
+    "Three paired sessions in both orders, two complete guards per fresh process.",
+    "Standalone guard excludes load/compilation; wall includes the complete fresh process.",
+    "Windows filesystem cache was not purged.",
+    "Product adapter operation includes copy/native execution/stop and full return; not the isolated guard or US cost."
+  ]
+}

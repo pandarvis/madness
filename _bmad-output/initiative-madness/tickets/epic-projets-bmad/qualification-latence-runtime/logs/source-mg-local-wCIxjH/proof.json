@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "mode": "synthetic-real-local-helper-no-provider",
+  "witness": {
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\project",
+    "id": "help-1c75808d-fa60-4975-abd5-b50b9bc1f420",
+    "initiative": "initiative-help-witness"
+  },
+  "bundleRevision": "8d5fbf4c72e42ff406c7d434b32b7736f178d74b70914e618fd9dc798d7c3ad0",
+  "documents": [
+    {
+      "source": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\project\\.agents\\skills\\bmod-core-tools\\help\\help.md",
+      "sha256": "d06a92b42f77c1ba50369ea6398f191c52042a1e2504a7b306d03a431fecde83",
+      "bytes": 7776,
+      "module": "core-tools"
+    },
+    {
+      "source": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\project\\.agents\\skills\\bmod-method\\help\\help.md",
+      "sha256": "c67ef5332c7e83f5fe8b21bb932416498b33adfe784eacd7e7d27e22be2cfa11",
+      "bytes": 19241,
+      "module": "method"
+    },
+    {
+      "source": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-local-wCIxjH\\local\\project\\.agents\\skills\\bmod-toolsmith\\help\\help.md",
+      "sha256": "1714dd0e27c8e8b2fd7960c6822240cb8ce387a23c2427b87435b2dca7ab4a9b",
+      "bytes": 11481,
+      "module": "toolsmith"
+    }
+  ],
+  "nativeReady": true,
+  "problems": [
+    "method: missing bmad-retrospective"
+  ],
+  "knowledgeExact": true,
+  "configExact": true,
+  "helperStopped": "stopped",
+  "phases": [
+    {
+      "name": "prepare",
+      "durationMs": 33307
+    },
+    {
+      "name": "fresh",
+      "durationMs": 16078
+    },
+    {
+      "name": "native-knowledge",
+      "durationMs": 15249
+    },
+    {
+      "name": "native-config",
+      "durationMs": 17006
+    },
+    {
+      "name": "read-required-context",
+      "durationMs": 14675
+    }
+  ]
+}

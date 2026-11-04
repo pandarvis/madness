@@ -3,7 +3,7 @@ name: Madness
 description: "Parcours guidé pour comprendre et piloter BMad sur des projets locaux."
 status: final
 created: 2026-10-22
-updated: 2026-11-03
+updated: 2026-11-04
 sources:
   - ../initiative-madness.md
   - .memlog.md
@@ -293,6 +293,8 @@ Ordre de lecture du projet : en-tête projet et initiative connue → onglets �
 Le Sélecteur d’initiative suit le projet dans l’en-tête ; « Sélection Madness » et « Active dans BMad » restent deux lignes nommées si elles diffèrent. Dans Parcours, attentes et récupérations précèdent Reprise du projet, son Registre des preuves puis le guidage secondaire ; la reprise reste avant les aides et la préparation Mary/Forge. « Que faire ensuite ? » ouvre ce guidage dans Parcours ; « Toutes les possibilités » ouvre le Catalogue des compétences dans un onglet du même projet. Aides chargées et Recommandation ont des titres séparés ; seule la réponse reçue de l’agent entre dans Conversation. L’aide ne reçoit pas le traitement d’un message assistant.
 
 Pour la Reprise du projet de 2.4, le [DESIGN racine](../../../DESIGN.md) reste l’autorité visuelle courante : atelier/jeu adopté, palettes pétrole/terracotta/ivoire, Oxanium pour le texte courant, Barlow pour les titres courts et casting approuvé conservés. Cette extension ne répare pas les anciennes valeurs du présent spine. La région réemploie les fonds de lecture calmes et des groupes textuels extensibles : État connu, Résultats et décisions connus, Récapitulatifs disponibles, Travail restant connu. Projet, initiative consultée, date d’observation et révision encadrent leur lecture ; aucun pourcentage d’avancement ni nouvel onglet. Les preuves de 2.4 se consultent dans des détails textuels nommés ; le Panneau de fichiers et son aperçu restent futurs en 2.8.
+
+Pour l’actualisation 2.5, la ligne d’observation porte simultanément version affichée et fraîcheur ; une ligne d’activité voisine nomme attente, lecture ou échec. Les deux restent textuelles dans les fonds calmes existants. Une nouvelle observation disponible ajoute une commande secondaire Afficher la nouvelle observation, sans panneau, illustration ni modalité nouvelle. Les détails historiques gardent leurs propres métadonnées jusqu’à cette bascule volontaire ; aucune variation de couleur seule ne porte le changement. Noms FR/EN, révisions et motifs longs passent à la ligne en mode compact et au zoom 200 %, sans masquer la lecture ou la saisie. Les commandes réemploient les cibles existantes et le mouvement réduit ; aucun spinner décoratif ni pulsation. Règles de portée, regroupement et focus : [EXPERIENCE · Actualisation locale](EXPERIENCE.md#epic2-refresh), décisions et limites dans le [relevé Sally 2.5](../tickets/epic-projets-bmad/qualification-actualisation/ux/sally-update.md).
 
 Le catalogue utilise des lignes plates : nom et objectif, module et invocation, puis disponibilité textuelle. Recherche et filtres précèdent les résultats ; détail dans Fiche compétence. Ni grille de grandes cartes ni nouveau panneau permanent. Le Registre des preuves rassemble libellé, nature du constat, statut sourcé, fraîcheur et accès au fichier ; les détails complets sont dépliables. Le Panneau de fichiers occupe la colonne prévue, jamais la place du champ de réponse. Son agrandissement emploie un Dialogue de lecture borné à la fenêtre ; fermer retrouve la même sélection et position de travail.
 

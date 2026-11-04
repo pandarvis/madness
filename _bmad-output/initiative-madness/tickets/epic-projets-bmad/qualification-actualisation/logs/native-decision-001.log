@@ -1,0 +1,33 @@
+✖ F6 real Windows BMad mutation at approval decision is refused by the pinned native freshness guard (43719.1922ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 44046.6224
+
+✖ failing tests:
+
+test at tests\approvals-protocol.test.mjs:164:1
+✖ F6 real Windows BMad mutation at approval decision is refused by the pinned native freshness guard (43719.1922ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'unknown'
+  - 'stopped'
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/approvals-protocol.test.mjs:169:226)
+      at async TestHook.run (node:internal/test_runner/test:1113:7)
+      at async Test.runHook (node:internal/test_runner/test:1024:9)
+      at async after (node:internal/test_runner/test:1064:9)
+      at async Test.run (node:internal/test_runner/test:1132:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'unknown',
+    expected: 'stopped',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

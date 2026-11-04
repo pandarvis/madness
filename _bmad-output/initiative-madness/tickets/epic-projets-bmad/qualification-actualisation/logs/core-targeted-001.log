@@ -1,0 +1,33 @@
+✔ Mary indépendante capture alpha sans dépendre des documents {"missingDocument":true} (15.1219ms)
+✔ Mary indépendante capture alpha sans dépendre des documents {"unrelatedRefusal":true} (3.7552ms)
+✔ open refuse la garde puis échoue au nettoyage : arrêt inconnu sans session retournée (2.2639ms)
+✔ un effet possédé commencé garde EFFECT_UNKNOWN malgré le refus de contexte (2.4806ms)
+✔ source mutation before open rejects without provider ownership or first turn (0.5817ms)
+✔ mutation inside open stops actual owner before conversation or turn; unknown remains unknown (1.6186ms)
+✔ mutation after conversation persistence refuses first turn without rewriting capture (1.314ms)
+✔ question alpha survives consultation beta; its own changed sources refuse submission (8.6483ms)
+✔ P2/P3 declarations keep entry, leaf, plan and tracker separate; built never accepts (101.6246ms)
+✔ P4 literal excerpts retain section, source and lines with no generated synthesis (1.5453ms)
+✔ Q1 literal statuses in-progress and blocked remain conflicting (0.7413ms)
+✔ Q1 literal statuses draft and ready-for-dev remain conflicting (0.6412ms)
+✔ Q1 tracker equivalence stays separate from literal status disagreement (0.5924ms)
+✔ strict bridge refuses free paths, admission flags and inconsistent source links (3.0106ms)
+✔ P5 consultation beta is independent of active alpha; passive read starts no helper (2.3991ms)
+✔ P5 no choice, missing choice and replaced root refuse new collection (2.2328ms)
+✔ P7 late result remains attached to captured beta and cannot replace selected alpha (10.4575ms)
+✔ P7 failure preserves previous dated snapshot and shutdown aborts owned read (2.1378ms)
+✔ P8 local reader has no connection dependency; BUSY and STOP_UNCONFIRMED remain distinct (0.5128ms)
+✔ P7 failed refresh preserves every previous source byte reference and date (0.4788ms)
+✔ P7 replaced application root marks a delayed capture historical even before context refresh (0.8807ms)
+✔ P7 superseded generation cannot overwrite the latest read (1.4457ms)
+✔ F1/F4 invalidation stays stale while reading and bursts have one trailing read (7.1185ms)
+✔ F5/F8 degraded monitoring is uncertain, closing synchronously detaches, reopen is passive (1.2698ms)
+✔ F3 root/selection changed after await cannot publish current (2.5993ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 390.8825

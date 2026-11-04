@@ -1,0 +1,28 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import {mkdtemp,mkdir,writeFile,readFile,lstat,rm,readdir} from 'node:fs/promises'
+import {realpathSync} from 'node:fs'
+import {tmpdir} from 'node:os'
+import {join,resolve,dirname} from 'node:path'
+import {BmadHelpAdapter} from '../src/adapters/bmad/help.ts'
+import {HelpOwnedRun} from '../src/adapters/bmad/help-owned-run.ts'
+import {BmadChangeObserver} from '../src/adapters/bmad/change-observer.ts'
+test('H1 real Windows in-place repairs of refused progress/help sources cannot become current at attach',async()=>{
+ const root=realpathSync.native(await mkdtemp(join(tmpdir(),'madness-refresh-refusals-'))),project=join(root,'project'),skills=join(project,'.agents/skills'),output=process.env.MADNESS_REFRESH_REFUSALS_PROOF?resolve(process.env.MADNESS_REFRESH_REFUSALS_PROOF):null,report={startedAt:new Date().toISOString(),cases:[],stop:'unknown',cleanup:false}
+
+ const owner=new HelpOwnedRun(join(root,'owner.json')),adapter=new BmadHelpAdapter({root:join(root,'operations'),resources:resolve('resources/bmad-help'),owner,roots:()=>[skills]}),observer=new BmadChangeObserver(v=>adapter.dependencies(v));let safe=false,proofCreated=false
+ try{
+  if(output){await mkdir(dirname(output),{recursive:true});await mkdir(output);proofCreated=true;
+ await mkdir(join(output,'producer'),{recursive:true});for(const name of ['tests/bmad-refresh-refusals.test.mjs','src/adapters/bmad/change-observer.ts','src/adapters/bmad/help.ts','src/adapters/bmad/help-manifest.ts','resources/bmad-help/capture.py','resources/bmad-help/progress.py','resources/bmad-help/worker.py']){const path=join(output,'producer',name);await mkdir(dirname(path),{recursive:true});await writeFile(path,await readFile(name),{flag:'wx'})}
+  }
+  await mkdir(join(project,'_bmad'),{recursive:true});await mkdir(join(skills,'bmod-test/help'),{recursive:true});await mkdir(join(skills,'bmad/references'),{recursive:true});await writeFile(join(project,'_bmad/config.toml'),'[core]\nactive_initiative="alpha"\n');await writeFile(join(skills,'bmod-test/bmod.toml'),'[bmod]\ncode="test"\nversion="6.13.0-next"\nskills=["bmad"]\n');await writeFile(join(skills,'bmad/bmod.toml'),'[skill]\nbmod="bmod-test"\n');for(const[name,path]of[['bmad-SKILL.md','bmad/SKILL.md'],['bmad-help.md','bmad/references/help.md']])await writeFile(join(skills,path),await readFile(join('resources/bmad-help',name)))
+  const initiative=join(project,'_bmad-output/alpha'),docs=join(initiative,'docs'),refused=join(docs,'refused.md');await mkdir(docs,{recursive:true});await writeFile(join(initiative,'alpha.md'),'# alpha\n');await writeFile(refused,Buffer.from([255]));await writeFile(join(skills,'bmod-test/help/help.md'),'Safe help.\n')
+  const signal=new AbortController().signal,context=await adapter.observeContext('project-a',project,signal,false),progress=await adapter.observeProgress('project-a',project,{initiativeId:'alpha',rootIdentity:context.rootIdentity},context,signal);assert.equal(progress.coverage,'partial');const previous=await lstat(refused,{bigint:true});await writeFile(refused,'## Results\nRepaired in place.\n');assert.equal((await lstat(refused,{bigint:true})).ino,previous.ino);const hints=adapter.dependencies(progress);assert.ok(hints.limited.includes(refused));const lease=await observer.attach(progress,()=>{});assert.equal(lease.health,'unavailable');assert.equal(await lease.reconcile(),false);report.cases.push({kind:'progress-UTF8',identity:previous.ino.toString(),limited:hints.limited,health:lease.health,reconciled:false});lease.close()
+  const help=join(skills,'bmod-test/help/help.md');await writeFile(help,Buffer.alloc(1048577,65));const bundle=await adapter.prepare('project-a',project,signal),info=await lstat(help,{bigint:true});await writeFile(help,'Repaired help in place.\n');assert.equal((await lstat(help,{bigint:true})).ino,info.ino);const helpHints=adapter.dependencies(bundle);assert.ok(helpHints.limited.includes(help));const helpLease=await observer.attach(bundle,()=>{});assert.equal(helpLease.health,'unavailable');assert.equal(await helpLease.reconcile(),false);report.cases.push({kind:'help-FILE_LIMIT',identity:info.ino.toString(),limited:helpHints.limited,health:helpLease.health,reconciled:false});helpLease.close();safe=await owner.status()==='stopped'
+ }finally{
+  observer.shutdown();report.stop=await adapter.shutdown();safe=report.stop==='stopped'&&await owner.status()==='stopped'
+  try{if(proofCreated)for(const name of await readdir(join(root,'operations')).catch(()=>[])){if(!name.startsWith('operation-'))continue;const target=join(output,name);await mkdir(target,{recursive:true});for(const file of ['execution.json','terminal.json','pins.json','native-timings.json']){const bytes=await readFile(join(root,'operations',name,file)).catch(()=>null);if(bytes)await writeFile(join(target,file),bytes)}}}
+  finally{if(safe){assert.equal(dirname(root),realpathSync.native(tmpdir()));assert.ok(root.split(/[\\/]/).at(-1).startsWith('madness-refresh-refusals-'));await rm(root,{recursive:true,force:true});report.cleanup=true}else console.error(JSON.stringify({retainedRefusalFixture:root,stop:report.stop}));report.completedAt=new Date().toISOString();if(proofCreated)await writeFile(join(output,'verification.json'),JSON.stringify(report,null,2)+'\n')}
+ }
+ assert.equal(report.stop,'stopped');assert.equal(report.cleanup,true)
+})

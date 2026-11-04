@@ -1,0 +1,42 @@
+diff --git a/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation/main-focus-final/producer/src/core/bmad-progress.ts b/src/core/bmad-progress.ts
+index 1405869..f5e098b 100644
+--- a/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation/main-focus-final/producer/src/core/bmad-progress.ts
++++ b/src/core/bmad-progress.ts
+@@ -35,7 +35,7 @@ export class BmadProgressCoordinator{
+  }
+  private schedule(id:string):void{queueMicrotask(()=>{if(!this.closing&&!this.jobs.has(id)&&this.pending.has(id))void this.start(id)})}
+  /** Called on window focus only; restored projects are never armed implicitly. */
+- reconcile():void{for(const [id,lease] of this.leases)void lease.reconcile().then(fresh=>{if(!this.closing&&!this.jobs.has(id)&&(!fresh||this.pending.has(id)||this.project(id).freshness==='uncertain')){this.pending.add(id);this.schedule(id)}})}
++ reconcile():void{for(const id of this.armed)void Promise.resolve(this.leases.get(id)?.reconcile()??true).then(fresh=>{if(!this.closing&&!this.jobs.has(id)&&(!fresh||this.pending.has(id)||this.project(id).freshness==='uncertain')){this.pending.add(id);this.schedule(id)}})}
+  async execute(input:unknown):Promise<BmadProgressState>{
+   if(!isBmadProgressCommand(input)||input.type==='read'||this.closing)return this.read()
+   const id=input.projectId;this.armed.add(id);this.pending.add(id)
+
+diff --git a/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation/main-focus-final/producer/src/core/bmad-context.ts b/src/core/bmad-context.ts
+index abe9a16..c695d4d 100644
+--- a/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation/main-focus-final/producer/src/core/bmad-context.ts
++++ b/src/core/bmad-context.ts
+@@ -25,7 +25,21 @@ export class BmadContextCoordinator{
+  async capture(id:string,requiresInitiative:boolean,signal:AbortSignal):Promise<CapturedBmadContext>{const generation=this.generations.get(id)??0;await this.restore(id);if(!requiresInitiative){const observation=await this.observeConfiguration(id,signal);if(this.closing||this.generations.get(id)!==undefined&&this.generations.get(id)!==generation)throw dialogueFailure('PROFILE_CHANGED');return {scope:'configuration',observation:structuredClone(observation),initiativeId:observation.activeStatus==='valid'?observation.activeInitiative:null}}const observation=await this.observe(id,signal);if(this.closing||(this.generations.get(id)??0)!==generation)throw dialogueFailure('PROFILE_CHANGED');const project={...this.project(id),observation};this.update(id,{observation,status:'ready'});if(requiresInitiative&&(observation.activeStatus!=='valid'||selectionValidity(project)!=='valid'||project.selection?.initiativeId!==observation.activeInitiative))throw dialogueFailure('CONTEXT_MISMATCH');return {scope:'initiatives',observation:structuredClone(observation),initiativeId:observation.activeStatus==='valid'?observation.activeInitiative:null}}
+  async assertFresh(captured:CapturedBmadContext,signal:AbortSignal):Promise<void>{const previous=captured.observation,generation=this.generations.get(previous.projectId)??0,current=await (captured.scope==='configuration'?this.observeConfiguration(previous.projectId,signal):this.observe(previous.projectId,signal));if(this.closing||(this.generations.get(previous.projectId)??0)!==generation||current.rootIdentity!==previous.rootIdentity||current.rootPath!==previous.rootPath||current.revision!==previous.revision)throw dialogueFailure('PROFILE_CHANGED')}
+  /** Explicit consultation may read a restored selection; it never substitutes the active initiative. */
+- async consultSelection(id:string,signal:AbortSignal):Promise<BmadContextProject>{const generation=this.generations.get(id)??0;await this.restore(id);const selected=this.project(id).selection;if(!selected)throw dialogueFailure('CONTEXT_MISMATCH');const project=await this.deps.application.dialogueProject(id);signal.throwIfAborted();const observation=await (this.deps.observeConsultation??this.deps.observe)(id,project.rootPath,signal);signal.throwIfAborted();if(!isBmadContextObservation(observation)||observation.projectId!==id||observation.rootPath.toLowerCase().replaceAll('\\','/')!==project.rootPath.toLowerCase().replaceAll('\\','/'))throw dialogueFailure('PROFILE_CHANGED');const destination=await this.deps.application.dialogueProject(id);signal.throwIfAborted();const current=this.project(id);if(this.closing||destination.rootPath!==project.rootPath||(this.generations.get(id)??0)!==generation||current.selection?.revision!==selected.revision)throw dialogueFailure('PROFILE_CHANGED');this.update(id,{observation,status:'ready'});const result=this.project(id);if(selectionValidity(result)!=='valid')throw dialogueFailure('CONTEXT_MISMATCH');return structuredClone(result)}
++ async consultSelection(id:string,signal:AbortSignal):Promise<BmadContextProject>{
++  const generation=this.generations.get(id)??0;await this.restore(id);const selected=this.project(id).selection;if(!selected)throw dialogueFailure('CONTEXT_MISMATCH')
++  const project=await this.deps.application.dialogueProject(id);signal.throwIfAborted()
++  const observation=await (this.deps.observeConsultation??this.deps.observe)(id,project.rootPath,signal);signal.throwIfAborted()
++  if(!isBmadContextObservation(observation)||observation.projectId!==id||observation.rootPath.toLowerCase().replaceAll('\\','/')!==project.rootPath.toLowerCase().replaceAll('\\','/'))throw dialogueFailure('PROFILE_CHANGED')
++  const assertCurrent=async():Promise<void>=>{const destination=await this.deps.application.dialogueProject(id);signal.throwIfAborted();const current=this.project(id),selection=current.selection;if(this.closing||destination.rootPath!==project.rootPath||(this.generations.get(id)??0)!==generation||!selection||selection.revision!==selected.revision||selection.initiativeId!==selected.initiativeId||selection.rootIdentity!==selected.rootIdentity||selection.rootPath!==selected.rootPath)throw dialogueFailure('PROFILE_CHANGED')}
++  let lease:ObservationLease|undefined
++  try{
++   await assertCurrent()
++   lease=await this.deps.observation?.attach(observation,health=>this.invalidate(id,health));await assertCurrent()
++   const fresh=lease?await lease.reconcile():true;await assertCurrent();if(!fresh)throw dialogueFailure('PROFILE_CHANGED')
++   const health=lease?.health??'unarmed',displaced=this.leases.get(id);if(displaced!==lease)displaced?.close();if(lease){this.leases.set(id,lease);lease=undefined}else this.leases.delete(id)
++   this.update(id,{observation,status:'ready',freshness:'current',monitoring:health});const result=this.project(id);if(selectionValidity(result)!=='valid')throw dialogueFailure('CONTEXT_MISMATCH');return structuredClone(result)
++  }finally{lease?.close()}
++ }
+  reconcile():void{for(const lease of this.leases.values())void lease.reconcile()}
+  async settled():Promise<void>{await Promise.all(this.active);await this.writes}
+  async shutdown():Promise<void>{this.closing=true;for(const lease of this.leases.values())lease.close();this.leases.clear();this.invalidations.clear();for(const c of this.controllers)c.abort();await this.settled()}
+

@@ -1,0 +1,50 @@
+{
+  "recordedAt": "2026-11-04T04:51:37.467491+00:00",
+  "workflow": "bmad-ux Update headless -> doc_standards bmad-review lenses=structure,prose",
+  "resolvedCustomization": {
+    "reader_type": "humans",
+    "style_guide": "Microsoft Writing Style Guide",
+    "activation_steps_prepend": [],
+    "activation_steps_append": [],
+    "persistent_facts": [],
+    "review_guidance": []
+  },
+  "calls": [
+    {
+      "task": "/root/refresh25_sally/refresh25_ux_structure",
+      "lens": "structure",
+      "inputPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-refresh25-ux-2a5833d0e7354e30a43c94257b4bdf2b.md",
+      "inputSha256": "1967b2936abd28fcffcb9852485b381ece948f1344a35adb3db31b9eadff7431",
+      "output": "review-structure.md",
+      "outputSha256": "891f0bff31eda2b3a170013533041656bceed1334311c9764130560f82154efe",
+      "findings": 0,
+      "wordMetrics": 4509,
+      "result": "no findings; conservation anchor correction acknowledged"
+    },
+    {
+      "task": "/root/refresh25_sally/refresh25_ux_prose",
+      "lens": "prose",
+      "after": "structure",
+      "inputPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-refresh25-ux-prose-9956a78244a54c3f9f388a014005e535.md",
+      "inputSha256": "30e66ee8a8ad1eb86072fe1f31ea075b10cb828f40ac24a91ad9bf1b0b4a6ecc",
+      "output": "review-prose.md",
+      "outputSha256": "542d5ef518aea72dbc3a34d2b8c565d8063b8c3ffec1f75bd6595d598f7b7b70",
+      "findings": 2,
+      "wordMetrics": 4463,
+      "result": "both exact clarifications accepted and applied"
+    },
+    {
+      "task": "/root/refresh25_sally/refresh25_ux_prose",
+      "action": "followup_task targeted recheck",
+      "input": "current two corrected passages",
+      "output": "review-prose-recheck.md",
+      "outputSha256": "6860bc6115c063aa72dd15f7d7bd616773b8968d49228d49222026373b13a1c1",
+      "result": "both resolved; no remaining point in targeted recheck"
+    }
+  ],
+  "limits": [
+    "Documentation structure/prose only; not product/code Quick or visual finish review.",
+    "Staged temporary inputs are identified by exact hashes; source diff plus note were sent by file path.",
+    "No arbitrary length target; metrics describe inputs with diff/context, not length of the change."
+  ]
+}

@@ -1,0 +1,21 @@
+F5-focus-handler-bound-to-created-window
+two-concurrent-project-observations-share-the-owned-helper
+compiled-choose-project-a-beta
+compiled-choose-project-b-beta
+compiled-local-progress-project-a-beta
+compiled-local-progress-project-b-beta
+reading-proofs-does-not-write-navigation-history-or-drafts
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+electronApplication.evaluate: TypeError: A dynamic import callback was not specified.
+    at importModuleDynamicallyCallback (node:internal/modules/esm/utils:280:9)
+    at eval (eval at evaluate (:370:30), <anonymous>:1:36)
+    at UtilityScript.evaluate (<anonymous>:372:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\scripts\qualification\bmad-external-refresh.mjs:130:19 {
+  log: []
+}
+
+Node.js v24.13.0

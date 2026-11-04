@@ -11,6 +11,7 @@ import type {HelpBundle,HelpToolReceipt} from '../../contracts/bmad-help.ts'
 import type {BmadProfile} from '../../core/ports.ts'
 import {helpResourcePins} from './help-manifest.ts'
 import {HelpOwnedRun} from './help-owned-run.ts'
+import type {ObservationHints} from './change-observer.ts'
 const canonical=promisify(nativeRealpath.native)
 async function directory(path:string):Promise<string>{for(let p=resolve(lexicalPath(path));;p=dirname(p)){const s=await lstat(p);if(!s.isDirectory()||s.isSymbolicLink())throw dialogueFailure('PROFILE_UNRECOGNIZED');if(dirname(p)===p)break}return canonical(path)}
 const lexicalPath=(path:string):string=>path.startsWith('\\\\?\\UNC\\')?'\\\\'+path.slice(8):path.startsWith('\\\\?\\')?path.slice(4):path
@@ -22,6 +23,9 @@ async function safe(path:string,limit=32*1024*1024):Promise<Buffer>{
 }
 export type HelpAdapterOptions={root:string;resources:string;owner:HelpOwnedRun;onUnknown?():void;admission?:{enter(kind:'provider'|'helper',nested?:boolean):()=>void};admit?(internal:boolean):Promise<void>;roots?(project:string):string[]}
 export class BmadHelpAdapter{
+ private captures=new WeakMap<object,ObservationHints>();
+ dependencies(value:object):ObservationHints|undefined{return this.captures.get(value)}
+ private captured<T extends object>(value:T,hints:ObservationHints|undefined):T{if(hints)this.captures.set(value,hints);return value}
  private contextWaiters=0;private operation:unknown=null
  private closing=false;private pending:Promise<void>|null=null;private runtimeId='runtime-'+randomUUID();private options:HelpAdapterOptions;private busy=false;private preparations=new Map<string,{bundle:HelpBundle;folder:string;captureSha:string}>()
  constructor(options:HelpAdapterOptions){this.options=options}
@@ -63,9 +67,10 @@ export class BmadHelpAdapter{
    let execution:any;try{execution=JSON.parse((await safe(join(folder,'execution.json'),65536)).toString('utf8'))}catch{throw dialogueFailure('RESOLVER_FAILED')}
    const raw=new TextDecoder('utf-8',{fatal:true}).decode(await safe(join(folder,'stdout.json'),4*1024*1024))
    const result=JSON.parse(raw)
+   const hints=result._observationHints as ObservationHints|undefined;delete result._observationHints
    if(result._timings){await writeFile(join(folder,'native-timings.json'),JSON.stringify(result._timings));delete result._timings}
    if(execution.outcome!=='completed'||execution.exit!==0||errors>65536||result.error)throw Object.assign(dialogueFailure('RESOLVER_FAILED'),{detail:result.error})
-   return {result,folder:data,raw}
+   return {result,folder:data,raw,hints}
   }finally{
    try{
     if(generation&&!spawned){await writeFile(join(folder,'terminal.json'),JSON.stringify({schemaVersion:1,generation,purpose:'bmad-readonly',terminal:true,jobAssigned:false,jobActive:0,neverStarted:true}),{flag:'wx'}).catch(()=>{})}
@@ -81,30 +86,30 @@ export class BmadHelpAdapter{
  async observeContext(projectId:string,rootPath:string,signal:AbortSignal,internal=true):Promise<import('../../contracts/bmad-context.ts').BmadContextObservation>{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
   for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
-  const {result}=await this.run({op:'context',project:root,roots},signal,internal)
-  return {schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result}
+  const {result,hints}=await this.run({op:'context',project:root,roots},signal,internal)
+  return this.captured({schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result},hints)
  }
  async observeConfiguration(projectId:string,rootPath:string,signal:AbortSignal):Promise<import('../../contracts/bmad-context.ts').BmadConfigurationObservation>{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
   for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
-  const {result}=await this.run({op:'context-config',project:root,roots},signal,true)
-  return {schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result}
+  const {result,hints}=await this.run({op:'context-config',project:root,roots},signal,true)
+  return this.captured({schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result},hints)
  }
  async observeProgress(projectId:string,rootPath:string,selection:import('../../contracts/bmad-context.ts').BmadSelection,observation:import('../../contracts/bmad-context.ts').BmadContextObservation,signal:AbortSignal):Promise<import('../../contracts/bmad-progress.ts').BmadProgressSnapshot>{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
   for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
   // This is a local consultation, never a provider-nested admission.
-  const {result}=await this.run({op:'progress',project:root,roots,initiativeId:selection.initiativeId,rootIdentity:selection.rootIdentity,contextRevision:observation.revision},signal)
-  return {schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result}
+  const {result,hints}=await this.run({op:'progress',project:root,roots,initiativeId:selection.initiativeId,rootIdentity:selection.rootIdentity,contextRevision:observation.revision},signal)
+  return this.captured({schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result},hints)
  }
  async prepare(projectId:string,rootPath:string,signal:AbortSignal):Promise<HelpBundle>{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
   for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
-  const {result,folder}=await this.run({op:'prepare',project:root,roots},signal)
+  const {result,folder,hints}=await this.run({op:'prepare',project:root,roots},signal)
   const bundle:HelpBundle={schemaVersion:1,id:'bundle-'+randomUUID(),projectId,rootPath:root,observedAt:new Date().toISOString(),...result}
   if(!isHelpBundle(bundle))throw dialogueFailure('PROFILE_UNRECOGNIZED')
   this.preparations.set(bundle.id,{bundle:structuredClone(bundle),folder,captureSha:sha(await safe(join(folder,'capture.json'),4*1024*1024))})
-  return bundle
+  return this.captured(bundle,hints)
  }
  private prepared(id:string):{bundle:HelpBundle;folder:string;captureSha:string}{const p=this.preparations.get(id);if(!p)throw dialogueFailure('PROFILE_CHANGED');return p}
  async assertFresh(id:string,signal:AbortSignal,internal=false):Promise<void>{

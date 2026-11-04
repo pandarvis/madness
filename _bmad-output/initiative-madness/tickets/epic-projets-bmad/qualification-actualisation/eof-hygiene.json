@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-04T07:40:34.641436+00:00",
+  "reason": "git diff --cached --check reported3extra EOF blank lines; no runtime behavior or package changed",
+  "files": [
+    {
+      "path": "scripts/qualification/bmad-external-refresh.mjs",
+      "before": "2b7fefef3c1e24b6fa62c4fd29f6fe145478f0221374f5d4f162621f68fc3432",
+      "after": "bc5cf29187833522cb5e41634b428b606bd9ac1234f448194f47cb6b5bf87aa7",
+      "change": "remove extra blank line at EOF only",
+      "semanticBytesIdentical": true
+    },
+    {
+      "path": "scripts/qualification/bmad-refresh-audit.mjs",
+      "before": "326ec512ec7088e1791d84e2f374b0adbbce50a91b7f9d0258da976bc857e38c",
+      "after": "a707056d74b3d8d6923f7b1e0f413d2763495404c904148d9297e008fb01cd5c",
+      "change": "remove extra blank line at EOF only",
+      "semanticBytesIdentical": true
+    },
+    {
+      "path": "tests/bmad-refresh-envelope.test.mjs",
+      "before": "da98e7baa35d2bf476fa581a20b81eeda41b7184f824b2bbd155bcbb2225b115",
+      "after": "1c1418fa0e192a04f60fc70d020683793931f5a37b83520e1b34fa008016db6a",
+      "change": "remove extra blank line at EOF only",
+      "semanticBytesIdentical": true
+    }
+  ],
+  "historicalProducers": "preserved exactly; no receipt reattributed",
+  "verification": "rerun whitespace check only; semantic tests not repeated for EOF-only change"
+}

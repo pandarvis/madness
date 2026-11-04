@@ -1,0 +1,83 @@
+✔ F1/F2 real Windows changes, same-byte replacement, deletion and inventory addition invalidate (718.2354ms)
+✔ F2 absent path with several missing parents watches its closest existing ancestor (64.3323ms)
+✔ F3 capture-to-attach mutation and replaced directory fail reconciliation (106.1541ms)
+✔ F5 filename loss, watch error and bounds degrade synchronously without fabricated freshness (43.882ms)
+✔ F8 shutdown closes every watch synchronously and ignores late callbacks (34.5267ms)
+✔ native Windows volume64 hints match libuv DWORD32 without rounding the file id (0.6116ms)
+✔ F5 handle ceiling refuses a wide qualified scope without an unbounded watch allocation (1379.1239ms)
+✔ F2 live directory replacement invalidates the old identity without following its new contents (116.1978ms)
+✔ F8 shutdown crossing watch creation closes the just-created handle exactly once (13.1194ms)
+✔ H2 concurrent scope attachment reserves the total handle ceiling and closes only its partial scope (5545.5669ms)
+✔ Mary indépendante capture alpha sans dépendre des documents {"missingDocument":true} (28.0583ms)
+✔ Mary indépendante capture alpha sans dépendre des documents {"unrelatedRefusal":true} (10.3205ms)
+✔ open refuse la garde puis échoue au nettoyage : arrêt inconnu sans session retournée (6.0376ms)
+✔ un effet possédé commencé garde EFFECT_UNKNOWN malgré le refus de contexte (3.8748ms)
+✔ source mutation before open rejects without provider ownership or first turn (1.6711ms)
+✔ mutation inside open stops actual owner before conversation or turn; unknown remains unknown (2.4902ms)
+✔ mutation after conversation persistence refuses first turn without rewriting capture (1.5952ms)
+✔ question alpha survives consultation beta; its own changed sources refuse submission (15.3549ms)
+✔ outil indépendant ne périme pas sa capture quand ses sorties changent (154.7682ms)
+✔ root replacement preserves old selection and refuses initiative action until a fresh explicit choice (3.0695ms)
+✔ invalid active identities never become a represented context or a guessed slug (4.0971ms)
+✔ selection annex rejects a real hardlink without altering its external witness (89.7278ms)
+✔ consultation and captured-context guards serialize their read-only helper work (11.8704ms)
+✔ an admitted internal helper waits for context consultation and then reacquires ownership checks (41.5659ms)
+✔ commands refuse arbitrary paths and public admission flags (0.7881ms)
+✔ atomic annex restores two independent choices and preserves future/corrupt bytes (235.1051ms)
+✔ consultation beta never reassigns captured alpha; fresh sources still guard alpha (2.2136ms)
+✔ failed preservation retains session choice; save retry performs no observation (0.614ms)
+✔ superseded asynchronous choice never overwrites latest choice (0.933ms)
+✔ passive read restores only known local choices without observing project data (261.8322ms)
+✔ P2/P3 declarations keep entry, leaf, plan and tracker separate; built never accepts (153.5147ms)
+✔ P4 literal excerpts retain section, source and lines with no generated synthesis (1.6983ms)
+✔ Q1 literal statuses in-progress and blocked remain conflicting (0.8453ms)
+✔ Q1 literal statuses draft and ready-for-dev remain conflicting (0.5328ms)
+✔ Q1 tracker equivalence stays separate from literal status disagreement (1.0303ms)
+✔ strict bridge refuses free paths, admission flags and inconsistent source links (3.5534ms)
+✔ P5 consultation beta is independent of active alpha; passive read starts no helper (1.9163ms)
+✔ P5 no choice, missing choice and replaced root refuse new collection (1.5359ms)
+✔ P7 late result remains attached to captured beta and cannot replace selected alpha (8.0751ms)
+✔ P7 failure preserves previous dated snapshot and shutdown aborts owned read (3.5351ms)
+✔ P8 local reader has no connection dependency; BUSY and STOP_UNCONFIRMED remain distinct (1.3042ms)
+✔ P7 failed refresh preserves every previous source byte reference and date (1.105ms)
+✔ P7 replaced application root marks a delayed capture historical even before context refresh (3.5086ms)
+✔ P7 superseded generation cannot overwrite the latest read (3.2363ms)
+✔ all native consultation envelopes retain their exact private dependencies through public adapter values (57.5834ms)
+✔ F1/F4 invalidation stays stale while reading and bursts have one trailing read (9.112ms)
+✔ F5/F8 degraded monitoring is uncertain, closing synchronously detaches, reopen is passive (0.6905ms)
+✔ F3 root/selection changed after await cannot publish current (1.7171ms)
+✔ F4 two projects serialize the complete local pipeline and release subscribers detach (8.8174ms)
+✔ F4 BUSY defers until availability without spinning; unknown stop is preserved (2.0175ms)
+✔ F6 help invalidation preserves bundle/history and refuses late preparation/profile (23.8211ms)
+✔ F5 focus reconciliation is passive when unchanged and refreshes only a changed armed lease (1.4595ms)
+✔ F3/F5 context capture invalidated at attachment cannot leave a completed read stuck reading (11.5054ms)
+✔ F3 configuration guard rereads application destination after the native await (1.5256ms)
+✔ F3 context invalidation during consultation queues one qualified trailing capture after its refusal (1.2879ms)
+✖ F8 a real selection change immediately closes only its old scope before the new capture succeeds (2.1167ms)
+ℹ tests 56
+ℹ suites 0
+ℹ pass 55
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8334.8836
+
+✖ failing tests:
+
+test at tests\bmad-refresh.test.mjs:66:1
+✖ F8 a real selection change immediately closes only its old scope before the new capture succeeds (2.1167ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-refresh.test.mjs:69:187)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

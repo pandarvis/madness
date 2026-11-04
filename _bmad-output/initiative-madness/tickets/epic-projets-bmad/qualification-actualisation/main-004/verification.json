@@ -1,0 +1,605 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-04T05:34:18.106Z",
+  "status": "partial",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-8qrRa1",
+  "launches": [
+    {
+      "main": {
+        "pid": 50096,
+        "startedAt": "639293672582983170",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\external-refresh-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtimeVersions": {
+        "node": "24.22.0",
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.8",
+        "brotli": "1.2.0",
+        "cldr": "48.0",
+        "icu": "78.2",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "modules": "150",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "openssl": "0.0.0",
+        "simdjson": "4.6.11",
+        "simdutf": "7.7.0",
+        "sqlite": "3.53.4",
+        "tz": "2026e",
+        "undici": "7.29.1",
+        "unicode": "17.0",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "15.6.75.19-electron.0",
+        "zlib": "1.3.2.1-motley",
+        "zstd": "1.6.0",
+        "electron": "45.0.0",
+        "chrome": "156.0.8078.48"
+      },
+      "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-8qrRa1\\profile",
+      "observationPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-actualisation\\main-004\\observation-1.json"
+    }
+  ],
+  "captures": [],
+  "closures": [
+    {
+      "main": {
+        "pid": 50096,
+        "startedAt": "639293672582983170",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\external-refresh-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 10824,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-04T05:34:24.449Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "checks": [
+    "two-concurrent-project-observations-share-the-owned-helper",
+    "compiled-choose-project-a-beta",
+    "compiled-choose-project-b-beta",
+    "compiled-local-progress-project-a-beta"
+  ],
+  "inputs": {
+    "out/main/index.js": "94e904ff21b543e34db0e5ec01b7a2385ef520d6878a12609effe3a1f6e72c0a",
+    "out/preload/index.js": "d18cf475fd5965cc2b9849a89b2ae90c9790c85331be92c537327b2fe7a3e6df",
+    "package.json": "e75d0d25baf2edb52db2c63e393ee0520a3df27113fb9768cf9e09e5b6ef0792",
+    "resources/bmad-help/bmad-help.md": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+    "resources/bmad-help/bmad-SKILL.md": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+    "resources/bmad-help/bootstrap.py": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+    "resources/bmad-help/capture.py": "8401f38c2432ac2d9d732e73f4d672b32e31fc38e04e9071d3d206fa636bf551",
+    "resources/bmad-help/config_utils.py": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+    "resources/bmad-help/knowledge.py": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+    "resources/bmad-help/launcher.ps1": "52f42c1ec152befd03d034ae801f90e37877a41089ebefe2658be5c18e200de1",
+    "resources/bmad-help/preflight.ps1": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+    "resources/bmad-help/resolve_config.py": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+    "resources/bmad-help/runtime_guard.py": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+    "resources/bmad-help/runtime.json": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+    "resources/bmad-help/supervision.ps1": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+    "resources/bmad-help/worker.py": "c60c7c0dbafd6d78d7afbe606722caa474cb601b64f8f2834dac41b180a8ad47",
+    "resources/bmad-help/progress.py": "c8db35dc8388eefc94f662f36762375530aa508196563550d2acfa4f647a6349"
+  },
+  "cleanup": true,
+  "limits": [
+    "Réseau/app-server observés après hook seulement ; aucune validation fournisseur/humaine déduite. Les événements Windows accélèrent une invalidation sans garantir une couverture totale.",
+    "Captures synthétiques seulement si --screenshots ; aucune validation humaine ; symlink fichier non exercée faute de privilège."
+  ],
+  "snapshot-project-a": {
+    "schemaVersion": 1,
+    "projectId": "project-a",
+    "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-8qrRa1\\project-a",
+    "observedAt": "2026-11-04T05:35:47.320Z",
+    "rootIdentity": "e22da34c33dd0e224e6aed40f1208b4c6f3a3cc90dd68df45ad5d00e4da2416a",
+    "initiativeId": "beta",
+    "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-8qrRa1\\project-a\\_bmad-output\\beta",
+    "contextRevision": "60624df90dec4ebd7b4b77b462d61f4616c56571cff1eb853a0165f288289622",
+    "revision": "71530d09293bc619337dbfcb4c5d438ffa0cd1906f5fe112f844485cc172700b",
+    "coverage": "complete",
+    "sources": [
+      {
+        "id": "source-bd08fc7d406515b7f0b6f5e1a366927610a2b88eed6dd6dcc5b3c25147ddcd02",
+        "kind": "container",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-8qrRa1\\project-a\\_bmad-output\\beta\\beta.md",
+        "relativePath": "beta.md",
+        "sha256": "7bb1347a5ed27cba09c239e19bc971d2ca4848c7b0b427ac540fcd80ae2fb11c",
+        "bytes": 7,
+        "modifiedAt": "2026-11-04T05:34:18.161762+00:00"
+      },
+      {
+        "id": "source-091d09564d1e11dd2e73057bdb5e535f77ca91c053be334d2a45d7cbae8b6154",
+        "kind": "entry",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-8qrRa1\\project-a\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\tickets.toml",
+        "relativePath": "tickets/epic-a/tickets/tickets.toml",
+        "sha256": "4d5ff83479f10c3bccf37065e9ad1ed209e100bd3494fd36a252a4efd68c029f",
+        "bytes": 117,
+        "modifiedAt": "2026-11-04T05:34:18.171769+00:00"
+      },
+      {
+        "id": "source-8f1868d8a67c1a69862ab3ca8c6c3ea8120ee7f738ecb26ebcdf936f0ac3e95a",
+        "kind": "plan",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-8qrRa1\\project-a\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\story-opposition-plan.md",
+        "relativePath": "tickets/epic-a/tickets/story-opposition-plan.md",
+        "sha256": "d73fab16adbcc4a2eb9e97f5bca26c28bb16d90d421a311644f1fc2e4a17fbda",
+        "bytes": 126,
+        "modifiedAt": "2026-11-04T05:34:18.179802+00:00"
+      },
+      {
+        "id": "source-d418dc5fb50caa2fe88947b72b3c070fed2c488ac56de2e4b63bd231220eb46e",
+        "kind": "leaf",
+        "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-8qrRa1\\project-a\\_bmad-output\\beta\\tickets\\epic-a\\tickets\\story-opposition.md",
+        "relativePath": "tickets/epic-a/tickets/story-opposition.md",
+        "sha256": "1ed284d6862b2a1427c345240875a346b09d3201907d0316391555f6ba590a6a",
+        "bytes": 231,
+        "modifiedAt": "2026-11-04T05:34:18.175793+00:00"
+      }
+    ],
+    "declarations": [
+      {
+        "sourceId": "source-bd08fc7d406515b7f0b6f5e1a366927610a2b88eed6dd6dcc5b3c25147ddcd02",
+        "container": ".",
+        "ticketId": null,
+        "title": "beta",
+        "field": "existence",
+        "value": "container",
+        "line": 1
+      },
+      {
+        "sourceId": "source-091d09564d1e11dd2e73057bdb5e535f77ca91c053be334d2a45d7cbae8b6154",
+        "container": "tickets/epic-a",
+        "ticketId": "1",
+        "title": "Entrée sans feuille",
+        "field": "existence",
+        "value": "entry",
+        "line": 1
+      },
+      {
+        "sourceId": "source-091d09564d1e11dd2e73057bdb5e535f77ca91c053be334d2a45d7cbae8b6154",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "existence",
+        "value": "entry",
+        "line": 5
+      },
+      {
+        "sourceId": "source-d418dc5fb50caa2fe88947b72b3c070fed2c488ac56de2e4b63bd231220eb46e",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "existence",
+        "value": "leaf",
+        "line": 1
+      },
+      {
+        "sourceId": "source-d418dc5fb50caa2fe88947b72b3c070fed2c488ac56de2e4b63bd231220eb46e",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "status",
+        "value": "in-progress",
+        "line": 5
+      },
+      {
+        "sourceId": "source-d418dc5fb50caa2fe88947b72b3c070fed2c488ac56de2e4b63bd231220eb46e",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "Déclarations opposées",
+        "field": "tracker_status",
+        "value": "done",
+        "line": 6
+      },
+      {
+        "sourceId": "source-8f1868d8a67c1a69862ab3ca8c6c3ea8120ee7f738ecb26ebcdf936f0ac3e95a",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "story-opposition-plan",
+        "field": "existence",
+        "value": "plan",
+        "line": 1
+      },
+      {
+        "sourceId": "source-8f1868d8a67c1a69862ab3ca8c6c3ea8120ee7f738ecb26ebcdf936f0ac3e95a",
+        "container": "tickets/epic-a",
+        "ticketId": "2",
+        "title": "story-opposition-plan",
+        "field": "status",
+        "value": "built",
+        "line": 4
+      }
+    ],
+    "excerpts": [
+      {
+        "sourceId": "source-d418dc5fb50caa2fe88947b72b3c070fed2c488ac56de2e4b63bd231220eb46e",
+        "category": "results",
+        "heading": "Résultats",
+        "text": "Résultat déclaré dans la feuille, à vérifier.\n\n",
+        "startLine": 10,
+        "endLine": 11
+      },
+      {
+        "sourceId": "source-d418dc5fb50caa2fe88947b72b3c070fed2c488ac56de2e4b63bd231220eb46e",
+        "category": "remaining",
+        "heading": "Travail restant",
+        "text": "Proposition conservée : examiner les preuves.\n",
+        "startLine": 13,
+        "endLine": 13
+      },
+      {
+        "sourceId": "source-8f1868d8a67c1a69862ab3ca8c6c3ea8120ee7f738ecb26ebcdf936f0ac3e95a",
+        "category": "decisions",
+        "heading": "Décisions",
+        "text": "Proposition de l’agent : une décision humaine reste inconnue.\n",
+        "startLine": 8,
+        "endLine": 8
+      }
+    ],
+    "problems": []
+  },
+  "error": "AssertionError [ERR_ASSERTION]: {\"projectId\":\"project-b\",\"generation\":1,\"status\":\"error\",\"freshness\":\"none\",\"monitoring\":\"unarmed\",\"queued\":false,\"snapshot\":null,\"errorCode\":\"PROFILE_CHANGED\",\"error\":\"Lecture locale refusée ou périmée — les preuves précédentes restent historiques.\"}\n\n'error' !== 'ready'\n\n    at file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/bmad-external-refresh.mjs:80:10",
+  "helperTimingReceipts": {
+    "status": "present",
+    "operations": [
+      {
+        "operation": "operation-0e071eb7-135c-4b8c-8ec4-009719022db8",
+        "requestStatus": "present",
+        "op": "context",
+        "phases": {
+          "status": "present",
+          "values": {
+            "resources_ms": 2314,
+            "runtime_copy_ms": 116,
+            "runtime_guard_ms": 2071,
+            "native_group_ms": 4122
+          }
+        },
+        "nativeTimings": {
+          "status": "present",
+          "values": {
+            "worker_ms": 1685,
+            "runtime_guard_ms": 1344
+          }
+        },
+        "terminal": {
+          "status": "present",
+          "values": {
+            "terminal": true,
+            "jobAssigned": true,
+            "jobActive": 0,
+            "neverStarted": false
+          }
+        },
+        "execution": {
+          "status": "present",
+          "values": {
+            "outcome": "completed",
+            "exit": 0,
+            "started": true,
+            "job_assigned_before_resume": true,
+            "active_before_stop": 0,
+            "job_active_after_stop": 0,
+            "elapsed_ms": 3851,
+            "stop_ms": 0,
+            "drain_ms": 165
+          }
+        }
+      },
+      {
+        "operation": "operation-3c0a356a-79b6-4138-b996-2592ce320f6d",
+        "requestStatus": "present",
+        "op": "progress",
+        "phases": {
+          "status": "present",
+          "values": {
+            "resources_ms": 2121,
+            "runtime_copy_ms": 71,
+            "runtime_guard_ms": 1931,
+            "native_group_ms": 4771
+          }
+        },
+        "nativeTimings": {
+          "status": "present",
+          "values": {
+            "worker_ms": 2343,
+            "runtime_guard_ms": 1534
+          }
+        },
+        "terminal": {
+          "status": "present",
+          "values": {
+            "terminal": true,
+            "jobAssigned": true,
+            "jobActive": 0,
+            "neverStarted": false
+          }
+        },
+        "execution": {
+          "status": "present",
+          "values": {
+            "outcome": "completed",
+            "exit": 0,
+            "started": true,
+            "job_assigned_before_resume": true,
+            "active_before_stop": 0,
+            "job_active_after_stop": 0,
+            "elapsed_ms": 4461,
+            "stop_ms": 0,
+            "drain_ms": 221
+          }
+        }
+      },
+      {
+        "operation": "operation-730db327-1a41-413e-9394-1060f99fc432",
+        "requestStatus": "present",
+        "op": "context",
+        "phases": {
+          "status": "present",
+          "values": {
+            "resources_ms": 6604,
+            "runtime_copy_ms": 256,
+            "runtime_guard_ms": 5715
+          }
+        },
+        "nativeTimings": {
+          "status": "missing",
+          "values": {}
+        },
+        "terminal": {
+          "status": "present",
+          "values": {
+            "terminal": true,
+            "jobAssigned": false,
+            "jobActive": 0,
+            "neverStarted": true
+          }
+        },
+        "execution": {
+          "status": "missing",
+          "values": {}
+        }
+      },
+      {
+        "operation": "operation-888f4c37-9b7c-4a09-b128-affb784cb9a7",
+        "requestStatus": "present",
+        "op": "context",
+        "phases": {
+          "status": "present",
+          "values": {
+            "resources_ms": 1541,
+            "runtime_copy_ms": 142,
+            "runtime_guard_ms": 2276,
+            "native_group_ms": 11226
+          }
+        },
+        "nativeTimings": {
+          "status": "present",
+          "values": {
+            "worker_ms": 7248,
+            "runtime_guard_ms": 5856
+          }
+        },
+        "terminal": {
+          "status": "present",
+          "values": {
+            "terminal": true,
+            "jobAssigned": true,
+            "jobActive": 0,
+            "neverStarted": false
+          }
+        },
+        "execution": {
+          "status": "present",
+          "values": {
+            "outcome": "completed",
+            "exit": 0,
+            "started": true,
+            "job_assigned_before_resume": true,
+            "active_before_stop": 0,
+            "job_active_after_stop": 0,
+            "elapsed_ms": 10768,
+            "stop_ms": 0,
+            "drain_ms": 324
+          }
+        }
+      },
+      {
+        "operation": "operation-ab23c447-3eb9-4512-bfbc-68c7e08e309a",
+        "requestStatus": "present",
+        "op": "context",
+        "phases": {
+          "status": "present",
+          "values": {
+            "resources_ms": 3377,
+            "runtime_copy_ms": 8562,
+            "runtime_guard_ms": 2447,
+            "native_group_ms": 5325
+          }
+        },
+        "nativeTimings": {
+          "status": "present",
+          "values": {
+            "worker_ms": 2258,
+            "runtime_guard_ms": 1669
+          }
+        },
+        "terminal": {
+          "status": "present",
+          "values": {
+            "terminal": true,
+            "jobAssigned": true,
+            "jobActive": 0,
+            "neverStarted": false
+          }
+        },
+        "execution": {
+          "status": "present",
+          "values": {
+            "outcome": "completed",
+            "exit": 0,
+            "started": true,
+            "job_assigned_before_resume": true,
+            "active_before_stop": 0,
+            "job_active_after_stop": 0,
+            "elapsed_ms": 5002,
+            "stop_ms": 0,
+            "drain_ms": 230
+          }
+        }
+      },
+      {
+        "operation": "operation-c01943bb-a6f1-43ef-bfa5-77e6a095d305",
+        "requestStatus": "present",
+        "op": "context",
+        "phases": {
+          "status": "present",
+          "values": {
+            "resources_ms": 1954,
+            "runtime_copy_ms": 83,
+            "runtime_guard_ms": 1826,
+            "native_group_ms": 4249
+          }
+        },
+        "nativeTimings": {
+          "status": "present",
+          "values": {
+            "worker_ms": 1899,
+            "runtime_guard_ms": 1561
+          }
+        },
+        "terminal": {
+          "status": "present",
+          "values": {
+            "terminal": true,
+            "jobAssigned": true,
+            "jobActive": 0,
+            "neverStarted": false
+          }
+        },
+        "execution": {
+          "status": "present",
+          "values": {
+            "outcome": "completed",
+            "exit": 0,
+            "started": true,
+            "job_assigned_before_resume": true,
+            "active_before_stop": 0,
+            "job_active_after_stop": 0,
+            "elapsed_ms": 3934,
+            "stop_ms": 0,
+            "drain_ms": 174
+          }
+        }
+      },
+      {
+        "operation": "operation-f4af4d28-6c38-4c9f-91db-a08ec17ced56",
+        "requestStatus": "present",
+        "op": "context",
+        "phases": {
+          "status": "present",
+          "values": {
+            "resources_ms": 1597,
+            "runtime_copy_ms": 138,
+            "runtime_guard_ms": 2763,
+            "native_group_ms": 4932
+          }
+        },
+        "nativeTimings": {
+          "status": "present",
+          "values": {
+            "worker_ms": 1802,
+            "runtime_guard_ms": 1441
+          }
+        },
+        "terminal": {
+          "status": "present",
+          "values": {
+            "terminal": true,
+            "jobAssigned": true,
+            "jobActive": 0,
+            "neverStarted": false
+          }
+        },
+        "execution": {
+          "status": "present",
+          "values": {
+            "outcome": "completed",
+            "exit": 0,
+            "started": true,
+            "job_assigned_before_resume": true,
+            "active_before_stop": 0,
+            "job_active_after_stop": 0,
+            "elapsed_ms": 4582,
+            "stop_ms": 0,
+            "drain_ms": 157
+          }
+        }
+      },
+      {
+        "operation": "operation-fe95c157-e452-461b-a9d4-703a5074c8d7",
+        "requestStatus": "present",
+        "op": "context",
+        "phases": {
+          "status": "present",
+          "values": {
+            "resources_ms": 1397,
+            "runtime_copy_ms": 168,
+            "runtime_guard_ms": 2557,
+            "native_group_ms": 4262
+          }
+        },
+        "nativeTimings": {
+          "status": "present",
+          "values": {
+            "worker_ms": 1796,
+            "runtime_guard_ms": 1458
+          }
+        },
+        "terminal": {
+          "status": "present",
+          "values": {
+            "terminal": true,
+            "jobAssigned": true,
+            "jobActive": 0,
+            "neverStarted": false
+          }
+        },
+        "execution": {
+          "status": "present",
+          "values": {
+            "outcome": "completed",
+            "exit": 0,
+            "started": true,
+            "job_assigned_before_resume": true,
+            "active_before_stop": 0,
+            "job_active_after_stop": 0,
+            "elapsed_ms": 3956,
+            "stop_ms": 0,
+            "drain_ms": 184
+          }
+        }
+      }
+    ]
+  },
+  "completedAt": "2026-11-04T05:36:26.425Z"
+}

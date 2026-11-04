@@ -1,0 +1,21 @@
+✔ F1/F2 real Windows changes, same-byte replacement, deletion and inventory addition invalidate (342.0195ms)
+✔ F2 absent path with several missing parents watches its closest existing ancestor (32.1151ms)
+✔ F3 capture-to-attach mutation and replaced directory fail reconciliation (56.8164ms)
+✔ F5 filename loss, watch error and bounds degrade synchronously without fabricated freshness (23.3354ms)
+✔ F8 shutdown closes every watch synchronously and ignores late callbacks (13.2749ms)
+✔ native Windows volume64 hints match libuv DWORD32 without rounding the file id (0.3922ms)
+✔ F1/F4 invalidation stays stale while reading and bursts have one trailing read (6.4792ms)
+✔ F5/F8 degraded monitoring is uncertain, closing synchronously detaches, reopen is passive (0.6029ms)
+✔ F3 root/selection changed after await cannot publish current (1.1381ms)
+✔ F4 two projects serialize the complete local pipeline and release subscribers detach (5.204ms)
+✔ F4 BUSY defers until availability without spinning; unknown stop is preserved (1.1402ms)
+✔ F6 help invalidation preserves bundle/history and refuses late preparation/profile (18.712ms)
+✔ F5 focus reconciliation is passive when unchanged and refreshes only a changed armed lease (1.8249ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 716.9881

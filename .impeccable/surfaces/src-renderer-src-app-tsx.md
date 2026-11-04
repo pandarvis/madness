@@ -78,3 +78,8 @@ FIRST VIEWPORT: Sous le titre du projet, bouton libellé/nom/chevron dans le flu
 FORM: Extension locale code-led, sans concours ni nouveau seed ; monde établi hérité du seed09fa5971 et de la direction humaine déjà adoptée. Sélection locale seulement, profils et captures historiques font autorité pour les actions.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+
+
+## Actualisation locale des preuves — story 2.5
+
+Mode Operate conservé, sans nouveau seed ni changement de monde visuel. Le [contrat Sally](../../_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md#epic2-refresh) prolonge Reprise du projet : fraîcheur textuelle persistante à côté de la lecture groupée ; ancienne version consultable pendant attente/erreur ; bascule volontaire vers une nouvelle observation. Les détails ouverts, le focus et le défilement restent liés à la version affichée jusqu’à cette bascule. Réutiliser commandes et thèmes existants, sans modalité, décor ou actif supplémentaire. La première lecture après réouverture reste volontaire ; aucun fournisseur ni recommandation automatiquement relancé. [Sources, captures historiques et limites](../../_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation/ux/sally-update.md). Contrat documentaire avant implémentation, aucune preuve de rendu 2.5.

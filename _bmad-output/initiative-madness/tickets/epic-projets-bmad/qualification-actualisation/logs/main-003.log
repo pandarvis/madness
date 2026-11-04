@@ -1,0 +1,25 @@
+two-concurrent-project-observations-share-the-owned-helper
+compiled-choose-project-a-beta
+compiled-choose-project-b-beta
+compiled-local-progress-project-a-beta
+compiled-local-progress-project-b-beta
+reading-proofs-does-not-write-navigation-history-or-drafts
+F5-focus-without-change-no-helper-operation
+F1-invalidation-immediate-old-snapshot-retained-during-read
+F4-real-burst-dirty-trailing-collected
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole('region', { name: 'Reprise du projet', exact: true }).getByRole('button', { name: 'Afficher la nouvelle observation', exact: true })
+
+    at C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\scripts\qualification\bmad-external-refresh.mjs:129:192 {
+  log: [
+    "  - waiting for getByRole('region', { name: 'Reprise du projet', exact: true }).getByRole('button', { name: 'Afficher la nouvelle observation', exact: true })"
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.13.0

@@ -1,0 +1,1 @@
+Les deux constats prose sont résolus dans les passages courants : retour à la ligne explicite dans DESIGN.md et refus de l’action clairement formulé dans le relevé Sally. Aucun point restant dans ce recontrôle ciblé.

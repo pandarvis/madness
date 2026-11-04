@@ -1,0 +1,18 @@
+{
+  "createdAt": "2026-11-04T06:42:33.550Z",
+  "files": {
+    "src/main/index.ts": "7ecd7cdddc1797b360c31653565e8277be86877b53bb8c00e4c2475348f9de9a",
+    "src/core/bmad-progress.ts": "b3986ddc4010be08dabca95b3323b16b66e9812f8164ed3d39b269d6035bcc25",
+    "tests/bmad-refresh.test.mjs": "c2958cff92b66269cb881e99d8f3c46ebf4626b71b25956d4bab252af81c5948",
+    "scripts/qualification/bmad-external-refresh.mjs": "936f95443d606bee2967f4d0b6f4f845059f43330b08d0c32e66aae4f23b548b"
+  },
+  "red": "logs/focus-inherited-uncertainty-red.log",
+  "green": "logs/core-focus-recovery-final.log",
+  "typesBuild": "logs/build-focus-recovery.log",
+  "compiledDelta": "focus-recovery-compiled-diff.json",
+  "scope": [
+    "Move Main focus binding after actual window creation",
+    "Schedule one qualified capture when an armed scope is already pending/uncertain; do not promote from lease success, do not duplicate existing flight"
+  ],
+  "passiveAndAdmission": "No lease on passive reopen; BUSY/STOP_UNCONFIRMED still pass through the existing helper admission and recovery guard."
+}

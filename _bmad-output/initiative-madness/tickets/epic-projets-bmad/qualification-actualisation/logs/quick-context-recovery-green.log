@@ -1,0 +1,11 @@
+✔ review: focus recovers an armed uncertain first capture whose attach failed without retaining a lease (3.6978ms)
+✔ review: focus retries a pending replacement scope after the previous lease closed and BUSY deferred it (1.621ms)
+✔ review: Context and Progress replace a changed config lease once and unchanged settled focus does not collect again (44.975ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 252.3876

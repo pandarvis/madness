@@ -1,0 +1,19 @@
+two-concurrent-project-observations-share-the-owned-helper
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: {"projectId":"project-a","status":"reading","freshness":"uncertain","monitoring":"unavailable","observation":null,"selection":null,"storage":"unset","error":null}
+
+'reading' !== 'ready'
+
+    at file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/bmad-external-refresh.mjs:74:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'reading',
+  expected: 'ready',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.13.0

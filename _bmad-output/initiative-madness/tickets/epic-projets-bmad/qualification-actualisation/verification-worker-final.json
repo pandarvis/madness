@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-11-04T06:53:59.419Z",
+  "status": "worker-verified-parent-review-pending",
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\external-refresh-reviewed\\win-unpacked\\Madness.exe",
+    "executableSha256": "8c27770d928805ede328e828fa12a592060470c42a1dca33c7d2e5fe74997cfc",
+    "asarSha256": "16b2f3391740c12a98ee2a0611f428f8a4f91ae3f97b2e7f681487035eb0b105"
+  },
+  "version": "0.2.9",
+  "installed": false,
+  "sourceFiles": {
+    "package.json": "e75d0d25baf2edb52db2c63e393ee0520a3df27113fb9768cf9e09e5b6ef0792",
+    "package-lock.json": "7282e94ffbf76db4dbbea635b5254821df2557461dd5fb999c1190eca8cbab54",
+    "resources/bmad-help/capture.py": "2276e880e49ac53fbb4edf65b04628984abc52d7d6814b3639c6526eff43a494",
+    "resources/bmad-help/worker.py": "c60c7c0dbafd6d78d7afbe606722caa474cb601b64f8f2834dac41b180a8ad47",
+    "resources/bmad-help/progress.py": "c8db35dc8388eefc94f662f36762375530aa508196563550d2acfa4f647a6349",
+    "src/adapters/bmad/help-manifest.ts": "d19e045873ff6c15279cc726a939c4f42d35a6e1c71b9adc12c1f0ea9523b705",
+    "src/adapters/bmad/help.ts": "e3102673a7e15d96699cc504c8f091f5467f429e187de6cc2144773c90ae1290",
+    "src/adapters/bmad/change-observer.ts": "46d5ceb4dfda2e5bd2084754ad746d1a82ef3beb0ff57c4fa29aaa2d8ce8ba62",
+    "src/core/bmad-observation.ts": "986043eed826c064f7a6d7c1cee5de7c0413ee101d97b05037c0211ef156b0f2",
+    "src/contracts/bmad-context.ts": "0c6d17906bea014b51d387ba75247d29a9a91f96ce8dc7ceb445ed2da8d0cde1",
+    "src/contracts/bmad-help.ts": "0afeb2ee00f9cdb4df833d68ee454af472edf9b0ee05fecc2dc9b6dd706fdb7a",
+    "src/contracts/bmad-progress.ts": "965562c6ae88c60c62f5353dc65fdcde95670f609482202c5da1491d927af5e3",
+    "src/core/bmad-context.ts": "06c1c7439dee06341c223775873769c20e95d190c9e12ef7e24d62089663bf79",
+    "src/core/bmad-help.ts": "dcb798707293d3cc10ec561fff3ce649057dd7bb952f0fbb525d287b48c2f084",
+    "src/core/bmad-progress.ts": "b3986ddc4010be08dabca95b3323b16b66e9812f8164ed3d39b269d6035bcc25",
+    "src/core/lifecycle.ts": "eeac2a177c5f4dc1b982f3b6e06e5d8f9ddfb61b6674d81e3e4921fc5944760c",
+    "src/main/index.ts": "7ecd7cdddc1797b360c31653565e8277be86877b53bb8c00e4c2475348f9de9a",
+    "src/renderer/src/ProjectResume.tsx": "1f596bee67b2a0265318297fedf1ccda9de54c0e0c8d108cee31303cbdc2fd13",
+    "src/renderer/src/HelpPanel.tsx": "f985b167cf5caf4bb430ab3efce0f0c456434743c5637a35e72b9a2ff1dc3fbd",
+    "src/renderer/src/InitiativeSelector.tsx": "f410071105bf91a5acb203f1d6fb536b269caf272133c9041dddbfcf64f32861",
+    "src/renderer/src/strings.ts": "2cd4c8c23f76e6cc2717b3148a9ae8615ee5704c255cc95111cdb1122cde9ce3",
+    "src/renderer/src/progress.css": "b8fdc7dedd10fae3d9ba76ec20d933c0ba792378a4c8021f7f01f3a616c54bc8",
+    "tests/bmad-progress.test.mjs": "1511b4639de5f5d48372f6d27fc807575cb06d9068e3ff44044b18af5329c81e",
+    "tests/connection-ui.test.mjs": "2d08f94f084743b1063be4a8cc635d862e11d27c1fec6c2882d0c932fa14439c",
+    "tests/approvals-protocol.test.mjs": "72c2dee91153f6ea081fa2f8b030b751a9a7d361dc43fa6074fc44b02252a8db",
+    "tests/bmad-refresh.test.mjs": "c2958cff92b66269cb881e99d8f3c46ebf4626b71b25956d4bab252af81c5948",
+    "tests/bmad-change-observer.test.mjs": "b968e7427027856787e3952975bcee92b6f53d4451713252dc5c7908de5012d2",
+    "tests/bmad-refresh-envelope.test.mjs": "da98e7baa35d2bf476fa581a20b81eeda41b7184f824b2bbd155bcbb2225b115",
+    "tests/bmad-refresh-refusals.test.mjs": "da9fcc12883be4de5308f039288ee32fc23c167a10ea2738ee82c89799b7815d",
+    "scripts/qualification/bmad-external-refresh.mjs": "2b7fefef3c1e24b6fa62c4fd29f6fe145478f0221374f5d4f162621f68fc3432",
+    "scripts/qualification/bmad-refresh-diagnostic.mjs": "17270901c53a1ddeee49a9127440990c9f8e5a169e34b09cc8c19bf81bcd6753",
+    "scripts/qualification/bmad-refresh-watch-trace.mjs": "6bebb4f602398e8f73ce479210d5df1b31ab2118940632922168e1393117a286",
+    "scripts/qualification/bmad-refresh-audit.mjs": "326ec512ec7088e1791d84e2f374b0adbbce50a91b7f9d0258da976bc857e38c",
+    "scripts/qualification/bmad-refresh-focus-diff.mjs": "15dc137089955a04bdb7fef461d3ec8a3bc93a9fccac719e433d697cbc2cc1d6"
+  },
+  "proofs": {
+    "core": {
+      "path": "logs/core-focus-recovery-final.log",
+      "passed": 26,
+      "skipped": 0,
+      "scope": "targeted progress and refresh core after F5 branch change; earlier56 remain scoped baseline, counts overlap"
+    },
+    "ui": {
+      "path": "logs/ui-second.log",
+      "distinctCases": 7,
+      "recheck": "logs/ui-announcement-recheck.log",
+      "recheckedCases": 2,
+      "rendererChangedSinceRecheck": false
+    },
+    "nativeReaderProtocols": {
+      "path": "logs/native-second.log",
+      "passed": 2,
+      "checks": [
+        25,
+        21
+      ],
+      "limits": [
+        "Historical producer before H1 refused-coverage change; native reader boundary checks retained, not a global binary-equivalence claim."
+      ]
+    },
+    "nativeDecision": {
+      "path": "native-decision-final",
+      "passed": 1,
+      "provider": "synthetic RPC; actual pinned native helper and actual Windows config mutation",
+      "stop": {
+        "stopped": "stopped",
+        "completedAt": "2026-11-04T06:06:39.396Z"
+      }
+    },
+    "refusedRepair": {
+      "path": "native-refusals-001/verification.json",
+      "passed": 1,
+      "repeat": "logs/refusals-repeat-default.log",
+      "producerDifference": "refusals-test-repeatability.json"
+    },
+    "externalChanges": {
+      "path": "main-final/verification.json",
+      "status": "partial",
+      "acceptedGroups": [
+        "two-concurrent-project-observations-share-the-owned-helper",
+        "compiled-choose-project-a-beta",
+        "compiled-choose-project-b-beta",
+        "compiled-local-progress-project-a-beta",
+        "compiled-local-progress-project-b-beta",
+        "reading-proofs-does-not-write-navigation-history-or-drafts",
+        "F1-invalidation-immediate-old-snapshot-retained-during-read",
+        "F4-real-burst-dirty-trailing-collected",
+        "F7-compiled-displayed-version-switch-is-voluntary",
+        "F2-same-byte-replacement-has-new-identity-and-revision",
+        "F2-source-deletion-is-new-observation-without-reassignment",
+        "F8-owned-fixture-source-restored"
+      ],
+      "excluded": [
+        "F8 failed qualifier reader baseline; original status remains partial."
+      ],
+      "before": "491e6807f75ef498cfbefd5de4435e595b333c54259a3e0e16f00aa13beb921b",
+      "afterBurst": "b54a6b7269501887aceeccc5beccec03a59fc77b0beb498a9b5a76bdd27b9390",
+      "afterReplacement": "1f71d12f59505c050f8fc2f6bc0207fefdc37d7b9db08994ae8e86192c4c7161",
+      "afterDelete": "3584a7827afeeff9f4d6154a4e508cdbca6c8a028bdc5ed3a2b61b3bdedfc64a",
+      "candidateAsarSha256": "87442da9bd83d1e4420c3f5563f63e517d6f41c4efd9ba4ba3c070a4195dece3",
+      "notEvidence": [
+        "F5-focus-without-change-no-helper-operation was vacuous while the application listener was unbound; raw historical check remains unchanged."
+      ]
+    },
+    "activeStopAndReopen": {
+      "path": "main-live-stop-final/verification.json",
+      "status": "passed",
+      "scope": "F8 close during read and passive reopen only",
+      "operationCountBefore": 5,
+      "operationCountAfter": 5,
+      "activeBeforeStop": 3,
+      "activeAfterStop": 0,
+      "stopMs": 1,
+      "drainMs": 197,
+      "closures": [
+        {
+          "cleanupSafe": true,
+          "closeError": false
+        },
+        {
+          "cleanupSafe": true,
+          "closeError": false
+        }
+      ],
+      "candidateAsarSha256": "87442da9bd83d1e4420c3f5563f63e517d6f41c4efd9ba4ba3c070a4195dece3"
+    },
+    "build": "logs/build-focus-recovery.log",
+    "package": "logs/package-focus-recovery.log",
+    "priorPackageFailure": "logs/package-final.log",
+    "packageAudit": "logs/package-audit-focus-final.log",
+    "high": "focus-recovery-review-input.json",
+    "coreBaseline": {
+      "path": "logs/core-H2-F8-final-002.log",
+      "passed": 56,
+      "skipped": 0
+    },
+    "focusRecovery": {
+      "path": "main-focus-final/verification.json",
+      "status": "passed",
+      "scope": "F5 lost-notification focus recovery and passive reopen only",
+      "watcherLossMock": {
+        "kind": "FSWatcher change events muted in owned process",
+        "realMutation": true
+      },
+      "focusEvent": "BrowserWindow.emit(\"focus\") on the real Main window; no physical Alt-Tab or human action claimed",
+      "initialRevision": "4beb8364728f4eb6ae45b8499f6ca47f105cde601b9dee2bb535b641865f297b",
+      "recoveredRevision": "af01a52b82467104de3e59e70d7d229587b5b71c51455ecc94d431cbb0a3697c",
+      "exactContent": "Focus recovery external bytes.",
+      "operationsBefore": 10,
+      "operationsAfter": 10,
+      "closures": [
+        {
+          "cleanupSafe": true,
+          "closeError": false
+        },
+        {
+          "cleanupSafe": true,
+          "closeError": false
+        }
+      ],
+      "cleanup": true
+    }
+  },
+  "matrix": {
+    "F1": [
+      "main-final/verification.json",
+      "logs/core-H2-F8-final-002.log"
+    ],
+    "F2": [
+      "main-final/verification.json",
+      "logs/core-H2-F8-final-002.log"
+    ],
+    "F3": [
+      "logs/core-H2-F8-final-002.log",
+      "logs/native-second.log"
+    ],
+    "F4": [
+      "main-final/verification.json",
+      "logs/core-H2-F8-final-002.log"
+    ],
+    "F5": [
+      "main-focus-final/verification.json",
+      "logs/core-focus-recovery-final.log",
+      "native-refusals-001/verification.json"
+    ],
+    "F6": [
+      "native-decision-final",
+      "logs/core-H2-F8-final-002.log"
+    ],
+    "F7": [
+      "main-final/verification.json",
+      "logs/ui-second.log",
+      "logs/ui-announcement-recheck.log"
+    ],
+    "F8": [
+      "main-live-stop-final/verification.json",
+      "logs/core-H2-F8-final-002.log"
+    ]
+  },
+  "limits": [
+    "fs.watch is an accelerator; no total/instant event delivery or full Windows identity equivalence is promised. Native point-of-effect guards remain authoritative.",
+    "No global npm test, personal install/profile/account/provider/network operation, human acceptance or WCAG audit is claimed.",
+    "Parent owns final Quick review, visual/finish/detector conclusions, plan status and local commit.",
+    "main-final stays partial on87442; only its successful F1/F2/F4/F7 groups are reused at that ASAR. Current16b2f339 has separate passing F5/passive proof, bounded by the independently checked compiled delta.",
+    "The earlier2RAF/no-helper check is not evidence of F5 listener behavior."
+  ],
+  "currentCandidateScope": "F5 focus recovery and passive reopen only on 16b2f339; earlier file-change/decision/active-stop proofs retain 87442 provenance.",
+  "reusedBaselineCandidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\external-refresh-reviewed\\win-unpacked\\Madness.exe",
+    "executableSha256": "f3e22d58fe7a38f7e5ca098f136e8dbe439589f5b005a2d45d50530d35096722",
+    "asarSha256": "87442da9bd83d1e4420c3f5563f63e517d6f41c4efd9ba4ba3c070a4195dece3"
+  },
+  "reuseBoundary": "focus-recovery-compiled-diff.json: only Main focus listener relocation and progress.reconcile F5 branch differ; remaining Main bytes, 18 renderer/preload outputs and 14 resources exact. No global binary equivalence.",
+  "parentAudit": "parent-audit-002.json"
+}

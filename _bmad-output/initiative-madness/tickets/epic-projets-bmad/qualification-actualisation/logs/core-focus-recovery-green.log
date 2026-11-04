@@ -1,0 +1,34 @@
+✔ P2/P3 declarations keep entry, leaf, plan and tracker separate; built never accepts (98.1944ms)
+✔ P4 literal excerpts retain section, source and lines with no generated synthesis (1.2592ms)
+✔ Q1 literal statuses in-progress and blocked remain conflicting (0.6617ms)
+✔ Q1 literal statuses draft and ready-for-dev remain conflicting (0.3519ms)
+✔ Q1 tracker equivalence stays separate from literal status disagreement (0.3971ms)
+✔ strict bridge refuses free paths, admission flags and inconsistent source links (3.1494ms)
+✔ P5 consultation beta is independent of active alpha; passive read starts no helper (1.3329ms)
+✔ P5 no choice, missing choice and replaced root refuse new collection (0.8472ms)
+✔ P7 late result remains attached to captured beta and cannot replace selected alpha (6.735ms)
+✔ P7 failure preserves previous dated snapshot and shutdown aborts owned read (1.3594ms)
+✔ P8 local reader has no connection dependency; BUSY and STOP_UNCONFIRMED remain distinct (0.6091ms)
+✔ P7 failed refresh preserves every previous source byte reference and date (0.7171ms)
+✔ P7 replaced application root marks a delayed capture historical even before context refresh (1.0476ms)
+✔ P7 superseded generation cannot overwrite the latest read (1.0603ms)
+✔ F1/F4 invalidation stays stale while reading and bursts have one trailing read (8.1963ms)
+✔ F5/F8 degraded monitoring is uncertain, closing synchronously detaches, reopen is passive (0.6322ms)
+✔ F3 root/selection changed after await cannot publish current (1.0739ms)
+✔ F4 two projects serialize the complete local pipeline and release subscribers detach (5.1444ms)
+✔ F4 BUSY defers until availability without spinning; unknown stop is preserved (0.8504ms)
+✔ F6 help invalidation preserves bundle/history and refuses late preparation/profile (16.6464ms)
+✔ F5 focus reconciliation is passive when unchanged and refreshes only a changed armed lease (0.7706ms)
+✔ F3/F5 context capture invalidated at attachment cannot leave a completed read stuck reading (5.9802ms)
+✔ F3 configuration guard rereads application destination after the native await (0.6663ms)
+✔ F3 context invalidation during consultation queues one qualified trailing capture after its refusal (0.4145ms)
+✔ F8 a real selection change immediately closes only its old scope before the new capture succeeds (1.425ms)
+✔ F5 focus requalifies inherited monitoring uncertainty even when its own lease finds unchanged bytes (0.5922ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 357.2583

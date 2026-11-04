@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "revision": 1,
+  "projects": [
+    {
+      "id": "project-a",
+      "name": "project-a",
+      "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mprogress-main-UrmMVc\\project-a",
+      "openedAt": "2026-11-04T07:25:59.784Z"
+    }
+  ],
+  "activeProjectId": "project-a",
+  "drafts": [
+    {
+      "projectId": "project-a",
+      "text": "Brouillon synthétique exact 🧭 project-a",
+      "savedAt": "2026-11-04T07:25:59.784Z"
+    }
+  ],
+  "preferences": {
+    "navigationCollapsed": false
+  },
+  "conversations": [
+    {
+      "id": "historical-project-a",
+      "context": {
+        "projectId": "project-a",
+        "initiativeId": "alpha",
+        "conversationId": "historical-project-a",
+        "providerId": "codex",
+        "connectionId": "historical-account"
+      },
+      "lastKnownActivity": "idle",
+      "messages": [
+        {
+          "id": "old-message",
+          "role": "assistant",
+          "text": "Historique inconnu — octets conservés."
+        }
+      ]
+    }
+  ]
+}

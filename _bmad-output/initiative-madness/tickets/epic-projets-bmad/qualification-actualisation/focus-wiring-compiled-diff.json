@@ -1,0 +1,32 @@
+{
+  "createdAt": "2026-11-04T06:30:31.132Z",
+  "status": "passed",
+  "baselineAsarSha256": "87442da9bd83d1e4420c3f5563f63e517d6f41c4efd9ba4ba3c070a4195dece3",
+  "mainBeforeSha256": "a551f8f7708db18c08924b8923a11b1c97873cd670e70f5c6b46ca16a763cd29",
+  "mainAfterSha256": "8c0c7ea2c8a8219f531ed3864599f6c84f0c8b78a95cbc796c62f0dda8b35285",
+  "onlyCompiledChange": "Exactly the recovery focus listener statement moves after BrowserWindow creation; removing this one full statement leaves byte-identical compiled Main.",
+  "statementBefore": "\t\twindow?.on(\"focus\", () => {\n\t\t\tcontextCoordinator.reconcile();\n\t\t\thelpCoordinator.reconcile();\n\t\t\tprogressCoordinator.reconcile();\n\t\t});\n",
+  "statementAfter": "\t\twindow.on(\"focus\", () => {\n\t\t\tcontextCoordinator.reconcile();\n\t\t\thelpCoordinator.reconcile();\n\t\t\tprogressCoordinator.reconcile();\n\t\t});\n",
+  "unchangedCompiledFiles": [
+    "out/preload/index.js",
+    "out/renderer/assets/amelia-bust-BhMfUzyU.png",
+    "out/renderer/assets/BarlowCondensed-Bold-v1X23fbx.ttf",
+    "out/renderer/assets/chatgpt-mark-BzeLsF5q.svg",
+    "out/renderer/assets/chrome-plate-frame-CEUOVTY4.png",
+    "out/renderer/assets/index-5l6WJ0vU.css",
+    "out/renderer/assets/index-CUsH5KzE.js",
+    "out/renderer/assets/john-bust-BFR8uFSt.png",
+    "out/renderer/assets/madness-64-CLfbpCIt.png",
+    "out/renderer/assets/mary-bust-MARKPnXB.png",
+    "out/renderer/assets/Oxanium-Variable-Cxng1r8B.ttf",
+    "out/renderer/assets/sally-bust-V3QCidDb.png",
+    "out/renderer/assets/smithy-bust-5fAwEfcm.png",
+    "out/renderer/assets/sofia-bust-BfDgrm10.png",
+    "out/renderer/assets/winston-bust-CX7w_Rgd.png",
+    "out/renderer/assets/workshop-header-CzuHm831.png",
+    "out/renderer/assets/workshop-sidebar-BKMFHWB8.png",
+    "out/renderer/index.html"
+  ],
+  "unchangedResourceCount": 14,
+  "globalBinaryEquivalence": false
+}

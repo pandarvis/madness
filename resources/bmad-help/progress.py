@@ -357,6 +357,12 @@ def collect(req, context):
     try:tickets(initiative)
     except (OSError, ValueError) as error:problem('Portee tickets partielle: '+str(error))
 
+    dependency_state={'roots':[], 'lists':[(str(p),n,True) for p,_,n in inventories], 'optional':[(str(p),False) for p in missing], 'refused':[{'path':str(p)} for p,_ in refused]}
+    hints=capture.observation_hints(dependency_state)
+    own=capture.observation_hints({'roots':[{'path':str(initiative),'dirs':{},'files':{p.relative_to(initiative).as_posix():digest for p,_,digest in readings}}]})
+    hints['entries'] += own['entries'] + context['_observationHints']['entries']
+    hints['limited'] += own['limited'] + context['_observationHints']['limited']
+
     # Verify the same files, absent paths and inventoried names after every parse.
     # A mixed-time observation is refused rather than promoted to a partial success.
     for path, stamp, expected in readings:
@@ -373,4 +379,4 @@ def collect(req, context):
         if [*capture.identity(info), info.st_size, info.st_mtime_ns, info.st_ctime_ns] != stamp:raise ValueError('PROGRESS_REFUSAL_CHANGED: '+capture.display_path(path))
     if capture.inspect_chain(project) != root_chain or capture.inspect_chain(initiative) != initiative_chain:raise ValueError('PROGRESS_ROOT_CHANGED')
     state = {'sources': sources, 'declarations': declarations, 'excerpts': excerpts, 'problems': problems, 'inventories': [(capture.display_path(p), i, n) for p, i, n in inventories], 'fileIdentities': [(capture.display_path(p), stamp) for p, stamp, _ in readings]}
-    return {'rootIdentity': context['rootIdentity'], 'initiativeId': req['initiativeId'], 'initiativePath': capture.display_path(initiative), 'contextRevision': context['revision'], 'revision': capture.sha(json.dumps(state, sort_keys=True, ensure_ascii=False).encode('utf-8')), 'coverage': 'partial' if problems else 'complete', 'sources': sources, 'declarations': declarations, 'excerpts': excerpts, 'problems': problems}
+    return {'_observationHints':hints,'rootIdentity': context['rootIdentity'], 'initiativeId': req['initiativeId'], 'initiativePath': capture.display_path(initiative), 'contextRevision': context['revision'], 'revision': capture.sha(json.dumps(state, sort_keys=True, ensure_ascii=False).encode('utf-8')), 'coverage': 'partial' if problems else 'complete', 'sources': sources, 'declarations': declarations, 'excerpts': excerpts, 'problems': problems}

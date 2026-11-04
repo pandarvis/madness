@@ -1,0 +1,64 @@
+✖ review: focus recovers an armed uncertain first capture whose attach failed without retaining a lease (3.6412ms)
+✖ review: focus retries a pending replacement scope after the previous lease closed and BUSY deferred it (2.625ms)
+✖ review: Context and Progress replace a changed config lease once and unchanged settled focus does not collect again (42.018ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 252.5971
+
+✖ failing tests:
+
+test at tests\bmad-refresh.test.mjs:74:1
+✖ review: focus recovers an armed uncertain first capture whose attach failed without retaining a lease (3.6412ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-refresh.test.mjs:78:123)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-refresh.test.mjs:81:1
+✖ review: focus retries a pending replacement scope after the previous lease closed and BUSY deferred it (2.625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 3
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-refresh.test.mjs:86:85)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\bmad-refresh.test.mjs:89:1
+✖ review: Context and Progress replace a changed config lease once and unchanged settled focus does not collect again (42.018ms)
+  AssertionError [ERR_ASSERTION]: unchanged focus must not re-read the old context fingerprint
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-refresh.test.mjs:100:66)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

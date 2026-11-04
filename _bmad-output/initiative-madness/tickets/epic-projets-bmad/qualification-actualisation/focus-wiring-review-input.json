@@ -1,0 +1,10 @@
+{
+  "createdAt": "2026-11-04T06:26:27.216Z",
+  "mainBefore": "d385708ab7e4e2e449a2742544b0a49b98f8b4d7c27ea166841937dacfb00a84",
+  "mainAfter": "7ecd7cdddc1797b360c31653565e8277be86877b53bb8c00e4c2475348f9de9a",
+  "onlyChange": "Recovery focus listener moved after BrowserWindow construction; optional window?.on becomes window.on after non-null creation.",
+  "baseline": "focus-wiring-baseline/manifest.json",
+  "qualifier": "scripts/qualification/bmad-external-refresh.mjs",
+  "positiveCase": "Actual FS mutation with FSWatcher change events muted only in owned process; real window focus must start capture and return exact new revision/content.",
+  "productOtherChanges": false
+}

@@ -1,0 +1,28 @@
+✖ F5 focus requalifies inherited monitoring uncertainty even when its own lease finds unchanged bytes (4.818ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 367.3617
+
+✖ failing tests:
+
+test at tests\bmad-refresh.test.mjs:72:1
+✖ F5 focus requalifies inherited monitoring uncertainty even when its own lease finds unchanged bytes (4.818ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-refresh.test.mjs:72:485)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

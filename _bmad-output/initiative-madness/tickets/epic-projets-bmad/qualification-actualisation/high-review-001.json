@@ -1,0 +1,57 @@
+{
+  "recordedAt": "2026-11-04T05:41:36.841832+00:00",
+  "reviewer": "/root/refresh25_high_audit",
+  "scope": "Independent high backend boundaries and proof inspection, no tests/process/mutations; live source evolved during audit; final stable-source recheck required",
+  "findings": [
+    {
+      "id": "H1",
+      "verdict": "Medium",
+      "route": "patch",
+      "status": "confirmed, same implementer correcting",
+      "problem": "Refused source dependency descriptor drops native refusal stamps. An in-place repair between native capture and watch attachment can reconcile by dev/ino and publish old partial coverage as current.",
+      "locations": [
+        "resources/bmad-help/progress.py:360",
+        "resources/bmad-help/capture.py:247",
+        "src/adapters/bmad/change-observer.ts:34",
+        "src/core/bmad-progress.ts:62"
+      ],
+      "parentEvidence": "Read same code and native refused stamp rechecks. No use of watcher dev32 in effect authorization established.",
+      "fixRequested": "Explicit limited/unavailable for refused scope or sufficient actual captured precondition; real Windows repair-in-place capture-to-attach test."
+    }
+  ],
+  "qualificationIssues": [
+    {
+      "id": "P1",
+      "status": "open",
+      "evidence": "Main003 afterBurst and initial project-a are exact equal; post-navigation activeProjectId is project-a. Initial attribution to recents sorting contradicted. No final F2/F4/F7 from003/004.",
+      "expected": "Stable observed exact result, changed revision and External burst29 content; final source/package with cleanup and passive reopen."
+    }
+  ],
+  "f6": "003 native prepare completed0, fresh completed1 STALE_SOURCE, both terminals Job0, stop stopped; provider protocol synthetic, actual Windows guard; not integrated-provider proof",
+  "sourceCapsuleForOldBehavior": {
+    "resources/bmad-help/capture.py": {
+      "capsule": "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-actualisation\\main-004\\producer\\resources\\bmad-help\\capture.py",
+      "sha256": "8401f38c2432ac2d9d732e73f4d672b32e31fc38e04e9071d3d206fa636bf551"
+    },
+    "resources/bmad-help/progress.py": {
+      "capsule": "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-actualisation\\main-004\\producer\\resources\\bmad-help\\progress.py",
+      "sha256": "c8db35dc8388eefc94f662f36762375530aa508196563550d2acfa4f647a6349"
+    },
+    "resources/bmad-help/worker.py": {
+      "capsule": "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-actualisation\\main-004\\producer\\resources\\bmad-help\\worker.py",
+      "sha256": "c60c7c0dbafd6d78d7afbe606722caa474cb601b64f8f2834dac41b180a8ad47"
+    },
+    "src/adapters/bmad/change-observer.ts": {
+      "capsule": "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-actualisation\\main-004\\producer\\src\\adapters\\bmad\\change-observer.ts",
+      "sha256": "4d766b475480720b74c8d72a9ec52876d9995c9fb1a162ba2b0b99819c20a04e"
+    },
+    "src/core/bmad-progress.ts": {
+      "capsule": "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-actualisation\\main-004\\producer\\src\\core\\bmad-progress.ts",
+      "sha256": "393eb57094cec8cf0d2a58c2de450e2083b5a7b42002cf1ead96c7d1c772a90b"
+    }
+  },
+  "lenses_ran": [
+    "independent-high-boundaries"
+  ],
+  "remaining": "same auditor recheck patch and all subsequently changed boundary code on stable hashes + final native receipts"
+}

@@ -1,0 +1,53 @@
+{
+  "recordedAt": "2026-11-04T04:51:37.697378+00:00",
+  "scope": "documentary only; no app/tests/build/provider/personal-profile run",
+  "checks": {
+    "designTokenContentIdenticalToHead": true,
+    "newTokenReferencesMissing": [],
+    "componentNamesPaired": 30,
+    "newComponents": 0,
+    "tokenReferenceOccurrences": 125,
+    "distinctTokenReferences": 86,
+    "sevenFlowNamesPreserved": [
+      "### 1. Ouvrir et diagnostiquer un projet",
+      "### 2. Obtenir une prochaine action avec l’aide BMad du projet",
+      "### 3. Explorer le catalogue réellement installé et lancer une action qualifiée",
+      "### 4. Retrouver et choisir les initiatives sans réattribuer les échanges",
+      "### 5. Lire le parcours et actualiser ses preuves",
+      "### 6. Consulter les livrables et demander leur ouverture dans l’éditeur",
+      "### 7. Retrouver son travail et ses attentes entre plusieurs projets"
+    ],
+    "otherSixFlowBodiesIdentical": true,
+    "topLevelSectionsUnchanged": true,
+    "localLinksChecked": 67,
+    "missingLinks": [],
+    "badExplicitAnchors": [],
+    "sourcePathsChecked": 37,
+    "proseClarificationsApplied": 2,
+    "sameProseReviewerResolved": true,
+    "diffCheck": "passed (Git LF/CRLF informational warnings only)"
+  },
+  "files": {
+    "_bmad-output/initiative-madness/ux-madness/DESIGN.md": "f17296a2d923e14a3837ca4fbcabf98d4c57f03cb2c93787d9534028916e7e51",
+    "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md": "ac3874e6680bef5356a537f36ae1e00d504643cd075788921babb838dd82c9cf",
+    ".impeccable/surfaces/src-renderer-src-app-tsx.md": "b03a739d7410a1b5c96d1a3856872d763849027e772c1ecf635940b924809df9",
+    "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation/ux/sally-update.md": "52355e29d10fdfd70f2434598ee3dda75cd74c28a885a954654fe395c6b37f92",
+    "_bmad-output/initiative-madness/ux-madness/.memlog.md": "7365ea9713d0a2af61843f26e8f8662caad5a89cfa5bd7d19449df2038bb0f8a"
+  },
+  "capturesActuallyViewed": {
+    "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-reprise-projet/visual-finish-001/resume-large-dark-native.png": "5f45e7d3a3ffb332aa2ee48fb5d42dba7a55ca75fcd9322c036b0a1b81a653d4",
+    "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-reprise-projet/visual-recapture-zoom-003/resume-compact-light-native.png": "ef5b854fe62399c53c7369728cdfe7ff13254ab0fdad2a98d1b34434af36aa13",
+    "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-reprise-projet/visual-recapture-zoom-003/resume-zoom-200-native.png": "72ce4161fa8ed5bb2b6dd6837cf1efffc4db3def08a864b594517be934e31535"
+  },
+  "limits": [
+    "Regex checks of token paths and raw token-group equality; no YAML parser installed or dependency added.",
+    "Capture sources remain historical Main004; no current UI2.5, binary equivalence, human approval or WCAG audit claimed.",
+    "Structure fresh: no findings; prose fresh: two applied and same reviewer resolved. They do not qualify product/UI."
+  ],
+  "reviewReceiptFiles": {
+    "review-structure.md": "891f0bff31eda2b3a170013533041656bceed1334311c9764130560f82154efe",
+    "review-prose.md": "542d5ef518aea72dbc3a34d2b8c565d8063b8c3ffec1f75bd6595d598f7b7b70",
+    "review-prose-recheck.md": "6860bc6115c063aa72dd15f7d7bd616773b8968d49228d49222026373b13a1c1",
+    "review-register.json": "84a593f21eaface4bdbc2bb55523818085d02c92080091a6af83c483438b5bbc"
+  }
+}

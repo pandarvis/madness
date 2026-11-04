@@ -1,0 +1,11 @@
+✔ F1/F4 invalidation stays stale while reading and bursts have one trailing read (6.1573ms)
+✔ F5/F8 degraded monitoring is uncertain, closing synchronously detaches, reopen is passive (0.4975ms)
+✔ F3 root/selection changed after await cannot publish current (1.3223ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 238.2741

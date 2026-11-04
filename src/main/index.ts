@@ -1,3 +1,4 @@
+import {BmadChangeObserver} from '../adapters/bmad/change-observer.ts'
 import {BmadContextAdapter} from '../adapters/bmad/context.ts'
 import {BmadProgressAdapter} from '../adapters/bmad/progress.ts'
 import {BmadProgressCoordinator} from '../core/bmad-progress.ts'
@@ -139,7 +140,9 @@ else {
       if(connection?.hasOperation()&&!(internal&&connection.hasDialogueLease()&&await ownedRun.healthyActive()))throw Object.assign(new Error('BUSY'),{code:'BUSY'})
       if(await ownedRun.status()!=='stopped'&&!(internal&&connection?.hasDialogueLease()&&await ownedRun.healthyActive()))throw Object.assign(new Error('STOP_UNCONFIRMED'),{code:'STOP_UNCONFIRMED'})
     }})
-    const helpCoordinator=new BmadHelpCoordinator({application,store:new BmadHelpStore(join(app.getPath('userData'),'bmad-help-v1')),prepare:(id,root,signal)=>helpAdapter.prepare(id,root,signal),profile:(id,signal)=>helpAdapter.profile(id,signal),copy:async value=>{await clipboard.writeText(value);if(await clipboard.readText()!==value)throw Error('COPY_FAILED')}})
+    const observation=new BmadChangeObserver(value=>helpAdapter.dependencies(value))
+    application.lifecycle.register({id:'bmad-observation',context:emptyContext(),stop:async()=>{observation.shutdown();return 'stopped'}})
+    const helpCoordinator=new BmadHelpCoordinator({observation,application,store:new BmadHelpStore(join(app.getPath('userData'),'bmad-help-v1')),prepare:(id,root,signal)=>helpAdapter.prepare(id,root,signal),profile:(id,signal)=>helpAdapter.profile(id,signal),copy:async value=>{await clipboard.writeText(value);if(await clipboard.readText()!==value)throw Error('COPY_FAILED')}})
     application.lifecycle.register({id:'bmad-help',context:emptyContext(),stop:async()=>{await helpCoordinator.shutdown();return helpAdapter.shutdown()}})
     ipcMain.handle(HELP_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isHelpCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:{...initialHelpState(),error:'INVALID_COMMAND'}}
@@ -149,7 +152,7 @@ else {
     })
     helpCoordinator.subscribe(state=>{if(isHelpState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(HELP_EVENT_CHANNEL,state)})
     const contextAdapter=new BmadContextAdapter(helpAdapter)
-    const contextCoordinator=new BmadContextCoordinator({application,projectIds:async()=>{if(!application)throw Error('APP_CLOSING');const reply=await application.execute({contractVersion:1,correlationId:'bmad-context-restore',type:'read-state'});if(!reply.ok)throw Error(reply.error.code);return reply.value.state.projects.map(project=>project.id)},observeConsultation:(id,root,signal)=>contextAdapter.consult(id,root,signal),store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal)})
+    const contextCoordinator=new BmadContextCoordinator({application,observation,projectIds:async()=>{if(!application)throw Error('APP_CLOSING');const reply=await application.execute({contractVersion:1,correlationId:'bmad-context-restore',type:'read-state'});if(!reply.ok)throw Error(reply.error.code);return reply.value.state.projects.map(project=>project.id)},observeConsultation:(id,root,signal)=>contextAdapter.consult(id,root,signal),store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal)})
     application.lifecycle.register({id:'bmad-context',context:emptyContext(),stop:async()=>{await contextCoordinator.shutdown();return 'stopped'}})
     ipcMain.handle(BMAD_CONTEXT_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadContextCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadContextState()}
@@ -159,7 +162,7 @@ else {
     })
     contextCoordinator.subscribe(state=>{if(isBmadContextState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(BMAD_CONTEXT_EVENT_CHANNEL,state)})
     const progressAdapter=new BmadProgressAdapter(helpAdapter)
-    const progressCoordinator=new BmadProgressCoordinator({application,contexts:contextCoordinator,collect:(id,root,selection,observation,signal)=>progressAdapter.collect(id,root,selection,observation,signal)})
+    const progressCoordinator=new BmadProgressCoordinator({application,observation,available:fn=>admission.subscribeAvailable(fn),contexts:contextCoordinator,collect:(id,root,selection,observation,signal)=>progressAdapter.collect(id,root,selection,observation,signal)})
     application.lifecycle.register({id:'bmad-progress',context:emptyContext(),stop:async()=>{await progressCoordinator.shutdown();return 'stopped'}})
     ipcMain.handle(BMAD_PROGRESS_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadProgressCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadProgressState()}
@@ -236,6 +239,7 @@ else {
       titleBarStyle: 'hidden', titleBarOverlay: nativeCaptionColors(appearance.theme),
       webPreferences: { preload: join(__dirname, '../preload/index.js'), additionalArguments: ['--madness-theme=' + appearance.theme, '--madness-appearance-warning=' + (appearance.warning ?? 'none')], contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, allowRunningInsecureContent: false, webviewTag: false, spellcheck: false }
     })
+    window.on('focus',()=>{contextCoordinator.reconcile();helpCoordinator.reconcile();progressCoordinator.reconcile()})
     window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
     window.webContents.on('will-navigate', (event) => event.preventDefault())
     window.webContents.on('will-redirect', (event) => event.preventDefault())

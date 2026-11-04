@@ -1,0 +1,44 @@
+{
+  "at": "2026-11-04T07:31:07.466090+00:00",
+  "status": "verified-reviewed",
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\external-refresh-reviewed\\win-unpacked\\Madness.exe",
+    "executableSha256": "255e81e431e2bbc0f438edcfea6c1839bc9f8cfb5eaa7a2517210729481fa7d7",
+    "asarSha256": "508df4ab903d73000a133a7958a87c9623aa765702a54a6944507479c2d766cf"
+  },
+  "installer": {
+    "path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\external-refresh-reviewed\\Madness-0.2.9-x64-setup.exe",
+    "sha256": "a4aefdeccb04743a10f2a6cda804e2557a1c12b2a3e8f0795b6ef18909d25022"
+  },
+  "inputs": {
+    "src/core/bmad-progress.ts": "08034a048a60ff5e5ba71603946246c457cff91cff0a45fc5a165b43f3b36c23",
+    "src/core/bmad-context.ts": "28c631b9b41a0f989c8957745d7edc3f55b6ebfb43c5f62bf5264662c144ef50",
+    "tests/bmad-refresh.test.mjs": "38c56c21324dfc349d85cd4ddb07a72500954151c9082414a83b22f537f6f1b9"
+  },
+  "verification": {
+    "core": "logs/parent-postquick-core.log:52/52,0skip",
+    "build": "logs/parent-postquick-build.log:types/build0",
+    "package": "logs/parent-postquick-package.log:NSIS0",
+    "audit": "parent-audit-003.json:28resources2036protected19outputs735runtime",
+    "native": "main-postquick-final/verification.json:passed",
+    "checks": 13,
+    "operationsBefore": 10,
+    "operationsAfter": 10,
+    "closures": 2,
+    "cleanup": true,
+    "exactNewText": true
+  },
+  "reuse": [
+    "postquick-compiled-diff.json:only Progress.reconcile and Context.consultSelection differ from16b2;remainingMain18outputs exact",
+    "focus-recovery-compiled-diff.json: prior narrow87442→16b2 reuse boundary"
+  ],
+  "reviews": {
+    "high": "high-recheck-Q1-Q2-001.json source fixes verified",
+    "Quick": "same reviewer Q1/Q2 resolved, no new concrete defect:quick-recheck-001.json"
+  },
+  "limits": [
+    "native lost notifications and focus event are fixture simulations on real compiled Main with actual file mutation",
+    "Q2 cross-core config case uses real Temp bytes with controlled observer port",
+    "no global ASAR equivalence, personal install, provider/network, human acceptance, WCAG or G2/G4/G5 inferred"
+  ]
+}

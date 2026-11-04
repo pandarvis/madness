@@ -1,0 +1,16 @@
+✔ F1/F4 invalidation stays stale while reading and bursts have one trailing read (5.0968ms)
+✔ F5/F8 degraded monitoring is uncertain, closing synchronously detaches, reopen is passive (1.0024ms)
+✔ F3 root/selection changed after await cannot publish current (2.2048ms)
+✔ F4 two projects serialize the complete local pipeline and release subscribers detach (6.3465ms)
+✔ F4 BUSY defers until availability without spinning; unknown stop is preserved (1.1691ms)
+✔ F6 help invalidation preserves bundle/history and refuses late preparation/profile (17.5456ms)
+✔ F5 focus reconciliation is passive when unchanged and refreshes only a changed armed lease (0.814ms)
+✔ F3/F5 context capture invalidated at attachment cannot leave a completed read stuck reading (6.3618ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 314.7896

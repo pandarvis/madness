@@ -1,0 +1,13 @@
+✔ F1/F2 real Windows changes, same-byte replacement, deletion and inventory addition invalidate (319.7646ms)
+✔ F2 absent path with several missing parents watches its closest existing ancestor (46.0465ms)
+✔ F3 capture-to-attach mutation and replaced directory fail reconciliation (80.1067ms)
+✔ F5 filename loss, watch error and bounds degrade synchronously without fabricated freshness (20.4965ms)
+✔ F8 shutdown closes every watch synchronously and ignores late callbacks (14.5149ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 693.0622

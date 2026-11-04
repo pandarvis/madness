@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict'
+import {readFile,readdir,writeFile,mkdir} from 'node:fs/promises'
+import {join,resolve} from 'node:path'
+import {createHash} from 'node:crypto'
+import {createRequire} from 'node:module'
+import {helpResourcePins} from '../../src/adapters/bmad/help-manifest.ts'
+const require=createRequire(import.meta.url),asar=require('@electron/asar'),repository=process.cwd(),candidate=resolve('dist/external-refresh-reviewed/win-unpacked'),archive=join(candidate,'resources/app.asar'),sha=bytes=>createHash('sha256').update(bytes).digest('hex'),output=resolve('_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation/final-manifest.json'),files={},resources={}
+async function visit(folder){for(const entry of await readdir(join(repository,folder),{withFileTypes:true})){const name=folder+'/'+entry.name;if(entry.isDirectory())await visit(name);else{const bytes=await readFile(join(repository,name));assert.deepEqual(asar.extractFile(archive,name.replaceAll('/','\\')),bytes);files[name]=sha(bytes)}}}
+await visit('out')
+for(const [name,pin] of Object.entries(helpResourcePins)){const source=await readFile(join(repository,'resources/bmad-help',name)),packaged=await readFile(join(candidate,'resources/bmad-help',name));assert.equal(sha(source),pin);assert.deepEqual(packaged,source);resources[name]=pin}
+const packageJson=JSON.parse(asar.extractFile(archive,'package.json'));assert.equal(packageJson.version,'0.2.9');const manifest={schemaVersion:1,createdAt:new Date().toISOString(),status:'package-audit-passed',candidate,version:packageJson.version,asarSha256:sha(await readFile(archive)),compiledFiles:files,resources,counts:{compiled:Object.keys(files).length,resources:Object.keys(resources).length},installation:false,limits:['Native/UI qualification receipts are separate; package identity alone is not a user acceptance or native effect proof.']};await mkdir(resolve('_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation'),{recursive:true});await writeFile(output,JSON.stringify(manifest,null,2)+'\n');console.log(JSON.stringify({status:manifest.status,asarSha256:manifest.asarSha256,counts:manifest.counts}))

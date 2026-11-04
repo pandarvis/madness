@@ -1,0 +1,36 @@
+{
+  "createdAt": "2026-11-04T06:42:33.378Z",
+  "status": "passed",
+  "baselineAsarSha256": "87442da9bd83d1e4420c3f5563f63e517d6f41c4efd9ba4ba3c070a4195dece3",
+  "mainBeforeSha256": "a551f8f7708db18c08924b8923a11b1c97873cd670e70f5c6b46ca16a763cd29",
+  "mainAfterSha256": "cc2af0aaa7c119828b89d170d42b2de3abee0947d49bf3dd617fde2102cf133b",
+  "onlyCompiledChanges": [
+    "Recovery focus listener relocated after BrowserWindow construction",
+    "F5 progress.reconcile schedules one qualified capture for pending/uncertain scopes, coalesced against an existing flight"
+  ],
+  "remainingMainBytesIdentical": true,
+  "reconcileBefore": "reconcile() {\n\t\tfor (const [id, lease] of this.leases) lease.reconcile().then((fresh) => {\n\t\t\tif (!fresh && !this.closing) this.schedule(id);\n\t\t});\n\t}",
+  "reconcileAfter": "reconcile() {\n\t\tfor (const [id, lease] of this.leases) lease.reconcile().then((fresh) => {\n\t\t\tif (!this.closing && !this.jobs.has(id) && (!fresh || this.pending.has(id) || this.project(id).freshness === \"uncertain\")) {\n\t\t\t\tthis.pending.add(id);\n\t\t\t\tthis.schedule(id);\n\t\t\t}\n\t\t});\n\t}",
+  "unchangedCompiledFiles": [
+    "out/preload/index.js",
+    "out/renderer/assets/amelia-bust-BhMfUzyU.png",
+    "out/renderer/assets/BarlowCondensed-Bold-v1X23fbx.ttf",
+    "out/renderer/assets/chatgpt-mark-BzeLsF5q.svg",
+    "out/renderer/assets/chrome-plate-frame-CEUOVTY4.png",
+    "out/renderer/assets/index-5l6WJ0vU.css",
+    "out/renderer/assets/index-CUsH5KzE.js",
+    "out/renderer/assets/john-bust-BFR8uFSt.png",
+    "out/renderer/assets/madness-64-CLfbpCIt.png",
+    "out/renderer/assets/mary-bust-MARKPnXB.png",
+    "out/renderer/assets/Oxanium-Variable-Cxng1r8B.ttf",
+    "out/renderer/assets/sally-bust-V3QCidDb.png",
+    "out/renderer/assets/smithy-bust-5fAwEfcm.png",
+    "out/renderer/assets/sofia-bust-BfDgrm10.png",
+    "out/renderer/assets/winston-bust-CX7w_Rgd.png",
+    "out/renderer/assets/workshop-header-CzuHm831.png",
+    "out/renderer/assets/workshop-sidebar-BKMFHWB8.png",
+    "out/renderer/index.html"
+  ],
+  "unchangedResourceCount": 14,
+  "globalBinaryEquivalence": false
+}

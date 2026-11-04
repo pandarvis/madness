@@ -1,0 +1,76 @@
+✔ F1/F2 real Windows changes, same-byte replacement, deletion and inventory addition invalidate (555.2486ms)
+✔ F2 absent path with several missing parents watches its closest existing ancestor (58.0558ms)
+✔ F3 capture-to-attach mutation and replaced directory fail reconciliation (108.656ms)
+✔ F5 filename loss, watch error and bounds degrade synchronously without fabricated freshness (41.0731ms)
+✔ F8 shutdown closes every watch synchronously and ignores late callbacks (29.3033ms)
+✔ native Windows volume64 hints match libuv DWORD32 without rounding the file id (0.5358ms)
+✔ F5 handle ceiling refuses a wide qualified scope without an unbounded watch allocation (1200.1556ms)
+✔ F2 live directory replacement invalidates the old identity without following its new contents (115.5418ms)
+✔ F8 shutdown crossing watch creation closes the just-created handle exactly once (8.7771ms)
+✔ Mary indépendante capture alpha sans dépendre des documents {"missingDocument":true} (17.7945ms)
+✔ Mary indépendante capture alpha sans dépendre des documents {"unrelatedRefusal":true} (6.7967ms)
+✔ open refuse la garde puis échoue au nettoyage : arrêt inconnu sans session retournée (3.091ms)
+✔ un effet possédé commencé garde EFFECT_UNKNOWN malgré le refus de contexte (2.3288ms)
+✔ source mutation before open rejects without provider ownership or first turn (1.179ms)
+✔ mutation inside open stops actual owner before conversation or turn; unknown remains unknown (1.5113ms)
+✔ mutation after conversation persistence refuses first turn without rewriting capture (1.204ms)
+✔ question alpha survives consultation beta; its own changed sources refuse submission (10.6927ms)
+✔ outil indépendant ne périme pas sa capture quand ses sorties changent (170.8388ms)
+✔ root replacement preserves old selection and refuses initiative action until a fresh explicit choice (2.7844ms)
+✔ invalid active identities never become a represented context or a guessed slug (3.7013ms)
+✔ selection annex rejects a real hardlink without altering its external witness (64.2564ms)
+✔ consultation and captured-context guards serialize their read-only helper work (8.6071ms)
+✔ an admitted internal helper waits for context consultation and then reacquires ownership checks (28.0723ms)
+✔ commands refuse arbitrary paths and public admission flags (0.5385ms)
+✔ atomic annex restores two independent choices and preserves future/corrupt bytes (187.5858ms)
+✔ consultation beta never reassigns captured alpha; fresh sources still guard alpha (2.0449ms)
+✔ failed preservation retains session choice; save retry performs no observation (0.5558ms)
+✔ superseded asynchronous choice never overwrites latest choice (1.2447ms)
+✔ passive read restores only known local choices without observing project data (233.8097ms)
+✔ P2/P3 declarations keep entry, leaf, plan and tracker separate; built never accepts (162.9644ms)
+✔ P4 literal excerpts retain section, source and lines with no generated synthesis (1.6242ms)
+✔ Q1 literal statuses in-progress and blocked remain conflicting (0.7807ms)
+✔ Q1 literal statuses draft and ready-for-dev remain conflicting (0.4872ms)
+✔ Q1 tracker equivalence stays separate from literal status disagreement (0.5867ms)
+✔ strict bridge refuses free paths, admission flags and inconsistent source links (3.3294ms)
+✔ P5 consultation beta is independent of active alpha; passive read starts no helper (3.7561ms)
+✔ P5 no choice, missing choice and replaced root refuse new collection (2.0658ms)
+✔ P7 late result remains attached to captured beta and cannot replace selected alpha (6.8842ms)
+✔ P7 failure preserves previous dated snapshot and shutdown aborts owned read (1.4682ms)
+✔ P8 local reader has no connection dependency; BUSY and STOP_UNCONFIRMED remain distinct (0.5226ms)
+✔ P7 failed refresh preserves every previous source byte reference and date (0.4733ms)
+✔ P7 replaced application root marks a delayed capture historical even before context refresh (0.8226ms)
+✔ P7 superseded generation cannot overwrite the latest read (1.6144ms)
+✔ all native consultation envelopes retain their exact private dependencies through public adapter values (55.0959ms)
+file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-refresh.test.mjs:63
+test('F3 context invalidation during consultation queues one qualified trailing capture after its refusal',async()=>{const original=fixture();let notify,consultations=0;const f=fixture({contexts:{read:()=>({projects:[original.context]}),subscribeInvalidation:fn=>{notify=fn;return()=>notify=null},consultSelection:async()=>{consultations++;if(consultations===1){notify('project-a','watching');throw Object.assign(Error(),{code:'PROFILE_CHANGED'})}return original.context}});await f.c.execute(command);assert.equal(consultations,2);assert.equal(f.c.read().projects[0].freshness,'current');assert.equal(f.counts().reads,1);await f.c.shutdown();assert.equal(notify,null)})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^
+
+SyntaxError: Unexpected token ')'
+    at compileSourceTextModule (node:internal/modules/esm/utils:318:16)
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:111:18)
+    at #translate (node:internal/modules/esm/loader:473:20)
+    at afterLoad (node:internal/modules/esm/loader:529:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:534:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:571:36)
+    at afterResolve (node:internal/modules/esm/loader:624:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:630:12)
+    at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:649:32)
+    at TracingChannel.tracePromise (node:diagnostics_channel:350:14)
+
+Node.js v24.13.0
+✖ tests\bmad-refresh.test.mjs (284.2723ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 44
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2471.7023
+
+✖ failing tests:
+
+test at tests\bmad-refresh.test.mjs:1:1
+✖ tests\bmad-refresh.test.mjs (284.2723ms)
+  'test failed'

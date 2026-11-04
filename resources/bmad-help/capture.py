@@ -207,3 +207,47 @@ def stage(receipt, target):
         (target / name).mkdir(parents=True, exist_ok=True)
     return target
 
+
+
+def observation_hints(state):
+    """Private dependency hints; event delivery never proves content freshness.
+
+    Every path comes from this bounded native capture. Decimal identities keep
+    Windows 64-bit file identifiers intact across the internal JSON receipt.
+    """
+    targets={};limited=[]
+    def add(path, kind='presence', digest=None, names=None, directories_only=False):
+        path=long_path(path)
+        try:chain=inspect_chain(path,missing=True)
+        except (Refusal,OSError):
+            limited.append(display_path(path))
+            if path.parent!=path:add(path.parent,'directory')
+            return
+        for ancestor, ident in chain:
+            info=Path(ancestor).lstat()
+            if stat.S_ISDIR(info.st_mode):
+                targets.setdefault(display_path(ancestor),{'path':display_path(ancestor),'kind':'directory','identity':[str(ident[0]),str(ident[1])],'sha256':None,'names':None,'directoriesOnly':False})
+        try:info=path.lstat()
+        except FileNotFoundError:
+            targets[display_path(path)]={'path':display_path(path),'kind':'missing','identity':None,'sha256':None,'names':None,'directoriesOnly':False}
+            return
+        key=display_path(path)
+        old=targets.get(key)
+        if old:
+            digest=digest or old['sha256']
+            if names is None:names=old['names'];directories_only=old['directoriesOnly']
+        targets[key]={'path':key,'kind':'directory' if stat.S_ISDIR(info.st_mode) else kind,'identity':[str(info.st_dev),str(info.st_ino)],'sha256':digest,'names':names,'directoriesOnly':directories_only}
+    for root in state.get('roots',[]):
+        add(root['path'])
+        for rel in root['dirs']:add(Path(root['path'])/rel,'directory')
+        for rel,digest in root['files'].items():add(Path(root['path'])/rel,'file',digest)
+    for path,names,all_names in state.get('lists',[]):add(path,'directory',names=names,directories_only=not all_names)
+    for path,_ in state.get('optional',[]):add(path)
+    for marker in state.get('legacy',[]):add(marker['path'])
+    for source in state.get('refused',[]):
+        # A refused body has no revalidatable content digest. Identity alone
+        # cannot detect an in-place repair; never promote this scope current.
+        limited.append(display_path(source['path']))
+        add(Path(source['path']).parent,'directory')
+    if len(targets)>8192:raise Refusal('OBSERVATION_BOUND')
+    return {'version':1,'entries':list(targets.values()),'limited':limited}

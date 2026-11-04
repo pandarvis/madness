@@ -1,0 +1,28 @@
+{
+  "at": "2026-11-04T07:09:34.950210+00:00",
+  "reviewer": "/root/refresh25_quick",
+  "diff": "C:/Users/UP6006~1/AppData/Local/Temp/madness-refresh25-review-004.diff",
+  "findings": [
+    {
+      "id": "Q1",
+      "location": "src/core/bmad-progress.ts:38",
+      "verdict": "medium",
+      "route": "patch",
+      "status": "confirmed pending fix",
+      "claim": "Armed progress without a retained lease is excluded from focus recovery.",
+      "evidence": "start closes a failed candidate lease, retains uncertainty/pending, while reconcile iterates only leases; first attach refusal and scope replacement are reachable. Existing focus test always has successful initial lease.",
+      "smallestFix": "Use existing armed/pending/freshness state to include degraded scopes without a retained lease, preserve passive startup and coalescence."
+    },
+    {
+      "id": "Q2",
+      "location": "src/core/bmad-context.ts:28",
+      "verdict": "medium",
+      "route": "patch",
+      "status": "confirmed pending fix",
+      "claim": "Qualified grouped consultation never replaces old context dependency lease, so later unchanged focus events trigger recurring invalidation/captures.",
+      "evidence": "consultSelection publishes new observation but never attaches/closes/swaps leases or updates freshness; reconcile keeps old hash from execute, whose failed reconcile invalidates progress on every focus.",
+      "smallestFix": "Rearm context lease from qualified consultation before current publication using existing generation/selection/root checks after awaits; close displaced/unpublished leases; no durable/native effect changes."
+    }
+  ],
+  "parentTriage": "All findings verified separately after final reviewer answer, no grouping; both small private fixes within frozen F5 intent, no new public surface or undemonstrated state."
+}

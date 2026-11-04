@@ -1,0 +1,41 @@
+✔ F1/F2 real Windows changes, same-byte replacement, deletion and inventory addition invalidate (457.4052ms)
+✔ F2 absent path with several missing parents watches its closest existing ancestor (39.3301ms)
+✔ F3 capture-to-attach mutation and replaced directory fail reconciliation (92.8839ms)
+✔ F5 filename loss, watch error and bounds degrade synchronously without fabricated freshness (31.1625ms)
+✔ F8 shutdown closes every watch synchronously and ignores late callbacks (23.1559ms)
+✔ Mary indépendante capture alpha sans dépendre des documents {"missingDocument":true} (17.6112ms)
+✔ Mary indépendante capture alpha sans dépendre des documents {"unrelatedRefusal":true} (3.9332ms)
+✔ open refuse la garde puis échoue au nettoyage : arrêt inconnu sans session retournée (3.1114ms)
+✔ un effet possédé commencé garde EFFECT_UNKNOWN malgré le refus de contexte (4.0101ms)
+✔ source mutation before open rejects without provider ownership or first turn (1.3617ms)
+✔ mutation inside open stops actual owner before conversation or turn; unknown remains unknown (2.4633ms)
+✔ mutation after conversation persistence refuses first turn without rewriting capture (1.5642ms)
+✔ question alpha survives consultation beta; its own changed sources refuse submission (10.9205ms)
+✔ P2/P3 declarations keep entry, leaf, plan and tracker separate; built never accepts (143.1204ms)
+✔ P4 literal excerpts retain section, source and lines with no generated synthesis (1.5467ms)
+✔ Q1 literal statuses in-progress and blocked remain conflicting (0.663ms)
+✔ Q1 literal statuses draft and ready-for-dev remain conflicting (0.3451ms)
+✔ Q1 tracker equivalence stays separate from literal status disagreement (0.3909ms)
+✔ strict bridge refuses free paths, admission flags and inconsistent source links (2.5276ms)
+✔ P5 consultation beta is independent of active alpha; passive read starts no helper (2.2005ms)
+✔ P5 no choice, missing choice and replaced root refuse new collection (1.6744ms)
+✔ P7 late result remains attached to captured beta and cannot replace selected alpha (9.1306ms)
+✔ P7 failure preserves previous dated snapshot and shutdown aborts owned read (2.7834ms)
+✔ P8 local reader has no connection dependency; BUSY and STOP_UNCONFIRMED remain distinct (1.342ms)
+✔ P7 failed refresh preserves every previous source byte reference and date (1.2599ms)
+✔ P7 replaced application root marks a delayed capture historical even before context refresh (2.7545ms)
+✔ P7 superseded generation cannot overwrite the latest read (2.4308ms)
+✔ F1/F4 invalidation stays stale while reading and bursts have one trailing read (10.8827ms)
+✔ F5/F8 degraded monitoring is uncertain, closing synchronously detaches, reopen is passive (1.3938ms)
+✔ F3 root/selection changed after await cannot publish current (2.7366ms)
+✔ F4 two projects serialize the complete local pipeline and release subscribers detach (9.9638ms)
+✔ F4 BUSY defers until availability without spinning; unknown stop is preserved (2.3087ms)
+✔ F6 help invalidation preserves bundle/history and refuses late preparation/profile (27.8637ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 949.1078

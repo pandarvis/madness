@@ -1,0 +1,22 @@
+two-concurrent-project-observations-share-the-owned-helper
+compiled-choose-project-a-beta
+compiled-choose-project-b-beta
+compiled-local-progress-project-a-beta
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: {"projectId":"project-b","generation":1,"status":"error","freshness":"none","monitoring":"unarmed","queued":false,"snapshot":null,"errorCode":"PROFILE_CHANGED","error":"Lecture locale refusée ou périmée — les preuves précédentes restent historiques."}
+
+'error' !== 'ready'
+
+    at file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/bmad-external-refresh.mjs:80:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'error',
+  expected: 'ready',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.13.0

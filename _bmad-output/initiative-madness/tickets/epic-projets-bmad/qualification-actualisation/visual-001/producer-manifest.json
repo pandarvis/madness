@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-04T06:13:43.678Z",
+  "script": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\scripts\\qualification\\bmad-refresh-visual.mjs",
+  "sha256": "ffd37d07384f20f05d65c11364f2293d521afe02b8084abd7ab71e03bc3e55a9",
+  "nodeVersions": {
+    "node": "24.13.0",
+    "acorn": "8.15.0",
+    "ada": "3.3.0",
+    "amaro": "1.1.5",
+    "ares": "1.34.6",
+    "brotli": "1.1.0",
+    "cjs_module_lexer": "2.1.0",
+    "cldr": "47.0",
+    "icu": "77.1",
+    "llhttp": "9.3.0",
+    "modules": "137",
+    "napi": "10",
+    "nbytes": "0.1.1",
+    "ncrypto": "0.0.1",
+    "nghttp2": "1.67.1",
+    "openssl": "3.5.4",
+    "simdjson": "4.1.0",
+    "simdutf": "6.4.0",
+    "sqlite": "3.50.4",
+    "tz": "2025b",
+    "undici": "7.18.2",
+    "unicode": "16.0",
+    "uv": "1.51.0",
+    "uvwasi": "0.0.23",
+    "v8": "13.6.233.17-node.37",
+    "zlib": "1.3.1-470d3a2",
+    "zstd": "1.5.7"
+  },
+  "dependencies": {
+    "scripts/qualification/workspace-design.mjs": "f8188789cc7d10796cbf25256b6d3bf182e3491b994ab55032408b132fc4f805",
+    "src/contracts/bmad-progress.ts": "965562c6ae88c60c62f5353dc65fdcde95670f609482202c5da1491d927af5e3",
+    "src/contracts/bmad-context.ts": "0c6d17906bea014b51d387ba75247d29a9a91f96ce8dc7ceb445ed2da8d0cde1",
+    "src/renderer/src/ProjectResume.tsx": "1f596bee67b2a0265318297fedf1ccda9de54c0e0c8d108cee31303cbdc2fd13",
+    "src/renderer/src/progress.css": "b8fdc7dedd10fae3d9ba76ec20d933c0ba792378a4c8021f7f01f3a616c54bc8"
+  }
+}

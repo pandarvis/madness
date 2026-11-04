@@ -96,7 +96,10 @@ def prepare(req):
         state['roots'].append(item);return item
     def add(source,target,r):
         nonlocal total
+        before=list(capture.identity(source.lstat()))
         raw=capture.read_safe(source,utf8=False);total+=len(raw)
+        if list(capture.identity(source.lstat()))!=before:raise ValueError('SOURCE_REPLACED')
+        state.setdefault('fileIdentities',[]).append({'path':str(source),'identity':before})
         if total>16*1024*1024 or len(mapping)>=2048:raise ValueError('CAPTURE_BOUND')
         r['files'][source.relative_to(Path(r['path'])).as_posix()]=capture.sha(raw)
         target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
@@ -254,9 +257,10 @@ def prepare(req):
     state['inventoriesDisplay']=inventories
     revision=capture.sha(json.dumps(state,sort_keys=True).encode())
     (folder/'capture.json').write_text(json.dumps(state),encoding='utf-8')
+    hints=capture.observation_hints(state)
     fresh(folder)
     diagnostic=('legacy-observed' if any(m['present'] is True for m in state['legacy']) else 'unknown' if any(m['error'] for m in state['legacy']) else 'absent') if not config_present else 'unknown' if versions!={'6.13.0-next'} else 'partial' if problems else 'candidate-observed'
-    return {'revision':revision,'diagnostic':diagnostic,'nativeReady':bool(documents and config_raw and qualified_skill and context_valid and output is not None and not any(p.startswith('Configuration') for p in problems) and versions=={'6.13.0-next'} and any(s['snapshot']==str(Path(skill).parent/'references/help.md') for s in sources)),'problems':problems,'documents':documents,'references':[{'module':v['module'],'path':v.get('file',v['path'])} for v in value['topics']+value['migrations']],'sources':sources,'activeInitiative':active,'selectedInitiative':None,'outputPath':capture.display_path(output) if output is not None else None,'inventories':inventories,'knowledgeRaw':knowledge_raw,'configRaw':config_raw,'skillPath':skill}
+    return {'_observationHints':hints,'revision':revision,'diagnostic':diagnostic,'nativeReady':bool(documents and config_raw and qualified_skill and context_valid and output is not None and not any(p.startswith('Configuration') for p in problems) and versions=={'6.13.0-next'} and any(s['snapshot']==str(Path(skill).parent/'references/help.md') for s in sources)),'problems':problems,'documents':documents,'references':[{'module':v['module'],'path':v.get('file',v['path'])} for v in value['topics']+value['migrations']],'sources':sources,'activeInitiative':active,'selectedInitiative':None,'outputPath':capture.display_path(output) if output is not None else None,'inventories':inventories,'knowledgeRaw':knowledge_raw,'configRaw':config_raw,'skillPath':skill}
 
 
 def context_observation(req,configuration_only=False):
@@ -355,9 +359,10 @@ def context_observation(req,configuration_only=False):
     revision=capture.sha(json.dumps(state,sort_keys=True).encode())
     folder=capture.long_path(req['folder'])
     (folder/'capture.json').write_text(json.dumps(state),encoding='utf-8')
+    hints=capture.observation_hints(state)
     fresh(folder)
     if capture.inspect_chain(project)!=chain:raise ValueError('PROJECT_REPLACED')
-    result={'rootIdentity':root_identity,'revision':revision,'status':status,'activeInitiative':active,'activeStatus':active_status,'sources':sources,'problems':problems}
+    result={'_observationHints':hints,'rootIdentity':root_identity,'revision':revision,'status':status,'activeInitiative':active,'activeStatus':active_status,'sources':sources,'problems':problems}
     if not configuration_only:result['initiatives']=initiatives
     return result
 

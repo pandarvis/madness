@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "scope": "Quick Q1/Q2 core patches only; source changed after packaged candidate 16b2f339; parent owns impacted package/native/full validation",
+  "recordedAt": "2026-11-04T07:22:39.942Z",
+  "inputs": [
+    {
+      "path": "src/core/bmad-progress.ts",
+      "sha256": "08034a048a60ff5e5ba71603946246c457cff91cff0a45fc5a165b43f3b36c23",
+      "bytes": 10871,
+      "baseline": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation/main-focus-final/producer/src/core/bmad-progress.ts",
+      "baselineSha256": "b3986ddc4010be08dabca95b3323b16b66e9812f8164ed3d39b269d6035bcc25",
+      "onlyRequestedMethodChanged": true
+    },
+    {
+      "path": "src/core/bmad-context.ts",
+      "sha256": "28c631b9b41a0f989c8957745d7edc3f55b6ebfb43c5f62bf5264662c144ef50",
+      "bytes": 12560,
+      "baseline": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation/main-focus-final/producer/src/core/bmad-context.ts",
+      "baselineSha256": "06c1c7439dee06341c223775873769c20e95d190c9e12ef7e24d62089663bf79",
+      "onlyRequestedMethodChanged": true
+    },
+    {
+      "path": "tests/bmad-refresh.test.mjs",
+      "sha256": "38c56c21324dfc349d85cd4ddb07a72500954151c9082414a83b22f537f6f1b9",
+      "bytes": 21855
+    }
+  ],
+  "commands": {
+    "redAndGreen": "node --experimental-strip-types --test --test-name-pattern='review:' tests/bmad-refresh.test.mjs",
+    "targeted": "node --experimental-strip-types --test tests/bmad-refresh.test.mjs tests/bmad-progress.test.mjs tests/bmad-context.test.mjs tests/bmad-context-dialogue.test.mjs"
+  },
+  "names": {
+    "Q1": [
+      "review: focus recovers an armed uncertain first capture whose attach failed without retaining a lease",
+      "review: focus retries a pending replacement scope after the previous lease closed and BUSY deferred it"
+    ],
+    "Q2": [
+      "review: Context and Progress replace a changed config lease once and unchanged settled focus does not collect again"
+    ],
+    "barriers": [
+      "review: unpublished consultation lease closes after attach-root changes its captured preconditions",
+      "review: unpublished consultation lease closes after reconcile-generation changes its captured preconditions",
+      "review: unpublished consultation lease closes after reconcile-selection changes its captured preconditions"
+    ]
+  },
+  "proof": {
+    "red": {
+      "log": {
+        "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation/logs/quick-context-recovery-red.log",
+        "sha256": "77e3ec67503f7bbf54c5589ae6b19c6e771eaef56a4082b16ea4f463c089ee7e"
+      },
+      "tests": 3,
+      "pass": 0,
+      "fail": 3
+    },
+    "green": {
+      "log": {
+        "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation/logs/quick-context-recovery-green.log",
+        "sha256": "100371b40be758ff8f553e3d4dcfbfd41849ea28b8e8ebf1aa12a0274d74de67"
+      },
+      "tests": 3,
+      "pass": 3,
+      "fail": 0
+    },
+    "targeted": {
+      "log": {
+        "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-actualisation/logs/quick-context-recovery-targeted.log",
+        "sha256": "41b7c8daa496749550c970271385f1765f4daff8d90750841959a72099f514d7"
+      },
+      "tests": 52,
+      "pass": 52,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0
+    }
+  },
+  "limits": [
+    "Core test port with real temporary config bytes; no native FSWatcher/focus/provider qualification in this patch",
+    "No build, NSIS, native or global suite executed",
+    "Historical receipts and candidate capsules unchanged"
+  ],
+  "noOwnedGuiOrProcesses": true
+}

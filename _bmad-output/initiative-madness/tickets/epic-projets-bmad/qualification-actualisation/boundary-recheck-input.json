@@ -1,0 +1,28 @@
+{
+  "createdAt": "2026-11-04T05:45:10.381Z",
+  "files": {
+    "src/adapters/bmad/change-observer.ts": "b7996d020d1808fdc7295ad80c2af67f3ae659b755f27d67c793ff1a5e60cbe7",
+    "src/adapters/bmad/help.ts": "e3102673a7e15d96699cc504c8f091f5467f429e187de6cc2144773c90ae1290",
+    "src/core/bmad-context.ts": "06c1c7439dee06341c223775873769c20e95d190c9e12ef7e24d62089663bf79",
+    "src/core/bmad-progress.ts": "5d0845d1b3964afeb2a9e5e8a47ff95e8b65dee9408477dadf9a3cc7c1fdeeaa",
+    "src/core/bmad-help.ts": "dcb798707293d3cc10ec561fff3ce649057dd7bb952f0fbb525d287b48c2f084",
+    "src/core/bmad-observation.ts": "986043eed826c064f7a6d7c1cee5de7c0413ee101d97b05037c0211ef156b0f2",
+    "resources/bmad-help/capture.py": "2276e880e49ac53fbb4edf65b04628984abc52d7d6814b3639c6526eff43a494",
+    "resources/bmad-help/progress.py": "c8db35dc8388eefc94f662f36762375530aa508196563550d2acfa4f647a6349",
+    "resources/bmad-help/worker.py": "c60c7c0dbafd6d78d7afbe606722caa474cb601b64f8f2834dac41b180a8ad47",
+    "src/adapters/bmad/help-manifest.ts": "d19e045873ff6c15279cc726a939c4f42d35a6e1c71b9adc12c1f0ea9523b705",
+    "tests/bmad-refresh-refusals.test.mjs": "680fef6841e4c391a9631c364c275217cc11ff9b9c467642b9964089c9dc2ab9",
+    "tests/bmad-change-observer.test.mjs": "6f325793bf7d45ff8555d86d22c0c37f26988dc4a38221911767f3743ef95a18",
+    "tests/bmad-refresh.test.mjs": "fea18ac4f4c0dc412a6f85e262a9ba76063f0b77a338da2a9e96a2c43236cbbf"
+  },
+  "H1": "native-refusals-001/verification.json",
+  "F8": "logs/shutdown-crossing-green.log",
+  "core": "logs/core-final-005.log",
+  "typesBuild": "logs/build-005.log",
+  "notes": [
+    "All refused sources explicitly limit monitoring; identity-only repair cannot be promoted current.",
+    "Watch creation is guarded after await and a handle created across shutdown closes immediately. Total handles512/per lease128.",
+    "Each context invalidation has an internal subscribed epoch signal consumed by progress; one grouped trailing capture after known refusal.",
+    "Main wait predicates now consume synchronous state events and return the exact matching snapshot; previous runs remain partial/refused."
+  ]
+}

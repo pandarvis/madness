@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-04T06:45:49.196613+00:00",
+  "reviewer": "/root/refresh25_high_audit",
+  "mode": "fresh independent bounded readonly recheck, no test/build",
+  "input": "focus-recovery-review-input.json",
+  "result": "no concrete bug identified",
+  "verified": [
+    "4/4 input hashes match",
+    "Main compiled delta only listener move and progress.reconcile branch",
+    "18 other compiled outputs and14resources byte-identical",
+    "red expected2/actual1 and26/26 targeted green",
+    "qualified collection reused, coalesced against existing job, no current from lease",
+    "BUSY/STOP/admission/passive restore unchanged"
+  ],
+  "pending": [
+    "Actual positive F5 on new candidate; not acquired by inspection"
+  ],
+  "next": "worker assemble/positive focus/read/revision/content + passive reopen"
+}

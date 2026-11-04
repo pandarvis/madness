@@ -1,0 +1,14 @@
+.project-resume{margin:0 0 28px;min-width:0;border-bottom:1px solid var(--line);padding:4px 0 24px;overflow-wrap:anywhere}
+.project-resume h2{margin:0 0 6px}.project-resume h3{margin:0 0 10px}.project-resume h4{font-size:19px;margin:0 0 8px}
+.resume-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}.resume-heading>div{min-width:0;flex:1 1 240px}.resume-heading button{flex:none;max-width:100%}
+.resume-announcement:empty{display:none}.resume-announcement{color:var(--muted);font-size:14px}.resume-observation{font-size:14px;color:var(--muted)}
+.resume-access{display:flex;flex-wrap:wrap;gap:4px 12px;margin:16px 0 4px}.resume-access .text-button{min-height:40px;max-width:100%;white-space:normal;text-align:left}.resume-states>summary{cursor:pointer;min-height:40px;padding:8px 4px;color:var(--link);overflow-wrap:anywhere}
+.resume-group{padding-top:20px;min-width:0}.resume-ticket{padding:12px 0;border-bottom:1px solid var(--line)}.resume-ticket ul{margin:8px 0;padding-left:22px}.resume-ticket p{margin:8px 0}
+.resume-proof,.resume-collection,.resume-registry{margin:10px 0;min-width:0}.resume-proof>summary,.resume-collection>summary,.resume-registry>summary{cursor:pointer;min-height:40px;padding:8px 4px;color:var(--link);overflow-wrap:anywhere}.resume-registry>summary h3{display:inline;font-size:22px}
+.resume-proof-body{padding:4px 12px 12px;border-left:2px solid var(--line);min-width:0}.resume-source-facts{display:grid;grid-template-columns:minmax(100px,160px) minmax(0,1fr);gap:6px 12px;font-size:14px;margin:12px 0}.resume-source-facts dt{color:var(--muted)}.resume-source-facts dd{margin:0;min-width:0}.resume-source-facts code,.resume-collection code{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}.resume-literal{white-space:pre-wrap;max-width:72ch}.resume-conflict{color:var(--waiting-text);font-weight:600}.resume-local-recap{padding:8px 0}.project-resume .turn-recap{margin:4px 0}
+@media(max-width:720px){.resume-source-facts{grid-template-columns:minmax(0,1fr);gap:4px}.resume-source-facts dd{margin-bottom:8px}.resume-heading{gap:8px}.resume-proof-body{padding-left:8px}.resume-group{padding-top:16px}}
+
+.resume-activity,.resume-freshness{margin-block:8px;overflow-wrap:anywhere}
+.resume-new-observation{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-block:12px}
+.resume-new-observation p{margin:0;overflow-wrap:anywhere;min-width:0;flex:1 1 24ch}
+.resume-observation+ .small code{overflow-wrap:anywhere}

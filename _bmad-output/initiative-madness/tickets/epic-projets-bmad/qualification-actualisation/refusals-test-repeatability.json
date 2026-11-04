@@ -1,0 +1,10 @@
+{
+  "createdAt": "2026-11-04T06:01:38.887Z",
+  "test": "tests/bmad-refresh-refusals.test.mjs",
+  "originalProducerSha256": "680fef6841e4c391a9631c364c275217cc11ff9b9c467642b9964089c9dc2ab9",
+  "currentTestSha256": "da9fcc12883be4de5308f039288ee32fc23c167a10ea2738ee82c89799b7815d",
+  "originalSource": "native-refusals-001/producer/tests/bmad-refresh-refusals.test.mjs",
+  "verification": "logs/refusals-repeat-default.log",
+  "change": "Proof output is opt-in via MADNESS_REFRESH_REFUSALS_PROOF; default writes no repository artifacts. All fallible initialization is inside owned cleanup. Existing explicit proof directory is refused without overwriting or leaking the new fixture.",
+  "productChanges": false
+}

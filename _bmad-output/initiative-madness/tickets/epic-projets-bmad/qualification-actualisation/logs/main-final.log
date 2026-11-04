@@ -1,0 +1,25 @@
+two-concurrent-project-observations-share-the-owned-helper
+compiled-choose-project-a-beta
+compiled-choose-project-b-beta
+compiled-local-progress-project-a-beta
+compiled-local-progress-project-b-beta
+reading-proofs-does-not-write-navigation-history-or-drafts
+F5-focus-without-change-no-helper-operation
+F1-invalidation-immediate-old-snapshot-retained-during-read
+F4-real-burst-dirty-trailing-collected
+F7-compiled-displayed-version-switch-is-voluntary
+F2-same-byte-replacement-has-new-identity-and-revision
+F2-source-deletion-is-new-observation-without-reassignment
+F8-owned-fixture-source-restored
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+Error: STORAGE_READ_FAILED
+    at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:63:112)
+    at HelpOwnedRun.status (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/help-owned-run.ts:18:129)
+    at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/bmad-external-refresh.mjs:142:28 {
+  code: 'STORAGE_READ_FAILED'
+}
+
+Node.js v24.13.0

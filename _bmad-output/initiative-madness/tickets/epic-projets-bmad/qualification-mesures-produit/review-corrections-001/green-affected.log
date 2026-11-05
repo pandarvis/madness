@@ -1,0 +1,89 @@
+✖ all native consultation envelopes retain their exact private dependencies through public adapter values (52.6788ms)
+✖ catalogue adapter retains exact capture object and its private dependencies (14.8772ms)
+✔ les deltas corrélés sont projetés après acquittement, réconciliés par item sans dédoublonner le texte (38.9278ms)
+✔ une identité attestée dans un tour ne réattribue pas les tours suivants sans nouvelle preuve (4.1566ms)
+✔ les notifications admises sont drainées avant error et gardent tout le partiel (2.8176ms)
+✔ les notifications admises sont drainées avant abort et gardent tout le partiel (3.2507ms)
+✔ un terminal admis avant error ne devient jamais un succès (2.8379ms)
+✔ un terminal admis avant abort ne devient jamais un succès (1.9763ms)
+✔ un item démarré vide réserve son ordre dans le cœur et garde son identité pendant l’entrelacement A/B (12.9511ms)
+✔ le contexte est filtré avant la limite métier d’une rafale agrégée : foreign (1.4512ms)
+✔ le contexte est filtré avant la limite métier d’une rafale agrégée : old-turn (1.0292ms)
+✔ le contexte est filtré avant la limite métier d’une rafale agrégée : current (2.8193ms)
+✔ événements avant réponse RPC et tardifs sont filtrés ; identité initiale et ordre des items restent figés (1.8653ms)
+✔ flux incohérent ou hors borne refusé : mismatch (0.9226ms)
+✔ flux incohérent ou hors borne refusé : incomplete (0.7341ms)
+✔ flux incohérent ou hors borne refusé : overflow (1.4277ms)
+✔ flux incohérent ou hors borne refusé : invalid-id (0.7226ms)
+✔ les identifiants des réponses RPC ne sont pas convertis et les appels natifs simultanés ne se confondent pas (1.3978ms)
+✔ injection native skill et outils bornés produisent accueil puis réponse sur le même thread (1.7288ms)
+✔ demandes structurées, contexte étranger et fin native échouée ne sont jamais un succès (3.1879ms)
+✔ T4 receive timing precedes blocked ACK continuation and drain in same JSONL chunk (29.34ms)
+✔ T5 close instant is retained at child close and admitted only by ownership confirmation (1.0135ms)
+✔ T4/T10 foreign terminal and native duration fields cannot manufacture a local bound (0.4905ms)
+✔ T6 identical native terminal payload repetition keeps first receipt; changed payload remains a conflict (0.5425ms)
+✔ T6 late previous-turn JSONL terminals keep their original observer after the next ACK (2.4949ms)
+✔ T1/T2 partial unread conflicting leaf cannot qualify the remaining entry (148.0943ms)
+✔ T2/T3 partial observation preserves the occurrence but revokes pending authority and choices (298.9487ms)
+✔ T1/T10 refused file grant keeps public progress without metrics authority, rows=false (26.2767ms)
+✔ T1/T10 refused file grant keeps public progress without metrics authority, rows=true (19.1478ms)
+✔ T4/T7 known duration is ACK to terminal, including a real zero and failed result (17.2189ms)
+✔ T5/T6 invalid, missing and conflicting intervals never pick the first receipt (3.8878ms)
+✔ T6/T7 contradictory attribution is unassigned and parallel totals keep coverage (1.8001ms)
+✔ T8/T9 true metrics file round trip, independent writer CAS and future data preserved (169.2765ms)
+✔ T10 strict commands reject paths, clocks and types as renderer authority (0.466ms)
+✔ T1 private source proof preserves public v1 and includes entry and leaf type physical identity (18121.4913ms)
+✔ T1/T2 no-leaf story continuity, absent return, partial coverage and duplicate refusal (286.7971ms)
+✔ T3 explicit choice consumed once, correlated to exact text, no next-turn inheritance, passive restore (260.8366ms)
+✔ T6 same occurrence remains attributed across a title/proof revision change (0.5076ms)
+✔ T8 legacy dialogue remains admissible with an unreadable metrics annex and preserves it (29.2669ms)
+✔ T3/T4/T8/T9 product dialogue writes independent durable receipts, reopens passively and legacy stays unassigned (175.6623ms)
+✔ T8 a failed metrics write keeps RAM, retry only saves and old writes cannot promote new bounds (3.0894ms)
+✔ T3 a choice for one launch operation cannot authorize a different native invocation (44.0597ms)
+✔ T3 removing a choice invalidates the old pending reference for the same exact request (52.7653ms)
+✔ T7/T8 consumer projection exposes reasons, coverage and saved bounds separately (151.459ms)
+✔ T1/T2/T3/T7/T9 two projects, two initiatives and conversations retain separate sourced totals after reopen (573.4162ms)
+✔ T7 domains and missing clocks report unknown overlap without erasing known individual durations (0.6222ms)
+✔ T8 metrics storage refuses hardlinked annexes without changing either name (17.8984ms)
+✔ T1/T3 a slow metrics admission cannot republish invalidated progress as current (2.36ms)
+✔ T3/T4/T6/T8/T9 local JSONL double goes through Application, explicit choice, atomic save and passive reopen (339.8692ms)
+✔ T2 physical replacement, move and replaced root create separate occurrences (159.5485ms)
+✔ T8 independent concurrent stores cannot both win the same prior-byte CAS (303.6133ms)
+✔ T8 a pre-existing foreign writer lease is preserved and no body is replaced (33.0353ms)
+✔ T4/T5 terminal functional outcome stays completed after a later confirmed process close (195.274ms)
+ℹ tests 53
+ℹ suites 0
+ℹ pass 51
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22212.874
+
+✖ failing tests:
+
+test at tests\bmad-refresh-envelope.test.mjs:2:1
+✖ all native consultation envelopes retain their exact private dependencies through public adapter values (52.6788ms)
+  Error: PROFILE_CHANGED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:65:112)
+      at BmadHelpAdapter.captureFiles (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/help.ts:33:201)
+      at BmadHelpAdapter.observeProgress (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/help.ts:129:26)
+      at async BmadProgressAdapter.collect (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/progress.ts:9:160)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-refresh-envelope.test.mjs:2:1010)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'PROFILE_CHANGED'
+  }
+
+test at tests\bmad-refresh-envelope.test.mjs:5:1
+✖ catalogue adapter retains exact capture object and its private dependencies (14.8772ms)
+  Error: PROFILE_CHANGED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:65:112)
+      at BmadHelpAdapter.captureFiles (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/help.ts:33:201)
+      at BmadHelpAdapter.observeCatalog (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/help.ts:122:15)
+      at async BmadCatalogAdapter.collect (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/catalog.ts:5:216)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-refresh-envelope.test.mjs:5:514)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'PROFILE_CHANGED'
+  }

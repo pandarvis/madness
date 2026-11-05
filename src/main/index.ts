@@ -1,3 +1,6 @@
+import {UsMetricsCoordinator} from '../core/us-metrics.ts'
+import {UsMetricsStore} from '../adapters/persistence/us-metrics-store.ts'
+import {US_METRICS_COMMAND_CHANNEL,US_METRICS_EVENT_CHANNEL,isUsMetricsCommand,isUsMetricsState,initialUsMetricsState} from '../contracts/us-metrics.ts'
 import {BmadCatalogLaunchCoordinator,withCatalogQualification} from '../core/bmad-catalog-launch.ts'
 import {BmadCatalogLaunchStore} from '../adapters/persistence/bmad-catalog-launch-store.ts'
 import {CATALOG_LAUNCH_COMMAND_CHANNEL,CATALOG_LAUNCH_EVENT_CHANNEL,isCatalogLaunchCommand,isCatalogLaunchState,initialCatalogLaunchState} from '../contracts/bmad-catalog-launch.ts'
@@ -197,8 +200,21 @@ else {
       const state=await graphCoordinator.execute(input);if(!isGraphWorkspace(state))throw Error('INVALID_GRAPH_STATE');return {contractVersion:1,correlationId:input.correlationId,state}
     })
     graphCoordinator.subscribe(state=>{if(isGraphWorkspace(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(GRAPH_EVENT_CHANNEL,state)})
+    const metrics=new UsMetricsCoordinator({store:new UsMetricsStore(join(app.getPath('userData'),'us-metrics-v1')),newId:randomUUID,assertStory:async(story,signal)=>{
+      const p=contextCoordinator.read().projects.find(p=>p.projectId===story.projectId)
+      if(!p?.observation||p.selection?.initiativeId!==story.initiativeId||p.selection.rootIdentity!==story.rootIdentity||p.observation.rootPath!==story.rootPath||p.observation.revision!==story.contextRevision)throw Object.assign(Error('PROFILE_CHANGED'),{code:'PROFILE_CHANGED'})
+      await contextCoordinator.assertFresh({scope:'initiatives',observation:p.observation,initiativeId:story.initiativeId},signal)
+      const current=contextCoordinator.read().projects.find(p=>p.projectId===story.projectId)
+      if(current?.selection?.revision!==p.selection.revision)throw Object.assign(Error('PROFILE_CHANGED'),{code:'PROFILE_CHANGED'})
+    }})
+    ipcMain.handle(US_METRICS_COMMAND_CHANNEL,async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isUsMetricsCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:{...initialUsMetricsState(),error:'INVALID_COMMAND'}}
+      await application!.dialogueProject(input.projectId)
+      const state=await metrics.execute(input);if(!isUsMetricsState(state))throw Error('INVALID_METRICS_STATE');return {contractVersion:1,correlationId:input.correlationId,state}
+    })
+    metrics.subscribe(state=>{if(isUsMetricsState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(US_METRICS_EVENT_CHANNEL,state)})
     const progressAdapter=new BmadProgressAdapter(helpAdapter)
-    const progressCoordinator=new BmadProgressCoordinator({application,observation,files:projectFiles,available:fn=>admission.subscribeAvailable(fn),contexts:contextCoordinator,collect:(id,root,selection,observation,signal)=>progressAdapter.collect(id,root,selection,observation,signal)})
+    const progressCoordinator=new BmadProgressCoordinator({metrics:{accept:original=>metrics.accept(original,helpAdapter.storyAuthority(original))},application,observation,files:projectFiles,available:fn=>admission.subscribeAvailable(fn),contexts:contextCoordinator,collect:(id,root,selection,observation,signal)=>progressAdapter.collect(id,root,selection,observation,signal)})
     application.lifecycle.register({id:'bmad-progress',context:emptyContext(),stop:async()=>{await progressCoordinator.shutdown();return 'stopped'}})
     ipcMain.handle(BMAD_PROGRESS_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadProgressCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadProgressState()}
@@ -264,6 +280,7 @@ else {
     })
     catalogLaunch.subscribe(state=>{if(isCatalogLaunchState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(CATALOG_LAUNCH_EVENT_CHANNEL,state)})
     dialogueCoordinator = new DialogueCoordinator({
+      metrics,
       catalogLaunch,
       application,
       help:helpCoordinator,

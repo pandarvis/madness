@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-11-05T02:38:02.642697+00:00",
+  "previousSeal": "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-mesures-produit\\review-corrections-001\\final-inputs.json",
+  "previousSealSha256": "4e9044f37688070d1e0fb2b7cace1a8f1dd0b7a5a2a7f4c0b648d9b334554264",
+  "files": [
+    {
+      "path": "src/contracts/us-metrics.ts",
+      "sha256": "4005dcdb60309d63854da34f901c87307b6c6ec7bf4eb0b9553b0bd4d86d6ecc",
+      "bytes": 11704,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "src/core/us-metrics.ts",
+      "sha256": "e5e44747464d1224e160874da33d19f519652603c0ebc39bf81bf205160a632d",
+      "bytes": 18122,
+      "ownedThisCorrection": true
+    },
+    {
+      "path": "src/adapters/persistence/us-metrics-store.ts",
+      "sha256": "a022d473b2adde3d58da669d52b49f1cac317e447c485bc346c051d436b774d4",
+      "bytes": 4044,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "resources/bmad-help/progress.py",
+      "sha256": "60ad451312bb8eec16988300ac4a2a378d74e14fbf984548a086364558ae7516",
+      "bytes": 24557,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "src/adapters/bmad/help.ts",
+      "sha256": "ff99ed0b8c411f306390d365b16df9ae01edaa071b05804fc13b460568865135",
+      "bytes": 21059,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "src/adapters/bmad/help-manifest.ts",
+      "sha256": "88422d2aefc96034af05f44f4a755a6a0e75fb9637a8ea0077433fd7cc359bd8",
+      "bytes": 1425,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "src/core/bmad-progress.ts",
+      "sha256": "4622d3ca51f3a3f966ba802a1bd07cb9c30d6aacbb70b7cca4211bf155bcab9a",
+      "bytes": 11172,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "src/core/ports.ts",
+      "sha256": "45511772726b71a237b540edfa70e5d087aee023592e66062a2c049b312d6591",
+      "bytes": 3498,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "src/contracts/dialogue.ts",
+      "sha256": "19b99fb5c4b7fea6d79ae0410e343f7f42896e77f23a4d209d37ee1f8eacdb4b",
+      "bytes": 15231,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "src/core/dialogue.ts",
+      "sha256": "c935827f35e85b764d7819950f198432258f92771767928ebcb4a52e04168076",
+      "bytes": 46797,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "src/adapters/codex/dialogue.ts",
+      "sha256": "a8cba1938d21fec7124cf189d089c9646e50ea0af85a227c9d3d4aca7c5fa070",
+      "bytes": 56688,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "src/main/index.ts",
+      "sha256": "057e84b3ec644d2e7a8d62c441e6e3a8a52845712920add086be1c635a0e1d7f",
+      "bytes": 34878,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "src/preload/index.ts",
+      "sha256": "b992712fdd01578ddcb4a692051491c71efcbb20466cc48db8dc3fcfa43fd44d",
+      "bytes": 18244,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "src/renderer/src/env.d.ts",
+      "sha256": "bfd68fad2a37a4de452d06e6a0de3efc31f9a15fd4b910b69dcf82de78b2bf73",
+      "bytes": 1221,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "tests/us-metrics.test.mjs",
+      "sha256": "c902ceb9731914571278668d987b93cb6b8645f74649d6661003a0e2ca8f686f",
+      "bytes": 27047,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "tests/us-metrics-protocol.test.mjs",
+      "sha256": "4789fd04cd94a933416a4bea70dac1c64b0550010ca28646b49cf9e01dd95b8c",
+      "bytes": 6761,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "tests/us-metrics-native-source.test.mjs",
+      "sha256": "7ebee40a592311858ec6c274573e6883f6f480f1040e31930e15f75552f3d0d1",
+      "bytes": 2389,
+      "ownedThisCorrection": false
+    },
+    {
+      "path": "tests/us-metrics-review.test.mjs",
+      "sha256": "333bd2b6ec4249b307f1de69f157b917fd215496caa59383a839a1e1a0dc5243",
+      "bytes": 10514,
+      "ownedThisCorrection": true
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+✖ T3 choose survives an equivalent complete proof carried by a new authority object (80.3955ms)
+✖ T3 captured effect guard survives an equivalent complete proof carried by a new authority object (113.7566ms)
+✔ T3 partial recovery never revives revoked instrument or choice, reused authority=false (157.3943ms)
+✖ T3 partial recovery never revives revoked instrument or choice, reused authority=true (115.6191ms)
+✖ T3 changed complete proof invalidates old capabilities even when the old revision returns (162.9384ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 1
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 911.14
+
+✖ failing tests:
+
+test at tests\us-metrics-review.test.mjs:57:1
+✖ T3 choose survives an equivalent complete proof carried by a new authority object (80.3955ms)
+  Error: PROFILE_CHANGED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:65:112)
+      at check (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/core/us-metrics.ts:100:337)
+      at assertFresh (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/core/us-metrics.ts:100:373)
+      at UsMetricsCoordinator.capture (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/core/us-metrics.ts:101:9)
+      at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:61:20
+      at async withMetrics (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:20:171)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:58:2)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'PROFILE_CHANGED'
+  }
+
+test at tests\us-metrics-review.test.mjs:65:1
+✖ T3 captured effect guard survives an equivalent complete proof carried by a new authority object (113.7566ms)
+  Error: PROFILE_CHANGED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:65:112)
+      at check (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/core/us-metrics.ts:100:337)
+      at Object.assertFresh (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/core/us-metrics.ts:100:373)
+      at file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:68:175
+      at async withMetrics (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:20:171)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:66:2)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'PROFILE_CHANGED'
+  }
+
+test at tests\us-metrics-review.test.mjs:72:41
+✖ T3 partial recovery never revives revoked instrument or choice, reused authority=true (115.6191ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:78:3
+      at async withMetrics (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:20:171)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:73:2)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { code: 'PROFILE_CHANGED' },
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests\us-metrics-review.test.mjs:83:1
+✖ T3 changed complete proof invalidates old capabilities even when the old revision returns (162.9384ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:88:50
+      at async withMetrics (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:20:171)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:84:2)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { code: 'PROFILE_CHANGED' },
+    operator: 'rejects',
+    diff: 'simple'
+  }

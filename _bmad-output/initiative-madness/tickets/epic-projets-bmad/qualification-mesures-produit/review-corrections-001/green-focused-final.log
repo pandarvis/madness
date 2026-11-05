@@ -1,0 +1,17 @@
+✔ T4 receive timing precedes blocked ACK continuation and drain in same JSONL chunk (31.2711ms)
+✔ T5 close instant is retained at child close and admitted only by ownership confirmation (1.3859ms)
+✔ T4/T10 foreign terminal and native duration fields cannot manufacture a local bound (1.0648ms)
+✔ T6 identical native terminal payload repetition keeps first receipt; changed payload remains a conflict (0.8451ms)
+✔ T6 late previous-turn JSONL terminals keep their original observer after the next ACK (2.9585ms)
+✔ T1/T2 partial unread conflicting leaf cannot qualify the remaining entry (100.6167ms)
+✔ T2/T3 partial observation preserves the occurrence but revokes pending authority and choices (117.7182ms)
+✔ T1/T10 refused file grant keeps public progress without metrics authority, rows=false (16.9928ms)
+✔ T1/T10 refused file grant keeps public progress without metrics authority, rows=true (11.2677ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 594.0535

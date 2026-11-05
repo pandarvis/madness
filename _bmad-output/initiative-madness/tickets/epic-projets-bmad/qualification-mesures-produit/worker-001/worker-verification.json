@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "completedAt": "2026-11-05T01:28:57.857518+00:00",
+  "productionFiles": 14,
+  "testFiles": 3,
+  "inputs": "worker-inputs.json",
+  "targetedDependencies": {
+    "command": "node --experimental-strip-types --test --test-concurrency=2 <23 explicitly selected metrics/dependency files>",
+    "passed": 293,
+    "failed": 0,
+    "skipped": 0,
+    "exitCode": 0,
+    "durationMs": 746578.1361,
+    "log": "targeted-tests.log",
+    "limit": "Campaign started before final exclusive-CAS/outcome projection corrections; final focused results below cover those changes. Not a full project suite."
+  },
+  "finalFocused": {
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0,
+    "exitCode": 0,
+    "source": "Tool-received output after final source correction",
+    "cases": [
+      "consumer projection",
+      "Application/JSONL/store/passive reopen",
+      "8 independent-writer CAS trials",
+      "foreign/stale lease preserved",
+      "native terminal outcome separate from later close"
+    ]
+  },
+  "realPrivateAuthority": {
+    "passed": 1,
+    "exitCode": 0,
+    "durationMs": 75493.9568,
+    "source": "Tool-received output after full source-scope revalidation fix",
+    "nativeProvider": false
+  },
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "includes": [
+      "node typecheck",
+      "web typecheck",
+      "electron-vite main/preload/renderer"
+    ],
+    "installer": false,
+    "distCandidate": false
+  },
+  "resources": {
+    "pinsChecked": 16,
+    "allMatch": true,
+    "onlyChanged": "progress.py",
+    "sha256": "60ad451312bb8eec16988300ac4a2a378d74e14fbf984548a086364558ae7516"
+  },
+  "diffCheck": {
+    "exitCode": 0,
+    "limit": "Owned production/test paths only; autocrlf warnings do not change the result"
+  },
+  "history": {
+    "unchanged210and212": true,
+    "fixedLegacyReceiptSha256": "81a7c32fb977857a2682cb9eed792ab1669fc6dd4b8e8c184cc745919c5e55a6",
+    "preservation": "historical-receipt-preservation.json"
+  },
+  "pendingParent": [
+    "single full npm test",
+    "Quick and independent high audit",
+    "review corrections/rechecks if needed",
+    "plan/status/commit"
+  ],
+  "limits": [
+    "No UI, account, model/network, installation or SIWC qualification",
+    "Usage/cost/native duration unavailable",
+    "Silent unobserved reuse cannot be universally detected",
+    "Foreign/stale writer leases remain conflicts and are not forcibly removed"
+  ]
+}

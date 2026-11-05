@@ -9,4 +9,5 @@ import type { ConnectionBridge } from '../../contracts/connection.ts'
 import type { DialogueBridge } from '../../contracts/dialogue.ts'
 import type { AppearanceBridge } from '../../contracts/appearance.ts'
 declare global { interface Window {
+    madnessUsMetrics:import('../../contracts/us-metrics.ts').UsMetricsBridge;
     madnessCatalogLaunch: import('../../contracts/bmad-catalog-launch.ts').CatalogLaunchBridge; madnessGraph:GraphBridge; projectFiles:ProjectFilesBridge; madnessBmadCatalog:BmadCatalogBridge; madnessBmadProgress:BmadProgressBridge;madnessBmadContext:BmadContextBridge;madnessHelp:HelpBridge; madness: MadnessBridge; madnessConnection: ConnectionBridge; madnessDialogue: DialogueBridge; madnessAppearance: AppearanceBridge } }

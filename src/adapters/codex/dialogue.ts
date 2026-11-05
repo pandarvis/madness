@@ -1,3 +1,5 @@
+import type {TurnInstrumentation} from '../../core/us-metrics.ts'
+import type {TurnReceipt} from '../../contracts/us-metrics.ts'
 import {validHelpContextText} from '../../contracts/bmad-help.ts'
 import type {HelpHost,BmadHelpAdapter} from '../bmad/help.ts'
 import {captureFileProposal} from './file-proposals.ts'
@@ -7,7 +9,7 @@ import {APPROVAL_TIMEOUT_MS} from '../../contracts/approvals.ts'
 import type {ApprovalDecision,ApprovalResult} from '../../contracts/approvals.ts'
 import { spawn } from 'node:child_process'
 import {isDeepStrictEqual} from 'node:util'
-import {createHash} from 'node:crypto'
+import {createHash,randomUUID} from 'node:crypto'
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 import { mkdir, mkdtemp, realpath, rm,readFile } from 'node:fs/promises'
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path'
@@ -23,6 +25,9 @@ import { assertBmadProfile, readBmadFile, resolveBmad } from '../bmad/profile.ts
 import { ForgeHost, qualifyForge } from '../bmad/forge.ts'
 import type { ForgeOperation } from '../bmad/forge.ts'
 import type {OwnedRun} from './owned-run.ts'
+const nativePayloadDigest=(value:unknown):string=>createHash('sha256').update(JSON.stringify(value,(_key,item)=>item&&typeof item==='object'&&!Array.isArray(item)?Object.fromEntries(Object.entries(item).sort(([a],[b])=>a.localeCompare(b))):item)).digest('hex')
+const receiptClockDomain='monotone-'+randomUUID()
+type TurnObservation={threadId:string;turnId:string|null;observer:TurnInstrumentation;terminals:Set<string>}
 type Message = { id?: string | number; method?: string; params?: any; result?: any; error?: unknown }
 /** Le reçu raw expérimental n’est qualifié que sur ce binaire 0.144.6. */
 export async function assertQuestionRuntime(executable:string):Promise<void>{
@@ -35,7 +40,7 @@ export class DialogueRpc {
   private signal: AbortSignal
   private timeout: number
   private nextId = 0
-  private pending = new Map<number, { resolve(value: any): void; reject(error: unknown): void }>()
+  private pending = new Map<number, { method:string;resolve(value: any): void; reject(error: unknown): void }>()
   private queue: Message[] = []
   private waiter: { resolve(value: Message): void; reject(error: unknown): void } | null = null
   private buffer = ''
@@ -52,7 +57,20 @@ export class DialogueRpc {
   private nextTimer:ReturnType<typeof setTimeout>|undefined
   private nextDeadline=0
   private nextRemaining=0
-  constructor(child: ChildProcessWithoutNullStreams, signal: AbortSignal, timeout = 15000) {
+  private timing:{clock:()=>number;domain:string;runId:string;sessionId:string}
+  private turnObservation:TurnObservation|null=null
+  // Retained identities are bounded by the RPC's existing total byte budget.
+  private turnObservations=new Map<string,TurnObservation>()
+  private closeAt:number|null=null
+  private closeDigest:string|null=null
+  armTurn(threadId:string,observer:TurnInstrumentation|undefined):void{this.turnObservation=observer?{threadId,turnId:null,observer,terminals:new Set()}:null}
+  private receipt(phase:TurnReceipt['phase'],outcome:TurnReceipt['outcome'],payloadDigest:string,at=this.timing.clock(),o=this.turnObservation):void{if(!o?.turnId)return;o.observer.receive({schemaVersion:1,runId:this.timing.runId,sessionId:this.timing.sessionId,threadId:o.threadId,nativeTurnId:o.turnId,domain:this.timing.domain,phase,at,outcome,payloadDigest})}
+  /** A close observation is useful only after the owned process tree proof succeeds. */
+  confirmOwnedClose():void{if(this.closeAt!==null)this.receipt('close','interrupted',this.closeDigest!,this.closeAt)}
+  private observeClose=(code:number|null,signal:string|null):void=>{if(this.closeAt===null){this.closeAt=this.timing.clock();this.closeDigest=nativePayloadDigest({code:code??null,signal:signal??null})}}
+  constructor(child: ChildProcessWithoutNullStreams, signal: AbortSignal, timeout = 15000,timing?:{clock:()=>number;domain:string;runId:string;sessionId:string}) {
+    this.timing=timing??{clock:()=>performance.now(),domain:receiptClockDomain,runId:'run-'+randomUUID(),sessionId:'session-'+randomUUID()}
+    child.once('close',this.observeClose)
     this.child = child; this.signal = signal; this.timeout = timeout
     child.stdout.setEncoding('utf8'); child.stdout.on('data', this.data); child.stderr.on('data', this.stderr)
     child.on('close', this.closed); child.on('error', this.closed); child.stdin.on('error', this.closed)
@@ -87,10 +105,12 @@ export class DialogueRpc {
       })
       return
     }
-    if (Object.hasOwn(value, 'id')) { if(typeof value.id!=='number'||!Number.isSafeInteger(value.id))return this.fail('PROVIDER_FAILED'); const pending = this.pending.get(value.id); if (!pending) return; this.pending.delete(value.id); if (value.error || !Object.hasOwn(value, 'result')) pending.reject(dialogueFailure('PROVIDER_FAILED')); else pending.resolve(value.result); return }
+    if (Object.hasOwn(value, 'id')) { if(typeof value.id!=='number'||!Number.isSafeInteger(value.id))return this.fail('PROVIDER_FAILED'); const pending = this.pending.get(value.id); if (!pending) return; this.pending.delete(value.id); if (value.error || !Object.hasOwn(value, 'result')) pending.reject(dialogueFailure('PROVIDER_FAILED')); else {if(pending.method==='turn/start'&&this.turnObservation&&typeof value.result?.turn?.id==='string'&&value.result.turn.id.length>0&&value.result.turn.id.length<=200){this.turnObservation.turnId=value.result.turn.id;const key=JSON.stringify([this.turnObservation.threadId,this.turnObservation.turnId]);if(!this.turnObservations.has(key))this.turnObservations.set(key,this.turnObservation);this.receipt('ack',null,nativePayloadDigest(value.result.turn))}pending.resolve(value.result)} return }
     if (!value.method) return this.fail('PROVIDER_FAILED')
     if (value.method === 'error') return this.fail('PROVIDER_FAILED')
     if (!['item/started', 'item/completed', 'item/agentMessage/delta', 'turn/completed','rawResponseItem/completed','serverRequest/resolved','item/fileChange/patchUpdated'].includes(value.method)) return
+    const observation=value.method==='turn/completed'?this.turnObservations.get(JSON.stringify([value.params?.threadId,value.params?.turn?.id])):undefined
+    if(observation&&['completed','failed','interrupted'].includes(value.params?.turn?.status)){const digest=nativePayloadDigest(value.params.turn);if(!observation.terminals.has(digest)){observation.terminals.add(digest);this.receipt('terminal',value.params.turn.status,digest,this.timing.clock(),observation)}}
     if (this.waiter) { const waiter = this.waiter; this.waiter = null; waiter.resolve(value) } else {
       const last=this.queue.at(-1),p=value.params,q=last?.params
       // Compacter seulement les deltas adjacents du même item : ordre et répétitions sont conservés.
@@ -113,7 +133,7 @@ export class DialogueRpc {
   async call(method: string, params: unknown): Promise<any> {
     if (this.error) throw this.error
     const id = ++this.nextId; let timer: ReturnType<typeof setTimeout> | undefined
-    try { return await new Promise((resolve, reject) => { this.pending.set(id, { resolve, reject }); timer = setTimeout(() => { this.fail('PROVIDER_FAILED'); reject(this.error) }, this.timeout); this.write({ id, method, params }) }) }
+    try { return await new Promise((resolve, reject) => { this.pending.set(id, { method,resolve, reject }); timer = setTimeout(() => { this.fail('PROVIDER_FAILED'); reject(this.error) }, this.timeout); this.write({ id, method, params }) }) }
     finally { clearTimeout(timer); this.pending.delete(id) }
   }
   notify(method: string): void { if (this.error) throw this.error; this.write({ method, params: {} }) }
@@ -126,7 +146,7 @@ export class DialogueRpc {
     finally { clearTimeout(this.nextTimer);this.nextTimer=undefined; this.waiter = null }
   }
   async drainRequests(): Promise<void> { await this.requests; if (this.error) throw this.error }
-  dispose(): void { this.signal.removeEventListener('abort', this.aborted); this.fail('CANCELLED'); this.child.stdout.off('data', this.data); this.child.stderr.off('data', this.stderr); this.child.off('close', this.closed); this.child.off('error', this.closed); this.child.stdin.off('error', this.closed) }
+  dispose(): void { this.turnObservations.clear();this.signal.removeEventListener('abort', this.aborted); this.fail('CANCELLED'); this.child.stdout.off('data', this.data); this.child.stderr.off('data', this.stderr); this.child.off('close', this.closed); this.child.off('error', this.closed); this.child.stdin.off('error', this.closed) }
 }
 const dynamicTools = [
   { type: 'function', name: 'bmad_resolve', description: 'Exécuter réellement la commande uv run BMad de résolution. kind agent = resolve_customization.py --key agent ; kind config = resolve_config.py --key core.output_folder --key core.active_initiative. Aucun autre programme.', inputSchema: { type: 'object', properties: { kind: { type: 'string', enum: ['agent', 'config'] } }, required: ['kind'], additionalProperties: false } },
@@ -293,7 +313,7 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
     return result
     }finally{if(guardedLocal){deadline+=Date.now()-guardedStarted;rpc.pauseWait(false)}}
   })
-  return { turn: async (text, accepted, observe,onQuestion,onApproval) => {
+  return { turn: async (text, accepted, observe,onQuestion,onApproval,instrumentation) => {
     if (busy) throw dialogueFailure('BUSY'); busy = true
     // Le chargement observé d’un rôle n’atteste pas une réponse future après une sortie de rôle.
     identity={kind:'unknown'}
@@ -305,6 +325,8 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
       const name=options.help?'bmad':options.forge?'bmad-forge-idea':'bmad-agent-analyst'
       const input = first ? [{ type: 'skill', name, path: options.profile.skillPath }, { type: 'text', text: options.help?'$bmad\nQue faire ensuite ?':'$'+name }] : [{ type: 'text', text }]
       await options.assertContext?.()
+      await instrumentation?.assertFresh()
+      rpc.armTurn(threadId,instrumentation)
       const started = await rpc.call('turn/start', { threadId, cwd: options.cwd, input })
       if (typeof started.turn?.id !== 'string') throw dialogueFailure('PROVIDER_FAILED')
       turnId = started.turn.id; options.help?.started?.(threadId,turnId!);await accepted(); release()
@@ -406,7 +428,7 @@ export async function openCodexDialogue(profile: BmadProfile, signal: AbortSigna
     rpc?.dispose()
     // Le reçu d'arrêt n'est durable qu'après écriture du propriétaire privé.
     let stillOwned=true
-    try{if(runId)stillOwned=await options.ownedRun!.closed(runId,confirmed)}catch{lease.release(false);return 'unknown'}
+    try{if(runId)stillOwned=await options.ownedRun!.closed(runId,confirmed);if(runId&&confirmed&&stillOwned)rpc?.confirmOwnedClose()}catch{lease.release(false);return 'unknown'}
     lease.release(confirmed);if(confirmed&&stillOwned)await connection.confirmDialogueStop();stopped = confirmed
     if (root && confirmed) { const actual = await realpath(root), parent = await realpath(options.root); if (dirname(actual) === parent) await rm(root, { recursive: true, force: true }).catch(() => {}) }
     return confirmed ? 'stopped' : 'unknown'
@@ -423,6 +445,6 @@ export async function openCodexDialogue(profile: BmadProfile, signal: AbortSigna
     rpc = new DialogueRpc(child, signal)
     if(runId)await options.ownedRun!.capture(runId,child.pid!,executable)
     const protocol = await startDialogueProtocol(rpc, { assertContext:options.assertContext,cwd: profile.mode==='file-approval'&&!forge?profile.rootPath:work, profile, forge,help,protectedRoots:[options.root,options.dataRoot??join(options.appData,'Madness')], signal, activity, resolve: kind => resolveBmad(profile, kind, signal), read: path => forge?forge.read(path):readBmadFile(profile, path) })
-    return { context: { connectionId: lease.connectionId, initiativeId: initiative }, ...(help?{help:{bundle:help.bundle,bind:help.bind.bind(help),nativeTurn:help.nativeTurn.bind(help)}}:{}), ...(forge?{workflow:{outputBase:profile.forge!.outputBase,contextDigest:profile.forge!.contextDigest,bind:forge.bind.bind(forge)}}:{}), turn: async (text, accepted, observe,onQuestion,onApproval) => { if(forge)await forge.assertForTurn();else if(!help)await assertBmadProfile(profile); if (lease.credentials.expiresAt <= Date.now() + 30000) throw dialogueFailure('NO_ACCOUNT'); return protocol.turn(text, accepted, observe,onQuestion,onApproval) }, stop: cleanup }
+    return { context: { connectionId: lease.connectionId, initiativeId: initiative }, ...(help?{help:{bundle:help.bundle,bind:help.bind.bind(help),nativeTurn:help.nativeTurn.bind(help)}}:{}), ...(forge?{workflow:{outputBase:profile.forge!.outputBase,contextDigest:profile.forge!.contextDigest,bind:forge.bind.bind(forge)}}:{}), turn: async (text, accepted, observe,onQuestion,onApproval,instrumentation) => { if(forge)await forge.assertForTurn();else if(!help)await assertBmadProfile(profile); if (lease.credentials.expiresAt <= Date.now() + 30000) throw dialogueFailure('NO_ACCOUNT'); return protocol.turn(text, accepted, observe,onQuestion,onApproval,instrumentation) }, stop: cleanup }
   } catch (error) { const outcome = await cleanup(); if (outcome === 'unknown') throw dialogueFailure('STOP_UNCONFIRMED'); throw error }
 }

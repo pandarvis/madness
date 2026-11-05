@@ -1,0 +1,128 @@
+✔ T4 receive timing precedes blocked ACK continuation and drain in same JSONL chunk (39.4705ms)
+✔ T5 close instant is retained at child close and admitted only by ownership confirmation (0.8063ms)
+✔ T4/T10 foreign terminal and native duration fields cannot manufacture a local bound (0.8033ms)
+✔ T6 identical native terminal payload repetition keeps first receipt; changed payload remains a conflict (0.5308ms)
+✖ T6 late previous-turn JSONL terminals keep their original observer after the next ACK (2.3267ms)
+✖ T1/T2 partial unread conflicting leaf cannot qualify the remaining entry (95.9343ms)
+✖ T2/T3 partial observation preserves the occurrence but revokes pending authority and choices (121.7779ms)
+✖ T1/T10 refused file grant keeps public progress without metrics authority, rows=false (12.346ms)
+✖ T1/T10 refused file grant keeps public progress without metrics authority, rows=true (8.2853ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 4
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 594.5418
+
+✖ failing tests:
+
+test at tests\us-metrics-protocol.test.mjs:39:1
+✖ T6 late previous-turn JSONL terminals keep their original observer after the next ACK (2.3267ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  600000 !== null
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-protocol.test.mjs:49:88)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 600000,
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\us-metrics-review.test.mjs:21:1
+✖ T1/T2 partial unread conflicting leaf cannot qualify the remaining entry (95.9343ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:24:98
+      at async withMetrics (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:20:171)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:22:2)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\us-metrics-review.test.mjs:29:1
+✖ T2/T3 partial observation preserves the occurrence but revokes pending authority and choices (121.7779ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      occurrences: [
+        {
+          active: true,
+          container: '.',
+  ...
+          projectId: 'p',
+  +       proofRevision: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+  -       proofRevision: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          rootIdentity: 'physical-root',
+          rootPath: 'C:/project',
+          sources: [
+            {
+              bytes: 42,
+  ...
+      projectId: 'p',
+  +   revision: 3,
+  -   revision: 2,
+      schemaVersion: 1,
+      turns: [
+        {
+          context: {
+            connectionId: 'account',
+  
+      at file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:35:10
+      at async withMetrics (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:20:171)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:30:2)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { schemaVersion: 1, projectId: 'p', revision: 3, occurrences: [ [Object] ], turns: [ [Object] ] },
+    expected: { schemaVersion: 1, projectId: 'p', revision: 2, occurrences: [ [Object] ], turns: [ [Object] ] },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\us-metrics-review.test.mjs:42:39
+✖ T1/T10 refused file grant keeps public progress without metrics authority, rows=false (12.346ms)
+  Error: ENOENT: no such file or directory, lstat 'C:\Users\UP60066553\AppData\Local\Temp\madness-metrics-refused-YSEvN8\files.json'
+      at async lstat (node:internal/fs/promises:1021:18)
+      at async safe (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/help.ts:23:62)
+      at async BmadHelpAdapter.observeProgress (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/help.ts:133:25)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:49:15)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'lstat',
+    path: 'C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-refused-YSEvN8\\files.json'
+  }
+
+test at tests\us-metrics-review.test.mjs:42:39
+✖ T1/T10 refused file grant keeps public progress without metrics authority, rows=true (8.2853ms)
+  Error: ENOENT: no such file or directory, lstat 'C:\Users\UP60066553\AppData\Local\Temp\madness-metrics-refused-V21GXF\files.json'
+      at async lstat (node:internal/fs/promises:1021:18)
+      at async safe (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/help.ts:23:62)
+      at async BmadHelpAdapter.observeProgress (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/help.ts:133:25)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:49:15)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'lstat',
+    path: 'C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-refused-V21GXF\\files.json'
+  }

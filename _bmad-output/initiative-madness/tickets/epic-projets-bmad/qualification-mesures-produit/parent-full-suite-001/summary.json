@@ -1,0 +1,208 @@
+{
+  "counts": {
+    "tests": 767,
+    "pass": 750,
+    "fail": 17,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "observedExitCode": 1,
+  "sourceHashMismatches": [],
+  "metricsTests": [
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T4/T7 known duration is ACK to terminal, including a real zero and failed result",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T5/T6 invalid, missing and conflicting intervals never pick the first receipt",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T6/T7 contradictory attribution is unassigned and parallel totals keep coverage",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T8/T9 true metrics file round trip, independent writer CAS and future data preserved",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T10 strict commands reject paths, clocks and types as renderer authority",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T1 private source proof preserves public v1 and includes entry and leaf type physical identity",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T1/T2 no-leaf story continuity, absent return, partial coverage and duplicate refusal",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T3 explicit choice consumed once, correlated to exact text, no next-turn inheritance, passive restore",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T6 same occurrence remains attributed across a title/proof revision change",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T8 legacy dialogue remains admissible with an unreadable metrics annex and preserves it",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T3/T4/T8/T9 product dialogue writes independent durable receipts, reopens passively and legacy stays unassigned",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T8 a failed metrics write keeps RAM, retry only saves and old writes cannot promote new bounds",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T3 a choice for one launch operation cannot authorize a different native invocation",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T3 removing a choice invalidates the old pending reference for the same exact request",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T7/T8 consumer projection exposes reasons, coverage and saved bounds separately",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T1/T2/T3/T7/T9 two projects, two initiatives and conversations retain separate sourced totals after reopen",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T7 domains and missing clocks report unknown overlap without erasing known individual durations",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T8 metrics storage refuses hardlinked annexes without changing either name",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T1/T3 a slow metrics admission cannot republish invalidated progress as current",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T3/T4/T6/T8/T9 local JSONL double goes through Application, explicit choice, atomic save and passive reopen",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T2 physical replacement, move and replaced root create separate occurrences",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T8 independent concurrent stores cannot both win the same prior-byte CAS",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T8 a pre-existing foreign writer lease is preserved and no body is replaced",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics.test.mjs",
+      "name": "T4/T5 terminal functional outcome stays completed after a later confirmed process close",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics-protocol.test.mjs",
+      "name": "T4 receive timing precedes blocked ACK continuation and drain in same JSONL chunk",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics-protocol.test.mjs",
+      "name": "T5 close instant is retained at child close and admitted only by ownership confirmation",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics-protocol.test.mjs",
+      "name": "T4/T10 foreign terminal and native duration fields cannot manufacture a local bound",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics-protocol.test.mjs",
+      "name": "T6 identical native terminal payload repetition keeps first receipt; changed payload remains a conflict",
+      "passed": true,
+      "failed": false
+    },
+    {
+      "file": "us-metrics-native-source.test.mjs",
+      "name": "T1/T3 original private authority refuses a new duplicate outside the chosen unchanged source",
+      "passed": true,
+      "failed": false
+    }
+  ],
+  "failureHeadings": [
+    "✖ real Windows Job owns descendants before Resume and returns finitely for root0, timeout, overflow and start failure (44768.9101ms)",
+    "✖ all native consultation envelopes retain their exact private dependencies through public adapter values (140.7592ms)",
+    "✖ catalogue adapter retains exact capture object and its private dependencies (12.7554ms)",
+    "✖ closed Windows runtime repeats all bytes and refuses corruptions before UV substitute (186424.5776ms)",
+    "✖ reprise: annonce du projet precedent effacee dans une destination sans projection (47417.3474ms)",
+    "✖ initiatives: diagnostics explicites dans le choix et le contexte même sans problems (4970.2577ms)",
+    "✖ initiatives: conservation échouée et ancien résultat restent honnêtes (4062.6104ms)",
+    "✖ initiatives: clavier, noms longs, compact, deux thèmes et zoom200 sans fuite horizontale (3875.4433ms)",
+    "✖ initiatives: couleurs locales lisibles et métadonnées alignées dans le thème clair (4351.1435ms)",
+    "✖ initiatives: choix courant focalisé sans masquer titre et fermeture au compact et zoom200 (4298.2087ms)",
+    "✖ atelier : disposition compacte, buste complet et conteneurs confinés dans les deux thèmes (9119.4848ms)",
+    "✖ atelier : la saisie et son action restent ensemble au premier écran (7979.0754ms)",
+    "✖ la portée globale reste visible après les onglets et les commandes compactes ont une aide clavier (2418.9438ms)",
+    "✖ le formulaire conserve chaque demande, annonce l’attente ailleurs et attend le reçu sans toucher au brouillon libre (15538.0415ms)",
+    "✖ un arrêt inconnu depuis un autre projet garde le motif du blocage et le retour au propriétaire (17533.6261ms)",
+    "✖ fichiers: late A response never steals B focus and return does not replay a read (2232.5314ms)",
+    "✖ real closed Graphify without Git/BMad/AI generates from captured code, and owns every child (87170.0674ms)"
+  ],
+  "logSha256": "ab90d304585509d5ca5a61054dc46d7321fd489db92050036ae6279dce460545"
+}

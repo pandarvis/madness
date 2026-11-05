@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "completedAt": "2026-11-05T02:18:09.685237+00:00",
+  "ownedThisCorrection": [
+    "src/adapters/codex/dialogue.ts",
+    "src/core/us-metrics.ts",
+    "src/adapters/bmad/help.ts",
+    "tests/us-metrics-protocol.test.mjs",
+    "tests/us-metrics-review.test.mjs"
+  ],
+  "changes": [
+    "RPC lifetime map of captured observers/payload digests by native thread/turn; no eviction under existing RPC byte bounds and disposal clears it",
+    "Incomplete/missing-authority observations revoke attributed capabilities and pending choices, preserve archive/occurrence continuity, and reject stale effect guards",
+    "Explicitly refused file receipt preserves validated public progress and file refusal without reading absent files.json or granting metrics authority"
+  ],
+  "red": {
+    "log": "red.log",
+    "passed": 4,
+    "failed": 5,
+    "skipped": 0,
+    "exitCode": 1
+  },
+  "focusedFinal": {
+    "log": "green-focused-final.log",
+    "passed": 9,
+    "failed": 0,
+    "skipped": 0,
+    "exitCode": 0
+  },
+  "affected": {
+    "log": "green-affected.log",
+    "files": [
+      "tests/us-metrics.test.mjs",
+      "tests/us-metrics-protocol.test.mjs",
+      "tests/us-metrics-review.test.mjs",
+      "tests/dialogue-protocol.test.mjs",
+      "tests/bmad-refresh-envelope.test.mjs"
+    ],
+    "passed": 51,
+    "failed": 2,
+    "skipped": 0,
+    "exitCode": 1,
+    "failures": [
+      {
+        "test": "all native consultation envelopes retain their exact private dependencies through public adapter values",
+        "source": "tests/bmad-refresh-envelope.test.mjs:2",
+        "error": "PROFILE_CHANGED at unchanged captureFiles guard: mocked run omits fileGrant"
+      },
+      {
+        "test": "catalogue adapter retains exact capture object and its private dependencies",
+        "source": "tests/bmad-refresh-envelope.test.mjs:5",
+        "error": "PROFILE_CHANGED at unchanged captureFiles guard: mocked run omits fileGrant"
+      }
+    ]
+  },
+  "limits": [
+    "No broad293/global campaign repeated",
+    "No build/package/dist/NSIS/native-provider/network/user-profile changes",
+    "Parent handles full verification and the separately diagnosed inherited envelope fixtures",
+    "Original worker-inputs.json and parent global raw logs untouched"
+  ]
+}

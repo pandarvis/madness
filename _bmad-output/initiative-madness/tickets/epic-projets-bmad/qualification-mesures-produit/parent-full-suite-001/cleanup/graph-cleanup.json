@@ -1,0 +1,178 @@
+{
+  "source": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-runtime-Ro1CGs",
+  "archive": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-mesures-produit\\parent-full-suite-001\\cleanup\\madness-graph-runtime-Ro1CGs.zip",
+  "archiveSha256": "3080231d6449c12c97ad272f174ed63e30d3978e291e071c474b36544be1966f",
+  "removed": true,
+  "states": [
+    {
+      "schema": 5,
+      "outcome": "supervision-error",
+      "exit": 1,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 26432,
+      "error": "Exception calling \"Move\" with \"3\" argument(s): \"Access to the path is denied.\"",
+      "active_before_stop": 2,
+      "job_active_after_stop": 0,
+      "stop_ms": 20,
+      "drain_ms": 528,
+      "elapsed_ms": 2328
+    },
+    {
+      "schema": 5,
+      "outcome": "completed",
+      "exit": 0,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 13852,
+      "active_before_stop": 0,
+      "job_active_after_stop": 0,
+      "stop_ms": 0,
+      "drain_ms": 791,
+      "elapsed_ms": 5650
+    }
+  ],
+  "files": [
+    {
+      "path": "owner.json",
+      "bytes": 750,
+      "sha256": "019ce6717de0a2dea12349d22f0e78902cc5f9bd132da2b9d7269a4b6afd02b9"
+    },
+    {
+      "path": "project/.git",
+      "bytes": 20,
+      "sha256": "e7d93eed5869b154bfeb231454cd6a95c3c98a5566e486a6cf8654eaf80b658b"
+    },
+    {
+      "path": "project/.graphifyrc",
+      "bytes": 18,
+      "sha256": "4f68512879005bab4d17e97bfc97e70bec1cf8174df546984539c98ee21a5791"
+    },
+    {
+      "path": "project/client.ts",
+      "bytes": 115,
+      "sha256": "eea8299574a802a49f97f3d7738787ff4c2c54195eb3b1d02cb0d9494918a1ca"
+    },
+    {
+      "path": "project/service.ts",
+      "bytes": 43,
+      "sha256": "ea65fb50b00c368a45f79aa4961cf7d9a451219335e0353557af208d6abbdeab"
+    },
+    {
+      "path": "project/packages/nested.ts",
+      "bytes": 44,
+      "sha256": "b5106b09a72b133ac3860f8bc273f39ac588c4287c86ec5383863d75331c8141"
+    },
+    {
+      "path": "project/resources/nested.ts",
+      "bytes": 45,
+      "sha256": "40a6ea2ed909085a35a169b1b536d140379b0406a5b80360ae216b6a0ce3cd6e"
+    },
+    {
+      "path": "runs/graph-13504368-f12a-451e-afd6-9aa35af0e3d2/adapter-error.txt",
+      "bytes": 36,
+      "sha256": "1d27a0c5f0eb5ffb3301ab53fc4f979e311e876ba86c0768e0b7cde880602290"
+    },
+    {
+      "path": "runs/graph-13504368-f12a-451e-afd6-9aa35af0e3d2/analysis-execution.json",
+      "bytes": 427,
+      "sha256": "256a154c5ae9c12d75820cc18a79b1eeaf9e99c7602d457aa0913a04a3cc9fea"
+    },
+    {
+      "path": "runs/graph-13504368-f12a-451e-afd6-9aa35af0e3d2/analysis-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/graph-13504368-f12a-451e-afd6-9aa35af0e3d2/analysis-stdout.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/graph-13504368-f12a-451e-afd6-9aa35af0e3d2/launcher-error.txt",
+      "bytes": 29,
+      "sha256": "b518e85261c5b707af90b84884afd291258fd7a2400addc1a5efbedd3d31c3c1"
+    },
+    {
+      "path": "runs/graph-13504368-f12a-451e-afd6-9aa35af0e3d2/request.json",
+      "bytes": 159,
+      "sha256": "c53dc5be756728144cb6caa2eecb510ac37f61f4f5e626127dfb741157ade466"
+    },
+    {
+      "path": "runs/graph-13504368-f12a-451e-afd6-9aa35af0e3d2/terminal.json",
+      "bytes": 175,
+      "sha256": "636aae79f9143b60c9e19349efa9dcba4bfa6aacf01ba27b438ed2557a46b4fc"
+    },
+    {
+      "path": "runs/graph-13504368-f12a-451e-afd6-9aa35af0e3d2/worker-request.json",
+      "bytes": 525,
+      "sha256": "36fe02115406bde18e96eec881f3c27157aff44ecb87d0aaaf523589e0dcc5b1"
+    },
+    {
+      "path": "runs/graph-feb8c19b-c99d-4404-aae0-5c9ffbdda769/capture-execution.json",
+      "bytes": 318,
+      "sha256": "9513c7d83e254b6b12387a100d0fc61cf14344c93117e0c0170ce9595d2a087d"
+    },
+    {
+      "path": "runs/graph-feb8c19b-c99d-4404-aae0-5c9ffbdda769/capture-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runs/graph-feb8c19b-c99d-4404-aae0-5c9ffbdda769/capture-stdout.json",
+      "bytes": 2165,
+      "sha256": "53ace9edb38829c6a5e0880187d4449528135867b4dfcf11bea1b3c4151a2dfd"
+    },
+    {
+      "path": "runs/graph-feb8c19b-c99d-4404-aae0-5c9ffbdda769/request.json",
+      "bytes": 252,
+      "sha256": "30c5490bbc6879c3882e7ef1bb45e81ef666b2ff9016a12bd4e17374d9f42e62"
+    },
+    {
+      "path": "runs/graph-feb8c19b-c99d-4404-aae0-5c9ffbdda769/result.json",
+      "bytes": 2165,
+      "sha256": "53ace9edb38829c6a5e0880187d4449528135867b4dfcf11bea1b3c4151a2dfd"
+    },
+    {
+      "path": "runs/graph-feb8c19b-c99d-4404-aae0-5c9ffbdda769/terminal.json",
+      "bytes": 175,
+      "sha256": "f9f7b4961dbf1421789783bb529e80bc91e8aa12afd32dcf429387726e280f48"
+    },
+    {
+      "path": "runs/graph-feb8c19b-c99d-4404-aae0-5c9ffbdda769/data/corpus.json",
+      "bytes": 1036,
+      "sha256": "5a8971809b9f92526da89063c25ba3bff174aba93143d0c88d8774ea4db7a306"
+    },
+    {
+      "path": "runs/graph-feb8c19b-c99d-4404-aae0-5c9ffbdda769/data/files.json",
+      "bytes": 6874,
+      "sha256": "6cddbe08d438b50d7d0efac3ac06913f5777afc2157574f779a047d206ea1ae6"
+    },
+    {
+      "path": "runs/graph-feb8c19b-c99d-4404-aae0-5c9ffbdda769/data/mirror/client.ts",
+      "bytes": 115,
+      "sha256": "eea8299574a802a49f97f3d7738787ff4c2c54195eb3b1d02cb0d9494918a1ca"
+    },
+    {
+      "path": "runs/graph-feb8c19b-c99d-4404-aae0-5c9ffbdda769/data/mirror/service.ts",
+      "bytes": 43,
+      "sha256": "ea65fb50b00c368a45f79aa4961cf7d9a451219335e0353557af208d6abbdeab"
+    },
+    {
+      "path": "runs/graph-feb8c19b-c99d-4404-aae0-5c9ffbdda769/data/mirror/packages/nested.ts",
+      "bytes": 44,
+      "sha256": "b5106b09a72b133ac3860f8bc273f39ac588c4287c86ec5383863d75331c8141"
+    },
+    {
+      "path": "runs/graph-feb8c19b-c99d-4404-aae0-5c9ffbdda769/data/mirror/resources/nested.ts",
+      "bytes": 45,
+      "sha256": "40a6ea2ed909085a35a169b1b536d140379b0406a5b80360ae216b6a0ce3cd6e"
+    }
+  ]
+}

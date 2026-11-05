@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "source": "Observed tool transcript, transcribed; these are not fabricated reruns or original raw log files",
+  "observations": [
+    {
+      "test": "Initial metrics product behavior tests",
+      "result": "5 missing-product assertions failed before implementation"
+    },
+    {
+      "test": "T1 private source proof",
+      "failure": "AssertionError: private story proof missing"
+    },
+    {
+      "test": "T4 receive timing precedes blocked ACK continuation and drain in same JSONL chunk",
+      "failure": "actual [] versus expected ack 1000 and terminal 601000"
+    },
+    {
+      "test": "T8 unreadable metrics annex",
+      "failure": "STORAGE_READ_FAILED blocked legacy capture"
+    },
+    {
+      "test": "T6 same occurrence remains attributed across a title/proof revision change",
+      "failure": "story was null"
+    },
+    {
+      "test": "T1/T3 original private authority refuses a new duplicate outside the chosen unchanged source",
+      "failure": "Missing expected rejection"
+    },
+    {
+      "test": "T3 removing a choice invalidates the old pending reference for the same exact request",
+      "failure": "Missing expected rejection"
+    },
+    {
+      "test": "T7/T8 consumer projection exposes reasons, coverage and saved bounds separately",
+      "failure": "summary was undefined"
+    },
+    {
+      "test": "T6 identical native terminal payload repetition keeps first receipt; changed payload remains a conflict",
+      "failure": "3 !== 2 receipts"
+    },
+    {
+      "test": "T1/T3 a slow metrics admission cannot republish invalidated progress as current",
+      "failure": "1 !== 0 stale-current publications; final oracle checks current freshness separately from ready status"
+    },
+    {
+      "test": "T8 independent concurrent stores cannot both win the same prior-byte CAS",
+      "failure": "2 !== 1 successful writers"
+    },
+    {
+      "test": "T4/T5 terminal functional outcome stays completed after a later confirmed process close",
+      "failure": "actual completed + interrupted versus expected completed"
+    }
+  ]
+}

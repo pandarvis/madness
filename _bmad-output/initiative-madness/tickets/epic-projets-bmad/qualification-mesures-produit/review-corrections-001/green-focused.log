@@ -1,0 +1,36 @@
+✔ T4 receive timing precedes blocked ACK continuation and drain in same JSONL chunk (27.2063ms)
+✔ T5 close instant is retained at child close and admitted only by ownership confirmation (1.6931ms)
+✔ T4/T10 foreign terminal and native duration fields cannot manufacture a local bound (1.7826ms)
+✔ T6 identical native terminal payload repetition keeps first receipt; changed payload remains a conflict (1.0256ms)
+✔ T6 late previous-turn JSONL terminals keep their original observer after the next ACK (3.2203ms)
+✔ T1/T2 partial unread conflicting leaf cannot qualify the remaining entry (166.3453ms)
+✔ T2/T3 partial observation preserves the occurrence but revokes pending authority and choices (319.2987ms)
+✔ T1/T10 refused file grant keeps public progress without metrics authority, rows=false (29.4958ms)
+✖ T1/T10 refused file grant keeps public progress without metrics authority, rows=true (17.0106ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1088.4336
+
+✖ failing tests:
+
+test at tests\us-metrics-review.test.mjs:42:39
+✖ T1/T10 refused file grant keeps public progress without metrics authority, rows=true (17.0106ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/us-metrics-review.test.mjs:50:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "completedAt": "2026-11-05T02:38:02.646555+00:00",
+  "sourcesFrozen": true,
+  "ownedFiles": [
+    "src/core/us-metrics.ts",
+    "tests/us-metrics-review.test.mjs"
+  ],
+  "productionChange": "Preserve the existing private capability when the full captured occurrence is equivalent, including contextRevision/proofRevision/root/initiative/sources. Every new admission allocates a new private delegate identity, so revoked or changed-proof capabilities cannot revive even if the original adapter object or proof revision returns.",
+  "red": {
+    "log": "red.log",
+    "passed": 1,
+    "failed": 4,
+    "skipped": 0,
+    "exitCode": 1
+  },
+  "focused": {
+    "log": "green-focused.log",
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0,
+    "exitCode": 0
+  },
+  "affected": {
+    "log": "green-affected.log",
+    "files": [
+      "tests/us-metrics.test.mjs",
+      "tests/us-metrics-review.test.mjs"
+    ],
+    "passed": 33,
+    "failed": 0,
+    "skipped": 0,
+    "exitCode": 0,
+    "durationMs": 22246.0896,
+    "note": "Before adding the final explicit changed-context characterization; production source unchanged afterward."
+  },
+  "context": {
+    "log": "green-context.log",
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "exitCode": 0,
+    "case": "Same proofRevision, different contextRevision rejects old choice/instrument and admits a fresh choice."
+  },
+  "verificationLimits": [
+    "No broader/global campaign or build run; parent owns final verification",
+    "Prior worker/global/review seals and raw logs unchanged",
+    "No public surface, persistence schema, provider, native acquisition/network, profiles, package or dist changes"
+  ]
+}

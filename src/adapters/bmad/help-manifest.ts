@@ -14,5 +14,5 @@ export const helpResourcePins = {
   "runtime.json": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
   "supervision.ps1": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
   "worker.py": "7429e4c4521cd9dcea658b08344906e582ce6ebda90595ab190a5534a72bf72b",
-  "progress.py": "8f961776a7ace94d7b5a69d61dcf525c37731bdb7c560000608e38bd82149465"
+  "progress.py": "60ad451312bb8eec16988300ac4a2a378d74e14fbf984548a086364558ae7516"
 } as const

@@ -1,3 +1,5 @@
+import type {TurnInstrumentation} from './us-metrics.ts'
+export type {UsMetricsPort,TurnInstrumentation} from './us-metrics.ts'
 import type {ApprovalFile,ApprovalResult,ApprovalRecord,ApprovalDecision,DialogueMode} from '../contracts/approvals.ts'
 import type { Snapshot } from '../contracts/index.ts'
 import type { ConnectionAction, ConnectionState } from '../contracts/connection.ts'
@@ -15,7 +17,7 @@ export type BmadProfile = { catalogSource?:{path:string;sha256:string;bytes:numb
 export interface WorkflowPort { read(): Promise<WorkflowRecord[]>; write(record: WorkflowRecord): Promise<void> }
 /** Les identifiants de cette projection sont locaux au connecteur, jamais ceux du fournisseur. */
 export type DialogueMessageUpdate = { id: string; order: number; text: string; completed: boolean; identity: MessageIdentity }
-export interface DialogueSession { context: { connectionId: string; initiativeId: string | null }; help?:{nativeTurn?():{threadId:string;turnId:string}|null;bundle:import('../contracts/bmad-help.ts').HelpBundle;bind(observer:(r:import('../contracts/bmad-help.ts').HelpToolReceipt)=>Promise<void>):void}; workflow?: { outputBase: string; contextDigest: string; bind(observer: (observation: WorkflowObservation, workspace?: string, outcome?: WorkflowRecord['outcome']) => Promise<void>): void }; turn(text: string | null, accepted: () => Promise<void>, observe?: (message: DialogueMessageUpdate) => void,onQuestion?:QuestionObserver,onApproval?:ApprovalObserver): Promise<string>; stop(): Promise<'stopped' | 'unknown'> }
+export interface DialogueSession { context: { connectionId: string; initiativeId: string | null }; help?:{nativeTurn?():{threadId:string;turnId:string}|null;bundle:import('../contracts/bmad-help.ts').HelpBundle;bind(observer:(r:import('../contracts/bmad-help.ts').HelpToolReceipt)=>Promise<void>):void}; workflow?: { outputBase: string; contextDigest: string; bind(observer: (observation: WorkflowObservation, workspace?: string, outcome?: WorkflowRecord['outcome']) => Promise<void>): void }; turn(text: string | null, accepted: () => Promise<void>, observe?: (message: DialogueMessageUpdate) => void,onQuestion?:QuestionObserver,onApproval?:ApprovalObserver,instrumentation?:TurnInstrumentation): Promise<string>; stop(): Promise<'stopped' | 'unknown'> }
 export interface ConnectionPort {
   read(): Promise<ConnectionState>
   command(action: ConnectionAction): Promise<ConnectionState>

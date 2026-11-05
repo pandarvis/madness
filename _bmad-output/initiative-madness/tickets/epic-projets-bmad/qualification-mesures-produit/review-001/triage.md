@@ -1,0 +1,9 @@
+
+| Id | Verdict | Preuve vérifiée par le parent | Route |
+|---|---|---|---|
+| Q1 | medium | DialogueRpc60/63/105/109 conserve seulement l'observateur courant ; après armTurn suivant, la corrélation exclut le terminal ancien avant sa remise à la métrique. Le callback capturé par tour et les bornes privées existent déjà ; conserver leur index privé par identité corrélée corrige la perte, sans nouvelle surface ni autorité. | patch, racineA |
+| Q2 | high | progress.py156–174 omet les sources refusées et produit coverage partial ; core/us-metrics61–75 n'exige aucune couverture suffisante avant qualification du groupe restant. Une feuille contradictoire non lue n'est pas absence prouvée. Le garde de qualification doit refuser cette preuve incomplète, sans transformer partial en disparition ni détruire les historiques. | patch, racineB |
+| Q3 | medium | files.py29/55–58 refuse le reçu >4Mio sans files.json ; captureFiles35 accepte déjà refusal. La nouvelle lecture help133 échoue néanmoins. Garder la progression et désactiver uniquement l'autorité métrique quand ce reçu manque par refus explicite. | patch, racineC |
+| H1 | medium | Même défaut de refus d'aperçu que Q3, chemin producteur/consommateur vérifié par le parent. | patch, racineC |
+| H2 | medium | Même perte de terminal ancien que Q1 ; filtre du protocole ignore ensuite le tour ancien. | patch, racineA |
+| H3 | maybe-false | Global767/750/17 exact ; doubles d'enveloppe et garde inchangés, preload/renderer synthétiques inchangés écartent la nouvelle jointure Main comme cause directe. Trois natifs : timeout de résultat, plafond contrôleur180s, Move Access denied avec Job actif puis arrêté0. Antériorité native non démontrée ; ces trois causes racines restent à qualifier. | defer, vérification2.15/graphe ; aucune suite globale verte revendiquée |

@@ -126,6 +126,7 @@ def collect(req, context):
     if not initiative.is_relative_to(project):raise ValueError('PROGRESS_OUTSIDE_PROJECT')
     root_chain, initiative_chain = capture.inspect_chain(project), capture.inspect_chain(initiative)
     sources, declarations, excerpts, problems = [], [], [], []
+    story_rows = []
     readings, inventories, missing, refused = [], [], [], []
     source_cache = {}
     file_grants = []
@@ -237,6 +238,9 @@ def collect(req, context):
         declaration(item, container, ticket, title, 'existence', kind, 1)
         for field in ('status', 'tracker_status'):
             if field in fm:declaration(item, container, ticket, title, field, fm[field], locations[field])
+        if kind == 'leaf':
+            stamp = next(stamp for p, stamp, _ in readings if capture.display_path(p) == item['path'])
+            story_rows.append({'sourceId':item['id'],'container':container,'ticketId':ticket,'kind':'leaf','type':fm.get('type') if isinstance(fm.get('type'),str) else None,'line':1,'typeLine':locations.get('type'),'identity':json.dumps(stamp[:5],separators=(',',':'))})
         sections(item, text, body_start)
         return ticket
 
@@ -278,6 +282,8 @@ def collect(req, context):
                         if ticket in entry_ids:problem('Entrees dupliquees: '+item['path']+': '+str(ticket))
                         entry_ids.append(ticket)
                         declaration(item, where, ticket, str(row.get('title', '')), 'existence', 'entry', at)
+                        stamp = next(stamp for p, stamp, _ in readings if capture.display_path(p) == item['path'])
+                        story_rows.append({'sourceId':item['id'],'container':where,'ticketId':ticket,'kind':'entry','type':row.get('type') if isinstance(row.get('type'),str) else None,'line':at,'typeLine':location['fields'].get('type'),'identity':json.dumps(stamp[:5],separators=(',',':'))})
                         for field in ('status', 'tracker_status'):
                             if field in row:
                                 line = location['fields'].get(field)
@@ -382,7 +388,7 @@ def collect(req, context):
         info = path.lstat()
         if [*capture.identity(info), info.st_size, info.st_mtime_ns, info.st_ctime_ns] != stamp:raise ValueError('PROGRESS_REFUSAL_CHANGED: '+capture.display_path(path))
     if capture.inspect_chain(project) != root_chain or capture.inspect_chain(initiative) != initiative_chain:raise ValueError('PROGRESS_ROOT_CHANGED')
-    state = {'sources': sources, 'declarations': declarations, 'excerpts': excerpts, 'problems': problems, 'inventories': [(capture.display_path(p), i, n) for p, i, n in inventories], 'fileIdentities': [(capture.display_path(p), stamp) for p, stamp, _ in readings]}
+    state = {'storyEvidence': story_rows, 'sources': sources, 'declarations': declarations, 'excerpts': excerpts, 'problems': problems, 'inventories': [(capture.display_path(p), i, n) for p, i, n in inventories], 'fileIdentities': [(capture.display_path(p), stamp) for p, stamp, _ in readings]}
     revision = capture.sha(json.dumps(state, sort_keys=True, ensure_ascii=False).encode('utf-8'))
     file_grant=files.grant(req['folder'], project, 'progress', revision, file_grants, req['initiativeId'])
-    return {'_fileGrant':file_grant,'_observationHints':hints,'rootIdentity': context['rootIdentity'], 'initiativeId': req['initiativeId'], 'initiativePath': capture.display_path(initiative), 'contextRevision': context['revision'], 'revision': revision, 'coverage': 'partial' if problems else 'complete', 'sources': sources, 'declarations': declarations, 'excerpts': excerpts, 'problems': problems}
+    return {'_storyEvidence':{'schemaVersion':1,'revision':revision,'rows':story_rows},'_fileGrant':file_grant,'_observationHints':hints,'rootIdentity': context['rootIdentity'], 'initiativeId': req['initiativeId'], 'initiativePath': capture.display_path(initiative), 'contextRevision': context['revision'], 'revision': revision, 'coverage': 'partial' if problems else 'complete', 'sources': sources, 'declarations': declarations, 'excerpts': excerpts, 'problems': problems}

@@ -1,3 +1,4 @@
+import type {StoryAuthority,StoryEvidence} from '../../core/us-metrics.ts'
 import type {FileAuthority} from '../../core/project-files.ts'
 import {realpath as nativeRealpath} from 'node:fs'
 import {promisify} from 'node:util'
@@ -24,6 +25,8 @@ async function safe(path:string,limit=32*1024*1024):Promise<Buffer>{
 }
 export type HelpAdapterOptions={root:string;resources:string;owner:HelpOwnedRun;onUnknown?():void;admission?:{enter(kind:'provider'|'helper',nested?:boolean):()=>void};admit?(internal:boolean):Promise<void>;roots?(project:string):string[]}
 export class BmadHelpAdapter{
+ private storyCaptures=new WeakMap<object,StoryAuthority>();
+ storyAuthority(value:object):StoryAuthority|undefined{return this.storyCaptures.get(value)}
  private fileCaptures=new WeakMap<object,FileAuthority>();
  filesAuthority(value:object):FileAuthority|undefined{return this.fileCaptures.get(value)}
  private async captureFiles<T extends {projectId:string;rootPath:string;rootIdentity:string;revision:string;observedAt:string;sources:{id:string;path:string;sha256:string;bytes:number}[]}>(value:T,folder:string,grant:any):Promise<T>{
@@ -84,9 +87,10 @@ export class BmadHelpAdapter{
    const result=JSON.parse(raw)
    const hints=result._observationHints as ObservationHints|undefined;delete result._observationHints
    const fileGrant=result._fileGrant;delete result._fileGrant
+   const storyEvidence=result._storyEvidence;delete result._storyEvidence
    if(result._timings){await writeFile(join(folder,'native-timings.json'),JSON.stringify(result._timings));delete result._timings}
    if(execution.outcome!=='completed'||execution.exit!==0||errors>65536||result.error)throw Object.assign(dialogueFailure('RESOLVER_FAILED'),{detail:result.error})
-   return {result,folder:data,raw,hints,fileGrant}
+   return {result,folder:data,raw,hints,fileGrant,storyEvidence}
   }finally{
    try{
     if(generation&&!spawned){await writeFile(join(folder,'terminal.json'),JSON.stringify({schemaVersion:1,generation,purpose:'bmad-readonly',terminal:true,jobAssigned:false,jobActive:0,neverStarted:true}),{flag:'wx'}).catch(()=>{})}
@@ -121,8 +125,21 @@ export class BmadHelpAdapter{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]
   for(let i=0;i<roots.length;i++){if(!isAbsolute(roots[i]))throw dialogueFailure('PROFILE_UNRECOGNIZED');try{roots[i]=await directory(roots[i])}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e}}
   // This is a local consultation, never a provider-nested admission.
-  const {result,hints,folder,fileGrant}=await this.run({op:'progress',project:root,roots,initiativeId:selection.initiativeId,rootIdentity:selection.rootIdentity,contextRevision:observation.revision},signal)
-  return this.captureFiles(this.captured({schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result},hints),folder,fileGrant)
+  const {result,hints,folder,fileGrant,storyEvidence}=await this.run({op:'progress',project:root,roots,initiativeId:selection.initiativeId,rootIdentity:selection.rootIdentity,contextRevision:observation.revision},signal)
+  const value=await this.captureFiles(this.captured({schemaVersion:1,projectId,rootPath:root,observedAt:new Date().toISOString(),...result},hints),folder,fileGrant)
+  if(storyEvidence!==undefined&&!fileGrant.refusal){
+   const e=storyEvidence as StoryEvidence
+   if(e.schemaVersion!==1||e.revision!==value.revision||!Array.isArray(e.rows)||e.rows.length>4096||!e.rows.every(r=>r&&typeof r.sourceId==='string'&&typeof r.container==='string'&&(r.ticketId===null||typeof r.ticketId==='string')&&['entry','leaf'].includes(r.kind)&&(r.type===null||typeof r.type==='string')&&Number.isSafeInteger(r.line)&&r.line>0&&(r.typeLine===null||Number.isSafeInteger(r.typeLine)&&r.typeLine>0)&&typeof r.identity==='string'&&r.identity.length>0&&r.identity.length<=1000&&value.sources.some((s:any)=>s.id===r.sourceId)))throw dialogueFailure('PROFILE_CHANGED')
+   const receiptSha=sha(await safe(join(folder,'files.json'),4*1024*1024))
+   this.storyCaptures.set(value,{evidence:structuredClone(e),verify:async(sourceId,signal)=>{
+    if(!e.rows.some(r=>r.sourceId===sourceId)||sha(await safe(join(folder,'files.json'),4*1024*1024))!==receiptSha)throw dialogueFailure('PROFILE_CHANGED')
+    // A new leaf can introduce a duplicate while the chosen source stays identical.
+    // Re-read the bounded scope and its inventories, not only that source file.
+    try{const fresh=await this.run({op:'progress',project:root,roots,initiativeId:selection.initiativeId,rootIdentity:selection.rootIdentity,contextRevision:observation.revision},signal,true);if(fresh.result.revision!==value.revision)throw dialogueFailure('PROFILE_CHANGED')}
+    catch(error){if(['STOP_UNCONFIRMED','BUSY','APP_CLOSING','CANCELLED'].includes(String((error as {code?:string}).code)))throw error;throw dialogueFailure('PROFILE_CHANGED')}
+   }})
+  }
+  return value
  }
  async prepare(projectId:string,rootPath:string,signal:AbortSignal):Promise<HelpBundle>{
   const root=await directory(rootPath),roots=this.options.roots?.(root)??[join(root,'.agents/skills'),join(process.env.USERPROFILE??'','.codex/skills')]

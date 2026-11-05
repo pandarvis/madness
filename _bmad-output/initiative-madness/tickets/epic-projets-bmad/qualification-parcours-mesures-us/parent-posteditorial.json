@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-05T00:31:37.940031+00:00",
+  "command": "node _bmad-output/initiative-madness/.working/metrics212-worker-verify.mjs",
+  "observedExitCode": 0,
+  "scope": "documentary, no UI/native",
+  "checkerSha256": "1a88c544d066bca93a57847dbce3720d2c8439ac8435f79ded9fe0cb0ee44293",
+  "verificationSha256": "42fb79cfa22cc930e1472f55416bea1eff147830a10bc7f33e07654f79fd41dc",
+  "reportChangedPaths": [
+    "/pass1/sections/experience/positions/5",
+    "/pass1/sections/experience/positions/6",
+    "/pass1/sections/experience/positions/7",
+    "/at"
+  ],
+  "documents": {
+    "DESIGN.md": "8249f503bd6e0b89c19b55f13d57164969fea2d0d651fb047f8440515bebe2b3",
+    "EXPERIENCE.md": "0cd8b72acedfcd7721466365b5670c0ac2d53e3e4bc9aa3323599924a87faccf",
+    ".memlog.md": "b7146b318a27a38c4d01f0a6f1ec5f14bd93ac1dc1a68a9e411fd9cc660bdfeb"
+  },
+  "frozenSha256": "6c2a0cc8887ed2a5f67fc26dd765d37661ec009a00cb1e9b3b2acada9a5ed648",
+  "inputs": 161,
+  "asarSha256": "74bf2eed593ed0256ea7cc18aeb0064272888e3adc310b96ec6e88b51d2ea03b",
+  "matrixRows": 8,
+  "passed": 8,
+  "skipped": 0
+}

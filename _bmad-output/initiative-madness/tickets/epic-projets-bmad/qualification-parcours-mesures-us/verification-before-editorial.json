@@ -1,0 +1,692 @@
+{
+  "schemaVersion": 1,
+  "at": "2026-11-05T00:17:54.906Z",
+  "scope": "Documentary walkthrough and Pass1 only; no UI/native/build/NSIS/model/network/account/profile operation",
+  "baselineRevision": "b79bf328d1d05c37e49911e83eb74ba5771e4994",
+  "method": "Author read each M1–M8 scenario against the named rules; exact rule fragments, links, YAML and invariants checked by this local script. Documentary pass is not a runtime test.",
+  "walkthrough": {
+    "executed": 8,
+    "ruleChecks": 46,
+    "passed": 8,
+    "cases": [
+      {
+        "id": "M1",
+        "input": "Story qualifiée sans feuille ; aucun choix ; type absent/spike/@file/id dupliqué",
+        "expected": "Choix explicite unique ou non attribué, refus motivés sans repli",
+        "ruleFound": "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md#epic2-metrics-choice",
+        "checks": [
+          {
+            "fragment": "une seule story qualifiée",
+            "found": true
+          },
+          {
+            "fragment": "sans feuille est admissible",
+            "found": true
+          },
+          {
+            "fragment": "Type absent/inconnu, spike, simple fichier @file et identifiant dupliqué",
+            "found": true
+          },
+          {
+            "fragment": "Aucun choix automatique",
+            "found": true
+          },
+          {
+            "fragment": "Continuer sans attribution",
+            "found": true
+          }
+        ],
+        "observed": "Le choix reste facultatif ; les quatre entrées non qualifiées ne deviennent pas une US et le dialogue garde ses propres gardes.",
+        "verdict": "pass-documentary"
+      },
+      {
+        "id": "M2",
+        "input": "Nouveau tour, question native, navigation/résultat tardif ; renommage/déplacement/réemploi",
+        "expected": "Capturer avant ACK, garder le passé et la question sur le même tour, invalider sans perdre le brouillon",
+        "ruleFound": "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md#epic2-metrics-choice",
+        "checks": [
+          {
+            "fragment": "Avant l’ACK",
+            "found": true
+          },
+          {
+            "fragment": "après l’ACK il est immuable",
+            "found": true
+          },
+          {
+            "fragment": "Une question native et sa réponse",
+            "found": true
+          },
+          {
+            "fragment": "le brouillon reste intact",
+            "found": true
+          },
+          {
+            "fragment": "Déplacement, suppression/réapparition",
+            "found": true
+          },
+          {
+            "fragment": "réemploi silencieux",
+            "found": true
+          }
+        ],
+        "observed": "Le choix du prochain tour et le rattachement capturé se lisent séparément ; la limite de continuité indétectable reste explicite.",
+        "verdict": "pass-documentary"
+      },
+      {
+        "id": "M3",
+        "input": "ACK 1000 / terminal 601000 avec attente ; mêmes instants prouvés ; failed/interrupted",
+        "expected": "10 min locales ou zéro connu ; périmètre/provenance/unité ; résultat séparé",
+        "ruleFound": "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md#epic2-metrics-read",
+        "checks": [
+          {
+            "fragment": "10 min, attente comprise",
+            "found": true
+          },
+          {
+            "fragment": "un vrai zéro connu",
+            "found": true
+          },
+          {
+            "fragment": "préparation, drain et sauvegarde après terminal sont exclus",
+            "found": true
+          },
+          {
+            "fragment": "Durée native est séparée",
+            "found": true
+          },
+          {
+            "fragment": "Failed/interrupted",
+            "found": true
+          },
+          {
+            "fragment": "jamais des reçus natifs",
+            "found": true
+          }
+        ],
+        "observed": "Les exemples sont explicitement prospectifs au chapeau ; la durée inclut les attentes, exclut l’après-terminal et ne prouve aucune réussite.",
+        "verdict": "pass-documentary"
+      },
+      {
+        "id": "M4",
+        "input": "Un tour 10 min et deux inconnus ; tous inconnus ; crash/Arrêter/borne non durable",
+        "expected": "Connu partiel avec nombres, sinon cumul indisponible ; aucune borne reconstruite",
+        "ruleFound": "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md#epic2-metrics-read",
+        "checks": [
+          {
+            "fragment": "1 tour connu et 2 tours inconnus",
+            "found": true
+          },
+          {
+            "fragment": "Tous inconnus : Cumul indisponible",
+            "found": true
+          },
+          {
+            "fragment": "clic Arrêter sans confirmation",
+            "found": true
+          },
+          {
+            "fragment": "borne non durable",
+            "found": true
+          },
+          {
+            "fragment": "Timeout, date de fichier/question",
+            "found": true
+          },
+          {
+            "fragment": "seulement sur les tours identifiés",
+            "found": true
+          }
+        ],
+        "observed": "La couverture ne promet pas de découvrir tout l’historique ; aucun timeout ou retour dans l’application ne ferme un intervalle.",
+        "verdict": "pass-documentary"
+      },
+      {
+        "id": "M5",
+        "input": "Doublon identique ; charge/US contradictoires ; deux tours parallèles 10 min ; horloges distinctes",
+        "expected": "Une fois, conflit visible/non attribué, 20 min cumulées et chevauchement prouvé ou inconnu",
+        "ruleFound": "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md#epic2-metrics-total",
+        "checks": [
+          {
+            "fragment": "Un doublon identique compte une fois",
+            "found": true
+          },
+          {
+            "fragment": "intervalle non promu en durée close",
+            "found": true
+          },
+          {
+            "fragment": "attribution d’US contradictoire reste non attribuée",
+            "found": true
+          },
+          {
+            "fragment": "20 min cumulées",
+            "found": true
+          },
+          {
+            "fragment": "Chevauchement inconnu",
+            "found": true
+          },
+          {
+            "fragment": "sans transformer le cumul en calendrier",
+            "found": true
+          }
+        ],
+        "observed": "Ni le premier reçu ni la story sélectionnée ne résout une contradiction ; des durées individuelles connues ne prouvent pas le chevauchement.",
+        "verdict": "pass-documentary"
+      },
+      {
+        "id": "M6",
+        "input": "Ancien historique ; schéma seul ; agrégat compte ; coût absent",
+        "expected": "Non instrumenté/inconnu ; usage et coût indisponibles ; aucune conversion ou allocation",
+        "ruleFound": "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md#epic2-metrics-availability",
+        "checks": [
+          {
+            "fragment": "Historique non instrumenté",
+            "found": true
+          },
+          {
+            "fragment": "Un schéma CLI atteste une déclaration, pas une mesure reçue",
+            "found": true
+          },
+          {
+            "fragment": "Usage indisponible",
+            "found": true
+          },
+          {
+            "fragment": "Coût indisponible",
+            "found": true
+          },
+          {
+            "fragment": "jamais répartis entre US ni convertis en montant",
+            "found": true
+          }
+        ],
+        "observed": "Le texte distingue source déclarative, réception qualifiée et disponibilité ; aucun zéro ou prix d’abonnement/API n’est présenté.",
+        "verdict": "pass-documentary"
+      },
+      {
+        "id": "M7",
+        "input": "Hors ligne ; réouverture ; sauvegarde refusée ; source disparue",
+        "expected": "Relire passivement les seuls reçus durables ; copie de session nommée ; réessai sauvegarde seul",
+        "ruleFound": "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md#epic2-metrics-availability",
+        "checks": [
+          {
+            "fragment": "seuls les futurs reçus réellement durables",
+            "found": true
+          },
+          {
+            "fragment": "aucun modèle, compte, collecte, réseau ou rejeu",
+            "found": true
+          },
+          {
+            "fragment": "leur durée close n’est pas promise",
+            "found": true
+          },
+          {
+            "fragment": "retente uniquement la sauvegarde",
+            "found": true
+          },
+          {
+            "fragment": "Source disparue",
+            "found": true
+          },
+          {
+            "fragment": "Revenir au travail",
+            "found": true
+          }
+        ],
+        "observed": "L’identité historique survit à la disparition de source ; une borne non conservée ne reçoit pas une garantie durable à la réouverture.",
+        "verdict": "pass-documentary"
+      },
+      {
+        "id": "M8",
+        "input": "Clavier/focus ; thèmes ; noms FR/EN longs ; 720px/zoom200 ; mouvement réduit",
+        "expected": "Contrôles nommés, état textuel et saisie/contexte gardés ; aucun timer ou focus arraché",
+        "ruleFound": "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md#epic2-metrics-access",
+        "checks": [
+          {
+            "fragment": "Tab entre groupes, flèches dans un groupe radio",
+            "found": true
+          },
+          {
+            "fragment": "ne déplace ni focus ni défilement",
+            "found": true
+          },
+          {
+            "fragment": "repli sur le titre neutre",
+            "found": true
+          },
+          {
+            "fragment": "sans timer à chaque seconde",
+            "found": true
+          },
+          {
+            "fragment": "FR/EN, noms longs, 720 px, zoom 200 % et mouvement réduit",
+            "found": true
+          },
+          {
+            "fragment": "sans conformité WCAG acquise",
+            "found": true
+          }
+        ],
+        "observed": "Les règles sont des exigences documentaires à vérifier plus tard dans l’interface ; aucun contrôle natif/lecteur d’écran n’est prétendu réalisé.",
+        "verdict": "pass-documentary"
+      }
+    ]
+  },
+  "pass1": {
+    "yaml": {
+      "parsed": [
+        "DESIGN",
+        "EXPERIENCE"
+      ],
+      "result": "parsed without error"
+    },
+    "tokens": {
+      "groups": [
+        {
+          "group": "colors",
+          "unchanged": true
+        },
+        {
+          "group": "light-colors",
+          "unchanged": true
+        },
+        {
+          "group": "typography",
+          "unchanged": true
+        },
+        {
+          "group": "rounded",
+          "unchanged": true
+        },
+        {
+          "group": "spacing",
+          "unchanged": true
+        },
+        {
+          "group": "components",
+          "unchanged": true
+        }
+      ],
+      "colors": 78,
+      "validColors": 78,
+      "distinctReferences": 86,
+      "occurrences": 125,
+      "unresolved": []
+    },
+    "components": {
+      "design": [
+        "Barre d’action et de titre commune",
+        "Navigation latérale",
+        "Bouton",
+        "Ligne de projet ou d’attente",
+        "Onglets du projet",
+        "Sélecteur d’initiative",
+        "Reprise du projet",
+        "Aides chargées",
+        "Recommandation",
+        "Groupe d’intentions",
+        "Catalogue des compétences",
+        "Fiche compétence",
+        "Registre des preuves",
+        "Indicateur d’état",
+        "Bande de récupération",
+        "Détails de contexte",
+        "Préparation d’un échange",
+        "Conversation",
+        "Portrait d’agent",
+        "Fiche agent",
+        "Signalements de la fiche",
+        "Question de l’agent",
+        "Champ de réponse",
+        "Proposition d’approbation",
+        "Récapitulatif de tour",
+        "Connexion Codex",
+        "Panneau de fichiers",
+        "Diagnostic et initialisation",
+        "Dialogue",
+        "Notification"
+      ],
+      "experience": [
+        "Barre d’action et de titre commune",
+        "Navigation latérale",
+        "Bouton",
+        "Ligne de projet ou d’attente",
+        "Onglets du projet",
+        "Sélecteur d’initiative",
+        "Reprise du projet",
+        "Aides chargées",
+        "Recommandation",
+        "Groupe d’intentions",
+        "Catalogue des compétences",
+        "Fiche compétence",
+        "Registre des preuves",
+        "Indicateur d’état",
+        "Bande de récupération",
+        "Détails de contexte",
+        "Préparation d’un échange",
+        "Conversation",
+        "Portrait d’agent",
+        "Fiche agent",
+        "Signalements de la fiche",
+        "Question de l’agent",
+        "Champ de réponse",
+        "Proposition d’approbation",
+        "Récapitulatif de tour",
+        "Connexion Codex",
+        "Panneau de fichiers",
+        "Diagnostic et initialisation",
+        "Dialogue",
+        "Notification"
+      ],
+      "count": 30,
+      "matched": true,
+      "added": []
+    },
+    "stateCoverage": {
+      "surfaces": 10,
+      "items": [
+        {
+          "surface": "Accueil",
+          "rule": "Existing State Patterns and epic2-conservation/epic2-focus; new metrics delta in epic2-metrics and M1–M8",
+          "reviewed": true
+        },
+        {
+          "surface": "Projet · Parcours",
+          "rule": "Existing State Patterns and epic2-conservation/epic2-focus; new metrics delta in epic2-metrics and M1–M8",
+          "reviewed": true
+        },
+        {
+          "surface": "Projet · Conversation",
+          "rule": "Existing State Patterns and epic2-conservation/epic2-focus; new metrics delta in epic2-metrics and M1–M8",
+          "reviewed": true
+        },
+        {
+          "surface": "Connexion Codex et accès",
+          "rule": "Existing State Patterns and epic2-conservation/epic2-focus; new metrics delta in epic2-metrics and M1–M8",
+          "reviewed": true
+        },
+        {
+          "surface": "Fiche agent",
+          "rule": "Existing State Patterns and epic2-conservation/epic2-focus; new metrics delta in epic2-metrics and M1–M8",
+          "reviewed": true
+        },
+        {
+          "surface": "Diagnostic et initialisation",
+          "rule": "Existing State Patterns and epic2-conservation/epic2-focus; new metrics delta in epic2-metrics and M1–M8",
+          "reviewed": true
+        },
+        {
+          "surface": "Sélecteur d’initiative",
+          "rule": "Existing State Patterns and epic2-conservation/epic2-focus; new metrics delta in epic2-metrics and M1–M8",
+          "reviewed": true
+        },
+        {
+          "surface": "Aides chargées",
+          "rule": "Existing State Patterns and epic2-conservation/epic2-focus; new metrics delta in epic2-metrics and M1–M8",
+          "reviewed": true
+        },
+        {
+          "surface": "Catalogue des compétences et Fiche compétence",
+          "rule": "Existing State Patterns and epic2-conservation/epic2-focus; new metrics delta in epic2-metrics and M1–M8",
+          "reviewed": true
+        },
+        {
+          "surface": "Panneau de fichiers et aperçu agrandi",
+          "rule": "Existing State Patterns and epic2-conservation/epic2-focus; new metrics delta in epic2-metrics and M1–M8",
+          "reviewed": true
+        }
+      ],
+      "note": "Manual documentary inspection: cold/empty/error/offline/permission/focus remain in existing State Patterns, common conservation and focus tables. Metrics adds no IA destination; M1–M8 check its delta."
+    },
+    "sections": {
+      "design": {
+        "names": [
+          "Brand & Style",
+          "Colors",
+          "Typography",
+          "Layout & Spacing",
+          "Elevation & Depth",
+          "Shapes",
+          "Components",
+          "Do's and Don'ts"
+        ],
+        "positions": [
+          6361,
+          8147,
+          10348,
+          11847,
+          19618,
+          20499,
+          21174,
+          30848
+        ],
+        "pass": true
+      },
+      "experience": {
+        "names": [
+          "Foundation",
+          "Information Architecture",
+          "Voice and Tone",
+          "Component Patterns",
+          "State Patterns",
+          "Interaction Primitives",
+          "Accessibility Floor",
+          "Key Flows"
+        ],
+        "positions": [
+          1015,
+          4305,
+          8252,
+          21502,
+          35814,
+          60428,
+          66091,
+          68083
+        ],
+        "pass": true
+      }
+    },
+    "flows": {
+      "namedProtagonist": "Sam",
+      "count": 7,
+      "workerBeforeBytesIdentical": true,
+      "gitBaselineTextIdentical": true,
+      "sha256": "b416bbdd854759ed1ac7e50727aedf0f6bf5260a9d022cd34560dc4c51ac6892",
+      "metricsJourneyAnchor": "epic2-metrics-sam",
+      "metricsJourneyNamed": true,
+      "metricsJourneyClimax": true,
+      "metricsJourneyFailure": true,
+      "metricsJourneySteps": 5
+    },
+    "graphe": [
+      {
+        "document": "DESIGN",
+        "workerBytesIdentical": true,
+        "gitBaselineTextIdentical": true
+      },
+      {
+        "document": "EXPERIENCE",
+        "workerBytesIdentical": true,
+        "gitBaselineTextIdentical": true
+      }
+    ],
+    "links": {
+      "checked": 70,
+      "newChecked": 27,
+      "broken": [],
+      "newBroken": []
+    },
+    "sources": {
+      "checked": 39,
+      "missing": []
+    },
+    "frEn": {
+      "rows": 10,
+      "pairs": [
+        {
+          "usage": "Choix US",
+          "fr": "US du prochain tour (facultatif) · Choisir une US · Non attribué · Retirer le choix",
+          "en": "Next turn’s story (optional) · Choose a story · Unassigned · Clear choice",
+          "paired": true,
+          "placeholderSetsEqual": true
+        },
+        {
+          "usage": "Identité US",
+          "fr": "US · Identifiant · Occurrence · Rattachement de ce tour · Contexte capturé",
+          "en": "Story · Identifier · Occurrence · This turn’s assignment · Captured context",
+          "paired": true,
+          "placeholderSetsEqual": true
+        },
+        {
+          "usage": "Choix US indisponible",
+          "fr": "Aucun type story qualifié · Type absent ou non qualifié · Cette entrée n’est pas une story · Identifiant ambigu",
+          "en": "No qualified story type · Type missing or not qualified · This entry is not a story · Ambiguous identifier",
+          "paired": true,
+          "placeholderSetsEqual": true
+        },
+        {
+          "usage": "Choix US invalidé",
+          "fr": "Choix périmé : {reason} · Choisir de nouveau · Continuer sans attribution",
+          "en": "Choice out of date: {reason} · Choose again · Continue unassigned",
+          "paired": true,
+          "placeholderSetsEqual": true
+        },
+        {
+          "usage": "Lecture des mesures",
+          "fr": "Voir les mesures de {story} · Détails de mesure de ce tour · Périmètre : {scope} · Tours identifiés : {count}",
+          "en": "View measurements for {story} · This turn’s measurement details · Scope: {scope} · Identified turns: {count}",
+          "paired": true,
+          "placeholderSetsEqual": true
+        },
+        {
+          "usage": "Nom et unité",
+          "fr": "Durée cumulée des tours observés · Durée locale observée · Durée native · Source · Unité",
+          "en": "Cumulative duration of observed turns · Observed local duration · Native duration · Source · Unit",
+          "paired": true,
+          "placeholderSetsEqual": true
+        },
+        {
+          "usage": "Durée et couverture",
+          "fr": "Durée connue : {duration} · Durée inconnue : {reason} · Couverture partielle · {count} tours connus · {count} tours inconnus · Cumul indisponible",
+          "en": "Known duration: {duration} · Duration unknown: {reason} · Partial coverage · {count} known turns · {count} unknown turns · Cumulative duration unavailable",
+          "paired": true,
+          "placeholderSetsEqual": true
+        },
+        {
+          "usage": "Chevauchement et conflit",
+          "fr": "Chevauchement connu · Chevauchement inconnu · Reçus contradictoires · Rattachement contradictoire — non attribué",
+          "en": "Known overlap · Overlap unknown · Conflicting receipts · Conflicting assignment — unassigned",
+          "paired": true,
+          "placeholderSetsEqual": true
+        },
+        {
+          "usage": "Disponibilité des mesures",
+          "fr": "Historique non instrumenté · Aucun tour identifié dans ce périmètre · Usage indisponible — réception non qualifiée · Coût indisponible — aucun montant qualifié",
+          "en": "History not instrumented · No identified turns in this scope · Usage unavailable — receipt not qualified · Cost unavailable — no qualified amount",
+          "paired": true,
+          "placeholderSetsEqual": true
+        },
+        {
+          "usage": "Conservation de mesure",
+          "fr": "Mesure conservée pour cette session — enregistrement non confirmé · Source disparue — reçu historique conservé",
+          "en": "Measurement kept for this session — save not confirmed · Source missing — historical receipt retained",
+          "paired": true,
+          "placeholderSetsEqual": true
+        }
+      ]
+    },
+    "visualReferences": {
+      "extension": "spine-only explicitly retained by plan; no new visual input/artifact",
+      "existingFiles": 9,
+      "directlyLinked": 9,
+      "notDirectlyLinked": [],
+      "note": "Existing inventory includes support scripts/styles and historical artifacts; no new visual artifact added. Historical direct-link coverage is reported, not silently promoted to complete.",
+      "inventory": [
+        {
+          "path": "_bmad-output/initiative-madness/ux-madness/mockups/navigation-deployee.png",
+          "sha256": "f42be0608f03ec063db5baf509bea75723618391a42ceb586911783d73d8d7ae",
+          "directlyLinkedInSpines": true
+        },
+        {
+          "path": "_bmad-output/initiative-madness/ux-madness/mockups/navigation-mobile.png",
+          "sha256": "ddef4560a66076e4a1e6080698c48f4dacc1b7626dfb0e947212da0af16aed5a",
+          "directlyLinkedInSpines": true
+        },
+        {
+          "path": "_bmad-output/initiative-madness/ux-madness/mockups/navigation-repliee.png",
+          "sha256": "e2c25512d534b3c87f1f3a672bf56657ac518f485a298551f6f6f304284c22fa",
+          "directlyLinkedInSpines": true
+        },
+        {
+          "path": "_bmad-output/initiative-madness/ux-madness/mockups/parcours-guide/app.js",
+          "sha256": "02cd94c32032da22e8c55ca1d870806db5e95a4a7e9337513d504608be25d315",
+          "directlyLinkedInSpines": true
+        },
+        {
+          "path": "_bmad-output/initiative-madness/ux-madness/mockups/parcours-guide/catalogue.js",
+          "sha256": "409d622f3b8f5d7e2d51c08afcc973da1e8e8e530fb53d95efc922ce3452e347",
+          "directlyLinkedInSpines": true
+        },
+        {
+          "path": "_bmad-output/initiative-madness/ux-madness/mockups/parcours-guide/index.html",
+          "sha256": "7f7bcab02c006407929adaac75e1fed307aa0c0b1e6234b107d472edc9a94ae4",
+          "directlyLinkedInSpines": true
+        },
+        {
+          "path": "_bmad-output/initiative-madness/ux-madness/mockups/parcours-guide/styles.css",
+          "sha256": "48cc5ca19a276c68e091200529980685136aa7a2ff18a1d6d7d142dc82c8e24e",
+          "directlyLinkedInSpines": true
+        },
+        {
+          "path": "_bmad-output/initiative-madness/ux-madness/imports/reference-codex-desktop.png",
+          "sha256": "9ad9a89006ce85b33b72ffda6a9ca5e5acb40d05637a7e828a2a3b6e82c38998",
+          "directlyLinkedInSpines": true
+        },
+        {
+          "path": "_bmad-output/initiative-madness/ux-madness/imports/reference-navigation-repliee.png",
+          "sha256": "a70cee59dabc63356669eb7d976c7264f45959f5603970da42478e31844807d5",
+          "directlyLinkedInSpines": true
+        }
+      ]
+    }
+  },
+  "protected": {
+    "before": "_bmad-output/initiative-madness/.working/metrics212-worker-before.json",
+    "referenceMatchesBefore": true,
+    "inputs": 161,
+    "matched": 161,
+    "mismatches": [],
+    "candidate": {
+      "asar": "dist\\catalog-launch-reviewed\\win-unpacked\\resources\\app.asar",
+      "sha256": "74bf2eed593ed0256ea7cc18aeb0064272888e3adc310b96ec6e88b51d2ea03b",
+      "observed": "74bf2eed593ed0256ea7cc18aeb0064272888e3adc310b96ec6e88b51d2ea03b",
+      "after": "74bf2eed593ed0256ea7cc18aeb0064272888e3adc310b96ec6e88b51d2ea03b",
+      "unchanged": true
+    },
+    "world": [
+      {
+        "path": "DESIGN.md",
+        "sha256": "3cbfdb226a285d8d95215ccc36a035da66bb0c86674be1d01ecf8209cb35adc8",
+        "unchanged": true
+      },
+      {
+        "path": ".impeccable/design.json",
+        "sha256": "91c057fa0734124969403a97135c9ac038613bfa7e9f0c4f4ad6c5b932fcb827",
+        "unchanged": true
+      }
+    ]
+  },
+  "diffCheck": {
+    "exitCode": 0,
+    "output": ""
+  },
+  "limits": [
+    "Standards structure/prose and Quick/coherence remain with parent; not claimed here.",
+    "Spine metadata finalization and canonical memlog remain with parent.",
+    "FR/EN, keyboard, narrow/zoom/themes and persistence are documented requirements, not integrated UI/native qualification."
+  ],
+  "result": "pass-with-explicit-scope"
+}

@@ -2,8 +2,9 @@
 title: "Madness — expérience utilisateur"
 status: final
 created: 2026-10-22
-updated: 2026-11-04
+updated: 2026-11-05
 sources:
+  - ../tickets/epic-projets-bmad/qualification-mesures-us/decisions-et-donnees.md
   - ../initiative-madness.md
   - .memlog.md
   - ../../../PRODUCT.md
@@ -56,6 +57,8 @@ La précision Quick Resume de 2.4 étend le parcours 5 existant, sans ajouter de
 Le projet identifie son nom, le contexte d’initiative connu et ses onglets avant les états détaillés. Conversation commence par l’échange ou son état vide ; la demande et son point de réponse ne sont pas précédés de grands blocs de préparation Mary/Forge. Une bande courte garde le motif principal de récupération et sa portée. Contexte technique, empreinte et historique détaillé se consultent à la demande ; les informations nécessaires à une décision restent présentées avant ses choix.
 
 La navigation rétractable conserve Accueil et les projets récents. « Que faire ensuite ? » développe les Aides chargées dans Parcours ; « Toutes les possibilités » est la destination unique du catalogue dans le projet, sans doublon de navigation. Les groupes d’intentions restent explorables sans chaîne obligatoire. Le choix d’initiative est défini au parcours 4 ; les échanges gardent leur contexte capturé, même lorsqu’il diffère de la sélection de consultation. Chaque preuve ou demande reste adressée par projet, initiative lorsqu’elle est connue et identifiant propre ; aucun retour ne se résout vers « le dernier échange » par approximation.
+
+Les [mesures par US](#epic2-metrics) prolongent les parcours [2](#epic2-p2), [3](#epic2-p3) et [5](#epic2-p5) dans les surfaces existantes : choix avant chaque tour dans Préparation d’un échange ou Champ de réponse, consultation locale par US dans le Registre des preuves et par tour dans le Récapitulatif de tour. Ce contrat prospectif applique [D1–D6 de 2.10](../tickets/epic-projets-bmad/qualification-mesures-us/decisions-et-donnees.md) ; il ne rend aucune mesure disponible dans le produit courant. R32 concerne le produit uniquement.
 
 ## Voice and Tone
 
@@ -124,6 +127,16 @@ Formulations contractuelles pour le français et l’anglais ; l’anglais sera 
 | Sauvegarde | Modifications conservées pour cette session — enregistrement échoué · Envoyé, conservation locale non confirmée | Changes kept for this session — save failed · Sent, local persistence not confirmed |
 | Décision active | Autoriser tout le patch une fois · Refuser tout le patch · Envoyer la réponse · Interrompre | Allow entire patch once · Reject entire patch · Send response · Interrupt |
 | Fin de tour | Ce tour est terminé · Aucune acceptation humaine attestée | This turn is complete · No attested human acceptance |
+| Choix US | US du prochain tour (facultatif) · Choisir une US · Non attribué · Retirer le choix | Next turn’s story (optional) · Choose a story · Unassigned · Clear choice |
+| Identité US | US · Identifiant · Occurrence · Rattachement de ce tour · Contexte capturé | Story · Identifier · Occurrence · This turn’s assignment · Captured context |
+| Choix US indisponible | Aucun type story qualifié · Type absent ou non qualifié · Cette entrée n’est pas une story · Identifiant ambigu | No qualified story type · Type missing or not qualified · This entry is not a story · Ambiguous identifier |
+| Choix US invalidé | Choix périmé : {reason} · Choisir de nouveau · Continuer sans attribution | Choice out of date: {reason} · Choose again · Continue unassigned |
+| Lecture des mesures | Voir les mesures de {story} · Détails de mesure de ce tour · Périmètre : {scope} · Tours identifiés : {count} | View measurements for {story} · This turn’s measurement details · Scope: {scope} · Identified turns: {count} |
+| Nom et unité | Durée cumulée des tours observés · Durée locale observée · Durée native · Source · Unité | Cumulative duration of observed turns · Observed local duration · Native duration · Source · Unit |
+| Durée et couverture | Durée connue : {duration} · Durée inconnue : {reason} · Couverture partielle · {count} tours connus · {count} tours inconnus · Cumul indisponible | Known duration: {duration} · Duration unknown: {reason} · Partial coverage · {count} known turns · {count} unknown turns · Cumulative duration unavailable |
+| Chevauchement et conflit | Chevauchement connu · Chevauchement inconnu · Reçus contradictoires · Rattachement contradictoire — non attribué | Known overlap · Overlap unknown · Conflicting receipts · Conflicting assignment — unassigned |
+| Disponibilité des mesures | Historique non instrumenté · Aucun tour identifié dans ce périmètre · Usage indisponible — réception non qualifiée · Coût indisponible — aucun montant qualifié | History not instrumented · No identified turns in this scope · Usage unavailable — receipt not qualified · Cost unavailable — no qualified amount |
+| Conservation de mesure | Mesure conservée pour cette session — enregistrement non confirmé · Source disparue — reçu historique conservé | Measurement kept for this session — save not confirmed · Source missing — historical receipt retained |
 
 Les messages d’échec précisent toujours ressource, opération et récupération réellement possible ; `{reason}` ne doit pas devenir un code brut seul. L’état « partiel » cite les capacités affectées : l’absence de `bmad-retrospective` n’interdit pas la lecture des trois aides sûres du candidat. Les 27 descripteurs observés et les 43 topics sont une observation de 2.1, aucun quota d’interface. « BMad recommande » exige le reçu de la réponse native liée aux aides effectivement transmises ; une raison absente est inconnue, pas réécrite par l’interface.
 
@@ -145,19 +158,19 @@ Les noms correspondent à DESIGN.md · Components. Les composants futurs restent
 | Groupe d’intentions | Futur dépliage de possibilités, sans étape imposée ; ouvrir un groupe ne lance rien. |
 | Catalogue des compétences | Inventaire des compétences réellement installées selon racines actives et priorité du nom de dossier ; recherche par intention, agent, nom ou invocation et filtre module. Tous les résultats disponibles restent explorables, sans quota. Métadonnées `bmod-*` exclues ; une déclaration absente est un problème du diagnostic, pas une ligne lançable. Recherche et filtre conservés au retour d’une fiche ; les 27 entrées du [catalogue simulé](mockups/parcours-guide/catalogue.js) restent historiques. |
 | Fiche compétence | Afficher objectif, module, source, invocation exacte `$<nom-dossier>`, entrées, conditions, effets et livrables, inconnus nommés. Descriptif, copiable et lançable sont indépendants : l’absence d’invocation sûre interdit Copier ; l’absence de runtime qualifié interdit Lancer sans interdire la lecture. Préparer le lancement présente le contexte/effets capturés ; après fermeture de la fiche, la préparation secondaire dans Conversation attend le clic explicite Lancer une nouvelle conversation. Aucun brouillon existant n’est transmis ou remplacé. |
-| Registre des preuves | Fait, déduction, proposition et acceptation restent des axes nommés ; chaque assertion ouvre sources/révisions/observation/portée/fraîcheur. Tickets TOML, feuille optionnelle, plan et tracker restent sourcés séparément, contradictions visibles avant synthèse. Une entrée sans feuille n’est pas absente. Une acceptation exige une décision humaine identifiable portant sur cette révision. |
-| Indicateur d’état | Sépare situation du projet, activité et décision humaine. Transition annoncée sans déplacement de focus ; aucune progression calculée sur les fichiers. |
+| Registre des preuves | Fait, déduction, proposition et acceptation restent des axes nommés ; chaque assertion ouvre sources/révisions/observation/portée/fraîcheur. Tickets TOML, feuille optionnelle, plan et tracker restent sourcés séparément, contradictions visibles avant synthèse. Une entrée sans feuille n’est pas absente. Une acceptation exige une décision humaine identifiable portant sur cette révision. Voir les mesures de {story} déplie la consultation passive sourcée définie dans Mesures par US, pour une occurrence explicite. |
+| Indicateur d’état | Sépare situation du projet, activité et décision humaine. Transition annoncée sans déplacement de focus ; aucune progression calculée sur les fichiers. Pour les mesures, disponibilité, couverture, résultat du tour et conservation restent des axes distincts ; aucune fin de tour ne rend un cumul complet. |
 | Bande de récupération | Un motif principal avec portée projet ou globale et action disponible. Un arrêt inconnu reste durablement visible et bloque les nouveaux échanges concernés. Une inspection nécessaire reste indiquée ; un rappel court mène aux détails sans masquer la garde. |
-| Détails de contexte | Consultation à la demande des informations connues, invocations, chemins intégraux et provenance. Cette compacité ne replie pas les effets ou préconditions nécessaires à une autorisation active. |
-| Préparation d’un échange | Présente Mary et Forge avec objectif ; qualification sans modèle, lancement natif et option fichiers séparés. Une nouvelle conversation est explicite ; aucun brouillon transmis au lancement. Forge respecte la recherche native de sessions existantes avant le premier terminal, sans reprise implicite. |
+| Détails de contexte | Consultation à la demande des informations connues, invocations, chemins intégraux et provenance. Cette compacité ne replie pas les effets ou préconditions nécessaires à une autorisation active. Les détails de mesure exposent identité, occurrence, contexte et sources capturés selon Mesures par US, sans réattribution depuis la sélection actuelle. |
+| Préparation d’un échange | Présente Mary et Forge avec objectif ; qualification sans modèle, lancement natif et option fichiers séparés. Une nouvelle conversation est explicite ; aucun brouillon transmis au lancement. Forge respecte la recherche native de sessions existantes avant le premier terminal, sans reprise implicite. Le choix US facultatif avant le premier tour suit Mesures par US ; préparer ou lancer une conversation ne choisit aucune story par défaut. |
 | Conversation | Affiche échange sélectionné, agent connu ou inconnu, fournisseur, contexte et invocation. Messages progressifs corrélés ; provenance figée par item selon ce qui est attesté. Aucun échange sélectionné : état vide et action de préparation, sans lancement automatique. |
 | Portrait d’agent | Correspondance exacte uniquement depuis l’identité attestée de l’item : Mary, John, Sofia, Winston, Sally, Amelia ou Smithy. Identité inconnue reste inconnue ; nom attesté hors casting conservé sans portrait nommé. Ni invocation, recipient, texte reçu ni fichier de skill ne sont une preuve. |
 | Fiche agent | Capture message, identité/source, contexte et déclencheur exacts ; rôle descriptif, pas compétence disponible ni activité. Ouverture/fermeture et navigation de signalement restent locales ; aucune invocation ni décision métier. Source/contexte invalidé : fermeture avec motif, sans réaffectation au dernier message. |
 | Signalements de la fiche | Pendant la consultation, conserver les attentes/récupérations observées par identifiant, récentes d’abord. Zone visible séparée du rôle, annonce et accès corrélé ; disparition rend l’entrée historique inactive. Chaque nouvel identifiant est annoncé une fois, même si type et projet identiques ; expiration et deltas ne réannoncent pas. |
 | Question de l’agent | Demande active corrélée seulement ; brouillon propre à la demande, choix non secrets et envoi explicite. Après expiration, passage à un état terminal ou restauration : texte conservé et inactif, sans action de réponse. |
-| Champ de réponse | Brouillon libre distinct des réponses aux questions ; sauvegarder et envoyer restent séparés. Refuser texte vide et double envoi ; transmettre la copie capturée au clic à la bonne session. « Envoyé » exige le reçu fiable ; échec de conservation signalé sans succès durable inventé. |
+| Champ de réponse | Brouillon libre distinct des réponses aux questions ; sauvegarder et envoyer restent séparés. Refuser texte vide et double envoi ; transmettre la copie capturée au clic à la bonne session. « Envoyé » exige le reçu fiable ; échec de conservation signalé sans succès durable inventé. Avant chaque nouveau tour libre, choix US explicite ou Non attribué ; une réponse à une question conserve le tour capturé, selon Mesures par US. |
 | Proposition d’approbation | Lecture seule par défaut, mode fichiers opt-in. Présenter opération, portée intégrale, préconditions et patch complet avant autoriser/refuser. Accord ponctuel pour l’opération exacte ; navigation et fermeture ne l’accordent pas. Ajustement dans un nouveau tour, sans rejeu. |
-| Récapitulatif de tour | Projection factuelle des résultats, décisions humaines identifiables, chemins et prochaine action lorsqu’ils sont connus ; conserver les inconnus. Fin de tour, clôture du workflow et validation du livrable restent indépendantes. |
+| Récapitulatif de tour | Projection factuelle des résultats, décisions humaines identifiables, chemins et prochaine action lorsqu’ils sont connus ; conserver les inconnus. Fin de tour, clôture du workflow et validation du livrable restent indépendantes. Détails de mesure de ce tour expose le rattachement capturé et la durée avec sa preuve ; consulter ne lance ni collecte ni nouveau tour. |
 | Connexion Codex | Panneau non modal au clavier/pointeur, titre focalisé et fermeture rendant le focus au logo. OAuth dans le navigateur Windows, forfait annoncé et témoin explicite. Compte enregistré à vérifier, succès daté et borné ; Vérifier, Reconnecter et Déconnecter restent distincts. |
 | Panneau de fichiers | Ouvre le fichier exact de la preuve/résultat, avec projet, initiative capturée, statut sourcé, chemin et révision. Lecture seule de contenu non fiable, aucun script, lien actif ou commande du document exécuté. Agrandir conserve sélection et position ; ouverture éditeur demande une intégration qualifiée, chemin contrôlé et retour réel selon parcours 6. |
 | Diagnostic et initialisation | Distinguer absent, ancien observé, inconnu, partiel, candidat observé, incompatible, invalidé et erreur selon G2. Montrer capacités indépendantes, sources/racines ordonnées et motif de refus ; version v7 seule insuffisante. Actualiser ne répare pas. L’initialisation reste epic 3, avec changements exacts et accord avant écriture ; installation seule ne signifie pas produit cadré. |
@@ -216,6 +229,66 @@ L’aide réseau affiche uniquement l’adresse publique `https://auth.openai.co
 | Attente reçue pendant la fiche | Signalement visible avant le rôle, annonce distincte par nouvel identifiant et navigation explicite ; focus conservé à l’arrivée, historique exact après expiration. |
 | Focus / superposition | Ordre de lecture cohérent, focus visible, fermeture accessible et retour au déclencheur. |
 
+<a id="epic2-metrics"></a>
+
+### Mesures par US — 2.12
+
+Ce contrat est prospectif ; [D1–D6](../tickets/epic-projets-bmad/qualification-mesures-us/decisions-et-donnees.md) gouvernent les consommateurs 2.11/2.13/2.14. Les chiffres ci-dessous sont des exemples de conception, jamais des reçus natifs. Il prolonge les parcours 2/3/5 sans modifier le corps des sept parcours ni le supplément Graphe. Visuel : [DESIGN · Mesures](DESIGN.md#epic2-metrics-layout).
+
+<a id="epic2-metrics-choice"></a>
+
+#### Choisir avant le tour (M1/M2).
+
+US du prochain tour (facultatif) réemploie les contrôles de choix nommés existants. Sam choisit une seule story qualifiée, ou laisse Non attribué. Aucun choix automatique depuis l’US active, le titre, la première ligne ou un tour précédent ; chaque nouveau tour demande son propre choix volontaire s’il doit être attribué. Retirer le choix rétablit Non attribué sans toucher au brouillon. Cette option ne crée aucun prérequis supplémentaire au dialogue : Continuer sans attribution reste possible si les gardes du dialogue l’autorisent.
+
+Une entrée story sans feuille est admissible lorsque sa source de type est qualifiée par 2.11. Type absent/inconnu, spike, simple fichier @file et identifiant dupliqué restent non admissibles avec motif près du choix ; aucune heuristique de titre ou substitution ne les qualifie. La ligne choisie montre titre, identifiant, initiative et occurrence ; Détails de contexte expose projet, chemin/racine physique, initiative/chemin, conteneur relatif, id normalisé, occurrence, preuve de type, révisions et sources/empreintes. Ces données complètent le ContextRef complet capturé pour l’échange et le tour.
+
+Avant l’effet, un changement de contexte ou de preuve invalide le choix avec motif ; le brouillon reste intact et Choisir de nouveau ou Continuer sans attribution sont explicites. Avant l’ACK, le rattachement de ce tour est capturé ; après l’ACK il est immuable, même si Sam choisit une autre US pour le prochain tour, navigue ou reçoit un résultat tardif. Une question native et sa réponse appartiennent au tour déjà capturé ; elles ne présentent pas un nouveau choix. Renommer un titre conserve la référence si la même occurrence est prouvée. Déplacement, suppression/réapparition ou réemploi détecté donnent une occurrence séparée ; un réemploi silencieux sans discontinuité observée peut rester indétectable, sans continuité inventée. Aucun rattachement rétroactif d’historique.
+
+<a id="epic2-metrics-read"></a>
+
+#### Lire le connu et ses limites (M3/M4).
+
+Dans Parcours, Voir les mesures de {story} déplie le Registre des preuves pour l’occurrence demandée ; dans Conversation, Détails de mesure de ce tour ouvre les mêmes lignes dans le Récapitulatif de tour. L’en-tête nomme US/occurrence, projet/racine, initiative et périmètre. Le cumul porte le nom Durée cumulée des tours observés, l’unité, les nombres de tours identifiés/connus/inconnus et la couverture. Les détails de chaque tour exposent identité corrélée, bornes, domaine d’horloge, provenance/révision et conservation ; le résultat fonctionnel se lit séparément. Un tour non attribué reste consultable sous son propre contexte, sans entrer dans le cumul de la story actuellement consultée.
+
+La durée locale va de l’acceptation ACK au terminal corrélé reçu, ou à l’arrêt confirmé avec instant prouvé, dans le même domaine monotone. Elle inclut outils, attente réseau et attente humaine ; préparation, drain et sauvegarde après terminal sont exclus. Ce cumul ne mesure ni effort humain, ni temps CPU, ni durée de réalisation de l’US ou occupation calendaire. Une éventuelle Durée native est séparée, avec source/unité/sémantique propres, et reste indisponible jusqu’à qualification ; elle ne complète pas une borne locale manquante.
+
+Exemple prospectif M3 : ACK à 1 000 ms et terminal à 601 000 ms donnent 10 min, attente comprise ; un ACK et un terminal au même instant prouvés donnent un vrai zéro connu, affiché avec unité et couverture. Une durée inconnue porte son motif et n’utilise ni 0 ni tiret ambigu. Failed/interrupted peut fermer un intervalle prouvé tout en gardant le résultat Échec/Interruption ; la durée ne prouve aucune réussite ou acceptation humaine.
+
+Crash, clic Arrêter sans confirmation, statut stopped sans instant prouvé, ACK/terminal absent, borne non durable, horloge différente ou ordre invalide laissent la durée inconnue. Timeout, date de fichier/question, date murale native ou réouverture ne créent aucune borne. Exemple prospectif M4 : un tour clos de 10 min et deux inconnus donnent 10 min connues, Couverture partielle, 1 tour connu et 2 tours inconnus. Tous inconnus : Cumul indisponible avec leur nombre ; aucun tour identifié : absence nommée, aucun zéro fabriqué. La couverture porte seulement sur les tours identifiés dans le périmètre, sans promesse de découvrir toute l’activité historique.
+
+<a id="epic2-metrics-total"></a>
+
+#### Cumuler sans réaffecter (M5).
+
+Une identité stable comprend session/exécution du connecteur, fournisseur/connexion, thread/tour et conversation locale capturée. Un doublon identique compte une fois. Même identité avec charge différente : Reçus contradictoires, détails des preuves et intervalle non promu en durée close ; aucun premier reçu arbitraire. Une attribution d’US contradictoire reste non attribuée avec motif et ne rejoint aucun cumul d’US. Exemple prospectif : deux tours parallèles clos de 10 min donnent 20 min cumulées, Chevauchement connu seulement si leurs preuves permettent la comparaison ; domaines d’horloge différents : Chevauchement inconnu, même si chaque durée est connue. La répartition par conversation garde son propre périmètre, sans transformer le cumul en calendrier.
+
+<a id="epic2-metrics-availability"></a>
+
+#### Disponibilité et conservation (M6/M7).
+
+Ancien historique : Historique non instrumenté, durée inconnue ; aucun recalcul depuis Snapshot v1 ou synthèse d’historiques. Un schéma CLI atteste une déclaration, pas une mesure reçue. Usage indisponible — réception non qualifiée et Coût indisponible — aucun montant qualifié restent visibles et sourcés séparément de la durée. Agrégat de compte, tokens déclarés ou prix d’abonnement/API ne sont jamais répartis entre US ni convertis en montant. Cette consultation ne qualifie aucune réception native d’usage/coût.
+
+Hors ligne ou après réouverture, seuls les futurs reçus réellement durables sont relus passivement avec identité historique exacte ; aucun modèle, compte, collecte, réseau ou rejeu n’est déclenché. Si l’enregistrement échoue, Mesure conservée pour cette session — enregistrement non confirmé indique que le reçu/les bornes ne sont pas durables ; après réouverture leur durée close n’est pas promise. Réessayer l’enregistrement retente uniquement la sauvegarde. Source disparue : conserver le reçu historique déjà durable et ses sources capturées, signaler la disparition sans rattacher le reçu à une entrée homonyme ni présenter la source capturée comme actuelle. Revenir au travail rend la saisie et le contexte d’origine selon les sorties communes.
+
+<a id="epic2-metrics-access"></a>
+
+#### Accès et retour (M8).
+
+Choix nommé, état sélectionné et motif sont accessibles sans survol ni couleur seuls. Les contrôles de choix gardent leur clavier natif : Tab entre groupes, flèches dans un groupe radio ; sélectionner ne lance rien. Déplier les détails nommés conserve le focus au déclencheur ; refermer le retrouve. Une arrivée de mesure ne déplace ni focus ni défilement. Si une action volontaire retire le déclencheur effectivement focalisé, repli sur le titre neutre de la préparation, du récapitulatif ou du registre d’origine, jamais Envoyer/Autoriser. Les annonces polies portent uniquement sur choix invalidé, issue de tour et échec de conservation, sans timer à chaque seconde. Thèmes, FR/EN, noms longs, 720 px, zoom 200 % et mouvement réduit conservent contexte, saisie, motif, fermeture et actions ; les unités se localisent sans changer la valeur. Ces exigences restent à vérifier dans l’interface intégrée, sans conformité WCAG acquise.
+
+<a id="epic2-metrics-sam"></a>
+
+#### Sam — rattacher puis comprendre ses mesures (extension des parcours 2/3/5).
+
+1. Avant de demander l’aide du parcours 2, de lancer une action qualifiée du parcours 3 ou d’envoyer un nouveau tour libre, Sam choisit explicitement une story qualifiée dans la préparation, ou garde Non attribué. Il lit l’occurrence et le contexte sans quitter sa rédaction.
+2. Le contrôle au point d’effet conserve ce rattachement avant ACK. Sam répond à une question du même tour ; l’attente fait partie de sa durée, sans nouveau choix d’US.
+3. Dans le parcours 5, il ouvre Voir les mesures de {story} puis les détails d’un tour. Il distingue cumul connu, couverture partielle et inconnus, résultat du tour et coût indisponible ; les exemples chiffrés restent prospectifs.
+4. Après navigation ou réouverture passive, il retrouve l’identité capturée du reçu durable ; fermer les détails rend son travail exact, sans changer le rattachement historique.
+5. **Moment décisif :** Sam sait à quelle occurrence les tours appartiennent, ce que leur cumul mesure et ce qui manque ; il ne prend ni durée pour effort/réussite, ni indisponibilité pour zéro.
+
+**Échec et récupération :** type ou identité non qualifiés → motif et tour non attribué possible ; preuve changée → rechoix volontaire sans perdre le brouillon ; crash/borne manquante/conflit → durée inconnue avec couverture explicite ; sauvegarde refusée → copie de session et réessai de sauvegarde seul. Une garde du dialogue reste prioritaire, sans nouvel envoi ni réattribution automatique.
+
 <a id="epic2-refresh"></a>
 
 ### Actualisation locale des preuves — 2.5
@@ -251,6 +324,7 @@ Les brouillons libres, réponses aux demandes et entrées de préparation resten
 | Sélecteur d’initiative | Choix local de session conservé et marqué non enregistré ; configuration BMad inchangée. Rouvrir le sélecteur montre ce choix, sans réattribuer les anciens échanges. |
 | Aides / Catalogue / Fiche compétence | Aides lues, recherche, filtres, fiche et entrées de préparation conservés en session ; aucune commande déclenchée pour réessayer la sauvegarde. |
 | Conversation / Recommandation | Dernier reçu et contenu reçu conservés en session, conservation locale non confirmée explicite ; brouillon indépendant, aucun rejeu. |
+| Mesures par US / Récapitulatif de tour | Rattachement et reçu capturés restent en session avec bornes non durables identifiées ; réessai de sauvegarde seul, aucune durée close durable promise. |
 | Registre des preuves / Panneau de fichiers | Sélection, ancien aperçu identifié et position conservés ; l’observation récente non enregistrée reste telle. Fermer l’aperçu rend le travail d’origine ; pas de fausse preuve durable. |
 
 ## Interaction Primitives
@@ -278,6 +352,7 @@ Tab et Maj+Tab suivent l’ordre visuel. Entrée/Espace activent les boutons ; l
 | Ouvrir / fermer Fiche compétence | Titre du Dialogue, piège de focus ; fermeture ou Échap rend le focus au résultat/alternative exact. Si disparu après actualisation, titre des résultats avec annonce, pas premier Lancer. |
 | Ouvrir / fermer Sélecteur d’initiative | Choix courant, sinon titre ; conflit remplace le contenu du même Dialogue, sans empilement. Annuler ou choisir rend le focus à la commande de l’en-tête. |
 | Reprise → preuve textuelle / échange conservé | Déplier la preuve nommée dans le flux, sans déplacement imposé du focus ; refermer retrouve son déclencheur. Rejoindre l’échange utilise son identifiant et contexte capturés ; revenir conserve projet, sélection, position et brouillon. Si une action volontaire retire la preuve actuellement focalisée dans le panneau actif, titre du Registre des preuves avec annonce ; aucune arrivée asynchrone ne récupère un ancien focus quitté. |
+| Choix US / détails de mesure | Contrôle de choix dans le flux, sans déplacement vers Envoyer ; détails au déclencheur nommé. Fermeture ou repli neutre selon Mesures par US ; aucune arrivée asynchrone ne reprend le focus. |
 | Preuve → fichier / agrandissement | Titre du Panneau de fichiers ; en panneau latéral non modal, Tab permet le retour au centre. Superposition et agrandissement : Dialogue modal, fermeture à sa commande d’origine ; si disparue, titre du Registre des preuves ou du résultat. |
 | Ouvrir dans l’éditeur | Le retour de la commande ne force pas le premier plan Windows. Au retour volontaire dans Madness, focus et brouillon d’origine conservés ; erreur annoncée près du bouton. |
 | Accueil → attente / retour | Titre de la destination exacte puis demande corrélée atteignable. Revenir au travail restaure projet, onglet, conversation et point de saisie mémorisés avant consultation ; si supprimés, motif et destination de projet, aucune réattribution. |

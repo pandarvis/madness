@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "runtime-inputs-004.json",
+  "sourceManifestSha256": "750b7bbc7fb37d6219cf7a591a211f5ebd48999de4e487c31e532dae2b41da7b",
+  "sameReviewers": true,
+  "quick": {
+    "reviewer": "/root/locale214_quick",
+    "Q1": "resolved",
+    "Q2": "resolved",
+    "Q3": "resolved",
+    "Q4-r1": "resolved",
+    "newFindings": []
+  },
+  "bilingualHigh": {
+    "reviewer": "/root/locale214_bilingual_audit",
+    "findings": []
+  },
+  "finish": {
+    "reviewer": "/root/locale214_finish",
+    "technicalSubstitute": true,
+    "disposition": "ship",
+    "persistence": "32runtime19built3testexact; CSS/assets/fonts unchanged",
+    "fidelity": "Q1-Q3 previousbounds preserved; sameformatter for fivecounts/twobytesizes; unknownnull retained; rawdata/handlers preserved",
+    "ceiling": "Reached functionalcompletion; no new visualtreatment",
+    "material_fixes": [],
+    "keep": "Commonformatters/exactsource/sessionpersistencedistinction/authority",
+    "limits": "Functional004only;8PNGs002historical,003artifact historical, no004image/human/WCAG/SIWC/G2-G5claim; packagefinal004 qualified separately byparent"
+  },
+  "deferredProductCorrections": [],
+  "detector": "1run/6baselineedgewarnings; detector-triage.json",
+  "visualBatches": 2
+}

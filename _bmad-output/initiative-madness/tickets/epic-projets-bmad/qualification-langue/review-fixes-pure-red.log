@@ -1,0 +1,39 @@
+✖ Q2 diagnostics graphe etablis et Q3 limites bibliotheque gardent les parametres (21.241ms)
+✖ Q4 compteurs d’aide graphe et tailles sont singuliers et localises (18.394ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 278.8856
+
+✖ failing tests:
+
+test at tests\language.test.mjs:135:1
+✖ Q2 diagnostics graphe etablis et Q3 limites bibliotheque gardent les parametres (21.241ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Untranslated technical detail — Conservation du graphe illisible — aucune analyse relancée.'
+  - 'Graph storage unreadable — no analysis restarted.'
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/language.test.mjs:145:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Untranslated technical detail — Conservation du graphe illisible — aucune analyse relancée.',
+    expected: 'Graph storage unreadable — no analysis restarted.',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\language.test.mjs:149:1
+✖ Q4 compteurs d’aide graphe et tailles sont singuliers et localises (18.394ms)
+  TypeError: Cannot read properties of undefined (reading 'en')
+      at formatCount (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/renderer/src/locale-format.ts:5:135)
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/language.test.mjs:151:360)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

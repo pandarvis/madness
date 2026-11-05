@@ -1,0 +1,41 @@
+✖ Q4-r1 langue : observations Forge un octet et1234 octets et comptes gardent les sources exactes (8255.928ms)
+✖ Q4-r1 langue : source metrique un octet garde lignes identites et autorite dans les deux langues (7679.138ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-Gb9odC\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-Gb9odC\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18036.635
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1582:1
+✖ Q4-r1 langue : observations Forge un octet et1234 octets et comptes gardent les sources exactes (8255.928ms)
+  AssertionError [ERR_ASSERTION]: write · octets relus · 05/11/2026 09:00:00C:/priority/_bmad-output/initiative-test/forge-exact/δ-0.mdSHA-256 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc · 1 octets
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:1585:129)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\connection-ui.test.mjs:1588:1
+✖ Q4-r1 langue : source metrique un octet garde lignes identites et autorite dans les deux langues (7679.138ms)
+  AssertionError [ERR_ASSERTION]: Source de type story · entrée · C:/project/_bmad-output/alpha/tickets/tickets.toml · lignes 1/2SHA-256 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb · 1 octets · identité physique source-physical
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:1590:134)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

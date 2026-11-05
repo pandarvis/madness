@@ -1,3 +1,6 @@
+import {formatNumber,formatCount} from './locale-format.ts'
+import {presentProductText} from './product-copy.ts'
+import {useLocale,useLocalText,LanguageControl} from './Locale.tsx'
 import {MetricsContext,useUsMetrics,useStoryChoices} from './UsMetrics.tsx'
 import {CatalogLaunchPanel,CatalogOrigin,useCatalogLaunch} from './CatalogLaunchPanel.tsx'
 import type {CatalogPreparation} from '../../contracts/bmad-catalog-launch.ts'
@@ -40,23 +43,27 @@ import type { DialogueMessage, DialogueState, WorkflowRecord } from '../../contr
 import type { AppearanceState } from '../../contracts/appearance.ts'
 import {QuestionPanel} from './QuestionPanel.tsx'
 import type {QuestionRecord,QuestionValues} from '../../contracts/questions.ts'
-const questionRecipient=(question:QuestionRecord):string=>question.identity.kind==='attested'?question.identity.name:fr.conversation.unknownAgent
+const questionRecipient=(question:QuestionRecord,unknownAgent:string):string=>question.identity.kind==='attested'?question.identity.name:unknownAgent
 
 function MessageArticle({message,projection,onConsult}:{message:Conversation['messages'][number];projection?:DialogueMessage;onConsult:(message:DialogueMessage,trigger:HTMLButtonElement)=>void}):ReactNode {
+ const {words:fr,ui,language}=useLocale()
+
   const identity=projection?.identity
-  const agent=agentPresentation(identity)
+  const agent=agentPresentation(identity,language)
   const name=identity?.kind==='attested'?identity.name:fr.conversation.unknownAgent
   const phase=projection?.phase==='streaming'?fr.conversation.streaming:projection?.phase==='complete'?fr.conversation.complete:projection?.phase==='interrupted'?fr.conversation.partial:fr.conversation.unknownPhase
   const storage=projection?.storage==='pending'||projection?.storage==='failed'?fr.conversation.notStored:fr.conversation.stored
   return <article data-message-id={message.id} className={'dialogue-message '+message.role}>
-    <div className="message-author">{message.role==='assistant'&&(agent&&projection?<button className="agent-portrait-trigger" type="button" aria-label={'Fiche de '+agent.name} onClick={event=>onConsult(projection,event.currentTarget)}><AgentPortrait agent={agent}/></button>:<AgentPortrait/>)}<h3>{message.role==='user'?'Vous':name+' · Codex'}</h3>{message.role==='assistant'&&agent&&projection&&<button className="agent-info-link text-button" type="button" aria-label={'Fiche de '+agent.name+' · message '+message.id} onClick={event=>onConsult(projection,event.currentTarget)}>Fiche agent</button>}</div>
+    <div className="message-author">{message.role==='assistant'&&(agent&&projection?<button className="agent-portrait-trigger" type="button" aria-label={ui.details_for+agent.name} onClick={event=>onConsult(projection,event.currentTarget)}><AgentPortrait agent={agent}/></button>:<AgentPortrait/>)}<h3>{message.role==='user'?ui.you:name+' · Codex'}</h3>{message.role==='assistant'&&agent&&projection&&<button className="agent-info-link text-button" type="button" aria-label={ui.details_for+agent.name+' · message '+message.id} onClick={event=>onConsult(projection,event.currentTarget)}>{ui.agent_details}</button>}</div>
     {message.role==='assistant'&&<p className={'message-state '+(projection?.storage==='failed'?'message-storage-failed':'')}>{projection?phase+' · '+storage:fr.conversation.historical}</p>}
     <div className="message-text">{message.text}</div>
-    {message.role==='assistant'&&identity?.kind==='attested'&&<p className="message-provenance">Identité attestée · source : <code>{identity.source}</code></p>}
+    {message.role==='assistant'&&identity?.kind==='attested'&&<p className="message-provenance">{ui.attested_identity_source} <code>{identity.source}</code></p>}
   </article>
 }
 type ReadingPosition={top:number;follow:boolean}
 function ConversationMessages({conversation,projections,positions,onConsult}:{conversation:Conversation;projections:DialogueMessage[];positions:Map<string,ReadingPosition>;onConsult:(message:DialogueMessage,trigger:HTMLButtonElement)=>void}):ReactNode {
+ const {ui}=useLocale()
+
   const container=useRef<HTMLDivElement>(null),reading=useRef<ReadingPosition>(positions.get(conversation.id)??{top:0,follow:true})
   const merged=conversation.messages.map(m=>({...m})),byId=new Map(merged.map((m,i)=>[m.id,i]))
   const current=projections.filter(m=>sameContext(m.context,conversation.context)),metadata=new Map(current.map(m=>[m.id,m]))
@@ -67,7 +74,7 @@ function ConversationMessages({conversation,projections,positions,onConsult}:{co
     reading.current.top=element.scrollTop
   })
   useLayoutEffect(()=>()=>{positions.set(conversation.id,{...reading.current})},[conversation.id,positions])
-  return <div className="conversation-messages" ref={container} tabIndex={0} aria-label="Messages de la conversation" onScroll={event=>{const e=event.currentTarget;reading.current={top:e.scrollTop,follow:e.scrollHeight-e.clientHeight-e.scrollTop<=24};positions.set(conversation.id,{...reading.current})}}>
+  return <div className="conversation-messages" ref={container} tabIndex={0} aria-label={ui.conversation_messages} onScroll={event=>{const e=event.currentTarget;reading.current={top:e.scrollTop,follow:e.scrollHeight-e.clientHeight-e.scrollTop<=24};positions.set(conversation.id,{...reading.current})}}>
     {merged.map(message=><MessageArticle key={message.id} message={message} projection={metadata.get(message.id)} onConsult={onConsult}/>)}
   </div>
 }
@@ -87,24 +94,28 @@ function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message
 }
 
 function WorkflowResult({workflow,onCopy}:{workflow:WorkflowRecord;onCopy:(conversationId:string,target:'invocation'|'workspace')=>Promise<DialogueState>}):ReactNode {
-  const [copyNotice,setCopyNotice]=useState('')
+ const {ui,locale,language}=useLocale()
+
+  const [copyNotice,setCopyNotice]=useLocalText<string>('')
   async function copy(target:'invocation'|'workspace'):Promise<void>{
-    try{const next=await onCopy(workflow.conversationId,target);setCopyNotice(next.errorCode?'La copie a échoué. Sélectionnez le texte affiché pour le copier manuellement.':target==='invocation'?'Invocation copiée.':'Chemin copié.')}
-    catch{setCopyNotice('La copie a échoué. Sélectionnez le texte affiché pour le copier manuellement.')}
+    try{const next=await onCopy(workflow.conversationId,target);setCopyNotice(l=>next.errorCode?l.ui.copy_failed_select_the_displayed_text_to_copy_it_manually:target==='invocation'?l.ui.invocation_copied:l.ui.path_copied)}
+    catch{setCopyNotice(l=>l.ui.copy_failed_select_the_displayed_text_to_copy_it_manually)}
   }
   const titleId='workflow-title-'+workflow.conversationId
   return <section className="workflow-observations" aria-labelledby={titleId}>
-    <h2 id={titleId}>Résultat observé de Forge</h2>
-    <p>{workflow.outcome==='open'?'Workflow ouvert ou interrompu · résultat final non observé.':'Clôture native observée : '+workflow.outcome+'.'} Acceptation humaine inconnue.</p>
-    <p className="small">Contexte capturé le {new Date(workflow.capturedAt).toLocaleString('fr-FR')} · {workflow.context.initiativeId??'sans initiative'} · {workflow.context.connectionId}</p>
-    <p><code>{workflow.invocation}</code> <button className="text-button" type="button" onClick={()=>void copy('invocation')}>Copier l’invocation</button></p>
-    <p><code>{workflow.workspace??workflow.outputBase}</code>{workflow.workspace&&<button className="text-button" type="button" onClick={()=>void copy('workspace')}>Copier le chemin</button>}</p>
+    <h2 id={titleId}>{ui.observed_forge_result}</h2>
+    <p>{workflow.outcome==='open'?ui.workflow_open_or_interrupted_final_result_not_observed:ui.native_closure_observed+workflow.outcome+'.'} {ui.human_acceptance_unknown}</p>
+    <p className="small">{ui.context_captured_at} {new Date(workflow.capturedAt).toLocaleString(locale)} · {workflow.context.initiativeId??ui.no_initiative} · {workflow.context.connectionId}</p>
+    <p><code>{workflow.invocation}</code> <button className="text-button" type="button" onClick={()=>void copy('invocation')}>{ui.copy_invocation}</button></p>
+    <p><code>{workflow.workspace??workflow.outputBase}</code>{workflow.workspace&&<button className="text-button" type="button" onClick={()=>void copy('workspace')}>{ui.copy_path}</button>}</p>
     <p className="small" role="status">{copyNotice}</p>
-    <details><summary>Observations durables ({workflow.observations.length})</summary><p className="small">Ces observations datées décrivent les octets relus à cet instant. Elles ne garantissent pas leur état courant. Une opération restée en attente a un effet inconnu.</p><ol>{workflow.observations.map((o,i)=><li key={i}>{o.operation} · {o.phase==='observed'?'octets relus':o.phase==='pending'?'opération annoncée, confirmation attendue':o.phase==='unknown'?'effet inconnu':'échec'} · {new Date(o.at).toLocaleString('fr-FR')}<br/><code>{o.path}</code>{o.sha256&&<><br/><code>SHA-256 {o.sha256}</code> · {o.bytes} octets</>}</li>)}</ol><p className="small">Profil : <code>{workflow.fingerprint}</code><br/>Contexte : <code>{workflow.contextDigest}</code><br/>Dossier capturé : <code>{workflow.rootPath}</code></p></details>
+    <details><summary>{ui.durable_observations}{formatNumber(workflow.observations.length,language)})</summary><p className="small">{ui.these_dated_observations_describe_bytes_reread_at_that_instant_th}</p><ol>{workflow.observations.map((o,i)=><li key={i}>{o.operation} · {o.phase==='observed'?ui.bytes_reread:o.phase==='pending'?ui.operation_announced_awaiting_confirmation:o.phase==='unknown'?ui.unknown_effect:ui.failure} · {new Date(o.at).toLocaleString(locale)}<br/><code>{o.path}</code>{o.sha256&&<><br/><code>SHA-256 {o.sha256}</code> · {o.bytes===null?ui.unknown_2:formatCount(o.bytes,'byte',language)}</>}</li>)}</ol><p className="small">{ui.profile} <code>{workflow.fingerprint}</code><br/>{ui.context} <code>{workflow.contextDigest}</code><br/>{ui.captured_folder} <code>{workflow.rootPath}</code></p></details>
   </section>
 }
 
 export function App({ initialAppearance = window.madnessAppearance.initial, appearanceReadFailed = false }: { initialAppearance?: AppearanceState; appearanceReadFailed?: boolean } = {}): ReactNode {
+ const {words:fr,ui,locale,language}=useLocale()
+
   const [graphState,acceptGraph]=useGraph()
   const graphViews=useRef(new Map<string,GraphView>())
   const graphReturns=useRef(new Map<string,{projectId:string;rootPath:string;tab:'parcours'|'conversation'|'catalogue';initiative:string|null;conversationId:string|null;trigger:HTMLElement|null;inputId:string|null;start:number|null;end:number|null;top:number}>())
@@ -139,7 +150,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [appearancePending, setAppearancePending] = useState(false)
   const [appearanceBridgeError, setAppearanceBridgeError] = useState<'read' | 'change' | null>(appearanceReadFailed ? 'read' : null)
   const appearanceBusy = useRef(false)
-  const themeLabel = appearance.theme === 'dark' ? 'Passer au thème clair' : 'Passer au thème sombre'
+  const themeLabel = appearance.theme === 'dark' ? ui.switch_to_light_theme : ui.switch_to_dark_theme
   useEffect(() => { document.documentElement.dataset.theme = appearance.theme }, [appearance.theme])
   async function toggleTheme(): Promise<void> {
     if (appearanceBusy.current) return
@@ -149,8 +160,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     catch { setAppearanceBridgeError('change') }
     finally { appearanceBusy.current = false; setAppearancePending(false) }
   }
-  const [error, setError] = useState<string | null>(null)
-  const [notice, setNotice] = useState('Lecture du contexte local…')
+  const [error, setError] = useLocalText<string | null>(null)
+  const [notice, setNotice] = useLocalText<string>(l=>l.ui.reading_local_context)
   const [pending, setPending] = useState(false)
   const [tooltipsDismissed, setTooltipsDismissed] = useState(false)
   const drawer = useRef<HTMLDialogElement>(null)
@@ -167,14 +178,14 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const planConfirmationDismissed = useRef(false)
   const connectionBusy = ['authorizing', 'verifying', 'stopping', 'closing'].includes(connection.status)
   const connectionBlocked = ['ENCRYPTION_UNAVAILABLE', 'VAULT_UNREADABLE', 'REGISTRATION_INVALID'].includes(connection.errorCode ?? '')
-  const connectionLabel = 'Connexion Codex : ' + fr.connectionStatus[connection.status]
+  const connectionLabel = ui.codex_connection_2 + fr.connectionStatus[connection.status]
   const project = state?.projects.find((p) => p.id === displayedProjectId)
   const initiativeContext=bmadContext.projects.find(p=>p.projectId===project?.id)
   const catalogSelectionChanged=!!catalogPreparation&&(initiativeContext?.selection?.revision??null)!==catalogPreparation.selectionRevision
   const fileScope=tab==='graphe'?JSON.stringify([project?.id,project?.rootPath,'corpus']):JSON.stringify([project?.id,project?.rootPath,initiativeContext?.selection?.rootIdentity,initiativeContext?.selection?.initiativeId])
   const fileConsultation=page==='project'?fileViews[fileScope]:undefined
   const fileScopeRef=useRef(fileScope);fileScopeRef.current=fileScope
-  function closeFile(restore=true):void{const current=fileViews[fileScope];setFileViews(previous=>{const next={...previous};delete next[fileScope];return next});if(restore&&current){const scope=fileScope;requestAnimationFrame(()=>{if(fileScopeRef.current!==scope)return;const target=current.trigger.isConnected?current.trigger:current.fallback?.isConnected?current.fallback:heading.current;target?.focus({preventScroll:true});if(!current.trigger.isConnected)setNotice('Retour au résultat — le déclencheur exact est indisponible.')})}}
+  function closeFile(restore=true):void{const current=fileViews[fileScope];setFileViews(previous=>{const next={...previous};delete next[fileScope];return next});if(restore&&current){const scope=fileScope;requestAnimationFrame(()=>{if(fileScopeRef.current!==scope)return;const target=current.trigger.isConnected?current.trigger:current.fallback?.isConnected?current.fallback:heading.current;target?.focus({preventScroll:true});if(!current.trigger.isConnected)setNotice(l=>l.ui.returned_to_result_exact_trigger_unavailable)})}}
   function openFile(value:FileConsultation):void{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(false);setFileViews(previous=>({...Object.fromEntries(Object.entries(previous).slice(-31)),[fileScope]:value}))}
 
   const currentProjectId=useRef<string|undefined>(undefined),dialogueSequence=useRef(-1)
@@ -214,7 +225,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const metrics=useUsMetrics(project?.id)
   const metricScope=JSON.stringify([dialogue.profile?.fingerprint,page,project?.id,project?.rootPath,initiativeContext?.selection,initiativeContext?.observation?.revision,initiativeContext?.freshness,conversation?.context,maryMode,forgePreparation,catalogPreparation?.id,helpState.bundle?.id,helpState.bundle?.revision,progressState.projects.find(p=>p.projectId===project?.id)?.freshness,progressState.projects.find(p=>p.projectId===project?.id)?.snapshot?.coverage])
   const metricChoices=useStoryChoices(metrics.project,metricScope,(key,o)=>{
-    const words=metricsLabels.fr,observed=initiativeContext?.observation,selected=initiativeContext?.selection,prepared=key==='catalog'?catalogPreparation:null
+    const words=metricsLabels[language],observed=initiativeContext?.observation,selected=initiativeContext?.selection,prepared=key==='catalog'?catalogPreparation:null
     // Main's current source authority applies to every operation, including a captured catalogue preparation.
     if(!observed||!selected||initiativeContext?.freshness!=='current'||o.projectId!==project?.id||o.rootPath!==project?.rootPath||observed.rootPath!==o.rootPath||observed.rootIdentity!==o.rootIdentity||selected.initiativeId!==o.initiativeId||selected.rootIdentity!==o.rootIdentity||observed.revision!==o.contextRevision)return words.sourceUnavailable
     if(prepared&&(prepared.captured.observation.rootPath!==o.rootPath||prepared.captured.observation.rootIdentity!==o.rootIdentity))return words.sourceUnavailable
@@ -245,7 +256,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const recipient=dialogue.invocation==='$bmad'?'BMad':dialogue.invocation==='$bmad-forge-idea'?'Forge':'Mary'
   const activeQuestion=dialogue.questions.find(q=>overview?.entries.some(e=>e.target.kind==='question'&&e.target.id===q.id)&&sameContext(q.context,dialogue.context))
   const activeApproval=dialogue.approvals.find(a=>overview?.entries.some(e=>e.target.kind==='approval'&&e.target.id===a.id)&&sameContext(a.context,dialogue.context))
-  const displayedRecipient=activeApproval?(activeApproval.identity.kind==='attested'?activeApproval.identity.name:fr.conversation.unknownAgent):activeQuestion?questionRecipient(activeQuestion):recipient
+  const displayedRecipient=activeApproval?(activeApproval.identity.kind==='attested'?activeApproval.identity.name:fr.conversation.unknownAgent):activeQuestion?questionRecipient(activeQuestion,fr.conversation.unknownAgent):recipient
   const displayedDialogueStatus=activeApproval?(activeApproval.status==='sending'?fr.approvals.status.sending:fr.approvals.title):activeQuestion?(activeQuestion.status==='sending'?fr.questions.sending:fr.questions.title):['waiting-question','waiting-approval'].includes(dialogue.status)?fr.overview.requestInactive:fr.dialogueStatus[dialogue.status]
   const forgePrerequisite=!connection.accountStored?'account':connection.needsPlanAcknowledgement?'plan':null
   const sessionFeedback=!!(sessionPresent||dialogueBusy||((dialogueHere||dialogue.status==='unknown')&&dialogue.errorCode)||dialogueBridgeError||(dialogueHere&&dialogue.profile))
@@ -264,7 +275,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     if(!agentConsultation)return
     const source=dialogue.messages.find(message=>message.id===agentConsultation.message.id&&sameContext(message.context,agentConsultation.message.context))
     const identity=agentConsultation.message.identity
-    if(page!=='project'||tab!=='conversation'||conversation?.id!==agentConsultation.viewConversationId||project?.id!==agentConsultation.message.context.projectId||!state?.conversations.some(c=>sameContext(c.context,agentConsultation.message.context))||!source||source.identity.kind!=='attested'||identity.kind!=='attested'||source.identity.name!==identity.name||source.identity.source!==identity.source){setNotice('La fiche a été fermée : son contexte de consultation n’est plus affiché.');closeAgentInfo()}
+    if(page!=='project'||tab!=='conversation'||conversation?.id!==agentConsultation.viewConversationId||project?.id!==agentConsultation.message.context.projectId||!state?.conversations.some(c=>sameContext(c.context,agentConsultation.message.context))||!source||source.identity.kind!=='attested'||identity.kind!=='attested'||source.identity.name!==identity.name||source.identity.source!==identity.source){setNotice(l=>l.ui.details_closed_their_viewing_context_is_no_longer_displayed);closeAgentInfo()}
   },[page,tab,project?.id,conversation?.id,dialogue.messages,state,agentConsultation])
   useEffect(()=>{setForgePreparation(false)},[project?.id])
   useEffect(()=>{setContextOpen(false)},[project?.id,page])
@@ -293,8 +304,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     const target=focusTarget.target
     if(target.context.projectId!==null&&(page!=='project'||project?.id!==target.context.projectId||tab!=='conversation'||target.context.conversationId!==null&&(!conversation||!sameContext(conversation.context,target.context))))return
     const element=target.kind==='question'?document.getElementById(target.id+'-title'):target.kind==='approval'?document.getElementById(target.id+'-title'):target.kind==='recovery'?document.getElementById('recovery-'+target.id):target.kind==='session'?document.getElementById(target.id==='activity'||target.context.projectId!==null&&dialogue.recovery.stop==='clear'?'dialogue-session-title':'overview-session-recovery'):document.getElementById(target.id.startsWith('bmad-receipt-')?target.id:'conversation-heading')
-    if(!element){if(target.kind==='question'||target.kind==='approval'){setNotice('Cette demande exacte est indisponible — aucun substitut sélectionné.');setFocusTarget(null)}return}
-    if((target.kind==='question'||target.kind==='approval')&&!overview?.entries.some(e=>e.target.kind===target.kind&&e.target.id===target.id))setNotice(fr.overview.targetGone)
+    if(!element){if(target.kind==='question'||target.kind==='approval'){setNotice(l=>l.ui.this_exact_request_is_unavailable_no_substitute_selected);setFocusTarget(null)}return}
+    if((target.kind==='question'||target.kind==='approval')&&!overview?.entries.some(e=>e.target.kind===target.kind&&e.target.id===target.id))setNotice(l=>l.words.overview.targetGone)
     let parent=element.parentElement
     while(parent){if(parent instanceof HTMLDetailsElement)parent.open=true;parent=parent.parentElement}
     element.focus();element.scrollIntoView({block:'center'});setFocusTarget(null)
@@ -319,7 +330,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   })
 
   function accept(reply: Reply): boolean {
-    if (!reply.ok) { setError(fr.errors[reply.error.messageKey]); setNotice(''); return false }
+    if (!reply.ok) { setError(l=>l.words.errors[reply.error.messageKey]); setNotice(''); return false }
     setState(current => current && current.revision > reply.value.state.revision ? current : reply.value.state)
     setError(null)
     return true
@@ -331,7 +342,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       const reply = await operation()
       const accepted=reply.ok?accept(reply):token===navigationToken.current?accept(reply):false
       if (accepted&&token===navigationToken.current) after?.(reply)
-    } catch { if(token===navigationToken.current){setError('Le pont local ne répond pas. Votre saisie reste disponible ici. Réessayez.'); setNotice('')} }
+    } catch { if(token===navigationToken.current){setError(l=>l.ui.the_local_bridge_does_not_respond_your_input_remains_available_he); setNotice('')} }
     finally { if(token===navigationToken.current)setPending(false) }
   }
   async function load(): Promise<void> {
@@ -340,11 +351,11 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       setCollapsed(reply.value.state.preferences.navigationCollapsed)
       setDisplayedProjectId(reply.value.state.activeProjectId)
       setPage(reply.value.state.activeProjectId ? 'project' : 'home')
-      setNotice('Contexte local chargé. Aucun agent n’a été relancé.')
+      setNotice(l=>l.ui.local_context_loaded_no_agent_restarted)
     })
   }
   useEffect(() => { void load() }, [])
-  useEffect(() => window.madness.onStateChanged?.(() => { void window.madness.readState().then(accept).catch(() => setError('Le contexte du dialogue ne peut pas être relu. Votre saisie reste disponible.')) }), [])
+  useEffect(() => window.madness.onStateChanged?.(() => { void window.madness.readState().then(accept).catch(() => setError(l=>l.ui.dialogue_context_could_not_be_reread_your_input_remains_available)) }), [])
   function acceptDialogue(next: DialogueState): void { if(next.sequence<dialogueSequence.current)return;dialogueSequence.current=next.sequence;setDialogue(next);const launch=pendingLaunch.current;if(next.errorCode==='CONTEXT_MISMATCH'&&next.status==='error'&&launch&&next.sequence>launch.sequence&&launch.token===navigationToken.current&&launch.projectId===currentProjectId.current&&(next.context.projectId===null||next.context.projectId===launch.projectId)&&(next.invocation==='$bmad'||next.invocation==='$bmad-forge-idea'))setInitiativeConflict(true) }
   function changeApproval(approval:ApprovalRecord,adjustment:string):void{
     const id=approval.id;if(sendingApprovals.current.has(id))return;setApprovalDrafts(current=>({...current,[id]:adjustment}))
@@ -363,7 +374,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       }
       acceptDialogue(next);setApprovalFailures(current=>({...current,[id]:!!next.errorCode}))}catch(e){if(!(e instanceof Error&&e.message==='METRIC_CHOICE_REFUSED'))setApprovalFailures(current=>({...current,[id]:true}))}finally{sendingApprovals.current.delete(id);setApprovalSending(current=>({...current,[id]:false}))}
   }
-  function approvalPanel(a:ApprovalRecord):ReactNode{return <ApprovalPanel key={a.id} approval={a} sendPending={approvalSending[a.id]??false} metricChoice={metricChoices.slot('adjust-'+a.id,dialoguePending||!!approvalSending[a.id])} respondable={respondable('approval',a.id)} adjustment={approvalDrafts[a.id]??a.adjustment} projectName={project?.name??'Projet capturé'} compactContext onChange={text=>changeApproval(a,text)} onDecide={decision=>void approvalAction(a,decision)} onSendAdjustment={()=>void approvalAction(a)} canAdjust={dialogueHere&&dialogue.status==='ready'&&sameContext(a.context,dialogue.context)} bridgeFailed={approvalFailures[a.id]??false}/>}
+  function approvalPanel(a:ApprovalRecord):ReactNode{return <ApprovalPanel key={a.id} approval={a} sendPending={approvalSending[a.id]??false} metricChoice={metricChoices.slot('adjust-'+a.id,dialoguePending||!!approvalSending[a.id])} respondable={respondable('approval',a.id)} adjustment={approvalDrafts[a.id]??a.adjustment} projectName={project?.name??ui.captured_project} compactContext onChange={text=>changeApproval(a,text)} onDecide={decision=>void approvalAction(a,decision)} onSendAdjustment={()=>void approvalAction(a)} canAdjust={dialogueHere&&dialogue.status==='ready'&&sameContext(a.context,dialogue.context)} bridgeFailed={approvalFailures[a.id]??false}/>}
   function changeQuestion(question:QuestionRecord,values:QuestionValues):void{
     const id=question.id;setQuestionDrafts(current=>({...current,[id]:values}))
     void window.madnessDialogue.saveQuestion(id,values).then(next=>{acceptDialogue(next);setQuestionFailures(current=>({...current,[id]:!!next.errorCode}))}).catch(()=>setQuestionFailures(current=>({...current,[id]:true})))
@@ -465,14 +476,14 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     closeDrawer()
     void run(() => window.madness.chooseDirectory(), (reply) => {
       if (!reply.ok||token!==navigationToken.current) return
-      if (reply.value.effect === 'cancelled') setNotice('Ouverture annulée. Aucun projet ajouté.')
-      else { setDisplayedProjectId(reply.value.state.activeProjectId);setTab('parcours');setPage('project'); setNotice('Contexte du dossier enregistré localement.'); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) }
+      if (reply.value.effect === 'cancelled') setNotice(l=>l.ui.opening_cancelled_no_project_added)
+      else { setDisplayedProjectId(reply.value.state.activeProjectId);setTab('parcours');setPage('project'); setNotice(l=>l.ui.folder_context_saved_locally); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) }
     })
   }
   function select(projectId: string): void {
     remember();const token=++navigationToken.current;setFocusTarget(null);setWorkReturn(null)
     closeDrawer();restoreView(projectId)
-    void run(() => window.madness.selectProject(projectId), () => { if(token!==navigationToken.current)return;setNotice('Projet retrouvé. Aucun agent n’a été relancé.'); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) })
+    void run(() => window.madness.selectProject(projectId), () => { if(token!==navigationToken.current)return;setNotice(l=>l.ui.project_restored_no_agent_restarted); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) })
   }
   async function navigateOverview(target:OverviewTarget):Promise<void>{
     const origin=remember()??lastWork.current;if(!workReturn&&origin)setWorkReturn(origin)
@@ -484,25 +495,25 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       // Publishing durable facts never authorizes an obsolete navigation.
       if(reply.ok)accept(reply)
       if(token!==navigationToken.current)return
-      if(!reply.ok){accept(reply);setNotice(fr.overview.selectionFailed);return}
+      if(!reply.ok){accept(reply);setNotice(l=>l.words.overview.selectionFailed);return}
       const captured=target.context.conversationId===null||reply.value.state.conversations.some(c=>c.id===target.context.conversationId&&sameContext(c.context,target.context))
       setDisplayedProjectId(target.context.projectId);setPage('project');setTab('conversation')
       if(target.context.conversationId)setConversationSelections(current=>({...current,[target.context.projectId!]:target.context.conversationId!}))
-      if(!captured||reply.value.state.activeProjectId!==target.context.projectId){setNotice('Destination exacte disparue — aucun autre échange sélectionné.');return}
-      setFocusTarget({token,target});setNotice('Contexte capturé retrouvé. Aucun message ni accord transmis.')
-    }catch{if(token===navigationToken.current)setNotice(fr.overview.selectionFailed)}
+      if(!captured||reply.value.state.activeProjectId!==target.context.projectId){setNotice(l=>l.ui.exact_destination_missing_no_other_exchange_selected);return}
+      setFocusTarget({token,target});setNotice(l=>l.ui.captured_context_restored_no_message_or_approval_transmitted)
+    }catch{if(token===navigationToken.current)setNotice(l=>l.words.overview.selectionFailed)}
     finally{if(token===navigationToken.current)setPending(false)}
   }
   function returnToWork():void {
     const value=workReturn;if(!value)return
     remember();const token=++navigationToken.current;setPending(false);setFocusTarget(null);setWorkReturn(null)
     const p=state?.projects.find(p=>p.id===value.projectId)
-    if(!p||p.rootPath!==value.rootPath||value.rootIdentity!==rootIdentity(p.id,p.rootPath)){setPage('home');setNotice('Point de retour indisponible — projet absent ou racine remplacée.');return}
+    if(!p||p.rootPath!==value.rootPath||value.rootIdentity!==rootIdentity(p.id,p.rootPath)){setPage('home');setNotice(l=>l.ui.return_point_unavailable_project_missing_or_root_replaced);return}
     setDisplayedProjectId(p.id);setPage('project');setTab(value.tab)
     const exact=value.conversationContext===null||state?.conversations.some(c=>sameContext(c.context,value.conversationContext!))
     if(value.conversationId)setConversationSelections(current=>({...current,[p.id]:value.conversationId!}))
-    setNotice(exact?'Travail retrouvé pour cette session. Aucun envoi effectué.':'Échange de retour supprimé — aucun échange de remplacement sélectionné.')
-    void window.madness.selectProject(p.id).then(reply=>{if(reply.ok)accept(reply);else if(token===navigationToken.current){setError(fr.errors[reply.error.messageKey]);setNotice('Navigation conservée pour cette session — enregistrement échoué. La réouverture n’est pas garantie.')}}).catch(()=>{if(token===navigationToken.current)setNotice('Navigation conservée pour cette session — enregistrement échoué. La réouverture n’est pas garantie.')})
+    setNotice(l=>exact?l.ui.work_restored_for_this_session_nothing_sent:l.ui.return_exchange_deleted_no_replacement_selected)
+    void window.madness.selectProject(p.id).then(reply=>{if(reply.ok)accept(reply);else if(token===navigationToken.current){setError(l=>l.words.errors[reply.error.messageKey]);setNotice(l=>l.ui.navigation_kept_for_this_session_save_failed_reopening_is_not_gua)}}).catch(()=>{if(token===navigationToken.current)setNotice(l=>l.ui.navigation_kept_for_this_session_save_failed_reopening_is_not_gua)})
     requestAnimationFrame(()=>{
       if(!navigationCurrent({token,projectId:p.id},navigationToken.current,currentProjectId.current))return
       const input=exact&&value.inputId?document.getElementById(value.inputId):null,target=exact?(value.focus?.isConnected?value.focus:input??document.getElementById('tab-'+value.tab)):heading.current
@@ -515,115 +526,115 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     const next = !collapsed
     setCollapsed(next)
     setPreferenceUnsaved(true)
-    void run(() => window.madness.setNavigation(next), () => { setPreferenceUnsaved(false); setNotice('Préférence de navigation enregistrée.') })
+    void run(() => window.madness.setNavigation(next), () => { setPreferenceUnsaved(false); setNotice(l=>l.ui.navigation_preference_saved) })
   }
   function chooseTab(value:'parcours'|'conversation'|'catalogue'|'graphe'):void {
     if(value==='graphe'&&tab!=='graphe'&&project){const trigger=workFocus.current,input=trigger instanceof HTMLTextAreaElement||trigger instanceof HTMLInputElement?trigger:null;graphReturns.current.set(project.id,{projectId:project.id,rootPath:project.rootPath,tab,initiative:initiativeContext?.selection?.initiativeId??null,conversationId:conversation?.id??null,trigger,inputId:input?.id||null,start:input?.selectionStart??null,end:input?.selectionEnd??null,top:document.getElementById('main')?.scrollTop??0})}
     remember()
     navigationToken.current++;setFocusTarget(null);setPending(false);setTab(value);if(value==='catalogue'&&project&&!catalogState.projects.some(p=>p.projectId===project.id))void window.madnessBmadCatalog?.collect(project.id).then(acceptCatalog).catch(()=>{})
   }
-  function returnFromGraph():void{if(!project)return;const target=graphReturns.current.get(project.id);if(!target||target.rootPath!==project.rootPath||target.initiative!==(initiativeContext?.selection?.initiativeId??null)||target.conversationId!==(conversation?.id??null)){setNotice('Retour exact indisponible — le contexte de travail a changé.');heading.current?.focus();return}const token=++navigationToken.current,id=project.id;setFocusTarget(null);setPending(false);setTab(target.tab);requestAnimationFrame(()=>{if(!navigationCurrent({token,projectId:id},navigationToken.current,currentProjectId.current))return;const input=target.inputId?document.getElementById(target.inputId):null,element=target.trigger?.isConnected?target.trigger:input??document.getElementById('tab-'+target.tab)??heading.current;element?.focus({preventScroll:true});if((input instanceof HTMLTextAreaElement||input instanceof HTMLInputElement)&&target.start!==null&&target.end!==null)input.setSelectionRange(target.start,target.end);const main=document.getElementById('main');if(main)main.scrollTop=target.top})}
+  function returnFromGraph():void{if(!project)return;const target=graphReturns.current.get(project.id);if(!target||target.rootPath!==project.rootPath||target.initiative!==(initiativeContext?.selection?.initiativeId??null)||target.conversationId!==(conversation?.id??null)){setNotice(l=>l.ui.exact_return_unavailable_work_context_changed);heading.current?.focus();return}const token=++navigationToken.current,id=project.id;setFocusTarget(null);setPending(false);setTab(target.tab);requestAnimationFrame(()=>{if(!navigationCurrent({token,projectId:id},navigationToken.current,currentProjectId.current))return;const input=target.inputId?document.getElementById(target.inputId):null,element=target.trigger?.isConnected?target.trigger:input??document.getElementById('tab-'+target.tab)??heading.current;element?.focus({preventScroll:true});if((input instanceof HTMLTextAreaElement||input instanceof HTMLInputElement)&&target.start!==null&&target.end!==null)input.setSelectionRange(target.start,target.end);const main=document.getElementById('main');if(main)main.scrollTop=target.top})}
 
   function prepareExchange():void {if(!project)return;const token=++navigationToken.current;setFocusTarget(null);setPending(false);setTab('parcours');setPreparationFocus({token,projectId:project.id})}
   function closeContext():void {setContextOpen(false);contextTrigger.current?.focus()}
   const navigation = <>
     <button className={'nav-button ' + (page === 'home' ? 'selected' : '')} aria-label={fr.home} aria-current={page === 'home' ? 'page' : undefined} title={fr.home} onClick={home}><Icon name="home" /><span className="nav-label">{fr.home}</span></button>
     <h2 className="nav-section nav-label">{fr.recent}</h2>
-    {state?.projects.map(p => <button key={p.id} className={'nav-button project-link ' + (page === 'project' && p.id === project?.id ? 'selected' : '')} aria-label={'Ouvrir le projet ' + p.name} aria-current={page === 'project' && p.id === project?.id ? 'page' : undefined} title={p.name + '\n' + p.rootPath} disabled={pending} onClick={() => select(p.id)}><span className="project-glyph" aria-hidden="true"><ProjectMark name={p.name} /></span><span className="nav-label truncate">{p.name}</span></button>)}
-    {!state?.projects.length && <p className="nav-note nav-label">Vos dossiers ouverts apparaîtront ici.</p>}
+    {state?.projects.map(p => <button key={p.id} className={'nav-button project-link ' + (page === 'project' && p.id === project?.id ? 'selected' : '')} aria-label={ui.open_project + p.name} aria-current={page === 'project' && p.id === project?.id ? 'page' : undefined} title={p.name + '\n' + p.rootPath} disabled={pending} onClick={() => select(p.id)}><span className="project-glyph" aria-hidden="true"><ProjectMark name={p.name} /></span><span className="nav-label truncate">{p.name}</span></button>)}
+    {!state?.projects.length && <p className="nav-note nav-label">{ui.your_opened_folders_will_appear_here}</p>}
   </>
   return <MetricsContext.Provider value={{state:metrics.state,error:metrics.error}}><FilesContext.Provider value={{state:filesState,open:openFile}}><div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>{captureRequestFocus(event.target);if(tab!=='graphe'&&event.target instanceof HTMLElement&&event.target.closest('main')&&!event.target.closest('.project-tabs,.file-preview,.work-overview,.project-library,.return-to-work'))workFocus.current=event.target}} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open||document.querySelector('.initiative-dialog[open],.catalog-dialog[open]')) return; if(fileConsultation){event.preventDefault();event.stopPropagation();closeFile()}else if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
-    <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>Aller au contenu</a>
+    <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>{ui.skip_to_content}</a>
     <header className="topbar" onMouseLeave={()=>setTooltipsDismissed(false)} onFocusCapture={()=>setTooltipsDismissed(false)}>
       <div className="breadcrumb">
-        <button className="toolbar-toggle command-control desktop-menu" type="button" aria-label={collapsed ? 'Déployer la navigation' : 'Réduire la navigation'} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><Icon name="panel" /></button>
-        <button className="toolbar-toggle command-control mobile-menu" type="button" ref={drawerTrigger} aria-label="Ouvrir la navigation" aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><Icon name="panel" /><span className="command-tooltip" aria-hidden="true">Ouvrir la navigation</span></button>
+        <button className="toolbar-toggle command-control desktop-menu" type="button" aria-label={collapsed ? ui.expand_navigation : ui.collapse_navigation} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><Icon name="panel" /></button>
+        <button className="toolbar-toggle command-control mobile-menu" type="button" ref={drawerTrigger} aria-label={ui.open_navigation} aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><Icon name="panel" /><span className="command-tooltip" aria-hidden="true">{ui.open_navigation}</span></button>
         <span title={page === 'project' && project ? project.name : fr.home}>{page === 'project' && project ? project.name : fr.home}</span>
       </div>
       <div className="topbar-actions">
         <button className="toolbar-toggle command-control open-project" type="button" aria-label={fr.open} onClick={open} disabled={pending || !state}><Icon name="folder" /><span className="command-tooltip" aria-hidden="true">{fr.open}</span></button>
-        <button className="toolbar-toggle command-control theme-toggle" type="button" aria-label={themeLabel} aria-disabled={appearancePending} onClick={() => void toggleTheme()}><Icon name={appearance.theme === 'dark' ? 'sun' : 'moon'} /><span className="command-tooltip" aria-hidden="true">{themeLabel}</span></button>
+        <LanguageControl/><button className="toolbar-toggle command-control theme-toggle" type="button" aria-label={themeLabel} aria-disabled={appearancePending} onClick={() => void toggleTheme()}><Icon name={appearance.theme === 'dark' ? 'sun' : 'moon'} /><span className="command-tooltip" aria-hidden="true">{themeLabel}</span></button>
         <button className={'codex-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel} title={connectionLabel} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><img src={chatgptMark} alt="" /><span className="connection-tooltip" aria-hidden="true">{connectionLabel}</span></button>
       </div>
     </header>
     <WindowCaptionPlates />
     {connectionOpen && <section id="codex-connection-panel" className="connection-panel" role="dialog" aria-modal="false" aria-labelledby="codex-connection-title" ref={connectionPanel}>
-      <div className="connection-heading"><h2 id="codex-connection-title" ref={connectionHeading} tabIndex={-1}>Connexion Codex</h2><button type="button" aria-label="Fermer la connexion Codex" onClick={closeConnection}><Icon name="close" /></button></div>
+      <div className="connection-heading"><h2 id="codex-connection-title" ref={connectionHeading} tabIndex={-1}>{ui.codex_connection}</h2><button type="button" aria-label={ui.close_codex_connection} onClick={closeConnection}><Icon name="close" /></button></div>
       <p className={'connection-state ' + (connection.status === 'verified' ? 'is-verified' : '')} role="status">{fr.connectionStatus[connection.status]}</p>
-      {connection.status === 'verified' ? <p>Un tour témoin Codex a réussi et son processus est arrêté.{connection.verifiedAt && <> Vérifié le {new Date(connection.verifiedAt).toLocaleString('fr-FR')}.</>}{connection.cliVersion && <> Codex {connection.cliVersion}.</>}</p> : connection.accountStored ? <p>Votre compte est enregistré dans le coffre chiffré Windows. Il reste à vérifier pour cet usage ; aucune conversation n’est relancée.</p> : <p>Connectez votre compte ChatGPT dans le navigateur Windows. Madness conserve ses propres accès chiffrés sur cet ordinateur.</p>}
-      {connection.status === 'authorizing' && <p>Terminez l’autorisation dans votre navigateur. L’attente expire après dix minutes.</p>}
-      {connection.status === 'verifying' && <p>Un petit tour de vérification est en cours. Le résultat attend la fin du tour et l’arrêt confirmé de Codex.</p>}
-      {connection.status === 'stopping' && <p>Arrêt de l’attente et du moteur Codex lancé par Madness. Aucun nouveau témoin n’est envoyé.</p>}
+      {connection.status === 'verified' ? <p>{ui.a_codex_check_turn_succeeded_and_its_process_stopped}{connection.verifiedAt && <> {ui.verified_at} {new Date(connection.verifiedAt).toLocaleString(locale)}.</>}{connection.cliVersion && <> Codex {connection.cliVersion}.</>}</p> : connection.accountStored ? <p>{ui.your_account_is_saved_in_the_encrypted_windows_vault_it_still_nee}</p> : <p>{ui.connect_your_chatgpt_account_in_the_windows_browser_madness_keeps}</p>}
+      {connection.status === 'authorizing' && <p>{ui.complete_authorization_in_your_browser_waiting_expires_after_ten_}</p>}
+      {connection.status === 'verifying' && <p>{ui.a_small_check_turn_is_in_progress_its_result_awaits_turn_completi}</p>}
+      {connection.status === 'stopping' && <p>{ui.stopping_waiting_and_the_codex_engine_launched_by_madness_no_new_}</p>}
       {connection.errorCode && <p className={connection.errorCode === 'CANCELLED' ? 'connection-cancelled' : 'connection-error'} role={connection.status === 'error' || connection.status === 'unknown' ? 'alert' : undefined}>{fr.connectionErrors[connection.errorCode]}</p>}
       {connection.errorCode === 'NETWORK_UNAVAILABLE' && <NetworkHelp connection={connection} onChanged={acceptConnection}/>}
-      {connectionBridgeError && <p className="connection-error" role="alert">Le pont de connexion ne répond pas. Rouvrez le panneau ou redémarrez Madness. Vos projets et brouillons sont conservés.</p>}
-      <p className="connection-consumption">La vérification envoie un court message témoin et consomme votre forfait ChatGPT. Les limites de ce forfait s’appliquent.</p>
+      {connectionBridgeError && <p className="connection-error" role="alert">{ui.the_connection_bridge_does_not_respond_reopen_the_panel_or_restar}</p>}
+      <p className="connection-consumption">{ui.checking_sends_a_short_test_message_and_uses_your_chatgpt_plan_it}</p>
       <div className="connection-actions">
         {connection.errorCode==='STOP_UNCONFIRMED'&&<button className="secondary" type="button" onClick={()=>void dialogueAction('observeStop')} disabled={dialoguePending||dialogueBusy||connectionBusy}>{fr.recovery.observeStop}</button>}
-        {connectionBusy ? <button className="secondary" type="button" onClick={() => void connectionAction('cancel')} disabled={connectionPending || ['stopping', 'closing'].includes(connection.status)}><Icon name="close" />Annuler la connexion</button> : <>
-          {connection.accountStored && <button className={connection.status === 'verified' ? 'connection-check' : 'primary'} type="button" onClick={() => void connectionAction('verify')} disabled={connectionPending || connectionBlocked || connection.status === 'unknown'}><Icon name="refresh" />Vérifier la connexion</button>}
-          {!connectionBlocked && <button className={connection.accountStored ? 'connection-reconnect' : 'primary'} type="button" onClick={() => void connectionAction('connect')} disabled={connectionPending || connection.status === 'unknown'}><Icon name="external" />{connection.accountStored ? 'Reconnecter avec ChatGPT' : 'Continuer avec ChatGPT'}</button>}
-          {(connection.accountStored || connection.errorCode === 'VAULT_UNREADABLE') && <button className="connection-disconnect" type="button" onClick={() => void connectionAction('disconnect')} disabled={connectionPending}><Icon name="logout" />Déconnecter localement</button>}
+        {connectionBusy ? <button className="secondary" type="button" onClick={() => void connectionAction('cancel')} disabled={connectionPending || ['stopping', 'closing'].includes(connection.status)}><Icon name="close" />{ui.cancel_connection}</button> : <>
+          {connection.accountStored && <button className={connection.status === 'verified' ? 'connection-check' : 'primary'} type="button" onClick={() => void connectionAction('verify')} disabled={connectionPending || connectionBlocked || connection.status === 'unknown'}><Icon name="refresh" />{ui.verify_connection}</button>}
+          {!connectionBlocked && <button className={connection.accountStored ? 'connection-reconnect' : 'primary'} type="button" onClick={() => void connectionAction('connect')} disabled={connectionPending || connection.status === 'unknown'}><Icon name="external" />{connection.accountStored ? ui.reconnect_with_chatgpt : ui.continue_with_chatgpt}</button>}
+          {(connection.accountStored || connection.errorCode === 'VAULT_UNREADABLE') && <button className="connection-disconnect" type="button" onClick={() => void connectionAction('disconnect')} disabled={connectionPending}><Icon name="logout" />{ui.disconnect_locally}</button>}
         </>}
       </div>
-      <div className="connection-scope"><p>Ce contrôle vérifie la connexion locale au forfait. Une session BMad se lance depuis un projet, après qualification de ses fichiers. Vos brouillons attendent toujours un envoi explicite.</p><button className="text-button" type="button" onClick={() => void connectionAction('manageUsage')} disabled={connectionPending}>Gérer l’usage dans ChatGPT</button></div>
+      <div className="connection-scope"><p>{ui.this_checks_the_local_connection_to_your_plan_a_bmad_session_laun}</p><button className="text-button" type="button" onClick={() => void connectionAction('manageUsage')} disabled={connectionPending}>{ui.manage_usage_in_chatgpt}</button></div>
     </section>}
     <div className="app-body">
-    <aside className="sidebar" aria-label="Navigation principale" onMouseLeave={() => setTooltipsDismissed(false)} onFocusCapture={() => setTooltipsDismissed(false)}>
+    <aside className="sidebar" aria-label={ui.main_navigation} onMouseLeave={() => setTooltipsDismissed(false)} onFocusCapture={() => setTooltipsDismissed(false)}>
       <div className="brand"><span className="brand-label">{fr.app}</span></div>
-      <nav id="project-navigation" aria-label="Projets">{navigation}</nav>
+      <nav id="project-navigation" aria-label={ui.projects}>{navigation}</nav>
       <div className="rail-signature" aria-hidden="true"><img src={madnessMark} alt="" width="28" height="28" /></div>
-      <p className="sidebar-bottom nav-label">Données locales<br />Français · thème {appearance.theme === 'dark' ? 'sombre' : 'clair'}</p>
+      <p className="sidebar-bottom nav-label">{ui.local_data}<br />{ui.english_theme} {appearance.theme==='dark'?(language==='fr'?'sombre':'dark'):(language==='fr'?'clair':'light')}</p>
     </aside>
     <div className="workspace">
       <div className="workspace-body">
         <main id="main" tabIndex={-1}>
           <div className="main-inner">
-            {error && <div className="error-message" role="alert"><strong>L’opération n’a pas abouti</strong><p>{error}</p>{!state && <button className="secondary" onClick={() => void load()} disabled={pending}>Relire le contexte local</button>}</div>}
-            {state&&(page==='home'||!project?<div className="page-intro atelier-header"><div><h1 ref={heading} tabIndex={-1}>Vos projets, au même endroit</h1><p>Retrouvez un dossier et préparez la suite de votre travail.</p></div></div>:<><div className="atelier-header project-banner"><div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><button className="toolbar-toggle command-control context-trigger" type="button" ref={contextTrigger} aria-label="Contexte du projet" aria-expanded={contextOpen} aria-controls="project-context-panel" aria-haspopup="dialog" onFocus={()=>setTooltipsDismissed(false)} onMouseLeave={()=>setTooltipsDismissed(false)} onClick={()=>{if(contextOpen)closeContext();else{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(true)}}}><Icon name="panel"/><span className="command-tooltip" aria-hidden="true">Contexte du projet</span></button></div>
+            {error && <div className="error-message" role="alert"><strong>{ui.the_operation_did_not_complete}</strong><p>{error}</p>{!state && <button className="secondary" onClick={() => void load()} disabled={pending}>{ui.reread_local_context}</button>}</div>}
+            {state&&(page==='home'||!project?<div className="page-intro atelier-header"><div><h1 ref={heading} tabIndex={-1}>{ui.your_projects_in_one_place}</h1><p>{ui.find_a_folder_and_prepare_your_next_work}</p></div></div>:<><div className="atelier-header project-banner"><div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><button className="toolbar-toggle command-control context-trigger" type="button" ref={contextTrigger} aria-label={ui.project_context} aria-expanded={contextOpen} aria-controls="project-context-panel" aria-haspopup="dialog" onFocus={()=>setTooltipsDismissed(false)} onMouseLeave={()=>setTooltipsDismissed(false)} onClick={()=>{if(contextOpen)closeContext();else{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(true)}}}><Icon name="panel"/><span className="command-tooltip" aria-hidden="true">{ui.project_context}</span></button></div>
               <InitiativeSelector key={project.id} projectId={project.id} project={initiativeContext} accept={acceptBmadContext} onOpen={()=>{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(false)}} priority={!!planConfirmation.current?.open||!!drawer.current?.open} conflict={initiativeConflict} onDismissConflict={()=>setInitiativeConflict(false)}/>
-              {conversation&&<p className="context-note">Initiative capturée par cet échange : {conversation.context.initiativeId??'non identifiée'}</p>}
+              {conversation&&<p className="context-note">{ui.initiative_captured_by_this_exchange} {conversation.context.initiativeId??ui.not_identified}</p>}
               </div>
-              <div className="project-tabs" role="tablist" aria-label="Vues du projet">{(['parcours','conversation','catalogue','graphe'] as const).map((item,index,tabs)=><button key={item} id={'tab-'+item} type="button" role="tab" aria-selected={tab===item} aria-controls={'panel-'+item} tabIndex={tab===item?0:-1} onClick={()=>chooseTab(item)} onKeyDown={event=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:tabs.length-1))%tabs.length;document.getElementById('tab-'+tabs[next])?.focus()}}}>{item==='parcours'?'Parcours':item==='conversation'?'Conversation':item==='catalogue'?'Toutes les possibilités':'Graphe'}</button>)}</div>
+              <div className="project-tabs" role="tablist" aria-label={ui.project_views}>{(['parcours','conversation','catalogue','graphe'] as const).map((item,index,tabs)=><button key={item} id={'tab-'+item} type="button" role="tab" aria-selected={tab===item} aria-controls={'panel-'+item} tabIndex={tab===item?0:-1} onClick={()=>chooseTab(item)} onKeyDown={event=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:tabs.length-1))%tabs.length;document.getElementById('tab-'+tabs[next])?.focus()}}}>{item==='parcours'?ui.journey:item==='conversation'?'Conversation':item==='catalogue'?ui.all_possibilities:ui.graph}</button>)}</div>
 </>)}
-            {workReturn&&<button type="button" className="text-button return-to-work" onClick={returnToWork}>Revenir au travail · {state?.projects.find(p=>p.id===workReturn.projectId)?.name??'projet indisponible'}</button>}
+            {workReturn&&<button type="button" className="text-button return-to-work" onClick={returnToWork}>{ui.return_to_work} {state?.projects.find(p=>p.id===workReturn.projectId)?.name??ui.project_unavailable}</button>}
             {overview&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} compact={page==='project'&&(tab==='conversation'||tab==='catalogue'||tab==='graphe')} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} onNavigate={target=>void navigateOverview(target)} onConnection={openConnection}/>}
-            {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<details className="recovery-details global-recovery"><summary>Détails de la récupération globale</summary><section id="overview-session-recovery" tabIndex={-1} aria-label="Récupération globale"><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section></details>}
-            {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>Retrouver votre espace de travail</h1><p>{pending ? 'Lecture du contexte local…' : 'Le contexte local est indisponible. Utilisez le message ci-dessus pour réessayer.'}</p></section> : page === 'home' || !project ? <>
+            {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<details className="recovery-details global-recovery"><summary>{ui.global_recovery_details}</summary><section id="overview-session-recovery" tabIndex={-1} aria-label={ui.global_recovery}><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section></details>}
+            {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>{ui.restore_your_workspace}</h1><p>{pending ? ui.reading_local_context : ui.local_context_unavailable_use_the_message_above_to_retry}</p></section> : page === 'home' || !project ? <>
 
-              {state.projects.length === 0 ? <section className="welcome"><h2>Commencez par un dossier</h2><p>Ouvrez un projet local pour conserver son contexte et y préparer un brouillon. Le dossier reste intact.</p><p className="reason"><strong>Pourquoi maintenant ?</strong> Madness doit connaître le projet auquel rattacher votre saisie.</p></section> : <ProjectLibrary mark={name=><ProjectMark name={name}/>} entries={projectLibrary(state,bmadContext,progressState,helpState,overview!)} onSelect={select} onNavigate={target=>void navigateOverview(target)} pending={pending}/>}
+              {state.projects.length === 0 ? <section className="welcome"><h2>{ui.start_with_a_folder}</h2><p>{ui.open_a_local_project_to_keep_its_context_and_prepare_a_draft_the_}</p><p className="reason"><strong>{ui.why_now}</strong> {ui.madness_needs_to_know_which_project_your_input_belongs_to}</p></section> : <ProjectLibrary mark={name=><ProjectMark name={name}/>} entries={projectLibrary(state,bmadContext,progressState,helpState,overview!)} onSelect={select} onNavigate={target=>void navigateOverview(target)} pending={pending}/>}
 
-              <div className="home-note"><h2>Connectez votre compte depuis le logo Codex</h2><p>{fr.codexReason} Les preuves BMad se lisent dans Parcours, sans connexion. Le graphe local du code se consulte dans l’onglet Graphe. L’initialisation reste à venir.</p></div>
+              <div className="home-note"><h2>{ui.connect_your_account_from_the_codex_logo}</h2><p>{fr.codexReason} {ui.read_bmad_evidence_in_journey_without_a_connection_view_the_local}</p></div>
             </> : <>
               <section id={'panel-' + tab} role="tabpanel" aria-labelledby={'tab-' + tab}>
-                {tab==='graphe'&&<GraphPanel key={project.id+':'+project.rootPath} projectId={project.id} rootPath={project.rootPath} workspace={graphState} accept={acceptGraph} views={graphViews.current} active={tab==='graphe'} onReturn={returnFromGraph} returnLabel={graphReturns.current.get(project.id)?.tab==='conversation'?'Conversation':graphReturns.current.get(project.id)?.tab==='catalogue'?'Toutes les possibilités':'Parcours'}/>}
+                {tab==='graphe'&&<GraphPanel language={language} key={project.id+':'+project.rootPath} projectId={project.id} rootPath={project.rootPath} workspace={graphState} accept={acceptGraph} views={graphViews.current} active={tab==='graphe'} onReturn={returnFromGraph} returnLabel={graphReturns.current.get(project.id)?.tab==='conversation'?'Conversation':graphReturns.current.get(project.id)?.tab==='catalogue'?ui.all_possibilities:ui.journey}/>}
                 <div hidden={tab!=='catalogue'}><CatalogPanel key={project.id} projectId={project.id} rootPath={project.rootPath} value={catalogState.projects.find(p=>p.projectId===project.id)} accept={acceptCatalog} views={catalogViews.current} active={tab==='catalogue'} onPrepared={(p,next)=>{if(currentProjectId.current!==p.projectId)return;acceptCatalogLaunch(next);const destination={token:++navigationToken.current,projectId:p.projectId};setConversationSelections(current=>({...current,[p.projectId]:conversation?.id??''}));setCatalogPreparation(p);setTab('conversation');requestAnimationFrame(()=>{if(navigationCurrent(destination,navigationToken.current,currentProjectId.current))document.getElementById('catalog-launch-heading')?.focus()})}} onRefused={code=>{if(currentProjectId.current===project.id&&code==='CONTEXT_MISMATCH')setInitiativeConflict(true)}}/></div>
                 <div hidden={tab!=='parcours'}><ProjectResume active={tab==='parcours'} rootPath={project.rootPath} projectId={project.id} context={initiativeContext} value={progressState.projects.find(p=>p.projectId===project.id)} overview={overview} accept={acceptProgress} onNavigate={target=>void navigateOverview(target)} onChoose={()=>document.querySelector<HTMLButtonElement>('.initiative-trigger')?.click()} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'}/></div>
                 {tab==='parcours'&&<HelpPanel metricChoice={metricChoices.slot('launchHelp',dialoguePending||dialogueBusy||sessionPresent)} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} state={helpState} onChanged={acceptHelp} onOpen={record=>void navigateOverview({kind:'conversation',context:record.context,id:'bmad-receipt-'+record.conversationId})} onObserveStop={()=>void dialogueAction('observeStop')} projectId={project.id} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} allowed={connection.accountStored&&!connection.needsPlanAcknowledgement&&!connectionBusy&&!dialogueBridgeError} onLaunch={()=>void dialogueAction('launchHelp')}/>}
-                {tab === 'parcours' && <div className="exchange-preparation"><p className="preparation-intro">Préparez un échange avec Mary pour préciser votre projet, ou avec Forge pour éprouver une nouvelle idée. Qualification et lancement restent explicites.</p><section className="forge-launch" aria-labelledby="forge-title">
-                  <div className="dialogue-heading"><h2 id="forge-title">Mettre une idée à l’épreuve</h2>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&<span className="badge" role="status">Forge · {displayedDialogueStatus}</span>}</div>
-                  <p>Forge confronte une nouvelle idée à plusieurs points de vue, puis conserve un journal et un rapport. Chaque tour utilise votre forfait ChatGPT.</p>
-                  <button className="secondary" type="button" aria-expanded={forgePreparation} aria-controls="forge-preparation" onClick={()=>setForgePreparation(v=>!v)}>Préparer Forge</button>
+                {tab === 'parcours' && <div className="exchange-preparation"><p className="preparation-intro">{ui.prepare_an_exchange_with_mary_to_clarify_your_project_or_with_for}</p><section className="forge-launch" aria-labelledby="forge-title">
+                  <div className="dialogue-heading"><h2 id="forge-title">{ui.test_an_idea}</h2>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&<span className="badge" role="status">Forge · {displayedDialogueStatus}</span>}</div>
+                  <p>{ui.forge_tests_a_new_idea_from_several_viewpoints_then_saves_a_journ}</p>
+                  <button className="secondary" type="button" aria-expanded={forgePreparation} aria-controls="forge-preparation" onClick={()=>setForgePreparation(v=>!v)}>{ui.prepare_forge}</button>
                   {forgePreparation&&<div id="forge-preparation" className="forge-preparation">
-                    <p><code>$bmad-forge-idea</code> · Forge natif installé · Codex</p>
-                    <dl><dt>Projet destinataire</dt><dd>{project.name} · <code>{project.rootPath}</code></dd><dt>Effets autorisés</dt><dd>Une nouvelle session <code>forge-{'{slug}'}</code> dans la sortie BMad résolue de ce projet. Journal natif et HTML obligatoires ; Markdown supplémentaire si l’idée est renforcée (HARDENED).</dd><dt>Sortie vérifiée</dt><dd>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&dialogue.profile?.outputBase?<code>{dialogue.profile.outputBase}</code>:'Vérifiez le profil pour connaître le chemin exact.'}</dd></dl>
-                    <p className="small muted">Le lancement transmet uniquement l’invocation, jamais votre brouillon. Codex reste en lecture seule ; seules les commandes de cette session peuvent écrire. Hooks, reprise, autres workflows et approbations indisponibles bloquent l’action. Le HTML reste un fichier, sans exécution dans Madness.</p>
+                    <p><code>$bmad-forge-idea</code> {ui.native_forge_installed_codex}</p>
+                    <dl><dt>{ui.recipient_project}</dt><dd>{project.name} · <code>{project.rootPath}</code></dd><dt>{ui.authorized_effects}</dt><dd>{ui.a_new_session} <code>forge-{'{slug}'}</code> {ui.in_this_project_s_resolved_bmad_output_native_journal_and_html_re}</dd><dt>{ui.verified_output}</dt><dd>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&dialogue.profile?.outputBase?<code>{dialogue.profile.outputBase}</code>:ui.check_the_profile_for_the_exact_path}</dd></dl>
+                    <p className="small muted">{ui.launch_transmits_only_the_invocation_never_your_draft_codex_stays}</p>
                     {metricChoices.slot('launchForge',dialoguePending||dialogueBusy||sessionPresent)}
-                    <div className="dialogue-actions"><button className="secondary" type="button" onClick={()=>void dialogueAction('qualifyForge')} disabled={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'||dialogueBridgeError}>Vérifier le profil Forge</button><button id="forge-launch" className="primary" type="button" aria-describedby={forgePrerequisite?'forge-launch-prerequisite':undefined} onClick={()=>void dialogueAction('launchForge')} disabled={dialoguePending||dialogueBusy||sessionPresent||dialogue.status!=='qualified'||!dialogueHere||dialogue.invocation!=='$bmad-forge-idea'||!connection.accountStored||connection.needsPlanAcknowledgement||connectionBusy||dialogueBridgeError}>Lancer Forge avec Codex</button></div>
-                    {forgePrerequisite&&<p id="forge-launch-prerequisite" className="small">{fr.dialoguePrerequisites[forgePrerequisite]}{' '}{forgePrerequisite==='account'?<button className="text-button" type="button" onClick={openConnection}>Ouvrir le panneau Codex</button>:<button className="text-button" type="button" onClick={()=>planConfirmation.current?.showModal()}>Relire le rappel du forfait</button>}</p>}
+                    <div className="dialogue-actions"><button className="secondary" type="button" onClick={()=>void dialogueAction('qualifyForge')} disabled={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'||dialogueBridgeError}>{ui.check_forge_profile}</button><button id="forge-launch" className="primary" type="button" aria-describedby={forgePrerequisite?'forge-launch-prerequisite':undefined} onClick={()=>void dialogueAction('launchForge')} disabled={dialoguePending||dialogueBusy||sessionPresent||dialogue.status!=='qualified'||!dialogueHere||dialogue.invocation!=='$bmad-forge-idea'||!connection.accountStored||connection.needsPlanAcknowledgement||connectionBusy||dialogueBridgeError}>{ui.launch_forge_with_codex}</button></div>
+                    {forgePrerequisite&&<p id="forge-launch-prerequisite" className="small">{fr.dialoguePrerequisites[forgePrerequisite]}{' '}{forgePrerequisite==='account'?<button className="text-button" type="button" onClick={openConnection}>{ui.open_codex_panel}</button>:<button className="text-button" type="button" onClick={()=>planConfirmation.current?.showModal()}>{ui.read_plan_reminder_again}</button>}</p>}
                   </div>}
                 </section>
                 <div className="dialogue-launch" aria-labelledby="mary-title">
-                  <div className="dialogue-heading"><h2 id="mary-title" tabIndex={-1}>Mary <span>Analyste BMad · Codex</span></h2>{dialogueHere&&dialogue.invocation==='$bmad-agent-analyst' && <span className="badge" role="status">Mary · {displayedDialogueStatus}</span>}</div>
+                  <div className="dialogue-heading"><h2 id="mary-title" tabIndex={-1}>Mary <span>{ui.bmad_analyst_codex}</span></h2>{dialogueHere&&dialogue.invocation==='$bmad-agent-analyst' && <span className="badge" role="status">Mary · {displayedDialogueStatus}</span>}</div>
                   <p><code>$bmad-agent-analyst</code></p>
-                  <p>Le lancement vérifie les vrais fichiers BMad puis demande l’accueil de Mary. Chaque tour utilise votre forfait ChatGPT.</p>
-                  <label className="approval-mode"><input type="checkbox" checked={sessionPresent&&dialogueHere&&dialogue.invocation==='$bmad-agent-analyst'?dialogue.mode==='file-approval':maryMode==='file-approval'} disabled={dialoguePending||dialogueBusy||sessionPresent} onChange={event=>setMaryMode(event.target.checked?'file-approval':'read-only')}/>Proposer des modifications avec approbation</label>
-                  <p className="small">{sessionPresent&&dialogueHere?'Mode capturé : '+(dialogue.mode==='file-approval'?'fichiers avec accord ponctuel.':'lecture seule.') : maryMode==='file-approval'?'Mary pourra proposer un patch complet à autoriser ou refuser. Shell désactivé ; aucun accord global.':'Lecture seule par défaut ; aucune écriture native autorisée.'}</p>
-                  <p className="small muted">Les workflows du menu restent indisponibles dans ce pilote. Le mode fichiers ajoute seulement des patches natifs avec accord ponctuel ; chaque nouvelle proposition demande un nouveau choix.</p>
+                  <p>{ui.launch_checks_actual_bmad_files_then_requests_mary_s_welcome_each}</p>
+                  <label className="approval-mode"><input type="checkbox" checked={sessionPresent&&dialogueHere&&dialogue.invocation==='$bmad-agent-analyst'?dialogue.mode==='file-approval':maryMode==='file-approval'} disabled={dialoguePending||dialogueBusy||sessionPresent} onChange={event=>setMaryMode(event.target.checked?'file-approval':'read-only')}/>{ui.propose_changes_with_approval}</label>
+                  <p className="small">{sessionPresent&&dialogueHere?ui.captured_mode+(dialogue.mode==='file-approval'?ui.files_with_one_time_approval:ui.read_only) : maryMode==='file-approval'?ui.mary_can_propose_a_complete_patch_to_allow_or_reject_shell_disabl:ui.read_only_by_default_no_native_writes_authorized}</p>
+                  <p className="small muted">{ui.menu_workflows_remain_unavailable_in_this_pilot_file_mode_only_ad}</p>
                   {metricChoices.slot('launch',dialoguePending||dialogueBusy||sessionPresent)}
                   <div className="dialogue-actions">
-                    <button id="mary-launch" className="primary" type="button" onClick={() => void dialogueAction('launch')} disabled={dialoguePending || dialogueBusy || sessionPresent || dialogue.status === 'unknown' || !connection.accountStored || connection.needsPlanAcknowledgement || connectionBusy || dialogueBridgeError}><Icon name="message" />Lancer Mary avec Codex</button>
-                    <button className="secondary" type="button" onClick={() => void dialogueAction('qualify')} disabled={dialoguePending || dialogueBusy || sessionPresent || dialogue.status === 'unknown' || dialogueBridgeError}>Vérifier ce projet</button>
+                    <button id="mary-launch" className="primary" type="button" onClick={() => void dialogueAction('launch')} disabled={dialoguePending || dialogueBusy || sessionPresent || dialogue.status === 'unknown' || !connection.accountStored || connection.needsPlanAcknowledgement || connectionBusy || dialogueBridgeError}><Icon name="message" />{ui.launch_mary_with_codex}</button>
+                    <button className="secondary" type="button" onClick={() => void dialogueAction('qualify')} disabled={dialoguePending || dialogueBusy || sessionPresent || dialogue.status === 'unknown' || dialogueBridgeError}>{ui.check_this_project}</button>
                   </div>
                   {!connection.accountStored && <p className="small">{fr.dialoguePrerequisites.account}</p>}
                   {connection.needsPlanAcknowledgement && <p className="small">{fr.dialoguePrerequisites.plan}</p>}
@@ -633,45 +644,45 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                 {((dialogueHere&&dialogue.errorCode==='NETWORK_UNAVAILABLE')||dialogue.errorCode==='NETWORK_UNAVAILABLE'&&dialogue.context.projectId===null)&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}
                 {sessionFeedback&&!(tab==='conversation'&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED')&&!sessionPresent&&!dialogueBusy)&&<section className="dialogue-session" aria-labelledby="dialogue-session-title">
                   <h2 id="dialogue-session-title" tabIndex={-1}>Session {dialogue.context.projectId?displayedRecipient:'BMad'} · Codex</h2>
-                  {(sessionPresent||dialogueBusy)&&<div className="dialogue-actions"><button className="secondary" type="button" onClick={()=>void dialogueAction('stop')} disabled={dialoguePending||dialogue.status==='stopping'}><Icon name="close"/>Arrêter Codex</button></div>}
-                  {!dialogueHere && sessionPresent && <p className="small">{displayedRecipient} · {displayedDialogueStatus} dans {state.projects.find(p => p.id === dialogue.context.projectId)?.name ?? 'un autre projet'}. Retrouvez ce projet pour consulter la session, ou arrêtez Codex.</p>}
-                  {(dialogueHere || dialogue.status === 'unknown') && dialogue.errorCode && <div className="connection-error" role="alert"><p>{fr.dialogueErrors[dialogue.errorCode]}</p>{!dialogueHere && dialogue.context.projectId && <button className="text-button" type="button" onClick={() => select(dialogue.context.projectId!)} disabled={pending}>Retrouver {state.projects.find(p => p.id === dialogue.context.projectId)?.name ?? 'le projet de la session'}</button>}</div>}
-                  {dialogueBridgeError && <p className="connection-error" role="alert">Le pont du dialogue ne répond pas. Votre brouillon est conservé ; redémarrez Madness après avoir vérifié l’arrêt de Codex.</p>}
-                  {dialogueHere && dialogue.profile && <details className="dialogue-proof"><summary>Profil BMad vérifié</summary><p><code>{dialogue.profile.skillPath}</code></p><p className="small">Empreinte : <code>{dialogue.profile.fingerprint}</code></p></details>}
+                  {(sessionPresent||dialogueBusy)&&<div className="dialogue-actions"><button className="secondary" type="button" onClick={()=>void dialogueAction('stop')} disabled={dialoguePending||dialogue.status==='stopping'}><Icon name="close"/>{ui.stop_codex}</button></div>}
+                  {!dialogueHere && sessionPresent && <p className="small">{displayedRecipient} · {displayedDialogueStatus} {ui.in} {state.projects.find(p => p.id === dialogue.context.projectId)?.name ?? ui.another_project}{ui.open_this_project_to_view_the_session_or_stop_codex}</p>}
+                  {(dialogueHere || dialogue.status === 'unknown') && dialogue.errorCode && <div className="connection-error" role="alert"><p>{fr.dialogueErrors[dialogue.errorCode]}</p>{!dialogueHere && dialogue.context.projectId && <button className="text-button" type="button" onClick={() => select(dialogue.context.projectId!)} disabled={pending}>{ui.open} {state.projects.find(p => p.id === dialogue.context.projectId)?.name ?? ui.the_session_s_project}</button>}</div>}
+                  {dialogueBridgeError && <p className="connection-error" role="alert">{ui.the_dialogue_bridge_does_not_respond_your_draft_is_kept_restart_m}</p>}
+                  {dialogueHere && dialogue.profile && <details className="dialogue-proof"><summary>{ui.bmad_profile_checked}</summary><p><code>{dialogue.profile.skillPath}</code></p><p className="small">{ui.fingerprint} <code>{dialogue.profile.fingerprint}</code></p></details>}
                 </section>}
 
-                {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label="Échanges BMad"><h2 id="conversation-heading" tabIndex={-1}>Conversation <code className="conversation-reference">{conversation.id}</code></h2>
-                  {!canReply && !dialogueBusy && <p className="history-note">Historique conservé. Aucun moteur n’est relancé. Un lancement explicite ouvre une nouvelle conversation ; la reprise Forge est indisponible.</p>}
+                {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label={ui.bmad_exchanges}><h2 id="conversation-heading" tabIndex={-1}>Conversation <code className="conversation-reference">{conversation.id}</code></h2>
+                  {!canReply && !dialogueBusy && <p className="history-note">{ui.history_retained_no_engine_restarts_an_explicit_launch_opens_a_ne}</p>}
 
                   {conversationQuestions.filter(q=>currentRequest('question',q.id)).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}
                   {conversationApprovals.filter(a=>currentRequest('approval',a.id)).map(approvalPanel)}
                   <ConversationMessages key={conversation.id} conversation={conversation} projections={dialogue.messages??[]} positions={readingPositions.current} onConsult={consultAgent}/>
 
 
-                  {dialogueConversationHere && <p className="turn-status" role="status">{displayedRecipient} · {displayedDialogueStatus}{dialogue.status === 'running' && !activeQuestion && !activeApproval && (dialogue.acknowledged ? ' · envoi acquitté et enregistré' : ' · accusé d’envoi attendu')}{dialogue.status === 'ready' && ' · tour terminé, prochaine action : votre réponse. La fin du tour ne valide aucun livrable.'}</p>}
-                </div> : <div className="conversation-empty"><h2>Aucun échange enregistré</h2><p>Un lancement explicite ouvre une session sans envoyer votre brouillon.</p></div>)}
+                  {dialogueConversationHere && <p className="turn-status" role="status">{displayedRecipient} · {displayedDialogueStatus}{dialogue.status === 'running' && !activeQuestion && !activeApproval && (dialogue.acknowledged ? ui.send_acknowledged_and_saved : ui.awaiting_send_acknowledgement)}{dialogue.status === 'ready' && ui.turn_complete_next_action_your_response_turn_completion_does_not_}</p>}
+                </div> : <div className="conversation-empty"><h2>{ui.no_saved_exchange}</h2><p>{ui.an_explicit_launch_opens_a_session_without_sending_your_draft}</p></div>)}
 
-                {tab==='conversation'&&<form className="composer" onSubmit={(event) => { event.preventDefault(); const projectId = project.id; const value = text; void run(() => window.madness.saveDraft(projectId, value), () => setNotice(fr.saved)) }}>
-                  <label htmlFor="draft">{nativeAwaiting?'Brouillon libre pour ce projet':canReply || dialogueConversationHere && sessionPresent ? 'Votre réponse à '+recipient : 'Brouillon pour ' + project.name}</label>
-                  <textarea id="draft" value={text} onChange={(event) => setTexts((current) => ({ ...current, [project.id]: event.target.value }))} maxLength={MAX_DRAFT_LENGTH} aria-describedby="draft-status draft-limit" placeholder="Notez ce que vous souhaitez reprendre dans ce projet…" />
+                {tab==='conversation'&&<form className="composer" onSubmit={(event) => { event.preventDefault(); const projectId = project.id; const value = text; void run(() => window.madness.saveDraft(projectId, value), () => setNotice(l=>l.words.saved)) }}>
+                  <label htmlFor="draft">{nativeAwaiting?ui.free_draft_for_this_project:canReply || dialogueConversationHere && sessionPresent ? ui.your_response_to+recipient : ui.draft_for + project.name}</label>
+                  <textarea id="draft" value={text} onChange={(event) => setTexts((current) => ({ ...current, [project.id]: event.target.value }))} maxLength={MAX_DRAFT_LENGTH} aria-describedby="draft-status draft-limit" placeholder={ui.note_what_you_want_to_resume_in_this_project} />
                   {canReply&&metricChoices.slot('send',dialoguePending)}
-                  <div className="composer-bottom"><p id="draft-status">{dirty ? fr.unsaved : saved ? fr.saved : fr.noDraft}</p><div className="composer-actions"><button className="secondary" type="submit" disabled={pending || !dirty}>{pending ? fr.saving : fr.save}</button>{dialogueConversationHere && sessionPresent && <button className="primary" type="button" onClick={() => void sendToMary()} disabled={!canReply || dialoguePending || !text.trim()}><Icon name="arrow" />Envoyer à {recipient}</button>}</div></div>
-                  <p className="small muted" id="draft-limit">{nativeAwaiting?'La réponse ou la décision se donne dans le formulaire de la demande corrélée lorsqu’elle est active. Ce brouillon libre se sauvegarde séparément, sans envoi.':canReply ? 'Seul « Envoyer à '+recipient+' » transmet ce texte. Le brouillon est enregistré avant l’envoi et reste disponible.' : 'Saisie conservée localement · aucun envoi automatique'} · 100 000 caractères maximum</p>
+                  <div className="composer-bottom"><p id="draft-status">{dirty ? fr.unsaved : saved ? fr.saved : fr.noDraft}</p><div className="composer-actions"><button className="secondary" type="submit" disabled={pending || !dirty}>{pending ? fr.saving : fr.save}</button>{dialogueConversationHere && sessionPresent && <button className="primary" type="button" onClick={() => void sendToMary()} disabled={!canReply || dialoguePending || !text.trim()}><Icon name="arrow" />{ui.send_to} {recipient}</button>}</div></div>
+                  <p className="small muted" id="draft-limit">{nativeAwaiting?ui.answer_or_decide_in_the_correlated_request_form_when_active_this_:canReply ? ui.only_send_to+recipient+ui.transmits_this_text_the_draft_is_saved_before_sending_and_remains : ui.input_kept_locally_no_automatic_send} {ui.label_100_000_characters_maximum}</p>
                 </form>}
-                {tab==='conversation'&&catalogPreparation?.projectId===project.id&&(catalogLaunch.preparation?.id===catalogPreparation.id||catalogLaunch.status==='error')&&<CatalogLaunchPanel metricChoice={metricChoices.slot('catalog',dialoguePending||dialogueBusy)} preparation={catalogPreparation} busy={dialoguePending||dialogueBusy||catalogLaunch.status==='launching'} stale={catalogSelectionChanged||catalogLaunch.status!=='prepared'||catalogState.projects.find(p=>p.projectId===project.id)?.freshness!=='current'||catalogState.projects.find(p=>p.projectId===project.id)?.snapshot?.revision!==catalogPreparation.snapshot.revision||catalogState.projects.find(p=>p.projectId===project.id)?.generation!==catalogPreparation.generation} error={catalogSelectionChanged?'Sélection d’initiative modifiée — cette préparation est périmée. Retournez à la fiche puis préparez de nouveau.':catalogLaunch.error} onLaunch={()=>void launchFromCatalog()} onCancel={cancelCatalog}/>}
-                {tab==='conversation'&&conversation&&<CatalogOrigin record={catalogLaunch.records.find(r=>r.conversationId===conversation.id&&sameContext(r.context,conversation.context))} onRetry={id=>void window.madnessCatalogLaunch.retrySave(id).then(acceptCatalogLaunch).catch(()=>setNotice('Enregistrement de l’origine impossible ; aucun nouvel envoi.'))}/>}
-                {tab==='conversation'&&<button className="text-button prepare-exchange" type="button" onClick={prepareExchange}>Préparer un échange</button>}
-                {(dialogue.recovery.stop==='unconfirmed'||dialogue.approvals.some(a=>a.context.projectId===project.id&&a.decision==='accept'&&(['unknown','pending'].includes(a.effect)||a.storage!=='stored')))&&<details className="recovery-details"><summary>Détails de récupération et inspection</summary><div id={dialogue.context.projectId!==null?"overview-session-recovery":undefined} tabIndex={-1}><RecoveryPanel state={dialogue} projectId={project.id} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={id=>void inspectApproval(id)} onPrepare={prepareExchange}/></div></details>}
-                {tab==='conversation'&&(historicalQuestions.length>0||historicalApprovals.length>0)&&<details className="request-history"><summary>Demandes conservées · inactives ({historicalQuestions.length+historicalApprovals.length})</summary>{historicalQuestions.map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{historicalApprovals.map(approvalPanel)}</details>}
-                  {tab==='conversation'&&conversation&&projectConversations.length > 1 && <details className="previous-conversations"><summary>Conversations précédentes ({projectConversations.length - 1})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label="Conversation historique"><CatalogOrigin record={catalogLaunch.records.find(r=>r.conversationId===c.id&&sameContext(r.context,c.context))} onRetry={id=>void window.madnessCatalogLaunch.retrySave(id).then(acceptCatalogLaunch).catch(()=>{})}/><HelpReceiptPanel record={helpState.records.find(r=>r.conversationId===c.id)} onChanged={acceptHelp}/><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current} onConsult={consultAgent}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.approvals.filter(a=>a.context.conversationId===c.id).map(approvalPanel)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
+                {tab==='conversation'&&catalogPreparation?.projectId===project.id&&(catalogLaunch.preparation?.id===catalogPreparation.id||catalogLaunch.status==='error')&&<CatalogLaunchPanel metricChoice={metricChoices.slot('catalog',dialoguePending||dialogueBusy)} preparation={catalogPreparation} busy={dialoguePending||dialogueBusy||catalogLaunch.status==='launching'} stale={catalogSelectionChanged||catalogLaunch.status!=='prepared'||catalogState.projects.find(p=>p.projectId===project.id)?.freshness!=='current'||catalogState.projects.find(p=>p.projectId===project.id)?.snapshot?.revision!==catalogPreparation.snapshot.revision||catalogState.projects.find(p=>p.projectId===project.id)?.generation!==catalogPreparation.generation} error={catalogSelectionChanged?ui.initiative_selection_changed_this_preparation_is_stale_return_to_:catalogLaunch.error} onLaunch={()=>void launchFromCatalog()} onCancel={cancelCatalog}/>}
+                {tab==='conversation'&&conversation&&<CatalogOrigin record={catalogLaunch.records.find(r=>r.conversationId===conversation.id&&sameContext(r.context,conversation.context))} onRetry={id=>void window.madnessCatalogLaunch.retrySave(id).then(acceptCatalogLaunch).catch(()=>setNotice(l=>l.ui.origin_could_not_be_saved_no_new_send))}/>}
+                {tab==='conversation'&&<button className="text-button prepare-exchange" type="button" onClick={prepareExchange}>{ui.prepare_an_exchange}</button>}
+                {(dialogue.recovery.stop==='unconfirmed'||dialogue.approvals.some(a=>a.context.projectId===project.id&&a.decision==='accept'&&(['unknown','pending'].includes(a.effect)||a.storage!=='stored')))&&<details className="recovery-details"><summary>{ui.recovery_and_inspection_details}</summary><div id={dialogue.context.projectId!==null?"overview-session-recovery":undefined} tabIndex={-1}><RecoveryPanel state={dialogue} projectId={project.id} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={id=>void inspectApproval(id)} onPrepare={prepareExchange}/></div></details>}
+                {tab==='conversation'&&(historicalQuestions.length>0||historicalApprovals.length>0)&&<details className="request-history"><summary>{ui.retained_requests_inactive}{formatNumber(historicalQuestions.length+historicalApprovals.length,language)})</summary>{historicalQuestions.map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{historicalApprovals.map(approvalPanel)}</details>}
+                  {tab==='conversation'&&conversation&&projectConversations.length > 1 && <details className="previous-conversations"><summary>{ui.previous_conversations}{formatNumber(projectConversations.length-1,language)})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label={ui.historical_conversation}><CatalogOrigin record={catalogLaunch.records.find(r=>r.conversationId===c.id&&sameContext(r.context,c.context))} onRetry={id=>void window.madnessCatalogLaunch.retrySave(id).then(acceptCatalogLaunch).catch(()=>{})}/><HelpReceiptPanel record={helpState.records.find(r=>r.conversationId===c.id)} onChanged={acceptHelp}/><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current} onConsult={consultAgent}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.approvals.filter(a=>a.context.conversationId===c.id).map(approvalPanel)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
                 {tab==='conversation'&&conversation&&<HelpReceiptPanel record={helpState.records.find(r=>r.conversationId===conversation.id)} onChanged={acceptHelp}/>}
                 {workflow&&<WorkflowResult key={workflow.conversationId} workflow={workflow} onCopy={copyWorkflow}/>}
-                {dialogueHere && dialogue.activities.length > 0 && <details className="dialogue-activity"><summary>Activité du dialogue ({dialogue.activities.length})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{entry}</li>)}</ol></details>}
+                {dialogueHere && dialogue.activities.length > 0 && <details className="dialogue-activity"><summary>{ui.dialogue_activity}{formatNumber(dialogue.activities.length,language)})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{presentProductText('activity',entry,language)}</li>)}</ol></details>}
               </section>
             </>}
-            {preferenceUnsaved && <p className="preference-note">Le choix de navigation s’applique à cette session ; sa sauvegarde n’est pas confirmée.</p>}
-            {appearance.warning && <p className="appearance-warning" role="status" aria-live="polite">{appearance.warning === 'read-failed' ? 'La préférence de thème ne peut pas être lue. Le thème sombre est utilisé ; le fichier existant est conservé.' : 'Le thème choisi s’applique à cette session ; sa sauvegarde n’est pas confirmée. Le fichier existant est conservé.'}</p>}
-            {appearanceBridgeError && <p className="appearance-warning" role="status" aria-live="polite">{appearanceBridgeError === 'read' ? 'Le thème n’a pas pu être restauré. Réessayez avec la commande de thème ; votre contexte reste disponible.' : 'Le thème n’a pas pu être changé. Réessayez ; votre contexte et votre saisie sont conservés.'}</p>}
+            {preferenceUnsaved && <p className="preference-note">{ui.navigation_choice_applies_to_this_session_persistence_not_confirm}</p>}
+            {appearance.warning && <p className="appearance-warning" role="status" aria-live="polite">{appearance.warning === 'read-failed' ? ui.theme_preference_could_not_be_read_dark_theme_is_used_existing_fi : ui.chosen_theme_applies_to_this_session_persistence_not_confirmed_ex}</p>}
+            {appearanceBridgeError && <p className="appearance-warning" role="status" aria-live="polite">{appearanceBridgeError === 'read' ? ui.theme_could_not_be_restored_retry_with_the_theme_command_your_con : ui.theme_could_not_be_changed_retry_your_context_and_input_are_kept}</p>}
             <p className="status-line" role="status" aria-live="polite">{notice}</p>
           </div>
         </main>
@@ -680,17 +691,17 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       </div>
     </div>
     </div>
-        {contextOpen && page === 'project' && project && <section id="project-context-panel" className="context-panel" role="dialog" aria-modal="false" aria-labelledby="project-context-title"><div className="connection-heading"><h2 id="project-context-title" ref={contextHeading} tabIndex={-1}>Contexte du projet</h2><button type="button" aria-label="Fermer le contexte du projet" onClick={closeContext}><Icon name="close"/></button></div><p>Source : dossier choisi via Windows.</p><dl><dt>Dossier canonique</dt><dd><code>{project.rootPath}</code></dd><dt>Conversation sélectionnée</dt><dd><code>{conversation?.id??'Aucune'}</code></dd><InitiativeContext project={initiativeContext}/><dt>Initiative capturée par la conversation</dt><dd>{conversation?conversation.context.initiativeId??'Non identifiée':'Aucune conversation sélectionnée'}</dd><dt>Conservation</dt><dd>Échanges, observations et brouillon dans les données locales de Madness.</dd><dt>Activité</dt><dd>{dialogueHere ? displayedDialogueStatus : 'Aucun agent actif dans ce projet'}</dd><dt>Fournisseur</dt><dd>Codex · connexion propre à Madness</dd><dt>Fichiers du projet</dt><dd>{workflow?'Écritures bornées à la nouvelle session Forge capturée.':'Mary en lecture seule par défaut ; mode fichiers avec approbation à activer avant lancement.'}</dd></dl></section>}
+        {contextOpen && page === 'project' && project && <section id="project-context-panel" className="context-panel" role="dialog" aria-modal="false" aria-labelledby="project-context-title"><div className="connection-heading"><h2 id="project-context-title" ref={contextHeading} tabIndex={-1}>{ui.project_context}</h2><button type="button" aria-label={ui.close_project_context} onClick={closeContext}><Icon name="close"/></button></div><p>{ui.source_folder_chosen_through_windows}</p><dl><dt>{ui.canonical_folder}</dt><dd><code>{project.rootPath}</code></dd><dt>{ui.selected_conversation}</dt><dd><code>{conversation?.id??ui.none_2}</code></dd><InitiativeContext project={initiativeContext}/><dt>{ui.initiative_captured_by_the_conversation}</dt><dd>{conversation?conversation.context.initiativeId??ui.not_identified_2:ui.no_selected_conversation}</dd><dt>{ui.persistence}</dt><dd>{ui.exchanges_observations_and_draft_in_madness_local_data}</dd><dt>{ui.activity}</dt><dd>{dialogueHere ? displayedDialogueStatus : ui.no_active_agent_in_this_project}</dd><dt>{ui.provider}</dt><dd>{ui.codex_madness_owned_connection}</dd><dt>{ui.project_files}</dt><dd>{workflow?ui.writes_limited_to_the_captured_new_forge_session:ui.mary_read_only_by_default_file_mode_with_approval_must_be_enabled}</dd></dl></section>}
     <dialog id="navigation-drawer" className="navigation-drawer" ref={drawer} aria-labelledby="drawer-title" onClose={() => drawerTrigger.current?.focus()} onClick={(event) => { if (event.target === drawer.current) closeDrawer() }}>
-      <div className="drawer-heading"><h2 id="drawer-title">{fr.app}</h2><button aria-label="Fermer la navigation" onClick={closeDrawer}><Icon name="close" /></button></div><nav aria-label="Projets en fenêtre compacte">{navigation}</nav>
+      <div className="drawer-heading"><h2 id="drawer-title">{fr.app}</h2><LanguageControl/><button aria-label={ui.close_navigation} onClick={closeDrawer}><Icon name="close" /></button></div><nav aria-label={ui.projects_in_a_compact_window}>{navigation}</nav>
     </dialog>
     <dialog className="plan-confirmation" ref={planConfirmation} aria-labelledby="plan-confirmation-title" aria-describedby="plan-confirmation-description" onClose={() => { planConfirmationDismissed.current = connection.needsPlanAcknowledgement; if (connectionOpen) connectionHeading.current?.focus(); else connectionTrigger.current?.focus() }}>
-      <h2 id="plan-confirmation-title">Vous utilisez votre forfait ChatGPT</h2>
-      <p id="plan-confirmation-description">Vous avez autorisé Madness à utiliser votre forfait ChatGPT. Le court témoin de connexion et les futurs usages autorisés comptent dans ses limites.</p>
-      {connectionBridgeError && <p className="connection-error" role="alert">La confirmation n’a pas pu être enregistrée. Réessayez.</p>}
+      <div className="connection-heading"><h2 id="plan-confirmation-title">{ui.you_are_using_your_chatgpt_plan}</h2><LanguageControl/></div>
+      <p id="plan-confirmation-description">{ui.you_authorized_madness_to_use_your_chatgpt_plan_the_short_connect}</p>
+      {connectionBridgeError && <p className="connection-error" role="alert">{ui.confirmation_could_not_be_saved_retry}</p>}
       {connection.errorCode && <p className="connection-error" role="alert">{fr.connectionErrors[connection.errorCode]}</p>}
-      <button className="primary" type="button" onClick={() => void connectionAction('acknowledgePlan')} disabled={connectionPending}>J’ai compris</button>
-      {' '}<button className="secondary" type="button" onClick={() => planConfirmation.current?.close()}>Fermer</button>
+      <button className="primary" type="button" onClick={() => void connectionAction('acknowledgePlan')} disabled={connectionPending}>{ui.i_understand}</button>
+      {' '}<button className="secondary" type="button" onClick={() => planConfirmation.current?.close()}>{ui.close}</button>
     </dialog>
   </div></FilesContext.Provider></MetricsContext.Provider>
 }

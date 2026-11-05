@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "startedAt": "2026-11-05T07:06:24.864Z",
+  "mode": "compiled",
+  "checks": [
+    "L1 absent preference uses FR without creating a language file",
+    "L3 L4 Main language changes preserve mounted input selection raw message and all observed business call counts",
+    "L1 reload reads current Main EN instead of the original FR bootstrap",
+    "L8 both languages and themes720px reduced motion and full native zoom200 frame measured",
+    "L10 actual Main handler refuses extra path wrong enum and untrusted frame",
+    "L2 actual rename refusal preserves bytes and session choice across read and reload without retry",
+    "L9 owned passive close and reopen restore EN and exact Snapshot draft and metrics annex",
+    "L2 future schema remains byte-exact while session EN works and actual reopen falls back to FR"
+  ],
+  "captures": [],
+  "launches": [
+    {
+      "main": {
+        "pid": 41692,
+        "startedAt": "639294591853166846",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "runtime": {
+        "pid": 41692,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-language-ui-G5hhs8\\profile",
+        "version": "0.2.16",
+        "packaged": false
+      }
+    },
+    {
+      "main": {
+        "pid": 46044,
+        "startedAt": "639294592029378595",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "runtime": {
+        "pid": 46044,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-language-ui-G5hhs8\\profile",
+        "version": "0.2.16",
+        "packaged": false
+      }
+    },
+    {
+      "main": {
+        "pid": 48460,
+        "startedAt": "639294592108285918",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "runtime": {
+        "pid": 48460,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-language-ui-G5hhs8\\invalid-profile",
+        "version": "0.2.16",
+        "packaged": false
+      }
+    },
+    {
+      "main": {
+        "pid": 43612,
+        "startedAt": "639294592165159921",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "runtime": {
+        "pid": 43612,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-language-ui-G5hhs8\\invalid-profile",
+        "version": "0.2.16",
+        "packaged": false
+      }
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 41692,
+        "startedAt": "639294591853166846",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 15456,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-05T07:06:32.492Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 46044,
+        "startedAt": "639294592029378595",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 31240,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-05T07:06:48.404Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 48460,
+        "startedAt": "639294592108285918",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 34920,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-05T07:06:54.977Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 43612,
+        "startedAt": "639294592165159921",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 38444,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-05T07:07:00.855Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Synthetic local data only; no native SIWC, provider receipt, human acceptance, WCAG or G2–G5 claimed.",
+    "Network and app-server counters cover the observed period after hook installation only.",
+    "No personal profile, preview, installation or source collection used."
+  ],
+  "guards": {
+    "invalid": {
+      "contractVersion": 1,
+      "correlationId": "rejected-request",
+      "ok": false,
+      "error": "INVALID_COMMAND",
+      "state": {
+        "language": "fr",
+        "warning": null
+      }
+    },
+    "wrong": {
+      "contractVersion": 1,
+      "correlationId": "rejected-request",
+      "ok": false,
+      "error": "INVALID_COMMAND",
+      "state": {
+        "language": "fr",
+        "warning": null
+      }
+    },
+    "untrusted": {
+      "contractVersion": 1,
+      "correlationId": "rejected-request",
+      "ok": false,
+      "error": "UNTRUSTED_CALLER",
+      "state": {
+        "language": "fr",
+        "warning": null
+      }
+    }
+  },
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe",
+    "sha256": "f7f9eaa4e84201c5efc830609789cbaa56e0b14663e036776c7378055039fa87",
+    "version": "0.2.16"
+  },
+  "inputs": {
+    "src/contracts/language.ts": "f868db7ddc40c1a2bf572bc0aa6978563910b0715717bce8cb8deb939ed4cbfd",
+    "src/adapters/persistence/language-store.ts": "9aa419d53fd6e0270cbdc884286e27637ed6eb634709d0b55f29e71fc9dbc709",
+    "src/main/index.ts": "9e1c9b5dc99a888838e10fd67bdc701d02dedeaaca51e5b4c3c4cc4ebac40b39",
+    "src/preload/index.ts": "e652f04a89d2e8261d893f446061d47a9e327a476759e391c9fad6aea8207f23",
+    "src/renderer/src/Locale.tsx": "c64b9d5cb671f81b414a6fee935a9b3275b909de29d19659301ef0ef5e111113",
+    "src/renderer/src/App.tsx": "402d9be2cae43e180a2dcbfd567560719925f5b3f90103f30dd4d753279c4a24",
+    "src/renderer/src/UsMetrics.tsx": "58df4c9d7a46507a337dde4be4477eac908a70098b210f4ce600b6c018695025",
+    "src/renderer/src/product-copy.ts": "7383bd4cee6ad2430f4a5c49ab52575ab10b4354255a0f59e1c08cc21699e355",
+    "src/renderer/src/strings.ts": "8a2a69820efc92c86108ded2dc8278d2e756202841dd00dd7706138e4c18a973",
+    "src/renderer/src/interface-copy.ts": "2c956fb94e6ae63485a695912cd650c473d4dc53ac34555c3b4a9b2408d122ac",
+    "out/main/index.js": "f7f9eaa4e84201c5efc830609789cbaa56e0b14663e036776c7378055039fa87",
+    "out/preload/index.js": "dcf21f0d014ddd3be545a041e2ef861c49643b1a43880727e11d42cf99a44cd4"
+  },
+  "finishedAt": "2026-11-05T07:07:03.156Z"
+}

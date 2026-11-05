@@ -1,0 +1,44 @@
+✖ Q1 langue : vrais clics et clavier dans apercus et fiches acteur gardent consultation et selection (3277.8584ms)
+✖ Q1 langue : commande accessible dans les autres modales sans choisir lancer ou acquitter (3565.4538ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-7GMwx6\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-7GMwx6\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9764.3301
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1552:1
+✖ Q1 langue : vrais clics et clavier dans apercus et fiches acteur gardent consultation et selection (3277.8584ms)
+  AssertionError [ERR_ASSERTION]: The active modal must expose the existing language command
+  
+  0 !== 1
+  
+      at modalLanguage (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:1547:9)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:1556:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\connection-ui.test.mjs:1564:1
+✖ Q1 langue : commande accessible dans les autres modales sans choisir lancer ou acquitter (3565.4538ms)
+  locator.click: Error: strict mode violation: getByRole('button', { name: 'Choisir une initiative', exact: true }) resolved to 2 elements:
+      1) <button type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Choisir une initiative" class="initiative-trigger text-button">…</button> aka getByLabel('Choisir une initiative')
+      2) <button type="button" class="text-button">Choisir une initiative</button> aka getByRole('tabpanel', { name: 'Parcours' }).getByRole('button', { name: 'Choisir une initiative' })
+  
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1565:102) {
+    log: [ "  - waiting for getByRole('button', { name: 'Choisir une initiative', exact: true })" ]
+  }

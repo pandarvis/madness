@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "version": "0.2.16",
+  "verifiedAt": "2026-11-05T08:45:59.446Z",
+  "runtimeManifest": {
+    "path": "runtime-inputs-004.json",
+    "sha256": "750b7bbc7fb37d6219cf7a591a211f5ebd48999de4e487c31e532dae2b41da7b"
+  },
+  "runtimeSourceArchive": "corrections-002/source-004.json.gz",
+  "exactRuntimeInputs": 32,
+  "exactTestInputs": 3,
+  "archivedRuntimeAndTestsExact": 35,
+  "builtAndAsarPairs": [
+    {
+      "file": "out/main/index.js",
+      "sha256": "f7f9eaa4e84201c5efc830609789cbaa56e0b14663e036776c7378055039fa87"
+    },
+    {
+      "file": "out/preload/index.js",
+      "sha256": "dcf21f0d014ddd3be545a041e2ef861c49643b1a43880727e11d42cf99a44cd4"
+    },
+    {
+      "file": "out/renderer/index.html",
+      "sha256": "93f25a4c7c7fe2c9209d6a3ea1b60084eb2e932bca41bc7d030a376100620478"
+    },
+    {
+      "file": "out/renderer/assets/amelia-bust-BhMfUzyU.png",
+      "sha256": "79e08e75593f756c4714f1cbb8d7acfb3f75596c17a0d8436c2a125b2779a600"
+    },
+    {
+      "file": "out/renderer/assets/BarlowCondensed-Bold-v1X23fbx.ttf",
+      "sha256": "e476562ec9c1e16cf16475895b511f08c804f438cc9a9f80a44ea50a0eeb5b65"
+    },
+    {
+      "file": "out/renderer/assets/chatgpt-mark-BzeLsF5q.svg",
+      "sha256": "88238fe3c01827061444b1732e28e0709e10f61b7941295955cb5889102264a7"
+    },
+    {
+      "file": "out/renderer/assets/chrome-plate-frame-CEUOVTY4.png",
+      "sha256": "cee7d64112d445b0f3ef3a666bc6f7d9e7c7edfc6c63135fed40823d63e0f9ad"
+    },
+    {
+      "file": "out/renderer/assets/index-BkbbVXHP.js",
+      "sha256": "174cbdf62a4845b906c8ac570b4aff52bb35e12a2d1639f710b0b8fbb28f8e50"
+    },
+    {
+      "file": "out/renderer/assets/index-C69XmV0h.css",
+      "sha256": "76135d62a8f1fe0222603932612d92d785791cbe1cffdbdbd0db8a0cbb846f36"
+    },
+    {
+      "file": "out/renderer/assets/john-bust-BFR8uFSt.png",
+      "sha256": "04d5fb86a4cf814ac260dae3ca44ab8508ef174ab4cce28bbd13457484a78b87"
+    },
+    {
+      "file": "out/renderer/assets/madness-64-CLfbpCIt.png",
+      "sha256": "cfcb8389875b74f2e6ddc1d0a14d46a765c2bb7895247c6580dc7f40f4e2b5bb"
+    },
+    {
+      "file": "out/renderer/assets/mary-bust-MARKPnXB.png",
+      "sha256": "c157bb6a0d7f5a423c2e84e627776af4650bdbce7bace92d3992a4de0bc52360"
+    },
+    {
+      "file": "out/renderer/assets/Oxanium-Variable-Cxng1r8B.ttf",
+      "sha256": "2ce01d946e1e1ffc8d7eecfffbda8623bedd63eaf811a20488c4b69af45babb0"
+    },
+    {
+      "file": "out/renderer/assets/sally-bust-V3QCidDb.png",
+      "sha256": "f6d328b6765d973bc6951fdae69ceba9e633950bcf496f7bbc991113b3995662"
+    },
+    {
+      "file": "out/renderer/assets/smithy-bust-5fAwEfcm.png",
+      "sha256": "ac69746654a76fbfca5bcf486acffff685fff06114acb5c33807dc1ada66da25"
+    },
+    {
+      "file": "out/renderer/assets/sofia-bust-BfDgrm10.png",
+      "sha256": "658dae6271a2dd378b2c1e814f335aa930451856a5296b8858dfc5091a2435a5"
+    },
+    {
+      "file": "out/renderer/assets/winston-bust-CX7w_Rgd.png",
+      "sha256": "a65c87f53c895cd4e7240d86ef22a9807d4adaad6a6f194d84a689157ee33d7d"
+    },
+    {
+      "file": "out/renderer/assets/workshop-header-CzuHm831.png",
+      "sha256": "37c06960a882d14504853a93b2025dd32edf58a958a0c4e80c1bb90905925472"
+    },
+    {
+      "file": "out/renderer/assets/workshop-sidebar-BKMFHWB8.png",
+      "sha256": "4d4ba515ef3be958d7f034815586c4a1709242f6c4ae1de6fc2b52bbcbd45b38"
+    }
+  ],
+  "artifacts": {
+    "win-unpacked/resources/app.asar": {
+      "sha256": "4bc95cfc3636113bd79cd0da40512e09528da9d31906949d9960171b1eee00cf",
+      "bytes": 32399673
+    },
+    "win-unpacked/Madness.exe": {
+      "sha256": "2fe0c5872848ec692a031b3f1096ae1d61d2be29586fbdaf310013fb88614c79",
+      "bytes": 249926144
+    },
+    "Madness-0.2.16-x64-setup.exe": {
+      "sha256": "63b5133d4f7947fa729c833dc40aa6a97d2bdc9e973f701b8258edf7b32529e3",
+      "bytes": 171573596
+    },
+    "Madness-0.2.16-x64-setup.exe.blockmap": {
+      "sha256": "b50ce84ed746953cca1a40e929509982271f694b8695cb98812d51ddb36d67f6",
+      "bytes": 180566
+    }
+  },
+  "protected13Exact": true,
+  "compiled": "compiled-006/verification.json",
+  "packaged": "packaged-004/verification.json",
+  "captures": 0,
+  "historicalVisuals": {
+    "source": "packaged-002/verification.json",
+    "count": 8,
+    "sha256Exact": true,
+    "notPromotedTo004": true
+  },
+  "installed": false,
+  "status": "verified-final004",
+  "limits": "Source00338targetedcases preserved; final004 worker5/parent2 affectedcases pass, finalcompiled/packaged11each. Two visualbatches/one detector only. No final004image/SIWC/human/WCAG/G2-G5claim."
+}

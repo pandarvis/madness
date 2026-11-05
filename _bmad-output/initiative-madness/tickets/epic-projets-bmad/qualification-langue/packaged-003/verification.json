@@ -1,0 +1,391 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "startedAt": "2026-11-05T08:23:48.302Z",
+  "mode": "packaged",
+  "checks": [
+    "L1 absent preference uses FR without creating a language file",
+    "L3 L4 Main language changes preserve mounted input selection raw message and all observed business call counts",
+    "L1 reload reads current Main EN instead of the original FR bootstrap",
+    "L8 both languages and themes720px reduced motion and full native zoom200 frame measured",
+    "L3 L6 L7 actual renderer presents source request patch actor and graph with no native decision or analysis",
+    "L10 actual Main handler refuses extra path wrong enum and untrusted frame",
+    "L2 actual Main queue serializes concurrent choices and current read",
+    "L2 actual rename refusal preserves bytes and session choice across read and reload without retry",
+    "L10 real quit rejects a new mutation and drains already pending ordered writes",
+    "L9 owned passive close and reopen restore EN and exact Snapshot draft and metrics annex",
+    "L2 future schema remains byte-exact while session EN works and actual reopen falls back to FR"
+  ],
+  "captures": [],
+  "launches": [
+    {
+      "main": {
+        "pid": 50900,
+        "startedAt": "639294638285455164",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\language-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 50900,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-language-ui-U9IDP8\\profile",
+        "version": "0.2.16",
+        "packaged": true
+      }
+    },
+    {
+      "main": {
+        "pid": 14044,
+        "startedAt": "639294638439541617",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\language-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 14044,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-language-ui-U9IDP8\\profile",
+        "version": "0.2.16",
+        "packaged": true
+      }
+    },
+    {
+      "main": {
+        "pid": 45340,
+        "startedAt": "639294638489190474",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\language-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 45340,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-language-ui-U9IDP8\\invalid-profile",
+        "version": "0.2.16",
+        "packaged": true
+      }
+    },
+    {
+      "main": {
+        "pid": 48948,
+        "startedAt": "639294638535846701",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\language-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 48948,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-language-ui-U9IDP8\\invalid-profile",
+        "version": "0.2.16",
+        "packaged": true
+      }
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 50900,
+        "startedAt": "639294638285455164",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\language-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 30008,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-05T08:23:55.784Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 14044,
+        "startedAt": "639294638439541617",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\language-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 22388,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-05T08:24:07.161Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 45340,
+        "startedAt": "639294638489190474",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\language-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 21960,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-05T08:24:11.849Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 48948,
+        "startedAt": "639294638535846701",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\language-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 47640,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-05T08:24:16.214Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Synthetic local data only; no native SIWC, provider receipt, human acceptance, WCAG or G2–G5 claimed.",
+    "Network and app-server counters cover the observed period after hook installation only.",
+    "No personal profile, preview, installation or source collection used."
+  ],
+  "runtimeManifest": {
+    "path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-langue\\runtime-inputs-003.json",
+    "sha256": "c2f68c53283314eabe0df0a12684ead3ea4674f916da8814c1337191f62601f4"
+  },
+  "qualificationScriptSha256": "0697f2473378cac1961663e55c285b70f7268a147902582f7533eafb8831e90e",
+  "syntheticEvents": {
+    "identity": "Synthetic per-message identity only; no native attestation claimed",
+    "question": {
+      "schemaVersion": 1,
+      "id": "language-question",
+      "context": {
+        "projectId": "language-witness",
+        "initiativeId": "historical-alpha",
+        "conversationId": "language-history",
+        "providerId": "codex",
+        "connectionId": "synthetic-only"
+      },
+      "requestId": "request-language",
+      "turnId": "turn-language",
+      "identity": {
+        "kind": "attested",
+        "name": "Mary",
+        "source": "SYNTHETIC-OWNED-NO-NATIVE-IDENTITY"
+      },
+      "fields": [
+        {
+          "id": "direction",
+          "header": "Question source française",
+          "prompt": "Quelle direction conserver exactement ? δ 日本語",
+          "options": [
+            {
+              "label": "Garder les octets",
+              "description": "Option source native inchangée."
+            },
+            {
+              "label": "Autre option",
+              "description": "Description française source."
+            }
+          ],
+          "allowOther": true
+        }
+      ],
+      "values": {
+        "direction": "Garder les octets"
+      },
+      "status": "waiting",
+      "reason": null,
+      "createdAt": "2026-11-05T08:00:00.000Z",
+      "expiresAt": null,
+      "revision": 1,
+      "storage": "stored"
+    },
+    "approval": {
+      "schemaVersion": 1,
+      "id": "language-approval",
+      "context": {
+        "projectId": "language-witness",
+        "initiativeId": "historical-alpha",
+        "conversationId": "language-history",
+        "providerId": "codex",
+        "connectionId": "synthetic-only"
+      },
+      "requestId": "request-language",
+      "turnId": "turn-language",
+      "identity": {
+        "kind": "attested",
+        "name": "Mary",
+        "source": "SYNTHETIC-OWNED-NO-NATIVE-IDENTITY"
+      },
+      "mode": "file-approval",
+      "files": [
+        {
+          "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-language-ui-U9IDP8\\project\\proposition.md",
+          "kind": "add",
+          "diff": "Patch source exact δ 日本語\n+ ne pas traduire",
+          "beforeSha256": null,
+          "afterSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "reason": null,
+      "adjustment": "Ajustement source conservé",
+      "adjustmentStatus": "draft",
+      "status": "waiting",
+      "decision": null,
+      "transmission": "none",
+      "effect": "pending",
+      "result": null,
+      "createdAt": "2026-11-05T08:00:00.000Z",
+      "expiresAt": 1793867637370,
+      "revision": 1,
+      "storage": "stored"
+    },
+    "graphIdentity": {
+      "projectId": "language-witness",
+      "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-language-ui-U9IDP8\\project",
+      "rootIdentity": "synthetic-language-root",
+      "scopeId": "qualified-two-node-subset",
+      "scopeRevision": "7d115c8cb2ea25cfd79e785d80922ffd056081da9f99f55d2900bc27f9d19c7d",
+      "analysisId": "fixture:matrix006-subset",
+      "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168"
+    }
+  },
+  "guards": {
+    "invalid": {
+      "contractVersion": 1,
+      "correlationId": "rejected-request",
+      "ok": false,
+      "error": "INVALID_COMMAND",
+      "state": {
+        "language": "en",
+        "warning": null
+      }
+    },
+    "wrong": {
+      "contractVersion": 1,
+      "correlationId": "rejected-request",
+      "ok": false,
+      "error": "INVALID_COMMAND",
+      "state": {
+        "language": "en",
+        "warning": null
+      }
+    },
+    "untrusted": {
+      "contractVersion": 1,
+      "correlationId": "rejected-request",
+      "ok": false,
+      "error": "UNTRUSTED_CALLER",
+      "state": {
+        "language": "en",
+        "warning": null
+      }
+    }
+  },
+  "commandSnapshots": [
+    {
+      "madness:language:v1:set-language": 143,
+      "madness:appearance:v1:read": 3,
+      "madness:language:v1:read": 7,
+      "madness:graph-command:read": 3,
+      "madness:project-files:command:read": 3,
+      "madness:help:command:v1:read": 3,
+      "madness:bmad-progress:command:v1:read": 3,
+      "madness:bmad-catalog:command:v1:read": 3,
+      "madness:catalog-launch:command:v1:read": 3,
+      "madness:bmad-context:command:v1:read": 6,
+      "madness:command:v1:read-state": 3,
+      "madness:dialogue:command:v1:read": 4,
+      "madness:connection:command:v1:read": 3,
+      "madness:us-metrics:command:v1:read": 3,
+      "madness:appearance:v1:set-theme": 4
+    },
+    {},
+    {
+      "madness:language:v1:set-language": 1,
+      "madness:language:v1:read": 2,
+      "madness:appearance:v1:read": 1,
+      "madness:graph-command:read": 1,
+      "madness:project-files:command:read": 1,
+      "madness:help:command:v1:read": 1,
+      "madness:bmad-progress:command:v1:read": 1,
+      "madness:bmad-catalog:command:v1:read": 1,
+      "madness:catalog-launch:command:v1:read": 1,
+      "madness:bmad-context:command:v1:read": 2,
+      "madness:command:v1:read-state": 1,
+      "madness:dialogue:command:v1:read": 1,
+      "madness:connection:command:v1:read": 1,
+      "madness:us-metrics:command:v1:read": 1
+    },
+    {}
+  ],
+  "closingDrain": {
+    "queued": 128,
+    "pendingAtQuit": 128,
+    "reply": {
+      "contractVersion": 1,
+      "correlationId": "rejected-request",
+      "ok": false,
+      "error": "APP_CLOSING",
+      "state": {
+        "language": "en",
+        "warning": null
+      }
+    }
+  },
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\language-reviewed\\win-unpacked\\Madness.exe",
+    "sha256": "c282387f42373653f593804db3876338aa015048c4aa98341d331619366c72c2",
+    "version": "0.2.16"
+  },
+  "inputs": {
+    "src/contracts/language.ts": "f868db7ddc40c1a2bf572bc0aa6978563910b0715717bce8cb8deb939ed4cbfd",
+    "src/adapters/persistence/language-store.ts": "9aa419d53fd6e0270cbdc884286e27637ed6eb634709d0b55f29e71fc9dbc709",
+    "src/main/index.ts": "9e1c9b5dc99a888838e10fd67bdc701d02dedeaaca51e5b4c3c4cc4ebac40b39",
+    "src/preload/index.ts": "e652f04a89d2e8261d893f446061d47a9e327a476759e391c9fad6aea8207f23",
+    "src/renderer/src/Locale.tsx": "45eb4ebfd2d78cd3699eb7bf595e167996578d91a701b6589018d7ea6846afd6",
+    "src/renderer/src/App.tsx": "342bf7f3b81cf2a3b2a630869663274426007bef9fa5c8cf3356230a8ba069de",
+    "src/renderer/src/UsMetrics.tsx": "58df4c9d7a46507a337dde4be4477eac908a70098b210f4ce600b6c018695025",
+    "src/renderer/src/product-copy.ts": "078c8855b81305ee6394659ad024824b7307e43a3f5f395003b941787d9d00ae",
+    "src/renderer/src/strings.ts": "8a2a69820efc92c86108ded2dc8278d2e756202841dd00dd7706138e4c18a973",
+    "src/renderer/src/interface-copy.ts": "2c956fb94e6ae63485a695912cd650c473d4dc53ac34555c3b4a9b2408d122ac",
+    "out/main/index.js": "f7f9eaa4e84201c5efc830609789cbaa56e0b14663e036776c7378055039fa87",
+    "out/preload/index.js": "dcf21f0d014ddd3be545a041e2ef861c49643b1a43880727e11d42cf99a44cd4"
+  },
+  "finishedAt": "2026-11-05T08:24:17.931Z"
+}

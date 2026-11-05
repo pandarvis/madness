@@ -1,0 +1,22 @@
+✔ UI13 choix local, envoi exact et refus gardent le brouillon sans effet (18451.0264ms)
+✔ UI13 correction Q2 adjustment freezes durable A during choice and preserves it on refusal (24615.1913ms)
+✔ langue : cadre anglais réactif et retour français sans effet natif (6632.8603ms)
+✔ langue : question native, saisies Unicode, selection et anciens etats restent exacts (30175.7459ms)
+✔ langue : decisions anglaises gardent accept et decline et le patch brut (39247.5992ms)
+✔ langue : choix US et choose differe gardent scope preuve requete et texte (17580.1235ms)
+✔ langue : refus US deja affiche se represente sans nouvelle commande (13575.9417ms)
+✔ langue : apercu source et recherche catalogue restent montes sans nouvelle lecture (3563.1807ms)
+✔ langue : preference refusee et reponses tardives ne remplacent pas le dernier choix (2105.7782ms)
+✔ langue : fiche acteur conserve source message portrait et panneau en traduisant le role local (8125.3214ms)
+✔ langue : activeStatus absent du contexte courant reste un contexte natif nul dans les deux langues (7119.2551ms)
+✔ langue : le nom affiche du theme suit la langue sans changer son enum (5145.1502ms)
+✔ langue : nouvelle observation de bibliotheque reste une copie locale bilingue (9105.1775ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-3TJLqi\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-3TJLqi\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 192612.1214

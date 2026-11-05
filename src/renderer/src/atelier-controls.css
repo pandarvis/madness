@@ -201,3 +201,8 @@ input:is([type='checkbox'],[type='radio']):disabled { opacity: .65; cursor: not-
 .metric-registry select { display: block; width: 100%; max-width: 100%; min-height: 40px; margin-block: 8px; color: var(--text); background: var(--panel); }
 .metric-summary p { margin-block: 8px; }
 @media (max-width: 720px) { .metric-facts { grid-template-columns: minmax(0, 1fr); } }
+
+/* Language is a compact window command in the existing atelier chrome. */
+.language-control { app-region: no-drag; -webkit-app-region: no-drag; position: relative; flex: none; }
+.language-toggle { min-width: 40px; min-height: 40px; padding: 4px; font-size: 16px; app-region: no-drag; -webkit-app-region: no-drag; }
+.language-warning { position: fixed; top: 56px; right: 16px; z-index: 60; max-width: min(420px, calc(100vw - 32px)); padding: 10px 14px; margin: 0; color: var(--text); background: var(--panel); border: 1px solid var(--control-line); }

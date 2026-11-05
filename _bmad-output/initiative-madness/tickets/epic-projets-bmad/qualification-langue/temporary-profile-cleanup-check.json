@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-05T08:01:41.508943+00:00",
+  "scope": "Read-only confirmation: only exact synthetic profile paths recorded by this Build banks; no global Temp/profile cleanup.",
+  "runs": [
+    {
+      "run": "compiled-001",
+      "verificationSha256": "dbfcaa8a250070ad887efcacd4f4780d78b455f9a9b08153f2f40eb41f45ab07",
+      "receiptCleanup": true,
+      "launches": 4,
+      "closures": 4,
+      "profilesStillExist": []
+    },
+    {
+      "run": "compiled-002",
+      "verificationSha256": "8cdd311c1b88beac8930fc2d82d2042a08bcfece5c6da7b6b67dd9e279ffe870",
+      "receiptCleanup": true,
+      "launches": 1,
+      "closures": 1,
+      "profilesStillExist": []
+    },
+    {
+      "run": "compiled-003",
+      "verificationSha256": "8ace6375094962fbbbd99f64dde80261c758bd76326a74d9f04fa194a4b9cbea",
+      "receiptCleanup": true,
+      "launches": 4,
+      "closures": 4,
+      "profilesStillExist": []
+    },
+    {
+      "run": "compiled-004",
+      "verificationSha256": "33b1f680f7cf91fff74eb1346149d0844cb510490681a1b0f6bf6bf138b96b2d",
+      "receiptCleanup": true,
+      "launches": 4,
+      "closures": 4,
+      "profilesStillExist": []
+    },
+    {
+      "run": "packaged-001",
+      "verificationSha256": "a153838ccf9663e7f46ba1d37735c1e11e23b0e34daf2de30110339ceed2e878",
+      "receiptCleanup": true,
+      "launches": 4,
+      "closures": 4,
+      "profilesStillExist": []
+    },
+    {
+      "run": "packaged-002",
+      "verificationSha256": "1f9607242065a669ea74fc3265e9b2597b918e0cc56dd98fa88d0af27d3dee40",
+      "receiptCleanup": true,
+      "launches": 4,
+      "closures": 4,
+      "profilesStillExist": []
+    }
+  ],
+  "personalPreviewUntouched": true,
+  "backup13Retained": true
+}

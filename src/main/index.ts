@@ -51,6 +51,9 @@ import { CodexConnection } from '../adapters/codex/connection.ts'
 import { authorize, createTransport, refreshCredentials,checkPublicKeysAccess } from '../adapters/codex/oauth.ts'
 import { probeCodex } from '../adapters/codex/probe.ts'
 import { isTrustedCaller } from './boundary.ts'
+import { LanguageStore } from '../adapters/persistence/language-store.ts'
+import { LANGUAGE_CHANNEL, isLanguageCommand } from '../contracts/language.ts'
+import type { LanguageState, LanguageReply } from '../contracts/language.ts'
 import { AppearanceStore } from '../adapters/persistence/appearance-store.ts'
 import { WorkflowStore } from '../adapters/persistence/workflow-store.ts'
 import {QuestionStore} from '../adapters/persistence/question-store.ts'
@@ -75,6 +78,7 @@ let connection: CodexConnection | null = null
 let dialogueCoordinator: DialogueCoordinator | null = null
 let readyToQuit = false
 let appearanceClosing = false
+let language: LanguageState = {language: 'fr', warning: null}
 
 if (!app.requestSingleInstanceLock()) app.quit()
 else {
@@ -107,7 +111,7 @@ else {
       now: () => new Date().toISOString(),
       chooseDirectory: async () => {
         if (!window) return null
-        const chosen = await dialog.showOpenDialog(window, { title: 'Ouvrir un projet', properties: ['openDirectory', 'dontAddToRecent'] })
+        const chosen = await dialog.showOpenDialog(window, { title: language.language === 'en' ? 'Open a project' : 'Ouvrir un projet', properties: ['openDirectory', 'dontAddToRecent'] })
         if (chosen.canceled || chosen.filePaths.length !== 1) return null
         const rootPath = await realpath(chosen.filePaths[0])
         if (!(await stat(rootPath)).isDirectory()) throw new Error('DIRECTORY_UNAVAILABLE')
@@ -138,6 +142,26 @@ else {
         return { contractVersion: 1, correlationId: input.correlationId, ok: true, state: appearance }
       })
       appearanceQueue = result.catch(() => undefined)
+      return result
+    })
+    const languageStore = new LanguageStore(join(app.getPath('userData'), 'language-v1.json'))
+    language = await languageStore.restore()
+    let languageQueue: Promise<unknown> = Promise.resolve()
+    application.lifecycle.register({ id: 'language', context: emptyContext(), stop: async () => { await languageQueue; return 'stopped' } })
+    ipcMain.handle(LANGUAGE_CHANNEL, (event, input: unknown): Promise<LanguageReply> | LanguageReply => {
+      const rejected = (error: 'UNTRUSTED_CALLER' | 'INVALID_COMMAND' | 'APP_CLOSING'): LanguageReply => ({ contractVersion: 1, correlationId: 'rejected-request', ok: false, error, state: language })
+      if (!window || !isTrustedCaller(event, { webContents: window.webContents, mainFrame: window.webContents.mainFrame }, rendererUrl)) return rejected('UNTRUSTED_CALLER')
+      if (!isLanguageCommand(input)) return rejected('INVALID_COMMAND')
+      if (appearanceClosing) return rejected('APP_CLOSING')
+      const result = languageQueue.then(async (): Promise<LanguageReply> => {
+        // La lecture partage la file des changements, sans relire le fichier ni réappliquer l’amorce.
+        if ('language' in input) {
+          const next: LanguageState = await languageStore.save(input.language)
+          language = next
+        }
+        return { contractVersion: 1, correlationId: input.correlationId, ok: true, state: language }
+      })
+      languageQueue = result.catch(() => undefined)
       return result
     })
     const connectionRoot = join(app.getPath('userData'), 'codex-connection-v1')
@@ -329,7 +353,7 @@ else {
       width: 1320, height: 860, minWidth: 520, minHeight: 520, show: false,
       title: 'Madness', backgroundColor: nativeColors(appearance.theme).color, autoHideMenuBar: true,
       titleBarStyle: 'hidden', titleBarOverlay: nativeCaptionColors(appearance.theme),
-      webPreferences: { preload: join(__dirname, '../preload/index.js'), additionalArguments: ['--madness-theme=' + appearance.theme, '--madness-appearance-warning=' + (appearance.warning ?? 'none')], contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, allowRunningInsecureContent: false, webviewTag: false, spellcheck: false }
+      webPreferences: { preload: join(__dirname, '../preload/index.js'), additionalArguments: ['--madness-language=' + language.language, '--madness-language-warning=' + (language.warning ?? 'none'), '--madness-theme=' + appearance.theme, '--madness-appearance-warning=' + (appearance.warning ?? 'none')], contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, allowRunningInsecureContent: false, webviewTag: false, spellcheck: false }
     })
     window.on('focus',()=>{contextCoordinator.reconcile();helpCoordinator.reconcile();progressCoordinator.reconcile();catalogCoordinator.reconcile()})
     window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
@@ -341,7 +365,7 @@ else {
     window.on('closed', () => { window = null })
     await window.loadURL(rendererUrl)
   }).catch(() => {
-    dialog.showErrorBox('Madness ne peut pas démarrer', 'Le socle local est indisponible. Réessayez après avoir vérifié les fichiers du programme. Vos données n’ont pas été réinitialisées.')
+    dialog.showErrorBox(language.language==='en'?'Madness could not start':'Madness ne peut pas démarrer',language.language==='en'?'The local foundation is unavailable. Check program files then retry. Your data was not reset.':'Le socle local est indisponible. Réessayez après avoir vérifié les fichiers du programme. Vos données n’ont pas été réinitialisées.')
     readyToQuit = true
     app.quit()
   })

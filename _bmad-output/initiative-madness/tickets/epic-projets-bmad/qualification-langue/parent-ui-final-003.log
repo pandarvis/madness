@@ -1,0 +1,26 @@
+✔ UI13 choix local, envoi exact et refus gardent le brouillon sans effet (13456.4566ms)
+✔ UI13 correction Q2 adjustment freezes durable A during choice and preserves it on refusal (18467.0078ms)
+✔ langue : cadre anglais réactif et retour français sans effet natif (2063.266ms)
+✔ langue : question native, saisies Unicode, selection et anciens etats restent exacts (11560.4707ms)
+✔ langue : decisions anglaises gardent accept et decline et le patch brut (11552.4153ms)
+✔ langue : choix US et choose differe gardent scope preuve requete et texte (15195.2573ms)
+✔ langue : refus US deja affiche se represente sans nouvelle commande (13339.7008ms)
+✔ langue : apercu source et recherche catalogue restent montes sans nouvelle lecture (2511.3887ms)
+✔ langue : preference refusee et reponses tardives ne remplacent pas le dernier choix (8582.414ms)
+✔ langue : fiche acteur conserve source message portrait et panneau en traduisant le role local (11697.4177ms)
+✔ langue : activeStatus absent du contexte courant reste un contexte natif nul dans les deux langues (7695.5213ms)
+✔ langue : le nom affiche du theme suit la langue sans changer son enum (7781.9806ms)
+✔ langue : nouvelle observation de bibliotheque reste une copie locale bilingue (6873.6089ms)
+✔ Q1 langue : vrais clics et clavier dans apercus et fiches acteur gardent consultation et selection (29344.804ms)
+✔ Q1 langue : commande accessible dans les autres modales sans choisir lancer ou acquitter (18328.817ms)
+✔ Q3 langue : problemes structures et erreur directe de bibliotheque se presentent sans decouper les parametres (7712.7515ms)
+✔ Q4 langue : aide singulier pluriel et octets localises gardent corps et nombres sources (17519.212ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-oHBVIx\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-oHBVIx\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 210114.0269

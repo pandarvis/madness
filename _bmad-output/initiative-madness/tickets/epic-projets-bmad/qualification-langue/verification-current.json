@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "workerImplementation": "complete",
+  "independentReviews": "parent-owned-pending",
+  "candidate": "candidate-reviewed-002.json",
+  "runtimeManifest": "runtime-inputs-002.json",
+  "matrix": "copy-boundary-matrix.json",
+  "semanticAudit": "semantic-boundary-audit.json",
+  "testCounts": {
+    "languagePureStorePresenter": 10,
+    "appearanceParent": 7,
+    "rendererLanguage": 11,
+    "affectedMetricsRenderer": 2,
+    "graphRenderer": 2,
+    "distinctTotal": 32,
+    "skip": 0
+  },
+  "native": {
+    "compiled": {
+      "checks": 11,
+      "launches": 4,
+      "closures": 4,
+      "cleanup": true
+    },
+    "packaged": {
+      "checks": 11,
+      "launches": 4,
+      "closures": 4,
+      "cleanup": true
+    },
+    "pendingWritesAtQuit": [
+      128,
+      128
+    ],
+    "networkAfterHook": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "appServerAttemptsAfterHook": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "visual": {
+    "batches": 2,
+    "final": "packaged-002",
+    "finalCount": 8,
+    "historical": "packaged-001",
+    "historicalCount": 8,
+    "workerInspectedAll": true,
+    "detectorWorkerRuns": 1,
+    "detector": "impeccable-detector.json"
+  },
+  "limitations": [
+    "Synthetic requests/identities/graph and local historical data; no real SIWC/native provider receipt or human approval claimed.",
+    "Native observations are limited to the period after hook installation.",
+    "No personal installation/profile/preview/backup0.2.13 or project/runtime producer changed.",
+    "No full global sweep of the17 historical failures; task15 remains separate.",
+    "Independent Quick, bilingual high and official finish/documentation/detector remain parent-owned."
+  ]
+}

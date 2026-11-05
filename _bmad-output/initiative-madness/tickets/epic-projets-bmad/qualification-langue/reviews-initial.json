@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "allLensesReportedBeforeTriage": true,
+  "quick": [
+    {
+      "id": "Q1",
+      "reviewer": "Quick",
+      "verdict": "medium",
+      "route": "patch",
+      "location": "App.tsx556 / FilePreview.tsx33 / AgentInfoPanel.tsx38",
+      "finding": "Global language control is inert during native modal consultation; tests bypass pointer reachability.",
+      "evidence": "App renders only toolbar LanguageControl; FilePreview narrow/expanded and AgentInfoPanel narrow call showModal. HTMLmodal makes toolbar inert; languageUI evaluate(button.click) explicitly avoids native reachability.",
+      "smallestFix": "Reuse same existing language command/provider in active modal headers, without new state, port, handler or authority; actual user pointer/keyboard tests keep same consultation/source/selection."
+    },
+    {
+      "id": "Q2",
+      "reviewer": "Quick",
+      "verdict": "medium",
+      "route": "patch",
+      "location": "GraphPanel.tsx50 / graph-coordinator.ts21,23",
+      "finding": "Established GraphCoordinator reasons fall through untranslated technical fallback under EN.",
+      "evidence": "Coordinator emits exact unreadable-store/stale-reference sentences; GraphPanel passes them to diagnostic slot, whose closed dictionary/prefixes lack those established sentences.",
+      "smallestFix": "Complete closed own-graph reason mappings and bounded parameter template, keep raw technical parameters and unknown fallback exact."
+    },
+    {
+      "id": "Q3",
+      "reviewer": "Quick",
+      "verdict": "medium",
+      "route": "patch",
+      "location": "product-copy.ts359 / project-library.ts25-28 / ProjectLibrary.tsx29",
+      "finding": "Partial library and directly appended progress errors retain known French diagnostics under EN.",
+      "evidence": "projectLibrary concatenates snapshot.problems into library limit and adds value.error. Library slot only translates prefix; known diagnostic templates are searched only in diagnostic slot. Existing snapshot problems array is available in entry.evidence.",
+      "smallestFix": "Render own partial prefix with existing structured problems through diagnostic presenter; do not split arbitrary technical strings or edit producers. Present established progress errors through bounded mappings, preserve exact parameters."
+    },
+    {
+      "id": "Q4",
+      "reviewer": "Quick",
+      "verdict": "low",
+      "route": "patch",
+      "location": "HelpPanel.tsx21,24,33 / GraphPanel.tsx53,56,61",
+      "finding": "Raw numeric counts and fixed plurals leave singulars and grouped numbers unlocalized.",
+      "evidence": "Help Bundle unconditionally renders documents.length plus documents loaded and problems.length plus issues reported, e.g.1documents; graph uses fixed plurals and raw counts; formatCount exists but is unused at those sites.",
+      "smallestFix": "Apply existing explicitlocale formatters to UI-owned counts/byte sizes/plurals only, pair FR/EN forms without touching identifiers/raw values."
+    }
+  ],
+  "bilingualHigh": [],
+  "finish": {
+    "disposition": "ship",
+    "scope": "existing0028frames/nativefullzoom; no materialfix; NOT finalcorrectedcandidate"
+  }
+}

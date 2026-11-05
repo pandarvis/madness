@@ -21,6 +21,22 @@ const appearanceBridge: AppearanceBridge = {
   setTheme: (theme) => appearanceRequest({ theme })
 }
 contextBridge.exposeInMainWorld('madnessAppearance', Object.freeze(appearanceBridge))
+import { LANGUAGE_CHANNEL, languageFromArguments, isLanguageReply } from '../contracts/language.ts'
+import type { LanguageBridge, LanguageState, Language } from '../contracts/language.ts'
+const languageRequest = async (action: { language: Language } | { type: 'read' }): Promise<LanguageState> => {
+  const correlationId = crypto.randomUUID()
+  const reply: unknown = await ipcRenderer.invoke(LANGUAGE_CHANNEL, { contractVersion: 1, correlationId, ...action })
+  if (!isLanguageReply(reply)) throw new Error('INVALID_LANGUAGE_REPLY')
+  if (reply.correlationId !== correlationId && (reply.ok || reply.correlationId !== 'rejected-request')) throw new Error('UNRELATED_LANGUAGE_REPLY')
+  if (!reply.ok) throw new Error(reply.error)
+  return reply.state
+}
+const languageBridge: LanguageBridge = {
+  initial: Object.freeze(languageFromArguments(process.argv)),
+  read: () => languageRequest({ type: 'read' }),
+  setLanguage: (language) => languageRequest({ language })
+}
+contextBridge.exposeInMainWorld('madnessLanguage', Object.freeze(languageBridge))
 const request = async (payload: Omit<Command, 'contractVersion' | 'correlationId'> | Record<string, unknown>): Promise<Reply> => {
   const correlationId = crypto.randomUUID()
   const reply: unknown = await ipcRenderer.invoke(COMMAND_CHANNEL, { ...payload, contractVersion: 1, correlationId })

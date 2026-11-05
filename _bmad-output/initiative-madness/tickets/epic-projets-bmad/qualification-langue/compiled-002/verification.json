@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "status": "failed",
+  "startedAt": "2026-11-05T07:10:01.582Z",
+  "mode": "compiled",
+  "checks": [
+    "L1 absent preference uses FR without creating a language file",
+    "L3 L4 Main language changes preserve mounted input selection raw message and all observed business call counts",
+    "L1 reload reads current Main EN instead of the original FR bootstrap",
+    "L8 both languages and themes720px reduced motion and full native zoom200 frame measured"
+  ],
+  "captures": [],
+  "launches": [
+    {
+      "main": {
+        "pid": 52704,
+        "startedAt": "639294594017609299",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "runtime": {
+        "pid": 52704,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-language-ui-jU2UsH\\profile",
+        "version": "0.2.16",
+        "packaged": false
+      }
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 52704,
+        "startedAt": "639294594017609299",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\node_modules\\electron\\dist\\electron.exe"
+      },
+      "wrapperPid": 25088,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-05T07:10:06.270Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Synthetic local data only; no native SIWC, provider receipt, human acceptance, WCAG or G2–G5 claimed.",
+    "Network and app-server counters cover the observed period after hook installation only.",
+    "No personal profile, preview, installation or source collection used."
+  ],
+  "error": "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Search this graph', { exact: true })\u001b[22m\n\n    at C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\scripts\\qualification\\language-ui.mjs:69:926",
+  "finishedAt": "2026-11-05T07:10:40.970Z"
+}

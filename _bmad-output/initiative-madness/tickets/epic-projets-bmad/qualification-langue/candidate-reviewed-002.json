@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "version": "0.2.16",
+  "status": "worker-verified-awaiting-independent-reviews",
+  "createdAt": "2026-11-05T07:39:25.557706+00:00",
+  "runtimeManifest": {
+    "path": "runtime-inputs-002.json",
+    "sha256": "e4c0f204efa17d4ce4abdfd2edad6f31862132eb783da2eceed96b37b9434255"
+  },
+  "artifacts": {
+    "win-unpacked/resources/app.asar": {
+      "sha256": "a15fddff0c17b317cdf7f955764a588d190b7784caaad421eac284c908c9a453",
+      "bytes": 32396104
+    },
+    "win-unpacked/Madness.exe": {
+      "sha256": "d15827e95fd009316045034d23de48c35171669ccb0ff8f7e17226fbcf3b7ec6",
+      "bytes": 249926144
+    },
+    "Madness-0.2.16-x64-setup.exe": {
+      "sha256": "80f16ff58816e7eb7bc19e3b41797bdd62cb8994347c2ffa0cc0572305a5f02f",
+      "bytes": 171572792
+    },
+    "Madness-0.2.16-x64-setup.exe.blockmap": {
+      "sha256": "6ede18a528538276a4047ab808a582ebc2daa8e9f272a42e1e556ed4ae6fee7b",
+      "bytes": 179838
+    }
+  },
+  "packageAudit": "package-audit-002.json",
+  "compiled": "compiled-004/verification.json",
+  "packaged": "packaged-002/verification.json",
+  "installed": false,
+  "visualBatches": 2,
+  "finalCaptureCount": 8,
+  "historicalCaptureCount": 8,
+  "workerDetectorRuns": 1
+}

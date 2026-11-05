@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-11-05T08:50:38.528464+00:00",
+  "status": "verified-final004-awaiting-documentation-and-localcommit",
+  "baseline": "834a8332a87c78be1471a93cb26272200938015b",
+  "frozenSha256": "6ba727eb0e97f9a60bbce0eedde4860fec0765551e5485d44a46016e1112d6e1",
+  "matrix": {
+    "L1": [
+      "language bootstrap/store tests",
+      "compiled004/package002 checks1/3/10"
+    ],
+    "L2": [
+      "language store invalid/future/UTF8/Windows rename/ordered writes",
+      "actualMain checks7/8/9/11",
+      "UI late preference replies"
+    ],
+    "L3": [
+      "11named locale renderer cases",
+      "closed diagnostic/presenter and numeric tests",
+      "copy-boundary-matrix",
+      "actual renderer current8captures"
+    ],
+    "L4": [
+      "question exact Unicode cursor/selection/mountedinput and businesscallcounts",
+      "preview/catalogue search",
+      "actor identity/portrait/panel"
+    ],
+    "L5": [
+      "chosenUS/deferredchoose keeps requestId choiceRef text operation",
+      "existingrefusal no newcommand",
+      "2USregressions"
+    ],
+    "L6": [
+      "English question sends exact values",
+      "English Reject/Allow emits decline/accept; patch unchanged",
+      "sameexisting metrics null0/unknowncopy authority"
+    ],
+    "L7": [
+      "2Graphcasesfilters/search/selection/zoom/noresultview",
+      "previewrawmounted; nonewanalysis/read/editor"
+    ],
+    "L8": [
+      "packaged0028frames FR/EN dark/light720/native2001650x1150; reducedmotion/longname",
+      "parentviewedall8; nohumanscopeclaim"
+    ],
+    "L9": [
+      "compiled00411/package00211 each4launches4ownedclosures",
+      "Snapshot draft/metricsannexexact; cleanuponlyafterclosure"
+    ],
+    "L10": [
+      "typedstrictcontract/bootstrap/bridge",
+      "actualMainenum/propertypath/frame refusals",
+      "actualclosing rejects newmutation while128writes pending and drains"
+    ]
+  },
+  "logs": {
+    "parent-language-appearance-003.log": {
+      "pass": 19,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "04acf470ef6cf81766203f67f189bbf0ecac1eb94a461d19fd4ae822872f9760"
+    },
+    "parent-ui-final-003.log": {
+      "pass": 17,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "101c618c65fcbb76edcacafd337de7f9fa866085aaf1471eba0daa38382f5c6d"
+    },
+    "parent-graph-final-003.log": {
+      "pass": 2,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "2739c2e472dc0b2a272af767613144e927e62bf96b50cc6fc93a3e5b088732f2"
+    },
+    "review-fixes-q4-r1-green.log": {
+      "pass": 5,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "2d09487216b17ac3d781f21b3fd1acbef3bb00665b6a07b4da49e61cb4ff1676"
+    },
+    "parent-q4-r1-final-004.log": {
+      "pass": 2,
+      "fail": 0,
+      "skip": 0,
+      "sha256": "d25700d399c07736c30c0a5b9255d785089c5345de2e48fa3164b8b556cdd721"
+    }
+  },
+  "testRevisionScopes": {
+    "003": "38distinct19pure17UI2Graph; eachrawlog retained",
+    "004": "fiveaffectedworkerUIcases andtwofreshparentnewForge/metriccases; no global/all40finalclaim"
+  },
+  "nativeFinal": {
+    "compiled": "compiled-006/verification.json",
+    "packaged": "packaged-004/verification.json",
+    "checksEach": 11,
+    "ownedLaunchesEach": 4,
+    "ownedClosuresEach": 4,
+    "cleanupEach": true,
+    "capturesEach": 0,
+    "networkAfterHookOnly": true
+  },
+  "parentReadAllInitialDiffAndCorrections": true,
+  "releases": {
+    "final": "parent-release-final.json",
+    "intermediate002": "parent-release-002.json",
+    "intermediate003": "parent-release-003.json"
+  },
+  "reviews": "reviews-final.json",
+  "visual": {
+    "batches": 2,
+    "historicalFinalVisual": "packaged-002/verification.json",
+    "historicalVisualAsar": "a15fddff0c17b317cdf7f955764a588d190b7784caaad421eac284c908c9a453",
+    "parentViewedAll8": true,
+    "no004imagesOrVisualAcceptanceClaim": true,
+    "functionalFinish004": "ship"
+  },
+  "detector": {
+    "runs": 1,
+    "warnings": 6,
+    "triage": "detector-triage.json"
+  },
+  "allOwnFindingsResolved": true,
+  "deferredProductFixes": [],
+  "olderGlobal17For15Preserved": true,
+  "personalInstalled": false,
+  "noHumanWcagG2G5Qualification": true,
+  "noPersonalProfileOrUserPreviewTouched": true,
+  "cleanupFinal": {
+    "receipt": "cleanup-final.json",
+    "removedLogicalBytes": 580404699.0,
+    "protectedExact": true,
+    "physicalDeltaNotCausal": true
+  },
+  "documentationFinal": {
+    "receipt": "documentation.md",
+    "linksVerified": 55,
+    "missing": 0
+  }
+}

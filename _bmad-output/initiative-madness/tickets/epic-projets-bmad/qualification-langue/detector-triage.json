@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "baseline": "834a8332a87c78be1471a93cb26272200938015b",
+  "runs": 1,
+  "warnings": [
+    {
+      "id": "D1",
+      "file": "src/renderer/src/atelier-controls.css",
+      "line": 161,
+      "antipattern": "side-tab",
+      "baselineLineExact": true,
+      "lineSha256": "5b11cc6cdf26acde4aa149faf7d078f0f64f5311310169788b74f4baae2085c6",
+      "decision": "Incumbent edge/material rule of the pinned atelier world, unchanged by14; detector pattern not a demonstrated functional defect. Preserve brief; no new correction or deferred issue."
+    },
+    {
+      "id": "D2",
+      "file": "src/renderer/src/files.css",
+      "line": 1,
+      "antipattern": "border-accent-on-rounded",
+      "baselineLineExact": true,
+      "lineSha256": "e3f4d3a89a79ab73b7094c71248148c0eadab5576752ec11ae56f2d62d2e4ef7",
+      "decision": "Incumbent edge/material rule of the pinned atelier world, unchanged by14; detector pattern not a demonstrated functional defect. Preserve brief; no new correction or deferred issue."
+    },
+    {
+      "id": "D3",
+      "file": "src/renderer/src/styles.css",
+      "line": 337,
+      "antipattern": "side-tab",
+      "baselineLineExact": true,
+      "lineSha256": "e13bbcddaba35058ae82e5371104749d0109d7c12516f29192f729e727b7a568",
+      "decision": "Incumbent edge/material rule of the pinned atelier world, unchanged by14; detector pattern not a demonstrated functional defect. Preserve brief; no new correction or deferred issue."
+    },
+    {
+      "id": "D4",
+      "file": "src/renderer/src/styles.css",
+      "line": 412,
+      "antipattern": "side-tab",
+      "baselineLineExact": true,
+      "lineSha256": "5cd030e140f89f23d41453fcc835173a48f564bae65e297cdfeb12f72898975b",
+      "decision": "Incumbent edge/material rule of the pinned atelier world, unchanged by14; detector pattern not a demonstrated functional defect. Preserve brief; no new correction or deferred issue."
+    },
+    {
+      "id": "D5",
+      "file": "src/renderer/src/styles.css",
+      "line": 409,
+      "antipattern": "border-accent-on-rounded",
+      "baselineLineExact": true,
+      "lineSha256": "18b9d02fa7ff1bee1c49f07ad758b291ec599dfb53b721f01fc31d20e6d1c79c",
+      "decision": "Incumbent edge/material rule of the pinned atelier world, unchanged by14; detector pattern not a demonstrated functional defect. Preserve brief; no new correction or deferred issue."
+    },
+    {
+      "id": "D6",
+      "file": "src/renderer/src/styles.css",
+      "line": 412,
+      "antipattern": "border-accent-on-rounded",
+      "baselineLineExact": true,
+      "lineSha256": "5cd030e140f89f23d41453fcc835173a48f564bae65e297cdfeb12f72898975b",
+      "decision": "Incumbent edge/material rule of the pinned atelier world, unchanged by14; detector pattern not a demonstrated functional defect. Preserve brief; no new correction or deferred issue."
+    }
+  ]
+}

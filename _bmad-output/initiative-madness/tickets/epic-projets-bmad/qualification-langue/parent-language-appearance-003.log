@@ -1,0 +1,27 @@
+✔ atelier : les couleurs Windows suivent le chrome des deux thèmes et les couples de lecture restent contrastés (8.9594ms)
+✔ le protocole d’apparence refuse les valeurs hors enum et les propriétés supplémentaires (0.5721ms)
+✔ l’amorçage accepte uniquement les arguments natifs enum et refuse les doublons (0.2159ms)
+✔ un profil neuf reste sombre sans écrire et un choix explicite est restauré séparément du Snapshot (29.193ms)
+✔ un fichier invalide ou futur reste intact tandis que le choix de session fonctionne (32.2136ms)
+✔ une écriture refusée conserve le choix de session et nettoie les fichiers atomiques (9.0753ms)
+✔ les choix concurrents sont écrits dans l’ordre sans fichier temporaire restant (35.0212ms)
+✔ le protocole de langue refuse les valeurs hors enum et les propriétés supplémentaires (1.2248ms)
+✔ l’amorçage accepte uniquement les arguments natifs enum et refuse les doublons (0.529ms)
+✔ un profil neuf reste français sans écrire et un choix explicite est restauré séparément du Snapshot (34.3978ms)
+✔ un fichier invalide ou futur reste intact tandis que le choix de session fonctionne (30.7263ms)
+✔ une écriture refusée conserve le choix de session et nettoie les fichiers atomiques (8.6776ms)
+✔ les choix concurrents sont écrits dans l’ordre sans fichier temporaire restant (39.4394ms)
+✔ les slots produit connus sont bilingues et une limite inconnue conserve son original technique (10.7701ms)
+✔ un refus reel de rename Windows preserve la langue durable et attend le retry explicite (633.8966ms)
+✔ les nombres et pluriels se formatent sans changer leur valeur (25.9817ms)
+✔ les diagnostics etablis des coordinateurs et du runtime gardent les parametres techniques exacts (0.766ms)
+✔ Q2 diagnostics graphe etablis et Q3 limites bibliotheque gardent les parametres (0.5516ms)
+✔ Q4 compteurs d’aide graphe et tailles sont singuliers et localises (1.6544ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1012.9544

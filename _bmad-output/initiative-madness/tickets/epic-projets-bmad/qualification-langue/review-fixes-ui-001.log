@@ -1,0 +1,25 @@
+✔ Q1 langue : vrais clics et clavier dans apercus et fiches acteur gardent consultation et selection (35526.5402ms)
+✔ Q1 langue : commande accessible dans les autres modales sans choisir lancer ou acquitter (20818.8583ms)
+✖ Q3 langue : problemes structures et erreur directe de bibliotheque se presentent sans decouper les parametres (38050.1277ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-98ueUr\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-98ueUr\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 97565.9821
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1570:1
+✖ Q3 langue : problemes structures et erreur directe de bibliotheque se presentent sans decouper les parametres (38050.1277ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for locator('.library-project').first().getByText('Source not loaded: C:/é/δ · param.md: E_IO', { exact: true }) to be visible[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1571:829) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for locator('.library-project').first().getByText('Source not loaded: C:/é/δ · param.md: E_IO', { exact: true }) to be visible" ]
+  }

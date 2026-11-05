@@ -4,6 +4,7 @@ status: final
 created: 2026-10-22
 updated: 2026-11-05
 sources:
+  - ../tickets/epic-initialisation-bmad/qualification-initialisation/profil-g3.md
   - ../tickets/epic-projets-bmad/qualification-mesures-us/decisions-et-donnees.md
   - ../initiative-madness.md
   - .memlog.md
@@ -45,10 +46,11 @@ La précision Quick Resume de 2.4 étend le parcours 5 existant, sans ajouter de
 |---|---|---|---|
 | Accueil | Ouverture ou navigation ; récents, activités et attentes corrélées ; commande unique d’ouverture. | 1, 7 | Livré et recomposé ; extension multi-projet/initiatives/preuves prévue en 2.9. |
 | Projet · Parcours | Projet ouvert ; attentes/récupérations, Reprise du projet et preuves, puis guidage et préparation secondaires. | 1, 2, 5 | Reprise sourcée et détails textuels en 2.4 ; actualisation externe en 2.5, aperçu en 2.8 ; aucune capacité annoncée avant sa preuve. |
+| Projet · Graphe | Quatrième onglet ; analyse et exploration locales explicites, puis retour fichier. | 6 | [Supplément Graphe 4.4](#graphe-produit44) conservé, indépendant de BMad/IA/Git ; aucune analyse par navigation. |
 | Projet · Conversation | Échange sélectionné, demande pertinente, saisie et décisions ; préparation explicite. | 2, 3, 7 | Dialogue livré ; réponse native $bmad dans le candidat 2.2 encore in-review/M14 ; catalogue futur en 2.7. |
 | Connexion Codex et accès | Commande de barre ; compte, contrôle explicite, indisponibilité et aide réseau. | 1, 2, 3 | Livré ; panneau et arrêt inconnu accessibles sans projet. |
 | Fiche agent | Portrait ou Fiche agent d’un message attesté reconnu ; rôle et provenance de cet item. | 2, 3, 7 | Implémentée dans le candidat atelier ; consultation locale informative, aucun choix ou lancement d’agent. |
-| Diagnostic et initialisation | Dossier choisi ou Détails de contexte → Voir le diagnostic ; profil et capacités indépendantes. | 1 | Diagnostic G2 prévu en epic 2 selon candidat 2.1 ; initialisation future epic 3, aucun setup implicite. |
+| Diagnostic et initialisation | Dossier choisi ou Détails de contexte → Voir le diagnostic ; préparation et plan dans la même surface, puis Dialogue de décision. | 1 | Diagnostic et capacités G2 distincts ; contrat d’initialisation 3.2 depuis le profil local 3.1, avant implémentation 3.3/3.4 ; aucun setup implicite. |
 | Sélecteur d’initiative | En-tête projet → Choisir une initiative ; liste et conflit dans Dialogue. | 4 | Contrat 2.3 : sélection Madness distincte de l’active BMad ; aucune écriture de configuration. |
 | Aides chargées | Parcours → Que faire ensuite ? ; contenu lu, couverture et préflight avant demande à l’agent. | 2 | Candidat 2.2 encore in-review ; lecture, transmission, réponse et conservation distinctes. |
 | Catalogue des compétences et Fiche compétence | Onglet Toutes les possibilités, ou alternatives → fiche. | 3 | Contrats 2.6/2.7 : catalogue réel, copie distincte du lancement qualifié. |
@@ -78,11 +80,11 @@ Nommer l’objet, sa portée et l’action attendue ; expliquer BMad au moment u
 
 ### Libellés des parcours de l’epic 2
 
-Formulations contractuelles pour le français et l’anglais ; l’anglais sera livré par 2.14. Les valeurs entre accolades ci-dessous sont des données : leurs noms, chemins, commandes, textes de projet et réponses brutes ne sont jamais traduits. Le choix de langue traduit l’interface et conserve sélection, focus et saisie.
+Formulations pour le français et l’anglais, livrés par 2.14 ; les ajouts d’initialisation ci-dessous restent contractuels. Les valeurs entre accolades ci-dessous sont des données : leurs noms, chemins, commandes, textes de projet et réponses brutes ne sont jamais traduits. Le choix de langue traduit l’interface et conserve sélection, focus et saisie.
 
 | Usage | Français | English |
 |---|---|---|
-| Destinations | Accueil · Parcours · Conversation · Toutes les possibilités | Home · Journey · Conversation · All possibilities |
+| Destinations | Accueil · Parcours · Conversation · Toutes les possibilités · Graphe | Home · Journey · Conversation · All possibilities · Graph |
 | Ouverture/diagnostic | Ouvrir un projet · Voir le diagnostic · Actualiser le diagnostic | Open a project · View diagnostic · Refresh diagnostic |
 | Chargement local | Lecture du projet en cours… | Reading project… |
 | Profil absent/ancien/inconnu | BMad absent · Ancien format observé · Compatibilité inconnue | BMad not found · Legacy format observed · Compatibility unknown |
@@ -140,6 +142,25 @@ Formulations contractuelles pour le français et l’anglais ; l’anglais sera 
 
 Les messages d’échec précisent toujours ressource, opération et récupération réellement possible ; `{reason}` ne doit pas devenir un code brut seul. L’état « partiel » cite les capacités affectées : l’absence de `bmad-retrospective` n’interdit pas la lecture des trois aides sûres du candidat. Les 27 descripteurs observés et les 43 topics sont une observation de 2.1, aucun quota d’interface. « BMad recommande » exige le reçu de la réponse native liée aux aides effectivement transmises ; une raison absente est inconnue, pas réécrite par l’interface.
 
+<a id="epic3-initialisation-copy"></a>
+
+### Libellés d’initialisation — 3.2
+
+Ces libellés décrivent la future interface, sans exécution dans ce lot. Les données `{folder}`, `{plan}`, `{reason}`, chemins, versions et empreintes restent exactes dans les deux langues.
+
+| Usage | Français | English |
+|---|---|---|
+| Entrée et préparation | Préparer l’initialisation · Préparation privée en cours — aucun ajout dans le projet | Prepare initialization · Preparing privately — no additions to the project |
+| Plan | Plan d’initialisation · Dossier cible : {folder} · Plan : {plan} · Voir tous les ajouts · Données préservées · Limites | Initialization plan · Target folder: {folder} · Plan: {plan} · View all additions · Preserved data · Limits |
+| Profil | Source locale épinglée · 27 compétences et 3 records non invocables · Membre recommandé absent : bmad-retrospective | Pinned local source · 27 skills and 3 non-invocable records · Recommended member missing: bmad-retrospective |
+| Décision | Ouvrir la décision · Initialiser BMad · Refuser ce plan · Annuler la préparation · Fermer | Open decision · Initialize BMad · Reject this plan · Cancel preparation · Close |
+| Portée de l’accord | Autorise uniquement les ajouts du plan {plan} dans {folder}. Aucun écrasement ni aucune suppression. Retour arrière non garanti. | Authorizes only the additions in plan {plan} to {folder}. No overwriting or deletion. Rollback is not guaranteed. |
+| Refus avant effet | Initialisation indisponible : {reason} · Préparation échouée — aucun ajout dans le projet · Plan refusé — aucun ajout dans le projet | Initialization unavailable: {reason} · Preparation failed — no additions to the project · Plan rejected — no additions to the project |
+| Annulation et péremption | Préparation annulée — aucun ajout dans le projet · Plan périmé — préparer de nouveau · Préparer de nouveau | Preparation cancelled — no additions to the project · Plan out of date — prepare again · Prepare again |
+| Activité et doublon | Vérification avant application… · Application en cours — effets possibles · Contrôle des ajouts en cours… · Opération déjà en cours pour ce dossier | Checking before applying… · Applying — effects possible · Checking additions… · An operation is already running for this folder |
+| Résultat | Ajouts vérifiés selon le plan · Application échouée avant tout ajout · Résultat partiel — inspection requise · Résultat inconnu — inspection requise | Additions verified against the plan · Application failed before any additions · Partial result — inspection required · Outcome unknown — inspection required |
+| Récupération et conservation | Inspecter les effets · Voir le résultat · Revenir au travail · Résultat en session — enregistrement non confirmé · Réessayer l’enregistrement · Résultat historique — état actuel à inspecter | Inspect effects · View result · Return to work · Result kept for this session — save not confirmed · Retry save · Historical result — inspect current state |
+
 ## Component Patterns
 
 Les noms correspondent à DESIGN.md · Components. Les composants futurs restent contractuels ; ils n’élargissent pas les profils livrés.
@@ -150,7 +171,7 @@ Les noms correspondent à DESIGN.md · Components. Les composants futurs restent
 | Navigation latérale | Réduire/déployer conserve projet, onglet, conversation et saisie. Préférence mémorisée ; échec annoncé sans perdre le choix de session. Rail au-dessus de `{components.navigation.drawerBreakpoint}`, noms et infobulles au focus/survol ; en dessous, tiroir à libellés et retour de focus au déclencheur. |
 | Bouton | Action explicite ; indisponibilité expliquée, pas de double lancement. Navigation, ouverture ou fermeture ne vaut jamais accord. Cible `{components.titlebar.target}` au minimum pour les commandes compactes et décisions. |
 | Ligne de projet ou d’attente | Ouvre la destination exacte corrélée, y compris autre projet. Raison, portée et possibilité réelle de répondre restent nommées. Une ancienne demande ne redevient pas active. |
-| Onglets du projet | Changer de vue conserve saisie, sélection de fichier et contexte sans répondre ni lancer. L’attente reste visible hors Conversation. Parcours, Conversation et Toutes les possibilités désignent leurs panneaux ; sélectionner l’onglet ne qualifie aucune capacité. |
+| Onglets du projet | Changer de vue conserve saisie, sélection de fichier et contexte sans répondre ni lancer. L’attente reste visible hors Conversation. Parcours, Conversation, Toutes les possibilités et Graphe désignent leurs quatre panneaux ; sélectionner l’onglet ne qualifie aucune capacité. |
 | Sélecteur d’initiative | Liste des initiatives repérées avec nom, chemin, source, révision et repères distincts active/sélection. Choisir ne modifie que la sélection Madness ; active absente ou invalide reste inconnue. Conflit traité au parcours 4, aucune mutation BMad proposée ici. |
 | Reprise du projet | Lecture prioritaire dans Parcours, après les attentes/récupérations et avant aides ou préparation Mary/Forge. Compose État connu, Résultats et décisions connus, Récapitulatifs disponibles et Travail restant connu à partir de sources admises, sans synthèse rédactionnelle par IA. Lire les preuves du projet est une lecture locale explicite, sans préflight fournisseur, GET JWKS, OAuth ni appel modèle ; ouvrir Parcours ou restaurer le projet ne déclenche pas cette première lecture. Après une lecture explicite, l’actualisation locale suit le contrat 2.5 ci-dessous, sans appel fournisseur. Situation du projet, activité de l’agent et acceptation humaine restent trois axes distincts ; chaque fait, déduction, proposition ou acceptation cite sa preuve/révision. Les récapitulatifs factuels conservés rejoignent leur échange exact et son initiative capturée. Les détails de preuve 2.4 exposent texte, chemin, source, révision, observation et portée ; ils n’annoncent pas l’aperçu 2.8 disponible. Une recommandation reçue reste une proposition séparée, sans suite imposée. |
 | Aides chargées | Dans Parcours, lecture bornée sans modèle ; séparer texte réellement chargé et références seules aux topics/migrations. Couverture exacte, documents refusés, révision et disponibilité du préflight visibles. Préparer la demande ne transmet rien ; Demander à BMad exige sa capacité qualifiée et une nouvelle vérification du contexte. |
@@ -173,7 +194,7 @@ Les noms correspondent à DESIGN.md · Components. Les composants futurs restent
 | Récapitulatif de tour | Projection factuelle des résultats, décisions humaines identifiables, chemins et prochaine action lorsqu’ils sont connus ; conserver les inconnus. Fin de tour, clôture du workflow et validation du livrable restent indépendantes. Détails de mesure de ce tour expose le rattachement capturé et la durée avec sa preuve ; consulter ne lance ni collecte ni nouveau tour. |
 | Connexion Codex | Panneau non modal au clavier/pointeur, titre focalisé et fermeture rendant le focus au logo. OAuth dans le navigateur Windows, forfait annoncé et témoin explicite. Compte enregistré à vérifier, succès daté et borné ; Vérifier, Reconnecter et Déconnecter restent distincts. |
 | Panneau de fichiers | Ouvre le fichier exact de la preuve/résultat, avec projet, initiative capturée, statut sourcé, chemin et révision. Lecture seule de contenu non fiable, aucun script, lien actif ou commande du document exécuté. Agrandir conserve sélection et position ; ouverture éditeur demande une intégration qualifiée, chemin contrôlé et retour réel selon parcours 6. |
-| Diagnostic et initialisation | Distinguer absent, ancien observé, inconnu, partiel, candidat observé, incompatible, invalidé et erreur selon G2. Montrer capacités indépendantes, sources/racines ordonnées et motif de refus ; version v7 seule insuffisante. Actualiser ne répare pas. L’initialisation reste epic 3, avec changements exacts et accord avant écriture ; installation seule ne signifie pas produit cadré. |
+| Diagnostic et initialisation | Distinguer absent, ancien observé, inconnu, partiel, candidat observé, incompatible, invalidé et erreur selon G2. Montrer capacités indépendantes, sources/racines ordonnées et motif de refus ; version v7 seule insuffisante. Actualiser ne répare pas. L’initialisation suit le contrat 3.2 ci-dessous : préparation privée, plan exact puis accord propre au plan avant écriture ; elle ne réemploie pas les permissions fichiers de Mary et ne signifie pas produit cadré. |
 | Dialogue | Décision unique, fermeture visible et Échap ; focus maintenu dans le dialogue, puis rendu au déclencheur à la fermeture. Fermer n’accepte rien ; aucun empilement de confirmations. |
 | Notification | Retour bref annoncé poliment ; attente, erreur durable et décision restent dans leur surface. Les Signalements de la fiche gardent une région visible persistante et des destinations indépendantes de l’annonce live. |
 
@@ -228,6 +249,49 @@ L’aide réseau affiche uniquement l’adresse publique `https://auth.openai.co
 | Fiche ouverte / source invalidée | Consultation liée à son item exact ; contexte ou identité/source non retrouvé ferme avec motif. Un historique sans projection ne récupère aucun visage nommé. |
 | Attente reçue pendant la fiche | Signalement visible avant le rôle, annonce distincte par nouvel identifiant et navigation explicite ; focus conservé à l’arrivée, historique exact après expiration. |
 | Focus / superposition | Ordre de lecture cohérent, focus visible, fermeture accessible et retour au déclencheur. |
+
+<a id="epic3-initialisation"></a>
+
+### Initialisation locale — contrat 3.2
+
+L’extension de Diagnostic et initialisation réemploie Dialogue, Proposition d’approbation, Détails de contexte, Indicateur d’état et Bande de récupération. Elle prolonge le [parcours 1](#epic2-p1), sans onglet ni échange agent supplémentaire. Le [profil 3.1](../tickets/epic-initialisation-bmad/qualification-initialisation/profil-g3.md) est la limite technique : source locale scellée 6.13.0-next de forme v7, 27 compétences présentes et trois records non invocables, avec `bmad-retrospective` recommandée mais absente. Ni release officielle reconstituée, ni 30 commandes, ni qualification de tous les workflows. Les états sont définis ici avant code ; le prototype historique reste simulé et aucun G3 final n’est acquis. Composition : [DESIGN · Initialisation](DESIGN.md#epic3-initialisation).
+
+<a id="epic3-initialisation-plan"></a>
+
+#### Lire la préparation et décider
+
+Dans le diagnostic d’un dossier où BMad est absent, Préparer l’initialisation engage seulement la préparation privée possédée. La disponibilité expose les prérequis vérifiés, inconnus ou refusés du profil local, de l’outillage et des chemins ; un dossier absent/inaccessible, un ancien format, un format inconnu, une collision ou un lien refusé ne deviennent pas une réparation autorisée. Les collisions `.agents`, `_bmad`, `_bmad-output` et `skills-lock.json` sont nommées, sans nettoyage automatique. Le travail courant reste accessible, sans préflight Codex, réseau, fournisseur ni permission héritée d’un échange Mary.
+
+Avant tout accord, le plan réunit dans cet ordre :
+
+1. Dossier cible intégral sélectionnable et identité de cible/parent capturée, nom/paramètres matérialisés, source/version/sélection du profil, observation et identifiant/empreinte du plan. Toute autre matérialisation exige un nouveau plan.
+2. Préparation privée et effets cible séparés : les outils du profil préparent dans leur espace privé ; l’application ajoute seulement les répertoires/fichiers capturés. Aucun outil n’est exécuté dans la cible. Les gardes de qualification de 3.1 ne constituent pas une garantie de sandbox OS.
+3. Portée exhaustive consultable dans Détails de contexte, sans aperçu présenté comme complet : chaque répertoire/fichier à créer, chemin relatif rattaché à la racine cible, nature, contenu prévu et empreinte de fichier. L’inventaire porte notamment `.agents/skills`, les scripts/configurations/custom de `_bmad` et `_bmad-output` réellement préparés. Les totaux proviennent du plan, jamais des 462 fichiers/126 répertoires de la fixture 3.1. Si l’inventaire n’est pas complet ou lisible, Initialiser BMad reste indisponible avec motif.
+4. Données préservées et limites visibles avant les choix : code, README et autres données préexistantes restent inchangés ; ni écrasement ni suppression. `skills-lock.json` privé n’est pas transféré car sa source serait périmée ; aucun lock portable ou source-record n’est fabriqué, aucune mise à jour/restauration Skills n’est promise. Contrôle final par arbre/octets ; application séquentielle sans transaction globale, rollback garanti ou arrêt sûr après le premier effet.
+
+Le plan reste consultable dans le diagnostic ; Ouvrir la décision, libellé par le titre Plan d’initialisation, reprend ce même plan dans un seul Dialogue avec la Proposition d’approbation. Le résumé du dossier, du plan, des préconditions, des données préservées et des limites précède les choix textuels ; l’inventaire intégral reste accessible dans ce Dialogue. Initialiser BMad autorise une fois ce plan capturé seulement ; Refuser ce plan clôt sa décision sans effet cible. Avant accord, Fermer/Échap et Annuler la préparation annulent la préparation sans effet cible ni accord. Le plan fermé ou annulé reste consultable comme historique seulement ; Préparer de nouveau est requis avant toute application et un accord n’est jamais restauré actif.
+
+Au clic explicite Initialiser BMad, vérifier à nouveau cible/parent physiques, préconditions, source et payload capturés avant le premier ajout ; si différence ou incertitude, refuser avant effet, marquer le plan périmé et demander Préparer de nouveau. Aucun ancien accord ne suit une nouvelle préparation. L’écriture exclusive des ajouts est le périmètre attendu, pas une preuve que la concurrence native est résolue : sa protection reste à concevoir/qualifier en 3.3. Dès la première demande admise, tout double clic ou second lancement visant la même cible physique est refusé avec accès à l’opération possédée ; ni doublon ni mise en file automatique.
+
+<a id="epic3-initialisation-etats"></a>
+
+#### États, sorties et récupération
+
+| État / surface | Transition et sortie permise |
+|---|---|
+| Indisponible / Diagnostic et initialisation | Motif et capacités indépendantes lisibles ; Voir le diagnostic ou Revenir au travail, sans installation/réparation proposée sur format inconnu ou collision. |
+| Préparation privée en cours / Diagnostic et initialisation | Ressource et phase textuelles, aucun effet cible ; Annuler la préparation ou fermer sans accord. Un retour tardif reste lié à sa préparation, sans application. |
+| Préparation échouée ou annulée / Diagnostic et initialisation | Affirmer aucun ajout seulement si l’absence d’effet cible est établie ; motif local et Préparer de nouveau volontaire, ou Revenir au travail. L’échec de préparation ne devient pas un partiel dans la cible. |
+| Plan prêt / Diagnostic et Dialogue de décision | Inventaire complet et limites lisibles ; Initialiser BMad ponctuel, Refuser ce plan, Annuler la préparation ou Fermer. Aucun choix présélectionné. Fermer/Annuler rend le plan historique et exige Préparer de nouveau avant application. |
+| Plan refusé / Diagnostic et initialisation | Décision inactive, aucun effet cible ; Voir le résultat ou Revenir au travail. Une nouvelle intention passe par Préparer de nouveau, sans réactiver le refus. |
+| Plan périmé / Diagnostic et Bande de récupération | Changement de dossier/parent/source/préconditions/paramètres ou doute avant effet : ancien plan historique, aucun accord transmissible ; Préparer de nouveau après lecture sûre ou revenir au travail sans perdre les entrées. |
+| Vérification avant application / Indicateur d’état | Identité de l’opération capturée ; pas de second lancement. Changement/refus avant tout ajout prouvé mène à un refus sans effet, jamais à un succès. |
+| Application puis contrôle / Indicateur et Bande de récupération | Phases distinctes ; aucune durée, progression fictive ou commande d’arrêt sûr promise. Après effet possible, Fermer/Échap/Revenir au travail masquent la consultation seulement : avertissement Effets possibles et accès Voir le résultat persistent dans Parcours. La fermeture native ne garantit ni annulation ni rollback ; sans issue prouvée, résultat inconnu. |
+| Application échouée avant tout ajout / Diagnostic et initialisation | Seulement sur absence d’effet prouvée ; motif, inspection des constats et nouvelle préparation explicite si admissible. Sans cette preuve, utiliser partiel/inconnu. |
+| Résultat partiel ou inconnu / Diagnostic et Bande de récupération | Dernière phase, ajouts observés, éléments non vérifiés et motif restent séparés. Inspecter les effets ouvre une lecture locale bornée de ces chemins, avec écarts au plan, refus et inconnus. Pas de rejouer/reprendre/réparer/supprimer automatiquement ; nouvelle application bloquée tant que les effets incertains ne sont pas inspectés et qu’un nouveau périmètre sûr n’est pas établi. L’inspection seule ne restaure pas l’ancien accord. |
+| Ajouts vérifiés / Diagnostic et initialisation | Ce libellé exige le contrôle final de l’union avant/payload et des octets ; montrer couverture et résultat exact. Voir le diagnostic est une lecture volontaire distincte, Revenir au travail conserve le contexte. Ce constat n’atteste ni cadrage produit, ni exécution des compétences, ni acceptation humaine/G3 final. |
+| Conservation échouée / résultat et Bande de récupération | Résultat opérationnel et enregistrement sont deux axes : garder le reçu/plan/constats en session avec la limite durable nommée. Réessayer l’enregistrement retente leur seule sauvegarde ; aucun outil, ajout, accord ou contrôle d’application rejoué. |
+| Retour ou réouverture / Diagnostic et initialisation | Lire passivement les seuls reçus durables sous leur identité historique ; un accord reste inactif. Aucun helper/moteur/réseau/application ou contrôle cible automatique. Sans reçu durable suffisant, résultat inconnu ; Inspecter les effets volontaire, jamais succès reconstruit. |
 
 <a id="epic2-metrics"></a>
 
@@ -321,6 +385,7 @@ Les brouillons libres, réponses aux demandes et entrées de préparation resten
 | Destination touchée par l’échec de sauvegarde | Travail maintenu et retour |
 |---|---|
 | Accueil / projet / onglets | Projet, destination, sélection et positions courantes restent en session ; l’ancien état durable n’est pas annoncé mis à jour. Revenir au travail retrouve le brouillon exact. |
+| Diagnostic et initialisation | Plan, résultat et preuves restent attachés à l’opération capturée, conservés en session avec enregistrement non confirmé ; retour exact et réessai de sauvegarde seul, sans réapplication ni accord restauré. |
 | Sélecteur d’initiative | Choix local de session conservé et marqué non enregistré ; configuration BMad inchangée. Rouvrir le sélecteur montre ce choix, sans réattribuer les anciens échanges. |
 | Aides / Catalogue / Fiche compétence | Aides lues, recherche, filtres, fiche et entrées de préparation conservés en session ; aucune commande déclenchée pour réessayer la sauvegarde. |
 | Conversation / Recommandation | Dernier reçu et contenu reçu conservés en session, conservation locale non confirmée explicite ; brouillon indépendant, aucun rejeu. |
@@ -363,6 +428,16 @@ Fermer Madness termine les sauvegardes admises et les mutations du coffre, refus
 
 Les délais et réponses du [script du prototype](mockups/parcours-guide/app.js) restent simulés ; ils ne définissent pas les performances du connecteur.
 
+<a id="epic3-initialisation-focus"></a>
+
+Pour l’initialisation, ouvrir le diagnostic ou le Dialogue place le focus sur son titre neutre, jamais Initialiser BMad ; Tab/Maj+Tab suivent dossier → prérequis → effets/détails → limites → choix. La décision modale contient le focus ; ouvrir ses détails ne crée pas de seconde modale. Entrée dans du texte ou sur le titre n’accorde rien.
+
+Avant accord, Fermer/Échap ou Annuler la préparation annulent la préparation sans effet cible ni accord : le plan reste historique et exige Préparer de nouveau avant application. Le focus revient au déclencheur exact, sinon au titre neutre du diagnostic ; après effet possible, la fermeture rejoint la Bande de récupération sans interrompre l’opération. Préparer de nouveau focalise le titre de préparation ; Refuser focalise le résultat du refus ; retour au travail retrouve projet/onglet/échange, sélection, position et brouillon précédents.
+
+Un événement de préparation, de péremption, de résultat ou d’enregistrement est annoncé une fois sans voler le focus ; si une action volontaire supprime son élément focalisé, repli au titre neutre, jamais sur l’accord.
+
+Les noms et états de détails sont accessibles sans survol ; zoom 200 %, FR/EN, thèmes et mouvement réduit conservent inventaire intégral, limites et sorties. Ces règles sont contractuelles, sans essai clavier ou lecteur d’écran rendu dans ce lot.
+
 ## Accessibility Floor
 
 [ASSUMPTION A1] Viser WCAG 2.2 AA pour la surface web ; aucun audit de conformité n’est acquis. Contrastes et focus visuels : DESIGN.md.
@@ -392,6 +467,18 @@ Sam reste le protagoniste de conception des trois [parcours initiaux](.working/p
 
 **Échec et récupération :** accès refusé ou lecture interrompue → erreur sur le dossier demandé, ancien travail intact et Revenir au travail ; version inconnue/configuration invalide/frontière refusée → motif et capacités touchées, sans repli masquant l’erreur. Diagnostic périmé → lecture ciblée requise avant action. Échec de conservation → résultat de session nommé, pas de diagnostic durable inventé. Compte illisible reste une erreur distincte, sans remise à zéro.
 
+<!-- init32-sam:start -->
+#### Initialiser BMad — prolongement du parcours 1
+
+1. Dans le même diagnostic, Sam constate BMad absent et les prérequis du profil 3.1, puis choisit Préparer l’initialisation ; il peut annuler pendant la préparation privée sans ajout dans son projet.
+2. Il lit le dossier et le plan exact, déplie tous les ajouts et distingue les données préservées, le lock exclu et les limites après effet. Il ouvre la décision sans perdre sa conversation ni son brouillon.
+3. Il peut refuser/fermer sans accord. S’il ferme ou annule, le plan reste historique et exige Préparer de nouveau avant application. S’il choisit Initialiser BMad sur un plan prêt, seul ce plan est autorisé ; un contexte changé le rend périmé et exige Préparer de nouveau explicitement.
+4. Il distingue application, contrôle, résultat et conservation. Après erreur ou interruption, il inspecte les effets partiels/inconnus ; un réessai d’enregistrement ne réapplique rien.
+5. **Moment décisif :** Sam sait exactement ce qu’il a autorisé et ce qui est vérifié ou reste inconnu ; Revenir au travail restitue sa destination et sa rédaction sans relance.
+
+**Échec et récupération :** collision/format inconnu → diagnostic sans réparation ; préparation échouée → aucune application ; plan périmé → nouvelle préparation ; effets incertains → inspection avant toute nouvelle application ; sauvegarde échouée → résultat de session distinct et réessai de sauvegarde seul. Détails : [contrat d’initialisation](#epic3-initialisation), [sorties communes](#epic2-conservation), [focus](#epic3-initialisation-focus).
+
+<!-- init32-sam:end -->
 <a id="epic2-p2"></a>
 
 ### 2. Obtenir une prochaine action avec l’aide BMad du projet
@@ -480,7 +567,9 @@ Les consommateurs de l’epic 2 se vérifient notamment à 1440 × 920, 1280 px 
 
 La fiche agent utilise {components.agent.panelWidth}, puis {components.agent.wideWidth} dès {components.agent.wideBreakpoint}, en docké à partir de {components.agent.dockBreakpoint}. Sous ce seuil : Dialogue modal, largeur maximale {components.agent.modalWidth}, retrait {components.agent.modalInset} ; sous 720 px, retrait {components.agent.smallInset} et largeur utile. Titre et Signalements sont séparés du corps de rôle défilant. Ce seuil est distinct du futur Panneau de fichiers. Vérifier les deux côtés 1322/1323 px, 1600 px, 600 px et le zoom 200 % ; conserver la mesure CSS réellement observée si la mise à l’échelle Windows quantifie la taille demandée.
 
-Le français est livré ; les formulations françaises/anglaises de cet Update sont contractuelles, leur implémentation reste en 2.14. Changer de langue pendant une saisie conserve ses octets, destinataire, demande et position ; pas de requête fournisseur ni traduction du contenu projet. Préférence de langue refusée : choix de session maintenu, erreur accessible et aucune persistance annoncée. Sombre anthracite/terracotta/pétrole par défaut et clair ivoire/terracotta/pétrole utilisent les tokens atelier de DESIGN.md. La commande soleil/lune nomme « Passer au thème clair/sombre » / « Switch to light/dark theme » et préserve focus et travail ; les contrôles Windows suivent le thème.
+Le français et l’anglais sont livrés par 2.14 ; les nouveaux libellés d’initialisation 3.2 restent contractuels avant leur implémentation. Changer de langue pendant une saisie conserve ses octets, destinataire, demande et position ; pas de requête fournisseur ni traduction du contenu projet. Préférence de langue refusée : choix de session maintenu, erreur accessible et aucune persistance annoncée. Sombre anthracite/terracotta/pétrole par défaut et clair ivoire/terracotta/pétrole utilisent les tokens atelier de DESIGN.md. La commande soleil/lune nomme « Passer au thème clair/sombre » / « Switch to light/dark theme » et préserve focus et travail ; les contrôles Windows suivent le thème.
+
+Dans Diagnostic et initialisation, le plan long et la décision réemploient les surfaces bornées : titre, motif, fermeture et choix restent atteignables par défilement vertical, sans pied fixe couvrant l’inventaire. Chemins/empreintes se replient ou se sélectionnent intégralement ; aucun zoom, changement de langue/thème/largeur ou dépliage ne vaut accord. Après retour, les quatre onglets dont Graphe et son accès fichier gardent leur contexte indépendant de BMad/IA/Git. Le contrôle présent porte ces règles écrites, sans capture ni réussite visuelle intégrée.
 
 La préférence d’apparence reste distincte des données métier. Profil neuf : sombre. Choix explicite retrouvé sans agent ; fichier illisible ou d’une version future : sombre de secours et avertissement sans écraser le fichier. Sauvegarde refusée : choix maintenu pour la session et erreur accessible. Les [preuves historiques de thème](../qualification-theme/README.md) et d’installation ne valent ni contrôle de la nouvelle composition, ni acceptation visuelle humaine, ni audit d’accessibilité complet.
 

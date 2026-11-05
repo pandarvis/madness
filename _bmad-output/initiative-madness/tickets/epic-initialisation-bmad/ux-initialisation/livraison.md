@@ -1,0 +1,19 @@
+# Livraison documentaire — initialisation 3.2
+
+L’Update headless BMad UX étend les deux spines existants, sous le plan approuvé et le mandat autonome. Sally et le contexte Impeccable 4.3.1 Operate ont été activés par le parent ; le worker a résolu la configuration UX et lu les références Update/headless/spec/exemples. Cette livraison définit les contrats, sans interface implémentée, prototype supplémentaire ou accord humain acquis.
+
+| Source du profil 3.1 | Règle consommable | Contrat |
+|---|---|---|
+| Source locale scellée, 6.13.0-next de forme v7 ; 27 compétences et 3 records ; retrospective absente | Profil et couverture textuels ; aucun total assimilé à des commandes ou workflows qualifiés | [Parcours/plan](../../../ux-madness/EXPERIENCE.md#epic3-initialisation-plan) |
+| Préparation privée possédée, outillage confiné du banc | Préparer ne modifie pas la cible ; phase/annulation/erreur distinctes, aucune garantie de sandbox OS extrapolée | [États](../../../ux-madness/EXPERIENCE.md#epic3-initialisation-etats) |
+| Plan exact, identité physique cible/parent, paramètres, payload et préconditions capturés | Liste complète et données préservées avant accord ; accord propre au plan, péremption et nouveau choix explicite ; doublon refusé | [Plan](../../../ux-madness/EXPERIENCE.md#epic3-initialisation-plan) |
+| Ajouts exclusifs, union avant/payload et octets ; lock privé exclu | Tous les répertoires/fichiers consultables ; nombres de la fixture non généralisés ; aucun outil dans la cible, écrasement ou lock portable fabriqué | [Composition](../../../ux-madness/DESIGN.md#epic3-initialisation-plan) |
+| Collisions/liens/format non admis ; annulation avant effet ; application séquentielle | Refus motivé sans réparation ; après effet possible, fermeture locale sans promesse d’arrêt sûr/rollback ; inspection des partiels/inconnus | [États et sorties](../../../ux-madness/EXPERIENCE.md#epic3-initialisation-etats) |
+| Résultat observé distinct de sa conservation | Copie de session signalée, réessai de sauvegarde seul ; réouverture passive des reçus durables et accord inactif | [Conservation commune](../../../ux-madness/EXPERIENCE.md#epic2-conservation) |
+| Atelier existant et variantes de lecture | Composants adoptés, focus neutre et retour exact, contenu long, FR/EN, thèmes/zoom/mouvement réduit | [Focus](../../../ux-madness/EXPERIENCE.md#epic3-initialisation-focus), [libellés](../../../ux-madness/EXPERIENCE.md#epic3-initialisation-copy), [composition](../../../ux-madness/DESIGN.md#epic3-initialisation) |
+
+3.3 consomme le plan, l’accord, les refus et les résultats ; la protection native contre la concurrence, l’arrêt après effet, les paramètres autres que la fixture et la politique produit des partiels restent à concevoir/qualifier. Sa dépendance 2.16 est inchangée. 3.4 consomme les surfaces, transitions, libellés et sorties ; les contrôles rendus clavier/zoom/thèmes/FR/EN et la qualification intégrée restent à produire. Le gate humain 3.10 et G2–G5 ne sont pas acquis par ce document.
+
+Réconciliation limitée : quatre onglets dont Graphe dans les lignes de navigation, FR/EN déjà livrés en 2.14 ; les nouveaux libellés d’initialisation restent prospectifs. DESIGN racine, tokens historiques des spines, casting, palettes, sept corps de parcours antérieurs et supplément Graphe conservés. Aucune migration des anciennes valeurs de typographie ; les nouveaux ajouts référencent l’autorité visuelle racine.
+
+Le [profil 3.1](../qualification-initialisation/profil-g3.md) reste une qualification locale bornée sur témoins ; le prototype historique reste simulé. Le [contrôle ciblé](verification.json) porte liens/ancres, états et intégrité documentaire ; aucune suite produit, build/NSIS, capture, détecteur ou test natif/visuel exécuté. Les revues Quick/cohérence high et standards structure/prose appartiennent au parent ; aucun verdict anticipé.

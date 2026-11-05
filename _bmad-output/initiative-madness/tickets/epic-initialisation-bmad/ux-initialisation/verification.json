@@ -1,0 +1,49 @@
+{
+  "kind": "documentary-only",
+  "checks": {
+    "seven_existing_flows_unchanged": true,
+    "graph_supplements_unchanged": true,
+    "design_tokens_unchanged": true,
+    "root_design_unchanged": true,
+    "protected_product_tests_unchanged": true,
+    "memlog_prefix_preserved": true,
+    "memlog_official_append_one_entry_lf": true,
+    "five_new_anchors_paired_once": true,
+    "new_links_and_anchors_resolve": true,
+    "profile_source_resolves_both": true,
+    "ten_copy_rows_fr_en": true,
+    "utf8_lf_new_spines_and_note": true,
+    "scoped_diff_check": true,
+    "thirteen_state_rows_with_surfaces_and_exits": true,
+    "existing_components_paired": true
+  },
+  "existing_flows": {
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true
+  },
+  "new_links_checked": 23,
+  "new_state_rows": 13,
+  "new_fr_en_rows": 10,
+  "protected_files": 259,
+  "link_errors": [],
+  "diff_check": {
+    "exit_code": 0,
+    "output": "",
+    "stderr": "warning: in the working copy of '_bmad-output/initiative-madness/ux-madness/.memlog.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of '_bmad-output/initiative-madness/ux-madness/DESIGN.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of '_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md', LF will be replaced by CRLF the next time Git touches it\n"
+  },
+  "limits": [
+    "No UI, keyboard, zoom, screen-reader or visual verification executed",
+    "No product test, native run, build, NSIS, screenshot or detector",
+    "No G3/G2-G5/human acceptance inferred; parent reviews pending"
+  ],
+  "checker_corrections": [
+    "First documentary check referenced its own report before creating it; report now exists and link was reread.",
+    "State table contains 13 rows, including combined application/control and partial/unknown states; checker expected 14 in error. No contract changed."
+  ],
+  "paired_components": 30
+}

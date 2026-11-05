@@ -5,6 +5,7 @@ status: final
 created: 2026-10-22
 updated: 2026-11-05
 sources:
+  - ../tickets/epic-initialisation-bmad/qualification-initialisation/profil-g3.md
   - ../tickets/epic-projets-bmad/qualification-mesures-us/decisions-et-donnees.md
   - ../initiative-madness.md
   - .memlog.md
@@ -301,6 +302,20 @@ Pour l’actualisation 2.5, la ligne d’observation porte simultanément versio
 
 Pour les mesures par US de 2.12, le [DESIGN racine](../../../DESIGN.md) garde l’autorité : Oxanium 16 px pour la lecture, 14 px pour les métadonnées, Barlow pour les titres/commandes, palettes et contrôles de choix existants. Le choix facultatif du prochain tour tient dans une ligne de Préparation d’un échange ou auprès du Champ de réponse ; son motif reste visible avant l’envoi. La consultation se déplie dans le Registre des preuves de Parcours et dans le Récapitulatif de tour, sans dashboard, onglet, panneau permanent ni nouvelle carte. Ordre : US/occurrence et contexte → durée cumulée connue → couverture/inconnus → usage/coût et provenance. Les valeurs inconnues restent des mots ; aucune jauge, couleur de réussite ou timer ne les remplace. Noms, identifiants et libellés FR/EN longs reviennent à la ligne à 720 px et au zoom 200 %, sans pousser la saisie hors d’accès. Règles et exemple prospectif : [EXPERIENCE · Mesures par US](EXPERIENCE.md#epic2-metrics).
 
+<a id="epic3-initialisation"></a>
+
+Pour l’initialisation 3.2, le [DESIGN racine](../../../DESIGN.md) conserve l’autorité : Oxanium 16 px/450 pour lire, métadonnées 14 px, Barlow pour titres et commandes, décisions 44 px et utilitaires/fermetures 40 px. Palette, casting et tokens de ce spine restent inchangés. Le [profil local 3.1](../tickets/epic-initialisation-bmad/qualification-initialisation/profil-g3.md) borne les effets ; [EXPERIENCE · Initialisation](EXPERIENCE.md#epic3-initialisation) décrit leur comportement. Aucun nouveau portrait, onglet permanent ou langage graphique.
+
+<a id="epic3-initialisation-plan"></a>
+
+Diagnostic et initialisation garde sa colonne de lecture : titre/dossier → prérequis/profil → préparation privée → plan et inventaire → données préservées/limites → décision. Détails de contexte développe tous les chemins, contenus prévus et empreintes dans le flux. Les totaux ne remplacent pas cette liste ; aucun rognage ou ellipse ne masque la portée de l’accord. Le même plan se relit dans un seul Dialogue de décision, borné à {components.dialog.maxWidth} et à la fenêtre, avec Proposition d’approbation ; pas de confirmation empilée ni d’image derrière les effets.
+
+Le contenu adopte sa hauteur naturelle et défile verticalement ; le Dialogue est borné à la hauteur utile. Titre/fermeture, limites et pied d’actions restent atteignables dans ce défilement, sans pied fixe recouvrant le texte ni minimum de hauteur poussant une commande hors fenêtre. À 720 px, faible hauteur et zoom 200 %, groupes et actions s’empilent ; les chemins et les longs libellés FR/EN reviennent à la ligne ; les contenus techniques peuvent défiler dans leur seule région nommée. Changer de variante ne remplace ni le plan ni le travail courant. La liste exhaustive ne dépend pas d’un Panneau de fichiers supplémentaire.
+
+<a id="epic3-initialisation-focus"></a>
+
+Focus externe hérité, jamais rogné par les plaques ; ouverture au titre neutre, lecture dans l’ordre puis choix textuels. Fermeture de la décision rend le focus au déclencheur ou à un titre neutre ; après effet possible, la Bande de récupération conserve l’accès au résultat. Les mises à jour ne déplacent ni focus ni position de lecture. États, ordre, overflow et sorties restent les mêmes en clair/sombre et mouvement réduit ; seule la paire de couleurs du thème actif varie. Il s’agit de contraintes de composition, sans vérification du rendu dans cette story.
+
 Le catalogue utilise des lignes plates : nom et objectif, module et invocation, puis disponibilité textuelle. Recherche et filtres précèdent les résultats ; détail dans Fiche compétence. Ni grille de grandes cartes ni nouveau panneau permanent. Le Registre des preuves rassemble libellé, nature du constat, statut sourcé, fraîcheur et accès au fichier ; les détails complets sont dépliables. Le Panneau de fichiers occupe la colonne prévue, jamais la place du champ de réponse. Son agrandissement emploie un Dialogue de lecture borné à la fenêtre ; fermer retrouve la même sélection et position de travail.
 
 La commande unique « Ouvrir un projet » est un dossier SVG de `{components.titlebar.icon}` dans une cible de `{components.titlebar.target}`, au même niveau que thème et connexion. La bascule reste sur la ligne des contrôles Windows, centrée sur `{components.navigation.iconAxisX}` depuis le bord gauche comme les icônes du rail. Le titre conserve la zone de déplacement ; groupes de commandes, commandes et surfaces modales restent hors drag. Le rail compact réutilise désormais le logo M existant comme signature basse ; le raffinement 0.2.4 est installé (commit fd78875), sans nouvelle fonction.
@@ -340,7 +355,7 @@ Les mêmes noms désignent les règles de comportement dans EXPERIENCE.md. Les c
 | Navigation latérale | Plaque et cadre peints, tokens components.navigation ; sélection {colors.navigation-selected}, repère terracotta et graisse 600. Rail et tiroir conservent noms accessibles et cibles ; le décor ne remplace aucun libellé. |
 | Bouton | Principal accent, secondaire avec `{colors.control-line}`, discret sans fond ; `{rounded.md}`, `{components.button.padding}`. États survol, pression, focus, attente et indisponibilité explicites. Cible d’au moins 40 px, y compris question, approbation et récupération. |
 | Ligne de projet ou d’attente | Liste plate : projet, initiative de la demande, nature et état ; repère identifiable. Le compteur complète la raison textuelle. Lien de destination explicite ; aucune commande sensible sur toute la ligne. |
-| Onglets du projet | Parcours, Conversation puis catalogue futur ; dossiers à coins coupés, Barlow Condensed et fond {colors.atelier-plate}. Sélection {colors.accent}/{colors.accent-text}, sans rogner le focus. Noms longs repliables. |
+| Onglets du projet | Parcours, Conversation, Toutes les possibilités et Graphe ; quatre destinations du même projet, dossiers à coins coupés, Barlow Condensed et fond {colors.atelier-plate}. Sélection {colors.accent}/{colors.accent-text}, sans rogner le focus. Noms longs repliables. |
 | Sélecteur d’initiative | Commande compacte à libellé, nom et chevron ; liste dans un Dialogue. Sélection locale marquée « Sélection Madness », actif BMad nommé séparément. Conflit textuel avec les deux noms, pas deux badges de couleur indifférenciés. |
 | Reprise du projet | Région dans Parcours, après les attentes/récupérations et avant les aides et préparations ; quatre groupes textuels sobres, lignes extensibles et détails de preuve à la demande. Observation datée, source et révision restent repérables ; contradictoire, partiel, ancien et inconnu sont des libellés, sans coche de validation ni jauge. Héritage visuel du DESIGN racine ; aucune nouvelle illustration. |
 | Aides chargées | Région sobre dans Parcours : titre, modules couverts, documents réellement chargés, références seules et problèmes distincts ; source, révision et fraîcheur accessibles. Lien vers le texte lu, sans bulle d’assistant ni faux bouton de lancement. |
@@ -363,9 +378,26 @@ Les mêmes noms désignent les règles de comportement dans EXPERIENCE.md. Les c
 | Récapitulatif de tour | Bloc sobre : fin de tour, faits connus, décisions, chemins et action attendue ; valeurs inconnues explicites. Rattachement capturé et durée connue ou inconnue restent séparés du résultat du tour ; accès nommé aux détails de mesure. |
 | Connexion Codex | Signe officiel ChatGPT 21 px, grisé à froid, dans cible 40 px ; panneau non modal à droite, maximum 420 px borné à la fenêtre. Titre, état daté, portée, récupération et actions textuelles ; aide réseau sous l’erreur. |
 | Panneau de fichiers | Fond `{components.files.background}`, en-tête fichier/contexte, statut sourcé et fraîcheur avant contenu ; chemin intégral sélectionnable et actions Agrandir/Ouvrir dans l’éditeur/Copier le chemin. Agrandissement dans Dialogue ; mêmes métadonnées en lecture. Erreur conserve l’en-tête et les commandes encore permises. |
-| Diagnostic et initialisation | Colonne bornée à 680 px : état agrégé puis capacités indépendantes, couverture et refus sourcés. Partiel/inconnu/périmé visibles en texte. L’initialisation demeure future en epic 3 ; aucune commande de réparation ajoutée à ce diagnostic. |
+| Diagnostic et initialisation | Colonne bornée à 680 px et à la largeur utile : diagnostic, préparation privée puis plan exact dans le flux ; décision dans Dialogue avec Proposition d’approbation. Composition et états 3.2 ci-dessous, avant UI ; aucune réparation automatique. |
 | Dialogue | Maximum `{components.dialog.maxWidth}` borné à la fenêtre ; fond du thème, `{components.dialog.radius}`, `{components.dialog.shadow}`, contenu défilant et pied d’actions. |
 | Notification | Feedback bref selon components.notification, sans recouvrir une décision durable. Les Signalements de la fiche forment une zone visible persistante distincte, pas une notification temporaire. |
+
+<a id="epic3-initialisation-etats"></a>
+
+L’initialisation réemploie les composants nommés de la table : Diagnostic et initialisation accueille préparation/plan/résultat ; Proposition d’approbation porte la portée et les choix ; Détails de contexte donne l’inventaire intégral ; Dialogue contient la décision ; Indicateur d’état et Bande de récupération gardent phase, résultat et conservation séparés. La bande reste une région durable sous les quatre onglets, avec motif et accès au détail, sans multiplier les cartes.
+
+| État d’initialisation | Traitement avec les rôles existants |
+|---|---|
+| Préparation privée / vérification / application / contrôle | Texte de phase neutre ; activité et effets possibles nommés, sans minuterie, faux pourcentage, pulsation ni spinner décoratif. |
+| Plan prêt / refusé / annulé | Surface calme, titre et état textuels ; Initialiser BMad réemploie l’action principale seulement si admissible, jamais le focus initial. Refuser, Annuler et Fermer gardent un libellé complet. |
+| Indisponible / périmé | Motif proche de l’action désactivée, à opacité pleine et texte lisible ; paire neutre/attente du thème actif. Préparer de nouveau distinct de l’ancien accord. |
+| Échec / partiel / inconnu | Paire erreur ou attente existante accompagnée du résultat exact, de la couverture et de l’accès Inspecter les effets ; aucune coche de succès. |
+| Ajouts vérifiés / conservation non confirmée | Succès borné au contrôle prouvé, sauvegarde sur une ligne séparée ; si elle échoue, Bande de récupération et Réessayer l’enregistrement restent visibles sans recolorer le résultat en réussite durable. |
+| Réouverture historique | État neutre et date/contexte capturés, accord inactif ; pas de traitement suggérant une application en cours attestée ou une validation humaine. |
+
+<a id="epic3-initialisation-copy"></a>
+
+Les [libellés FR/EN](EXPERIENCE.md#epic3-initialisation-copy) gardent même hiérarchie et place dans les deux thèmes. Les inconnus restent des mots et les chemins des textes sélectionnables ; le portrait de Sally ne représente pas une autorisation d’initialiser. Résultat et limites sont définis dans [EXPERIENCE · États](EXPERIENCE.md#epic3-initialisation-etats), sans preuve UI, clavier, WCAG ou G3 final ajoutée ici.
 
 Complément actif du 3 novembre 2026, candidat logiciel 0.2.5 : trois plaques décoratives aria-hidden et sans pointeur habillent Réduire, Agrandir/Restaurer et Fermer sous les glyphes et zones d’action Windows natifs. La position suit les variables env de Window Controls Overlay et ses changements de géométrie, sans largeur de commande fixée à 46 px ; hors overlay visible, le composant ne rend rien. Le fond natif de caption est transparent hors contraste élevé ; le contraste élevé garde son fond natif et le calque se retire en forced-colors. Aucun bouton HTML de substitution, nouveau pouvoir IPC ni changement de routine de fermeture.
 

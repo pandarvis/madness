@@ -213,8 +213,9 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [forgePreparation,setForgePreparation]=useState(false)
   const [preparationFocus,setPreparationFocus]=useState<{token:number;projectId:string}|null>(null)
   const [contextOpen,setContextOpen]=useState(false)
-  const [initializationArrival,setInitializationArrival]=useState<(InitializationArrival&{trigger:HTMLElement})|null>(null)
-  const initializationOpen=page==='project'&&!!initializationArrival&&initializationArrival.projectId===project?.id
+  const [initializationArrival,setInitializationArrival]=useState<(InitializationArrival&{trigger:HTMLElement;tab:typeof tab})|null>(null)
+  const initializationOpen=page==='project'&&!!initializationArrival&&
+    initializationArrival.projectId===project?.id&&initializationArrival.tab===tab
   const [initializationState,acceptInitialization]=useInitialization(page==='project'?project?.id:undefined)
   const [agentConsultation,setAgentConsultation]=useState<AgentConsultation|null>(null)
   const agentFocusReturn=useRef<HTMLElement|null>(null)
@@ -284,7 +285,11 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   },[page,tab,project?.id,conversation?.id,dialogue.messages,state,agentConsultation])
   useEffect(()=>{setForgePreparation(false)},[project?.id])
   useEffect(()=>{setContextOpen(false)},[project?.id,page])
-  useEffect(()=>{if(!contextOpen)setInitializationArrival(null);else if(!initializationOpen)contextHeading.current?.focus()},[contextOpen,initializationOpen])
+  useEffect(()=>{
+    if(!contextOpen)setInitializationArrival(null)
+    else if(initializationArrival&&!initializationOpen){setContextOpen(false);setInitializationArrival(null)}
+    else if(!initializationArrival)contextHeading.current?.focus()
+  },[contextOpen,initializationArrival,initializationOpen])
   useLayoutEffect(()=>{
     if(!preparationFocus||preparationFocus.token!==navigationToken.current)return
     if(page!=='project'||project?.id!==preparationFocus.projectId||tab!=='parcours')return
@@ -544,7 +549,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   function openInitialization(trigger:HTMLElement,attemptId:string|null):void {
     if(page!=='project'||!project||currentProjectId.current!==project.id)return
     closeAgentInfo(false);setConnectionOpen(false)
-    setInitializationArrival({projectId:project.id,attemptId,trigger});setContextOpen(true)
+    setInitializationArrival({projectId:project.id,attemptId,trigger,tab});setContextOpen(true)
   }
   function closeContext():void {
     const trigger=initializationOpen?initializationArrival?.trigger:null
@@ -708,7 +713,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       </div>
     </div>
     </div>
-        {contextOpen && page === 'project' && project && <section id="project-context-panel" className={initializationOpen?"context-panel initialization-context":"context-panel"} role="dialog" aria-modal="false" aria-labelledby="project-context-title"><div className="connection-heading"><h2 id="project-context-title" ref={contextHeading} tabIndex={-1}>{ui.project_context}</h2><button type="button" aria-label={ui.close_project_context} onClick={closeContext}><Icon name="close"/></button></div><p>{ui.source_folder_chosen_through_windows}</p><dl><dt>{ui.canonical_folder}</dt><dd><code>{project.rootPath}</code></dd><dt>{ui.selected_conversation}</dt><dd><code>{conversation?.id??ui.none_2}</code></dd><InitiativeContext project={initiativeContext}/><dt>{ui.initiative_captured_by_the_conversation}</dt><dd>{conversation?conversation.context.initiativeId??ui.not_identified_2:ui.no_selected_conversation}</dd><dt>{ui.persistence}</dt><dd>{ui.exchanges_observations_and_draft_in_madness_local_data}</dd><dt>{ui.activity}</dt><dd>{dialogueHere ? displayedDialogueStatus : ui.no_active_agent_in_this_project}</dd><dt>{ui.provider}</dt><dd>{ui.codex_madness_owned_connection}</dd><dt>{ui.project_files}</dt><dd>{workflow?ui.writes_limited_to_the_captured_new_forge_session:ui.mary_read_only_by_default_file_mode_with_approval_must_be_enabled}</dd></dl>
+        {contextOpen && (!initializationArrival||initializationOpen) && page === 'project' && project && <section id="project-context-panel" className={initializationOpen?"context-panel initialization-context":"context-panel"} role="dialog" aria-modal="false" aria-labelledby="project-context-title"><div className="connection-heading"><h2 id="project-context-title" ref={contextHeading} tabIndex={-1}>{ui.project_context}</h2><button type="button" aria-label={ui.close_project_context} onClick={closeContext}><Icon name="close"/></button></div><p>{ui.source_folder_chosen_through_windows}</p><dl><dt>{ui.canonical_folder}</dt><dd><code>{project.rootPath}</code></dd><dt>{ui.selected_conversation}</dt><dd><code>{conversation?.id??ui.none_2}</code></dd><InitiativeContext project={initiativeContext}/><dt>{ui.initiative_captured_by_the_conversation}</dt><dd>{conversation?conversation.context.initiativeId??ui.not_identified_2:ui.no_selected_conversation}</dd><dt>{ui.persistence}</dt><dd>{ui.exchanges_observations_and_draft_in_madness_local_data}</dd><dt>{ui.activity}</dt><dd>{dialogueHere ? displayedDialogueStatus : ui.no_active_agent_in_this_project}</dd><dt>{ui.provider}</dt><dd>{ui.codex_madness_owned_connection}</dd><dt>{ui.project_files}</dt><dd>{workflow?ui.writes_limited_to_the_captured_new_forge_session:ui.mary_read_only_by_default_file_mode_with_approval_must_be_enabled}</dd></dl>
          {initializationOpen&&initializationArrival?<InitializationPanel key={project.id} projectId={project.id} rootPath={project.rootPath} arrival={initializationArrival}
            state={initializationState} accept={acceptInitialization} onClose={closeContext}/>
            :<InitializationEntryPoint state={null} onOpen={openInitialization}/>}

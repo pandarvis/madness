@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import {createHash, randomUUID} from 'node:crypto'
-import {mkdtemp, mkdir, readFile, readdir, realpath, rm, writeFile} from 'node:fs/promises'
+import {mkdtemp, mkdir, readFile, readdir, realpath, rename, rm, writeFile} from 'node:fs/promises'
 import {dirname, join, resolve} from 'node:path'
 import {tmpdir} from 'node:os'
 import {BmadInitializationHost, assertInitializationOutsideStorage} from '../src/adapters/bmad/initialization.ts'
@@ -19,16 +19,19 @@ async function fixture(t, options = {}) {
  await mkdir(rootPath,{recursive:true})
  await writeFile(join(rootPath,'sentinel.txt'),'preserved')
  const store = new BmadInitializationStore(join(temp,'sidecar'))
- const host = new BmadInitializationHost(options.resource ?? resource)
+ const archive=options.ownedArchive?join(temp,'profile.gz'):resource
+ const host = new BmadInitializationHost(archive)
  const observe = async () => ({scope:'configuration',initiativeId:null,
   observation:await host.observeAbsence('project',rootPath,new AbortController().signal)})
  const make = (storage = store) => new BmadInitialization({context:{
   capture:observe, assertFresh:async captured=>{
    const current=await observe()
+   if(current.observation.rootIdentity!==captured.observation.rootIdentity)throw Error('TARGET_CHANGED')
+   if(current.observation.problems.includes('RESERVED_COLLISION'))throw Error('RESERVED_COLLISION')
    if(current.observation.revision!==captured.observation.revision)throw Error('stale')
   }, subscribeInvalidation:() => () => {}
  },host,store:storage,admission:new ActivityAdmission(),lifecycle:new LifecycleCoordinator(),newId:randomUUID})
- return {rootPath,store,host,make,service:make(options.store)}
+ return {rootPath,archive,store,host,make,service:make(options.store)}
 }
 const approve = op => ({contractVersion:1,type:'approve',confirmation:'initialize-exact-plan',projectId:op.projectId,
  attemptId:op.attemptId,generation:op.generation,planId:op.plan.id,planRevision:op.plan.revision})
@@ -93,8 +96,10 @@ test('P4 restore checking passively and retain target lock', async t => {
 
 test('Initialization IPC rejects raw paths, foreign decisions and foreign state',()=>{
  const envelope={contractVersion:1,correlationId:'request-1',projectId:'project'}
- assert.equal(validateInitializationRequest({...envelope,type:'prepare'}).ok,true)
- assert.equal(validateInitializationRequest({...envelope,type:'prepare',rootPath:'C:/elsewhere'}).ok,false)
+ assert.equal(validateInitializationRequest({...envelope,type:'prepare',requestId:'request-1'}).ok,true)
+ assert.equal(validateInitializationRequest({...envelope,type:'prepare',requestId:'foreign'}).ok,false)
+ assert.equal(validateInitializationRequest({...envelope,type:'prepare',requestId:'request-1',rootPath:'C:/elsewhere'}).ok,false)
+ assert.equal(validateInitializationRequest({...envelope,type:'cancel-prepare-request',requestId:'earlier-request'}).ok,true)
  assert.equal(validateInitializationRequest({...envelope,type:'decision',command:{contractVersion:1,type:'approve',
   projectId:'other',attemptId:'attempt',generation:1,planId:'plan',planRevision:'a'.repeat(64),confirmation:'initialize-exact-plan'}}).ok,false)
  assert.equal(isInitializationView({...envelope,sequence:0,operations:[],availability:'available'}),false)
@@ -152,4 +157,58 @@ test('Q2 storage overlap refuses equality, ancestor and child but admits a prefi
   await assert.rejects(assertInitializationOutsideStorage(project,data),/INITIALIZATION_STORAGE_OVERLAP/)
  }
  await assertInitializationOutsideStorage(sibling,data)
+})
+
+test('R1 replacing a preserved file with identical bytes invalidates the inventory',async t=>{
+ const {rootPath,service}=await fixture(t)
+ const plan=await ready(service)
+ const path=join(rootPath,'sentinel.txt'), previous=join(rootPath,'previous.txt')
+ await rename(path,previous)
+ await writeFile(path,await readFile(previous))
+ await rm(previous)
+ const result=await service.execute(approve(plan))
+ assert.equal(result.value.result.outcome,'stale')
+ assert.equal(result.value.result.reason,'TARGET_TREE_CHANGED')
+ assert.equal(result.value.decision,'inactive')
+ assert.deepEqual(await readdir(rootPath),['sentinel.txt'])
+ assert.equal(await readFile(path,'utf8'),'preserved')
+})
+test('R2 a reserved collision is diagnosed before preparation and before application',async t=>{
+ const {rootPath,service}=await fixture(t)
+ const plan=await ready(service)
+ await mkdir(join(rootPath,'_BMAD'))
+ const result=await service.execute(approve(plan))
+ assert.equal(result.value.result.outcome,'stale')
+ assert.equal(result.value.result.reason,'RESERVED_COLLISION')
+ assert.equal((await service.prepare('project')).ok,false)
+ assert.equal(service.read().operations.at(-1).result.reason,'RESERVED_COLLISION')
+ assert.deepEqual((await readdir(rootPath)).sort(),['_BMAD','sentinel.txt'])
+})
+test('R2 an absent profile and a refused profile have distinct reasons',async t=>{
+ const {archive,service,rootPath}=await fixture(t,{ownedArchive:true})
+ assert.equal((await service.prepare('project')).ok,false)
+ assert.equal(service.read().operations.at(-1).result.reason,'RESOURCE_MISSING')
+ await writeFile(archive,'invalid gzip')
+ assert.equal((await service.prepare('project')).ok,false)
+ assert.equal(service.read().operations.at(-1).result.reason,'RESOURCE_SEAL')
+ await writeFile(archive,await readFile(resource))
+ const plan=await ready(service)
+ await rm(archive)
+ const result=await service.execute(approve(plan))
+ assert.equal(result.value.result.outcome,'stale')
+ assert.equal(result.value.result.reason,'RESOURCE_MISSING')
+ assert.deepEqual(await readdir(rootPath),['sentinel.txt'])
+})
+test('R1 replacing the pinned archive with identical bytes invalidates the old approval',async t=>{
+ const {archive,service,rootPath}=await fixture(t,{ownedArchive:true})
+ const bytes=await readFile(resource), previous=join(dirname(archive),'previous.gz')
+ await writeFile(archive,bytes)
+ const plan=await ready(service)
+ await rename(archive,previous)
+ await writeFile(archive,bytes)
+ await rm(previous)
+ const result=await service.execute(approve(plan))
+ assert.equal(result.value.result.outcome,'stale')
+ assert.equal(result.value.result.reason,'RESOURCE_CHANGED')
+ assert.deepEqual(await readdir(rootPath),['sentinel.txt'])
 })

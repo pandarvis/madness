@@ -1,7 +1,7 @@
 import {createHash} from 'node:crypto'
 import {
  INITIALIZATION_ATTEMPT_LIMIT,validateInitializationPlan,validateInitializationFact,validateInitializationOperation,
- validateInitializationCommand,validateInitializationContent,sameInitializationData,sameEntries
+ validateInitializationCommand,validateInitializationContent,sameInitializationData,sameEntries,initializationNeedsInspection
 } from '../contracts/bmad-initialization.ts'
 import type {
  InitializationAttempt,InitializationOperation,InitializationState,InitializationValidation,
@@ -24,6 +24,13 @@ type Entry={
  busy:boolean;target:string|null;writes:Promise<void>
 }
 const rejected=<T>(code:InitializationIssueCode,path='$'):InitializationValidation<T>=>({ok:false,issues:[{code,path,messageKey:'initialization.error.'+code.toLowerCase()}]})
+const localRefusals=new Set([
+ 'PROJECT_NAME_REFUSED','RESERVED_COLLISION','UNSAFE_DIRECTORY','UNSAFE_ENTRY','UNSAFE_FILE','UNSAFE_PATH',
+ 'TREE_LIMIT','TREE_LIMIT_OR_COLLISION','RESOURCE_MISSING','RESOURCE_SEAL','RESOURCE_CHANGED',
+ 'TARGET_CHANGED','TARGET_TREE_CHANGED','PHYSICAL_TARGET_CHANGED','PARENT_CHANGED','DIRECTORY_CHANGED','SOURCE_CHANGED'
+])
+const refusalReason=(error:unknown,fallback:string):string=>
+ error instanceof Error&&localRefusals.has(error.message)?error.message:fallback
 const copied=<T>(value:T):T=>structuredClone(value)
 const freeze=<T>(value:T):T=>{
  if(value&&typeof value==='object'){for(const child of Object.values(value))freeze(child);Object.freeze(value)}
@@ -58,7 +65,15 @@ export class BmadInitialization{
   this.#deps=deps
   this.#unsubscribe=deps.context.subscribeInvalidation(id=>this.invalidate(id))
  }
- read(projectId?:string):InitializationState{return {contractVersion:1,sequence:this.#sequence,operations:[...this.#entries.values()].filter(e=>projectId===undefined||e.operation.projectId===projectId).map(e=>copied(e.operation))}}
+ read(projectId?:string):InitializationState{
+  const operations=[...this.#entries.values()].filter(e=>projectId===undefined||e.operation.projectId===projectId).map(e=>{
+   const op=copied(e.operation)
+   // The durable ready record can be in flight while the request remains cancellable.
+   if(op.phase==='ready'&&this.#preparing.has(op.projectId))op.phase='preparing'
+   return op
+  })
+  return {contractVersion:1,sequence:this.#sequence,operations}
+ }
  hasUnconfirmedStop():boolean{return [...this.#entries.values()].some(e=>e.operation.stop==='unknown')}
  subscribe(listener:(state:InitializationState)=>void):()=>void{this.#listeners.add(listener);return()=>this.#listeners.delete(listener)}
  #emit():void{this.#sequence++;for(const listener of this.#listeners)try{listener(this.read())}catch{}}
@@ -117,29 +132,41 @@ export class BmadInitialization{
   if(fact.order<=e.operation.lastFactOrder)return rejected('EVENT_ORDER')
   return valid
  }
- async prepare(projectId:string):Promise<InitializationValidation<InitializationOperation>>{
-  if(this.#closing||this.#entries.size>=INITIALIZATION_ATTEMPT_LIMIT)return rejected('UNAVAILABLE')
+ async prepare(projectId:string,requestId?:string,requestSignal?:AbortSignal):Promise<InitializationValidation<InitializationOperation>>{
+  if(this.#closing)return rejected('UNAVAILABLE')
+  if(requestSignal?.aborted)return rejected('STALE')
   if(!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(projectId))return rejected('INVALID_SHAPE')
-  if(this.#preparing.has(projectId))return rejected('BUSY')
-  const previous=[...this.#entries.values()].find(e=>e.operation.projectId===projectId&&e.operation.phase!=='historical'&&e.operation.phase!=='terminal')
-  if(previous){
-   if(previous.effectRequested||previous.busy)return rejected('BUSY')
-   this.#beforeEffect(previous,'cancelled','Superseded by an explicit new preparation.')
-  }
+  if(this.#preparing.has(projectId)||[...this.#entries.values()].some(e=>
+   e.operation.projectId===projectId&&e.operation.phase!=='historical'&&e.operation.phase!=='terminal'))return rejected('BUSY')
+  if([...this.#entries.values()].some(e=>e.operation.projectId===projectId&&initializationNeedsInspection(e.operation)))return rejected('INVALID_TRANSITION')
+  if(this.#entries.size>=INITIALIZATION_ATTEMPT_LIMIT)return rejected('UNAVAILABLE')
   let release:(()=>void)|undefined
-  const attempt:InitializationAttempt={projectId,attemptId:this.#deps.newId(),generation:(this.#generations.get(projectId)??0)+1}
+  const attempt:InitializationAttempt={projectId,attemptId:requestId??this.#deps.newId(),generation:(this.#generations.get(projectId)??0)+1}
   if(!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(attempt.attemptId)||this.#entries.has(attempt.attemptId)){return rejected('INVALID_SHAPE')}
   this.#generations.set(projectId,attempt.generation)
   const e:Entry={operation:{schemaVersion:1,...attempt,revision:1,plan:null,phase:'preparing',decision:'none',lastFactOrder:0,stop:'not-observed',result:{outcome:'none',receipt:null,reason:null},inspection:null,preservation:{status:'unrecorded',durableRevision:null}},controller:new AbortController(),captured:null,original:null,producer:null,authority:null,effectRequested:false,busy:false,target:null,writes:Promise.resolve()}
+  const cancelFromRequest=():void=>{
+   void this.cancelPreparation(projectId,attempt.attemptId,attempt.generation).catch(()=>{})
+  }
   this.#preparing.add(projectId);this.#entries.set(attempt.attemptId,e);this.#emit()
   try{
    this.#deps.lifecycle.register({id:attempt.attemptId,context:{projectId,initiativeId:null,conversationId:null,providerId:null,connectionId:null},stop:async()=>this.#stop(e)})
+   requestSignal?.addEventListener('abort',cancelFromRequest,{once:true})
+   if(requestSignal?.aborted)cancelFromRequest()
+   this.#assert(e)
    const captured=await this.#deps.context.capture(projectId,false,e.controller.signal);this.#assert(e)
+   const observation=captured.observation
+   if(captured.scope!=='configuration'||observation.projectId!==projectId)throw Error('CONTEXT_MISMATCH')
+   if(this.#targets.has(observation.rootIdentity)){
+    this.#entries.delete(attempt.attemptId)
+    e.controller.abort()
+    this.#deps.lifecycle.complete(attempt.attemptId)
+    this.#emit()
+    return rejected('BUSY')
+   }
    e.captured=freeze(copied(captured))
-   const observation=e.captured.observation
-   if(captured.scope!=='configuration'||observation.projectId!==projectId||observation.status!=='absent')throw Error('CONTEXT_MISMATCH')
-   const held=this.#targets.get(observation.rootIdentity)
-   if(held&&held!==e)throw Error('BUSY')
+   if(observation.problems.includes('RESERVED_COLLISION'))throw Error('RESERVED_COLLISION')
+   if(observation.status!=='absent')throw Error('CONTEXT_MISMATCH')
    e.target=observation.rootIdentity;this.#targets.set(e.target,e)
    release=this.#deps.admission.enter('helper')
    const original=await this.#deps.host.prepare(freeze({...attempt,context:e.captured}),e.controller.signal);this.#assert(e)
@@ -155,16 +182,19 @@ export class BmadInitialization{
    await this.#deps.context.assertFresh(e.captured,e.controller.signal);this.#assert(e)
    if(!this.#boundPlan(e))throw Error('STALE')
    e.operation.phase='ready';e.operation.stop='confirmed';this.#touch(e)
-   await this.#save(e);return this.#value(e)
+   await this.#save(e);this.#assert(e);return this.#value(e)
   }catch(error){
    if(e.operation.phase!=='historical'){
-    const code=(error as Error).message
-    const reason=['PROJECT_NAME_REFUSED','RESERVED_COLLISION','UNSAFE_DIRECTORY','UNSAFE_ENTRY','UNSAFE_FILE','TREE_LIMIT','TREE_LIMIT_OR_COLLISION','RESOURCE_SEAL'].includes(code)?code:'Preparation refused before any target application.'
-    this.#beforeEffect(e,'preparation-failed',reason)
+    this.#beforeEffect(e,'preparation-failed',refusalReason(error,'Preparation refused before any target application.'))
     await this.#save(e)
    }
-   return rejected((error as Error).message==='BUSY'?'BUSY':'UNTRUSTED')
-  }finally{this.#preparing.delete(projectId);release?.()}
+   return rejected(error instanceof Error&&error.message==='BUSY'?'BUSY':'UNTRUSTED')
+  }finally{
+   requestSignal?.removeEventListener('abort',cancelFromRequest)
+   this.#preparing.delete(projectId)
+   release?.()
+   if(e.operation.phase==='ready')this.#emit()
+  }
  }
  async execute(input:unknown):Promise<InitializationValidation<InitializationOperation>>{
   const valid=validateInitializationCommand(input);if(!valid.ok)return valid
@@ -179,7 +209,7 @@ export class BmadInitialization{
    this.#beforeEffect(e,command.type==='refuse'?'refused':'cancelled','Decision inactive; explicit new preparation required.')
    await this.#save(e);return this.#value(e)
   }
-  if(op.phase!=='ready'||op.decision!=='none'||e.busy||!e.authority||!e.captured)return rejected('INVALID_TRANSITION')
+  if(op.phase!=='ready'||this.#preparing.has(op.projectId)||op.decision!=='none'||e.busy||!e.authority||!e.captured)return rejected('INVALID_TRANSITION')
   e.busy=true;op.decision='consumed';op.phase='checking';op.stop='not-observed';this.#touch(e)
   let release:(()=>void)|undefined
   try{
@@ -214,7 +244,7 @@ export class BmadInitialization{
    }else if(e.operation.phase!=='historical'){
     const reason=error instanceof Error&&error.message==='INTENT_NOT_SAVED'
      ?'Application refused because the consumed approval was not durably recorded.'
-     :'Preconditions changed or could not be proved before application.'
+     :refusalReason(error,'Preconditions changed or could not be proved before application.')
     this.#beforeEffect(e,'stale',reason)
    }
   }finally{e.busy=false;release?.()}
@@ -252,6 +282,10 @@ export class BmadInitialization{
    return result
   }catch{return rejected('UNAVAILABLE')}
  }
+ cancelPreparationRequest(projectId:string,requestId:string):Promise<InitializationValidation<InitializationOperation>>{
+  const operation=this.#entries.get(requestId)?.operation
+  return operation?this.cancelPreparation(projectId,requestId,operation.generation):Promise.resolve(rejected('CONTEXT_MISMATCH'))
+ }
  async cancelPreparation(projectId:string,attemptId:string,generation:number):Promise<InitializationValidation<InitializationOperation>>{
   const e=this.#entries.get(attemptId)
   if(!e||e.operation.projectId!==projectId||e.operation.generation!==generation)return rejected('CONTEXT_MISMATCH')
@@ -282,7 +316,7 @@ export class BmadInitialization{
   const op=restored.value
   if(this.#closing||this.#entries.size>=INITIALIZATION_ATTEMPT_LIMIT||this.#entries.has(op.attemptId))return rejected('INVALID_TRANSITION')
   // No application/context/helper/inspection/storage port is touched by restoration.
-  const target=op.plan&&(['partial','unknown'].includes(op.result.outcome)||op.stop==='unknown')?op.plan.identity.rootIdentity:null
+  const target=op.plan&&initializationNeedsInspection(op)?op.plan.identity.rootIdentity:null
   const e:Entry={operation:op,controller:new AbortController(),captured:null,original:null,producer:null,authority:null,effectRequested:false,busy:false,target,writes:Promise.resolve()}
   this.#entries.set(op.attemptId,e)
   if(target&&!this.#targets.has(target))this.#targets.set(target,e)

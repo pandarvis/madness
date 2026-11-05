@@ -1,8 +1,9 @@
 import {useEffect,useLayoutEffect,useRef,useState} from 'react'
 import type {ReactNode} from 'react'
 import type {BmadConfigurationObservation} from '../../contracts/bmad-context.ts'
+import {initializationNeedsInspection} from '../../contracts/bmad-initialization.ts'
 import type {
- InitializationCommand, InitializationContent, InitializationEntry, InitializationIssueCode,
+ InitializationAttempt, InitializationCommand, InitializationContent, InitializationEntry, InitializationIssueCode,
  InitializationOperation, InitializationPlan, InitializationRequest, InitializationView
 } from '../../contracts/bmad-initialization.ts'
 import {useLocale} from './Locale.tsx'
@@ -77,7 +78,7 @@ const copy = {
   }
  }
 } as const
-const attempt = (op:InitializationOperation) => ({projectId:op.projectId,attemptId:op.attemptId,generation:op.generation})
+const attempt = (op:InitializationAttempt) => ({projectId:op.projectId,attemptId:op.attemptId,generation:op.generation})
 const decision = (op:InitializationOperation,type:InitializationCommand['type']):InitializationRequest => ({
  type:'decision',projectId:op.projectId,
  command:{contractVersion:1,...attempt(op),planId:op.plan!.id,planRevision:op.plan!.revision,
@@ -137,7 +138,10 @@ function failureReason(reason:string,language:keyof typeof copy):string {
  if (reason==='PROJECT_NAME_REFUSED') return fr?'Nom de dossier hors du profil admissible.':'Folder name outside the supported profile.'
  if (reason.startsWith('TREE_LIMIT')) return fr?'Arbre hors limites ou noms en collision.':'Tree limit or name collision.'
  if (reason.startsWith('UNSAFE_')) return fr?'Type ou chemin non admis dans l’inventaire.':'An inventory entry has an unsupported path or type.'
- if (reason==='RESOURCE_SEAL') return fr?'Sceau du profil local invalide.':'Local profile seal invalid.'
+ if (reason==='RESOURCE_MISSING') return fr?'Profil local introuvable. Vérifiez les ressources de Madness avant de préparer de nouveau.':'Local profile missing. Check the Madness resources before preparing again.'
+ if (reason==='RESOURCE_SEAL') return fr?'Intégrité du profil local non vérifiée. Vérifiez les ressources de Madness avant de préparer de nouveau.':'Local profile integrity could not be verified. Check the Madness resources before preparing again.'
+ if (reason==='RESOURCE_CHANGED') return fr?'Le profil local a changé. Préparez un nouveau plan.':'The local profile changed. Prepare a new plan.'
+ if (['TARGET_CHANGED','TARGET_TREE_CHANGED','PHYSICAL_TARGET_CHANGED','PARENT_CHANGED','DIRECTORY_CHANGED','SOURCE_CHANGED','STALE'].includes(reason)) return fr?'Le dossier ou ses entrées ont changé. Vérifiez le diagnostic avant de préparer de nouveau.':'The folder or its entries changed. Check the diagnostics before preparing again.'
  if (reason==='application-not-verified') return fr?'L’union finale et le profil n’ont pas été vérifiés ensemble.':'Final union and profile were not both verified.'
  if (reason.includes('durably recorded')) return fr?'L’accord n’a pas pu être enregistré avant application.':'Approval could not be saved before applying.'
  return fr?'Le dossier, les préconditions ou le reçu n’ont pas pu être établis.':'The folder, preconditions or receipt could not be established.'
@@ -196,39 +200,50 @@ type PanelProps = {
  accept(value:InitializationView):void;onClose():void
 }
 export function InitializationPanel({projectId,rootPath,state,arrival,accept,onClose}:PanelProps):ReactNode {
- const {language}=useLocale(), words=copy[language], operation=latest(state)
+ const {language}=useLocale(), words=copy[language]
+ const [selectedId,setSelectedId]=useState(arrival.attemptId)
+ const selected=state?.operations.find(op=>op.attemptId===selectedId)
+ const recent=latest(state)
+ const operation=selected??(recent&&(recent.phase==='historical'||recent.phase==='terminal')?recent:undefined)
+ const consulted=useRef(selected)
  const current=useRef(operation), decisionRef=useRef<HTMLDialogElement>(null), title=useRef<HTMLHeadingElement>(null)
  const decisionTitle=useRef<HTMLHeadingElement>(null), trigger=useRef<HTMLElement|null>(null), resultTitle=useRef<HTMLHeadingElement>(null)
  const [modal,setModal]=useState<InitializationOperation|null>(null)
  const [issue,setIssue]=useState<InitializationIssueCode|null>(null), [observing,setObserving]=useState(false)
  const [requested,setRequested]=useState(false)
+ const pendingRequest=useRef<string|null>(null), cancelledRequest=useRef<string|null>(null)
+ const focusedArrival=useRef<InitializationArrival|null>(null)
  const locked=useRef(false), alive=useRef(true)
  const focusAfterDecision=useRef<'diagnostic'|'result'>('diagnostic')
  const observationRequest=useRef(0)
  const [observation,setObservation]=useState<BmadConfigurationObservation|null>(null)
- const effectsPossible=!!state?.operations.some(op=>op.phase==='applying'||op.phase==='verifying'||
-  ['verified','unknown','partial'].includes(op.result.outcome))
- const approvalAttempt=operation&&(operation.decision==='consumed'||operation.result.outcome==='failed-no-effect')
-  ?operation.attemptId:null
+ const running=!!state?.operations.some(op=>['preparing','checking','applying','verifying'].includes(op.phase))
+ const active=running||!!state?.operations.some(op=>op.phase==='ready')
+ const needsInspection=!!state?.operations.some(initializationNeedsInspection)
+ const observationInvalidated=operation&&(operation.decision==='consumed'||
+  ['failed-no-effect','stale','preparation-failed'].includes(operation.result.outcome))?operation.attemptId:null
  function invalidateObservation():void {
   observationRequest.current++
   setObservation(null)
  }
- useLayoutEffect(()=>{if(approvalAttempt)invalidateObservation()},[approvalAttempt])
- useLayoutEffect(()=>{current.current=operation},[operation])
+ useLayoutEffect(()=>{if(observationInvalidated)invalidateObservation()},[observationInvalidated])
+ useLayoutEffect(()=>{current.current=operation;consulted.current=selected},[operation,selected])
  useLayoutEffect(()=>{
-  if(arrival.projectId!==projectId)return
+  if(arrival.projectId!==projectId||focusedArrival.current===arrival)return
+  if(arrival.attemptId!==selectedId){setSelectedId(arrival.attemptId);return}
+  focusedArrival.current=arrival
   const heading=current.current?.attemptId===arrival.attemptId?resultTitle.current:null
   const target=heading??title.current
   target?.focus({preventScroll:true})
   target?.scrollIntoView({block:'start'})
- },[arrival,projectId])
- useEffect(()=>{
+ },[arrival,projectId,selectedId])
+ useLayoutEffect(()=>{
   alive.current=true
   return ()=>{
    alive.current=false
-   const op=current.current
-   if (op&&preEffect(op)) void window.madnessBmadInitialization?.request({...attempt(op),type:'cancel-preparation'}).catch(()=>{})
+   const requestId=pendingRequest.current, op=consulted.current
+   if(requestId)void window.madnessBmadInitialization?.request({type:'cancel-prepare-request',projectId,requestId}).catch(()=>{})
+   else if(op&&preEffect(op))void window.madnessBmadInitialization?.request({...attempt(op),type:'cancel-preparation'}).catch(()=>{})
   }
  },[projectId])
  useLayoutEffect(()=>{
@@ -239,7 +254,7 @@ export function InitializationPanel({projectId,rootPath,state,arrival,accept,onC
    destination?.focus()
   }
  },[modal])
- const activeDecision=modal&&operation?.attemptId===modal.attemptId&&operation.phase==='ready'
+ const activeDecision=modal&&!requested&&operation?.attemptId===modal.attemptId&&operation.phase==='ready'
  const modalOpen=!!modal
  useEffect(()=>{
   if(modalOpen&&!activeDecision&&!locked.current){
@@ -252,10 +267,14 @@ export function InitializationPanel({projectId,rootPath,state,arrival,accept,onC
   try{
    const reply=await window.madnessBmadInitialization.request(input)
    accept(reply.state)
-   if(alive.current)setIssue(reply.issue)
-   else if(input.type==='prepare'){
-    const prepared=latest(reply.state)
-    if(prepared&&preEffect(prepared))void window.madnessBmadInitialization.request({...attempt(prepared),type:'cancel-preparation'}).catch(()=>{})
+   const cancelled=input.type==='prepare'&&cancelledRequest.current===input.requestId
+   if(alive.current&&!cancelled)setIssue(reply.issue)
+   if(reply.preparedAttempt){
+    const prepared=reply.preparedAttempt
+    if(alive.current&&!cancelled){
+     consulted.current=reply.state.operations.find(op=>op.attemptId===prepared.attemptId&&op.generation===prepared.generation)
+     setSelectedId(prepared.attemptId)
+    }else void window.madnessBmadInitialization.request({type:'cancel-prepare-request',projectId,requestId:prepared.attemptId}).catch(()=>{})
    }
    return reply.state
   }catch{
@@ -272,7 +291,7 @@ export function InitializationPanel({projectId,rootPath,state,arrival,accept,onC
   setModal(null)
   void send(decision(modal,type)).then(reply=>{
    locked.current=false
-   if(!alive.current||latest(reply)?.attemptId!==id||latest(reply)?.phase!=='ready'||
+   if(!alive.current||!reply?.operations.some(op=>op.attemptId===id&&op.phase==='ready')||
       current.current?.attemptId!==id||current.current.phase!=='ready'||!openedFrom?.isConnected)return
    const focus=document.activeElement
    if(focus===title.current||focus===resultTitle.current)openedFrom.focus()
@@ -283,11 +302,11 @@ export function InitializationPanel({projectId,rootPath,state,arrival,accept,onC
    type:'content',...attempt(op),planId:op.plan!.id,planRevision:op.plan!.revision,contentId:entry.contentId
   });return reply.content }catch{return null}
  }
- const visibleObservation=effectsPossible?null:observation
+ const visibleObservation=running?null:observation
  const absent=visibleObservation?.status==='absent'
- const running=operation&&['preparing','checking','applying','verifying'].includes(operation.phase)
- const canPrepare=absent&&state?.availability==='available'&&!running&&operation?.phase!=='ready'
+ const canPrepare=absent&&state?.availability==='available'&&!active&&!observing&&!needsInspection
  function refreshObservation():void{
+  if(active||requested||observing)return
   const request=++observationRequest.current
   setObserving(true)
   setIssue(null)
@@ -298,25 +317,38 @@ export function InitializationPanel({projectId,rootPath,state,arrival,accept,onC
   }).finally(()=>{if(alive.current)setObserving(false)})
  }
  function prepare():void {
-  if(requested||!canPrepare)return
-  setRequested(true);title.current?.focus()
-  void send({type:'prepare',projectId}).finally(()=>setRequested(false))
+  if(pendingRequest.current||!canPrepare)return
+  const requestId=crypto.randomUUID()
+  pendingRequest.current=requestId
+  setRequested(true);setSelectedId(null);title.current?.focus()
+  void send({type:'prepare',projectId,requestId}).finally(()=>{
+   pendingRequest.current=null
+   if(alive.current)setRequested(false)
+  })
+ }
+ function cancelPreparation():void {
+  const requestId=pendingRequest.current
+  if(requestId){
+   cancelledRequest.current=requestId
+   void send({type:'cancel-prepare-request',projectId,requestId})
+  }else if(selected&&preEffect(selected))void send({...attempt(selected),type:'cancel-preparation'})
  }
  function showDecision(element:HTMLElement):void{
-  if(!operation||operation.phase!=='ready'||locked.current)return
+  if(!operation||operation.phase!=='ready'||pendingRequest.current||locked.current)return
   trigger.current=element;setModal(operation)
  }
  return <div className="initialization-diagnostic">
   <h3 ref={title} tabIndex={-1}>{words.diagnostic}</h3>
   <p>{words.folder} <code>{rootPath}</code></p>
   <p><strong>{words.profile}</strong> · {words.scope}. {words.missing} <code>bmad-retrospective</code>.</p>
-  {!effectsPossible&&<p>{absent?<><strong>{words.absent}</strong> · {words.observed}</>:words.needsObservation}</p>}
+  {!running&&<p>{absent?<><strong>{words.absent}</strong> · {words.observed}</>:words.needsObservation}</p>}
+  {requested&&!selected&&<p role="status">{words.preparing}</p>}
   {visibleObservation?.problems.map(reason=><p key={reason} role="status">{failureReason(reason,language)}</p>)}
   {state?.availability==='storage-unreadable'&&<p role="status">{words.unavailable} · {words.storage}</p>}
   <div className="initialization-actions">
-   {!effectsPossible&&!absent&&<button className="secondary" type="button" disabled={observing||!!running} onClick={refreshObservation}>{words.refresh}</button>}
+   {!active&&<button className="secondary" type="button" disabled={observing||requested} onClick={refreshObservation}>{words.refresh}</button>}
    {canPrepare&&<button className="secondary" type="button" disabled={requested} onClick={prepare}>{operation?words.again:words.prepare}</button>}
-   {operation&&preEffect(operation)&&<button className="text-button" type="button" onClick={()=>void send({...attempt(operation),type:'cancel-preparation'})}>{words.cancel}</button>}
+   {(requested||selected&&preEffect(selected))&&<button className="text-button" type="button" onClick={cancelPreparation}>{words.cancel}</button>}
   </div>
   {issue&&<p role="status">{issue==='BUSY'?words.duplicate:words.unavailable}</p>}
   {operation&&<>
@@ -328,10 +360,11 @@ export function InitializationPanel({projectId,rootPath,state,arrival,accept,onC
    {operation.preservation.status==='failed'&&<div className="initialization-actions"><p>{words.saveFailed}</p>
     <button className="secondary" type="button" onClick={()=>void send({...attempt(operation),type:'retry-save'})}>{words.retrySave}</button></div>}
    {operation.plan&&<PlanDetails key={operation.plan.id} plan={operation.plan} preview={preview(operation)}/>}
-   {operation.phase==='ready'&&<button className="secondary" type="button" onClick={event=>showDecision(event.currentTarget)}>{words.decision}</button>}
+   {operation.phase==='ready'&&!requested&&<button className="secondary" type="button" onClick={event=>showDecision(event.currentTarget)}>{words.decision}</button>}
   </>}
-  {state&&state.operations.length>1&&<details><summary>{words.previous}</summary>{[...state.operations].reverse().filter(op=>op!==operation).map(op=><details key={op.attemptId}>
+  {state&&state.operations.some(op=>op!==operation&&(op.phase==='historical'||op.phase==='terminal'))&&<details><summary>{words.previous}</summary>{[...state.operations].reverse().filter(op=>op!==operation&&(op.phase==='historical'||op.phase==='terminal')).map(op=><details key={op.attemptId}>
    <summary>{status(op,words)||words.historical} · <code>{op.attemptId}</code></summary>
+   {op.result.reason&&op.result.outcome!=='cancelled'&&op.result.outcome!=='refused'&&<p>{words.reason} · {failureReason(op.result.reason,language)}</p>}
    {op.result.receipt&&<Receipt operation={op} words={words}/>}
    {op.plan&&<PlanDetails plan={op.plan} preview={preview(op)}/>}
   </details>)}</details>}

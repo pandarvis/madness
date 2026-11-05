@@ -1,8 +1,8 @@
 import {BmadInitializationHost,assertInitializationOutsideStorage} from '../adapters/bmad/initialization.ts'
 import {BmadInitializationStore} from '../adapters/persistence/bmad-initialization-store.ts'
 import {BmadInitialization} from '../core/bmad-initialization.ts'
-import {INITIALIZATION_COMMAND_CHANNEL,INITIALIZATION_EVENT_CHANNEL,isInitializationReply,isInitializationView,validateInitializationRequest} from '../contracts/bmad-initialization.ts'
-import type {InitializationContent,InitializationIssueCode,InitializationView} from '../contracts/bmad-initialization.ts'
+import {INITIALIZATION_ATTEMPT_LIMIT,INITIALIZATION_COMMAND_CHANNEL,INITIALIZATION_EVENT_CHANNEL,isInitializationReply,isInitializationView,validateInitializationRequest} from '../contracts/bmad-initialization.ts'
+import type {InitializationAttempt,InitializationContent,InitializationIssueCode,InitializationView} from '../contracts/bmad-initialization.ts'
 import {UsMetricsCoordinator} from '../core/us-metrics.ts'
 import {UsMetricsStore} from '../adapters/persistence/us-metrics-store.ts'
 import {US_METRICS_COMMAND_CHANNEL,US_METRICS_EVENT_CHANNEL,isUsMetricsCommand,isUsMetricsState,initialUsMetricsState} from '../contracts/us-metrics.ts'
@@ -215,7 +215,8 @@ else {
       const observation=await initializationHost.observeAbsence(project.id,project.rootPath,signal)
       const current=await application!.dialogueProject(id)
       signal.throwIfAborted()
-      if(current.rootPath!==project.rootPath||!isBmadConfigurationObservation(observation))throw Error('INITIALIZATION_CONTEXT_CHANGED')
+      if(current.rootPath!==project.rootPath)throw Error('TARGET_CHANGED')
+      if(!isBmadConfigurationObservation(observation))throw Error('INITIALIZATION_CONTEXT_CHANGED')
       return {scope:'configuration' as const,observation,initiativeId:null}
     }
     ipcMain.handle(BMAD_CONTEXT_COMMAND_CHANNEL,async(event,input:unknown)=>{
@@ -236,8 +237,10 @@ else {
       subscribeInvalidation:listener=>contextCoordinator.subscribeInvalidation(listener),
       assertFresh:async(captured,signal)=>{
         const current=await captureInitialization(captured.observation.projectId,signal)
-        if(current.observation.status!=='absent'||current.observation.rootPath!==captured.observation.rootPath||
-           current.observation.rootIdentity!==captured.observation.rootIdentity||current.observation.revision!==captured.observation.revision)throw Error('INITIALIZATION_CONTEXT_CHANGED')
+        if(current.observation.rootPath!==captured.observation.rootPath||
+           current.observation.rootIdentity!==captured.observation.rootIdentity)throw Error('TARGET_CHANGED')
+        if(current.observation.problems.includes('RESERVED_COLLISION'))throw Error('RESERVED_COLLISION')
+        if(current.observation.status!=='absent'||current.observation.revision!==captured.observation.revision)throw Error('INITIALIZATION_CONTEXT_CHANGED')
       }
     },host:initializationHost,
       store:initializationStore,admission,lifecycle:application.lifecycle,newId:randomUUID})
@@ -251,6 +254,7 @@ else {
     if (initializationService.hasUnconfirmedStop()) admission.block()
     let initializationClosing=false
     const initializationRequests=new Set<Promise<unknown>>()
+    const pendingPreparations=new Map<string,{projectId:string;controller:AbortController}>()
     application.lifecycle.register({id:'bmad-initialization',context:emptyContext(),stop:async()=>{
       initializationClosing=true
       await initializationService.shutdown()
@@ -265,20 +269,35 @@ else {
       const parsed=validateInitializationRequest(input)
       if (!parsed.ok) throw Error('INVALID_INITIALIZATION_COMMAND')
       const command=parsed.value, {projectId,correlationId}=command
+      // Claim the prepare correlation before resolving the project. An immediate close can
+      // cancel this exact request even while the project lookup has not returned.
+      const reservation=command.type==='prepare'&&!pendingPreparations.has(command.requestId)&&
+        pendingPreparations.size<INITIALIZATION_ATTEMPT_LIMIT?{projectId,controller:new AbortController()}:null
+      if(reservation)pendingPreparations.set(correlationId,reservation)
+      const pending=command.type==='cancel-prepare-request'?pendingPreparations.get(command.requestId):undefined
+      const cancelledPending=pending?.projectId===projectId
+      if(cancelledPending)pending.controller.abort()
       const work=(async()=>{
         const project=await application!.dialogueProject(projectId)
         if (initializationClosing || project.id!==projectId) throw Error('INITIALIZATION_UNAVAILABLE')
-        let issue:InitializationIssueCode|null=null, content:InitializationContent|null=null
+        let issue:InitializationIssueCode|null=null, content:InitializationContent|null=null, preparedAttempt:InitializationAttempt|null=null
         if (command.type!=='read') {
           if (initializationAvailability!=='available') issue='UNAVAILABLE'
+          else if(command.type==='prepare'&&!reservation)issue='BUSY'
+          else if(command.type==='decision'&&command.command.type==='approve'&&
+             pendingPreparations.get(command.command.attemptId)?.projectId===projectId)issue='BUSY'
           else {
             const operation='attemptId' in command?initializationService.read(projectId).operations.find(op=>
               op.attemptId===command.attemptId&&op.generation===command.generation):undefined
-            const result=command.type==='prepare'?await initializationService.prepare(projectId):
+            const result=command.type==='prepare'&&reservation
+              ?await initializationService.prepare(projectId,command.requestId,reservation.controller.signal):
               command.type==='decision'?await initializationService.execute(command.command):
+              command.type==='cancel-prepare-request'?await initializationService.cancelPreparationRequest(projectId,command.requestId):
               command.type==='cancel-preparation'?await initializationService.cancelPreparation(projectId,command.attemptId,command.generation):
               command.type==='retry-save'&&operation?await initializationService.retrySave(operation.attemptId):null
-            if (result&&!result.ok) issue=result.issues[0].code
+            if (result&&!result.ok) {
+              if(!cancelledPending)issue=result.issues[0].code
+            }
             else if (command.type==='content') {
               if (operation?.plan?.id!==command.planId||operation?.plan.revision!==command.planRevision) issue='CONTEXT_MISMATCH'
               else {
@@ -287,14 +306,21 @@ else {
                 else issue=preview.issues[0].code
               }
             } else if (!result) issue='CONTEXT_MISMATCH'
+            else if (command.type==='prepare'&&result.ok) {
+              const {projectId,attemptId,generation}=result.value
+              preparedAttempt={projectId,attemptId,generation}
+            }
           }
         }
-        const reply={contractVersion:1,correlationId,state:initializationView(projectId),issue,content}
-        if (!isInitializationReply(reply)) throw Error('INVALID_INITIALIZATION_REPLY')
+        const reply={contractVersion:1,correlationId,state:initializationView(projectId),issue,content,preparedAttempt}
+        if (!isInitializationReply(reply,command)) throw Error('INVALID_INITIALIZATION_REPLY')
         return reply
       })()
       initializationRequests.add(work)
-      try { return await work } finally { initializationRequests.delete(work) }
+      try { return await work } finally {
+        if(reservation)pendingPreparations.delete(correlationId)
+        initializationRequests.delete(work)
+      }
     })
     initializationService.subscribe(state=>{
       if (initializationClosing||!window||window.isDestroyed()||window.webContents.mainFrame.url!==rendererUrl) return

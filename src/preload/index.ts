@@ -176,9 +176,9 @@ import {INITIALIZATION_COMMAND_CHANNEL,INITIALIZATION_EVENT_CHANNEL,isInitializa
 import type {InitializationBridge} from '../contracts/bmad-initialization.ts'
 const initializationBridge:InitializationBridge={
  request:async input=>{
-  const correlationId=crypto.randomUUID()
+  const correlationId=input.type==='prepare'?input.requestId:crypto.randomUUID()
   const reply:unknown=await ipcRenderer.invoke(INITIALIZATION_COMMAND_CHANNEL,{...input,contractVersion:1,correlationId})
-  if (!isInitializationReply(reply)||reply.correlationId!==correlationId||reply.state.projectId!==input.projectId) throw Error('INVALID_INITIALIZATION_REPLY')
+  if (!isInitializationReply(reply,{...input,correlationId})) throw Error('INVALID_INITIALIZATION_REPLY')
   if (reply.content&&(input.type!=='content'||reply.content.contentId!==input.contentId)) throw Error('INVALID_INITIALIZATION_CONTENT')
   return reply
  },

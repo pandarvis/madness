@@ -271,15 +271,20 @@ export function sameEntries(a:InitializationEntry[],b:InitializationEntry[]):boo
  return a.length===b.length&&a.every(e=>b.some(other=>sameInitializationData(e,other)))
 }
 
+export function initializationNeedsInspection(operation:InitializationOperation):boolean {
+ return operation.stop==='unknown'||['partial','unknown'].includes(operation.result.outcome)
+}
+
 export const INITIALIZATION_COMMAND_CHANNEL = 'madness:bmad-initialization:command'
 export const INITIALIZATION_EVENT_CHANNEL = 'madness:bmad-initialization:changed'
 export type InitializationRequest =
- | {type:'read'|'prepare';projectId:string}
+ | {type:'read';projectId:string}
+ | {type:'prepare'|'cancel-prepare-request';projectId:string;requestId:string}
  | (InitializationAttempt & {type:'cancel-preparation'|'retry-save'})
  | {type:'decision';projectId:string;command:InitializationCommand}
  | (InitializationAttempt & {type:'content';planId:string;planRevision:string;contentId:string})
 export type InitializationView = InitializationState & {projectId:string;availability:'available'|'storage-unreadable'}
-export type InitializationReply = {contractVersion:1;correlationId:string;state:InitializationView;issue:InitializationIssueCode|null;content:InitializationContent|null}
+export type InitializationReply = {contractVersion:1;correlationId:string;state:InitializationView;issue:InitializationIssueCode|null;content:InitializationContent|null;preparedAttempt:InitializationAttempt|null}
 export interface InitializationBridge {
  request(input:InitializationRequest):Promise<InitializationReply>
  onChanged(listener:(value:InitializationView)=>void):()=>void
@@ -288,10 +293,13 @@ export function validateInitializationRequest(input:unknown):InitializationValid
  return validate(input,(input,path)=>{
   const type=(input as Data)?.type
   const extras=type==='decision'?['command']:type==='content'?['attemptId','generation','planId','planRevision','contentId']:
-   type==='cancel-preparation'||type==='retry-save'?['attemptId','generation']:[]
+   type==='cancel-preparation'||type==='retry-save'?['attemptId','generation']:
+   type==='prepare'||type==='cancel-prepare-request'?['requestId']:[]
   const v=record(input,['contractVersion','correlationId','type','projectId',...extras],path)
   version(v.contractVersion,path+'.contractVersion');id(v.correlationId,path+'.correlationId');id(v.projectId,path+'.projectId')
-  one(type,['read','prepare','cancel-preparation','retry-save','decision','content'],path+'.type')
+  one(type,['read','prepare','cancel-prepare-request','cancel-preparation','retry-save','decision','content'],path+'.type')
+  if(extras.includes('requestId'))id(v.requestId,path+'.requestId')
+  if(type==='prepare'&&v.requestId!==v.correlationId)refuse('CONTEXT_MISMATCH',path+'.requestId')
   if(type==='decision'){
    const command=validateInitializationCommand(v.command)
    if(!command.ok||command.value.projectId!==v.projectId)refuse('CONTEXT_MISMATCH',path+'.command')
@@ -317,10 +325,22 @@ export function isInitializationView(input:unknown):input is InitializationView 
   unique(ids,path+'.operations')
  }).ok
 }
-export function isInitializationReply(input:unknown):input is InitializationReply {
- if(!input||typeof input!=='object'||Object.keys(input).length!==5)return false
+export function isInitializationReply(
+ input:unknown,request:Pick<InitializationRequest,'type'|'projectId'>&{correlationId:string}
+):input is InitializationReply {
+ if(!input||typeof input!=='object'||Object.keys(input).length!==6||
+    !['contractVersion','correlationId','state','issue','content','preparedAttempt'].every(key=>Object.hasOwn(input,key)))return false
  const v=input as InitializationReply
- return v.contractVersion===1&&typeof v.correlationId==='string'&&/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(v.correlationId)&&
-  isInitializationView(v.state)&&(v.content===null||validateInitializationContent(v.content).ok)&&
-  (v.issue===null||['INVALID_DATA','INVALID_SHAPE','INCOMPATIBLE_VERSION','INVALID_PATH','MANIFEST_CONFLICT','UNTRUSTED','CONTEXT_MISMATCH','STALE','BUSY','STOP_UNCONFIRMED','INVALID_TRANSITION','EVENT_ORDER','UNAVAILABLE'].includes(v.issue))
+ if(v.contractVersion!==1||typeof v.correlationId!=='string'||!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(v.correlationId)||
+    v.correlationId!==request.correlationId||!isInitializationView(v.state)||v.state.projectId!==request.projectId||
+    (v.content!==null&&!validateInitializationContent(v.content).ok)||
+    (v.issue!==null&&!['INVALID_DATA','INVALID_SHAPE','INCOMPATIBLE_VERSION','INVALID_PATH','MANIFEST_CONFLICT','UNTRUSTED','CONTEXT_MISMATCH','STALE','BUSY','STOP_UNCONFIRMED','INVALID_TRANSITION','EVENT_ORDER','UNAVAILABLE'].includes(v.issue)))return false
+ if(request.type!=='prepare'||v.issue!==null)return v.preparedAttempt===null
+ const prepared=validate<InitializationAttempt>(v.preparedAttempt,(value,path)=>{
+  attempt(record(value,['projectId','attemptId','generation'],path),path)
+ },5)
+ if(!prepared.ok)return false
+ const {projectId,attemptId,generation}=prepared.value
+ return projectId===request.projectId&&attemptId===request.correlationId&&v.state.operations.some(op=>op.plan!==null&&
+  op.projectId===projectId&&op.attemptId===attemptId&&op.generation===generation)
 }

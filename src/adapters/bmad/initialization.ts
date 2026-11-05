@@ -28,7 +28,7 @@ const segment = (name:string):boolean =>
 
 type Physical = {path:string;identity:string}
 type Tree = {entries:InitializationPreservedEntry[];directories:Map<string,Physical>;revision:string}
-type Payload = {entries:InitializationEntry[];bytes:Map<string,Buffer>;revision:string}
+type Payload = {entries:InitializationEntry[];bytes:Map<string,Buffer>;revision:string;resourceRevision:string}
 type Effect = {requested:boolean;complete:boolean}
 
 async function directory(path:string,signal:AbortSignal):Promise<Physical> {
@@ -50,7 +50,7 @@ async function chain(path:string,signal:AbortSignal):Promise<Physical[]> {
  if (actual.toLowerCase()!==path.toLowerCase()) throw Error('NON_CANONICAL_PATH')
  return parts
 }
-async function readBounded(path:string,limit:number,signal:AbortSignal):Promise<Buffer> {
+async function readBounded(path:string,limit:number,signal:AbortSignal):Promise<{bytes:Buffer;identity:string}> {
  signal.throwIfAborted()
  const before = await lstat(path,{bigint:true})
  const safe = (stat:typeof before):boolean => stat.isFile() && stat.nlink===1n && stat.ino!==0n
@@ -74,7 +74,7 @@ async function readBounded(path:string,limit:number,signal:AbortSignal):Promise<
   if (BigInt(position)!==before.size || !unchanged(await file.stat({bigint:true})) ||
       !unchanged(await lstat(path,{bigint:true}))) throw Error('SOURCE_CHANGED')
   signal.throwIfAborted()
-  return bytes.subarray(0,position)
+  return {bytes:bytes.subarray(0,position),identity:`${opened.dev}:${opened.ino}`}
  } finally { await file.close() }
 }
 async function inventory(root:string,signal:AbortSignal):Promise<Tree> {
@@ -101,7 +101,8 @@ async function inventory(root:string,signal:AbortSignal):Promise<Tree> {
     await walk(full,next,depth+1)
    } else {
     if (!child.isFile()) throw Error('UNSAFE_ENTRY')
-    const data = await readBounded(full,Math.min(MiB,MAX_TREE_BYTES-total),signal)
+    const {bytes:data,identity} = await readBounded(full,Math.min(MiB,MAX_TREE_BYTES-total),signal)
+    identities.push([next,identity])
     total += data.length
     entries.push({path:next,kind:'file',sha256:sha(data),bytes:data.length})
    }
@@ -138,21 +139,28 @@ function evidence(entry:InitializationEntry):InitializationPreservedEntry {
  return {path,kind,sha256,bytes}
 }
 async function loadPayload(archive:string,projectName:string,signal:AbortSignal):Promise<Payload> {
- const resourceChain = await chain(dirname(archive),signal)
- const compressed = await readBounded(archive,2*MiB,signal)
- const raw = gunzipSync(compressed,{maxOutputLength:5*MiB})
- if (sha(raw)!==SEAL || !equal(resourceChain,await chain(dirname(archive),signal))) throw Error('RESOURCE_SEAL')
+ let raw:Buffer, resourceRevision:string
+ try {
+  const resourceChain = await chain(dirname(archive),signal)
+  const {bytes:compressed,identity} = await readBounded(archive,2*MiB,signal)
+  raw = gunzipSync(compressed,{maxOutputLength:5*MiB})
+  if (sha(raw)!==SEAL || !equal(resourceChain,await chain(dirname(archive),signal))) throw Error('RESOURCE_SEAL')
+  resourceRevision = stamp([resourceChain,identity,sha(compressed)])
+ } catch(error) {
+  signal.throwIfAborted()
+  throw Error((error as NodeJS.ErrnoException).code==='ENOENT'?'RESOURCE_MISSING':'RESOURCE_SEAL')
+ }
  // The exact pinned UTF-8 JSON is checked before parsing. Verify the inventory and
  // decoded byte lengths/hashes too, including the original qualified config.
  const {schemaVersion,profileId,sourceRevision,entries} = JSON.parse(raw.toString('utf8')) as {
   schemaVersion:number;profileId:string;sourceRevision:string
   entries:({path:string;type:'directory'}|{path:string;type:'file';bytes:number;sha256:string;data:string})[]
  }
- if (schemaVersion!==1 || profileId!==PROFILE || sourceRevision!==SOURCE || entries.length!==588) throw Error('RESOURCE_MANIFEST')
+ if (schemaVersion!==1 || profileId!==PROFILE || sourceRevision!==SOURCE || entries.length!==588) throw Error('RESOURCE_SEAL')
  const files = new Map<string,Buffer>(), additions:InitializationEntry[] = [], manifest:unknown[] = []
  for (const row of entries) {
   signal.throwIfAborted()
-  if (!row.path.split('/').every(segment) || !/^((\.agents)|_bmad|_bmad-output)(\/|$)/.test(row.path)) throw Error('RESOURCE_PATH')
+  if (!row.path.split('/').every(segment) || !/^((\.agents)|_bmad|_bmad-output)(\/|$)/.test(row.path)) throw Error('RESOURCE_SEAL')
   if (row.type==='directory') {
    manifest.push(row)
    additions.push({path:row.path,kind:'directory'})
@@ -161,18 +169,18 @@ async function loadPayload(archive:string,projectName:string,signal:AbortSignal)
   const {data,...expected} = row
   manifest.push(expected)
   let bytes = Buffer.from(data,'base64')
-  if (bytes.length!==row.bytes || sha(bytes)!==row.sha256 || bytes.toString('base64')!==data) throw Error('RESOURCE_BYTES')
+  if (bytes.length!==row.bytes || sha(bytes)!==row.sha256 || bytes.toString('base64')!==data) throw Error('RESOURCE_SEAL')
   if (row.path==='_bmad/config.toml') {
    const positive = bytes.toString('utf8')
-   if (!positive.includes('project_name = "positive"\r\n')) throw Error('CONFIG_TEMPLATE')
+   if (!positive.includes('project_name = "positive"\r\n')) throw Error('RESOURCE_SEAL')
    bytes = Buffer.from(positive.replace('project_name = "positive"\r\n',`project_name = "${projectName}"\r\n`))
   }
   const sha256 = sha(bytes), contentId = stamp([row.path,sha256])
   files.set(contentId,bytes)
   additions.push({path:row.path,kind:'file',contentId,bytes:bytes.length,sha256})
  }
- if (stamp(manifest)!==SOURCE || files.size!==462) throw Error('RESOURCE_MANIFEST')
- return {entries:additions,bytes:files,revision:stamp(additions.map(evidence))}
+ if (stamp(manifest)!==SOURCE || files.size!==462) throw Error('RESOURCE_SEAL')
+ return {entries:additions,bytes:files,revision:stamp(additions.map(evidence)),resourceRevision}
 }
 
 /** File I/O is owned here. Only the core can admit a plan and consume its grant. */
@@ -273,9 +281,13 @@ export class BmadInitializationHost implements InitializationHostPort {
    fact: token=>facts.get(token),
    recheck:s=>this.#own(async()=>{
     checked = false
+    if (applied) throw Error('STALE')
     const current = await loadPayload(this.archive,projectName,s)
-    if (applied || current.revision!==payload.revision || (await inventory(root,s)).revision!==before.revision) throw Error('STALE')
+    if (current.revision!==payload.revision || current.resourceRevision!==payload.resourceRevision) throw Error('RESOURCE_CHANGED')
+    const target = await inventory(root,s)
     await guard(s)
+    if (target.entries.some(e=>RESERVED.has(e.path.split('/')[0].toLowerCase()))) throw Error('RESERVED_COLLISION')
+    if (target.revision!==before.revision) throw Error('TARGET_TREE_CHANGED')
     checked = true
     return fact({kind:'preconditions',preconditions,complete:true})
    }),

@@ -116,7 +116,11 @@ test('C6 same physical target admits no second effect or queued launch while fir
  const f=fixture({recheck:async({issue,authority})=>{await new Promise(r=>release=r);return issue('preconditions',{preconditions:authority.plan.preconditions,complete:true})}})
  const op=await prepared(f),work=f.service.execute(decide(op));while(!release)await new Promise(r=>setImmediate(r))
  assert.equal((await f.service.execute(decide(op))).ok,false);assert.equal((await f.service.prepare('other-project')).ok,false)
+ const other=f.service.read('other-project').operations
+ const saved=f.saved.some(({record})=>record.projectId==='other-project')
  release();assert.equal((await work).value.result.outcome,'verified');assert.equal(f.calls.apply,1)
+ assert.deepEqual(other,[])
+ assert.equal(saved,false)
 })
 test('C6 late original event stays on captured operation; foreign order/generation and clones refused',async()=>{
  const f=fixture(),op=await prepared(f);await f.service.execute(decide(op))
@@ -183,10 +187,14 @@ test('C3 readiness releases helper admission while durable saving is pending',as
  const f=fixture();f.deps.store.write=()=>new Promise(resolve=>{release=resolve})
  const preparing=f.service.prepare('p');while(!release)await new Promise(r=>setImmediate(r))
  const op=f.service.read().operations[0]
- assert.equal(op.phase,'ready');assert.equal(f.admission.activity,'clear')
+ const phase=op.phase, admission=f.admission.activity
+ const premature=f.service.execute(decide(op))
  const originalSave=release;f.deps.store.write=async()=>{}
- const applying=f.service.execute(decide(op));originalSave();await preparing
- assert.equal((await applying).value.result.outcome,'verified');assert.equal(f.calls.apply,1)
+ originalSave()
+ const ready=(await preparing).value
+ assert.equal(phase,'preparing');assert.equal(admission,'clear')
+ assert.equal((await premature).ok,false);assert.equal(f.calls.apply,0)
+ assert.equal((await f.service.execute(decide(ready))).value.result.outcome,'verified');assert.equal(f.calls.apply,1)
 })
 test('C8 restored uncertain target blocks a new application even with a fresh service',async()=>{
  const f=fixture({verify:()=>({exitCode:0})}),op=(await apply(f)).value,other=fixture()
@@ -286,7 +294,7 @@ test('review Q4 a synchronous pending listener cannot mix revisions in a durable
  }
  let invalidated=false
  const unsubscribe=f.service.subscribe(({operations:[op]})=>{
-  if(!invalidated&&op.phase==='ready'&&op.preservation.status==='pending'){invalidated=true;f.invalidate()}
+  if(!invalidated&&op.phase==='preparing'&&op.plan&&op.preservation.status==='pending'){invalidated=true;f.invalidate()}
  })
  await f.service.prepare('p')
  await new Promise(r=>setImmediate(r));unsubscribe()
@@ -319,4 +327,123 @@ test('review R2 shutdown drains admitted writes and refuses a late inspection an
  finishInspection();assert.equal((await inspection).ok,false)
  assert.equal(f.service.read().operations[0].inspection,null);assert.equal((await f.service.retrySave(op.attemptId)).ok,false)
  assert.equal(f.calls.save,writes)
+})
+
+test('R3 cancelling a suspended pre-effect check leaves its successor ready',async()=>{
+ let entered,release
+ const started=new Promise(r=>{entered=r}), waiting=new Promise(r=>{release=r})
+ const f=fixture({recheck:async({issue,authority})=>{
+  entered();await waiting
+  return issue('preconditions',{preconditions:authority.plan.preconditions,complete:true})
+ }})
+ const old=await prepared(f), applying=f.service.execute(decide(old))
+ await started
+ try{
+  assert.equal((await f.service.cancelPreparation('p',old.attemptId,old.generation)).value.result.outcome,'cancelled')
+  release()
+  await applying
+  const next=await prepared(f)
+  assert.equal((await f.service.cancelPreparation('p',old.attemptId,old.generation)).ok,false)
+  assert.equal((await f.service.execute(decide(old))).ok,false)
+  assert.equal(f.service.read().operations.find(op=>op.attemptId===next.attemptId).phase,'ready')
+ }finally{release();await applying}
+ assert.equal(f.calls.apply,0)
+ assert.equal((await applying).value.decision,'inactive')
+})
+test('R4 a duplicate returns BUSY and leaves the ready plan usable',async()=>{
+ const f=fixture(), op=await prepared(f), saved=f.calls.save
+ const duplicate=await f.service.prepare('p')
+ assert.equal(duplicate.ok,false)
+ assert.equal(duplicate.issues[0].code,'BUSY')
+ assert.deepEqual(f.service.read().operations,[op])
+ assert.equal(f.calls.save,saved)
+ assert.equal((await f.service.execute(decide(op))).value.result.outcome,'verified')
+})
+test('R4 IPC binds a preparation acknowledgement to its project, generation and request',async()=>{
+ const f=fixture(), op=await prepared(f)
+ const request={type:'prepare',projectId:'p',correlationId:op.attemptId}
+ const preparedAttempt={projectId:'p',attemptId:op.attemptId,generation:op.generation}
+ const state={...f.service.read(),projectId:'p',availability:'available'}
+ const reply={contractVersion:1,correlationId:op.attemptId,state,issue:null,content:null,preparedAttempt}
+ assert.equal(contract.isInitializationReply(reply,request),true)
+ for(const altered of [
+  {...reply,correlationId:'foreign'},
+  {...reply,preparedAttempt:{...preparedAttempt,projectId:'other'}},
+  {...reply,preparedAttempt:{...preparedAttempt,generation:2}},
+  {...reply,preparedAttempt:{...preparedAttempt,attemptId:'foreign'}},
+  {...reply,preparedAttempt:{...preparedAttempt,extra:'foreign'}},
+  {...reply,state:{...state,operations:[]}},
+  {...reply,issue:'BUSY'},
+  {...reply,preparedAttempt:null}
+ ]) assert.equal(contract.isInitializationReply(altered,request),false)
+ assert.equal(contract.isInitializationReply(reply,{...request,type:'read'}),false)
+ assert.equal(contract.isInitializationReply({...reply,preparedAttempt:null},{...request,type:'read'}),true)
+ assert.equal(contract.isInitializationReply({...reply,issue:'BUSY',preparedAttempt:null},request),true)
+ await f.service.cancelPreparation('p',op.attemptId,op.generation)
+ const successor=await prepared(f)
+ const laterState={...f.service.read(),projectId:'p',availability:'available'}
+ assert.equal(laterState.operations.at(-1).attemptId,successor.attemptId)
+ assert.equal(contract.isInitializationReply({...reply,state:laterState},request),true)
+})
+
+test('Q1 request cancellation before admission never starts preparation',async()=>{
+ const f=fixture(), abort=new AbortController()
+ abort.abort()
+ const reply=await f.service.prepare('p','client-request',abort.signal)
+ assert.equal(reply.ok,false)
+ assert.equal(f.calls.capture,0)
+ assert.deepEqual(f.service.read().operations,[])
+})
+test('Q1 request cancellation during the ready save leaves no old approval',async()=>{
+ let entered,release
+ const saving=new Promise(r=>{entered=r}), waiting=new Promise(r=>{release=r})
+ const f=fixture(), abort=new AbortController()
+ f.deps.store.write=async op=>{if(op.phase==='ready'){entered();await waiting}}
+ const work=f.service.prepare('p','client-request',abort.signal)
+ await saving
+ const pending=f.service.read('p').operations[0]
+ abort.abort()
+ release()
+ const reply=await work
+ assert.equal(pending.attemptId,'client-request')
+ assert.equal(reply.ok,false)
+ const old=f.service.read('p').operations[0]
+ assert.equal(old.result.outcome,'cancelled')
+ assert.equal((await f.service.execute(decide(old))).ok,false)
+ assert.equal(f.calls.apply,0)
+ const next=(await f.service.prepare('p','other-request')).value
+ assert.equal((await f.service.cancelPreparationRequest('other','other-request')).ok,false)
+ assert.equal((await f.service.cancelPreparationRequest('p','client-request')).ok,false)
+ assert.equal(f.service.read('p').operations.at(-1).attemptId,next.attemptId)
+ assert.equal(f.service.read('p').operations.at(-1).phase,'ready')
+ assert.equal((await f.service.cancelPreparationRequest('p','other-request')).value.result.outcome,'cancelled')
+})
+test('Q1 a late request cancellation cannot interrupt a dispatched application',async()=>{
+ let entered,release
+ const applying=new Promise(r=>{entered=r}), waiting=new Promise(r=>{release=r})
+ const f=fixture({apply:async({signal})=>{entered(signal);await waiting;return {}}})
+ const op=(await f.service.prepare('p','owned-request')).value
+ const work=f.service.execute(decide(op))
+ const signal=await applying
+ const cancellation=await f.service.cancelPreparationRequest('p','owned-request')
+ release()
+ assert.equal(cancellation.ok,false)
+ assert.equal(signal.aborted,false)
+ assert.equal((await work).value.result.outcome,'verified')
+})
+test('Q3 unresolved confirmed-stop partial effects block the same project after physical replacement',async()=>{
+ const f=fixture({verify:({issue,authority})=>issue('application',{
+  outcome:'partial',observedAdditions:[authority.plan.additions[0]],unionVerified:false,
+  preservedVerified:false,unverifiedPaths:['_bmad'],stop:'confirmed',reason:'partial'
+ })})
+ const {value:partial}=await apply(f)
+ assert.equal(partial.result.outcome,'partial')
+ const replacement=context()
+ replacement.observation.rootIdentity='replacement:root'
+ f.current=replacement
+ const result=await f.service.prepare('p')
+ assert.equal(result.ok,false)
+ assert.equal(f.service.read('p').operations.length,1)
+ const unrelated=await f.service.prepare('other-project')
+ assert.equal(unrelated.ok,true)
 })

@@ -1,0 +1,29 @@
+✔ UI13 wires attributed launch preserves operation request and default mode (9717.8429ms)
+✔ UI13 wires attributed launchForge preserves operation request and default mode (14703.835ms)
+✔ UI13 wires attributed launchHelp preserves operation request and default mode (11433.7882ms)
+✔ UI13 wires attributed catalogue uses preparation request and durable origin gate (5635.9596ms)
+✖ UI13 correction Q1 send requires current selected source and matching captured context (39320.4453ms)
+✔ UI13 correction Q1 Mary requires both active and current selected source authority (15518.2342ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-q47hLd\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-q47hLd\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 98889.5192
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1439:1
+✖ UI13 correction Q1 send requires current selected source and matching captured context (39320.4453ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for locator('[data-metric-choice="send"]').getByText('Contexte ou autorité de source non courants — attribution facultative indisponible.').first() to be visible[22m
+  [2m    60 × locator resolved to hidden <span>…</span>[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1441:460) {
+    name: 'TimeoutError',
+    log: [ `  - waiting for locator('[data-metric-choice="send"]').getByText('Contexte ou autorité de source non courants — attribution facultative indisponible.').first() to be visible`, '    60 × locator resolved to hidden <span>…</span>' ]
+  }

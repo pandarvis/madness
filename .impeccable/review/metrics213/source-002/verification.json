@@ -1,0 +1,531 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "mode": "source-renderer-synthetic-bridges",
+  "scope": "Second and final grouped visual batch; real App source, no Main/provider capability claimed.",
+  "captures": [
+    {
+      "file": "01-desktop-choice.png",
+      "variant": "dark; selected long-name story; draft and Send",
+      "sha256": "ef60a3b0ee9cbb5253a91317f8c9303c5afbd2bbbc910fe485214548b9ada891",
+      "png": {
+        "width": 1440,
+        "height": 920
+      },
+      "geometry": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "theme": "dark",
+        "reducedMotion": false,
+        "fonts": {
+          "oxanium": true,
+          "barlow": true,
+          "body": "Oxanium, \"Segoe UI\", sans-serif"
+        },
+        "overflowHorizontal": false,
+        "mainScroll": 376,
+        "conversation": {
+          "top": 62.60000228881836,
+          "bottom": 302.60000228881836,
+          "left": 268,
+          "right": 1401.5999755859375,
+          "width": 1133.5999755859375,
+          "height": 240,
+          "inViewport": true
+        },
+        "draft": {
+          "top": 350.3999938964844,
+          "bottom": 419.1999969482422,
+          "left": 289.8000183105469,
+          "right": 1379.8000183105469,
+          "width": 1090,
+          "height": 68.80000305175781,
+          "inViewport": true
+        },
+        "send": {
+          "top": 718.4000244140625,
+          "bottom": 761.200023651123,
+          "left": 1212.6375732421875,
+          "right": 1379.8000793457031,
+          "width": 167.16250610351562,
+          "height": 42.79999923706055,
+          "inViewport": true
+        },
+        "choice": {
+          "top": 427.20001220703125,
+          "bottom": 703.6000061035156,
+          "left": 289.8000183105469,
+          "right": 1379.8000183105469,
+          "width": 1090,
+          "height": 276.3999938964844,
+          "inViewport": true
+        },
+        "context": {
+          "top": 615.6000366210938,
+          "bottom": 647.6000366210938,
+          "left": 289.8000183105469,
+          "right": 1379.8000183105469,
+          "width": 1090,
+          "height": 32,
+          "inViewport": true
+        },
+        "activeQuestion": 0,
+        "activeApproval": 0
+      }
+    },
+    {
+      "file": "02-desktop-context.png",
+      "variant": "dark; exact context details expanded; vertical reading",
+      "sha256": "63342bb4f09370df8a9e25e0f484ad95e76adbf41afbd4165e32166227de481f",
+      "png": {
+        "width": 1440,
+        "height": 920
+      },
+      "geometry": {
+        "width": 1440,
+        "height": 920,
+        "devicePixelRatio": 1.25,
+        "theme": "dark",
+        "reducedMotion": false,
+        "fonts": {
+          "oxanium": true,
+          "barlow": true,
+          "body": "Oxanium, \"Segoe UI\", sans-serif"
+        },
+        "overflowHorizontal": false,
+        "mainScroll": 376,
+        "conversation": {
+          "top": 62.60000228881836,
+          "bottom": 302.60000228881836,
+          "left": 268,
+          "right": 1401.5999755859375,
+          "width": 1133.5999755859375,
+          "height": 240,
+          "inViewport": true
+        },
+        "draft": {
+          "top": 350.3999938964844,
+          "bottom": 419.1999969482422,
+          "left": 289.8000183105469,
+          "right": 1379.8000183105469,
+          "width": 1090,
+          "height": 68.80000305175781,
+          "inViewport": true
+        },
+        "send": {
+          "top": 1146.0999755859375,
+          "bottom": 1188.899974822998,
+          "left": 1212.6375732421875,
+          "right": 1379.8000793457031,
+          "width": 167.16250610351562,
+          "height": 42.79999923706055,
+          "inViewport": false
+        },
+        "choice": {
+          "top": 427.20001220703125,
+          "bottom": 1131.300048828125,
+          "left": 289.8000183105469,
+          "right": 1379.8000183105469,
+          "width": 1090,
+          "height": 704.1000366210938,
+          "inViewport": false
+        },
+        "context": {
+          "top": 615.6000366210938,
+          "bottom": 1075.300048828125,
+          "left": 289.8000183105469,
+          "right": 1379.8000183105469,
+          "width": 1090,
+          "height": 459.70001220703125,
+          "inViewport": false
+        },
+        "activeQuestion": 0,
+        "activeApproval": 0
+      }
+    },
+    {
+      "file": "03-compact-choice-reduced-motion.png",
+      "variant": "light;720px;reduced motion; draft and Send",
+      "sha256": "b550748e8f92589e8068baa00faa080021081fffed8e89300b938f319152a07d",
+      "png": {
+        "width": 720,
+        "height": 820
+      },
+      "geometry": {
+        "width": 720,
+        "height": 820,
+        "devicePixelRatio": 1.25,
+        "theme": "light",
+        "reducedMotion": true,
+        "fonts": {
+          "oxanium": true,
+          "barlow": true,
+          "body": "Oxanium, \"Segoe UI\", sans-serif"
+        },
+        "overflowHorizontal": false,
+        "mainScroll": 388.79998779296875,
+        "conversation": {
+          "top": 49.79999923706055,
+          "bottom": 289.79999923706055,
+          "left": 16,
+          "right": 693.6000366210938,
+          "width": 677.6000366210938,
+          "height": 240,
+          "inViewport": true
+        },
+        "draft": {
+          "top": 337.6000061035156,
+          "bottom": 406.40000915527344,
+          "left": 37.79999923706055,
+          "right": 671.7999992370605,
+          "width": 634,
+          "height": 68.80000305175781,
+          "inViewport": true
+        },
+        "send": {
+          "top": 777,
+          "bottom": 819.7999992370605,
+          "left": 244.40000915527344,
+          "right": 411.56251525878906,
+          "width": 167.16250610351562,
+          "height": 42.79999923706055,
+          "inViewport": true
+        },
+        "choice": {
+          "top": 414.3999938964844,
+          "bottom": 727.7999877929688,
+          "left": 37.79999923706055,
+          "right": 671.7999992370605,
+          "width": 634,
+          "height": 313.3999938964844,
+          "inViewport": true
+        },
+        "context": {
+          "top": 639.7999877929688,
+          "bottom": 671.7999877929688,
+          "left": 37.79999923706055,
+          "right": 671.7999992370605,
+          "width": 634,
+          "height": 32,
+          "inViewport": true
+        },
+        "activeQuestion": 0,
+        "activeApproval": 0
+      }
+    },
+    {
+      "file": "04-compact-context-reduced-motion.png",
+      "variant": "light;720px;reduced motion; exact context expanded",
+      "sha256": "ff30701cf6d32d4c906a9a864baa80a1a8668df40e6775185c60a8ac68206b5e",
+      "png": {
+        "width": 720,
+        "height": 820
+      },
+      "geometry": {
+        "width": 720,
+        "height": 820,
+        "devicePixelRatio": 1.25,
+        "theme": "light",
+        "reducedMotion": true,
+        "fonts": {
+          "oxanium": true,
+          "barlow": true,
+          "body": "Oxanium, \"Segoe UI\", sans-serif"
+        },
+        "overflowHorizontal": false,
+        "mainScroll": 388.79998779296875,
+        "conversation": {
+          "top": 49.79999923706055,
+          "bottom": 289.79999923706055,
+          "left": 16,
+          "right": 693.6000366210938,
+          "width": 677.6000366210938,
+          "height": 240,
+          "inViewport": true
+        },
+        "draft": {
+          "top": 337.6000061035156,
+          "bottom": 406.40000915527344,
+          "left": 37.79999923706055,
+          "right": 671.7999992370605,
+          "width": 634,
+          "height": 68.80000305175781,
+          "inViewport": true
+        },
+        "send": {
+          "top": 1375.0999755859375,
+          "bottom": 1417.899974822998,
+          "left": 244.40000915527344,
+          "right": 411.56251525878906,
+          "width": 167.16250610351562,
+          "height": 42.79999923706055,
+          "inViewport": false
+        },
+        "choice": {
+          "top": 414.3999938964844,
+          "bottom": 1325.8999938964844,
+          "left": 37.79999923706055,
+          "right": 671.7999992370605,
+          "width": 634,
+          "height": 911.5,
+          "inViewport": false
+        },
+        "context": {
+          "top": 639.7999877929688,
+          "bottom": 1269.9000244140625,
+          "left": 37.79999923706055,
+          "right": 671.7999992370605,
+          "width": 634,
+          "height": 630.1000366210938,
+          "inViewport": false
+        },
+        "activeQuestion": 0,
+        "activeApproval": 0
+      }
+    }
+  ],
+  "limits": [
+    "Synthetic candidate, conversation and bridge state; no native source authority, model, measured usage, price, human approval or G2-G5.",
+    "Full viewport screenshots use scale:css and attest PNG dimensions against actual inner viewport.",
+    "Context expansion may require vertical scrolling; geometry records which working elements remain in each viewport."
+  ],
+  "inputs": {
+    "src/contracts/us-metrics.ts": "c265a5ae1098dd60d40c1d805314fb1ed1fe20b18c513b3305f56ee8c60563e7",
+    "src/core/us-metrics.ts": "57d85748b195b809b906ea5d5d2bd4431d57213ff37f8ef432569c1d4f2f7089",
+    "src/renderer/src/UsMetrics.tsx": "08338344bbff239a35cb14be8b3a8ff7e19d0a4d6c862319c8836e8f9f01ea35",
+    "src/renderer/src/App.tsx": "600f5e1aa2bc71a0c768ead557d0c2fba268735209c60dd830eeae98e86b3954",
+    "src/renderer/src/ProjectResume.tsx": "5ded461dd9b8243431ac5af589c1cb5ac8c055d0c0af1767b42aad0cc4b85790",
+    "src/renderer/src/WorkOverview.tsx": "5efdb44a5e110ed3430c145019101d1bd864dcaf8b6a35994612f1e12ef1cbe8",
+    "src/renderer/src/strings.ts": "7a63cd999c8b37dc00349027eb0e4e07f0469f5855ea9aff5f71f318f68251f9",
+    "src/renderer/src/styles.css": "88368815862483a1ceb3350ab44ff2955948e9fc834bc2f262b2a0ec7e15b91a",
+    "src/renderer/src/atelier-immersion.css": "4f1ed5e84745667f33fc74f74e2271f2fc58043bf4459fa29cd80fb6ba41236d",
+    "src/renderer/src/atelier-controls.css": "65683d8e28c94b319c744cddd8aabb77e3a6045671a2dbd834ded41ae6b2a6cc",
+    "src/renderer/src/help.css": "7b5401902dc636eb547a30f911ecabefe438b3f887fe4322c6cbafe147e99c1b",
+    "src/renderer/src/initiatives.css": "f67cd411976b6300e271b97280b5cb26dffe7e750b2a6b15939f6ad2f598b421",
+    "src/renderer/src/progress.css": "b8fdc7dedd10fae3d9ba76ec20d933c0ba792378a4c8021f7f01f3a616c54bc8",
+    "src/renderer/src/catalog.css": "58b09808d5870f880c7da4f9d757604a93c8942016ce68865654167ef6059d00",
+    "src/renderer/src/library.css": "899bb25a96bb3f7ba42a24049ef0758e06f19c4d79fba5531753af18a40da8d3",
+    "src/renderer/src/files.css": "aaab3c8c65684def6821bbca29cffdea911fb3868bce89591c9eb33ec2a6bb6e",
+    "src/renderer/src/assets/atelier/Oxanium-Variable.ttf": "2ce01d946e1e1ffc8d7eecfffbda8623bedd63eaf811a20488c4b69af45babb0",
+    "src/renderer/src/assets/atelier/BarlowCondensed-Bold.ttf": "e476562ec9c1e16cf16475895b511f08c804f438cc9a9f80a44ea50a0eeb5b65",
+    "tests/connection-ui.test.mjs": "4e89a3c1124dcf21aa5f359d630d05adfc9bf58d73fb3428d0d65563cac791f3"
+  },
+  "desktop": {
+    "requested": {
+      "width": 1440,
+      "height": 920
+    },
+    "actual": {
+      "width": 1440,
+      "height": 920,
+      "layoutWidth": 1440,
+      "devicePixelRatio": 1.25,
+      "settledBy": "animation-frames",
+      "queries": [
+        {
+          "query": "(max-width: 720px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(max-width: 1080px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(max-width: 1280px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(min-width: 1323px)",
+          "expected": true,
+          "matches": true
+        },
+        {
+          "query": "(min-width: 1600px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(max-height: 700px)",
+          "expected": false,
+          "matches": false
+        }
+      ]
+    },
+    "native": {
+      "contentSize": [
+        1440,
+        920
+      ],
+      "zoomFactor": 1
+    },
+    "exact": true,
+    "limitation": null,
+    "attempts": [
+      {
+        "requestedNative": {
+          "width": 1440,
+          "height": 920
+        },
+        "native": {
+          "contentSize": [
+            1440,
+            920
+          ],
+          "zoomFactor": 1
+        },
+        "actual": {
+          "width": 1440,
+          "height": 920,
+          "layoutWidth": 1440,
+          "devicePixelRatio": 1.25,
+          "settledBy": "animation-frames",
+          "queries": [
+            {
+              "query": "(max-width: 720px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1080px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1280px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(min-width: 1323px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(min-width: 1600px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-height: 700px)",
+              "expected": false,
+              "matches": false
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "compact": {
+    "requested": {
+      "width": 720,
+      "height": 820
+    },
+    "actual": {
+      "width": 720,
+      "height": 820,
+      "layoutWidth": 720,
+      "devicePixelRatio": 1.25,
+      "settledBy": "animation-frames",
+      "queries": [
+        {
+          "query": "(max-width: 720px)",
+          "expected": true,
+          "matches": true
+        },
+        {
+          "query": "(max-width: 1080px)",
+          "expected": true,
+          "matches": true
+        },
+        {
+          "query": "(max-width: 1280px)",
+          "expected": true,
+          "matches": true
+        },
+        {
+          "query": "(min-width: 1323px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(min-width: 1600px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(max-height: 700px)",
+          "expected": false,
+          "matches": false
+        }
+      ]
+    },
+    "native": {
+      "contentSize": [
+        720,
+        820
+      ],
+      "zoomFactor": 1
+    },
+    "exact": true,
+    "limitation": null,
+    "attempts": [
+      {
+        "requestedNative": {
+          "width": 720,
+          "height": 820
+        },
+        "native": {
+          "contentSize": [
+            720,
+            820
+          ],
+          "zoomFactor": 1
+        },
+        "actual": {
+          "width": 720,
+          "height": 820,
+          "layoutWidth": 720,
+          "devicePixelRatio": 1.25,
+          "settledBy": "animation-frames",
+          "queries": [
+            {
+              "query": "(max-width: 720px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(max-width: 1080px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(max-width: 1280px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(min-width: 1323px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(min-width: 1600px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-height: 700px)",
+              "expected": false,
+              "matches": false
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "passive": true
+}

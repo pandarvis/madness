@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "completedAt": "2026-11-05T04:16:01.754891+00:00",
+  "scope": "Bounded source corrections and targeted evidence; parent owns subsequent build/package/visual review.",
+  "sourceFreeze": "source-freeze.json",
+  "sourceHashesUnchangedAfterTests": true,
+  "targetedFinal": {
+    "command": "node --test --test-name-pattern='UI13' tests/connection-ui.test.mjs",
+    "tests": 16,
+    "pass": 16,
+    "fail": 0,
+    "skipped": 0,
+    "cases": [
+      "UI13 choix local, envoi exact et refus gardent le brouillon sans effet",
+      "UI13 lecture passive vrai zero, cout indisponible et ancienne liaison explicite",
+      "UI13 invalidation de preuve, lecture equivalente et continuation volontaire sans attribution",
+      "UI13 lancement Mary capture mode et requestId sans exiger un recu catalogue",
+      "UI13 membres exacts, conservation echouee et retard conservent focus et perimetre",
+      "UI13 ajustement nouveau tour attend la saisie durable, decisions restent dans leur tour",
+      "UI13 deux clics et choix tardif apres changement de conversation ne transmettent rien",
+      "UI13 batch availability distinguishes unassigned, not loaded, unreadable, cache and command refusal",
+      "UI13 batch historical turn uses captured member evidence instead of updated occurrence",
+      "UI13 batch sticky scope and proof roundtrips never restore attribution without rechoice",
+      "UI13 batch outstanding choice cannot survive an observed proof roundtrip",
+      "UI13 batch readable durations retain exact zero and tiny positive precision",
+      "UI13 wires attributed launch preserves operation request and default mode",
+      "UI13 wires attributed launchForge preserves operation request and default mode",
+      "UI13 wires attributed launchHelp preserves operation request and default mode",
+      "UI13 wires attributed catalogue uses preparation request and durable origin gate"
+    ]
+  },
+  "additionalChecks": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "evidence": "Tool execution transcript in this bounded pass; no reconstructed raw log."
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "evidence": "Tool execution transcript; LF-to-CRLF advisory warnings only."
+    },
+    {
+      "command": "node --test tests/us-metrics.test.mjs tests/us-metrics-review.test.mjs",
+      "pass": 35,
+      "fail": 0,
+      "evidence": "Earlier tool transcript from this worker, same unchanged contract/core inputs; not rerun in the bounded correction pass."
+    }
+  ],
+  "logSeals": {
+    "red.log": {
+      "sha256": "a2823d2a448aa7d887c751d178ac9b5b2b1cebdd377a468513b3bb48829f2cc2",
+      "bytes": 2035
+    },
+    "green-initial.log": {
+      "sha256": "1ab50f216a790dd3ff078a03322cfa63cb33cfa1f0f96f789985f2671e88f337",
+      "bytes": 2398
+    },
+    "recheck.log": {
+      "sha256": "76781108b2de3d71879bcf14b7e59646ba6c59ec37f10014997513292c1da8f6",
+      "bytes": 724
+    },
+    "wires.log": {
+      "sha256": "81063d65d096b73db9d4540a5bc76ddd46727738fbab0d739ede2af419e0f832",
+      "bytes": 887
+    },
+    "targeted-final.log": {
+      "sha256": "cd12fd99263b1086f4298aa7e3a7f1e36674c2be95f8f7db48ad68e9a2008585",
+      "bytes": 2032
+    }
+  },
+  "redProvenance": {
+    "red.log": "Fresh pre-fix historical source and sticky roundtrip regressions: 2 actual source failures.",
+    "green-initial.log": "Availability and outstanding roundtrip pass; 2 locator failures retained (legacy detail remounted closed; Home hidden at compact viewport).",
+    "recheck.log": "Both corrected locators plus old delayed double-click case pass, 3/3.",
+    "wires.log": "Readable format + four attributed launch handlers pass, 5/5.",
+    "earlierRuns": "Earlier tool transcript failures remain transcript-only; no raw logs fabricated."
+  },
+  "incomplete": [
+    "out/dist binaries predate final source corrections and are superseded; parent must rebuild and package.",
+    "Compiled qualification compiled-001 failed at an overly broad locator after M1-M4; preserved. Banc locator and minute/second oracle updated, not rerun in this bounded pass.",
+    "No screenshots, detector, Impeccable finish, Quick/high review, installation or commits executed in this bounded pass.",
+    "Native SIWC usage/cost, human acceptance and G2-G5 remain unqualified."
+  ],
+  "preservation": [
+    "No personal profile, account, live preview or source data modified or closed.",
+    "Isolated renderer fixture closures and deletion proofs are in each raw test log."
+  ]
+}

@@ -1,0 +1,29 @@
+✔ UI13 choix local, envoi exact et refus gardent le brouillon sans effet (15454.1127ms)
+✔ UI13 lecture passive vrai zero, cout indisponible et ancienne liaison explicite (11551.7351ms)
+✔ UI13 invalidation de preuve, lecture equivalente et continuation volontaire sans attribution (15560.7757ms)
+✔ UI13 lancement Mary capture mode et requestId sans exiger un recu catalogue (12442.4101ms)
+✔ UI13 membres exacts, conservation echouee et retard conservent focus et perimetre (13446.2762ms)
+✔ UI13 ajustement nouveau tour attend la saisie durable, decisions restent dans leur tour (13600.855ms)
+✔ UI13 deux clics et choix tardif apres changement de conversation ne transmettent rien (11457.7092ms)
+✔ UI13 batch availability distinguishes unassigned, not loaded, unreadable, cache and command refusal (9538.9689ms)
+✔ UI13 batch historical turn uses captured member evidence instead of updated occurrence (18721.5262ms)
+✔ UI13 batch sticky scope and proof roundtrips never restore attribution without rechoice (25245.0895ms)
+✔ UI13 batch outstanding choice cannot survive an observed proof roundtrip (11828.2969ms)
+✔ UI13 batch readable durations retain exact zero and tiny positive precision (6266.1384ms)
+✔ UI13 wires attributed launch preserves operation request and default mode (10375.9717ms)
+✔ UI13 wires attributed launchForge preserves operation request and default mode (15064.4122ms)
+✔ UI13 wires attributed launchHelp preserves operation request and default mode (12189.3808ms)
+✔ UI13 wires attributed catalogue uses preparation request and durable origin gate (13127.0127ms)
+✔ UI13 correction Q1 captured conversation alpha ignores consulted beta for attribution (12210.4978ms)
+✔ UI13 correction Q1 Mary uses known active alpha while beta is consulted (11688.1752ms)
+✔ UI13 correction Q2 adjustment freezes durable A during choice and preserves it on refusal (18815.4738ms)
+✔ UI13 correction V1 F1 historical capture keeps old bytes and summary precedes collapsed provenance (17434.0027ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-TTv5gS\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-TTv5gS\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 279060.1181

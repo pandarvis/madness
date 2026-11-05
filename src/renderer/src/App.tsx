@@ -1,3 +1,4 @@
+import {MetricsContext,useUsMetrics,useStoryChoices} from './UsMetrics.tsx'
 import {CatalogLaunchPanel,CatalogOrigin,useCatalogLaunch} from './CatalogLaunchPanel.tsx'
 import type {CatalogPreparation} from '../../contracts/bmad-catalog-launch.ts'
 import {ProjectLibrary} from './ProjectLibrary.tsx'
@@ -30,7 +31,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { AppState, Conversation, Reply } from '../../contracts/index.ts'
 import { MAX_DRAFT_LENGTH } from '../../contracts/index.ts'
-import { fr } from './strings.ts'
+import { fr,metricsLabels } from './strings.ts'
 import { initialConnectionState } from '../../contracts/connection.ts'
 import type { ConnectionState, ConnectionBridge } from '../../contracts/connection.ts'
 import chatgptMark from './assets/chatgpt-mark.svg'
@@ -126,7 +127,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [workReturn,setWorkReturn]=useState<ConsultationPosition|null>(null)
   const [page, setPage] = useState<'home' | 'project'>('home')
   const navigationToken=useRef(0)
-  const pendingLaunch=useRef<{token:number;projectId:string;previousConversationId:string|null;sequence:number;requestId?:string}|null>(null)
+  const pendingLaunch=useRef<{token:number;projectId:string;previousConversationId:string|null;sequence:number;requestId?:string;catalog?:boolean}|null>(null)
   const [conversationSelections,setConversationSelections]=useState<Record<string,string>>({})
   const [focusTarget,setFocusTarget]=useState<{token:number;target:OverviewTarget}|null>(null)
   const [overviewClock,setOverviewClock]=useState(0)
@@ -190,6 +191,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [approvalFailures,setApprovalFailures]=useState<Record<string,boolean>>({})
   const approvalWrites=useRef(new Map<string,Promise<void>>())
   const sendingApprovals=useRef(new Set<string>())
+  const [approvalSending,setApprovalSending]=useState<Record<string,boolean>>({})
   const [questionDrafts,setQuestionDrafts]=useState<Record<string,QuestionValues>>({})
   const [questionFailures,setQuestionFailures]=useState<Record<string,boolean>>({})
   const sendingQuestions=useRef(new Set<string>())
@@ -209,6 +211,26 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const projectConversations = state?.conversations.filter(c => c.context.projectId === project?.id) ?? []
   const selectedConversation=conversationSelections[project?.id??'']
   const conversation = selectedConversation!==undefined?projectConversations.find(c=>c.id===selectedConversation):projectConversations.find(c => c.id === dialogue.context.conversationId) ?? projectConversations.at(-1)
+  const metrics=useUsMetrics(project?.id)
+  const metricScope=JSON.stringify([dialogue.profile?.fingerprint,page,project?.id,project?.rootPath,initiativeContext?.selection,initiativeContext?.observation?.revision,initiativeContext?.freshness,conversation?.context,maryMode,forgePreparation,catalogPreparation?.id,helpState.bundle?.id,helpState.bundle?.revision,progressState.projects.find(p=>p.projectId===project?.id)?.freshness,progressState.projects.find(p=>p.projectId===project?.id)?.snapshot?.coverage])
+  const metricChoices=useStoryChoices(metrics.project,metricScope,(key,o)=>{
+    const words=metricsLabels.fr,observed=initiativeContext?.observation,selected=initiativeContext?.selection,prepared=key==='catalog'?catalogPreparation:null
+    // Main's current source authority applies to every operation, including a captured catalogue preparation.
+    if(!observed||!selected||initiativeContext?.freshness!=='current'||o.projectId!==project?.id||o.rootPath!==project?.rootPath||observed.rootPath!==o.rootPath||observed.rootIdentity!==o.rootIdentity||selected.initiativeId!==o.initiativeId||selected.rootIdentity!==o.rootIdentity||observed.revision!==o.contextRevision)return words.sourceUnavailable
+    if(prepared&&(prepared.captured.observation.rootPath!==o.rootPath||prepared.captured.observation.rootIdentity!==o.rootIdentity))return words.sourceUnavailable
+    let target:string|null|undefined
+    if(key==='send')target=conversation?.context.projectId===project?.id?conversation.context.initiativeId:undefined
+    else if(key.startsWith('adjust-'))target=dialogue.approvals.find(a=>a.id===key.slice(7)&&a.context.projectId===project?.id)?.context.initiativeId
+    else if(key==='catalog')target=prepared?.projectId===project?.id?prepared.captured.initiativeId:undefined
+    else if(key==='launchHelp')target=helpState.projectId===project?.id&&helpState.status==='ready'&&helpState.freshness==='current'&&helpState.bundle?.nativeReady?helpState.bundle.activeInitiative:undefined
+    else if(key==='launch'||key==='launchForge'){
+      target=observed?.activeStatus==='valid'?observed.activeInitiative:observed?.activeStatus==='absent'?null:undefined
+      if(key==='launchForge'&&target!==undefined&&target!==null&&initiativeContext?.selection?.initiativeId!==target)return words.guardMismatch
+    }
+    return target===undefined?words.nativeContextUnknown:o.initiativeId===target?null:words.contextMismatch
+  })
+  const dialogueCurrent=useRef(dialogue);dialogueCurrent.current=dialogue
+  const dialogueActionLock=useRef(false)
   const dialogueConversationHere=!!conversation&&sameContext(conversation.context,dialogue.context)
   const overview=state?projectWorkOverview(state,dialogue,connection,Date.now()):null
   const respondable=(kind:'question'|'approval',id:string):boolean=>!!overview?.entries.some(e=>e.target.kind===kind&&e.target.id===id&&e.state==='waiting')
@@ -259,7 +281,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     if(launch.token!==navigationToken.current||dialogue.errorCode||['error','unknown','stopped'].includes(dialogue.status)){pendingLaunch.current=null;return}
     const context=dialogue.context
     if(launch.requestId&&dialogue.turn?.requestId!==launch.requestId)return
-    if(launch.requestId&&!catalogLaunch.records.some(r=>r.requestId===launch.requestId&&r.context.conversationId===context.conversationId&&r.transmission==='sent'&&r.storage==='stored'))return
+    if(launch.catalog&&!catalogLaunch.records.some(r=>r.requestId===launch.requestId&&r.context.conversationId===context.conversationId&&r.transmission==='sent'&&r.storage==='stored'))return
     if(context.projectId!==launch.projectId||!context.conversationId||context.conversationId===launch.previousConversationId||!(dialogue.status==='ready'||dialogue.acknowledged&&['running','waiting-question','waiting-approval'].includes(dialogue.status)))return
     if(!state?.conversations.some(c=>c.id===context.conversationId&&sameContext(c.context,context)))return
     pendingLaunch.current=null
@@ -325,16 +347,23 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   useEffect(() => window.madness.onStateChanged?.(() => { void window.madness.readState().then(accept).catch(() => setError('Le contexte du dialogue ne peut pas être relu. Votre saisie reste disponible.')) }), [])
   function acceptDialogue(next: DialogueState): void { if(next.sequence<dialogueSequence.current)return;dialogueSequence.current=next.sequence;setDialogue(next);const launch=pendingLaunch.current;if(next.errorCode==='CONTEXT_MISMATCH'&&next.status==='error'&&launch&&next.sequence>launch.sequence&&launch.token===navigationToken.current&&launch.projectId===currentProjectId.current&&(next.context.projectId===null||next.context.projectId===launch.projectId)&&(next.invocation==='$bmad'||next.invocation==='$bmad-forge-idea'))setInitiativeConflict(true) }
   function changeApproval(approval:ApprovalRecord,adjustment:string):void{
-    const id=approval.id;setApprovalDrafts(current=>({...current,[id]:adjustment}))
+    const id=approval.id;if(sendingApprovals.current.has(id))return;setApprovalDrafts(current=>({...current,[id]:adjustment}))
     const previous=approvalWrites.current.get(id)??Promise.resolve()
     const saving=previous.catch(()=>{}).then(async()=>{try{const next=await window.madnessDialogue.saveApproval(id,adjustment);acceptDialogue(next);setApprovalFailures(current=>({...current,[id]:!!next.errorCode}))}catch{setApprovalFailures(current=>({...current,[id]:true}))}})
     approvalWrites.current.set(id,saving)
   }
   async function approvalAction(approval:ApprovalRecord,decision?:ApprovalDecision):Promise<void>{
-    const id=approval.id;if(sendingApprovals.current.has(id))return;sendingApprovals.current.add(id)
-    try{await approvalWrites.current.get(id);const next=decision?await window.madnessDialogue.decideApproval(id,decision):await window.madnessDialogue.sendAdjustment(id);acceptDialogue(next);setApprovalFailures(current=>({...current,[id]:!!next.errorCode}))}catch{setApprovalFailures(current=>({...current,[id]:true}))}finally{sendingApprovals.current.delete(id)}
+    const id=approval.id;if(sendingApprovals.current.has(id))return;sendingApprovals.current.add(id);setApprovalSending(current=>({...current,[id]:true}))
+    try{const captured=approvalDrafts[id]??approval.adjustment;await approvalWrites.current.get(id)
+      let next:DialogueState
+      if(decision)next=await window.madnessDialogue.decideApproval(id,decision)
+      else{const durable=dialogueCurrent.current.approvals.find(a=>a.id===id);if(!durable||durable.adjustment!==captured||durable.storage!=='stored')return
+        const chosen=await metricChoices.resolve('adjust-'+id,approval.context.projectId!,approval.context.conversationId,captured,{type:'send-adjustment',approvalId:id})
+        next=chosen?await window.madnessDialogue.adjustMeasured(id,chosen.requestId,chosen.choiceRef):await window.madnessDialogue.sendAdjustment(id)
+      }
+      acceptDialogue(next);setApprovalFailures(current=>({...current,[id]:!!next.errorCode}))}catch(e){if(!(e instanceof Error&&e.message==='METRIC_CHOICE_REFUSED'))setApprovalFailures(current=>({...current,[id]:true}))}finally{sendingApprovals.current.delete(id);setApprovalSending(current=>({...current,[id]:false}))}
   }
-  function approvalPanel(a:ApprovalRecord):ReactNode{return <ApprovalPanel key={a.id} approval={a} respondable={respondable('approval',a.id)} adjustment={approvalDrafts[a.id]??a.adjustment} projectName={project?.name??'Projet capturé'} compactContext onChange={text=>changeApproval(a,text)} onDecide={decision=>void approvalAction(a,decision)} onSendAdjustment={()=>void approvalAction(a)} canAdjust={dialogueHere&&dialogue.status==='ready'&&sameContext(a.context,dialogue.context)} bridgeFailed={approvalFailures[a.id]??false}/>}
+  function approvalPanel(a:ApprovalRecord):ReactNode{return <ApprovalPanel key={a.id} approval={a} sendPending={approvalSending[a.id]??false} metricChoice={metricChoices.slot('adjust-'+a.id,dialoguePending||!!approvalSending[a.id])} respondable={respondable('approval',a.id)} adjustment={approvalDrafts[a.id]??a.adjustment} projectName={project?.name??'Projet capturé'} compactContext onChange={text=>changeApproval(a,text)} onDecide={decision=>void approvalAction(a,decision)} onSendAdjustment={()=>void approvalAction(a)} canAdjust={dialogueHere&&dialogue.status==='ready'&&sameContext(a.context,dialogue.context)} bridgeFailed={approvalFailures[a.id]??false}/>}
   function changeQuestion(question:QuestionRecord,values:QuestionValues):void{
     const id=question.id;setQuestionDrafts(current=>({...current,[id]:values}))
     void window.madnessDialogue.saveQuestion(id,values).then(next=>{acceptDialogue(next);setQuestionFailures(current=>({...current,[id]:!!next.errorCode}))}).catch(()=>setQuestionFailures(current=>({...current,[id]:true})))
@@ -354,22 +383,24 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     return unsubscribe
   }, [])
   async function dialogueAction(action: 'qualify' | 'launch' | 'stop' | 'observeStop' | 'qualifyForge' | 'launchForge' | 'launchHelp'): Promise<void> {
-    if (dialoguePending) return
+    if (dialoguePending||dialogueActionLock.current) return
     const projectId = project?.id
     if (action !== 'stop' && action !== 'observeStop' && !projectId) return
     const launching=action==='launch'||action==='launchForge'||action==='launchHelp'
     if((action==='launchForge'||action==='launchHelp')&&initiativeContext?.observation?.activeInitiative&&initiativeContext.selection?.initiativeId!==initiativeContext.observation.activeInitiative){setInitiativeConflict(true);return}
     const launch=launching?{token:++navigationToken.current,projectId:projectId!,previousConversationId:dialogue.context.conversationId,sequence:dialogue.sequence}:null
     if(launch){pendingLaunch.current=launch;setFocusTarget(null)}
-    setDialoguePending(true)
-    try { const next = action === 'stop'||action==='observeStop' ? await window.madnessDialogue[action]() : action==='launch'?await window.madnessDialogue.launch(projectId!,maryMode):await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false) }
-    catch { if(launch&&pendingLaunch.current===launch)pendingLaunch.current=null;setDialogueBridgeError(true) }
-    finally { setDialoguePending(false) }
+    dialogueActionLock.current=true;setDialoguePending(true)
+    try { const chosen=launching?await metricChoices.resolve(action,projectId!,null,null,action==='launch'?{type:'launch',mode:maryMode}:action==='launchForge'?{type:'launch-forge'}:{type:'launch-help'}):null
+      if(chosen&&launch)Object.assign(launch,{requestId:chosen.requestId})
+      const next = chosen?await window.madnessDialogue.launchMeasured(action==='launchForge'?'launch-forge':action==='launchHelp'?'launch-help':'launch',projectId!,chosen.requestId,chosen.choiceRef,undefined,maryMode):action === 'stop'||action==='observeStop' ? await window.madnessDialogue[action]() : action==='launch'?await window.madnessDialogue.launch(projectId!,maryMode):await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false) }
+    catch(e) { if(launch&&pendingLaunch.current===launch)pendingLaunch.current=null;if(!(e instanceof Error&&e.message==='METRIC_CHOICE_REFUSED'))setDialogueBridgeError(true) }
+    finally { dialogueActionLock.current=false;setDialoguePending(false) }
   }
   async function launchFromCatalog():Promise<void>{
     const p=catalogPreparation;if(!p||p.projectId!==project?.id||catalogLaunchLock.current||dialoguePending)return
-    catalogLaunchLock.current=true;const launch={token:++navigationToken.current,projectId:p.projectId,previousConversationId:dialogue.context.conversationId,sequence:dialogue.sequence,requestId:p.id};pendingLaunch.current=launch;setDialoguePending(true)
-    try{const next=await window.madnessDialogue.launchCatalog(p.projectId,p.id);acceptDialogue(next);setDialogueBridgeError(false)}catch{if(pendingLaunch.current===launch)pendingLaunch.current=null;setDialogueBridgeError(true)}finally{catalogLaunchLock.current=false;setDialoguePending(false)}
+    catalogLaunchLock.current=true;const launch={token:++navigationToken.current,projectId:p.projectId,previousConversationId:dialogue.context.conversationId,sequence:dialogue.sequence,requestId:p.id,catalog:true};pendingLaunch.current=launch;setDialoguePending(true)
+    try{const chosen=await metricChoices.resolve('catalog',p.projectId,null,null,{type:'launch-catalog',preparationId:p.id},p.id);const next=chosen?await window.madnessDialogue.launchMeasured('launch-catalog',p.projectId,p.id,chosen.choiceRef,p.id):await window.madnessDialogue.launchCatalog(p.projectId,p.id);acceptDialogue(next);setDialogueBridgeError(false)}catch(e){if(pendingLaunch.current===launch)pendingLaunch.current=null;if(!(e instanceof Error&&e.message==='METRIC_CHOICE_REFUSED'))setDialogueBridgeError(true)}finally{catalogLaunchLock.current=false;setDialoguePending(false)}
   }
   function cancelCatalog():void{const p=catalogPreparation;if(!p)return;navigationToken.current++;pendingLaunch.current=null;setCatalogPreparation(null);void window.madnessCatalogLaunch.cancel(p.id).then(acceptCatalogLaunch).catch(()=>{});setTab('catalogue')}
   async function inspectApproval(id:string):Promise<void>{if(dialoguePending)return;setDialoguePending(true);try{acceptDialogue(await window.madnessDialogue.inspectApproval(id));setDialogueBridgeError(false)}catch{setDialogueBridgeError(true)}finally{setDialoguePending(false)}}
@@ -383,8 +414,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     try {
       const savedReply = await window.madness.saveDraft(projectId, captured)
       if (!accept(savedReply)) return
-      acceptDialogue(await window.madnessDialogue.send(projectId, conversationId, captured)); setDialogueBridgeError(false)
-    } catch { setDialogueBridgeError(true) }
+      const chosen=await metricChoices.resolve('send',projectId,conversationId,captured,{type:'send'});acceptDialogue(chosen?await window.madnessDialogue.sendMeasured(projectId,conversationId,captured,chosen.requestId,chosen.choiceRef):await window.madnessDialogue.send(projectId, conversationId, captured)); setDialogueBridgeError(false)
+    } catch(e) { if(!(e instanceof Error&&e.message==='METRIC_CHOICE_REFUSED'))setDialogueBridgeError(true) }
     finally { sending.current = false; setDialoguePending(false) }
   }
   function acceptConnection(next: ConnectionState): void { setConnection((current) => next.sequence >= current.sequence ? next : current) }
@@ -501,7 +532,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     {state?.projects.map(p => <button key={p.id} className={'nav-button project-link ' + (page === 'project' && p.id === project?.id ? 'selected' : '')} aria-label={'Ouvrir le projet ' + p.name} aria-current={page === 'project' && p.id === project?.id ? 'page' : undefined} title={p.name + '\n' + p.rootPath} disabled={pending} onClick={() => select(p.id)}><span className="project-glyph" aria-hidden="true"><ProjectMark name={p.name} /></span><span className="nav-label truncate">{p.name}</span></button>)}
     {!state?.projects.length && <p className="nav-note nav-label">Vos dossiers ouverts apparaîtront ici.</p>}
   </>
-  return <FilesContext.Provider value={{state:filesState,open:openFile}}><div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>{captureRequestFocus(event.target);if(tab!=='graphe'&&event.target instanceof HTMLElement&&event.target.closest('main')&&!event.target.closest('.project-tabs,.file-preview,.work-overview,.project-library,.return-to-work'))workFocus.current=event.target}} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open||document.querySelector('.initiative-dialog[open],.catalog-dialog[open]')) return; if(fileConsultation){event.preventDefault();event.stopPropagation();closeFile()}else if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
+  return <MetricsContext.Provider value={{state:metrics.state,error:metrics.error}}><FilesContext.Provider value={{state:filesState,open:openFile}}><div className={'app-shell ' + (agentConsultation ? 'agent-info-open ' : '') + (collapsed ? 'nav-compact ' : '') + (tooltipsDismissed ? 'tooltips-dismissed' : '')} onFocusCapture={event=>{captureRequestFocus(event.target);if(tab!=='graphe'&&event.target instanceof HTMLElement&&event.target.closest('main')&&!event.target.closest('.project-tabs,.file-preview,.work-overview,.project-library,.return-to-work'))workFocus.current=event.target}} onPointerDownCapture={event=>{if(!(event.target instanceof HTMLElement)||!event.target.closest('[data-question-id],[data-approval-id]'))requestFocus.current=null}} onKeyDown={(event) => { if (event.key === 'Escape') { setTooltipsDismissed(true); if (drawer.current?.open||planConfirmation.current?.open||document.querySelector('.initiative-dialog[open],.catalog-dialog[open]')) return; if(fileConsultation){event.preventDefault();event.stopPropagation();closeFile()}else if(agentConsultation){event.preventDefault();event.stopPropagation();closeAgentInfo()}else if(contextOpen){event.preventDefault();event.stopPropagation();closeContext()}else if (connectionOpen) { event.preventDefault();event.stopPropagation(); closeConnection() } } }}>
     <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>Aller au contenu</a>
     <header className="topbar" onMouseLeave={()=>setTooltipsDismissed(false)} onFocusCapture={()=>setTooltipsDismissed(false)}>
       <div className="breadcrumb">
@@ -568,7 +599,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                 {tab==='graphe'&&<GraphPanel key={project.id+':'+project.rootPath} projectId={project.id} rootPath={project.rootPath} workspace={graphState} accept={acceptGraph} views={graphViews.current} active={tab==='graphe'} onReturn={returnFromGraph} returnLabel={graphReturns.current.get(project.id)?.tab==='conversation'?'Conversation':graphReturns.current.get(project.id)?.tab==='catalogue'?'Toutes les possibilités':'Parcours'}/>}
                 <div hidden={tab!=='catalogue'}><CatalogPanel key={project.id} projectId={project.id} rootPath={project.rootPath} value={catalogState.projects.find(p=>p.projectId===project.id)} accept={acceptCatalog} views={catalogViews.current} active={tab==='catalogue'} onPrepared={(p,next)=>{if(currentProjectId.current!==p.projectId)return;acceptCatalogLaunch(next);const destination={token:++navigationToken.current,projectId:p.projectId};setConversationSelections(current=>({...current,[p.projectId]:conversation?.id??''}));setCatalogPreparation(p);setTab('conversation');requestAnimationFrame(()=>{if(navigationCurrent(destination,navigationToken.current,currentProjectId.current))document.getElementById('catalog-launch-heading')?.focus()})}} onRefused={code=>{if(currentProjectId.current===project.id&&code==='CONTEXT_MISMATCH')setInitiativeConflict(true)}}/></div>
                 <div hidden={tab!=='parcours'}><ProjectResume active={tab==='parcours'} rootPath={project.rootPath} projectId={project.id} context={initiativeContext} value={progressState.projects.find(p=>p.projectId===project.id)} overview={overview} accept={acceptProgress} onNavigate={target=>void navigateOverview(target)} onChoose={()=>document.querySelector<HTMLButtonElement>('.initiative-trigger')?.click()} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'}/></div>
-                {tab==='parcours'&&<HelpPanel stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} state={helpState} onChanged={acceptHelp} onOpen={record=>void navigateOverview({kind:'conversation',context:record.context,id:'bmad-receipt-'+record.conversationId})} onObserveStop={()=>void dialogueAction('observeStop')} projectId={project.id} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} allowed={connection.accountStored&&!connection.needsPlanAcknowledgement&&!connectionBusy&&!dialogueBridgeError} onLaunch={()=>void dialogueAction('launchHelp')}/>}
+                {tab==='parcours'&&<HelpPanel metricChoice={metricChoices.slot('launchHelp',dialoguePending||dialogueBusy||sessionPresent)} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} state={helpState} onChanged={acceptHelp} onOpen={record=>void navigateOverview({kind:'conversation',context:record.context,id:'bmad-receipt-'+record.conversationId})} onObserveStop={()=>void dialogueAction('observeStop')} projectId={project.id} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} allowed={connection.accountStored&&!connection.needsPlanAcknowledgement&&!connectionBusy&&!dialogueBridgeError} onLaunch={()=>void dialogueAction('launchHelp')}/>}
                 {tab === 'parcours' && <div className="exchange-preparation"><p className="preparation-intro">Préparez un échange avec Mary pour préciser votre projet, ou avec Forge pour éprouver une nouvelle idée. Qualification et lancement restent explicites.</p><section className="forge-launch" aria-labelledby="forge-title">
                   <div className="dialogue-heading"><h2 id="forge-title">Mettre une idée à l’épreuve</h2>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&<span className="badge" role="status">Forge · {displayedDialogueStatus}</span>}</div>
                   <p>Forge confronte une nouvelle idée à plusieurs points de vue, puis conserve un journal et un rapport. Chaque tour utilise votre forfait ChatGPT.</p>
@@ -577,6 +608,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                     <p><code>$bmad-forge-idea</code> · Forge natif installé · Codex</p>
                     <dl><dt>Projet destinataire</dt><dd>{project.name} · <code>{project.rootPath}</code></dd><dt>Effets autorisés</dt><dd>Une nouvelle session <code>forge-{'{slug}'}</code> dans la sortie BMad résolue de ce projet. Journal natif et HTML obligatoires ; Markdown supplémentaire si l’idée est renforcée (HARDENED).</dd><dt>Sortie vérifiée</dt><dd>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&dialogue.profile?.outputBase?<code>{dialogue.profile.outputBase}</code>:'Vérifiez le profil pour connaître le chemin exact.'}</dd></dl>
                     <p className="small muted">Le lancement transmet uniquement l’invocation, jamais votre brouillon. Codex reste en lecture seule ; seules les commandes de cette session peuvent écrire. Hooks, reprise, autres workflows et approbations indisponibles bloquent l’action. Le HTML reste un fichier, sans exécution dans Madness.</p>
+                    {metricChoices.slot('launchForge',dialoguePending||dialogueBusy||sessionPresent)}
                     <div className="dialogue-actions"><button className="secondary" type="button" onClick={()=>void dialogueAction('qualifyForge')} disabled={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'||dialogueBridgeError}>Vérifier le profil Forge</button><button id="forge-launch" className="primary" type="button" aria-describedby={forgePrerequisite?'forge-launch-prerequisite':undefined} onClick={()=>void dialogueAction('launchForge')} disabled={dialoguePending||dialogueBusy||sessionPresent||dialogue.status!=='qualified'||!dialogueHere||dialogue.invocation!=='$bmad-forge-idea'||!connection.accountStored||connection.needsPlanAcknowledgement||connectionBusy||dialogueBridgeError}>Lancer Forge avec Codex</button></div>
                     {forgePrerequisite&&<p id="forge-launch-prerequisite" className="small">{fr.dialoguePrerequisites[forgePrerequisite]}{' '}{forgePrerequisite==='account'?<button className="text-button" type="button" onClick={openConnection}>Ouvrir le panneau Codex</button>:<button className="text-button" type="button" onClick={()=>planConfirmation.current?.showModal()}>Relire le rappel du forfait</button>}</p>}
                   </div>}
@@ -588,6 +620,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   <label className="approval-mode"><input type="checkbox" checked={sessionPresent&&dialogueHere&&dialogue.invocation==='$bmad-agent-analyst'?dialogue.mode==='file-approval':maryMode==='file-approval'} disabled={dialoguePending||dialogueBusy||sessionPresent} onChange={event=>setMaryMode(event.target.checked?'file-approval':'read-only')}/>Proposer des modifications avec approbation</label>
                   <p className="small">{sessionPresent&&dialogueHere?'Mode capturé : '+(dialogue.mode==='file-approval'?'fichiers avec accord ponctuel.':'lecture seule.') : maryMode==='file-approval'?'Mary pourra proposer un patch complet à autoriser ou refuser. Shell désactivé ; aucun accord global.':'Lecture seule par défaut ; aucune écriture native autorisée.'}</p>
                   <p className="small muted">Les workflows du menu restent indisponibles dans ce pilote. Le mode fichiers ajoute seulement des patches natifs avec accord ponctuel ; chaque nouvelle proposition demande un nouveau choix.</p>
+                  {metricChoices.slot('launch',dialoguePending||dialogueBusy||sessionPresent)}
                   <div className="dialogue-actions">
                     <button id="mary-launch" className="primary" type="button" onClick={() => void dialogueAction('launch')} disabled={dialoguePending || dialogueBusy || sessionPresent || dialogue.status === 'unknown' || !connection.accountStored || connection.needsPlanAcknowledgement || connectionBusy || dialogueBridgeError}><Icon name="message" />Lancer Mary avec Codex</button>
                     <button className="secondary" type="button" onClick={() => void dialogueAction('qualify')} disabled={dialoguePending || dialogueBusy || sessionPresent || dialogue.status === 'unknown' || dialogueBridgeError}>Vérifier ce projet</button>
@@ -621,10 +654,11 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                 {tab==='conversation'&&<form className="composer" onSubmit={(event) => { event.preventDefault(); const projectId = project.id; const value = text; void run(() => window.madness.saveDraft(projectId, value), () => setNotice(fr.saved)) }}>
                   <label htmlFor="draft">{nativeAwaiting?'Brouillon libre pour ce projet':canReply || dialogueConversationHere && sessionPresent ? 'Votre réponse à '+recipient : 'Brouillon pour ' + project.name}</label>
                   <textarea id="draft" value={text} onChange={(event) => setTexts((current) => ({ ...current, [project.id]: event.target.value }))} maxLength={MAX_DRAFT_LENGTH} aria-describedby="draft-status draft-limit" placeholder="Notez ce que vous souhaitez reprendre dans ce projet…" />
+                  {canReply&&metricChoices.slot('send',dialoguePending)}
                   <div className="composer-bottom"><p id="draft-status">{dirty ? fr.unsaved : saved ? fr.saved : fr.noDraft}</p><div className="composer-actions"><button className="secondary" type="submit" disabled={pending || !dirty}>{pending ? fr.saving : fr.save}</button>{dialogueConversationHere && sessionPresent && <button className="primary" type="button" onClick={() => void sendToMary()} disabled={!canReply || dialoguePending || !text.trim()}><Icon name="arrow" />Envoyer à {recipient}</button>}</div></div>
                   <p className="small muted" id="draft-limit">{nativeAwaiting?'La réponse ou la décision se donne dans le formulaire de la demande corrélée lorsqu’elle est active. Ce brouillon libre se sauvegarde séparément, sans envoi.':canReply ? 'Seul « Envoyer à '+recipient+' » transmet ce texte. Le brouillon est enregistré avant l’envoi et reste disponible.' : 'Saisie conservée localement · aucun envoi automatique'} · 100 000 caractères maximum</p>
                 </form>}
-                {tab==='conversation'&&catalogPreparation?.projectId===project.id&&(catalogLaunch.preparation?.id===catalogPreparation.id||catalogLaunch.status==='error')&&<CatalogLaunchPanel preparation={catalogPreparation} busy={dialoguePending||dialogueBusy||catalogLaunch.status==='launching'} stale={catalogSelectionChanged||catalogLaunch.status!=='prepared'||catalogState.projects.find(p=>p.projectId===project.id)?.freshness!=='current'||catalogState.projects.find(p=>p.projectId===project.id)?.snapshot?.revision!==catalogPreparation.snapshot.revision||catalogState.projects.find(p=>p.projectId===project.id)?.generation!==catalogPreparation.generation} error={catalogSelectionChanged?'Sélection d’initiative modifiée — cette préparation est périmée. Retournez à la fiche puis préparez de nouveau.':catalogLaunch.error} onLaunch={()=>void launchFromCatalog()} onCancel={cancelCatalog}/>}
+                {tab==='conversation'&&catalogPreparation?.projectId===project.id&&(catalogLaunch.preparation?.id===catalogPreparation.id||catalogLaunch.status==='error')&&<CatalogLaunchPanel metricChoice={metricChoices.slot('catalog',dialoguePending||dialogueBusy)} preparation={catalogPreparation} busy={dialoguePending||dialogueBusy||catalogLaunch.status==='launching'} stale={catalogSelectionChanged||catalogLaunch.status!=='prepared'||catalogState.projects.find(p=>p.projectId===project.id)?.freshness!=='current'||catalogState.projects.find(p=>p.projectId===project.id)?.snapshot?.revision!==catalogPreparation.snapshot.revision||catalogState.projects.find(p=>p.projectId===project.id)?.generation!==catalogPreparation.generation} error={catalogSelectionChanged?'Sélection d’initiative modifiée — cette préparation est périmée. Retournez à la fiche puis préparez de nouveau.':catalogLaunch.error} onLaunch={()=>void launchFromCatalog()} onCancel={cancelCatalog}/>}
                 {tab==='conversation'&&conversation&&<CatalogOrigin record={catalogLaunch.records.find(r=>r.conversationId===conversation.id&&sameContext(r.context,conversation.context))} onRetry={id=>void window.madnessCatalogLaunch.retrySave(id).then(acceptCatalogLaunch).catch(()=>setNotice('Enregistrement de l’origine impossible ; aucun nouvel envoi.'))}/>}
                 {tab==='conversation'&&<button className="text-button prepare-exchange" type="button" onClick={prepareExchange}>Préparer un échange</button>}
                 {(dialogue.recovery.stop==='unconfirmed'||dialogue.approvals.some(a=>a.context.projectId===project.id&&a.decision==='accept'&&(['unknown','pending'].includes(a.effect)||a.storage!=='stored')))&&<details className="recovery-details"><summary>Détails de récupération et inspection</summary><div id={dialogue.context.projectId!==null?"overview-session-recovery":undefined} tabIndex={-1}><RecoveryPanel state={dialogue} projectId={project.id} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={id=>void inspectApproval(id)} onPrepare={prepareExchange}/></div></details>}
@@ -658,5 +692,5 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       <button className="primary" type="button" onClick={() => void connectionAction('acknowledgePlan')} disabled={connectionPending}>J’ai compris</button>
       {' '}<button className="secondary" type="button" onClick={() => planConfirmation.current?.close()}>Fermer</button>
     </dialog>
-  </div></FilesContext.Provider>
+  </div></FilesContext.Provider></MetricsContext.Provider>
 }

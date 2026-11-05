@@ -1,0 +1,45 @@
+✔ capture frame rejects former cropped zoom and accepts complete native scaled content (10.3646ms)
+✔ T1/T2 partial unread conflicting leaf cannot qualify the remaining entry (189.0912ms)
+✔ T2/T3 partial observation preserves the occurrence but revokes pending authority and choices (440.8664ms)
+✔ T1/T10 refused file grant keeps public progress without metrics authority, rows=false (45.3098ms)
+✔ T1/T10 refused file grant keeps public progress without metrics authority, rows=true (22.3889ms)
+✔ T3 choose survives an equivalent complete proof carried by a new authority object (320.9433ms)
+✔ T3 captured effect guard survives an equivalent complete proof carried by a new authority object (236.9598ms)
+✔ T3 partial recovery never revives revoked instrument or choice, reused authority=false (634.7832ms)
+✔ T3 partial recovery never revives revoked instrument or choice, reused authority=true (554.5178ms)
+✔ T3 changed complete proof invalidates old capabilities even when the old revision returns (1110.496ms)
+✔ T3 changed context with identical proof revision rejects old capabilities and admits a fresh choice (634.5376ms)
+✔ Q3 all measurement copy keys have nonempty paired FR and EN values (5.6458ms)
+✔ T4/T7 known duration is ACK to terminal, including a real zero and failed result (18.8915ms)
+✔ T5/T6 invalid, missing and conflicting intervals never pick the first receipt (5.3352ms)
+✔ T6/T7 contradictory attribution is unassigned and parallel totals keep coverage (2.4421ms)
+✔ T8/T9 true metrics file round trip, independent writer CAS and future data preserved (202.4308ms)
+✔ T10 strict commands reject paths, clocks and types as renderer authority (0.6241ms)
+✔ T1 private source proof preserves public v1 and includes entry and leaf type physical identity (22484.0002ms)
+✔ T1/T2 no-leaf story continuity, absent return, partial coverage and duplicate refusal (259.1616ms)
+✔ T3 explicit choice consumed once, correlated to exact text, no next-turn inheritance, passive restore (280.3707ms)
+✔ T6 same occurrence remains attributed across a title/proof revision change (1.0868ms)
+✔ T8 legacy dialogue remains admissible with an unreadable metrics annex and preserves it (34.8827ms)
+✔ T3/T4/T8/T9 product dialogue writes independent durable receipts, reopens passively and legacy stays unassigned (159.152ms)
+✔ T8 a failed metrics write keeps RAM, retry only saves and old writes cannot promote new bounds (4.064ms)
+✔ T3 a choice for one launch operation cannot authorize a different native invocation (51.0384ms)
+✔ T3 removing a choice invalidates the old pending reference for the same exact request (53.2199ms)
+✔ T7/T8 consumer projection exposes reasons, coverage and saved bounds separately (159.9231ms)
+✔ T1/T2/T3/T7/T9 two projects, two initiatives and conversations retain separate sourced totals after reopen (674.5955ms)
+✔ T7 domains and missing clocks report unknown overlap without erasing known individual durations (1.0563ms)
+✔ T8 metrics storage refuses hardlinked annexes without changing either name (20.6157ms)
+✔ T1/T3 a slow metrics admission cannot republish invalidated progress as current (3.5435ms)
+✔ T3/T4/T6/T8/T9 local JSONL double goes through Application, explicit choice, atomic save and passive reopen (358.1939ms)
+✔ T2 physical replacement, move and replaced root create separate occurrences (191.3436ms)
+✔ T8 independent concurrent stores cannot both win the same prior-byte CAS (344.3705ms)
+✔ T8 a pre-existing foreign writer lease is preserved and no body is replaced (33.5901ms)
+✔ T4/T5 terminal functional outcome stays completed after a later confirmed process close (186.3059ms)
+✔ UI13 member references preserve exact aliases, distinct groups, legacy and strict validation (420.3854ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 26681.0825

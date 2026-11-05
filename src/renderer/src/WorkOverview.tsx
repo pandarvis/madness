@@ -1,3 +1,4 @@
+import {MetricsForConversation} from './UsMetrics.tsx'
 import {useEffect,useId,useRef,useState} from 'react'
 import type {ReactNode} from 'react'
 import type {WorkOverviewState,OverviewTarget,ConversationOverview} from '../../core/work-overview.ts'
@@ -11,6 +12,7 @@ export function Recap({value,onNavigate,idPrefix=''}:{idPrefix?:string;value:Con
   {open&&<div className="recap-body">
    <p>{turn?.phase==='completed'?words.completed:turn?words.turnUnfinished:words.historical}</p>
    <p className="small">{value.context.initiativeId??words.noInitiative} · {value.context.providerId??words.unknownProvider} · {words.connectionCaptured} <code>{value.context.connectionId??words.unknown}</code>{turn&&<> · {words.turn} <code>{turn.id}</code></>}</p>
+   <MetricsForConversation context={value.context} turnId={turn?.id}/>
    <h3>{words.proposedResult}</h3>
    <p className="small">{words.noSynthesis}</p>
    {value.results.length?value.results.map(result=><details className="recap-text" key={result.id}><summary>{words.receivedText}{result.storage==='historical'?' · '+words.historicalText:result.storage!=='stored'?' · '+fr.conversation.notStored:''}</summary><div className="message-text">{result.text}</div></details>):<p>{words.noResult}</p>}

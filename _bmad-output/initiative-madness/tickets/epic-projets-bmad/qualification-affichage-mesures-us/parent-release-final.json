@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "version": "0.2.15",
+  "artifacts": {
+    "dist/us-metrics-reviewed/win-unpacked/resources/app.asar": "2f31df5b977bf269f583e83c9d8baf4c05a00ce9ce965a45b886e42523a1bfa8",
+    "dist/us-metrics-reviewed/win-unpacked/Madness.exe": "3dd36a939b6475029780e037ee4c5dc0461b07af711f38e7e666d271bd777ed3",
+    "dist/us-metrics-reviewed/Madness-0.2.15-x64-setup.exe": "57267f72e0f07532d27ff28fd8dc1a61109456937e87cd93fc0f66d274a773d6"
+  },
+  "compiledPackagedPairs": [
+    {
+      "path": "out/main/index.js",
+      "sha256": "03f056ebf1b2cbca8d23460e896bad978737e1996ab7830f3ed9a58b705f0449",
+      "bytes": 550112
+    },
+    {
+      "path": "out/preload/index.js",
+      "sha256": "92f26ea2c6f9d40787977b84ab42572a267d54207f8d02b067ed893e26da300e",
+      "bytes": 92717
+    },
+    {
+      "path": "out/renderer/index.html",
+      "sha256": "cdf69762a9fe18c1f81596fadd7ab525be1c6b40ea8dea305a8db36292db3127",
+      "bytes": 454
+    },
+    {
+      "path": "out/renderer/assets/index-Bxd_0j_a.js",
+      "sha256": "fff335b060e1490461a1b457c2c0c6f7ad0dd7fd0d08f82e28469aadef4df57c",
+      "bytes": 1015988
+    },
+    {
+      "path": "out/renderer/assets/index-_HLYRNhq.css",
+      "sha256": "5dd4abaa462cf277b7094dff67434d4264e1ad7803a576a34c04436559dfc5dd",
+      "bytes": 91345
+    }
+  ],
+  "sourceSeal": "corrections-003-banc-csp/final-source-freeze.json",
+  "qualification": ".impeccable/review/metrics213/package-003/verification.json",
+  "installed": false,
+  "limits": "No personal install/native SIWC/human approval/G2-G5. External capture bench-only CSP correction after app build; no packaged product file changed.",
+  "initialAuditAttempt": "Forward slash extractFile path rejected on Windows; no mutation; native joined archive paths used here."
+}

@@ -234,3 +234,18 @@ test('T4/T5 terminal functional outcome stays completed after a later confirmed 
  const observation=c.read().projects[0].observations[0];assert.deepEqual(observation.outcomes,['completed']);assert.equal(observation.durationMs,600000)
  })
 })
+
+test('UI13 member references preserve exact aliases, distinct groups, legacy and strict validation',async()=>{
+ await coordinatorTest(async c=>{
+  const first=await c.capture(context,'request-1','same-local','Exact');first.receive(receipt('ack',1));first.receive(receipt('terminal',11));
+  const alias=await c.capture(context,'request-2','same-local','Alias');alias.receive(receipt('ack',1));alias.receive(receipt('terminal',11));
+  const other=await c.capture(context,'request-3','same-local','Other');other.receive(receipt('ack',2,{nativeTurnId:'other'}));other.receive(receipt('terminal',22,{nativeTurnId:'other'}));await c.settled();
+  const state=c.read(),p=state.projects[0];assert.equal(p.observations.length,2);
+  assert.deepEqual(p.observations.map(o=>o.members.recordIds.length).sort(),[1,2]);
+  assert.deepEqual(new Set(p.observations.flatMap(o=>o.members.recordIds)),new Set(p.archive.turns.map(t=>t.id)));
+  assert.ok(contracts.isUsMetricsState(state));
+  for(const o of p.observations){const legacy={...o};delete legacy.members;assert.ok(contracts.isMetricObservation(legacy));
+   for(const members of [{schemaVersion:2,recordIds:['id']},{schemaVersion:1,recordIds:[]},{schemaVersion:1,recordIds:['id','id']},{schemaVersion:1,recordIds:['id'],extra:true}])assert.equal(contracts.isMetricObservation({...o,members}),false);
+  }
+ })
+})

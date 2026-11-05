@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "at": "2026-11-05T04:12:48.110530+00:00",
+  "root": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness",
+  "scope": "Worker source freeze before parent build/package/visual orchestration",
+  "inputs": {
+    "package.json": {
+      "sha256": "f041d70513dc419b90619b71e3c44366d5bdffd28da6d032782a994a914cc28b",
+      "bytes": 1224
+    },
+    "package-lock.json": {
+      "sha256": "9f7d3c3af106b1172b0b4a8e5273c7e86e146b0e8cabf581ef40d1b0545f28ec",
+      "bytes": 186728
+    },
+    "src/contracts/us-metrics.ts": {
+      "sha256": "c265a5ae1098dd60d40c1d805314fb1ed1fe20b18c513b3305f56ee8c60563e7",
+      "bytes": 12236
+    },
+    "src/core/us-metrics.ts": {
+      "sha256": "57d85748b195b809b906ea5d5d2bd4431d57213ff37f8ef432569c1d4f2f7089",
+      "bytes": 18188
+    },
+    "src/renderer/src/UsMetrics.tsx": {
+      "sha256": "69f8e854111b19fef096cea5a21bf883d0e02280f754c884fa3901462bff0492",
+      "bytes": 16167
+    },
+    "src/renderer/src/App.tsx": {
+      "sha256": "92af40ee184aed5584f1120d59993006e36e01f2400f507814bcf1d156728588",
+      "bytes": 90626
+    },
+    "src/renderer/src/ApprovalPanel.tsx": {
+      "sha256": "3dbb15e312d3a5564d8379691a39f2e1ca3d46064355379fa7c3f75234593dbc",
+      "bytes": 5241
+    },
+    "src/renderer/src/CatalogLaunchPanel.tsx": {
+      "sha256": "681e0735a08ff37e5014eaa4e0a207eca2c1899bb099170115f4117d2a39869c",
+      "bytes": 5025
+    },
+    "src/renderer/src/HelpPanel.tsx": {
+      "sha256": "939d4604e34810fa97186d2bd011d0ee4261e642bd5789c4e7aa1a691a92e46d",
+      "bytes": 10055
+    },
+    "src/renderer/src/ProjectResume.tsx": {
+      "sha256": "486517e21529ed8068344fa4361fe3b7ade6e7369c01b006add634bbfcbd9baa",
+      "bytes": 16112
+    },
+    "src/renderer/src/WorkOverview.tsx": {
+      "sha256": "5efdb44a5e110ed3430c145019101d1bd864dcaf8b6a35994612f1e12ef1cbe8",
+      "bytes": 9807
+    },
+    "src/renderer/src/strings.ts": {
+      "sha256": "0bf8721abbb29b9c30e62a2b18e008021a32971000a8c49c7fcef2776bd2003f",
+      "bytes": 29228
+    },
+    "src/renderer/src/atelier-controls.css": {
+      "sha256": "65683d8e28c94b319c744cddd8aabb77e3a6045671a2dbd834ded41ae6b2a6cc",
+      "bytes": 18164
+    },
+    "tests/us-metrics.test.mjs": {
+      "sha256": "3f41a17b87a6329d78a492fe518d43e2744702575692f0eab0294d5b244f9861",
+      "bytes": 28396
+    },
+    "tests/connection-ui.test.mjs": {
+      "sha256": "9e6e66c51be00a5365edaf79a119e85dc352922aee1d6b47de0e069e1fcdb7e9",
+      "bytes": 256711
+    },
+    "scripts/qualification/us-metrics-ui.mjs": {
+      "sha256": "2cfec53389e4d7add6083fb522acd3cb392b0debe0b39c43f9f2072df6694783",
+      "bytes": 13703
+    }
+  },
+  "limits": [
+    "No screenshot, detector, NSIS or new package run in this bounded correction pass.",
+    "Existing out/dist binaries predate the availability/captured-source/sticky-invalidation corrections and are superseded.",
+    "Source-renderer tests use synthetic bridges and do not qualify native SIWC use, cost, human approval or G2-G5."
+  ]
+}

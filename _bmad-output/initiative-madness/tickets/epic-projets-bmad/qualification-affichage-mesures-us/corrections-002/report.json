@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "completedAt": "2026-11-05T05:07:43.611536+00:00",
+  "changedFiles": [
+    "src/renderer/src/App.tsx",
+    "tests/connection-ui.test.mjs",
+    "tests/us-metrics-ui-copy.test.mjs"
+  ],
+  "change": "Every optional story choice now first matches Main current selection initiative/root identity, observed root path/context revision and current source freshness. Only then is the operation-specific captured/native context considered. Existing Main assertFresh and backend authority are unchanged.",
+  "sourceAuthorityRead": {
+    "path": "src/main/index.ts",
+    "sha256": "057e84b3ec644d2e7a8d62c441e6e3a8a52845712920add086be1c635a0e1d7f",
+    "location": "Existing assertStory source authority at lines204-208, read only."
+  },
+  "testChanges": [
+    "Both alpha and beta unavailable when captured/active alpha is viewed under current beta selection, with source/context reasons.",
+    "Voluntary unassigned send and Mary launch remain admitted; no metrics choose issued.",
+    "Only explicit matching alpha selection and observation revision enable alpha in renderer.",
+    "Mismatched observation.revision keeps alpha disabled; exact repaired revision restores eligibility before voluntary rechoice.",
+    "Catalogue preparation does not replace current selection authority: mismatch refused, matching selection restores UI choice.",
+    "Removed arbitrary FR-key count threshold; parity/nonempty/semantic copy checks retained."
+  ],
+  "verification": {
+    "uniqueQ1AndWireCasesGreen": 6,
+    "evidence": "green.log has5green and1closed-details locator failure after legacy running unmounted/remounted the selector; recheck.log has that one case green after reopening its details. No product code changed between runs.",
+    "redEvidence": "red.log retains2actual pre-fix failures for alpha unexpectedly selectable under beta current authority.",
+    "copyTest": "node --test tests/us-metrics-ui-copy.test.mjs :1pass/0fail, exact tool transcript.",
+    "types": "npm run typecheck :exit0",
+    "whitespace": "git diff --check -- src/renderer/src/App.tsx tests/connection-ui.test.mjs tests/us-metrics-ui-copy.test.mjs :exit0, LF-to-CRLF advisory warnings only.",
+    "limits": "Renderer fixtures verify eligibility/routing only; controlled measured calls do not prove actual Main assertFresh/source authority or provider admission."
+  },
+  "logs": {
+    "red.log": {
+      "sha256": "6c3b6754e7e6c195ab1f9349de05048c524ef3555c5b41f55db47be3c375da39",
+      "passCases": [],
+      "failedCases": [
+        "UI13 correction Q1 send requires current selected source and matching captured context",
+        "UI13 correction Q1 Mary requires both active and current selected source authority",
+        "failing tests:",
+        "UI13 correction Q1 send requires current selected source and matching captured context",
+        "UI13 correction Q1 Mary requires both active and current selected source authority"
+      ],
+      "closures": [
+        {
+          "bootstrap": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-FwOp7f\\main.cjs",
+          "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-FwOp7f\\profile",
+          "ownedMainAndDescendantsRemaining": [],
+          "cleanup": "verified-before-delete"
+        }
+      ]
+    },
+    "green.log": {
+      "sha256": "98f8e1beb9ceb13e6dd4f7dbc21a939a91b7900a3b4e52037afcd9d7037cdc24",
+      "passCases": [
+        "UI13 wires attributed launch preserves operation request and default mode",
+        "UI13 wires attributed launchForge preserves operation request and default mode",
+        "UI13 wires attributed launchHelp preserves operation request and default mode",
+        "UI13 wires attributed catalogue uses preparation request and durable origin gate",
+        "UI13 correction Q1 Mary requires both active and current selected source authority"
+      ],
+      "failedCases": [
+        "UI13 correction Q1 send requires current selected source and matching captured context",
+        "failing tests:",
+        "UI13 correction Q1 send requires current selected source and matching captured context"
+      ],
+      "closures": [
+        {
+          "bootstrap": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-q47hLd\\main.cjs",
+          "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-q47hLd\\profile",
+          "ownedMainAndDescendantsRemaining": [],
+          "cleanup": "verified-before-delete"
+        }
+      ]
+    },
+    "recheck.log": {
+      "sha256": "d1a29c9ce8b1bc1d05b199809fd9e42f78046703c3fc851f10a971ea1f0ca87f",
+      "passCases": [
+        "UI13 correction Q1 send requires current selected source and matching captured context"
+      ],
+      "failedCases": [],
+      "closures": [
+        {
+          "bootstrap": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-kPoiOb\\main.cjs",
+          "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-kPoiOb\\profile",
+          "ownedMainAndDescendantsRemaining": [],
+          "cleanup": "verified-before-delete"
+        }
+      ]
+    }
+  },
+  "newFreeze": "final-source-freeze.json",
+  "newFreezeSha256": "1db7b472c1bdd0864c672d6b5086061d12636197849b61f89fc56ee69c4dcce5",
+  "preserved": [
+    "Original worker freeze and corrections-001 freeze kept as historical, unchanged.",
+    "No Main/backend changes; no weakened authority or new public contract.",
+    "No global/full UI suite, build, package, screenshot, detector, install or commit.",
+    "No personal profile or user preview accessed or altered."
+  ]
+}

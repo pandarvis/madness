@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-11-05T05:14:42.002955+00:00",
+  "scope": "Bench-only CSP correction; no product change or package rebuild.",
+  "previousFreeze": "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-affichage-mesures-us\\corrections-002\\final-source-freeze.json",
+  "previousFreezeSha256": "1db7b472c1bdd0864c672d6b5086061d12636197849b61f89fc56ee69c4dcce5",
+  "changedFiles": [
+    "scripts/qualification/us-metrics-ui.mjs"
+  ],
+  "benchBeforeSha256": "fb817d942ba3b72c7dcd9303ad52e0ceed5548877911d7e1526b96d2749ab4fc",
+  "inputs": {
+    "package.json": {
+      "sha256": "f041d70513dc419b90619b71e3c44366d5bdffd28da6d032782a994a914cc28b",
+      "bytes": 1224
+    },
+    "package-lock.json": {
+      "sha256": "9f7d3c3af106b1172b0b4a8e5273c7e86e146b0e8cabf581ef40d1b0545f28ec",
+      "bytes": 186728
+    },
+    "src/contracts/us-metrics.ts": {
+      "sha256": "c265a5ae1098dd60d40c1d805314fb1ed1fe20b18c513b3305f56ee8c60563e7",
+      "bytes": 12236
+    },
+    "src/core/us-metrics.ts": {
+      "sha256": "57d85748b195b809b906ea5d5d2bd4431d57213ff37f8ef432569c1d4f2f7089",
+      "bytes": 18188
+    },
+    "src/renderer/src/UsMetrics.tsx": {
+      "sha256": "08338344bbff239a35cb14be8b3a8ff7e19d0a4d6c862319c8836e8f9f01ea35",
+      "bytes": 16508
+    },
+    "src/renderer/src/App.tsx": {
+      "sha256": "600f5e1aa2bc71a0c768ead557d0c2fba268735209c60dd830eeae98e86b3954",
+      "bytes": 92598
+    },
+    "src/renderer/src/ApprovalPanel.tsx": {
+      "sha256": "147df67590d03668c5ddd49318186f3804b76349e626205dadf0a5afcc516635",
+      "bytes": 5421
+    },
+    "src/renderer/src/CatalogLaunchPanel.tsx": {
+      "sha256": "681e0735a08ff37e5014eaa4e0a207eca2c1899bb099170115f4117d2a39869c",
+      "bytes": 5025
+    },
+    "src/renderer/src/HelpPanel.tsx": {
+      "sha256": "939d4604e34810fa97186d2bd011d0ee4261e642bd5789c4e7aa1a691a92e46d",
+      "bytes": 10055
+    },
+    "src/renderer/src/ProjectResume.tsx": {
+      "sha256": "5ded461dd9b8243431ac5af589c1cb5ac8c055d0c0af1767b42aad0cc4b85790",
+      "bytes": 16019
+    },
+    "src/renderer/src/WorkOverview.tsx": {
+      "sha256": "5efdb44a5e110ed3430c145019101d1bd864dcaf8b6a35994612f1e12ef1cbe8",
+      "bytes": 9807
+    },
+    "src/renderer/src/strings.ts": {
+      "sha256": "7a63cd999c8b37dc00349027eb0e4e07f0469f5855ea9aff5f71f318f68251f9",
+      "bytes": 37386
+    },
+    "src/renderer/src/atelier-controls.css": {
+      "sha256": "65683d8e28c94b319c744cddd8aabb77e3a6045671a2dbd834ded41ae6b2a6cc",
+      "bytes": 18164
+    },
+    "tests/us-metrics.test.mjs": {
+      "sha256": "3f41a17b87a6329d78a492fe518d43e2744702575692f0eab0294d5b244f9861",
+      "bytes": 28396
+    },
+    "tests/connection-ui.test.mjs": {
+      "sha256": "4e89a3c1124dcf21aa5f359d630d05adfc9bf58d73fb3428d0d65563cac791f3",
+      "bytes": 267713
+    },
+    "scripts/qualification/us-metrics-ui.mjs": {
+      "sha256": "a69e8fd1d0ee5812e9b713cf32c3ea7a4ce890bd38a49133e0040c5b7883aa84",
+      "bytes": 15142
+    },
+    "scripts/qualification/us-metrics-capture.mjs": {
+      "sha256": "cb620605b6babb82b71881924824e8e0746773929df42ab561d67e564a4ba6db",
+      "bytes": 626
+    },
+    "tests/us-metrics-capture.test.mjs": {
+      "sha256": "ff893fe301f8c375be6e8afaee36f09875ff39b785bcdfce8a40b6623c16e8ee",
+      "bytes": 699
+    },
+    "tests/us-metrics-ui-copy.test.mjs": {
+      "sha256": "3cccd76a5d4916de3596161ccb392520082f41b9df3ea6a923b528288cb01a56",
+      "bytes": 729
+    }
+  },
+  "allOtherInputsUnchanged": true,
+  "change": "Removed inline addStyleTag caret injection and its cleanup; retained blur/mouse-away/Escape/reduced-motion, Playwright caret hide and full native-frame capture assertion.",
+  "preservedFailedWitnesses": [
+    {
+      "path": "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-affichage-mesures-us\\parent-package-witness-002.log",
+      "sha256": "4262c7612ed96a32f874f269d0edfbe62788277cba3c01dab827333fda0e8695"
+    },
+    {
+      "path": ".impeccable\\review\\metrics213\\package-002\\verification.json",
+      "sha256": "0fee76535c59a31bcc79a688d49c6c2942c8fd88b6b0adca553dd0415bcca5bf"
+    }
+  ],
+  "verification": {
+    "command": "node --check scripts/qualification/us-metrics-ui.mjs",
+    "exitCode": 0,
+    "evidence": "Actual tool execution, no reconstructed raw output.",
+    "notRun": [
+      "captures",
+      "build",
+      "NSIS",
+      "detector",
+      "installation",
+      "commit"
+    ]
+  },
+  "unchangedReadOnlyAuthority": {
+    "path": "src/main/index.ts",
+    "sha256": "057e84b3ec644d2e7a8d62c441e6e3a8a52845712920add086be1c635a0e1d7f",
+    "location": "Existing assertStory source authority at lines204-208, read only."
+  }
+}

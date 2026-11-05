@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "AtUtc": "2026-11-05T05:23:39.9258442Z",
+  "RemovedPath": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-launch-reviewed\\win-unpacked",
+  "RemovedLogicalBytes": 580295238.0,
+  "RemovedFiles": 3141,
+  "NoReparse": true,
+  "NoActiveReferences": true,
+  "FreeBefore": 49075589120,
+  "FreeAfter": 49659977728,
+  "ProtectedBefore": [
+    {
+      "Path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\us-metrics-reviewed\\win-unpacked\\resources\\app.asar",
+      "Sha256": "2f31df5b977bf269f583e83c9d8baf4c05a00ce9ce965a45b886e42523a1bfa8"
+    },
+    {
+      "Path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\us-metrics-reviewed\\Madness-0.2.15-x64-setup.exe",
+      "Sha256": "57267f72e0f07532d27ff28fd8dc1a61109456937e87cd93fc0f66d274a773d6"
+    },
+    {
+      "Path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-launch-reviewed\\Madness-0.2.14-x64-setup.exe",
+      "Sha256": "15c96967ccb4936bae204c0a220fb8209a30487f211e9e6f284e4d0b174840a1"
+    },
+    {
+      "Path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed-postquick\\Madness-0.2.13-x64-setup.exe",
+      "Sha256": "880d4f499f28a41d9945db1ca59e2dc68258cb2abb63970b3871126ec91b68de"
+    },
+    {
+      "Path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-preview-0cf3cc35\\resources\\app.asar",
+      "Sha256": "eab6124af8e9a933f44334b04effe44d88c057ebd336aede5483cda363fe5991"
+    }
+  ],
+  "ProtectedAfter": [
+    {
+      "Path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\us-metrics-reviewed\\win-unpacked\\resources\\app.asar",
+      "Sha256": "2f31df5b977bf269f583e83c9d8baf4c05a00ce9ce965a45b886e42523a1bfa8"
+    },
+    {
+      "Path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\us-metrics-reviewed\\Madness-0.2.15-x64-setup.exe",
+      "Sha256": "57267f72e0f07532d27ff28fd8dc1a61109456937e87cd93fc0f66d274a773d6"
+    },
+    {
+      "Path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\catalog-launch-reviewed\\Madness-0.2.14-x64-setup.exe",
+      "Sha256": "15c96967ccb4936bae204c0a220fb8209a30487f211e9e6f284e4d0b174840a1"
+    },
+    {
+      "Path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\library-reviewed-postquick\\Madness-0.2.13-x64-setup.exe",
+      "Sha256": "880d4f499f28a41d9945db1ca59e2dc68258cb2abb63970b3871126ec91b68de"
+    },
+    {
+      "Path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-preview-0cf3cc35\\resources\\app.asar",
+      "Sha256": "eab6124af8e9a933f44334b04effe44d88c057ebd336aede5483cda363fe5991"
+    }
+  ],
+  "RemovedConfirmed": true,
+  "PersonalProfilesTouched": false,
+  "PreviewTouched": false,
+  "AutoReview": "Earlier broader script rejected before execution: preserve 0.2.13 backup. Safer alternative only removes old 0.2.14 unpacked binaries; both 0.2.13 and 0.2.14 setups retained."
+}

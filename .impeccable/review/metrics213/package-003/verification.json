@@ -1,0 +1,1241 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "startedAt": "2026-11-05T05:15:49.029Z",
+  "mode": "packaged",
+  "fixture": "SYNTHETIC-DURATIONS-NO-NATIVE-SIWC-RECEIPT",
+  "checks": [
+    "M1 real preload validates stored synthetic archive and exact member references",
+    "M2 zero, partial, parallel, all unknown and empty display exact core numbers, units and coverage",
+    "M3 historical source identity, exact group members and functional failure stay separate",
+    "M4 dark, light,720px and native zoom200 retain controls without horizontal overflow",
+    "M5 historical conversation recap remains passive and annex bytes unchanged",
+    "M6 actual passive reopen restores exact archive and draft without provider or source collection"
+  ],
+  "captures": [
+    {
+      "file": "01-measurements-dark.png",
+      "sha256": "c53211327d3eaf766eefd3dd184f2bde0e25dc710be4dd3db567a44bbb3fb21e",
+      "method": "playwright-electron-page-screenshot",
+      "nativeFrame": {
+        "size": [
+          1440,
+          920
+        ],
+        "scale": 1.25,
+        "zoomFactor": 1
+      },
+      "pixels": {
+        "width": 1800,
+        "height": 1150
+      },
+      "suppression": "reduced-motion; Escape/blur/mouse-away; normal Playwright caret hide and animations disabled; native capture has no focused editable",
+      "viewport": {
+        "width": 1440,
+        "height": 920,
+        "theme": "dark",
+        "reducedMotion": true
+      }
+    },
+    {
+      "file": "02-measurements-compact-light.png",
+      "sha256": "f10cf261ebdb56102cbe7b9215fb381ab3c6378e6bb67796e442fd52007a55f9",
+      "method": "playwright-electron-page-screenshot",
+      "nativeFrame": {
+        "size": [
+          720,
+          820
+        ],
+        "scale": 1.25,
+        "zoomFactor": 1
+      },
+      "pixels": {
+        "width": 900,
+        "height": 1025
+      },
+      "suppression": "reduced-motion; Escape/blur/mouse-away; normal Playwright caret hide and animations disabled; native capture has no focused editable",
+      "viewport": {
+        "width": 720,
+        "height": 820,
+        "theme": "light",
+        "reducedMotion": true
+      }
+    },
+    {
+      "file": "03-measurements-native-zoom200-light.png",
+      "sha256": "69f842b8b32631ae40b31a7f00b295464ede72160b7f6a6cc08dcfea33a33d23",
+      "method": "electron-native-full-content-zoom",
+      "nativeFrame": {
+        "size": [
+          1650,
+          1149
+        ],
+        "scale": 1.25,
+        "zoomFactor": 2
+      },
+      "pixels": {
+        "width": 2063,
+        "height": 1437
+      },
+      "suppression": "reduced-motion; Escape/blur/mouse-away; normal Playwright caret hide and animations disabled; native capture has no focused editable",
+      "viewport": {
+        "width": 825,
+        "height": 575,
+        "theme": "light",
+        "reducedMotion": true
+      }
+    }
+  ],
+  "launches": [
+    {
+      "main": {
+        "pid": 53520,
+        "startedAt": "639294525491512135",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\us-metrics-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 53520,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\profile",
+        "version": "0.2.15",
+        "packaged": true
+      }
+    },
+    {
+      "main": {
+        "pid": 23916,
+        "startedAt": "639294525547972290",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\us-metrics-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "runtime": {
+        "pid": 23916,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\profile",
+        "version": "0.2.15",
+        "packaged": true
+      }
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 53520,
+        "startedAt": "639294525491512135",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\us-metrics-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 52880,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-05T05:15:51.805Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    },
+    {
+      "main": {
+        "pid": 23916,
+        "startedAt": "639294525547972290",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\us-metrics-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 13740,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-05T05:15:57.299Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "limits": [
+    "Synthetic numbers validate the passive display, never native SIWC usage, amount, human approval or G2–G5.",
+    "Observation hook is installed after Main starts; counters prove only the observed period.",
+    "No personal profile, preview, network, provider, installation or source collection used."
+  ],
+  "projection": {
+    "contractVersion": 1,
+    "sequence": 3,
+    "projects": [
+      {
+        "projectId": "metrics-witness",
+        "archive": {
+          "schemaVersion": 1,
+          "projectId": "metrics-witness",
+          "revision": 1,
+          "occurrences": [
+            {
+              "id": "zero",
+              "projectId": "metrics-witness",
+              "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project",
+              "rootIdentity": "synthetic-physical-root",
+              "initiativeId": "historical-alpha",
+              "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\_bmad-output\\historical-alpha",
+              "container": "tickets/epic",
+              "ticketId": "zero",
+              "title": "Vrai zéro connu",
+              "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sources": [
+                {
+                  "sourceId": "synthetic-source",
+                  "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\historical-tickets.toml",
+                  "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "bytes": 12,
+                  "identity": "synthetic-source-identity",
+                  "kind": "entry",
+                  "line": 1,
+                  "typeLine": 2,
+                  "type": "story"
+                }
+              ],
+              "active": false
+            },
+            {
+              "id": "partial",
+              "projectId": "metrics-witness",
+              "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project",
+              "rootIdentity": "synthetic-physical-root",
+              "initiativeId": "historical-alpha",
+              "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\_bmad-output\\historical-alpha",
+              "container": "tickets/epic",
+              "ticketId": "partial",
+              "title": "Dix minutes et deux inconnus",
+              "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sources": [
+                {
+                  "sourceId": "synthetic-source",
+                  "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\historical-tickets.toml",
+                  "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "bytes": 12,
+                  "identity": "synthetic-source-identity",
+                  "kind": "entry",
+                  "line": 1,
+                  "typeLine": 2,
+                  "type": "story"
+                }
+              ],
+              "active": false
+            },
+            {
+              "id": "parallel",
+              "projectId": "metrics-witness",
+              "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project",
+              "rootIdentity": "synthetic-physical-root",
+              "initiativeId": "historical-alpha",
+              "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\_bmad-output\\historical-alpha",
+              "container": "tickets/epic",
+              "ticketId": "parallel",
+              "title": "Deux tours parallèles de dix minutes",
+              "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sources": [
+                {
+                  "sourceId": "synthetic-source",
+                  "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\historical-tickets.toml",
+                  "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "bytes": 12,
+                  "identity": "synthetic-source-identity",
+                  "kind": "entry",
+                  "line": 1,
+                  "typeLine": 2,
+                  "type": "story"
+                }
+              ],
+              "active": false
+            },
+            {
+              "id": "unknown",
+              "projectId": "metrics-witness",
+              "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project",
+              "rootIdentity": "synthetic-physical-root",
+              "initiativeId": "historical-alpha",
+              "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\_bmad-output\\historical-alpha",
+              "container": "tickets/epic",
+              "ticketId": "unknown",
+              "title": "Toutes les durées inconnues",
+              "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sources": [
+                {
+                  "sourceId": "synthetic-source",
+                  "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\historical-tickets.toml",
+                  "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "bytes": 12,
+                  "identity": "synthetic-source-identity",
+                  "kind": "entry",
+                  "line": 1,
+                  "typeLine": 2,
+                  "type": "story"
+                }
+              ],
+              "active": false
+            },
+            {
+              "id": "empty",
+              "projectId": "metrics-witness",
+              "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project",
+              "rootIdentity": "synthetic-physical-root",
+              "initiativeId": "historical-alpha",
+              "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\_bmad-output\\historical-alpha",
+              "container": "tickets/epic",
+              "ticketId": "empty",
+              "title": "Aucun tour identifié",
+              "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "sources": [
+                {
+                  "sourceId": "synthetic-source",
+                  "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\historical-tickets.toml",
+                  "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "bytes": 12,
+                  "identity": "synthetic-source-identity",
+                  "kind": "entry",
+                  "line": 1,
+                  "typeLine": 2,
+                  "type": "story"
+                }
+              ],
+              "active": false
+            }
+          ],
+          "turns": [
+            {
+              "id": "zero-record",
+              "context": {
+                "projectId": "metrics-witness",
+                "initiativeId": "historical-alpha",
+                "conversationId": "metrics-history",
+                "providerId": "codex",
+                "connectionId": "synthetic-only"
+              },
+              "requestId": "request-zero-record",
+              "localTurnId": "zero-record",
+              "story": {
+                "id": "zero",
+                "projectId": "metrics-witness",
+                "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project",
+                "rootIdentity": "synthetic-physical-root",
+                "initiativeId": "historical-alpha",
+                "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\_bmad-output\\historical-alpha",
+                "container": "tickets/epic",
+                "ticketId": "zero",
+                "title": "Vrai zéro connu",
+                "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "sources": [
+                  {
+                    "sourceId": "synthetic-source",
+                    "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\historical-tickets.toml",
+                    "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                    "bytes": 12,
+                    "identity": "synthetic-source-identity",
+                    "kind": "entry",
+                    "line": 1,
+                    "typeLine": 2,
+                    "type": "story"
+                  }
+                ],
+                "active": false
+              },
+              "receipts": [
+                {
+                  "schemaVersion": 1,
+                  "payloadDigest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                  "runId": "synthetic-run",
+                  "sessionId": "synthetic-session",
+                  "threadId": "synthetic-thread",
+                  "nativeTurnId": "zero-native",
+                  "domain": "synthetic-clock",
+                  "phase": "ack",
+                  "at": 7,
+                  "outcome": null
+                },
+                {
+                  "schemaVersion": 1,
+                  "payloadDigest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                  "runId": "synthetic-run",
+                  "sessionId": "synthetic-session",
+                  "threadId": "synthetic-thread",
+                  "nativeTurnId": "zero-native",
+                  "domain": "synthetic-clock",
+                  "phase": "terminal",
+                  "at": 7,
+                  "outcome": "failed"
+                }
+              ]
+            },
+            {
+              "id": "known-record",
+              "context": {
+                "projectId": "metrics-witness",
+                "initiativeId": "historical-alpha",
+                "conversationId": "metrics-history",
+                "providerId": "codex",
+                "connectionId": "synthetic-only"
+              },
+              "requestId": "request-known-record",
+              "localTurnId": "known-record",
+              "story": {
+                "id": "partial",
+                "projectId": "metrics-witness",
+                "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project",
+                "rootIdentity": "synthetic-physical-root",
+                "initiativeId": "historical-alpha",
+                "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\_bmad-output\\historical-alpha",
+                "container": "tickets/epic",
+                "ticketId": "partial",
+                "title": "Dix minutes et deux inconnus",
+                "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "sources": [
+                  {
+                    "sourceId": "synthetic-source",
+                    "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\historical-tickets.toml",
+                    "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                    "bytes": 12,
+                    "identity": "synthetic-source-identity",
+                    "kind": "entry",
+                    "line": 1,
+                    "typeLine": 2,
+                    "type": "story"
+                  }
+                ],
+                "active": false
+              },
+              "receipts": [
+                {
+                  "schemaVersion": 1,
+                  "payloadDigest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                  "runId": "synthetic-run",
+                  "sessionId": "synthetic-session",
+                  "threadId": "synthetic-thread",
+                  "nativeTurnId": "known-native",
+                  "domain": "synthetic-clock",
+                  "phase": "ack",
+                  "at": 1000,
+                  "outcome": null
+                },
+                {
+                  "schemaVersion": 1,
+                  "payloadDigest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                  "runId": "synthetic-run",
+                  "sessionId": "synthetic-session",
+                  "threadId": "synthetic-thread",
+                  "nativeTurnId": "known-native",
+                  "domain": "synthetic-clock",
+                  "phase": "terminal",
+                  "at": 601000,
+                  "outcome": "failed"
+                }
+              ]
+            },
+            {
+              "id": "missing-end",
+              "context": {
+                "projectId": "metrics-witness",
+                "initiativeId": "historical-alpha",
+                "conversationId": "metrics-history",
+                "providerId": "codex",
+                "connectionId": "synthetic-only"
+              },
+              "requestId": "request-missing-end",
+              "localTurnId": "missing-end",
+              "story": {
+                "id": "partial",
+                "projectId": "metrics-witness",
+                "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project",
+                "rootIdentity": "synthetic-physical-root",
+                "initiativeId": "historical-alpha",
+                "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\_bmad-output\\historical-alpha",
+                "container": "tickets/epic",
+                "ticketId": "partial",
+                "title": "Dix minutes et deux inconnus",
+                "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "sources": [
+                  {
+                    "sourceId": "synthetic-source",
+                    "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\historical-tickets.toml",
+                    "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                    "bytes": 12,
+                    "identity": "synthetic-source-identity",
+                    "kind": "entry",
+                    "line": 1,
+                    "typeLine": 2,
+                    "type": "story"
+                  }
+                ],
+                "active": false
+              },
+              "receipts": [
+                {
+                  "schemaVersion": 1,
+                  "payloadDigest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                  "runId": "synthetic-run",
+                  "sessionId": "synthetic-session",
+                  "threadId": "synthetic-thread",
+                  "nativeTurnId": "missing-native",
+                  "domain": "synthetic-clock",
+                  "phase": "ack",
+                  "at": 1000,
+                  "outcome": null
+                }
+              ]
+            },
+            {
+              "id": "missing-ack",
+              "context": {
+                "projectId": "metrics-witness",
+                "initiativeId": "historical-alpha",
+                "conversationId": "metrics-history",
+                "providerId": "codex",
+                "connectionId": "synthetic-only"
+              },
+              "requestId": "request-missing-ack",
+              "localTurnId": "missing-ack",
+              "story": {
+                "id": "partial",
+                "projectId": "metrics-witness",
+                "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project",
+                "rootIdentity": "synthetic-physical-root",
+                "initiativeId": "historical-alpha",
+                "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\_bmad-output\\historical-alpha",
+                "container": "tickets/epic",
+                "ticketId": "partial",
+                "title": "Dix minutes et deux inconnus",
+                "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "sources": [
+                  {
+                    "sourceId": "synthetic-source",
+                    "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\historical-tickets.toml",
+                    "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                    "bytes": 12,
+                    "identity": "synthetic-source-identity",
+                    "kind": "entry",
+                    "line": 1,
+                    "typeLine": 2,
+                    "type": "story"
+                  }
+                ],
+                "active": false
+              },
+              "receipts": []
+            },
+            {
+              "id": "parallel-one",
+              "context": {
+                "projectId": "metrics-witness",
+                "initiativeId": "historical-alpha",
+                "conversationId": "metrics-history",
+                "providerId": "codex",
+                "connectionId": "synthetic-only"
+              },
+              "requestId": "request-parallel-one",
+              "localTurnId": "same-local",
+              "story": {
+                "id": "parallel",
+                "projectId": "metrics-witness",
+                "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project",
+                "rootIdentity": "synthetic-physical-root",
+                "initiativeId": "historical-alpha",
+                "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\_bmad-output\\historical-alpha",
+                "container": "tickets/epic",
+                "ticketId": "parallel",
+                "title": "Deux tours parallèles de dix minutes",
+                "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "sources": [
+                  {
+                    "sourceId": "synthetic-source",
+                    "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\historical-tickets.toml",
+                    "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                    "bytes": 12,
+                    "identity": "synthetic-source-identity",
+                    "kind": "entry",
+                    "line": 1,
+                    "typeLine": 2,
+                    "type": "story"
+                  }
+                ],
+                "active": false
+              },
+              "receipts": [
+                {
+                  "schemaVersion": 1,
+                  "payloadDigest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                  "runId": "synthetic-run",
+                  "sessionId": "synthetic-session",
+                  "threadId": "synthetic-thread",
+                  "nativeTurnId": "parallel-one",
+                  "domain": "synthetic-clock",
+                  "phase": "ack",
+                  "at": 1000,
+                  "outcome": null
+                },
+                {
+                  "schemaVersion": 1,
+                  "payloadDigest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                  "runId": "synthetic-run",
+                  "sessionId": "synthetic-session",
+                  "threadId": "synthetic-thread",
+                  "nativeTurnId": "parallel-one",
+                  "domain": "synthetic-clock",
+                  "phase": "terminal",
+                  "at": 601000,
+                  "outcome": "failed"
+                }
+              ]
+            },
+            {
+              "id": "parallel-two",
+              "context": {
+                "projectId": "metrics-witness",
+                "initiativeId": "historical-alpha",
+                "conversationId": "metrics-history",
+                "providerId": "codex",
+                "connectionId": "synthetic-only"
+              },
+              "requestId": "request-parallel-two",
+              "localTurnId": "same-local",
+              "story": {
+                "id": "parallel",
+                "projectId": "metrics-witness",
+                "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project",
+                "rootIdentity": "synthetic-physical-root",
+                "initiativeId": "historical-alpha",
+                "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\_bmad-output\\historical-alpha",
+                "container": "tickets/epic",
+                "ticketId": "parallel",
+                "title": "Deux tours parallèles de dix minutes",
+                "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "sources": [
+                  {
+                    "sourceId": "synthetic-source",
+                    "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\historical-tickets.toml",
+                    "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                    "bytes": 12,
+                    "identity": "synthetic-source-identity",
+                    "kind": "entry",
+                    "line": 1,
+                    "typeLine": 2,
+                    "type": "story"
+                  }
+                ],
+                "active": false
+              },
+              "receipts": [
+                {
+                  "schemaVersion": 1,
+                  "payloadDigest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                  "runId": "synthetic-run",
+                  "sessionId": "synthetic-session",
+                  "threadId": "synthetic-thread",
+                  "nativeTurnId": "parallel-two",
+                  "domain": "synthetic-clock",
+                  "phase": "ack",
+                  "at": 1000,
+                  "outcome": null
+                },
+                {
+                  "schemaVersion": 1,
+                  "payloadDigest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                  "runId": "synthetic-run",
+                  "sessionId": "synthetic-session",
+                  "threadId": "synthetic-thread",
+                  "nativeTurnId": "parallel-two",
+                  "domain": "synthetic-clock",
+                  "phase": "terminal",
+                  "at": 601000,
+                  "outcome": "failed"
+                }
+              ]
+            },
+            {
+              "id": "unknown-record",
+              "context": {
+                "projectId": "metrics-witness",
+                "initiativeId": "historical-alpha",
+                "conversationId": "metrics-history",
+                "providerId": "codex",
+                "connectionId": "synthetic-only"
+              },
+              "requestId": "request-unknown-record",
+              "localTurnId": "unknown-record",
+              "story": {
+                "id": "unknown",
+                "projectId": "metrics-witness",
+                "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project",
+                "rootIdentity": "synthetic-physical-root",
+                "initiativeId": "historical-alpha",
+                "initiativePath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\_bmad-output\\historical-alpha",
+                "container": "tickets/epic",
+                "ticketId": "unknown",
+                "title": "Toutes les durées inconnues",
+                "contextRevision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "proofRevision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "sources": [
+                  {
+                    "sourceId": "synthetic-source",
+                    "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-metrics-ui-q5Fjn3\\project\\historical-tickets.toml",
+                    "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                    "bytes": 12,
+                    "identity": "synthetic-source-identity",
+                    "kind": "entry",
+                    "line": 1,
+                    "typeLine": 2,
+                    "type": "story"
+                  }
+                ],
+                "active": false
+              },
+              "receipts": []
+            }
+          ]
+        },
+        "durableRevision": 1,
+        "storage": "stored",
+        "error": null,
+        "summary": {
+          "identified": 7,
+          "known": 4,
+          "unknown": 3,
+          "knownMs": 1800000,
+          "coverage": "partial",
+          "overlap": "known",
+          "nativeDuration": "unavailable",
+          "usage": "unavailable",
+          "cost": "unavailable"
+        },
+        "observations": [
+          {
+            "members": {
+              "schemaVersion": 1,
+              "recordIds": [
+                "missing-ack"
+              ]
+            },
+            "localIds": [
+              "missing-ack"
+            ],
+            "context": {
+              "projectId": "metrics-witness",
+              "initiativeId": "historical-alpha",
+              "conversationId": "metrics-history",
+              "providerId": "codex",
+              "connectionId": "synthetic-only"
+            },
+            "storyRef": "partial",
+            "durationMs": null,
+            "reason": "missing-ack",
+            "outcomes": [],
+            "durable": true
+          },
+          {
+            "members": {
+              "schemaVersion": 1,
+              "recordIds": [
+                "unknown-record"
+              ]
+            },
+            "localIds": [
+              "unknown-record"
+            ],
+            "context": {
+              "projectId": "metrics-witness",
+              "initiativeId": "historical-alpha",
+              "conversationId": "metrics-history",
+              "providerId": "codex",
+              "connectionId": "synthetic-only"
+            },
+            "storyRef": "unknown",
+            "durationMs": null,
+            "reason": "missing-ack",
+            "outcomes": [],
+            "durable": true
+          },
+          {
+            "members": {
+              "schemaVersion": 1,
+              "recordIds": [
+                "known-record"
+              ]
+            },
+            "localIds": [
+              "known-record"
+            ],
+            "context": {
+              "projectId": "metrics-witness",
+              "initiativeId": "historical-alpha",
+              "conversationId": "metrics-history",
+              "providerId": "codex",
+              "connectionId": "synthetic-only"
+            },
+            "storyRef": "partial",
+            "durationMs": 600000,
+            "reason": "known",
+            "outcomes": [
+              "failed"
+            ],
+            "durable": true
+          },
+          {
+            "members": {
+              "schemaVersion": 1,
+              "recordIds": [
+                "missing-end"
+              ]
+            },
+            "localIds": [
+              "missing-end"
+            ],
+            "context": {
+              "projectId": "metrics-witness",
+              "initiativeId": "historical-alpha",
+              "conversationId": "metrics-history",
+              "providerId": "codex",
+              "connectionId": "synthetic-only"
+            },
+            "storyRef": "partial",
+            "durationMs": null,
+            "reason": "missing-end",
+            "outcomes": [],
+            "durable": true
+          },
+          {
+            "members": {
+              "schemaVersion": 1,
+              "recordIds": [
+                "parallel-one"
+              ]
+            },
+            "localIds": [
+              "same-local"
+            ],
+            "context": {
+              "projectId": "metrics-witness",
+              "initiativeId": "historical-alpha",
+              "conversationId": "metrics-history",
+              "providerId": "codex",
+              "connectionId": "synthetic-only"
+            },
+            "storyRef": "parallel",
+            "durationMs": 600000,
+            "reason": "known",
+            "outcomes": [
+              "failed"
+            ],
+            "durable": true
+          },
+          {
+            "members": {
+              "schemaVersion": 1,
+              "recordIds": [
+                "parallel-two"
+              ]
+            },
+            "localIds": [
+              "same-local"
+            ],
+            "context": {
+              "projectId": "metrics-witness",
+              "initiativeId": "historical-alpha",
+              "conversationId": "metrics-history",
+              "providerId": "codex",
+              "connectionId": "synthetic-only"
+            },
+            "storyRef": "parallel",
+            "durationMs": 600000,
+            "reason": "known",
+            "outcomes": [
+              "failed"
+            ],
+            "durable": true
+          },
+          {
+            "members": {
+              "schemaVersion": 1,
+              "recordIds": [
+                "zero-record"
+              ]
+            },
+            "localIds": [
+              "zero-record"
+            ],
+            "context": {
+              "projectId": "metrics-witness",
+              "initiativeId": "historical-alpha",
+              "conversationId": "metrics-history",
+              "providerId": "codex",
+              "connectionId": "synthetic-only"
+            },
+            "storyRef": "zero",
+            "durationMs": 0,
+            "reason": "known",
+            "outcomes": [
+              "failed"
+            ],
+            "durable": true
+          }
+        ],
+        "stories": [
+          {
+            "storyRef": "zero",
+            "summary": {
+              "identified": 1,
+              "known": 1,
+              "unknown": 0,
+              "knownMs": 0,
+              "coverage": "complete",
+              "overlap": "none",
+              "nativeDuration": "unavailable",
+              "usage": "unavailable",
+              "cost": "unavailable"
+            }
+          },
+          {
+            "storyRef": "partial",
+            "summary": {
+              "identified": 3,
+              "known": 1,
+              "unknown": 2,
+              "knownMs": 600000,
+              "coverage": "partial",
+              "overlap": "unknown",
+              "nativeDuration": "unavailable",
+              "usage": "unavailable",
+              "cost": "unavailable"
+            }
+          },
+          {
+            "storyRef": "parallel",
+            "summary": {
+              "identified": 2,
+              "known": 2,
+              "unknown": 0,
+              "knownMs": 1200000,
+              "coverage": "complete",
+              "overlap": "known",
+              "nativeDuration": "unavailable",
+              "usage": "unavailable",
+              "cost": "unavailable"
+            }
+          },
+          {
+            "storyRef": "unknown",
+            "summary": {
+              "identified": 1,
+              "known": 0,
+              "unknown": 1,
+              "knownMs": null,
+              "coverage": "unavailable",
+              "overlap": "unknown",
+              "nativeDuration": "unavailable",
+              "usage": "unavailable",
+              "cost": "unavailable"
+            }
+          },
+          {
+            "storyRef": "empty",
+            "summary": {
+              "identified": 0,
+              "known": 0,
+              "unknown": 0,
+              "knownMs": null,
+              "coverage": "none",
+              "overlap": "none",
+              "nativeDuration": "unavailable",
+              "usage": "unavailable",
+              "cost": "unavailable"
+            }
+          }
+        ],
+        "conversations": [
+          {
+            "conversationId": "metrics-history",
+            "summary": {
+              "identified": 7,
+              "known": 4,
+              "unknown": 3,
+              "knownMs": 1800000,
+              "coverage": "partial",
+              "overlap": "known",
+              "nativeDuration": "unavailable",
+              "usage": "unavailable",
+              "cost": "unavailable"
+            }
+          }
+        ],
+        "candidates": [],
+        "unobservedActivity": "unknown"
+      }
+    ],
+    "choiceRef": null,
+    "error": null
+  },
+  "desktop": {
+    "requested": {
+      "width": 1440,
+      "height": 920
+    },
+    "actual": {
+      "width": 1440,
+      "height": 920,
+      "layoutWidth": 1440,
+      "devicePixelRatio": 1.25,
+      "settledBy": "animation-frames",
+      "queries": [
+        {
+          "query": "(max-width: 720px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(max-width: 1080px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(max-width: 1280px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(min-width: 1323px)",
+          "expected": true,
+          "matches": true
+        },
+        {
+          "query": "(min-width: 1600px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(max-height: 700px)",
+          "expected": false,
+          "matches": false
+        }
+      ]
+    },
+    "native": {
+      "contentSize": [
+        1440,
+        920
+      ],
+      "zoomFactor": 1
+    },
+    "exact": true,
+    "limitation": null,
+    "attempts": [
+      {
+        "requestedNative": {
+          "width": 1440,
+          "height": 920
+        },
+        "native": {
+          "contentSize": [
+            1440,
+            920
+          ],
+          "zoomFactor": 1
+        },
+        "actual": {
+          "width": 1440,
+          "height": 920,
+          "layoutWidth": 1440,
+          "devicePixelRatio": 1.25,
+          "settledBy": "animation-frames",
+          "queries": [
+            {
+              "query": "(max-width: 720px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1080px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-width: 1280px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(min-width: 1323px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(min-width: 1600px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-height: 700px)",
+              "expected": false,
+              "matches": false
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "compact": {
+    "requested": {
+      "width": 720,
+      "height": 820
+    },
+    "actual": {
+      "width": 720,
+      "height": 820,
+      "layoutWidth": 720,
+      "devicePixelRatio": 1.25,
+      "settledBy": "animation-frames",
+      "queries": [
+        {
+          "query": "(max-width: 720px)",
+          "expected": true,
+          "matches": true
+        },
+        {
+          "query": "(max-width: 1080px)",
+          "expected": true,
+          "matches": true
+        },
+        {
+          "query": "(max-width: 1280px)",
+          "expected": true,
+          "matches": true
+        },
+        {
+          "query": "(min-width: 1323px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(min-width: 1600px)",
+          "expected": false,
+          "matches": false
+        },
+        {
+          "query": "(max-height: 700px)",
+          "expected": false,
+          "matches": false
+        }
+      ]
+    },
+    "native": {
+      "contentSize": [
+        720,
+        820
+      ],
+      "zoomFactor": 1
+    },
+    "exact": true,
+    "limitation": null,
+    "attempts": [
+      {
+        "requestedNative": {
+          "width": 720,
+          "height": 820
+        },
+        "native": {
+          "contentSize": [
+            720,
+            820
+          ],
+          "zoomFactor": 1
+        },
+        "actual": {
+          "width": 720,
+          "height": 820,
+          "layoutWidth": 720,
+          "devicePixelRatio": 1.25,
+          "settledBy": "animation-frames",
+          "queries": [
+            {
+              "query": "(max-width: 720px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(max-width: 1080px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(max-width: 1280px)",
+              "expected": true,
+              "matches": true
+            },
+            {
+              "query": "(min-width: 1323px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(min-width: 1600px)",
+              "expected": false,
+              "matches": false
+            },
+            {
+              "query": "(max-height: 700px)",
+              "expected": false,
+              "matches": false
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "commandsBeforeReopen": {
+    "madness:us-metrics:command:v1:read": 1,
+    "madness:appearance:v1:set-theme": 1
+  },
+  "commandsAfterReopen": {
+    "madness:us-metrics:command:v1:read": 1
+  },
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\us-metrics-reviewed\\win-unpacked\\Madness.exe",
+    "sha256": "2f31df5b977bf269f583e83c9d8baf4c05a00ce9ce965a45b886e42523a1bfa8",
+    "version": "0.2.15"
+  },
+  "inputs": {
+    "src/contracts/us-metrics.ts": "c265a5ae1098dd60d40c1d805314fb1ed1fe20b18c513b3305f56ee8c60563e7",
+    "src/core/us-metrics.ts": "57d85748b195b809b906ea5d5d2bd4431d57213ff37f8ef432569c1d4f2f7089",
+    "src/renderer/src/UsMetrics.tsx": "08338344bbff239a35cb14be8b3a8ff7e19d0a4d6c862319c8836e8f9f01ea35",
+    "src/renderer/src/App.tsx": "600f5e1aa2bc71a0c768ead557d0c2fba268735209c60dd830eeae98e86b3954",
+    "src/renderer/src/WorkOverview.tsx": "5efdb44a5e110ed3430c145019101d1bd864dcaf8b6a35994612f1e12ef1cbe8",
+    "src/renderer/src/ProjectResume.tsx": "5ded461dd9b8243431ac5af589c1cb5ac8c055d0c0af1767b42aad0cc4b85790",
+    "src/renderer/src/strings.ts": "7a63cd999c8b37dc00349027eb0e4e07f0469f5855ea9aff5f71f318f68251f9",
+    "src/renderer/src/atelier-controls.css": "65683d8e28c94b319c744cddd8aabb77e3a6045671a2dbd834ded41ae6b2a6cc",
+    "out/main/index.js": "03f056ebf1b2cbca8d23460e896bad978737e1996ab7830f3ed9a58b705f0449",
+    "out/preload/index.js": "92f26ea2c6f9d40787977b84ab42572a267d54207f8d02b067ed893e26da300e"
+  },
+  "finishedAt": "2026-11-05T05:15:58.655Z"
+}

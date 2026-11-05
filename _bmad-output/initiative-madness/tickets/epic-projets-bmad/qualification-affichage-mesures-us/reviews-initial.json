@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "reviews": [
+    {
+      "reviewer": "/root/metrics213_quick",
+      "mode": "fresh context-free inspection; exact Step4 prompt",
+      "findings": [
+        {
+          "id": "Q1",
+          "location": "App.tsx:215",
+          "claim": "Consulted initiative used for every operation despite captured conversation/launch context; admissible UI choice later fails capture CONTEXT_MISMATCH."
+        },
+        {
+          "id": "Q2",
+          "location": "App.tsx:345",
+          "claim": "Adjustment remains editable/writable while choose awaits; capturedA can differ from durableB read by adjustMeasured and become unknown."
+        },
+        {
+          "id": "Q3",
+          "location": "UsMetrics.tsx:28",
+          "claim": "New hardcoded FR plural, reasons and provenance/storage strings lack paired ENkeys required here; global locale14 is separate."
+        }
+      ]
+    },
+    {
+      "reviewer": "/root/metrics213_values_audit",
+      "mode": "fresh independent high-risk values/provenance inspection",
+      "findings": [
+        {
+          "id": "V1",
+          "location": "UsMetrics.tsx:33",
+          "claim": "record.story captured active=true stays immutable while accept83 deactivates archive occurrence; recap fails to signal known loss of current qualification, without replacing captured evidence."
+        }
+      ]
+    },
+    {
+      "reviewer": "/root/metrics213_finish",
+      "mode": "fresh technical agent reading official impeccable_finish_reviewer.toml; native role unavailable",
+      "disposition": "fix",
+      "findings": [
+        {
+          "id": "F1",
+          "location": "UsMetrics.tsx:49",
+          "claim": "Complete paths/revisions/SHA precede useful duration; compact registry first viewport shows no duration, contrary to UX DESIGN302."
+        }
+      ],
+      "sections": {
+        "persistence": "Pass: PRODUCT/config code path/rootDESIGN/sidecar present;9rendererinputs checked againstseal;6valid images viewed. Synthetic scopes only.",
+        "fidelity": "TYPE/MATERIAL/GROUND/optionalchoice match. Reading order contradicted. Expandedcontext vertical reading accepted as adaptation with Sendbelowviewport recorded, not assumed simultaneousvisibility.",
+        "ceiling": "No new ornament/motion/imagery; use progressive disclosure. CSS161side-tab inheritedunchanged.",
+        "material_fixes": "F1 compact US/occurrence/context→duration/coverage/usage/cost beforecollapsedfullprovenance. Remaining visualbatch desktop/compact +valid fullnative200frame.",
+        "keep": "Atelier palette/type/material, nativeoptionalchoice, exactdraft/return, historical/unknown/unavailablelabels, passiveconsultation."
+      },
+      "unread": "Full App/ProjectResume/WorkOverview/Approval/Catalog/Help integrations sampled, not read entirely. No comp/QUALITY_BAR in code-led localextension."
+    }
+  ],
+  "parentNotes": [
+    "All three launched before collection/triage; all returned before verdicts or sourcepatch.",
+    "Finish report described rejectedcrop as1031x751; parent IHDR measures1031x719. Both refer to same invalid clippedframe, no promotion.",
+    "Every finding receives separate plantriage row before grouping; P1disabledreason separately recorded.",
+    "Technical context hints supplied only after exact Quickprompt; no model capability override."
+  ]
+}

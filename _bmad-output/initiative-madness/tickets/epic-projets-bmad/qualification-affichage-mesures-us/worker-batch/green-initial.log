@@ -1,0 +1,38 @@
+✔ UI13 batch availability distinguishes unassigned, not loaded, unreadable, cache and command refusal (10081.0555ms)
+✖ UI13 batch historical turn uses captured member evidence instead of updated occurrence (43466.1706ms)
+✖ UI13 batch sticky scope and proof roundtrips never restore attribution without rechoice (43473.8793ms)
+✔ UI13 batch outstanding choice cannot survive an observed proof roundtrip (11489.1716ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-0X44Ve\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-0X44Ve\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 110920.2767
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1402:1
+✖ UI13 batch historical turn uses captured member evidence instead of updated occurrence (43466.1706ms)
+  locator.waitFor: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for locator('.work-overview .metric-observation').first().getByText('Liaison exacte des reçus indisponible pour cette ancienne projection.', { exact: true }) to be visible[22m
+  [2m    62 × locator resolved to hidden <p>Liaison exacte des reçus indisponible pour cette …</p>[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1404:228) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for locator('.work-overview .metric-observation').first().getByText('Liaison exacte des reçus indisponible pour cette ancienne projection.', { exact: true }) to be visible", '    62 × locator resolved to hidden <p>Liaison exacte des reçus indisponible pour cette …</p>' ]
+  }
+
+test at tests\connection-ui.test.mjs:1406:1
+✖ UI13 batch sticky scope and proof roundtrips never restore attribution without rechoice (43473.8793ms)
+  locator.click: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('button', { name: 'Accueil', exact: true })[22m
+  
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1408:119) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByRole('button', { name: 'Accueil', exact: true })" ]
+  }

@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "completedAt": "2026-11-05T04:54:44.728907+00:00",
+  "sourceFreeze": "final-source-freeze.json",
+  "sourceFreezeSha256": "5b4f4421cad7e6c713e85a3f5da930d0d70e5358000ba82b5a14abe234e987fb",
+  "changes": {
+    "Q1": "Private per-operation target contexts; current root/source/proof checks retained; qualified wrong-context entries give truthful context reasons; unknown native context keeps optional attribution unavailable and legacy unassigned admissible.",
+    "Q2": "Existing per-demand send lock blocks draft mutation and writes while choose/send is pending, with readonly/pending state; durable A and original draft retained on refusal.",
+    "Q3": "All new metrics/registry/adjustment-pending copy routes through paired FR/EN keys, current FR variant only; stored content untouched.",
+    "V1": "Exact occurrence ID current active=false status displayed separately from immutable captured record.story bytes.",
+    "F1": "Compact identity/context header followed by summary/coverage/availability/storage; complete provenance under named collapsed details.",
+    "capture": "Native zoom uses webContents.capturePage over actual full content rectangle; native size, scale, zoom and method recorded; PNG dimensions asserted within2px. Normal capture suppresses motion/caret/tooltip."
+  },
+  "verification": {
+    "uniqueUiCasesGreen": 8,
+    "uiEvidence": "green-initial.log has6pass+2premature assertions; recheck.log has2pass after test-only waits on observed DOM reset/pending state. Product code unchanged between these runs.",
+    "pureCases": {
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "files": [
+        "tests/us-metrics-ui-copy.test.mjs",
+        "tests/us-metrics-capture.test.mjs"
+      ],
+      "evidence": "Exact tool transcript; no reconstructed raw log."
+    },
+    "typecheck": "npm run typecheck exit0 after corrections",
+    "diffCheck": "git diff --check exit0; existing LF-to-CRLF advisory warnings",
+    "benchSyntax": "node --check scripts/qualification/us-metrics-ui.mjs exit0",
+    "redProvenance": "red.log contains3 actual pre-fix failures for Q1 captured send context, Q1 Mary context and Q2 mutable adjustment."
+  },
+  "logs": {
+    "red.log": {
+      "sha256": "7f32e7d78ea5400895f78764d8537aeb5e5aedf2a816a8116cf4a8cab8af50ef",
+      "passes": [],
+      "failures": [
+        "UI13 correction Q1 captured conversation alpha ignores consulted beta for attribution",
+        "UI13 correction Q1 Mary uses known active alpha while beta is consulted",
+        "UI13 correction Q2 adjustment freezes durable A during choice and preserves it on refusal",
+        "failing tests:",
+        "UI13 correction Q1 captured conversation alpha ignores consulted beta for attribution",
+        "UI13 correction Q1 Mary uses known active alpha while beta is consulted",
+        "UI13 correction Q2 adjustment freezes durable A during choice and preserves it on refusal"
+      ],
+      "fixtureClosure": [
+        {
+          "bootstrap": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-ddMwhs\\main.cjs",
+          "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-ddMwhs\\profile",
+          "ownedMainAndDescendantsRemaining": [],
+          "cleanup": "verified-before-delete"
+        }
+      ]
+    },
+    "green-initial.log": {
+      "sha256": "264f7d22bdffae71ba72b238cd1cb0149fa80e058d14d7d7b011e5e244d8f10b",
+      "passes": [
+        "UI13 wires attributed launch preserves operation request and default mode",
+        "UI13 wires attributed launchForge preserves operation request and default mode",
+        "UI13 wires attributed launchHelp preserves operation request and default mode",
+        "UI13 wires attributed catalogue uses preparation request and durable origin gate",
+        "UI13 correction Q1 captured conversation alpha ignores consulted beta for attribution",
+        "UI13 correction V1 F1 historical capture keeps old bytes and summary precedes collapsed provenance"
+      ],
+      "failures": [
+        "UI13 correction Q1 Mary uses known active alpha while beta is consulted",
+        "UI13 correction Q2 adjustment freezes durable A during choice and preserves it on refusal",
+        "failing tests:",
+        "UI13 correction Q1 Mary uses known active alpha while beta is consulted",
+        "UI13 correction Q2 adjustment freezes durable A during choice and preserves it on refusal"
+      ],
+      "fixtureClosure": [
+        {
+          "bootstrap": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-74zWgT\\main.cjs",
+          "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-74zWgT\\profile",
+          "ownedMainAndDescendantsRemaining": [],
+          "cleanup": "verified-before-delete"
+        }
+      ]
+    },
+    "recheck.log": {
+      "sha256": "281defc759cf75af52fc3cebc9f5be53b319e6191c2a2d2700a416807529d700",
+      "passes": [
+        "UI13 correction Q1 Mary uses known active alpha while beta is consulted",
+        "UI13 correction Q2 adjustment freezes durable A during choice and preserves it on refusal"
+      ],
+      "failures": [],
+      "fixtureClosure": [
+        {
+          "bootstrap": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-DA6z2E\\main.cjs",
+          "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-DA6z2E\\profile",
+          "ownedMainAndDescendantsRemaining": [],
+          "cleanup": "verified-before-delete"
+        }
+      ]
+    }
+  },
+  "limits": [
+    "No global tests or full previous UI suite rerun.",
+    "No screenshot, detector, build, NSIS, installation or commit.",
+    "Old rejected PNG/report and original M1-M6 retained unchanged. Capture implementation only syntax/pure guard tested; parent must verify new actual images.",
+    "Original source freeze retained as historical; this new freeze is the corrected source.",
+    "No personal account/profile or user preview accessed, changed or closed."
+  ]
+}

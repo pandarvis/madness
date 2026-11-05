@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "rechecks": {
+    "Q1": {
+      "reviewer": "/root/metrics213_quick",
+      "status": "resolved on corrections002",
+      "evidence": "App219 mirrors Main205 current selection/root/contextrevision before per-operation target; selectionrevision included in scope; wrong alpha/beta refused with explicit unassigned path."
+    },
+    "Q2": {
+      "reviewer": "/root/metrics213_quick",
+      "status": "resolved on corrections001",
+      "evidence": "Synchronous per-demand lock spans writes/choose/send, input readonly, changeApproval blocks writes, finally restores input; durableA retained."
+    },
+    "Q3": {
+      "reviewer": "/root/metrics213_quick",
+      "status": "resolved on corrections001",
+      "evidence": "New copies paired FR/EN; numbers/units use localkeys; global locale remains14."
+    },
+    "V1": {
+      "reviewer": "/root/metrics213_values_audit",
+      "status": "resolved on corrections001",
+      "evidence": "Current status exact occurrenceID distinct from immutable record.story; contradictorymembers independently checked; originalcapturedproof unchanged."
+    },
+    "F1": {
+      "reviewer": "/root/metrics213_finish",
+      "status": "resolved; ship scopedF1",
+      "evidence": "All7currentimages viewed; identity/context→duration/coverage/usagecost→storage→collapsedfullprovenance. Full native200 frame2063x1437,content1650x1149,DPI1.25,zoom2,1DIPquantization. No further materialfix or designround."
+    },
+    "P1": {
+      "reviewer": "parent",
+      "status": "resolved",
+      "evidence": "Disabledqualifiedcandidate now has context/source reason distinct from missingtype."
+    },
+    "P2": {
+      "reviewer": "parent",
+      "status": "resolved",
+      "evidence": "Arbitrary copykey countthreshold removed; semantic parity/nonempty checks and test1pass retained."
+    }
+  },
+  "visualBudget": {
+    "batches": 2,
+    "detectorRuns": 1,
+    "epoch2": "source0024PNG +package0020PNG CSPbenchfailure +package0033PNG finalcompletion",
+    "rejected": "package001croppednative200 retained"
+  },
+  "limits": [
+    "Scopedtechnicalfinish only, no nativeSIWCreceipt/human/WCAG/G2-G5/personalinstall.",
+    "Expanded chooser context uses reachable verticalreading; simultaneousSend visibility notclaimed.",
+    "All19source inputs final except onlyexternalcapturebench corrected after appbuild; same finalASARactualtests."
+  ]
+}

@@ -1,0 +1,44 @@
+✔ UI13 wires attributed launch preserves operation request and default mode (10051.593ms)
+✔ UI13 wires attributed launchForge preserves operation request and default mode (13497.6933ms)
+✔ UI13 wires attributed launchHelp preserves operation request and default mode (11546.3479ms)
+✔ UI13 wires attributed catalogue uses preparation request and durable origin gate (5722.0562ms)
+✔ UI13 correction Q1 captured conversation alpha ignores consulted beta for attribution (11320.6271ms)
+✖ UI13 correction Q1 Mary uses known active alpha while beta is consulted (9477.0243ms)
+✖ UI13 correction Q2 adjustment freezes durable A during choice and preserves it on refusal (45570.3125ms)
+✔ UI13 correction V1 F1 historical capture keeps old bytes and summary precedes collapsed provenance (15468.0584ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-74zWgT\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-74zWgT\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 8
+ℹ suites 0
+ℹ pass 6
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 124937.299
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:1440:1
+✖ UI13 correction Q1 Mary uses known active alpha while beta is consulted (9477.0243ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:1442:236)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\connection-ui.test.mjs:1444:1
+✖ UI13 correction Q2 adjustment freezes durable A during choice and preserves it on refusal (45570.3125ms)
+  page.waitForFunction: Timeout 30000ms exceeded.
+      at TestContext.<anonymous> (C:\Users\UP60066553\.codex\worktrees\bmad-help-2-2\madness\tests\connection-ui.test.mjs:1446:257) {
+    name: 'TimeoutError',
+    log: []
+  }

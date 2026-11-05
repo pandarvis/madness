@@ -1,0 +1,194 @@
+Node v24.13.0 builtin child_process SHA256 040a0305526268ada5937f6eadbe5cc8c8250639a963cf642b914d375a324afd
+   kill();
+      } else {
+        ArrayPrototypePush(_stderr, chunk);
+      }
+    });
+  }
+
+  child.addListener('close', exithandler);
+  child.addListener('error', errorhandler);
+
+  return child;
+}
+
+ObjectDefineProperty(execFile, promisif
+function exithandler(code, signal) {
+    if (exited) return;
+    exited = true;
+
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+
+    if (!callback) return;
+
+    // merge chunks
+    let stdout;
+    let stderr;
+    if (encoding ||
+      (
+        child.stdout?.readableEncoding
+      )) {
+      stdout = ArrayPrototypeJoin(_stdout, '');
+    } else {
+      stdout = Buffer.concat(_stdout);
+    }
+    if (encoding ||
+      (
+        child.stderr?.readableEncoding
+      )) {
+      stderr = ArrayPrototypeJoin(_stderr, '');
+    } else {
+      stderr = Buffer.concat(_stderr);
+    }
+
+    if (!ex && code === 0 && signal === null) {
+      callback(null, stdout, stderr);
+      return;
+    }
+
+    if (args?.length)
+      cmd += ` ${ArrayPrototypeJoin(args, ' ')}`;
+
+    ex ||= genericNodeError(`Command failed: ${cmd}\n${stderr}`, {
+      code: code < 0 ? getSystemErrorName(code) : code,
+      killed: child.killed || killed,
+      signal: signal,
+    });
+
+    ex.cmd = cmd;
+    callback(ex, stdout, stderr);
+  }
+
+  function errorhandler(e) {
+    ex = e;
+
+    if (child.stdout)
+      child.stdout.destroy();
+
+    if (child.stderr)
+      child.stderr.destroy();
+
+    exithandler();
+  }
+
+  function kill() {
+    if (child.stdout)
+      child.stdout.destroy();
+
+    if (child.stderr)
+      child.stderr.destroy();
+
+    killed = true;
+    try {
+      child.kill(options.killSignal);
+    } catch (e) {
+      ex = e;
+      exithandler();
+    }
+  }
+
+  if (options.timeout > 0) {
+    timeoutId = setTimeout(function delayedKill() {
+      kill();
+      timeoutId = null;
+    }, options.timeout);
+  }
+
+  if (child.stdout) {
+    if (encoding)
+      child.stdout.setEncoding(encoding);
+
+    child.stdout.on('data', function onChildStdout(chunk) {
+      // Do not need to count the length
+      if (options.maxBuffer === Infinity) {
+        ArrayPrototypePush(_stdout, chunk);
+        return;
+      }
+      const encoding = child.stdout.readableEncoding;
+      const length = encoding ?
+        Buffer.byteLength(chunk, encoding) :
+        chunk.length;
+      const slice = encoding ? StringPrototypeSlice :
+        (buf, ...args) => buf.slice(...args);
+      stdoutLen += length;
+
+      if (stdoutLen > options.maxBuffer) {
+        const truncatedLen = options.maxBuffer - (stdoutLen - length);
+        ArrayPrototypePush(_stdout, slice(chunk, 0, truncatedLen));
+
+        ex = new ERR_CHILD_PROCESS_STDIO_MAXBUFFER('stdout');
+        kill();
+      } else {
+        ArrayPrototypePush(_stdout, chunk);
+      }
+    });
+  }
+
+  if (child.stderr) {
+    if (encoding)
+      child.stderr.setEncoding(encoding);
+
+    child.stderr.on('data', function onChildStderr(chunk) {
+      // Do not need to count the length
+      if (options.maxBuffer === Infinity) {
+        ArrayPrototypePush(_stderr, chunk);
+        return;
+      }
+      const encoding = child.stderr.readableEncoding;
+      const length = encoding ?
+        Buffer.byteLength(chunk, encoding) :
+        chunk.length;
+      stderrLen += length;
+
+      if (stderrLen > options.maxBuffer) {
+        const truncatedLen = options.maxBuffer - (stderrLen - length);
+        ArrayPrototypePush(_stderr,
+                           chunk.slice(0, truncatedLen));
+
+        ex = new ERR_CHILD_PROCESS_STDIO_MAXBUFFER('stderr');
+        kill();
+      } else {
+        ArrayPrototypePush(_stderr, chunk);
+      }
+    });
+  }
+
+  child.addListener('close', exithandler);
+  child.addListener('error', errorhandler);
+
+  return child;
+}
+
+ObjectDefineProperty(execFile, promisify.custom, {
+  __proto__: null,
+  enumerable: false,
+  value: customPromiseExecFunction(execFile),
+});
+
+function copyProcessEnvToEnv(env, name, optionEnv) {
+  if (process.env[name] &&
+      (!optionEnv ||
+       !ObjectPrototypeHasOwnProperty(optionEnv, name))) {
+    env[name] = process.env[name];
+  }
+}
+
+let permissionModelFlagsToCopy;
+
+function getPermissionModelFlagsToCopy() {
+  if (permissionModelFlagsToCopy === undefined) {
+    permissionModelFlagsToCopy = [...permission.availableFlags(), '--permission'];
+  }
+  return permissionModelFlagsToCopy;
+}
+
+function copyPermissionModelFlagsToEnv(env, key, args) {
+  // Do not override if permission was already passed to file
+  if (args.includes('--permission') || (env[key] && env[key].indexOf('--permission') !== -1)) {
+    return;
+  }
+
+  co

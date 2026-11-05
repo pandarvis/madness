@@ -1,0 +1,19 @@
+{
+  "asarSha256": "b0a156566ec6ebd5d33cc0b417e85572327799ebf089580578b638b5438ec6c6",
+  "candidateSeal": "../candidate-seal.json",
+  "sourceInputs": [
+    {
+      "path": "src/renderer/src/ProjectResume.tsx",
+      "archived": "ProjectResume.tsx",
+      "sha256": "8565295e8773b6db373720c1a73590bf02b1058d0ad5f354a331baf49004f65d",
+      "byteIdenticalToSealedInput": true
+    },
+    {
+      "path": "src/renderer/src/atelier-immersion.css",
+      "archived": "atelier-immersion.css",
+      "sha256": "feb7ac7ba13d7501a67af310ea80aafc95a165115598f1ed71e289e3528f0862",
+      "byteIdenticalToSealedInput": true
+    }
+  ],
+  "scope": "Exact product source capsule before aria-live followup; current tests are separately newer and not reconstructed."
+}

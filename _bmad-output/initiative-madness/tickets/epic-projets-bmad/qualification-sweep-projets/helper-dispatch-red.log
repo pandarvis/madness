@@ -1,0 +1,28 @@
+✖ an expired microtask never dispatches a page read (8.8532ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 448.9618
+
+✖ failing tests:
+
+test at tests\page-condition-wait.test.mjs:44:1
+✖ an expired microtask never dispatches a page read (8.8532ms)
+  AssertionError [ERR_ASSERTION]: an evaluation must not begin after its absolute deadline
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/page-condition-wait.test.mjs:51:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,3 +1,4 @@
+import {waitForPageCondition} from './page-condition-wait.mjs'
 // Deux versions du programme, un seul profil SYNTHÉTIQUE possédé, aucun fournisseur.
 import assert from 'node:assert/strict'
 import {_electron as electron} from 'playwright-core'
@@ -185,7 +186,7 @@ export async function qualifySaveFailure(executable,output){
   await page.getByText('L’enregistrement local a échoué. Votre saisie reste disponible ici. Vérifiez l’espace et les droits d’accès puis réessayez.',{exact:true}).waitFor()
   await page.locator('#draft-status').getByText('Modification non enregistrée.',{exact:true}).waitFor()
   await page.getByRole('button',{name:'Enregistrer le brouillon',exact:true}).waitFor({state:'visible'})
-  await page.waitForFunction(async()=>{const s=await window.madness.readState();return s.ok&&s.value.state.revision===1})
+  await waitForPageCondition(page,async()=>{const s=await window.madness.readState();return s.ok&&s.value.state.revision===1})
   assert.equal(await page.locator('#draft').inputValue(),'Saisie visible non enregistrée : été 日本語.')
   assert.deepEqual(await readFile(path),before)
   assert.equal((await readdir(join(root,'profile'))).some(n=>n.endsWith('.tmp')),false)

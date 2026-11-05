@@ -1,0 +1,28 @@
+✖ closed Windows runtime repeats all bytes and refuses corruptions before UV substitute (4337.5599ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4870.3522
+
+✖ failing tests:
+
+test at tests\bmad-runtime-preflight.test.mjs:16:1
+✖ closed Windows runtime repeats all bytes and refuses corruptions before UV substitute (4337.5599ms)
+  Error: spawn ENAMETOOLONG
+      at ChildProcess.spawn (node:internal/child_process:421:11)
+      at spawn (node:child_process:796:9)
+      at execFile (node:child_process:349:17)
+      at execFile (node:child_process:245:21)
+      at probe (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/qualify.mjs:38:35)
+      at async matrix (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/qualify.mjs:58:17)
+      at async TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-runtime-preflight.test.mjs:16:117)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    errno: -4064,
+    code: 'ENAMETOOLONG',
+    syscall: 'spawn'
+  }

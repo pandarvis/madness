@@ -1,0 +1,32 @@
+✖ reprise: entering another project or initiative already reading announces only its own real completion (4156.7313ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-CYfXiP\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-CYfXiP\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6593.1227
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:246:1
+✖ reprise: entering another project or initiative already reading announces only its own real completion (4156.7313ms)
+  AssertionError [ERR_ASSERTION]: completion counts the newly read sources, not the retained presentation
+  + actual - expected
+  
+  + 'Lecture locale terminée · 1 source'
+  - 'Lecture locale terminée · 3 sources'
+                               ^
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:266:292)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'Lecture locale terminée · 1 source',
+    expected: 'Lecture locale terminée · 3 sources',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

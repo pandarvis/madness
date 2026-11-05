@@ -1,0 +1,7 @@
+{"utc":"2026-11-05T09:47:48.2880779Z","name":"","elapsedMs":10,"phase":"load-entry","detail":null}
+{"utc":"2026-11-05T09:47:50.7259952Z","name":"","elapsedMs":2447,"phase":"load-exit","detail":2444}
+{"utc":"2026-11-05T09:47:50.9935664Z","name":"junction","elapsedMs":2715,"phase":"case-entry","detail":null}
+{"utc":"2026-11-05T09:47:51.0132624Z","name":"junction","elapsedMs":2735,"phase":"guard-entry","detail":null}
+{"utc":"2026-11-05T09:47:51.1744455Z","name":"junction","elapsedMs":2896,"phase":"guard-exit","detail":{"admitted":false,"name":"junction","error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_REPARSE\"","launchMarker":false,"guardMs":150}}
+{"utc":"2026-11-05T09:47:51.1951354Z","name":"junction","elapsedMs":2917,"phase":"restored","detail":{"durationMs":181}}
+{"utc":"2026-11-05T09:47:51.2090795Z","name":"junction","elapsedMs":2930,"phase":"case-exit","detail":{"durationMs":196}}

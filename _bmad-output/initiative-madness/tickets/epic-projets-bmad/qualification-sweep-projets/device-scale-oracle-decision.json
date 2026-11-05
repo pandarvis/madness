@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "parentDecision": "One physical pixel on the12CSSpx qualification inset only; full action visibility/minima/no-overlap/no-overflow/initial-scroll remain strict. No CSS or forced desktop/device-scale change.",
+  "oracle": "actionBottom<=height-12+1/devicePixelRatio AND actionBottom<=height",
+  "measuredCurrentDpr": 1,
+  "measuredHistoricalDpr": 1.25,
+  "oldRealOverflow": {
+    "actionBottom": 856.6,
+    "height": 820,
+    "rejectedForDpr1": true,
+    "rejectedForDpr1_25": true
+  },
+  "geometryRecheck": {
+    "path": "ui-device-scale-recheck.log",
+    "sha256": "0949419e11ec4f3fe702f343f53ac931778911de5175c02baadd4356cbffe747",
+    "tests": 1,
+    "pass": 1,
+    "skip": 0
+  },
+  "passiveFinal": "package-passive-002/attempt-003/verification.json",
+  "preservedFailedAttempts": [
+    {
+      "path": "verification.json",
+      "sha256": "eec7a092a9c8666ce9043633ab81251b401b4f90a7df979d8ac2a578473d48aa",
+      "status": "failed",
+      "closures": 1,
+      "cleanup": true
+    },
+    {
+      "path": "attempt-002/verification.json",
+      "sha256": "b43d5abfc19e34975d81c5610feeaf39cd8ace74cbac71fe7ec32fe2fce61c5e",
+      "status": "failed",
+      "closures": 1,
+      "cleanup": true
+    }
+  ],
+  "productCssByteIdentical": true,
+  "newCaptureOrDetector": false
+}

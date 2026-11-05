@@ -1,0 +1,26 @@
+{
+  "baseHistoricalIndex": "dispositions.json",
+  "historicalUniqueFailures": 17,
+  "graphSubsetOf17": 9,
+  "historicalRawReceiptsUnchanged": true,
+  "currentSourceSeal": "candidate-seal-004.json",
+  "newGlobalFailures": {
+    "count": 5,
+    "selectionLocalMessage": "fixed; FR_EN1/1 source003, component unchanged in004",
+    "otherFourFixtureOrLocatorCorrections": "read-verified; not rerun at explicit user request"
+  },
+  "review": {
+    "Q1": "fixed; queued old reading/error silent, true new reading announces; shortUI1/1 and sameQuick resolved",
+    "Q2": "fixed; finally closure independent of command assertion,14fakebranches, sameQuick resolved",
+    "D1": "rootDESIGN layout prose resolved by sameDocumenter",
+    "D2": "surface layout prose resolved by sameDocumenter",
+    "D3": "surface related_targets resolved by sameDocumenter"
+  },
+  "longTests": {
+    "fullGlobal": "interrupted595passingLines/5failingLines; no final Node counts or success",
+    "standardGraph": "not reached; diagnostic copied resource only",
+    "finalNativeG2G3": "pending; user waiver, not qualification",
+    "newCaptureOrDetector": false
+  },
+  "rootNativeModes": "Historical exact modes/limits retained in dispositions.json; no causal historical AccessDenied fix or file-symlink positive invented."
+}

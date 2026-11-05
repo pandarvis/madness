@@ -31,10 +31,16 @@ export function ProjectResume({rootPath,projectId,context,value,overview,accept,
  const {words:fr,ui,locale,language}=useLocale()
 
  const metricContext=useContext(MetricsContext),metrics=metricContext.state.projects.find(p=>p.projectId===projectId),[metricRef,setMetricRef]=useState<string|null>(null),metricRegistry=useRef<HTMLDetailsElement>(null)
- const words=fr.resume,id=useId(),[bridgeError,setBridgeError]=useState(false),[announcement,setAnnouncement]=useLocalText<string>(''),root=useRef<HTMLElement>(null),registry=useRef<HTMLHeadingElement>(null),focusedProof=useRef<string|null>(null),lastAnnouncement=useRef(''),readingBatch=useRef(false),previousFreshness=useRef(value?.freshness)
+ const words=fr.resume,id=useId(),[bridgeError,setBridgeError]=useState(false),[announcement,setAnnouncement]=useLocalText<string>(''),root=useRef<HTMLElement>(null),registry=useRef<HTMLHeadingElement>(null),focusedProof=useRef<string|null>(null),lastAnnouncement=useRef(''),announcementContext=useRef<{projectId:string;generation:number|undefined}|null>(null),readingBatch=useRef(false),previousFreshness=useRef(value?.freshness)
  const contextScope=JSON.stringify([projectId,rootPath,context?.selection?.rootIdentity,context?.selection?.initiativeId])
  const latest=value?.snapshot??null,[presented,setPresented]=useState<{scope:string;snapshot:BmadProgressSnapshot|null}>({scope:contextScope,snapshot:latest}),[switched,setSwitched]=useState(false)
  const snapshot=presented.scope===contextScope?presented.snapshot??latest:latest,projection=snapshot?projectBmadProgress(snapshot):null,reading=value?.status==='reading'
+ useLayoutEffect(()=>{
+  const previous=announcementContext.current,ownReading=reading&&!value?.queued&&(!previous||previous.projectId!==projectId||previous.generation!==value?.generation)
+  if(ownReading)setAnnouncement(l=>l.words.resume.reading);else setAnnouncement('')
+  lastAnnouncement.current=[contextScope,value?.generation,value?.status].join(':');readingBatch.current=ownReading;previousFreshness.current=value?.freshness
+ },[contextScope])
+ useLayoutEffect(()=>{announcementContext.current={projectId,generation:value?.generation}},[projectId,value?.generation])
  useLayoutEffect(()=>{if(presented.scope!==contextScope){setPresented({scope:contextScope,snapshot:latest});setSwitched(false)}else if(!presented.snapshot&&latest)setPresented({scope:contextScope,snapshot:latest})},[contextScope,latest,presented])
  const available=!!latest&&!!snapshot&&latest.revision!==snapshot.revision,canShow=available&&value?.freshness==='current'&&value.status==='ready'
  const show=():void=>{if(!canShow||!latest)return;setPresented({scope:contextScope,snapshot:latest});setSwitched(true)}
@@ -53,7 +59,7 @@ export function ProjectResume({rootPath,projectId,context,value,overview,accept,
  const same=!!snapshot&&snapshot.rootPath.replaceAll('\\','/').toLowerCase()===rootPath.replaceAll('\\','/').toLowerCase()&&!!context&&selectionValidity(context)==='valid'&&snapshot.initiativeId===context.selection?.initiativeId&&snapshot.rootIdentity===context.selection?.rootIdentity&&snapshot.contextRevision===context.observation?.revision
  const recaps=overview?.conversations.filter(c=>c.context.projectId===projectId).slice().reverse()??[]
  useEffect(()=>{setBridgeError(false)},[projectId])
- useEffect(()=>{const marker=[projectId,value?.generation,value?.status].join(':');if(marker===lastAnnouncement.current)return;lastAnnouncement.current=marker;if(reading){if(!readingBatch.current)setAnnouncement(l=>l.words.resume.reading);readingBatch.current=true}else if(readingBatch.current){readingBatch.current=false;setAnnouncement(l=>value?.status==='ready'?l.words.resume.finished+' · '+formatCount(snapshot?.sources.length??0,'source',l.language):l.words.resume.failed)}else if(value?.freshness==='stale'&&previousFreshness.current!=='stale')setAnnouncement(l=>l.words.refresh.changed);previousFreshness.current=value?.freshness},[projectId,value?.generation,value?.status,value?.freshness])
+ useEffect(()=>{const marker=[contextScope,value?.generation,value?.status].join(':');if(marker===lastAnnouncement.current)return;lastAnnouncement.current=marker;if(reading){if(!value?.queued){if(!readingBatch.current)setAnnouncement(l=>l.words.resume.reading);readingBatch.current=true}}else if(readingBatch.current){readingBatch.current=false;setAnnouncement(l=>value?.status==='ready'?l.words.resume.finished+' · '+formatCount(latest?.sources.length??0,'source',l.language):l.words.resume.failed)}else if(value?.freshness==='stale'&&previousFreshness.current!=='stale')setAnnouncement(l=>l.words.refresh.changed);previousFreshness.current=value?.freshness},[contextScope,value?.generation,value?.status,value?.freshness])
  // Async arrivals retain the displayed DOM. Focus outside this region is never reclaimed.
  async function collect():Promise<void>{try{if(!window.madnessBmadProgress)throw Error();setBridgeError(false);accept(await window.madnessBmadProgress.collect(projectId))}catch{setBridgeError(true)}}
  return <section className="project-resume" ref={root} aria-labelledby={id+'-title'} onFocusCapture={event=>{focusedProof.current=(event.target as HTMLElement).closest<HTMLElement>('[data-proof-key]')?.dataset.proofKey??null}}>

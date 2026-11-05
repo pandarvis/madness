@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict'
+import {readFile,writeFile} from 'node:fs/promises'
+import {createHash} from 'node:crypto'
+import {extractFile} from '@electron/asar'
+import {sep} from 'node:path'
+const q='_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-sweep-projets/',archive='dist/sweep-reviewed/win-unpacked/resources/app.asar',setup='dist/sweep-reviewed/Madness-0.2.17-x64-setup.exe',sha=b=>createHash('sha256').update(b).digest('hex')
+const current=JSON.parse(await readFile(q+'candidate-seal-004.json','utf8')),pairs=[]
+assert.equal(JSON.parse(extractFile(archive,'package.json')).version,'0.2.17')
+for(const item of current.compiled){const source=await readFile(item.path),packaged=extractFile(archive,item.path.split('/').join(sep));assert.equal(sha(source),item.sha256,item.path);assert.equal(sha(packaged),item.sha256,item.path);pairs.push({path:item.path,sourceSha256:item.sha256,packagedSha256:sha(packaged)})}
+const result={schemaVersion:1,createdAt:new Date().toISOString(),mode:'packaging-only-not-native-qualification',version:'0.2.17',sourceSeal:'candidate-seal-004.json',sourceSealSha256:sha(await readFile(q+'candidate-seal-004.json')),builderCommand:'node node_modules/electron-builder/cli.js --win nsis --x64 --publish never --config.directories.output=dist/sweep-reviewed',builderExitCode:0,buildLog:{path:'package-004.log',sha256:sha(await readFile(q+'package-004.log'))},compiledPairs:pairs,asar:{path:archive,sha256:sha(await readFile(archive))},installer:{path:setup,sha256:sha(await readFile(setup))},replacedUnpackedAsar002:'bf1e00fc71284e4296e0d8feb08fe2ddc89f25662fad395aec77886139449b66',previousBinaryAtSamePathNoLongerAvailable:true,backups13Through16Preserved:true,newPersonalInstallation:false,newNativeTests:false,newScreenshots:false,newDetector:false,newResource735Audit:false,limits:['Constructed current installer without installation or native verification.','Historical package002 and B0A captures remain separate; no current visual or G2-G5 acceptance.','Long campaigns remain waived by user;19packaged byte comparisons are artifact checks only.']}
+await writeFile(q+'parent-package-004.json',JSON.stringify(result,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({compiledPairs:pairs.length,asarSha256:result.asar.sha256,installerSha256:result.installer.sha256,nativeQualification:false}))

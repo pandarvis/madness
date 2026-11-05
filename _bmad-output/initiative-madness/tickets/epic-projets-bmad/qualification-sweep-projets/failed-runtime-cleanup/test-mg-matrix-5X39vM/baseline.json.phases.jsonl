@@ -1,0 +1,64 @@
+{"detail":null,"name":"","utc":"2026-11-05T09:36:39.2746734Z","phase":"load-entry","elapsedMs":30}
+{"detail":649,"name":"","utc":"2026-11-05T09:36:39.8965011Z","phase":"load-exit","elapsedMs":652}
+{"detail":null,"name":"nominal","utc":"2026-11-05T09:36:40.2083791Z","phase":"case-entry","elapsedMs":964}
+{"detail":null,"name":"nominal","utc":"2026-11-05T09:36:40.2259436Z","phase":"guard-entry","elapsedMs":982}
+{"detail":{"name":"nominal","launchMarker":true,"error":null,"admitted":true,"guardMs":42303},"name":"nominal","utc":"2026-11-05T09:37:22.5331348Z","phase":"guard-exit","elapsedMs":43289}
+{"detail":{"durationMs":42325},"name":"nominal","utc":"2026-11-05T09:37:22.5512095Z","phase":"restored","elapsedMs":43307}
+{"detail":{"durationMs":42343},"name":"nominal","utc":"2026-11-05T09:37:22.5687718Z","phase":"case-exit","elapsedMs":43324}
+{"detail":null,"name":"changed","utc":"2026-11-05T09:37:22.5861341Z","phase":"case-entry","elapsedMs":43342}
+{"detail":null,"name":"changed","utc":"2026-11-05T09:37:22.6255872Z","phase":"guard-entry","elapsedMs":43381}
+{"detail":{"name":"changed","launchMarker":false,"error":"RUNTIME_CHANGED: Lib/codex-rejected-cas.pem","admitted":false,"guardMs":2172},"name":"changed","utc":"2026-11-05T09:37:24.8008227Z","phase":"guard-exit","elapsedMs":45556}
+{"detail":{"durationMs":2234},"name":"changed","utc":"2026-11-05T09:37:24.8357091Z","phase":"restored","elapsedMs":45591}
+{"detail":{"durationMs":2251},"name":"changed","utc":"2026-11-05T09:37:24.8529280Z","phase":"case-exit","elapsedMs":45608}
+{"detail":null,"name":"missing","utc":"2026-11-05T09:37:24.8687747Z","phase":"case-entry","elapsedMs":45624}
+{"detail":null,"name":"missing","utc":"2026-11-05T09:37:24.8939908Z","phase":"guard-entry","elapsedMs":45649}
+{"detail":{"name":"missing","launchMarker":false,"error":"RUNTIME_MISSING","admitted":false,"guardMs":41457},"name":"missing","utc":"2026-11-05T09:38:06.3582385Z","phase":"guard-exit","elapsedMs":87114}
+{"detail":{"durationMs":41507},"name":"missing","utc":"2026-11-05T09:38:06.3938940Z","phase":"restored","elapsedMs":87149}
+{"detail":{"durationMs":41524},"name":"missing","utc":"2026-11-05T09:38:06.4103014Z","phase":"case-exit","elapsedMs":87166}
+{"detail":null,"name":"sitecustomize","utc":"2026-11-05T09:38:06.4270866Z","phase":"case-entry","elapsedMs":87182}
+{"detail":null,"name":"sitecustomize","utc":"2026-11-05T09:38:06.4607009Z","phase":"guard-entry","elapsedMs":87216}
+{"detail":{"name":"sitecustomize","launchMarker":false,"error":"RUNTIME_EXTRA: Lib/site-packages/sitecustomize.py","admitted":false,"guardMs":21240},"name":"sitecustomize","utc":"2026-11-05T09:38:27.7048060Z","phase":"guard-exit","elapsedMs":108460}
+{"detail":{"durationMs":21283},"name":"sitecustomize","utc":"2026-11-05T09:38:27.7286345Z","phase":"restored","elapsedMs":108484}
+{"detail":{"durationMs":21298},"name":"sitecustomize","utc":"2026-11-05T09:38:27.7437849Z","phase":"case-exit","elapsedMs":108499}
+{"detail":null,"name":"usercustomize","utc":"2026-11-05T09:38:27.7583860Z","phase":"case-entry","elapsedMs":108514}
+{"detail":null,"name":"usercustomize","utc":"2026-11-05T09:38:27.7888842Z","phase":"guard-entry","elapsedMs":108544}
+{"detail":{"name":"usercustomize","launchMarker":false,"error":"RUNTIME_EXTRA: Lib/site-packages/usercustomize.py","admitted":false,"guardMs":17212},"name":"usercustomize","utc":"2026-11-05T09:38:45.0051261Z","phase":"guard-exit","elapsedMs":125760}
+{"detail":{"durationMs":17253},"name":"usercustomize","utc":"2026-11-05T09:38:45.0297529Z","phase":"restored","elapsedMs":125785}
+{"detail":{"durationMs":17270},"name":"usercustomize","utc":"2026-11-05T09:38:45.0470705Z","phase":"case-exit","elapsedMs":125802}
+{"detail":null,"name":"cache","utc":"2026-11-05T09:38:45.0641742Z","phase":"case-entry","elapsedMs":125819}
+{"detail":null,"name":"cache","utc":"2026-11-05T09:38:45.0925495Z","phase":"guard-entry","elapsedMs":125848}
+{"detail":{"name":"cache","launchMarker":false,"error":"RUNTIME_EXTRA: Lib/__pycache__","admitted":false,"guardMs":2030},"name":"cache","utc":"2026-11-05T09:38:47.1254662Z","phase":"guard-exit","elapsedMs":127881}
+{"detail":{"durationMs":2068},"name":"cache","utc":"2026-11-05T09:38:47.1504836Z","phase":"restored","elapsedMs":127906}
+{"detail":{"durationMs":2084},"name":"cache","utc":"2026-11-05T09:38:47.1666284Z","phase":"case-exit","elapsedMs":127922}
+{"detail":null,"name":"extra-dir","utc":"2026-11-05T09:38:47.1835487Z","phase":"case-entry","elapsedMs":127939}
+{"detail":null,"name":"extra-dir","utc":"2026-11-05T09:38:47.2090133Z","phase":"guard-entry","elapsedMs":127964}
+{"detail":{"name":"extra-dir","launchMarker":false,"error":"RUNTIME_EXTRA: unexpected","admitted":false,"guardMs":1274},"name":"extra-dir","utc":"2026-11-05T09:38:48.4867572Z","phase":"guard-exit","elapsedMs":129242}
+{"detail":{"durationMs":1303},"name":"extra-dir","utc":"2026-11-05T09:38:48.5056308Z","phase":"restored","elapsedMs":129261}
+{"detail":{"durationMs":1319},"name":"extra-dir","utc":"2026-11-05T09:38:48.5207469Z","phase":"case-exit","elapsedMs":129276}
+{"detail":null,"name":"root-venv","utc":"2026-11-05T09:38:48.5370976Z","phase":"case-entry","elapsedMs":129292}
+{"detail":null,"name":"root-venv","utc":"2026-11-05T09:38:48.5771181Z","phase":"guard-entry","elapsedMs":129332}
+{"detail":{"name":"root-venv","launchMarker":false,"error":"RUNTIME_VENV","admitted":false,"guardMs":585},"name":"root-venv","utc":"2026-11-05T09:38:49.1667899Z","phase":"guard-exit","elapsedMs":129922}
+{"detail":{"durationMs":627},"name":"root-venv","utc":"2026-11-05T09:38:49.1895846Z","phase":"restored","elapsedMs":129945}
+{"detail":{"durationMs":646},"name":"root-venv","utc":"2026-11-05T09:38:49.2083530Z","phase":"case-exit","elapsedMs":129964}
+{"detail":null,"name":"parent-venv","utc":"2026-11-05T09:38:49.2254700Z","phase":"case-entry","elapsedMs":129981}
+{"detail":null,"name":"parent-venv","utc":"2026-11-05T09:38:49.2569595Z","phase":"guard-entry","elapsedMs":130012}
+{"detail":{"name":"parent-venv","launchMarker":false,"error":"RUNTIME_VENV","admitted":false,"guardMs":571},"name":"parent-venv","utc":"2026-11-05T09:38:49.8318709Z","phase":"guard-exit","elapsedMs":130587}
+{"detail":{"durationMs":612},"name":"parent-venv","utc":"2026-11-05T09:38:49.8549498Z","phase":"restored","elapsedMs":130610}
+{"detail":{"durationMs":630},"name":"parent-venv","utc":"2026-11-05T09:38:49.8726148Z","phase":"case-exit","elapsedMs":130628}
+{"detail":null,"name":"invalid-record","utc":"2026-11-05T09:38:49.8887239Z","phase":"case-entry","elapsedMs":130644}
+{"detail":null,"name":"invalid-record","utc":"2026-11-05T09:38:49.9109175Z","phase":"guard-entry","elapsedMs":130666}
+{"detail":{"name":"invalid-record","launchMarker":false,"error":"RUNTIME_RECORD","admitted":false,"guardMs":589},"name":"invalid-record","utc":"2026-11-05T09:38:50.5035561Z","phase":"guard-exit","elapsedMs":131259}
+{"detail":{"durationMs":603},"name":"invalid-record","utc":"2026-11-05T09:38:50.5114254Z","phase":"restored","elapsedMs":131267}
+{"detail":{"durationMs":609},"name":"invalid-record","utc":"2026-11-05T09:38:50.5179886Z","phase":"case-exit","elapsedMs":131273}
+{"detail":null,"name":"invalid-hash","utc":"2026-11-05T09:38:50.5238319Z","phase":"case-entry","elapsedMs":131279}
+{"detail":null,"name":"invalid-hash","utc":"2026-11-05T09:38:50.5320569Z","phase":"guard-entry","elapsedMs":131287}
+{"detail":{"name":"invalid-hash","launchMarker":false,"error":"RUNTIME_EXTRA: DLLs","admitted":false,"guardMs":1247},"name":"invalid-hash","utc":"2026-11-05T09:38:51.7829356Z","phase":"guard-exit","elapsedMs":132538}
+{"detail":{"durationMs":1257},"name":"invalid-hash","utc":"2026-11-05T09:38:51.7892235Z","phase":"restored","elapsedMs":132544}
+{"detail":{"durationMs":1263},"name":"invalid-hash","utc":"2026-11-05T09:38:51.7959246Z","phase":"case-exit","elapsedMs":132551}
+{"detail":null,"name":"read-fault","utc":"2026-11-05T09:38:51.8028181Z","phase":"case-entry","elapsedMs":132558}
+{"detail":null,"name":"read-fault","utc":"2026-11-05T09:38:51.8203292Z","phase":"guard-entry","elapsedMs":132576}
+{"detail":{"name":"read-fault","launchMarker":false,"error":"The process cannot access the file 'C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-5X39vM\\python\\Lib\\codex-rejected-cas.pem' because it is being used by another process.","admitted":false,"guardMs":2206},"name":"read-fault","utc":"2026-11-05T09:38:54.0295769Z","phase":"guard-exit","elapsedMs":134785}
+{"detail":{"durationMs":2232},"name":"read-fault","utc":"2026-11-05T09:38:54.0422081Z","phase":"restored","elapsedMs":134797}
+{"detail":{"durationMs":2238},"name":"read-fault","utc":"2026-11-05T09:38:54.0485383Z","phase":"case-exit","elapsedMs":134804}
+{"detail":null,"name":"nominal-after-corruption","utc":"2026-11-05T09:38:54.0545016Z","phase":"case-entry","elapsedMs":134810}
+{"detail":null,"name":"nominal-after-corruption","utc":"2026-11-05T09:38:54.0612365Z","phase":"guard-entry","elapsedMs":134817}

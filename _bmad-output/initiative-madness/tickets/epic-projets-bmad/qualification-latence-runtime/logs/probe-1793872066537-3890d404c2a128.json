@@ -1,0 +1,24 @@
+{
+  "results": [
+    {
+      "admitted": false,
+      "name": "junction",
+      "error": "Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_REPARSE\"",
+      "launchMarker": false,
+      "guardMs": 150
+    }
+  ],
+  "processInnerMs": 2944,
+  "loadMs": 2444,
+  "wallMs": 5242.165699999998,
+  "scriptSha256": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+  "cases": [
+    {
+      "name": "junction"
+    }
+  ],
+  "stderr": "",
+  "phases": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-latence-runtime\\logs\\probe-1793872066537-3890d404c2a128.json.phases.jsonl",
+  "controller": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-latence-runtime\\logs\\probe-1793872066537-3890d404c2a128.json.controller.ps1",
+  "timeoutMs": 180000
+}

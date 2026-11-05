@@ -1,3 +1,4 @@
+import {waitForPageCondition} from './page-condition-wait.mjs'
 import assert from 'node:assert/strict'
 import {benchOutput} from './epic-one-support.mjs'
 import {_electron as electron} from 'playwright-core'
@@ -22,7 +23,7 @@ async function stop(){if(!running)return;const process=running.process();await r
 async function launch(profile){
  const allowed=['PATH','SYSTEMROOT','WINDIR','COMSPEC','PATHEXT','TEMP','TMP','USERPROFILE','HOMEDRIVE','HOMEPATH'],env=Object.fromEntries(Object.entries(process.env).filter(([key])=>allowed.includes(key.toUpperCase())))
  running=await electron.launch({executablePath:executable,args:packaged?[]:[repository],cwd:repository,env:{...env,MADNESS_DATA_HOME:profile,APPDATA:join(profile,'appdata'),LOCALAPPDATA:join(profile,'localappdata')},timeout:30000})
- const page=await running.firstWindow();await page.waitForFunction(()=>!!window.madnessDialogue);await page.waitForFunction(async()=>(await window.madness.readState()).ok)
+ const page=await running.firstWindow();await page.waitForFunction(()=>!!window.madnessDialogue);await waitForPageCondition(page,async()=>(await window.madness.readState()).ok)
  await running.evaluate(({session})=>{globalThis.__forgeRequests=0;session.defaultSession.webRequest.onBeforeRequest({urls:['http://*/*','https://*/*']},(_d,callback)=>{globalThis.__forgeRequests++;callback({cancel:true})})})
  return page
 }
@@ -80,7 +81,7 @@ try{
  await page.getByRole('tab',{name:'Conversation',exact:true}).click()
  await page.locator('#draft').fill('Brouillon Forge conservé après navigation et réouverture.')
  await page.getByRole('button',{name:'Enregistrer le brouillon',exact:true}).click()
- await page.waitForFunction(async()=>(await window.madness.readState()).value.state.drafts[0].text==='Brouillon Forge conservé après navigation et réouverture.')
+ await waitForPageCondition(page,async()=>(await window.madness.readState()).value.state.drafts[0].text==='Brouillon Forge conservé après navigation et réouverture.')
  await page.getByRole('button',{name:'Réduire la navigation',exact:true}).click()
  await page.getByRole('button',{name:'Passer au thème clair',exact:true}).click()
  assert.equal(await page.locator('#draft').inputValue(),'Brouillon Forge conservé après navigation et réouverture.');pass('theme-navigation-and-explicit-draft-save-preserve-context')

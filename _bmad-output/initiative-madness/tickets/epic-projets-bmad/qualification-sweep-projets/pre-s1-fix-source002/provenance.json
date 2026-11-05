@@ -1,0 +1,13 @@
+{
+  "sourceSeal": "../candidate-seal-002.json",
+  "inputs": [
+    {
+      "path": "scripts/qualification/page-condition-wait.mjs",
+      "sha256": "3cc3f4da38511184469526aa3d97131cc92dc771949252fcff30b0dce0212f58"
+    },
+    {
+      "path": "tests/page-condition-wait.test.mjs",
+      "sha256": "d38061881c05b0addc6a3dae13ec8b6c290d1675ad0217307392044c1cff3e0b"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+import assert from 'node:assert/strict'
+import {readFile,writeFile,mkdir,copyFile,lstat,readdir,rm,realpath,access} from 'node:fs/promises'
+import {join,resolve,dirname,basename,relative,isAbsolute,sep} from 'node:path'
+import {tmpdir} from 'node:os'
+import {execFileSync} from 'node:child_process'
+import {createHash} from 'node:crypto'
+const base=resolve('_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-sweep-projets'),q=resolve('_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/logs'),sha=b=>createHash('sha256').update(b).digest('hex'),json=async p=>JSON.parse(await readFile(p,'utf8'))
+const report={schemaVersion:1,scannedAt:new Date().toISOString(),failedRuntime:[],predecessor:null,originalFailuresChanged:false}
+const native=process.binding('natives').child_process,needle="child.addListener('close', exithandler)",needleAt=native.indexOf(needle);assert.ok(needleAt>=0)
+const exitAt=native.indexOf('function exithandler(');assert.ok(exitAt>=0);const exitSource=native.slice(exitAt,exitAt+4500);assert.match(exitSource,/signal/);await writeFile(join(base,'node-execfile-close-evidence.txt'),'Node '+process.version+' builtin child_process SHA256 '+sha(native)+'\n'+native.slice(needleAt-100,needleAt+150)+'\n'+exitSource)
+function processes(nonces){
+ const code="$ErrorActionPreference='Stop';$nonces=ConvertFrom-Json '"+JSON.stringify(nonces).replaceAll("'","''")+"';$all=@(Get-CimInstance Win32_Process);$exclude=@();$selfId=$PID;while($selfId -gt 0 -and $exclude -notcontains $selfId){$exclude+=,$selfId;$row=$all|Where-Object ProcessId -eq $selfId|Select-Object -First 1;if($null -eq $row){break};$selfId=[int]$row.ParentProcessId};$rows=@($all|Where-Object {$exclude -notcontains $_.ProcessId}|Where-Object {$p=$_;@($nonces|Where-Object {($p.ExecutablePath -and $p.ExecutablePath.IndexOf($_,[StringComparison]::OrdinalIgnoreCase)-ge 0)-or($p.CommandLine -and $p.CommandLine.IndexOf($_,[StringComparison]::OrdinalIgnoreCase)-ge 0)}).Count -gt 0}|ForEach-Object {@{pid=$_.ProcessId;parentPid=$_.ParentProcessId;executable=$_.ExecutablePath}});ConvertTo-Json -Depth 5 -Compress -InputObject @{matches=$rows;excludedDiagnosticAncestors=@($all|Where-Object {$exclude -contains $_.ProcessId}|ForEach-Object {@{pid=$_.ProcessId;parentPid=$_.ParentProcessId;name=$_.Name}})}"
+ return JSON.parse(execFileSync('pwsh',['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(code,'utf16le').toString('base64')],{windowsHide:true,timeout:30000,encoding:'utf8'}).trim())
+}
+async function size(path){let bytes=0,files=0;for(const e of await readdir(path,{withFileTypes:true})){const p=join(path,e.name);if(e.isDirectory()){const n=await size(p);bytes+=n.bytes;files+=n.files}else if(e.isFile()){bytes+=(await lstat(p)).size;files++}}return {bytes,files}}
+for(const name of ['test-mg-matrix-eDrrMb','test-mg-matrix-5X39vM']){
+ const artifact=join(q,name),fixture=await json(join(artifact,'fixture.json')),failure=await json(join(artifact,'baseline.json')),owner=fixture.owner,archive=join(base,'failed-runtime-cleanup',name);await mkdir(archive,{recursive:true})
+ const proof={owner,artifact,archive,originalCompleted:fixture.completed,failure:{code:failure.code,killed:failure.killed,signal:failure.signal,wallMs:failure.wallMs},archived:[],removed:false}
+ for(const file of ['fixture.json','baseline.json','baseline.json.controller.ps1','baseline.json.phases.jsonl']){try{const raw=await readFile(join(artifact,file));await writeFile(join(archive,file),raw);proof.archived.push({file,bytes:raw.length,sha256:sha(raw)})}catch(e){if(e.code!=='ENOENT')throw e}}
+ proof.ownedProcessSnapshot=processes([owner.root,basename(owner.root),failure.controller]);assert.deepEqual(proof.ownedProcessSnapshot.matches,[])
+ const path=await realpath(owner.root),record=await json(join(path,'.latency-owner.json'));assert.equal(path,owner.root);assert.equal(dirname(path),await realpath(tmpdir()));assert.equal(record.id,owner.id);assert.equal(record.root,path);assert.equal((await lstat(path)).isSymbolicLink(),false);proof.volume=await size(path)
+ const controller=await readFile(failure.controller,'utf8');assert.ok(controller.includes('UV_SUBSTITUTE'));assert.equal(/Start-Process|ProcessStartInfo|\[Diagnostics\.Process\]|Invoke-Expression/.test(controller),false)
+ proof.uv={realProcessStarted:false,mechanism:'data-only marker WriteAllText after guard; controller contains no child process launch'}
+ if(failure.code==='ENAMETOOLONG'){assert.equal(failure.signal,null);assert.equal(proof.archived.some(p=>p.file.endsWith('.phases.jsonl')),false);proof.controllerClosure='spawn refused before process creation; no phases file and current correlated nonce/path process inventory empty'}
+ else{assert.equal(failure.signal,'SIGTERM');assert.equal(failure.killed,true);const phases=(await readFile(join(artifact,'baseline.json.phases.jsonl'),'utf8')).trim().split('\n').map(JSON.parse);assert.equal(phases.at(-1).name,'nominal-after-corruption');proof.controllerClosure='execFile error.signal comes from observed close callback (local Node source archived), separately corroborated by current empty controller/root nonce/path inventory';proof.completedCases=phases.filter(r=>r.phase==='case-exit').length;proof.timeoutSuccessClaim=false}
+ await rm(path,{recursive:true,force:false});proof.removed=true;await assert.rejects(access(path),{code:'ENOENT'});report.failedRuntime.push(proof)
+}
+const candidate=await json(join(base,'candidate-seal.json')),qualification=await json(join(base,'package-visual-001/verification.json'));assert.equal(qualification.status,'passed');assert.equal(qualification.cleanup,true);assert.equal(candidate.asar.sha256,sha(await readFile(candidate.asar.path)))
+const target=resolve('dist/language-reviewed/win-unpacked'),allowed=resolve('dist/language-reviewed');assert.equal(dirname(target),allowed);assert.equal(await realpath(target),target);assert.equal((await lstat(target)).isSymbolicLink(),false)
+const current=processes([target]);assert.deepEqual(current.matches,[]);const before=await size(target),oldAsar=sha(await readFile(join(target,'resources/app.asar')))
+for(const setup of candidate.setups)assert.equal(sha(await readFile(setup.path)),setup.sha256)
+await rm(target,{recursive:true,force:false});await assert.rejects(access(target),{code:'ENOENT'})
+for(const setup of candidate.setups)assert.equal(sha(await readFile(setup.path)),setup.sha256)
+await access(resolve('dist/graph-preview-0cf3cc35'))
+report.predecessor={target,oldAsarSha256:oldAsar,remainingProcesses:current,removed:true,volume:before,setupsPreserved:candidate.setups,personalPreviewPreserved:'dist/graph-preview-0cf3cc35',candidateAsarSha256:candidate.asar.sha256};await writeFile(join(base,'cleanup.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({failedRuntime:report.failedRuntime.map(x=>({root:x.owner.root,removed:x.removed,bytes:x.volume.bytes})),predecessor:report.predecessor.target,predecessorRemoved:true,setupsPreserved:candidate.setups.length}))

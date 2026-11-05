@@ -13,6 +13,6 @@ test('owned fixture remains intact without a correlated stop proof',async()=>{
 })
 
 import {matrix,edgeMatrix} from '../_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/qualify.mjs'
-test('closed Windows runtime repeats all bytes and refuses corruptions before UV substitute',async()=>{const result=await matrix({label:'test'});assert.equal(result.files,735);assert.equal(result.canaryExact,true);assert.equal(result.candidate.results.length,13);console.log(JSON.stringify({symlinkFile:result.symlinkFile,limits:result.limits}))})
+test('closed Windows runtime repeats all bytes and refuses corruptions before UV substitute',async()=>{const result=await matrix({label:'test',mode:'regression'});assert.equal(result.mode,'regression');assert.equal(result.baseline.executed,false);assert.match(result.baseline.reason,/historical comparison not requested/);assert.equal(result.files,735);assert.equal(result.canaryExact,true);assert.equal(result.candidate.results.length,13);console.log(JSON.stringify({symlinkFile:result.symlinkFile,limits:result.limits}))})
 
 test('native long paths, ancestor replacement, count/depth bounds and identity failure remain closed',async()=>{const result=await edgeMatrix();assert.ok(result.longPathChars>260);assert.equal(result.identityFault.results[0].admitted,false)})

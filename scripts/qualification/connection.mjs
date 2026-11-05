@@ -1,3 +1,4 @@
+import {waitForPageCondition} from './page-condition-wait.mjs'
 import assert from 'node:assert/strict'
 import { _electron as electron } from 'playwright-core'
 import { mkdtemp, mkdir, writeFile, readFile, rm, realpath, lstat } from 'node:fs/promises'
@@ -22,7 +23,7 @@ async function launch(profile) {
   const env = Object.fromEntries(Object.entries(process.env).filter(([name]) => names.includes(name.toUpperCase())))
   running = await electron.launch({ executablePath: packaged ? join(repository, 'dist/win-unpacked/Madness.exe') : require('electron'), args: packaged ? [] : [repository], cwd: repository, env: { ...env, MADNESS_DATA_HOME: profile, ...(!live ? { APPDATA: join(profile, 'appdata'), LOCALAPPDATA: join(profile, 'localappdata') } : {}) }, timeout: 30000 })
   const page = await running.firstWindow(); await page.waitForFunction(() => Boolean(window.madnessConnection))
-  await page.waitForFunction(async () => (await window.madness.readState()).ok)
+  await waitForPageCondition(page,async () => (await window.madness.readState()).ok)
   return page
 }
 async function main() {
@@ -50,12 +51,12 @@ async function main() {
     assert.equal(report.runtime.encryptionAvailable, true)
     if (live) {
       console.log('Consentement réel attendu dans Madness : Continuer avec ChatGPT. Le témoin utilise le forfait. Aucun clic automatique.')
-      await page.waitForFunction(async () => { const { state } = await window.madnessConnection.read(); return ['verified', 'error', 'unknown', 'cancelled'].includes(state.status) }, null, { timeout: 660000 })
+      await waitForPageCondition(page,async () => { const { state } = await window.madnessConnection.read(); return ['verified', 'error', 'unknown', 'cancelled'].includes(state.status) }, null, { timeout: 660000 })
       const state = await connection(page)
       report.liveProof = state.status === 'verified' ? 'signed-oauth-and-native-probe-confirmed' : 'not-confirmed'
       report.connection = { status: state.status, errorCode: state.errorCode, verifiedAt: state.verifiedAt, cliVersion: state.cliVersion, accountStored: state.accountStored }
       assert.equal(state.status, 'verified')
-      if (state.needsPlanAcknowledgement) { console.log('Connexion vérifiée : acquittez maintenant le rappel d’usage du forfait dans Madness.'); await page.waitForFunction(async () => !(await window.madnessConnection.read()).state.needsPlanAcknowledgement, null, { timeout: 120000 }) }
+      if (state.needsPlanAcknowledgement) { console.log('Connexion vérifiée : acquittez maintenant le rappel d’usage du forfait dans Madness.'); await waitForPageCondition(page,async () => !(await window.madnessConnection.read()).state.needsPlanAcknowledgement, null, { timeout: 120000 }) }
       pass('live-signed-oauth-native-turn-and-confirmed-stop')
     } else {
       await running.evaluate(({ shell, session }) => {
@@ -64,9 +65,9 @@ async function main() {
         session.defaultSession.webRequest.onBeforeRequest({ urls: ['https://auth.openai.com/*', 'https://api.openai.com/*'] }, (_details, callback) => { globalThis.__madnessQualification.requests++; callback({ cancel: true }) })
       })
       await page.getByRole('button', { name: 'Continuer avec ChatGPT', exact: true }).click()
-      await page.waitForFunction(async () => (await window.madnessConnection.read()).state.status === 'authorizing')
+      await waitForPageCondition(page,async () => (await window.madnessConnection.read()).state.status === 'authorizing')
       await page.getByRole('button', { name: 'Annuler la connexion', exact: true }).click()
-      await page.waitForFunction(async () => (await window.madnessConnection.read()).state.status === 'cancelled')
+      await waitForPageCondition(page,async () => (await window.madnessConnection.read()).state.status === 'cancelled')
       const observation = await running.evaluate(() => globalThis.__madnessQualification)
       assert.equal(observation.requests, 0); assert.equal(observation.browserOpens, 1)
       pass('explicit-system-browser-only-and-cancel-without-provider-network')
@@ -106,7 +107,7 @@ async function main() {
       const confirmation = page.getByRole('dialog', { name: 'Vous utilisez votre forfait ChatGPT', exact: true })
       await confirmation.waitFor()
       await page.getByRole('button', { name: 'J’ai compris', exact: true }).click()
-      await page.waitForFunction(async () => !(await window.madnessConnection.read()).state.needsPlanAcknowledgement)
+      await waitForPageCondition(page,async () => !(await window.madnessConnection.read()).state.needsPlanAcknowledgement)
       await stop(); page = await launch(profile)
       assert.equal((await connection(page)).needsPlanAcknowledgement, false)
       assert.equal(await page.getByRole('dialog', { name: 'Vous utilisez votre forfait ChatGPT', exact: true }).isVisible(), false)

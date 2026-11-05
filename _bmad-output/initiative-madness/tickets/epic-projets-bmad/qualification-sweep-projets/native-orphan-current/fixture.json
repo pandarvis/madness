@@ -1,0 +1,94 @@
+{
+  "owner": {
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-job-NFDgSN",
+    "id": "64520b7a-fdc4-48e2-b4fa-e6c406beaa81",
+    "prefix": "madness-help-job-"
+  },
+  "controllerComplete": true,
+  "states": [
+    {
+      "schema": 5,
+      "outcome": "completed",
+      "exit": 0,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 20428,
+      "active_before_stop": 0,
+      "job_active_after_stop": 0,
+      "stop_ms": 1,
+      "drain_ms": 391,
+      "elapsed_ms": 5235
+    },
+    {
+      "schema": 5,
+      "outcome": "descendants-stopped",
+      "exit": 0,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 5644,
+      "marker_observed": true,
+      "handshake_ms": 4667,
+      "active_before_stop": 2,
+      "job_active_after_stop": 0,
+      "stop_ms": 0,
+      "drain_ms": 388,
+      "elapsed_ms": 10508
+    },
+    {
+      "schema": 5,
+      "outcome": "timeout",
+      "exit": 1,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 55428,
+      "active_before_stop": 2,
+      "job_active_after_stop": 0,
+      "stop_ms": 0,
+      "drain_ms": 397,
+      "elapsed_ms": 3091
+    },
+    {
+      "schema": 5,
+      "outcome": "output-limit",
+      "exit": 1,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 36456,
+      "active_before_stop": 0,
+      "job_active_after_stop": 0,
+      "stop_ms": 0,
+      "drain_ms": 352,
+      "elapsed_ms": 3694
+    },
+    {
+      "schema": 5,
+      "outcome": "start-failed",
+      "exit": null,
+      "started": false,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": false,
+      "error": "Exception calling \"Start\" with \"1\" argument(s): \"Le fichier spécifié est introuvable.\"",
+      "drain_ms": 332,
+      "elapsed_ms": 1248
+    }
+  ],
+  "cleanup": {
+    "removed": true,
+    "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-help-job-NFDgSN",
+    "id": "64520b7a-fdc4-48e2-b4fa-e6c406beaa81"
+  }
+}

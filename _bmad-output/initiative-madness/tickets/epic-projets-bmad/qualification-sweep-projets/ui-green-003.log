@@ -1,0 +1,48 @@
+✖ atelier : la saisie et son action restent ensemble au premier écran (7008.4619ms)
+ℹ {"language":"fr","theme":"dark","requested":{"width":1440,"height":920},"fieldTop":646,"actionBottom":764.4000358581543,"fieldHeight":68.80000305175781,"actionHeight":42.79999923706055,"actionMinimum":40,"messagesBottom":636,"composerTop":610.2000122070312,"messagesHeight":160,"horizontal":false,"height":920,"scroll":0}
+✖ fichiers: late A response never steals B focus and return does not replay a read (3619.6723ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-WoNl8H\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-WoNl8H\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15623.8174
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:635:1
+✖ atelier : la saisie et son action restent ensemble au premier écran (7008.4619ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(reading.actionHeight>=43.99)
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:646:45)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\connection-ui.test.mjs:1244:1
+✖ fichiers: late A response never steals B focus and return does not replay a read (3619.6723ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:1244:669)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

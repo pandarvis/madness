@@ -1,0 +1,16 @@
+✔ waits for resolved false values and returns the exact matching value with exact argument (62.6059ms)
+✔ always false expires at the absolute deadline and stops reading (75.955ms)
+✔ a suspended read times out without pretending to cancel it or polling again (46.7201ms)
+✔ an original evaluation rejection is returned unchanged and no more reads occur (15.4403ms)
+✔ late rejection after timeout is observed without another read (47.7556ms)
+✔ success and failure clear their deadline timer (0.5877ms)
+✔ the interval also uses the remaining deadline, without an extra read (30.3165ms)
+✔ an expired microtask never dispatches a page read (0.8407ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 571.9508

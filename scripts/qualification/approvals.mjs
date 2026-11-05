@@ -1,3 +1,4 @@
+import {waitForPageCondition} from './page-condition-wait.mjs'
 import assert from 'node:assert/strict'
 import {benchOutput} from './epic-one-support.mjs'
 import {_electron as electron} from 'playwright-core'
@@ -21,7 +22,7 @@ async function stop(){if(!running)return;const child=running.process();try{await
 async function launch(profile){
  const allowed=['PATH','SYSTEMROOT','WINDIR','COMSPEC','PATHEXT','TEMP','TMP','USERPROFILE','HOMEDRIVE','HOMEPATH'],env=Object.fromEntries(Object.entries(process.env).filter(([key])=>allowed.includes(key.toUpperCase())))
  running=await electron.launch({executablePath:executable,args:packaged?[]:[repository],cwd:repository,env:{...env,MADNESS_DATA_HOME:profile,APPDATA:join(profile,'appdata'),LOCALAPPDATA:join(profile,'localappdata')},timeout:30000})
- const page=await running.firstWindow();await page.waitForFunction(()=>!!window.madnessDialogue);await page.waitForFunction(async()=>(await window.madness.readState()).ok)
+ const page=await running.firstWindow();await page.waitForFunction(()=>!!window.madnessDialogue);await waitForPageCondition(page,async()=>(await window.madness.readState()).ok)
  assert.equal(resolve(await running.evaluate(({app})=>app.getPath('userData'))),resolve(profile))
  await running.evaluate(({session})=>{globalThis.__approvalRequests=0;session.defaultSession.webRequest.onBeforeRequest({urls:['http://*/*','https://*/*']},(_d,callback)=>{globalThis.__approvalRequests++;callback({cancel:true})})})
  return page

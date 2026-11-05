@@ -1,0 +1,15 @@
+{"file":"qualify-package.mjs","kind":"collection-throws","status":"failed","message":"close must always be attempted\n\n0 !== 1\n","calls":0,"activeCleared":false,"safe":true}
+{"file":"qualify-package.mjs","kind":"collection-undefined","status":"failed","message":"close must always be attempted\n\n0 !== 1\n","calls":0,"activeCleared":false,"safe":true}
+{"file":"qualify-package.mjs","kind":"command-refused","status":"failed","message":"close must always be attempted\n\n0 !== 1\n","calls":0,"activeCleared":false,"safe":true}
+{"file":"qualify-package.mjs","kind":"closure-unconfirmed","status":"passed"}
+{"file":"qualify-package.mjs","kind":"closure-throws","status":"failed","message":"Expected values to be strictly equal:\n\ntrue !== false\n","calls":1,"activeCleared":false,"safe":true}
+{"file":"qualify-package.mjs","kind":"post-close-assertion","status":"failed","message":"Expected values to be strictly equal:\n\nfalse !== true\n","calls":1,"activeCleared":false,"safe":true}
+{"file":"qualify-package.mjs","kind":"valid","status":"passed"}
+{"file":"qualify-package-passive-002.mjs","kind":"collection-throws","status":"failed","message":"close must always be attempted\n\n0 !== 1\n","calls":0,"activeCleared":false,"safe":true}
+{"file":"qualify-package-passive-002.mjs","kind":"collection-undefined","status":"failed","message":"close must always be attempted\n\n0 !== 1\n","calls":0,"activeCleared":false,"safe":true}
+{"file":"qualify-package-passive-002.mjs","kind":"command-refused","status":"failed","message":"close must always be attempted\n\n0 !== 1\n","calls":0,"activeCleared":false,"safe":true}
+{"file":"qualify-package-passive-002.mjs","kind":"closure-unconfirmed","status":"passed"}
+{"file":"qualify-package-passive-002.mjs","kind":"closure-throws","status":"failed","message":"Expected values to be strictly equal:\n\ntrue !== false\n","calls":1,"activeCleared":false,"safe":true}
+{"file":"qualify-package-passive-002.mjs","kind":"post-close-assertion","status":"failed","message":"Expected values to be strictly equal:\n\nfalse !== true\n","calls":1,"activeCleared":false,"safe":true}
+{"file":"qualify-package-passive-002.mjs","kind":"valid","status":"passed"}
+{"cases":14,"failed":10}

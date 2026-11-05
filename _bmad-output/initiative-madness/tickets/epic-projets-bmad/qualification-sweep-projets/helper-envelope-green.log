@@ -1,0 +1,44 @@
+✖ all native consultation envelopes retain their exact private dependencies through public adapter values (89.4053ms)
+✖ catalogue adapter retains exact capture object and its private dependencies (71.9846ms)
+✔ missing or incoherent file grants remain refused (97.1685ms)
+✔ waits for resolved false values and returns the exact matching value with exact argument (62.1533ms)
+✔ always false expires at the absolute deadline and stops reading (74.9327ms)
+✔ a suspended read times out without pretending to cancel it or polling again (47.2808ms)
+✔ an original evaluation rejection is returned unchanged and no more reads occur (15.8659ms)
+✔ late rejection after timeout is observed without another read (46.7693ms)
+✔ success and failure clear their deadline timer (1.3603ms)
+✔ the interval also uses the remaining deadline, without an extra read (29.0303ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 8
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 856.773
+
+✖ failing tests:
+
+test at tests\bmad-refresh-envelope.test.mjs:28:1
+✖ all native consultation envelopes retain their exact private dependencies through public adapter values (89.4053ms)
+  Error: PROFILE_UNRECOGNIZED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:65:112)
+      at BmadProgressAdapter.collect (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/progress.ts:9:273)
+      at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-refresh-envelope.test.mjs:33:17
+      at async fixture (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-refresh-envelope.test.mjs:19:2)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'PROFILE_UNRECOGNIZED'
+  }
+
+test at tests\bmad-refresh-envelope.test.mjs:36:1
+✖ catalogue adapter retains exact capture object and its private dependencies (71.9846ms)
+  Error: PROFILE_UNRECOGNIZED
+      at dialogueFailure (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/contracts/dialogue.ts:65:112)
+      at BmadCatalogAdapter.collect (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/src/adapters/bmad/catalog.ts:5:304)
+      at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-refresh-envelope.test.mjs:40:14
+      at async fixture (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/bmad-refresh-envelope.test.mjs:19:2)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'PROFILE_UNRECOGNIZED'
+  }

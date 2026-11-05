@@ -1,0 +1,30 @@
+✖ atelier : la saisie et son action restent ensemble au premier écran (8769.7009ms)
+ℹ {"language":"fr","theme":"dark","requested":{"width":1440,"height":920},"fieldTop":722.2999877929688,"actionBottom":841.9000244140625,"fieldHeight":68.80000305175781,"actionHeight":44,"actionMinimum":44,"messagesBottom":636,"composerTop":686.5,"messagesHeight":160,"layout":[{"name":"DIV.","y":0,"height":0,"min":"0px","margin":"0px","flex":"0 1 auto"},{"name":"DIV.","y":0,"height":0,"min":"0px","margin":"0px","flex":"0 1 auto"},{"name":"DIV.conversation-history","y":395,"height":279.5,"min":"min-content","margin":"8px 0px 0px","flex":"1 1 240px"},{"name":"H2.","y":403,"height":21.600000381469727,"min":"auto","margin":"8px 0px 4px","flex":"0 0 auto"},{"name":"P.history-note","y":432.6000061035156,"height":43.400001525878906,"min":"auto","margin":"4px 0px 0px","flex":"0 0 auto"},{"name":"DIV.conversation-messages","y":476,"height":160,"min":"160px","margin":"0px","flex":"1 1 160px"},{"name":"P.turn-status","y":640,"height":34.5,"min":"auto","margin":"4px 0px 0px","flex":"0 0 auto"},{"name":"FORM.composer","y":686.5,"height":195.3000030517578,"min":"auto","margin":"12px 7px 0px","flex":"0 0 auto"},{"name":"BUTTON.text-button prepare-exchange","y":887.7999877929688,"height":44,"min":"44px","margin":"6px 0px 0px","flex":"0 0 auto"}],"horizontal":false,"height":920,"scroll":0}
+ℹ {"language":"fr","theme":"dark","requested":{"width":720,"height":820},"fieldTop":743.2999877929688,"actionBottom":897.2999877929688,"fieldHeight":68.80000305175781,"actionHeight":44,"actionMinimum":44,"messagesBottom":636,"composerTop":686.5,"messagesHeight":160,"layout":[{"name":"DIV.","y":0,"height":0,"min":"0px","margin":"0px","flex":"0 1 auto"},{"name":"DIV.","y":0,"height":0,"min":"0px","margin":"0px","flex":"0 1 auto"},{"name":"DIV.conversation-history","y":395,"height":279.5,"min":"min-content","margin":"8px 0px 0px","flex":"1 1 240px"},{"name":"H2.","y":403,"height":21.600000381469727,"min":"auto","margin":"8px 0px 4px","flex":"0 0 auto"},{"name":"P.history-note","y":432.6000061035156,"height":43.400001525878906,"min":"auto","margin":"4px 0px 0px","flex":"0 0 auto"},{"name":"DIV.conversation-messages","y":476,"height":160,"min":"160px","margin":"0px","flex":"1 1 160px"},{"name":"P.turn-status","y":640,"height":34.5,"min":"auto","margin":"4px 0px 0px","flex":"0 0 auto"},{"name":"FORM.composer","y":686.5,"height":250.6999969482422,"min":"auto","margin":"12px 7px 0px","flex":"0 0 auto"},{"name":"BUTTON.text-button prepare-exchange","y":943.2000122070312,"height":44,"min":"44px","margin":"6px 0px 0px","flex":"0 0 auto"}],"horizontal":false,"height":820,"scroll":0}
+{"lateFocusEvents":{"events":[{"id":"","tag":"BUTTON","text":"alpha","at":1486.199999988079},{"id":"_r_1_-detail","tag":"H2","text":"alpha","at":1504.5},{"id":"","tag":"SUMMARY","text":"Lire le texte source","at":1566.2999999821186},{"id":"","tag":"BUTTON","text":"Aperçu","at":1634.8999999761581},{"id":"","tag":"BUTTON","text":"alpha","at":1640.7999999821186},{"id":"_r_4_-title","tag":"H2","text":"Panneau de fichiers","at":1656.0999999940395},{"id":"","tag":"BUTTON","text":"CBcatalog-b","at":1692.199999988079},{"id":"","tag":"H1","text":"catalog-b","at":1756.2999999821186},{"id":"tab-catalogue","tag":"BUTTON","text":"Toutes les possibilités","at":1797.5},{"id":"_r_5_-search","tag":"INPUT","text":"","at":1834.7999999821186}],"active":{"id":"_r_5_-search","tag":"INPUT","text":""}}}
+✔ fichiers: late A response never steals B focus and return does not replay a read (3507.6635ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-xnWnCN\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-xnWnCN\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17189.26
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:635:1
+✖ atelier : la saisie et son action restent ensemble au premier écran (8769.7009ms)
+  AssertionError [ERR_ASSERTION]: {"fieldTop":743.2999877929688,"actionBottom":897.2999877929688,"fieldHeight":68.80000305175781,"actionHeight":44,"actionMinimum":44,"messagesBottom":636,"composerTop":686.5,"messagesHeight":160,"layout":[{"name":"DIV.","y":0,"height":0,"min":"0px","margin":"0px","flex":"0 1 auto"},{"name":"DIV.","y":0,"height":0,"min":"0px","margin":"0px","flex":"0 1 auto"},{"name":"DIV.conversation-history","y":395,"height":279.5,"min":"min-content","margin":"8px 0px 0px","flex":"1 1 240px"},{"name":"H2.","y":403,"height":21.600000381469727,"min":"auto","margin":"8px 0px 4px","flex":"0 0 auto"},{"name":"P.history-note","y":432.6000061035156,"height":43.400001525878906,"min":"auto","margin":"4px 0px 0px","flex":"0 0 auto"},{"name":"DIV.conversation-messages","y":476,"height":160,"min":"160px","margin":"0px","flex":"1 1 160px"},{"name":"P.turn-status","y":640,"height":34.5,"min":"auto","margin":"4px 0px 0px","flex":"0 0 auto"},{"name":"FORM.composer","y":686.5,"height":250.6999969482422,"min":"auto","margin":"12px 7px 0px","flex":"0 0 auto"},{"name":"BUTTON.text-button prepare-exchange","y":943.2000122070312,"height":44,"min":"44px","margin":"6px 0px 0px","flex":"0 0 auto"}],"horizontal":false,"height":820,"scroll":0}
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:646:290)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,3 +1,4 @@
+import {waitForPageCondition} from './page-condition-wait.mjs'
 import assert from 'node:assert/strict'
 import { _electron as electron } from 'playwright-core'
 import { mkdtemp, mkdir, writeFile, readFile, rm, realpath, lstat, readdir, access } from 'node:fs/promises'
@@ -170,7 +171,7 @@ async function main() {
     await page.getByLabel('Brouillon pour', { exact: false }).fill('Saisie conservée pendant le repli')
     await page.getByRole('button', { name: 'Réduire la navigation', exact: true }).focus()
     await page.keyboard.press('Enter')
-    await page.waitForFunction(async () => (await window.madness.readState()).value.state.preferences.navigationCollapsed)
+    await waitForPageCondition(page,async () => (await window.madness.readState()).value.state.preferences.navigationCollapsed)
     assert.equal(await page.getByLabel('Brouillon pour', { exact: false }).inputValue(), 'Saisie conservée pendant le repli')
     assert.equal(await page.getByRole('button', { name: 'Déployer la navigation', exact: true }).evaluate((element) => element === document.activeElement), true)
     await page.getByLabel('Brouillon pour', { exact: false }).fill('Brouillon témoin G0 — conservé après redémarrage.')

@@ -1,0 +1,18 @@
+✔ all native consultation envelopes retain their exact private dependencies through public adapter values (120.9211ms)
+✔ catalogue adapter retains exact capture object and its private dependencies (79.7644ms)
+✔ missing or incoherent file grants remain refused (96.8838ms)
+✔ waits for resolved false values and returns the exact matching value with exact argument (66.6322ms)
+✔ always false expires at the absolute deadline and stops reading (91.4875ms)
+✔ a suspended read times out without pretending to cancel it or polling again (47.0933ms)
+✔ an original evaluation rejection is returned unchanged and no more reads occur (16.1451ms)
+✔ late rejection after timeout is observed without another read (47.1223ms)
+✔ success and failure clear their deadline timer (0.9394ms)
+✔ the interval also uses the remaining deadline, without an extra read (30.5036ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 871.345

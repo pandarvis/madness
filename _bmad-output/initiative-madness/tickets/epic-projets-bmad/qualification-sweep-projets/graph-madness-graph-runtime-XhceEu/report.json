@@ -1,0 +1,400 @@
+{
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-runtime-XhceEu",
+  "artifact": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-sweep-projets\\graph-madness-graph-runtime-XhceEu",
+  "events": [
+    {
+      "contractVersion": 1,
+      "identity": {
+        "projectId": "p",
+        "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-runtime-XhceEu\\project",
+        "rootIdentity": "38a22e585234e26fc77cd28f35c0b877aab5916feac11c1f408d26802dd82152",
+        "scopeId": "code",
+        "scopeRevision": "878a5932a171184b040b835345af3a9b821e2461c8296886f33d849c6993f384",
+        "analysisId": "test-one",
+        "sourceRevision": "39148af1041c7fba13b82503837de431e54d561abf04dd168edb780521c7f166"
+      },
+      "generation": 1,
+      "correlationId": "real-test",
+      "order": 1,
+      "type": "started"
+    },
+    {
+      "contractVersion": 1,
+      "identity": {
+        "projectId": "p",
+        "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-runtime-XhceEu\\project",
+        "rootIdentity": "38a22e585234e26fc77cd28f35c0b877aab5916feac11c1f408d26802dd82152",
+        "scopeId": "code",
+        "scopeRevision": "878a5932a171184b040b835345af3a9b821e2461c8296886f33d849c6993f384",
+        "analysisId": "test-one",
+        "sourceRevision": "39148af1041c7fba13b82503837de431e54d561abf04dd168edb780521c7f166"
+      },
+      "generation": 1,
+      "correlationId": "real-test",
+      "order": 2,
+      "type": "result",
+      "snapshot": {
+        "schemaVersion": 1,
+        "identity": {
+          "projectId": "p",
+          "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-runtime-XhceEu\\project",
+          "rootIdentity": "38a22e585234e26fc77cd28f35c0b877aab5916feac11c1f408d26802dd82152",
+          "scopeId": "code",
+          "scopeRevision": "878a5932a171184b040b835345af3a9b821e2461c8296886f33d849c6993f384",
+          "analysisId": "test-one",
+          "sourceRevision": "39148af1041c7fba13b82503837de431e54d561abf04dd168edb780521c7f166"
+        },
+        "provenance": {
+          "profile": "graphifyy-0.9.101-windows-cpython312-code-only-local-spike-v1",
+          "tool": "graphifyy",
+          "toolVersion": "0.9.101",
+          "nativeSchemaVersion": 1,
+          "artifact": "clustered-node-link",
+          "nativeSha256": "c4b28b2fd77fce1334db0526054f46bae1f0ca6d85a87dae8e04c387ebc04a52",
+          "assemblyRevision": "e2155b1cd240cdf9e4b4722a7158ebdba2e648e84c503f4264b60c945bce62c0",
+          "normalizerVersion": 1
+        },
+        "collectedAt": "2026-11-05T09:42:59.958Z",
+        "coverage": {
+          "included": [
+            "captured-code",
+            "code-dependencies"
+          ],
+          "excluded": [
+            "configuration",
+            "instructions",
+            "hooks",
+            "links",
+            "metadata",
+            "generated-output",
+            "semantic-enrichment"
+          ],
+          "status": "complete",
+          "limitations": []
+        },
+        "sources": [
+          {
+            "relativePath": "client.ts",
+            "sha256": "eea8299574a802a49f97f3d7738787ff4c2c54195eb3b1d02cb0d9494918a1ca",
+            "lineCount": 2,
+            "kind": "file"
+          },
+          {
+            "relativePath": "packages/nested.ts",
+            "sha256": "b5106b09a72b133ac3860f8bc273f39ac588c4287c86ec5383863d75331c8141",
+            "lineCount": 1,
+            "kind": "file"
+          },
+          {
+            "relativePath": "resources/nested.ts",
+            "sha256": "40a6ea2ed909085a35a169b1b536d140379b0406a5b80360ae216b6a0ce3cd6e",
+            "lineCount": 1,
+            "kind": "file"
+          },
+          {
+            "relativePath": "service.ts",
+            "sha256": "ea65fb50b00c368a45f79aa4961cf7d9a451219335e0353557af208d6abbdeab",
+            "lineCount": 1,
+            "kind": "file"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "service_service",
+            "label": "Service",
+            "kind": "code",
+            "reference": {
+              "status": "known",
+              "relativePath": "service.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "client_useservice",
+            "label": "useService()",
+            "kind": "code",
+            "reference": {
+              "status": "known",
+              "relativePath": "client.ts",
+              "line": {
+                "status": "known",
+                "value": 2
+              }
+            }
+          },
+          {
+            "id": "service_service_act",
+            "label": ".act()",
+            "kind": "code",
+            "reference": {
+              "status": "known",
+              "relativePath": "service.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "packages_nested_packagesservice",
+            "label": "packagesService()",
+            "kind": "code",
+            "reference": {
+              "status": "known",
+              "relativePath": "packages/nested.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "resources_nested_resourcesservice",
+            "label": "resourcesService()",
+            "kind": "code",
+            "reference": {
+              "status": "known",
+              "relativePath": "resources/nested.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "client",
+            "label": "client.ts",
+            "kind": "code",
+            "reference": {
+              "status": "known",
+              "relativePath": "client.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "service",
+            "label": "service.ts",
+            "kind": "code",
+            "reference": {
+              "status": "known",
+              "relativePath": "service.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "packages_nested",
+            "label": "packages/nested.ts",
+            "kind": "code",
+            "reference": {
+              "status": "known",
+              "relativePath": "packages/nested.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "resources_nested",
+            "label": "resources/nested.ts",
+            "kind": "code",
+            "reference": {
+              "status": "known",
+              "relativePath": "resources/nested.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          }
+        ],
+        "relations": [
+          {
+            "id": "relation-0",
+            "source": "client_useservice",
+            "target": "service_service",
+            "kind": "calls",
+            "directionSource": "source-target",
+            "confidence": "EXTRACTED",
+            "score": 1,
+            "reference": {
+              "status": "known",
+              "relativePath": "client.ts",
+              "line": {
+                "status": "known",
+                "value": 2
+              }
+            }
+          },
+          {
+            "id": "relation-1",
+            "source": "client",
+            "target": "service_service",
+            "kind": "imports",
+            "directionSource": "source-target",
+            "confidence": "EXTRACTED",
+            "score": 1,
+            "reference": {
+              "status": "known",
+              "relativePath": "client.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "relation-2",
+            "source": "client",
+            "target": "service",
+            "kind": "imports_from",
+            "directionSource": "source-target",
+            "confidence": "EXTRACTED",
+            "score": 1,
+            "reference": {
+              "status": "known",
+              "relativePath": "client.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "relation-3",
+            "source": "client",
+            "target": "client_useservice",
+            "kind": "contains",
+            "directionSource": "source-target",
+            "confidence": "EXTRACTED",
+            "score": 1,
+            "reference": {
+              "status": "known",
+              "relativePath": "client.ts",
+              "line": {
+                "status": "known",
+                "value": 2
+              }
+            }
+          },
+          {
+            "id": "relation-4",
+            "source": "packages_nested",
+            "target": "packages_nested_packagesservice",
+            "kind": "contains",
+            "directionSource": "source-target",
+            "confidence": "EXTRACTED",
+            "score": 1,
+            "reference": {
+              "status": "known",
+              "relativePath": "packages/nested.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "relation-5",
+            "source": "resources_nested",
+            "target": "resources_nested_resourcesservice",
+            "kind": "contains",
+            "directionSource": "source-target",
+            "confidence": "EXTRACTED",
+            "score": 1,
+            "reference": {
+              "status": "known",
+              "relativePath": "resources/nested.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "relation-6",
+            "source": "service",
+            "target": "service_service",
+            "kind": "contains",
+            "directionSource": "source-target",
+            "confidence": "EXTRACTED",
+            "score": 1,
+            "reference": {
+              "status": "known",
+              "relativePath": "service.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "relation-7",
+            "source": "service_service",
+            "target": "service_service_act",
+            "kind": "method",
+            "directionSource": "source-target",
+            "confidence": "EXTRACTED",
+            "score": 1,
+            "reference": {
+              "status": "known",
+              "relativePath": "service.ts",
+              "line": {
+                "status": "known",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "relation-8",
+            "source": "client_useservice",
+            "target": "service_service_act",
+            "kind": "calls",
+            "directionSource": "source-target",
+            "confidence": "INFERRED",
+            "score": 0.85,
+            "reference": {
+              "status": "known",
+              "relativePath": "client.ts",
+              "line": {
+                "status": "known",
+                "value": 2
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "contractVersion": 1,
+      "identity": {
+        "projectId": "p",
+        "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-runtime-XhceEu\\project",
+        "rootIdentity": "38a22e585234e26fc77cd28f35c0b877aab5916feac11c1f408d26802dd82152",
+        "scopeId": "code",
+        "scopeRevision": "878a5932a171184b040b835345af3a9b821e2461c8296886f33d849c6993f384",
+        "analysisId": "test-one",
+        "sourceRevision": "39148af1041c7fba13b82503837de431e54d561abf04dd168edb780521c7f166"
+      },
+      "generation": 1,
+      "correlationId": "real-test",
+      "order": 3,
+      "type": "stopped",
+      "reason": "complete",
+      "stop": "confirmed"
+    }
+  ],
+  "stopped": "stopped",
+  "success": true,
+  "diagnosticOnly": true,
+  "pinsRestored": true
+}

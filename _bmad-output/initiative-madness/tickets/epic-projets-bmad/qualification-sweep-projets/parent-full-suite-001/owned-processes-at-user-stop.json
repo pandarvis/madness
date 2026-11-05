@@ -1,0 +1,23 @@
+[
+  {
+    "pid": 36652,
+    "parentPid": 33476,
+    "name": "node.exe",
+    "created": "2026-11-05T11:56:21.4851720+01:00",
+    "commandLine": "node --test --test-concurrency=1 --test-reporter=spec tests\\appearance.test.mjs tests\\approvals-protocol.test.mjs tests\\approvals.test.mjs tests\\bmad-catalog-protocol.test.mjs tests\\bmad-catalog-wait.test.mjs tests\\bmad-catalog.test.mjs tests\\bmad-change-observer.test.mjs tests\\bmad-context-dialogue.test.mjs tests\\bmad-context-native.test.mjs tests\\bmad-context-profile-scope.test.mjs tests\\bmad-context-sources.test.mjs tests\\bmad-context.test.mjs tests\\bmad-graph.test.mjs tests\\bmad-help-boundaries.test.mjs tests\\bmad-help-legacy.test.mjs tests\\bmad-help-partial-docs.test.mjs tests\\bmad-help-persistence-race.test.mjs tests\\bmad-help-protocol.test.mjs tests\\bmad-help-supervision.test.mjs tests\\bmad-help.test.mjs tests\\bmad-progress-protocol.test.mjs tests\\bmad-progress-review.test.mjs tests\\bmad-progress-timings.test.mjs tests\\bmad-progress.test.mjs tests\\bmad-refresh-envelope.test.mjs tests\\bmad-refresh-refusals.test.mjs tests\\bmad-refresh.test.mjs tests\\bmad-runtime-preflight.test.mjs tests\\catalog-launch.test.mjs tests\\catalog-qualification-ownership.test.mjs tests\\connection-oauth.test.mjs tests\\connection-probe.test.mjs tests\\connection-ui.test.mjs tests\\connection-vault.test.mjs tests\\connection.test.mjs tests\\dialogue-profile.test.mjs tests\\dialogue-protocol.test.mjs tests\\dialogue-runtime.test.mjs tests\\dialogue.test.mjs tests\\epic-one-qualification.test.mjs tests\\forge-protocol.test.mjs tests\\forge.test.mjs tests\\foundation.test.mjs tests\\graph-admission.test.mjs tests\\graph-coordinator.test.mjs tests\\graph-finish.test.mjs tests\\graph-recovery.test.mjs tests\\graph-store.test.mjs tests\\graph-ui.test.mjs tests\\graphify-assembly.test.mjs tests\\graphify-corpus.test.mjs tests\\graphify-normalize.test.mjs tests\\graphify-runtime.test.mjs tests\\graphify-supervision.test.mjs tests\\graphify-timeout.test.mjs tests\\json-store-utf8.test.mjs tests\\language.test.mjs tests\\lifecycle.test.mjs tests\\maintenance.test.mjs tests\\page-condition-wait.test.mjs tests\\project-files-protocol.test.mjs tests\\project-files-report.test.mjs tests\\project-files.test.mjs tests\\project-library.test.mjs tests\\questions-protocol.test.mjs tests\\questions.test.mjs tests\\recovery-network.test.mjs tests\\recovery.test.mjs tests\\release.test.mjs tests\\us-metrics-capture.test.mjs tests\\us-metrics-native-source.test.mjs tests\\us-metrics-protocol.test.mjs tests\\us-metrics-review.test.mjs tests\\us-metrics-ui-copy.test.mjs tests\\us-metrics.test.mjs tests\\windows-harness.test.mjs tests\\work-overview.test.mjs tests\\workflow-store.test.mjs tests\\workspace-design-qualification.test.mjs scripts/qualification/codex.test.mjs"
+  },
+  {
+    "pid": 45752,
+    "parentPid": 36652,
+    "name": "conhost.exe",
+    "created": "2026-11-05T11:56:21.5336770+01:00",
+    "commandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4"
+  },
+  {
+    "pid": 37904,
+    "parentPid": 36652,
+    "name": "node.exe",
+    "created": "2026-11-05T12:53:29.7391700+01:00",
+    "commandLine": "\"C:\\Program Files\\nodejs\\node.exe\" --use-largepages=off --trace-event-file-pattern=node_trace.${rotation}.log --v8-pool-size=4 --node-snapshot --cpu-prof-interval=1000 --report-signal=SIGUSR2 --tls-cipher-list=TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:DHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA256:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!SRP:!CAMELLIA --secure-heap=0 --secure-heap-min=2 --stack-trace-limit=10 --test-isolation=process --network-family-autoselection-attempt-timeout=250 --heapsnapshot-near-heap-limit=0 --heap-prof-interval=524288 --max-http-header-size=16384 --test-concurrency=1 --test-timeout=0 --test-coverage-branches=0 --test-coverage-functions=0 --test-coverage-lines=0 --watch-kill-signal=SIGTERM --inspect-port=127.0.0.1:9229 --inspect-publish-uid=stderr,http tests\\forge.test.mjs"
+  }
+]

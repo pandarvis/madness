@@ -1,0 +1,28 @@
+✖ atelier : la saisie et son action restent ensemble au premier écran (9543.6617ms)
+ℹ {"requested":{"width":1440,"height":920},"fieldTop":682.7999877929688,"actionBottom":801.200023651123,"height":920,"scroll":0}
+ℹ {"requested":{"width":720,"height":820},"fieldTop":703.7999877929688,"actionBottom":856.5999870300293,"height":820,"scroll":0}
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-c50ffy\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-c50ffy\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14532.4981
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:621:1
+✖ atelier : la saisie et son action restent ensemble au premier écran (9543.6617ms)
+  AssertionError [ERR_ASSERTION]: {"fieldTop":703.7999877929688,"actionBottom":856.5999870300293,"height":820,"scroll":0}
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:630:41)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

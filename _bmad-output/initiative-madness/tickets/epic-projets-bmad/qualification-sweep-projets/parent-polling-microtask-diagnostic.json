@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "mode": "pure fake-page diagnostic; no IPC/network/process/profile",
+  "timeoutMs": 5,
+  "blockedMicrotaskMs": 35,
+  "outcome": "TimeoutError",
+  "evaluationStartsMs": [
+    35.34570000000002
+  ],
+  "afterDeadlineReadReproduced": true,
+  "sourceFrozenNoEdit": true
+}

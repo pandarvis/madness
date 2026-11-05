@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "request": "Parent Step3/S4 audit: enter a new context already reading, then ready",
+  "beforeFixRuntimeCapsule": "initial-runtime-b0a15656/capsule.json",
+  "historicalAsarSha256": "b0a156566ec6ebd5d33cc0b417e85572327799ebf089580578b638b5438ec6c6",
+  "currentProductSource": {
+    "path": "src/renderer/src/ProjectResume.tsx",
+    "sha256": "063534c3406051f563d9423d42dc6b80720b72eae4f77fce7f25b3aae29995f6"
+  },
+  "currentTest": {
+    "path": "tests/connection-ui.test.mjs",
+    "sha256": "67fa91db4e7c8db8f39cbb0175e210acb9aa367fb0700613121a5db6fbab89dc"
+  },
+  "cssByteIdenticalToPhotographedPackage": true,
+  "red": {
+    "path": "ui-reading-entry-red-002.log",
+    "sha256": "1d02ab75ac151c59fe3996a89c8058121360a011b1b5af870827e64a8b6cbef4",
+    "cause": "Current gamma/reading rendered but aria-live announcement empty"
+  },
+  "green": {
+    "path": "ui-reading-entry-green.log",
+    "sha256": "d15ab53578083c11beb90bf33f2692385e55330f109a4e2053afaee9293712f7",
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "skip": 0
+  },
+  "priorHarnessFailure": {
+    "path": "ui-reading-entry-red.log",
+    "cause": "Initial600px viewport hid sidebar; no product scenario executed"
+  },
+  "coverage": [
+    "passive ready mount silent",
+    "enter B already reading with no previous snapshot",
+    "late A ready does not finish B or move focus",
+    "B ready announces own source count",
+    "initiative delta already reading in new generation with previous snapshot retained",
+    "delta ready announces own completion",
+    "no collect/send commands"
+  ],
+  "changeScope": "Only local announcement/ref bookkeeping in ProjectResume; no business handler/effect, CSS, version or compiled/package input changed.",
+  "packageStatus": "b0a photographs and passive receipt remain historical exact; new aria-live source not built or packaged yet.",
+  "commandsNotRun": [
+    "global suite",
+    "native tests",
+    "typecheck/build",
+    "NSIS",
+    "capture",
+    "detector"
+  ]
+}

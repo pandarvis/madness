@@ -1,0 +1,47 @@
+✖ atelier : la saisie et son action restent ensemble au premier écran (9327.7967ms)
+ℹ {"language":"fr","theme":"dark","requested":{"width":1440,"height":920},"fieldTop":722.2999877929688,"actionBottom":841.9000244140625,"fieldHeight":68.80000305175781,"actionHeight":44,"actionMinimum":44,"messagesBottom":636,"composerTop":686.5,"messagesHeight":160,"horizontal":false,"height":920,"scroll":0}
+ℹ {"language":"fr","theme":"dark","requested":{"width":720,"height":820},"fieldTop":743.2999877929688,"actionBottom":897.2999877929688,"fieldHeight":68.80000305175781,"actionHeight":44,"actionMinimum":44,"messagesBottom":636,"composerTop":686.5,"messagesHeight":160,"horizontal":false,"height":820,"scroll":0}
+{"lateFocusEvents":{"events":[{"id":"","tag":"BUTTON","text":"alpha","at":1524.0999999940395},{"id":"_r_1_-detail","tag":"H2","text":"alpha","at":1545.800000011921},{"id":"","tag":"SUMMARY","text":"Lire le texte source","at":1613.300000011921},{"id":"","tag":"BUTTON","text":"Aperçu","at":1690.300000011921},{"id":"","tag":"BUTTON","text":"alpha","at":1697},{"id":"_r_4_-title","tag":"H2","text":"Panneau de fichiers","at":1715.800000011921},{"id":"","tag":"BUTTON","text":"CBcatalog-b","at":1756.9000000059605},{"id":"","tag":"H1","text":"catalog-b","at":1832.300000011921}],"active":{"id":"","tag":"H1","text":"catalog-b"}}}
+✖ fichiers: late A response never steals B focus and return does not replay a read (3456.6003ms)
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-IhITHY\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-IhITHY\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18172.6177
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:635:1
+✖ atelier : la saisie et son action restent ensemble au premier écran (9327.7967ms)
+  AssertionError [ERR_ASSERTION]: {"fieldTop":743.2999877929688,"actionBottom":897.2999877929688,"fieldHeight":68.80000305175781,"actionHeight":44,"actionMinimum":44,"messagesBottom":636,"composerTop":686.5,"messagesHeight":160,"horizontal":false,"height":820,"scroll":0}
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:646:290)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\connection-ui.test.mjs:1244:1
+✖ fichiers: late A response never steals B focus and return does not replay a read (3456.6003ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:1244:1084)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

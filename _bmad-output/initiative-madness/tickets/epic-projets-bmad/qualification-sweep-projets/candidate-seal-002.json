@@ -1,0 +1,470 @@
+{
+  "schemaVersion": 1,
+  "version": "0.2.17",
+  "previousHistoricalAsarSha256": "b0a156566ec6ebd5d33cc0b417e85572327799ebf089580578b638b5438ec6c6",
+  "previousImagesReattributed": false,
+  "historicalSourceCapsule": "initial-runtime-b0a15656/capsule.json",
+  "unchangedCompiled": [
+    {
+      "path": "out/main/index.js",
+      "sha256": "a4e7050f090650daae1496696701b4702131f39ab9059e4d5277c0aecfb61382"
+    },
+    {
+      "path": "out/preload/index.js",
+      "sha256": "dcf21f0d014ddd3be545a041e2ef861c49643b1a43880727e11d42cf99a44cd4"
+    },
+    {
+      "path": "out/renderer/assets/index-C6QQJWXQ.css",
+      "sha256": "d32d7883ae95c2528bfb113c958370596a408b68b129e5dd541c868d3f1ebe5e"
+    }
+  ],
+  "unchangedSource": [
+    "package.json",
+    "package-lock.json",
+    "src/renderer/src/atelier-immersion.css"
+  ],
+  "sourceInputs": [
+    {
+      "path": "package.json",
+      "sha256": "8243f183ccd968b6ea6c916419220a0dbe97d3c4f175c8a7070ba01b3f84eefa"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "e60b43a3d780f2c43555ebb99eb2fa2c5f27f0b41756285c0a3666ed0211379b"
+    },
+    {
+      "path": "src/renderer/src/ProjectResume.tsx",
+      "sha256": "e23c1b7784b3ea8e466fd471c3c81ffa4cff4b6c19bbec0fd67e44532aa42cde"
+    },
+    {
+      "path": "src/renderer/src/atelier-immersion.css",
+      "sha256": "feb7ac7ba13d7501a67af310ea80aafc95a165115598f1ed71e289e3528f0862"
+    },
+    {
+      "path": "scripts/qualification/page-condition-wait.mjs",
+      "sha256": "3cc3f4da38511184469526aa3d97131cc92dc771949252fcff30b0dce0212f58"
+    },
+    {
+      "path": "scripts/qualification/approvals.mjs",
+      "sha256": "f7383b5d39a20296c02f96b53302917dbc7f53186b36c8cacbffc44523f4b049"
+    },
+    {
+      "path": "scripts/qualification/connection.mjs",
+      "sha256": "47b1c0ab250c59eb692221be4ee5008f4c185fdc1a59afc5ed7163000bceaf24"
+    },
+    {
+      "path": "scripts/qualification/conversation.mjs",
+      "sha256": "e32bc4acfb3fc3ad8d3c65c206a36d11149b33c9cd388ff64e1233a04109cd14"
+    },
+    {
+      "path": "scripts/qualification/dialogue.mjs",
+      "sha256": "17066268c9e64be5d2675f225c7f2ae5976e4b63cdf068b5804a71d32b8e5469"
+    },
+    {
+      "path": "scripts/qualification/forge.mjs",
+      "sha256": "9a50cfd1773fae668162e787668682f4137bd85606a401579212611e26e2de16"
+    },
+    {
+      "path": "scripts/qualification/graph-project.mjs",
+      "sha256": "4aa6dbc17e5284ee6a4c99f79084168a0978f7b9e44c72adbc57cc3084931c6a"
+    },
+    {
+      "path": "scripts/qualification/maintenance.mjs",
+      "sha256": "283b2e5b9c9413c06d4883e9143e89408535b8d08633f172a1a2ec0f2338f028"
+    },
+    {
+      "path": "scripts/qualification/questions.mjs",
+      "sha256": "ee3aafd8a001f34e41163bb5c057a8d15938146a45dba0ca0de472b8f2a26e02"
+    },
+    {
+      "path": "scripts/qualification/recovery.mjs",
+      "sha256": "9f2a2329f1f99ac2db76396e1b69e40178b177bb5711e939cfe56260fdabfc96"
+    },
+    {
+      "path": "scripts/qualification/windows.mjs",
+      "sha256": "558f2bc7ee28ec6d2c4ddaa154ec78e23e945aa461edefacb9137e1170b70f69"
+    },
+    {
+      "path": "scripts/qualification/workspace-design.mjs",
+      "sha256": "3064908176a6266fb47cbfbfb7f8f948c81e30fa535b457219d30123cec6f7ad"
+    },
+    {
+      "path": "tests/page-condition-wait.test.mjs",
+      "sha256": "d38061881c05b0addc6a3dae13ec8b6c290d1675ad0217307392044c1cff3e0b"
+    },
+    {
+      "path": "tests/bmad-refresh-envelope.test.mjs",
+      "sha256": "acb860c1546670fe1a099d8bbef9e7e6078c799283093b2d14699e70e0b40ab1"
+    },
+    {
+      "path": "tests/connection-ui.test.mjs",
+      "sha256": "33e937e2036f9cf2330bc9f701358fb262e024210eae86eb2a6832f20180afd6"
+    },
+    {
+      "path": "tests/bmad-help-supervision.test.mjs",
+      "sha256": "7708e04473bbd118774d9e7ed158569b4c76b87a7e39dcbebe799e145c09ed5c"
+    },
+    {
+      "path": "tests/bmad-runtime-preflight.test.mjs",
+      "sha256": "5b1607908f47a1d5c2ebd925d4112231aed9acfb5bb254d29062c39d09571039"
+    },
+    {
+      "path": "tests/graphify-runtime.test.mjs",
+      "sha256": "b1aed96ff68346e51cfbecd073b0940472a09fdfc0b421d6b83839633c168b76"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/qualify.mjs",
+      "sha256": "993abf81648a589fce0b45a4e718390059e5f55678cec9d8a4d8a39adb5b9ee8"
+    }
+  ],
+  "compiled": [
+    {
+      "path": "out/main/index.js",
+      "sha256": "a4e7050f090650daae1496696701b4702131f39ab9059e4d5277c0aecfb61382"
+    },
+    {
+      "path": "out/preload/index.js",
+      "sha256": "dcf21f0d014ddd3be545a041e2ef861c49643b1a43880727e11d42cf99a44cd4"
+    },
+    {
+      "path": "out/renderer/assets/amelia-bust-BhMfUzyU.png",
+      "sha256": "79e08e75593f756c4714f1cbb8d7acfb3f75596c17a0d8436c2a125b2779a600"
+    },
+    {
+      "path": "out/renderer/assets/BarlowCondensed-Bold-v1X23fbx.ttf",
+      "sha256": "e476562ec9c1e16cf16475895b511f08c804f438cc9a9f80a44ea50a0eeb5b65"
+    },
+    {
+      "path": "out/renderer/assets/chatgpt-mark-BzeLsF5q.svg",
+      "sha256": "88238fe3c01827061444b1732e28e0709e10f61b7941295955cb5889102264a7"
+    },
+    {
+      "path": "out/renderer/assets/chrome-plate-frame-CEUOVTY4.png",
+      "sha256": "cee7d64112d445b0f3ef3a666bc6f7d9e7c7edfc6c63135fed40823d63e0f9ad"
+    },
+    {
+      "path": "out/renderer/assets/index-BbGDKLK1.js",
+      "sha256": "9f3b27a1bbb548ac0fa0a0831661e94b270f298db0c5f89078567859ee24b646"
+    },
+    {
+      "path": "out/renderer/assets/index-C6QQJWXQ.css",
+      "sha256": "d32d7883ae95c2528bfb113c958370596a408b68b129e5dd541c868d3f1ebe5e"
+    },
+    {
+      "path": "out/renderer/assets/john-bust-BFR8uFSt.png",
+      "sha256": "04d5fb86a4cf814ac260dae3ca44ab8508ef174ab4cce28bbd13457484a78b87"
+    },
+    {
+      "path": "out/renderer/assets/madness-64-CLfbpCIt.png",
+      "sha256": "cfcb8389875b74f2e6ddc1d0a14d46a765c2bb7895247c6580dc7f40f4e2b5bb"
+    },
+    {
+      "path": "out/renderer/assets/mary-bust-MARKPnXB.png",
+      "sha256": "c157bb6a0d7f5a423c2e84e627776af4650bdbce7bace92d3992a4de0bc52360"
+    },
+    {
+      "path": "out/renderer/assets/Oxanium-Variable-Cxng1r8B.ttf",
+      "sha256": "2ce01d946e1e1ffc8d7eecfffbda8623bedd63eaf811a20488c4b69af45babb0"
+    },
+    {
+      "path": "out/renderer/assets/sally-bust-V3QCidDb.png",
+      "sha256": "f6d328b6765d973bc6951fdae69ceba9e633950bcf496f7bbc991113b3995662"
+    },
+    {
+      "path": "out/renderer/assets/smithy-bust-5fAwEfcm.png",
+      "sha256": "ac69746654a76fbfca5bcf486acffff685fff06114acb5c33807dc1ada66da25"
+    },
+    {
+      "path": "out/renderer/assets/sofia-bust-BfDgrm10.png",
+      "sha256": "658dae6271a2dd378b2c1e814f335aa930451856a5296b8858dfc5091a2435a5"
+    },
+    {
+      "path": "out/renderer/assets/winston-bust-CX7w_Rgd.png",
+      "sha256": "a65c87f53c895cd4e7240d86ef22a9807d4adaad6a6f194d84a689157ee33d7d"
+    },
+    {
+      "path": "out/renderer/assets/workshop-header-CzuHm831.png",
+      "sha256": "37c06960a882d14504853a93b2025dd32edf58a958a0c4e80c1bb90905925472"
+    },
+    {
+      "path": "out/renderer/assets/workshop-sidebar-BKMFHWB8.png",
+      "sha256": "4d4ba515ef3be958d7f034815586c4a1709242f6c4ae1de6fc2b52bbcbd45b38"
+    },
+    {
+      "path": "out/renderer/index.html",
+      "sha256": "b6b89cedd4f618887c2c85b8220b6c0d04154a1e4161b88675cda8e4881780b4"
+    }
+  ],
+  "resources": [
+    {
+      "folder": "bmad-help",
+      "name": "files.py",
+      "pin": "46769032c6bc463f9dad044d6ad708d785b139a787f5ed997683ffd7f5e72ed4",
+      "source": "46769032c6bc463f9dad044d6ad708d785b139a787f5ed997683ffd7f5e72ed4",
+      "packaged": "46769032c6bc463f9dad044d6ad708d785b139a787f5ed997683ffd7f5e72ed4"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "catalog.py",
+      "pin": "30f1aab3a7a81f08f8c104653be7fd2f601e73a2d5b11729a1a11b18260770c7",
+      "source": "30f1aab3a7a81f08f8c104653be7fd2f601e73a2d5b11729a1a11b18260770c7",
+      "packaged": "30f1aab3a7a81f08f8c104653be7fd2f601e73a2d5b11729a1a11b18260770c7"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "bmad-help.md",
+      "pin": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+      "source": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369",
+      "packaged": "77af962ca9efda75fb804e0a074d1f5e3d113863b77b59f1bdd80b13c3943369"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "bmad-SKILL.md",
+      "pin": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+      "source": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7",
+      "packaged": "f2ef6dad114db0723a583b04995198c52d51685b1076817f8d81c935c03833a7"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "bootstrap.py",
+      "pin": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+      "source": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94",
+      "packaged": "756b25be94650fe076109c480135e7915baa5ff7c10a6c00871b12cb4cf01d94"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "capture.py",
+      "pin": "ea6965f0578b223fda14f5d38f5c09d7cf2ea94b8d0dc275493e5acbf42ced54",
+      "source": "ea6965f0578b223fda14f5d38f5c09d7cf2ea94b8d0dc275493e5acbf42ced54",
+      "packaged": "ea6965f0578b223fda14f5d38f5c09d7cf2ea94b8d0dc275493e5acbf42ced54"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "config_utils.py",
+      "pin": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+      "source": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
+      "packaged": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "knowledge.py",
+      "pin": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+      "source": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
+      "packaged": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "launcher.ps1",
+      "pin": "a4722f06adad45b8939cf80b7c58e6d277bf1a5434ab2be6725436eb5fa9b356",
+      "source": "a4722f06adad45b8939cf80b7c58e6d277bf1a5434ab2be6725436eb5fa9b356",
+      "packaged": "a4722f06adad45b8939cf80b7c58e6d277bf1a5434ab2be6725436eb5fa9b356"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "preflight.ps1",
+      "pin": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "source": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
+      "packaged": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "resolve_config.py",
+      "pin": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+      "source": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
+      "packaged": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "runtime_guard.py",
+      "pin": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+      "source": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
+      "packaged": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "runtime.json",
+      "pin": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+      "source": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+      "packaged": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "supervision.ps1",
+      "pin": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+      "source": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+      "packaged": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "worker.py",
+      "pin": "7429e4c4521cd9dcea658b08344906e582ce6ebda90595ab190a5534a72bf72b",
+      "source": "7429e4c4521cd9dcea658b08344906e582ce6ebda90595ab190a5534a72bf72b",
+      "packaged": "7429e4c4521cd9dcea658b08344906e582ce6ebda90595ab190a5534a72bf72b"
+    },
+    {
+      "folder": "bmad-help",
+      "name": "progress.py",
+      "pin": "60ad451312bb8eec16988300ac4a2a378d74e14fbf984548a086364558ae7516",
+      "source": "60ad451312bb8eec16988300ac4a2a378d74e14fbf984548a086364558ae7516",
+      "packaged": "60ad451312bb8eec16988300ac4a2a378d74e14fbf984548a086364558ae7516"
+    },
+    {
+      "folder": "graphify",
+      "name": "assembly.json",
+      "pin": "e2155b1cd240cdf9e4b4722a7158ebdba2e648e84c503f4264b60c945bce62c0",
+      "source": "e2155b1cd240cdf9e4b4722a7158ebdba2e648e84c503f4264b60c945bce62c0",
+      "packaged": "e2155b1cd240cdf9e4b4722a7158ebdba2e648e84c503f4264b60c945bce62c0"
+    },
+    {
+      "folder": "graphify",
+      "name": "requirements.lock",
+      "pin": "2d7e9297b933eba90bc9b09b91e451d9fa0a823d0f42a5924a06d2de182a7da9",
+      "source": "2d7e9297b933eba90bc9b09b91e451d9fa0a823d0f42a5924a06d2de182a7da9",
+      "packaged": "2d7e9297b933eba90bc9b09b91e451d9fa0a823d0f42a5924a06d2de182a7da9"
+    },
+    {
+      "folder": "graphify",
+      "name": "NOTICES.md",
+      "pin": "e9c8f7a1cebf8d02b8b034d2379e341ebece9d941a158d0e80fcf4886fb9f1fa",
+      "source": "e9c8f7a1cebf8d02b8b034d2379e341ebece9d941a158d0e80fcf4886fb9f1fa",
+      "packaged": "e9c8f7a1cebf8d02b8b034d2379e341ebece9d941a158d0e80fcf4886fb9f1fa"
+    },
+    {
+      "folder": "graphify",
+      "name": "preflight.ps1",
+      "pin": "cac55355414e25957be2f6c51b779419d9dfa3b7ebb75b40cb19f2c6ee43ffb5",
+      "source": "cac55355414e25957be2f6c51b779419d9dfa3b7ebb75b40cb19f2c6ee43ffb5",
+      "packaged": "cac55355414e25957be2f6c51b779419d9dfa3b7ebb75b40cb19f2c6ee43ffb5"
+    },
+    {
+      "folder": "graphify",
+      "name": "supervision.ps1",
+      "pin": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+      "source": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
+      "packaged": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493"
+    },
+    {
+      "folder": "graphify",
+      "name": "capture.py",
+      "pin": "b02724e90b151c4c978f9bf480a2ef17d7556102e9c83cde58d16d77e313964b",
+      "source": "b02724e90b151c4c978f9bf480a2ef17d7556102e9c83cde58d16d77e313964b",
+      "packaged": "b02724e90b151c4c978f9bf480a2ef17d7556102e9c83cde58d16d77e313964b"
+    },
+    {
+      "folder": "graphify",
+      "name": "files.py",
+      "pin": "eb55871f64bdc4d3e0f46401348a101598867cfeaa98511fd3701d4a68346d21",
+      "source": "eb55871f64bdc4d3e0f46401348a101598867cfeaa98511fd3701d4a68346d21",
+      "packaged": "eb55871f64bdc4d3e0f46401348a101598867cfeaa98511fd3701d4a68346d21"
+    },
+    {
+      "folder": "graphify",
+      "name": "graph_capture.py",
+      "pin": "480a465994331a6172d798c503058a5d2e8387f4d142c80ee0d5b521b681aed6",
+      "source": "480a465994331a6172d798c503058a5d2e8387f4d142c80ee0d5b521b681aed6",
+      "packaged": "480a465994331a6172d798c503058a5d2e8387f4d142c80ee0d5b521b681aed6"
+    },
+    {
+      "folder": "graphify",
+      "name": "worker.py",
+      "pin": "9ff31ac10e7cef2716f67597af8c0d469ec8693ff5eeaca5e75a2e7ff1fe2953",
+      "source": "9ff31ac10e7cef2716f67597af8c0d469ec8693ff5eeaca5e75a2e7ff1fe2953",
+      "packaged": "9ff31ac10e7cef2716f67597af8c0d469ec8693ff5eeaca5e75a2e7ff1fe2953"
+    },
+    {
+      "folder": "graphify",
+      "name": "launcher.ps1",
+      "pin": "8f09428fc2d5b4b2209826bd9676073a875bca06d94b12518c8050a41945461c",
+      "source": "8f09428fc2d5b4b2209826bd9676073a875bca06d94b12518c8050a41945461c",
+      "packaged": "8f09428fc2d5b4b2209826bd9676073a875bca06d94b12518c8050a41945461c"
+    }
+  ],
+  "asar": {
+    "path": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\sweep-reviewed\\win-unpacked\\resources\\app.asar",
+    "sha256": "bf1e00fc71284e4296e0d8feb08fe2ddc89f25662fad395aec77886139449b66"
+  },
+  "setups": [
+    {
+      "path": "dist\\catalog-launch-reviewed\\Madness-0.2.14-x64-setup.exe",
+      "sha256": "15c96967ccb4936bae204c0a220fb8209a30487f211e9e6f284e4d0b174840a1"
+    },
+    {
+      "path": "dist\\language-reviewed\\Madness-0.2.16-x64-setup.exe",
+      "sha256": "63b5133d4f7947fa729c833dc40aa6a97d2bdc9e973f701b8258edf7b32529e3"
+    },
+    {
+      "path": "dist\\library-reviewed-postquick\\Madness-0.2.13-x64-setup.exe",
+      "sha256": "880d4f499f28a41d9945db1ca59e2dc68258cb2abb63970b3871126ec91b68de"
+    },
+    {
+      "path": "dist\\sweep-reviewed\\Madness-0.2.17-x64-setup.exe",
+      "sha256": "336677a64f87659642122a5270b4b4a492d7eb96a96033004b814cb09cd5d68e"
+    },
+    {
+      "path": "dist\\us-metrics-reviewed\\Madness-0.2.15-x64-setup.exe",
+      "sha256": "57267f72e0f07532d27ff28fd8dc1a61109456937e87cd93fc0f66d274a773d6"
+    }
+  ],
+  "migrations": {
+    "count": 22,
+    "files": [
+      {
+        "path": "scripts/qualification/approvals.mjs",
+        "calls": 1
+      },
+      {
+        "path": "scripts/qualification/connection.mjs",
+        "calls": 6
+      },
+      {
+        "path": "scripts/qualification/conversation.mjs",
+        "calls": 2
+      },
+      {
+        "path": "scripts/qualification/dialogue.mjs",
+        "calls": 3
+      },
+      {
+        "path": "scripts/qualification/forge.mjs",
+        "calls": 2
+      },
+      {
+        "path": "scripts/qualification/graph-project.mjs",
+        "calls": 1
+      },
+      {
+        "path": "scripts/qualification/maintenance.mjs",
+        "calls": 1
+      },
+      {
+        "path": "scripts/qualification/questions.mjs",
+        "calls": 1
+      },
+      {
+        "path": "scripts/qualification/recovery.mjs",
+        "calls": 3
+      },
+      {
+        "path": "scripts/qualification/windows.mjs",
+        "calls": 1
+      },
+      {
+        "path": "scripts/qualification/workspace-design.mjs",
+        "calls": 1
+      }
+    ]
+  },
+  "baselineReference": {
+    "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/preflight-baseline.ps1",
+    "byteIdenticalToBaselineRevision": "9beef9d2763a6c6e8672573a2183557105a764d8",
+    "sha256": "3acebd833b3e3f342c7ea97262951ad5f9bdffe2bd8b1d54d450310aa1ff9b91"
+  },
+  "qualification": {
+    "path": "package-passive-002/attempt-003/verification.json",
+    "sha256": "bb85417b1be3268f95ed0b2fdd145e7898e6a512203ffc5b4ef83145b03e306f"
+  },
+  "limits": [
+    "Only existing pinned resource inputs checked (not a new735/2305file audit).",
+    "Source/test edits after this seal require a new seal; no parent review/global-suite success claimed."
+  ]
+}

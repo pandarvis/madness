@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "completedAt": "2026-11-05T12:17:34.3821398Z",
+  "status": "removed-owned-interrupted-fixtures",
+  "ownershipEvidence": "before.json",
+  "ownershipEvidenceSha256": "481b68e548c8ce273e155859b5e65f38b4b0b8305599646c861bde77a13a55d4",
+  "closureReceipt": "user-stop.json",
+  "closureReceiptSha256": "fc74cf85f0dacdffaf9753860158895e0a9563976aee7ca7c1ddb6f5bafa4870",
+  "actions": [
+    {
+      "absent": true,
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-test-zQTqI4\\linked",
+      "action": "Remove-Item link only, no recursion"
+    },
+    {
+      "absent": true,
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-test-zQTqI4",
+      "action": "Remove-Item exact verified root recursively after unlink"
+    },
+    {
+      "absent": true,
+      "path": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-forge-external-oWbzo4",
+      "action": "Remove-Item exact verified empty external root"
+    }
+  ],
+  "removedRoots": 2,
+  "removedLogicalBytes": 507191,
+  "removedRegularFiles": 97,
+  "removedJunctions": 1,
+  "targetRetainedThroughLinkRemoval": true,
+  "bothRootsAbsent": true,
+  "excluded": "No old unknown fixtures, personal profile, preview, dist backup or product source targeted",
+  "globalRunComplete": false
+}

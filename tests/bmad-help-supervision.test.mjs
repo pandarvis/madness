@@ -15,9 +15,11 @@ test('real Windows Job owns descendants before Resume and returns finitely for r
  const owner=await ownedTemp('madness-help-job-'),root=owner.root
  const artifact=resolve('_bmad-output/initiative-madness/.working/help22-supervision-cases',basename(root))
  const caseCeilingMs=15000,startupCeilingMs=15000
+ const childMarker=join(root,'orphan-child-started'),rootMarker=join(root,'orphan-root-ready')
+ const childProgram='[IO.File]::WriteAllText('+quote(childMarker)+',"CHILD_STARTED:"+$PID);[Threading.Thread]::Sleep(30000)'
  const programs=[
   ['normal','[Console]::Write("ok")',3000],
-  ['orphan','$s=[Diagnostics.ProcessStartInfo]::new('+quote(pwsh)+');$s.UseShellExecute=$false;foreach($a in @("-NoProfile","-NonInteractive","-Command","[Threading.Thread]::Sleep(30000)")){[void]$s.ArgumentList.Add($a)};$p=[Diagnostics.Process]::Start($s);[Console]::Write("child:"+$p.Id);exit 0',4000],
+  ['orphan','$s=[Diagnostics.ProcessStartInfo]::new('+quote(pwsh)+');$s.UseShellExecute=$false;$s.CreateNoWindow=$true;foreach($a in @("-NoProfile","-NonInteractive","-EncodedCommand",'+quote(Buffer.from(childProgram,'utf16le').toString('base64'))+')){[void]$s.ArgumentList.Add($a)};$p=[Diagnostics.Process]::Start($s);[Console]::Write("child:"+$p.Id);$ready=[Diagnostics.Stopwatch]::StartNew();while(-not [IO.File]::Exists('+quote(childMarker)+') -and -not $p.HasExited -and $ready.ElapsedMilliseconds -lt 4000){[Threading.Thread]::Sleep(10)};if(-not [IO.File]::Exists('+quote(childMarker)+')){throw "CHILD_NOT_READY"};[IO.File]::WriteAllText('+quote(rootMarker)+',"ROOT_READY:"+$PID);exit 0',4000],
   ['timeout','[Console]::Write("ready");[Threading.Thread]::Sleep(30000)',1500],
   ['overflow','[Console]::Write(("x"*4300000))',4000],
   ['missing','',1000]
@@ -33,7 +35,8 @@ test('real Windows Job owns descendants before Resume and returns finitely for r
    lines.push('$caseClock=[Diagnostics.Stopwatch]::StartNew();$s=[Diagnostics.ProcessStartInfo]::new('+quote(name==='missing'?join(root,'missing.exe'):pwsh)+')')
    if(program)lines.push('foreach($a in @("-NoProfile","-NonInteractive","-EncodedCommand",'+quote(Buffer.from(program,'utf16le').toString('base64'))+')){[void]$s.ArgumentList.Add($a)}')
    lines.push('$s.UseShellExecute=$false;$s.CreateNoWindow=$true;$s.WorkingDirectory='+quote(root))
-   lines.push('$state=$null;$r=Invoke-BmadSupervised $s '+timeout+' '+quote(join(root,name+'.json'))+' @() '+quote(root)+' '+quote(join(root,name+'.out'))+' '+quote(join(root,name+'.err'))+" '' ([ref]$state)")
+   lines.push('[IO.File]::AppendAllText('+quote(join(root,'case-events.jsonl'))+',((@{phase="entry";name='+quote(name)+';utc=[DateTime]::UtcNow.ToString("O")}|ConvertTo-Json -Compress)+[Environment]::NewLine))')
+   lines.push('$state=$null;$r=Invoke-BmadSupervised $s '+timeout+' '+quote(join(root,name+'.json'))+' @() '+quote(root)+' '+quote(join(root,name+'.out'))+' '+quote(join(root,name+'.err'))+' '+quote(name==='orphan'?rootMarker:'')+' ([ref]$state)')
    lines.push('$phase.cases+=@{name='+quote(name)+';duration_ms=$caseClock.ElapsedMilliseconds;outcome=$r.outcome;state_elapsed_ms=$r.elapsed_ms};[IO.File]::WriteAllText('+quote(join(root,'phases.json'))+',($phase|ConvertTo-Json -Depth 8))')
   }
   try{await execute(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(lines.join('\n'),'utf16le').toString('base64')],{windowsHide:true,timeout:controllerTimeoutMs,maxBuffer:65536})}
@@ -51,14 +54,14 @@ test('real Windows Job owns descendants before Resume and returns finitely for r
    assert.equal(state.job_assigned_before_resume,true,name)
    assert.equal(state.job_active_after_stop,0,name)
    if(name==='normal')assert.equal(state.outcome,'completed')
-   if(name==='orphan'){assert.equal(state.outcome,'descendants-stopped');assert.match(await readFile(join(root,'orphan.out'),'utf8'),/child:\d+/)}
+   if(name==='orphan'){assert.equal(state.marker_observed,true);assert.match(await readFile(childMarker,'utf8'),/^CHILD_STARTED:\d+$/);assert.equal(state.outcome,'descendants-stopped');assert.match(await readFile(join(root,'orphan.out'),'utf8'),/child:\d+/)}
    if(name==='timeout')assert.equal(state.outcome,'timeout')
    if(name==='overflow')assert.equal(state.outcome,'output-limit')
   }
   console.log(JSON.stringify({artifact,phase}))
  }finally{
   await mkdir(artifact,{recursive:true})
-  for(const name of ['phases.json',...programs.flatMap(([name])=>[name+'.json',name+'.out',name+'.err'])])await copyFile(join(root,name),join(artifact,name)).catch(e=>{if(e.code!=='ENOENT')throw e})
+  for(const name of ['phases.json','case-events.jsonl','orphan-child-started','orphan-root-ready',...programs.flatMap(([name])=>[name+'.json',name+'.out',name+'.err'])])await copyFile(join(root,name),join(artifact,name)).catch(e=>{if(e.code!=='ENOENT')throw e})
   await writeFile(join(artifact,'controller.json'),JSON.stringify({controllerTimeoutMs,startupCeilingMs,caseCeilingMs,controllerFailure,supervisionSha256:createHash('sha256').update(await readFile(resolve('resources/bmad-help/supervision.ps1'))).digest('hex')},null,2)+'\n')
   const states=await Promise.all(programs.map(async([name])=>{try{return JSON.parse(await readFile(join(root,name+'.json'),'utf8'))}catch{return null}}))
   const cleanup=await finishFixture(owner,{id:owner.id,root,controllerComplete,states})

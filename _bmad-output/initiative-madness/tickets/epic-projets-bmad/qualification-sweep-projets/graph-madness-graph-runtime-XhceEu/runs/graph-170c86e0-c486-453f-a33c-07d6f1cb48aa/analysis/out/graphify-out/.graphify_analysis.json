@@ -1,0 +1,53 @@
+{
+  "communities": {
+    "0": [
+      "client",
+      "client_useservice",
+      "service",
+      "service_service",
+      "service_service_act"
+    ],
+    "1": [
+      "packages_nested",
+      "packages_nested_packagesservice"
+    ],
+    "2": [
+      "resources_nested",
+      "resources_nested_resourcesservice"
+    ]
+  },
+  "cohesion": {
+    "0": 0.7,
+    "1": 1.0,
+    "2": 1.0
+  },
+  "gods": [
+    {
+      "id": "service_service",
+      "label": "Service",
+      "degree": 4
+    },
+    {
+      "id": "client_useservice",
+      "label": "useService()",
+      "degree": 3
+    }
+  ],
+  "surprises": [
+    {
+      "source": "useService()",
+      "target": "Service",
+      "source_files": [
+        "client.ts",
+        "service.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

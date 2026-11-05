@@ -1,0 +1,7 @@
+{"phase":"load-entry","name":"","detail":null,"utc":"2026-11-05T09:47:42.3870335Z","elapsedMs":10}
+{"phase":"load-exit","name":"","detail":2421,"utc":"2026-11-05T09:47:44.8006445Z","elapsedMs":2424}
+{"phase":"case-entry","name":"hardlink","detail":null,"utc":"2026-11-05T09:47:45.0473626Z","elapsedMs":2670}
+{"phase":"guard-entry","name":"hardlink","detail":null,"utc":"2026-11-05T09:47:45.0716805Z","elapsedMs":2695}
+{"phase":"guard-exit","name":"hardlink","detail":{"error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_HARDLINK\"","name":"hardlink","guardMs":689,"launchMarker":false,"admitted":false},"utc":"2026-11-05T09:47:45.7755933Z","elapsedMs":3398}
+{"phase":"restored","name":"hardlink","detail":{"durationMs":726},"utc":"2026-11-05T09:47:45.7975853Z","elapsedMs":3420}
+{"phase":"case-exit","name":"hardlink","detail":{"durationMs":741},"utc":"2026-11-05T09:47:45.8128681Z","elapsedMs":3436}

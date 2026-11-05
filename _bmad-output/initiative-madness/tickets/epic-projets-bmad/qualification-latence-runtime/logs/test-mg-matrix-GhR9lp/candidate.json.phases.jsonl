@@ -1,0 +1,67 @@
+{"elapsedMs":30,"name":"","phase":"load-entry","detail":null,"utc":"2026-11-05T09:47:14.6497507Z"}
+{"elapsedMs":3415,"name":"","phase":"load-exit","detail":3412,"utc":"2026-11-05T09:47:18.0349581Z"}
+{"elapsedMs":3719,"name":"nominal","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:18.3385843Z"}
+{"elapsedMs":3737,"name":"nominal","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:18.3572137Z"}
+{"elapsedMs":7263,"name":"nominal","phase":"guard-exit","detail":{"name":"nominal","error":null,"launchMarker":true,"guardMs":3513,"admitted":true},"utc":"2026-11-05T09:47:21.8829739Z"}
+{"elapsedMs":7283,"name":"nominal","phase":"restored","detail":{"durationMs":3546},"utc":"2026-11-05T09:47:21.9031089Z"}
+{"elapsedMs":7296,"name":"nominal","phase":"case-exit","detail":{"durationMs":3558},"utc":"2026-11-05T09:47:21.9156136Z"}
+{"elapsedMs":7310,"name":"changed","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:21.9296876Z"}
+{"elapsedMs":7345,"name":"changed","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:21.9651696Z"}
+{"elapsedMs":7861,"name":"changed","phase":"guard-exit","detail":{"name":"changed","error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_CHANGED: Lib/codex-rejected-cas.pem\"","launchMarker":false,"guardMs":513,"admitted":false},"utc":"2026-11-05T09:47:22.4814514Z"}
+{"elapsedMs":7898,"name":"changed","phase":"restored","detail":{"durationMs":574},"utc":"2026-11-05T09:47:22.5183090Z"}
+{"elapsedMs":7914,"name":"changed","phase":"case-exit","detail":{"durationMs":590},"utc":"2026-11-05T09:47:22.5340666Z"}
+{"elapsedMs":7928,"name":"missing","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:22.5485108Z"}
+{"elapsedMs":7949,"name":"missing","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:22.5689889Z"}
+{"elapsedMs":10933,"name":"missing","phase":"guard-exit","detail":{"name":"missing","error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_MISSING\"","launchMarker":false,"guardMs":2981,"admitted":false},"utc":"2026-11-05T09:47:25.5534741Z"}
+{"elapsedMs":10968,"name":"missing","phase":"restored","detail":{"durationMs":3025},"utc":"2026-11-05T09:47:25.5878413Z"}
+{"elapsedMs":10984,"name":"missing","phase":"case-exit","detail":{"durationMs":3041},"utc":"2026-11-05T09:47:25.6037285Z"}
+{"elapsedMs":11000,"name":"sitecustomize","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:25.6198128Z"}
+{"elapsedMs":11029,"name":"sitecustomize","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:25.6494104Z"}
+{"elapsedMs":13346,"name":"sitecustomize","phase":"guard-exit","detail":{"name":"sitecustomize","error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_EXTRA: Lib/site-packages/sitecustomize.py\"","launchMarker":false,"guardMs":2314,"admitted":false},"utc":"2026-11-05T09:47:27.9666424Z"}
+{"elapsedMs":13367,"name":"sitecustomize","phase":"restored","detail":{"durationMs":2351},"utc":"2026-11-05T09:47:27.9872450Z"}
+{"elapsedMs":13383,"name":"sitecustomize","phase":"case-exit","detail":{"durationMs":2367},"utc":"2026-11-05T09:47:28.0034357Z"}
+{"elapsedMs":13399,"name":"usercustomize","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:28.0187914Z"}
+{"elapsedMs":13426,"name":"usercustomize","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:28.0462961Z"}
+{"elapsedMs":15745,"name":"usercustomize","phase":"guard-exit","detail":{"name":"usercustomize","error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_EXTRA: Lib/site-packages/usercustomize.py\"","launchMarker":false,"guardMs":2313,"admitted":false},"utc":"2026-11-05T09:47:30.3650554Z"}
+{"elapsedMs":15767,"name":"usercustomize","phase":"restored","detail":{"durationMs":2353},"utc":"2026-11-05T09:47:30.3873459Z"}
+{"elapsedMs":15786,"name":"usercustomize","phase":"case-exit","detail":{"durationMs":2372},"utc":"2026-11-05T09:47:30.4059765Z"}
+{"elapsedMs":15797,"name":"cache","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:30.4172328Z"}
+{"elapsedMs":15819,"name":"cache","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:30.4390273Z"}
+{"elapsedMs":18730,"name":"cache","phase":"guard-exit","detail":{"name":"cache","error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_EXTRA: Lib/__pycache__\"","launchMarker":false,"guardMs":2908,"admitted":false},"utc":"2026-11-05T09:47:33.3506052Z"}
+{"elapsedMs":18751,"name":"cache","phase":"restored","detail":{"durationMs":2939},"utc":"2026-11-05T09:47:33.3715308Z"}
+{"elapsedMs":18766,"name":"cache","phase":"case-exit","detail":{"durationMs":2954},"utc":"2026-11-05T09:47:33.3863758Z"}
+{"elapsedMs":18782,"name":"extra-dir","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:33.4026897Z"}
+{"elapsedMs":18805,"name":"extra-dir","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:33.4250589Z"}
+{"elapsedMs":21712,"name":"extra-dir","phase":"guard-exit","detail":{"name":"extra-dir","error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_EXTRA: unexpected\"","launchMarker":false,"guardMs":2904,"admitted":false},"utc":"2026-11-05T09:47:36.3329138Z"}
+{"elapsedMs":21731,"name":"extra-dir","phase":"restored","detail":{"durationMs":2931},"utc":"2026-11-05T09:47:36.3521193Z"}
+{"elapsedMs":21750,"name":"extra-dir","phase":"case-exit","detail":{"durationMs":2950},"utc":"2026-11-05T09:47:36.3704487Z"}
+{"elapsedMs":21767,"name":"root-venv","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:36.3879685Z"}
+{"elapsedMs":21801,"name":"root-venv","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:36.4215315Z"}
+{"elapsedMs":21840,"name":"root-venv","phase":"guard-exit","detail":{"name":"root-venv","error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_VENV\"","launchMarker":false,"guardMs":36,"admitted":false},"utc":"2026-11-05T09:47:36.4601878Z"}
+{"elapsedMs":21861,"name":"root-venv","phase":"restored","detail":{"durationMs":73},"utc":"2026-11-05T09:47:36.4820747Z"}
+{"elapsedMs":21876,"name":"root-venv","phase":"case-exit","detail":{"durationMs":88},"utc":"2026-11-05T09:47:36.4968491Z"}
+{"elapsedMs":21892,"name":"parent-venv","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:36.5129749Z"}
+{"elapsedMs":21924,"name":"parent-venv","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:36.5445384Z"}
+{"elapsedMs":21956,"name":"parent-venv","phase":"guard-exit","detail":{"name":"parent-venv","error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_VENV\"","launchMarker":false,"guardMs":29,"admitted":false},"utc":"2026-11-05T09:47:36.5764209Z"}
+{"elapsedMs":21975,"name":"parent-venv","phase":"restored","detail":{"durationMs":64},"utc":"2026-11-05T09:47:36.5952488Z"}
+{"elapsedMs":21988,"name":"parent-venv","phase":"case-exit","detail":{"durationMs":77},"utc":"2026-11-05T09:47:36.6084941Z"}
+{"elapsedMs":22002,"name":"invalid-record","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:36.6223489Z"}
+{"elapsedMs":22020,"name":"invalid-record","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:36.6402740Z"}
+{"elapsedMs":22069,"name":"invalid-record","phase":"guard-exit","detail":{"name":"invalid-record","error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_RECORD\"","launchMarker":false,"guardMs":46,"admitted":false},"utc":"2026-11-05T09:47:36.6893724Z"}
+{"elapsedMs":22085,"name":"invalid-record","phase":"restored","detail":{"durationMs":67},"utc":"2026-11-05T09:47:36.7058085Z"}
+{"elapsedMs":22097,"name":"invalid-record","phase":"case-exit","detail":{"durationMs":79},"utc":"2026-11-05T09:47:36.7175132Z"}
+{"elapsedMs":22114,"name":"invalid-hash","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:36.7347942Z"}
+{"elapsedMs":22129,"name":"invalid-hash","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:36.7496126Z"}
+{"elapsedMs":22156,"name":"invalid-hash","phase":"guard-exit","detail":{"name":"invalid-hash","error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_RECORD\"","launchMarker":false,"guardMs":24,"admitted":false},"utc":"2026-11-05T09:47:36.7765462Z"}
+{"elapsedMs":22172,"name":"invalid-hash","phase":"restored","detail":{"durationMs":42},"utc":"2026-11-05T09:47:36.7924552Z"}
+{"elapsedMs":22187,"name":"invalid-hash","phase":"case-exit","detail":{"durationMs":58},"utc":"2026-11-05T09:47:36.8076184Z"}
+{"elapsedMs":22202,"name":"read-fault","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:36.8229635Z"}
+{"elapsedMs":22228,"name":"read-fault","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:36.8482428Z"}
+{"elapsedMs":22641,"name":"read-fault","phase":"guard-exit","detail":{"name":"read-fault","error":"Exception calling \"Validate\" with \"3\" argument(s): \"RUNTIME_READ\"","launchMarker":false,"guardMs":410,"admitted":false},"utc":"2026-11-05T09:47:37.2616349Z"}
+{"elapsedMs":22665,"name":"read-fault","phase":"restored","detail":{"durationMs":445},"utc":"2026-11-05T09:47:37.2853045Z"}
+{"elapsedMs":22681,"name":"read-fault","phase":"case-exit","detail":{"durationMs":462},"utc":"2026-11-05T09:47:37.3021024Z"}
+{"elapsedMs":22698,"name":"nominal-after-corruption","phase":"case-entry","detail":null,"utc":"2026-11-05T09:47:37.3181865Z"}
+{"elapsedMs":22713,"name":"nominal-after-corruption","phase":"guard-entry","detail":null,"utc":"2026-11-05T09:47:37.3341776Z"}
+{"elapsedMs":25662,"name":"nominal-after-corruption","phase":"guard-exit","detail":{"name":"nominal-after-corruption","error":null,"launchMarker":true,"guardMs":2946,"admitted":true},"utc":"2026-11-05T09:47:40.2830892Z"}
+{"elapsedMs":25678,"name":"nominal-after-corruption","phase":"restored","detail":{"durationMs":2964},"utc":"2026-11-05T09:47:40.2988062Z"}
+{"elapsedMs":25692,"name":"nominal-after-corruption","phase":"case-exit","detail":{"durationMs":2978},"utc":"2026-11-05T09:47:40.3129121Z"}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "currentReceipt": "attempt-003/verification.json",
+  "asarSha256": "bf1e00fc71284e4296e0d8feb08fe2ddc89f25662fad395aec77886139449b66",
+  "attempts": [
+    {
+      "path": "verification.json",
+      "sha256": "eec7a092a9c8666ce9043633ab81251b401b4f90a7df979d8ac2a578473d48aa",
+      "status": "failed",
+      "closures": 1,
+      "cleanup": true
+    },
+    {
+      "path": "attempt-002/verification.json",
+      "sha256": "b43d5abfc19e34975d81c5610feeaf39cd8ace74cbac71fe7ec32fe2fce61c5e",
+      "status": "failed",
+      "closures": 1,
+      "cleanup": true
+    },
+    {
+      "path": "attempt-003/verification.json",
+      "sha256": "bb85417b1be3268f95ed0b2fdd145e7898e6a512203ffc5b4ef83145b03e306f",
+      "status": "passed",
+      "closures": 2,
+      "cleanup": true
+    }
+  ],
+  "captures": 0,
+  "historicalImagesReattributed": false,
+  "oracle": "12CSSpx inset plus one physical pixel1/DPR; full action containment remains strict. No CSS or device-scale change.",
+  "limits": [
+    "Synthetic scene and isolated profile; no account/provider/integrated native gate qualified.",
+    "Network/app-server counters apply only after hook."
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "recordedAt": "2026-11-05T12:01:04.147024+00:00",
+  "run": "parent-full-suite-001",
+  "completedConnectionUiVariant": "source002; five red cases preserved in log",
+  "allowedEdits": [
+    "src/renderer/src/App.tsx",
+    "src/renderer/src/CatalogLaunchPanel.tsx",
+    "tests/connection-ui.test.mjs"
+  ],
+  "stillFrozen": [
+    "out/**",
+    "dist/**",
+    "scripts/qualification/page-condition-wait.mjs",
+    "tests/page-condition-wait.test.mjs",
+    "all other code inputs"
+  ],
+  "reason": "Remaining tests do not import App/CatalogLaunchPanel source; Graph UI builds GraphPanel and Locale only; packaged maintenance reads unchanged out. Targeted final UI is separate proof, not a global monorevision claim.",
+  "files": [
+    {
+      "path": "src/renderer/src/App.tsx",
+      "archive": "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-sweep-projets\\pre-global-ui-fixes-source002\\App.tsx",
+      "sha256": "c67d79c0d33154736975492944274e1b653033760076fcc41df533bf80a70786"
+    },
+    {
+      "path": "src/renderer/src/CatalogLaunchPanel.tsx",
+      "archive": "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-sweep-projets\\pre-global-ui-fixes-source002\\CatalogLaunchPanel.tsx",
+      "sha256": "aa2bbdc4c0f44855729390958442fbc67ffe1d6b74a2f884df8fd5f17496d485"
+    },
+    {
+      "path": "tests/connection-ui.test.mjs",
+      "archive": "_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-sweep-projets\\pre-global-ui-fixes-source002\\connection-ui.test.mjs",
+      "sha256": "33e937e2036f9cf2330bc9f701358fb262e024210eae86eb2a6832f20180afd6"
+    }
+  ]
+}

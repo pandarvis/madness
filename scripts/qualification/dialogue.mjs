@@ -1,3 +1,4 @@
+import {waitForPageCondition} from './page-condition-wait.mjs'
 import assert from 'node:assert/strict'
 import { _electron as electron } from 'playwright-core'
 import { mkdtemp, mkdir, writeFile, readFile, realpath, lstat, rm } from 'node:fs/promises'
@@ -22,7 +23,7 @@ async function launch(profile) {
   const env=Object.fromEntries(Object.entries(process.env).filter(([name])=>allowed.includes(name.toUpperCase())))
   running=await electron.launch({executablePath:executable,args:packaged?[]:[repository],cwd:repository,env:{...env,MADNESS_DATA_HOME:profile,APPDATA:join(profile,'appdata'),LOCALAPPDATA:join(profile,'localappdata')},timeout:30000})
   const page=await running.firstWindow();await page.waitForFunction(()=>!!window.madnessDialogue)
-  await page.waitForFunction(async()=>(await window.madness.readState()).ok)
+  await waitForPageCondition(page,async()=>(await window.madness.readState()).ok)
   await running.evaluate(({session})=>{globalThis.__dialogueRequests=0;session.defaultSession.webRequest.onBeforeRequest({urls:['http://*/*','https://*/*']},(_details,callback)=>{globalThis.__dialogueRequests++;callback({cancel:true})})})
   return page
 }
@@ -44,7 +45,7 @@ try {
   assert.equal(await page.getByRole('button',{name:'Lancer Mary avec Codex',exact:true}).isDisabled(),true)
   pass('history-draft-and-missing-account-explained')
   await page.getByRole('button',{name:'Vérifier ce projet',exact:true}).click()
-  await page.waitForFunction(async()=>(await window.madnessDialogue.read()).errorCode==='PROFILE_ABSENT')
+  await waitForPageCondition(page,async()=>(await window.madnessDialogue.read()).errorCode==='PROFILE_ABSENT')
   await page.getByRole('alert').filter({hasText:'Les fichiers BMad nécessaires'}).waitFor()
   assert.equal((await page.evaluate(()=>window.madness.readState())).value.state.conversations.length,1)
   assert.equal(await running.evaluate(()=>globalThis.__dialogueRequests),0)
@@ -57,7 +58,7 @@ try {
   await page.getByRole('tab',{name:'Conversation',exact:true}).click()
   await page.locator('#draft').fill('Brouillon du pilote après navigation.')
   await page.getByRole('button',{name:'Enregistrer le brouillon',exact:true}).click()
-  await page.waitForFunction(async()=>(await window.madness.readState()).value.state.drafts[0].text==='Brouillon du pilote après navigation.')
+  await waitForPageCondition(page,async()=>(await window.madness.readState()).value.state.drafts[0].text==='Brouillon du pilote après navigation.')
   await page.getByRole('button',{name:'Réduire la navigation',exact:true}).click()
   assert.equal(await page.locator('#draft').inputValue(),'Brouillon du pilote après navigation.')
   pass('draft-explicit-save-and-collapse-preserve-input')

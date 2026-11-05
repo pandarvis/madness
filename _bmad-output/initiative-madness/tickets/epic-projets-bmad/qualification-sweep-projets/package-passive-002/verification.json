@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "mode": "exact-packaged-passive-and-synthetic-presentation",
+  "visualBatch": null,
+  "capturesRequested": false,
+  "captures": [],
+  "checks": [
+    {
+      "language": "fr",
+      "theme": "dark",
+      "size": {
+        "width": 1440,
+        "height": 920
+      },
+      "geometry": {
+        "field": {
+          "top": 667.53125,
+          "bottom": 736.3125,
+          "height": 68.78125
+        },
+        "action": {
+          "top": 743.3125,
+          "bottom": 787.3125,
+          "height": 44
+        },
+        "messages": {
+          "top": 426.84375,
+          "bottom": 586.84375,
+          "height": 160
+        },
+        "composer": {
+          "top": 633.53125,
+          "bottom": 825.40625,
+          "height": 191.875
+        },
+        "footer": {
+          "top": 899.40625,
+          "bottom": 921.09375,
+          "height": 21.6875
+        },
+        "viewport": [
+          1440,
+          920
+        ],
+        "horizontal": false
+      }
+    },
+    {
+      "passiveCommands": []
+    }
+  ],
+  "launches": [
+    {
+      "info": {
+        "pid": 52356,
+        "profile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-sweep215-WH46jH\\profile",
+        "version": "0.2.17",
+        "packaged": true
+      },
+      "main": {
+        "pid": 52356,
+        "startedAt": "639294717616507247",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\sweep-reviewed\\win-unpacked\\Madness.exe"
+      }
+    }
+  ],
+  "closures": [
+    {
+      "main": {
+        "pid": 52356,
+        "startedAt": "639294717616507247",
+        "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\sweep-reviewed\\win-unpacked\\Madness.exe"
+      },
+      "wrapperPid": 40908,
+      "wrapperExited": true,
+      "closeObserved": true,
+      "closeError": false,
+      "mainGone": true,
+      "observerComplete": true,
+      "observation": {
+        "schemaVersion": 1,
+        "afterHookOnly": true,
+        "startedAt": "2026-11-05T10:36:08.531Z",
+        "complete": true,
+        "attached": true,
+        "network": 0,
+        "appServerAttempts": 0,
+        "appServers": 0,
+        "appServerCloses": 0
+      },
+      "childrenGone": true,
+      "cleanupSafe": true
+    }
+  ],
+  "cleanup": true,
+  "asarSha256": "bf1e00fc71284e4296e0d8feb08fe2ddc89f25662fad395aec77886139449b66",
+  "limits": [
+    "Synthetic stored conversation and inactive question; session-only dialogue presentation. No business command, model, account or integrated native gate exercised.",
+    "Network and child counters apply only after the observation hook.",
+    "No new capture or detector. Ten b0a images remain evidence of the historical package/source capsule only; no human/WCAG acceptance."
+  ],
+  "status": "failed",
+  "error": {
+    "message": "{\"field\":{\"top\":688.53125,\"bottom\":757.3125,\"height\":68.78125},\"action\":{\"top\":764.3125,\"bottom\":808.3125,\"height\":44},\"messages\":{\"top\":426.84375,\"bottom\":586.84375,\"height\":160},\"composer\":{\"top\":633.53125,\"bottom\":846.40625,\"height\":212.875},\"footer\":{\"top\":920.40625,\"bottom\":942.09375,\"height\":21.6875},\"viewport\":[720,820],\"horizontal\":false}",
+    "stack": "AssertionError [ERR_ASSERTION]: {\"field\":{\"top\":688.53125,\"bottom\":757.3125,\"height\":68.78125},\"action\":{\"top\":764.3125,\"bottom\":808.3125,\"height\":44},\"messages\":{\"top\":426.84375,\"bottom\":586.84375,\"height\":160},\"composer\":{\"top\":633.53125,\"bottom\":846.40625,\"height\":212.875},\"footer\":{\"top\":920.40625,\"bottom\":942.09375,\"height\":21.6875},\"viewport\":[720,820],\"horizontal\":false}\n    at file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-sweep-projets/qualify-package-passive-002.mjs:45:10"
+  },
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-sweep215-WH46jH",
+  "finishedAt": "2026-11-05T10:36:12.504Z"
+}

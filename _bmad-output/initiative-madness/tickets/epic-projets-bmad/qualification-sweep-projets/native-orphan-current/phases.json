@@ -1,0 +1,37 @@
+{
+  "startup_ms": 5661,
+  "case_ceiling_ms": 15000,
+  "controller_timeout_ms": 90000,
+  "cases": [
+    {
+      "state_elapsed_ms": 5235,
+      "name": "normal",
+      "outcome": "completed",
+      "duration_ms": 5656
+    },
+    {
+      "state_elapsed_ms": 10508,
+      "name": "orphan",
+      "outcome": "descendants-stopped",
+      "duration_ms": 10768
+    },
+    {
+      "state_elapsed_ms": 3091,
+      "name": "timeout",
+      "outcome": "timeout",
+      "duration_ms": 3364
+    },
+    {
+      "state_elapsed_ms": 3694,
+      "name": "overflow",
+      "outcome": "output-limit",
+      "duration_ms": 3953
+    },
+    {
+      "state_elapsed_ms": 1248,
+      "name": "missing",
+      "outcome": "start-failed",
+      "duration_ms": 1578
+    }
+  ]
+}

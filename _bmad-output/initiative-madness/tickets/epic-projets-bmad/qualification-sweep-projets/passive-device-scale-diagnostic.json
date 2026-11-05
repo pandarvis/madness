@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "historicalAsarSha256": "b0a156566ec6ebd5d33cc0b417e85572327799ebf089580578b638b5438ec6c6",
+  "currentAsarSha256": "bf1e00fc71284e4296e0d8feb08fe2ddc89f25662fad395aec77886139449b66",
+  "historicalDpr": 1.25,
+  "currentMeasurement": {
+    "field": {
+      "top": 688.53125,
+      "bottom": 757.3125,
+      "height": 68.78125
+    },
+    "action": {
+      "top": 764.3125,
+      "bottom": 808.3125,
+      "height": 44
+    },
+    "messages": {
+      "top": 426.84375,
+      "bottom": 586.84375,
+      "height": 160
+    },
+    "composer": {
+      "top": 633.53125,
+      "bottom": 846.40625,
+      "height": 212.875
+    },
+    "footer": {
+      "top": 920.40625,
+      "bottom": 942.09375,
+      "height": 21.6875
+    },
+    "viewport": [
+      720,
+      820
+    ],
+    "dpr": 1,
+    "fonts": {
+      "body": true,
+      "display": true
+    },
+    "horizontal": false
+  },
+  "qualificationInsetCssPx": 12,
+  "strictFirstScreenVisibility": true,
+  "actualBottomClearanceCssPx": 11.6875,
+  "excessAgainstInsetCssPx": 0.3125,
+  "hypothesisFontsNotSettledRejected": true,
+  "fontsReady": {
+    "body": true,
+    "display": true
+  },
+  "productCssUnchanged": true,
+  "compiledByteIdenticalToInitial": {
+    "out/main/index.js": "a4e7050f090650daae1496696701b4702131f39ab9059e4d5277c0aecfb61382",
+    "out/preload/index.js": "dcf21f0d014ddd3be545a041e2ef861c49643b1a43880727e11d42cf99a44cd4",
+    "out/renderer/assets/index-C6QQJWXQ.css": "d32d7883ae95c2528bfb113c958370596a408b68b129e5dd541c868d3f1ebe5e"
+  },
+  "attempts": [
+    {
+      "path": "package-passive-002/verification.json",
+      "sha256": "eec7a092a9c8666ce9043633ab81251b401b4f90a7df979d8ac2a578473d48aa",
+      "status": "failed",
+      "cleanup": true
+    },
+    {
+      "path": "package-passive-002/attempt-002/verification.json",
+      "sha256": "b43d5abfc19e34975d81c5610feeaf39cd8ace74cbac71fe7ec32fe2fce61c5e",
+      "status": "failed",
+      "cleanup": true
+    }
+  ],
+  "furtherAttempt": "awaiting parent decision; no CSS or threshold change made",
+  "captures": 0
+}

@@ -24,17 +24,22 @@ export async function copyRuntime(root,resources=join(repository,'resources/bmad
  return {manifest,manifestSha256:sha(raw)}
 }
 export async function probe({script,runtime,manifestPath,cases=[{name:'nominal'}],log}){
- const lines=["$ErrorActionPreference='Stop'","$processClock=[Diagnostics.Stopwatch]::StartNew();$load=[Diagnostics.Stopwatch]::StartNew()",'. '+quote(script),'$loadMs=$load.ElapsedMilliseconds','$original=Get-Content -LiteralPath '+quote(manifestPath)+' -Raw|ConvertFrom-Json','$runtime='+quote(runtime),'$results=@()']
+ const trace=log??join(qualification,'logs','probe-'+Date.now()+'-'+Math.random().toString(16).slice(2)+'.json')
+ await mkdir(dirname(trace),{recursive:true})
+ const phases=trace+'.phases.jsonl',controller=trace+'.controller.ps1'
+ const lines=["$ErrorActionPreference='Stop'","$processClock=[Diagnostics.Stopwatch]::StartNew();$load=[Diagnostics.Stopwatch]::StartNew()",'$trace='+quote(phases),"function Trace-Probe($phase,$name,$detail){[IO.File]::AppendAllText($trace,((@{phase=$phase;name=$name;elapsedMs=$processClock.ElapsedMilliseconds;utc=[DateTime]::UtcNow.ToString('O');detail=$detail}|ConvertTo-Json -Depth 8 -Compress)+[Environment]::NewLine))}","Trace-Probe 'load-entry' '' $null",'. '+quote(script),'$loadMs=$load.ElapsedMilliseconds',"Trace-Probe 'load-exit' '' $loadMs",'$original=Get-Content -LiteralPath '+quote(manifestPath)+' -Raw|ConvertFrom-Json','$runtime='+quote(runtime),'$results=@()']
  for(const c of cases){
-  const marker=join(dirname(runtime),'uv-'+c.name)
-  lines.push('[IO.File]::Delete('+quote(marker)+');$m=$original;$handle=$null;'+(c.before??''),"$watch=[Diagnostics.Stopwatch]::StartNew();$errorCode=$null;$admitted=$false",'try { Assert-BmadClosedRuntime $runtime $m.files;$admitted=$true;[IO.File]::WriteAllText('+quote(marker)+',"UV_SUBSTITUTE") } catch {$errorCode=$_.Exception.Message}', '$results+=@{name='+quote(c.name)+';admitted=$admitted;error=$errorCode;guardMs=$watch.ElapsedMilliseconds;launchMarker=(Test-Path -LiteralPath '+quote(marker)+')}',c.after??'',"if($null -ne $handle){$handle.Dispose()}")
+  const marker=join(dirname(runtime),'uv-'+c.name),name=quote(c.name)
+  lines.push('Trace-Probe \'case-entry\' '+name+' $null','[IO.File]::Delete('+quote(marker)+');$m=$original;$handle=$null;$caseClock=[Diagnostics.Stopwatch]::StartNew()', 'try {',c.before??'',"$watch=[Diagnostics.Stopwatch]::StartNew();$errorCode=$null;$admitted=$false",'Trace-Probe \'guard-entry\' '+name+' $null','try { Assert-BmadClosedRuntime $runtime $m.files;$admitted=$true;[IO.File]::WriteAllText('+quote(marker)+',"UV_SUBSTITUTE") } catch {$errorCode=$_.Exception.Message}', '$record=@{name='+name+';admitted=$admitted;error=$errorCode;guardMs=$watch.ElapsedMilliseconds;launchMarker=(Test-Path -LiteralPath '+quote(marker)+')};$results+=$record','Trace-Probe \'guard-exit\' '+name+' $record','} finally {','try {',c.after??'',"} finally {if($null -ne $handle){$handle.Dispose()}}",'Trace-Probe \'restored\' '+name+' @{durationMs=$caseClock.ElapsedMilliseconds}', '}', 'Trace-Probe \'case-exit\' '+name+' @{durationMs=$caseClock.ElapsedMilliseconds}')
  }
  lines.push('@{loadMs=$loadMs;processInnerMs=$processClock.ElapsedMilliseconds;results=$results}|ConvertTo-Json -Depth 8 -Compress')
+ const scriptText=lines.join('\n');await writeFile(controller,scriptText)
  const at=performance.now()
- try {const {stdout,stderr}=await execute(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(lines.join('\n'),'utf16le').toString('base64')],{windowsHide:true,timeout:180000,maxBuffer:1024*1024});const value={...JSON.parse(stdout),wallMs:performance.now()-at,scriptSha256:sha(await readFile(script)),cases,stderr};if(log)await writeFile(log,JSON.stringify(value,null,2)+'\n');return value}
- catch(e){if(log)await writeFile(log,JSON.stringify({error:e.message,stdout:e.stdout,stderr:e.stderr,script,cases},null,2)+'\n');throw e}
+ try {const {stdout,stderr}=await execute(pwsh,['-NoProfile','-NonInteractive','-File',controller],{windowsHide:true,timeout:180000,maxBuffer:1024*1024});const value={...JSON.parse(stdout),wallMs:performance.now()-at,scriptSha256:sha(await readFile(script)),cases,stderr,phases,controller,timeoutMs:180000};await writeFile(trace,JSON.stringify(value,null,2)+'\n');return value}
+ catch(e){await writeFile(trace,JSON.stringify({error:e.message,code:e.code??null,killed:e.killed??null,signal:e.signal??null,stdout:e.stdout,stderr:e.stderr,script,cases,phases,controller,timeoutMs:180000,wallMs:performance.now()-at},null,2)+'\n');throw e}
 }
-export async function matrix({resources=join(repository,'resources/bmad-help'),label='source'}={}){
+export async function matrix({resources=join(repository,'resources/bmad-help'),label='source',mode='comparison'}={}){
+ if(!['comparison','regression'].includes(mode))throw Error('INVALID_MATRIX_MODE')
  const owner=await ownedTemp('mg-matrix-'),runtime=join(owner.root,'python'),artifact=join(qualification,'logs',label+'-'+basename(owner.root));await mkdir(artifact,{recursive:true})
  let completed=false
  try{
@@ -51,16 +56,17 @@ export async function matrix({resources=join(repository,'resources/bmad-help'),l
  {name:'invalid-hash',before:"$m=@{files=@(@{name='python.exe';sha256='bad'})}"},
  {name:'read-fault',before:'$handle=[IO.File]::Open('+q(target)+',[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)',after:'$handle.Dispose();$handle=$null'},
  {name:'nominal-after-corruption'}]
- const baseline=await probe({script:join(qualification,'preflight-baseline.ps1'),runtime,manifestPath:path,cases,log:join(artifact,'baseline.json')})
+ const implementations=mode==='regression'?[['candidate',join(resources,'preflight.ps1')]]:[['baseline',join(qualification,'preflight-baseline.ps1')],['candidate',join(resources,'preflight.ps1')]]
+ const baseline=mode==='regression'?{executed:false,reason:'functional regression; historical comparison not requested'}:{executed:true,...await probe({script:join(qualification,'preflight-baseline.ps1'),runtime,manifestPath:path,cases,log:join(artifact,'baseline.json')})}
  const candidate=await probe({script:join(resources,'preflight.ps1'),runtime,manifestPath:path,cases,log:join(artifact,'candidate.json')})
- for(const result of [baseline,candidate])for(const c of result.results){const admit=c.name.startsWith('nominal');if(c.admitted!==admit||c.launchMarker!==admit)throw Error('CORPUS_MISMATCH '+JSON.stringify(c))}
+ for(const result of [baseline,candidate].filter(r=>r.results))for(const c of result.results){const admit=c.name.startsWith('nominal');if(c.admitted!==admit||c.launchMarker!==admit)throw Error('CORPUS_MISMATCH '+JSON.stringify(c))}
  // Real native hardlink/junction and lexical alias; outside bytes are canaries.
  const outside=join(owner.root,'outside');await mkdir(outside);const canary=join(outside,'canary');const saved=await readFile(target);await writeFile(canary,saved)
  await unlink(target);await link(canary,target)
- const hardlink=[];for(const [name,script] of [['baseline',join(qualification,'preflight-baseline.ps1')],['candidate',join(resources,'preflight.ps1')]])hardlink.push({name,...await probe({script,runtime,manifestPath:path,cases:[{name:'hardlink'}]})})
+ const hardlink=[];for(const [name,script] of implementations)hardlink.push({name,...await probe({script,runtime,manifestPath:path,cases:[{name:'hardlink'}]})})
  await unlink(target);await writeFile(target,saved)
  const alias=join(owner.root,'junction');await symlink(runtime,alias,'junction')
- const junction=[];for(const [name,script] of [['baseline',join(qualification,'preflight-baseline.ps1')],['candidate',join(resources,'preflight.ps1')]])junction.push({name,...await probe({script,runtime:alias,manifestPath:path,cases:[{name:'junction'}]})})
+ const junction=[];for(const [name,script] of implementations)junction.push({name,...await probe({script,runtime:alias,manifestPath:path,cases:[{name:'junction'}]})})
  await unlink(alias)
  for(const result of [...hardlink,...junction])if(result.results.some(c=>c.admitted||c.launchMarker))throw Error('LINK_ADMITTED')
  for(const result of hardlink)if(!result.results[0].error.includes('RUNTIME_HARDLINK'))throw Error('HARDLINK_REASON_MISSING')
@@ -68,7 +74,7 @@ export async function matrix({resources=join(repository,'resources/bmad-help'),l
  let symlinkFile={exercised:false,reason:''};const sym=join(runtime,'native-symlink')
  try{await symlink(canary,sym,'file');const observed=await probe({script:join(resources,'preflight.ps1'),runtime,manifestPath:path,cases:[{name:'native-symlink'}]});symlinkFile={exercised:true,observed};if(observed.results[0].admitted)throw Error('SYMLINK_ADMITTED')}catch(e){if(!['EPERM','EACCES'].includes(e.code))throw e;symlinkFile.reason=e.code}finally{await unlink(sym).catch(e=>{if(e.code!=='ENOENT')throw e})}
  if(sha(await readFile(canary))!==sha(saved))throw Error('CANARY_CHANGED')
- const proof={label,owner,manifestSha256,files:manifest.files.length,baseline,candidate,hardlink,junction,symlinkFile,canaryExact:true,limits:['Data-only UV substitute after the exact guard; no UV invoked by corpus.','No absence of races or universal filesystem safety claimed.']}
+ const proof={label,mode,owner,manifestSha256,files:manifest.files.length,baseline,candidate,hardlink,junction,symlinkFile,canaryExact:true,limits:['Data-only UV substitute after the exact guard; no UV invoked by corpus.','No absence of races or universal filesystem safety claimed.']}
  await writeFile(join(artifact,'matrix.json'),JSON.stringify(proof,null,2)+'\n');completed=true
  return proof
  }finally{const cleanup=await finishFixture(owner,completed?{id:owner.id,root:owner.root,controllerComplete:true,states:[{started:false,outcome:'start-failed'}]}:null);await writeFile(join(artifact,'fixture.json'),JSON.stringify({owner,completed,cleanup},null,2)+'\n')}

@@ -1,0 +1,72 @@
+{
+  "error": "spawn ENAMETOOLONG",
+  "code": "ENAMETOOLONG",
+  "killed": null,
+  "signal": null,
+  "script": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-latence-runtime\\preflight-baseline.ps1",
+  "cases": [
+    {
+      "name": "nominal"
+    },
+    {
+      "name": "changed",
+      "before": "$saved=[IO.File]::ReadAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\codex-rejected-cas.pem');[IO.File]::AppendAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\codex-rejected-cas.pem',\"CHANGED\")",
+      "after": "[IO.File]::WriteAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\codex-rejected-cas.pem',$saved)"
+    },
+    {
+      "name": "missing",
+      "before": "$saved=[IO.File]::ReadAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\codex-rejected-cas.pem');[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\codex-rejected-cas.pem')",
+      "after": "[IO.File]::WriteAllBytes('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\codex-rejected-cas.pem',$saved)"
+    },
+    {
+      "name": "sitecustomize",
+      "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\site-packages\\sitecustomize.py',\"NEVER\")",
+      "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\site-packages\\sitecustomize.py')"
+    },
+    {
+      "name": "usercustomize",
+      "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\site-packages\\usercustomize.py',\"NEVER\")",
+      "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\site-packages\\usercustomize.py')"
+    },
+    {
+      "name": "cache",
+      "before": "[void][IO.Directory]::CreateDirectory('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\__pycache__')",
+      "after": "[IO.Directory]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\__pycache__')"
+    },
+    {
+      "name": "extra-dir",
+      "before": "[void][IO.Directory]::CreateDirectory('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\unexpected')",
+      "after": "[IO.Directory]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\unexpected')"
+    },
+    {
+      "name": "root-venv",
+      "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\pyvenv.cfg',\"NEVER\")",
+      "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\pyvenv.cfg')"
+    },
+    {
+      "name": "parent-venv",
+      "before": "[IO.File]::WriteAllText('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\pyvenv.cfg',\"NEVER\")",
+      "after": "[IO.File]::Delete('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\pyvenv.cfg')"
+    },
+    {
+      "name": "invalid-record",
+      "before": "$m=@{files=@(@{name='../outside';sha256='0000000000000000000000000000000000000000000000000000000000000000'})}"
+    },
+    {
+      "name": "invalid-hash",
+      "before": "$m=@{files=@(@{name='python.exe';sha256='bad'})}"
+    },
+    {
+      "name": "read-fault",
+      "before": "$handle=[IO.File]::Open('C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb\\python\\Lib\\codex-rejected-cas.pem',[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)",
+      "after": "$handle.Dispose();$handle=$null"
+    },
+    {
+      "name": "nominal-after-corruption"
+    }
+  ],
+  "phases": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-latence-runtime\\logs\\test-mg-matrix-eDrrMb\\baseline.json.phases.jsonl",
+  "controller": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-latence-runtime\\logs\\test-mg-matrix-eDrrMb\\baseline.json.controller.ps1",
+  "timeoutMs": 180000,
+  "wallMs": 6.6328999999996086
+}

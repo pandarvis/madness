@@ -1,0 +1,35 @@
+✔ reprise: annonce du projet precedent effacee dans une destination sans projection (5478.0855ms)
+✔ reprise: passive mount and initiative change clear late announcements; language change never reads (6910.6046ms)
+✔ un historique simple avec nom long garde le point de saisie libre repérable au premier écran (8764.3379ms)
+ℹ {"requested":{"width":1440,"height":920},"top":646,"bottom":714.8000030517578,"width":1440,"height":920,"mainScroll":0,"requests":0}
+ℹ {"requested":{"width":720,"height":820},"top":511.6000061035156,"bottom":580.4000091552734,"width":720,"height":820,"mainScroll":0,"requests":0}
+✖ atelier : la saisie et son action restent ensemble au premier écran (6788.0628ms)
+ℹ {"language":"fr","theme":"dark","requested":{"width":1440,"height":920},"fieldTop":646,"actionBottom":764.4000358581543,"fieldHeight":68.80000305175781,"actionHeight":42.79999923706055,"messagesHeight":160,"horizontal":false,"height":920,"scroll":0}
+{"fixtureClosure":{"bootstrap":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-GnGc4U\\main.cjs","profile":"C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-ui-review-GnGc4U\\profile","ownedMainAndDescendantsRemaining":[],"cleanup":"verified-before-delete"}}
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 33001.2848
+
+✖ failing tests:
+
+test at tests\connection-ui.test.mjs:635:1
+✖ atelier : la saisie et son action restent ensemble au premier écran (6788.0628ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(reading.actionHeight>=44)
+  
+      at TestContext.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/tests/connection-ui.test.mjs:646:45)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

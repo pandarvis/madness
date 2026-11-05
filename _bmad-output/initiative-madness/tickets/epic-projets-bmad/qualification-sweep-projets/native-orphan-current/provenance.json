@@ -1,0 +1,121 @@
+{
+  "source": "_bmad-output/initiative-madness/.working/help22-supervision-cases/madness-help-job-NFDgSN",
+  "sourceRetained": true,
+  "copied": [
+    {
+      "path": "case-events.jsonl",
+      "sha256": "d0bbea300d81a3f35cc39c790519756f21dfbc27fc0497d78d90cdc3b93e7250",
+      "bytes": 364
+    },
+    {
+      "path": "controller.json",
+      "sha256": "4640c5b310e437e4a67625d781ca37e414c6450959a2dc6119ff3274a6a4ae1a",
+      "bytes": 210
+    },
+    {
+      "path": "fixture.json",
+      "sha256": "679181072ce4a98117ae0d0999acf4c14be578c23688aed025f1168109e06bea",
+      "bytes": 2342
+    },
+    {
+      "path": "missing.json",
+      "sha256": "061dc5a461455a9e8286935278b75ca3a9746eb2d25ac6aa9710faa817881ad0",
+      "bytes": 343
+    },
+    {
+      "path": "normal.json",
+      "sha256": "0c468efc27165d336566913a14d9be32056a76c6fafa806cc027d163098b2866",
+      "bytes": 318
+    },
+    {
+      "path": "orphan-child-started",
+      "sha256": "77027a6714809e5532f788668873901fcf317c2530d71646584f07fbe5be1163",
+      "bytes": 19
+    },
+    {
+      "path": "orphan-root-ready",
+      "sha256": "0765c39c510370d59f902dd0eb2c6c89123ba352693d5bfcbccbba71e396ad4f",
+      "bytes": 15
+    },
+    {
+      "path": "orphan.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "orphan.json",
+      "sha256": "b959bc00e15967973ec75147d82d55a4eebfea3d0b3211e00bde805305f63e56",
+      "bytes": 381
+    },
+    {
+      "path": "orphan.out",
+      "sha256": "2bd79174c97269c54e0ced29fd9c83fc1718a8dd28a22b7fb780abba8e41a7bf",
+      "bytes": 11
+    },
+    {
+      "path": "overflow.json",
+      "sha256": "9906bff09b89658bbb02c3ffa396e5f71fe7967d9f0d49263234bb6a090c653d",
+      "bytes": 321
+    },
+    {
+      "path": "phases.json",
+      "sha256": "7cb438b5302b96de66e9a8f0e27a20c079f515497ac355c9202611809101264e",
+      "bytes": 784
+    },
+    {
+      "path": "timeout.json",
+      "sha256": "64558cf57483735ce7bdad327203b83cf1a64ceb5a032609f35cf85dad8a2fa5",
+      "bytes": 316
+    }
+  ],
+  "omittedPayload": [
+    {
+      "path": "missing.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "reason": "Large nonessential payload remains at original owned evidence path; state/outcome receipts copied."
+    },
+    {
+      "path": "missing.out",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "reason": "Large nonessential payload remains at original owned evidence path; state/outcome receipts copied."
+    },
+    {
+      "path": "normal.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "reason": "Large nonessential payload remains at original owned evidence path; state/outcome receipts copied."
+    },
+    {
+      "path": "normal.out",
+      "sha256": "2689367b205c16ce32ed4200942b8b8b1e262dfc70d9bc9fbc77c49699a4f1df",
+      "bytes": 2,
+      "reason": "Large nonessential payload remains at original owned evidence path; state/outcome receipts copied."
+    },
+    {
+      "path": "overflow.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "reason": "Large nonessential payload remains at original owned evidence path; state/outcome receipts copied."
+    },
+    {
+      "path": "overflow.out",
+      "sha256": "baa7a6d36ffa957552df230235c2d51d735f28d49c58a5f3438a3a973a25a37d",
+      "bytes": 4194304,
+      "reason": "Large nonessential payload remains at original owned evidence path; state/outcome receipts copied."
+    },
+    {
+      "path": "timeout.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "reason": "Large nonessential payload remains at original owned evidence path; state/outcome receipts copied."
+    },
+    {
+      "path": "timeout.out",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "reason": "Large nonessential payload remains at original owned evidence path; state/outcome receipts copied."
+    }
+  ]
+}

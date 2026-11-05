@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "scannedAt": "2026-11-05T10:13:40.568Z",
+  "failedRuntime": [
+    {
+      "owner": {
+        "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-eDrrMb",
+        "id": "95d74143-e05a-4782-bbb4-8ad9458e4a80",
+        "prefix": "mg-matrix-"
+      },
+      "artifact": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-latence-runtime\\logs\\test-mg-matrix-eDrrMb",
+      "archive": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-sweep-projets\\failed-runtime-cleanup\\test-mg-matrix-eDrrMb",
+      "originalCompleted": false,
+      "failure": {
+        "code": "ENAMETOOLONG",
+        "killed": null,
+        "signal": null,
+        "wallMs": 6.6328999999996086
+      },
+      "archived": [
+        {
+          "file": "fixture.json",
+          "bytes": 442,
+          "sha256": "c97724d0ab1b812b54576f90b0022c3b44d53cbaa6d04f2b433c7344df4c6c61"
+        },
+        {
+          "file": "baseline.json",
+          "bytes": 4363,
+          "sha256": "3e4dfff74e4f5efabed6b806340e16459fb273dc1957a596f2160410352fd21c"
+        },
+        {
+          "file": "baseline.json.controller.ps1",
+          "bytes": 17630,
+          "sha256": "9e6998f41b95405ae11ff6e203af498f70c245b6985ab68fd40d060d061e5ed5"
+        }
+      ],
+      "removed": true,
+      "ownedProcessSnapshot": {
+        "matches": [],
+        "excludedDiagnosticAncestors": [
+          {
+            "pid": 16020,
+            "name": "explorer.exe",
+            "parentPid": 36676
+          },
+          {
+            "pid": 35416,
+            "name": "ChatGPT.exe",
+            "parentPid": 16020
+          },
+          {
+            "pid": 17728,
+            "name": "codex.exe",
+            "parentPid": 35416
+          },
+          {
+            "pid": 46612,
+            "name": "pwsh.exe",
+            "parentPid": 17728
+          },
+          {
+            "pid": 47272,
+            "name": "dotnet.exe",
+            "parentPid": 46612
+          },
+          {
+            "pid": 33704,
+            "name": "node.exe",
+            "parentPid": 47272
+          },
+          {
+            "pid": 51580,
+            "name": "pwsh.exe",
+            "parentPid": 33704
+          },
+          {
+            "pid": 27116,
+            "name": "dotnet.exe",
+            "parentPid": 51580
+          }
+        ]
+      },
+      "volume": {
+        "bytes": 37920511,
+        "files": 737
+      },
+      "uv": {
+        "realProcessStarted": false,
+        "mechanism": "data-only marker WriteAllText after guard; controller contains no child process launch"
+      },
+      "controllerClosure": "spawn refused before process creation; no phases file and current correlated nonce/path process inventory empty"
+    },
+    {
+      "owner": {
+        "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\mg-matrix-5X39vM",
+        "id": "1513526c-061f-4711-8408-660d15a37dcd",
+        "prefix": "mg-matrix-"
+      },
+      "artifact": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-latence-runtime\\logs\\test-mg-matrix-5X39vM",
+      "archive": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-projets-bmad\\qualification-sweep-projets\\failed-runtime-cleanup\\test-mg-matrix-5X39vM",
+      "originalCompleted": false,
+      "failure": {
+        "code": null,
+        "killed": true,
+        "signal": "SIGTERM",
+        "wallMs": 180168.37889999998
+      },
+      "archived": [
+        {
+          "file": "fixture.json",
+          "bytes": 442,
+          "sha256": "8121392974a556df5d4921d02d9fbee130dcb0c6e72582d68e69db2e420d7d11"
+        },
+        {
+          "file": "baseline.json",
+          "bytes": 4758,
+          "sha256": "1ecf589ae315047a72bbc294cbfec61ab2dd836932854766b2a8fcc20deeb9fe"
+        },
+        {
+          "file": "baseline.json.controller.ps1",
+          "bytes": 17630,
+          "sha256": "8c358d00284dcb076f020aad9e4ebd02b5e59d2474eb5aaefed1d0f49e52afe6"
+        },
+        {
+          "file": "baseline.json.phases.jsonl",
+          "bytes": 9016,
+          "sha256": "235f00556a786c17f0fcc7733a42d606bc7a1e1a27459be78c765a519d6b3354"
+        }
+      ],
+      "removed": true,
+      "ownedProcessSnapshot": {
+        "matches": [],
+        "excludedDiagnosticAncestors": [
+          {
+            "pid": 16020,
+            "parentPid": 36676,
+            "name": "explorer.exe"
+          },
+          {
+            "pid": 35416,
+            "parentPid": 16020,
+            "name": "ChatGPT.exe"
+          },
+          {
+            "pid": 17728,
+            "parentPid": 35416,
+            "name": "codex.exe"
+          },
+          {
+            "pid": 46612,
+            "parentPid": 17728,
+            "name": "pwsh.exe"
+          },
+          {
+            "pid": 47272,
+            "parentPid": 46612,
+            "name": "dotnet.exe"
+          },
+          {
+            "pid": 33704,
+            "parentPid": 47272,
+            "name": "node.exe"
+          },
+          {
+            "pid": 52764,
+            "parentPid": 33704,
+            "name": "pwsh.exe"
+          },
+          {
+            "pid": 21400,
+            "parentPid": 52764,
+            "name": "dotnet.exe"
+          }
+        ]
+      },
+      "volume": {
+        "bytes": 37920524,
+        "files": 738
+      },
+      "uv": {
+        "realProcessStarted": false,
+        "mechanism": "data-only marker WriteAllText after guard; controller contains no child process launch"
+      },
+      "controllerClosure": "execFile error.signal comes from observed close callback (local Node source archived), separately corroborated by current empty controller/root nonce/path inventory",
+      "completedCases": 12,
+      "timeoutSuccessClaim": false
+    }
+  ],
+  "predecessor": {
+    "target": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\language-reviewed\\win-unpacked",
+    "oldAsarSha256": "4bc95cfc3636113bd79cd0da40512e09528da9d31906949d9960171b1eee00cf",
+    "remainingProcesses": {
+      "matches": [],
+      "excludedDiagnosticAncestors": [
+        {
+          "pid": 16020,
+          "name": "explorer.exe",
+          "parentPid": 36676
+        },
+        {
+          "pid": 35416,
+          "name": "ChatGPT.exe",
+          "parentPid": 16020
+        },
+        {
+          "pid": 17728,
+          "name": "codex.exe",
+          "parentPid": 35416
+        },
+        {
+          "pid": 46612,
+          "name": "pwsh.exe",
+          "parentPid": 17728
+        },
+        {
+          "pid": 47272,
+          "name": "dotnet.exe",
+          "parentPid": 46612
+        },
+        {
+          "pid": 33704,
+          "name": "node.exe",
+          "parentPid": 47272
+        },
+        {
+          "pid": 41908,
+          "name": "pwsh.exe",
+          "parentPid": 33704
+        },
+        {
+          "pid": 33536,
+          "name": "dotnet.exe",
+          "parentPid": 41908
+        }
+      ]
+    },
+    "removed": true,
+    "volume": {
+      "bytes": 580528789,
+      "files": 3141
+    },
+    "setupsPreserved": [
+      {
+        "path": "dist\\catalog-launch-reviewed\\Madness-0.2.14-x64-setup.exe",
+        "sha256": "15c96967ccb4936bae204c0a220fb8209a30487f211e9e6f284e4d0b174840a1"
+      },
+      {
+        "path": "dist\\language-reviewed\\Madness-0.2.16-x64-setup.exe",
+        "sha256": "63b5133d4f7947fa729c833dc40aa6a97d2bdc9e973f701b8258edf7b32529e3"
+      },
+      {
+        "path": "dist\\library-reviewed-postquick\\Madness-0.2.13-x64-setup.exe",
+        "sha256": "880d4f499f28a41d9945db1ca59e2dc68258cb2abb63970b3871126ec91b68de"
+      },
+      {
+        "path": "dist\\sweep-reviewed\\Madness-0.2.17-x64-setup.exe",
+        "sha256": "73072ce93120c552556ac6862131fa17862d853cc3eb697cced017ac15142a6c"
+      },
+      {
+        "path": "dist\\us-metrics-reviewed\\Madness-0.2.15-x64-setup.exe",
+        "sha256": "57267f72e0f07532d27ff28fd8dc1a61109456937e87cd93fc0f66d274a773d6"
+      }
+    ],
+    "personalPreviewPreserved": "dist/graph-preview-0cf3cc35",
+    "candidateAsarSha256": "b0a156566ec6ebd5d33cc0b417e85572327799ebf089580578b638b5438ec6c6"
+  },
+  "originalFailuresChanged": false
+}

@@ -75,19 +75,24 @@
 .main-inner:has(#panel-conversation):not(:has(.conversation-history > .question-panel, .conversation-history > .approval-panel)) {
   height: 100%; display: flex; flex-direction: column; padding-block: 12px 20px;
   > * { flex-shrink: 0 }
-  .project-banner { padding: 8px 12px; min-height: 0 }
+  .project-banner { display: grid; grid-template-columns: fit-content(50%) minmax(0, 1fr); column-gap: 12px; align-items: center; padding: 8px 12px; min-height: 0 }
+  .project-heading { grid-column: 1 / -1 }
+  .initiative-control { margin-block: 4px 0 }
+  .initiative-trigger { margin-block: 0 }
+  .project-banner .context-note { margin-block: 4px 0 }
   .project-banner h1 { font-size: 24px }
-  #panel-conversation { display: flex; flex-direction: column; flex: 1 0 480px; min-height: min-content }
+  #panel-conversation { display: flex; flex-direction: column; flex: 1 1 480px; min-height: min-content }
   #panel-conversation > details { flex: none }
-  .conversation-history { display: flex; flex-direction: column; flex: 1 1 240px; height: 240px; min-height: 240px; margin-top: 8px }
+  .conversation-history { display: flex; flex-direction: column; flex: 1 1 240px; height: 240px; min-height: min-content; margin-top: 4px }
   .conversation-history > h2 { flex: none; margin-block: 8px 4px }
   .history-note, .turn-status { flex: none; margin-top: 4px }
   .turn-status { padding-block: 6px }
-  .conversation-messages { flex: 1; min-height: 160px; max-height: none; padding-block: 6px }
-  .composer { flex: none; margin-block-start: 12px; padding: 10px 14px }
+  .conversation-messages { flex: 1 1 160px; height: 160px; min-height: 160px; max-height: none; padding-block: 6px }
+  .composer { flex: none; margin-block-start: 8px; padding: 8px 14px }
   .composer label { margin-bottom: 4px }
   .composer textarea { display: block; min-height: 64px; padding-block: 8px }
-  .composer-bottom { padding-top: 6px; margin-bottom: 4px }
+  .composer-actions button { min-height: 44px }
+  .composer-bottom { flex-direction: row; align-items: center; padding-top: 6px; margin-bottom: 4px }
   .composer > .small { margin-top: 6px }
   .prepare-exchange { flex: none; margin-block: 6px 0; padding-block: 6px }
 }

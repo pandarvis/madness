@@ -1,0 +1,7 @@
+{
+  "exitCode": 1,
+  "message": "out/main/index.js was not found in archive",
+  "cause": "Host @electron/asar API expects platform path separators; existing seal002 uses native relative() path",
+  "correction": "Normalize manifest forwardslash path to host sep only; no changed archive/compiled bytes/expected hashes",
+  "packagingNotRerun": true
+}

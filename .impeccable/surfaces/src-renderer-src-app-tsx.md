@@ -2,7 +2,7 @@
 version: 1
 slug: "src-renderer-src-app-tsx"
 primary_target: "src/renderer/src/App.tsx"
-related_targets: ["src/renderer/src/styles.css","src/renderer/src/atelier-immersion.css","src/renderer/src/atelier-controls.css","src/renderer/src/main.tsx","src/renderer/src/HelpPanel.tsx","src/renderer/src/help.css","src/renderer/src/AgentInfoPanel.tsx","src/renderer/src/WindowCaptionPlates.tsx","src/main/index.ts","src/renderer/src/GraphPanel.tsx","src/renderer/src/graph.css","src/renderer/src/graph-strings.ts","src/renderer/src/ProjectLibrary.tsx","src/renderer/src/library.css","src/renderer/src/WorkOverview.tsx","src/renderer/src/consultation-navigation.ts","src/core/project-library.ts"]
+related_targets: ["src/renderer/src/styles.css","src/renderer/src/atelier-immersion.css","src/renderer/src/atelier-controls.css","src/renderer/src/main.tsx","src/renderer/src/HelpPanel.tsx","src/renderer/src/help.css","src/renderer/src/AgentInfoPanel.tsx","src/renderer/src/WindowCaptionPlates.tsx","src/main/index.ts","src/renderer/src/GraphPanel.tsx","src/renderer/src/graph.css","src/renderer/src/graph-strings.ts","src/renderer/src/ProjectLibrary.tsx","src/renderer/src/library.css","src/renderer/src/WorkOverview.tsx","src/renderer/src/consultation-navigation.ts","src/core/project-library.ts","src/renderer/src/ProjectResume.tsx","src/renderer/src/CatalogLaunchPanel.tsx"]
 ---
 
 # Espace de travail Madness
@@ -33,7 +33,7 @@ Conserver préparation/envoi, questions/accords, brouillons, récupération, ide
 
 `main.tsx` charge `atelier-immersion.css` après `styles.css`. Cette couche prolonge les plaques, cartouches et cadres dans le travail central ; elle réutilise les tokens et `chrome-plate-frame.png` existants. Le cadre de saisie garde un centre non rempli, un débord et une marge de 7 px ; la dernière couche réduit sa bande à 12 px. Les petites vignettes restent réservées aux auteurs attestés reconnus ; le sticky ne change ni l’identité ni la source, et s’arrête avec son article. La fiche et son focus conservent leur contrat local.
 
-La mise en page ajustée à la fenêtre s’applique seulement en l’absence de formulaire de question ou d’approbation actif : récapitulatifs directs à hauteur naturelle sans compression flex, panneau au minimum de contenu, historique flexible à base/hauteur minimale de 240 px, compositeur et action dans le flux. Les formulaires actifs gardent toute leur hauteur et le défilement naturel de page. Les mesures de `round2/`, `review-f1/` et `review-author/` sont des preuves de candidat distinctes ; le présent relevé ne vaut ni ship, ni validation humaine du rendu intégré, ni story 2.2 built. Voir [documenter](../../_bmad-output/initiative-madness/ux-madness/qualification-immersion/documenter.md).
+La mise en page ajustée à la fenêtre s’applique seulement en l’absence de formulaire de question ou d’approbation actif : récapitulatifs directs à hauteur naturelle sans compression flex, panneau au minimum de contenu, historique flexible à base et hauteur de 240 px avec minimum de contenu (`min-content`), compositeur et action dans le flux. Les formulaires actifs gardent toute leur hauteur et le défilement naturel de page. Les mesures de `round2/`, `review-f1/` et `review-author/` sont des preuves de candidat distinctes ; le présent relevé ne vaut ni ship, ni validation humaine du rendu intégré, ni story 2.2 built. Voir [documenter](../../_bmad-output/initiative-madness/ux-madness/qualification-immersion/documenter.md).
 
 ## Correction des commandes — 3 novembre 2026
 

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "request": "Parent S4: completion must count newly read delta sources, not retained gamma presentation",
+  "previousAriaRefProof": {
+    "path": "aria-live-followup.json",
+    "sha256": "17617edfcd2dad739282a27cf6f4413c0341499c466b30373b7023ff0673810d"
+  },
+  "red": {
+    "path": "ui-reading-count-red.log",
+    "sha256": "2f640128802bf71c617dacb5db2a551908b5ff2deab494be3949303ac3ecaaba",
+    "actual": "Lecture locale terminée · 1 source",
+    "expected": "Lecture locale terminée · 3 sources"
+  },
+  "green": {
+    "path": "ui-reading-count-green.log",
+    "sha256": "fb476fd19a435e784b2e84fb8a08f771e4bde4654d486a51aa0ee16aef5d6a66",
+    "tests": 3,
+    "pass": 3,
+    "fail": 0,
+    "skip": 0
+  },
+  "change": "Only completion resolver data changed from snapshot?.sources.length to latest?.sources.length. No displayed snapshot, control, business handler/effect, authority or CSS change.",
+  "assertions": [
+    "delta3sources announced while gamma1source remains displayed",
+    "gamma revision still displayed; show-new-observation remains available and is not activated",
+    "late A completion cannot finish B or move focus",
+    "passive ready mount silent",
+    "old announcement cleared on destination without projection",
+    "old initiative late response remains silent",
+    "language change never collects"
+  ],
+  "currentSourceInputs": [
+    {
+      "path": "src/renderer/src/ProjectResume.tsx",
+      "sha256": "e23c1b7784b3ea8e466fd471c3c81ffa4cff4b6c19bbec0fd67e44532aa42cde"
+    },
+    {
+      "path": "tests/connection-ui.test.mjs",
+      "sha256": "a5289349dc47b5ee109727b30e35c510d77ca313e2af4026c26e8bb37abdaf98"
+    }
+  ],
+  "cssByteIdenticalToInitialCapsule": true,
+  "packageStatus": "No build/NSIS performed; b0a captures/passive receipt remain exact historical package evidence.",
+  "notRun": [
+    "global suite",
+    "native tests",
+    "build/NSIS",
+    "capture",
+    "detector"
+  ]
+}

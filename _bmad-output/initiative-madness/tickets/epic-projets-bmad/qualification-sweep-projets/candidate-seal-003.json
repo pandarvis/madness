@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-11-05T12:15:56.196993+00:00",
+  "mode": "source-and-out-only",
+  "version": "0.2.17",
+  "sourceInputs": [
+    {
+      "path": "package.json",
+      "sha256": "8243f183ccd968b6ea6c916419220a0dbe97d3c4f175c8a7070ba01b3f84eefa"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "e60b43a3d780f2c43555ebb99eb2fa2c5f27f0b41756285c0a3666ed0211379b"
+    },
+    {
+      "path": "src/renderer/src/ProjectResume.tsx",
+      "sha256": "e23c1b7784b3ea8e466fd471c3c81ffa4cff4b6c19bbec0fd67e44532aa42cde"
+    },
+    {
+      "path": "src/renderer/src/atelier-immersion.css",
+      "sha256": "feb7ac7ba13d7501a67af310ea80aafc95a165115598f1ed71e289e3528f0862"
+    },
+    {
+      "path": "scripts/qualification/page-condition-wait.mjs",
+      "sha256": "eb212e264a6fbf02ea4db3de0aa1de4571e9c3844f07d4b1ce563f3ac2de821a"
+    },
+    {
+      "path": "scripts/qualification/approvals.mjs",
+      "sha256": "f7383b5d39a20296c02f96b53302917dbc7f53186b36c8cacbffc44523f4b049"
+    },
+    {
+      "path": "scripts/qualification/connection.mjs",
+      "sha256": "47b1c0ab250c59eb692221be4ee5008f4c185fdc1a59afc5ed7163000bceaf24"
+    },
+    {
+      "path": "scripts/qualification/conversation.mjs",
+      "sha256": "e32bc4acfb3fc3ad8d3c65c206a36d11149b33c9cd388ff64e1233a04109cd14"
+    },
+    {
+      "path": "scripts/qualification/dialogue.mjs",
+      "sha256": "17066268c9e64be5d2675f225c7f2ae5976e4b63cdf068b5804a71d32b8e5469"
+    },
+    {
+      "path": "scripts/qualification/forge.mjs",
+      "sha256": "9a50cfd1773fae668162e787668682f4137bd85606a401579212611e26e2de16"
+    },
+    {
+      "path": "scripts/qualification/graph-project.mjs",
+      "sha256": "4aa6dbc17e5284ee6a4c99f79084168a0978f7b9e44c72adbc57cc3084931c6a"
+    },
+    {
+      "path": "scripts/qualification/maintenance.mjs",
+      "sha256": "283b2e5b9c9413c06d4883e9143e89408535b8d08633f172a1a2ec0f2338f028"
+    },
+    {
+      "path": "scripts/qualification/questions.mjs",
+      "sha256": "ee3aafd8a001f34e41163bb5c057a8d15938146a45dba0ca0de472b8f2a26e02"
+    },
+    {
+      "path": "scripts/qualification/recovery.mjs",
+      "sha256": "9f2a2329f1f99ac2db76396e1b69e40178b177bb5711e939cfe56260fdabfc96"
+    },
+    {
+      "path": "scripts/qualification/windows.mjs",
+      "sha256": "558f2bc7ee28ec6d2c4ddaa154ec78e23e945aa461edefacb9137e1170b70f69"
+    },
+    {
+      "path": "scripts/qualification/workspace-design.mjs",
+      "sha256": "3064908176a6266fb47cbfbfb7f8f948c81e30fa535b457219d30123cec6f7ad"
+    },
+    {
+      "path": "tests/page-condition-wait.test.mjs",
+      "sha256": "b8ea05d15391de894de79db82d2123abe337bccb0407936cfc9b2076446709cb"
+    },
+    {
+      "path": "tests/bmad-refresh-envelope.test.mjs",
+      "sha256": "acb860c1546670fe1a099d8bbef9e7e6078c799283093b2d14699e70e0b40ab1"
+    },
+    {
+      "path": "tests/connection-ui.test.mjs",
+      "sha256": "c35cede8c3f28c4482969f1f56293019b912709f6b35eb6995ecfeb565bacac6"
+    },
+    {
+      "path": "tests/bmad-help-supervision.test.mjs",
+      "sha256": "7708e04473bbd118774d9e7ed158569b4c76b87a7e39dcbebe799e145c09ed5c"
+    },
+    {
+      "path": "tests/bmad-runtime-preflight.test.mjs",
+      "sha256": "5b1607908f47a1d5c2ebd925d4112231aed9acfb5bb254d29062c39d09571039"
+    },
+    {
+      "path": "tests/graphify-runtime.test.mjs",
+      "sha256": "b1aed96ff68346e51cfbecd073b0940472a09fdfc0b421d6b83839633c168b76"
+    },
+    {
+      "path": "_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-latence-runtime/qualify.mjs",
+      "sha256": "993abf81648a589fce0b45a4e718390059e5f55678cec9d8a4d8a39adb5b9ee8"
+    },
+    {
+      "path": "src/renderer/src/App.tsx",
+      "sha256": "e873fcd4c8526aa8904d7289c24fe1ffaeb987536226f4090451d147729c7779"
+    },
+    {
+      "path": "src/renderer/src/CatalogLaunchPanel.tsx",
+      "sha256": "3eeaab01d20dd77ee49b9dcb0a89ad16da50308f422909085e9af94cb69185d6"
+    }
+  ],
+  "compiled": [
+    {
+      "path": "out/main/index.js",
+      "sha256": "a4e7050f090650daae1496696701b4702131f39ab9059e4d5277c0aecfb61382"
+    },
+    {
+      "path": "out/preload/index.js",
+      "sha256": "dcf21f0d014ddd3be545a041e2ef861c49643b1a43880727e11d42cf99a44cd4"
+    },
+    {
+      "path": "out/renderer/assets/amelia-bust-BhMfUzyU.png",
+      "sha256": "79e08e75593f756c4714f1cbb8d7acfb3f75596c17a0d8436c2a125b2779a600"
+    },
+    {
+      "path": "out/renderer/assets/BarlowCondensed-Bold-v1X23fbx.ttf",
+      "sha256": "e476562ec9c1e16cf16475895b511f08c804f438cc9a9f80a44ea50a0eeb5b65"
+    },
+    {
+      "path": "out/renderer/assets/chatgpt-mark-BzeLsF5q.svg",
+      "sha256": "88238fe3c01827061444b1732e28e0709e10f61b7941295955cb5889102264a7"
+    },
+    {
+      "path": "out/renderer/assets/chrome-plate-frame-CEUOVTY4.png",
+      "sha256": "cee7d64112d445b0f3ef3a666bc6f7d9e7c7edfc6c63135fed40823d63e0f9ad"
+    },
+    {
+      "path": "out/renderer/assets/index-C6QQJWXQ.css",
+      "sha256": "d32d7883ae95c2528bfb113c958370596a408b68b129e5dd541c868d3f1ebe5e"
+    },
+    {
+      "path": "out/renderer/assets/index-zaZWA9Xo.js",
+      "sha256": "d9967d69651746a19f3f9c98ccce638ea76fd83fec6209c96fb7969f44f6c077"
+    },
+    {
+      "path": "out/renderer/assets/john-bust-BFR8uFSt.png",
+      "sha256": "04d5fb86a4cf814ac260dae3ca44ab8508ef174ab4cce28bbd13457484a78b87"
+    },
+    {
+      "path": "out/renderer/assets/madness-64-CLfbpCIt.png",
+      "sha256": "cfcb8389875b74f2e6ddc1d0a14d46a765c2bb7895247c6580dc7f40f4e2b5bb"
+    },
+    {
+      "path": "out/renderer/assets/mary-bust-MARKPnXB.png",
+      "sha256": "c157bb6a0d7f5a423c2e84e627776af4650bdbce7bace92d3992a4de0bc52360"
+    },
+    {
+      "path": "out/renderer/assets/Oxanium-Variable-Cxng1r8B.ttf",
+      "sha256": "2ce01d946e1e1ffc8d7eecfffbda8623bedd63eaf811a20488c4b69af45babb0"
+    },
+    {
+      "path": "out/renderer/assets/sally-bust-V3QCidDb.png",
+      "sha256": "f6d328b6765d973bc6951fdae69ceba9e633950bcf496f7bbc991113b3995662"
+    },
+    {
+      "path": "out/renderer/assets/smithy-bust-5fAwEfcm.png",
+      "sha256": "ac69746654a76fbfca5bcf486acffff685fff06114acb5c33807dc1ada66da25"
+    },
+    {
+      "path": "out/renderer/assets/sofia-bust-BfDgrm10.png",
+      "sha256": "658dae6271a2dd378b2c1e814f335aa930451856a5296b8858dfc5091a2435a5"
+    },
+    {
+      "path": "out/renderer/assets/winston-bust-CX7w_Rgd.png",
+      "sha256": "a65c87f53c895cd4e7240d86ef22a9807d4adaad6a6f194d84a689157ee33d7d"
+    },
+    {
+      "path": "out/renderer/assets/workshop-header-CzuHm831.png",
+      "sha256": "37c06960a882d14504853a93b2025dd32edf58a958a0c4e80c1bb90905925472"
+    },
+    {
+      "path": "out/renderer/assets/workshop-sidebar-BKMFHWB8.png",
+      "sha256": "4d4ba515ef3be958d7f034815586c4a1709242f6c4ae1de6fc2b52bbcbd45b38"
+    },
+    {
+      "path": "out/renderer/index.html",
+      "sha256": "5c07b5b865758eb7f6a136e02b4cef31dd9c1f3003d014382612d1f8bcad1bfe"
+    }
+  ],
+  "changesSince002": [
+    "scripts/qualification/page-condition-wait.mjs",
+    "tests/page-condition-wait.test.mjs",
+    "src/renderer/src/App.tsx",
+    "src/renderer/src/CatalogLaunchPanel.tsx",
+    "tests/connection-ui.test.mjs"
+  ],
+  "checks": {
+    "helper": {
+      "path": "helper-dispatch-green.log",
+      "sha256": "319b2ae3d93832f849d23c623dbe157db6dd976b7c990a55b3a4204bb701c47c",
+      "status": "passed",
+      "tests": 8,
+      "pass": 8,
+      "fail": 0,
+      "skip": 0
+    },
+    "selectionFrEn": {
+      "path": "ui-selection-bilingual-green.log",
+      "sha256": "2f9403d2926ae1727e4237eab3e24758d5f013b941d453d1593c566a01c284f5",
+      "status": "passed",
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skip": 0,
+      "zeroLaunchesAsserted": true,
+      "zeroSendsAsserted": true,
+      "ownedFixtureClosureAndCleanup": "ownedMainAndDescendantsRemaining=[]; verified-before-delete"
+    },
+    "build": {
+      "path": "build-003.log",
+      "sha256": "5f3b757ef1931eb1f74066d14bb2942026b23b1fd336b31ba0edf86325efe558",
+      "status": "passed",
+      "includesTypecheck": true,
+      "compiledOnly": true
+    }
+  },
+  "helperRed": {
+    "path": "helper-dispatch-red.log",
+    "sha256": "fadbc742567d8d5ddefa02d9b2237d86f797dc447069ae6977c609df90f8fdb1",
+    "actualEvaluationCalls": 1,
+    "expectedEvaluationCalls": 0
+  },
+  "global": {
+    "fullRun": false,
+    "completedGlobalClaim": false,
+    "reference": "parent-full-suite-001/summary.json",
+    "owner": "parent",
+    "longCampaignsStoppedOrNotRerun": "Explicit human instruction: Les tests aussi longs, on skip."
+  },
+  "historicalPackage002": {
+    "sourceSeal": "candidate-seal-002.json",
+    "asarSha256": "bf1e00fc71284e4296e0d8feb08fe2ddc89f25662fad395aec77886139449b66",
+    "currentSourcePackage": false
+  },
+  "packagingExecuted": false,
+  "passivePackageExecuted": false,
+  "resourceAuditExecuted": false,
+  "newImagesOrDetector": false,
+  "limits": [
+    "No completed global suite or built/native/WCAG gate claimed.",
+    "Four UI fixture/locator fixes were read-verified and not rerun under the explicit instruction to skip long tests.",
+    "ASAR002 and ten b0a images remain historical; compiled003 is not a new packaged candidate.",
+    "No new735/2305resource audit, Graph diagnostic, native campaign, NSIS or passive package check."
+  ]
+}

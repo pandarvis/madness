@@ -1,3 +1,4 @@
+import {waitForPageCondition} from './page-condition-wait.mjs'
 import assert from 'node:assert/strict'
 import {benchOutput} from './epic-one-support.mjs'
 import {_electron as electron} from 'playwright-core'
@@ -24,7 +25,7 @@ async function stop(){if(!running)return;const child=running.process();try{await
 async function launch(profile){
  const allowed=['PATH','SYSTEMROOT','WINDIR','COMSPEC','PATHEXT','TEMP','TMP','USERPROFILE','HOMEDRIVE','HOMEPATH'],env=Object.fromEntries(Object.entries(process.env).filter(([name])=>allowed.includes(name.toUpperCase())))
  running=await electron.launch({executablePath:executable,args:packaged?[]:[repository],cwd:repository,env:{...env,MADNESS_DATA_HOME:profile,APPDATA:join(profile,'appdata'),LOCALAPPDATA:join(profile,'localappdata')},timeout:30000})
- const page=await running.firstWindow();await page.waitForFunction(()=>!!window.madnessDialogue);await page.waitForFunction(async()=>(await window.madness.readState()).ok)
+ const page=await running.firstWindow();await page.waitForFunction(()=>!!window.madnessDialogue);await waitForPageCondition(page,async()=>(await window.madness.readState()).ok)
  assert.equal(resolve(await running.evaluate(({app})=>app.getPath('userData'))),resolve(profile))
  await running.evaluate(({session})=>{globalThis.__conversationRequests=0;session.defaultSession.webRequest.onBeforeRequest({urls:['http://*/*','https://*/*']},(_d,callback)=>{globalThis.__conversationRequests++;callback({cancel:true})})})
  return page
@@ -88,7 +89,7 @@ try{
  }
  pass('desktop-and-compact-history-no-horizontal-overflow')
  await page.getByRole('button',{name:'Enregistrer le brouillon',exact:true}).click()
- await page.waitForFunction(async()=>(await window.madness.readState()).value.state.drafts[0].text==='Saisie témoin conservée pendant le flux.')
+ await waitForPageCondition(page,async()=>(await window.madness.readState()).value.state.drafts[0].text==='Saisie témoin conservée pendant le flux.')
  assert.equal(await running.evaluate(()=>globalThis.__conversationRequests),0)
  report.runtime=await running.evaluate(({app})=>({electron:process.versions.electron,chromium:process.versions.chrome,packaged:app.isPackaged}))
  const artifact=packaged?join(dirname(executable),'resources/app.asar'):join(repository,'out/main/index.js');report.artifact={file:packaged?'resources/app.asar':'out/main/index.js',sha256:hash(await readFile(artifact))}

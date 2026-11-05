@@ -1,0 +1,28 @@
+--- source002/scripts/qualification/page-condition-wait.mjs
++++ current/scripts/qualification/page-condition-wait.mjs
+@@ -6,7 +6,7 @@
+  async function bounded(operation){
+   const remaining=deadline-performance.now();if(remaining<=0)throw expired()
+   let timer
+-  try{return await Promise.race([Promise.resolve().then(operation),new Promise((_,reject)=>{timer=setTimeout(()=>reject(expired()),remaining)})])}
++  try{return await Promise.race([Promise.resolve().then(()=>{if(performance.now()>=deadline)throw expired();return operation()}),new Promise((_,reject)=>{timer=setTimeout(()=>reject(expired()),remaining)})])}
+   finally{clearTimeout(timer)}
+  }
+  for(;;){
+--- source002/tests/page-condition-wait.test.mjs
++++ current/tests/page-condition-wait.test.mjs
+@@ -40,3 +40,14 @@
+  await assert.rejects(waitForPageCondition({evaluate:async()=>{calls++;return false}},()=>false,undefined,{timeout:25,interval:1000}),{name:'TimeoutError'})
+  assert.equal(calls,1);assert.ok(performance.now()-start<140)
+ })
++
++test('an expired microtask never dispatches a page read',async t=>{
++ let now=performance.now(),calls=0
++ t.mock.method(performance,'now',()=>now)
++ try{
++  const waiting=waitForPageCondition({evaluate:async()=>{calls++;return false}},()=>false,undefined,{timeout:5,interval:1})
++  now+=35
++  await assert.rejects(waiting,{name:'TimeoutError'})
++  assert.equal(calls,0,'an evaluation must not begin after its absolute deadline')
++ }finally{t.mock.restoreAll()}
++})

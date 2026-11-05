@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "exitCode": 4294967295,
+  "counts": {},
+  "failureLines": [
+    "✖ catalogue: delayed copy cannot confirm another details view and failure keeps selectable invocation (31990.5884ms)",
+    "✖ fichiers: source invalidation keeps old text and geometry/themes/native zoom200 preserve controls (32185.5973ms)",
+    "✖ fichiers: Q3 refused preview keeps independent unknown/failed editor and confirmed copy outcomes readable (32263.1032ms)",
+    "✖ fichiers: Q4 invalidation removes Progress preview trigger and returns focus to exact resume title (6483.5979ms)",
+    "✖ catalogue lancement: selection revision changes disable the captured preparation before launch (32380.2263ms)"
+  ],
+  "logSha256": "24288b420f61dea570f2df1669814230ce98b929747db9ea83fe4bb81c467534",
+  "fullRun": false,
+  "baseline": "9beef9d2763a6c6e8672573a2183557105a764d8",
+  "sequential": true,
+  "historical17NotRewritten": true,
+  "humanNativeGatesNotImplied": true,
+  "interruptedByUser": true,
+  "reason": "Les tests aussi longs, on skip",
+  "terminalCountsAvailable": false,
+  "observedPassingLines": 595,
+  "observedFailingLines": 5,
+  "countsArePartialObservationsNotFinalNodeSummary": true
+}

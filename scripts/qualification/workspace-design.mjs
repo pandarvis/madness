@@ -1,3 +1,4 @@
+import {waitForPageCondition} from './page-condition-wait.mjs'
 // Main/preload réels, profil synthétique possédé, aucun compte ni modèle.
 import assert from 'node:assert/strict'
 import {_electron as electron} from 'playwright-core'
@@ -235,7 +236,7 @@ try{
     report.navigation.push({theme,collapsed,...metrics});await geometry(page,'navigation-'+theme+'-'+(collapsed?'rail':'expanded'));await shot(page,'navigation-'+theme+'-'+(collapsed?'rail':'expanded'))
    }
    await links.first().focus();await page.keyboard.press('Tab');assert.equal(await links.nth(1).evaluate(e=>e===document.activeElement),true)
-   await page.keyboard.press('Enter');await page.waitForFunction(async id=>(await window.madness.readState()).value.state.activeProjectId===id,other.projectId)
+   await page.keyboard.press('Enter');await waitForPageCondition(page,async id=>(await window.madness.readState()).value.state.activeProjectId===id,other.projectId)
    await page.getByRole('button',{name:'Déployer la navigation',exact:true}).click()
   }
   await page.getByRole('button',{name:'Accueil',exact:true}).click();pass('navigation-two-themes-targets-contrast-keyboard-exact-project')

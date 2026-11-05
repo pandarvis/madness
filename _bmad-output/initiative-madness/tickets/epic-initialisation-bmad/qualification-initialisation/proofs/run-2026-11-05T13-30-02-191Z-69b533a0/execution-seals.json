@@ -1,0 +1,71 @@
+{
+  "recordedAt": "2026-11-05T13:44:38.049Z",
+  "immutableManifestsPreserved": true,
+  "currentFiles": [
+    {
+      "path": "qualifier.mjs",
+      "bytes": 27857,
+      "sha256": "25294fdf0ce995ad477680a4d3948636362e551ee3cf9998f2d514d39804e56d"
+    },
+    {
+      "path": "guard-node.mjs",
+      "bytes": 3420,
+      "sha256": "4cf55708cfc762dbb456ed42eac4108416873100b0fa1c37dbba8f2d10dbfed5"
+    },
+    {
+      "path": "guard-setup.py",
+      "bytes": 1929,
+      "sha256": "d18933a5880bfcef255b24bc3676cd023602caaae64b18eccea94f2dbf93f83f"
+    },
+    {
+      "path": "rename-probe.py",
+      "bytes": 559,
+      "sha256": "3d977253d54a6fd44cd16b7022657bace0237ba084ca6c65cb087c8113a8b2f8"
+    }
+  ],
+  "attempts": [
+    {
+      "labels": [
+        "skills-add (main successful)"
+      ],
+      "helper": "guard-node.mjs",
+      "sha256": "4cf55708cfc762dbb456ed42eac4108416873100b0fa1c37dbba8f2d10dbfed5",
+      "basis": "initial main tool-manifest before Skills; exact current bytes match"
+    },
+    {
+      "labels": [
+        "setup (deep initial)"
+      ],
+      "helper": "guard-setup.py",
+      "sha256": "6b26092c579ea3aa447ddc1017f6ec2543e4f7cdd36e2e68666e0dc7c864afa6",
+      "basis": "initial main tool-manifest before setup"
+    },
+    {
+      "labels": [
+        "setup-resume (extended deep)",
+        "setup-short (8.3 guard refusal)"
+      ],
+      "helper": "guard-setup.py",
+      "sha256": null,
+      "basis": "intermediate wrapper revisions not retained as exact byte artifacts; argv and raw mutations/errors retained; do not promote these attempts to pinned final capability"
+    },
+    {
+      "labels": [
+        "setup-4 (short canonical, successful)"
+      ],
+      "helper": "guard-setup.py",
+      "sha256": "d18933a5880bfcef255b24bc3676cd023602caaae64b18eccea94f2dbf93f83f",
+      "basis": "tool-manifest-resume captured before setup-4; exact current bytes match"
+    }
+  ],
+  "currentQualifier": {
+    "sha256": "25294fdf0ce995ad477680a4d3948636362e551ee3cf9998f2d514d39804e56d",
+    "verification": "syntax and targeted scope inspection only after final reporting/scope fixes; no repeat of Skills/setup/application",
+    "priorPositive": "positive-result.json and finalized result.json are actual prior observed effects, not a claim of a fresh full run of current qualifier"
+  },
+  "executables": {
+    "nodeMatchesOriginal": true,
+    "pythonMatchesOriginal": true
+  },
+  "sourceAndToolBytes": "preservation.json plus tool-manifest-sealed-readback.json exact reconstruction"
+}

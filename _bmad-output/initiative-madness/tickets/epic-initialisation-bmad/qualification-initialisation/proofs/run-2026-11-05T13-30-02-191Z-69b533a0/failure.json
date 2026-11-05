@@ -1,0 +1,10 @@
+{
+  "id": "run-2026-11-05T13-30-02-191Z-69b533a0",
+  "error": "Error: setup-short: code=1 signal=null error: MUTATION_OUTSIDE_PRIVATE_ROOT:os.mkdir:c:\\users\\up60066553\\appdata\\local\\temp\\madness-g3-69b533a0\\positive\r\n",
+  "stack": "Error: setup-short: code=1 signal=null error: MUTATION_OUTSIDE_PRIVATE_ROOT:os.mkdir:c:\\users\\up60066553\\appdata\\local\\temp\\madness-g3-69b533a0\\positive\r\n\n    at ChildProcess.<anonymous> (file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-initialisation-bmad/qualification-initialisation/qualifier.mjs:55:37)",
+  "active": 0,
+  "uncertain": false,
+  "retainedWitness": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0",
+  "retainedShortStaging": "C:\\Users\\UP6006~1\\AppData\\Local\\Temp\\madness-g3-69b533a0",
+  "cleanup": "retained; do not infer closure or cleanup success"
+}

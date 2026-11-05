@@ -6,6 +6,7 @@ covers: ["R4", "R23", "R24"]
 sources: ["_bmad-output/initiative-madness/initiative-madness.md"]
 companions: ["_bmad-output/initiative-madness/ux-madness/DESIGN.md", "_bmad-output/initiative-madness/ux-madness/EXPERIENCE.md", "_bmad-output/initiative-madness/architecture-madness/architecture-madness.md", "DESIGN.md"]
 refined: true
+status: in-progress
 risk: high
 ---
 # Initialiser un projet et qualifier les parcours Windows

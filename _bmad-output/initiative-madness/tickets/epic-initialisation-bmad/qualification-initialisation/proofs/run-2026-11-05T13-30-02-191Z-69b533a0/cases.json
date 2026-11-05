@@ -1,0 +1,88 @@
+[
+  {
+    "name": "I3 cancel-before-application",
+    "result": "intact",
+    "toolInvoked": false,
+    "targetUnchanged": true
+  },
+  {
+    "name": "I6 precondition changed",
+    "result": "refused-by-qualification-harness",
+    "expected": "PRECONDITION_CHANGED",
+    "error": "PRECONDITION_CHANGED\n+ actual - expected\n... Skipped lines\n\n  [\n    {\n      bytes: 53,\n      path: 'README.md',\n      sha256: 'fab554d9423524d2d5d705fc79ab3de353867f968a6cc6efa0b92643f331d438',\n...\n    {\n+     bytes: 24,\n-     bytes: 20,\n      path: 'code/sentinel.txt',\n+     sha256: 'b7662d3b8cf3a1e17fdd24395893a4a2ebabcca60041893f96098ecbf5211ab1',\n-     sha256: 'aaabd3112cc6c3302ce9a0121227bceff3e39695a1cf780bbe11f0fa361a3538',\n      type: 'file'\n    }\n  ]\n",
+    "targetUnchanged": true,
+    "toolInvoked": false
+  },
+  {
+    "name": "I5 collision",
+    "result": "refused-by-qualification-harness",
+    "expected": "COLLISION:",
+    "error": "COLLISION:_bmad",
+    "targetUnchanged": true,
+    "toolInvoked": false
+  },
+  {
+    "name": "I5 hostile output C:/outside-init31",
+    "result": "refused-by-qualification-harness",
+    "expected": "OUTPUT_REFUSED",
+    "error": "OUTPUT_REFUSED:C:/outside-init31",
+    "targetUnchanged": true,
+    "toolInvoked": false
+  },
+  {
+    "name": "I5 hostile output ../outside-init31",
+    "result": "refused-by-qualification-harness",
+    "expected": "OUTPUT_REFUSED",
+    "error": "OUTPUT_REFUSED:../outside-init31",
+    "targetUnchanged": true,
+    "toolInvoked": false
+  },
+  {
+    "name": "I5 hostile output {project-root}/../outside-init31",
+    "result": "refused-by-qualification-harness",
+    "expected": "OUTPUT_REFUSED",
+    "error": "OUTPUT_REFUSED:{project-root}/../outside-init31",
+    "targetUnchanged": true,
+    "toolInvoked": false
+  },
+  {
+    "name": "I5 remote source",
+    "result": "refused-by-qualification-harness",
+    "expected": "SOURCE_REFUSED",
+    "error": "SOURCE_REFUSED:github:bmad-code-org/BMAD-METHOD/skills",
+    "targetUnchanged": true,
+    "toolInvoked": false
+  },
+  {
+    "name": "I5 linked source",
+    "result": "refused-by-qualification-harness",
+    "expected": "LINK_REFUSED",
+    "error": "LINK_REFUSED:C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0\\linked-source",
+    "targetUnchanged": true,
+    "toolInvoked": false
+  },
+  {
+    "name": "I5 target rerouted by junction",
+    "result": "refused-by-qualification-harness",
+    "error": "LINK_REFUSED:C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0\\targets\\rerouted-final",
+    "toolInvoked": false,
+    "targetUnchanged": true,
+    "externalSentinelUnchanged": true
+  },
+  {
+    "name": "I5 parent rerouted",
+    "result": "refused-by-qualification-harness",
+    "error": "ENOENT: no such file or directory, lstat 'C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0\\targets\\parent-reroute-final\\target'",
+    "toolInvoked": false,
+    "targetUnchanged": true
+  },
+  {
+    "name": "I4 exact bounded application",
+    "result": "verified-by-bytes-and-existing-Mary-profile",
+    "filesAdded": 462,
+    "directoriesAdded": 126,
+    "toolInvoked": false,
+    "sentinelsPreserved": true,
+    "revalidatedAfterHarnessReportingError": true
+  }
+]

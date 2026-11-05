@@ -1,0 +1,10 @@
+{
+  "id": "run-2026-11-05T13-30-02-191Z-69b533a0",
+  "error": "Error: ENOENT: no such file or directory, open 'C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\LICENSE'",
+  "stack": "Error: ENOENT: no such file or directory, open 'C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\LICENSE'\n    at async open (node:internal/fs/promises:637:25)\n    at async readFile (node:internal/fs/promises:1269:14)\n    at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/_bmad-output/initiative-madness/tickets/epic-initialisation-bmad/qualification-initialisation/qualifier.mjs:163:45",
+  "active": 0,
+  "uncertain": false,
+  "retainedWitness": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0",
+  "retainedShortStaging": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-g3-69b533a0",
+  "cleanup": "retained; do not infer closure or cleanup success"
+}

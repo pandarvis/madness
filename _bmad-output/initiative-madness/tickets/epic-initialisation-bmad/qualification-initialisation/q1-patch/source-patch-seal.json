@@ -1,0 +1,30 @@
+{
+  "scope": "forward Q1 fix only; no historical seal replaced",
+  "files": [
+    {
+      "path": "qualifier.mjs",
+      "sha256": "dd4875a49c90e5196733eabaad709ca3ebef83192e72d03a962670ff5a28dc97"
+    },
+    {
+      "path": "archive-attempt.mjs",
+      "sha256": "5f21b4733f63f837039bfc40f90aa5bdae46cdc1a78399238d37c7563be7e687"
+    },
+    {
+      "path": "archive-attempt.test.mjs",
+      "sha256": "9d993b8210cb3bececff266d72eb981ac5d9f3d639fc669b8ad70825886d5f4c"
+    }
+  ],
+  "historicalProofFilesUnchanged": 52,
+  "historicalMissingWrappers": [
+    "setup-resume",
+    "setup-short"
+  ],
+  "historicalMissingVersionsRemainUnknown": true,
+  "checks": [
+    "node --test archive-attempt.test.mjs: 1/1, one fake Node child, 535 ms total, closed code0/signal=null, owned copies removed",
+    "node --check qualifier.mjs: passed",
+    "node --check archive-attempt.mjs: passed"
+  ],
+  "realToolsReexecuted": false,
+  "fullCurrentQualifierExecuted": false
+}

@@ -1,0 +1,27 @@
+{
+  "child": {
+    "SYSTEMROOT": "C:\\WINDOWS",
+    "WINDIR": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0\\temp",
+    "TMP": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0\\temp",
+    "HOME": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0\\home",
+    "USERPROFILE": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0\\home",
+    "APPDATA": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0\\home\\appdata",
+    "LOCALAPPDATA": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0\\home\\localappdata",
+    "XDG_STATE_HOME": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0\\state",
+    "XDG_CONFIG_HOME": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\_bmad-output\\initiative-madness\\tickets\\epic-initialisation-bmad\\qualification-initialisation\\.owned-run-2026-11-05T13-30-02-191Z-69b533a0\\home\\config",
+    "DISABLE_TELEMETRY": "1",
+    "DO_NOT_TRACK": "1",
+    "NODE_DISABLE_COMPILE_CACHE": "1",
+    "NO_COLOR": "1"
+  },
+  "reasons": {
+    "HOME_USERPROFILE": "avoid user discovery/global read and global lock fallback",
+    "XDG_STATE_HOME": "CLI getSkillLockPath",
+    "TEMP_TMP": "CLI tmpdir staging",
+    "XDG_CONFIG_HOME": "xdg-basedir imported by agent detection",
+    "telemetry": "CLI isEnabled false",
+    "compileCache": "no external Node compile cache"
+  },
+  "parentEnvironmentChanged": false
+}

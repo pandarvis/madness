@@ -14,6 +14,8 @@ extraResources:
     to: madness.ico
   - from: resources/bmad-help
     to: bmad-help
+  - from: resources/bmad-init/payload-v1.json.gz
+    to: bmad-init/payload-v1.json.gz
   - from: resources/bmad-script-runner.py
     to: bmad-script-runner.py
 npmRebuild: false

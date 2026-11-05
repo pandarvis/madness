@@ -1,0 +1,25 @@
+.context-panel.initialization-context { width:min(680px,calc(100vw - 32px)); }
+.initialization-entry { display:flex; align-items:center; flex-wrap:wrap; gap:8px 16px; margin-block:12px; }
+.initialization-entry button,.initialization-diagnostic button,.initialization-dialog button { min-height:40px; white-space:normal; }
+.context-panel .initialization-entry > .text-button { width:fit-content; padding:9px 14px; }
+.initialization-diagnostic { border-top:1px solid var(--line); margin-top:16px; padding-top:14px; }
+.initialization-diagnostic h3,.initialization-diagnostic h4 { margin:12px 0 6px; }
+.initialization-diagnostic p,.initialization-dialog p,.initialization-plan li { font-size:inherit; }
+.initialization-diagnostic code,.initialization-dialog code { overflow-wrap:anywhere; white-space:normal; user-select:text; }
+.initialization-plan dl { margin-block:12px; }
+.initialization-plan dd { margin-inline-start:0; }
+.initialization-plan dt { margin-top:8px; }
+.initialization-plan summary,.initialization-diagnostic summary { min-height:40px; padding-block:9px; cursor:pointer; overflow-wrap:anywhere; }
+.initialization-inventory { list-style:none; margin:0; padding:0; }
+.initialization-inventory li { display:grid; justify-items:start; gap:4px; border-top:1px solid var(--line); padding-block:8px; min-width:0; }
+.initialization-inventory pre { max-width:100%; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; max-height:24rem; padding:10px; background:var(--surface); }
+.initialization-actions { display:flex; flex-wrap:wrap; align-items:start; gap:8px; margin-block:12px; }
+.initialization-dialog .initialization-actions button { min-height:44px; }
+.initialization-dialog[open] { display:flex; flex-direction:column; overflow:hidden; }
+.initialization-dialog .catalog-dialog-header { position:static; flex:none; }
+.initialization-dialog .catalog-dialog-body { min-height:0; overflow-y:auto; overscroll-behavior:contain; }
+.initialization-dialog .text-button { margin-block:0; }
+@media (max-width:720px) {
+ .initialization-actions { flex-direction:column; align-items:stretch; }
+ .initialization-dialog .catalog-dialog-header { gap:8px; }
+}

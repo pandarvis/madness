@@ -12,4 +12,5 @@ import type { LanguageBridge } from '../../contracts/language.ts'
 declare global { interface Window {
     madnessLanguage: LanguageBridge;
     madnessUsMetrics:import('../../contracts/us-metrics.ts').UsMetricsBridge;
+    madnessBmadInitialization:import('../../contracts/bmad-initialization.ts').InitializationBridge;
     madnessCatalogLaunch: import('../../contracts/bmad-catalog-launch.ts').CatalogLaunchBridge; madnessGraph:GraphBridge; projectFiles:ProjectFilesBridge; madnessBmadCatalog:BmadCatalogBridge; madnessBmadProgress:BmadProgressBridge;madnessBmadContext:BmadContextBridge;madnessHelp:HelpBridge; madness: MadnessBridge; madnessConnection: ConnectionBridge; madnessDialogue: DialogueBridge; madnessAppearance: AppearanceBridge } }

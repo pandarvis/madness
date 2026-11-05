@@ -4,6 +4,7 @@
  */
 import type {CapturedBmadContext} from './bmad-context.ts'
 export const INITIALIZATION_CONTRACT_VERSION=1 as const
+export const INITIALIZATION_ATTEMPT_LIMIT=32
 export type InitializationAttempt={projectId:string;attemptId:string;generation:number}
 export type InitializationIdentity=InitializationAttempt&{
  rootPath:string;rootIdentity:string;parentPath:string;parentIdentity:string;contextRevision:string
@@ -76,9 +77,8 @@ export interface InitializationHostPort {
  inspect?(operation:InitializationOperation,signal:AbortSignal):Promise<object>
  inspectionFact?(original:object):InitializationInspectionFact|undefined
 }
-/** Future 3.6 sidecar: detached v1 record, per-attempt CAS, exclusive temporary + sync/rename.
+/** Detached v1 record, per-attempt CAS, exclusive temporary + sync/rename.
  * Resolve only after durable commit; reject conflicts/unreadable versions without overwriting.
- * No Snapshot v1 changes or actual persistence implementation in this contract.
  */
 export interface InitializationStorePort {
  write(record:InitializationOperation,expectedDurableRevision:number|null):Promise<void>
@@ -93,11 +93,13 @@ const refuse=(code:InitializationIssueCode,path:string):never=>{throw new Invali
 /** Descriptor-only copy, no getters/toJSON; no coupling to Graph DTOs.
  * Like the existing boundary, this is not a sandbox against active Proxy traps.
  */
-function copyData(input:unknown):unknown{
+function copyData(input:unknown,maxNodes:number):unknown{
  const holder:Data={},active=new WeakSet<object>()
  type Task={value:unknown;parent:Data|unknown[];key:string;path:string}|{exit:object}
  const stack:Task[]=[{value:input,parent:holder,key:'value',path:'$'}]
+ let visited=0
  while(stack.length){
+  if(++visited>maxNodes)refuse('INVALID_SHAPE','$')
   const task=stack.pop()!
   if('exit' in task){active.delete(task.exit);continue}
   const {value,parent,key,path}=task;let copy:unknown=value
@@ -110,6 +112,7 @@ function copyData(input:unknown):unknown{
    const descriptors=Object.getOwnPropertyDescriptors(value)
    if(Reflect.ownKeys(descriptors).some(key=>typeof key!=='string'))refuse('INVALID_DATA',path)
    const names=Object.keys(descriptors);copy=isArray?[]:{}
+   if(names.length+visited>maxNodes)refuse('INVALID_SHAPE',path)
    if(isArray){
     const length=descriptors.length?.value
     if(!Number.isSafeInteger(length)||length<0||names.length!==length+1||names.some(name=>name!=='length'&&(!/^(0|[1-9][0-9]*)$/.test(name)||Number(name)>=length)))refuse('INVALID_DATA',path)
@@ -126,8 +129,8 @@ function copyData(input:unknown):unknown{
  }
  return holder.value
 }
-function validate<T>(input:unknown,check:(value:unknown,path:string)=>void):InitializationValidation<T>{
- try{const value=copyData(input);check(value,'$');return {ok:true,value:value as T}}
+function validate<T>(input:unknown,check:(value:unknown,path:string)=>void,maxNodes=1000000):InitializationValidation<T>{
+ try{const value=copyData(input,maxNodes);check(value,'$');return {ok:true,value:value as T}}
  catch(error){const e=error instanceof InvalidInitialization?error:new InvalidInitialization('INVALID_DATA','$');return {ok:false,issues:[{code:e.code,path:e.path,messageKey:'initialization.error.'+e.code.toLowerCase()}]}}
 }
 function record(input:unknown,keys:string[],path:string):Data{
@@ -231,7 +234,7 @@ export function sameInitializationData(a:unknown,b:unknown):boolean{
 export function validateInitializationPlan(input:unknown):InitializationValidation<InitializationPlan>{return validate(input,plan)}
 export function validateInitializationFact(input:unknown):InitializationValidation<InitializationFact>{return validate(input,fact)}
 export function validateInitializationContent(input:unknown):InitializationValidation<InitializationContent>{
- return validate(input,(input,path)=>{const v=record(input,['contentId','path','sha256','bytes','encoding','data'],path);text(v.contentId,path+'.contentId');relative(v.path,path+'.path');sha(v.sha256,path+'.sha256');number(v.bytes,path+'.bytes');one(v.encoding,['utf8','base64'],path+'.encoding');text(v.data,path+'.data',true)})
+ return validate(input,(input,path)=>{const v=record(input,['contentId','path','sha256','bytes','encoding','data'],path);text(v.contentId,path+'.contentId');relative(v.path,path+'.path');sha(v.sha256,path+'.sha256');number(v.bytes,path+'.bytes');one(v.encoding,['utf8','base64'],path+'.encoding');text(v.data,path+'.data',true);if((v.bytes as number)>1048576||(v.data as string).length>1398104)refuse('INVALID_SHAPE',path)})
 }
 export function validateInitializationCommand(input:unknown):InitializationValidation<InitializationCommand>{
  return validate(input,(input,path)=>{
@@ -266,4 +269,58 @@ export function validateInitializationOperation(input:unknown):InitializationVal
 }
 export function sameEntries(a:InitializationEntry[],b:InitializationEntry[]):boolean{
  return a.length===b.length&&a.every(e=>b.some(other=>sameInitializationData(e,other)))
+}
+
+export const INITIALIZATION_COMMAND_CHANNEL = 'madness:bmad-initialization:command'
+export const INITIALIZATION_EVENT_CHANNEL = 'madness:bmad-initialization:changed'
+export type InitializationRequest =
+ | {type:'read'|'prepare';projectId:string}
+ | (InitializationAttempt & {type:'cancel-preparation'|'retry-save'})
+ | {type:'decision';projectId:string;command:InitializationCommand}
+ | (InitializationAttempt & {type:'content';planId:string;planRevision:string;contentId:string})
+export type InitializationView = InitializationState & {projectId:string;availability:'available'|'storage-unreadable'}
+export type InitializationReply = {contractVersion:1;correlationId:string;state:InitializationView;issue:InitializationIssueCode|null;content:InitializationContent|null}
+export interface InitializationBridge {
+ request(input:InitializationRequest):Promise<InitializationReply>
+ onChanged(listener:(value:InitializationView)=>void):()=>void
+}
+export function validateInitializationRequest(input:unknown):InitializationValidation<InitializationRequest&{contractVersion:1;correlationId:string}> {
+ return validate(input,(input,path)=>{
+  const type=(input as Data)?.type
+  const extras=type==='decision'?['command']:type==='content'?['attemptId','generation','planId','planRevision','contentId']:
+   type==='cancel-preparation'||type==='retry-save'?['attemptId','generation']:[]
+  const v=record(input,['contractVersion','correlationId','type','projectId',...extras],path)
+  version(v.contractVersion,path+'.contractVersion');id(v.correlationId,path+'.correlationId');id(v.projectId,path+'.projectId')
+  one(type,['read','prepare','cancel-preparation','retry-save','decision','content'],path+'.type')
+  if(type==='decision'){
+   const command=validateInitializationCommand(v.command)
+   if(!command.ok||command.value.projectId!==v.projectId)refuse('CONTEXT_MISMATCH',path+'.command')
+  }
+  if(extras.includes('attemptId'))attempt(v,path)
+  if(type==='content'){id(v.planId,path+'.planId');sha(v.planRevision,path+'.planRevision');sha(v.contentId,path+'.contentId')}
+ },32)
+}
+export function isInitializationView(input:unknown):input is InitializationView {
+ if(!input||typeof input!=='object'||!Array.isArray((input as InitializationView).operations)||
+    (input as InitializationView).operations.length>INITIALIZATION_ATTEMPT_LIMIT)return false
+ return validate(input,(input,path)=>{
+  const v=record(input,['contractVersion','sequence','operations','projectId','availability'],path)
+  version(v.contractVersion,path+'.contractVersion');number(v.sequence,path+'.sequence');id(v.projectId,path+'.projectId')
+  one(v.availability,['available','storage-unreadable'],path+'.availability')
+  const ids:string[]=[]
+  array(v.operations,path+'.operations',(item,p)=>{
+   const operation=validateInitializationOperation(item)
+   if(!operation.ok)return refuse('INVALID_SHAPE',p)
+   if(operation.value.projectId!==v.projectId)return refuse('CONTEXT_MISMATCH',p)
+   ids.push(operation.value.attemptId)
+  })
+  unique(ids,path+'.operations')
+ }).ok
+}
+export function isInitializationReply(input:unknown):input is InitializationReply {
+ if(!input||typeof input!=='object'||Object.keys(input).length!==5)return false
+ const v=input as InitializationReply
+ return v.contractVersion===1&&typeof v.correlationId==='string'&&/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(v.correlationId)&&
+  isInitializationView(v.state)&&(v.content===null||validateInitializationContent(v.content).ok)&&
+  (v.issue===null||['INVALID_DATA','INVALID_SHAPE','INCOMPATIBLE_VERSION','INVALID_PATH','MANIFEST_CONFLICT','UNTRUSTED','CONTEXT_MISMATCH','STALE','BUSY','STOP_UNCONFIRMED','INVALID_TRANSITION','EVENT_ORDER','UNAVAILABLE'].includes(v.issue))
 }

@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "consent": "synthetic-fixture-only",
+  "humanAcceptance": false,
+  "cleanup": true,
+  "checks": [
+    "P1: displayed exact plan, 588 additions and untouched target",
+    "P2: same identity, focus on the neutral title and exact configuration preview",
+    "Visual only: final decision roles with header still visible, zero target writes"
+  ],
+  "captures": [
+    {
+      "file": "plan-fr-dark.png",
+      "sha256": "4c572bb27161c9f94bc5d6696c1c10b91899b0ebd8c620d035e3150082e61aec",
+      "pixels": {
+        "width": 1650,
+        "height": 1075
+      },
+      "metrics": {
+        "width": 1320,
+        "height": 860,
+        "scale": 1.25
+      },
+      "zoom": 1,
+      "method": "native capturePage without rectangle"
+    },
+    {
+      "file": "decision-fr-dark.png",
+      "sha256": "89b9827d6c64aace1b8ce5176ccea9879fd7234e26d4915146d4943bf578215a",
+      "pixels": {
+        "width": 1650,
+        "height": 1075
+      },
+      "metrics": {
+        "width": 1320,
+        "height": 860,
+        "scale": 1.25
+      },
+      "zoom": 1,
+      "method": "native capturePage without rectangle"
+    },
+    {
+      "file": "decision-actions-fr-dark.png",
+      "sha256": "1daf6b601483d5daee10101dd78e6297e9b25f16570a4a6a77fb7f08b59fdba4",
+      "pixels": {
+        "width": 1650,
+        "height": 1075
+      },
+      "metrics": {
+        "width": 1320,
+        "height": 860,
+        "scale": 1.25
+      },
+      "zoom": 1,
+      "method": "native capturePage without rectangle"
+    }
+  ],
+  "viewports": [
+    {
+      "requested": {
+        "width": 1320,
+        "height": 860
+      },
+      "actual": {
+        "width": 1320,
+        "height": 860,
+        "layoutWidth": 1320,
+        "devicePixelRatio": 1.25,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          1320,
+          860
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 1320,
+            "height": 860
+          },
+          "native": {
+            "contentSize": [
+              1320,
+              860
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1320,
+            "height": 860,
+            "layoutWidth": 1320,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Network and app-server observed after the runtime hook.",
+    "The one Windows fixture verifies its exact effects. No human or G3 acceptance is asserted."
+  ],
+  "asarSha256": "a87628e11afc5ac778415163c573c1b5b104460666a4ace575083be9f695d230",
+  "resourceSha256": "9907b02e25155215fa3b398185f971c42e0a02ddef62327c7a3b912f4fb5389a",
+  "closure": {
+    "main": {
+      "pid": 23420,
+      "startedAt": "639295110037567371",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\init34-final\\win-unpacked\\Madness.exe"
+    },
+    "wrapperPid": 48008,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-05T21:30:06.507Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  },
+  "helperStopped": true
+}

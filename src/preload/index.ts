@@ -102,14 +102,21 @@ const helpRequest=async(payload:Record<string,unknown>):Promise<HelpState>=>{
 const helpBridge:HelpBridge={read:()=>helpRequest({type:'read'}),prepare:projectId=>helpRequest({type:'prepare',projectId}),copy:()=>helpRequest({type:'copy'}),retrySave:conversationId=>helpRequest({type:'retry-save',conversationId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isHelpState(value))listener(value)};ipcRenderer.on(HELP_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(HELP_EVENT_CHANNEL,receive)}}
 contextBridge.exposeInMainWorld('madnessHelp',Object.freeze(helpBridge))
 
-import {BMAD_CONTEXT_COMMAND_CHANNEL,BMAD_CONTEXT_EVENT_CHANNEL,isBmadContextState} from '../contracts/bmad-context.ts'
+import {BMAD_CONTEXT_COMMAND_CHANNEL,BMAD_CONTEXT_EVENT_CHANNEL,isBmadConfigurationObservation,isBmadContextState} from '../contracts/bmad-context.ts'
 import type {BmadContextBridge,BmadContextState} from '../contracts/bmad-context.ts'
 const contextRequest=async(payload:Record<string,unknown>):Promise<BmadContextState>=>{
  const correlationId=crypto.randomUUID(),reply:unknown=await ipcRenderer.invoke(BMAD_CONTEXT_COMMAND_CHANNEL,{...payload,contractVersion:1,correlationId})
  if(!reply||typeof reply!=='object'||!('state' in reply)||!('correlationId' in reply)||reply.correlationId!==correlationId||!isBmadContextState(reply.state))throw Error('INVALID_CONTEXT_REPLY')
  return reply.state
 }
-const bmadContextBridge:BmadContextBridge={read:()=>contextRequest({type:'read'}),observe:projectId=>contextRequest({type:'observe',projectId}),choose:(projectId,initiativeId,revision)=>contextRequest({type:'choose',projectId,initiativeId,revision}),retrySave:projectId=>contextRequest({type:'retry-save',projectId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isBmadContextState(value))listener(value)};ipcRenderer.on(BMAD_CONTEXT_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(BMAD_CONTEXT_EVENT_CHANNEL,receive)}}
+const bmadContextBridge:BmadContextBridge={observeInitialization:async projectId=>{
+ const correlationId=crypto.randomUUID()
+ const reply:unknown=await ipcRenderer.invoke(BMAD_CONTEXT_COMMAND_CHANNEL,{contractVersion:1,correlationId,projectId,type:'observe-initialization'})
+ if(!reply||typeof reply!=='object'||Object.keys(reply).length!==3||!('contractVersion' in reply)||reply.contractVersion!==1||
+    !('correlationId' in reply)||reply.correlationId!==correlationId||!('observation' in reply)||
+    !isBmadConfigurationObservation(reply.observation)||reply.observation.projectId!==projectId)throw Error('INVALID_INITIALIZATION_OBSERVATION')
+ return reply.observation
+},read:()=>contextRequest({type:'read'}),observe:projectId=>contextRequest({type:'observe',projectId}),choose:(projectId,initiativeId,revision)=>contextRequest({type:'choose',projectId,initiativeId,revision}),retrySave:projectId=>contextRequest({type:'retry-save',projectId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isBmadContextState(value))listener(value)};ipcRenderer.on(BMAD_CONTEXT_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(BMAD_CONTEXT_EVENT_CHANNEL,receive)}}
 contextBridge.exposeInMainWorld('madnessBmadContext',Object.freeze(bmadContextBridge))
 
 import {BMAD_PROGRESS_COMMAND_CHANNEL,BMAD_PROGRESS_EVENT_CHANNEL,isBmadProgressState} from '../contracts/bmad-progress.ts'
@@ -164,3 +171,21 @@ import type {UsMetricsBridge,UsMetricsState} from '../contracts/us-metrics.ts'
 const metricsRequest=async(payload:Record<string,unknown>):Promise<UsMetricsState>=>{const correlationId=crypto.randomUUID(),reply:unknown=await ipcRenderer.invoke(US_METRICS_COMMAND_CHANNEL,{...payload,contractVersion:1,correlationId});if(!reply||typeof reply!=='object'||!('state' in reply)||!('correlationId' in reply)||reply.correlationId!==correlationId||!isUsMetricsState(reply.state))throw Error('INVALID_METRICS_REPLY');return reply.state}
 const metricsBridge:UsMetricsBridge={read:projectId=>metricsRequest({type:'read',projectId}),retrySave:projectId=>metricsRequest({type:'retry-save',projectId}),choose:(projectId,conversationId,requestId,storyRef,text,operation)=>metricsRequest({type:'choose',projectId,conversationId,requestId,storyRef,text,operation}),onChanged:fn=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isUsMetricsState(value))fn(value)};ipcRenderer.on(US_METRICS_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(US_METRICS_EVENT_CHANNEL,receive)}}
 contextBridge.exposeInMainWorld('madnessUsMetrics',Object.freeze(metricsBridge))
+
+import {INITIALIZATION_COMMAND_CHANNEL,INITIALIZATION_EVENT_CHANNEL,isInitializationReply,isInitializationView} from '../contracts/bmad-initialization.ts'
+import type {InitializationBridge} from '../contracts/bmad-initialization.ts'
+const initializationBridge:InitializationBridge={
+ request:async input=>{
+  const correlationId=crypto.randomUUID()
+  const reply:unknown=await ipcRenderer.invoke(INITIALIZATION_COMMAND_CHANNEL,{...input,contractVersion:1,correlationId})
+  if (!isInitializationReply(reply)||reply.correlationId!==correlationId||reply.state.projectId!==input.projectId) throw Error('INVALID_INITIALIZATION_REPLY')
+  if (reply.content&&(input.type!=='content'||reply.content.contentId!==input.contentId)) throw Error('INVALID_INITIALIZATION_CONTENT')
+  return reply
+ },
+ onChanged:listener=>{
+  const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isInitializationView(value))listener(value)}
+  ipcRenderer.on(INITIALIZATION_EVENT_CHANNEL,receive)
+  return ()=>ipcRenderer.removeListener(INITIALIZATION_EVENT_CHANNEL,receive)
+ }
+}
+contextBridge.exposeInMainWorld('madnessBmadInitialization',Object.freeze(initializationBridge))

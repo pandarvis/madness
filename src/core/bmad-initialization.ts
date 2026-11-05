@@ -1,6 +1,6 @@
 import {createHash} from 'node:crypto'
 import {
- validateInitializationPlan,validateInitializationFact,validateInitializationOperation,
+ INITIALIZATION_ATTEMPT_LIMIT,validateInitializationPlan,validateInitializationFact,validateInitializationOperation,
  validateInitializationCommand,validateInitializationContent,sameInitializationData,sameEntries
 } from '../contracts/bmad-initialization.ts'
 import type {
@@ -58,7 +58,8 @@ export class BmadInitialization{
   this.#deps=deps
   this.#unsubscribe=deps.context.subscribeInvalidation(id=>this.invalidate(id))
  }
- read():InitializationState{return {contractVersion:1,sequence:this.#sequence,operations:[...this.#entries.values()].map(e=>copied(e.operation))}}
+ read(projectId?:string):InitializationState{return {contractVersion:1,sequence:this.#sequence,operations:[...this.#entries.values()].filter(e=>projectId===undefined||e.operation.projectId===projectId).map(e=>copied(e.operation))}}
+ hasUnconfirmedStop():boolean{return [...this.#entries.values()].some(e=>e.operation.stop==='unknown')}
  subscribe(listener:(state:InitializationState)=>void):()=>void{this.#listeners.add(listener);return()=>this.#listeners.delete(listener)}
  #emit():void{this.#sequence++;for(const listener of this.#listeners)try{listener(this.read())}catch{}}
  #touch(e:Entry,notify=true):void{
@@ -117,7 +118,7 @@ export class BmadInitialization{
   return valid
  }
  async prepare(projectId:string):Promise<InitializationValidation<InitializationOperation>>{
-  if(this.#closing)return rejected('UNAVAILABLE')
+  if(this.#closing||this.#entries.size>=INITIALIZATION_ATTEMPT_LIMIT)return rejected('UNAVAILABLE')
   if(!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(projectId))return rejected('INVALID_SHAPE')
   if(this.#preparing.has(projectId))return rejected('BUSY')
   const previous=[...this.#entries.values()].find(e=>e.operation.projectId===projectId&&e.operation.phase!=='historical'&&e.operation.phase!=='terminal')
@@ -156,7 +157,12 @@ export class BmadInitialization{
    e.operation.phase='ready';e.operation.stop='confirmed';this.#touch(e)
    await this.#save(e);return this.#value(e)
   }catch(error){
-   if(e.operation.phase!=='historical')this.#beforeEffect(e,'preparation-failed','Preparation refused before any target application.')
+   if(e.operation.phase!=='historical'){
+    const code=(error as Error).message
+    const reason=['PROJECT_NAME_REFUSED','RESERVED_COLLISION','UNSAFE_DIRECTORY','UNSAFE_ENTRY','UNSAFE_FILE','TREE_LIMIT','TREE_LIMIT_OR_COLLISION','RESOURCE_SEAL'].includes(code)?code:'Preparation refused before any target application.'
+    this.#beforeEffect(e,'preparation-failed',reason)
+    await this.#save(e)
+   }
    return rejected((error as Error).message==='BUSY'?'BUSY':'UNTRUSTED')
   }finally{this.#preparing.delete(projectId);release?.()}
  }
@@ -274,7 +280,7 @@ export class BmadInitialization{
  restore(input:unknown):InitializationValidation<InitializationOperation>{
   const restored=restoreInitializationOperation(input);if(!restored.ok)return restored
   const op=restored.value
-  if(this.#closing||this.#entries.has(op.attemptId))return rejected('INVALID_TRANSITION')
+  if(this.#closing||this.#entries.size>=INITIALIZATION_ATTEMPT_LIMIT||this.#entries.has(op.attemptId))return rejected('INVALID_TRANSITION')
   // No application/context/helper/inspection/storage port is touched by restoration.
   const target=op.plan&&(['partial','unknown'].includes(op.result.outcome)||op.stop==='unknown')?op.plan.identity.rootIdentity:null
   const e:Entry={operation:op,controller:new AbortController(),captured:null,original:null,producer:null,authority:null,effectRequested:false,busy:false,target,writes:Promise.resolve()}
@@ -284,7 +290,7 @@ export class BmadInitialization{
   return {ok:true,value:copied(op)}
  }
  #save(e:Entry):Promise<number|null>{
-  if(this.#closing)return Promise.resolve(null)
+  if(this.#closing||!e.captured&&!e.operation.plan)return Promise.resolve(null)
   const work=e.writes.then(async()=>{
    const op=e.operation
    if(op.preservation.status==='unreadable')return null

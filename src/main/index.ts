@@ -1,3 +1,8 @@
+import {BmadInitializationHost,assertInitializationOutsideStorage} from '../adapters/bmad/initialization.ts'
+import {BmadInitializationStore} from '../adapters/persistence/bmad-initialization-store.ts'
+import {BmadInitialization} from '../core/bmad-initialization.ts'
+import {INITIALIZATION_COMMAND_CHANNEL,INITIALIZATION_EVENT_CHANNEL,isInitializationReply,isInitializationView,validateInitializationRequest} from '../contracts/bmad-initialization.ts'
+import type {InitializationContent,InitializationIssueCode,InitializationView} from '../contracts/bmad-initialization.ts'
 import {UsMetricsCoordinator} from '../core/us-metrics.ts'
 import {UsMetricsStore} from '../adapters/persistence/us-metrics-store.ts'
 import {US_METRICS_COMMAND_CHANNEL,US_METRICS_EVENT_CHANNEL,isUsMetricsCommand,isUsMetricsState,initialUsMetricsState} from '../contracts/us-metrics.ts'
@@ -21,7 +26,7 @@ import {BmadProgressCoordinator} from '../core/bmad-progress.ts'
 import {BMAD_PROGRESS_COMMAND_CHANNEL,BMAD_PROGRESS_EVENT_CHANNEL,isBmadProgressCommand,isBmadProgressState,initialBmadProgressState} from '../contracts/bmad-progress.ts'
 import {BmadContextStore} from '../adapters/persistence/bmad-context-store.ts'
 import {BmadContextCoordinator} from '../core/bmad-context.ts'
-import {BMAD_CONTEXT_COMMAND_CHANNEL,BMAD_CONTEXT_EVENT_CHANNEL,isBmadContextCommand,isBmadContextState,initialBmadContextState} from '../contracts/bmad-context.ts'
+import {BMAD_CONTEXT_COMMAND_CHANNEL,BMAD_CONTEXT_EVENT_CHANNEL,isBmadConfigurationObservation,isBmadContextCommand,isBmadInitializationObservationCommand,isBmadContextState,initialBmadContextState} from '../contracts/bmad-context.ts'
 import {BmadHelpAdapter} from '../adapters/bmad/help.ts'
 import {HelpOwnedRun} from '../adapters/bmad/help-owned-run.ts'
 import {BmadHelpStore} from '../adapters/persistence/bmad-help-store.ts'
@@ -178,8 +183,9 @@ else {
     let catalogQualification:BmadCatalogLaunchCoordinator|null=null
     const helperOwner=new HelpOwnedRun(join(app.getPath('userData'),'bmad-help-owned-v1.json'))
     const admission=new ActivityAdmission()
+    let initialization:BmadInitialization|undefined
     const graphOwner=new GraphOwnedRun(join(app.getPath('userData'),'graph-owned-v1.json'))
-    const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),helperOwner.status(),graphOwner.status(),qualificationOwner.status()])).every(s=>s==='stopped')?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await catalogQualification?.stopQualification();await Promise.all([helperOwner.cancel().catch(()=>{}),graphOwner.cancel().catch(()=>{})]);const states=await Promise.all([ownedRun.observeStop(),helperOwner.observeStop(),graphOwner.observeStop(),qualificationOwner.observeStop()]);if(states.every(s=>s==='stopped')){await graphCoordinator.reconcileNativeStop(await graphOwner.stopProof());admission.clearBlock();return 'stopped'}return 'unknown'}}
+    const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),helperOwner.status(),graphOwner.status(),qualificationOwner.status()])).every(s=>s==='stopped')?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await catalogQualification?.stopQualification();await Promise.all([helperOwner.cancel().catch(()=>{}),graphOwner.cancel().catch(()=>{})]);const states=await Promise.all([ownedRun.observeStop(),helperOwner.observeStop(),graphOwner.observeStop(),qualificationOwner.observeStop()]);if(states.every(s=>s==='stopped')&&!initialization?.hasUnconfirmedStop()){await graphCoordinator.reconcileNativeStop(await graphOwner.stopProof());admission.clearBlock();return 'stopped'}return 'unknown'}}
     if(await recovery.status()!=='stopped')admission.block()
     const graphAdapter=new GraphifyAdapter({root:join(app.getPath('userData'),'graph-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'graphify'):join(app.getAppPath(),'resources/graphify'),owner:graphOwner,admission,admit:async()=>{if(connection?.hasOperation())throw Error('BUSY');if(await recovery.status()!=='stopped'){admission.block();throw Error('STOP_UNCONFIRMED')}},onUnknown:()=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()}})
     const helpAdapter=new BmadHelpAdapter({root:join(app.getPath('userData'),'bmad-help-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'bmad-help'):join(app.getAppPath(),'resources/bmad-help'),owner:helperOwner,admission,onUnknown:()=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()},admit:async internal=>{
@@ -201,13 +207,108 @@ else {
     const contextAdapter=new BmadContextAdapter(helpAdapter)
     const contextCoordinator=new BmadContextCoordinator({application,observation,projectIds:async()=>{if(!application)throw Error('APP_CLOSING');const reply=await application.execute({contractVersion:1,correlationId:'bmad-context-restore',type:'read-state'});if(!reply.ok)throw Error(reply.error.code);return reply.value.state.projects.map(project=>project.id)},observeConsultation:(id,root,signal)=>contextAdapter.consult(id,root,signal),store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal)})
     application.lifecycle.register({id:'bmad-context',context:emptyContext(),stop:async()=>{await contextCoordinator.shutdown();return 'stopped'}})
+    const initializationHost=new BmadInitializationHost(join(app.isPackaged?process.resourcesPath:join(app.getAppPath(),'resources'),'bmad-init','payload-v1.json.gz'))
+    const captureInitialization=async(id:string,signal:AbortSignal)=>{
+      const project=await application!.dialogueProject(id)
+      await assertInitializationOutsideStorage(project.rootPath,app.getPath('userData'))
+      signal.throwIfAborted()
+      const observation=await initializationHost.observeAbsence(project.id,project.rootPath,signal)
+      const current=await application!.dialogueProject(id)
+      signal.throwIfAborted()
+      if(current.rootPath!==project.rootPath||!isBmadConfigurationObservation(observation))throw Error('INITIALIZATION_CONTEXT_CHANGED')
+      return {scope:'configuration' as const,observation,initiativeId:null}
+    }
     ipcMain.handle(BMAD_CONTEXT_COMMAND_CHANNEL,async(event,input:unknown)=>{
-      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadContextCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadContextState()}
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadContextState()}
+      if(isBmadInitializationObservationCommand(input)){
+        const capture=await captureInitialization(input.projectId,new AbortController().signal)
+        return {contractVersion:1,correlationId:input.correlationId,observation:capture.observation}
+      }
+      if(!isBmadContextCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadContextState()}
       const state=await contextCoordinator.execute(input)
       if(!isBmadContextState(state))throw Error('INVALID_CONTEXT_STATE')
       return {contractVersion:1,correlationId:input.correlationId,state}
     })
     contextCoordinator.subscribe(state=>{if(isBmadContextState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(BMAD_CONTEXT_EVENT_CHANNEL,state)})
+    const initializationStore=new BmadInitializationStore(join(app.getPath('userData'),'bmad-initialization-v1'))
+    const initializationService=new BmadInitialization({context:{
+      capture:(id,_requiresInitiative,signal)=>captureInitialization(id,signal),
+      subscribeInvalidation:listener=>contextCoordinator.subscribeInvalidation(listener),
+      assertFresh:async(captured,signal)=>{
+        const current=await captureInitialization(captured.observation.projectId,signal)
+        if(current.observation.status!=='absent'||current.observation.rootPath!==captured.observation.rootPath||
+           current.observation.rootIdentity!==captured.observation.rootIdentity||current.observation.revision!==captured.observation.revision)throw Error('INITIALIZATION_CONTEXT_CHANGED')
+      }
+    },host:initializationHost,
+      store:initializationStore,admission,lifecycle:application.lifecycle,newId:randomUUID})
+    initialization=initializationService
+    let initializationAvailability:InitializationView['availability']='available'
+    try {
+      for (const record of await initializationStore.list()) {
+        if (!initializationService.restore(record).ok) throw Error('INITIALIZATION_STORE_UNREADABLE')
+      }
+    } catch { initializationAvailability='storage-unreadable' }
+    if (initializationService.hasUnconfirmedStop()) admission.block()
+    let initializationClosing=false
+    const initializationRequests=new Set<Promise<unknown>>()
+    application.lifecycle.register({id:'bmad-initialization',context:emptyContext(),stop:async()=>{
+      initializationClosing=true
+      await initializationService.shutdown()
+      await initializationHost.shutdown()
+      await Promise.allSettled(initializationRequests)
+      await initializationStore.drain()
+      return initializationService.hasUnconfirmedStop()?'unknown':'stopped'
+    }})
+    const initializationView=(projectId:string):InitializationView=>({...initializationService.read(projectId),projectId,availability:initializationAvailability})
+    ipcMain.handle(INITIALIZATION_COMMAND_CHANNEL,async(event,input:unknown)=>{
+      if (initializationClosing || !window || !isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)) throw Error('INITIALIZATION_UNTRUSTED')
+      const parsed=validateInitializationRequest(input)
+      if (!parsed.ok) throw Error('INVALID_INITIALIZATION_COMMAND')
+      const command=parsed.value, {projectId,correlationId}=command
+      const work=(async()=>{
+        const project=await application!.dialogueProject(projectId)
+        if (initializationClosing || project.id!==projectId) throw Error('INITIALIZATION_UNAVAILABLE')
+        let issue:InitializationIssueCode|null=null, content:InitializationContent|null=null
+        if (command.type!=='read') {
+          if (initializationAvailability!=='available') issue='UNAVAILABLE'
+          else {
+            const operation='attemptId' in command?initializationService.read(projectId).operations.find(op=>
+              op.attemptId===command.attemptId&&op.generation===command.generation):undefined
+            const result=command.type==='prepare'?await initializationService.prepare(projectId):
+              command.type==='decision'?await initializationService.execute(command.command):
+              command.type==='cancel-preparation'?await initializationService.cancelPreparation(projectId,command.attemptId,command.generation):
+              command.type==='retry-save'&&operation?await initializationService.retrySave(operation.attemptId):null
+            if (result&&!result.ok) issue=result.issues[0].code
+            else if (command.type==='content') {
+              if (operation?.plan?.id!==command.planId||operation?.plan.revision!==command.planRevision) issue='CONTEXT_MISMATCH'
+              else {
+                const preview=await initializationService.content(operation.attemptId,command.contentId)
+                if (preview.ok) content=preview.value
+                else issue=preview.issues[0].code
+              }
+            } else if (!result) issue='CONTEXT_MISMATCH'
+          }
+        }
+        const reply={contractVersion:1,correlationId,state:initializationView(projectId),issue,content}
+        if (!isInitializationReply(reply)) throw Error('INVALID_INITIALIZATION_REPLY')
+        return reply
+      })()
+      initializationRequests.add(work)
+      try { return await work } finally { initializationRequests.delete(work) }
+    })
+    initializationService.subscribe(state=>{
+      if (initializationClosing||!window||window.isDestroyed()||window.webContents.mainFrame.url!==rendererUrl) return
+      const projects=new Map<string,InitializationView>()
+      for (const operation of state.operations) {
+        let view=projects.get(operation.projectId)
+        if (!view) {
+          view={...state,projectId:operation.projectId,availability:initializationAvailability,operations:[]}
+          projects.set(operation.projectId,view)
+        }
+        view.operations.push(operation)
+      }
+      for (const view of projects.values()) if (isInitializationView(view)) window.webContents.send(INITIALIZATION_EVENT_CHANNEL,view)
+    })
     const projectFiles=new ProjectFilesCoordinator({application,authority:value=>graphAdapter.filesAuthority(value)??helpAdapter.filesAuthority(value),clipboard,admission,editor:uri=>shell.openExternal(uri)})
     application.lifecycle.register({id:'project-files',context:emptyContext(),stop:async()=>{await projectFiles.shutdown();return 'stopped'}})
     ipcMain.handle(PROJECT_FILES_COMMAND_CHANNEL,async(event,input:unknown)=>{

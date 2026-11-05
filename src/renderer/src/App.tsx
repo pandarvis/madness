@@ -1,3 +1,5 @@
+import {InitializationEntryPoint,InitializationPanel,useInitialization} from './InitializationPanel.tsx'
+import type {InitializationArrival} from './InitializationPanel.tsx'
 import {formatNumber,formatCount} from './locale-format.ts'
 import {presentProductText} from './product-copy.ts'
 import {useLocale,useLocalText,LanguageControl} from './Locale.tsx'
@@ -211,6 +213,9 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [forgePreparation,setForgePreparation]=useState(false)
   const [preparationFocus,setPreparationFocus]=useState<{token:number;projectId:string}|null>(null)
   const [contextOpen,setContextOpen]=useState(false)
+  const [initializationArrival,setInitializationArrival]=useState<(InitializationArrival&{trigger:HTMLElement})|null>(null)
+  const initializationOpen=page==='project'&&!!initializationArrival&&initializationArrival.projectId===project?.id
+  const [initializationState,acceptInitialization]=useInitialization(page==='project'?project?.id:undefined)
   const [agentConsultation,setAgentConsultation]=useState<AgentConsultation|null>(null)
   const agentFocusReturn=useRef<HTMLElement|null>(null)
   const contextTrigger=useRef<HTMLButtonElement>(null)
@@ -279,7 +284,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   },[page,tab,project?.id,conversation?.id,dialogue.messages,state,agentConsultation])
   useEffect(()=>{setForgePreparation(false)},[project?.id])
   useEffect(()=>{setContextOpen(false)},[project?.id,page])
-  useEffect(()=>{if(contextOpen)contextHeading.current?.focus()},[contextOpen])
+  useEffect(()=>{if(!contextOpen)setInitializationArrival(null);else if(!initializationOpen)contextHeading.current?.focus()},[contextOpen,initializationOpen])
   useLayoutEffect(()=>{
     if(!preparationFocus||preparationFocus.token!==navigationToken.current)return
     if(page!=='project'||project?.id!==preparationFocus.projectId||tab!=='parcours')return
@@ -536,7 +541,17 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   function returnFromGraph():void{if(!project)return;const target=graphReturns.current.get(project.id);if(!target||target.rootPath!==project.rootPath||target.initiative!==(initiativeContext?.selection?.initiativeId??null)||target.conversationId!==(conversation?.id??null)){setNotice(l=>l.ui.exact_return_unavailable_work_context_changed);heading.current?.focus();return}const token=++navigationToken.current,id=project.id;setFocusTarget(null);setPending(false);setTab(target.tab);requestAnimationFrame(()=>{if(!navigationCurrent({token,projectId:id},navigationToken.current,currentProjectId.current))return;const input=target.inputId?document.getElementById(target.inputId):null,element=target.trigger?.isConnected?target.trigger:input??document.getElementById('tab-'+target.tab)??heading.current;element?.focus({preventScroll:true});if((input instanceof HTMLTextAreaElement||input instanceof HTMLInputElement)&&target.start!==null&&target.end!==null)input.setSelectionRange(target.start,target.end);const main=document.getElementById('main');if(main)main.scrollTop=target.top})}
 
   function prepareExchange():void {if(!project)return;const token=++navigationToken.current;setFocusTarget(null);setPending(false);setTab('parcours');setPreparationFocus({token,projectId:project.id})}
-  function closeContext():void {setContextOpen(false);contextTrigger.current?.focus()}
+  function openInitialization(trigger:HTMLElement,attemptId:string|null):void {
+    if(page!=='project'||!project||currentProjectId.current!==project.id)return
+    closeAgentInfo(false);setConnectionOpen(false)
+    setInitializationArrival({projectId:project.id,attemptId,trigger});setContextOpen(true)
+  }
+  function closeContext():void {
+    const trigger=initializationOpen?initializationArrival?.trigger:null
+    setContextOpen(false);setInitializationArrival(null)
+    if(trigger?.isConnected&&!trigger.closest('#project-context-panel'))trigger.focus()
+    else contextTrigger.current?.focus()
+  }
   const navigation = <>
     <button className={'nav-button ' + (page === 'home' ? 'selected' : '')} aria-label={fr.home} aria-current={page === 'home' ? 'page' : undefined} title={fr.home} onClick={home}><Icon name="home" /><span className="nav-label">{fr.home}</span></button>
     <h2 className="nav-section nav-label">{fr.recent}</h2>
@@ -597,6 +612,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
               </div>
               <div className="project-tabs" role="tablist" aria-label={ui.project_views}>{(['parcours','conversation','catalogue','graphe'] as const).map((item,index,tabs)=><button key={item} id={'tab-'+item} type="button" role="tab" aria-selected={tab===item} aria-controls={'panel-'+item} tabIndex={tab===item?0:-1} onClick={()=>chooseTab(item)} onKeyDown={event=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:tabs.length-1))%tabs.length;document.getElementById('tab-'+tabs[next])?.focus()}}}>{item==='parcours'?ui.journey:item==='conversation'?'Conversation':item==='catalogue'?ui.all_possibilities:ui.graph}</button>)}</div>
 </>)}
+            {page==='project'&&project&&(tab==='parcours'||initializationState?.operations.length)
+              ?<InitializationEntryPoint state={initializationState} onOpen={openInitialization}/>:null}
             {workReturn&&<button type="button" className="text-button return-to-work" onClick={returnToWork}>{ui.return_to_work} {state?.projects.find(p=>p.id===workReturn.projectId)?.name??ui.project_unavailable}</button>}
             {overview&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} compact={page==='project'&&(tab==='conversation'||tab==='catalogue'||tab==='graphe')} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} onNavigate={target=>void navigateOverview(target)} onConnection={openConnection}/>}
             {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<details className="recovery-details global-recovery"><summary>{ui.global_recovery_details}</summary><section id="overview-session-recovery" tabIndex={-1} aria-label={ui.global_recovery}><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section></details>}
@@ -691,7 +708,11 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       </div>
     </div>
     </div>
-        {contextOpen && page === 'project' && project && <section id="project-context-panel" className="context-panel" role="dialog" aria-modal="false" aria-labelledby="project-context-title"><div className="connection-heading"><h2 id="project-context-title" ref={contextHeading} tabIndex={-1}>{ui.project_context}</h2><button type="button" aria-label={ui.close_project_context} onClick={closeContext}><Icon name="close"/></button></div><p>{ui.source_folder_chosen_through_windows}</p><dl><dt>{ui.canonical_folder}</dt><dd><code>{project.rootPath}</code></dd><dt>{ui.selected_conversation}</dt><dd><code>{conversation?.id??ui.none_2}</code></dd><InitiativeContext project={initiativeContext}/><dt>{ui.initiative_captured_by_the_conversation}</dt><dd>{conversation?conversation.context.initiativeId??ui.not_identified_2:ui.no_selected_conversation}</dd><dt>{ui.persistence}</dt><dd>{ui.exchanges_observations_and_draft_in_madness_local_data}</dd><dt>{ui.activity}</dt><dd>{dialogueHere ? displayedDialogueStatus : ui.no_active_agent_in_this_project}</dd><dt>{ui.provider}</dt><dd>{ui.codex_madness_owned_connection}</dd><dt>{ui.project_files}</dt><dd>{workflow?ui.writes_limited_to_the_captured_new_forge_session:ui.mary_read_only_by_default_file_mode_with_approval_must_be_enabled}</dd></dl></section>}
+        {contextOpen && page === 'project' && project && <section id="project-context-panel" className={initializationOpen?"context-panel initialization-context":"context-panel"} role="dialog" aria-modal="false" aria-labelledby="project-context-title"><div className="connection-heading"><h2 id="project-context-title" ref={contextHeading} tabIndex={-1}>{ui.project_context}</h2><button type="button" aria-label={ui.close_project_context} onClick={closeContext}><Icon name="close"/></button></div><p>{ui.source_folder_chosen_through_windows}</p><dl><dt>{ui.canonical_folder}</dt><dd><code>{project.rootPath}</code></dd><dt>{ui.selected_conversation}</dt><dd><code>{conversation?.id??ui.none_2}</code></dd><InitiativeContext project={initiativeContext}/><dt>{ui.initiative_captured_by_the_conversation}</dt><dd>{conversation?conversation.context.initiativeId??ui.not_identified_2:ui.no_selected_conversation}</dd><dt>{ui.persistence}</dt><dd>{ui.exchanges_observations_and_draft_in_madness_local_data}</dd><dt>{ui.activity}</dt><dd>{dialogueHere ? displayedDialogueStatus : ui.no_active_agent_in_this_project}</dd><dt>{ui.provider}</dt><dd>{ui.codex_madness_owned_connection}</dd><dt>{ui.project_files}</dt><dd>{workflow?ui.writes_limited_to_the_captured_new_forge_session:ui.mary_read_only_by_default_file_mode_with_approval_must_be_enabled}</dd></dl>
+         {initializationOpen&&initializationArrival?<InitializationPanel key={project.id} projectId={project.id} rootPath={project.rootPath} arrival={initializationArrival}
+           state={initializationState} accept={acceptInitialization} onClose={closeContext}/>
+           :<InitializationEntryPoint state={null} onOpen={openInitialization}/>}
+        </section>}
     <dialog id="navigation-drawer" className="navigation-drawer" ref={drawer} aria-labelledby="drawer-title" onClose={() => drawerTrigger.current?.focus()} onClick={(event) => { if (event.target === drawer.current) closeDrawer() }}>
       <div className="drawer-heading"><h2 id="drawer-title">{fr.app}</h2><LanguageControl/><button aria-label={ui.close_navigation} onClick={closeDrawer}><Icon name="close" /></button></div><nav aria-label={ui.projects_in_a_compact_window}>{navigation}</nav>
     </dialog>

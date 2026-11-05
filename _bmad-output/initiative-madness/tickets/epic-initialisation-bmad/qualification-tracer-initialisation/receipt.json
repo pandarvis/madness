@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "consent": "synthetic-fixture-only",
+  "humanAcceptance": false,
+  "cleanup": true,
+  "checks": [
+    "P1: displayed exact plan, 588 additions and untouched target",
+    "P2: same identity, focus on the neutral title and exact configuration preview",
+    "P3: exclusive additions, final exhaustive union and matching durable receipt",
+    "Return to the same project preserves its draft"
+  ],
+  "captures": [
+    {
+      "file": "plan-fr-dark.png",
+      "sha256": "eba7f7a3d2d6b4cc6081107f6997b171a0b57d0d0eeccd8d218d15b0e637a5d1"
+    },
+    {
+      "file": "decision-fr-dark.png",
+      "sha256": "00e43264fd91d5e734e739da43a92dca1a6a1dd78f519f94b548a634b871fe97"
+    },
+    {
+      "file": "result-light-zoom-200.png",
+      "sha256": "9ff122f7a3d250fd633f1663511907356ae63e35dcbf0ef38d4444ecafad8439"
+    }
+  ],
+  "viewports": [
+    {
+      "requested": {
+        "width": 1320,
+        "height": 860
+      },
+      "actual": {
+        "width": 1320,
+        "height": 860,
+        "layoutWidth": 1320,
+        "devicePixelRatio": 1.25,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          1320,
+          860
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 1320,
+            "height": 860
+          },
+          "native": {
+            "contentSize": [
+              1320,
+              860
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1320,
+            "height": 860,
+            "layoutWidth": 1320,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "requested": {
+        "width": 700,
+        "height": 640
+      },
+      "actual": {
+        "width": 700,
+        "height": 640,
+        "layoutWidth": 700,
+        "devicePixelRatio": 1.25,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": true,
+            "matches": true
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": true,
+            "matches": true
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          700,
+          640
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 700,
+            "height": 640
+          },
+          "native": {
+            "contentSize": [
+              700,
+              640
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 700,
+            "height": 640,
+            "layoutWidth": 700,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": true,
+                "matches": true
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": true,
+                "matches": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Network and app-server observed after the runtime hook.",
+    "The one Windows fixture verifies its exact effects. No human or G3 acceptance is asserted."
+  ],
+  "asarSha256": "898e570bea46c6d5f27abd819305bd412a0d423c7ff886136200e5562571df01",
+  "resourceSha256": "9907b02e25155215fa3b398185f971c42e0a02ddef62327c7a3b912f4fb5389a",
+  "plan": {
+    "id": "plan-064a0cce-6261-4f12-878f-91e6eda7ca0f",
+    "revision": "fc5a021fc25d71e49132d904c5b42440c578fbd9f5eaef0937178a584f4fc05d",
+    "configurationSha256": "e6d0012ed0c41293542422fbcc91577b1b3c73261ee25084b70eced90d5df26c",
+    "additions": 588
+  },
+  "before": {
+    "entries": 3,
+    "sha256": "0df866cae7fe3432a62e773d1a7ecf08199d4b4176fb72035ef24acbdb53f108"
+  },
+  "after": {
+    "entries": 591,
+    "sha256": "fb722141aa7f8976b2d8fdf663428936a0a9a894e2be9c11b632b53f10fab158"
+  },
+  "result": {
+    "outcome": "verified",
+    "stop": "confirmed",
+    "durableRevision": 6,
+    "exactUnion": true
+  },
+  "zoom": {
+    "width": 350,
+    "height": 320,
+    "scale": 2.5,
+    "language": "en"
+  },
+  "closure": {
+    "main": {
+      "pid": 13252,
+      "startedAt": "639295099987219531",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\init34-witness\\win-unpacked\\Madness.exe"
+    },
+    "wrapperPid": 31224,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-05T21:13:25.834Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  },
+  "helperStopped": true
+}

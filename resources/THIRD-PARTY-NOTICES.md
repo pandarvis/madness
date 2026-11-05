@@ -285,3 +285,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 ## Atelier character edition v2 — 3 November 2026
 
 The seven character busts were restyled with built-in ImageGen at the user’s request. Original adult identities are retained with exaggerated comic acting, hard cel shading and eccentric role-specific accessories. Native generated files are copied bit for bit, without postprocessing. Exact prompts, source/reference hashes and output hashes are recorded in resources/atelier-cast-v2/provenance.json in the repository. The environments and painted frame are unchanged.
+
+## Profil BMad pour l’initialisation locale
+
+Le bundle resources/bmad-init/payload-v1.json.gz embarque les fichiers du profil local 6.13.0-next qualifiés en 3.1. Leur attribution BMad Code, LLC et leur licence MIT figurent dans la section BMad ci-dessus. Le manifeste local épinglé décrit leurs octets ; aucun commit amont exact n’a été établi pour ce profil. La configuration embarquée est matérialisée par dossier lors de la préparation et le verrou local Skills est exclu.

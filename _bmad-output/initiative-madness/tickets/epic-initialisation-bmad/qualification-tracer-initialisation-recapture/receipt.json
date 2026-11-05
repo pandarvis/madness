@@ -1,0 +1,337 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "consent": "synthetic-fixture-only",
+  "humanAcceptance": false,
+  "cleanup": true,
+  "checks": [
+    "P1: displayed exact plan, 588 additions and untouched target",
+    "P2: same identity, focus on the neutral title and exact configuration preview",
+    "P3: exclusive additions, final exhaustive union and matching durable receipt",
+    "Return to the same project preserves its draft"
+  ],
+  "captures": [
+    {
+      "file": "plan-fr-dark.png",
+      "sha256": "aa4cddd91c36859acd548eed80c9613c63d71fa148c5eefb7ce66ff4bf28a7c5",
+      "pixels": {
+        "width": 1650,
+        "height": 1075
+      },
+      "metrics": {
+        "width": 1320,
+        "height": 860,
+        "scale": 1.25
+      },
+      "zoom": 1,
+      "method": "native capturePage without rectangle"
+    },
+    {
+      "file": "decision-fr-dark.png",
+      "sha256": "a55cde5e4584ac5c47c4180ba5b013bc64bd3b268e11df4bde3d04573d23f692",
+      "pixels": {
+        "width": 1650,
+        "height": 1075
+      },
+      "metrics": {
+        "width": 1320,
+        "height": 860,
+        "scale": 1.25
+      },
+      "zoom": 1,
+      "method": "native capturePage without rectangle"
+    },
+    {
+      "file": "result-light-zoom-200.png",
+      "sha256": "4836137ac823ad617c61fc316fd8d3615565a20c07c8a50d11108ee4354dcfdf",
+      "pixels": {
+        "width": 1650,
+        "height": 1075
+      },
+      "metrics": {
+        "width": 660,
+        "height": 430,
+        "scale": 2.5
+      },
+      "zoom": 2,
+      "method": "native capturePage without rectangle"
+    }
+  ],
+  "viewports": [
+    {
+      "requested": {
+        "width": 1320,
+        "height": 860
+      },
+      "actual": {
+        "width": 1320,
+        "height": 860,
+        "layoutWidth": 1320,
+        "devicePixelRatio": 1.25,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          1320,
+          860
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 1320,
+            "height": 860
+          },
+          "native": {
+            "contentSize": [
+              1320,
+              860
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1320,
+            "height": 860,
+            "layoutWidth": 1320,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "requested": {
+        "width": 1320,
+        "height": 860
+      },
+      "actual": {
+        "width": 1320,
+        "height": 860,
+        "layoutWidth": 1320,
+        "devicePixelRatio": 1.25,
+        "settledBy": "animation-frames",
+        "queries": [
+          {
+            "query": "(max-width: 720px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1080px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-width: 1280px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1323px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(min-width: 1600px)",
+            "expected": false,
+            "matches": false
+          },
+          {
+            "query": "(max-height: 700px)",
+            "expected": false,
+            "matches": false
+          }
+        ]
+      },
+      "native": {
+        "contentSize": [
+          1320,
+          860
+        ],
+        "zoomFactor": 1
+      },
+      "exact": true,
+      "limitation": null,
+      "attempts": [
+        {
+          "requestedNative": {
+            "width": 1320,
+            "height": 860
+          },
+          "native": {
+            "contentSize": [
+              1320,
+              860
+            ],
+            "zoomFactor": 1
+          },
+          "actual": {
+            "width": 1320,
+            "height": 860,
+            "layoutWidth": 1320,
+            "devicePixelRatio": 1.25,
+            "settledBy": "animation-frames",
+            "queries": [
+              {
+                "query": "(max-width: 720px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1080px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-width: 1280px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1323px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(min-width: 1600px)",
+                "expected": false,
+                "matches": false
+              },
+              {
+                "query": "(max-height: 700px)",
+                "expected": false,
+                "matches": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Network and app-server observed after the runtime hook.",
+    "The one Windows fixture verifies its exact effects. No human or G3 acceptance is asserted."
+  ],
+  "asarSha256": "898e570bea46c6d5f27abd819305bd412a0d423c7ff886136200e5562571df01",
+  "resourceSha256": "9907b02e25155215fa3b398185f971c42e0a02ddef62327c7a3b912f4fb5389a",
+  "plan": {
+    "id": "plan-52121fc0-d264-4e48-9796-70ec9b0ff878",
+    "revision": "3995557572a68be7497eeab86542fd138e0ef152487cd2883bdef7775931e002",
+    "configurationSha256": "e6d0012ed0c41293542422fbcc91577b1b3c73261ee25084b70eced90d5df26c",
+    "additions": 588
+  },
+  "before": {
+    "entries": 3,
+    "sha256": "0df866cae7fe3432a62e773d1a7ecf08199d4b4176fb72035ef24acbdb53f108"
+  },
+  "after": {
+    "entries": 591,
+    "sha256": "fb722141aa7f8976b2d8fdf663428936a0a9a894e2be9c11b632b53f10fab158"
+  },
+  "result": {
+    "outcome": "verified",
+    "stop": "confirmed",
+    "durableRevision": 6,
+    "exactUnion": true
+  },
+  "zoom": {
+    "width": 660,
+    "height": 430,
+    "scale": 2.5,
+    "language": "en"
+  },
+  "closure": {
+    "main": {
+      "pid": 852,
+      "startedAt": "639295101623067630",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\init34-witness\\win-unpacked\\Madness.exe"
+    },
+    "wrapperPid": 36880,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-05T21:16:05.345Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  },
+  "helperStopped": true
+}

@@ -1,0 +1,32 @@
+{
+  "scope": "read-only fs.realpath plus three in-memory prepares, no actual initialization/native gate",
+  "command": "Node --input-type=module via stdin; source context configured with actual realpath of cwd",
+  "exit": 0,
+  "producerEvidence": "src/adapters/bmad/help.ts directory() returns nativeRealpath.native; observeConfiguration assigns rootPath:root; core context accepts normalized separator equivalence",
+  "rows": [
+    {
+      "capture": "forward",
+      "plan": "forward",
+      "planValid": true,
+      "prepared": true,
+      "applyCalls": 0,
+      "saveDoubleCalls": 1
+    },
+    {
+      "capture": "native Windows",
+      "plan": "native Windows",
+      "planValid": false,
+      "issue": "INVALID_PATH at identity.rootPath",
+      "prepared": false,
+      "applyCalls": 0
+    },
+    {
+      "capture": "native Windows",
+      "plan": "forward",
+      "planValid": true,
+      "prepared": false,
+      "applyCalls": 0
+    }
+  ],
+  "conclusion": "ordinary native Windows captured roots cannot enter the new boundary; forward-only fixtures hide incompatibility. Preserve exact context matching, admit actual native drive path syntax without allowing traversal/relative manifest backslashes."
+}

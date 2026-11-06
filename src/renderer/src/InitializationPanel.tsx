@@ -1,7 +1,7 @@
 import {useEffect,useLayoutEffect,useRef,useState} from 'react'
 import type {ReactNode} from 'react'
 import type {BmadConfigurationObservation} from '../../contracts/bmad-context.ts'
-import {initializationNeedsInspection} from '../../contracts/bmad-initialization.ts'
+import {initializationCanInspect,initializationNeedsInspection} from '../../contracts/bmad-initialization.ts'
 import type {
  InitializationAttempt, InitializationCommand, InitializationContent, InitializationEntry, InitializationIssueCode,
  InitializationOperation, InitializationPlan, InitializationRequest, InitializationView
@@ -30,16 +30,25 @@ const copy = {
   limitWrites:'Écriture séquentielle, sans écrasement ni suppression. Le retour arrière et l’arrêt après un premier ajout restent incertains.',
   limitRaces:'Les contrôles de chemins réduisent les risques. Une modification concurrente externe peut produire un résultat partiel ou inconnu.',
   lock:'Le verrou local Skills est exclu de ce transfert.', historicalPlan:'Plan historique — décision inactive',
-  historical:'Résultat historique — état actuel à inspecter',
+  historical:'Résultat historique · accord inactif',
   decision:'Ouvrir la décision', apply:'Initialiser BMad', refuse:'Refuser ce plan', only:'Autorise uniquement les ajouts du plan',
   checking:'Vérification avant application…', applying:'Application en cours — effets possibles', verifying:'Contrôle des ajouts en cours…',
   duplicate:'Opération déjà en cours pour ce dossier', saveFailed:'Résultat en session — enregistrement non confirmé',
   savePending:'Enregistrement en cours…', retrySave:'Réessayer l’enregistrement', previous:'Tentatives précédentes',
   observedAdditions:'Ajouts observés', unverified:'Entrées non vérifiées', preservation:'Données préexistantes vérifiées',
   yes:'Oui', unknown:'Inconnu', reason:'Motif',
+  inspect:'Inspecter les effets', inspecting:'Inspection en lecture seule en cours…',
+  inspection:'Reçu d’inspection', previousInspection:'Reçu d’inspection précédent',
+  inspectionStale:'Inspection refusée. Le dossier, son parent ou une entrée a changé.',
+  inspectionUnavailable:'Inspection refusée. La lecture sûre des effets n’a pas pu être établie.',
+  confirmedAdditions:'Ajouts confirmés', coverage:'Couverture de l’inspection',
+  coverageValues:{complete:'Complète',partial:'Partielle',unknown:'Inconnue'},
+  stop:'Arrêt de l’application du plan', stopValues:{confirmed:'Confirmé',unknown:'Non confirmé','not-observed':'Non observé'},
+  blocked:'Nouvelle préparation bloquée pour cette tentative.',
+  intact:'Dossier identique à l’état vérifié avant application.', saved:'Reçu enregistré',
   outcomes:{
    none:'',verified:'Ajouts vérifiés selon le plan','failed-no-effect':'Application échouée avant tout ajout',
-   partial:'Résultat partiel — inspection requise',unknown:'Résultat inconnu — inspection requise',
+   partial:'Résultat partiel',unknown:'Résultat inconnu',
    stale:'Plan périmé — préparer de nouveau',refused:'Plan refusé — aucun ajout dans le projet',
    cancelled:'Préparation annulée — aucun ajout dans le projet','preparation-failed':'Préparation échouée — aucun ajout dans le projet'
   }
@@ -63,16 +72,25 @@ const copy = {
   limitWrites:'Sequential additions with no overwriting or deletion. Rollback and stopping after the first addition remain uncertain.',
   limitRaces:'Path checks reduce risk. A concurrent external change can leave a partial or unknown result.',
   lock:'The local Skills lock is excluded from this transfer.', historicalPlan:'Historical plan — decision inactive',
-  historical:'Historical result — inspect current state',
+  historical:'Historical result · approval inactive',
   decision:'Open decision', apply:'Initialize BMad', refuse:'Reject this plan', only:'Authorizes only the additions in plan',
   checking:'Checking before applying…', applying:'Applying — effects possible', verifying:'Checking additions…',
   duplicate:'An operation is already running for this folder', saveFailed:'Result kept for this session — save not confirmed',
   savePending:'Saving…', retrySave:'Retry save', previous:'Previous attempts',
   observedAdditions:'Observed additions', unverified:'Unverified entries', preservation:'Pre-existing data verified',
   yes:'Yes', unknown:'Unknown', reason:'Reason',
+  inspect:'Inspect effects', inspecting:'Read-only inspection in progress…',
+  inspection:'Inspection receipt', previousInspection:'Previous inspection receipt',
+  inspectionStale:'Inspection refused. The folder, its parent, or an entry changed.',
+  inspectionUnavailable:'Inspection refused. A safe reading of the effects could not be established.',
+  confirmedAdditions:'Confirmed additions', coverage:'Inspection coverage',
+  coverageValues:{complete:'Complete',partial:'Partial',unknown:'Unknown'},
+  stop:'Plan application stop', stopValues:{confirmed:'Confirmed',unknown:'Unconfirmed','not-observed':'Not observed'},
+  blocked:'New preparation is blocked by this attempt.',
+  intact:'Folder matches the verified state before application.', saved:'Receipt saved',
   outcomes:{
    none:'',verified:'Additions verified against the plan','failed-no-effect':'Application failed before any additions',
-   partial:'Partial result — inspection required',unknown:'Outcome unknown — inspection required',
+   partial:'Partial result',unknown:'Outcome unknown',
    stale:'Plan out of date — prepare again',refused:'Plan rejected — no additions to the project',
    cancelled:'Preparation cancelled — no additions to the project','preparation-failed':'Preparation failed — no additions to the project'
   }
@@ -262,13 +280,13 @@ export function InitializationPanel({projectId,rootPath,state,arrival,accept,onC
    setModal(null)
   }
  },[modalOpen,activeDecision])
- async function send(input:InitializationRequest):Promise<InitializationView|null> {
-  setIssue(null)
+ async function send(input:InitializationRequest,reportIssue:(issue:InitializationIssueCode|null)=>void=setIssue):Promise<InitializationView|null> {
+  reportIssue(null)
   try{
    const reply=await window.madnessBmadInitialization.request(input)
    accept(reply.state)
    const cancelled=input.type==='prepare'&&cancelledRequest.current===input.requestId
-   if(alive.current&&!cancelled)setIssue(reply.issue)
+   if(alive.current&&!cancelled)reportIssue(reply.issue)
    if(reply.preparedAttempt){
     const prepared=reply.preparedAttempt
     if(alive.current&&!cancelled){
@@ -278,7 +296,7 @@ export function InitializationPanel({projectId,rootPath,state,arrival,accept,onC
    }
    return reply.state
   }catch{
-   if(alive.current)setIssue('UNAVAILABLE')
+   if(alive.current)reportIssue('UNAVAILABLE')
    return null
   }
  }
@@ -356,9 +374,7 @@ export function InitializationPanel({projectId,rootPath,state,arrival,accept,onC
    {operation.phase==='historical'&&['verified','unknown','partial'].includes(operation.result.outcome)&&<p>{words.historical}</p>}
    {operation.result.reason&&operation.result.outcome!=='cancelled'&&operation.result.outcome!=='refused'&&<p>{words.reason} · {failureReason(operation.result.reason,language)}</p>}
    {operation.result.receipt&&<Receipt operation={operation} words={words}/>}
-   {operation.preservation.status==='pending'&&<p role="status">{words.savePending}</p>}
-   {operation.preservation.status==='failed'&&<div className="initialization-actions"><p>{words.saveFailed}</p>
-    <button className="secondary" type="button" onClick={()=>void send({...attempt(operation),type:'retry-save'})}>{words.retrySave}</button></div>}
+   <InspectionStatus key={operation.attemptId} operation={operation} available={state?.availability==='available'} send={send}/>
    {operation.plan&&<PlanDetails key={operation.plan.id} plan={operation.plan} preview={preview(operation)}/>}
    {operation.phase==='ready'&&!requested&&<button className="secondary" type="button" onClick={event=>showDecision(event.currentTarget)}>{words.decision}</button>}
   </>}
@@ -366,6 +382,7 @@ export function InitializationPanel({projectId,rootPath,state,arrival,accept,onC
    <summary>{status(op,words)||words.historical} · <code>{op.attemptId}</code></summary>
    {op.result.reason&&op.result.outcome!=='cancelled'&&op.result.outcome!=='refused'&&<p>{words.reason} · {failureReason(op.result.reason,language)}</p>}
    {op.result.receipt&&<Receipt operation={op} words={words}/>}
+   <InspectionStatus operation={op} available={state.availability==='available'} send={send}/>
    {op.plan&&<PlanDetails plan={op.plan} preview={preview(op)}/>}
   </details>)}</details>}
   <div className="initialization-actions"><button className="text-button" type="button" onClick={onClose}>{words.back}</button></div>
@@ -385,6 +402,65 @@ export function InitializationPanel({projectId,rootPath,state,arrival,accept,onC
     </div>
    </>}
   </dialog>
+ </div>
+}
+function InspectionStatus({operation,available,send}:{
+ operation:InitializationOperation;available:boolean;send(input:InitializationRequest,reportIssue?:(issue:InitializationIssueCode|null)=>void):Promise<InitializationView|null>
+}):ReactNode {
+ const {language}=useLocale(), words=copy[language]
+ const [pending,setPending]=useState(false), [retrying,setRetrying]=useState(false)
+ const [inspectionIssue,setInspectionIssue]=useState<InitializationIssueCode|null>(null)
+ const button=useRef<HTMLButtonElement>(null), retryButton=useRef<HTMLButtonElement>(null)
+ const summary=useRef<HTMLElement>(null), section=useRef<HTMLDivElement>(null)
+ const {inspection,plan,preservation}=operation
+ const inspectable=available&&initializationCanInspect(operation)
+ function inspect():void{
+  if(!plan||!inspectable||pending)return
+  setPending(true)
+  void send({...attempt(operation),type:'inspect',planId:plan.id,planRevision:plan.revision},setInspectionIssue).then(reply=>{
+   const next=reply?.operations.find(op=>op.attemptId===operation.attemptId)
+   if(next?.inspection?.targetIntact&&document.activeElement===button.current)(summary.current??section.current)?.focus()
+  }).finally(()=>setPending(false))
+ }
+ function retrySave():void{
+  if(retrying||preservation.status!=='failed')return
+  setRetrying(true)
+  void send({...attempt(operation),type:'retry-save'}).then(reply=>{
+   const next=reply?.operations.find(op=>op.attemptId===operation.attemptId)
+   if(next?.preservation.status==='stored'&&document.activeElement===retryButton.current){
+    (summary.current??section.current)?.focus()
+   }
+  }).finally(()=>setRetrying(false))
+ }
+ return <div ref={section} tabIndex={-1}>
+  {(operation.result.receipt||initializationNeedsInspection(operation))&&<p>{words.stop} · {words.stopValues[operation.stop]}</p>}
+  {initializationNeedsInspection(operation)&&<p role="status">{words.blocked}</p>}
+  {(inspectable||pending)&&<div className="initialization-actions">
+   <button className="secondary" ref={button} type="button" aria-disabled={pending} onClick={inspect}>{words.inspect}</button>
+   {pending&&<span role="status">{words.inspecting}</span>}
+  </div>}
+  {inspectionIssue&&<p role="status">{inspectionIssue==='STALE'||inspectionIssue==='CONTEXT_MISMATCH'
+   ?words.inspectionStale:inspectionIssue==='BUSY'?words.duplicate:words.inspectionUnavailable}</p>}
+  {inspection&&<details>
+   <summary ref={summary}>{inspectionIssue||pending?words.previousInspection:words.inspection}</summary>
+   <p>{words.coverage} · {words.coverageValues[inspection.coverage]}</p>
+   {inspection.targetIntact&&<p>{words.intact}</p>}
+   <details><summary>{words.confirmedAdditions} · {formatNumber(inspection.observedAdditions.length,language)}</summary>
+    {inspection.observedAdditions.length?<ul className="initialization-inventory">{inspection.observedAdditions.map(entry=><li key={entry.path}>
+     <code>{entry.path}</code><small>{entry.kind==='directory'?words.directory:formatCount(entry.bytes,'byte',language)}</small>
+     {entry.kind==='file'&&<code>{entry.sha256}</code>}
+    </li>)}</ul>:<p>{words.none}</p>}
+   </details>
+   <details><summary>{words.unverified} · {formatNumber(inspection.unverifiedPaths.length,language)}</summary>
+    {inspection.unverifiedPaths.length?<ul>{inspection.unverifiedPaths.map(path=><li key={path}><code>{path}</code></li>)}</ul>:<p>{words.none}</p>}
+   </details>
+  </details>}
+  {preservation.status==='stored'&&inspection&&<p role="status">{words.saved}</p>}
+  {preservation.status==='pending'&&<p role="status">{words.savePending}</p>}
+  {(preservation.status==='failed'||retrying)&&<div className="initialization-actions">
+   {preservation.status==='failed'&&<p role="status">{words.saveFailed}</p>}
+   <button className="secondary" ref={retryButton} type="button" aria-disabled={retrying} onClick={retrySave}>{words.retrySave}</button>
+  </div>}
  </div>
 }
 function Receipt({operation,words}:{operation:InitializationOperation;words:Words}):ReactNode {

@@ -185,7 +185,7 @@ else {
     const admission=new ActivityAdmission()
     let initialization:BmadInitialization|undefined
     const graphOwner=new GraphOwnedRun(join(app.getPath('userData'),'graph-owned-v1.json'))
-    const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),helperOwner.status(),graphOwner.status(),qualificationOwner.status()])).every(s=>s==='stopped')?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await catalogQualification?.stopQualification();await Promise.all([helperOwner.cancel().catch(()=>{}),graphOwner.cancel().catch(()=>{})]);const states=await Promise.all([ownedRun.observeStop(),helperOwner.observeStop(),graphOwner.observeStop(),qualificationOwner.observeStop()]);if(states.every(s=>s==='stopped')&&!initialization?.hasUnconfirmedStop()){await graphCoordinator.reconcileNativeStop(await graphOwner.stopProof());admission.clearBlock();return 'stopped'}return 'unknown'}}
+    const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),helperOwner.status(),graphOwner.status(),qualificationOwner.status()])).every(s=>s==='stopped')&&!initialization?.hasUnconfirmedStop()?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await catalogQualification?.stopQualification();await Promise.all([helperOwner.cancel().catch(()=>{}),graphOwner.cancel().catch(()=>{})]);const states=await Promise.all([ownedRun.observeStop(),helperOwner.observeStop(),graphOwner.observeStop(),qualificationOwner.observeStop()]);if(states.every(s=>s==='stopped')&&!initialization?.hasUnconfirmedStop()){await graphCoordinator.reconcileNativeStop(await graphOwner.stopProof());admission.clearBlock();return 'stopped'}return 'unknown'}}
     if(await recovery.status()!=='stopped')admission.block()
     const graphAdapter=new GraphifyAdapter({root:join(app.getPath('userData'),'graph-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'graphify'):join(app.getAppPath(),'resources/graphify'),owner:graphOwner,admission,admit:async()=>{if(connection?.hasOperation())throw Error('BUSY');if(await recovery.status()!=='stopped'){admission.block();throw Error('STOP_UNCONFIRMED')}},onUnknown:()=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()}})
     const helpAdapter=new BmadHelpAdapter({root:join(app.getPath('userData'),'bmad-help-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'bmad-help'):join(app.getAppPath(),'resources/bmad-help'),owner:helperOwner,admission,onUnknown:()=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()},admit:async internal=>{
@@ -289,12 +289,22 @@ else {
           else {
             const operation='attemptId' in command?initializationService.read(projectId).operations.find(op=>
               op.attemptId===command.attemptId&&op.generation===command.generation):undefined
+            let inspectRootMatches=false
+            if(command.type==='inspect'&&operation?.plan?.id===command.planId&&
+               operation.plan.revision===command.planRevision&&operation.plan.identity.rootPath===project.rootPath){
+              try{
+                await assertInitializationOutsideStorage(project.rootPath,app.getPath('userData'))
+                const current=await application!.dialogueProject(projectId)
+                inspectRootMatches=current.id===projectId&&current.rootPath===project.rootPath
+              }catch{/* A missing or excluded target must stay uninspected. */}
+            }
             const result=command.type==='prepare'&&reservation
               ?await initializationService.prepare(projectId,command.requestId,reservation.controller.signal):
               command.type==='decision'?await initializationService.execute(command.command):
               command.type==='cancel-prepare-request'?await initializationService.cancelPreparationRequest(projectId,command.requestId):
               command.type==='cancel-preparation'?await initializationService.cancelPreparation(projectId,command.attemptId,command.generation):
-              command.type==='retry-save'&&operation?await initializationService.retrySave(operation.attemptId):null
+              command.type==='retry-save'&&operation?await initializationService.retrySave(operation.attemptId):
+              command.type==='inspect'&&operation&&inspectRootMatches?await initializationService.inspect(operation.attemptId):null
             if (result&&!result.ok) {
               if(!cancelledPending)issue=result.issues[0].code
             }

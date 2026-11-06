@@ -29,7 +29,7 @@ export type InitializationApplicationFact=FactBase&{
  unverifiedPaths:string[];stop:'confirmed'|'unknown';reason:string|null
 }
 export type InitializationInspectionFact=FactBase&{
- kind:'inspection';coverage:'complete'|'partial'|'unknown';observedAdditions:InitializationEntry[]
+ kind:'inspection';coverage:'complete'|'partial'|'unknown';observedAdditions:InitializationEntry[];targetIntact?:true
  unverifiedPaths:string[];stop:'confirmed'|'unknown';reason:string|null
 }
 export type InitializationFact=InitializationPreconditionFact|InitializationApplicationFact|InitializationInspectionFact
@@ -64,7 +64,7 @@ export interface InitializationPlanAuthority {
  recheck(signal:AbortSignal):Promise<object>
  apply(signal:AbortSignal):Promise<object>
  verify(application:object,signal:AbortSignal):Promise<object>
- inspect(signal:AbortSignal):Promise<object>
+ inspect(signal:AbortSignal,operation:InitializationOperation):Promise<object>
  content(contentId:string,signal:AbortSignal):Promise<InitializationContent>
  fact(original:object):InitializationFact|undefined
 }
@@ -214,6 +214,7 @@ const factBase=['schemaVersion','kind','identity','planId','planRevision','order
 function fact(input:unknown,path:string):void{
  const kind=(input as Data)?.kind
  const extra=kind==='preconditions'?['preconditions','complete']:kind==='application'?['outcome','observedAdditions','unionVerified','preservedVerified','unverifiedPaths','stop','reason']:['coverage','observedAdditions','unverifiedPaths','stop','reason']
+ if(kind==='inspection'&&Object.hasOwn(input as object,'targetIntact'))extra.push('targetIntact')
  const v=record(input,[...factBase,...extra],path);version(v.schemaVersion,path+'.schemaVersion');one(kind,['preconditions','application','inspection'],path+'.kind')
  identity(v.identity,path+'.identity');text(v.planId,path+'.planId');sha(v.planRevision,path+'.planRevision');number(v.order,path+'.order',1)
  if(kind==='preconditions'){preconditions(v.preconditions,path+'.preconditions');one(v.complete,[true],path+'.complete');return}
@@ -224,7 +225,10 @@ function fact(input:unknown,path:string):void{
   if(v.outcome==='failed-no-effect'&&((v.observedAdditions as unknown[]).length||!v.preservedVerified||v.unionVerified||v.stop!=='confirmed'||(v.unverifiedPaths as string[]).length))refuse('INVALID_SHAPE',path)
  }else{
   one(v.coverage,['complete','partial','unknown'],path+'.coverage')
-  if(v.coverage==='complete'&&(v.stop!=='confirmed'||(v.unverifiedPaths as string[]).length))refuse('INVALID_SHAPE',path)
+  if(Object.hasOwn(v,'targetIntact')){
+   one(v.targetIntact,[true],path+'.targetIntact')
+   if(v.coverage!=='complete'||v.stop!=='confirmed'||(v.observedAdditions as unknown[]).length)refuse('INVALID_SHAPE',path)
+  }else if(v.coverage==='complete'&&(v.unverifiedPaths as string[]).length)refuse('INVALID_SHAPE',path)
  }
 }
 export function sameInitializationData(a:unknown,b:unknown):boolean{
@@ -259,7 +263,15 @@ export function validateInitializationOperation(input:unknown):InitializationVal
    if(r.kind!=='application'||r.outcome!==result.outcome||!p||r.observedAdditions.some(e=>!p.additions.some(a=>sameInitializationData(a,e))))refuse('CONTEXT_MISMATCH',path+'.result.receipt')
    if(r.kind==='application'&&r.outcome==='verified'&&p&&!sameEntries(r.observedAdditions,p.additions))refuse('MANIFEST_CONFLICT',path+'.result.receipt')
   }else if(['verified','partial','failed-no-effect'].includes(String(result.outcome)))refuse('INVALID_SHAPE',path+'.result.receipt')
-  if(v.inspection!==null){correlated(v.inspection);if((v.inspection as InitializationFact).kind!=='inspection')refuse('INVALID_SHAPE',path+'.inspection')}
+  if(v.inspection!==null){
+   correlated(v.inspection)
+   const inspection=v.inspection as InitializationFact, receipt=result.receipt as InitializationApplicationFact|null
+   if(inspection.kind!=='inspection'||!p||!initializationInspectionMatchesPlan(inspection,p)||
+      !['partial','unknown'].includes(String(result.outcome))||!['terminal','historical'].includes(String(v.phase))||
+      inspection.stop!==v.stop||inspection.stop!==(receipt?.stop??'unknown')||
+      receipt&&inspection.order<=receipt.order||inspection.targetIntact&&inspection.order!==v.lastFactOrder)
+    refuse('CONTEXT_MISMATCH',path+'.inspection')
+  }
   const preservation=record(v.preservation,['status','durableRevision'],path+'.preservation')
   one(preservation.status,['unrecorded','pending','stored','failed','unreadable'],path+'.preservation.status')
   if(preservation.durableRevision!==null){number(preservation.durableRevision,path+'.preservation.durableRevision',1);if(preservation.durableRevision>Number(v.revision))refuse('INVALID_SHAPE',path+'.preservation')}
@@ -271,8 +283,22 @@ export function sameEntries(a:InitializationEntry[],b:InitializationEntry[]):boo
  return a.length===b.length&&a.every(e=>b.some(other=>sameInitializationData(e,other)))
 }
 
+export function initializationInspectionMatchesPlan(inspection:InitializationInspectionFact,plan:InitializationPlan):boolean {
+ const expected=new Map(plan.additions.map(entry=>[entry.path,entry]))
+ const observed=new Set(inspection.observedAdditions.map(entry=>entry.path))
+ return inspection.observedAdditions.every(entry=>sameInitializationData(expected.get(entry.path),entry))&&
+  inspection.unverifiedPaths.every(path=>expected.has(path)&&!observed.has(path))&&
+  (inspection.coverage!=='complete'||observed.size+inspection.unverifiedPaths.length===expected.size)
+}
+
+export function initializationCanInspect(operation:InitializationOperation):boolean {
+ return operation.plan!==null&&['partial','unknown'].includes(operation.result.outcome)&&!operation.inspection?.targetIntact
+}
 export function initializationNeedsInspection(operation:InitializationOperation):boolean {
- return operation.stop==='unknown'||['partial','unknown'].includes(operation.result.outcome)
+ if(operation.stop==='unknown')return true
+ if(!['partial','unknown'].includes(operation.result.outcome))return false
+ return !(operation.stop==='confirmed'&&operation.inspection?.targetIntact&&
+  operation.preservation.status==='stored'&&operation.preservation.durableRevision===operation.revision)
 }
 
 export const INITIALIZATION_COMMAND_CHANNEL = 'madness:bmad-initialization:command'
@@ -283,6 +309,7 @@ export type InitializationRequest =
  | (InitializationAttempt & {type:'cancel-preparation'|'retry-save'})
  | {type:'decision';projectId:string;command:InitializationCommand}
  | (InitializationAttempt & {type:'content';planId:string;planRevision:string;contentId:string})
+ | (InitializationAttempt & {type:'inspect';planId:string;planRevision:string})
 export type InitializationView = InitializationState & {projectId:string;availability:'available'|'storage-unreadable'}
 export type InitializationReply = {contractVersion:1;correlationId:string;state:InitializationView;issue:InitializationIssueCode|null;content:InitializationContent|null;preparedAttempt:InitializationAttempt|null}
 export interface InitializationBridge {
@@ -293,11 +320,12 @@ export function validateInitializationRequest(input:unknown):InitializationValid
  return validate(input,(input,path)=>{
   const type=(input as Data)?.type
   const extras=type==='decision'?['command']:type==='content'?['attemptId','generation','planId','planRevision','contentId']:
+   type==='inspect'?['attemptId','generation','planId','planRevision']:
    type==='cancel-preparation'||type==='retry-save'?['attemptId','generation']:
    type==='prepare'||type==='cancel-prepare-request'?['requestId']:[]
   const v=record(input,['contractVersion','correlationId','type','projectId',...extras],path)
   version(v.contractVersion,path+'.contractVersion');id(v.correlationId,path+'.correlationId');id(v.projectId,path+'.projectId')
-  one(type,['read','prepare','cancel-prepare-request','cancel-preparation','retry-save','decision','content'],path+'.type')
+  one(type,['read','prepare','cancel-prepare-request','cancel-preparation','retry-save','decision','content','inspect'],path+'.type')
   if(extras.includes('requestId'))id(v.requestId,path+'.requestId')
   if(type==='prepare'&&v.requestId!==v.correlationId)refuse('CONTEXT_MISMATCH',path+'.requestId')
   if(type==='decision'){
@@ -305,7 +333,8 @@ export function validateInitializationRequest(input:unknown):InitializationValid
    if(!command.ok||command.value.projectId!==v.projectId)refuse('CONTEXT_MISMATCH',path+'.command')
   }
   if(extras.includes('attemptId'))attempt(v,path)
-  if(type==='content'){id(v.planId,path+'.planId');sha(v.planRevision,path+'.planRevision');sha(v.contentId,path+'.contentId')}
+  if(type==='content'||type==='inspect'){id(v.planId,path+'.planId');sha(v.planRevision,path+'.planRevision')}
+  if(type==='content')sha(v.contentId,path+'.contentId')
  },32)
 }
 export function isInitializationView(input:unknown):input is InitializationView {

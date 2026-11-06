@@ -1,6 +1,8 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import {createHash, randomUUID} from 'node:crypto'
+import fs from 'node:fs/promises'
+import {syncBuiltinESMExports} from 'node:module'
 import {mkdtemp, mkdir, readFile, readdir, realpath, rename, rm, writeFile} from 'node:fs/promises'
 import {dirname, join, resolve} from 'node:path'
 import {tmpdir} from 'node:os'
@@ -23,14 +25,14 @@ async function fixture(t, options = {}) {
  const host = new BmadInitializationHost(archive)
  const observe = async () => ({scope:'configuration',initiativeId:null,
   observation:await host.observeAbsence('project',rootPath,new AbortController().signal)})
- const make = (storage = store) => new BmadInitialization({context:{
+ const make = (storage = store, owner = host) => new BmadInitialization({context:{
   capture:observe, assertFresh:async captured=>{
    const current=await observe()
    if(current.observation.rootIdentity!==captured.observation.rootIdentity)throw Error('TARGET_CHANGED')
    if(current.observation.problems.includes('RESERVED_COLLISION'))throw Error('RESERVED_COLLISION')
    if(current.observation.revision!==captured.observation.revision)throw Error('stale')
   }, subscribeInvalidation:() => () => {}
- },host,store:storage,admission:new ActivityAdmission(),lifecycle:new LifecycleCoordinator(),newId:randomUUID})
+ },host:owner,store:storage,admission:new ActivityAdmission(),lifecycle:new LifecycleCoordinator(),newId:randomUUID})
  return {rootPath,archive,store,host,make,service:make(options.store)}
 }
 const approve = op => ({contractVersion:1,type:'approve',confirmation:'initialize-exact-plan',projectId:op.projectId,
@@ -211,4 +213,122 @@ test('R1 replacing the pinned archive with identical bytes invalidates the old a
  assert.equal(result.value.result.outcome,'stale')
  assert.equal(result.value.result.reason,'RESOURCE_CHANGED')
  assert.deepEqual(await readdir(rootPath),['sentinel.txt'])
+})
+
+test('I1/I2 inspect an interrupted marker explicitly, with only exact additions and no bundle', async t => {
+ const {rootPath,archive,store,make,host}=await fixture(t,{ownedArchive:true})
+ await writeFile(archive,await readFile(resource))
+ const {promise:entered,resolve:enter,reject}=Promise.withResolvers()
+ const {promise:resumed,resolve:resume}=Promise.withResolvers()
+ const service=make(store,{
+  prepare:host.prepare.bind(host),
+  authority:original=>({...host.authority(original),apply:async()=>{
+   try{
+    await mkdir(join(rootPath,'_bmad'))
+    await writeFile(join(rootPath,'_bmad','config.toml'),'different')
+    enter()
+   }catch(error){reject(error);throw error}
+   await resumed
+   return {}
+  }})
+ })
+ const op=await ready(service), work=service.execute(approve(op))
+ try{
+  await Promise.race([entered,work.then(()=>{throw Error('application did not suspend')})])
+  const [marker]=await store.list()
+  assert.equal(marker.phase,'checking')
+  assert.equal(marker.decision,'consumed')
+  assert.equal(marker.preservation.durableRevision,marker.revision)
+  await service.shutdown()
+  assert.equal(service.hasUnconfirmedStop(),true)
+ }finally{resume();await work}
+ await writeFile(join(rootPath,'unrelated.txt'),'outside the plan')
+ await rm(archive)
+ const reopened=make(), restored=reopened.restore((await store.list())[0]).value
+ assert.equal(restored.inspection,null)
+ assert.equal(restored.decision,'inactive')
+ assert.equal(restored.stop,'unknown')
+ const inspected=await reopened.inspect(op.attemptId)
+ assert.equal(inspected.ok,true,JSON.stringify(inspected))
+ const value=inspected.value
+ assert.equal(value.result.outcome,'unknown')
+ assert.equal(value.stop,'unknown')
+ assert.equal(value.inspection.coverage,'partial')
+ assert.deepEqual(value.inspection.observedAdditions,[{path:'_bmad',kind:'directory'}])
+ assert.ok(value.inspection.unverifiedPaths.includes('_bmad/config.toml'))
+ assert.ok(!value.inspection.unverifiedPaths.includes('unrelated.txt'))
+ assert.equal(value.inspection.unverifiedPaths.length,op.plan.additions.length-1)
+ assert.equal(await readFile(join(rootPath,'_bmad','config.toml'),'utf8'),'different')
+ assert.equal((await store.list())[0].inspection.planRevision,op.plan.revision)
+ assert.equal((await reopened.prepare('project')).ok,false)
+ await rename(rootPath,join(dirname(rootPath),'old-target'))
+ await mkdir(rootPath)
+ const refused=await reopened.inspect(op.attemptId)
+ assert.equal(refused.issues[0].code,'STALE')
+ assert.deepEqual(reopened.read('project').operations[0].inspection,value.inspection)
+})
+
+test('I3/I4 native intact seal remains locked across a refused CAS until the receipt is saved',async t=>{
+ const {rootPath,host,store,make}=await fixture(t)
+ let applies=0, inspections=0, deny=false
+ const storage={write:(record,expected)=>store.write(record,deny?null:expected)}
+ const service=make(storage,{
+  prepare:host.prepare.bind(host),
+  authority:original=>{
+   const authority=host.authority(original)
+   return {...authority,apply:async signal=>{
+    applies++
+    await mkdir(join(rootPath,'.agents'))
+    return authority.apply(signal)
+   },inspect:(signal,op)=>{inspections++;return authority.inspect(signal,op)}}
+  }
+ })
+ const op=await ready(service), partial=(await service.execute(approve(op))).value
+ assert.equal(partial.result.outcome,'partial')
+ assert.equal(partial.stop,'confirmed')
+ await rm(join(rootPath,'.agents'),{recursive:true})
+
+ // Mutate the preserved file after readBounded's final named stat, as traversal
+ // finishes. This leaves the directory timestamps alone.
+ const originalLstat=fs.lstat, sentinel=join(rootPath,'sentinel.txt')
+ let fileStats=0, mutated=false
+ fs.lstat=async(path,...args)=>{
+  if(path===sentinel)fileStats++
+  if(path===rootPath&&fileStats===2&&!mutated){
+   mutated=true
+   await writeFile(sentinel,'different')
+  }
+  return originalLstat(path,...args)
+ }
+ syncBuiltinESMExports()
+ try {
+  const changed=await service.inspect(op.attemptId)
+  assert.equal(mutated,true)
+  assert.equal(changed.ok,false)
+  assert.equal(changed.issues[0].code,'STALE')
+  assert.equal(service.read('project').operations[0].inspection,null)
+ }finally{
+  fs.lstat=originalLstat
+  syncBuiltinESMExports()
+ }
+ assert.equal((await service.prepare('project')).ok,false)
+ await writeFile(sentinel,'preserved')
+
+ deny=true
+ const inspected=(await service.inspect(op.attemptId)).value
+ assert.equal(inspected.inspection.targetIntact,true)
+ assert.equal(inspected.preservation.status,'failed')
+ assert.equal((await store.list())[0].inspection,null)
+ assert.equal((await service.prepare('project')).ok,false)
+ deny=false
+ const saved=(await service.retrySave(op.attemptId)).value
+ assert.equal(saved.preservation.status,'stored')
+ assert.equal(saved.result.outcome,'partial')
+ assert.deepEqual(saved.inspection,inspected.inspection)
+ assert.equal(applies,1)
+ assert.equal(inspections,2)
+ const [stored]=await store.list()
+ const reopened=make()
+ assert.equal(reopened.restore(stored).value.decision,'inactive')
+ assert.equal((await ready(reopened)).decision,'none')
 })

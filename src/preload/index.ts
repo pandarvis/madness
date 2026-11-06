@@ -172,12 +172,14 @@ const metricsRequest=async(payload:Record<string,unknown>):Promise<UsMetricsStat
 const metricsBridge:UsMetricsBridge={read:projectId=>metricsRequest({type:'read',projectId}),retrySave:projectId=>metricsRequest({type:'retry-save',projectId}),choose:(projectId,conversationId,requestId,storyRef,text,operation)=>metricsRequest({type:'choose',projectId,conversationId,requestId,storyRef,text,operation}),onChanged:fn=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isUsMetricsState(value))fn(value)};ipcRenderer.on(US_METRICS_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(US_METRICS_EVENT_CHANNEL,receive)}}
 contextBridge.exposeInMainWorld('madnessUsMetrics',Object.freeze(metricsBridge))
 
-import {INITIALIZATION_COMMAND_CHANNEL,INITIALIZATION_EVENT_CHANNEL,isInitializationReply,isInitializationView} from '../contracts/bmad-initialization.ts'
+import {INITIALIZATION_COMMAND_CHANNEL,INITIALIZATION_EVENT_CHANNEL,isInitializationReply,isInitializationView,validateInitializationRequest} from '../contracts/bmad-initialization.ts'
 import type {InitializationBridge} from '../contracts/bmad-initialization.ts'
 const initializationBridge:InitializationBridge={
  request:async input=>{
   const correlationId=input.type==='prepare'?input.requestId:crypto.randomUUID()
-  const reply:unknown=await ipcRenderer.invoke(INITIALIZATION_COMMAND_CHANNEL,{...input,contractVersion:1,correlationId})
+  const request=validateInitializationRequest({...input,contractVersion:1,correlationId})
+  if(!request.ok)throw Error('INVALID_INITIALIZATION_COMMAND')
+  const reply:unknown=await ipcRenderer.invoke(INITIALIZATION_COMMAND_CHANNEL,request.value)
   if (!isInitializationReply(reply,{...input,correlationId})) throw Error('INVALID_INITIALIZATION_REPLY')
   if (reply.content&&(input.type!=='content'||reply.content.contentId!==input.contentId)) throw Error('INVALID_INITIALIZATION_CONTENT')
   return reply

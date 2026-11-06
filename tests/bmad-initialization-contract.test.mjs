@@ -27,7 +27,7 @@ function fixture(options={}){
    recheck:async()=>{calls.recheck++;return options.recheck?options.recheck({issue,authority,calls}):issue('preconditions',{preconditions:structuredClone(p.preconditions),complete:true})},
    apply:async signal=>{calls.apply++;return options.apply?options.apply({issue,authority,calls,signal}):{}},
    verify:async raw=>{calls.verify++;return options.verify?options.verify({issue,authority,calls,raw}):issue('application',{outcome:'verified',observedAdditions:structuredClone(p.additions),unionVerified:true,preservedVerified:true,unverifiedPaths:[],stop:'confirmed',reason:null})},
-   inspect:async()=>{calls.inspect++;return options.inspect?options.inspect({issue,authority,calls}):issue('inspection',{coverage:'complete',observedAdditions:[],unverifiedPaths:[],stop:'confirmed',reason:null})},
+   inspect:async(_signal,op)=>{calls.inspect++;return options.inspect?options.inspect({issue,authority,calls}):issue('inspection',{coverage:'complete',observedAdditions:p.additions,unverifiedPaths:[],stop:op.stop,reason:null})},
    content:async id=>{calls.content++;const e=p.additions.find(e=>e.contentId===id);return {contentId:id,path:e.path,sha256:e.sha256,bytes:e.bytes,encoding:'utf8',data:'test'}},
    fact:v=>facts.get(v)}
   plans.set(p,authority)
@@ -313,7 +313,7 @@ test('review R1 admits a native drive capture and plan while keeping the exact c
 })
 test('review R2 shutdown drains admitted writes and refuses a late inspection and further saves',async()=>{
  let finishInspection,finishWrite
- const f=fixture({verify:()=>({exitCode:0}),inspect:({issue})=>new Promise(resolve=>{finishInspection=()=>resolve(issue('inspection',{coverage:'complete',observedAdditions:[],unverifiedPaths:[],stop:'confirmed',reason:null}))})})
+ const f=fixture({verify:()=>({exitCode:0}),inspect:({issue,authority})=>new Promise(resolve=>{finishInspection=()=>resolve(issue('inspection',{coverage:'complete',observedAdditions:authority.plan.additions,unverifiedPaths:[],stop:'unknown',reason:null}))})})
  const op=(await apply(f)).value,inspection=f.service.inspect(op.attemptId)
  while(!finishInspection)await new Promise(r=>setImmediate(r))
  f.deps.store.write=async()=>{f.calls.save++;if(!finishWrite)await new Promise(resolve=>{finishWrite=resolve})}
@@ -446,4 +446,58 @@ test('Q3 unresolved confirmed-stop partial effects block the same project after 
  assert.equal(f.service.read('p').operations.length,1)
  const unrelated=await f.service.prepare('other-project')
  assert.equal(unrelated.ok,true)
+})
+
+test('I3/I4 only a durable intact-target inspection releases the exact historical attempt',async()=>{
+ const f=fixture({
+  verify:({issue,authority})=>issue('application',{outcome:'partial',observedAdditions:[authority.plan.additions[0]],
+   unionVerified:false,preservedVerified:false,unverifiedPaths:['_bmad'],stop:'confirmed',reason:'partial'}),
+  inspect:({issue,authority})=>issue('inspection',{coverage:'complete',targetIntact:true,observedAdditions:[],
+   unverifiedPaths:authority.plan.additions.map(e=>e.path),stop:'confirmed',reason:null})
+ })
+ const {value:partial}=await apply(f)
+ f.failure=true
+ const result=await f.service.inspect(partial.attemptId)
+ assert.equal(result.ok,true,JSON.stringify(result))
+ assert.equal(result.value.preservation.status,'failed')
+ assert.equal(result.value.result.outcome,'partial')
+ assert.equal((await f.service.prepare('p')).ok,false)
+ assert.equal((await f.service.prepare('alias')).ok,false)
+ const before={...f.calls};f.failure=false
+ const saved=(await f.service.retrySave(partial.attemptId)).value
+ assert.equal(saved.preservation.status,'stored')
+ assert.deepEqual(f.calls,{...before,save:before.save+1})
+ assert.equal(saved.result.outcome,'partial')
+ assert.equal(contract.initializationNeedsInspection(saved),false)
+ const restored=fixture()
+ restored.deps.newId=()=> 'after-restore'
+ assert.equal(restored.service.restore(saved).ok,true)
+ assert.equal((await restored.service.prepare('p')).value.phase,'ready')
+ assert.equal((await f.service.prepare('p')).value.phase,'ready')
+})
+test('I2 inspection request carries only exact attempt and plan identifiers',()=>{
+ const request={contractVersion:1,correlationId:'request',type:'inspect',projectId:'p',
+  attemptId:'attempt',generation:1,planId:'plan-attempt',planRevision:sha('b')}
+ assert.equal(contract.validateInitializationRequest(request).ok,true)
+ assert.equal(contract.validateInitializationRequest({...request,rootPath:'C:/other'}).ok,false)
+})
+
+test('Quick Q2 a complete inspection accounts for every planned entry',async()=>{
+ const f=fixture({verify:()=>({exitCode:0}),inspect:({issue})=>issue('inspection',{
+  coverage:'complete',observedAdditions:[],unverifiedPaths:[],stop:'unknown',reason:null
+ })})
+ const {value:op}=await apply(f)
+ assert.equal((await f.service.inspect(op.attemptId)).ok,false)
+ assert.equal(f.service.read('p').operations[0].inspection,null)
+})
+test('Quick Q3 restores consistent inspection evidence and rejects contradictions',async()=>{
+ const f=fixture({verify:()=>({exitCode:0})})
+ const {value:op}=await apply(f)
+ const {value:inspected}=await f.service.inspect(op.attemptId)
+ assert.equal(fixture().service.restore(inspected).ok,true)
+ assert.equal(fixture().service.restore({...op,stop:'not-observed'}).value.stop,'unknown')
+ assert.equal(fixture().service.restore({...inspected,stop:'confirmed'}).ok,false)
+ assert.equal(fixture().service.restore({...inspected,phase:'checking'}).ok,false)
+ assert.equal(fixture().service.restore({...inspected,stop:'confirmed',
+  inspection:{...inspected.inspection,stop:'confirmed'}}).ok,false)
 })

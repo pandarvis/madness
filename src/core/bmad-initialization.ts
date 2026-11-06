@@ -1,7 +1,8 @@
 import {createHash} from 'node:crypto'
 import {
  INITIALIZATION_ATTEMPT_LIMIT,validateInitializationPlan,validateInitializationFact,validateInitializationOperation,
- validateInitializationCommand,validateInitializationContent,sameInitializationData,sameEntries,initializationNeedsInspection
+ validateInitializationCommand,validateInitializationContent,sameInitializationData,sameEntries,
+ initializationCanInspect,initializationInspectionMatchesPlan,initializationNeedsInspection
 } from '../contracts/bmad-initialization.ts'
 import type {
  InitializationAttempt,InitializationOperation,InitializationState,InitializationValidation,
@@ -29,6 +30,7 @@ const localRefusals=new Set([
  'TREE_LIMIT','TREE_LIMIT_OR_COLLISION','RESOURCE_MISSING','RESOURCE_SEAL','RESOURCE_CHANGED',
  'TARGET_CHANGED','TARGET_TREE_CHANGED','PHYSICAL_TARGET_CHANGED','PARENT_CHANGED','DIRECTORY_CHANGED','SOURCE_CHANGED'
 ])
+const inspectionChanges=new Set(['TARGET_CHANGED','TARGET_TREE_CHANGED','PHYSICAL_TARGET_CHANGED','PARENT_CHANGED','DIRECTORY_CHANGED','SOURCE_CHANGED'])
 const refusalReason=(error:unknown,fallback:string):string=>
  error instanceof Error&&localRefusals.has(error.message)?error.message:fallback
 const copied=<T>(value:T):T=>structuredClone(value)
@@ -48,6 +50,7 @@ export function restoreInitializationOperation(input:unknown):InitializationVali
  }else if(op.phase==='preparing'){
   op.result={outcome:'cancelled',receipt:null,reason:'Preparation was not resumed.'};op.stop='confirmed'
  }
+ if(['partial','unknown'].includes(op.result.outcome)&&(op.stop!=='confirmed'||op.result.receipt?.stop!=='confirmed'))op.stop='unknown'
  op.phase='historical';op.decision='inactive'
  return {ok:true,value:op}
 }
@@ -59,7 +62,7 @@ export function restoreInitializationOperation(input:unknown):InitializationVali
  */
 export class BmadInitialization{
  #deps:Dependencies;#entries=new Map<string,Entry>();#generations=new Map<string,number>()
- #targets=new Map<string,Entry>();#preparing=new Set<string>();#usedFacts=new WeakSet<object>()
+ #preparing=new Set<string>();#usedFacts=new WeakSet<object>()
  #listeners=new Set<(state:InitializationState)=>void>();#sequence=0;#closing=false;#unsubscribe:()=>void
  constructor(deps:Dependencies){
   this.#deps=deps
@@ -85,7 +88,7 @@ export class BmadInitialization{
  #value(e:Entry):InitializationValidation<InitializationOperation>{return {ok:true,value:copied(e.operation)}}
  #active(e:Entry):boolean{return !this.#closing&&!e.controller.signal.aborted&&this.#generations.get(e.operation.projectId)===e.operation.generation}
  #assert(e:Entry):void{if(!this.#active(e))throw Error('STALE')}
- #releaseTarget(e:Entry):void{if(e.target&&this.#targets.get(e.target)===e)this.#targets.delete(e.target)}
+ #releaseTarget(e:Entry):void{e.target=null}
  #settle(e:Entry):void{
   if(e.operation.stop==='confirmed')this.#deps.lifecycle.complete(e.operation.attemptId)
   if(['verified','failed-no-effect','stale','refused','cancelled','preparation-failed'].includes(e.operation.result.outcome)&&e.operation.stop==='confirmed')this.#releaseTarget(e)
@@ -157,7 +160,7 @@ export class BmadInitialization{
    const captured=await this.#deps.context.capture(projectId,false,e.controller.signal);this.#assert(e)
    const observation=captured.observation
    if(captured.scope!=='configuration'||observation.projectId!==projectId)throw Error('CONTEXT_MISMATCH')
-   if(this.#targets.has(observation.rootIdentity)){
+   if([...this.#entries.values()].some(candidate=>candidate.target===observation.rootIdentity)){
     this.#entries.delete(attempt.attemptId)
     e.controller.abort()
     this.#deps.lifecycle.complete(attempt.attemptId)
@@ -167,7 +170,7 @@ export class BmadInitialization{
    e.captured=freeze(copied(captured))
    if(observation.problems.includes('RESERVED_COLLISION'))throw Error('RESERVED_COLLISION')
    if(observation.status!=='absent')throw Error('CONTEXT_MISMATCH')
-   e.target=observation.rootIdentity;this.#targets.set(e.target,e)
+   e.target=observation.rootIdentity
    release=this.#deps.admission.enter('helper')
    const original=await this.#deps.host.prepare(freeze({...attempt,context:e.captured}),e.controller.signal);this.#assert(e)
    const authority=this.#deps.host.authority(original),raw=validateInitializationPlan(original),owned=validateInitializationPlan(authority?.plan)
@@ -295,21 +298,25 @@ export class BmadInitialization{
  }
  async inspect(attemptId:string):Promise<InitializationValidation<InitializationOperation>>{
   const e=this.#entries.get(attemptId)
-  if(!e||(!e.authority&&!this.#deps.host.inspect)||!e.operation.plan||this.#closing||e.busy||!['partial','unknown'].includes(e.operation.result.outcome))return rejected('INVALID_TRANSITION')
+  if(!e||(!e.authority&&!this.#deps.host.inspect)||!e.operation.plan||this.#closing||e.busy||
+     !initializationCanInspect(e.operation))return rejected('INVALID_TRANSITION')
   e.busy=true
   try{
-   // The owner may permit bounded inspection after recovery; it never clears another owner's block.
-   // This host-only read does not call apply, recheck or reactivate an agreement.
-   const original=e.authority?await e.authority.inspect(new AbortController().signal):await this.#deps.host.inspect!(freeze(copied(e.operation)),new AbortController().signal)
+   const snapshot=freeze(copied(e.operation)), signal=new AbortController().signal
+   const original=e.authority?await e.authority.inspect(signal,snapshot):await this.#deps.host.inspect!(snapshot,signal)
    if(this.#closing)return rejected('UNAVAILABLE')
    const checked=this.#fact(e,original,e.authority?.fact??this.#deps.host.inspectionFact?.bind(this.#deps.host))
    if(this.#closing)return rejected('UNAVAILABLE')
    if(!checked.ok)return checked
-   if(checked.value.kind!=='inspection')return rejected('INVALID_TRANSITION')
-   if(checked.value.observedAdditions.some(a=>!e.operation.plan!.additions.some(b=>sameInitializationData(a,b))))return rejected('CONTEXT_MISMATCH')
-   this.#usedFacts.add(original);e.operation.lastFactOrder=checked.value.order;e.operation.inspection=checked.value
+   const inspection=checked.value, op=e.operation
+   if(inspection.kind!=='inspection')return rejected('INVALID_TRANSITION')
+   if(!initializationInspectionMatchesPlan(inspection,op.plan!)||inspection.stop!==op.stop||
+      inspection.targetIntact&&op.result.receipt?.stop!=='confirmed')return rejected('CONTEXT_MISMATCH')
+   this.#usedFacts.add(original);op.lastFactOrder=inspection.order;op.inspection=inspection
    this.#touch(e);await this.#save(e);return this.#value(e)
-  }catch{return rejected('UNAVAILABLE')}finally{e.busy=false}
+  }catch(error){
+   return rejected(error instanceof Error&&inspectionChanges.has(error.message)?'STALE':'UNAVAILABLE')
+  }finally{e.busy=false}
  }
  restore(input:unknown):InitializationValidation<InitializationOperation>{
   const restored=restoreInitializationOperation(input);if(!restored.ok)return restored
@@ -319,7 +326,6 @@ export class BmadInitialization{
   const target=op.plan&&initializationNeedsInspection(op)?op.plan.identity.rootIdentity:null
   const e:Entry={operation:op,controller:new AbortController(),captured:null,original:null,producer:null,authority:null,effectRequested:false,busy:false,target,writes:Promise.resolve()}
   this.#entries.set(op.attemptId,e)
-  if(target&&!this.#targets.has(target))this.#targets.set(target,e)
   this.#generations.set(op.projectId,Math.max(this.#generations.get(op.projectId)??0,op.generation));this.#emit()
   return {ok:true,value:copied(op)}
  }
@@ -328,6 +334,7 @@ export class BmadInitialization{
   const work=e.writes.then(async()=>{
    const op=e.operation
    if(op.preservation.status==='unreadable')return null
+   if(op.inspection?.targetIntact&&!initializationNeedsInspection(op))return op.revision
    const revision=op.revision,expected=op.preservation.durableRevision
    const candidate=copied(op);candidate.preservation={status:'stored',durableRevision:revision}
    op.preservation.status='pending';this.#emit()
@@ -335,6 +342,7 @@ export class BmadInitialization{
     await this.#deps.store.write(candidate,expected)
     op.preservation.durableRevision=revision
     op.preservation.status=op.revision===revision?'stored':'unrecorded'
+    if(op.inspection?.targetIntact&&!initializationNeedsInspection(op))this.#releaseTarget(e)
    }catch{
     op.preservation.status='failed';this.#emit()
     return null

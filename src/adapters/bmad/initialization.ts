@@ -1,11 +1,12 @@
 import {createHash} from 'node:crypto'
+import type {BigIntStats} from 'node:fs'
 import {lstat, mkdir, open, opendir, realpath} from 'node:fs/promises'
 import {basename, dirname, join, resolve, win32} from 'node:path'
 import {gunzipSync} from 'node:zlib'
 import {sameInitializationData, validateInitializationPlan} from '../../contracts/bmad-initialization.ts'
 import type {
  InitializationApplicationFact, InitializationAttempt, InitializationEntry, InitializationFact,
- InitializationHostPort, InitializationPlan, InitializationPlanAuthority, InitializationPreservedEntry
+ InitializationHostPort, InitializationInspectionFact, InitializationOperation, InitializationPlan, InitializationPlanAuthority, InitializationPreservedEntry
 } from '../../contracts/bmad-initialization.ts'
 import type {BmadConfigurationObservation,CapturedBmadContext} from '../../contracts/bmad-context.ts'
 import {qualifyBmadProfile} from './profile.ts'
@@ -29,7 +30,7 @@ const segment = (name:string):boolean =>
 type Physical = {path:string;identity:string}
 type Tree = {entries:InitializationPreservedEntry[];directories:Map<string,Physical>;revision:string}
 type Payload = {entries:InitializationEntry[];bytes:Map<string,Buffer>;revision:string;resourceRevision:string}
-type Effect = {requested:boolean;complete:boolean}
+type Effect = {requested:boolean;complete:boolean;closed:boolean}
 
 async function directory(path:string,signal:AbortSignal):Promise<Physical> {
  signal.throwIfAborted()
@@ -50,18 +51,21 @@ async function chain(path:string,signal:AbortSignal):Promise<Physical[]> {
  if (actual.toLowerCase()!==path.toLowerCase()) throw Error('NON_CANONICAL_PATH')
  return parts
 }
-async function readBounded(path:string,limit:number,signal:AbortSignal):Promise<{bytes:Buffer;identity:string}> {
+const safeFile = (stat:BigIntStats):boolean => stat.isFile() && stat.nlink===1n && stat.ino!==0n
+const sameMetadata = (before:BigIntStats,after:BigIntStats):boolean =>
+ after.dev===before.dev && after.ino===before.ino && after.size===before.size &&
+ after.mtimeNs===before.mtimeNs && after.ctimeNs===before.ctimeNs
+const unchangedFile = (before:BigIntStats,after:BigIntStats):boolean => safeFile(after) && sameMetadata(before,after)
+
+async function readBounded(path:string,limit:number,signal:AbortSignal):Promise<{bytes:Buffer;identity:string;stat:BigIntStats}> {
  signal.throwIfAborted()
  const before = await lstat(path,{bigint:true})
- const safe = (stat:typeof before):boolean => stat.isFile() && stat.nlink===1n && stat.ino!==0n
- if (!safe(before) || before.size>BigInt(limit)) throw Error('UNSAFE_FILE')
+ if (!safeFile(before) || before.size>BigInt(limit)) throw Error('UNSAFE_FILE')
  signal.throwIfAborted()
  const file = await open(path,'r')
  try {
   const opened = await file.stat({bigint:true})
-  const unchanged = (s:typeof before):boolean => safe(s) && s.dev===before.dev && s.ino===before.ino &&
-   s.size===before.size && s.mtimeNs===before.mtimeNs && s.ctimeNs===before.ctimeNs
-  if (!unchanged(opened)) throw Error('SOURCE_CHANGED')
+  if (!unchangedFile(before,opened)) throw Error('SOURCE_CHANGED')
   const bytes = Buffer.alloc(Number(before.size)+1)
   let position = 0
   while (position<bytes.length) {
@@ -71,13 +75,13 @@ async function readBounded(path:string,limit:number,signal:AbortSignal):Promise<
    position += bytesRead
   }
   signal.throwIfAborted()
-  if (BigInt(position)!==before.size || !unchanged(await file.stat({bigint:true})) ||
-      !unchanged(await lstat(path,{bigint:true}))) throw Error('SOURCE_CHANGED')
+  if (BigInt(position)!==before.size || !unchangedFile(before,await file.stat({bigint:true})) ||
+      !unchangedFile(before,await lstat(path,{bigint:true}))) throw Error('SOURCE_CHANGED')
   signal.throwIfAborted()
-  return {bytes:bytes.subarray(0,position),identity:`${opened.dev}:${opened.ino}`}
+  return {bytes:bytes.subarray(0,position),identity:`${opened.dev}:${opened.ino}`,stat:opened}
  } finally { await file.close() }
 }
-async function inventory(root:string,signal:AbortSignal):Promise<Tree> {
+async function inventory(root:string,signal:AbortSignal,snapshots?:Map<string,BigIntStats>):Promise<Tree> {
  const entries:InitializationPreservedEntry[] = [], identities:[string,string][] = []
  const directories = new Map<string,Physical>()
  let total = 0
@@ -87,6 +91,7 @@ async function inventory(root:string,signal:AbortSignal):Promise<Tree> {
   const metadata = await lstat(path,{bigint:true})
   if (`${metadata.dev}:${metadata.ino}`!==before.identity) throw Error('DIRECTORY_CHANGED')
   directories.set(relative,before)
+  snapshots?.set(path,metadata)
   const names = new Set<string>()
   signal.throwIfAborted()
   const handle = await opendir(path)
@@ -101,7 +106,8 @@ async function inventory(root:string,signal:AbortSignal):Promise<Tree> {
     await walk(full,next,depth+1)
    } else {
     if (!child.isFile()) throw Error('UNSAFE_ENTRY')
-    const {bytes:data,identity} = await readBounded(full,Math.min(MiB,MAX_TREE_BYTES-total),signal)
+    const {bytes:data,identity,stat} = await readBounded(full,Math.min(MiB,MAX_TREE_BYTES-total),signal)
+    snapshots?.set(full,stat)
     identities.push([next,identity])
     total += data.length
     entries.push({path:next,kind:'file',sha256:sha(data),bytes:data.length})
@@ -186,6 +192,7 @@ async function loadPayload(archive:string,projectName:string,signal:AbortSignal)
 /** File I/O is owned here. Only the core can admit a plan and consume its grant. */
 export class BmadInitializationHost implements InitializationHostPort {
  #plans = new WeakMap<object,InitializationPlanAuthority>()
+ #inspectionFacts = new WeakMap<object,InitializationInspectionFact>()
  #active = new Set<Promise<unknown>>()
  #closing = false
  constructor(privateResource:string) { this.archive = resolve(privateResource) }
@@ -228,6 +235,54 @@ export class BmadInitializationHost implements InitializationHostPort {
     status:collision?'unknown':'absent',activeInitiative:null,activeStatus:'absent',sources:[],
     problems:collision?['RESERVED_COLLISION']:[]}
   })
+ }
+ inspectionFact(original:object):InitializationInspectionFact|undefined { return this.#inspectionFacts.get(original) }
+ inspect(operation:InitializationOperation,signal:AbortSignal):Promise<object> {
+  if(!operation.plan)return Promise.reject(Error('INSPECTION_UNAVAILABLE'))
+  return this.#own(()=>this.#inspect(operation.plan!,operation,operation.lastFactOrder+1,signal))
+ }
+ async #inspect(plan:InitializationPlan,operation:InitializationOperation,order:number,signal:AbortSignal):Promise<object> {
+  const {identity,preconditions}=plan
+  if(process.platform!=='win32'||operation.stop==='not-observed')throw Error('INSPECTION_UNAVAILABLE')
+  const root=resolve(identity.rootPath), before=await chain(root,signal), parent=before[1]
+  if(!parent||physicalIdentity(before)!==identity.rootIdentity||parent.path!==resolve(identity.parentPath)||
+     parent.identity!==identity.parentIdentity)throw Error('PHYSICAL_TARGET_CHANGED')
+  const parentTreeRevision=await parentRevision(parent,signal)
+  const snapshots=new Map<string,BigIntStats>()
+  const current=await inventory(root,signal,snapshots)
+  const assertTarget=async():Promise<void>=>{
+   if(!equal(before,await chain(root,signal))||parentTreeRevision!==await parentRevision(parent,signal)||
+      !equal(before[0],current.directories.get('')))throw Error('PHYSICAL_TARGET_CHANGED')
+  }
+  await assertTarget()
+  const entries=new Map(current.entries.map(entry=>[entry.path,entry]))
+  const observedAdditions=plan.additions.filter(entry=>equal(entries.get(entry.path),evidence(entry)))
+  const observedPaths=new Set(observedAdditions.map(entry=>entry.path))
+  const unverifiedPaths=plan.additions.filter(entry=>!observedPaths.has(entry.path)).map(entry=>entry.path)
+  const targetIntact=operation.stop==='confirmed'&&operation.result.receipt?.stop==='confirmed'&&
+   observedAdditions.length===0&&current.revision===preconditions.targetTreeRevision&&
+   parentTreeRevision===preconditions.parentTreeRevision&&
+   !current.entries.some(entry=>RESERVED.has(entry.path.split('/')[0].toLowerCase()))
+  if(targetIntact){
+   // Recheck named metadata after all reads. External changes can still race the individual stats.
+   for(const [path,stat] of snapshots){
+    signal.throwIfAborted()
+    const current=await lstat(path,{bigint:true})
+    if(stat.isDirectory()){
+     if(!current.isDirectory()||!sameMetadata(stat,current))throw Error('DIRECTORY_CHANGED')
+    }else if(!unchangedFile(stat,current))throw Error('SOURCE_CHANGED')
+   }
+   await assertTarget()
+  }
+  const fact:InitializationInspectionFact={
+   schemaVersion:1,kind:'inspection',identity,planId:plan.id,planRevision:plan.revision,order,
+   coverage:targetIntact||!unverifiedPaths.length?'complete':'partial',observedAdditions,unverifiedPaths,
+   stop:operation.stop,reason:targetIntact||!unverifiedPaths.length?null:'inspection-entries-unconfirmed',
+   ...(targetIntact?{targetIntact:true}:{})
+  }
+  const token=structuredClone(fact)
+  this.#inspectionFacts.set(token,fact)
+  return token
  }
  prepare(request:InitializationAttempt&{context:CapturedBmadContext},signal:AbortSignal):Promise<object> {
   return this.#own(()=>this.#prepare(request,signal))
@@ -278,7 +333,7 @@ export class BmadInitializationHost implements InitializationHostPort {
   }
   const authority:InitializationPlanAuthority = {
    plan:structuredClone(original),
-   fact: token=>facts.get(token),
+   fact: token=>facts.get(token)??this.#inspectionFacts.get(token),
    recheck:s=>this.#own(async()=>{
     checked = false
     if (applied) throw Error('STALE')
@@ -294,7 +349,7 @@ export class BmadInitializationHost implements InitializationHostPort {
    apply:s=>this.#own(async()=>{
     if (!checked || applied) throw Error('STALE')
     applied = true
-    const token = {}, effect:Effect = {requested:false,complete:false}
+    const token = {}, effect:Effect = {requested:false,complete:false,closed:true}
     effects.set(token,effect)
     const directories = new Map(before.directories)
     try {
@@ -322,7 +377,10 @@ export class BmadInitializationHost implements InitializationHostPort {
         await file.writeFile(payload.bytes.get(entry.contentId)!)
         s.throwIfAborted()
         await file.sync()
-       } finally { await file.close() }
+       } finally {
+        try { await file.close() }
+        catch(error) { effect.closed=false; throw error }
+       }
       }
      }
      effect.complete = true
@@ -341,22 +399,25 @@ export class BmadInitializationHost implements InitializationHostPort {
      const entries = new Map(current.entries.map(entry=>[entry.path,entry]))
      preservedVerified = before.entries.every(entry=>equal(entries.get(entry.path),entry))
      observedAdditions = payload.entries.filter(entry=>equal(entries.get(entry.path),evidence(entry)))
-     if (effect.complete && equal(current.entries,union)) {
+     if (effect.closed && effect.complete && equal(current.entries,union)) {
       s.throwIfAborted()
       await qualifyBmadProfile(root)
       s.throwIfAborted()
       await guard(s)
       if ((await inventory(root,s)).revision!==current.revision) throw Error('RESULT_CHANGED')
       outcome = 'verified'
-     } else if (!effect.requested && equal(current.entries,before.entries)) outcome = 'failed-no-effect'
+     } else if (effect.closed && !effect.requested && equal(current.entries,before.entries)) outcome = 'failed-no-effect'
      else if (observedAdditions.length) outcome = 'partial'
     } catch { /* Missing evidence does not turn the result into success. */ }
     return fact({kind:'application',outcome,observedAdditions,preservedVerified,
-     unionVerified:outcome==='verified',stop:'confirmed',
+     unionVerified:outcome==='verified',stop:effect.closed?'confirmed':'unknown',
      unverifiedPaths:outcome==='failed-no-effect'?[]:payload.entries.filter(e=>!observedAdditions.includes(e)).map(e=>e.path),
      reason:outcome==='verified'?null:'application-not-verified'})
    }),
-   inspect:async()=>{throw Error('INSPECTION_UNAVAILABLE')},
+   inspect:(s,operation)=>this.#own(()=>{
+    order=Math.max(order,operation.lastFactOrder)+1
+    return this.#inspect(original,operation,order,s)
+   }),
    content:(contentId,s)=>this.#own(async()=>{
     s.throwIfAborted()
     const entry = payload.entries.find(e=>e.kind==='file'&&e.contentId===contentId), data = payload.bytes.get(contentId)

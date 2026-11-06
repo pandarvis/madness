@@ -1,5 +1,7 @@
 # Travail dans ce dépôt
 
+- 6 novembre 2026 — Graphify 4.5 built e9aa3ac et 4.6 built, BMad oneshot/Quick. Artefact natif épinglé, copie sur descripteur et direction attestée. Fraîcheur par révision, ancien complet préservé, autorités révoquées avec les liens, réouverture passive. Q1–Q5 de 4.6 résolus et recontrôlés. Tests ciblés et Electron court seulement. Prochaine 4.7, arrêt et restauration. Pas de nouveau paquet ni G5 final.
+
 - 6 novembre 2026 — 3.8 built via bmad-build oneshot/Quick. Sept plans et onze entrées du registre revus, aucun correctif d'initialisation différé. Q1 résolu, lien vers le manifeste exact 0.2.18 et quatre empreintes contrôlées. Prochaine voie produit 4.5 Graphify. Les qualifications longues 2.16/3.9 et la participation 3.10 restent ouvertes.
 
 - 6 novembre 2026 — Story 3.7 built via bmad-build oneshot/Quick. Candidat NSIS 0.2.18 dans dist/init37-candidate, ASAR efd72fe9aba14def73e54a3f5899add6c91acc02c096905af82cb8376409d0b4 et bundle épinglé exact. Sept tests de manifeste, un refus d’hôte ciblé, types/build et témoin court 4/4 avec nettoyage. Deux constats Quick résolus/recontrôlés, YAML Windows et refus jonction. Vérifications longues et remplacement restent en 3.9, parcours humain en 3.10. Prochaine 3.8.

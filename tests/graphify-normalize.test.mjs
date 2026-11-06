@@ -54,21 +54,24 @@ test('adapter publishes typed format refusal, partial coverage and unknown stop 
   const data = join(root, 'data')
   await mkdir(data)
   await writeFile(join(data, 'files.json'), '{}')
-  let stop = 'stopped'
+  let stop = 'stopped', interruptAfterRun
   const adapter = new GraphifyAdapter({owner: {status: async () => stop}})
-  adapter.run = async ({op}) => ({folder: root, result: op === 'capture' ? {
+  adapter.run = async ({op}) => {
+   if(op==='analyze')interruptAfterRun?.abort()
+   return {folder: root, result: op === 'capture' ? {
    ...context.identity, revision: hash, observedAt: context.observedAt, corpus: context.corpus,
    sources: [], excluded: [], receiptSha: createHash('sha256').update('{}').digest('hex')
-  } : {sourceState: 'unchanged', observedAt: context.observedAt}})
+   } : {sourceState: interruptAfterRun?'changed':'unchanged', observedAt: context.observedAt}}
+  }
   const {signal} = new AbortController()
   const original = await adapter.capture('p', root, signal)
   const request = {contractVersion: 1, identity: {...context.identity, scopeRevision: adapter.scopeRevision},
    corpus: original.corpus, coverage: context.coverage, generation: 1, correlationId: 'decode'}
-  async function analyze(bytes, warning = '') {
+  async function analyze(bytes, warning = '', runSignal = signal) {
    await writeFile(join(root, 'native-graph.json'), bytes)
    await writeFile(join(root, 'analysis-stderr.log'), warning)
    const events = []
-   await adapter.analyze(request, e => events.push(e), signal)
+   await adapter.analyze(request, e => events.push(e), runSignal)
    assert.ok(events.every(e => validateGraphAnalysisEvent(e).ok))
    return events.slice(1)
   }
@@ -84,5 +87,10 @@ test('adapter publishes typed format refusal, partial coverage and unknown stop 
   stop = 'unknown'
   const unconfirmed = await analyze(raw)
   assert.deepEqual(unconfirmed.map(e => e.error?.code), ['STOP_UNCONFIRMED'])
+  stop = 'stopped'
+  interruptAfterRun = new AbortController()
+  const interrupted = await analyze(JSON.stringify(graph), '', interruptAfterRun.signal)
+  assert.deepEqual(interrupted.map(e => [e.type,e.reason,e.stop]), [['stopped','interrupted','confirmed']])
+  assert.deepEqual(adapter.facts(original),{sourceState:'changed',observedAt:context.observedAt})
  } finally { await rm(root, {recursive: true, force: true}) }
 })

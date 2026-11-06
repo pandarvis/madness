@@ -40,7 +40,9 @@ export class GraphifyAdapter implements GraphAnalysisPort{
    const cancel=():void=>{void this.options.owner.cancel().catch(()=>{})};signal.addEventListener('abort',cancel,{once:true});if(signal.aborted)cancel()
    let timer:ReturnType<typeof setTimeout>|undefined
    try{await Promise.race([new Promise<void>((done,fail)=>{child.once('close',()=>done());child.once('error',fail)}),new Promise<never>((_,fail)=>{timer=setTimeout(()=>{cancel();fail(Error('STOP_UNCONFIRMED'))},270000)})])}finally{clearTimeout(timer);signal.removeEventListener('abort',cancel)}
-   confirmed=await this.options.owner.confirm(generation)==='stopped';if(!confirmed)throw Error('STOP_UNCONFIRMED');signal.throwIfAborted()
+   confirmed=await this.options.owner.confirm(generation)==='stopped';if(!confirmed)throw Error('STOP_UNCONFIRMED')
+   // The finished analysis may already have written a source comparison before cancellation.
+   if(request.op!=='analyze')signal.throwIfAborted()
    const problem=await safe(join(folder,'launcher-error.txt'),65536).catch(e=>{if((e as NodeJS.ErrnoException).code==='ENOENT')return null;throw e});if(problem)throw Error(problem.toString('utf8'));if(errorBytes>65536)throw Error('LAUNCHER_OUTPUT_LIMIT')
    const result=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await safe(join(folder,'result.json'),4*1024*1024)));if(result.error)throw Error(result.error);return {result,folder}
   }finally{
@@ -63,16 +65,20 @@ export class GraphifyAdapter implements GraphAnalysisPort{
   const original=this.originals.get(request.identity.projectId),capture=original&&this.captured.get(original);let order=0;const base={contractVersion:1 as const,identity:request.identity,generation:request.generation,correlationId:request.correlationId};const emit=(e:Record<string,unknown>):void=>observe({...base,order:++order,...e} as GraphAnalysisEvent)
   if(!validateGraphAnalysisRequest(request).ok||!original||!capture||request.identity.sourceRevision!==original.revision||request.identity.rootIdentity!==original.rootIdentity||request.identity.rootPath!==original.rootPath||request.identity.scopeRevision!==this.scopeRevision||JSON.stringify(request.corpus)!==JSON.stringify(original.corpus))throw Error('CAPTURE_MISMATCH')
   emit({type:'started'})
+  let terminalFacts:Facts={sourceState:'unknown',observedAt:null}
   try{
    const {result,folder}=await this.run({op:'analyze',prepared:capture.folder},signal,{contractVersion:1,identity:request.identity,generation:request.generation,correlationId:request.correlationId})
-   capture.facts={sourceState:['unchanged','changed'].includes(result.sourceState)?result.sourceState:'unknown',observedAt:typeof result.observedAt==='string'?result.observedAt:null}
+   terminalFacts={sourceState:['unchanged','changed'].includes(result.sourceState)?result.sourceState:'unknown',observedAt:typeof result.observedAt==='string'?result.observedAt:null}
+   capture.facts=terminalFacts
+   signal.throwIfAborted()
    const bytes=await safe(join(folder,'native-graph.json'),16*1024*1024),logs=await safe(join(folder,'analysis-stderr.log'),4*1024*1024)
    const limitations=/warning|not available|not installed|missing optional/i.test(logs.toString('utf8'))
     ? ['Graphify signale une couverture limitée.'] : []
    const snapshot=normalizeGraphify(bytes,{identity:request.identity,corpus:original.corpus,coverage:request.coverage,observedAt:original.observedAt,assemblyRevision:graphResourcePins['assembly.json'],limitations})
+   signal.throwIfAborted()
    emit({type:'result',snapshot});emit({type:'stopped',reason:snapshot.coverage.status,stop:'confirmed'})
   }catch(e){
-   capture.facts={sourceState:'unknown',observedAt:null};const stopped=await this.options.owner.status().catch(()=>'unknown' as const)==='stopped'
+   capture.facts=terminalFacts.sourceState==='changed'?terminalFacts:{sourceState:'unknown',observedAt:null};const stopped=await this.options.owner.status().catch(()=>'unknown' as const)==='stopped'
    if(signal.aborted){emit({type:'stopped',reason:'interrupted',stop:stopped?'confirmed':'unknown'});return}
    if(e instanceof Error&&e.message==='GRAPH_CHILD_timeout')emit({type:'stopped',reason:'timeout',stop:stopped?'confirmed':'unknown'})
    else if(!stopped)emit({type:'failed',error:{code:'STOP_UNCONFIRMED',messageKey:'graph.error.stop_unconfirmed',outcome:'unknown',recovery:'check-stop'}})

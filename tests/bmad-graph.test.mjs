@@ -246,3 +246,35 @@ test('Q3 matching terminal and historical outcomes restore passively while a new
  }
 })
 
+
+test('a later unchanged terminal cannot erase a mutation observed for the same snapshot', () => {
+ const ctx = expected({generation:2,identity:{...identity(),analysisId:'analysis:002'}})
+ const start = running(ctx,completed())
+ const changedAt = '2026-11-04T10:00:02.000Z'
+ const changed = observed({...snapshot(),identity:ctx.identity},{...ctx,sourceState:'changed',observedAt:changedAt},start)
+ const terminal = policy.publishGraphEvent(changed,event('stopped',{identity:ctx.identity,generation:2,order:2,reason:'complete',stop:'confirmed'}),{...ctx,lastEventOrder:1})
+ assert.equal(terminal.ok,true)
+ assert.deepEqual(terminal.value.freshness,changed.freshness)
+ assert.equal(terminal.value.lastComplete.identity.analysisId,'analysis:001')
+ const restored = policy.restoreGraphState(terminal.value,scope())
+ assert.equal(restored.value.activity.phase,'historical')
+ assert.equal(restored.value.freshness.status,'changed')
+})
+
+test('a failed refresh retains the proved older revision of the fallback complete', () => {
+ const partial = snapshot()
+ partial.identity = {...identity(),analysisId:'analysis:002',sourceRevision:sha('8')}
+ partial.collectedAt = '2026-11-04T10:05:00.000Z'
+ partial.coverage = {...partial.coverage,status:'partial',limitations:['test']}
+ const middle = expected({identity:partial.identity,generation:2})
+ const seen = observed(partial,middle,running(middle,completed()))
+ const partialTerminal = policy.publishGraphEvent(seen,event('stopped',{identity:middle.identity,generation:2,order:2,reason:'partial',stop:'confirmed'}),{...middle,lastEventOrder:1}).value
+ const next = expected({identity:{...identity(),analysisId:'analysis:003',sourceRevision:sha('9')},generation:3})
+ const start = running(next,partialTerminal)
+ const error = {code:'ANALYSIS_FAILED',messageKey:'graph.error.analysis_failed',outcome:'failed',recovery:'retry-after-check'}
+ const failed = policy.publishGraphEvent(start,event('failed',{identity:next.identity,generation:3,error}),{...next,sourceState:'unknown',observedAt:null})
+ assert.equal(failed.ok,true)
+ assert.equal(failed.value.result.snapshot,null)
+ assert.equal(failed.value.lastComplete.identity.analysisId,'analysis:001')
+ assert.deepEqual(failed.value.freshness,{status:'changed',sourceRevision:identity().sourceRevision,observedAt:partial.collectedAt})
+})

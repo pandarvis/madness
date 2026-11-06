@@ -12,9 +12,9 @@ risk = "high"
 [[entry]]
 id = 2
 type = "story"
-title = "Identifier Claude Code dans le choix de fournisseur"
-description = "Partie choix et état de R2. Étendre la commande de 6.1 en un choix de fournisseur et ses états visibles à la charte avec Sally et Impeccable. Afficher un nom accessible."
-verify = "Créer des conversations distinctes Claude et Codex, puis vérifier le fournisseur et la connexion dans le sélecteur, le panneau de contexte et après navigation et réouverture. Vérifier clavier, deux langues et deux thèmes."
+title = "Choisir le fournisseur du prochain échange et accéder aux réglages"
+description = "Étendre la commande 6.1 en sélecteur Codex ou Claude Code dans la barre d’action, avec nom et état accessibles. L’icône Réglages accueille la langue et l’accès à la connexion. Adapter le parcours avec Sally et Impeccable."
+verify = "Créer des conversations distinctes Claude et Codex, puis vérifier le fournisseur et la connexion dans le sélecteur, le panneau de contexte et après navigation et réouverture. Vérifier que le sélecteur ne change que le prochain échange, que la langue est accessible dans Réglages, et vérifier clavier, deux langues et deux thèmes."
 covers = ["R2"]
 after = [1, "2.14"]
 hitl = false

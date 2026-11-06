@@ -1,4 +1,5 @@
 import type {TurnInstrumentation} from '../../core/us-metrics.ts'
+import {CODEX_USAGE_METHOD,codexUsagePayload,readTokenBreakdown} from '../../contracts/us-metrics.ts'
 import type {TurnReceipt} from '../../contracts/us-metrics.ts'
 import {validHelpContextText} from '../../contracts/bmad-help.ts'
 import type {HelpHost,BmadHelpAdapter} from '../bmad/help.ts'
@@ -108,6 +109,10 @@ export class DialogueRpc {
     if (Object.hasOwn(value, 'id')) { if(typeof value.id!=='number'||!Number.isSafeInteger(value.id))return this.fail('PROVIDER_FAILED'); const pending = this.pending.get(value.id); if (!pending) return; this.pending.delete(value.id); if (value.error || !Object.hasOwn(value, 'result')) pending.reject(dialogueFailure('PROVIDER_FAILED')); else {if(pending.method==='turn/start'&&this.turnObservation&&typeof value.result?.turn?.id==='string'&&value.result.turn.id.length>0&&value.result.turn.id.length<=200){this.turnObservation.turnId=value.result.turn.id;const key=JSON.stringify([this.turnObservation.threadId,this.turnObservation.turnId]);if(!this.turnObservations.has(key))this.turnObservations.set(key,this.turnObservation);this.receipt('ack',null,nativePayloadDigest(value.result.turn))}pending.resolve(value.result)} return }
     if (!value.method) return this.fail('PROVIDER_FAILED')
     if (value.method === 'error') return this.fail('PROVIDER_FAILED')
+    if (value.method === CODEX_USAGE_METHOD) {
+      this.observeUsage(value.params)
+      return
+    }
     if (!['item/started', 'item/completed', 'item/agentMessage/delta', 'turn/completed','rawResponseItem/completed','serverRequest/resolved','item/fileChange/patchUpdated'].includes(value.method)) return
     const observation=value.method==='turn/completed'?this.turnObservations.get(JSON.stringify([value.params?.threadId,value.params?.turn?.id])):undefined
     if(observation&&['completed','failed','interrupted'].includes(value.params?.turn?.status)){const digest=nativePayloadDigest(value.params.turn);if(!observation.terminals.has(digest)){observation.terminals.add(digest);this.receipt('terminal',value.params.turn.status,digest,this.timing.clock(),observation)}}
@@ -118,6 +123,20 @@ export class DialogueRpc {
         q.delta+=p.delta
       }else this.queue.push(value)
       if (this.queue.length > 512) this.fail('PROVIDER_FAILED')
+    }
+  }
+  private observeUsage(params:unknown):void{
+    if(!isRecord(params)||typeof params.threadId!=='string'||typeof params.turnId!=='string'||!isRecord(params.tokenUsage))return
+    const observation=this.turnObservations.get(JSON.stringify([params.threadId,params.turnId]))
+    if(!observation?.observer.receiveUsage)return
+    const last=readTokenBreakdown(params.tokenUsage.last),total=readTokenBreakdown(params.tokenUsage.total)
+    if(!last||!total)return
+    const threadId=params.threadId,nativeTurnId=params.turnId
+    const {runId,sessionId}=this.timing
+    const sample={schemaVersion:1,source:CODEX_USAGE_METHOD,runId,sessionId,threadId,nativeTurnId,last,total} as const
+    const payloadDigest=createHash('sha256').update(codexUsagePayload(sample)).digest('hex')
+    try{observation.observer.receiveUsage({...sample,payloadDigest})}catch{
+      // Optional telemetry must not interrupt a dialogue.
     }
   }
   private write(value: unknown,written?:()=>void): void {const raw=JSON.stringify(value)+'\n',bytes=Buffer.byteLength(raw);if(bytes>1048576||this.bytes+this.writtenBytes+bytes>8388608){this.fail('OUTPUT_REFUSED');return}this.writtenBytes+=bytes;if (!this.child.stdin.destroyed) this.child.stdin.write(raw,error=>{if(error)this.fail('PROVIDER_FAILED');else written?.()}) }

@@ -1,5 +1,5 @@
-import {isTurnReceipt,isMetricsArchive,isUsMetricsCommand,initialUsMetricsState} from '../contracts/us-metrics.ts'
-import type {TurnReceipt,StoryOccurrence,StorySource,MetricTurn,MetricsArchive,MetricsSummary,MetricsProject,UsMetricsState,MetricOperation,MetricObservation,StoryCandidate} from '../contracts/us-metrics.ts'
+import {isCodexUsageSample,isTurnReceipt,isMetricsArchive,isUsMetricsCommand,initialUsMetricsState} from '../contracts/us-metrics.ts'
+import type {CodexUsageSample,TurnReceipt,StoryOccurrence,StorySource,MetricTurn,MetricsArchive,MetricsSummary,MetricsProject,UsMetricsState,MetricOperation,MetricObservation,StoryCandidate} from '../contracts/us-metrics.ts'
 import type {BmadProgressSnapshot} from '../contracts/bmad-progress.ts'
 import type {ContextRef} from '../contracts/index.ts'
 import {dialogueFailure} from '../contracts/dialogue.ts'
@@ -7,9 +7,10 @@ export type StoryEvidence={schemaVersion:1;revision:string;rows:{sourceId:string
 /** Only the adapter's original WeakMap object may provide this capability. */
 export type StoryAuthority={evidence:StoryEvidence;verify(sourceId:string,signal:AbortSignal):Promise<void>}
 export interface UsMetricsPort{read(id:string):Promise<MetricsArchive|null>;write(body:MetricsArchive):Promise<void>}
-export type TurnInstrumentation={assertFresh():Promise<void>;receive(receipt:TurnReceipt):void}
+export type TurnInstrumentation={assertFresh():Promise<void>;receive(receipt:TurnReceipt):void;receiveUsage?(sample:CodexUsageSample):void}
 const canonical=(v:unknown):string=>JSON.stringify(v,(_k,value)=>value&&typeof value==='object'&&!Array.isArray(value)?Object.fromEntries(Object.entries(value).sort(([a],[b])=>a.localeCompare(b))):value)
 const unique=<T>(values:T[]):T[]=>[...new Map(values.map(v=>[canonical(v),v])).entries()].sort(([a],[b])=>a.localeCompare(b)).map(([,v])=>v)
+const timingProof=(turn:MetricTurn)=>{const {usage:_usage,...proof}=turn;return canonical(proof)}
 const nativeKey=(t:MetricTurn,r:TurnReceipt)=>canonical([t.context.conversationId,t.context.providerId,t.context.connectionId,r.runId,r.sessionId,r.threadId,r.nativeTurnId])
 type Normalized={records:MetricTurn[];story:StoryOccurrence|null;receipts:TurnReceipt[];conflicts:string[]}
 /** Local aliases cannot create another native turn. Contradictions retain all originals. */
@@ -32,6 +33,33 @@ export function summarizeTurns(turns:MetricTurn[],storyId?:string,conversationId
  const sum=known.reduce((n,v)=>n+v.ms,0)
  return {identified:selected.length,known:known.length,unknown,knownMs:known.length&&Number.isFinite(sum)?sum:null,coverage:!selected.length?'none':!known.length?'unavailable':unknown?'partial':'complete',overlap,nativeDuration:'unavailable',usage:'unavailable',cost:'unavailable'}
 }
+/** Interpret the archived sample as evidence of reception, without aggregating tokens. */
+export function usageForObservation(observation:MetricObservation,records:MetricTurn[]):CodexUsageSample|null{
+ if(observation.reason==='conflicting')return null
+ const samples=records.flatMap(record=>record.usage?[record.usage]:[])
+ const first=samples[0]
+ return first&&samples.every(sample=>canonical(sample)===canonical(first))?first:null
+}
+
+type EpicUsage={key:string;initiativeId:string;initiativePath:string;container:string;identified:number;sampled:number}
+export function epicUsage(project:Pick<MetricsProject,'archive'|'observations'>):EpicUsage[]{
+ const byId=new Map(project.archive.turns.map(turn=>[turn.id,turn]))
+ const groups=new Map<string,EpicUsage>()
+ const scope=(story:StoryOccurrence):string=>JSON.stringify([story.projectId,story.rootPath,story.rootIdentity,story.initiativeId,story.initiativePath,story.container])
+ for(const observation of project.observations){
+  if(!observation.storyRef||!observation.members)continue
+  const records=observation.members.recordIds.map(id=>byId.get(id))
+  const story=records[0]?.story
+  if(!story||!/^tickets\/epic-[^/]+(?:\/tickets\/epic-[^/]+)*$/.test(story.container))continue
+  const key=scope(story)
+  if(!records.every((record):record is MetricTurn=>!!record?.story&&record.story.id===observation.storyRef&&scope(record.story)===key))continue
+  const group=groups.get(key)??{key,initiativeId:story.initiativeId,initiativePath:story.initiativePath,container:story.container,identified:0,sampled:0}
+  group.identified++
+  if(usageForObservation(observation,records))group.sampled++
+  groups.set(key,group)
+ }
+ return [...groups.values()].sort((a,b)=>a.key.localeCompare(b.key))
+}
 type Dependencies={store:UsMetricsPort;newId?():string;assertStory?(story:StoryOccurrence,signal:AbortSignal):Promise<void>}
 type Choice={projectId:string;conversationId:string|null;requestId:string;text:string|null;operation:MetricOperation;story:StoryOccurrence|null;authority:StoryAuthority|null}
 export class UsMetricsCoordinator{
@@ -41,7 +69,7 @@ export class UsMetricsCoordinator{
  read():UsMetricsState{const result=structuredClone(this.state);for(const p of result.projects){
   p.summary=summarizeTurns(p.archive.turns);p.stories=p.archive.occurrences.map(o=>({storyRef:o.id,summary:summarizeTurns(p.archive.turns,o.id)}));p.conversations=[...new Set(p.archive.turns.map(t=>t.context.conversationId!))].map(conversationId=>({conversationId,summary:summarizeTurns(p.archive.turns,undefined,conversationId)}))
   const saved=this.durable.get(p.projectId)
-  p.observations=normalizeTurns(p.archive.turns).map(t=>{const value=interval(t),a=t.receipts.find(r=>r.phase==='ack'),b=t.receipts.find(r=>r.phase==='terminal')??t.receipts.find(r=>r.phase==='close');return {members:{schemaVersion:1,recordIds:t.records.map(r=>r.id).sort()},localIds:[...new Set(t.records.map(r=>r.localTurnId))].sort(),context:structuredClone(t.records[0].context),storyRef:t.story?.id??null,durationMs:value?.ms??null,reason:value?'known':t.conflicts.length?'conflicting':!a?'missing-ack':!b?'missing-end':a.domain!==b.domain?'clock-domain':'invalid-order',outcomes:[...new Set(t.receipts.flatMap(r=>r.phase==='terminal'&&r.outcome?[r.outcome]:[]))].sort(),durable:!!saved&&t.records.every(r=>saved.turns.some(s=>canonical(s)===canonical(r))) } satisfies MetricObservation})
+  p.observations=normalizeTurns(p.archive.turns).map(t=>{const value=interval(t),a=t.receipts.find(r=>r.phase==='ack'),b=t.receipts.find(r=>r.phase==='terminal')??t.receipts.find(r=>r.phase==='close');return {members:{schemaVersion:1,recordIds:t.records.map(r=>r.id).sort()},localIds:[...new Set(t.records.map(r=>r.localTurnId))].sort(),context:structuredClone(t.records[0].context),storyRef:t.story?.id??null,durationMs:value?.ms??null,reason:value?'known':t.conflicts.length?'conflicting':!a?'missing-ack':!b?'missing-end':a.domain!==b.domain?'clock-domain':'invalid-order',outcomes:[...new Set(t.receipts.flatMap(r=>r.phase==='terminal'&&r.outcome?[r.outcome]:[]))].sort(),durable:!!saved&&t.records.every(r=>saved.turns.some(s=>s.id===r.id&&timingProof(s)===timingProof(r))) } satisfies MetricObservation})
   for(const c of p.candidates)if(c.storyRef&&!this.authorities.has(c.storyRef))c.reason='historical'
  }return result}
  subscribe(fn:(s:UsMetricsState)=>void):()=>void{this.listeners.add(fn);return()=>this.listeners.delete(fn)}
@@ -103,7 +131,15 @@ export class UsMetricsCoordinator{
   const assertFresh=async():Promise<void>=>{signal.throwIfAborted();if(!story)return;const current=()=>p.archive.occurrences.find(o=>o.id===story.id),check=():void=>{signal.throwIfAborted();if(this.closing||!current()?.active||current()?.proofRevision!==story.proofRevision||!authority||this.authorities.get(story.id)!==authority)throw dialogueFailure('PROFILE_CHANGED')};check();await this.deps.assertStory?.(story,signal);check();await authority!.verify(story.sources[0].sourceId,signal);check()}
   await assertFresh()
   const record:MetricTurn={id:this.id('metric-'),context:structuredClone(context),requestId,localTurnId,story:structuredClone(story),receipts:[]};if(!isMetricsArchive({...p.archive,turns:[...p.archive.turns,record]})){if(choiceRef)throw dialogueFailure('OUTPUT_REFUSED');p.error='OUTPUT_REFUSED';this.emit();return {assertFresh:async()=>{},receive:()=>{}}}p.archive.turns.push(record);this.changed(context.projectId!)
-  return {assertFresh,receive:r=>{if(!isTurnReceipt(r))return;if(record.receipts.some(v=>canonical(v)===canonical(r)))return;if(record.receipts.length>=64){p.error='OUTPUT_REFUSED';p.storage='failed';this.emit();return}const next=structuredClone(r);if(!isMetricsArchive({...p.archive,turns:p.archive.turns.map(t=>t.id===record.id?{...t,receipts:[...t.receipts,next]}:t)})){p.error='OUTPUT_REFUSED';p.storage='failed';this.emit();return}record.receipts.push(next);this.changed(context.projectId!)}}
+  const current=()=>p.archive.turns.find(turn=>turn.id===record.id)
+  return {assertFresh,receive:r=>{const record=current();if(!record||!isTurnReceipt(r))return;if(record.receipts.some(v=>canonical(v)===canonical(r)))return;if(record.receipts.length>=64){p.error='OUTPUT_REFUSED';p.storage='failed';this.emit();return}const next=structuredClone(r);if(!isMetricsArchive({...p.archive,turns:p.archive.turns.map(t=>t.id===record.id?{...t,receipts:[...t.receipts,next]}:t)})){p.error='OUTPUT_REFUSED';p.storage='failed';this.emit();return}record.receipts.push(next);this.changed(context.projectId!)},receiveUsage:sample=>{
+   const record=current()
+   if(this.closing||p.storage==='unreadable'||!record||record.usage||record.context.providerId!=='codex'||!isCodexUsageSample(sample,record.receipts))return
+   const next=structuredClone(sample)
+   if(!isMetricsArchive({...p.archive,turns:p.archive.turns.map(t=>t===record?{...t,usage:next}:t)}))return
+   record.usage=next
+   this.changed(context.projectId!)
+  }}
  }
  async settled():Promise<void>{await Promise.all(this.restorations.values());await this.writes}
  async shutdown():Promise<void>{this.closing=true;this.choices.clear();await this.settled()}

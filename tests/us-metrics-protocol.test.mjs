@@ -51,3 +51,70 @@ test('T6 late previous-turn JSONL terminals keep their original observer after t
   at=1301000;emit('native-2','completed');assert.equal(summarizeTurns([record('current',current)]).knownMs,600000)
  }finally{rpc.dispose()}
 })
+
+import {UsMetricsCoordinator} from '../src/core/us-metrics.ts'
+import {UsMetricsStore} from '../src/adapters/persistence/us-metrics-store.ts'
+import {mkdtemp,rm,writeFile} from 'node:fs/promises'
+import {tmpdir} from 'node:os'
+import {join} from 'node:path'
+
+test('first valid usage sample follows the acknowledged turn and survives passive reopening',async()=>{
+ const root=await mkdtemp(join(tmpdir(),'madness-usage-proof-'))
+ const child=new EventEmitter()
+ child.stdin=new PassThrough()
+ child.stdout=new PassThrough()
+ child.stderr=new PassThrough()
+ let sequence=0
+ child.stdin.on('data',bytes=>{
+  const message=JSON.parse(bytes)
+  child.stdout.write(JSON.stringify({id:message.id,result:{turn:{id:'native-'+ ++sequence,status:'inProgress'}}})+'\n')
+ })
+ const rpc=new DialogueRpc(child,new AbortController().signal,1000,{clock:()=>1000,domain:'clock',runId:'run',sessionId:'session'})
+ const metrics=new UsMetricsCoordinator({store:new UsMetricsStore(root)})
+ const context={projectId:'p',initiativeId:null,conversationId:'c',providerId:'codex',connectionId:'account'}
+ const zero={inputTokens:0,cachedInputTokens:0,outputTokens:0,reasoningOutputTokens:0,totalTokens:0}
+ const usage=(turnId,threadId,last=zero)=>child.stdout.write(JSON.stringify({
+  method:'thread/tokenUsage/updated',params:{threadId,turnId,tokenUsage:{last:{...last,privateField:'excluded'},total:zero},privateField:'excluded'}
+ })+'\n')
+ try{
+  const original=await metrics.capture(context,'request-1','local-1',null)
+  rpc.armTurn('thread',original)
+  usage('native-1','thread',{...zero,inputTokens:10,totalTokens:10})
+  await rpc.call('turn/start',{})
+  child.stdout.write(JSON.stringify({method:'turn/completed',params:{threadId:'thread',turn:{id:'native-1',status:'completed'}}})+'\n')
+  assert.equal((await rpc.next(1000)).method,'turn/completed')
+  await metrics.settled()
+  const current=await metrics.capture(context,'request-2','local-2',null)
+  rpc.armTurn('thread',current)
+  await rpc.call('turn/start',{})
+  usage('native-2','foreign')
+  usage('native-2','thread',{...zero,inputTokens:-1})
+  usage('native-1','thread')
+  const projected=metrics.read().projects[0]
+  assert.equal(projected.observations.find(value=>value.localIds.includes('local-1')).durable,true)
+  const firstRevision=projected.archive.revision
+  usage('native-1','thread')
+  usage('native-1','thread',{...zero,inputTokens:5,totalTokens:5})
+  assert.equal(metrics.read().projects[0].archive.revision,firstRevision)
+  await metrics.settled()
+  const archive=await new UsMetricsStore(root).read('p')
+  const [old,newer]=archive.turns
+  assert.equal(old.usage?.source,'thread/tokenUsage/updated')
+  assert.deepEqual(old.usage.last,zero)
+  assert.deepEqual(old.usage.total,zero)
+  assert.equal(old.usage.nativeTurnId,'native-1')
+  assert.equal(old.usage.threadId,'thread')
+  assert.equal(Object.hasOwn(newer,'usage'),false)
+  assert.equal(JSON.stringify(archive).includes('excluded'),false)
+  assert.equal(metrics.read().projects[0].summary.cost,'unavailable')
+  const waiting=rpc.next(1000)
+  child.stdout.write(JSON.stringify({method:'turn/completed',params:{threadId:'thread',turn:{id:'native-2',status:'completed'}}})+'\n')
+  assert.equal((await waiting).method,'turn/completed')
+  await metrics.settled()
+  const file=join(root,'p.json')
+  const tampered=await new UsMetricsStore(root).read('p')
+  tampered.turns[0].usage.last.inputTokens=1
+  await writeFile(file,JSON.stringify(tampered))
+  await assert.rejects(new UsMetricsStore(root).read('p'),{code:'STORAGE_READ_FAILED'})
+ }finally{rpc.dispose();await metrics.shutdown();await rm(root,{recursive:true,force:true})}
+})

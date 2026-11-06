@@ -4,6 +4,8 @@ import {contextId} from './bmad-context.ts'
 export const US_METRICS_COMMAND_CHANNEL='madness:us-metrics:command:v1'
 export const US_METRICS_EVENT_CHANNEL='madness:us-metrics:event:v1'
 export const MAX_METRICS_BYTES=8*1024*1024
+const MAX_USAGE_PROOF_BYTES=512*1024
+export const MAX_METRICS_FILE_BYTES=MAX_METRICS_BYTES+MAX_USAGE_PROOF_BYTES
 export const metricText=(v:unknown,n=32767):v is string=>typeof v==='string'&&v.length>0&&v.length<=n&&!v.includes('\0')
 const exact=(v:Record<string,unknown>,keys:string[])=>Object.keys(v).length===keys.length&&keys.every(k=>Object.hasOwn(v,k))
 const sha=(v:unknown):v is string=>typeof v==='string'&&/^[a-f0-9]{64}$/.test(v)
@@ -12,7 +14,29 @@ export type StorySource={sourceId:string;path:string;sha256:string;bytes:number;
 export type StoryOccurrence={id:string;projectId:string;rootPath:string;rootIdentity:string;initiativeId:string;initiativePath:string;container:string;ticketId:string;title:string;contextRevision:string;proofRevision:string;sources:StorySource[];active:boolean}
 /** Private connector observation; never accepted through IPC or a provider payload. */
 export type TurnReceipt={schemaVersion:1;runId:string;sessionId:string;threadId:string;nativeTurnId:string;domain:string;phase:'ack'|'terminal'|'close';at:number;outcome:null|'completed'|'failed'|'interrupted';payloadDigest:string}
-export type MetricTurn={id:string;context:ContextRef;requestId:string;localTurnId:string;story:StoryOccurrence|null;receipts:TurnReceipt[]}
+export const CODEX_USAGE_METHOD='thread/tokenUsage/updated'
+const tokenFields=['inputTokens','cachedInputTokens','outputTokens','reasoningOutputTokens','totalTokens'] as const
+type TokenBreakdown=Record<typeof tokenFields[number],number>
+export type CodexUsageSample=Pick<TurnReceipt,'runId'|'sessionId'|'threadId'|'nativeTurnId'|'payloadDigest'> & {
+ schemaVersion:1;source:typeof CODEX_USAGE_METHOD;last:TokenBreakdown;total:TokenBreakdown
+}
+export function readTokenBreakdown(value:unknown):TokenBreakdown|null{
+ if(!isRecord(value)||!tokenFields.every(key=>integer(value[key])))return null
+ return Object.fromEntries(tokenFields.map(key=>[key,value[key]])) as TokenBreakdown
+}
+export function codexUsagePayload(sample:Omit<CodexUsageSample,'payloadDigest'>):string{
+ const {schemaVersion,source,runId,sessionId,threadId,nativeTurnId,last,total}=sample
+ return JSON.stringify([schemaVersion,source,runId,sessionId,threadId,nativeTurnId,tokenFields.map(key=>last[key]),tokenFields.map(key=>total[key])])
+}
+export function isCodexUsageSample(value:unknown,receipts:TurnReceipt[]):value is CodexUsageSample{
+ if(!isRecord(value)||!exact(value,['schemaVersion','source','runId','sessionId','threadId','nativeTurnId','payloadDigest','last','total']))return false
+ const {last,total}=value
+ return value.schemaVersion===1&&value.source===CODEX_USAGE_METHOD&&sha(value.payloadDigest)&&
+  isRecord(last)&&exact(last,[...tokenFields])&&readTokenBreakdown(last)!==null&&
+  isRecord(total)&&exact(total,[...tokenFields])&&readTokenBreakdown(total)!==null&&
+  receipts.some(r=>r.phase==='ack'&&r.runId===value.runId&&r.sessionId===value.sessionId&&r.threadId===value.threadId&&r.nativeTurnId===value.nativeTurnId)
+}
+export type MetricTurn={id:string;context:ContextRef;requestId:string;localTurnId:string;story:StoryOccurrence|null;receipts:TurnReceipt[];usage?:CodexUsageSample}
 export type MetricsArchive={schemaVersion:1;projectId:string;revision:number;occurrences:StoryOccurrence[];turns:MetricTurn[]}
 export type MetricsSummary={identified:number;known:number;unknown:number;knownMs:number|null;coverage:'none'|'complete'|'partial'|'unavailable';overlap:'known'|'none'|'unknown';nativeDuration:'unavailable';usage:'unavailable';cost:'unavailable'}
 export type MetricObservation={members?:{schemaVersion:1;recordIds:string[]};localIds:string[];context:ContextRef;storyRef:string|null;durationMs:number|null;reason:'known'|'conflicting'|'missing-ack'|'missing-end'|'clock-domain'|'invalid-order';outcomes:('completed'|'failed'|'interrupted')[];durable:boolean}
@@ -29,8 +53,16 @@ export function isTurnReceipt(v:unknown):v is TurnReceipt{return isRecord(v)&&ex
 export function isStorySource(v:unknown):v is StorySource{return isRecord(v)&&exact(v,['sourceId','path','sha256','bytes','identity','kind','line','typeLine','type'])&&metricText(v.sourceId,200)&&metricText(v.path)&&sha(v.sha256)&&integer(v.bytes)&&metricText(v.identity,1000)&&['entry','leaf'].includes(String(v.kind))&&integer(v.line)&&Number(v.line)>0&&integer(v.typeLine)&&Number(v.typeLine)>0&&v.type==='story'}
 export function isStoryOccurrence(v:unknown):v is StoryOccurrence{return isRecord(v)&&exact(v,['id','projectId','rootPath','rootIdentity','initiativeId','initiativePath','container','ticketId','title','contextRevision','proofRevision','sources','active'])&&contextId(v.id)&&contextId(v.projectId)&&contextId(v.initiativeId)&&['rootPath','rootIdentity','initiativePath','container','ticketId','title'].every(k=>metricText(v[k],k==='title'?1000:32767))&&!String(v.ticketId).startsWith('@')&&sha(v.contextRevision)&&sha(v.proofRevision)&&typeof v.active==='boolean'&&Array.isArray(v.sources)&&v.sources.length>0&&v.sources.length<=2&&v.sources.every(isStorySource)&&new Set(v.sources.map(s=>s.kind)).size===v.sources.length}
 function validContext(v:unknown):v is ContextRef{return isRecord(v)&&exact(v,['projectId','initiativeId','conversationId','providerId','connectionId'])&&contextId(v.projectId)&&contextId(v.conversationId)&&contextId(v.providerId)&&contextId(v.connectionId)&&(v.initiativeId===null||contextId(v.initiativeId))}
-export function isMetricTurn(v:unknown):v is MetricTurn{return isRecord(v)&&exact(v,['id','context','requestId','localTurnId','story','receipts'])&&contextId(v.id)&&validContext(v.context)&&isCorrelationId(v.requestId)&&contextId(v.localTurnId)&&(v.story===null||isStoryOccurrence(v.story)&&v.story.projectId===v.context.projectId&&v.story.initiativeId===v.context.initiativeId)&&Array.isArray(v.receipts)&&v.receipts.length<=64&&v.receipts.every(isTurnReceipt)}
-export function isMetricsArchive(v:unknown):v is MetricsArchive{return isRecord(v)&&exact(v,['schemaVersion','projectId','revision','occurrences','turns'])&&v.schemaVersion===1&&contextId(v.projectId)&&integer(v.revision)&&Array.isArray(v.occurrences)&&v.occurrences.length<=4096&&v.occurrences.every(o=>isStoryOccurrence(o)&&o.projectId===v.projectId)&&new Set(v.occurrences.map(o=>o.id)).size===v.occurrences.length&&Array.isArray(v.turns)&&v.turns.length<=10000&&v.turns.every(t=>isMetricTurn(t)&&t.context.projectId===v.projectId&&(t.story===null||(v.occurrences as StoryOccurrence[]).some((o:StoryOccurrence)=>o.id===t.story!.id&&o.rootIdentity===t.story!.rootIdentity&&o.initiativeId===t.story!.initiativeId&&o.initiativePath===t.story!.initiativePath&&o.container===t.story!.container&&o.ticketId===t.story!.ticketId)))&&new Set(v.turns.map(t=>t.id)).size===v.turns.length&&JSON.stringify(v).length<=MAX_METRICS_BYTES}
+export function isMetricTurn(v:unknown):v is MetricTurn{return isRecord(v)&&exact(v,['id','context','requestId','localTurnId','story','receipts',...(Object.hasOwn(v,'usage')?['usage']:[])])&&contextId(v.id)&&validContext(v.context)&&isCorrelationId(v.requestId)&&contextId(v.localTurnId)&&(v.story===null||isStoryOccurrence(v.story)&&v.story.projectId===v.context.projectId&&v.story.initiativeId===v.context.initiativeId)&&Array.isArray(v.receipts)&&v.receipts.length<=64&&v.receipts.every(isTurnReceipt)&&(!Object.hasOwn(v,'usage')||v.context.providerId==='codex'&&isCodexUsageSample(v.usage,v.receipts))}
+function withinMetricsBudget(value:MetricsArchive):boolean{
+ const encoder=new TextEncoder()
+ const base=encoder.encode(JSON.stringify(value,(key,item)=>key==='usage'?undefined:item)+'\n').length
+ if(base>MAX_METRICS_BYTES)return false
+ if(!value.turns.some(turn=>turn.usage))return true
+ const full=encoder.encode(JSON.stringify(value)+'\n').length
+ return full-base<=MAX_USAGE_PROOF_BYTES
+}
+export function isMetricsArchive(v:unknown):v is MetricsArchive{return isRecord(v)&&exact(v,['schemaVersion','projectId','revision','occurrences','turns'])&&v.schemaVersion===1&&contextId(v.projectId)&&integer(v.revision)&&Array.isArray(v.occurrences)&&v.occurrences.length<=4096&&v.occurrences.every(o=>isStoryOccurrence(o)&&o.projectId===v.projectId)&&new Set(v.occurrences.map(o=>o.id)).size===v.occurrences.length&&Array.isArray(v.turns)&&v.turns.length<=10000&&v.turns.every(t=>isMetricTurn(t)&&t.context.projectId===v.projectId&&(t.story===null||(v.occurrences as StoryOccurrence[]).some((o:StoryOccurrence)=>o.id===t.story!.id&&o.rootIdentity===t.story!.rootIdentity&&o.initiativeId===t.story!.initiativeId&&o.initiativePath===t.story!.initiativePath&&o.container===t.story!.container&&o.ticketId===t.story!.ticketId)))&&new Set(v.turns.map(t=>t.id)).size===v.turns.length&&withinMetricsBudget(v as unknown as MetricsArchive)}
 export function isUsMetricsState(v:unknown):v is UsMetricsState{return isRecord(v)&&exact(v,['contractVersion','sequence','projects','choiceRef','error'])&&v.contractVersion===1&&integer(v.sequence)&&(v.choiceRef===null||contextId(v.choiceRef))&&(v.error===null||metricText(v.error,4000))&&Array.isArray(v.projects)&&v.projects.length<=1000&&v.projects.every(p=>isRecord(p)&&exact(p,['projectId','archive','durableRevision','storage','error','summary','observations','stories','conversations','candidates','unobservedActivity'])&&contextId(p.projectId)&&isMetricsArchive(p.archive)&&p.archive.projectId===p.projectId&&integer(p.durableRevision)&&Number(p.durableRevision)<=p.archive.revision&&['unset','stored','pending','failed','unreadable'].includes(String(p.storage))&&(p.error===null||metricText(p.error,4000))&&isMetricsSummary(p.summary)&&p.unobservedActivity==='unknown'&&Array.isArray(p.observations)&&p.observations.length<=10000&&p.observations.every(o=>isMetricObservation(o)&&(!o.members||o.members.recordIds.every(id=>(p.archive as MetricsArchive).turns.some(t=>t.id===id))))&&Array.isArray(p.stories)&&p.stories.length<=4096&&p.stories.every(s=>isRecord(s)&&exact(s,['storyRef','summary'])&&contextId(s.storyRef)&&isMetricsSummary(s.summary))&&Array.isArray(p.conversations)&&p.conversations.length<=10000&&p.conversations.every(c=>isRecord(c)&&exact(c,['conversationId','summary'])&&contextId(c.conversationId)&&isMetricsSummary(c.summary))&&Array.isArray(p.candidates)&&p.candidates.length<=4096&&p.candidates.every(c=>isRecord(c)&&exact(c,['initiativeId','container','ticketId','title','storyRef','reason'])&&contextId(c.initiativeId)&&metricText(c.container)&&(c.ticketId===null||metricText(c.ticketId,1000))&&metricText(c.title,1000)&&(c.storyRef===null||contextId(c.storyRef))&&['qualified','type-unqualified','ambiguous','historical'].includes(String(c.reason))))}
 
 export function isMetricsSummary(v:unknown):v is MetricsSummary{return isRecord(v)&&exact(v,['identified','known','unknown','knownMs','coverage','overlap','nativeDuration','usage','cost'])&&integer(v.identified)&&integer(v.known)&&integer(v.unknown)&&Number(v.known)+Number(v.unknown)===v.identified&&(v.knownMs===null||typeof v.knownMs==='number'&&Number.isFinite(v.knownMs)&&v.knownMs>=0)&&['none','complete','partial','unavailable'].includes(String(v.coverage))&&['known','none','unknown'].includes(String(v.overlap))&&v.nativeDuration==='unavailable'&&v.usage==='unavailable'&&v.cost==='unavailable'}

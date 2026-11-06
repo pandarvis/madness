@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "consent": "synthetic-fixture-only",
+  "humanAcceptance": false,
+  "cleanup": true,
+  "checks": [
+    "P1: displayed exact plan, 588 additions and untouched target",
+    "P2: same identity, focus on the neutral title and exact configuration preview",
+    "P3: exclusive additions, final exhaustive union and matching durable receipt",
+    "Return to the same project preserves its draft"
+  ],
+  "captures": [],
+  "viewports": [],
+  "limits": [
+    "Network and app-server observed after the runtime hook.",
+    "The one Windows fixture verifies its exact effects. No human or G3 acceptance is asserted."
+  ],
+  "asarSha256": "677076f9e73448caead5d40fced184c3ca56a159b512287f221f22116272f1a1",
+  "resourceSha256": "9907b02e25155215fa3b398185f971c42e0a02ddef62327c7a3b912f4fb5389a",
+  "plan": {
+    "id": "plan-c3afd265-6fb9-4a15-bc23-f8859759e8b6",
+    "revision": "9347b7cd096711e0fca66a5083be0499903ceb11300240823d0e13a532c269f8",
+    "configurationSha256": "e6d0012ed0c41293542422fbcc91577b1b3c73261ee25084b70eced90d5df26c",
+    "additions": 588
+  },
+  "before": {
+    "entries": 3,
+    "sha256": "0df866cae7fe3432a62e773d1a7ecf08199d4b4176fb72035ef24acbdb53f108"
+  },
+  "after": {
+    "entries": 591,
+    "sha256": "fb722141aa7f8976b2d8fdf663428936a0a9a894e2be9c11b632b53f10fab158"
+  },
+  "result": {
+    "outcome": "verified",
+    "stop": "confirmed",
+    "durableRevision": 6,
+    "exactUnion": true
+  },
+  "closure": {
+    "main": {
+      "pid": 41792,
+      "startedAt": "639295502937166145",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-real-windows\\win-unpacked\\Madness.exe"
+    },
+    "wrapperPid": 39108,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-06T08:25:00.563Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  },
+  "helperStopped": true
+}

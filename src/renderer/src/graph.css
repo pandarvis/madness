@@ -2,3 +2,42 @@
 .graph-node-details h3,.graph-relations .graph-actions>button{overflow-wrap:anywhere}.graph-source p{margin:8px 0}.graph-representation{border-top:1px solid var(--line);padding-top:20px}.graph-representation h3{margin:0 0 8px}.graph-controls{margin-top:16px}
 .graph-controls>.text-button[aria-disabled='true']::after{background:var(--neutral)}.graph-drawing{width:100%;height:420px;overflow:hidden;background:var(--panel);border:1px solid var(--control-line)}.graph-drawing svg{width:100%;height:100%;display:block}.graph-drawing line{stroke:var(--control-line);stroke-width:1.4}.graph-drawing marker path{fill:var(--control-line)}.graph-drawn-node{cursor:pointer}.graph-drawn-node circle{fill:var(--panel);stroke:var(--link);stroke-width:2}.graph-drawn-node text{stroke:none;fill:var(--text);font-family:'Oxanium','Segoe UI',sans-serif;font-size:14px}.graph-drawn-node.is-selected circle{fill:var(--accent);stroke:var(--accent)}.graph-drawn-node:hover circle{fill:var(--selected)}.project-tabs{flex-wrap:wrap}.project-tabs>[role=tab]{flex:0 1 auto;min-width:0;white-space:normal}@media(max-width:1000px){.graph-exploration{grid-template-columns:minmax(0,1fr);gap:24px}.graph-results ul{max-height:300px}.graph-drawing{height:340px}}@media(max-width:600px){.graph-heading{display:block}.graph-heading>button{margin-top:12px}.graph-search>div{align-items:stretch;flex-direction:column}.graph-analysis dl{display:block}.graph-analysis dt{font-weight:600;margin-top:12px}.graph-controls>button{flex:1 1 160px}.graph-panel .graph-actions>button{max-width:100%;white-space:normal}.graph-drawing{height:300px}}@media(prefers-reduced-motion:reduce){.graph-panel *{scroll-behavior:auto;transition:none;animation:none}}
 .graph-self-relation{fill:none;stroke:var(--control-line);stroke-width:1.4}
+
+.graph-status .graph-progress {
+  display: grid;
+  grid-template-rows: 10px auto;
+  max-width: 680px;
+  margin: 16px 0;
+  overflow: hidden;
+  border: 1px solid var(--atelier-ink);
+  background: var(--atelier-plate);
+  color: var(--text);
+}
+
+.graph-progress-label {
+  padding: 9px 14px 10px;
+  font: 700 22px/1.15 'Barlow Condensed', 'Segoe UI', sans-serif;
+}
+
+.graph-progress-tape {
+  position: relative;
+  overflow: hidden;
+  background: var(--atelier-ink);
+}
+
+.graph-progress-tape::before {
+  content: '';
+  position: absolute;
+  inset: 0 -34px 0 0;
+  background: repeating-linear-gradient(135deg, var(--accent) 0 12px, var(--atelier-ink) 12px 24px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .graph-progress[data-motion='true'] .graph-progress-tape::before {
+    animation: graph-work-tape 1.2s linear 4;
+  }
+}
+
+@keyframes graph-work-tape {
+  to { transform: translateX(-33.94px); }
+}

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "kind": "madness-repository-packaged-graph",
+  "checkedAt": "2026-11-06T08:21:35.497Z",
+  "version": "0.2.20",
+  "closed": true,
+  "ownerStop": "stopped",
+  "cleanupEligible": true,
+  "asarSha256": "677076f9e73448caead5d40fced184c3ca56a159b512287f221f22116272f1a1",
+  "preparationRibbonVisible": true,
+  "observations": [
+    {
+      "ms": 1711,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": null,
+      "operation": null,
+      "receipts": []
+    },
+    {
+      "ms": 5779,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": "unknown",
+      "operation": "capture",
+      "receipts": []
+    },
+    {
+      "ms": 22127,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": "unknown",
+      "operation": "capture",
+      "receipts": [
+        "capture-execution.json"
+      ]
+    },
+    {
+      "ms": 42719,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "stopped",
+      "operation": "capture",
+      "receipts": [
+        "capture-execution.json",
+        "result.json",
+        "terminal.json"
+      ]
+    },
+    {
+      "ms": 45189,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": []
+    },
+    {
+      "ms": 61528,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json"
+      ]
+    },
+    {
+      "ms": 352224,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json",
+        "native-graph.json",
+        "terminal-capture-execution.json"
+      ]
+    },
+    {
+      "ms": 356308,
+      "issue": null,
+      "preparing": null,
+      "phase": "terminal",
+      "owner": "stopped",
+      "operation": "analyze",
+      "receipts": [
+        "adapter-error.txt",
+        "analysis-execution.json",
+        "native-graph.json",
+        "result.json",
+        "terminal-capture-execution.json",
+        "terminal.json"
+      ]
+    }
+  ],
+  "worker": {
+    "outcome": "completed",
+    "elapsedMs": 288937,
+    "peakWorkingSetBytes": 219983872
+  },
+  "adapterError": "Error: INVALID_REFERENCE",
+  "result": {
+    "durationMs": 356320,
+    "activity": "terminal",
+    "stop": "confirmed",
+    "freshness": "unverified",
+    "error": "ANALYSIS_FAILED"
+  },
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: Terminal graph snapshot missing"
+}

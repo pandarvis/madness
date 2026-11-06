@@ -25,7 +25,7 @@ test('graph UI searches, preserves direction and local view without analysis, wi
   const fileBindings=s.sources.map(source=>({projectId:s.identity.projectId,rootIdentity:s.identity.rootIdentity,analysisId:s.identity.analysisId,revision:s.identity.sourceRevision,relativePath:source.relativePath,sourceId:source.relativePath}))
   const references=fileBindings.map(b=>({producer:'corpus',projectId:b.projectId,revision:b.revision,sourceId:b.sourceId,path:s.identity.rootPath+'/'+b.relativePath,current:true}))
   const workspace={contractVersion:1,sequence:0,projects:[state],fileBindings,preparing:null,issues:[]}
-  const result=await build({configFile:false,logLevel:'silent',define:{'process.env.NODE_ENV':'"production"'},plugins:[react(),{name:'graph-fixture',resolveId:id=>(id==='graph-fixture'||id.replaceAll(String.fromCharCode(92),'/').endsWith('/graph-fixture'))?'\0graph-fixture':null,load:id=>id==='\0graph-fixture'?'import React from "react";import {createRoot} from "react-dom/client";import '+JSON.stringify(resolve('src/renderer/src/styles.css').replaceAll('\\','/'))+';import '+JSON.stringify(resolve('src/renderer/src/atelier-controls.css').replaceAll('\\','/'))+';import {FilesContext,restoreFileConsultationFocus} from '+JSON.stringify(resolve('src/renderer/src/FilePreview.tsx').replaceAll('\\','/'))+';import {GraphPanel} from '+JSON.stringify(resolve('src/renderer/src/GraphPanel.tsx').replaceAll('\\','/'))+';const root=createRoot(document.getElementById("root")),files={state:{references:'+JSON.stringify(references)+'},open:value=>{window.fileConsultation=value}};window.restoreGraphFileFocus=()=>restoreFileConsultationFocus(window.fileConsultation,null);window.renderGraphFixture=(workspace,language="fr")=>root.render(React.createElement(FilesContext.Provider,{value:files},workspace&&React.createElement(GraphPanel,{projectId:"fixture-subset",rootPath:"C:/fixture-subset",workspace,language,accept:()=>{},views:new Map(),active:true,onReturn:()=>{},returnLabel:"Conversation"})));window.renderGraphFixture('+JSON.stringify(workspace)+');':null}],build:{write:false,minify:false,lib:{entry:'graph-fixture',formats:['iife'],name:'GraphFixture'}}})
+  const result=await build({configFile:false,logLevel:'silent',define:{'process.env.NODE_ENV':'"production"'},plugins:[react(),{name:'graph-fixture',resolveId:id=>(id==='graph-fixture'||id.replaceAll(String.fromCharCode(92),'/').endsWith('/graph-fixture'))?'\0graph-fixture':null,load:id=>id==='\0graph-fixture'?'import React from "react";import {createRoot} from "react-dom/client";import '+JSON.stringify(resolve('src/renderer/src/styles.css').replaceAll('\\','/'))+';import '+JSON.stringify(resolve('src/renderer/src/atelier-controls.css').replaceAll('\\','/'))+';import {FilesContext,restoreFileConsultationFocus} from '+JSON.stringify(resolve('src/renderer/src/FilePreview.tsx').replaceAll('\\','/'))+';import {GraphPanel} from '+JSON.stringify(resolve('src/renderer/src/GraphPanel.tsx').replaceAll('\\','/'))+';const root=createRoot(document.getElementById("root")),preservedViews=new Map(),files={state:{references:'+JSON.stringify(references)+'},open:value=>{window.fileConsultation=value}};window.restoreGraphFileFocus=()=>restoreFileConsultationFocus(window.fileConsultation,null);window.renderGraphFixture=(workspace,language="fr",preserveViews=false)=>root.render(React.createElement(FilesContext.Provider,{value:files},workspace&&React.createElement(GraphPanel,{projectId:"fixture-subset",rootPath:"C:/fixture-subset",workspace,language,accept:()=>{},views:preserveViews?preservedViews:new Map(),active:true,onReturn:()=>{},returnLabel:"Conversation"})));window.renderGraphFixture('+JSON.stringify(workspace)+');':null}],build:{write:false,minify:false,lib:{entry:'graph-fixture',formats:['iife'],name:'GraphFixture'}}})
   const output=(Array.isArray(result)?result[0]:result).output,js=output.find(v=>v.type==='chunk').code,css=output.filter(v=>v.type==='asset'&&v.fileName.endsWith('.css')).map(v=>v.source).join('\n')
   await writeFile(join(root,'main.cjs'),'const {app,BrowserWindow}=require("electron");app.setPath("userData",'+JSON.stringify(join(root,'profile'))+');app.whenReady().then(()=>{const w=new BrowserWindow({show:false,width:1200,height:900,webPreferences:{contextIsolation:false,nodeIntegration:false}});w.loadFile('+JSON.stringify(join(root,'index.html'))+');});')
   await writeFile(join(root,'index.html'),'<html data-theme="dark"><head><meta charset="utf-8"><style>svg{fill:none;stroke:currentColor;stroke-width:1.5}'+css+'</style></head><body><div id="root"></div><script>window.analysisCalls=0;window.madnessGraph={generate:async()=>{window.analysisCalls++;return '+JSON.stringify(workspace)+'},interrupt:async()=>{},retrySave:async()=>{},revalidateFiles:async()=>{}}</script><script>'+js+'</script></body></html>')
@@ -71,6 +71,37 @@ test('graph UI searches, preserves direction and local view without analysis, wi
    return {width,scrollWidth,outside}
   })
   assert.ok(overflow.scrollWidth<=overflow.width+1,JSON.stringify(overflow))
+  const preparing = {...workspace, preparing: scope.projectId}
+  await page.evaluate(value => window.renderGraphFixture(value), preparing)
+  const ribbon = page.locator('.graph-progress')
+  await ribbon.getByText('Préparation des fichiers', {exact:true}).waitFor({timeout:2500})
+  const tape = ribbon.locator('.graph-progress-tape')
+  await page.emulateMedia({reducedMotion:'no-preference'})
+  assert.equal(await tape.evaluate(e=>getComputedStyle(e,'::before').animationName),'graph-work-tape')
+  await page.emulateMedia({reducedMotion:'reduce'})
+  assert.equal(await tape.evaluate(e=>getComputedStyle(e,'::before').animationName),'none')
+  const analyzing = structuredClone(preparing)
+  analyzing.projects[0].activity = {...analyzing.projects[0].activity, phase:'running'}
+  await page.evaluate(value => window.renderGraphFixture(value,'en'), analyzing)
+  await ribbon.getByText('Analysis in progress', {exact:true}).waitFor()
+  const stopped = structuredClone(analyzing)
+  stopped.projects[0].activity.phase = 'stop-requested'
+  await page.emulateMedia({reducedMotion:'no-preference'})
+  await page.evaluate(value => window.renderGraphFixture(value), stopped)
+  await ribbon.getByText('Arrêt demandé', {exact:true}).waitFor()
+  assert.equal(await tape.evaluate(e=>getComputedStyle(e,'::before').animationName),'none')
+  await page.evaluate(value => window.renderGraphFixture(value,'fr',true), preparing)
+  await ribbon.getByText('Préparation des fichiers', {exact:true}).waitFor()
+  await page.getByRole('button',{name:'Interrompre l’analyse',exact:true}).click()
+  await ribbon.getByText('Arrêt demandé', {exact:true}).waitFor()
+  await page.evaluate(() => window.renderGraphFixture(null))
+  await ribbon.waitFor({state:'detached'})
+  await page.evaluate(value => window.renderGraphFixture(value,'fr',true), preparing)
+  await ribbon.getByText('Arrêt demandé', {exact:true}).waitFor()
+  assert.equal(await tape.evaluate(e=>getComputedStyle(e,'::before').animationName),'none')
+  await page.evaluate(value => window.renderGraphFixture(value), {...preparing,preparing:'other-project'})
+  await ribbon.waitFor({state:'detached'})
+  await page.evaluate(value => window.renderGraphFixture(value), workspace)
  }finally{await app?.close();await rm(root,{recursive:true,force:true})}
 })
 

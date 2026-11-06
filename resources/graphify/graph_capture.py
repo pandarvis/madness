@@ -8,6 +8,40 @@ CONFIG_NAMES={'setup.py','conftest.py','sitecustomize.py','usercustomize.py','vi
 def code(path):
     return path.suffix.lower() in EXTENSIONS and not path.name.startswith('.') and path.name not in CONFIG_NAMES and '.config.' not in path.name and not path.name.endswith('.d.ts')
 def now():return datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='milliseconds').replace('+00:00','Z')
+def bundled_assembly(directory, relative):
+    if relative != 'resources/graphify/assembly':
+        return False
+    try:
+        marker = capture.read_safe(directory.parent/'assembly.json', utf8=False)
+        trusted = capture.read_safe(Path(__file__).with_name('assembly.json'), utf8=False)
+        if marker != trusted:
+            return False
+        manifest = json.loads(trusted)
+        expected = {
+            f'{group}/{record["name"]}'
+            for group in ('runtime', 'packages') for record in manifest[group]
+        }
+        directories = {parent.as_posix() for name in expected for parent in Path(name).parents}
+        found = set()
+        pending = [directory]
+        while pending:
+            with os.scandir(pending.pop()) as entries:
+                for entry in entries:
+                    name = Path(entry.path).relative_to(directory).as_posix()
+                    if entry.is_symlink():
+                        return False
+                    if name in directories and entry.is_dir(follow_symlinks=False):
+                        if getattr(entry.stat(follow_symlinks=False), 'st_file_attributes', 0) & 0x400:
+                            return False
+                        pending.append(entry.path)
+                    elif name in expected and entry.is_file(follow_symlinks=False):
+                        found.add(name)
+                    else:
+                        return False
+        return found == expected
+    except (capture.Refusal, OSError, ValueError, KeyError, TypeError):
+        return False
+
 def inventory(project):
     root=capture.long_path(project);chain=capture.inspect_chain(root)
     if not root.is_dir():raise capture.Refusal('ROOT_TYPE')
@@ -24,7 +58,11 @@ def inventory(project):
                 excluded.append(relative);continue
             st=p.lstat()
             if stat.S_ISDIR(st.st_mode):
-                capture.inspect_chain(p);visit(p,depth+1)
+                capture.inspect_chain(p)
+                if bundled_assembly(p, relative):
+                    excluded.append(relative)
+                    continue
+                visit(p,depth+1)
             elif code(p):
                 capture.inspect_chain(p)
                 if len(entries)>=1024:raise capture.Refusal('SOURCE_COUNT_LIMIT')
@@ -64,6 +102,19 @@ def operate(req):
     (folder/'corpus.json').write_text(json.dumps(receipt),encoding='utf-8')
     return {'rootPath':capture.display_path(root),'rootIdentity':grant['rootIdentity'],'revision':revision,'observedAt':now(),'sources':grant['sources'],'corpus':[{'relativePath':e['relativePath'],'sha256':e['sha256'],'lineCount':e['lineCount'],'kind':'file'} for e,b in entries],'excluded':excluded,'receiptSha':capture.sha((folder/'files.json').read_bytes())}
 def main():
-    try:print(json.dumps(operate(json.loads(sys.argv[-1])),ensure_ascii=False))
-    except BaseException as e:print(json.dumps({'error':str(e)}));sys.exit(1)
+    request = json.loads(sys.argv[-1])
+    try:
+        print(json.dumps(operate(request), ensure_ascii=False))
+    except capture.Refusal as error:
+        if request.get('op') == 'capture' and error.code in {
+            'DEPTH_LIMIT', 'INVENTORY_LIMIT', 'SOURCE_COUNT_LIMIT',
+            'SOURCE_TOTAL_LIMIT', 'FILE_LIMIT', 'NO_CODE_SOURCES'
+        }:
+            print(json.dumps({'error': error.code}))
+            sys.exit(2)
+        print(json.dumps({'error': str(error)}))
+        sys.exit(1)
+    except BaseException as error:
+        print(json.dumps({'error': str(error)}))
+        sys.exit(1)
 if __name__=='__main__':main()

@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "kind": "madness-repository-compiled-graph",
+  "checkedAt": "2026-11-06T08:10:27.178Z",
+  "version": "0.2.19",
+  "closed": true,
+  "ownerStop": "stopped",
+  "cleanupEligible": true,
+  "compiledMainSha256": "081ddbcdd754a69455589b32f2418c6a9c86620ec0632e6c3876caf61ef01dbe",
+  "captureSha256": "e488650d75ed2f298b03d3b3ea39e2346455b0594bd5e42de20286e4feaa1d53",
+  "preparationRibbonVisible": true,
+  "observations": [
+    {
+      "ms": 371,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": null,
+      "operation": null,
+      "receipts": []
+    },
+    {
+      "ms": 2060,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": "unknown",
+      "operation": "capture",
+      "receipts": []
+    },
+    {
+      "ms": 40484,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": "unknown",
+      "operation": "capture",
+      "receipts": [
+        "capture-execution.json"
+      ]
+    },
+    {
+      "ms": 52732,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": "unknown",
+      "operation": "capture",
+      "receipts": [
+        "capture-execution.json",
+        "result.json",
+        "terminal.json"
+      ]
+    },
+    {
+      "ms": 53574,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": "running",
+      "owner": "stopped",
+      "operation": "capture",
+      "receipts": [
+        "capture-execution.json",
+        "result.json",
+        "terminal.json"
+      ]
+    },
+    {
+      "ms": 57194,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": []
+    },
+    {
+      "ms": 81437,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json"
+      ]
+    },
+    {
+      "ms": 203815,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json",
+        "launcher-error.txt",
+        "terminal.json"
+      ]
+    },
+    {
+      "ms": 204753,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": "terminal",
+      "owner": "stopped",
+      "operation": "analyze",
+      "receipts": [
+        "adapter-error.txt",
+        "analysis-execution.json",
+        "launcher-error.txt",
+        "terminal.json"
+      ]
+    }
+  ],
+  "launcherError": "GRAPH_CHILD_timeout",
+  "adapterError": "Error: GRAPH_CHILD_timeout",
+  "result": {
+    "durationMs": 204820,
+    "activity": "terminal",
+    "stop": "confirmed",
+    "freshness": "unverified",
+    "error": null
+  },
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: Terminal graph snapshot missing"
+}

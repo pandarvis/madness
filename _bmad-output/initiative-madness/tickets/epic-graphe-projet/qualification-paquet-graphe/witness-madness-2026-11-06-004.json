@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "kind": "madness-repository-compiled-graph",
+  "checkedAt": "2026-11-06T08:31:21.441Z",
+  "version": "0.2.20",
+  "closed": true,
+  "ownerStop": "stopped",
+  "cleanupEligible": true,
+  "compiledMainSha256": "a8d3268262b9c945b0501ca43eb711e729d5b660c6f3c0dfdc4fb675cd41a080",
+  "captureSha256": "3c5d601141968aa2c9aef4cdf63aaaa174aa5abda67407371acd7bf40420be2f",
+  "preparationRibbonVisible": true,
+  "observations": [
+    {
+      "ms": 394,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": null,
+      "operation": null,
+      "receipts": []
+    },
+    {
+      "ms": 2845,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": "unknown",
+      "operation": "capture",
+      "receipts": []
+    },
+    {
+      "ms": 21655,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": "unknown",
+      "operation": "capture",
+      "receipts": [
+        "capture-execution.json"
+      ]
+    },
+    {
+      "ms": 36365,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": "unknown",
+      "operation": "capture",
+      "receipts": [
+        "capture-execution.json",
+        "result.json",
+        "terminal.json"
+      ]
+    },
+    {
+      "ms": 37182,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "stopped",
+      "operation": "capture",
+      "receipts": [
+        "capture-execution.json",
+        "result.json",
+        "terminal.json"
+      ]
+    },
+    {
+      "ms": 38806,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": []
+    },
+    {
+      "ms": 54338,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json"
+      ]
+    },
+    {
+      "ms": 254694,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json",
+        "native-graph.json",
+        "terminal-capture-execution.json"
+      ]
+    },
+    {
+      "ms": 259601,
+      "issue": null,
+      "preparing": null,
+      "phase": "terminal",
+      "owner": "stopped",
+      "operation": "analyze",
+      "receipts": [
+        "adapter-error.txt",
+        "analysis-execution.json",
+        "native-graph.json",
+        "result.json",
+        "terminal-capture-execution.json",
+        "terminal.json"
+      ]
+    }
+  ],
+  "native": {
+    "bytes": 3445225,
+    "sha256": "5f8cd296791626306d8a7c8ba8853cb9a18cf3134eea2bb44284c096e8538044",
+    "references": {
+      "total": 12339,
+      "driveAbsolute": 0,
+      "windowsSeparators": 0,
+      "leadingDot": 0
+    }
+  },
+  "adapterError": "Error: INVALID_REFERENCE",
+  "result": {
+    "durationMs": 259668,
+    "activity": "terminal",
+    "stop": "confirmed",
+    "freshness": "unverified",
+    "error": "ANALYSIS_FAILED"
+  },
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: Terminal graph snapshot missing",
+  "retainedDebugProfile": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-final-2fa99e82760f4644aab25446fbe6b05f"
+}

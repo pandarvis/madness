@@ -11,7 +11,7 @@ try {
     Assert-GraphClosedRuntime (Join-Path $Resources 'assembly/packages') $assembly.packages
   } catch { throw ('GRAPH_RESOURCE_CHANGED: '+$_.Exception.Message) }
   $request=Get-Content -LiteralPath (Join-Path $TaskFolder 'request.json') -Raw|ConvertFrom-Json -AsHashtable
-  function Run-GraphChild($Script,$Arguments,$Label){
+  function Run-GraphChild($Script,$Arguments,$Label,[int]$BudgetMs=120000){
     if(Test-Path -LiteralPath (Join-Path $TaskFolder 'cancel')){throw 'CANCELLED_BEFORE_CHILD'}
     $python=Join-Path $Resources 'assembly/runtime/python.exe'
     $start=[Diagnostics.ProcessStartInfo]::new($python)
@@ -24,11 +24,29 @@ try {
     $start.Environment['PYTHONHASHSEED']='0';$start.Environment['GRAPHIFY_BACKEND']='none';$start.Environment['GRAPHIFY_NO_AUTO_REFRESH']='1';$start.Environment['GRAPHIFY_OUT']='graphify-out'
     $script:state=$null
     try {
-      $current=Invoke-BmadSupervised $start 120000 (Join-Path $TaskFolder ($Label+'-execution.json')) @() $TaskFolder (Join-Path $TaskFolder ($Label+'-stdout.json')) (Join-Path $TaskFolder ($Label+'-stderr.log')) '' ([ref]$script:state) (Join-Path $TaskFolder 'cancel')
+      $current=Invoke-BmadSupervised $start $BudgetMs (Join-Path $TaskFolder ($Label+'-execution.json')) @() $TaskFolder (Join-Path $TaskFolder ($Label+'-stdout.json')) (Join-Path $TaskFolder ($Label+'-stderr.log')) '' ([ref]$script:state) (Join-Path $TaskFolder 'cancel')
     } finally {
       # One observation per attempted child, including a throw before supervision can return.
       # A null observation remains an unknown attempt; it never proves never-started.
       $script:states+=,$script:state
+    }
+    if($current.outcome -ceq 'completed' -and $current.exit -eq 2 -and $request.op -ceq 'capture' -and $Label -ceq 'capture'){
+      $refusal=$null
+      try {
+        $receipt=Join-Path $TaskFolder 'capture-stdout.json'
+        $stream=[IO.File]::Open($receipt,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
+        try {
+          if($stream.Length -le 512){
+            $bytes=[byte[]]::new([int]$stream.Length)
+            $stream.ReadExactly($bytes)
+            $value=[Text.UTF8Encoding]::new($false,$true).GetString($bytes)|ConvertFrom-Json -AsHashtable
+            if($value -is [System.Collections.IDictionary] -and $value.Count -eq 1 -and $value.error -is [string]){
+              $refusal=$value.error
+            }
+          }
+        } finally { $stream.Dispose() }
+      } catch {}
+      if($refusal -cin @('DEPTH_LIMIT','INVENTORY_LIMIT','SOURCE_COUNT_LIMIT','SOURCE_TOTAL_LIMIT','FILE_LIMIT','NO_CODE_SOURCES')){throw $refusal}
     }
     if($current.outcome -ne 'completed' -or $current.exit -ne 0){throw ('GRAPH_CHILD_'+$current.outcome)}
   }
@@ -37,7 +55,7 @@ try {
     $analysis=Join-Path $TaskFolder 'analysis';[void][IO.Directory]::CreateDirectory($analysis)
     $workerRequest=@{assembly=(Join-Path $Resources 'assembly.json');resources=$Resources;analysis=$analysis;project=(Join-Path $request.prepared 'mirror');harness=@()}
     [IO.File]::WriteAllText((Join-Path $TaskFolder 'worker-request.json'),($workerRequest|ConvertTo-Json -Compress),[Text.UTF8Encoding]::new($false))
-    Run-GraphChild 'import sys,runpy;p=sys.argv[1]+"/worker.py";sys.argv=[p,sys.argv[2]];runpy.run_path(p,run_name="__main__")' (Join-Path $TaskFolder 'worker-request.json') 'analysis'
+    Run-GraphChild 'import sys,runpy;p=sys.argv[1]+"/worker.py";sys.argv=[p,sys.argv[2]];runpy.run_path(p,run_name="__main__")' (Join-Path $TaskFolder 'worker-request.json') 'analysis' 360000
     $worker=Get-Content -LiteralPath (Join-Path $analysis 'worker.json') -Raw|ConvertFrom-Json
     if($worker.outcome -ne 'completed'){throw 'GRAPHIFY_FAILED'}
     $graph=Join-Path $analysis 'out/graphify-out/graph.json'

@@ -13,16 +13,21 @@ export function normalizeGraphify(bytes:Buffer,context:NormalizationContext):Gra
     !Array.isArray(n.nodes)||!Array.isArray(n.links)||Object.hasOwn(n,'edges')||
     !absentOrEmptyArray(n.hyperedges)||!absentOrEmptyArray(n.graph.hyperedges))throw new IncompatibleGraphifyArtifact()
  const text=(v:unknown):string=>{if(typeof v!=='string'||!v||v.includes('\0'))throw Error('INVALID_GRAPH');return v}
- const reference=(v:any):GraphReference=>{
+ const moduleSpecifier=/^(?:node:)?(?:@[a-z0-9_.-]+\/)?[a-z0-9_][a-z0-9_.-]*(?:\/[a-z0-9_][a-z0-9_.-]*)*$/i
+ const reference=(v:any,moduleNode=false):GraphReference=>{
   if(v.source_file===undefined||v.source_file===null||v.source_file==='')return {status:'unknown',reason:'absent'}
   const p=text(v.source_file)
+  const source=context.corpus.find(s=>s.relativePath===p&&s.kind==='file')
+  // Graphify uses the import specifier as source_file on external module nodes.
+  if(!source&&moduleNode&&v.type==='module'&&v.label===p&&v.source_location==null&&moduleSpecifier.test(p))
+   return {status:'unknown',reason:'absent'}
   if(/[\\:\x00-\x1f\x7f]/.test(p)||p.split('/').some((s:string)=>!s||s==='.'||s==='..'))throw Error('INVALID_REFERENCE')
-  const source=context.corpus.find(s=>s.relativePath===p&&s.kind==='file');if(!source)throw Error('FOREIGN_REFERENCE')
+  if(!source)throw Error('FOREIGN_REFERENCE')
   const raw=v.source_location,value=typeof raw==='number'?raw:typeof raw==='string'&&/^L[1-9][0-9]*$/.test(raw)?Number(raw.slice(1)):null
   if(value!==null&&(!Number.isSafeInteger(value)||value<1||source.lineCount===null||value>source.lineCount))throw Error('INVALID_LINE')
   return {status:'known',relativePath:p,line:value!==null?{status:'known',value}:{status:'unknown',reason:raw===undefined||raw===null||raw===''?'absent':'unrecognized'}}
  }
- const nodes=n.nodes.map((v:any)=>({id:text(v.id),label:text(v.label??v.id),kind:text(v.type??v.file_type??'unknown'),reference:reference(v)})),ids=new Set(nodes.map((v:any)=>v.id))
+ const nodes=n.nodes.map((v:any)=>({id:text(v.id),label:text(v.label??v.id),kind:text(v.type??v.file_type??'unknown'),reference:reference(v,true)})),ids=new Set(nodes.map((v:any)=>v.id))
  const relations=n.links.map((v:any,i:number)=>{
   const explicit=Object.hasOwn(v,'_src')||Object.hasOwn(v,'_tgt');if(explicit&&(!Object.hasOwn(v,'_src')||!Object.hasOwn(v,'_tgt')))throw Error('PARTIAL_DIRECTION')
   const nativeSource=text(v.source),nativeTarget=text(v.target)

@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "kind": "madness-repository-packaged-graph",
+  "checkedAt": "2026-11-06T08:43:56.296Z",
+  "version": "0.2.21",
+  "closed": true,
+  "ownerStop": "stopped",
+  "cleanupEligible": true,
+  "asarSha256": "cb57c883c6180992fe0d5f3ddda482c2760446a810336289f46daa2ad8118d80",
+  "preparationRibbonVisible": true,
+  "observations": [
+    {
+      "ms": 2215,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": null,
+      "operation": null,
+      "receipts": []
+    },
+    {
+      "ms": 7106,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": "unknown",
+      "operation": "capture",
+      "receipts": []
+    },
+    {
+      "ms": 30121,
+      "issue": null,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": "unknown",
+      "operation": "capture",
+      "receipts": [
+        "capture-execution.json"
+      ]
+    },
+    {
+      "ms": 55800,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "stopped",
+      "operation": "capture",
+      "receipts": [
+        "capture-execution.json",
+        "result.json",
+        "terminal.json"
+      ]
+    },
+    {
+      "ms": 58271,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": []
+    },
+    {
+      "ms": 78771,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json"
+      ]
+    },
+    {
+      "ms": 310929,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json",
+        "native-graph.json"
+      ]
+    },
+    {
+      "ms": 311740,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json",
+        "native-graph.json",
+        "terminal-capture-execution.json"
+      ]
+    },
+    {
+      "ms": 319100,
+      "issue": null,
+      "preparing": null,
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json",
+        "native-graph.json",
+        "result.json",
+        "terminal-capture-execution.json",
+        "terminal.json"
+      ]
+    },
+    {
+      "ms": 328035,
+      "issue": null,
+      "preparing": null,
+      "phase": "terminal",
+      "owner": "stopped",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json",
+        "native-graph.json",
+        "result.json",
+        "terminal-capture-execution.json",
+        "terminal.json"
+      ]
+    }
+  ],
+  "worker": {
+    "outcome": "completed",
+    "elapsedMs": 230422,
+    "peakWorkingSetBytes": 222072832
+  },
+  "result": {
+    "durationMs": 328040,
+    "activity": "terminal",
+    "stop": "confirmed",
+    "freshness": "observed",
+    "error": null,
+    "files": 269,
+    "nodes": 2923,
+    "relations": 9497,
+    "coverage": "partial",
+    "example": "GraphCoordinator",
+    "issues": [
+      "Graphify signale une couverture limitée."
+    ],
+    "sourceAndDraftUnchanged": true,
+    "checkedSourceFiles": [
+      "src/core/graph-coordinator.ts",
+      "src/renderer/src/GraphPanel.tsx",
+      "src/main/index.ts"
+    ]
+  },
+  "resultsVisible": true,
+  "status": "passed"
+}

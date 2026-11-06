@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "kind": "replay-original-madness-artifact",
+  "sourceWitness": "witness-madness-2026-11-06-004.json",
+  "nativeSha256": "5f8cd296791626306d8a7c8ba8853cb9a18cf3134eea2bb44284c096e8538044",
+  "sources": 269,
+  "nodes": 2922,
+  "relations": 9494,
+  "coverage": "partial",
+  "dependenciesWithoutFile": [
+    "node:fs",
+    "playwright-core"
+  ],
+  "originalStopConfirmed": true
+}

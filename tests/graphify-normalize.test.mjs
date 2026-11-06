@@ -94,3 +94,25 @@ test('adapter publishes typed format refusal, partial coverage and unknown stop 
   assert.deepEqual(adapter.facts(original),{sourceState:'changed',observedAt:context.observedAt})
  } finally { await rm(root, {recursive: true, force: true}) }
 })
+
+
+test('native dependency nodes retain their relations without acquiring a project file reference',()=>{
+ const v=native()
+ for(const [i,specifier] of ['node:fs','playwright-core'].entries()){
+  const id='module-'+i
+  v.nodes.push({id,label:specifier,type:'module',source_file:specifier})
+  v.links.push({source:'a',target:id,relation:'imports',confidence:'EXTRACTED',source_file:'a.ts'})
+ }
+ const s=normalizeGraphify(Buffer.from(JSON.stringify(v)),context)
+ assert.deepEqual(s.nodes.slice(2).map(node=>node.reference),[
+  {status:'unknown',reason:'absent'},{status:'unknown',reason:'absent'}
+ ])
+ assert.equal(s.relations.length,3)
+ v.nodes[2].source_file='C:/External/secret.ts'
+ v.nodes[2].label=v.nodes[2].source_file
+ assert.throws(()=>normalizeGraphify(Buffer.from(JSON.stringify(v)),context),/INVALID_REFERENCE/)
+ v.nodes[2].source_file='node:fs'
+ v.nodes[2].label='node:fs'
+ v.nodes[2].source_location='L1'
+ assert.throws(()=>normalizeGraphify(Buffer.from(JSON.stringify(v)),context),/INVALID_REFERENCE/)
+})

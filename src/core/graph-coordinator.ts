@@ -10,11 +10,19 @@ type Runtime=GraphAnalysisPort&{scopeRevision:string;coverage:{included:string[]
 type Dependencies={application:{dialogueProject(id:string):Promise<{id:string;rootPath:string}>};runtime:Runtime;store:{list():Promise<GraphState[]>;write(s:GraphState):Promise<void>};files:{accept(original:object,producer:'corpus'):void;invalidate(id:string,producer:'corpus'):void};guard():Promise<'clear'|'busy'|'stop-unconfirmed'>;onUnknown?():void}
 export async function graphAdmissionGuard(admission:{readonly activity:'blocked'|'busy'|'clear';block():void},recovery:{status():Promise<'stopped'|'unknown'>},operation:boolean):Promise<'clear'|'busy'|'stop-unconfirmed'>{if(admission.activity==='blocked')return 'stop-unconfirmed';if(admission.activity==='busy'||operation)return 'busy';if(await recovery.status()!=='stopped'){admission.block();return 'stop-unconfirmed'}return 'clear'}
 const canonical=(v:string):string=>v.replaceAll(String.fromCharCode(92),'/').replace(/\/$/,'').toLowerCase()
+const captureDiagnostics=new Map<string,string>([
+ ['DEPTH_LIMIT','Le dépôt dépasse la profondeur maximale de capture de 24 niveaux.'],
+ ['INVENTORY_LIMIT','Le dépôt dépasse la limite de 10 000 entrées inventoriées.'],
+ ['SOURCE_COUNT_LIMIT','Le dépôt dépasse la limite de 1 024 fichiers de code.'],
+ ['SOURCE_TOTAL_LIMIT','Le code du projet dépasse la limite de capture de 16 Mio.'],
+ ['FILE_LIMIT','Un fichier de code dépasse la limite de 1 Mio par fichier.'],
+ ['NO_CODE_SOURCES','Aucun fichier de code pris en charge n’a été trouvé.']
+])
 function prerequisiteDiagnostic(error:unknown):string|null {
  const code=String(error)
  if(code.includes('GRAPH_POWERSHELL_REQUIRED'))return 'PowerShell 7.5.4 est requis pour le graphe. Vérifiez la version de l’outil .NET global puis réessayez.'
  if(code.includes('GRAPH_RESOURCE_CHANGED'))return 'Ressources Graphify manquantes ou modifiées. Réinstallez le paquet Madness identifié puis réessayez.'
- return null
+ return error instanceof Error ? captureDiagnostics.get(error.message)??null : null
 }
 export class GraphCoordinator{
  private deps:Dependencies;private state=initialGraphWorkspace();private listeners=new Set<(s:GraphWorkspace)=>void>();private active:{projectId:string;controller:AbortController;work:Promise<void>}|null=null;private loaded:Promise<void>|null=null;private closing=false;private saves=new Set<Promise<void>>()
@@ -95,7 +103,7 @@ export class GraphCoordinator{
     if(observed!==comparable){this.unbind(id);await this.save(observed)}
     throw Error(begun.issues[0].code)
    }
-   current=begun.value;this.unbind(id);this.state.issues=this.state.issues.filter(i=>i.projectId!==id);this.put(current)
+   current=begun.value;this.state.preparing=null;this.unbind(id);this.state.issues=this.state.issues.filter(i=>i.projectId!==id);this.put(current)
    const request:GraphAnalysisRequest={contractVersion:1,identity:expected.identity,generation:expected.generation,correlationId,corpus:expected.corpus,coverage:expected.coverage}
    let rejected=false
    const observe=(event:GraphAnalysisEvent):void=>{

@@ -78,8 +78,10 @@ export class GraphifyAdapter implements GraphAnalysisPort{
    const child=spawn(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,shell:false,stdio:['ignore','ignore','pipe']});spawned=child.pid!==undefined
    let errorBytes=0;child.stderr.on('data',b=>{errorBytes+=b.length})
    const cancel=():void=>{void this.options.owner.cancel(generation).catch(()=>{})};signal.addEventListener('abort',cancel,{once:true});if(signal.aborted)cancel()
+   // The native analysis and its subsequent source comparison have separate budgets.
+   const launcherBudgetMs=request.op==='analyze'?600000:270000
    let timer:ReturnType<typeof setTimeout>|undefined
-   try{await Promise.race([new Promise<void>((done,fail)=>{child.once('close',()=>done());child.once('error',fail)}),new Promise<never>((_,fail)=>{timer=setTimeout(()=>{cancel();fail(Error('STOP_UNCONFIRMED'))},270000)})])}finally{clearTimeout(timer);signal.removeEventListener('abort',cancel)}
+   try{await Promise.race([new Promise<void>((done,fail)=>{child.once('close',()=>done());child.once('error',fail)}),new Promise<never>((_,fail)=>{timer=setTimeout(()=>{cancel();fail(Error('STOP_UNCONFIRMED'))},launcherBudgetMs)})])}finally{clearTimeout(timer);signal.removeEventListener('abort',cancel)}
    confirmed=await this.options.owner.confirm(generation)==='stopped';if(!confirmed)throw Error('STOP_UNCONFIRMED')
    // The finished analysis may already have written a source comparison before cancellation.
    if(request.op!=='analyze')signal.throwIfAborted()

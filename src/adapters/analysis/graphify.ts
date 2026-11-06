@@ -12,6 +12,11 @@ import {GraphOwnedRun} from './graph-owned-run.ts'
 import {graphResourcePins} from './graphify-manifest.ts'
 import {IncompatibleGraphifyArtifact,normalizeGraphify} from './graphify-normalize.ts'
 const sha=(b:Buffer|string):string=>createHash('sha256').update(b).digest('hex')
+// This exact change omits the disk mirror during revalidation. The code inventory
+// and its revision are unchanged. An unrecognized capture pin rotates the scope.
+const captureScopePin=graphResourcePins['graph_capture.py']==='d3637ac4c4f3e518b91b4d4a198f9a5bfdb2ca5d88bb94cdebb97bd00eaaf10f'
+ ?'3c5d601141968aa2c9aef4cdf63aaaa174aa5abda67407371acd7bf40420be2f'
+ :graphResourcePins['graph_capture.py']
 const powerShellPins={
  'pwsh.exe':'9660387054b1387f5ab7e907a61560674c762559f91279a50484240bb3659d53',
  'pwsh.dll':'e693be60bb4ce1e3ad5e511fa181928975cf151adc4816379bf895fd0dc3fedc',
@@ -49,7 +54,7 @@ type Facts={sourceState:'unchanged'|'changed'|'unknown';observedAt:string|null}
 type Options={root:string;resources:string;owner:GraphOwnedRun;admission:{enter(kind:'helper'):()=>void};admit?():Promise<void>;onUnknown?():void}
 export class GraphifyAdapter implements GraphAnalysisPort{
  readonly coverage={included:['captured-code','code-dependencies'],excluded:['configuration','instructions','hooks','links','metadata','generated-output','semantic-enrichment']}
- readonly scopeRevision=sha(graphResourcePins['graph_capture.py']+'|graph-code-only-v1:.py,.ts,.tsx,.js,.jsx,.mjs,.cjs,.cs,.java,.c,.h,.cpp,.hpp,.rs,.go,.rb,.php,.swift,.kt,.scala,.vue,.svelte;1024files;1MiBfile;16MiBtotal;24depth;10000entries;no-config')
+ readonly scopeRevision=sha(captureScopePin+'|graph-code-only-v1:.py,.ts,.tsx,.js,.jsx,.mjs,.cjs,.cs,.java,.c,.h,.cpp,.hpp,.rs,.go,.rb,.php,.swift,.kt,.scala,.vue,.svelte;1024files;1MiBfile;16MiBtotal;24depth;10000entries;no-config')
  private options:Options;private closing=false;private pending:Promise<unknown>|null=null;private captured=new WeakMap<object,{folder:string;receiptSha:string;facts:Facts}>();private originals=new Map<string,OriginalGraphCapture>();private authorities=new WeakMap<object,FileAuthority>();private activeAttempt:{request:GraphStopRequest;generation:string}|null=null
  constructor(options:Options){this.options=options}
  filesAuthority(v:object):FileAuthority|undefined{return this.authorities.get(v)}
@@ -71,7 +76,10 @@ export class GraphifyAdapter implements GraphAnalysisPort{
    if(attempt)this.activeAttempt={request:attempt,generation}
    signal.throwIfAborted();if(this.closing)throw Error('APP_CLOSING')
    const resources=realpathSync.native(this.options.resources)
-   await writeFile(join(folder,'request.json'),JSON.stringify({...request,...(request.op==='capture'?{folder:join(folder,'data')}:{})}),{flag:'wx'});if(request.op==='capture')await mkdir(join(folder,'data'))
+   const capturesCorpus=request.op==='capture'||request.op==='revalidate'
+   const data=join(folder,'data')
+   await writeFile(join(folder,'request.json'),JSON.stringify(capturesCorpus?{...request,folder:data}:request),{flag:'wx'})
+   if(capturesCorpus)await mkdir(data)
    const quote=(v:string):string=>"'"+v.replaceAll("'","''")+"'"
    const script='$TaskFolder='+quote(folder)+'\n$Generation='+quote(generation)+'\n$Resources='+quote(resources)+'\n$Pins='+"(ConvertFrom-Json -AsHashtable "+quote(JSON.stringify(graphResourcePins))+')\n'+(await safe(join(resources,'launcher.ps1'))).toString('utf8')
    signal.throwIfAborted();if(this.closing)throw Error('APP_CLOSING')
@@ -99,13 +107,17 @@ export class GraphifyAdapter implements GraphAnalysisPort{
    }
   }
  }
- async capture(projectId:string,rootPath:string,signal:AbortSignal):Promise<OriginalGraphCapture>{
+ async capture(projectId:string,rootPath:string,signal:AbortSignal,mode:'analysis'|'revalidation'='analysis'):Promise<OriginalGraphCapture>{
   // Preserve lexical ancestor checks before expanding a Windows 8.3 spelling.
   for(let p=resolve(rootPath);;p=dirname(p)){const s=await lstat(p);if(s.isSymbolicLink()||!s.isDirectory())throw Error('ROOT_REFUSED');if(dirname(p)===p)break}
-  const {result,folder}=await this.run({op:'capture',project:realpathSync.native(rootPath)},signal),data=join(folder,'data')
+  const op=mode==='revalidation'?'revalidate':'capture'
+  const {result,folder}=await this.run({op,project:realpathSync.native(rootPath)},signal),data=join(folder,'data')
   const original:OriginalGraphCapture={projectId,rootPath:result.rootPath,rootIdentity:result.rootIdentity,revision:result.revision,observedAt:result.observedAt,sources:result.sources,corpus:result.corpus as GraphSource[],excluded:result.excluded}
   const receiptSha=sha(await safe(join(data,'files.json'),4*1024*1024));if(receiptSha!==result.receiptSha)throw Error('GRANT_CHANGED')
-  this.captured.set(original,{folder:data,receiptSha,facts:{sourceState:'unchanged',observedAt:original.observedAt}});this.originals.set(projectId,original)
+  if(op==='capture'){
+   this.captured.set(original,{folder:data,receiptSha,facts:{sourceState:'unchanged',observedAt:original.observedAt}})
+   this.originals.set(projectId,original)
+  }
   const operate=async(id:string,signal:AbortSignal,read:boolean):Promise<any>=>{if(!original.sources.some(s=>s.id===id))throw Error('SOURCE_NOT_GRANTED');if(sha(await safe(join(data,'files.json'),4*1024*1024))!==receiptSha)throw Error('GRANT_CHANGED');const {result}=await this.run({op:read?'files-read':'files-verify',prepared:data,receiptSha,producer:'corpus',revision:original.revision,sourceId:id},signal);return result}
   this.authorities.set(original,{producer:'corpus',projectId,rootPath:original.rootPath,rootIdentity:original.rootIdentity,revision:original.revision,observedAt:original.observedAt,sources:structuredClone(original.sources),read:(id,s)=>operate(id,s,true),verify:(id,s)=>operate(id,s,false)})
   return original

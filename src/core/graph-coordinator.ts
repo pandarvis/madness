@@ -6,7 +6,7 @@ import type {GraphWorkspace,GraphState,GraphScope,ExpectedGraphContext,GraphAnal
 import {createGraphState,restoreGraphState,beginGraphAttempt,observeGraphSourceRevision,publishGraphEvent,requestGraphStop} from './bmad-graph.ts'
 import type {GraphAnalysisPort} from './bmad-graph-port.ts'
 import type {OriginalGraphCapture} from '../adapters/analysis/graph-corpus.ts'
-type Runtime=GraphAnalysisPort&{scopeRevision:string;coverage:{included:string[];excluded:string[]};capture(id:string,root:string,signal:AbortSignal):Promise<OriginalGraphCapture>;facts(c:OriginalGraphCapture):{sourceState:'unchanged'|'changed'|'unknown';observedAt:string|null};shutdown():Promise<'stopped'|'unknown'>}
+type Runtime=GraphAnalysisPort&{scopeRevision:string;coverage:{included:string[];excluded:string[]};capture(id:string,root:string,signal:AbortSignal,mode?:'analysis'|'revalidation'):Promise<OriginalGraphCapture>;facts(c:OriginalGraphCapture):{sourceState:'unchanged'|'changed'|'unknown';observedAt:string|null};shutdown():Promise<'stopped'|'unknown'>}
 type Dependencies={application:{dialogueProject(id:string):Promise<{id:string;rootPath:string}>};runtime:Runtime;store:{list():Promise<GraphState[]>;write(s:GraphState):Promise<void>};files:{accept(original:object,producer:'corpus'):void;invalidate(id:string,producer:'corpus'):void};guard():Promise<'clear'|'busy'|'stop-unconfirmed'>;onUnknown?():void}
 export async function graphAdmissionGuard(admission:{readonly activity:'blocked'|'busy'|'clear';block():void},recovery:{status():Promise<'stopped'|'unknown'>},operation:boolean):Promise<'clear'|'busy'|'stop-unconfirmed'>{if(admission.activity==='blocked')return 'stop-unconfirmed';if(admission.activity==='busy'||operation)return 'busy';if(await recovery.status()!=='stopped'){admission.block();return 'stop-unconfirmed'}return 'clear'}
 const canonical=(v:string):string=>v.replaceAll(String.fromCharCode(92),'/').replace(/\/$/,'').toLowerCase()
@@ -51,7 +51,7 @@ export class GraphCoordinator{
      if(await this.deps.guard()!=='clear')throw Error('BUSY_OR_UNKNOWN')
      const project=await this.deps.application.dialogueProject(c.projectId)
      controller.signal.throwIfAborted()
-     const original=await this.deps.runtime.capture(c.projectId,project.rootPath,controller.signal)
+     const original=await this.deps.runtime.capture(c.projectId,project.rootPath,controller.signal,'revalidation')
      const currentProject=await this.deps.application.dialogueProject(c.projectId)
      if(original.projectId!==c.projectId||canonical(currentProject.rootPath)!==canonical(project.rootPath)||canonical(currentProject.rootPath)!==canonical(original.rootPath))throw Error('PROJECT_CHANGED')
      controller.signal.throwIfAborted()

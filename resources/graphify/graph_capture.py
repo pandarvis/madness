@@ -89,14 +89,15 @@ def operate(req):
             state='unchanged' if revision==old['revision'] and json.dumps(chain)==json.dumps(old['rootChain']) else 'changed'
         except (capture.Refusal,OSError):state='unknown'
         return {'sourceState':state,'observedAt':now()}
-    if req['op']!='capture':raise capture.Refusal('OPERATION')
+    if req['op'] not in ('capture','revalidate'):raise capture.Refusal('OPERATION')
     folder=capture.long_path(req['folder']);capture.inspect_chain(folder)
     root,chain,entries,excluded,revision=inventory(req['project'])
     if not entries:raise capture.Refusal('NO_CODE_SOURCES')
-    mirror=folder/'mirror';mirror.mkdir(exist_ok=False)
-    for entry,raw in entries:
-        target=mirror/entry['relativePath'];target.parent.mkdir(parents=True,exist_ok=True)
-        with target.open('xb') as output:output.write(raw)
+    if req['op']=='capture':
+        mirror=folder/'mirror';mirror.mkdir(exist_ok=False)
+        for entry,raw in entries:
+            target=mirror/entry['relativePath'];target.parent.mkdir(parents=True,exist_ok=True)
+            with target.open('xb') as output:output.write(raw)
     grant=files.publish(folder,root,'corpus',revision,[{k:v for k,v in e.items() if k not in ('relativePath','lineCount')} for e,b in entries])
     receipt={'project':capture.display_path(root),'rootChain':chain,'revision':revision}
     (folder/'corpus.json').write_text(json.dumps(receipt),encoding='utf-8')
@@ -106,7 +107,7 @@ def main():
     try:
         print(json.dumps(operate(request), ensure_ascii=False))
     except capture.Refusal as error:
-        if request.get('op') == 'capture' and error.code in {
+        if request.get('op') in ('capture','revalidate') and error.code in {
             'DEPTH_LIMIT', 'INVENTORY_LIMIT', 'SOURCE_COUNT_LIMIT',
             'SOURCE_TOTAL_LIMIT', 'FILE_LIMIT', 'NO_CODE_SOURCES'
         }:

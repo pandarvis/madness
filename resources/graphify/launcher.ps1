@@ -30,7 +30,7 @@ try {
       # A null observation remains an unknown attempt; it never proves never-started.
       $script:states+=,$script:state
     }
-    if($current.outcome -ceq 'completed' -and $current.exit -eq 2 -and $request.op -ceq 'capture' -and $Label -ceq 'capture'){
+    if($current.outcome -ceq 'completed' -and $current.exit -eq 2 -and $request.op -cin @('capture','revalidate') -and $Label -ceq 'capture'){
       $refusal=$null
       try {
         $receipt=Join-Path $TaskFolder 'capture-stdout.json'

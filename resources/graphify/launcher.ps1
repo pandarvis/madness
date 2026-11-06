@@ -38,9 +38,9 @@ try {
     Run-GraphChild 'import sys,runpy;p=sys.argv[1]+"/worker.py";sys.argv=[p,sys.argv[2]];runpy.run_path(p,run_name="__main__")' (Join-Path $TaskFolder 'worker-request.json') 'analysis'
     $worker=Get-Content -LiteralPath (Join-Path $analysis 'worker.json') -Raw|ConvertFrom-Json
     if($worker.outcome -ne 'completed'){throw 'GRAPHIFY_FAILED'}
-    $graphs=@(Get-ChildItem -LiteralPath $analysis -Recurse -File -Filter graph.json)
-    if($graphs.Count -ne 1){throw 'GRAPH_OUTPUT_MISSING'}
-    [IO.File]::Copy($graphs[0].FullName,(Join-Path $TaskFolder 'native-graph.json'),$false)
+    $graph=Join-Path $analysis 'out/graphify-out/graph.json'
+    if(-not (Test-Path -LiteralPath $graph -PathType Leaf)){throw 'GRAPH_OUTPUT_MISSING'}
+    [GraphClosedRuntime]::CopyArtifact($graph,(Join-Path $TaskFolder 'native-graph.json'))
     Run-GraphChild $captureScript (@{op='terminal';prepared=$request.prepared}|ConvertTo-Json -Compress) 'terminal-capture'
     [IO.File]::Copy((Join-Path $TaskFolder 'terminal-capture-stdout.json'),(Join-Path $TaskFolder 'result.json'),$false)
   }else{

@@ -10,7 +10,7 @@ import type {GraphAnalysisPort} from '../../core/bmad-graph-port.ts'
 import type {OriginalGraphCapture} from './graph-corpus.ts'
 import {GraphOwnedRun} from './graph-owned-run.ts'
 import {graphResourcePins} from './graphify-manifest.ts'
-import {normalizeGraphify} from './graphify-normalize.ts'
+import {IncompatibleGraphifyArtifact,normalizeGraphify} from './graphify-normalize.ts'
 const sha=(b:Buffer|string):string=>createHash('sha256').update(b).digest('hex')
 const pwshPin='9660387054b1387f5ab7e907a61560674c762559f91279a50484240bb3659d53'
 async function safe(path:string,limit=32*1024*1024):Promise<Buffer>{for(let p=resolve(path);;p=dirname(p)){const s=await lstat(p);if(s.isSymbolicLink()||s.isFile()&&s.nlink!==1)throw Error('PHYSICAL_PATH_REFUSED');if(dirname(p)===p)break}const h=await open(path,'r');try{const a=await h.stat();if(!a.isFile()||a.size>limit)throw Error('OUTPUT_LIMIT');const b=await h.readFile(),z=await h.stat(),n=await lstat(path);if(a.ino!==z.ino||a.ino!==n.ino||a.mtimeMs!==z.mtimeMs||a.size!==z.size||b.length>limit)throw Error('SOURCE_CHANGED');return b}finally{await h.close()}}
@@ -67,16 +67,21 @@ export class GraphifyAdapter implements GraphAnalysisPort{
    const {result,folder}=await this.run({op:'analyze',prepared:capture.folder},signal,{contractVersion:1,identity:request.identity,generation:request.generation,correlationId:request.correlationId})
    capture.facts={sourceState:['unchanged','changed'].includes(result.sourceState)?result.sourceState:'unknown',observedAt:typeof result.observedAt==='string'?result.observedAt:null}
    const bytes=await safe(join(folder,'native-graph.json'),16*1024*1024),logs=await safe(join(folder,'analysis-stderr.log'),4*1024*1024)
-   const limitations=logs.toString('utf8').split(/\r?\n/).filter(v=>/warning|not available|not installed|missing optional/i.test(v)).map(v=>v.trim()).filter((v,i,a)=>a.indexOf(v)===i)
+   const limitations=/warning|not available|not installed|missing optional/i.test(logs.toString('utf8'))
+    ? ['Graphify signale une couverture limitée.'] : []
    const snapshot=normalizeGraphify(bytes,{identity:request.identity,corpus:original.corpus,coverage:request.coverage,observedAt:original.observedAt,assemblyRevision:graphResourcePins['assembly.json'],limitations})
    emit({type:'result',snapshot});emit({type:'stopped',reason:snapshot.coverage.status,stop:'confirmed'})
   }catch(e){
    capture.facts={sourceState:'unknown',observedAt:null};const stopped=await this.options.owner.status().catch(()=>'unknown' as const)==='stopped'
    if(signal.aborted){emit({type:'stopped',reason:'interrupted',stop:stopped?'confirmed':'unknown'});return}
    if(e instanceof Error&&e.message==='GRAPH_CHILD_timeout')emit({type:'stopped',reason:'timeout',stop:stopped?'confirmed':'unknown'})
-   else{
-   emit({type:'failed',error:{code:stopped?'ANALYSIS_FAILED':'STOP_UNCONFIRMED',messageKey:stopped?'graph.error.analysis_failed':'graph.error.stop_unconfirmed',outcome:stopped?'failed':'unknown',recovery:stopped?'retry-after-check':'check-stop'}})
-   if(stopped)emit({type:'stopped',reason:'failed',stop:'confirmed'})
+   else if(!stopped)emit({type:'failed',error:{code:'STOP_UNCONFIRMED',messageKey:'graph.error.stop_unconfirmed',outcome:'unknown',recovery:'check-stop'}})
+   else if(e instanceof IncompatibleGraphifyArtifact){
+    emit({type:'failed',error:{code:'INCOMPATIBLE',messageKey:'graph.error.incompatible',outcome:'failed',recovery:'inspect-profile'}})
+    emit({type:'stopped',reason:'incompatible',stop:'confirmed'})
+   }else{
+    emit({type:'failed',error:{code:'ANALYSIS_FAILED',messageKey:'graph.error.analysis_failed',outcome:'failed',recovery:'retry-after-check'}})
+    emit({type:'stopped',reason:'failed',stop:'confirmed'})
    }
    // Keep an owned diagnosis without exposing native payloads to the bridge.
    if(this.lastRun)await writeFile(join(this.lastRun,'adapter-error.txt'),String(e)).catch(()=>{})

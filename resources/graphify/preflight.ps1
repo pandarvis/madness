@@ -69,6 +69,23 @@ public static class GraphClosedRuntime {
     string p=Lexical(path);var held=HoldChain(p);
     try {foreach(var h in held)h.Check(false);}finally{foreach(var h in held)h.Dispose();}
   }
+  public static void CopyArtifact(string source,string destination) {
+    source=Lexical(source);
+    var held=HoldChain(source);
+    try {
+      Info before;
+      using(var file=Open(source,true,out before)) {
+        if((before.attributes&16)!=0||!Same(held[held.Count-1].before,before))throw Refuse("GRAPH_OUTPUT_CHANGED");
+        if(before.sizeHigh!=0||before.sizeLow>16*1024*1024)throw Refuse("GRAPH_OUTPUT_LIMIT");
+        using(var input=new FileStream(file,FileAccess.Read))
+        using(var output=new FileStream(Long(Lexical(destination)),FileMode.CreateNew,FileAccess.Write,FileShare.None)) {
+          input.CopyTo(output);
+          if(!Same(before,Read(file)))throw Refuse("GRAPH_OUTPUT_CHANGED");
+          foreach(var entry in held)entry.Check(false);
+        }
+      }
+    }finally{foreach(var entry in held)entry.Dispose();}
+  }
   public static void Validate(string root,string[] names,string[] hashes) {
     root=Lexical(root);var ancestors=HoldChain(root);
     try {

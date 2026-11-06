@@ -62,6 +62,7 @@ const owned = {
  "diagnostic": {
   "Conservation du graphe illisible — aucune analyse relancée.": "Graph storage unreadable — no analysis restarted.",
   "Référence ancienne ou non vérifiée — sources modifiées ou accès refusé.": "Stale or unverified reference — sources changed or access refused.",
+  "Graphify signale une couverture limitée.": "Graphify reports limited coverage.",
   "Résultat étranger ou incompatible refusé — dernier complet conservé.": "Foreign or incompatible result refused — last complete graph retained.",
   "Arrêt non confirmé — vérifiez l’arrêt dans la récupération commune.": "Stop not confirmed — check the stop in shared recovery.",
   "Analyse interrompue avant publication.": "Analysis interrupted before publication.",

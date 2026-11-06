@@ -10,7 +10,7 @@ import {ProjectLibrary} from './ProjectLibrary.tsx'
 import {projectLibrary} from '../../core/project-library.ts'
 import {consultationKey,navigationCurrent} from './consultation-navigation.ts'
 import type {ConsultationPosition,WorkTab} from './consultation-navigation.ts'
-import {GraphPanel,useGraph} from './GraphPanel.tsx'
+import {GraphPanel,useGraph,useGraphPreparationStop} from './GraphPanel.tsx'
 import type {GraphView} from './GraphPanel.tsx'
 import {FilePreview,FilesContext,restoreFileConsultationFocus,useProjectFiles} from './FilePreview.tsx'
 import type {FileConsultation} from './FilePreview.tsx'
@@ -119,6 +119,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
  const {words:fr,ui,locale,language}=useLocale()
 
   const [graphState,acceptGraph]=useGraph()
+  const graphPreparationStop=useGraphPreparationStop(graphState.preparing)
   const graphViews=useRef(new Map<string,GraphView>())
   const graphReturns=useRef(new Map<string,{projectId:string;rootPath:string;tab:'parcours'|'conversation'|'catalogue';initiative:string|null;conversationId:string|null;trigger:HTMLElement|null;inputId:string|null;start:number|null;end:number|null;top:number}>())
   const workFocus=useRef<HTMLElement|null>(null)
@@ -637,7 +638,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
               <div className="home-note"><h2>{ui.connect_your_account_from_the_codex_logo}</h2><p>{fr.codexReason} {ui.read_bmad_evidence_in_journey_without_a_connection_view_the_local}</p></div>
             </> : <>
               <section id={'panel-' + tab} role="tabpanel" aria-labelledby={'tab-' + tab}>
-                {tab==='graphe'&&<GraphPanel language={language} key={project.id+':'+project.rootPath} projectId={project.id} rootPath={project.rootPath} workspace={graphState} accept={acceptGraph} views={graphViews.current} active={tab==='graphe'} onReturn={returnFromGraph} returnLabel={graphReturns.current.get(project.id)?.tab==='conversation'?'Conversation':graphReturns.current.get(project.id)?.tab==='catalogue'?ui.all_possibilities:ui.journey}/>}
+                {tab==='graphe'&&<GraphPanel language={language} key={project.id+':'+project.rootPath} projectId={project.id} rootPath={project.rootPath} workspace={graphState} accept={acceptGraph} views={graphViews.current} preparationStopState={graphPreparationStop} active={tab==='graphe'} onReturn={returnFromGraph} returnLabel={graphReturns.current.get(project.id)?.tab==='conversation'?'Conversation':graphReturns.current.get(project.id)?.tab==='catalogue'?ui.all_possibilities:ui.journey}/>}
                 <div hidden={tab!=='catalogue'}><CatalogPanel key={project.id} projectId={project.id} rootPath={project.rootPath} value={catalogState.projects.find(p=>p.projectId===project.id)} accept={acceptCatalog} views={catalogViews.current} active={tab==='catalogue'} onPrepared={(p,next)=>{if(currentProjectId.current!==p.projectId)return;acceptCatalogLaunch(next);const destination={token:++navigationToken.current,projectId:p.projectId};setConversationSelections(current=>({...current,[p.projectId]:conversation?.id??''}));setCatalogPreparation(p);setTab('conversation');requestAnimationFrame(()=>{if(navigationCurrent(destination,navigationToken.current,currentProjectId.current))document.getElementById('catalog-launch-heading')?.focus()})}} onRefused={code=>{if(currentProjectId.current===project.id&&code==='CONTEXT_MISMATCH')setInitiativeConflict(true)}}/></div>
                 <div hidden={tab!=='parcours'}><ProjectResume active={tab==='parcours'} rootPath={project.rootPath} projectId={project.id} context={initiativeContext} value={progressState.projects.find(p=>p.projectId===project.id)} overview={overview} accept={acceptProgress} onNavigate={target=>void navigateOverview(target)} onChoose={()=>document.querySelector<HTMLButtonElement>('.initiative-trigger')?.click()} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'}/></div>
                 {tab==='parcours'&&<HelpPanel metricChoice={metricChoices.slot('launchHelp',dialoguePending||dialogueBusy||sessionPresent)} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} state={helpState} onChanged={acceptHelp} onOpen={record=>void navigateOverview({kind:'conversation',context:record.context,id:'bmad-receipt-'+record.conversationId})} onObserveStop={()=>void dialogueAction('observeStop')} projectId={project.id} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} allowed={connection.accountStored&&!connection.needsPlanAcknowledgement&&!connectionBusy&&!dialogueBridgeError} onLaunch={()=>void dialogueAction('launchHelp')}/>}

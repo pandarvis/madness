@@ -8,14 +8,22 @@ import type {GraphWorkspace,GraphNode,GraphReference} from '../../contracts/bmad
 import {FilePreviewButton} from './FilePreview.tsx'
 import {graphLabels} from './graph-strings.ts'
 import './graph.css'
-export type GraphView={query:string;selected:string|null;relations:'all'|'in'|'out';relationQuery:string;relationId:string|null;zoom:number;x:number;y:number;top:number;completeFor?:string|null;consultedKey?:string;preparationStop?:boolean}
+export type GraphView={query:string;selected:string|null;relations:'all'|'in'|'out';relationQuery:string;relationId:string|null;zoom:number;x:number;y:number;top:number;completeFor?:string|null;consultedKey?:string}
 export function useGraph():[GraphWorkspace,(s:GraphWorkspace)=>void]{const [s,set]=useState(initialGraphWorkspace),sequence=useRef(-1);const accept=(next:GraphWorkspace):void=>{if(isGraphWorkspace(next)&&next.sequence>=sequence.current){sequence.current=next.sequence;set(next)}};useEffect(()=>{if(!window.madnessGraph)return;const off=window.madnessGraph.onChanged(accept);void window.madnessGraph.read().then(accept).catch(()=>{});return off},[]);return [s,accept]}
+type GraphPreparationStop={projectId:string;scopeKey:string}
+export function useGraphPreparationStop(preparing:string|null){
+ const state=useState<GraphPreparationStop|null>(null),[stop,setStop]=state
+ useEffect(()=>{
+  if(stop&&preparing!==stop.projectId)setStop(current=>current===stop?null:current)
+ },[preparing,stop])
+ return state
+}
 const graphResultsHeading='graph-results-title'
 const panKeys=new Map<string,[number,number]>([
  ['ArrowUp',[0,-60]],['ArrowDown',[0,60]],['ArrowLeft',[-60,0]],['ArrowRight',[60,0]]
 ])
 const viewDefault=(query=''):GraphView=>({query,selected:null,relations:'all',relationQuery:'',relationId:null,zoom:1,x:0,y:0,top:0})
-export function GraphPanel({projectId,rootPath,workspace,accept,views,active,onReturn,returnLabel,language='fr'}:{projectId:string;rootPath:string;workspace:GraphWorkspace;accept:(s:GraphWorkspace)=>void;views:Map<string,GraphView>;active:boolean;onReturn:()=>void;returnLabel:string;language?:'fr'|'en'}):ReactNode{
+export function GraphPanel({projectId,rootPath,workspace,accept,views,preparationStopState,active,onReturn,returnLabel,language='fr'}:{projectId:string;rootPath:string;workspace:GraphWorkspace;accept:(s:GraphWorkspace)=>void;views:Map<string,GraphView>;preparationStopState:ReturnType<typeof useGraphPreparationStop>;active:boolean;onReturn:()=>void;returnLabel:string;language?:'fr'|'en'}):ReactNode{
  const {ui,locale}=localeText(language)
 
  const w=graphLabels[language],uid=useId(),title=useRef<HTMLHeadingElement>(null),details=useRef<HTMLHeadingElement>(null),results=useRef<HTMLUListElement>(null),drawing=useRef<HTMLDivElement>(null),listTitle=useRef<HTMLHeadingElement>(null)
@@ -25,14 +33,7 @@ export function GraphPanel({projectId,rootPath,workspace,accept,views,active,onR
  const [selectedComplete,setSelectedComplete]=useState<string|null>(()=>views.get(scopeKey)?.completeFor??null)
  useLayoutEffect(()=>{setSelectedComplete(views.get(scopeKey)?.completeFor??null)},[scopeKey,views])
  const [,redraw]=useState(0),[pending,setPending]=useState(false),[error,setError]=useLocalText<string>('')
- const preparationStop=views.get(scopeKey)?.preparationStop===true
- function setPreparationStop(requested:boolean):void{
-  views.set(scopeKey,{...(views.get(scopeKey)??viewDefault()),preparationStop:requested})
-  redraw(n=>n+1)
- }
- useEffect(()=>{
-  if(workspace.preparing!==projectId&&views.get(scopeKey)?.preparationStop)setPreparationStop(false)
- },[workspace.preparing,projectId,scopeKey,views])
+ const [preparationStop,setPreparationStop]=preparationStopState
  const state=workspace.projects.find(s=>s.scope.projectId===projectId&&s.scope.rootPath.replaceAll(String.fromCharCode(92),'/').toLowerCase()===rootPath.replaceAll(String.fromCharCode(92),'/').toLowerCase())
  const revalidationTarget=state?selectGraphRevalidationTarget(state):null,latest=revalidationTarget??state?.result.snapshot
  const alternative=latest===state?.result.snapshot&&state?.result.snapshot?.coverage.status==='partial'&&state.lastComplete&&state.lastComplete.identity.analysisId!==state.result.snapshot.identity.analysisId?state.lastComplete:null,showLastComplete=!!alternative&&selectedComplete===JSON.stringify(latest?.identity),snapshot=showLastComplete?alternative:latest
@@ -47,7 +48,26 @@ export function GraphPanel({projectId,rootPath,workspace,accept,views,active,onR
  useLayoutEffect(()=>{if(active&&identity)views.set(scopeKey,{...(views.get(scopeKey)??viewDefault()),consultedKey:key})},[active,key,scopeKey,views])
  const running=workspace.preparing===projectId||state?.activity.phase==='running'||state?.activity.phase==='stop-requested',unknown=state?.activity.stop==='unknown',nodes=snapshot?.nodes??[],selected=nodes.find(n=>n.id===v.selected),query=v.query.toLocaleLowerCase(),matches=nodes.filter(n=>[n.label,n.id,n.reference.status==='known'?n.reference.relativePath:''].some(t=>t.toLocaleLowerCase().includes(query)))
  useEffect(()=>{if(active&&results.current)results.current.scrollTop=v.top},[active,key])
- const run=async(type:'generate'|'interrupt'|'retrySave'|'revalidateFiles'):Promise<void>=>{if(pending&&type!=='interrupt')return;setPending(true);setError('');try{const bridge=window.madnessGraph;if(!bridge)throw Error();if(type==='interrupt'&&workspace.preparing===projectId)setPreparationStop(true);const next=type==='interrupt'?await bridge.interrupt(projectId,state?.activity.phase==='running'||state?.activity.phase==='stop-requested'?state.activity.analysisId??'preparing':'preparing'):await bridge[type](projectId);accept(next)}catch{if(type==='interrupt')setPreparationStop(false);setError(l=>graphLabels[l.language].bridgeFailed)}finally{setPending(false)}}
+ const run=async(type:'generate'|'interrupt'|'retrySave'|'revalidateFiles'):Promise<void>=>{
+  if(pending&&type!=='interrupt')return
+  const stop=type==='interrupt'&&workspace.preparing===projectId?{projectId,scopeKey}:null
+  setPending(true)
+  setError('')
+  try{
+   const bridge=window.madnessGraph
+   if(!bridge)throw Error()
+   if(stop)setPreparationStop(stop)
+   const next=type==='interrupt'
+    ?await bridge.interrupt(projectId,state?.activity.phase==='running'||state?.activity.phase==='stop-requested'?state.activity.analysisId??'preparing':'preparing')
+    :await bridge[type](projectId)
+   accept(next)
+  }catch{
+   if(stop)setPreparationStop(current=>current===stop?null:current)
+   setError(l=>graphLabels[l.language].bridgeFailed)
+  }finally{
+   setPending(false)
+  }
+ }
  const select=(id:string):void=>{update({selected:id,relationId:null});requestAnimationFrame(()=>{if(details.current?.isConnected)details.current.focus({preventScroll:true})})}
  const changeZoom=(step:number):void=>{
   const zoom=Math.min(3,Math.max(.25,v.zoom+step))
@@ -64,7 +84,10 @@ export function GraphPanel({projectId,rootPath,workspace,accept,views,active,onR
  const olderThanLatest=showLastComplete&&(latest?.identity.sourceRevision!==identity?.sourceRevision||
   state?.freshness.status==='changed'&&state.freshness.sourceRevision===identity?.sourceRevision)
  const stopLabel=state?.activity.stop==='confirmed'?' · '+w.confirmedStop:''
- const progressPhase=state?.activity.phase==='stop-requested'||workspace.preparing===projectId&&preparationStop?'stopping':state?.activity.phase==='running'?'analyzing':workspace.preparing===projectId?'preparing':null
+ const progressPhase=state?.activity.phase==='stop-requested'?'stopping'
+  :state?.activity.phase==='running'?'analyzing'
+  :workspace.preparing===projectId?(preparationStop?.scopeKey===scopeKey?'stopping':'preparing')
+  :null
  const attemptStatus=running?(progressPhase==='stopping'?w.requested:progressPhase==='analyzing'?w.running:w.preparing):unknown?w.unknown:outcome==='interrupted'?w.interrupted+stopLabel:outcome==='timeout'?w.timeout+stopLabel:outcome==='incompatible'?w.incompatible:outcome==='failed'?w.failed:outcome==='unknown'&&state?.activity.phase!=='idle'?w.outcomeUnknown+stopLabel:latest?latest.coverage.status==='complete'?w.complete:w.partial:w.absent
  useLayoutEffect(()=>{const element=drawing.current;if(!element)return;const measure=():void=>{const next={width:element.clientWidth,height:element.clientHeight};setDrawingSize(old=>old.width===next.width&&old.height===next.height?old:next)};measure();const observer=new ResizeObserver(measure);observer.observe(element);return()=>observer.disconnect()},[key])
  // Keep labels at14CSSpx after the SVG viewport and local zoom transforms. Geometry still zooms/pans.

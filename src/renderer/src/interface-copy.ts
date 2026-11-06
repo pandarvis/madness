@@ -1925,11 +1925,11 @@ export const interfaceCopy = {
   "en": "Last complete graph:"
  },
  "maximum_zoom_300": {
-  "fr": "Zoom maximal300%",
+  "fr": "Zoom maximal 300 %",
   "en": "Maximum zoom 300%"
  },
  "minimum_zoom_25": {
-  "fr": "Zoom minimal25%",
+  "fr": "Zoom minimal 25 %",
   "en": "Minimum zoom 25%"
  },
  "label_100_000_characters_maximum": {

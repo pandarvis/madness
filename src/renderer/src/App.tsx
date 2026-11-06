@@ -12,7 +12,7 @@ import {consultationKey,navigationCurrent} from './consultation-navigation.ts'
 import type {ConsultationPosition,WorkTab} from './consultation-navigation.ts'
 import {GraphPanel,useGraph} from './GraphPanel.tsx'
 import type {GraphView} from './GraphPanel.tsx'
-import {FilePreview,FilesContext,useProjectFiles} from './FilePreview.tsx'
+import {FilePreview,FilesContext,restoreFileConsultationFocus,useProjectFiles} from './FilePreview.tsx'
 import type {FileConsultation} from './FilePreview.tsx'
 import {CatalogPanel,useBmadCatalog} from './CatalogPanel.tsx'
 import type {CatalogView} from './CatalogPanel.tsx'
@@ -187,7 +187,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const fileScope=tab==='graphe'?JSON.stringify([project?.id,project?.rootPath,'corpus']):JSON.stringify([project?.id,project?.rootPath,initiativeContext?.selection?.rootIdentity,initiativeContext?.selection?.initiativeId])
   const fileConsultation=page==='project'?fileViews[fileScope]:undefined
   const fileScopeRef=useRef(fileScope);fileScopeRef.current=fileScope
-  function closeFile(restore=true):void{const current=fileViews[fileScope];setFileViews(previous=>{const next={...previous};delete next[fileScope];return next});if(restore&&current){const scope=fileScope;requestAnimationFrame(()=>{if(fileScopeRef.current!==scope)return;const target=current.trigger.isConnected?current.trigger:current.fallback?.isConnected?current.fallback:heading.current;target?.focus({preventScroll:true});if(!current.trigger.isConnected)setNotice(l=>l.ui.returned_to_result_exact_trigger_unavailable)})}}
+  function closeFile(restore=true):void{const current=fileViews[fileScope];setFileViews(previous=>{const next={...previous};delete next[fileScope];return next});if(restore&&current){const scope=fileScope;requestAnimationFrame(()=>{if(fileScopeRef.current!==scope)return;if(!restoreFileConsultationFocus(current,heading.current))setNotice(l=>l.ui.returned_to_result_exact_trigger_unavailable)})}}
   function openFile(value:FileConsultation):void{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(false);setFileViews(previous=>({...Object.fromEntries(Object.entries(previous).slice(-31)),[fileScope]:value}))}
 
   const currentProjectId=useRef<string|undefined>(undefined),dialogueSequence=useRef(-1)

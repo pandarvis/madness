@@ -7,7 +7,14 @@ import {initialProjectFilesState,isProjectFilesState} from '../../contracts/proj
 import type {ProjectFileReference,ProjectFilesState,FileProducer} from '../../contracts/project-files.ts'
 import {fileLabels} from './file-strings.ts'
 import './files.css'
-export type FileConsultation={reference:ProjectFileReference;trigger:HTMLElement;fallback:HTMLElement|null;top?:number;expanded?:boolean;requested?:boolean}
+export type FileConsultation={reference:ProjectFileReference;trigger:HTMLElement;fallback:HTMLElement|null;fallbackId?:string;top?:number;expanded?:boolean;requested?:boolean}
+export function restoreFileConsultationFocus(consultation:FileConsultation,heading:HTMLElement|null):boolean{
+ const {trigger,fallback,fallbackId}=consultation
+ const exact=trigger.isConnected
+ const target=exact?trigger:fallback?.isConnected?fallback:(fallbackId?document.getElementById(fallbackId):null)??heading
+ target?.focus({preventScroll:true})
+ return exact
+}
 export const FilesContext=createContext<{state:ProjectFilesState;open:(c:FileConsultation)=>void}>({state:initialProjectFilesState(),open:()=>{}})
 export function useProjectFiles():[ProjectFilesState,(value:ProjectFilesState)=>void]{
  const [state,setState]=useState(initialProjectFilesState),sequence=useRef(-1)
@@ -16,12 +23,12 @@ export function useProjectFiles():[ProjectFilesState,(value:ProjectFilesState)=>
  return [state,accept]
 }
 export function FileAvailabilityNotice({projectId,producer,revision}:{projectId:string;producer:FileProducer;revision:string|undefined}):ReactNode{const {language}=useLocale();const {state}=useContext(FilesContext),issue=state.issues.find(i=>i.projectId===projectId&&i.producer===producer&&i.revision===revision);return issue?<p className="small" role="status">{presentProductText('file',issue.reason,language)}</p>:null}
-export function FilePreviewButton({producer,projectId,revision,sourceId,beforeOpen,label}:{producer:FileProducer;projectId:string;revision:string;sourceId:string;label?:string;beforeOpen?:()=>{trigger:HTMLElement;fallback:HTMLElement|null;top?:number;expanded?:boolean;requested?:boolean}|null}):ReactNode{
+export function FilePreviewButton({producer,projectId,revision,sourceId,beforeOpen,label}:{producer:FileProducer;projectId:string;revision:string;sourceId:string;label?:string;beforeOpen?:(trigger:HTMLButtonElement)=>Omit<FileConsultation,'reference'>|null}):ReactNode{
  const {ui}=useLocale()
 
  const {state,open}=useContext(FilesContext),ref=state.references.find(r=>r.producer===producer&&r.projectId===projectId&&r.revision===revision&&r.sourceId===sourceId&&r.current)
  if(!ref)return null
- return <button type="button" className="text-button file-preview-trigger" aria-label={(label??ui.preview)+' · '+ref.path} onClick={event=>{const target=beforeOpen?.();open({reference:ref,trigger:target?.trigger??event.currentTarget,fallback:target?.fallback??event.currentTarget.closest('section')?.querySelector<HTMLElement>('h2[tabindex],h3[tabindex]')??null})}}>{label??ui.preview}</button>
+ return <button type="button" className="text-button file-preview-trigger" aria-label={(label??ui.preview)+' · '+ref.path} onClick={event=>{const target=beforeOpen?.(event.currentTarget);open({reference:ref,trigger:target?.trigger??event.currentTarget,fallback:target?.fallback??event.currentTarget.closest('section')?.querySelector<HTMLElement>('h2[tabindex],h3[tabindex]')??null,fallbackId:target?.fallbackId})}}>{label??ui.preview}</button>
 }
 export function FilePreview({consultation,state,accept,onClose}:{consultation:FileConsultation;state:ProjectFilesState;accept:(s:ProjectFilesState)=>void;onClose:(restore?:boolean)=>void}):ReactNode{
  const {locale,language}=useLocale()

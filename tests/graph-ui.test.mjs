@@ -14,18 +14,63 @@ test('graph UI searches, preserves direction and local view without analysis, wi
  try{
   const s=JSON.parse(await readFile('tests/fixtures/bmad-graph/known-normalized.json','utf8')).snapshot,scope={...s.identity};delete scope.analysisId;delete scope.sourceRevision
   const canary = '<img data-graph-canary src=x onerror="window.graphPayloadExecuted=true">'
-  s.nodes.find(n => n.label === '.act()').label += canary
+  s.nodes.find(n => n.label === '.act()').label += canary+'IdentifiantTechniqueTrèsLong'.repeat(7)
+  const service=s.nodes.find(n=>n.label==='useService()')
+  s.relations.push({...s.relations[0],id:'self-loop',source:service.id,target:service.id,confidence:'EXTRACTED',score:null})
   const state=createGraphState(scope).value;state.result={status:'partial',snapshot:s,error:null};state.freshness={status:'changed',sourceRevision:'8'.repeat(64),observedAt:'2042-11-05T12:00:00.000Z'}
   const complete=structuredClone(s)
   complete.identity={...complete.identity,analysisId:'previous-complete',sourceRevision:'7'.repeat(64)}
   complete.coverage={...complete.coverage,status:'complete',limitations:[]}
   state.lastComplete=complete
-  const workspace={contractVersion:1,sequence:0,projects:[state],fileBindings:[],preparing:null,issues:[]}
-  const result=await build({configFile:false,logLevel:'silent',define:{'process.env.NODE_ENV':'"production"'},plugins:[react(),{name:'graph-fixture',resolveId:id=>(id==='graph-fixture'||id.replaceAll(String.fromCharCode(92),'/').endsWith('/graph-fixture'))?'\0graph-fixture':null,load:id=>id==='\0graph-fixture'?'import React from "react";import {createRoot} from "react-dom/client";import {GraphPanel} from '+JSON.stringify(resolve('src/renderer/src/GraphPanel.tsx').replaceAll('\\','/'))+';const root=createRoot(document.getElementById("root"));window.renderGraphFixture=workspace=>root.render(React.createElement(GraphPanel,{projectId:"fixture-subset",rootPath:"C:/fixture-subset",workspace,accept:()=>{},views:new Map(),active:true,onReturn:()=>{},returnLabel:"Conversation"}));window.renderGraphFixture('+JSON.stringify(workspace)+');':null}],build:{write:false,minify:false,lib:{entry:'graph-fixture',formats:['iife'],name:'GraphFixture'}}})
+  const fileBindings=s.sources.map(source=>({projectId:s.identity.projectId,rootIdentity:s.identity.rootIdentity,analysisId:s.identity.analysisId,revision:s.identity.sourceRevision,relativePath:source.relativePath,sourceId:source.relativePath}))
+  const references=fileBindings.map(b=>({producer:'corpus',projectId:b.projectId,revision:b.revision,sourceId:b.sourceId,path:s.identity.rootPath+'/'+b.relativePath,current:true}))
+  const workspace={contractVersion:1,sequence:0,projects:[state],fileBindings,preparing:null,issues:[]}
+  const result=await build({configFile:false,logLevel:'silent',define:{'process.env.NODE_ENV':'"production"'},plugins:[react(),{name:'graph-fixture',resolveId:id=>(id==='graph-fixture'||id.replaceAll(String.fromCharCode(92),'/').endsWith('/graph-fixture'))?'\0graph-fixture':null,load:id=>id==='\0graph-fixture'?'import React from "react";import {createRoot} from "react-dom/client";import '+JSON.stringify(resolve('src/renderer/src/styles.css').replaceAll('\\','/'))+';import '+JSON.stringify(resolve('src/renderer/src/atelier-controls.css').replaceAll('\\','/'))+';import {FilesContext,restoreFileConsultationFocus} from '+JSON.stringify(resolve('src/renderer/src/FilePreview.tsx').replaceAll('\\','/'))+';import {GraphPanel} from '+JSON.stringify(resolve('src/renderer/src/GraphPanel.tsx').replaceAll('\\','/'))+';const root=createRoot(document.getElementById("root")),files={state:{references:'+JSON.stringify(references)+'},open:value=>{window.fileConsultation=value}};window.restoreGraphFileFocus=()=>restoreFileConsultationFocus(window.fileConsultation,null);window.renderGraphFixture=(workspace,language="fr")=>root.render(React.createElement(FilesContext.Provider,{value:files},workspace&&React.createElement(GraphPanel,{projectId:"fixture-subset",rootPath:"C:/fixture-subset",workspace,language,accept:()=>{},views:new Map(),active:true,onReturn:()=>{},returnLabel:"Conversation"})));window.renderGraphFixture('+JSON.stringify(workspace)+');':null}],build:{write:false,minify:false,lib:{entry:'graph-fixture',formats:['iife'],name:'GraphFixture'}}})
   const output=(Array.isArray(result)?result[0]:result).output,js=output.find(v=>v.type==='chunk').code,css=output.filter(v=>v.type==='asset'&&v.fileName.endsWith('.css')).map(v=>v.source).join('\n')
   await writeFile(join(root,'main.cjs'),'const {app,BrowserWindow}=require("electron");app.setPath("userData",'+JSON.stringify(join(root,'profile'))+');app.whenReady().then(()=>{const w=new BrowserWindow({show:false,width:1200,height:900,webPreferences:{contextIsolation:false,nodeIntegration:false}});w.loadFile('+JSON.stringify(join(root,'index.html'))+');});')
-  await writeFile(join(root,'index.html'),'<html><head><meta charset="utf-8"><style>svg{fill:none;stroke:currentColor;stroke-width:1.5}'+css+'</style></head><body><div id="root"></div><script>window.analysisCalls=0;window.madnessGraph={generate:async()=>{window.analysisCalls++;return '+JSON.stringify(workspace)+'},interrupt:async()=>{},retrySave:async()=>{},revalidateFiles:async()=>{}}</script><script>'+js+'</script></body></html>')
+  await writeFile(join(root,'index.html'),'<html data-theme="dark"><head><meta charset="utf-8"><style>svg{fill:none;stroke:currentColor;stroke-width:1.5}'+css+'</style></head><body><div id="root"></div><script>window.analysisCalls=0;window.madnessGraph={generate:async()=>{window.analysisCalls++;return '+JSON.stringify(workspace)+'},interrupt:async()=>{},retrySave:async()=>{},revalidateFiles:async()=>{}}</script><script>'+js+'</script></body></html>')
   app=await electron.launch({executablePath:require('electron'),args:[join(root,'main.cjs')],cwd:root});const page=await app.firstWindow();await page.getByText(/Observation datée — sources non revalidées/).waitFor();assert.equal((await page.locator('.graph-status').innerText()).includes('2042'),false);await page.getByRole('button',{name:'Consulter le dernier complet',exact:true}).click();await page.getByText('Sources modifiées depuis la capture',{exact:true}).waitFor();assert.equal((await page.locator('.graph-status').innerText()).includes('2042'),false);await page.getByRole('button',{name:'Revenir au résultat partiel',exact:true}).click();const sameRevision=structuredClone(workspace);sameRevision.projects[0].lastComplete.identity.sourceRevision=s.identity.sourceRevision;sameRevision.projects[0].freshness.sourceRevision=s.identity.sourceRevision;await page.evaluate(value=>window.renderGraphFixture(value),sameRevision);await page.getByRole('button',{name:'Consulter le dernier complet',exact:true}).click();await page.getByText('Sources modifiées depuis la capture',{exact:true}).waitFor();assert.equal((await page.locator('.graph-status').innerText()).includes('2042'),false);await page.getByRole('button',{name:'Revenir au résultat partiel',exact:true}).click();const interrupted=structuredClone(workspace),pending=interrupted.projects[0];pending.activity={phase:'historical',analysisId:s.identity.analysisId,sourceRevision:s.identity.sourceRevision,correlationId:'unproved',generation:2,outcome:'unknown',stop:'confirmed'};pending.lastEventOrder=2;await page.evaluate(value=>window.renderGraphFixture(value),interrupted);await page.locator('.graph-panel[data-graph-analysis="previous-complete"]').waitFor();await page.getByText(/Issue de l’analyse inconnue/).waitFor();await page.evaluate(value=>window.renderGraphFixture(value),workspace);await page.locator('.graph-panel[data-graph-analysis="'+s.identity.analysisId+'"]').waitFor();await page.getByLabel('Rechercher dans ce graphe',{exact:true}).fill('useService');await page.getByRole('button',{name:/Sélectionner useService/}).waitFor();assert.equal(await page.getByRole('button',{name:/Sélectionner useService/}).count(),1);await page.getByRole('button',{name:/Sélectionner useService/}).click();await page.getByText('1 résultat dans le code capturé',{exact:true}).waitFor();await page.getByText('Score Graphify : 0,85',{exact:false}).waitFor();assert.equal(await page.locator('.graph-drawn-node text').first().evaluate(e=>getComputedStyle(e).stroke),'none','Graph names must not inherit icon strokes');assert.ok((await page.getByText(/Origine : useService/).first().textContent()).includes('Destination : .act()'));assert.equal(await page.locator('img[data-graph-canary]').count(),0);assert.equal(await page.evaluate(()=>window.graphPayloadExecuted),undefined);const arrow=await page.locator('.graph-drawing').evaluate(el=>{const line=el.querySelector('line'),nodes=[...el.querySelectorAll('circle')];return {end:[Number(line.getAttribute('x2')),Number(line.getAttribute('y2'))],target:[Number(nodes[1].getAttribute('cx')),Number(nodes[1].getAttribute('cy'))],radius:Number(nodes[1].getAttribute('r'))}});assert.ok(Math.hypot(arrow.end[0]-arrow.target[0],arrow.end[1]-arrow.target[1])>arrow.radius,'An arrow ending at the node centre is covered by the node');await page.getByRole('button',{name:'Zoom avant',exact:true}).click();await page.getByText(/Zoom du graphe : 125 %/).waitFor();assert.equal(await page.getByText(/Zoom du graphe : 125 %/).count(),1);await page.getByRole('button',{name:'Déplacer vers la droite',exact:true}).click();assert.equal(await page.evaluate(()=>window.analysisCalls),0);await page.getByLabel('Rechercher dans ce graphe',{exact:true}).fill('no-such-node');await page.getByText('Aucun résultat pour cette recherche',{exact:true}).waitFor();await page.getByRole('button',{name:'Effacer la recherche',exact:true}).click();assert.equal(await page.locator('.graph-results').getByRole('button',{name:/^Sélectionner /}).count(),2)
+  const zoomIn=page.getByRole('button',{name:'Zoom avant',exact:true})
+  await zoomIn.focus()
+  for(let i=0;i<7;i++)await page.keyboard.press('Enter')
+  await page.getByText(/Zoom du graphe : 300 %/).waitFor()
+  assert.equal(await zoomIn.evaluate(e=>document.activeElement===e),true)
+  assert.equal(await zoomIn.getAttribute('aria-disabled'),'true')
+  await page.getByText(/Zoom maximal 300/).waitFor()
+  const disabledFace=await zoomIn.evaluate(e=>getComputedStyle(e,'::after').backgroundColor)
+  await zoomIn.hover()
+  assert.equal(await zoomIn.evaluate(e=>getComputedStyle(e,'::after').backgroundColor),disabledFace)
+  const drawing=page.getByRole('region',{name:'Dessin interactif du graphe',exact:true})
+  await drawing.focus()
+  await page.keyboard.press('ArrowRight')
+  await page.getByText(/X 120/).waitFor()
+  assert.equal(await drawing.evaluate(e=>document.activeElement===e),true)
+  const listLink=page.getByRole('link',{name:'Consulter la liste équivalente',exact:true})
+  assert.equal(await listLink.getAttribute('href'),'#graph-results-title')
+  await listLink.press('Enter')
+  assert.equal(await page.evaluate(()=>document.activeElement.id),'graph-results-title')
+  await page.locator('.graph-results').getByRole('button',{name:/^Sélectionner useService/}).press('Enter')
+  await page.getByText('Relation sur le même élément',{exact:true}).waitFor()
+  await page.locator('.graph-node-details > .graph-source').getByRole('button',{name:/^Voir le fichier/}).press('Enter')
+  assert.deepEqual(await page.evaluate(()=>[window.fileConsultation.fallback.textContent,window.restoreGraphFileFocus(),document.activeElement===window.fileConsultation.trigger]),['Tous les éléments du graphe',true,true])
+  await page.locator('.graph-results').getByRole('button',{name:/^Sélectionner \.act\(\)/}).press('Enter')
+  assert.deepEqual(await page.evaluate(()=>[window.fileConsultation.trigger.isConnected,window.restoreGraphFileFocus(),document.activeElement.textContent]),[false,false,'Tous les éléments du graphe'])
+  await page.evaluate(()=>window.renderGraphFixture(null))
+  await page.locator('.graph-panel').waitFor({state:'detached'})
+  await page.evaluate(value=>{document.documentElement.dataset.theme='light';window.renderGraphFixture(value,'en')},workspace)
+  await page.getByRole('heading',{name:'All graph elements',exact:true}).waitFor()
+  assert.deepEqual(await page.evaluate(()=>[window.fileConsultation.fallback.isConnected,window.restoreGraphFileFocus(),document.activeElement.textContent]),[false,false,'All graph elements'])
+  await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.setZoomFactor(2))
+  await page.emulateMedia({reducedMotion:'reduce'})
+  await page.getByLabel('Search this graph',{exact:true}).fill('useService')
+  await page.getByRole('button',{name:/^Select useService/}).press('Enter')
+  await page.getByText(/From: useService/).first().waitFor()
+  const overflow=await page.evaluate(()=>{
+   const width=document.documentElement.clientWidth,scrollWidth=document.documentElement.scrollWidth
+   const outside=[...document.querySelectorAll('.graph-panel :is(button,h3,p,input,select)')].map(element=>({className:element.className,right:element.getBoundingClientRect().right,text:element.textContent.slice(0,70)})).filter(item=>item.right>width+2)
+   return {width,scrollWidth,outside}
+  })
+  assert.ok(overflow.scrollWidth<=overflow.width+1,JSON.stringify(overflow))
  }finally{await app?.close();await rm(root,{recursive:true,force:true})}
 })
 

@@ -115,7 +115,7 @@ function WorkflowResult({workflow,onCopy}:{workflow:WorkflowRecord;onCopy:(conve
   </section>
 }
 
-export function App({ initialAppearance = window.madnessAppearance.initial, appearanceReadFailed = false }: { initialAppearance?: AppearanceState; appearanceReadFailed?: boolean } = {}): ReactNode {
+export function App({ initialAppearance = window.madnessAppearance.initial, appearanceReadFailed = false, onStartupSettled }: { initialAppearance?: AppearanceState; appearanceReadFailed?: boolean; onStartupSettled?: (restored: boolean) => void } = {}): ReactNode {
  const {words:fr,ui,locale,language}=useLocale()
 
   const [graphState,acceptGraph]=useGraph()
@@ -132,6 +132,10 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const catalogLaunchLock=useRef(false)
   const catalogViews=useRef(new Map<string,CatalogView>())
   const [initiativeConflict,setInitiativeConflict]=useState(false)
+  const [initialRead, setInitialRead] = useState<boolean | null>(null)
+  useLayoutEffect(() => {
+    if (initialRead !== null) onStartupSettled?.(initialRead)
+  }, [initialRead, onStartupSettled])
   const [state, setState] = useState<AppState | null>(null)
   const [displayedProjectId,setDisplayedProjectId]=useState<string|null>(null)
   const [bmadContext,acceptBmadContext]=useBmadContext(displayedProjectId??undefined)
@@ -355,16 +359,19 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     } catch { if(token===navigationToken.current){setError(l=>l.ui.the_local_bridge_does_not_respond_your_input_remains_available_he); setNotice('')} }
     finally { if(token===navigationToken.current)setPending(false) }
   }
-  async function load(): Promise<void> {
+  async function load(initial = false): Promise<void> {
+    let restored = false
     await run(() => window.madness.readState(), (reply) => {
       if (!reply.ok) return
+      restored = true
       setCollapsed(reply.value.state.preferences.navigationCollapsed)
       setDisplayedProjectId(reply.value.state.activeProjectId)
       setPage(reply.value.state.activeProjectId ? 'project' : 'home')
       setNotice(l=>l.ui.local_context_loaded_no_agent_restarted)
     })
+    if (initial) setInitialRead(restored)
   }
-  useEffect(() => { void load() }, [])
+  useEffect(() => { void load(true) }, [])
   useEffect(() => window.madness.onStateChanged?.(() => { void window.madness.readState().then(accept).catch(() => setError(l=>l.ui.dialogue_context_could_not_be_reread_your_input_remains_available)) }), [])
   function acceptDialogue(next: DialogueState): void { if(next.sequence<dialogueSequence.current)return;dialogueSequence.current=next.sequence;setDialogue(next);const launch=pendingLaunch.current;if(next.errorCode==='CONTEXT_MISMATCH'&&next.status==='error'&&launch&&next.sequence>launch.sequence&&launch.token===navigationToken.current&&launch.projectId===currentProjectId.current&&(next.context.projectId===null||next.context.projectId===launch.projectId)&&(next.invocation==='$bmad'||next.invocation==='$bmad-forge-idea'))setInitiativeConflict(true) }
   function changeApproval(approval:ApprovalRecord,adjustment:string):void{
@@ -458,10 +465,11 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   function openConnection():void {closeAgentInfo(false);setContextOpen(false);setConnectionOpen(true)}
   useEffect(() => { if (connectionOpen) connectionHeading.current?.focus() }, [connectionOpen])
   useEffect(() => {
+    if (onStartupSettled && (initialRead === null || !state)) return
     if (!connection.needsPlanAcknowledgement || !connection.accountStored) planConfirmationDismissed.current = false
     if (connection.needsPlanAcknowledgement && connection.accountStored && !planConfirmationDismissed.current && !['authorizing', 'verifying', 'stopping', 'closing'].includes(connection.status) && !planConfirmation.current?.open) planConfirmation.current?.showModal()
     if (!connection.needsPlanAcknowledgement && planConfirmation.current?.open) { planConfirmation.current.close(); if (connectionOpen) connectionHeading.current?.focus(); else connectionTrigger.current?.focus() }
-  }, [connection.needsPlanAcknowledgement, connection.accountStored, connection.status, connectionOpen])
+  }, [connection.needsPlanAcknowledgement, connection.accountStored, connection.status, connectionOpen, initialRead, onStartupSettled, state])
   function closeDrawer(): void { drawer.current?.close(); drawerTrigger.current?.focus() }
   function rootIdentity(id:string,path:string):string|null {const value=bmadContext.projects.find(p=>p.projectId===id)?.observation;return value&&value.rootPath===path?value.rootIdentity:graphState.projects.find(p=>p.scope.projectId===id&&p.scope.rootPath===path)?.scope.rootIdentity??catalogState.projects.find(p=>p.projectId===id&&p.snapshot?.rootPath===path)?.snapshot?.rootIdentity??null}
   function remember():ConsultationPosition|null {

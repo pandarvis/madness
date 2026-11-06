@@ -491,7 +491,7 @@ else {
       width: 1320, height: 860, minWidth: 520, minHeight: 520, show: false,
       title: 'Madness', backgroundColor: nativeColors(appearance.theme).color, autoHideMenuBar: true,
       titleBarStyle: 'hidden', titleBarOverlay: nativeCaptionColors(appearance.theme),
-      webPreferences: { preload: join(__dirname, '../preload/index.js'), additionalArguments: ['--madness-language=' + language.language, '--madness-language-warning=' + (language.warning ?? 'none'), '--madness-theme=' + appearance.theme, '--madness-appearance-warning=' + (appearance.warning ?? 'none')], contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, allowRunningInsecureContent: false, webviewTag: false, spellcheck: false }
+      webPreferences: { preload: join(__dirname, '../preload/index.js'), additionalArguments: ['--madness-language=' + language.language, '--madness-language-warning=' + (language.warning ?? 'none'), '--madness-theme=' + appearance.theme, '--madness-appearance-warning=' + (appearance.warning ?? 'none'), ...(process.argv.includes('--madness-splash-demo') ? ['--madness-splash-demo'] : [])], contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, allowRunningInsecureContent: false, webviewTag: false, spellcheck: false }
     })
     window.on('focus',()=>{contextCoordinator.reconcile();helpCoordinator.reconcile();progressCoordinator.reconcile();catalogCoordinator.reconcile()})
     window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))

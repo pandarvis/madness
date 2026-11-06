@@ -29,7 +29,24 @@ export function useLocalText<T extends string|null>(initial:T|((text:LocaleText)
  const text=useLocale(),[resolver,setResolver]=useState<((text:LocaleText)=>T)>(()=>typeof initial==='function'?initial:()=>initial)
  return [resolver(text),value=>setResolver(()=>typeof value==='function'?value:()=>value)]
 }
-export function LanguageControl():ReactNode{
+function LanguageFlag({language}: {language: Language}): ReactNode {
+ if (language === 'fr') return <svg className="language-flag" viewBox="0 0 3 2" aria-hidden="true" focusable="false">
+  <path fill="#002395" d="M0 0h1v2H0z"/>
+  <path fill="#fff" d="M1 0h1v2H1z"/>
+  <path fill="#ed2939" d="M2 0h1v2H2z"/>
+ </svg>
+ return <svg className="language-flag" viewBox="0 0 190 100" aria-hidden="true" focusable="false">
+  <path fill="#fff" d="M0 0h190v100H0z"/>
+  <path stroke="#b31942" strokeWidth={100 / 13} d={Array.from({length: 7}, (_, row) => `M0 ${(2 * row + .5) * 100 / 13}h190`).join(' ')}/>
+  <path fill="#0a3161" d={`M0 0h76v${700 / 13}H0z`}/>
+  <g fill="#fff">{Array.from({length: 9}, (_, row) =>
+   Array.from({length: row % 2 ? 5 : 6}, (_, column) =>
+    <polygon key={`${row}-${column}`} points="0,-2 .47,-.65 1.9,-.62 .76,.25 1.18,1.62 0,.8 -1.18,1.62 -.76,.25 -1.9,-.62 -.47,-.65"
+     transform={`translate(${(2 * column + 1 + row % 2) * 76 / 12} ${(row + 1) * 70 / 13})`}/>
+   )
+  )}</g>
+ </svg>
+}export function LanguageControl():ReactNode{
  const {language,warning,bridgeError,pending,change}=useLocale(),english=language==='en'
- return <div className="language-control"><button type="button" className="language-toggle" aria-label={english?'Passer l’interface en français':'Switch interface to English'} title={english?'Passer l’interface en français':'Switch interface to English'} aria-busy={pending} onPointerDown={event=>event.preventDefault()} onClick={()=>change(english?'fr':'en')}>{english?'EN':'FR'}</button>{(warning||bridgeError)&&<p className="language-warning small" role="status">{bridgeError?(english?'Language kept for this session — bridge unavailable. Retry with the language command.':'Langue conservée pour cette session — pont indisponible. Réessayez avec la commande de langue.'):warning==='save-failed'?(english?'Language kept for this session — save failed. Existing file preserved.':'Langue conservée pour cette session — enregistrement échoué. Fichier existant préservé.'):(english?'Language preference unreadable — initial French fallback. Existing file preserved.':'Préférence de langue illisible — français de secours initial. Fichier existant préservé.')}</p>}</div>
+ return <div className="language-control"><button type="button" className="language-toggle" aria-label={english?'Passer l’interface en français':'Switch interface to English'} title={english?'Passer l’interface en français':'Switch interface to English'} aria-busy={pending} onPointerDown={event=>event.preventDefault()} onClick={()=>change(english?'fr':'en')}><LanguageFlag language={language}/></button>{(warning||bridgeError)&&<p className="language-warning small" role="status">{bridgeError?(english?'Language kept for this session — bridge unavailable. Retry with the language command.':'Langue conservée pour cette session — pont indisponible. Réessayez avec la commande de langue.'):warning==='save-failed'?(english?'Language kept for this session — save failed. Existing file preserved.':'Langue conservée pour cette session — enregistrement échoué. Fichier existant préservé.'):(english?'Language preference unreadable — initial French fallback. Existing file preserved.':'Préférence de langue illisible — français de secours initial. Fichier existant préservé.')}</p>}</div>
 }

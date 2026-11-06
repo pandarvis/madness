@@ -7,6 +7,7 @@ import { DIALOGUE_COMMAND_CHANNEL, DIALOGUE_EVENT_CHANNEL, isDialogueReply, isDi
 import type { DialogueBridge, DialogueCommand, DialogueState } from '../contracts/dialogue.ts'
 import { APPEARANCE_CHANNEL, appearanceFromArguments, isAppearanceReply } from '../contracts/appearance.ts'
 import type { AppearanceBridge, AppearanceState, Theme } from '../contracts/appearance.ts'
+contextBridge.exposeInMainWorld('madnessSplashDemo', process.argv.includes('--madness-splash-demo'))
 const appearanceRequest = async (action: { theme: Theme } | { type: 'read' }): Promise<AppearanceState> => {
   const correlationId = crypto.randomUUID()
   const reply: unknown = await ipcRenderer.invoke(APPEARANCE_CHANNEL, { contractVersion: 1, correlationId, ...action })

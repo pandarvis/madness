@@ -5,9 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light" />
     <title>Madness</title>
+    <link rel="stylesheet" href="/src/startup.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <main id="startup-screen" aria-label="Madness">
+      <div class="startup-art">
+        <img src="/src/assets/splash/madness-launch-v4-fhd.png" alt="" width="1920" height="1080" fetchpriority="high" />
+        <p id="startup-label" class="startup-label">Chargement de Madness…</p>
+        <div id="startup-progress" class="startup-progress" role="progressbar" aria-labelledby="startup-label" aria-valuenow="0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="320" height="26" viewBox="0 0 320 26" aria-hidden="true" focusable="false">
+            <defs>
+              <clipPath id="progress-100">
+                <rect id="startup-fill" width="0" height="26"/>
+              </clipPath>
+            </defs>
+            <polygon points="8,0 320,0 312,26 0,26" fill="#141b1e"/>
+            <polygon points="10,4 62,4 54,22 2,22" fill="#51443a"/>
+            <polygon points="74,4 126,4 118,22 66,22" fill="#51443a"/>
+            <polygon points="138,4 190,4 182,22 130,22" fill="#51443a"/>
+            <polygon points="202,4 254,4 246,22 194,22" fill="#51443a"/>
+            <polygon points="266,4 318,4 310,22 258,22" fill="#51443a"/>
+            <g clip-path="url(#progress-100)">
+              <polygon points="10,4 62,4 54,22 2,22" fill="#e96929"/>
+              <polygon points="4,18 56,18 54,22 2,22" fill="#a63c1c"/>
+              <polygon points="74,4 126,4 118,22 66,22" fill="#dc6026"/>
+              <polygon points="68,18 120,18 118,22 66,22" fill="#a63c1c"/>
+              <polygon points="138,4 190,4 182,22 130,22" fill="#cf5423"/>
+              <polygon points="132,18 184,18 182,22 130,22" fill="#a63c1c"/>
+              <polygon points="202,4 254,4 246,22 194,22" fill="#c55023"/>
+              <polygon points="196,18 248,18 246,22 194,22" fill="#a63c1c"/>
+              <polygon points="266,4 318,4 310,22 258,22" fill="#b94621"/>
+              <polygon points="260,18 312,18 310,22 258,22" fill="#a63c1c"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div id="startup-error" class="startup-error" hidden>
+        <p id="startup-message" role="alert"></p>
+      </div>
+      <p id="startup-fallback" class="startup-error startup-fallback" role="status">Si cet écran reste affiché, ferme puis rouvre Madness.<br /><span lang="en">If this screen stays open, close and reopen Madness.</span></p>
+    </main>
+    <div id="root" inert></div>
+    <script type="module" src="/src/startup.ts"></script>
   </body>
 </html>

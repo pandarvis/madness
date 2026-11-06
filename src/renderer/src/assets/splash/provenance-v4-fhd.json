@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "status": "proposal-after-v3-rejection-not-integrated",
+  "generator": "built-in image_gen",
+  "createdAt": "2026-11-03T19:36:42.413Z",
+  "userFeedback": "V3 ne fait pas assez écran de chargement, décor pas assez Borderlands.",
+  "characterIdentityReference": {
+    "path": "madness-launch-v2.png",
+    "sha256": "0d899f532407279aad80b5137cb2113b89028df9ba1a5a64091fefe032e86e27"
+  },
+  "changes": [
+    "Nouvelle composition asymétrique : titre à gauche, équipe autour d’un véhicule de récupération à droite.",
+    "Garage de tôles récupérées ouvert sur le désert et ses mesas, pneus et ferraille ; plus d’atelier de bois à fenêtres hautes.",
+    "Grand bandeau vide abandonné, coin bas-gauche naturellement sombre pour le statut.",
+    "Maquette statique avec CHARGEMENT... et barre illustrative, puis fond de production sans ce chargement peint."
+  ],
+  "exports": [
+    {
+      "kind": "static-loading-concept-preview",
+      "nativeSource": "C:/Users/UP60066553/.codex/generated_images/01a19af2-02c7-7bd2-9a1a-d4a886359d8e/exec-0b4d925a-1036-46d4-8064-731e4fd58f60.png",
+      "native": "sources/madness-loading-v4-preview-native.png",
+      "asset": "madness-loading-v4-preview-fhd.png",
+      "prompt": "generation-prompt-v4-preview.txt",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 6220286,
+      "sha256": "82bf7a6788493b5dc5e37663acc08539d2fb1bcab860c73a0cf09e78088cced6",
+      "nativeWidth": 1672,
+      "nativeHeight": 941,
+      "nativeSha256": "ee940064e1484b485ea263b8833b9d8a2c65d8f67e9535e955f7cfa5086e798a"
+    },
+    {
+      "kind": "production-artwork-without-loading-ui",
+      "nativeSource": "C:/Users/UP60066553/.codex/generated_images/01a19af2-02c7-7bd2-9a1a-d4a886359d8e/exec-37a9533f-0629-423a-9be0-de19a3734bf5.png",
+      "native": "sources/madness-launch-v4-native.png",
+      "asset": "madness-launch-v4-fhd.png",
+      "prompt": "generation-prompt-v4-art.txt",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 6163232,
+      "sha256": "e5ca5125511979efc0869f25fdb52e3c4263fc618f1c45a35cb9736fa220f262",
+      "nativeWidth": 1672,
+      "nativeHeight": 941,
+      "nativeSha256": "1c7aef46797622b04c2301011a63538a700f94a34ecfe514e7b5775984cb5d0c"
+    }
+  ],
+  "exportMethod": {
+    "script": "export-fhd.ps1",
+    "engine": "Windows GDI+ high-quality bicubic",
+    "fit": "contain",
+    "nativeResolution": "1672×941",
+    "contentResolution": "1919×1080",
+    "padding": "1pixel pétrole à droite",
+    "cropped": false
+  },
+  "previewIsRealRuntime": false,
+  "previewIsMeasuredProgress": false,
+  "freshReviewerValidation": false,
+  "userApproval": false,
+  "productCodeChanged": false
+}

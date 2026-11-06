@@ -1,5 +1,5 @@
 import {
- sameGraphScope, validateGraphScope, validateGraphState, validateGraphSnapshot,
+ sameGraphScope, selectGraphRevalidationTarget, validateGraphScope, validateGraphState, validateGraphSnapshot,
  validateExpectedGraphContext, validateGraphCommand, validateGraphAnalysisEvent
 } from '../contracts/bmad-graph.ts'
 import type {
@@ -59,6 +59,14 @@ export function beginGraphAttempt(input:unknown,expectedInput:unknown,globalGuar
  if(!sameGraphScope(s.scope,e.identity))return rejected('CONTEXT_MISMATCH','$.identity')
  if(e.generation<=s.activity.generation||e.identity.analysisId===s.activity.analysisId||e.identity.analysisId===s.lastComplete?.identity.analysisId||e.identity.analysisId===s.result.snapshot?.identity.analysisId)return rejected('SUPERSEDED','$.generation')
  if(e.lastEventOrder!==0)return rejected('EVENT_ORDER','$.lastEventOrder')
+ // Starting again drops any prior candidate whose outcome was never established.
+ if(s.result.snapshot&&selectGraphRevalidationTarget(s)!==s.result.snapshot){
+  s.result={status:'absent',snapshot:null,error:null}
+  const retainedRevision=s.lastComplete?.identity.sourceRevision??null
+  if(s.freshness.status!=='changed'||s.freshness.sourceRevision!==retainedRevision){
+   s.freshness={status:'unverified',sourceRevision:retainedRevision,observedAt:null}
+  }
+ }
  s.activity={phase:'running',analysisId:e.identity.analysisId,sourceRevision:e.identity.sourceRevision,correlationId:e.correlationId,generation:e.generation,outcome:'unknown',stop:'not-observed'}
  s.lastEventOrder=0
  return {ok:true,value:observeGraphSourceRevision(s,e.identity.sourceRevision,e.observedAt)}

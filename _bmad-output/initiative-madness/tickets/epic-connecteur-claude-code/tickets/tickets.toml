@@ -1,0 +1,33 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Obtenir une première réponse BMad avec Claude Code dans Madness"
+description = "Détecter la CLI officielle et sa connexion personnelle, exposer une commande explicite minimale dans Madness, démarrer un échange BMad en lecture seule et restituer réponse, capacités et arrêt sous identité Claude Code."
+verify = "Sur Windows dans un projet témoin, invoquer une compétence BMad en lecture seule depuis Madness. Vérifier que sa réponse correspond à une source connue du projet et retrouve le bon contexte et fournisseur après réouverture. Vérifier CLI absente, connexion non admissible, interruption, erreurs et absence d’effet implicite. Consigner les champs de télémétrie à qualifier pour l’epic 5."
+covers = ["R1"]
+after = ["1.11", "2.3"]
+hitl = false
+risk = "high"
+
+[[entry]]
+id = 2
+type = "story"
+title = "Identifier Claude Code dans le choix de fournisseur"
+description = "Partie choix et état de R2. Étendre la commande de 6.1 en un choix de fournisseur et ses états visibles à la charte avec Sally et Impeccable. Afficher un nom accessible."
+verify = "Créer des conversations distinctes Claude et Codex, puis vérifier le fournisseur et la connexion dans le sélecteur, le panneau de contexte et après navigation et réouverture. Vérifier clavier, deux langues et deux thèmes."
+covers = ["R2"]
+after = [1, "2.14"]
+hitl = false
+risk = "medium"
+
+[[entry]]
+id = 3
+type = "story"
+title = "Afficher le nouveau logo officiel Claude Code"
+description = "Partie identification visuelle de R2. Associer au fournisseur l’actif officiel actuel, lorsqu’un usage dans Madness est autorisé."
+verify = "Ouvrir le choix de fournisseur en clair et en sombre. Vérifier la provenance de l’actif, son autorisation d’usage, son rendu et le nom accessible."
+covers = ["R2"]
+after = [2]
+unknown = "Quel actif officiel correspond au nouveau logo demandé et couvre son utilisation dans Madness ?"
+hitl = false
+risk = "low"

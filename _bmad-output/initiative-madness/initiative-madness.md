@@ -98,11 +98,13 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 
 - R33 (demande du 5 novembre 2026, ticket Consulter le coût en dollars par epic et par US) : Consulter dans Madness le coût observé en USD par US et le total par epic du projet ouvert, avec provenance et couverture explicites. Chaque dépense qualifiée contribue une seule fois à son US et à son epic d’origine. Distinguer le montant partiel, l’indisponibilité et le zéro attesté.
 
+- R34 (contexte § Capabilities and Constraints et décision du 6 novembre 2026 ci-dessous) : Sur le poste personnel, choisir Claude Code comme fournisseur d’une nouvelle conversation Madness, avec la CLI officielle déjà connectée par le porteur. Lancer et observer un échange BMad attribué au projet et au fournisseur, avec état et capacités explicites. Identifier le fournisseur dans l’interface par son nom et son nouveau logo lorsque l’actif officiel et les droits d’usage sont établis.
+
 ## Constraints
 
 - C1 (brief § Priorité : l’expérience utilisateur ; contexte § Product Principles) : L'expérience utilisateur est le premier critère d'arbitrage du périmètre, de l'architecture et des interactions ; les décisions doivent préserver compréhension, guidage et contrôle par un développeur qui découvre BMad.
 
-- C2 (brief § Périmètre confirmé de la V1 ; contexte § Capabilities and Constraints) : Le périmètre livré est Windows, Codex et BMad v7 uniquement ; une étiquette v7 ne suffit pas à garantir la compatibilité de ses formats et compétences.
+- C2 (brief § Périmètre confirmé de la V1 ; contexte § Capabilities and Constraints) : Le périmètre initial est Windows, Codex et BMad v7. Le connecteur Claude Code de l’epic 6 étend ce socle après sa livraison ; une étiquette v7 ne suffit pas à garantir la compatibilité de ses formats et compétences.
 
 - C3 (brief § Périmètre confirmé de la V1 ; contexte § Operating Context ; experience § Foundation) : Les projets et leurs artefacts BMad locaux existants restent exploitables ; la reprise ne requiert ni migration d'une ancienne version ni reconstruction supposée de conversations externes.
 
@@ -125,12 +127,14 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 5. Une version Windows personnelle est reconstruite et installée sur la machine cible du porteur avec son abonnement ChatGPT ; le remplacement préserve les données, les prérequis réseau/runtime sont vérifiés et les trois parcours avec une personne peu familière de BMad sont consignés, au-delà du prototype (R23–R24, R27 ; G0, G4).
 6. Après la base Windows/Codex, le graphe réel permet génération, exploration/recherche et accès au fichier ; fraîcheur, limites, échec et interruption sont compréhensibles, les effets restent confinés, performances et accessibilité sont vérifiées sur dépôt représentatif. La V1 complète exige aussi G5 (R28–R31).
 
+Après le socle initial, le parcours Claude Code (R34) possède ses propres preuves et critères dans l’epic 6.
+
 7. Les montants USD par US et par epic se rapprochent des reçus qualifiés du projet et de leur occurrence d’origine. La réouverture conserve le rapprochement, les doublons sont neutralisés et la couverture partielle, l’indisponibilité et le zéro attesté se distinguent (R33).
 
 ## Boundaries
 
 - Inclus : ouverture de plusieurs projets locaux, initiatives et artefacts existants ; guidage, catalogue et dialogue des compétences avec Codex ; initialisation guidée de v7, changements externes, conservation locale, français/anglais, clair/sombre et graphe code/dépendances Graphify après la base Windows/Codex.
-- Hors V1 : BMad antérieur à v7 et migration, autres OS et application mobile native ; GitHub Copilot et Claude Code, dont Bedrock ou abonnement, restent des fournisseurs cibles suivants.
+- Hors V1 initiale : BMad antérieur à v7 et migration, autres OS et application mobile native. Le connecteur Claude Code sur abonnement personnel fait l’objet de l’epic 6, après la base Codex. Bedrock et GitHub Copilot restent des extensions distinctes.
 - Hors V1 : découverte et suivi en direct, synchronisation ou pilotage des conversations lancées dans VS Code ou Desktop/Codex. L'observation de leurs artefacts est incluse ; une preuve sur un outil ne validera pas les autres.
 - Les possibilités BMad ne deviennent pas des étapes obligatoires ; party-mode n'est pas un axe privilégié. Les conditions des workflows et les décisions de l'utilisateur restent respectées.
 - Touch point : dossiers et artefacts BMad — diagnostic, lecture et preuves ; propriétaire : epic-projets-bmad, avec extension d'initialisation par epic-initialisation-bmad après son diagnostic.
@@ -159,6 +163,8 @@ Les alias des exigences et contraintes désignent les fichiers suivants ; les se
 - architecture — [Contrat d'architecture adopté](architecture-madness/architecture-madness.md), `_bmad-output/initiative-madness/architecture-madness/architecture-madness.md` ; AD-1 à AD-10, Consistency Conventions, Qualification Gates G0–G5 et Deferred. Companion conservé sans modification ; les versions et interfaces candidates restent à qualifier. Les décisions du 23 octobre remplacent les anciens choix encore ouverts dans le brief et l'addendum, sans valoir approbation globale de ces sources.
 
 ## Notes
+
+- Decision: 2026-11-06 — Ajouter l’epic 6 pour la connexion Claude Code sur le poste personnel et son identification dans Madness. Un test CLI avec la connexion Claude existante a réussi. La preuve de bout en bout dans Madness reste à réaliser. Le champ USD observé est transmis à l’epic 5 comme piste à qualifier séparément.
 
 - Decision: 2026-11-06 — Après le miroir, le mandat du porteur ouvre l’epic 5 pour les coûts USD sourcés par US et epic. R32 reste dans l’epic 2. Première lecture 5.1 à partir de 2.10, puis attribution sur 2.11 et affichage dans le parcours 2.13–2.14. Le montant attribuable demeure à qualifier sur la connexion SIWC existante. L’estimation relève d’une décision distincte. Aucun installateur pour ce chantier.
 

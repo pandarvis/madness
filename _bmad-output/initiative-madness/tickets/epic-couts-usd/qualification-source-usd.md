@@ -26,3 +26,7 @@ Madness observe désormais la première notification d’usage valide après l�
 **Vérification en développement.** Le double JSONL vérifie le filtrage, la persistance et la réouverture, dont un événement tardif, un zéro, des champs ignorés et une preuve altérée refusée. Le banc Electron synthétique confirme sept contrôles, dont ouverture clavier, passage français/anglais, thèmes clair et sombre, largeur de 720 px, zoom 200 % et réouverture passive. Son premier passage a révélé un sélecteur de test ambigu, corrigé avant confirmation. Les deux profils de test ont été nettoyés. L’essai a enregistré zéro appel réseau et zéro démarrage App Server. Aucun reçu natif ni montant USD ne découle de ces tests.
 
 La qualification documentaire et le trajet d’observation de 5.1 sont terminés. L’observation d’un échange natif utile reste à faire lorsqu’il aura lieu. Le rapprochement de montants de 5.2 et l’affichage chiffré de 5.3 attendent toujours une source de coût qualifiable.
+
+## Piste Claude Code
+
+Le [témoin CLI personnel](../epic-connecteur-claude-code/qualification-cli-personnelle.md) a reçu un champ `total_cost_usd` à l’issue d’un échange sous abonnement. Avant une intégration à l’epic 5, qualifier sa nature, sa portée lors de reprises et son attribution à un tour dans Madness. La valeur rapportée par la CLI ne prouve pas un coût facturé pour le forfait.

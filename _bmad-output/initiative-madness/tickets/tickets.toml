@@ -40,3 +40,12 @@ title = "Consulter les coûts en dollars par epic et par US"
 description = "Qualifie une source monétaire autorisée, conserve les reçus USD avec attribution et déduplication, puis présente les coûts par US et le total par epic avec leur provenance et leur couverture dans Madness."
 covers = ["R33"]
 after = [{ epic = 2, needs = "2.10 : preuve de source ; 2.11 : identité d’occurrence et persistance ; 2.13–2.14 : parcours et variantes des mesures" }]
+
+
+[[epic]]
+id = 6
+slug = "epic-connecteur-claude-code"
+title = "Dialoguer avec Claude Code sur son abonnement"
+description = "Depuis Madness sous Windows, détecter la CLI Claude Code officielle et la connexion personnelle existante, lancer une conversation BMad explicitement avec Claude et retrouver sa réponse et sa provenance. Intégrer le nouveau logo du fournisseur à partir d’un actif officiel autorisé."
+covers = ["R34"]
+after = [{ epic = 1, needs = "1.11 : base locale, cycle de vie des processus, identité de conversation et persistance" }, { epic = 2, needs = "2.3 : identité de contexte projet ; 2.14 : variantes de langue et de thème pour le choix du fournisseur" }]

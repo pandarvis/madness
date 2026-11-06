@@ -1,5 +1,7 @@
 # Travail dans ce dépôt
 
+- 6 novembre 2026 — Story 3.7 built via bmad-build oneshot/Quick. Candidat NSIS 0.2.18 dans dist/init37-candidate, ASAR efd72fe9aba14def73e54a3f5899add6c91acc02c096905af82cb8376409d0b4 et bundle épinglé exact. Sept tests de manifeste, un refus d’hôte ciblé, types/build et témoin court 4/4 avec nettoyage. Deux constats Quick résolus/recontrôlés, YAML Windows et refus jonction. Vérifications longues et remplacement restent en 3.9, parcours humain en 3.10. Prochaine 3.8.
+
 - 6 novembre 2026 — Story 3.6 built via bmad-build full/Quick. Inspection volontaire liée à la tentative exacte, issue/arrêt/conservation séparés, verrou libéré seulement après preuve de cible intacte et CAS durable. Marqueur checking réellement écrit, restauration passive, refus CAS et nouvelle tentative explicite éprouvés. Q1–Q4 résolus par le même Quick, 90 tests ciblés sans saut, types valides. Métadonnées relues après scan sans garantie de transaction externe. Fermeture de descripteur en erreur couverte par lecture de code. Pas de paquet ni de gate G3. Prochaine 3.7.
 
 - 6 novembre 2026 — Story 3.5 built via bmad-build full/Quick. Remplacement à octets identiques détecté, motifs FR/EN distincts, doublon conservant le plan, annulation exacte avant accusé et verrou d’un résultat partiel/inconnu. Q1–Q3 résolus par le même Quick, 84 tests ciblés sans saut et deux TypeScript valides. Aucune modification de paquet. La matrice Electron finale reste en 3.9. Prochaine story 3.6.

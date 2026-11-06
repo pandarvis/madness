@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import {test} from 'node:test'
-import {mkdtemp, mkdir, readFile, writeFile, rm} from 'node:fs/promises'
+import {mkdtemp, mkdir, readFile, writeFile, rm, appendFile, rename, symlink} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {createRequire} from 'node:module'
@@ -52,4 +52,51 @@ test('une incohérence du lock, du paquet ou de l’identité refuse le manifest
  await assert.rejects(release.createManifest({repository:root,directory:join(root,'dist')}),/LOCK_MISMATCH/)
  await writeFile(join(root,'electron-builder.yml'),'appId: changed\nproductName: Madness\n')
  await assert.rejects(release.createManifest({repository:root,directory:join(root,'dist')}),/IDENTITY_MISMATCH/)
+})
+
+test('le profil d’initialisation attendu doit être présent et identique dans le paquet',async t=>{
+ assert.ok(release)
+ const root=await fixture(t), directory=join(root,'dist'), configuration=join(root,'electron-builder.yml')
+ const profile='bmad-init/payload-v1.json.gz'
+ const source=join(root,'resources',profile), packaged=join(directory,'win-unpacked/resources',profile)
+ await appendFile(configuration,'extraResources:\n  - from: resources/'+profile+'\n    to: '+profile+'\n')
+ await mkdir(join(root,'resources/bmad-init'))
+ await mkdir(join(directory,'win-unpacked/resources/bmad-init'))
+ await writeFile(source,'profil scellé')
+ const manifest=()=>release.createManifest({repository:root,directory})
+ await assert.rejects(manifest(),/RESOURCE_MISMATCH.*bmad-init/)
+ await writeFile(packaged,'profil altéré')
+ await assert.rejects(manifest(),/RESOURCE_MISMATCH.*bmad-init/)
+ await writeFile(packaged,await readFile(source))
+ const result=await manifest()
+ const artifact=result.artifacts.find(item=>item.path==='win-unpacked/resources/'+profile)
+ const input=result.inputs.find(item=>item.path==='resources/'+profile)
+ assert.deepEqual({bytes:artifact.bytes,sha256:artifact.sha256},{bytes:input.bytes,sha256:input.sha256})
+})
+
+test('le profil utilise les ressources Windows, y compris les chemins YAML entre guillemets',async t=>{
+ const root=await fixture(t), directory=join(root,'dist'), config=join(root,'electron-builder.yml')
+ const profile='bmad-init/payload-v1.json.gz'
+ await mkdir(join(root,'resources/bmad-init'))
+ await mkdir(join(directory,'win-unpacked/resources/bmad-init'))
+ await writeFile(join(root,'resources',profile),'profil')
+ await writeFile(join(directory,'win-unpacked/resources',profile),'profil')
+ const base=await readFile(config,'utf8')
+ await writeFile(config,base+'linux:\n  extraResources:\n    - from: resources/'+profile+'\n      to: '+profile+'\n')
+ await assert.rejects(release.createManifest({repository:root,directory}),/RESOURCE_MISMATCH.*bmad-init/)
+ await writeFile(config,base.replace('  executableName: Madness\n','  executableName: Madness\n  extraResources:\n    - from: "resources/'+profile+'"\n      to: "'+profile+'"\n'))
+ assert.ok((await release.createManifest({repository:root,directory})).artifacts.some(item=>item.path.endsWith(profile)))
+})
+test('le manifeste refuse un profil traversant une jonction du paquet',async t=>{
+ const root=await fixture(t), directory=join(root,'dist'), packaged=join(directory,'win-unpacked/resources/bmad-init')
+ const profile='bmad-init/payload-v1.json.gz'
+ await appendFile(join(root,'electron-builder.yml'),'extraResources:\n  - from: resources/'+profile+'\n    to: '+profile+'\n')
+ await mkdir(join(root,'resources/bmad-init'))
+ await mkdir(packaged)
+ await writeFile(join(root,'resources',profile),'profil')
+ await writeFile(join(directory,'win-unpacked/resources',profile),'profil')
+ const external=join(root,'outside-package')
+ await rename(packaged,external)
+ await symlink(external,packaged,process.platform==='win32'?'junction':'dir')
+ await assert.rejects(release.createManifest({repository:root,directory}),/RESOURCE_MISMATCH.*bmad-init/)
 })

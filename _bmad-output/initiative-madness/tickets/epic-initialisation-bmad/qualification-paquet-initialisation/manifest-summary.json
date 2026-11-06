@@ -1,0 +1,49 @@
+{
+  "version": "0.2.18",
+  "manifestPath": "dist/init37-candidate/release-manifest.json",
+  "manifestSha256": "634f2c1823d0da41ab4de92118a756826dfcab337751537f39493aa6b8c8b2fd",
+  "inputs": 3369,
+  "versions": {
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "electron": "45.0.0",
+    "electron-builder": "26.18.0",
+    "electron-vite": "6.0.0",
+    "jose": "6.2.13",
+    "playwright-core": "1.64.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "typescript": "7.0.2",
+    "vite": "8.3.5"
+  },
+  "artifacts": [
+    {
+      "path": "Madness-0.2.18-x64-setup.exe",
+      "bytes": 172930262,
+      "sha256": "0dd3804f0fff6d8b5651b879996380b67356a01623ed68a660fa703eb2f17ae8"
+    },
+    {
+      "path": "win-unpacked/resources/app.asar",
+      "bytes": 32558452,
+      "sha256": "efd72fe9aba14def73e54a3f5899add6c91acc02c096905af82cb8376409d0b4"
+    },
+    {
+      "path": "win-unpacked/resources/bmad-script-runner.py",
+      "bytes": 3150,
+      "sha256": "44e1d7e4faf1e209fb09444f9a916130fe7fec8cca8dd4dbcb33166432745cf9"
+    },
+    {
+      "path": "win-unpacked/resources/bmad-init/payload-v1.json.gz",
+      "bytes": 1331683,
+      "sha256": "9907b02e25155215fa3b398185f971c42e0a02ddef62327c7a3b912f4fb5389a"
+    }
+  ],
+  "deferred": [
+    "installation et remplacement NSIS sur profil possédé",
+    "restauration, refus et reprise sur le paquet final",
+    "éditeur et qualification intégrée G3",
+    "parcours humains G4"
+  ]
+}

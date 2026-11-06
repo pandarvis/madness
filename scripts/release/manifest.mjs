@@ -1,7 +1,7 @@
 import {readFile, readdir, lstat, writeFile} from 'node:fs/promises'
 import {createHash} from 'node:crypto'
 import {createRequire} from 'node:module'
-import {join, relative, resolve} from 'node:path'
+import {dirname, join, relative, resolve} from 'node:path'
 import {fileURLToPath} from 'node:url'
 const require=createRequire(import.meta.url)
 const sha256=bytes=>createHash('sha256').update(bytes).digest('hex')
@@ -53,7 +53,34 @@ export async function createManifest({repository,directory}){
  const installer=join(directory,`Madness-${pkg.version}-x64-setup.exe`)
  const runner=join(directory,'win-unpacked/resources/bmad-script-runner.py')
  if(!Buffer.from(await readFile(runner)).equals(await readFile(join(repository,'resources/bmad-script-runner.py'))))throw Error('RESOURCE_MISMATCH')
- return {schemaVersion:1,identity:{name:'madness',appId:'fr.madness.desktop',productName:'Madness',executableName:'Madness'},version:pkg.version,versions:Object.fromEntries(Object.entries(versions).sort(([a],[b])=>a.localeCompare(b))),inputs,artifacts:await Promise.all([installer,asarPath,runner].map(path=>fingerprint(directory,path))),limits:['Empreintes de cette construction ; aucune identité bit à bit entre deux reconstructions NSIS horodatées.','Ce manifeste ne prouve ni signature, ni publication, ni installation, ni connectivité des fournisseurs.']}
+ const artifacts=await Promise.all([installer,asarPath,runner].map(path=>fingerprint(directory,path)))
+ const profile='bmad-init/payload-v1.json.gz'
+ const sourcePath='resources/'+profile
+ const sourceProfile=inputs.find(input=>input.path===sourcePath)
+ const builder=require('js-yaml').load(config)
+ const mappings=[builder.extraResources,builder.win?.extraResources].flatMap(value=>value??[])
+ const configured=mappings.some(mapping=>mapping?.from===sourcePath&&mapping.to===profile)
+ if(sourceProfile||configured){
+  const mismatch=()=>Error('RESOURCE_MISMATCH: '+profile)
+  if(!sourceProfile||!configured)throw mismatch()
+  const outputProfile=join(directory,'win-unpacked/resources',profile)
+  let packaged
+  try{
+   for(let parent=dirname(outputProfile);;parent=dirname(parent)){
+    if(!(await lstat(parent)).isDirectory())throw mismatch()
+    if(parent===directory)break
+   }
+   const stat=await lstat(outputProfile)
+   if(!stat.isFile()||stat.nlink!==1)throw mismatch()
+   packaged=await fingerprint(directory,outputProfile)
+  }catch(error){
+   if(error.code==='ENOENT')throw mismatch()
+   throw error
+  }
+  if(packaged.bytes!==sourceProfile.bytes||packaged.sha256!==sourceProfile.sha256)throw mismatch()
+  artifacts.push(packaged)
+ }
+ return {schemaVersion:1,identity:{name:'madness',appId:'fr.madness.desktop',productName:'Madness',executableName:'Madness'},version:pkg.version,versions:Object.fromEntries(Object.entries(versions).sort(([a],[b])=>a.localeCompare(b))),inputs,artifacts,limits:['Empreintes de cette construction ; aucune identité bit à bit entre deux reconstructions NSIS horodatées.','Ce manifeste ne prouve ni signature, ni publication, ni installation, ni connectivité des fournisseurs.']}
 }
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){

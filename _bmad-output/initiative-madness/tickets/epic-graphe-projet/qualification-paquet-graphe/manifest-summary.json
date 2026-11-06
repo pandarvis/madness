@@ -1,0 +1,104 @@
+{
+  "version": "0.2.19",
+  "directory": "dist/graph49-release",
+  "manifest": "dist/graph49-release/release-manifest.json",
+  "manifestSha256": "a86d5806d0e0a141ad00a3f8700123fb1ed80c20ed3db824f2fb23a26db04f7b",
+  "inputs": 3371,
+  "graphify": {
+    "tool": "graphifyy",
+    "toolVersion": "0.9.101",
+    "pythonVersion": "3.12.14",
+    "files": 3051,
+    "runtimeFiles": 735,
+    "packageFiles": 2305,
+    "notices": 80,
+    "closureSha256": "f5cfb024ac4cf614151fc3aac329c35df6fb843a1edf91ba32b4af830110fdbb"
+  },
+  "artifacts": [
+    {
+      "path": "Madness-0.2.19-x64-setup.exe",
+      "bytes": 172939783,
+      "sha256": "86533fb7035a9a1d55f72718f0d719e37d3901fbd13ed0814572f0e3c2bdbff9"
+    },
+    {
+      "path": "win-unpacked/resources/app.asar",
+      "bytes": 32570287,
+      "sha256": "58100bfbe580ba3f3b44189876334228af2be96378cf7cc27b4acd64a06aa4c5"
+    },
+    {
+      "path": "win-unpacked/resources/bmad-script-runner.py",
+      "bytes": 3150,
+      "sha256": "44e1d7e4faf1e209fb09444f9a916130fe7fec8cca8dd4dbcb33166432745cf9"
+    },
+    {
+      "path": "win-unpacked/resources/bmad-init/payload-v1.json.gz",
+      "bytes": 1331683,
+      "sha256": "9907b02e25155215fa3b398185f971c42e0a02ddef62327c7a3b912f4fb5389a"
+    },
+    {
+      "path": "win-unpacked/resources/graphify/CPython-LICENSE.txt",
+      "bytes": 25066,
+      "sha256": "886a0ead2d89030ee62dbff52b04e47ab91998341295bb9c56fb952b4e081c7a"
+    },
+    {
+      "path": "win-unpacked/resources/graphify/NOTICES.md",
+      "bytes": 1335,
+      "sha256": "f15d4c431a870544d08022b4376d30b9a12a7de36d83b1a338c9c9b0590da780"
+    },
+    {
+      "path": "win-unpacked/resources/graphify/assembly.json",
+      "bytes": 542630,
+      "sha256": "e2155b1cd240cdf9e4b4722a7158ebdba2e648e84c503f4264b60c945bce62c0"
+    },
+    {
+      "path": "win-unpacked/resources/graphify/requirements.lock",
+      "bytes": 3192,
+      "sha256": "2d7e9297b933eba90bc9b09b91e451d9fa0a823d0f42a5924a06d2de182a7da9"
+    }
+  ],
+  "nativePreflight": {
+    "runtime": 735,
+    "packages": 2305,
+    "exit": 0
+  },
+  "pythonProbe": {
+    "version": "3.12.14",
+    "isolated": true,
+    "noSite": true,
+    "bytecodeDisabled": true
+  },
+  "packagedSmoke": {
+    "graphTab": true,
+    "draftPreserved": true,
+    "graphOwnerAbsent": true,
+    "closed": true,
+    "temporaryProfileRemoved": true,
+    "cleanupRetry": "initial Windows EBUSY, exact directory removed separately"
+  },
+  "historicalCandidates": [
+    {
+      "directory": "dist/graph49-candidate",
+      "installerSha256": "fc3610cc98e3d496fa328f07a79b843c06a17c290bd806f2118e128873c97833",
+      "asarSha256": "4dab0e59812a3e74217ab1a3656ace8094fd026d901374c16b0390a4e1082af7"
+    },
+    {
+      "directory": "dist/graph49-reviewed",
+      "installerSha256": "588aa083e302b8e83a23c9cfe0728e9716f62e083d8aeb61bd45f34a4d1f1245",
+      "asarSha256": "8663f8712af9fbe6e5e30a1dfdf949ec3a191b6a07545a0605c761207e424049"
+    },
+    {
+      "directory": "dist/graph49-final",
+      "installerSha256": "05304eb777f442e6d77ccfa99ef111c0a2daf4aee7a335edaaeffee33489e1af",
+      "asarSha256": "bc6697a79f81b77bb695c00f6c57e7837cc59e3644a00c6ca36a0c418ca5604c"
+    }
+  ],
+  "limits": [
+    "Candidat Windows non installé",
+    "Aucun projet analysé par ce candidat",
+    "G5 et campagne longue en 4.11"
+  ],
+  "cleanup": {
+    "intermediateCandidatesRemoved": 3,
+    "logicalBytes": 2267605998
+  }
+}

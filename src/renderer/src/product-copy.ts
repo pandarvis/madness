@@ -62,6 +62,8 @@ const owned = {
  "diagnostic": {
   "Conservation du graphe illisible — aucune analyse relancée.": "Graph storage unreadable — no analysis restarted.",
   "Référence ancienne ou non vérifiée — sources modifiées ou accès refusé.": "Stale or unverified reference — sources changed or access refused.",
+  "PowerShell 7.5.4 est requis pour le graphe. Vérifiez la version de l’outil .NET global puis réessayez.": "The graph requires PowerShell 7.5.4. Check the global .NET tool version and try again.",
+  "Ressources Graphify manquantes ou modifiées. Réinstallez le paquet Madness identifié puis réessayez.": "Graphify resources are missing or changed. Reinstall the identified Madness package and try again.",
   "Graphify signale une couverture limitée.": "Graphify reports limited coverage.",
   "Résultat étranger ou incompatible refusé — dernier complet conservé.": "Foreign or incompatible result refused — last complete graph retained.",
   "Arrêt non confirmé — vérifiez l’arrêt dans la récupération commune.": "Stop not confirmed — check the stop in shared recovery.",

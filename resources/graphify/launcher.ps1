@@ -6,8 +6,10 @@ try {
   . (Join-Path $Resources 'supervision.ps1')
   Assert-BmadChain $TaskFolder
   $assembly=Get-Content -LiteralPath (Join-Path $Resources 'assembly.json') -Raw|ConvertFrom-Json
-  Assert-GraphClosedRuntime (Join-Path $Resources 'assembly/runtime') $assembly.runtime
-  Assert-GraphClosedRuntime (Join-Path $Resources 'assembly/packages') $assembly.packages
+  try {
+    Assert-GraphClosedRuntime (Join-Path $Resources 'assembly/runtime') $assembly.runtime
+    Assert-GraphClosedRuntime (Join-Path $Resources 'assembly/packages') $assembly.packages
+  } catch { throw ('GRAPH_RESOURCE_CHANGED: '+$_.Exception.Message) }
   $request=Get-Content -LiteralPath (Join-Path $TaskFolder 'request.json') -Raw|ConvertFrom-Json -AsHashtable
   function Run-GraphChild($Script,$Arguments,$Label){
     if(Test-Path -LiteralPath (Join-Path $TaskFolder 'cancel')){throw 'CANCELLED_BEFORE_CHILD'}

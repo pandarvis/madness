@@ -1,4 +1,4 @@
-import {spawn} from 'node:child_process'
+import {execFile,spawn} from 'node:child_process'
 import {realpathSync} from 'node:fs'
 import {readFile,writeFile,mkdir,lstat,open} from 'node:fs/promises'
 import {join,resolve,dirname} from 'node:path'
@@ -12,8 +12,39 @@ import {GraphOwnedRun} from './graph-owned-run.ts'
 import {graphResourcePins} from './graphify-manifest.ts'
 import {IncompatibleGraphifyArtifact,normalizeGraphify} from './graphify-normalize.ts'
 const sha=(b:Buffer|string):string=>createHash('sha256').update(b).digest('hex')
-const pwshPin='9660387054b1387f5ab7e907a61560674c762559f91279a50484240bb3659d53'
+const powerShellPins={
+ 'pwsh.exe':'9660387054b1387f5ab7e907a61560674c762559f91279a50484240bb3659d53',
+ 'pwsh.dll':'e693be60bb4ce1e3ad5e511fa181928975cf151adc4816379bf895fd0dc3fedc',
+ 'pwsh.deps.json':'44339102d7832034b4071cc033d060d8095ba5aa27a8bebc8625d8d58bd095eb',
+ 'pwsh.runtimeconfig.json':'385649560b8094e1905c9474a5e094b718f296dc514ffe489427078e79ad3b1d',
+ 'System.Management.Automation.dll':'c5a48de957c20a4c3627f529bd69b7765c336249ab45e466f4a1c74a71405ee7'
+} as const
 async function safe(path:string,limit=32*1024*1024):Promise<Buffer>{for(let p=resolve(path);;p=dirname(p)){const s=await lstat(p);if(s.isSymbolicLink()||s.isFile()&&s.nlink!==1)throw Error('PHYSICAL_PATH_REFUSED');if(dirname(p)===p)break}const h=await open(path,'r');try{const a=await h.stat();if(!a.isFile()||a.size>limit)throw Error('OUTPUT_LIMIT');const b=await h.readFile(),z=await h.stat(),n=await lstat(path);if(a.ino!==z.ino||a.ino!==n.ino||a.mtimeMs!==z.mtimeMs||a.size!==z.size||b.length>limit)throw Error('SOURCE_CHANGED');return b}finally{await h.close()}}
+export async function assertGraphifyPowerShell(path:string,signal?:AbortSignal):Promise<void>{
+ if(process.platform!=='win32')throw Error('GRAPH_POWERSHELL_REQUIRED')
+ for(const [name,pin] of Object.entries(powerShellPins)){
+  signal?.throwIfAborted()
+  const bytes=await safe(name==='pwsh.exe'?path:join(dirname(path),name)).catch(()=>null)
+  if(!bytes||sha(bytes)!==pin)throw Error('GRAPH_POWERSHELL_REQUIRED')
+ }
+ signal?.throwIfAborted()
+ try{
+  await new Promise<void>((done,fail)=>{
+   const command="if ($PSVersionTable.PSVersion.ToString() -cne '7.5.4') { exit 1 }"
+   let failure:Error|null=null
+   const child=execFile(path,['-NoLogo','-NoProfile','-NonInteractive','-Command',command],{windowsHide:true,timeout:10000,maxBuffer:4096,signal},error=>{failure=error})
+   // execFile reports abort before close. Keep admission until this process is closed.
+   child.once('close',code=>{
+    if(failure||code!==0)fail(failure??Error('GRAPH_POWERSHELL_REQUIRED'))
+    else done()
+   })
+  })
+  signal?.throwIfAborted()
+ }catch{
+  signal?.throwIfAborted()
+  throw Error('GRAPH_POWERSHELL_REQUIRED')
+ }
+}
 type Facts={sourceState:'unchanged'|'changed'|'unknown';observedAt:string|null}
 type Options={root:string;resources:string;owner:GraphOwnedRun;admission:{enter(kind:'helper'):()=>void};admit?():Promise<void>;onUnknown?():void}
 export class GraphifyAdapter implements GraphAnalysisPort{
@@ -29,8 +60,11 @@ export class GraphifyAdapter implements GraphAnalysisPort{
   try{
    await this.options.admit?.();signal.throwIfAborted();if(this.closing)throw Error('APP_CLOSING')
    if(await this.options.owner.status()!=='stopped')throw Error('STOP_UNCONFIRMED')
-   const pwsh=join(process.env.USERPROFILE??'','.dotnet/tools/.store/powershell/7.5.4/powershell/7.5.4/tools/net9.0/any/win/pwsh.exe');if(process.platform!=='win32'||sha(await safe(pwsh))!==pwshPin)throw Error('RUNTIME_UNAVAILABLE')
-   for(const [name,pin] of Object.entries(graphResourcePins))if(sha(await safe(join(this.options.resources,name)))!==pin)throw Error('GRAPH_RESOURCE_CHANGED:'+name)
+   const pwsh=join(process.env.USERPROFILE??'','.dotnet/tools/.store/powershell/7.5.4/powershell/7.5.4/tools/net9.0/any/win/pwsh.exe');await assertGraphifyPowerShell(pwsh,signal)
+   for(const [name,pin] of Object.entries(graphResourcePins)){
+    const bytes=await safe(join(this.options.resources,name)).catch(()=>null)
+    if(!bytes||sha(bytes)!==pin)throw Error('GRAPH_RESOURCE_CHANGED:'+name)
+   }
    await mkdir(this.options.root,{recursive:true})
    signal.throwIfAborted();if(this.closing)throw Error('APP_CLOSING')
    folder=join(realpathSync.native(this.options.root),'graph-'+randomUUID());generation=await this.options.owner.begin(folder,attempt)

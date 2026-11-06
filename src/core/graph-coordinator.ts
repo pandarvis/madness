@@ -10,6 +10,12 @@ type Runtime=GraphAnalysisPort&{scopeRevision:string;coverage:{included:string[]
 type Dependencies={application:{dialogueProject(id:string):Promise<{id:string;rootPath:string}>};runtime:Runtime;store:{list():Promise<GraphState[]>;write(s:GraphState):Promise<void>};files:{accept(original:object,producer:'corpus'):void;invalidate(id:string,producer:'corpus'):void};guard():Promise<'clear'|'busy'|'stop-unconfirmed'>;onUnknown?():void}
 export async function graphAdmissionGuard(admission:{readonly activity:'blocked'|'busy'|'clear';block():void},recovery:{status():Promise<'stopped'|'unknown'>},operation:boolean):Promise<'clear'|'busy'|'stop-unconfirmed'>{if(admission.activity==='blocked')return 'stop-unconfirmed';if(admission.activity==='busy'||operation)return 'busy';if(await recovery.status()!=='stopped'){admission.block();return 'stop-unconfirmed'}return 'clear'}
 const canonical=(v:string):string=>v.replaceAll(String.fromCharCode(92),'/').replace(/\/$/,'').toLowerCase()
+function prerequisiteDiagnostic(error:unknown):string|null {
+ const code=String(error)
+ if(code.includes('GRAPH_POWERSHELL_REQUIRED'))return 'PowerShell 7.5.4 est requis pour le graphe. Vérifiez la version de l’outil .NET global puis réessayez.'
+ if(code.includes('GRAPH_RESOURCE_CHANGED'))return 'Ressources Graphify manquantes ou modifiées. Réinstallez le paquet Madness identifié puis réessayez.'
+ return null
+}
 export class GraphCoordinator{
  private deps:Dependencies;private state=initialGraphWorkspace();private listeners=new Set<(s:GraphWorkspace)=>void>();private active:{projectId:string;controller:AbortController;work:Promise<void>}|null=null;private loaded:Promise<void>|null=null;private closing=false;private saves=new Set<Promise<void>>()
  constructor(deps:Dependencies){this.deps=deps}
@@ -58,7 +64,7 @@ export class GraphCoordinator{
      }
      if(changedAt)await this.save(state)
      else this.put(state)
-     this.issue(c.projectId,'Référence ancienne ou non vérifiée — sources modifiées ou accès refusé.')
+     this.issue(c.projectId,prerequisiteDiagnostic(error)??'Référence ancienne ou non vérifiée — sources modifiées ou accès refusé.')
     }finally{if(this.active===active)this.active=null;this.state.preparing=null;this.emit()}
    })()
    await active.work
@@ -115,7 +121,8 @@ export class GraphCoordinator{
    }
    await this.save(current)
   }catch(e){
-   const code=String(e);this.issue(id,code.includes('STOP_UNCONFIRMED')?'Arrêt non confirmé — vérifiez l’arrêt dans la récupération commune.':code.includes('BUSY')?'Une activité possède déjà les outils locaux. Réessayez après sa fin.':signal.aborted?'Analyse interrompue avant publication.':'Analyse locale indisponible ou refusée : '+code.replace(/^Error: /,'').slice(0,400))
+   const code=String(e)
+   this.issue(id,prerequisiteDiagnostic(e)??(code.includes('STOP_UNCONFIRMED')?'Arrêt non confirmé — vérifiez l’arrêt dans la récupération commune.':code.includes('BUSY')?'Une activité possède déjà les outils locaux. Réessayez après sa fin.':signal.aborted?'Analyse interrompue avant publication.':'Analyse locale indisponible ou refusée : '+code.replace(/^Error: /,'').slice(0,400)))
   }
  }
  /** Host-only shared recovery. A physical stop receipt reconciles only its bound logical attempt. */

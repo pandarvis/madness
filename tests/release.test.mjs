@@ -100,3 +100,15 @@ test('le manifeste refuse un profil traversant une jonction du paquet',async t=>
  await symlink(external,packaged,process.platform==='win32'?'junction':'dir')
  await assert.rejects(release.createManifest({repository:root,directory}),/RESOURCE_MISMATCH.*bmad-init/)
 })
+
+test('le manifeste refuse un profil Graphify déclaré sans ses ressources empaquetées',async t=>{
+ const root=await fixture(t),directory=join(root,'dist'),graph=join(directory,'win-unpacked/resources/graphify')
+ await appendFile(join(root,'electron-builder.yml'),'\nextraResources:\n  - from: resources/graphify\n    to: graphify\n')
+ await assert.rejects(release.createManifest({repository:root,directory}),/RESOURCE_MISMATCH: graphify/)
+ await mkdir(graph)
+ await writeFile(join(graph,'assembly.json'),'{}')
+ await assert.rejects(release.createManifest({repository:root,directory}),/RESOURCE_MISMATCH: graphify/)
+ const assembly=await readFile(new URL('../resources/graphify/assembly.json',import.meta.url))
+ await writeFile(join(graph,'assembly.json'),assembly)
+ await assert.rejects(release.createManifest({repository:root,directory}),/RESOURCE_MISMATCH: graphify/)
+})

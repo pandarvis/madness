@@ -180,3 +180,27 @@ test('shutdown during the second guard does not dispatch the analysis', {timeout
  await Promise.all([request,closed])
  assert.deepEqual(f.counts(),{captures:1,analyses:0,accepted:0})
 })
+
+test('missing Graphify host and package resources give actionable diagnostics without a new attempt',async()=>{
+ const f=setup()
+ for(const [code,message] of [['GRAPH_POWERSHELL_REQUIRED','PowerShell 7.5.4'],['GRAPH_RESOURCE_CHANGED:assembly.json','Réinstallez le paquet Madness']]){
+  f.runtime.capture=async()=>{throw Error(code)}
+  const result=await f.coordinator.execute(command('generate'))
+  assert.ok(result.issues.find(i=>i.projectId==='p').reason.includes(message))
+  assert.deepEqual(result.projects,[])
+ }
+ assert.equal(f.counts().analyses,0)
+ await f.coordinator.shutdown()
+})
+
+test('file revalidation keeps the last complete and explains a missing Graphify prerequisite',async()=>{
+ const f=setup()
+ await f.coordinator.execute(command('generate'))
+ const prior=f.stored().lastComplete
+ f.runtime.capture=async()=>{throw Error('GRAPH_POWERSHELL_REQUIRED')}
+ const result=await f.coordinator.execute(command('revalidate-files'))
+ assert.ok(result.issues.find(i=>i.projectId==='p').reason.includes('PowerShell 7.5.4'))
+ assert.deepEqual(result.projects[0].lastComplete,prior)
+ assert.equal(f.counts().analyses,1)
+ await f.coordinator.shutdown()
+})

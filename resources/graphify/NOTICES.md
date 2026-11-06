@@ -33,3 +33,5 @@ tree-sitter-verilog 1.0.3 — MIT
 tree-sitter-zig 1.1.2 — MIT
 
 The package contains the original distribution metadata and license files, inventoried in assembly.json. Python audit hooks are not an OS sandbox.
+
+The bundled CPython 3.12.14 license is provided in CPython-LICENSE.txt, copied verbatim from the matching runtime distribution.

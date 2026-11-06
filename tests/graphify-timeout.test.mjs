@@ -1,13 +1,14 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import {mkdtemp,mkdir,writeFile,readFile,rm} from 'node:fs/promises'
+import {mkdtemp,mkdir,writeFile,readFile,copyFile,rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
-import {join,resolve} from 'node:path'
+import {dirname,join,resolve} from 'node:path'
 import {realpathSync} from 'node:fs'
 import {execFile} from 'node:child_process'
 import {promisify} from 'node:util'
 import {createHash} from 'node:crypto'
-import {GraphifyAdapter} from '../src/adapters/analysis/graphify.ts'
+import {GraphifyAdapter,assertGraphifyPowerShell} from '../src/adapters/analysis/graphify.ts'
+import {graphResourcePins} from '../src/adapters/analysis/graphify-manifest.ts'
 import {GraphOwnedRun} from '../src/adapters/analysis/graph-owned-run.ts'
 import {validateGraphAnalysisEvent} from '../src/contracts/bmad-graph.ts'
 import {createGraphState,beginGraphAttempt,publishGraphEvent} from '../src/core/bmad-graph.ts'
@@ -72,6 +73,34 @@ test('abort after reserving a generation writes a never-started receipt without 
   assert.deepEqual([terminal.generation,terminal.neverStarted,terminal.jobActive],[generation,true,0])
   await assert.rejects(readFile(join(folder,'request.json')),{code:'ENOENT'})
   assert.deepEqual(reported,[true])
+  assert.equal(await adapter.shutdown(),'stopped')
+ } finally {await rm(root,{recursive:true,force:true})}
+})
+
+test('Graphify detects present, missing and changed local prerequisites before reserving analysis', async () => {
+ const root=realpathSync.native(await mkdtemp(join(tmpdir(),'madness-graph-prerequisites-')))
+ try {
+  await assertGraphifyPowerShell(pwsh)
+  const controller=new AbortController(),checking=assertGraphifyPowerShell(pwsh,controller.signal)
+  controller.abort()
+  await assert.rejects(checking,{name:'AbortError'})
+  const absent=join(root,'pwsh.exe')
+  await assert.rejects(assertGraphifyPowerShell(absent),/GRAPH_POWERSHELL_REQUIRED/)
+  await writeFile(absent,'altered host')
+  await assert.rejects(assertGraphifyPowerShell(absent),/GRAPH_POWERSHELL_REQUIRED/)
+  await copyFile(pwsh,absent)
+  await assert.rejects(assertGraphifyPowerShell(absent),/GRAPH_POWERSHELL_REQUIRED/)
+  for(const name of ['pwsh.dll','pwsh.deps.json','pwsh.runtimeconfig.json','System.Management.Automation.dll']){
+   await copyFile(join(dirname(pwsh),name),join(root,name))
+  }
+  // The five pinned files are now exact, but ConsoleHost and the rest of the host are absent.
+  await assert.rejects(assertGraphifyPowerShell(absent),/GRAPH_POWERSHELL_REQUIRED/)
+  const runs=join(root,'runs')
+  const adapter=new GraphifyAdapter({root:runs,resources:root,owner:new GraphOwnedRun(join(root,'owner.json')),admission:{enter:()=>()=>{}}})
+  await assert.rejects(adapter.run({op:'capture'},new AbortController().signal),/GRAPH_RESOURCE_CHANGED:assembly\.json/)
+  await assert.rejects(readFile(join(root,'owner.json')),{code:'ENOENT'})
+  for(const name of Object.keys(graphResourcePins))await copyFile(resolve('resources/graphify',name),join(root,name))
+  await assert.rejects(adapter.run({op:'capture'},new AbortController().signal),/GRAPH_RESOURCE_CHANGED:.*RUNTIME_READ/)
   assert.equal(await adapter.shutdown(),'stopped')
  } finally {await rm(root,{recursive:true,force:true})}
 })

@@ -56,8 +56,8 @@ test('adapter publishes typed format refusal, partial coverage and unknown stop 
   await writeFile(join(data, 'files.json'), '{}')
   let stop = 'stopped', interruptAfterRun
   const adapter = new GraphifyAdapter({owner: {status: async () => stop}})
-  adapter.run = async ({op}) => {
-   if(op==='analyze')interruptAfterRun?.abort()
+  adapter.run = async ({op},signal,attempt,reportStop) => {
+   if(op==='analyze'){reportStop(stop==='stopped');interruptAfterRun?.abort()}
    return {folder: root, result: op === 'capture' ? {
    ...context.identity, revision: hash, observedAt: context.observedAt, corpus: context.corpus,
    sources: [], excluded: [], receiptSha: createHash('sha256').update('{}').digest('hex')

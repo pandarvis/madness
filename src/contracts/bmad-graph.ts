@@ -49,6 +49,14 @@ export type GraphState = {
  preservation:{status:'unrecorded'|'pending'|'stored'|'failed'|'unreadable'; durableAnalysisId:string|null}
 }
 
+export function selectGraphRevalidationTarget(state:GraphState):GraphSnapshot|null {
+ const result=state.result.snapshot
+ const activity=state.activity
+ const resultWithoutOutcome=activity.outcome==='unknown'&&(activity.phase==='terminal'||activity.phase==='historical')&&result?.identity.analysisId===activity.analysisId
+ if(resultWithoutOutcome)return state.lastComplete?.identity.analysisId!==activity.analysisId?state.lastComplete:null
+ return result??state.lastComplete
+}
+
 type DataRecord = Record<string,unknown>
 class InvalidGraph {
  readonly issue:GraphIssue; constructor(issue:GraphIssue){this.issue=issue}

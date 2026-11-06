@@ -278,3 +278,17 @@ test('a failed refresh retains the proved older revision of the fallback complet
  assert.equal(failed.value.lastComplete.identity.analysisId,'analysis:001')
  assert.deepEqual(failed.value.freshness,{status:'changed',sourceRevision:identity().sourceRevision,observedAt:partial.collectedAt})
 })
+
+test('starting a new attempt cannot turn the recovered unknown candidate into a revalidation target', () => {
+ const candidate = {...snapshot(),identity:{...identity(),analysisId:'unknown-candidate'}}
+ const started = running(expected({identity:candidate.identity,generation:2}),completed())
+ const s = observed(candidate,expected({identity:candidate.identity,generation:2}),started)
+ s.activity = {...s.activity,phase:'historical',outcome:'unknown',stop:'confirmed'}
+ s.freshness.status='unverified'
+ const next = expected({identity:{...identity(),analysisId:'fresh'},generation:3})
+ const refresh = running(next,s)
+ assert.equal(refresh.result.snapshot,null)
+ const terminal = policy.publishGraphEvent(refresh,event('stopped',{identity:next.identity,generation:3,reason:'interrupted',stop:'confirmed'}),next)
+ assert.equal(terminal.ok,true)
+ assert.equal(contracts.selectGraphRevalidationTarget(terminal.value).identity.analysisId,'analysis:001')
+})

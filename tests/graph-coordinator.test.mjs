@@ -137,3 +137,46 @@ test('an explicit interruption ignores a late result without dropping a confirme
  assert.deepEqual([state.activity.outcome,state.activity.stop],['interrupted','confirmed'])
  await f.coordinator.shutdown()
 })
+
+test('a rejected engine without a terminal persists an unknown stop and keeps the last complete', async () => {
+ const f = setup()
+ await f.coordinator.execute(command('generate'))
+ const prior = f.stored().lastComplete
+ f.runtime.analyze = async () => {throw Error('engine exited without receipt')}
+ await f.coordinator.execute(command('generate'))
+ assert.deepEqual([f.stored().activity.phase,f.stored().activity.stop,f.stored().activity.outcome],['terminal','unknown','unknown'])
+ assert.deepEqual(f.stored().lastComplete,prior)
+ const before = f.counts()
+ await f.coordinator.execute(command('generate'))
+ await f.coordinator.execute(command('revalidate-files'))
+ await f.coordinator.execute({...command('generate'),projectId:'other'})
+ assert.deepEqual(f.counts(),before)
+ await f.coordinator.shutdown()
+})
+
+test('a queued command does not begin capture if shutdown wins while loading the sidecars', {timeout:4000}, async () => {
+ let release
+ const listed = new Promise(resolve=>{release=resolve})
+ const f = setup({list:()=>listed,write:async()=>{}})
+ const request = f.coordinator.execute(command('generate'))
+ await f.coordinator.shutdown()
+ release([])
+ await request
+ assert.deepEqual(f.counts(),{captures:0,analyses:0,accepted:0})
+})
+
+test('shutdown during the second guard does not dispatch the analysis', {timeout:4000}, async () => {
+ let called=0, resolveGuard, markGuard
+ const guardEntered = new Promise(resolve=>{markGuard=resolve})
+ const f = setup(undefined,async()=>{
+  if(++called!==2)return 'clear'
+  markGuard()
+  return new Promise(resolve=>{resolveGuard=resolve})
+ })
+ const request = f.coordinator.execute(command('generate'))
+ await guardEntered
+ const closed = f.coordinator.shutdown()
+ resolveGuard('clear')
+ await Promise.all([request,closed])
+ assert.deepEqual(f.counts(),{captures:1,analyses:0,accepted:0})
+})

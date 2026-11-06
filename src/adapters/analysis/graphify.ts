@@ -5,7 +5,7 @@ import {join,resolve,dirname} from 'node:path'
 import {createHash,randomUUID} from 'node:crypto'
 import type {FileAuthority} from '../../core/project-files.ts'
 import type {GraphAnalysisRequest,GraphAnalysisEvent,GraphStopRequest,GraphSource} from '../../contracts/bmad-graph.ts'
-import {validateGraphAnalysisRequest} from '../../contracts/bmad-graph.ts'
+import {sameGraphScope,validateGraphAnalysisRequest} from '../../contracts/bmad-graph.ts'
 import type {GraphAnalysisPort} from '../../core/bmad-graph-port.ts'
 import type {OriginalGraphCapture} from './graph-corpus.ts'
 import {GraphOwnedRun} from './graph-owned-run.ts'
@@ -19,25 +19,31 @@ type Options={root:string;resources:string;owner:GraphOwnedRun;admission:{enter(
 export class GraphifyAdapter implements GraphAnalysisPort{
  readonly coverage={included:['captured-code','code-dependencies'],excluded:['configuration','instructions','hooks','links','metadata','generated-output','semantic-enrichment']}
  readonly scopeRevision=sha(graphResourcePins['graph_capture.py']+'|graph-code-only-v1:.py,.ts,.tsx,.js,.jsx,.mjs,.cjs,.cs,.java,.c,.h,.cpp,.hpp,.rs,.go,.rb,.php,.swift,.kt,.scala,.vue,.svelte;1024files;1MiBfile;16MiBtotal;24depth;10000entries;no-config')
- private options:Options;private closing=false;private pending:Promise<unknown>|null=null;private captured=new WeakMap<object,{folder:string;receiptSha:string;facts:Facts}>();private originals=new Map<string,OriginalGraphCapture>();private authorities=new WeakMap<object,FileAuthority>();private lastRun=''
+ private options:Options;private closing=false;private pending:Promise<unknown>|null=null;private captured=new WeakMap<object,{folder:string;receiptSha:string;facts:Facts}>();private originals=new Map<string,OriginalGraphCapture>();private authorities=new WeakMap<object,FileAuthority>();private activeAttempt:{request:GraphStopRequest;generation:string}|null=null
  constructor(options:Options){this.options=options}
  filesAuthority(v:object):FileAuthority|undefined{return this.authorities.get(v)}
  facts(v:OriginalGraphCapture):Facts{return this.captured.get(v)?.facts??{sourceState:'unknown',observedAt:null}}
- private async run(request:Record<string,unknown>,signal:AbortSignal,attempt:GraphStopRequest|null=null):Promise<{result:any;folder:string}>{
+ private async run(request:Record<string,unknown>,signal:AbortSignal,attempt:GraphStopRequest|null=null,reportStop?:(confirmed:boolean,ownedFolder:string)=>void):Promise<{result:any;folder:string}>{
   if(this.closing)throw Error('APP_CLOSING');signal.throwIfAborted();const release=this.options.admission.enter('helper');let folder='',generation='',spawned=false,confirmed=false
   let finish!:()=>void;const pending=new Promise<void>(r=>finish=r);this.pending=pending
   try{
-   await this.options.admit?.();if(await this.options.owner.status()!=='stopped')throw Error('STOP_UNCONFIRMED')
+   await this.options.admit?.();signal.throwIfAborted();if(this.closing)throw Error('APP_CLOSING')
+   if(await this.options.owner.status()!=='stopped')throw Error('STOP_UNCONFIRMED')
    const pwsh=join(process.env.USERPROFILE??'','.dotnet/tools/.store/powershell/7.5.4/powershell/7.5.4/tools/net9.0/any/win/pwsh.exe');if(process.platform!=='win32'||sha(await safe(pwsh))!==pwshPin)throw Error('RUNTIME_UNAVAILABLE')
    for(const [name,pin] of Object.entries(graphResourcePins))if(sha(await safe(join(this.options.resources,name)))!==pin)throw Error('GRAPH_RESOURCE_CHANGED:'+name)
-   await mkdir(this.options.root,{recursive:true});folder=join(realpathSync.native(this.options.root),'graph-'+randomUUID());generation=await this.options.owner.begin(folder,attempt);this.lastRun=folder
+   await mkdir(this.options.root,{recursive:true})
+   signal.throwIfAborted();if(this.closing)throw Error('APP_CLOSING')
+   folder=join(realpathSync.native(this.options.root),'graph-'+randomUUID());generation=await this.options.owner.begin(folder,attempt)
+   if(attempt)this.activeAttempt={request:attempt,generation}
+   signal.throwIfAborted();if(this.closing)throw Error('APP_CLOSING')
    const resources=realpathSync.native(this.options.resources)
    await writeFile(join(folder,'request.json'),JSON.stringify({...request,...(request.op==='capture'?{folder:join(folder,'data')}:{})}),{flag:'wx'});if(request.op==='capture')await mkdir(join(folder,'data'))
    const quote=(v:string):string=>"'"+v.replaceAll("'","''")+"'"
    const script='$TaskFolder='+quote(folder)+'\n$Generation='+quote(generation)+'\n$Resources='+quote(resources)+'\n$Pins='+"(ConvertFrom-Json -AsHashtable "+quote(JSON.stringify(graphResourcePins))+')\n'+(await safe(join(resources,'launcher.ps1'))).toString('utf8')
+   signal.throwIfAborted();if(this.closing)throw Error('APP_CLOSING')
    const child=spawn(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,shell:false,stdio:['ignore','ignore','pipe']});spawned=child.pid!==undefined
    let errorBytes=0;child.stderr.on('data',b=>{errorBytes+=b.length})
-   const cancel=():void=>{void this.options.owner.cancel().catch(()=>{})};signal.addEventListener('abort',cancel,{once:true});if(signal.aborted)cancel()
+   const cancel=():void=>{void this.options.owner.cancel(generation).catch(()=>{})};signal.addEventListener('abort',cancel,{once:true});if(signal.aborted)cancel()
    let timer:ReturnType<typeof setTimeout>|undefined
    try{await Promise.race([new Promise<void>((done,fail)=>{child.once('close',()=>done());child.once('error',fail)}),new Promise<never>((_,fail)=>{timer=setTimeout(()=>{cancel();fail(Error('STOP_UNCONFIRMED'))},270000)})])}finally{clearTimeout(timer);signal.removeEventListener('abort',cancel)}
    confirmed=await this.options.owner.confirm(generation)==='stopped';if(!confirmed)throw Error('STOP_UNCONFIRMED')
@@ -46,8 +52,15 @@ export class GraphifyAdapter implements GraphAnalysisPort{
    const problem=await safe(join(folder,'launcher-error.txt'),65536).catch(e=>{if((e as NodeJS.ErrnoException).code==='ENOENT')return null;throw e});if(problem)throw Error(problem.toString('utf8'));if(errorBytes>65536)throw Error('LAUNCHER_OUTPUT_LIMIT')
    const result=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await safe(join(folder,'result.json'),4*1024*1024)));if(result.error)throw Error(result.error);return {result,folder}
   }finally{
-   try{if(generation&&!spawned)await writeFile(join(folder,'terminal.json'),JSON.stringify({schemaVersion:1,generation,purpose:'graph-code-only',terminal:true,jobAssigned:false,jobActive:0,neverStarted:true}),{flag:'wx'}).catch(()=>{});if(generation&&!confirmed)confirmed=await this.options.owner.confirm(generation).catch(()=>'unknown' as const)==='stopped'}finally{release();if(this.pending===pending)this.pending=null;finish()}
-   if(generation&&!confirmed){this.options.onUnknown?.();throw Error('STOP_UNCONFIRMED')}
+   try{
+    if(generation&&!spawned)await writeFile(join(folder,'terminal.json'),JSON.stringify({schemaVersion:1,generation,purpose:'graph-code-only',terminal:true,jobAssigned:false,jobActive:0,neverStarted:true}),{flag:'wx'}).catch(()=>{})
+    if(generation&&!confirmed)confirmed=await this.options.owner.confirm(generation).catch(()=>'unknown' as const)==='stopped'
+    if(generation&&!confirmed){this.options.onUnknown?.();throw Error('STOP_UNCONFIRMED')}
+   }finally{
+    if(this.activeAttempt?.generation===generation)this.activeAttempt=null
+    reportStop?.(!generation||confirmed,generation?folder:'')
+    release();if(this.pending===pending)this.pending=null;finish()
+   }
   }
  }
  async capture(projectId:string,rootPath:string,signal:AbortSignal):Promise<OriginalGraphCapture>{
@@ -63,11 +76,13 @@ export class GraphifyAdapter implements GraphAnalysisPort{
  }
  async analyze(request:GraphAnalysisRequest,observe:(e:GraphAnalysisEvent)=>void,signal:AbortSignal):Promise<void>{
   const original=this.originals.get(request.identity.projectId),capture=original&&this.captured.get(original);let order=0;const base={contractVersion:1 as const,identity:request.identity,generation:request.generation,correlationId:request.correlationId};const emit=(e:Record<string,unknown>):void=>observe({...base,order:++order,...e} as GraphAnalysisEvent)
-  if(!validateGraphAnalysisRequest(request).ok||!original||!capture||request.identity.sourceRevision!==original.revision||request.identity.rootIdentity!==original.rootIdentity||request.identity.rootPath!==original.rootPath||request.identity.scopeRevision!==this.scopeRevision||JSON.stringify(request.corpus)!==JSON.stringify(original.corpus))throw Error('CAPTURE_MISMATCH')
+  if(!validateGraphAnalysisRequest(request).ok)throw Error('INVALID_GRAPH_REQUEST')
   emit({type:'started'})
   let terminalFacts:Facts={sourceState:'unknown',observedAt:null}
+  let stopped=true,ownedFolder=''
   try{
-   const {result,folder}=await this.run({op:'analyze',prepared:capture.folder},signal,{contractVersion:1,identity:request.identity,generation:request.generation,correlationId:request.correlationId})
+   if(!original||!capture||request.identity.sourceRevision!==original.revision||request.identity.rootIdentity!==original.rootIdentity||request.identity.rootPath!==original.rootPath||request.identity.scopeRevision!==this.scopeRevision||JSON.stringify(request.corpus)!==JSON.stringify(original.corpus))throw Error('CAPTURE_MISMATCH')
+   const {result,folder}=await this.run({op:'analyze',prepared:capture.folder},signal,{contractVersion:1,identity:request.identity,generation:request.generation,correlationId:request.correlationId},(confirmed,folder)=>{stopped=confirmed;ownedFolder=folder})
    terminalFacts={sourceState:['unchanged','changed'].includes(result.sourceState)?result.sourceState:'unknown',observedAt:typeof result.observedAt==='string'?result.observedAt:null}
    capture.facts=terminalFacts
    signal.throwIfAborted()
@@ -78,7 +93,7 @@ export class GraphifyAdapter implements GraphAnalysisPort{
    signal.throwIfAborted()
    emit({type:'result',snapshot});emit({type:'stopped',reason:snapshot.coverage.status,stop:'confirmed'})
   }catch(e){
-   capture.facts=terminalFacts.sourceState==='changed'?terminalFacts:{sourceState:'unknown',observedAt:null};const stopped=await this.options.owner.status().catch(()=>'unknown' as const)==='stopped'
+   if(capture)capture.facts=terminalFacts.sourceState==='changed'?terminalFacts:{sourceState:'unknown',observedAt:null}
    if(signal.aborted){emit({type:'stopped',reason:'interrupted',stop:stopped?'confirmed':'unknown'});return}
    if(e instanceof Error&&e.message==='GRAPH_CHILD_timeout')emit({type:'stopped',reason:'timeout',stop:stopped?'confirmed':'unknown'})
    else if(!stopped)emit({type:'failed',error:{code:'STOP_UNCONFIRMED',messageKey:'graph.error.stop_unconfirmed',outcome:'unknown',recovery:'check-stop'}})
@@ -90,9 +105,18 @@ export class GraphifyAdapter implements GraphAnalysisPort{
     emit({type:'stopped',reason:'failed',stop:'confirmed'})
    }
    // Keep an owned diagnosis without exposing native payloads to the bridge.
-   if(this.lastRun)await writeFile(join(this.lastRun,'adapter-error.txt'),String(e)).catch(()=>{})
+   if(ownedFolder)await writeFile(join(ownedFolder,'adapter-error.txt'),String(e)).catch(()=>{})
   }
  }
- async stop(request:GraphStopRequest):Promise<Extract<GraphAnalysisEvent,{type:'stopped'}>>{await this.options.owner.cancel();await this.pending;const stop=await this.options.owner.observeStop().catch(()=>'unknown' as const);return {...request,type:'stopped',order:Number.MAX_SAFE_INTEGER,reason:'interrupted',stop:stop==='stopped'?'confirmed':'unknown'}}
+ async stop(request:GraphStopRequest):Promise<Extract<GraphAnalysisEvent,{type:'stopped'}>>{
+  const active=this.activeAttempt,matched=active?.request
+  const event={...request,type:'stopped',order:Number.MAX_SAFE_INTEGER,reason:'interrupted'} as const
+  if(!matched||!sameGraphScope(matched.identity,request.identity)||matched.identity.analysisId!==request.identity.analysisId||
+     matched.identity.sourceRevision!==request.identity.sourceRevision||matched.generation!==request.generation||matched.correlationId!==request.correlationId)return {...event,stop:'unknown'}
+  const pending=this.pending
+  await this.options.owner.cancel(active.generation)
+  await pending
+  return {...event,stop:await this.options.owner.confirm(active.generation).catch(()=>'unknown' as const)==='stopped'?'confirmed':'unknown'}
+ }
  async shutdown():Promise<'stopped'|'unknown'>{this.closing=true;await this.options.owner.cancel().catch(()=>{});await this.pending;return this.options.owner.observeStop().catch(()=>'unknown' as const)}
 }

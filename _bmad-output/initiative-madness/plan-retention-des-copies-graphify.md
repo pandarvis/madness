@@ -3,15 +3,15 @@ title: 'Réduire les copies temporaires du graphe après arrêt confirmé'
 type: 'bugfix'
 ticket: ''
 created: '2026-11-06'
-status: 'ready-for-dev'
-baseline_revision: ''
+status: 'draft'
+baseline_revision: '760550443c0942b7c41b9cc96db41c75b147b814'
 route: 'full'
 route_source: 'auto'
 risk: 'high'
-review: ''
-review_source: ''
-lenses_ran: []
-review_loop_iteration: 0
+review: 'quick'
+review_source: 'pinned'
+lenses_ran: [quick]
+review_loop_iteration: 1
 context: []
 ---
 
@@ -69,6 +69,18 @@ Reconnaissance terminée. Le candidat Windows en essai utilise les sources réel
 
 ## Plan Change Log
 
+- Reprise après Quick. Maintenir les tests natifs, l’aperçu, la conservation de l’arrêt inconnu et le rendement du nettoyage. Revoir la preuve de création, l’exécution par descripteur et la sauvegarde avant retrait.
+
 ## Review Triage Log
 
+- Q1 élevé. Un miroir préexistant peut être enrôlé après le refus de création. Le futur nettoyage doit partir d’un reçu d’allocation ou de création émis par le propriétaire, avec les entrées réellement produites.
+- Q2 élevé. Contrôler puis supprimer par chemin laisse une fenêtre de remplacement Windows. Le futur nettoyage doit conserver des descripteurs physiques pendant la suppression et refuser les redirections ou échanges.
+- Q3 moyen. Une confirmation tardive ne réexamine pas les copies créées pendant l’arrêt initialement inconnu. L’état doit garder l’identité de l’allocation sans rendre les copies éligibles avant la réconciliation.
+- Q4 élevé. La publication de l’état et la normalisation ne garantissent pas la sauvegarde. Conserver la copie native jusqu’au reçu durable requis.
+- Q5 moyen. Mesurer le volume de départ avec un point d’observation qui précède le retrait de façon prouvée.
+
+Les essais ciblés ont vérifié le comportement nominal, la revalidation et l’aperçu. La revue a démontré des cas supplémentaires qui empêchent de livrer ce nettoyage. L’implémentation a été isolée en copie locale et retirée du build courant. Reprendre le plan et traiter ces cinq constats avant une nouvelle qualification.
+
 ## Verification
+
+Le témoin natif du paquet 0.2.21 a fini et le profil de qualification est fermé. Le worker possède les fichiers Graphify et le banc de qualification liés à ce plan. D’autres changements peuvent exister, dont une correction indépendante des drapeaux dans le renderer. Préserver ces fichiers et la variation EOL préexistante dans tests/bmad-help-boundaries.test.mjs.

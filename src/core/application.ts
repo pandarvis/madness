@@ -1,6 +1,6 @@
 import { emptyContext, failure, isCommand, isSnapshot } from '../contracts/index.ts'
 import type { AppState, Command, Conversation, DomainEvent, ErrorCode, ProjectContext, Reply, Snapshot } from '../contracts/index.ts'
-import type { ApplicationDependencies } from './ports.ts'
+import type { DialogueSessionContext, ApplicationDependencies } from './ports.ts'
 import { MAX_TURN_MESSAGES } from '../contracts/dialogue.ts'
 import { LifecycleCoordinator } from './lifecycle.ts'
 
@@ -86,7 +86,18 @@ export class Application {
     if (!project) throw Object.assign(new Error('PROJECT_NOT_FOUND'), { code: 'PROJECT_NOT_FOUND' })
     return project
   }
-  dialoguePersist(projectId: string, conversationId: string | null, update: (conversation: Conversation) => void, captured?: { connectionId: string; initiativeId: string | null }, requestId = 'dialogue-persist'): Promise<Conversation> {
+  /** Fige le projet jusqu’à l’initiation synchrone de l’envoi, sans attendre le fournisseur dans la file. */
+  dialogueSubmit(projectId:string,signal:AbortSignal,submit:()=>void):Promise<void> {
+    const result=this.queue.then(()=>{
+      if(this.closing||this.lifecycle.state==='closing')throw Object.assign(Error('APP_CLOSING'),{code:'APP_CLOSING'})
+      if(this.snapshot?.activeProjectId!==projectId)throw Object.assign(Error('CONTEXT_MISMATCH'),{code:'CONTEXT_MISMATCH'})
+      signal.throwIfAborted()
+      submit()
+    })
+    this.queue=result.catch(()=>undefined)
+    return result
+  }
+  dialoguePersist(projectId: string, conversationId: string | null, update: (conversation: Conversation) => void, captured?: DialogueSessionContext, requestId = 'dialogue-persist'): Promise<Conversation> {
     const result = this.queue.then(async () => {
       if (!this.snapshot || !this.snapshot.projects.some(p => p.id === projectId)) throw Object.assign(new Error('PROJECT_NOT_FOUND'), { code: 'PROJECT_NOT_FOUND' })
       const next = structuredClone(this.snapshot)
@@ -95,7 +106,7 @@ export class Application {
         if (conversationId) throw Object.assign(new Error('CONTEXT_MISMATCH'), { code: 'CONTEXT_MISMATCH' })
         const id = this.deps.newId()
         if (!captured) throw Object.assign(new Error('CONTEXT_MISMATCH'), { code: 'CONTEXT_MISMATCH' })
-        conversation = { id, context: { ...emptyContext(), ...captured, projectId, conversationId: id, providerId: 'codex' }, lastKnownActivity: 'idle', messages: [] }
+        conversation = { id, context: { ...emptyContext(), ...captured, projectId, conversationId: id, providerId: captured.providerId ?? 'codex' }, lastKnownActivity: 'idle', messages: [] }
         next.conversations.push(conversation)
       }
       update(conversation); next.revision++

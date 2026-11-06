@@ -1,5 +1,29 @@
 /** Product-owned interface copy only. Source values never enter this table. */
 export const interfaceCopy = {
+ "launch_mary_with_claude_code": {
+  "fr": "Lancer Mary avec Claude Code",
+  "en": "Launch Mary with Claude Code"
+ },
+ "claude_launch_scope": {
+  "fr": "Un échange en lecture seule via votre forfait Claude. La compétence Mary vérifiée et l’identifiant de l’initiative active, s’il existe, sont envoyés. Au-delà des limites incluses, des crédits d’utilisation peuvent s’appliquer s’ils sont activés sur votre compte. Madness ne bascule pas vers l’API.",
+  "en": "One read-only exchange through your Claude plan. The verified Mary skill and the active initiative identifier, if present, are sent. Beyond included limits, usage credits may apply if enabled on your account. Madness does not switch to the API."
+ },
+ "stop_claude_code": {
+  "fr": "Arrêter Claude Code",
+  "en": "Stop Claude Code"
+ },
+ "open_session_or_stop_claude_code": {
+  "fr": ". Ouvrez ce projet pour voir la session ou arrêter Claude Code.",
+  "en": ". Open this project to view the session or stop Claude Code."
+ },
+ "claude_stop_unconfirmed": {
+  "fr": "Arrêt de Claude Code à confirmer. Nouveaux échanges bloqués.",
+  "en": "Claude Code stop needs confirmation. New exchanges are blocked."
+ },
+ "claude_turn_saved": {
+  "fr": "Réponse enregistrée · session terminée",
+  "en": "Response saved · session ended"
+ },
  "you": {
   "fr": "Vous",
   "en": "You"

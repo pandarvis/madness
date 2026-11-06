@@ -36,6 +36,7 @@ import {HELP_COMMAND_CHANNEL,HELP_EVENT_CHANNEL,isHelpCommand,isHelpState,initia
 import {ApprovalStore} from '../adapters/persistence/approval-store.ts'
 import {RecoveryStore} from '../adapters/persistence/recovery-store.ts'
 import {OwnedRun} from '../adapters/codex/owned-run.ts'
+import {openClaudeDialogue} from '../adapters/claude/dialogue.ts'
 import {inspectApprovalFiles} from '../adapters/codex/file-proposals.ts'
 import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, protocol, net, session, Menu, safeStorage, shell } from 'electron'
 import { realpath, stat, access, mkdir } from 'node:fs/promises'
@@ -179,13 +180,14 @@ else {
     await mkdir(app.getPath('userData'),{recursive:true})
     const ownedRun=new OwnedRun(new RecoveryStore(join(app.getPath('userData'),'codex-owned-run-v1.json')))
     // This owner is distinct from Codex/help; an unidentified lost batch stays unknown.
+    const claudeOwner=new OwnedRun(new RecoveryStore(join(app.getPath('userData'),'claude-owned-run-v1.json')))
     const qualificationOwner=new OwnedRun(new RecoveryStore(join(app.getPath('userData'),'bmad-qualification-owned-v1.json')))
     let catalogQualification:BmadCatalogLaunchCoordinator|null=null
     const helperOwner=new HelpOwnedRun(join(app.getPath('userData'),'bmad-help-owned-v1.json'))
     const admission=new ActivityAdmission()
     let initialization:BmadInitialization|undefined
     const graphOwner=new GraphOwnedRun(join(app.getPath('userData'),'graph-owned-v1.json'))
-    const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),helperOwner.status(),graphOwner.status(),qualificationOwner.status()])).every(s=>s==='stopped')&&!initialization?.hasUnconfirmedStop()?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await catalogQualification?.stopQualification();await Promise.all([helperOwner.cancel().catch(()=>{}),graphOwner.cancel().catch(()=>{})]);const states=await Promise.all([ownedRun.observeStop(),helperOwner.observeStop(),graphOwner.observeStop(),qualificationOwner.observeStop()]);if(states.every(s=>s==='stopped')&&!initialization?.hasUnconfirmedStop()&&await graphCoordinator.reconcileNativeStop(await graphOwner.stopProof())){admission.clearBlock();return 'stopped'}return 'unknown'}}
+    const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),claudeOwner.status(),helperOwner.status(),graphOwner.status(),qualificationOwner.status()])).every(s=>s==='stopped')&&!initialization?.hasUnconfirmedStop()?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await catalogQualification?.stopQualification();await Promise.all([helperOwner.cancel().catch(()=>{}),graphOwner.cancel().catch(()=>{})]);const states=await Promise.all([ownedRun.observeStop(),claudeOwner.observeStop(),helperOwner.observeStop(),graphOwner.observeStop(),qualificationOwner.observeStop()]);if(states.every(s=>s==='stopped')&&!initialization?.hasUnconfirmedStop()&&await graphCoordinator.reconcileNativeStop(await graphOwner.stopProof())){admission.clearBlock();return 'stopped'}return 'unknown'}}
     if(await recovery.status()!=='stopped')admission.block()
     const markGraphStopUnknown=():void=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()}
     const graphAdapter=new GraphifyAdapter({root:join(app.getPath('userData'),'graph-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'graphify'):join(app.getAppPath(),'resources/graphify'),owner:graphOwner,admission,admit:async()=>{if(connection?.hasOperation())throw Error('BUSY');if(await recovery.status()!=='stopped'){admission.block();throw Error('STOP_UNCONFIRMED')}},onUnknown:markGraphStopUnknown})
@@ -455,6 +457,14 @@ else {
       copyText:async text=>{await clipboard.writeText(text);if(await clipboard.readText()!==text)throw Error('COPY_FAILED')},
       qualifyForge:(root,signal)=>ownQualification(()=>qualifyNativeForge(root,signal)),
       qualify:(root,signal)=>ownQualification(()=>qualifyMary(root,signal)),
+      qualifyClaude:async(root,signal)=>{signal.throwIfAborted();return qualifyBmadProfile(root)},
+      openClaude:(profile,captured,signal,assertContext)=>openClaudeDialogue(profile,captured,signal,assertContext,{
+        home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),
+        temp:app.getPath('temp'),environment:process.env,owner:claudeOwner,
+        admit:()=>admission.enter('provider'),
+        assertRecovery:async()=>{if(await recovery.status()!=='stopped')throw Object.assign(Error('STOP_UNCONFIRMED'),{code:'STOP_UNCONFIRMED'})},
+        onUnknown:()=>admission.block()
+      }),
       open: (profile, signal, activity,assertContext) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun,helpAdapter,assertContext,qualification:ownQualification, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })

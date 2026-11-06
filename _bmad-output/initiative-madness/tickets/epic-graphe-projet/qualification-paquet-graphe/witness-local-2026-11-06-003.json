@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "kind": "one-local-packaged-graph",
+  "checkedAt": "2026-11-06T07:50:09.899Z",
+  "version": "0.2.19",
+  "closed": true,
+  "ownerStop": "stopped",
+  "cleanupEligible": true,
+  "asarSha256": "58100bfbe580ba3f3b44189876334228af2be96378cf7cc27b4acd64a06aa4c5",
+  "observations": [
+    {
+      "ms": 74,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": null,
+      "operation": null,
+      "receipts": []
+    },
+    {
+      "ms": 5215,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": "unknown",
+      "operation": "capture",
+      "receipts": []
+    },
+    {
+      "ms": 28160,
+      "preparing": "graph-proof",
+      "phase": null,
+      "owner": "unknown",
+      "operation": "capture",
+      "receipts": [
+        "capture-execution.json"
+      ]
+    },
+    {
+      "ms": 30614,
+      "preparing": "graph-proof",
+      "phase": "running",
+      "owner": "stopped",
+      "operation": "capture",
+      "receipts": [
+        "capture-execution.json",
+        "result.json",
+        "terminal.json"
+      ]
+    },
+    {
+      "ms": 33066,
+      "preparing": "graph-proof",
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": []
+    },
+    {
+      "ms": 59254,
+      "preparing": "graph-proof",
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json"
+      ]
+    },
+    {
+      "ms": 98446,
+      "preparing": "graph-proof",
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json",
+        "native-graph.json"
+      ]
+    },
+    {
+      "ms": 100109,
+      "preparing": "graph-proof",
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json",
+        "native-graph.json",
+        "terminal-capture-execution.json"
+      ]
+    },
+    {
+      "ms": 102581,
+      "preparing": "graph-proof",
+      "phase": "running",
+      "owner": "unknown",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json",
+        "native-graph.json",
+        "result.json",
+        "terminal-capture-execution.json",
+        "terminal.json"
+      ]
+    },
+    {
+      "ms": 103410,
+      "preparing": null,
+      "phase": "terminal",
+      "owner": "stopped",
+      "operation": "analyze",
+      "receipts": [
+        "analysis-execution.json",
+        "native-graph.json",
+        "result.json",
+        "terminal-capture-execution.json",
+        "terminal.json"
+      ]
+    }
+  ],
+  "result": {
+    "durationMs": 103410,
+    "activity": "terminal",
+    "stop": "confirmed",
+    "freshness": "observed",
+    "error": null,
+    "nodes": 5,
+    "relations": 7,
+    "coverage": "complete",
+    "sourceAndDraftUnchanged": true
+  },
+  "status": "passed"
+}

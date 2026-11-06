@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "cleanup": true,
+  "checks": [
+    "French flag fills, US flag stripes and stars, keyboard switching",
+    "Existing graph restored passively and exact legacy scope revalidated",
+    "No copied code mirror and no analysis; exact original opened via its verified receipt",
+    "Draft and source bytes preserved; no observed network or provider"
+  ],
+  "asarSha256": "66058198b651f6b29a1733834e9ffd8dbd1b6b764f8f5128e412f10fb6f8d717",
+  "limits": [
+    "Synthetic historical snapshot with authentic native corpus and exact 0.2.21 scope.",
+    "No analysis, upgrade, account or human qualification."
+  ],
+  "operations": [
+    "files-read",
+    "revalidate"
+  ],
+  "closure": {
+    "main": {
+      "pid": 35480,
+      "startedAt": "639295565153334197",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-revalidation-release\\win-unpacked\\Madness.exe"
+    },
+    "wrapperPid": 44860,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-06T10:08:39.049Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  }
+}

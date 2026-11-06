@@ -1,0 +1,48 @@
+{
+  "inputCount": 3375,
+  "manifest": "dist/graph-revalidation-release/release-manifest.json",
+  "manifestSha256": "3c848b2f6a2d431df6f3a944632ba06dfeaf637d43757c37510532fbebd9b671",
+  "version": "0.2.22",
+  "artifacts": [
+    {
+      "path": "Madness-0.2.22-x64-setup.exe",
+      "bytes": 179103061,
+      "sha256": "646b79f72b82fe4c3b916fc62efda35baff5652893a434385f1359bf446299cc"
+    },
+    {
+      "path": "win-unpacked/resources/app.asar",
+      "bytes": 38751654,
+      "sha256": "66058198b651f6b29a1733834e9ffd8dbd1b6b764f8f5128e412f10fb6f8d717"
+    },
+    {
+      "path": "win-unpacked/resources/bmad-script-runner.py",
+      "bytes": 3150,
+      "sha256": "44e1d7e4faf1e209fb09444f9a916130fe7fec8cca8dd4dbcb33166432745cf9"
+    },
+    {
+      "path": "win-unpacked/resources/bmad-init/payload-v1.json.gz",
+      "bytes": 1331683,
+      "sha256": "9907b02e25155215fa3b398185f971c42e0a02ddef62327c7a3b912f4fb5389a"
+    },
+    {
+      "path": "win-unpacked/resources/graphify/CPython-LICENSE.txt",
+      "bytes": 25066,
+      "sha256": "886a0ead2d89030ee62dbff52b04e47ab91998341295bb9c56fb952b4e081c7a"
+    },
+    {
+      "path": "win-unpacked/resources/graphify/NOTICES.md",
+      "bytes": 1335,
+      "sha256": "f15d4c431a870544d08022b4376d30b9a12a7de36d83b1a338c9c9b0590da780"
+    },
+    {
+      "path": "win-unpacked/resources/graphify/assembly.json",
+      "bytes": 542630,
+      "sha256": "e2155b1cd240cdf9e4b4722a7158ebdba2e648e84c503f4264b60c945bce62c0"
+    },
+    {
+      "path": "win-unpacked/resources/graphify/requirements.lock",
+      "bytes": 3192,
+      "sha256": "2d7e9297b933eba90bc9b09b91e451d9fa0a823d0f42a5924a06d2de182a7da9"
+    }
+  ]
+}

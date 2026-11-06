@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-06T09:39:30.264Z",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-high-oI1v2v",
+  "status": "failed",
+  "checks": [
+    "H1 actual native owned capture Job assigned before resume and drained; receipt deliberately withheld",
+    "H1 common recovery with absent native receipt keeps both logical states locked and grants none"
+  ],
+  "cleanup": true,
+  "limits": [
+    "Two logical states are seeded fault fixtures; one actual native capture Job supplies the bound physical proof.",
+    "No new Graphify analysis, file authority, model, network, personal data, editor or visual qualification is requested by shared recovery.",
+    "Existing vertical005 remains attached to its original ASAR; this targeted result attaches to the patched candidate only."
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-madness-release\\win-unpacked\\Madness.exe",
+    "executableSha256": "e74be3af48b3240a1dbe61bac6e62b06f9090f8ce3f55e85fab0354dbec895bf",
+    "asarSha256": "cb57c883c6180992fe0d5f3ddda482c2760446a810336289f46daa2ad8118d80"
+  },
+  "native": {
+    "generation": "graph-dcec096f-bf62-4479-8fd8-556365cccd31",
+    "attempt": {
+      "contractVersion": 1,
+      "identity": {
+        "projectId": "recovery-a",
+        "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-high-oI1v2v\\recovery-a",
+        "rootIdentity": "seeded-recovery-a",
+        "scopeId": "code",
+        "scopeRevision": "7d115c8cb2ea25cfd79e785d80922ffd056081da9f99f55d2900bc27f9d19c7d",
+        "analysisId": "unknown-recovery-a",
+        "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168"
+      },
+      "generation": 3,
+      "correlationId": "recovery-recovery-a"
+    },
+    "terminal": {
+      "jobActive": 0,
+      "purpose": "graph-code-only",
+      "jobAssigned": true,
+      "terminal": true,
+      "generation": "graph-dcec096f-bf62-4479-8fd8-556365cccd31",
+      "schemaVersion": 1,
+      "neverStarted": false
+    },
+    "execution": {
+      "schema": 5,
+      "outcome": "completed",
+      "exit": 0,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 46044,
+      "active_before_stop": 0,
+      "job_active_after_stop": 0,
+      "stop_ms": 1,
+      "drain_ms": 305,
+      "elapsed_ms": 2063
+    }
+  },
+  "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at commonStop (C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\scripts\\qualification\\graph-recovery.mjs:27:1267)\n    at async file:///C:/Users/UP60066553/.codex/worktrees/bmad-help-2-2/madness/scripts/qualification/graph-recovery.mjs:29:79",
+  "closure": {
+    "main": {
+      "pid": 44968,
+      "startedAt": "639295547924902896",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-madness-release\\win-unpacked\\Madness.exe"
+    },
+    "wrapperPid": 44928,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-06T09:39:56.465Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  },
+  "finishedAt": "2026-11-06T09:40:27.820Z"
+}

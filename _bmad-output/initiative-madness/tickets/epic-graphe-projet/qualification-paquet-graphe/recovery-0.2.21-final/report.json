@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-06T09:49:19.635Z",
+  "root": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-high-UgP0Mh",
+  "status": "passed",
+  "checks": [
+    "H1 actual native owned capture Job assigned before resume and drained; receipt deliberately withheld",
+    "H1 common recovery with absent native receipt keeps both logical states locked and grants none",
+    "H1 real packaged common recovery reconciles only its native-bound generation; the foreign stop keeps shared admission blocked",
+    "H1 exact draft/result/freshness retained and targeted input freeze unchanged"
+  ],
+  "cleanup": true,
+  "limits": [
+    "Two logical states are seeded fault fixtures; one actual native capture Job supplies the bound physical proof.",
+    "No new Graphify analysis, file authority, model, network, personal data, editor or visual qualification is requested by shared recovery.",
+    "Existing vertical005 remains attached to its original ASAR; this targeted result attaches to the patched candidate only."
+  ],
+  "candidate": {
+    "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-madness-release\\win-unpacked\\Madness.exe",
+    "executableSha256": "e74be3af48b3240a1dbe61bac6e62b06f9090f8ce3f55e85fab0354dbec895bf",
+    "asarSha256": "cb57c883c6180992fe0d5f3ddda482c2760446a810336289f46daa2ad8118d80"
+  },
+  "native": {
+    "generation": "graph-d7c811a2-523a-46fb-b93f-bc3961d46362",
+    "attempt": {
+      "contractVersion": 1,
+      "identity": {
+        "projectId": "recovery-a",
+        "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-high-UgP0Mh\\recovery-a",
+        "rootIdentity": "seeded-recovery-a",
+        "scopeId": "code",
+        "scopeRevision": "7d115c8cb2ea25cfd79e785d80922ffd056081da9f99f55d2900bc27f9d19c7d",
+        "analysisId": "unknown-recovery-a",
+        "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168"
+      },
+      "generation": 3,
+      "correlationId": "recovery-recovery-a"
+    },
+    "terminal": {
+      "jobAssigned": true,
+      "generation": "graph-d7c811a2-523a-46fb-b93f-bc3961d46362",
+      "neverStarted": false,
+      "jobActive": 0,
+      "schemaVersion": 1,
+      "terminal": true,
+      "purpose": "graph-code-only"
+    },
+    "execution": {
+      "schema": 5,
+      "outcome": "completed",
+      "exit": 0,
+      "started": true,
+      "owned": [],
+      "cleanup": [],
+      "results_present": false,
+      "job_assigned_before_resume": true,
+      "pid": 30784,
+      "active_before_stop": 0,
+      "job_active_after_stop": 0,
+      "stop_ms": 0,
+      "drain_ms": 202,
+      "elapsed_ms": 1313
+    }
+  },
+  "recovery": {
+    "aggregateStop": "unknown",
+    "before": [
+      {
+        "scope": {
+          "projectId": "recovery-a",
+          "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-high-UgP0Mh\\recovery-a",
+          "rootIdentity": "seeded-recovery-a",
+          "scopeId": "code",
+          "scopeRevision": "7d115c8cb2ea25cfd79e785d80922ffd056081da9f99f55d2900bc27f9d19c7d"
+        },
+        "activity": {
+          "phase": "historical",
+          "analysisId": "unknown-recovery-a",
+          "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168",
+          "correlationId": "recovery-recovery-a",
+          "generation": 3,
+          "outcome": "unknown",
+          "stop": "unknown"
+        },
+        "freshness": {
+          "status": "changed",
+          "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168",
+          "observedAt": null
+        }
+      },
+      {
+        "scope": {
+          "projectId": "recovery-foreign",
+          "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-high-UgP0Mh\\recovery-foreign",
+          "rootIdentity": "seeded-recovery-foreign",
+          "scopeId": "code",
+          "scopeRevision": "7d115c8cb2ea25cfd79e785d80922ffd056081da9f99f55d2900bc27f9d19c7d"
+        },
+        "activity": {
+          "phase": "historical",
+          "analysisId": "unknown-recovery-foreign",
+          "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168",
+          "correlationId": "recovery-recovery-foreign",
+          "generation": 3,
+          "outcome": "unknown",
+          "stop": "unknown"
+        },
+        "freshness": {
+          "status": "changed",
+          "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168",
+          "observedAt": null
+        }
+      }
+    ],
+    "after": [
+      {
+        "scope": {
+          "projectId": "recovery-foreign",
+          "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-high-UgP0Mh\\recovery-foreign",
+          "rootIdentity": "seeded-recovery-foreign",
+          "scopeId": "code",
+          "scopeRevision": "7d115c8cb2ea25cfd79e785d80922ffd056081da9f99f55d2900bc27f9d19c7d"
+        },
+        "activity": {
+          "phase": "historical",
+          "analysisId": "unknown-recovery-foreign",
+          "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168",
+          "correlationId": "recovery-recovery-foreign",
+          "generation": 3,
+          "outcome": "unknown",
+          "stop": "unknown"
+        },
+        "freshness": {
+          "status": "changed",
+          "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168",
+          "observedAt": null
+        }
+      },
+      {
+        "scope": {
+          "projectId": "recovery-a",
+          "rootPath": "C:\\Users\\UP60066553\\AppData\\Local\\Temp\\madness-graph-high-UgP0Mh\\recovery-a",
+          "rootIdentity": "seeded-recovery-a",
+          "scopeId": "code",
+          "scopeRevision": "7d115c8cb2ea25cfd79e785d80922ffd056081da9f99f55d2900bc27f9d19c7d"
+        },
+        "activity": {
+          "phase": "historical",
+          "analysisId": "unknown-recovery-a",
+          "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168",
+          "correlationId": "recovery-recovery-a",
+          "generation": 3,
+          "outcome": "unknown",
+          "stop": "confirmed"
+        },
+        "freshness": {
+          "status": "changed",
+          "sourceRevision": "54b067bba00baa22213d6aa4460a65972e5ec66e9196c508bbb96d0f052ca168",
+          "observedAt": null
+        }
+      }
+    ],
+    "registryGeneration": "graph-d7c811a2-523a-46fb-b93f-bc3961d46362"
+  },
+  "closure": {
+    "main": {
+      "pid": 30444,
+      "startedAt": "639295553733414177",
+      "executable": "C:\\Users\\UP60066553\\.codex\\worktrees\\bmad-help-2-2\\madness\\dist\\graph-madness-release\\win-unpacked\\Madness.exe"
+    },
+    "wrapperPid": 11792,
+    "wrapperExited": true,
+    "closeObserved": true,
+    "closeError": false,
+    "mainGone": true,
+    "observerComplete": true,
+    "observation": {
+      "schemaVersion": 1,
+      "afterHookOnly": true,
+      "startedAt": "2026-11-06T09:49:37.124Z",
+      "complete": true,
+      "attached": true,
+      "network": 0,
+      "appServerAttempts": 0,
+      "appServers": 0,
+      "appServerCloses": 0
+    },
+    "childrenGone": true,
+    "cleanupSafe": true
+  },
+  "finishedAt": "2026-11-06T09:49:39.150Z"
+}

@@ -5,3 +5,7 @@ resources/bmad-help/** -text
 # Closed Graphify resources retain their pinned bytes; literal inventory is machine-audited.
 resources/graphify/** -text
 resources/graphify/assembly.json -diff
+
+# Preserve exact installed BMad bytes across Windows and other checkouts.
+.agents/** -text
+_bmad/** -text

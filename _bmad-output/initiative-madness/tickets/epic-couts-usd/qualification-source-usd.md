@@ -1,0 +1,18 @@
+# 5.1 — Relevé initial des sources USD
+
+État au 6 novembre 2026. Lecture documentaire et locale entamée. Aucun reçu USD attribuable qualifié sur le profil SIWC de Madness.
+
+| Source | Constat et portée |
+| --- | --- |
+| Code courant | La liste d’admission de `DialogueRpc` contient les deltas et `turn/completed`. `thread/tokenUsage/updated` est hors de cette liste. Ce chemin ne traite donc pas cette notification comme mesure et ne renseigne pas sur ce que le fournisseur aurait émis. [DialogueRpc](../../../../src/adapters/codex/dialogue.ts#L111) |
+| Export Codex CLI 0.144.6 de 2.10 | `ThreadTokenUsageUpdatedNotification` déclare `threadId`, `turnId` et `tokenUsage` avec `last` et `total`. `GetAccountTokenUsageResponse` est agrégé au compte. Les schémas examinés ne déclarent aucun montant USD. [Reçu du binaire](../epic-projets-bmad/qualification-mesures-us/provenance/schema-export-receipt.json), [schéma par tour](../epic-projets-bmad/qualification-mesures-us/fixtures/schema/ThreadTokenUsageUpdatedNotification.json), [schéma du compte](../epic-projets-bmad/qualification-mesures-us/fixtures/schema/GetAccountTokenUsageResponse.json) |
+| Quatre témoins expurgés de 2.10 | Ils conservent des méthodes filtrées, références hachées et indicateurs bornés. Les charges d’usage manquent. Ces témoins ne tranchent pas l’émission native et ne permettent aucun rapprochement USD. [Index et filtres](../epic-projets-bmad/qualification-mesures-us/fixtures/index.json), [décisions de qualification](../epic-projets-bmad/qualification-mesures-us/decisions-et-donnees.md) |
+| Documentation publique OpenAI consultée le 6 novembre 2026 | App Server documente les notifications d’usage en tokens. Le guide SIWC décrit les requêtes d’inférence autorisées par le plan ChatGPT. Les réglages ChatGPT permettent de gérer l’usage du plan. Les pages examinées ne documentent aucun reçu USD relié à une US. [App Server](https://learn.chatgpt.com/docs/app-server), [guide Codex App Server pour SIWC](https://developers.openai.com/siwc/token-sharing-open-source/codex-app-server), [guide de l’interface SIWC](https://developers.openai.com/siwc/ui-ux-guidelines) |
+
+## Première observation native à réaliser
+
+1. Lors d’un futur échange utile déjà autorisé, établir le profil SIWC et la version/empreinte du binaire. Décrire le schéma de la source candidate, son type d’événement, ses champs et l’unité facturée. Identifier en amont l’occurrence projet/initiative/US et son epic. Aucun échange dédié au seul relevé.
+2. Au point d’observation avant filtrage, comparer les méthodes effectivement émises, puis les données reçues par Madness. La preuve expurgée garde une liste fermée de champs : type et version de source, ordre, identités de reçu et de tour pseudonymisées de façon stable, montant exact, devise, unité, portée, et preuve d’une éventuelle conversion. Corréler `threadId` et `turnId` au tour local accepté et à l’occurrence préexistante. Consigner les compteurs d’usage séparément. Écarter secrets, contenu, chemins personnels et identifiants bruts.
+3. Prononcer « montant qualifié » seulement si le reçu monétaire est observable, sa sémantique attestée et le rapprochement source/tour/occurrence reproductible avec une clé stable. Une devise absente, des tokens seuls, un agrégat de compte, une clé ambiguë ou un montant absent produisent « coût indisponible ». Seul un zéro attesté se présente comme zéro. Distinguer émission, réception, interprétation et conservation. Un verdict négatif ou inconnu garde 5.2 bloquée. Les tarifs API n’attestent aucune dépense SIWC.
+
+Le relevé initial a utilisé des pages publiques et des fichiers locaux. Aucun essai réseau dans Madness, aucun modèle, aucune connexion personnelle, aucun secret ni installateur.

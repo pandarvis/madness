@@ -2,9 +2,9 @@
 id: 3
 type: story
 title: "Consulter le coût en dollars par epic et par US"
-parent: none
-covers: []
-after: []
+parent: epic-couts-usd
+covers: ["R3"]
+after: [2, "2.14"]
 refined: false
 hitl: false
 risk: high
@@ -18,12 +18,12 @@ Afficher dans Madness un montant en USD par US et un total par epic pour le proj
 
 ## Requirements
 
-Verify: des reçus USD qualifiés, dont un zéro explicite, se rapprochent des montants de leurs US et de l’epic. Un doublon ou une dépense sans rattachement fiable ne gonfle aucun total. Un epic avec des coûts manquants indique que le montant est partiel ou indisponible. Un changement de projet ne réattribue aucun coût.
+Verify: des reçus USD qualifiés, dont un zéro explicite, se rapprochent des montants de leurs US et de l’epic. Un doublon ou une dépense sans rattachement fiable ne gonfle aucun total. Un epic avec des coûts manquants indique que le montant est partiel ou indisponible. Un changement de projet ou la réouverture passive ne réattribue aucun coût. Vérifier la provenance consultable, le clavier, les libellés FR/EN et les deux thèmes dans l’application de développement après cadrage avec Sally et Impeccable.
 
 ## References
 
-- Produit — `_bmad-output/initiative-madness/initiative-madness.md`, R32.
-- Qualification — `_bmad-output/initiative-madness/tickets/epic-projets-bmad/qualification-mesures-us/decisions-et-donnees.md`, provenance et disponibilité du montant par US.
+- [Epic 5](../epic-couts-usd.md) et [initiative R33](../../../initiative-madness.md).
+- [Qualification de la source USD](../qualification-source-usd.md).
 
 ## Notes
 

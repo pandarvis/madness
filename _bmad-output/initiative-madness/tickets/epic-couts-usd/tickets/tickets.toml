@@ -1,0 +1,39 @@
+[[entry]]
+id = 1
+type = "spike"
+title = "Qualifier une source de coût USD attribuable"
+description = "Reprend les décisions et témoins expurgés 2.10. Examine code, schémas, sources SIWC et la distinction entre usage, crédits et coût monétaire. Consigne ce qui est déclaré, reçu, attribuable et durable ainsi que l’observation externe manquante, sans provoquer d’échange."
+verify = "Pour qualifier un reçu, retrouver montant/devise, unité, provenance, clé unique et correspondance au tour ou à l’occurrence locale. Un résultat sans ces preuves laisse le montant indisponible et bloque le branchement de 5.2."
+covers = ["R1"]
+after = ["2.10"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 2
+type = "story"
+title = "Conserver et dédupliquer les reçus USD attribués"
+description = "Sur une source qualifiée par 5.1 et l’identité de mesure fournie par 2.11, conserve les reçus admis avec provenance, portée, montant exact et epic d’origine. Traite idempotence, conflits, retards, stockage atomique et restauration passive."
+verify = "Rapprocher un reçu et un zéro explicite, rejouer doublon et conflit, simuler un échec disque, rouvrir et changer de projet. Les identités manquantes et les reçus contradictoires ne contribuent pas aux totaux. Les historiques restent lisibles."
+covers = ["R2"]
+after = [1, "2.11"]
+unknown = "Quelle source compatible avec SIWC fournit des reçus USD attribuables qualifiés par 5.1 ?"
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false
+
+[[entry]]
+id = 3
+type = "story"
+title = "Consulter le coût en dollars par epic et par US"
+description = "Étend avec Sally et Impeccable le parcours des mesures par US pour présenter coûts USD et total par epic, avec provenance et couverture. Réutilise les identités durables et les variantes du parcours existant."
+verify = "Dans l’application de développement, rapprocher les montants affichés des reçus. Distinguer couverture complète ou partielle, coût indisponible et zéro attesté. Vérifier changement de projet, réouverture passive, clavier, FR/EN et deux thèmes."
+covers = ["R3"]
+after = [2, "2.14"]
+hitl = false
+risk = "high"
+plan_checkpoint = false
+done_checkpoint = false

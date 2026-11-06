@@ -96,6 +96,8 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 
 - R32 (contexte § Capabilities and Constraints et Evidence on Hand, demande du 27 octobre 2026) : Consulter dans Madness le temps et le coût associés à une user story du projet ouvert, avec un rattachement identifiable à cette US et une indication explicite lorsqu’une mesure ou un montant n’est pas disponible.
 
+- R33 (demande du 5 novembre 2026, ticket Consulter le coût en dollars par epic et par US) : Consulter dans Madness le coût observé en USD par US et le total par epic du projet ouvert, avec provenance et couverture explicites. Chaque dépense qualifiée contribue une seule fois à son US et à son epic d’origine. Distinguer le montant partiel, l’indisponibilité et le zéro attesté.
+
 ## Constraints
 
 - C1 (brief § Priorité : l’expérience utilisateur ; contexte § Product Principles) : L'expérience utilisateur est le premier critère d'arbitrage du périmètre, de l'architecture et des interactions ; les décisions doivent préserver compréhension, guidage et contrôle par un développeur qui découvre BMad.
@@ -122,6 +124,8 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 4. Navigation rétractable, fichiers, redimensionnement et contrôles accessibles préservent le contexte et la saisie en français/anglais et clair/sombre ; après réouverture, projets, conversations et brouillons sont retrouvés sans relance automatique, selon les contrats étendus de Sally (R19–R21, R25–R26).
 5. Une version Windows personnelle est reconstruite et installée sur la machine cible du porteur avec son abonnement ChatGPT ; le remplacement préserve les données, les prérequis réseau/runtime sont vérifiés et les trois parcours avec une personne peu familière de BMad sont consignés, au-delà du prototype (R23–R24, R27 ; G0, G4).
 6. Après la base Windows/Codex, le graphe réel permet génération, exploration/recherche et accès au fichier ; fraîcheur, limites, échec et interruption sont compréhensibles, les effets restent confinés, performances et accessibilité sont vérifiées sur dépôt représentatif. La V1 complète exige aussi G5 (R28–R31).
+
+7. Les montants USD par US et par epic se rapprochent des reçus qualifiés du projet et de leur occurrence d’origine. La réouverture conserve le rapprochement, les doublons sont neutralisés et la couverture partielle, l’indisponibilité et le zéro attesté se distinguent (R33).
 
 ## Boundaries
 
@@ -155,6 +159,8 @@ Les alias des exigences et contraintes désignent les fichiers suivants ; les se
 - architecture — [Contrat d'architecture adopté](architecture-madness/architecture-madness.md), `_bmad-output/initiative-madness/architecture-madness/architecture-madness.md` ; AD-1 à AD-10, Consistency Conventions, Qualification Gates G0–G5 et Deferred. Companion conservé sans modification ; les versions et interfaces candidates restent à qualifier. Les décisions du 23 octobre remplacent les anciens choix encore ouverts dans le brief et l'addendum, sans valoir approbation globale de ces sources.
 
 ## Notes
+
+- Decision: 2026-11-06 — Après le miroir, le mandat du porteur ouvre l’epic 5 pour les coûts USD sourcés par US et epic. R32 reste dans l’epic 2. Première lecture 5.1 à partir de 2.10, puis attribution sur 2.11 et affichage dans le parcours 2.13–2.14. Le montant attribuable demeure à qualifier sur la connexion SIWC existante. L’estimation relève d’une décision distincte. Aucun installateur pour ce chantier.
 
 - Decision: 2026-11-05 — Le porteur demande de poursuivre toute l’implémentation indépendante en autonomie, revues et commits locaux compris, puis précise « Les tests aussi longs, on skip » et demande d’optimiser les contrôles. Ce REPLAN change seulement la livraison : 3.3 consomme les contrats et l’implémentation revue2.15 avec3.2, puis3.3–3.8 et4.5–4.10 avancent sur une seule voie produit ;4.5 attend3.8 revue au lieu de la campagne3.9. Les contrôles courts pertinents restent attachés à chaque changement ; build et audit de ressources se font aux jalons utiles3.7/4.9, sans réinstaller à chaque correctif. Leurs campagnes longues installation/remplacement/restauration sont regroupées en3.9/4.11. Les qualifications2.16,3.9,3.10 et4.11 restent ouvertes jusqu’à leurs preuves exactes ; les essais longs et externes/Zscaler sont reportés selon la consigne, sans relance automatique ni nouvelle sollicitation répétée. Code prêt et candidat reproductible ne valent ni capacité supportée ni G2/G3/G4/G5 réussis ;3.9 garde2.16,3.10 la participation humaine réelle et4.11 les preuves3.9/3.10 sur son artefact final. Aucun besoin, couverture, id, Done when, companion ou plan built modifié ; le conflit déclaratif2→4 reste explicitement conservé.
 

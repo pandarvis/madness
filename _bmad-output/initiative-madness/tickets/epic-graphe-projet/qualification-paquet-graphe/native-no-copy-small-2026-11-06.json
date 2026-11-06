@@ -1,0 +1,21 @@
+{
+  "status": "verified",
+  "case": "real Graphify, four source files in an isolated fixture",
+  "phase": "before moving the terminal receipt write ahead of frame emission",
+  "rawSha256": "c4b28b2fd77fce1334db0526054f46bae1f0ca6d85a87dae8e04c387ebc04a52",
+  "logicalBytesAvoided": 3816,
+  "nativeDuplicateExists": false,
+  "nodes": 9,
+  "relations": 9,
+  "terminal": {
+    "purpose": "graph-code-only",
+    "jobActive": 0,
+    "schemaVersion": 1,
+    "terminal": true,
+    "generation": "graph-410f5eab-9cdb-4068-9a89-a95a7979a797",
+    "neverStarted": false,
+    "jobAssigned": true
+  },
+  "ownerStatus": "stopped",
+  "temporaryProfileRemoved": true
+}

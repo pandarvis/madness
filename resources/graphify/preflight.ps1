@@ -18,6 +18,9 @@ public static class GraphClosedRuntime {
   [DllImport("kernel32.dll",SetLastError=true)] static extern bool GetFileInformationByHandle(SafeFileHandle h,out Info info);
   [DllImport("kernel32.dll",SetLastError=true)] static extern uint GetFileType(SafeFileHandle h);
   [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)] static extern uint GetFinalPathNameByHandleW(SafeFileHandle h,StringBuilder p,uint size,uint flags);
+  [DllImport("kernel32.dll")] static extern IntPtr GetStdHandle(int kind);
+  [DllImport("kernel32.dll",SetLastError=true)] static extern bool SetHandleInformation(IntPtr h,uint mask,uint flags);
+  [DllImport("kernel32.dll",SetLastError=true)] static extern bool GetHandleInformation(IntPtr h,out uint flags);
   static Exception Refuse(string code) { return new IOException(code); }
   static string Long(string p) { return p.StartsWith(@"\\?\",StringComparison.Ordinal)?p:@"\\?\"+p; }
   static string Lexical(string p) {
@@ -39,10 +42,10 @@ public static class GraphClosedRuntime {
   static bool Same(Info a,Info b) {
     return a.volume==b.volume&&a.indexHigh==b.indexHigh&&a.indexLow==b.indexLow&&a.attributes==b.attributes&&a.links==b.links&&a.sizeHigh==b.sizeHigh&&a.sizeLow==b.sizeLow&&a.creation.dwHighDateTime==b.creation.dwHighDateTime&&a.creation.dwLowDateTime==b.creation.dwLowDateTime&&a.write.dwHighDateTime==b.write.dwHighDateTime&&a.write.dwLowDateTime==b.write.dwLowDateTime;
   }
-  static SafeFileHandle Open(string p,bool content,out Info i) {
-    // No delete sharing: ancestors cannot be replaced while their handles live.
-    // Content is hashed through this exact handle, without write sharing.
-    var h=CreateFileW(Long(p),content?0x80000000u:0u,content?1u:3u,IntPtr.Zero,3,0x02200000,IntPtr.Zero);
+  static SafeFileHandle Open(string p,bool content,out Info i,bool lockDirectory=false) {
+    // FILE_LIST_DIRECTORY makes the directory's no-delete sharing effective.
+    // Content is read through this exact handle, without write or delete sharing.
+    var h=CreateFileW(Long(p),content?0x80000000u:lockDirectory?1u:0u,content?1u:3u,IntPtr.Zero,3,0x02200000,IntPtr.Zero);
     try {
       if(h.IsInvalid) throw Refuse("RUNTIME_READ");
       i=Read(h);
@@ -53,15 +56,15 @@ public static class GraphClosedRuntime {
   }
   sealed class Held : IDisposable {
     public SafeFileHandle handle;public Info before;string path;
-    public Held(string p) {path=p;handle=Open(p,false,out before);}
+    public Held(string p,bool lockDirectory=false) {path=p;handle=Open(p,false,out before,lockDirectory);}
     public void Check(bool full=true) {var after=Read(handle);if(full?!Same(before,after):before.volume!=after.volume||before.indexHigh!=after.indexHigh||before.indexLow!=after.indexLow||before.attributes!=after.attributes||before.links!=after.links)throw Refuse("RUNTIME_CHANGED: "+path);}
     public void Dispose(){handle.Dispose();}
   }
-  static List<Held> HoldChain(string p) {
+  static List<Held> HoldChain(string p,bool lockDirectories=false) {
     var held=new List<Held>();
     try {
-      string current=p.Substring(0,3);held.Add(new Held(current));
-      foreach(string part in p.Substring(3).Split(new char[]{'\\'},StringSplitOptions.RemoveEmptyEntries)) {current=Path.Combine(current,part);held.Add(new Held(current));}
+      string current=p.Substring(0,3);held.Add(new Held(current,lockDirectories));
+      foreach(string part in p.Substring(3).Split(new char[]{'\\'},StringSplitOptions.RemoveEmptyEntries)) {current=Path.Combine(current,part);held.Add(new Held(current,lockDirectories&&current!=p));}
       return held;
     } catch {foreach(var h in held)h.Dispose();throw;}
   }
@@ -69,23 +72,55 @@ public static class GraphClosedRuntime {
     string p=Lexical(path);var held=HoldChain(p);
     try {foreach(var h in held)h.Check(false);}finally{foreach(var h in held)h.Dispose();}
   }
-  public static void CopyArtifact(string source,string destination) {
-    source=Lexical(source);
-    var held=HoldChain(source);
-    try {
-      Info before;
-      using(var file=Open(source,true,out before)) {
+  public static void ProtectArtifactOutput() {
+    const uint inherit=1;
+    var output=GetStdHandle(-11); // STD_OUTPUT_HANDLE
+    uint flags;
+    if(!SetHandleInformation(output,inherit,0)||!GetHandleInformation(output,out flags)||(flags&inherit)!=0)
+      throw Refuse("GRAPH_OUTPUT_HANDLE");
+  }
+  public static void WriteArtifact(string generation,byte[] bytes) {
+    // MADGRPH1 | ASCII generation | uint32 little-endian length | SHA-256 | raw bytes.
+    using(var output=new BinaryWriter(Console.OpenStandardOutput())) {
+      output.Write(Encoding.ASCII.GetBytes("MADGRPH1"+generation));
+      output.Write((uint)bytes.Length);
+      output.Write(SHA256.HashData(bytes));
+      output.Write(bytes);
+    }
+  }
+  public sealed class HeldArtifact : IDisposable {
+    readonly List<Held> held;
+    readonly SafeFileHandle file;
+    readonly FileStream input;
+    readonly Info before;
+    readonly byte[] bytes;
+    internal HeldArtifact(string source) {
+      source=Lexical(source);
+      held=HoldChain(source,true);
+      try {
+        file=Open(source,true,out before);
         if((before.attributes&16)!=0||!Same(held[held.Count-1].before,before))throw Refuse("GRAPH_OUTPUT_CHANGED");
         if(before.sizeHigh!=0||before.sizeLow>16*1024*1024)throw Refuse("GRAPH_OUTPUT_LIMIT");
-        using(var input=new FileStream(file,FileAccess.Read))
-        using(var output=new FileStream(Long(Lexical(destination)),FileMode.CreateNew,FileAccess.Write,FileShare.None)) {
-          input.CopyTo(output);
-          if(!Same(before,Read(file)))throw Refuse("GRAPH_OUTPUT_CHANGED");
-          foreach(var entry in held)entry.Check(false);
-        }
-      }
-    }finally{foreach(var entry in held)entry.Dispose();}
+        input=new FileStream(file,FileAccess.Read);
+        bytes=new byte[(int)before.sizeLow];
+        input.ReadExactly(bytes);
+        if(input.ReadByte()!=-1)throw Refuse("GRAPH_OUTPUT_CHANGED");
+        Check();
+      }catch{Dispose();throw;}
+    }
+    void Check() {
+      if(!Same(before,Read(file)))throw Refuse("GRAPH_OUTPUT_CHANGED");
+      foreach(var entry in held)entry.Check(false);
+    }
+    public void Publish(string generation) {
+      Check();
+      WriteArtifact(generation,bytes);
+    }
+    public void Dispose() {
+      try{input?.Dispose();}finally{file?.Dispose();foreach(var entry in held)entry.Dispose();}
+    }
   }
+  public static HeldArtifact ReadArtifact(string source) { return new HeldArtifact(source); }
   public static void Validate(string root,string[] names,string[] hashes) {
     root=Lexical(root);var ancestors=HoldChain(root);
     try {

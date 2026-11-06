@@ -1,5 +1,5 @@
 $ErrorActionPreference='Stop'
-$states=@();$state=$null
+$states=@();$state=$null;$artifact=$null;$artifactReady=$false
 try {
   foreach($name in $Pins.Keys){$path=Join-Path $Resources $name;$item=Get-Item -LiteralPath $path -Force;if($item.Attributes -band [IO.FileAttributes]::ReparsePoint -or $item.LinkType -eq 'HardLink' -or (Get-FileHash -LiteralPath $path).Hash.ToLowerInvariant() -cne $Pins[$name]){throw 'GRAPH_RESOURCE_CHANGED'}}
   . (Join-Path $Resources 'preflight.ps1')
@@ -52,6 +52,8 @@ try {
   }
   $captureScript='import sys;sys.path.insert(0,sys.argv[1]);import graph_capture;graph_capture.main()'
   if($request.op -eq 'analyze'){
+    # The supervisor inherits handles to install the child's own streams.
+    [GraphClosedRuntime]::ProtectArtifactOutput()
     $analysis=Join-Path $TaskFolder 'analysis';[void][IO.Directory]::CreateDirectory($analysis)
     $workerRequest=@{assembly=(Join-Path $Resources 'assembly.json');resources=$Resources;analysis=$analysis;project=(Join-Path $request.prepared 'mirror');harness=@()}
     [IO.File]::WriteAllText((Join-Path $TaskFolder 'worker-request.json'),($workerRequest|ConvertTo-Json -Compress),[Text.UTF8Encoding]::new($false))
@@ -60,19 +62,33 @@ try {
     if($worker.outcome -ne 'completed'){throw 'GRAPHIFY_FAILED'}
     $graph=Join-Path $analysis 'out/graphify-out/graph.json'
     if(-not (Test-Path -LiteralPath $graph -PathType Leaf)){throw 'GRAPH_OUTPUT_MISSING'}
-    [GraphClosedRuntime]::CopyArtifact($graph,(Join-Path $TaskFolder 'native-graph.json'))
+    $artifact=[GraphClosedRuntime]::ReadArtifact($graph)
     Run-GraphChild $captureScript (@{op='terminal';prepared=$request.prepared}|ConvertTo-Json -Compress) 'terminal-capture'
     [IO.File]::Copy((Join-Path $TaskFolder 'terminal-capture-stdout.json'),(Join-Path $TaskFolder 'result.json'),$false)
+    $artifactReady=$true
   }else{
     Run-GraphChild $captureScript ($request|ConvertTo-Json -Depth 20 -Compress) 'capture'
     [IO.File]::Copy((Join-Path $TaskFolder 'capture-stdout.json'),(Join-Path $TaskFolder 'result.json'),$false)
   }
 }catch{[IO.File]::WriteAllText((Join-Path $TaskFolder 'launcher-error.txt'),$_.Exception.Message)}finally{
-  $known=$true;$assigned=$false;$started=$false;$unknownStart=$false
-  foreach($s in $states){
-    if($null -eq $s -or -not $s.Contains('started') -or $s.started -isnot [bool]){$known=$false;$unknownStart=$true;continue}
-    if($s.started){$started=$true;if($s.job_assigned_before_resume -eq $true -and $s.Contains('job_active_after_stop') -and $s.job_active_after_stop -is [int] -and $s.job_active_after_stop -eq 0){$assigned=$true}else{$known=$false}}
+  $publish=$false
+  try {
+    $known=$true;$assigned=$false;$started=$false;$unknownStart=$false
+    foreach($s in $states){
+      if($null -eq $s -or -not $s.Contains('started') -or $s.started -isnot [bool]){$known=$false;$unknownStart=$true;continue}
+      if($s.started){$started=$true;if($s.job_assigned_before_resume -eq $true -and $s.Contains('job_active_after_stop') -and $s.job_active_after_stop -is [int] -and $s.job_active_after_stop -eq 0){$assigned=$true}else{$known=$false}}
+    }
+    $terminal=@{schemaVersion=1;generation=$Generation;purpose='graph-code-only';terminal=$true;jobAssigned=$assigned;jobActive=$(if($known){0}else{$null});neverStarted=(-not $started -and -not $unknownStart)}
+    $terminalPath=Join-Path $TaskFolder 'terminal.json'
+    $publish=$artifactReady -and $known -and $assigned
+    $path=if($publish){Join-Path $TaskFolder 'job-terminal.json'}else{$terminalPath}
+    [IO.File]::WriteAllText(($path+'.next'),($terminal|ConvertTo-Json -Compress),[Text.UTF8Encoding]::new($false));[IO.File]::Move(($path+'.next'),$path,$true)
+    if($publish){
+      try { $artifact.Publish($Generation) }
+      catch { [IO.File]::WriteAllText((Join-Path $TaskFolder 'launcher-error.txt'),$_.Exception.Message) }
+    }
+  } finally {
+    if($null -ne $artifact){$artifact.Dispose()}
+    if($publish -and [IO.File]::Exists($path)){[IO.File]::Move($path,$terminalPath,$false)}
   }
-  $terminal=@{schemaVersion=1;generation=$Generation;purpose='graph-code-only';terminal=$true;jobAssigned=$assigned;jobActive=$(if($known){0}else{$null});neverStarted=(-not $started -and -not $unknownStart)}
-  $path=Join-Path $TaskFolder 'terminal.json';[IO.File]::WriteAllText(($path+'.next'),($terminal|ConvertTo-Json -Compress),[Text.UTF8Encoding]::new($false));[IO.File]::Move(($path+'.next'),$path,$true)
 }

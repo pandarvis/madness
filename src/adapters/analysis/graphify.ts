@@ -12,6 +12,9 @@ import {GraphOwnedRun} from './graph-owned-run.ts'
 import {graphResourcePins} from './graphify-manifest.ts'
 import {IncompatibleGraphifyArtifact,normalizeGraphify} from './graphify-normalize.ts'
 const sha=(b:Buffer|string):string=>createHash('sha256').update(b).digest('hex')
+const artifactLimit=16*1024*1024
+const frameMagic='MADGRPH1'
+const frameDigestBytes=32
 // This exact change omits the disk mirror during revalidation. The code inventory
 // and its revision are unchanged. An unrecognized capture pin rotates the scope.
 const captureScopePin=graphResourcePins['graph_capture.py']==='d3637ac4c4f3e518b91b4d4a198f9a5bfdb2ca5d88bb94cdebb97bd00eaaf10f'
@@ -50,6 +53,21 @@ export async function assertGraphifyPowerShell(path:string,signal?:AbortSignal):
   throw Error('GRAPH_POWERSHELL_REQUIRED')
  }
 }
+function decodeArtifact(frame:Buffer,generation:string):Buffer|null{
+ const prefix=Buffer.from(frameMagic+generation,'ascii'),digestOffset=prefix.length+4
+ const headerSize=digestOffset+frameDigestBytes
+ if(frame.length<headerSize||!frame.subarray(0,prefix.length).equals(prefix))return null
+ const size=frame.readUInt32LE(prefix.length)
+ if(size===0||size>artifactLimit||frame.length!==headerSize+size)return null
+ const artifact=frame.subarray(headerSize)
+ const digest=frame.subarray(digestOffset,headerSize)
+ return digest.equals(createHash('sha256').update(artifact).digest())?artifact:null
+}
+async function waitForLauncherClose(closed:Promise<void>,ms:number):Promise<boolean>{
+ let timer:ReturnType<typeof setTimeout>|undefined
+ try{return await Promise.race([closed.then(()=>true),new Promise<false>(done=>{timer=setTimeout(()=>done(false),ms)})])}
+ finally{clearTimeout(timer)}
+}
 type Facts={sourceState:'unchanged'|'changed'|'unknown';observedAt:string|null}
 type Options={root:string;resources:string;owner:GraphOwnedRun;admission:{enter(kind:'helper'):()=>void};admit?():Promise<void>;onUnknown?():void}
 export class GraphifyAdapter implements GraphAnalysisPort{
@@ -59,7 +77,7 @@ export class GraphifyAdapter implements GraphAnalysisPort{
  constructor(options:Options){this.options=options}
  filesAuthority(v:object):FileAuthority|undefined{return this.authorities.get(v)}
  facts(v:OriginalGraphCapture):Facts{return this.captured.get(v)?.facts??{sourceState:'unknown',observedAt:null}}
- private async run(request:Record<string,unknown>,signal:AbortSignal,attempt:GraphStopRequest|null=null,reportStop?:(confirmed:boolean,ownedFolder:string)=>void):Promise<{result:any;folder:string}>{
+ private async run(request:Record<string,unknown>,signal:AbortSignal,attempt:GraphStopRequest|null=null,reportStop?:(confirmed:boolean,ownedFolder:string)=>void):Promise<{result:any;folder:string;artifact?:Buffer|null}>{
   if(this.closing)throw Error('APP_CLOSING');signal.throwIfAborted();const release=this.options.admission.enter('helper');let folder='',generation='',spawned=false,confirmed=false
   let finish!:()=>void;const pending=new Promise<void>(r=>finish=r);this.pending=pending
   try{
@@ -83,18 +101,51 @@ export class GraphifyAdapter implements GraphAnalysisPort{
    const quote=(v:string):string=>"'"+v.replaceAll("'","''")+"'"
    const script='$TaskFolder='+quote(folder)+'\n$Generation='+quote(generation)+'\n$Resources='+quote(resources)+'\n$Pins='+"(ConvertFrom-Json -AsHashtable "+quote(JSON.stringify(graphResourcePins))+')\n'+(await safe(join(resources,'launcher.ps1'))).toString('utf8')
    signal.throwIfAborted();if(this.closing)throw Error('APP_CLOSING')
-   const child=spawn(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,shell:false,stdio:['ignore','ignore','pipe']});spawned=child.pid!==undefined
-   let errorBytes=0;child.stderr.on('data',b=>{errorBytes+=b.length})
+   const analyzes=request.op==='analyze'
+   const child=spawn(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,shell:false,stdio:['ignore',analyzes?'pipe':'ignore','pipe']});spawned=child.pid!==undefined
+   let errorBytes=0;child.stderr?.on('data',b=>{errorBytes+=b.length})
+   const frameLimit=artifactLimit+frameMagic.length+Buffer.byteLength(generation,'ascii')+4+frameDigestBytes
+   const chunks:Buffer[]=[]
+   let frameBytes=0,frameInvalid=false
+   const discardFrame=():void=>{frameInvalid=true;chunks.length=0}
+   child.stdout?.on('error',discardFrame)
+   child.stdout?.on('data',(chunk:Buffer)=>{
+    // Discard on overflow and keep the pipe draining until the launcher closes.
+    if(frameInvalid)return
+    frameBytes+=chunk.length
+    if(frameBytes>frameLimit)discardFrame()
+    else chunks.push(chunk)
+   })
    const cancel=():void=>{void this.options.owner.cancel(generation).catch(()=>{})};signal.addEventListener('abort',cancel,{once:true});if(signal.aborted)cancel()
    // The native analysis and its subsequent source comparison have separate budgets.
    const launcherBudgetMs=request.op==='analyze'?600000:270000
+   const releaseLauncher=analyzes&&spawned?this.options.owner.holdLauncher(generation):undefined
+   const closed=new Promise<void>(done=>child.once('close',()=>{releaseLauncher?.();done()}))
+   const launcherError=new Promise<never>((_,fail)=>child.once('error',fail))
    let timer:ReturnType<typeof setTimeout>|undefined
-   try{await Promise.race([new Promise<void>((done,fail)=>{child.once('close',()=>done());child.once('error',fail)}),new Promise<never>((_,fail)=>{timer=setTimeout(()=>{cancel();fail(Error('STOP_UNCONFIRMED'))},launcherBudgetMs)})])}finally{clearTimeout(timer);signal.removeEventListener('abort',cancel)}
+   try{
+    const finished=await Promise.race([closed.then(()=>true),launcherError,new Promise<false>(done=>{timer=setTimeout(()=>done(false),launcherBudgetMs)})])
+    if(!finished){
+     cancel()
+     if(!analyzes||!spawned)throw Error('STOP_UNCONFIRMED')
+     discardFrame()
+     child.stdout?.destroy()
+     // Let the launcher finish assigning or stopping its own Job and persist its terminal proof.
+     if(!await waitForLauncherClose(closed,5000)){
+      child.stderr?.destroy()
+      child.unref()
+     }
+     throw Error('GRAPH_CHILD_timeout')
+    }
+   }finally{clearTimeout(timer);signal.removeEventListener('abort',cancel)}
    confirmed=await this.options.owner.confirm(generation)==='stopped';if(!confirmed)throw Error('STOP_UNCONFIRMED')
    // The finished analysis may already have written a source comparison before cancellation.
    if(request.op!=='analyze')signal.throwIfAborted()
    const problem=await safe(join(folder,'launcher-error.txt'),65536).catch(e=>{if((e as NodeJS.ErrnoException).code==='ENOENT')return null;throw e});if(problem)throw Error(problem.toString('utf8'));if(errorBytes>65536)throw Error('LAUNCHER_OUTPUT_LIMIT')
-   const result=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await safe(join(folder,'result.json'),4*1024*1024)));if(result.error)throw Error(result.error);return {result,folder}
+   const result=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await safe(join(folder,'result.json'),4*1024*1024)));if(result.error)throw Error(result.error)
+   if(!analyzes)return {result,folder}
+   const artifact=frameInvalid?null:decodeArtifact(Buffer.concat(chunks,frameBytes),generation)
+   return {result,folder,artifact}
   }finally{
    try{
     if(generation&&!spawned)await writeFile(join(folder,'terminal.json'),JSON.stringify({schemaVersion:1,generation,purpose:'graph-code-only',terminal:true,jobAssigned:false,jobActive:0,neverStarted:true}),{flag:'wx'}).catch(()=>{})
@@ -130,14 +181,15 @@ export class GraphifyAdapter implements GraphAnalysisPort{
   let stopped=true,ownedFolder=''
   try{
    if(!original||!capture||request.identity.sourceRevision!==original.revision||request.identity.rootIdentity!==original.rootIdentity||request.identity.rootPath!==original.rootPath||request.identity.scopeRevision!==this.scopeRevision||JSON.stringify(request.corpus)!==JSON.stringify(original.corpus))throw Error('CAPTURE_MISMATCH')
-   const {result,folder}=await this.run({op:'analyze',prepared:capture.folder},signal,{contractVersion:1,identity:request.identity,generation:request.generation,correlationId:request.correlationId},(confirmed,folder)=>{stopped=confirmed;ownedFolder=folder})
+   const {result,folder,artifact}=await this.run({op:'analyze',prepared:capture.folder},signal,{contractVersion:1,identity:request.identity,generation:request.generation,correlationId:request.correlationId},(confirmed,folder)=>{stopped=confirmed;ownedFolder=folder})
    terminalFacts={sourceState:['unchanged','changed'].includes(result.sourceState)?result.sourceState:'unknown',observedAt:typeof result.observedAt==='string'?result.observedAt:null}
    capture.facts=terminalFacts
    signal.throwIfAborted()
-   const bytes=await safe(join(folder,'native-graph.json'),16*1024*1024),logs=await safe(join(folder,'analysis-stderr.log'),4*1024*1024)
+   if(!artifact)throw Error('GRAPH_OUTPUT_FRAME')
+   const logs=await safe(join(folder,'analysis-stderr.log'),4*1024*1024)
    const limitations=/warning|not available|not installed|missing optional/i.test(logs.toString('utf8'))
     ? ['Graphify signale une couverture limitée.'] : []
-   const snapshot=normalizeGraphify(bytes,{identity:request.identity,corpus:original.corpus,coverage:request.coverage,observedAt:original.observedAt,assemblyRevision:graphResourcePins['assembly.json'],limitations})
+   const snapshot=normalizeGraphify(artifact,{identity:request.identity,corpus:original.corpus,coverage:request.coverage,observedAt:original.observedAt,assemblyRevision:graphResourcePins['assembly.json'],limitations})
    signal.throwIfAborted()
    emit({type:'result',snapshot});emit({type:'stopped',reason:snapshot.coverage.status,stop:'confirmed'})
   }catch(e){

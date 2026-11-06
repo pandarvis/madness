@@ -54,11 +54,15 @@ test('adapter publishes typed format refusal, partial coverage and unknown stop 
   const data = join(root, 'data')
   await mkdir(data)
   await writeFile(join(data, 'files.json'), '{}')
-  let stop = 'stopped', interruptAfterRun
+  let stop = 'stopped', interruptAfterRun, artifact
   const adapter = new GraphifyAdapter({owner: {status: async () => stop}})
   adapter.run = async ({op},signal,attempt,reportStop) => {
-   if(op==='analyze'){reportStop(stop==='stopped');interruptAfterRun?.abort()}
-   return {folder: root, result: op === 'capture' ? {
+   if(op==='analyze'){
+    reportStop(stop==='stopped')
+    if(stop!=='stopped')throw Error('STOP_UNCONFIRMED')
+    interruptAfterRun?.abort()
+   }
+   return {folder: root, artifact: op==='analyze'?artifact:undefined, result: op === 'capture' ? {
    ...context.identity, revision: hash, observedAt: context.observedAt, corpus: context.corpus,
    sources: [], excluded: [], receiptSha: createHash('sha256').update('{}').digest('hex')
    } : {sourceState: interruptAfterRun?'changed':'unchanged', observedAt: context.observedAt}}
@@ -68,7 +72,7 @@ test('adapter publishes typed format refusal, partial coverage and unknown stop 
   const request = {contractVersion: 1, identity: {...context.identity, scopeRevision: adapter.scopeRevision},
    corpus: original.corpus, coverage: context.coverage, generation: 1, correlationId: 'decode'}
   async function analyze(bytes, warning = '', runSignal = signal) {
-   await writeFile(join(root, 'native-graph.json'), bytes)
+   artifact=bytes===null?null:Buffer.from(bytes)
    await writeFile(join(root, 'analysis-stderr.log'), warning)
    const events = []
    await adapter.analyze(request, e => events.push(e), runSignal)
@@ -80,6 +84,11 @@ test('adapter publishes typed format refusal, partial coverage and unknown stop 
   assert.deepEqual([refusal.error.code, refusal.error.recovery, stopped.reason, stopped.stop], ['INCOMPATIBLE', 'inspect-profile', 'incompatible', 'confirmed'])
   assert.equal((await analyze(Buffer.from('{')))[0].error.code, 'ANALYSIS_FAILED')
   const graph = native()
+  await writeFile(join(root, 'native-graph.json'), JSON.stringify(graph))
+  const rejectedTransport = await analyze(null)
+  assert.deepEqual(rejectedTransport.map(e => [e.type,e.error?.code,e.stop]), [
+   ['failed','ANALYSIS_FAILED',undefined],['stopped',undefined,'confirmed']
+  ])
   graph.nodes[0].metadata = {html: '<script>owned-native-only</script>'}
   const [result, terminal] = await analyze(JSON.stringify(graph), 'warning C:/owned-native-only/path')
   assert.deepEqual([result.snapshot.coverage.status, terminal.reason], ['partial', 'partial'])

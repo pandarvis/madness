@@ -13,6 +13,7 @@ using Microsoft.Win32.SafeHandles;
 public sealed class BmadCapture {
   readonly MemoryStream output = new MemoryStream();
   public volatile bool Overflow;
+  public volatile bool ReadFault;
   public Task Task;
   public byte[] Bytes { get { lock(output) return output.ToArray(); } }
   public BmadCapture(Stream stream, BmadNativeProcess child, int limit) {
@@ -27,7 +28,7 @@ public sealed class BmadCapture {
             output.Write(block,0,n);
           }
         }
-      } catch(ObjectDisposedException) {} catch(IOException) {}
+      } catch(ObjectDisposedException) { ReadFault=true; } catch(IOException) { ReadFault=true; }
     });
   }
 }
@@ -151,18 +152,23 @@ function Write-BmadState([string]$Path,$Value) {
   Assert-BmadChain $parent
   [IO.File]::Move($temp,$Path,$true)
 }
-function Invoke-BmadSupervised($Start,[int]$TimeoutMs,[string]$StatePath,[string[]]$OwnedPaths,[string]$Owner,[string]$OutLog,[string]$ErrLog,[string]$Marker='',[ref]$StateObservation,[string]$CancelPath='') {
+function Invoke-BmadSupervised($Start,[int]$TimeoutMs,[string]$StatePath,[string[]]$OwnedPaths,[string]$Owner,[string]$OutLog,[string]$ErrLog,[string]$Marker='',[ref]$StateObservation,[string]$CancelPath='',[ref]$BinaryOutput) {
+  $binary=$null -ne $BinaryOutput
+  $binaryBytes=$null
+  if($binary){$BinaryOutput.Value=$null}
   $state=[ordered]@{schema=5;outcome='running';exit=$null;started=$false;owned=@($OwnedPaths);cleanup=@();results_present=$false;job_assigned_before_resume=$false}
   if($null -ne $StateObservation){$StateObservation.Value=$state}
   $process=$null;$outCapture=$null;$errCapture=$null
   $clock=[Diagnostics.Stopwatch]::StartNew()
   try {
-    foreach($path in @($StatePath,$OutLog,$ErrLog)+$OwnedPaths){Assert-BmadDestination $path $Owner}
+    foreach($path in @($StatePath,$ErrLog)+$OwnedPaths){Assert-BmadDestination $path $Owner}
+    if(-not $binary){Assert-BmadDestination $OutLog $Owner}
     Write-BmadState $StatePath $state
     $process=[BmadNativeProcess]::Start($Start)
     $state.started=$true;$state.pid=$process.Id;$state.job_assigned_before_resume=$process.AssignedBeforeResume
     Write-BmadState $StatePath $state
-    $outCapture=[BmadCapture]::new($process.Stdout,$process,4194304)
+    $outLimit=if($binary){50MB}else{4MB}
+    $outCapture=[BmadCapture]::new($process.Stdout,$process,$outLimit)
     $errCapture=[BmadCapture]::new($process.Stderr,$process,4194304)
     if($Marker) {
       $handshake=[Diagnostics.Stopwatch]::StartNew()
@@ -194,7 +200,7 @@ function Invoke-BmadSupervised($Start,[int]$TimeoutMs,[string]$StatePath,[string
     }
     # Drain both pipes concurrently; never await EOF without a finite deadline.
     $drain=[Diagnostics.Stopwatch]::StartNew()
-    foreach($pair in @(@($outCapture,$OutLog),@($errCapture,$ErrLog))) {
+    foreach($pair in @(@($outCapture,$OutLog,$binary),@($errCapture,$ErrLog,$false))) {
       try {
         $bytes=[byte[]]@()
         if($null -ne $pair[0]) {
@@ -202,9 +208,16 @@ function Invoke-BmadSupervised($Start,[int]$TimeoutMs,[string]$StatePath,[string
           if(-not $pair[0].Task.Wait($remaining)){$state.outcome='drain-timeout'}
           $bytes=$pair[0].Bytes
           if($pair[0].Overflow){$state.outcome='output-limit'}
+          if($pair[2] -and $pair[0].ReadFault -and $state.outcome -eq 'completed' -and $state.exit -eq 0){
+            throw 'BINARY_STDOUT_READ_FAILED'
+          }
         }
-        Assert-BmadDestination $pair[1] $Owner
-        [IO.File]::WriteAllBytes($pair[1],$bytes)
+        if($pair[2]) {
+          $binaryBytes=$bytes
+        } else {
+          Assert-BmadDestination $pair[1] $Owner
+          [IO.File]::WriteAllBytes($pair[1],$bytes)
+        }
       }catch{$state.outcome='capture-failed';$state.capture_error=$_.Exception.Message}
     }
     $state.drain_ms=$drain.ElapsedMilliseconds
@@ -218,6 +231,11 @@ function Invoke-BmadSupervised($Start,[int]$TimeoutMs,[string]$StatePath,[string
     $state.elapsed_ms=$clock.ElapsedMilliseconds
     Assert-BmadDestination $StatePath $Owner
     Write-BmadState $StatePath $state
+  }
+  if($binary -and $state.outcome -eq 'completed' -and $state.exit -eq 0 -and
+    $state.job_assigned_before_resume -and $null -ne $state.job_active_after_stop -and
+    $state.job_active_after_stop -eq 0) {
+    $BinaryOutput.Value=$binaryBytes
   }
   return $state
 }

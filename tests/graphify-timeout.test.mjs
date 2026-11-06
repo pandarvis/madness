@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import {mkdtemp,mkdir,writeFile,readFile,copyFile,rm} from 'node:fs/promises'
+import {mkdtemp,mkdir,lstat,writeFile,readFile,copyFile,rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {dirname,join,resolve} from 'node:path'
 import {realpathSync} from 'node:fs'
@@ -14,11 +14,92 @@ import {validateGraphAnalysisEvent} from '../src/contracts/bmad-graph.ts'
 import {createGraphState,beginGraphAttempt,publishGraphEvent} from '../src/core/bmad-graph.ts'
 const exec=promisify(execFile),quote=s=>"'"+s.replaceAll("'","''")+"'",hash='a'.repeat(64)
 const pwsh=join(process.env.USERPROFILE,'.dotnet/tools/.store/powershell/7.5.4/powershell/7.5.4/tools/net9.0/any/win/pwsh.exe')
-for(const zero of [true,false])test('adapter converts actual launcher GRAPH_CHILD_timeout with '+(zero?'proven zero':'unknown stop')+' without claiming analysis failure',async()=>{const root=realpathSync.native(await mkdtemp(join(tmpdir(),'madness-graph-timeout-')));try{const resources=join(root,'resources'),task=join(root,'task'),prepared=join(root,'capture'),data=join(prepared,'data'),project=join(root,'project');await mkdir(resources);await mkdir(data,{recursive:true});await mkdir(project);const receipt=Buffer.from('{}');await writeFile(join(data,'files.json'),receipt);await writeFile(join(resources,'preflight.ps1'),(await readFile('resources/graphify/preflight.ps1','utf8'))+'\nfunction Assert-GraphClosedRuntime($Root,$Files){}');await writeFile(join(resources,'assembly.json'),'{}');await writeFile(join(resources,'supervision.ps1'),`function Invoke-BmadSupervised($Start,$TimeoutMs,$StatePath,$OwnedPaths,$Owner,$OutLog,$ErrLog,$Marker,[ref]$StateObservation,$CancelPath){if($TimeoutMs -ne 360000){throw 'ANALYSIS_BUDGET_MISMATCH'};$value=@{started=$true;job_assigned_before_resume=$true;outcome='timeout';exit=$null;job_active_after_stop=${zero?'0':'$null'}};$StateObservation.Value=$value;return $value}`);const owner=new GraphOwnedRun(join(root,'owner.json')),adapter=new GraphifyAdapter({root:join(root,'runs'),resources:resolve('resources/graphify'),owner,admission:{enter:()=>()=>{}}}),corpus=[{relativePath:'a.ts',sha256:hash,lineCount:1,kind:'file'}];let analysisCalls=0,diagnostic='';
-// Stub only the process boundary. Actual launcher generates the diagnostic and terminal;
-// actual owner consumes that receipt, and the actual adapter catch converts it. No OS Job is claimed here.
-adapter.run=async(request,signal,attempt,reportStop)=>{if(request.op==='capture')return {folder:prepared,result:{rootPath:project,rootIdentity:'root',revision:hash,observedAt:'2026-11-04T12:00:00.000Z',sources:[],corpus,excluded:[],receiptSha:createHash('sha256').update(receipt).digest('hex')}};analysisCalls++;const generation=await owner.begin(task,attempt);await writeFile(join(task,'request.json'),JSON.stringify({op:'analyze',prepared:data}));const source=await readFile('resources/graphify/launcher.ps1','utf8'),script='$TaskFolder='+quote(task)+'\n$Resources='+quote(resources)+'\n$Generation='+quote(generation)+'\n$Pins=@{}\n'+source;await exec(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,timeout:20000,maxBuffer:1024*1024});diagnostic=await readFile(join(task,'launcher-error.txt'),'utf8');reportStop(await owner.confirm(generation)==='stopped');throw Error(diagnostic)};
-const original=await adapter.capture('p',project,new AbortController().signal),identity={projectId:'p',rootPath:original.rootPath,rootIdentity:original.rootIdentity,scopeId:'code',scopeRevision:adapter.scopeRevision,analysisId:'timeout-attempt',sourceRevision:original.revision},request={contractVersion:1,identity,generation:1,correlationId:'native-timeout',corpus,coverage:adapter.coverage},events=[];await adapter.analyze(request,e=>events.push(e),new AbortController().signal);assert.equal(diagnostic,'GRAPH_CHILD_timeout');assert.equal(analysisCalls,1);assert.ok(events.every(e=>validateGraphAnalysisEvent(e).ok));assert.equal(events.some(e=>e.type==='failed'),false,JSON.stringify(events));assert.deepEqual(events.at(-1),{contractVersion:1,identity,generation:1,correlationId:'native-timeout',order:2,type:'stopped',reason:'timeout',stop:zero?'confirmed':'unknown'});const {analysisId,sourceRevision,...scope}=identity,expected={identity,generation:1,correlationId:request.correlationId,lastEventOrder:0,corpus,coverage:adapter.coverage,sourceState:'unknown',observedAt:null};let state=beginGraphAttempt(createGraphState(scope).value,expected,'clear').value;for(const e of events){const next=publishGraphEvent(state,e,{...expected,lastEventOrder:state.lastEventOrder});assert.equal(next.ok,true,JSON.stringify(next));state=next.value}assert.equal(state.activity.outcome,zero?'timeout':'unknown');assert.equal(state.activity.stop,zero?'confirmed':'unknown')}finally{await rm(root,{recursive:true,force:true})}})
+const mirrorFrame='4d41444d5352433101000000040000000a000000612e74736578706f7274207b7d0a'
+const requestHash=request=>createHash('sha256').update(request).digest('hex')
+async function taskIdentity(task){
+ const stat=await lstat(task,{bigint:true})
+ return {taskVolume:stat.dev.toString(),taskIndex:stat.ino.toString(),
+  taskCreationTicks:(stat.birthtimeNs/100n+116444736000000000n).toString()}
+}
+
+for(const zero of [true,false])test('adapter converts actual launcher GRAPH_CHILD_timeout with '+(zero?'proven zero':'unknown stop')+' without claiming analysis failure',async()=>{
+ const root=realpathSync.native(await mkdtemp(join(tmpdir(),'madness-graph-timeout-')))
+ try {
+  const resources=join(root,'resources'),task=join(root,'task'),prepared=join(root,'capture'),data=join(prepared,'data'),project=join(root,'project')
+  await mkdir(resources)
+  await mkdir(data,{recursive:true})
+  await mkdir(project)
+  const receipt=Buffer.from('{}')
+  await writeFile(join(data,'files.json'),receipt)
+  await writeFile(join(resources,'preflight.ps1'),(await readFile('resources/graphify/preflight.ps1','utf8'))+'\nfunction Assert-GraphClosedRuntime($Root,$Files){}')
+  await writeFile(join(resources,'assembly.json'),'{}')
+  await writeFile(join(resources,'supervision.ps1'),`
+function Invoke-BmadSupervised($Start,$TimeoutMs,$StatePath,$OwnedPaths,$Owner,$OutLog,$ErrLog,$Marker,[ref]$StateObservation,$CancelPath,[ref]$BinaryOutput){
+ $value=@{started=$true;job_assigned_before_resume=$true;outcome='completed';exit=0;job_active_after_stop=0}
+ $step=[IO.Path]::GetFileName($StatePath)
+ if($step -ceq 'mirror-input-execution.json'){
+  if($TimeoutMs -ne 120000){throw 'MIRROR_INPUT_BUDGET_MISMATCH'}
+  $BinaryOutput.Value=[Convert]::FromHexString('${mirrorFrame}')
+ }else{
+  if($step -cne 'analysis-execution.json' -or $TimeoutMs -ne 360000){throw 'ANALYSIS_BUDGET_MISMATCH'}
+  $value.outcome='timeout'
+  $value.exit=$null
+  $value.job_active_after_stop=${zero?'0':'$null'}
+ }
+ $StateObservation.Value=$value
+ return $value
+}
+`)
+  const owner=new GraphOwnedRun(join(root,'owner.json'))
+  const adapter=new GraphifyAdapter({root:join(root,'runs'),resources:resolve('resources/graphify'),owner,admission:{enter:()=>()=>{}}})
+  const corpus=[{relativePath:'a.ts',sha256:hash,lineCount:1,kind:'file'}]
+  let analysisCalls=0,diagnostic=''
+  // Stub the process boundary. The real launcher writes the receipt and the real owner consumes it.
+  adapter.run=async(nativeRequest,signal,attempt,reportStop)=>{
+   if(nativeRequest.op==='capture')return {folder:prepared,result:{rootPath:project,rootIdentity:'root',revision:hash,
+    observedAt:'2026-11-04T12:00:00.000Z',sources:[],corpus,excluded:[],receiptSha:createHash('sha256').update(receipt).digest('hex')}}
+   analysisCalls++
+   const generation=await owner.begin(task,attempt)
+   const requestText=JSON.stringify({...nativeRequest,...await taskIdentity(task)})
+   await writeFile(join(task,'request.json'),requestText)
+   const source=await readFile('resources/graphify/launcher.ps1','utf8')
+   const script='$TaskFolder='+quote(task)+'\n$Resources='+quote(resources)+'\n$Generation='+quote(generation)+'\n$AnalysisRequestSha='+quote(requestHash(requestText))+'\n$Pins=@{}\n'+source
+   await exec(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,timeout:20000,maxBuffer:1024*1024})
+   diagnostic=await readFile(join(task,'launcher-error.txt'),'utf8')
+   reportStop(await owner.confirm(generation)==='stopped')
+   throw Error(diagnostic)
+  }
+  const original=await adapter.capture('p',project,new AbortController().signal)
+  const identity={projectId:'p',rootPath:original.rootPath,rootIdentity:original.rootIdentity,scopeId:'code',
+   scopeRevision:adapter.scopeRevision,analysisId:'timeout-attempt',sourceRevision:original.revision}
+  const request={contractVersion:1,identity,generation:1,correlationId:'native-timeout',corpus,coverage:adapter.coverage}
+  const events=[]
+  await adapter.analyze(request,e=>events.push(e),new AbortController().signal)
+  assert.equal(diagnostic,'GRAPH_CHILD_timeout')
+  assert.equal(analysisCalls,1)
+  const retention=JSON.parse(await readFile(join(task,'mirror-retention.json'),'utf8'))
+  const terminal=JSON.parse(await readFile(join(task,'terminal.json'),'utf8'))
+  assert.deepEqual(retention,{schemaVersion:1,generation:terminal.generation,status:zero?'removed':'retained-unknown',
+   removedBytes:zero?10:0,removedFiles:zero?1:0})
+  if(zero)await assert.rejects(readFile(join(task,'mirror')),{code:'ENOENT'})
+  else assert.equal(await readFile(join(task,'mirror','a.ts'),'utf8'),'export {}\n')
+  assert.ok(events.every(e=>validateGraphAnalysisEvent(e).ok))
+  assert.equal(events.some(e=>e.type==='failed'),false,JSON.stringify(events))
+  assert.deepEqual(events.at(-1),{contractVersion:1,identity,generation:1,correlationId:'native-timeout',order:2,
+   type:'stopped',reason:'timeout',stop:zero?'confirmed':'unknown'})
+  const {analysisId,sourceRevision,...scope}=identity
+  const expected={identity,generation:1,correlationId:request.correlationId,lastEventOrder:0,corpus,
+   coverage:adapter.coverage,sourceState:'unknown',observedAt:null}
+  let state=beginGraphAttempt(createGraphState(scope).value,expected,'clear').value
+  for(const e of events){
+   const next=publishGraphEvent(state,e,{...expected,lastEventOrder:state.lastEventOrder})
+   assert.equal(next.ok,true,JSON.stringify(next))
+   state=next.value
+  }
+  assert.equal(state.activity.outcome,zero?'timeout':'unknown')
+  assert.equal(state.activity.stop,zero?'confirmed':'unknown')
+ }finally{await rm(root,{recursive:true,force:true})}
+})
 
 test('launcher only accepts the qualified clustered artifact path', async () => {
  const root = realpathSync.native(await mkdtemp(join(tmpdir(), 'madness-graph-artifact-')))
@@ -29,8 +110,9 @@ test('launcher only accepts the qualified clustered artifact path', async () => 
   const preflight = await readFile('resources/graphify/preflight.ps1', 'utf8')
   await writeFile(join(resources, 'preflight.ps1'), preflight+'\nfunction Assert-GraphClosedRuntime($Root,$Files){}')
   await writeFile(join(resources, 'supervision.ps1'), [
-   'function Invoke-BmadSupervised($Start,$TimeoutMs,$StatePath,$OwnedPaths,$Owner,$OutLog,$ErrLog,$Marker,[ref]$StateObservation,$CancelPath){',
-   ' if ($StatePath.EndsWith("analysis-execution.json")) {',
+   'function Invoke-BmadSupervised($Start,$TimeoutMs,$StatePath,$OwnedPaths,$Owner,$OutLog,$ErrLog,$Marker,[ref]$StateObservation,$CancelPath,[ref]$BinaryOutput){',
+   ` if ($StatePath.EndsWith("mirror-input-execution.json")) { $BinaryOutput.Value=[Convert]::FromHexString('${mirrorFrame}') }`,
+   ' elseif ($StatePath.EndsWith("analysis-execution.json")) {',
    `  [IO.File]::WriteAllText((Join-Path $Owner "analysis/worker.json"), '{"outcome":"completed"}')`,
    '  $graph=Join-Path $Owner $FixtureOutput',
    '  [void][IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($graph))',
@@ -45,8 +127,10 @@ test('launcher only accepts the qualified clustered artifact path', async () => 
   for (const [name, output] of [['unqualified','analysis/other/graph.json'],['qualified','analysis/out/graphify-out/graph.json'],['linked','analysis/out/graphify-out/graph.json']]) {
    const task = join(root, name)
    await mkdir(task)
-   await writeFile(join(task, 'request.json'), JSON.stringify({op: 'analyze', prepared: root}))
-   const script = '$TaskFolder='+quote(task)+'\n$Resources='+quote(resources)+'\n$FixtureOutput='+quote(output)+'\n$FixtureHardLink=$'+(name==='linked'?'true':'false')+'\n$Generation="graph-11111111-1111-1111-1111-111111111111"\n$Pins=@{}\n'+source
+   const requestText=JSON.stringify({op:'analyze',prepared:root,receiptSha:hash,
+    rootIdentity:'fixture-root',revision:hash,...await taskIdentity(task)})
+   await writeFile(join(task,'request.json'),requestText)
+   const script = '$TaskFolder='+quote(task)+'\n$Resources='+quote(resources)+'\n$FixtureOutput='+quote(output)+'\n$FixtureHardLink=$'+(name==='linked'?'true':'false')+'\n$Generation="graph-11111111-1111-1111-1111-111111111111"'+'\n$AnalysisRequestSha='+quote(requestHash(requestText))+'\n$Pins=@{}\n'+source
    const {stdout}=await exec(pwsh, ['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')], {windowsHide:true,timeout:10000,encoding:'buffer'})
    if (name === 'qualified') {
     const bytes=await readFile(join(task,output))
@@ -61,6 +145,29 @@ test('launcher only accepts the qualified clustered artifact path', async () => 
    }
   }
  } finally { await rm(root,{recursive:true,force:true}) }
+})
+
+test('launcher refuses an unsealed mixed-case Analyze before any child starts',async()=>{
+ const root=realpathSync.native(await mkdtemp(join(tmpdir(),'madness-graph-unsealed-')))
+ try {
+  const resources=join(root,'resources'),task=join(root,'task')
+  await mkdir(resources)
+  await mkdir(task)
+  await writeFile(join(resources,'assembly.json'),'{}')
+  await writeFile(join(resources,'preflight.ps1'),(await readFile('resources/graphify/preflight.ps1','utf8'))+'\nfunction Assert-GraphClosedRuntime($Root,$Files){}')
+  await writeFile(join(resources,'supervision.ps1'),"function Invoke-BmadSupervised {throw 'FIXTURE_UNEXPECTED_CHILD'}")
+  await writeFile(join(task,'request.json'),JSON.stringify({op:'Analyze',prepared:root,receiptSha:hash,
+   rootIdentity:'fixture-root',revision:hash,...await taskIdentity(task)}))
+  const source=await readFile('resources/graphify/launcher.ps1','utf8')
+  const script='$TaskFolder='+quote(task)+'\n$Resources='+quote(resources)+
+   '\n$Generation="graph-11111111-1111-1111-1111-111111111111"\n$Pins=@{}\n'+source
+  const {stdout}=await exec(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,timeout:20000})
+  assert.equal(stdout,'')
+  assert.equal(await readFile(join(task,'launcher-error.txt'),'utf8'),'GRAPH_MIRROR_OWNER')
+  const terminal=JSON.parse(await readFile(join(task,'terminal.json'),'utf8'))
+  assert.deepEqual([terminal.neverStarted,terminal.jobAssigned,terminal.jobActive],[true,false,0])
+  await assert.rejects(lstat(join(task,'mirror')),{code:'ENOENT'})
+ }finally{await rm(root,{recursive:true,force:true})}
 })
 
 test('abort after reserving a generation writes a never-started receipt without a launcher', async () => {
@@ -211,7 +318,7 @@ if($request.mode -ne 'cancel-final'){
   graphResourcePins['launcher.ps1']=createHash('sha256').update(launcher).digest('hex')
   // Fire the real deadline path after the fixture's staged proof is on disk.
   t.mock.method(globalThis,'setTimeout',(fn,ms,...args)=>{
-   if(ms!==600000)return schedule(fn,ms,...args)
+   if(ms!==660000)return schedule(fn,ms,...args)
    deadline=()=>fn(...args)
    return schedule(fn,20000,...args)
   })
@@ -233,7 +340,7 @@ if($request.mode -ne 'cancel-final'){
    await mkdir(workspace)
    const owner=new GraphOwnedRun(join(workspace,'owner.json')),begin=owner.begin.bind(owner)
    let observed,release,stopped
-   owner.begin=async path=>{const generation=await begin(path);fixtureFolder=path;return generation}
+   owner.begin=async (...args)=>{const generation=await begin(...args);fixtureFolder=args[0];return generation}
    const adapter=new GraphifyAdapter({root:join(workspace,'runs'),resources,owner,admission:{enter:()=>()=>{release=true}}})
    launcherProcess=fixtureFolder=deadline=undefined
    const pending=adapter.run({op:'analyze',mode},new AbortController().signal,null,confirmed=>{stopped=confirmed})

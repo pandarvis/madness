@@ -15,11 +15,37 @@ const sha=(b:Buffer|string):string=>createHash('sha256').update(b).digest('hex')
 const artifactLimit=16*1024*1024
 const frameMagic='MADGRPH1'
 const frameDigestBytes=32
-// This exact change omits the disk mirror during revalidation. The code inventory
-// and its revision are unchanged. An unrecognized capture pin rotates the scope.
-const captureScopePin=graphResourcePins['graph_capture.py']==='d3637ac4c4f3e518b91b4d4a198f9a5bfdb2ca5d88bb94cdebb97bd00eaaf10f'
+// The exact pin below moves the mirror out of capture. The code inventory and
+// its revision are identical. An unrecognized capture pin rotates the scope.
+const captureScopePin=graphResourcePins['graph_capture.py']==='7a01ccfd8b5c81e0e65703acdeb401427830d63c45cd4a0aa8f85de71d534693'
  ?'3c5d601141968aa2c9aef4cdf63aaaa174aa5abda67407371acd7bf40420be2f'
  :graphResourcePins['graph_capture.py']
+const quotePowerShell=(value:string):string=>"'"+value.replaceAll("'","''")+"'"
+async function allocateAnalysisDirectory(pwsh:string,resources:string,folder:string,signal:AbortSignal):Promise<{volume:string;index:string;creationTicks:string}>{
+ const script=String.raw`
+$ErrorActionPreference='Stop'
+$stream=[IO.File]::Open(${quotePowerShell(join(resources,'preflight.ps1'))},[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
+try {
+  if($stream.Length -gt 65536){throw 'GRAPH_MIRROR_OWNER'}
+  $raw=[byte[]]::new([int]$stream.Length)
+  $stream.ReadExactly($raw)
+  if($stream.ReadByte() -ne -1 -or [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($raw)).ToLowerInvariant() -cne ${quotePowerShell(graphResourcePins['preflight.ps1'])}){throw 'GRAPH_RESOURCE_CHANGED'}
+  Invoke-Expression ([Text.UTF8Encoding]::new($false,$true).GetString($raw))
+} finally {$stream.Dispose()}
+$allocated=[GraphClosedRuntime]::AllocateGraphTask(${quotePowerShell(folder)})
+@{volume=$allocated.Volume.ToString();index=$allocated.Index.ToString();creationTicks=$allocated.CreationTicks.ToString()}|ConvertTo-Json -Compress
+`
+ const stdout=await new Promise<string>((done,fail)=>{
+  execFile(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,timeout:20000,maxBuffer:4096,signal},(error,value)=>{
+   if(error)fail(error)
+   else done(value)
+  })
+ })
+ const proof=JSON.parse(stdout) as {volume?:unknown;index?:unknown;creationTicks?:unknown}
+ const decimal=(value:unknown):value is string=>typeof value==='string'&&/^[0-9]{1,20}$/.test(value)
+ if(!proof||!decimal(proof.volume)||!decimal(proof.index)||!decimal(proof.creationTicks))throw Error('GRAPH_MIRROR_OWNER')
+ return {volume:proof.volume,index:proof.index,creationTicks:proof.creationTicks}
+}
 const powerShellPins={
  'pwsh.exe':'9660387054b1387f5ab7e907a61560674c762559f91279a50484240bb3659d53',
  'pwsh.dll':'e693be60bb4ce1e3ad5e511fa181928975cf151adc4816379bf895fd0dc3fedc',
@@ -90,18 +116,25 @@ export class GraphifyAdapter implements GraphAnalysisPort{
    }
    await mkdir(this.options.root,{recursive:true})
    signal.throwIfAborted();if(this.closing)throw Error('APP_CLOSING')
-   folder=join(realpathSync.native(this.options.root),'graph-'+randomUUID());generation=await this.options.owner.begin(folder,attempt)
+   const analyzes=request.op==='analyze'
+   const resources=realpathSync.native(this.options.resources)
+   folder=join(realpathSync.native(this.options.root),'graph-'+randomUUID())
+   generation=await this.options.owner.begin(folder,attempt,analyzes?path=>allocateAnalysisDirectory(pwsh,resources,path,signal):undefined)
    if(attempt)this.activeAttempt={request:attempt,generation}
    signal.throwIfAborted();if(this.closing)throw Error('APP_CLOSING')
-   const resources=realpathSync.native(this.options.resources)
    const capturesCorpus=request.op==='capture'||request.op==='revalidate'
    const data=join(folder,'data')
-   await writeFile(join(folder,'request.json'),JSON.stringify(capturesCorpus?{...request,folder:data}:request),{flag:'wx'})
+   const task=analyzes?this.options.owner.directoryIdentity(generation):null
+   if(analyzes&&!task)throw Error('GRAPH_MIRROR_OWNER')
+   const launchRequest=capturesCorpus?{...request,folder:data}
+    :task?{...request,taskVolume:task.volume,taskIndex:task.index,taskCreationTicks:task.creationTicks}:request
+   const launchBytes=JSON.stringify(launchRequest)
+   await writeFile(join(folder,'request.json'),launchBytes,{flag:'wx'})
    if(capturesCorpus)await mkdir(data)
-   const quote=(v:string):string=>"'"+v.replaceAll("'","''")+"'"
-   const script='$TaskFolder='+quote(folder)+'\n$Generation='+quote(generation)+'\n$Resources='+quote(resources)+'\n$Pins='+"(ConvertFrom-Json -AsHashtable "+quote(JSON.stringify(graphResourcePins))+')\n'+(await safe(join(resources,'launcher.ps1'))).toString('utf8')
+   const quote=quotePowerShell
+   const requestSeal=analyzes?'$AnalysisRequestSha='+quote(sha(launchBytes))+'\n':''
+   const script=requestSeal+'$TaskFolder='+quote(folder)+'\n$Generation='+quote(generation)+'\n$Resources='+quote(resources)+'\n$Pins='+"(ConvertFrom-Json -AsHashtable "+quote(JSON.stringify(graphResourcePins))+')\n'+(await safe(join(resources,'launcher.ps1'))).toString('utf8')
    signal.throwIfAborted();if(this.closing)throw Error('APP_CLOSING')
-   const analyzes=request.op==='analyze'
    const child=spawn(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,shell:false,stdio:['ignore',analyzes?'pipe':'ignore','pipe']});spawned=child.pid!==undefined
    let errorBytes=0;child.stderr?.on('data',b=>{errorBytes+=b.length})
    const frameLimit=artifactLimit+frameMagic.length+Buffer.byteLength(generation,'ascii')+4+frameDigestBytes
@@ -117,8 +150,8 @@ export class GraphifyAdapter implements GraphAnalysisPort{
     else chunks.push(chunk)
    })
    const cancel=():void=>{void this.options.owner.cancel(generation).catch(()=>{})};signal.addEventListener('abort',cancel,{once:true});if(signal.aborted)cancel()
-   // The native analysis and its subsequent source comparison have separate budgets.
-   const launcherBudgetMs=request.op==='analyze'?600000:270000
+   // Source materialization, native analysis and final comparison each have a budget.
+   const launcherBudgetMs=request.op==='analyze'?660000:270000
    const releaseLauncher=analyzes&&spawned?this.options.owner.holdLauncher(generation):undefined
    const closed=new Promise<void>(done=>child.once('close',()=>{releaseLauncher?.();done()}))
    const launcherError=new Promise<never>((_,fail)=>child.once('error',fail))
@@ -181,7 +214,7 @@ export class GraphifyAdapter implements GraphAnalysisPort{
   let stopped=true,ownedFolder=''
   try{
    if(!original||!capture||request.identity.sourceRevision!==original.revision||request.identity.rootIdentity!==original.rootIdentity||request.identity.rootPath!==original.rootPath||request.identity.scopeRevision!==this.scopeRevision||JSON.stringify(request.corpus)!==JSON.stringify(original.corpus))throw Error('CAPTURE_MISMATCH')
-   const {result,folder,artifact}=await this.run({op:'analyze',prepared:capture.folder},signal,{contractVersion:1,identity:request.identity,generation:request.generation,correlationId:request.correlationId},(confirmed,folder)=>{stopped=confirmed;ownedFolder=folder})
+   const {result,folder,artifact}=await this.run({op:'analyze',prepared:capture.folder,receiptSha:capture.receiptSha,rootIdentity:original.rootIdentity,revision:original.revision},signal,{contractVersion:1,identity:request.identity,generation:request.generation,correlationId:request.correlationId},(confirmed,folder)=>{stopped=confirmed;ownedFolder=folder})
    terminalFacts={sourceState:['unchanged','changed'].includes(result.sourceState)?result.sourceState:'unknown',observedAt:typeof result.observedAt==='string'?result.observedAt:null}
    capture.facts=terminalFacts
    signal.throwIfAborted()

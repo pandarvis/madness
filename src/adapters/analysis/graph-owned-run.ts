@@ -9,11 +9,13 @@ import {join,dirname,resolve,relative,isAbsolute,sep,basename} from 'node:path'
 import {randomUUID} from 'node:crypto'
 import {TextDecoder} from 'node:util'
 import {dialogueFailure} from '../../contracts/dialogue.ts'
+type OwnedDirectory={volume:string;index:string;creationTicks:string}
 type Record={schemaVersion:1;generation:string;purpose:'graph-code-only';status:'unknown'|'stopped';folder:string;attempt?:GraphStopRequest|null}
 async function plain(path:string,limit=65536):Promise<string|null>{try{for(let p=resolve(path);;p=dirname(p)){const s=await lstat(p);if(s.isSymbolicLink()||s.isFile()&&s.nlink!==1)throw Error();if(dirname(p)===p)break}const f=await open(path,'r');try{if((await f.stat()).size>limit)throw Error();return new TextDecoder('utf-8',{fatal:true}).decode(await f.readFile())}finally{await f.close()}}catch(e){if((e as NodeJS.ErrnoException).code==='ENOENT')return null;throw dialogueFailure('STORAGE_READ_FAILED')}}
 /** Absence du superviseur != Job vide. Seule une preuve terminale de la même génération libère. */
 export class GraphOwnedRun{
  private openLaunchers=new Set<string>()
+ private allocation:{generation:string;identity:OwnedDirectory}|null=null
  private path:string;private root:string;private previous:string|null|undefined;private record:Record|null=null;private queue:Promise<unknown>=Promise.resolve();private active:string|null=null
  constructor(path:string){this.path=path;this.root=realpathSync.native(dirname(path))}
  private canonicalFolder(folder:string):string{try{return join(realpathSync.native(dirname(folder)),basename(folder))}catch{return resolve(folder)}}
@@ -23,7 +25,8 @@ export class GraphOwnedRun{
  private serial<T>(fn:()=>Promise<T>):Promise<T>{const result=this.queue.then(fn);this.queue=result.catch(()=>{});return result}
  async status():Promise<'stopped'|'unknown'>{await this.queue;await this.load();if(await plain(this.path)!==this.previous)throw dialogueFailure('STORAGE_READ_FAILED');return !this.record||this.record.status==='stopped'?'stopped':'unknown'}
  async availableFor(generation:string|null):Promise<boolean>{await this.load();return await this.status()==='stopped'||generation!==null&&this.active===generation&&this.record?.generation===generation}
- begin(folder:string,attempt:GraphStopRequest|null=null):Promise<string>{const captured=attempt===null?null:validateGraphStopRequest(attempt);if(captured!==null&&!captured.ok)return Promise.reject(dialogueFailure('INVALID_COMMAND'));return this.serial(async()=>{await this.load();if(!this.confined(folder))throw dialogueFailure('OUTPUT_REFUSED');if(this.record?.status==='unknown')throw dialogueFailure('STOP_UNCONFIRMED');await mkdir(folder,{recursive:false});const generation='graph-'+randomUUID();await this.save({schemaVersion:1,generation,purpose:'graph-code-only',status:'unknown',folder:this.canonicalFolder(folder),attempt:captured===null?null:captured.value});this.active=generation;return generation})}
+ begin(folder:string,attempt:GraphStopRequest|null=null,allocate?:(folder:string)=>Promise<OwnedDirectory>):Promise<string>{const captured=attempt===null?null:validateGraphStopRequest(attempt);if(captured!==null&&!captured.ok)return Promise.reject(dialogueFailure('INVALID_COMMAND'));return this.serial(async()=>{await this.load();if(!this.confined(folder))throw dialogueFailure('OUTPUT_REFUSED');if(this.record?.status==='unknown')throw dialogueFailure('STOP_UNCONFIRMED');const identity=allocate?await allocate(folder):null;if(!allocate)await mkdir(folder,{recursive:false});const generation='graph-'+randomUUID();await this.save({schemaVersion:1,generation,purpose:'graph-code-only',status:'unknown',folder:this.canonicalFolder(folder),attempt:captured===null?null:captured.value});this.allocation=identity?{generation,identity}:null;this.active=generation;return generation})}
+ directoryIdentity(generation:string):OwnedDirectory|null{return this.allocation?.generation===generation?{...this.allocation.identity}:null}
  holdLauncher(generation:string):()=>void{
   this.openLaunchers.add(generation)
   return ()=>{this.openLaunchers.delete(generation)}

@@ -3,10 +3,10 @@ title: 'Réduire les copies temporaires du graphe après arrêt confirmé'
 type: 'bugfix'
 ticket: ''
 created: '2026-11-06'
-status: 'draft'
+status: 'built'
 baseline_revision: '760550443c0942b7c41b9cc96db41c75b147b814'
 route: 'full'
-route_source: 'auto'
+route_source: 'pinned'
 risk: 'high'
 review: 'quick'
 review_source: 'pinned'
@@ -106,3 +106,31 @@ Le premier lot évite de matérialiser une seconde fois l’export déjà produi
 L’essai NTFS du 6 novembre 2026 a utilisé `NtCreateFile(FILE_CREATE)` avec le descripteur du parent et un nom simple. Il a refusé un dossier préexistant et une jonction avec `STATUS_OBJECT_NAME_COLLISION`. Le miroir témoin et sa feuille ont donné la preuve de création depuis le handle retourné. Le renommage du miroir a été bloqué (32). Un lecteur Python ordinaire a pu lire les 27 octets à travers un autre processus pendant que le descripteur de création restait ouvert. Une ouverture relative de suppression a bloqué l’échange de la feuille (32). La disposition de suppression et la fermeture des handles ont retiré la feuille et le miroir vide. Le fichier extérieur est resté identique et le banc a supprimé sa racine possédée. [Création sous descripteur Windows](https://learn.microsoft.com/en-us/windows/win32/api/winternl/nf-winternl-ntcreatefile)
 
 Le chemin à qualifier pour le miroir place la création et le retrait dans le même lanceur. La préparation produit l’inventaire et le reçu. Le lanceur relit et vérifie les octets depuis ce reçu avant de créer exclusivement le miroir. Il garde les descripteurs pendant le Job et libère les entrées attestées après le dernier consommateur. La mutation avant matérialisation, la confirmation tardive, les refus d’accès ou de partage, l’export tiers et les cas de remplacement de stockage restent à éprouver. Le journal USN requiert des privilèges administrateur pour identifier la génération du journal et ne constitue pas une voie de qualification pour la cible courante. [Identifiant du journal Windows](https://learn.microsoft.com/windows/win32/fileio/using-the-change-journal-identifier)
+
+## Exécution du miroir temporaire
+
+Mandat reçu pour implémenter et vérifier dans le dépôt, puis démarrer l’epic des coûts. Ce passage traite le miroir de code, comme expliqué au porteur. Le lot précédent évite déjà la seconde copie de l’export natif. L’export unique du moteur reste une preuve distincte.
+
+- Le producteur de capture continue à calculer la même révision, le même inventaire et le même reçu. Il arrête d’écrire un miroir. L’empreinte de portée reste compatible avec la 0.2.22, sur la seule paire exacte de versions dont le contenu inventorié est équivalent.
+- L’analyse demande au Python de confiance `mirror-input` avec `prepared`, `receiptSha`, `rootIdentity` et `revision` exacts. Il relit les originaux avec `files.check`, après vérification du reçu, et transmet les octets uniquement en mémoire via la supervision existante. Le format commence par l’ASCII `MADMSRC1` et un nombre d’entrées uint32 little-endian. Chaque entrée contient longueur UTF-8 du chemin relatif uint32, longueur des données uint32, chemin et données. Bornes 1 024 entrées, 32 Kio par chemin, 1 Mio par fichier, 16 Mio de données, 50 Mio pour la trame complète. EOF exact. Les refus gardent le reçu et empêchent le lancement du moteur.
+- Le lanceur crée le miroir sous le répertoire de cette analyse. Le détenteur natif ouvre les ancêtres sans partage de suppression avec un accès participant au partage, crée chaque entrée exclusivement sous le parent tenu et mémorise la capacité à sa création. Le lecteur Python doit pouvoir ouvrir les sources. La capacité d’origine ou un descripteur couvrant l’identité est tenu jusqu’au retrait. Les jonctions, noms ambigus, chemins absolus, substitutions et liens multiples sont refusés. Le retrait ne parcourt jamais le dossier. Il ne cible que les entrées détenues, après confirmation exacte du dernier consommateur. Un refus laisse les entrées étrangères et les preuves intactes.
+- Le lanceur tente le retrait uniquement quand toutes les observations de processus prouvent des Jobs vides ou un démarrage absent. Il conserve les copies si un arrêt est inconnu. Les reçus de nettoyage précisent les octets logiques réellement retirés et le résultat, sans nom de fichier. Le retrait et son refus restent sans effet sur l’export, l’aperçu et la décision d’arrêt. Le redémarrage reste passif.
+- Contrôles ciblés avant commit, sans nouvel installateur. Créer un miroir nominal, le lire avec le vrai moteur, retirer les seules entrées possédées, traiter une interruption confirmée et conserver lors d’un arrêt inconnu ou d’une collision. Relire l’original, la sauvegarde et la réouverture passive. Adapter les fixtures du lanceur à son troisième enfant sans changer leurs attentes d’arrêt. Les versions du runtime et les preuves historiques restent liées à leur paquet d’origine.
+
+### Périmètres de travail
+
+- Détenteur natif. `resources/graphify/preflight.ps1` et test dédié `tests/graphify-mirror-ownership.test.mjs`. Exposer `[GraphClosedRuntime]::CreateMirror($TaskFolder)` puis `.Materialize([byte[]] $payload)`, `.Path`, `.RemoveOwned()` avec compteurs `RemovedBytes`, `RemovedFiles`, `Complete`, et `.Dispose()` qui ferme sans supprimer. Garder les capacités en cas de création partielle pour permettre un retrait sûr. Écriture et suppression sur descripteurs. Le coordinateur parent raccorde le lanceur.
+- Producteur. `resources/graphify/graph_capture.py`, `resources/graphify/supervision.ps1`, `tests/graphify-corpus.test.mjs`. Retirer l’écriture du miroir de la capture. Implémenter `mirror-input` et ajouter à la fin de `Invoke-BmadSupervised` un paramètre facultatif `[ref]$BinaryOutput`. Avec ce paramètre, stdout est capturé dans cette référence sans écriture sur disque. Les logs d’erreur, la borne d’attente et les preuves du Job sont préservés. Tester équivalence d’inventaire, octets exacts et refus après mutation.
+- Bancs de supervision. `tests/graphify-supervision.test.mjs` et `tests/graphify-timeout.test.mjs`. Adapter les fixtures à `mirror-input` et au nouveau dossier `$TaskFolder/mirror`, en maintenant les refus de l’ancien deuxième enfant terminal devenu troisième. Garder les contrôles du flux d’export et de délai.
+- Intégration parent. `resources/graphify/launcher.ps1`, `src/adapters/analysis/graphify.ts`, `src/adapters/analysis/graphify-manifest.ts` et `scripts/qualification/graph-project.mjs`. Préserver le changement EOL préexistant hors du lot. Aucun agent ne revient sur les travaux concurrents ni ne committe ses changements.
+
+
+## Résultat du passage sur le miroir
+
+Madness crée le dossier d’analyse en mode exclusif et relève son identité sur le descripteur retourné par Windows. Le lanceur contrôle cette identité et le SHA-256 de la demande avant de créer le miroir. Après arrêt confirmé, il enlève les entrées effectivement créées et comptabilise les octets de code. Le graphe sauvegardé et le reçu d’aperçu restent consultables.
+
+- Revue du delta depuis `a4a7e0bb0c24ea5f05eaeb256e77389decae774a`. Remplacement avant scellement corrigé par allocation sous descripteur, branchement sur le seul mode scellé et contrôle de lecture binaire sans accepter une erreur comme fin du flux. Les cas de remplacement, de collision et d’opération `Analyze` non scellée passent.
+- Publication de la trame avant retrait. Limite coopérative de dix secondes entre appels natifs et retrait partiel explicite. Un appel noyau qui reste bloqué peut encore retarder la fermeture et déclencher le délai global de sécurité.
+- Après fermeture sur un arrêt inconnu, les descripteurs ont été relâchés et le miroir reste sur disque, même si un reçu est ensuite retrouvé. La récupération logique continue à fonctionner. Le retrait porte sur les objets fichiers temporaires créés par Madness. Un flux NTFS ajouté au même objet par un autre processus appartient au même objet et peut être retiré avec lui. Aucune réinscription d’allocations historiques.
+- Vérifications ciblées. 8 cas de capture, 6 de détention et 14 de supervision/délai ont réussi, avec relances ciblées sur l’allocation et les dernières gardes. Le témoin final a produit, enregistré et rouvert un graphe de 5 nœuds et 7 relations. Deux fichiers du miroir, 158 octets, ont disparu en génération normale puis en interruption réelle. L’aperçu a relu les octets originaux, le témoin historique est resté intact et le profil de test a été retiré. [Reçu final](tickets/epic-graphe-projet/qualification-paquet-graphe/native-mirror-retention-small-2026-11-06-atomic.json).
+- Ce passage clôt le retrait du miroir demandé. La seconde copie de l’export avait déjà été évitée dans le lot précédent. L’export natif unique et les reçus utiles restent des preuves de diagnostic. Le banc Electron a été contrôlé en syntaxe et le témoin Windows exact a couvert les effets produit sans interface ni installateur.

@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "scope": "real Windows native Graphify, two owned fixture sources; no UI, account, model or install",
+  "rawSha256": "f38ec18bef4fa10c6fcf9d3ed02ae7c225f356ecb6696d5a1b22d90619eb11de",
+  "logicalBytesAvoided": 2503,
+  "nativeDuplicateExists": false,
+  "terminal": {
+    "purpose": "graph-code-only",
+    "jobAssigned": true,
+    "jobActive": 0,
+    "terminal": true,
+    "neverStarted": false,
+    "generation": "graph-0da0b986-625f-4049-b1c7-a96d9050dd24",
+    "schemaVersion": 1
+  },
+  "nodes": 5,
+  "relations": 7,
+  "afterDurableSave": true,
+  "reopenedWithoutAnalysis": true,
+  "mirror": {
+    "schemaVersion": 1,
+    "removedBytes": 158,
+    "status": "removed",
+    "generation": "graph-0da0b986-625f-4049-b1c7-a96d9050dd24",
+    "removedFiles": 2
+  },
+  "interruptMirror": {
+    "status": "removed",
+    "schemaVersion": 1,
+    "removedFiles": 2,
+    "generation": "graph-22c6c1f5-a0f2-4479-92bf-f7e35ed45a4c",
+    "removedBytes": 158
+  },
+  "binaryTemporaryFileCreated": false,
+  "originalPreviewMatches": true,
+  "historicalSentinelPreserved": true,
+  "durationMs": 106081,
+  "temporaryProfileRemoved": true
+}

@@ -1,5 +1,5 @@
 $ErrorActionPreference='Stop'
-$states=@();$state=$null;$artifact=$null;$artifactReady=$false
+$states=@();$state=$null;$artifact=$null;$artifactReady=$false;$mirror=$null
 try {
   foreach($name in $Pins.Keys){$path=Join-Path $Resources $name;$item=Get-Item -LiteralPath $path -Force;if($item.Attributes -band [IO.FileAttributes]::ReparsePoint -or $item.LinkType -eq 'HardLink' -or (Get-FileHash -LiteralPath $path).Hash.ToLowerInvariant() -cne $Pins[$name]){throw 'GRAPH_RESOURCE_CHANGED'}}
   . (Join-Path $Resources 'preflight.ps1')
@@ -10,8 +10,22 @@ try {
     Assert-GraphClosedRuntime (Join-Path $Resources 'assembly/runtime') $assembly.runtime
     Assert-GraphClosedRuntime (Join-Path $Resources 'assembly/packages') $assembly.packages
   } catch { throw ('GRAPH_RESOURCE_CHANGED: '+$_.Exception.Message) }
-  $request=Get-Content -LiteralPath (Join-Path $TaskFolder 'request.json') -Raw|ConvertFrom-Json -AsHashtable
-  function Run-GraphChild($Script,$Arguments,$Label,[int]$BudgetMs=120000){
+  $requestPath=Join-Path $TaskFolder 'request.json'
+  if($AnalysisRequestSha){
+    Assert-BmadChain $requestPath
+    $stream=[IO.File]::Open($requestPath,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
+    try {
+      if($stream.Length -gt 65536){throw 'GRAPH_MIRROR_OWNER'}
+      $requestBytes=[byte[]]::new([int]$stream.Length)
+      $stream.ReadExactly($requestBytes)
+      if($stream.ReadByte() -ne -1 -or [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($requestBytes)).ToLowerInvariant() -cne $AnalysisRequestSha){throw 'GRAPH_MIRROR_OWNER'}
+      $request=[Text.UTF8Encoding]::new($false,$true).GetString($requestBytes)|ConvertFrom-Json -AsHashtable
+    } finally {$stream.Dispose()}
+  } else {
+    $request=Get-Content -LiteralPath $requestPath -Raw|ConvertFrom-Json -AsHashtable
+  }
+  if($request.op -isnot [string] -or $request.op -cnotin @('analyze','capture','revalidate','files-read','files-verify') -or (($request.op -ceq 'analyze') -ne [bool]$AnalysisRequestSha)){throw 'GRAPH_MIRROR_OWNER'}
+  function Run-GraphChild($Script,$Arguments,$Label,[int]$BudgetMs=120000,[ref]$BinaryOutput){
     if(Test-Path -LiteralPath (Join-Path $TaskFolder 'cancel')){throw 'CANCELLED_BEFORE_CHILD'}
     $python=Join-Path $Resources 'assembly/runtime/python.exe'
     $start=[Diagnostics.ProcessStartInfo]::new($python)
@@ -24,7 +38,9 @@ try {
     $start.Environment['PYTHONHASHSEED']='0';$start.Environment['GRAPHIFY_BACKEND']='none';$start.Environment['GRAPHIFY_NO_AUTO_REFRESH']='1';$start.Environment['GRAPHIFY_OUT']='graphify-out'
     $script:state=$null
     try {
-      $current=Invoke-BmadSupervised $start $BudgetMs (Join-Path $TaskFolder ($Label+'-execution.json')) @() $TaskFolder (Join-Path $TaskFolder ($Label+'-stdout.json')) (Join-Path $TaskFolder ($Label+'-stderr.log')) '' ([ref]$script:state) (Join-Path $TaskFolder 'cancel')
+      $binary=@{}
+      if($null -ne $BinaryOutput){$binary.BinaryOutput=$BinaryOutput}
+      $current=Invoke-BmadSupervised $start $BudgetMs (Join-Path $TaskFolder ($Label+'-execution.json')) @() $TaskFolder (Join-Path $TaskFolder ($Label+'-stdout.json')) (Join-Path $TaskFolder ($Label+'-stderr.log')) '' ([ref]$script:state) (Join-Path $TaskFolder 'cancel') @binary
     } finally {
       # One observation per attempted child, including a throw before supervision can return.
       # A null observation remains an unknown attempt; it never proves never-started.
@@ -51,11 +67,19 @@ try {
     if($current.outcome -ne 'completed' -or $current.exit -ne 0){throw ('GRAPH_CHILD_'+$current.outcome)}
   }
   $captureScript='import sys;sys.path.insert(0,sys.argv[1]);import graph_capture;graph_capture.main()'
-  if($request.op -eq 'analyze'){
+  if($AnalysisRequestSha){
     # The supervisor inherits handles to install the child's own streams.
     [GraphClosedRuntime]::ProtectArtifactOutput()
+    $mirror=[GraphClosedRuntime]::CreateMirror($TaskFolder,[uint32]$request.taskVolume,[uint64]$request.taskIndex,[uint64]$request.taskCreationTicks)
+    $sourceRequest=@{op='mirror-input';prepared=$request.prepared;receiptSha=$request.receiptSha;rootIdentity=$request.rootIdentity;revision=$request.revision}
+    $payload=$null
+    Run-GraphChild $captureScript ($sourceRequest|ConvertTo-Json -Compress) 'mirror-input' -BinaryOutput ([ref]$payload)
+    if($payload -isnot [byte[]]){throw 'GRAPH_MIRROR_INPUT'}
+    if(Test-Path -LiteralPath (Join-Path $TaskFolder 'cancel')){throw 'CANCELLED_BEFORE_CHILD'}
+    $mirror.Materialize($payload)
+    $payload=$null
     $analysis=Join-Path $TaskFolder 'analysis';[void][IO.Directory]::CreateDirectory($analysis)
-    $workerRequest=@{assembly=(Join-Path $Resources 'assembly.json');resources=$Resources;analysis=$analysis;project=(Join-Path $request.prepared 'mirror');harness=@()}
+    $workerRequest=@{assembly=(Join-Path $Resources 'assembly.json');resources=$Resources;analysis=$analysis;project=$mirror.Path;harness=@()}
     [IO.File]::WriteAllText((Join-Path $TaskFolder 'worker-request.json'),($workerRequest|ConvertTo-Json -Compress),[Text.UTF8Encoding]::new($false))
     Run-GraphChild 'import sys,runpy;p=sys.argv[1]+"/worker.py";sys.argv=[p,sys.argv[2]];runpy.run_path(p,run_name="__main__")' (Join-Path $TaskFolder 'worker-request.json') 'analysis' 360000
     $worker=Get-Content -LiteralPath (Join-Path $analysis 'worker.json') -Raw|ConvertFrom-Json
@@ -88,7 +112,26 @@ try {
       catch { [IO.File]::WriteAllText((Join-Path $TaskFolder 'launcher-error.txt'),$_.Exception.Message) }
     }
   } finally {
-    if($null -ne $artifact){$artifact.Dispose()}
-    if($publish -and [IO.File]::Exists($path)){[IO.File]::Move($path,$terminalPath,$false)}
+    try {
+      if($null -ne $artifact){$artifact.Dispose()}
+      if($null -ne $mirror){
+        $retention=@{schemaVersion=1;generation=$Generation;status='retained-unknown';removedBytes=0;removedFiles=0}
+        if($known){
+          try {
+            $removed=$mirror.RemoveOwned()
+            $retention.removedBytes=$removed.RemovedBytes;$retention.removedFiles=$removed.RemovedFiles
+            $retention.status=if($removed.Complete){'removed'}else{'partial'}
+          } catch {$retention.status='refused'}
+        }
+        try {
+          $retentionPath=Join-Path $TaskFolder 'mirror-retention.json'
+          $stream=[IO.File]::Open($retentionPath,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
+          try {$receiptBytes=[Text.UTF8Encoding]::new($false).GetBytes(($retention|ConvertTo-Json -Compress));$stream.Write($receiptBytes,0,$receiptBytes.Length)} finally {$stream.Dispose()}
+        } catch {}
+      }
+    } finally {
+      try {if($null -ne $mirror){$mirror.Dispose()}} catch {}
+      if($publish -and [IO.File]::Exists($path)){[IO.File]::Move($path,$terminalPath,$false)}
+    }
   }
 }

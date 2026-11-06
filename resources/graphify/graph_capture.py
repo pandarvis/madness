@@ -1,5 +1,5 @@
-"""Original physical code corpus and owned mirror. No third-party imports."""
-import os,sys,json,stat,hashlib,datetime
+"""Original physical code corpus and mirror input. No third-party imports."""
+import os,sys,json,stat,hashlib,datetime,struct
 from pathlib import Path
 import capture,files
 EXTENSIONS={'.py','.ts','.tsx','.js','.jsx','.mjs','.cjs','.cs','.java','.c','.h','.cpp','.hpp','.rs','.go','.rb','.php','.swift','.kt','.scala','.vue','.svelte'}
@@ -80,6 +80,43 @@ def inventory(project):
     revision=capture.sha(json.dumps(public,sort_keys=True,separators=(',',':')).encode())
     return root,chain,entries,excluded,revision
 
+def mirror_input(req):
+    prepared = capture.long_path(req['prepared'])
+    receipt = capture.read_safe(prepared / 'files.json', file_limit=4*1024*1024, utf8=False)
+    if capture.sha(receipt) != req['receiptSha']:
+        raise capture.Refusal('RECEIPT_CHANGED')
+    state = json.loads(receipt)
+    if (state['version'] != 1 or state['producer'] != 'corpus'
+            or state['revision'] != req['revision'] or state['rootIdentity'] != req['rootIdentity']):
+        raise capture.Refusal('GRANT_CHANGED')
+    root = capture.long_path(state['project'])
+    chain = capture.inspect_chain(root)
+    if (json.dumps(chain) != json.dumps(state['rootChain'])
+            or capture.sha(json.dumps(chain, separators=(',', ':')).encode()) != req['rootIdentity']):
+        raise capture.Refusal('PROJECT_REPLACED')
+    entries = state['entries']
+    if not 0 < len(entries) <= capture.COUNT_LIMIT:
+        raise capture.Refusal('SOURCE_COUNT_LIMIT')
+    payload = bytearray(b'MADMSRC1' + struct.pack('<I', len(entries)))
+    size = 0
+    for entry in entries:
+        path, raw = files.check(root, entry)
+        relative = path.relative_to(root).as_posix().encode('utf-8')
+        if not 0 < len(relative) <= 32*1024:
+            raise capture.Refusal('MIRROR_PATH_LIMIT')
+        size += len(raw)
+        if size > capture.TOTAL_LIMIT:
+            raise capture.Refusal('SOURCE_TOTAL_LIMIT')
+        if len(payload) + 8 + len(relative) + len(raw) > 50*1024*1024:
+            raise capture.Refusal('MIRROR_FRAME_LIMIT')
+        payload.extend(struct.pack('<II', len(relative), len(raw)))
+        payload.extend(relative)
+        payload.extend(raw)
+    if capture.inspect_chain(root) != chain:
+        raise capture.Refusal('PROJECT_REPLACED')
+    return payload
+
+
 def operate(req):
     if req['op'].startswith('files-'):return files.operate(req)
     if req['op']=='terminal':
@@ -93,11 +130,6 @@ def operate(req):
     folder=capture.long_path(req['folder']);capture.inspect_chain(folder)
     root,chain,entries,excluded,revision=inventory(req['project'])
     if not entries:raise capture.Refusal('NO_CODE_SOURCES')
-    if req['op']=='capture':
-        mirror=folder/'mirror';mirror.mkdir(exist_ok=False)
-        for entry,raw in entries:
-            target=mirror/entry['relativePath'];target.parent.mkdir(parents=True,exist_ok=True)
-            with target.open('xb') as output:output.write(raw)
     grant=files.publish(folder,root,'corpus',revision,[{k:v for k,v in e.items() if k not in ('relativePath','lineCount')} for e,b in entries])
     receipt={'project':capture.display_path(root),'rootChain':chain,'revision':revision}
     (folder/'corpus.json').write_text(json.dumps(receipt),encoding='utf-8')
@@ -105,7 +137,10 @@ def operate(req):
 def main():
     request = json.loads(sys.argv[-1])
     try:
-        print(json.dumps(operate(request), ensure_ascii=False))
+        if request.get('op') == 'mirror-input':
+            sys.stdout.buffer.write(mirror_input(request))
+        else:
+            print(json.dumps(operate(request), ensure_ascii=False))
     except capture.Refusal as error:
         if request.get('op') in ('capture','revalidate') and error.code in {
             'DEPTH_LIMIT', 'INVENTORY_LIMIT', 'SOURCE_COUNT_LIMIT',
@@ -113,9 +148,9 @@ def main():
         }:
             print(json.dumps({'error': error.code}))
             sys.exit(2)
-        print(json.dumps({'error': str(error)}))
+        print(json.dumps({'error': str(error)}), file=sys.stderr if request.get('op') == 'mirror-input' else sys.stdout)
         sys.exit(1)
     except BaseException as error:
-        print(json.dumps({'error': str(error)}))
+        print(json.dumps({'error': str(error)}), file=sys.stderr if request.get('op') == 'mirror-input' else sys.stdout)
         sys.exit(1)
 if __name__=='__main__':main()

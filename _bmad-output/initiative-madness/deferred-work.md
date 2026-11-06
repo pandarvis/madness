@@ -61,3 +61,8 @@
 - source_plan: `_bmad-output/initiative-madness/tickets/epic-projets-bmad/tickets/story-refactor-sweep-plan.md`
   summary: Le rapprochement des17anciens rouges et des9Graph inclus est conservé sans réécrire leurs reçus.
   evidence: qualification-sweep-projets/dispositions.json fournit17noms uniques,9en sous-ensemble, fixes des attentes/doubles/UI et observations natives dans leur mode exact. Le positif Graph porte une copie diagnostique distincte, pas une réparation causale ni une qualification finale du produit ; le contrôle standard est différé par l’instruction humaine ci-dessus. Les réserves de copie externe/G3 restent à qualifier ultérieurement, aucune nouvelle demande Zscaler/token/IT.
+
+
+- source_plan: `_bmad-output/initiative-madness/tickets/epic-graphe-projet/tickets/story-refactor-sweep-plan.md`
+  summary: Borner la rétention des copies opérationnelles Graphify et mesurer leur volume avant clôture G5.
+  evidence: Remise 4.4 ligne 31 et rapprochement epic 4 du 4 novembre. La 0.2.19 conserve graph-runs-v1 pour miroir, aperçu, diagnostic et preuve d’arrêt. Définir puis vérifier une politique de suppression des seules copies possédées et confirmées, avec conservation des références actives et reçus nécessaires. Les profils existants et dossiers à arrêt inconnu demandent une reprise distincte. Les trois sorties intermédiaires de 4.9 étaient des paquets, pas des opérations utilisateur.

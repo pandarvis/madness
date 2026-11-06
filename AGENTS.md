@@ -1,5 +1,7 @@
 # Travail dans ce dépôt
 
+- 6 novembre 2026 — Implémentation Graphify 4.7–4.9 et sweep 4.10 revus via bmad-build Quick. 4.7 commits 7b1f5cd et ea4337a, 4.8 9fd0bd8, 4.9 b0d6bb1. Candidat Windows 0.2.19 dist/graph49-release, ASAR 58100bfbe580ba3f3b44189876334228af2be96378cf7cc27b4acd64a06aa4c5. Paquet ouvert sur profil témoin, 3051 ressources auditées, test clavier à 200 %, aucun graphe réel lancé sur ce paquet. Profils témoins et trois sorties intermédiaires propres, 2 267 605 998 octets logiques retirés. Rétention graph-runs-v1 ouverte au registre avant G5. 2.16/3.9/3.10/4.11 restent à qualifier selon le tableau, campagnes longues différées et aucun clic réseau en attente.
+
 - 6 novembre 2026 — Graphify 4.5 built e9aa3ac et 4.6 built, BMad oneshot/Quick. Artefact natif épinglé, copie sur descripteur et direction attestée. Fraîcheur par révision, ancien complet préservé, autorités révoquées avec les liens, réouverture passive. Q1–Q5 de 4.6 résolus et recontrôlés. Tests ciblés et Electron court seulement. Prochaine 4.7, arrêt et restauration. Pas de nouveau paquet ni G5 final.
 
 - 6 novembre 2026 — 3.8 built via bmad-build oneshot/Quick. Sept plans et onze entrées du registre revus, aucun correctif d'initialisation différé. Q1 résolu, lien vers le manifeste exact 0.2.18 et quatre empreintes contrôlées. Prochaine voie produit 4.5 Graphify. Les qualifications longues 2.16/3.9 et la participation 3.10 restent ouvertes.

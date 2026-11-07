@@ -145,7 +145,7 @@ else {
           const next: AppearanceState = await appearanceStore.save(input.theme)
           appearance = next
           nativeTheme.themeSource = next.theme
-          if (window && !window.isDestroyed()) { window.setBackgroundColor(nativeColors(next.theme).color); window.setTitleBarOverlay(nativeCaptionColors(next.theme)) }
+          if (window && !window.isDestroyed()) { window.setBackgroundColor(nativeColors(next.theme).color) }
         }
         return { contractVersion: 1, correlationId: input.correlationId, ok: true, state: appearance }
       })
@@ -502,7 +502,7 @@ else {
       icon: app.isPackaged ? join(process.resourcesPath, 'madness.ico') : join(app.getAppPath(), 'resources/branding/madness.ico'),
       width: 1320, height: 860, minWidth: 520, minHeight: 520, show: false,
       title: 'Madness', backgroundColor: nativeColors(appearance.theme).color, autoHideMenuBar: true,
-      titleBarStyle: 'hidden', titleBarOverlay: nativeCaptionColors(appearance.theme),
+      titleBarStyle: 'hidden',
       webPreferences: { preload: join(__dirname, '../preload/index.js'), additionalArguments: ['--madness-language=' + language.language, '--madness-language-warning=' + (language.warning ?? 'none'), '--madness-theme=' + appearance.theme, '--madness-appearance-warning=' + (appearance.warning ?? 'none'), ...(process.argv.includes('--madness-splash-demo') ? ['--madness-splash-demo'] : [])], contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, allowRunningInsecureContent: false, webviewTag: false, spellcheck: false }
     })
     window.on('focus',()=>{contextCoordinator.reconcile();helpCoordinator.reconcile();progressCoordinator.reconcile();catalogCoordinator.reconcile()})
@@ -511,7 +511,17 @@ else {
     window.webContents.on('will-redirect', (event) => event.preventDefault())
     window.webContents.on('will-attach-webview', (event) => event.preventDefault())
     window.once('ready-to-show', () => window?.show())
-    nativeTheme.on('updated', () => { if (window && !window.isDestroyed()) window.setTitleBarOverlay(nativeCaptionColors(appearance.theme)) })
+    // Caption buttons are drawn by the renderer since 2026-11-07: Madness owns their plates and hover.
+    ipcMain.handle('madness:window', (event, action: unknown): boolean => {
+      if (!window || window.isDestroyed() || event.sender !== window.webContents) return false
+      if (action === 'minimize') window.minimize()
+      else if (action === 'toggle-maximize') { if (window.isMaximized()) window.unmaximize(); else window.maximize() }
+      else if (action === 'close') window.close()
+      else if (action !== 'state') return false
+      return window.isMaximized()
+    })
+    const sendWindowState = (): void => { if (window && !window.isDestroyed()) window.webContents.send('madness:window-state', window.isMaximized()) }
+    window.on('maximize', sendWindowState); window.on('unmaximize', sendWindowState)
     window.on('closed', () => { window = null })
     await window.loadURL(rendererUrl)
   }).catch(() => {

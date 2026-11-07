@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
 import chatgptMark from './assets/chatgpt-mark.svg'
+import claudeMark from './assets/claude.svg?no-inline'
+import copilotMark from './assets/githubcopilot.svg?no-inline'
 import { useLocale } from './Locale.tsx'
 
 export type ProviderId = 'codex' | 'claude-code' | 'github-copilot'
@@ -16,9 +18,7 @@ export function saveNextProvider(id: ProviderId): void {
 }
 
 function Mark({ id }: { id: ProviderId }): ReactNode {
-  if (id === 'codex') return <img className="provider-mark" src={chatgptMark} alt="" />
-  // Official Claude Code and Copilot logos wait for their usage rights (6.3, epic 7): monograms meanwhile.
-  return <span className={'provider-mark provider-monogram provider-' + id} aria-hidden="true">{id === 'claude-code' ? 'Cl' : 'GH'}</span>
+  return <img className={'provider-mark provider-' + id} src={id === 'codex' ? chatgptMark : id === 'claude-code' ? claudeMark : copilotMark} alt="" />
 }
 
 export function ProviderIsland({ active, codex, onChoose }: { active: ProviderId; codex: CodexReadiness; onChoose: (id: ProviderId) => void }): ReactNode {

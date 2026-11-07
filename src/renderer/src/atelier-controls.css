@@ -241,3 +241,6 @@ img.provider-mark { padding: 4px; background: #f1ebe6 }
 .topbar .provider-island { position: relative; z-index: 5 }
 .topbar .provider-island:is(:hover, :focus-within) { z-index: 50 }
 .topbar-icon { display: block; margin: auto }
+.window-controls { display: flex; align-items: center; gap: 8px; margin-inline-start: 16px; app-region: no-drag; -webkit-app-region: no-drag }
+.window-control.window-close:hover { --control-face: #8f2f25; color: #fff }
+@media (max-width: 720px) { .window-controls { margin-inline-start: 4px; gap: 4px } }

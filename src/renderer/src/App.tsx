@@ -23,7 +23,7 @@ import {agentPresentation} from './agentPresentation.ts'
 import {AgentPortrait} from './AgentPortrait.tsx'
 import {AgentInfoPanel} from './AgentInfoPanel.tsx'
 import madnessMark from '../../../resources/branding/madness-64.png'
-import {WindowCaptionPlates} from './WindowCaptionPlates.tsx'
+import { WindowControls } from './WindowControls.tsx'
 import type {AgentConsultation} from './AgentInfoPanel.tsx'
 import {NetworkHelp} from './NetworkHelp.tsx'
 import {WorkOverview} from './WorkOverview.tsx'
@@ -596,8 +596,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         <ProviderIsland active={nextProvider} codex={connection.status==='verified'?'verified':connection.accountStored?'stored':'none'} onChoose={id=>{setNextProvider(id);saveNextProvider(id);if(id==='codex'&&!connection.accountStored)openConnection()}}/>
         <button className={'toolbar-toggle command-control codex-trigger settings-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel + (language==='fr'?' · Réglages':' · Settings')} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><TopbarIcon name="settings" /><span className="command-tooltip" aria-hidden="true">{language==='fr'?'Réglages':'Settings'}</span></button>
       </div>
+      <WindowControls />
     </header>
-    <WindowCaptionPlates />
     {connectionOpen && <section id="codex-connection-panel" className="connection-panel" role="dialog" aria-modal="false" aria-labelledby="codex-connection-title" ref={connectionPanel}>
       <p className="settings-eyebrow small muted">{language==='fr'?'Réglages':'Settings'}</p><div className="connection-heading"><h2 id="codex-connection-title" ref={connectionHeading} tabIndex={-1}>{ui.codex_connection}</h2><button type="button" aria-label={ui.close_codex_connection} onClick={closeConnection}><Icon name="close" /></button></div>
       <p className={'connection-state ' + (connection.status === 'verified' ? 'is-verified' : '')} role="status">{fr.connectionStatus[connection.status]}</p>

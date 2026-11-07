@@ -207,3 +207,30 @@ input:is([type='checkbox'],[type='radio']):disabled { opacity: .65; cursor: not-
 .language-toggle { display: inline-grid; place-items: center; min-width: 40px; min-height: 40px; padding: 4px; app-region: no-drag; -webkit-app-region: no-drag; }
 .language-flag { display: block; width: 24px; height: 16px; stroke: none; forced-color-adjust: none; }
 .language-warning { position: fixed; top: 56px; right: 16px; z-index: 60; max-width: min(420px, calc(100vw - 32px)); padding: 10px 14px; margin: 0; color: var(--text); background: var(--panel); border: 1px solid var(--control-line); }
+
+/* Provider "dynamic island": the active provider stays readable; hover or focus unfolds the choice. */
+.provider-island { position: relative; app-region: no-drag; -webkit-app-region: no-drag; flex: none; display: flex; align-items: center; min-height: 40px }
+.provider-current { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 4px 12px 4px 6px; border: 1px solid var(--control-line); border-radius: 999px; background: var(--panel); color: var(--text); font-size: 14px; white-space: nowrap; transition: border-color .18s ease, background .18s ease }
+.provider-island:is(:hover, :focus-within) .provider-current { border-color: var(--accent); background: var(--accent-soft) }
+.provider-mark { width: 24px; height: 24px; flex: none; border-radius: 50% }
+img.provider-mark { padding: 3px; background: #f1ebe6 }
+.provider-monogram { display: inline-grid; place-items: center; font-size: 11px; font-weight: 700; letter-spacing: .02em; color: #231a15 }
+.provider-claude-code.provider-monogram { background: #d97757 }
+.provider-github-copilot.provider-monogram { background: #b5aaa2 }
+.provider-dot { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--control-line) }
+.provider-dot.provider-ok { background: var(--success-text) }
+.provider-dot.provider-warn { background: var(--waiting-text) }
+.provider-options { position: absolute; top: calc(100% + 6px); right: 0; z-index: 60; display: grid; gap: 4px; min-width: 260px; padding: 6px; border-radius: 14px; background: var(--panel); box-shadow: 0 12px 42px var(--panel-shadow); opacity: 0; visibility: hidden; transform: translateY(-6px) scale(.97); transform-origin: top right; transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s }
+.provider-island:is(:hover, :focus-within) .provider-options { opacity: 1; visibility: visible; transform: none; transition: opacity .18s ease, transform .18s ease, visibility 0s }
+.provider-option { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 6px 10px; border: 1px solid transparent; border-radius: 10px; background: transparent; color: var(--text); text-align: left }
+.provider-option:hover:not(:disabled) { background: var(--hover) }
+.provider-option.is-active { border-color: var(--accent); background: var(--accent-soft) }
+.provider-option:disabled { opacity: .55; cursor: not-allowed }
+.provider-option-text { display: grid; flex: 1; min-width: 0 }
+.provider-option .provider-name { font-weight: 600 }
+.provider-state { font-size: 12px; color: var(--muted) }
+@media (prefers-reduced-motion: reduce) { .provider-options, .provider-current { transition: none } }
+@media (max-width: 720px) { .provider-current .provider-name { display: none } }
+.settings-section { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line) }
+.settings-section h3 { margin: 0 0 8px; font-size: 16px }
+.welcome .welcome-actions { margin-top: 16px }

@@ -39,7 +39,7 @@ import { MAX_DRAFT_LENGTH } from '../../contracts/index.ts'
 import { fr,metricsLabels } from './strings.ts'
 import { initialConnectionState } from '../../contracts/connection.ts'
 import type { ConnectionState, ConnectionBridge } from '../../contracts/connection.ts'
-import chatgptMark from './assets/chatgpt-mark.svg'
+import { ProviderIsland, readNextProvider, saveNextProvider, type ProviderId } from './ProviderIsland.tsx'
 import { initialDialogueState } from '../../contracts/dialogue.ts'
 import type { DialogueMessage, DialogueState, WorkflowRecord } from '../../contracts/dialogue.ts'
 import type { AppearanceState } from '../../contracts/appearance.ts'
@@ -87,8 +87,8 @@ function ProjectMark({ name }: { name: string }): ReactNode {
   return <span className="project-mark" aria-hidden="true"><span>{letters ? letters.toUpperCase() : <Icon name="folder" />}</span></span>
 }
 
-function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message' | 'arrow' | 'refresh' | 'external' | 'logout' | 'copy' | 'sun' | 'moon' }): ReactNode {
-  const paths = { home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z', folder: 'M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z', panel: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM9 3v18m6-13-3 4 3 4', close: 'm6 6 12 12M6 18 18 6', message: 'M4 4h16v12H9l-5 4V4Z', arrow: 'M5 12h14m-5-5 5 5-5 5', refresh: 'M20 7v5h-5M20 12a8 8 0 1 0-2 5', external: 'M14 4h6v6m0-6-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5', logout: 'M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4m4-12 4 4-4 4m-4-4h12',copy:'M9 9h12v12H9V9ZM5 15H3V3h12v2',sun:'M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5',moon:'M20.5 13.1A8.5 8.5 0 0 1 10.9 3.5a8.5 8.5 0 1 0 9.6 9.6Z' }
+function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message' | 'arrow' | 'refresh' | 'external' | 'logout' | 'copy' | 'sun' | 'moon' | 'settings' }): ReactNode {
+  const paths = { settings: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm8.5 4-.1-1.3 2-1.6-2-3.4-2.4.9a8 8 0 0 0-2.2-1.3L15.4 3h-3.8l-.4 2.3A8 8 0 0 0 9 6.6l-2.4-.9-2 3.4 2 1.6L6.5 12l.1 1.3-2 1.6 2 3.4 2.4-.9a8 8 0 0 0 2.2 1.3l.4 2.3h3.8l.4-2.3a8 8 0 0 0 2.2-1.3l2.4.9 2-3.4-2-1.6Z', home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z', folder: 'M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z', panel: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM9 3v18m6-13-3 4 3 4', close: 'm6 6 12 12M6 18 18 6', message: 'M4 4h16v12H9l-5 4V4Z', arrow: 'M5 12h14m-5-5 5 5-5 5', refresh: 'M20 7v5h-5M20 12a8 8 0 1 0-2 5', external: 'M14 4h6v6m0-6-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5', logout: 'M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4m4-12 4 4-4 4m-4-4h12',copy:'M9 9h12v12H9V9ZM5 15H3V3h12v2',sun:'M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5',moon:'M20.5 13.1A8.5 8.5 0 0 1 10.9 3.5a8.5 8.5 0 1 0 9.6 9.6Z' }
   const cutPaths = { home: 'M3 10 12 3l9 7v9l-2 2h-5v-7h-4v7H5l-2-2Z', folder: 'M3 8V4h7l3 3h8v12l-2 2H3Zm0 2h18', panel: 'M5 3h14l2 2v14l-2 2H3V5Zm4 0v18m7-13-4 4 4 4', sun: 'M16 9v6l-4 2-4-2V9l4-2ZM12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2', moon: 'M20 14a8 8 0 0 1-10-10l-5 3-2 5 2 6 5 3 6-1Z' }
   const face = { home: 'M3 10 12 3l9 7v9l-2 2h-5v-7h-4v7H5l-2-2Z', folder: 'M3 10h18v9l-2 2H3Z', panel: 'M5 3h4v18H3V5Z', sun: 'M16 9v6l-4 2-4-2V9l4-2Z', moon: 'M20 14a8 8 0 0 1-10-10l-5 3-2 5 2 6 5 3 6-1Z' }
   const key = name in cutPaths ? name as keyof typeof cutPaths : null
@@ -158,7 +158,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [appearanceBridgeError, setAppearanceBridgeError] = useState<'read' | 'change' | null>(appearanceReadFailed ? 'read' : null)
   const appearanceBusy = useRef(false)
   const themeLabel = appearance.theme === 'dark' ? ui.switch_to_light_theme : ui.switch_to_dark_theme
-  useEffect(() => { document.documentElement.dataset.theme = appearance.theme }, [appearance.theme])
+  useEffect(() => { document.documentElement.dataset.theme = 'dark' }, [])
   async function toggleTheme(): Promise<void> {
     if (appearanceBusy.current) return
     const theme = appearance.theme === 'dark' ? 'light' : 'dark'
@@ -176,6 +176,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const heading = useRef<HTMLHeadingElement>(null)
   const [connection, setConnection] = useState<ConnectionState>(initialConnectionState)
   const [connectionOpen, setConnectionOpen] = useState(false)
+  const [nextProvider, setNextProvider] = useState<ProviderId>(readNextProvider)
   const [connectionPending, setConnectionPending] = useState(false)
   const [connectionBridgeError, setConnectionBridgeError] = useState(false)
   const connectionTrigger = useRef<HTMLButtonElement>(null)
@@ -591,13 +592,13 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       </div>
       <div className="topbar-actions">
         <button className="toolbar-toggle command-control open-project" type="button" aria-label={fr.open} onClick={open} disabled={pending || !state}><Icon name="folder" /><span className="command-tooltip" aria-hidden="true">{fr.open}</span></button>
-        <LanguageControl/><button className="toolbar-toggle command-control theme-toggle" type="button" aria-label={themeLabel} aria-disabled={appearancePending} onClick={() => void toggleTheme()}><Icon name={appearance.theme === 'dark' ? 'sun' : 'moon'} /><span className="command-tooltip" aria-hidden="true">{themeLabel}</span></button>
-        <button className={'codex-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel} title={connectionLabel} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><img src={chatgptMark} alt="" /><span className="connection-tooltip" aria-hidden="true">{connectionLabel}</span></button>
+        <ProviderIsland active={nextProvider} codex={connection.status==='verified'?'verified':connection.accountStored?'stored':'none'} onChoose={id=>{setNextProvider(id);saveNextProvider(id);if(id==='codex'&&!connection.accountStored)openConnection()}}/>
+        <button className={'toolbar-toggle command-control codex-trigger settings-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel + (language==='fr'?' · Réglages':' · Settings')} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><Icon name="settings" /><span className="command-tooltip" aria-hidden="true">{language==='fr'?'Réglages':'Settings'}</span></button>
       </div>
     </header>
     <WindowCaptionPlates />
     {connectionOpen && <section id="codex-connection-panel" className="connection-panel" role="dialog" aria-modal="false" aria-labelledby="codex-connection-title" ref={connectionPanel}>
-      <div className="connection-heading"><h2 id="codex-connection-title" ref={connectionHeading} tabIndex={-1}>{ui.codex_connection}</h2><button type="button" aria-label={ui.close_codex_connection} onClick={closeConnection}><Icon name="close" /></button></div>
+      <p className="settings-eyebrow small muted">{language==='fr'?'Réglages':'Settings'}</p><div className="connection-heading"><h2 id="codex-connection-title" ref={connectionHeading} tabIndex={-1}>{ui.codex_connection}</h2><button type="button" aria-label={ui.close_codex_connection} onClick={closeConnection}><Icon name="close" /></button></div>
       <p className={'connection-state ' + (connection.status === 'verified' ? 'is-verified' : '')} role="status">{fr.connectionStatus[connection.status]}</p>
       {connection.status === 'verified' ? <p>{ui.a_codex_check_turn_succeeded_and_its_process_stopped}{connection.verifiedAt && <> {ui.verified_at} {new Date(connection.verifiedAt).toLocaleString(locale)}.</>}{connection.cliVersion && <> Codex {connection.cliVersion}.</>}</p> : connection.accountStored ? <p>{ui.your_account_is_saved_in_the_encrypted_windows_vault_it_still_nee}</p> : <p>{ui.connect_your_chatgpt_account_in_the_windows_browser_madness_keeps}</p>}
       {connection.status === 'authorizing' && <p>{ui.complete_authorization_in_your_browser_waiting_expires_after_ten_}</p>}
@@ -616,13 +617,16 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         </>}
       </div>
       <div className="connection-scope"><p>{ui.this_checks_the_local_connection_to_your_plan_a_bmad_session_laun}</p><button className="text-button" type="button" onClick={() => void connectionAction('manageUsage')} disabled={connectionPending}>{ui.manage_usage_in_chatgpt}</button></div>
+      <div className="settings-section"><h3>{language==='fr'?'Langue':'Language'}</h3><LanguageControl/></div>
+      <div className="settings-section"><h3>Claude Code</h3><p className="small">{language==='fr'?'Madness utilise la CLI officielle Claude Code et la connexion que vous y avez déjà faite. Elles sont vérifiées à chaque lancement ; aucun secret n’est stocké par Madness.':'Madness uses the official Claude Code CLI and the sign-in you already made there. Both are checked at each launch; Madness stores no secret.'}</p></div>
+      <div className="settings-section"><h3>GitHub Copilot</h3><p className="small">{language==='fr'?'Bientôt disponible.':'Coming soon.'}</p></div>
     </section>}
     <div className="app-body">
     <aside className="sidebar" aria-label={ui.main_navigation} onMouseLeave={() => setTooltipsDismissed(false)} onFocusCapture={() => setTooltipsDismissed(false)}>
       <div className="brand"><span className="brand-label">{fr.app}</span></div>
       <nav id="project-navigation" aria-label={ui.projects}>{navigation}</nav>
       <div className="rail-signature" aria-hidden="true"><img src={madnessMark} alt="" width="28" height="28" /></div>
-      <p className="sidebar-bottom nav-label">{ui.local_data}<br />{ui.english_theme} {appearance.theme==='dark'?(language==='fr'?'sombre':'dark'):(language==='fr'?'clair':'light')}</p>
+      <p className="sidebar-bottom nav-label">{ui.local_data}</p>
     </aside>
     <div className="workspace">
       <div className="workspace-body">
@@ -642,7 +646,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
             {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<details className="recovery-details global-recovery"><summary>{ui.global_recovery_details}</summary><section id="overview-session-recovery" tabIndex={-1} aria-label={ui.global_recovery}><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section></details>}
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>{ui.restore_your_workspace}</h1><p>{pending ? ui.reading_local_context : ui.local_context_unavailable_use_the_message_above_to_retry}</p></section> : page === 'home' || !project ? <>
 
-              {state.projects.length === 0 ? <section className="welcome"><h2>{ui.start_with_a_folder}</h2><p>{ui.open_a_local_project_to_keep_its_context_and_prepare_a_draft_the_}</p><p className="reason"><strong>{ui.why_now}</strong> {ui.madness_needs_to_know_which_project_your_input_belongs_to}</p></section> : <ProjectLibrary mark={name=><ProjectMark name={name}/>} entries={projectLibrary(state,bmadContext,progressState,helpState,overview!)} onSelect={select} onNavigate={target=>void navigateOverview(target)} pending={pending}/>}
+              {state.projects.length === 0 ? <section className="welcome"><h2>{ui.start_with_a_folder}</h2><p>{ui.open_a_local_project_to_keep_its_context_and_prepare_a_draft_the_}</p><p className="reason"><strong>{ui.why_now}</strong> {ui.madness_needs_to_know_which_project_your_input_belongs_to}</p><div className="welcome-actions"><button className="primary" type="button" onClick={open} disabled={pending || !state}><Icon name="folder" />{fr.open}</button></div></section> : <ProjectLibrary mark={name=><ProjectMark name={name}/>} entries={projectLibrary(state,bmadContext,progressState,helpState,overview!)} onSelect={select} onNavigate={target=>void navigateOverview(target)} pending={pending}/>}
 
               <div className="home-note"><h2>{ui.connect_your_account_from_the_codex_logo}</h2><p>{fr.codexReason} {ui.read_bmad_evidence_in_journey_without_a_connection_view_the_local}</p></div>
             </> : <>
@@ -712,7 +716,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                 {tab==='conversation'&&catalogPreparation?.projectId===project.id&&(catalogLaunch.preparation?.id===catalogPreparation.id||catalogLaunch.status==='error')&&<CatalogLaunchPanel metricChoice={metricChoices.slot('catalog',dialoguePending||dialogueBusy)} preparation={catalogPreparation} busy={dialoguePending||dialogueBusy||catalogLaunch.status==='launching'} stale={catalogSelectionChanged||catalogLaunch.status!=='prepared'||catalogState.projects.find(p=>p.projectId===project.id)?.freshness!=='current'||catalogState.projects.find(p=>p.projectId===project.id)?.snapshot?.revision!==catalogPreparation.snapshot.revision||catalogState.projects.find(p=>p.projectId===project.id)?.generation!==catalogPreparation.generation} selectionChanged={catalogSelectionChanged} error={catalogLaunch.error} onLaunch={()=>void launchFromCatalog()} onCancel={cancelCatalog}/>}
                 {tab==='conversation'&&conversation&&<CatalogOrigin record={catalogLaunch.records.find(r=>r.conversationId===conversation.id&&sameContext(r.context,conversation.context))} onRetry={id=>void window.madnessCatalogLaunch.retrySave(id).then(acceptCatalogLaunch).catch(()=>setNotice(l=>l.ui.origin_could_not_be_saved_no_new_send))}/>}
                 {tab==='conversation'&&<button className="text-button prepare-exchange" type="button" onClick={prepareExchange}>{ui.prepare_an_exchange}</button>}
-                {tab==='conversation'&&<div className="dialogue-launch" aria-labelledby="claude-launch-title">
+                {tab==='conversation'&&nextProvider==='claude-code'&&<div className="dialogue-launch" aria-labelledby="claude-launch-title">
                   <h2 id="claude-launch-title">Claude Code</h2>
                   <p className="small" id="claude-launch-scope">{ui.claude_launch_scope}</p>
                   <div className="dialogue-actions">

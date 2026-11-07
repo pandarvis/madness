@@ -127,6 +127,8 @@ else {
     })
     const appearanceStore = new AppearanceStore(join(app.getPath('userData'), 'appearance-v1.json'))
     let appearance = await appearanceStore.restore()
+    // Dark only since the 2026-11-07 owner decision: a stored light choice is kept on disk but no longer applied.
+    appearance = { ...appearance, theme: 'dark' }
     let appearanceQueue: Promise<unknown> = Promise.resolve()
     const nativeColors = (theme: Theme): { color: string; symbolColor: string; height: number } => ({ color: theme === 'dark' ? '#20343C' : '#E8DDC8', symbolColor: theme === 'dark' ? '#F1EBE6' : '#24211E', height: 56 })
     const nativeCaptionColors = (theme: Theme): { color: string; symbolColor: string; height: number } => ({ ...nativeColors(theme), color: nativeTheme.shouldUseHighContrastColors ? nativeColors(theme).color : '#00000000' })

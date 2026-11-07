@@ -236,19 +236,8 @@ img.provider-mark { padding: 4px; background: #f1ebe6 }
 .settings-section h3 { margin: 0 0 8px; font-size: 16px }
 .welcome .welcome-actions { margin-top: 16px }
 
-/* Title bar commands mirror the native Windows caption buttons: flat cells, full bar height, same hover. */
-.topbar { padding-block: 0 }
-.topbar .topbar-actions { align-self: stretch; gap: 0 }
-.topbar .topbar-actions > .toolbar-toggle, .topbar .topbar-actions > .codex-trigger, .topbar .breadcrumb > .toolbar-toggle { align-self: stretch; width: 46px; flex: 0 0 46px; min-height: 0; height: auto; padding: 0; border: 0; border-radius: 0; color: var(--text); background: transparent; box-shadow: none; display: grid; place-items: center }
-.topbar .topbar-actions > .toolbar-toggle::before, .topbar .topbar-actions > .toolbar-toggle::after, .topbar .topbar-actions > .codex-trigger::before, .topbar .topbar-actions > .codex-trigger::after, .topbar .breadcrumb > .toolbar-toggle::before, .topbar .breadcrumb > .toolbar-toggle::after { display: none }
-.topbar .topbar-actions > .toolbar-toggle:hover, .topbar .topbar-actions > .codex-trigger:hover, .topbar .breadcrumb > .toolbar-toggle:hover, .topbar .topbar-actions > .codex-trigger[aria-expanded='true'] { background: rgba(255, 255, 255, .1) }
-.topbar .topbar-actions > .codex-trigger.codex-verified { background: transparent }
-.topbar .provider-island { align-self: stretch; width: 46px; height: auto; display: grid; place-items: center }
-.topbar .provider-island:hover { background: rgba(255, 255, 255, .1) }
-.topbar .provider-options { top: 50%; right: 3px; transform: translateY(-50%) }
-.topbar-icon { display: block }
-.window-caption-plates { display: none }
 .topbar .breadcrumb > .mobile-menu { display: none }
-@media (max-width: 720px) { .topbar .breadcrumb > .desktop-menu { display: none } .topbar .breadcrumb > .mobile-menu { display: grid } }
+@media (max-width: 720px) { .topbar .breadcrumb > .mobile-menu { display: inline-flex } }
 .topbar .provider-island { position: relative; z-index: 5 }
 .topbar .provider-island:is(:hover, :focus-within) { z-index: 50 }
+.topbar-icon { display: block; margin: auto }

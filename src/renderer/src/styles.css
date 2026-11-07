@@ -325,6 +325,8 @@ dd { margin: 6px 0 0; color: var(--muted) }
 .recap-body details { margin-block: 12px; }
 @media (max-width: 700px) { .overview-list .question-return { flex-direction: column; align-items: flex-start; gap: 8px; } }
 
+/* The workspace bundle declares its own heading face: views rendered without the splash stylesheet keep Barlow Condensed. */
+@font-face { font-family: 'Barlow Condensed'; src: url('./assets/atelier/BarlowCondensed-Bold.ttf') format('truetype'); font-style: normal; font-weight: 700; font-display: swap }
 /* Atelier chrome surrounds quiet reading surfaces. Decorative cuts never clip a focus target. */
 h1, h2, .brand-label, .agent-name { font-family: 'Barlow Condensed', 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: .005em }
 h1 { font-size: 32px; line-height: 1.15 }

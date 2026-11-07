@@ -24,7 +24,7 @@ export function WindowControls(): ReactNode {
   }, [bridge])
   if (!bridge) return null
   const button = (action: 'minimize' | 'toggle-maximize' | 'close', glyph: keyof typeof glyphs, label: string): ReactNode =>
-    <button className={'toolbar-toggle command-control window-control window-' + action} type="button" aria-label={label} onClick={() => void bridge.command(action)}>
+    <button className={'toolbar-toggle command-control window-control window-' + action} type="button" aria-label={label} onClick={event => { event.currentTarget.blur(); void bridge.command(action) }}>
       <svg className="topbar-icon" aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{glyphs[glyph]}</svg>
       <span className="command-tooltip" aria-hidden="true">{label}</span>
     </button>

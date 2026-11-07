@@ -7,6 +7,14 @@ const source=resolve(process.argv.find(a=>a.startsWith('--source='))?.slice(9)??
 const base='_bmad-output/initiative-madness/tickets/epic-graphe-projet/qualification-graphe/'
 const original=JSON.parse(await readFile(base+'assembly-manifest.json','utf8'))
 const target=resolve('resources/graphify/assembly')
+// 2026-11-07 requalification: the CPython copy follows resources/bmad-help/runtime.json (same 735 records, new binaries).
+// Provisioning metadata (launchers, RECORD, direct_url, uv_cache) embeds staging paths and timestamps: taken from the source.
+// Every code, native library and notice record stays byte-identical to the original manifest.
+const helpRuntime=new Map(JSON.parse(await readFile('resources/bmad-help/runtime.json','utf8')).files.map(f=>[f.name,f.sha256]))
+if(helpRuntime.size!==original.runtime.length)throw Error('RUNTIME_SCOPE_CHANGED')
+original.runtime=await Promise.all(original.runtime.map(async e=>{const pin=helpRuntime.get(e.name);if(!pin)throw Error('RUNTIME_SCOPE_CHANGED:'+e.name);const b=await safe(join(source,'runtime',e.name));if(sha(b)!==pin)throw Error('RUNTIME_CHANGED:'+e.name);return {name:e.name,sha256:pin,bytes:b.length}}))
+const provisioning=n=>n.startsWith('bin/')||/\.dist-info\/(RECORD|direct_url\.json|uv_cache\.json)$/.test(n)
+original.packages=await Promise.all(original.packages.map(async e=>{if(!provisioning(e.name))return e;const b=await safe(join(source,'packages',e.name));return {name:e.name,sha256:sha(b),bytes:b.length}}))
 // Provisioning-only launchers embed the temporary interpreter path; direct_url records embed the wheel staging path. Neither is used by -I -S -m/runpy. Code, native libraries, RECORD and notices remain exact.
 const omitted=original.packages.filter(e=>e.name.startsWith('bin/')||e.name.endsWith('/direct_url.json'))
 const shipped=original.packages.filter(e=>!omitted.includes(e))

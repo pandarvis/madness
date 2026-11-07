@@ -35,7 +35,7 @@ test('legacy runtime PEM guard rejects altered or missing copied CA data before 
   await Promise.all(Array.from({length:16},async()=>{while(index<manifest.files.length){const entry=manifest.files[index++],raw=await readFile(join(origin,entry.name));assert.equal(sha(raw),entry.sha256,'source runtime changed: '+entry.name);const target=join(python,entry.name);await mkdir(dirname(target),{recursive:true});await writeFile(target,raw,{flag:'wx'})}}))
   const uvBytes=await readFile(join(beforeUser,'scoop/apps/uv/current/uv.exe'));assert.equal(sha(uvBytes),'2bfbe53d3cc95799e98fa08323b04844fc01d4f8c87dd5c00089e43f6554f162');await mkdir(dirname(uv),{recursive:true});await writeFile(uv,uvBytes,{flag:'wx'})
   process.env.USERPROFILE=fixture
-  assert.equal(await runtime.runtimeTreeFingerprint(python),'eaffa289643c1f9f91e7f32a23d06025988ee7e2b7efc0a12298a0997e626e40')
+  assert.equal(await runtime.runtimeTreeFingerprint(python),'819d83d34e77ad70a198d831e518fa9b398c3a244aa4af77fd8a8934c3821b92')
   assert.equal((await runtime.bmadRuntime(resolve('.'))).python,join(python,'python.exe'))
   const profile=await qualifyBmadProfile(resolve('.')),signal=new AbortController().signal
   const cp=createRequire(import.meta.url)('node:child_process')
@@ -46,7 +46,7 @@ test('legacy runtime PEM guard rejects altered or missing copied CA data before 
    if(variant==='altered')await writeFile(pem,Buffer.concat([original,Buffer.from('changed')]))
    else await rm(pem)
    // The historical suffix policy intentionally omits .pem; the explicit guard must refuse it.
-   assert.equal(await runtime.runtimeTreeFingerprint(python),'eaffa289643c1f9f91e7f32a23d06025988ee7e2b7efc0a12298a0997e626e40')
+   assert.equal(await runtime.runtimeTreeFingerprint(python),'819d83d34e77ad70a198d831e518fa9b398c3a244aa4af77fd8a8934c3821b92')
    await assert.rejects(runtime.bmadRuntime(resolve('.')),{code:'RESOLVER_FAILED'},variant+' runtime guard')
    await assert.rejects(resolveBmad(profile,'config',signal),{code:'RESOLVER_FAILED'},variant+' Mary before UV')
    await assert.rejects(runForgeScript(profile,'config',['--project-root',profile.rootPath],signal),{code:'RESOLVER_FAILED'},variant+' Forge before UV')

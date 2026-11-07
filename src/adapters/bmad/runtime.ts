@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { lstat, readFile, readdir, realpath } from 'node:fs/promises'
 import { isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { dialogueFailure } from '../../contracts/dialogue.ts'
-const runtimeFingerprint = 'eaffa289643c1f9f91e7f32a23d06025988ee7e2b7efc0a12298a0997e626e40'
+const runtimeFingerprint = '819d83d34e77ad70a198d831e518fa9b398c3a244aa4af77fd8a8934c3821b92'
 // La politique historique omet les .pem : ce réglage TLS est vérifié séparément.
 const rejectedCaFingerprint = 'c916ce1b14ed8ca69e9b5c9fab22799a900dd610d6d4ec9b1347f4fd48e53718'
 const uvFingerprint = '2bfbe53d3cc95799e98fa08323b04844fc01d4f8c87dd5c00089e43f6554f162'

@@ -10,8 +10,8 @@ export const helpResourcePins = {
   "launcher.ps1": "a4722f06adad45b8939cf80b7c58e6d277bf1a5434ab2be6725436eb5fa9b356",
   "preflight.ps1": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
   "resolve_config.py": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
-  "runtime_guard.py": "901a6107646d44b6ead38e471ad4339574fd6c6f5954ba2a093481d9a3973d49",
-  "runtime.json": "8493b2f40ac9351abfe6fa8939e98b8adee1a450621a064371eae22da4adb575",
+  "runtime_guard.py": "ed9232d19baed8eb2c61aab47ac0d9f40b6e26a5750a29e9942abf80efdecafe",
+  "runtime.json": "6f05f8870eac04376523111a03562a1532f7deecd0d4f0112935f4eccc303419",
   "supervision.ps1": "6a0d24c82296d1272adb3ff26fb006e13d2c265366ad388e4e3e6eca6e0ac493",
   "worker.py": "7429e4c4521cd9dcea658b08344906e582ce6ebda90595ab190a5534a72bf72b",
   "progress.py": "60ad451312bb8eec16988300ac4a2a378d74e14fbf984548a086364558ae7516"

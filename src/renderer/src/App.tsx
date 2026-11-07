@@ -39,6 +39,7 @@ import { MAX_DRAFT_LENGTH } from '../../contracts/index.ts'
 import { fr,metricsLabels } from './strings.ts'
 import { initialConnectionState } from '../../contracts/connection.ts'
 import type { ConnectionState, ConnectionBridge } from '../../contracts/connection.ts'
+import { TopbarIcon } from './TopbarIcon.tsx'
 import { ProviderIsland, readNextProvider, saveNextProvider, type ProviderId } from './ProviderIsland.tsx'
 import { initialDialogueState } from '../../contracts/dialogue.ts'
 import type { DialogueMessage, DialogueState, WorkflowRecord } from '../../contracts/dialogue.ts'
@@ -586,14 +587,14 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>{ui.skip_to_content}</a>
     <header className="topbar" onMouseLeave={()=>setTooltipsDismissed(false)} onFocusCapture={()=>setTooltipsDismissed(false)}>
       <div className="breadcrumb">
-        <button className="toolbar-toggle command-control desktop-menu" type="button" aria-label={collapsed ? ui.expand_navigation : ui.collapse_navigation} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><Icon name="panel" /></button>
-        <button className="toolbar-toggle command-control mobile-menu" type="button" ref={drawerTrigger} aria-label={ui.open_navigation} aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><Icon name="panel" /><span className="command-tooltip" aria-hidden="true">{ui.open_navigation}</span></button>
+        <button className="toolbar-toggle command-control desktop-menu" type="button" aria-label={collapsed ? ui.expand_navigation : ui.collapse_navigation} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><TopbarIcon name="panel" /></button>
+        <button className="toolbar-toggle command-control mobile-menu" type="button" ref={drawerTrigger} aria-label={ui.open_navigation} aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><TopbarIcon name="panel" /><span className="command-tooltip" aria-hidden="true">{ui.open_navigation}</span></button>
         <span title={page === 'project' && project ? project.name : fr.home}>{page === 'project' && project ? project.name : fr.home}</span>
       </div>
       <div className="topbar-actions">
-        <button className="toolbar-toggle command-control open-project" type="button" aria-label={fr.open} onClick={open} disabled={pending || !state}><Icon name="folder" /><span className="command-tooltip" aria-hidden="true">{fr.open}</span></button>
+        <button className="toolbar-toggle command-control open-project" type="button" aria-label={fr.open} onClick={open} disabled={pending || !state}><TopbarIcon name="folder" /><span className="command-tooltip" aria-hidden="true">{fr.open}</span></button>
         <ProviderIsland active={nextProvider} codex={connection.status==='verified'?'verified':connection.accountStored?'stored':'none'} onChoose={id=>{setNextProvider(id);saveNextProvider(id);if(id==='codex'&&!connection.accountStored)openConnection()}}/>
-        <button className={'toolbar-toggle command-control codex-trigger settings-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel + (language==='fr'?' · Réglages':' · Settings')} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><Icon name="settings" /><span className="command-tooltip" aria-hidden="true">{language==='fr'?'Réglages':'Settings'}</span></button>
+        <button className={'toolbar-toggle command-control codex-trigger settings-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel + (language==='fr'?' · Réglages':' · Settings')} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><TopbarIcon name="settings" /><span className="command-tooltip" aria-hidden="true">{language==='fr'?'Réglages':'Settings'}</span></button>
       </div>
     </header>
     <WindowCaptionPlates />

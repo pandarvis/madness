@@ -14,9 +14,6 @@
 .project-tabs button { min-height: 44px; padding-inline: 22px; letter-spacing: .025em }
 .project-tabs button::after { content: ''; position: absolute; inset: 3px 10px auto; height: 1px; background: var(--control-line); opacity: .7; pointer-events: none }
 .project-tabs button[aria-selected='true']::after { background: var(--accent-text); opacity: .4 }
-.main-inner:has(#panel-conversation) .project-banner { position: relative; padding: 14px 16px; min-height: 72px; border-bottom: 1px solid var(--atelier-edge); background: var(--panel); box-shadow: inset 0 2px 0 var(--atelier-plate) }
-.main-inner:has(#panel-conversation) .project-banner h1 { font-size: 28px; max-width: 48ch; line-height: 1.15 }
-.main-inner:has(#panel-conversation) .project-banner .context-trigger { margin-inline-start: 12px; background: var(--atelier-chrome) }
 .conversation-history > h2 { display: flex; align-items: center; gap: 14px; margin-block: 22px 8px; font-size: 18px; letter-spacing: .05em; text-transform: uppercase }
 .conversation-history > h2::after { content: ''; height: 1px; flex: 1; background: var(--line) }
 .conversation-messages { max-height: clamp(240px,44dvh,640px); padding: 12px 14px 12px 4px; scrollbar-gutter: stable }
@@ -56,8 +53,6 @@
 .connection-heading, .context-heading { padding-bottom: 12px; border-bottom: 1px solid var(--atelier-edge) }
 .question-panel, .approval-panel { box-shadow: inset 0 1px 0 var(--atelier-plate); padding-block-start: 20px }
 @media (max-width: 720px) {
-  .main-inner:has(#panel-conversation) .project-banner { min-height: 0; padding: 12px }
-  .main-inner:has(#panel-conversation) .project-banner h1 { font-size: 24px }
   .conversation-messages { padding-inline: 2px 8px; max-height: 42dvh }
   .dialogue-message.assistant .message-text { padding: 14px 12px }
   .dialogue-message.user { margin-inline-start: 14px; padding: 12px }
@@ -66,21 +61,14 @@
   .topbar-actions { gap: 4px; padding-inline: 2px }
 }
 @media (max-height: 700px) {
-  .main-inner:has(#panel-conversation) .project-banner { min-height: 0; padding-block: 10px }
   .conversation-messages { max-height: 40dvh }
   .composer textarea { min-height: 64px }
 }
 /* Give ordinary dialogue the remaining window height. Active request forms retain
    the natural page flow so a patch or a question is never squeezed or hidden. */
 .main-inner:has(#panel-conversation):not(:has(.conversation-history > .question-panel, .conversation-history > .approval-panel)) {
-  height: 100%; display: flex; flex-direction: column; padding-block: 12px 20px;
+  height: 100%; display: flex; flex-direction: column;
   > * { flex-shrink: 0 }
-  .project-banner { display: grid; grid-template-columns: fit-content(50%) minmax(0, 1fr); column-gap: 12px; align-items: center; padding: 8px 12px; min-height: 0 }
-  .project-heading { grid-column: 1 / -1 }
-  .initiative-control { margin-block: 4px 0 }
-  .initiative-trigger { margin-block: 0 }
-  .project-banner .context-note { margin-block: 4px 0 }
-  .project-banner h1 { font-size: 24px }
   #panel-conversation { display: flex; flex-direction: column; flex: 1 1 480px; min-height: min-content }
   #panel-conversation > details { flex: none }
   .conversation-history { display: flex; flex-direction: column; flex: 1 1 240px; height: 240px; min-height: min-content; margin-top: 4px }
@@ -126,8 +114,6 @@
 }
 
 /* The graph needs the first screen: same compact banner as the conversation. */
-.main-inner:has(#panel-graphe) .project-banner { position: relative; padding: 14px 16px; min-height: 72px }
-.main-inner:has(#panel-graphe) .project-banner h1 { font-size: 28px; line-height: 1.15 }
 .main-inner:has(#panel-graphe) .graph-panel { padding-top: 0 }
 .main-inner:has(#panel-graphe) .graph-drawing { height: min(420px, calc(100dvh - 330px)) }
 
@@ -182,17 +168,8 @@
 /* Project heading stays out of the way everywhere but conversation. */
 .project-head { display: contents }
 .main-inner:has(#panel-conversation):not(:has(.conversation-history > .question-panel, .conversation-history > .approval-panel)) {
-  max-width: none; padding-inline: 16px; padding-block: 6px 8px;
+  padding-block: 8px 8px;
   .project-head { display: flex; align-items: center; gap: 16px; flex-wrap: wrap }
-  .project-banner { display: flex; align-items: center; gap: 10px; min-height: 0; padding: 0; margin: 0; border: 0; background: none; box-shadow: none; animation: none }
-  .project-banner::before, .project-banner::after, .project-banner .atelier-glow, .project-banner .context-note { display: none }
-  .project-heading { grid-column: auto; display: flex; align-items: center; gap: 8px }
-  .project-banner h1 { font-size: 20px; text-shadow: none }
-  .project-banner .context-trigger { width: 32px; min-height: 32px; margin: 0; padding: 4px }
-  .initiative-control { margin: 0 }
-  .initiative-trigger { min-height: 32px; margin: 0; padding-block: 2px; font-size: 14px }
-  .project-tabs { flex: 1 1 auto; padding: 0; border-bottom: 0 }
-  .project-tabs button { min-height: 36px; font-size: 16px; padding-inline: 14px }
   #panel-conversation { grid-template-rows: minmax(240px, 1fr); min-height: min-content; margin-top: 4px }
   .conversation-history, .conversation-empty { grid-row: 1 }
   .conversation-messages .message-text, .conversation-messages .dialogue-message { max-width: none }
@@ -207,3 +184,23 @@
   .chat-send { width: 44px; min-height: 40px; padding: 0; display: grid; place-items: center }
 }
 .conversation-messages .message-text p, .conversation-messages .message-text li { max-width: none }
+
+/* One project header on every tab: tabs never move between views, and the workshop band lives behind them. */
+.main-inner:has(.project-head) { --head-row: 1 }
+.main-inner .project-head { position: relative; isolation: isolate; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; min-height: 56px; margin-block-end: 12px; padding: 8px 12px; border-bottom: 1px solid var(--accent); background: #20343c url('./assets/atelier/workshop-header.png') center / cover no-repeat; background-size: 108% auto; animation: atelier-drift 38s ease-in-out infinite }
+.main-inner .project-head::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #182326f2 0%, #182326d9 55%, #18232666 100%); pointer-events: none }
+.main-inner .project-head .project-banner { display: flex; align-items: center; gap: 10px; min-height: 0; padding: 0; margin: 0; border: 0; background: none; box-shadow: none; animation: none; overflow: visible }
+.main-inner .project-head .project-banner::before, .main-inner .project-head .project-banner::after, .main-inner .project-head .project-banner .context-note { display: none }
+.main-inner .project-head .project-banner .atelier-glow { position: absolute; inset: 0; z-index: -1 }
+.main-inner .project-head .project-banner { position: static }
+.main-inner .project-head .project-heading { display: flex; align-items: center; gap: 8px; grid-column: auto }
+.main-inner .project-head .project-banner h1 { font-size: 20px; text-shadow: none; max-width: 24ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.main-inner .project-head .context-trigger { width: 32px; min-height: 32px; margin: 0; padding: 4px }
+.main-inner .project-head .initiative-control { margin: 0 }
+.main-inner .project-head .initiative-trigger { min-height: 32px; margin: 0; padding-block: 2px; font-size: 14px }
+.main-inner .project-head .project-tabs { flex: 1 1 auto; padding: 0; border-bottom: 0; margin: 0 }
+.main-inner .project-head .project-tabs button { min-height: 36px; font-size: 16px; padding-inline: 14px }
+.project-heading .command-tooltip { left: 0; right: auto }
+@media (prefers-reduced-motion: reduce) { .main-inner .project-head { animation: none } }
+
+.main-inner:has(.project-head) { max-width: none; padding-inline: 16px; padding-block-start: 8px }

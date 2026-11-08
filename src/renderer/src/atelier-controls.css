@@ -52,7 +52,7 @@ button:disabled, button[aria-disabled='true'] { opacity: 1 }
 .text-button::after { --control-face: var(--panel) }
 .text-button:hover::after { --control-face: var(--hover) }
 .text-button:disabled::after { --control-face: var(--neutral) }
-.project-tabs button, .main-inner:has(#panel-conversation) .project-tabs button { font-size: 21px; min-height: 44px }
+.project-tabs button { font-size: 21px; min-height: 44px }
 .composer-bottom button, .dialogue-actions button, .connection-actions button { font-size: 19px }
 .composer-actions { gap: 10px }
 .agent-panel-heading button, .connection-heading > button, .context-panel > div > button { padding: 0; min-height: 40px; width: 40px }
@@ -117,9 +117,8 @@ button:disabled, button[aria-disabled='true'] { opacity: 1 }
   .main-inner { padding-inline: 16px }
   .help-panel .help-preparation { padding: 18px }
   .help-command { align-items: flex-start }
-  .project-tabs button, .main-inner:has(#panel-conversation) .project-tabs button { font-size: 20px }
+  .project-tabs button { font-size: 20px }
   .topbar .topbar-actions { gap: 4px }
-  .main-inner:has(#panel-conversation) .project-banner h1 { font-size: 25px }
 }
 
 /* Navigation stays a petrol workshop strip in either reading theme. These

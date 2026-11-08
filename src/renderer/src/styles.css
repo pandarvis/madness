@@ -359,17 +359,11 @@ button { border-radius: 4px }
 .page-intro p { margin-top: 8px }
 .project-banner { margin-bottom: 0; min-height: 94px; padding-block: 15px }
 .project-banner h1 { max-width: none; font-size: 28px }
-.main-inner:has(#panel-conversation) .project-banner { min-height: 0; padding: 0; background: none; box-shadow: none; color: var(--text) }
-.main-inner:has(#panel-conversation) .project-banner::before, .main-inner:has(#panel-conversation) .project-banner::after { display: none }
-.main-inner:has(#panel-conversation) .project-banner h1 { max-width: none; font-size: 24px; text-shadow: none; text-wrap: wrap }
-.main-inner:has(#panel-conversation) .project-banner .context-note { color: var(--muted); margin-top: 4px }
 .main-inner:has(#panel-conversation) .project-banner .context-trigger { color: var(--text); background: var(--panel); border-color: var(--control-line) }
 .main-inner:has(#panel-conversation) .project-banner .context-trigger:hover { background: var(--hover) }
 .main-inner:has(#panel-conversation) .project-banner .context-trigger:focus-visible { outline-color: var(--focus) }
 .project-tabs { gap: 6px; margin-top: 8px; margin-bottom: 18px; border-bottom: 2px solid var(--atelier-edge); padding-inline: 4px }
 .project-tabs button { position: relative; isolation: isolate; padding: 8px 18px; border: 0; font-family: 'Barlow Condensed','Segoe UI',sans-serif; font-size: 19px; color: var(--text); background: none }
-.main-inner:has(#panel-conversation) .project-tabs { margin-block: 8px 12px }
-.main-inner:has(#panel-conversation) .project-tabs button { font-size: 18px }
 .project-tabs button::before { content: ''; position: absolute; inset: 0; z-index: -1; clip-path: polygon(10px 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%,0 10px); background: var(--atelier-plate); border-bottom: 2px solid var(--atelier-ink); pointer-events: none }
 .project-tabs button[aria-selected='true'] { color: var(--accent-text) }
 .project-tabs button[aria-selected='true']::before { background: var(--accent) }

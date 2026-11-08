@@ -487,9 +487,12 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     switchAfterStop.current=null
     restoreText.current=next
     setTexts(current=>({...current,[next.projectId]:''}))
+    followSession(next.projectId)
     void dialogueAction('launchClaude',{text:next.text,agent:bmadAgent,writes:true})
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[sessionPresent,dialogueBusy,dialoguePending])
+  // A new agent session opens its own conversation: stop pinning the previous one.
+  function followSession(projectId:string):void{setConversationSelections(current=>{const next={...current};delete next[projectId];return next})}
   function clearComposer(projectId:string,sent:string):void{
     setTexts(current=>current[projectId]===sent?{...current,[projectId]:''}:current)
     void window.madness.saveDraft(projectId,'').then(reply=>accept(reply)).catch(()=>undefined)
@@ -511,6 +514,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     const resume=!agentic&&conversation?.context.providerId==='claude-code'?conversation.id:undefined
     restoreText.current={projectId,text:captured}
     setTexts(current=>({...current,[projectId]:''}))
+    if(agentic)followSession(projectId)
     await dialogueAction('launchClaude',{text:captured,...(resume?{conversationId:resume}:{}),...(agentic?{agent:bmadAgent,writes:true}:{})})
   }
   async function sendToMary(): Promise<void> {

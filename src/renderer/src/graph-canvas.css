@@ -7,3 +7,4 @@
 .graph-legend-item[aria-pressed='false'] { opacity: .45; text-decoration: line-through }
 .graph-legend-dot { width: 11px; height: 11px; flex: none; border-radius: 50% }
 .graph-legend-size { margin-inline-start: auto; color: var(--muted) }
+.graph-panel .graph-exploration ul, .graph-panel .graph-results ul { max-height: none; overflow: visible }

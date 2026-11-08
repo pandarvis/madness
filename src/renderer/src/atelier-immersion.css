@@ -187,7 +187,7 @@
 
 /* One project header on every tab: tabs never move between views, and the workshop band lives behind them. */
 .main-inner:has(.project-head) { --head-row: 1 }
-.main-inner .project-head { position: relative; isolation: isolate; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; min-height: 56px; margin-block-end: 12px; padding: 8px 12px; border-bottom: 1px solid var(--accent); background: #20343c url('./assets/atelier/workshop-header.png') center / cover no-repeat; background-size: 108% auto; animation: atelier-drift 38s ease-in-out infinite }
+.main-inner .project-head { position: sticky; top: 0; z-index: 30; isolation: isolate; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; min-height: 56px; margin-block-end: 12px; padding: 8px 12px; border-bottom: 1px solid var(--accent); background: #20343c url('./assets/atelier/workshop-header.png') center / cover no-repeat; background-size: 108% auto; animation: atelier-drift 38s ease-in-out infinite }
 .main-inner .project-head::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #182326f2 0%, #182326d9 55%, #18232666 100%); pointer-events: none }
 .main-inner .project-head .project-banner { display: flex; align-items: center; gap: 10px; min-height: 0; padding: 0; margin: 0; border: 0; background: none; box-shadow: none; animation: none; overflow: visible }
 .main-inner .project-head .project-banner::before, .main-inner .project-head .project-banner::after, .main-inner .project-head .project-banner .context-note { display: none }

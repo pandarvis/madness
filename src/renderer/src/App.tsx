@@ -40,6 +40,7 @@ import { fr,metricsLabels } from './strings.ts'
 import { initialConnectionState } from '../../contracts/connection.ts'
 import type { ConnectionState, ConnectionBridge } from '../../contracts/connection.ts'
 import { MessageMarkdown } from './MessageMarkdown.tsx'
+import { ProjectsHub } from './ProjectsHub.tsx'
 import { TopbarIcon } from './TopbarIcon.tsx'
 import { ProviderIsland, readNextProvider, saveNextProvider, type ProviderId } from './ProviderIsland.tsx'
 import { initialDialogueState } from '../../contracts/dialogue.ts'
@@ -641,7 +642,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       <div className="breadcrumb">
         <button className="toolbar-toggle command-control desktop-menu" type="button" aria-label={collapsed ? ui.expand_navigation : ui.collapse_navigation} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><TopbarIcon name="panel" /></button>
         <button className="toolbar-toggle command-control mobile-menu" type="button" ref={drawerTrigger} aria-label={ui.open_navigation} aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><TopbarIcon name="panel" /><span className="command-tooltip" aria-hidden="true">{ui.open_navigation}</span></button>
-        <span title={page === 'project' && project ? project.name : fr.home}>{page === 'project' && project ? project.name : fr.home}</span>
+        <span className="app-title" title={page === 'project' && project ? project.name : fr.home}><span className="app-mad">Mad</span><span className="app-ness">ness</span>{page === 'project' && project && <span className="app-project"> — {project.name}</span>}</span>
       </div>
       <div className="topbar-actions">
         <button className="toolbar-toggle command-control open-project" type="button" aria-label={fr.open} onClick={open} disabled={pending || !state}><TopbarIcon name="folder" /><span className="command-tooltip" aria-hidden="true">{fr.open}</span></button>
@@ -677,7 +678,6 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     </section>}
     <div className="app-body">
     <aside className="sidebar" aria-label={ui.main_navigation} onMouseLeave={() => setTooltipsDismissed(false)} onFocusCapture={() => setTooltipsDismissed(false)}>
-      <div className="brand"><span className="brand-label">{fr.app}</span></div>
       <nav id="project-navigation" aria-label={ui.projects}>{navigation}</nav>
       <div className="rail-signature" aria-hidden="true"><img src={madnessMark} alt="" width="28" height="28" /></div>
       <p className="sidebar-bottom nav-label">{ui.local_data}</p>
@@ -696,6 +696,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
             {page==='project'&&project&&(tab==='parcours'||initializationState?.operations.some(op=>['preparing','checking','applying','verifying','ready'].includes(op.phase)))
               ?<InitializationEntryPoint state={initializationState} onOpen={openInitialization}/>:null}
             {workReturn&&<button type="button" className="text-button return-to-work" onClick={returnToWork}>{ui.return_to_work} {state?.projects.find(p=>p.id===workReturn.projectId)?.name??ui.project_unavailable}</button>}
+            {state&&page==='home'&&state.projects.length>0&&<ProjectsHub projects={state.projects} conversations={state.conversations} dialogue={dialogue} graphRunning={id=>{const a=graphState.projects.find(p=>p.scope.projectId===id)?.activity;return graphState.preparing===id||a?.phase==='running'||a?.phase==='stop-requested'}} statusText={status=>fr.dialogueStatus[status]} onOpen={select} pending={pending}/>}
             {overview&&!(page==='project'&&tab==='conversation'&&overview.entries.length===0)&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} compact={page==='project'&&(tab==='conversation'||tab==='catalogue'||tab==='graphe')} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} onNavigate={target=>void navigateOverview(target)} onConnection={openConnection}/>}
             {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<details className="recovery-details global-recovery"><summary>{ui.global_recovery_details}</summary><section id="overview-session-recovery" tabIndex={-1} aria-label={ui.global_recovery}><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section></details>}
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>{ui.restore_your_workspace}</h1><p>{pending ? ui.reading_local_context : ui.local_context_unavailable_use_the_message_above_to_retry}</p></section> : page === 'home' || !project ? <>

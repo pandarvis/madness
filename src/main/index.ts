@@ -510,7 +510,8 @@ else {
     window.webContents.on('will-navigate', (event) => event.preventDefault())
     window.webContents.on('will-redirect', (event) => event.preventDefault())
     window.webContents.on('will-attach-webview', (event) => event.preventDefault())
-    window.once('ready-to-show', () => window?.show())
+    // Open maximized; automated runs (remote debugging) keep the sizes they set themselves.
+    window.once('ready-to-show', () => { if (!app.commandLine.hasSwitch('remote-debugging-port')) window?.maximize(); window?.show() })
     // Caption buttons are drawn by the renderer since 2026-11-07: Madness owns their plates and hover.
     // Read-only presence check for the first-step card: no helper process, no local tools lock.
     ipcMain.handle('madness:bmad-present', async (event, projectId: unknown): Promise<boolean | null> => {

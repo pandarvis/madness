@@ -178,3 +178,32 @@
   #panel-conversation > .prepare-exchange { min-height: 32px; font-size: 14px; padding-block: 2px }
   .composer { margin-block-end: 2px }
 }
+
+/* Project heading stays out of the way everywhere but conversation. */
+.project-head { display: contents }
+.main-inner:has(#panel-conversation):not(:has(.conversation-history > .question-panel, .conversation-history > .approval-panel)) {
+  max-width: none; padding-inline: 16px; padding-block: 6px 8px;
+  .project-head { display: flex; align-items: center; gap: 16px; flex-wrap: wrap }
+  .project-banner { display: flex; align-items: center; gap: 10px; min-height: 0; padding: 0; margin: 0; border: 0; background: none; box-shadow: none; animation: none }
+  .project-banner::before, .project-banner::after, .project-banner .atelier-glow, .project-banner .context-note { display: none }
+  .project-heading { grid-column: auto; display: flex; align-items: center; gap: 8px }
+  .project-banner h1 { font-size: 20px; text-shadow: none }
+  .project-banner .context-trigger { width: 32px; min-height: 32px; margin: 0; padding: 4px }
+  .initiative-control { margin: 0 }
+  .initiative-trigger { min-height: 32px; margin: 0; padding-block: 2px; font-size: 14px }
+  .project-tabs { flex: 1 1 auto; padding: 0; border-bottom: 0 }
+  .project-tabs button { min-height: 36px; font-size: 16px; padding-inline: 14px }
+  #panel-conversation { grid-template-rows: minmax(240px, 1fr); min-height: min-content; margin-top: 4px }
+  .conversation-history, .conversation-empty { grid-row: 1 }
+  .conversation-messages .message-text, .conversation-messages .dialogue-message { max-width: none }
+  .conversation-messages .dialogue-message { padding-block: 8px 10px; margin-block-end: 4px }
+  .conversation-messages .dialogue-message.user { max-width: 78%; padding: 10px 14px }
+  .chat-composer { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 8px; padding: 8px 10px; margin-block-start: 6px }
+  .chat-composer textarea { grid-column: 1; grid-row: 1; min-height: 40px; padding: 8px 4px; line-height: 1.5 }
+  .chat-composer .composer-bottom { display: contents }
+  .chat-composer .composer-actions { grid-column: 2; grid-row: 1 }
+  .chat-composer #draft-status { grid-column: 1 / -1; grid-row: 2; margin: 2px 0 0 }
+  .chat-composer > details, .chat-composer > :not(textarea, label, .composer-bottom) { grid-column: 1 / -1 }
+  .chat-send { width: 44px; min-height: 40px; padding: 0; display: grid; place-items: center }
+}
+.conversation-messages .message-text p, .conversation-messages .message-text li { max-width: none }

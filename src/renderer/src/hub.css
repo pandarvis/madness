@@ -22,7 +22,7 @@
 .app-title { font-family: 'Barlow Condensed','Segoe UI',sans-serif; font-weight: 700; font-size: 21px; letter-spacing: .02em; color: var(--text) }
 .app-mad { color: var(--accent) }
 .app-project { font-family: 'Oxanium','Segoe UI',sans-serif; font-weight: 450; font-size: 15px; letter-spacing: 0; color: var(--muted) }
-.topbar .breadcrumb > span.app-title { display: flex; align-items: baseline; font-size: 21px; white-space: nowrap }
+.topbar .breadcrumb > span.app-title { display: flex; align-items: center; font-size: 21px; line-height: 1; white-space: nowrap }
 .topbar .app-project { margin-inline-start: 8px; overflow: hidden; text-overflow: ellipsis }
 .hub-open { align-items: stretch; justify-content: flex-start; font-family: 'Oxanium','Segoe UI',sans-serif; font-weight: 450 }
 .hub-open > * { text-align: left }

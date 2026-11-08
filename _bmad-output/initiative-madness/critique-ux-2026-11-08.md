@@ -113,3 +113,18 @@ Deux vrais tours avec Mary sur le morpion, via Claude Code : accueil en 53 s, r�
 - **P2 — Le premier écran du graphe est occupé par l'empilement** bannière, notices, titre, statut et actions. **Proposition :** sur l'onglet Graphe, réduire la bannière à une ligne et mettre statut et actions dans une barre au-dessus du dessin. Cela touche à la bannière, d'où la validation demandée.
 - **P2 — Jargon restant dans la conversation.** Le message envoyé s'affiche `$bmad-agent-analyst`, le titre montre un identifiant technique complet, et « Initiative capturée par cet échange : non identifiée » reste affiché dans tous les onglets. **Proposition :** afficher « Démarrage de Mary », masquer l'identifiant et cette ligne tant qu'il n'y a pas d'initiative.
 - **P3 — Langue dans les Réglages :** un drapeau seul, sans indication de ce que fait le clic.
+
+## Passe Impeccable (8 novembre 2026)
+
+Détecteur `impeccable@4.8.1` sur le renderer, et revue de design indépendante sur 7 captures au repos (aucun agent actif observé par la revue). Score Nielsen de la revue : 18/40. Charge cognitive : 5 échecs sur 8.
+
+**Détecteur (7) :** 2 rebonds d'animation corrigés (`f87ca99`). Restent 5 bordures de la charte atelier (`atelier-controls.css:160`, `files.css:1`, `styles.css:338`, `404`, `407`), non modifiées.
+
+**Priorités de la revue :**
+- P0 — Accueil : pas encore la vue globale attendue. Il manque l'étape BMad et l'ancienneté, le projet apparaît plusieurs fois. Proposition : un tableau projets × agents trié par « qui t'attend », à la place de la bannière et de « Reprendre un projet ».
+- P1 — La colonne de gauche perd environ 450 px en illustration. Proposition : y mettre le flux d'activité et un badge par projet.
+- P1 — Parcours sans prochaine action, alors que `PRODUCT.md` l'exige.
+- P1 — Graphe : le dessin commence sous la ligne de flottaison.
+- P2 — Lignes d'activité répétées sur chaque onglet, portrait de Mary générique, catalogue vide pendant le chargement.
+
+**Décisions du porteur jugées par la revue :** boutons de fenêtre dessinés, bandeau animé en boucle, pleine largeur et logo seul : à revoir. Bouton d'envoi en icône et suppression du thème clair : acceptables. Ouverture agrandie : défendable si l'espace est exploité.

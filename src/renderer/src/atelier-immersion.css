@@ -204,3 +204,11 @@
 @media (prefers-reduced-motion: reduce) { .main-inner .project-head { animation: none } }
 
 .main-inner:has(.project-head) { max-width: none; padding-inline: 16px; padding-block-start: 8px }
+
+/* Side panels use the room of wide windows; the page stops right next to them, with no dead gap. */
+@media (min-width: 1180px) {
+  :root { --side-panel: clamp(420px, 30vw, 600px) }
+  .context-panel:not(.initialization-context), .connection-panel { width: var(--side-panel) }
+  .app-shell:has(#project-context-panel) .main-inner, .app-shell:has(#codex-connection-panel) .main-inner { padding-inline-end: calc(var(--side-panel) + 32px); max-width: none }
+  .app-shell:has(.context-panel.initialization-context) .main-inner { padding-inline-end: 712px; max-width: none }
+}

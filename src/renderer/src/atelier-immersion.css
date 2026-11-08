@@ -217,3 +217,7 @@
   .app-shell:has(.context-panel.initialization-context) .main-inner { padding-inline-end: 712px; max-width: none }
 }
 .conversation-messages .message-state.is-notable { display: block }
+
+.chat-agent { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; grid-column: 1 / -1; font-size: 13px; color: var(--muted) }
+.chat-agent select { min-height: 30px; padding: 2px 6px; background: var(--panel); color: var(--text); border: 1px solid var(--control-line) }
+.chat-writes { display: inline-flex; align-items: center; gap: 6px }

@@ -20,7 +20,7 @@ import type {RunRecoveryPort} from './ports.ts'
 import type {ApprovalFile} from '../contracts/approvals.ts'
 import {INSPECTION_MAX_AGE_MS} from '../contracts/recovery.ts'
 import type {FileInspection} from '../contracts/recovery.ts'
-type Dependencies = { metrics?:UsMetricsCoordinator;application: Application;catalogLaunch?:BmadCatalogLaunchCoordinator;contexts?:BmadContextCoordinator;help?:BmadHelpCoordinator;recovery?:RunRecoveryPort;inspectApproval?(rootPath:string,files:ApprovalFile[]):Promise<FileInspection>; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyClaude?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; openClaude?(profile:BmadProfile, captured:CapturedBmadContext, signal:AbortSignal, assertContext:(submit?:()=>void)=>Promise<void>, history?:readonly {role:'user'|'assistant';text:string}[]):Promise<DialogueSession>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, assertContext?:()=>Promise<void>): Promise<DialogueSession> }
+type Dependencies = { metrics?:UsMetricsCoordinator;application: Application;catalogLaunch?:BmadCatalogLaunchCoordinator;contexts?:BmadContextCoordinator;help?:BmadHelpCoordinator;recovery?:RunRecoveryPort;inspectApproval?(rootPath:string,files:ApprovalFile[]):Promise<FileInspection>; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyClaude?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; openClaude?(profile:BmadProfile, captured:CapturedBmadContext, signal:AbortSignal, assertContext:(submit?:()=>void)=>Promise<void>, history?:readonly {role:'user'|'assistant';text:string}[], agentic?:{skill:string}):Promise<DialogueSession>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, assertContext?:()=>Promise<void>): Promise<DialogueSession> }
 /** Une seule session native possédée. Les travaux longs ne monopolisent jamais la queue disque. */
 export class DialogueCoordinator {
   private state = initialDialogueState()
@@ -291,7 +291,10 @@ export class DialogueCoordinator {
         // Message ids derive from the turn number: continue after the stored turns so none is overwritten.
         for(const message of resumed.messages){const turn=/^turn-(\d+)/.exec(message.id);if(turn)this.turnSequence=Math.max(this.turnSequence,Number(turn[1]))}
       }
-      this.session=await this.deps.openClaude(profile,captured,controller.signal,assertClaudeContext,resumed?.messages.map((m:{role:'user'|'assistant';text:string})=>({role:m.role,text:m.text})))
+      const agentic=input.type==='launch-claude'&&input.writes&&input.agent?{skill:input.agent}:undefined
+      this.session=await this.deps.openClaude(profile,captured,controller.signal,agentic?async(submit?:()=>void)=>{if(submit)return this.deps.application.dialogueSubmit(project.id,controller.signal,submit)}:assertClaudeContext,resumed?.messages.map((m:{role:'user'|'assistant';text:string})=>({role:m.role,text:m.text})),agentic)
+      // An agent that may write changes BMad state on purpose: the captured context cannot stay frozen.
+      if(agentic){this.capturedContext=null;this.update({invocation:('$'+agentic.skill) as DialogueState['invocation']})}
     } else this.session = await this.deps.open(profile, controller.signal, this.activity,assertContext)
     this.stopControl=this.session
     if(this.catalog&&(!this.catalog.connectionId||this.session.context.connectionId!==this.catalog.connectionId))throw dialogueFailure('PROFILE_CHANGED')

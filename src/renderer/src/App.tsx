@@ -59,12 +59,13 @@ function MessageArticle({message,projection,providerId,onConsult}:{message:Conve
   const phase=projection?.phase==='streaming'?fr.conversation.streaming:projection?.phase==='complete'?fr.conversation.complete:projection?.phase==='interrupted'?fr.conversation.partial:fr.conversation.unknownPhase
   const storage=projection?.storage==='pending'||projection?.storage==='failed'?fr.conversation.notStored:fr.conversation.stored
   return <article data-message-id={message.id} className={'dialogue-message '+message.role}>
-    <div className="message-author">{message.role==='assistant'&&(agent&&projection?<button className="agent-portrait-trigger" type="button" aria-label={ui.details_for+agent.name} onClick={event=>onConsult(projection,event.currentTarget)}><AgentPortrait agent={agent}/></button>:<AgentPortrait/>)}<h3>{message.role==='user'?ui.you:providerId==='claude-code'?'Mary · Claude Code':name+' · Codex'}</h3>{message.role==='assistant'&&agent&&projection&&<button className="agent-info-link text-button" type="button" aria-label={ui.details_for+agent.name+' · message '+message.id} onClick={event=>onConsult(projection,event.currentTarget)}>{ui.agent_details}</button>}</div>
+    <div className="message-author">{message.role==='assistant'&&(agent&&projection?<button className="agent-portrait-trigger" type="button" aria-label={ui.details_for+agent.name} onClick={event=>onConsult(projection,event.currentTarget)}><AgentPortrait agent={agent}/></button>:<AgentPortrait/>)}<h3>{message.role==='user'?ui.you:providerId==='claude-code'?(identity?.kind==='attested'&&identity.name!=='Claude Code'?identity.name:'Mary')+' · Claude Code':name+' · Codex'}</h3>{message.role==='assistant'&&agent&&projection&&<button className="agent-info-link text-button" type="button" aria-label={ui.details_for+agent.name+' · message '+message.id} onClick={event=>onConsult(projection,event.currentTarget)}>{ui.agent_details}</button>}</div>
     {message.role==='assistant'&&<p className={'message-state '+(projection?.storage==='failed'?'message-storage-failed ':'')+(projection&&(projection.phase!=='complete'||projection.storage==='failed')?'is-notable':'')}>{projection?phase+' · '+storage:fr.conversation.historical}</p>}
     {message.role==='user'&&/^\$bmad[\w-]*(\n|$)/.test(message.text)?<div className="message-text message-start">{language==='fr'?'Démarrage de l’agent':'Agent started'}</div>:message.role==='assistant'?<div className="message-text"><MessageMarkdown text={message.text}/></div>:<div className="message-text">{message.text}</div>}
     {message.role==='assistant'&&identity?.kind==='attested'&&<p className="message-provenance">{ui.attested_identity_source} <code>{identity.source}</code></p>}
   </article>
 }
+const BMAD_AGENTS:readonly (readonly [string,string,string])[]=[['bmad-agent-analyst','Mary','analyse'],['bmad-agent-pm','John','produit'],['bmad-agent-ux-designer','Sally','UX'],['bmad-agent-architect','Winston','architecture'],['bmad-agent-po','Sofia','stories'],['bmad-agent-dev','Amelia','code']]
 type ReadingPosition={top:number;follow:boolean}
 function ConversationMessages({conversation,projections,positions,onConsult}:{conversation:Conversation;projections:DialogueMessage[];positions:Map<string,ReadingPosition>;onConsult:(message:DialogueMessage,trigger:HTMLButtonElement)=>void}):ReactNode {
  const {ui}=useLocale()
@@ -180,6 +181,9 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [connection, setConnection] = useState<ConnectionState>(initialConnectionState)
   const [connectionOpen, setConnectionOpen] = useState(false)
   const composerField=useRef<HTMLTextAreaElement>(null)
+  const [bmadAgent,setBmadAgent]=useState(()=>{try{return localStorage.getItem('madness.bmad-agent')??'bmad-agent-analyst'}catch{return 'bmad-agent-analyst'}})
+  const [allowWrites,setAllowWrites]=useState(()=>{try{return localStorage.getItem('madness.allow-writes')==='1'}catch{return false}})
+  const switchAfterStop=useRef<{projectId:string;text:string}|null>(null)
   const pendingSend=useRef<string|null>(null),restoreText=useRef<{projectId:string;text:string}|null>(null)
   const [nextProvider, setNextProvider] = useState<ProviderId>(readNextProvider)
   const [devMode, setDevMode] = useState(()=>{try{return localStorage.getItem('madness.dev-mode')==='1'}catch{return false}})
@@ -443,7 +447,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     void window.madnessDialogue.read().then(acceptDialogue).catch(() => setDialogueBridgeError(true))
     return unsubscribe
   }, [])
-  async function dialogueAction(action: 'qualify' | 'launch' | 'stop' | 'observeStop' | 'qualifyForge' | 'launchForge' | 'launchHelp' | 'launchClaude', claude?: {text:string;conversationId?:string}): Promise<void> {
+  async function dialogueAction(action: 'qualify' | 'launch' | 'stop' | 'observeStop' | 'qualifyForge' | 'launchForge' | 'launchHelp' | 'launchClaude', claude?: {text:string;conversationId?:string;agent?:string;writes?:boolean}): Promise<void> {
     if (dialoguePending||dialogueActionLock.current) return
     const projectId = project?.id
     if (action !== 'stop' && action !== 'observeStop' && !projectId) return
@@ -455,7 +459,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     dialogueActionLock.current=true;setDialoguePending(true)
     try { const chosen=codexLaunch?await metricChoices.resolve(action,projectId!,null,null,action==='launch'?{type:'launch',mode:maryMode}:action==='launchForge'?{type:'launch-forge'}:{type:'launch-help'}):null
       if(chosen&&launch)Object.assign(launch,{requestId:chosen.requestId})
-      const next = action==='launchClaude'&&claude?await window.madnessDialogue.launchClaude(projectId!,claude.text,claude.conversationId):chosen?await window.madnessDialogue.launchMeasured(action==='launchForge'?'launch-forge':action==='launchHelp'?'launch-help':'launch',projectId!,chosen.requestId,chosen.choiceRef,undefined,maryMode):action === 'stop'||action==='observeStop' ? await window.madnessDialogue[action]() : action==='launch'?await window.madnessDialogue.launch(projectId!,maryMode):await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false) }
+      const next = action==='launchClaude'&&claude?await window.madnessDialogue.launchClaude(projectId!,claude.text,claude.conversationId,claude.agent,claude.writes):chosen?await window.madnessDialogue.launchMeasured(action==='launchForge'?'launch-forge':action==='launchHelp'?'launch-help':'launch',projectId!,chosen.requestId,chosen.choiceRef,undefined,maryMode):action === 'stop'||action==='observeStop' ? await window.madnessDialogue[action]() : action==='launch'?await window.madnessDialogue.launch(projectId!,maryMode):await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false) }
     catch(e) { if(launch&&pendingLaunch.current===launch)pendingLaunch.current=null;if(!(e instanceof Error&&e.message==='METRIC_CHOICE_REFUSED'))setDialogueBridgeError(true) }
     finally { dialogueActionLock.current=false;setDialoguePending(false) }
   }
@@ -477,6 +481,15 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     if(pendingSend.current&&canReply&&project?.id===pendingSend.current){pendingSend.current=null;void sendToMary()}
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[dialogue.errorCode,dialogue.acknowledged,canReply])
+  useEffect(()=>{
+    const next=switchAfterStop.current
+    if(!next||sessionPresent||dialogueBusy||dialoguePending)return
+    switchAfterStop.current=null
+    restoreText.current=next
+    setTexts(current=>({...current,[next.projectId]:''}))
+    void dialogueAction('launchClaude',{text:next.text,agent:bmadAgent,writes:true})
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[sessionPresent,dialogueBusy,dialoguePending])
   function clearComposer(projectId:string,sent:string):void{
     setTexts(current=>current[projectId]===sent?{...current,[projectId]:''}:current)
     void window.madness.saveDraft(projectId,'').then(reply=>accept(reply)).catch(()=>undefined)
@@ -484,6 +497,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   // One action for the composer: reply in the live session, or start one with this message.
   async function sendMessage(): Promise<void> {
     if(!project||!text.trim()||sending.current)return
+    const agentic=nextProvider==='claude-code'&&allowWrites
+    if(canReply&&agentic&&dialogue.context.providerId==='claude-code'&&dialogue.invocation!=='$'+bmadAgent){switchAfterStop.current={projectId:project.id,text};await dialogueAction('stop');return}
     if(canReply)return sendToMary()
     if(sessionPresent||dialogueBusy||dialoguePending||dialogue.status==='unknown')return
     const projectId=project.id,captured=text
@@ -493,10 +508,10 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       await dialogueAction('launch')
       return
     }
-    const resume=conversation?.context.providerId==='claude-code'?conversation.id:undefined
+    const resume=!agentic&&conversation?.context.providerId==='claude-code'?conversation.id:undefined
     restoreText.current={projectId,text:captured}
     setTexts(current=>({...current,[projectId]:''}))
-    await dialogueAction('launchClaude',{text:captured,...(resume?{conversationId:resume}:{})})
+    await dialogueAction('launchClaude',{text:captured,...(resume?{conversationId:resume}:{}),...(agentic?{agent:bmadAgent,writes:true}:{})})
   }
   async function sendToMary(): Promise<void> {
     if (!project || !conversation || !canReply || !text.trim() || sending.current) return
@@ -751,7 +766,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   {dialogueHere && dialogue.profile && <details className="dialogue-proof"><summary>{ui.bmad_profile_checked}</summary><p><code>{dialogue.profile.skillPath}</code></p><p className="small">{ui.fingerprint} <code>{dialogue.profile.fingerprint}</code></p></details>}
                 </section>}
 
-                {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label={ui.bmad_exchanges}><div className="chat-bar"><h2 id="conversation-heading" tabIndex={-1}>Mary{conversation.context.providerId==='claude-code'?' · Claude Code':' · Codex'}</h2><details className="chat-details"><summary>{language==='fr'?'Détails':'Details'}</summary><p className="small"><code className="conversation-reference">{conversation.id}</code></p>{!canReply && !dialogueBusy && <p className="history-note">{ui.history_retained_no_engine_restarts_an_explicit_launch_opens_a_ne}</p>}</details></div>
+                {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label={ui.bmad_exchanges}><div className="chat-bar"><h2 id="conversation-heading" tabIndex={-1}>{(dialogueConversationHere&&BMAD_AGENTS.find(([id])=>'$'+id===dialogue.invocation)?.[1])||'Mary'}{conversation.context.providerId==='claude-code'?' · Claude Code':' · Codex'}</h2><details className="chat-details"><summary>{language==='fr'?'Détails':'Details'}</summary><p className="small"><code className="conversation-reference">{conversation.id}</code></p>{!canReply && !dialogueBusy && <p className="history-note">{ui.history_retained_no_engine_restarts_an_explicit_launch_opens_a_ne}</p>}</details></div>
 
                   {conversationQuestions.filter(q=>currentRequest('question',q.id)).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}
                   {conversationApprovals.filter(a=>currentRequest('approval',a.id)).map(approvalPanel)}
@@ -765,6 +780,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   <label htmlFor="draft" className="chat-label">{language==='fr'?'Votre message':'Your message'}</label>
                   <textarea id="draft" ref={composerField} rows={1} value={text} onChange={(event) => setTexts((current) => ({ ...current, [project.id]: event.target.value }))} onKeyDown={event=>{if(event.key==='Enter'&&!event.shiftKey&&!event.nativeEvent.isComposing){event.preventDefault();void sendMessage()}}} maxLength={MAX_DRAFT_LENGTH} aria-describedby="draft-status" placeholder={language==='fr'?'Écrivez à Mary…':'Write to Mary…'} />
                   {canReply&&metricChoices.slot('send',dialoguePending)}
+                  {nextProvider==='claude-code'&&<div className="chat-agent">{allowWrites&&<label>{language==='fr'?'Agent':'Agent'} <select value={bmadAgent} onChange={event=>{setBmadAgent(event.target.value);try{localStorage.setItem('madness.bmad-agent',event.target.value)}catch{/* session-only */}}}>{BMAD_AGENTS.map(([id,name,role])=><option key={id} value={id}>{name} · {role}</option>)}</select></label>}<label className="chat-writes"><input type="checkbox" checked={allowWrites} onChange={event=>{setAllowWrites(event.target.checked);try{if(event.target.checked)localStorage.setItem('madness.allow-writes','1');else localStorage.removeItem('madness.allow-writes')}catch{/* session-only */}}}/>{language==='fr'?'Autoriser l’agent à modifier ce projet et lancer des commandes':'Let the agent change this project and run commands'}</label></div>}
                   <div className="composer-bottom"><p id="draft-status">{nativeAwaiting?ui.answer_or_decide_in_the_correlated_request_form_when_active_this_:dialogueBusy||(dialogueHere&&sessionPresent&&!canReply)?(language==='fr'?'Mary travaille…':'Mary is working…'):sessionPresent&&!dialogueHere?(language==='fr'?'Une autre conversation est en cours.':'Another conversation is running.'):(language==='fr'?'Entrée pour envoyer · Maj+Entrée pour aller à la ligne':'Enter to send · Shift+Enter for a new line')}</p><div className="composer-actions"><button className="primary chat-send" type="submit" aria-label={language==='fr'?'Envoyer':'Send'} title={language==='fr'?'Envoyer':'Send'} disabled={!text.trim()||dialoguePending||dialogueBusy||(sessionPresent&&!canReply)||dialogue.status==='unknown'||dialogueBridgeError}><Icon name="arrow" /></button></div></div>
                 </form>}
                 {tab==='conversation'&&catalogPreparation?.projectId===project.id&&(catalogLaunch.preparation?.id===catalogPreparation.id||catalogLaunch.status==='error')&&<CatalogLaunchPanel metricChoice={metricChoices.slot('catalog',dialoguePending||dialogueBusy)} preparation={catalogPreparation} busy={dialoguePending||dialogueBusy||catalogLaunch.status==='launching'} stale={catalogSelectionChanged||catalogLaunch.status!=='prepared'||catalogState.projects.find(p=>p.projectId===project.id)?.freshness!=='current'||catalogState.projects.find(p=>p.projectId===project.id)?.snapshot?.revision!==catalogPreparation.snapshot.revision||catalogState.projects.find(p=>p.projectId===project.id)?.generation!==catalogPreparation.generation} selectionChanged={catalogSelectionChanged} error={catalogLaunch.error} onLaunch={()=>void launchFromCatalog()} onCancel={cancelCatalog}/>}

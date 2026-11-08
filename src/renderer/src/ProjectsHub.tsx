@@ -8,7 +8,7 @@ type Project = { id: string; name: string; rootPath: string }
 type Tone = 'working' | 'waiting' | 'idle'
 type Activity = { tone: Tone; label: string; detail: string | null }
 const WORKING = ['qualifying', 'qualified', 'starting', 'running', 'stopping']
-const AGENTS: Record<string, string> = { '$bmad-agent-analyst': 'Mary', '$bmad-forge-idea': 'Forge', '$bmad': 'BMad' }
+const AGENTS: Record<string, string> = { '$bmad-agent-analyst': 'Mary', '$bmad-agent-pm': 'John', '$bmad-agent-architect': 'Winston', '$bmad-agent-ux-designer': 'Sally', '$bmad-agent-po': 'Sofia', '$bmad-agent-dev': 'Amelia', '$bmad-forge-idea': 'Forge', '$bmad': 'BMad' }
 
 function excerpt(conversation: Conversation | undefined): string | null {
   const message = conversation?.messages.filter(m => m.role === 'assistant').at(-1)

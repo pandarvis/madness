@@ -78,6 +78,7 @@ type Options={
   home:string; appData:string; localAppData:string; temp:string; environment:NodeJS.ProcessEnv;
   owner:OwnedRun; admit():()=>void; assertRecovery():Promise<void>; onUnknown():void
   history?:readonly {role:'user'|'assistant';text:string}[]
+  agentic?:{skill:string}
 }
 
 export function claudeArgs(sessionId:string):string[] {
@@ -115,6 +116,38 @@ export function parseClaudeResult(stdout:string,sessionId:string):string {
 }
 
 const isNetworkError=(text:string):boolean=>/\b(?:ENOTFOUND|EAI_AGAIN|ECONNRESET|ECONNREFUSED|ETIMEDOUT|ERR_NETWORK)\b/i.test(text)
+
+const agenticTools='Read,Write,Edit,Glob,Grep,Bash'
+const agenticCommands=['uv run *','node *','npm *','npx *','git *','ls *','mkdir *','cat *','echo *','cd *','pwd','test *','wc *','grep *','find *','sed -n *','head *','tail *'].map(command=>'Bash('+command+')')
+const agenticTimeout=25*60*1000
+const agentNames:Record<string,string>={'bmad-agent-analyst':'Mary','bmad-agent-pm':'John','bmad-agent-architect':'Winston','bmad-agent-ux-designer':'Sally','bmad-agent-po':'Sofia','bmad-agent-dev':'Amelia','bmad':'BMad'}
+export function agenticArgs(sessionId:string,resume:boolean):string[] {
+  return ['--safe-mode','--print','--input-format','text','--output-format','json','--tools',agenticTools,'--permission-mode','acceptEdits','--allowedTools',...agenticCommands,
+    '--strict-mcp-config','--mcp-config','{"mcpServers":{}}','--disable-slash-commands','--no-chrome','--max-turns','90','--settings','{"disableAllHooks":true}',resume?'--resume':'--session-id',sessionId]
+}
+export function agenticEnvironment(source:NodeJS.ProcessEnv):NodeJS.ProcessEnv {
+  // Keeps the user's PATH for uv, npm and git, but never an API key that would switch billing away from the plan.
+  const env=Object.fromEntries(Object.entries(source).filter(([key])=>!/^(ANTHROPIC_|CLAUDE_CODE_USE_|ELECTRON_|NODE_OPTIONS$)/i.test(key)))
+  return {...env,DISABLE_AUTOUPDATER:'1'}
+}
+export function buildAgenticPrompt(skill:string,text:string|null,history:readonly {role:'user'|'assistant';text:string}[]):string {
+  return [
+    'You work through Madness, a local BMad cockpit, in the current project directory. Reply in French.',
+    'Read and follow exactly .agents/skills/'+skill+'/SKILL.md, activation steps included. When a skill routes to another skill named bmad-xxx, read .agents/skills/bmad-xxx/SKILL.md and follow it: slash commands and skill tools are unavailable here.',
+    'You may read, create and edit project files, and run the allowed commands (uv run, node, npm, npx, git, and basic file listing). Never modify _bmad or .agents.',
+    'Nobody can answer during your turn: ask your questions at the end of your reply and stop. The user answers in the next turn. If you have enough to continue, keep working and report what you produced with file paths.',
+    text===null?'':(history.length?followUp(history,text):'\n## User message\n\n'+text)
+  ].join('\n')
+}
+export function parseAgenticResult(stdout:string):{text:string;sessionId:string} {
+  let value:unknown
+  try{value=JSON.parse(stdout)}catch{throw dialogueFailure('CLAUDE_FAILED')}
+  if(!isRecord(value)||value.type!=='result'||typeof value.session_id!=='string')throw dialogueFailure('CLAUDE_FAILED')
+  if(value.is_error===true&&typeof value.result==='string'&&isNetworkError(value.result))throw dialogueFailure('CLAUDE_NETWORK_UNAVAILABLE')
+  if(value.subtype==='error_max_turns')return {text:'Le tour a atteint sa limite d’actions avant de se terminer. Écris « continue » pour reprendre.',sessionId:value.session_id}
+  if(value.is_error===true||typeof value.result!=='string'||!value.result.trim())throw dialogueFailure('CLAUDE_FAILED')
+  return {text:value.result.slice(0,MAX_DRAFT_LENGTH),sessionId:value.session_id}
+}
 
 export function followUp(history:readonly {role:'user'|'assistant';text:string}[],text:string):string {
   const lines=history.map(m=>(m.role==='user'?'### User':'### Assistant (you)')+'\n\n'+m.text)
@@ -233,6 +266,7 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
     }
     // Each CLI run is stateless (--no-session-persistence): follow-ups resend the exchanged transcript.
     const history:{role:'user'|'assistant';text:string}[]=[...(options.history??[])]
+    let agentSession:string|null=null
     let used=history.length>0,stopOutcome:'stopped'|'unknown'='stopped'
     const stop=async():Promise<'stopped'|'unknown'>=>{
       if(stopOutcome==='unknown'){
@@ -250,18 +284,18 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
         used=true
         await refuseLocalPolicy(settings,options.home,signal,options)
         if(!sameBinary(stamp,await binaryStamp(executable)))throw dialogueFailure('CLAUDE_PROFILE_UNSUPPORTED')
-        const prompt=buildClaudePrompt(await readBmadFile(profile,source.path),source,captured)+(text===null?'':followUp(history,text))
+        const agentic=options.agentic,resume=agentSession!==null,prompt=agentic?(resume?(text??''):buildAgenticPrompt(agentic.skill,text,history)):buildClaudePrompt(await readBmadFile(profile,source.path),source,captured)+(text===null?'':followUp(history,text))
         // La CLI attend son entrée pendant un délai court. Terminer la lecture BMad avant son démarrage.
         await assertContext()
         signal.throwIfAborted()
         const runId=await options.owner.begin()
-        const sessionId=randomUUID()
+        const sessionId=agentSession??randomUUID()
         let child:ChildProcessWithoutNullStreams|undefined,closed=false,overflow=false,interrupted=false
         let timer:ReturnType<typeof setTimeout>|undefined
         const abort=():void=>{interrupted=true;child?.kill()}
         try{
           signal.throwIfAborted()
-          const process=spawn(executable,claudeArgs(sessionId),{...settings,stdio:['pipe','pipe','pipe']})
+          const process=spawn(executable,agentic?agenticArgs(sessionId,resume):claudeArgs(sessionId),{...(agentic?{cwd:profile.rootPath,env:agenticEnvironment(options.environment),shell:false,windowsHide:true}:settings),stdio:['pipe','pipe','pipe']})
           child=process
           let bytes=0,streamError=false
           const stdout:Buffer[]=[],stderr:Buffer[]=[]
@@ -281,7 +315,7 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
           })
           let deadline!:()=>void
           const expired=new Promise<null>(resolve=>{deadline=()=>{abort();resolve(null)}})
-          timer=setTimeout(deadline,120000)
+          timer=setTimeout(deadline,agentic?agenticTimeout:120000)
           signal.addEventListener('abort',deadline,{once:true})
           try{
             if(!process.pid)throw dialogueFailure('CLAUDE_FAILED')
@@ -305,11 +339,13 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
             signal.throwIfAborted()
             if(interrupted||overflow||streamError)throw dialogueFailure('CLAUDE_FAILED')
             if(code!==0&&isNetworkError(Buffer.concat(stderr).toString('utf8')))throw dialogueFailure('CLAUDE_NETWORK_UNAVAILABLE')
-            const answer=parseClaudeResult(utf8.decode(Buffer.concat(stdout)),sessionId)
+            const parsedAgent=agentic?parseAgenticResult(utf8.decode(Buffer.concat(stdout))):null
+            if(parsedAgent)agentSession=parsedAgent.sessionId
+            const answer=parsedAgent?parsedAgent.text:parseClaudeResult(utf8.decode(Buffer.concat(stdout)),sessionId)
             if(code!==0)throw dialogueFailure('CLAUDE_FAILED')
             if(text!==null)history.push({role:'user',text})
             history.push({role:'assistant',text:answer})
-            observe?.({id:'claude-terminal-result-'+history.length,order:1,text:answer,completed:true,identity:{kind:'attested',name:'Claude Code',source:'claude-code'}})
+            observe?.({id:'claude-terminal-result-'+history.length,order:1,text:answer,completed:true,identity:{kind:'attested',name:agentic?agentNames[agentic.skill]??'Claude Code':'Claude Code',source:'claude-code'}})
             return answer
           }finally{
             signal.removeEventListener('abort',deadline)

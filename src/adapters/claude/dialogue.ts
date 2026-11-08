@@ -115,6 +115,11 @@ export function parseClaudeResult(stdout:string,sessionId:string):string {
 
 const isNetworkError=(text:string):boolean=>/\b(?:ENOTFOUND|EAI_AGAIN|ECONNRESET|ECONNREFUSED|ETIMEDOUT|ERR_NETWORK)\b/i.test(text)
 
+export function followUp(history:readonly {role:'user'|'assistant';text:string}[],text:string):string {
+  const lines=history.map(m=>(m.role==='user'?'### User':'### Assistant (you)')+'\n\n'+m.text)
+  return '\n\n## Conversation so far\n\nContinue the same conversation in character. Earlier turns:\n\n'+lines.join('\n\n')+'\n\n## New user message\n\n'+text
+}
+
 export function buildClaudePrompt(skill:string,source:Pick<Source,'sha256'|'bytes'>,captured:CapturedBmadContext):string {
   const bytes=Buffer.from(skill,'utf8')
   if(bytes.length!==source.bytes||createHash('sha256').update(bytes).digest('hex')!==source.sha256)throw dialogueFailure('PROFILE_CHANGED')
@@ -225,6 +230,8 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
       signal.throwIfAborted()
       throw dialogueFailure('CLAUDE_SUBSCRIPTION_REQUIRED')
     }
+    // Each CLI run is stateless (--no-session-persistence): follow-ups resend the exchanged transcript.
+    const history:{role:'user'|'assistant';text:string}[]=[]
     let used=false,stopOutcome:'stopped'|'unknown'='stopped'
     const stop=async():Promise<'stopped'|'unknown'>=>{
       if(stopOutcome==='unknown'){
@@ -238,11 +245,11 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
     return {
       context:{providerId:'claude-code',connectionId:'claude-local-'+randomUUID(),initiativeId:captured.initiativeId},
       async turn(text,accepted,observe){
-        if(used||text!==null)throw dialogueFailure('UNSUPPORTED_INTERACTION')
+        if(used?text===null:text!==null)throw dialogueFailure('UNSUPPORTED_INTERACTION')
         used=true
         await refuseLocalPolicy(settings,options.home,signal,options)
         if(!sameBinary(stamp,await binaryStamp(executable)))throw dialogueFailure('CLAUDE_PROFILE_UNSUPPORTED')
-        const prompt=buildClaudePrompt(await readBmadFile(profile,source.path),source,captured)
+        const prompt=buildClaudePrompt(await readBmadFile(profile,source.path),source,captured)+(text===null?'':followUp(history,text))
         // La CLI attend son entrée pendant un délai court. Terminer la lecture BMad avant son démarrage.
         await assertContext()
         signal.throwIfAborted()
@@ -299,7 +306,9 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
             if(code!==0&&isNetworkError(Buffer.concat(stderr).toString('utf8')))throw dialogueFailure('CLAUDE_NETWORK_UNAVAILABLE')
             const answer=parseClaudeResult(utf8.decode(Buffer.concat(stdout)),sessionId)
             if(code!==0)throw dialogueFailure('CLAUDE_FAILED')
-            observe?.({id:'claude-terminal-result',order:1,text:answer,completed:true,identity:{kind:'attested',name:'Claude Code',source:'claude-code'}})
+            if(text!==null)history.push({role:'user',text})
+            history.push({role:'assistant',text:answer})
+            observe?.({id:'claude-terminal-result-'+history.length,order:1,text:answer,completed:true,identity:{kind:'attested',name:'Claude Code',source:'claude-code'}})
             return answer
           }finally{
             signal.removeEventListener('abort',deadline)

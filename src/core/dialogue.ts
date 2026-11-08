@@ -401,12 +401,7 @@ export class DialogueCoordinator {
       if([...updates.values()].map(m=>m.text).join('\n\n')!==text)throw dialogueFailure('PROVIDER_FAILED')
       closed=true;await flush()
       await this.deps.application.dialoguePersist(projectId,conversationId,value=>{value.lastKnownActivity='idle'},undefined,requestId)
-      if (claude) {
-        const outcome=await this.stopSession()
-        if(outcome==='unknown')await this.persistActivity('unknown')
-        this.update({status:outcome,errorCode:outcome==='unknown'?'STOP_UNCONFIRMED':null,turn:{id:turnId,requestId,context,phase:'completed'}})
-        return
-      }
+      // Claude Code sessions stay open for follow-up replies, like Codex (owner feedback 2026-11-08).
       if (this.controller?.signal.aborted) return
       this.update({ status: 'ready', errorCode: null,turn:{id:turnId,requestId,context,phase:'completed'} }); this.activity('Tour terminé · réponse enregistrée · à vous de répondre')
     }catch(error){

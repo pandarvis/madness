@@ -23,3 +23,6 @@
  .initialization-actions { flex-direction:column; align-items:stretch; }
  .initialization-dialog .catalog-dialog-header { gap:8px; }
 }
+.bmad-absent-card { margin: 8px 0 24px; padding: 22px 24px; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent-soft); animation: view-in .3s ease-out both }
+.bmad-absent-card h2 { margin: 0 0 8px; font-size: 24px }
+.bmad-absent-card p { max-width: 62ch; margin: 0 0 16px }

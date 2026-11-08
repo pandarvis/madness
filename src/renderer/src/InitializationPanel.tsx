@@ -212,7 +212,7 @@ function PlanDetails({plan,preview}:{plan:InitializationPlan;preview:(entry:Extr
  </div>
 }
 
-export type InitializationArrival={projectId:string;attemptId:string|null}
+export type InitializationArrival={projectId:string;attemptId:string|null;autoPrepare?:boolean}
 type PanelProps = {
  projectId:string;rootPath:string;state:InitializationView|null;arrival:InitializationArrival
  accept(value:InitializationView):void;onClose():void
@@ -334,6 +334,12 @@ export function InitializationPanel({projectId,rootPath,state,arrival,accept,onC
    if(alive.current&&request===observationRequest.current){setObservation(null);setIssue('UNAVAILABLE')}
   }).finally(()=>{if(alive.current)setObserving(false)})
  }
+ // A guided arrival (BMad absent card) diagnoses at once and prepares the plan without extra clicks.
+ const autoPrepared=useRef(false)
+ useEffect(()=>{if(arrival.autoPrepare&&!observation&&!observing&&!active)refreshObservation()// eslint-disable-next-line react-hooks/exhaustive-deps
+ },[arrival])
+ useEffect(()=>{if(arrival.autoPrepare&&canPrepare&&!autoPrepared.current){autoPrepared.current=true;prepare()}// eslint-disable-next-line react-hooks/exhaustive-deps
+ },[arrival,canPrepare])
  function prepare():void {
   if(pendingRequest.current||!canPrepare)return
   const requestId=crypto.randomUUID()

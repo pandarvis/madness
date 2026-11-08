@@ -216,3 +216,4 @@
   .app-shell:has(#project-context-panel) .main-inner, .app-shell:has(#codex-connection-panel) .main-inner { padding-inline-end: calc(var(--side-panel) + 32px); max-width: none }
   .app-shell:has(.context-panel.initialization-context) .main-inner { padding-inline-end: 712px; max-width: none }
 }
+.conversation-messages .message-state.is-notable { display: block }

@@ -124,3 +124,9 @@
 @media (prefers-reduced-motion: reduce) {
   .atelier-header, .atelier-header .atelier-glow::before, .atelier-header .atelier-glow::after, [role='tabpanel'], .main-inner > .welcome, .main-inner > .page-intro, .context-panel, .connection-panel { animation: none }
 }
+
+/* The graph needs the first screen: same compact banner as the conversation. */
+.main-inner:has(#panel-graphe) .project-banner { position: relative; padding: 14px 16px; min-height: 72px }
+.main-inner:has(#panel-graphe) .project-banner h1 { font-size: 28px; line-height: 1.15 }
+.main-inner:has(#panel-graphe) .graph-panel { padding-top: 0 }
+.main-inner:has(#panel-graphe) .graph-drawing { height: min(420px, calc(100dvh - 330px)) }

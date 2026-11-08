@@ -90,3 +90,26 @@ Chaque proposition est à **valider ou refuser** par le porteur. Priorité : P1 
 
 - **Les vrais tours avec un modèle.** La CLI Claude Code est maintenant à la version qualifiée (2.1.318, empreinte conforme), mais elle n'est pas connectée. Codex n'a pas de compte enregistré dans Madness. Une connexion du porteur est nécessaire : `claude auth login` dans un terminal, ou la connexion ChatGPT dans les Réglages. Ensuite, le banc reprend avec Mary, une question sur le morpion, puis un workflow.
 - **La relecture humaine de l'accessibilité :** clavier complet et lecteur d'écran.
+
+## Deuxième passe — après corrections et vrais tours Claude Code (8 novembre 2026)
+
+Deux vrais tours avec Mary sur le morpion, via Claude Code : accueil en 53 s, réponse à une question en 30 s.
+
+### Traité
+
+| Point | État |
+| --- | --- |
+| P1 Initialisation introuvable | Corrigé : carte « Initialiser BMad », 3 clics au lieu de 6 |
+| P1 L'IA choisie ignorée | Corrigé pour Mary, le panneau Contexte et les textes de lancement. Forge reste réservé à Codex |
+| P1 Échec de lancement muet | Corrigé : messages avec la commande à taper, prérequis dans les Réglages. L'état réel de Claude Code n'est pas encore détecté avant le lancement (« vérifié au lancement ») |
+| Dialogue Claude limité à un tour | Corrigé : on peut répondre à Mary |
+| Texte de statut redondant | Corrigé |
+| Graphe loin de l'écran | Partiel : le dessin passe avant la recherche, mais son titre arrive en bas du premier écran et le dessin reste sous la ligne de flottaison en 1440×900 |
+
+### Nouveaux constats, à valider
+
+- **P1 — Avec Claude Code, le morpion ne peut pas avancer au-delà de la discussion.** Mary est en lecture seule, sans outils ni écriture de fichiers : elle peut cadrer le projet, mais ni produire un brief dans le dossier, ni lancer un workflow. **Proposition :** ouvrir une story pour les écritures avec accord, sur le modèle des approbations Codex.
+- **P2 — Une minute d'attente sans signe de vie.** Pendant les 53 s du premier tour, seul « L'agent travaille » s'affiche. **Proposition :** indicateur animé et temps écoulé, puis réponse progressive si la CLI le permet.
+- **P2 — Le premier écran du graphe est occupé par l'empilement** bannière, notices, titre, statut et actions. **Proposition :** sur l'onglet Graphe, réduire la bannière à une ligne et mettre statut et actions dans une barre au-dessus du dessin. Cela touche à la bannière, d'où la validation demandée.
+- **P2 — Jargon restant dans la conversation.** Le message envoyé s'affiche `$bmad-agent-analyst`, le titre montre un identifiant technique complet, et « Initiative capturée par cet échange : non identifiée » reste affiché dans tous les onglets. **Proposition :** afficher « Démarrage de Mary », masquer l'identifiant et cette ligne tant qu'il n'y a pas d'initiative.
+- **P3 — Langue dans les Réglages :** un drapeau seul, sans indication de ce que fait le clic.

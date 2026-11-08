@@ -549,8 +549,8 @@ export const interfaceCopy = {
   "en": " · awaiting send acknowledgement"
  },
  "turn_complete_next_action_your_response_turn_completion_does_not_": {
-  "fr": " · tour terminé, prochaine action : votre réponse. La fin du tour ne valide aucun livrable.",
-  "en": " · turn complete, next action: your response. Turn completion does not validate deliverables."
+  "fr": " · La fin du tour ne valide aucun livrable.",
+  "en": " · Turn completion does not validate deliverables."
  },
  "no_saved_exchange": {
   "fr": "Aucun échange enregistré",

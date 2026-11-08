@@ -77,6 +77,7 @@ type Source=NonNullable<BmadProfile['catalogSource']>
 type Options={
   home:string; appData:string; localAppData:string; temp:string; environment:NodeJS.ProcessEnv;
   owner:OwnedRun; admit():()=>void; assertRecovery():Promise<void>; onUnknown():void
+  history?:readonly {role:'user'|'assistant';text:string}[]
 }
 
 export function claudeArgs(sessionId:string):string[] {
@@ -231,8 +232,8 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
       throw dialogueFailure('CLAUDE_SUBSCRIPTION_REQUIRED')
     }
     // Each CLI run is stateless (--no-session-persistence): follow-ups resend the exchanged transcript.
-    const history:{role:'user'|'assistant';text:string}[]=[]
-    let used=false,stopOutcome:'stopped'|'unknown'='stopped'
+    const history:{role:'user'|'assistant';text:string}[]=[...(options.history??[])]
+    let used=history.length>0,stopOutcome:'stopped'|'unknown'='stopped'
     const stop=async():Promise<'stopped'|'unknown'>=>{
       if(stopOutcome==='unknown'){
         stopOutcome=await options.owner.observeStop()
@@ -245,7 +246,7 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
     return {
       context:{providerId:'claude-code',connectionId:'claude-local-'+randomUUID(),initiativeId:captured.initiativeId},
       async turn(text,accepted,observe){
-        if(used?text===null:text!==null)throw dialogueFailure('UNSUPPORTED_INTERACTION')
+        if(used&&text===null)throw dialogueFailure('UNSUPPORTED_INTERACTION')
         used=true
         await refuseLocalPolicy(settings,options.home,signal,options)
         if(!sameBinary(stamp,await binaryStamp(executable)))throw dialogueFailure('CLAUDE_PROFILE_UNSUPPORTED')

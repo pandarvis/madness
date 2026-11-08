@@ -460,7 +460,7 @@ else {
       qualifyForge:(root,signal)=>ownQualification(()=>qualifyNativeForge(root,signal)),
       qualify:(root,signal)=>ownQualification(()=>qualifyMary(root,signal)),
       qualifyClaude:async(root,signal)=>{signal.throwIfAborted();return qualifyBmadProfile(root)},
-      openClaude:(profile,captured,signal,assertContext)=>openClaudeDialogue(profile,captured,signal,assertContext,{
+      openClaude:(profile,captured,signal,assertContext,history)=>openClaudeDialogue(profile,captured,signal,assertContext,{history,
         home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),
         temp:app.getPath('temp'),environment:process.env,owner:claudeOwner,
         admit:()=>admission.enter('provider'),

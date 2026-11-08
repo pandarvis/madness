@@ -20,7 +20,7 @@ import type {RunRecoveryPort} from './ports.ts'
 import type {ApprovalFile} from '../contracts/approvals.ts'
 import {INSPECTION_MAX_AGE_MS} from '../contracts/recovery.ts'
 import type {FileInspection} from '../contracts/recovery.ts'
-type Dependencies = { metrics?:UsMetricsCoordinator;application: Application;catalogLaunch?:BmadCatalogLaunchCoordinator;contexts?:BmadContextCoordinator;help?:BmadHelpCoordinator;recovery?:RunRecoveryPort;inspectApproval?(rootPath:string,files:ApprovalFile[]):Promise<FileInspection>; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyClaude?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; openClaude?(profile:BmadProfile, captured:CapturedBmadContext, signal:AbortSignal, assertContext:(submit?:()=>void)=>Promise<void>):Promise<DialogueSession>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, assertContext?:()=>Promise<void>): Promise<DialogueSession> }
+type Dependencies = { metrics?:UsMetricsCoordinator;application: Application;catalogLaunch?:BmadCatalogLaunchCoordinator;contexts?:BmadContextCoordinator;help?:BmadHelpCoordinator;recovery?:RunRecoveryPort;inspectApproval?(rootPath:string,files:ApprovalFile[]):Promise<FileInspection>; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyClaude?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; openClaude?(profile:BmadProfile, captured:CapturedBmadContext, signal:AbortSignal, assertContext:(submit?:()=>void)=>Promise<void>, history?:readonly {role:'user'|'assistant';text:string}[]):Promise<DialogueSession>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, assertContext?:()=>Promise<void>): Promise<DialogueSession> }
 /** Une seule session native possédée. Les travaux longs ne monopolisent jamais la queue disque. */
 export class DialogueCoordinator {
   private state = initialDialogueState()
@@ -274,6 +274,7 @@ export class DialogueCoordinator {
     if(this.capturedContext&&((profile.kind==='forge'&&profile.forge?.initiativeId!==this.capturedContext.initiativeId)||(profile.kind==='help'&&profile.help?.initiativeId!==this.capturedContext.initiativeId)))throw dialogueFailure('PROFILE_CHANGED')
     const captured=this.capturedContext,controller=this.controller!
     const catalog=this.catalog
+    let resumed:Awaited<ReturnType<Application['dialoguePersist']>>|null=null
     const assertContext=async():Promise<void>=>{if(catalog)await catalog.assertFresh();if(!captured||!this.deps.contexts)return;try{await this.deps.contexts.assertFresh(captured,controller.signal)}catch(e){if(this.capturedContext===captured&&this.controller===controller&&(e as {code?:string}).code==='PROFILE_CHANGED')this.contextRefusal=true;throw e}}
     if (claude) {
       if (!captured || !this.deps.openClaude) throw dialogueFailure('UNSUPPORTED_INTERACTION')
@@ -284,14 +285,20 @@ export class DialogueCoordinator {
         await this.currentProject(project.id)
       }
       await assertClaudeContext()
-      this.session=await this.deps.openClaude(profile,captured,controller.signal,assertClaudeContext)
+      if(input.type==='launch-claude'&&input.conversationId){
+        resumed=await this.deps.application.dialoguePersist(project.id,input.conversationId,()=>{},undefined,input.correlationId)
+        if(resumed.context.providerId!=='claude-code'||resumed.context.initiativeId!==captured.initiativeId)throw dialogueFailure('CONTEXT_MISMATCH')
+        // Message ids derive from the turn number: continue after the stored turns so none is overwritten.
+        for(const message of resumed.messages){const turn=/^turn-(\d+)/.exec(message.id);if(turn)this.turnSequence=Math.max(this.turnSequence,Number(turn[1]))}
+      }
+      this.session=await this.deps.openClaude(profile,captured,controller.signal,assertClaudeContext,resumed?.messages.map((m:{role:'user'|'assistant';text:string})=>({role:m.role,text:m.text})))
     } else this.session = await this.deps.open(profile, controller.signal, this.activity,assertContext)
     this.stopControl=this.session
     if(this.catalog&&(!this.catalog.connectionId||this.session.context.connectionId!==this.catalog.connectionId))throw dialogueFailure('PROFILE_CHANGED')
     this.controller!.signal.throwIfAborted()
     await this.assertCaptured()
     if(this.capturedContext&&this.session.context.initiativeId!==this.capturedContext.initiativeId)throw dialogueFailure('PROFILE_CHANGED')
-    const conversation = await this.deps.application.dialoguePersist(project.id, null, value => { value.lastKnownActivity = 'running' }, {...this.session.context,providerId:claude?'claude-code':'codex'},input.correlationId)
+    const conversation = await this.deps.application.dialoguePersist(project.id, resumed?.id??null, value => { value.lastKnownActivity = 'running' }, {...this.session.context,providerId:claude?'claude-code':'codex'},input.correlationId)
     this.update({ context: conversation.context })
     if(this.catalog){await this.catalog.assertFresh();await this.deps.catalogLaunch!.begin(this.catalog.preparation,conversation.context,input.correlationId);await this.catalog.assertFresh()}
     if(this.session.help){if(!this.deps.help)throw dialogueFailure('STORAGE_WRITE_FAILED');await this.deps.help.begin(this.session.help.bundle,conversation.context);this.session.help.bind(r=>this.deps.help!.tool(conversation.id,r))}
@@ -306,7 +313,7 @@ export class DialogueCoordinator {
         await this.deps.workflows!.write(next);this.update({workflows:this.state.workflows.map(w=>w.conversationId===next.conversationId?next:w)})
       })
     }
-    if (claude) { await this.turn(null,input.correlationId); return }
+    if (claude) { const first=input.type==='launch-claude'&&input.text?{contractVersion:1 as const,correlationId:input.correlationId,type:'send' as const,projectId:project.id,conversationId:conversation.id,text:input.text}:null;await this.turn(first,input.correlationId); return }
     await this.turn(null,input.correlationId,input.metricsChoice,input.type==='launch'?{type:'launch',mode:input.mode??'read-only'}:input.type==='launch-catalog'?{type:'launch-catalog',preparationId:input.preparationId}:{type:input.type as 'launch-help'|'launch-forge'})
   }
   private async turn(input: Extract<DialogueCommand, { type: 'send' }> | null, launchRequest?:string,launchChoice?:string,operation:MetricOperation={type:'send'}): Promise<void> {

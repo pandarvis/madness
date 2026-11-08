@@ -130,3 +130,51 @@
 .main-inner:has(#panel-graphe) .project-banner h1 { font-size: 28px; line-height: 1.15 }
 .main-inner:has(#panel-graphe) .graph-panel { padding-top: 0 }
 .main-inner:has(#panel-graphe) .graph-drawing { height: min(420px, calc(100dvh - 330px)) }
+
+/* Conversation is a chat: the messages own the height, the input stays at the bottom. */
+.main-inner:has(#panel-conversation):not(:has(.conversation-history > .question-panel, .conversation-history > .approval-panel)) {
+  min-height: 0;
+  #panel-conversation { flex: 1 1 auto; min-height: 0 }
+  .conversation-history, .conversation-empty { flex: 1 1 auto; height: auto; min-height: 0; display: flex; flex-direction: column }
+  .conversation-empty { justify-content: center; align-items: center; text-align: center }
+  .conversation-messages { flex: 1 1 auto; height: 0; min-height: 120px; max-height: none }
+  .composer { order: 9 }
+  .prepare-exchange { order: 10; align-self: flex-start }
+}
+.chat-bar { display: flex; align-items: center; gap: 16px; flex: none }
+.chat-bar h2 { margin: 6px 0; font-size: 18px; letter-spacing: .04em }
+.chat-details { margin-inline-start: auto; font-size: 13px; color: var(--muted) }
+.chat-details[open] { max-width: 60% }
+.chat-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%) }
+.chat-composer textarea { min-height: 44px; max-height: 180px; resize: none }
+.chat-composer .composer-bottom { border-top: 0; padding-top: 0 }
+#draft-status { font-size: 12px; color: var(--muted) }
+.conversation-messages .message-author { position: static; background: transparent }
+.conversation-messages .message-state, .conversation-messages .message-provenance { display: none }
+.conversation-messages .dialogue-message.user { margin-inline-start: auto; max-width: 78% }
+.message-start { font-size: 13px; color: var(--muted) }
+.message-text > :first-child { margin-top: 0 }
+.message-text p, .message-text ul, .message-text ol { margin-block: 0 10px }
+.message-text ul, .message-text ol { padding-inline-start: 22px }
+.message-text li { margin-block: 4px }
+.message-text hr { border: 0; border-top: 1px solid var(--line); margin-block: 12px }
+.message-heading { margin-block-start: 14px }
+.turn-status::after { content: '…'; display: inline-block; animation: chat-wait 1.2s ease-in-out infinite }
+@keyframes chat-wait { 0%, 100% { opacity: .25 } 50% { opacity: 1 } }
+@media (prefers-reduced-motion: reduce) { .turn-status::after { animation: none } }
+.main-inner:has(#panel-conversation):not(:has(.conversation-history > .question-panel, .conversation-history > .approval-panel)) {
+  #panel-conversation { position: relative }
+  #panel-conversation > details { order: 11 }
+  .conversation-messages { min-height: 220px }
+  .dialogue-session:not(:has([role='alert'])) { position: absolute; top: 2px; right: 96px; z-index: 3; margin: 0; padding: 0; background: transparent; border: 0 }
+  .dialogue-session:not(:has([role='alert'])) > h2, .dialogue-session:not(:has([role='alert'])) > .dialogue-proof { display: none }
+  .dialogue-session .dialogue-actions button { min-height: 32px; font-size: 14px; padding-block: 2px }
+  .chat-composer .metric-choice, .chat-composer details { font-size: 12px }
+}
+.main-inner:has(#panel-conversation):not(:has(.conversation-history > .question-panel, .conversation-history > .approval-panel)) {
+  #panel-conversation { display: grid; grid-template-columns: auto auto auto minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); grid-auto-rows: auto; column-gap: 16px; align-content: stretch }
+  #panel-conversation > * { grid-column: 1 / -1; min-width: 0 }
+  #panel-conversation > .prepare-exchange, #panel-conversation > details:not([open]) { grid-column: auto; margin-block: 4px 0; align-self: center }
+  #panel-conversation > .prepare-exchange { min-height: 32px; font-size: 14px; padding-block: 2px }
+  .composer { margin-block-end: 2px }
+}

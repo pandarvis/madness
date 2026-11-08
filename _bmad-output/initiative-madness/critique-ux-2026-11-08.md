@@ -67,6 +67,18 @@ Chaque proposition est à **valider ou refuser** par le porteur. Priorité : P1 
 
 **Proposition.** Le dessin passe en tête, avec la recherche intégrée. Le périmètre et la fraîcheur vont dans « Détails de l'analyse ».
 
+### P2 — Retours du porteur : éléments rognés et manque d'animation (traité en version de test)
+
+**Constat (porteur).** Beaucoup d'éléments sont rognés, et l'interface manque d'animation. La banderole de travail pourrait être animée.
+
+**Fait (`000b328`).**
+- **Panneaux latéraux :** le panneau Contexte, Réglages ou Initialisation ne recouvre plus la page sur une fenêtre large ; la page se décale pour lui laisser la place.
+- **Banderole vivante :** l'illustration dérive lentement, la lampe respire et de la poussière flotte.
+- **Transitions :** les vues et les panneaux apparaissent en glissant.
+- **Animations réduites :** tout s'arrête si Windows demande de réduire les animations.
+
+**Reste à valider :** l'intensité des animations, et les autres zones rognées que le porteur aurait repérées.
+
 ### P3 — Petites finitions
 
 - **Infobulle collante :** l'infobulle « Ouvrir un projet » reste affichée après avoir choisi un dossier (focus rendu au bouton après la boîte Windows).

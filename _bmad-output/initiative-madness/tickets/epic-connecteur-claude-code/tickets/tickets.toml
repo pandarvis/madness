@@ -31,3 +31,15 @@ after = [2]
 unknown = "Quel actif officiel correspond au nouveau logo demandé et couvre son utilisation dans Madness ?"
 hitl = false
 risk = "low"
+
+[[entry]]
+id = 4
+type = "story"
+title = "Écrire les fichiers proposés par Claude Code avec un accord à chaque fois"
+description = "Aujourd’hui, Claude Code répond en lecture seule, sans outils : Mary peut cadrer un projet mais pas produire son brief. Permettre à Claude Code de proposer des créations et modifications de fichiers dans le projet, présentées avec leur contenu exact, et appliquées seulement après un accord ponctuel, sur le modèle des approbations Codex de la story 1.6. Demande du porteur du 8 novembre 2026 après l’essai morpion."
+verify = "Sur un projet témoin avec le vrai Claude Code, demander à Mary d’écrire un brief. Vérifier que la proposition montre chemin et contenu avant tout effet, qu’un refus ne laisse aucun fichier, qu’un accord écrit exactement le contenu présenté, et que les chemins protégés (.git, _bmad, .agents) et hors projet sont refusés. Vérifier l’interruption, la réouverture sans rejeu, et l’absence de repli vers l’API."
+covers = ["R1"]
+after = [1]
+unknown = "Quelle voie officielle de la CLI permet de soumettre chaque écriture à un accord, sans ouvrir les autres outils ?"
+hitl = true
+risk = "high"

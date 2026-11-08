@@ -518,6 +518,7 @@ else {
       try {
         const { rootPath } = await application.dialogueProject(projectId)
         const exists = (name: string): Promise<boolean> => access(join(rootPath, name)).then(() => true, () => false)
+        if (!await exists('.')) return null
         return (await Promise.all([exists('_bmad'), exists('.agents')])).some(Boolean)
       } catch { return null }
     })
@@ -526,6 +527,7 @@ else {
       if (action === 'minimize') window.minimize()
       else if (action === 'toggle-maximize') { if (window.isMaximized()) window.unmaximize(); else window.maximize() }
       else if (action === 'close') window.close()
+      else if (action === 'reload') window.webContents.reload()
       else if (action !== 'state') return false
       return window.isMaximized()
     })

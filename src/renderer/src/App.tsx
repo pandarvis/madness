@@ -178,6 +178,9 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [connection, setConnection] = useState<ConnectionState>(initialConnectionState)
   const [connectionOpen, setConnectionOpen] = useState(false)
   const [nextProvider, setNextProvider] = useState<ProviderId>(readNextProvider)
+  const [devMode, setDevMode] = useState(()=>{try{return localStorage.getItem('madness.dev-mode')==='1'}catch{return false}})
+  function changeDevMode(on:boolean):void{setDevMode(on);try{if(on)localStorage.setItem('madness.dev-mode','1');else localStorage.removeItem('madness.dev-mode')}catch{/* session-only choice */}}
+  function replaySplash():void{try{sessionStorage.setItem('madness.replay-splash','1')}catch{return}void (window as unknown as {madnessWindow?:{command(action:'reload'):Promise<boolean>}}).madnessWindow?.command('reload')}
   const [connectionPending, setConnectionPending] = useState(false)
   const [connectionBridgeError, setConnectionBridgeError] = useState(false)
   const connectionTrigger = useRef<HTMLButtonElement>(null)
@@ -630,6 +633,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       <div className="settings-section"><h3>{language==='fr'?'Langue':'Language'}</h3><LanguageControl/></div>
       <div className="settings-section"><h3>Claude Code</h3><p className="small">{language==='fr'?'Madness utilise la CLI officielle Claude Code et la connexion que vous y avez déjà faite. Elles sont vérifiées à chaque lancement ; aucun secret n’est stocké par Madness. Prérequis : Claude Code 2.1.318 (npm install -g @anthropic-ai/claude-code@2.1.318) et une connexion faite avec « claude auth login ».':'Madness uses the official Claude Code CLI and the sign-in you already made there. Both are checked at each launch; Madness stores no secret. Requires Claude Code 2.1.318 (npm install -g @anthropic-ai/claude-code@2.1.318) and a sign-in made with “claude auth login”.'}</p></div>
       <div className="settings-section"><h3>GitHub Copilot</h3><p className="small">{language==='fr'?'Bientôt disponible.':'Coming soon.'}</p></div>
+      <div className="settings-section"><h3>{language==='fr'?'Mode développeur':'Developer mode'}</h3><label className="approval-mode"><input type="checkbox" checked={devMode} onChange={event=>changeDevMode(event.target.checked)}/>{language==='fr'?'Afficher les outils de développement':'Show development tools'}</label>{devMode&&<div className="dialogue-actions"><button className="secondary" type="button" onClick={replaySplash} disabled={sessionPresent||dialogueBusy}>{language==='fr'?'Rejouer l’écran de chargement':'Replay the loading screen'}</button></div>}</div>
     </section>}
     <div className="app-body">
     <aside className="sidebar" aria-label={ui.main_navigation} onMouseLeave={() => setTooltipsDismissed(false)} onFocusCapture={() => setTooltipsDismissed(false)}>

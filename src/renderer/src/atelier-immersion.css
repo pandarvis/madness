@@ -96,3 +96,31 @@
   .composer > .small { margin-top: 6px }
   .prepare-exchange { flex: none; margin-block: 6px 0; padding-block: 6px }
 }
+
+/* Living workshop banner: the illustration drifts slowly and the lamp light breathes (owner request 2026-11-08). */
+@keyframes atelier-drift { 0% { background-position: 50% 45%; background-size: 108% auto } 50% { background-position: 62% 55%; background-size: 114% auto } 100% { background-position: 50% 45%; background-size: 108% auto } }
+@keyframes atelier-lamp { 0%, 100% { opacity: .35 } 45% { opacity: .6 } 55% { opacity: .5 } }
+@keyframes atelier-dust { from { background-position: 0 0, 0 0 } to { background-position: 120px -260px, -80px -180px } }
+.atelier-header { background-size: 108% auto; animation: atelier-drift 38s ease-in-out infinite }
+.atelier-header > * { position: relative; z-index: 1 }
+.atelier-header .atelier-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden }
+.atelier-header .atelier-glow::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 40% 90% at 82% 30%, #e49b7a55, transparent 70%); animation: atelier-lamp 7s ease-in-out infinite }
+.atelier-header .atelier-glow::after { content: ''; position: absolute; inset: 0; opacity: .5; background-image: radial-gradient(1px 1px at 20% 30%, #f4eadc99, transparent), radial-gradient(1.5px 1.5px at 70% 60%, #e49b7a88, transparent); background-size: 180px 140px, 240px 200px; animation: atelier-dust 40s linear infinite }
+
+/* Views and panels arrive instead of popping. */
+@keyframes view-in { from { opacity: 0; transform: translateY(6px) } to { opacity: 1; transform: none } }
+@keyframes sheet-in { from { opacity: 0; transform: translateX(24px) } to { opacity: 1; transform: none } }
+[role='tabpanel'], .main-inner > .welcome, .main-inner > .page-intro { animation: view-in .26s ease-out both }
+.context-panel, .connection-panel { animation: sheet-in .24s cubic-bezier(.2,.8,.2,1) both }
+
+/* Side sheets no longer cover the work on wide windows: the page makes room for them. */
+@media (min-width: 1180px) {
+  .main-inner { transition: padding-inline-end .24s ease }
+  .app-shell:has(#project-context-panel) .main-inner, .app-shell:has(#codex-connection-panel) .main-inner { padding-inline-end: 452px; max-width: calc(1080px + 452px); margin-inline: 0 }
+  .app-shell:has(.context-panel.initialization-context) .main-inner { padding-inline-end: 712px; max-width: calc(1080px + 712px); margin-inline: 0 }
+  .app-shell:has(#codex-connection-panel) .main-inner { padding-inline-end: 452px }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atelier-header, .atelier-header .atelier-glow::before, .atelier-header .atelier-glow::after, [role='tabpanel'], .main-inner > .welcome, .main-inner > .page-intro, .context-panel, .connection-panel { animation: none }
+}

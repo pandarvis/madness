@@ -37,7 +37,7 @@ test('la commande Claude accepte uniquement le projet et l’enveloppe standard'
     assert.equal(isDialogueCommand({...valid,...extra}),false)
 })
 
-test('Claude termine après une réponse durable, Codex garde son propre dialogue',async()=>{
+test('Claude reste ouvert après une réponse durable, Codex garde son propre dialogue',async()=>{
   const {dialogue,dependencies}=await fixture()
   await dialogue.execute(command('launch',{projectId:'id-1'}))
   await dialogue.settled()
@@ -47,11 +47,13 @@ test('Claude termine après une réponse durable, Codex garde son propre dialogu
   await dialogue.execute(command('launch-claude',{projectId:'id-1'}))
   await dialogue.settled()
   const state=dialogue.read()
-  assert.equal(state.status,'stopped')
+  assert.equal(state.status,'ready')
   assert.equal(state.turn.phase,'completed')
   assert.equal(state.context.providerId,'claude-code')
   assert.equal(state.context.initiativeId,captured.initiativeId)
-  assert.equal((await dialogue.execute(command('send',{projectId:'id-1',conversationId:state.context.conversationId,text:'Rejouer'}))).errorCode,'CONTEXT_MISMATCH')
+  await dialogue.execute(command('stop'))
+  await dialogue.settled()
+  assert.equal(dialogue.read().status,'stopped')
   const reopened=await new Application(dependencies).execute(command('read-state'))
   assert.deepEqual(reopened.value.state.conversations.map(c=>[c.context.providerId,c.lastKnownActivity,c.messages.at(-1).text]),[
     ['codex','idle','Codex'],['claude-code','idle','Mary avec Claude Code']

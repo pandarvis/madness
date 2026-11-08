@@ -195,3 +195,4 @@ contextBridge.exposeInMainWorld('madnessBmadInitialization',Object.freeze(initia
 
 const windowBridge = { command: (action: 'minimize' | 'toggle-maximize' | 'close' | 'state'): Promise<boolean> => ipcRenderer.invoke('madness:window', action), onState: (listener: (maximized: boolean) => void): (() => void) => { const handler = (_event: unknown, maximized: unknown): void => listener(maximized === true); ipcRenderer.on('madness:window-state', handler); return () => { ipcRenderer.removeListener('madness:window-state', handler) } } }
 contextBridge.exposeInMainWorld('madnessWindow', Object.freeze(windowBridge))
+contextBridge.exposeInMainWorld('madnessProjectProbe', Object.freeze({ bmadPresent: (projectId: string): Promise<boolean | null> => ipcRenderer.invoke('madness:bmad-present', projectId) }))

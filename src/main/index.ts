@@ -512,6 +512,15 @@ else {
     window.webContents.on('will-attach-webview', (event) => event.preventDefault())
     window.once('ready-to-show', () => window?.show())
     // Caption buttons are drawn by the renderer since 2026-11-07: Madness owns their plates and hover.
+    // Read-only presence check for the first-step card: no helper process, no local tools lock.
+    ipcMain.handle('madness:bmad-present', async (event, projectId: unknown): Promise<boolean | null> => {
+      if (!window || window.isDestroyed() || event.sender !== window.webContents || typeof projectId !== 'string' || !application) return null
+      try {
+        const { rootPath } = await application.dialogueProject(projectId)
+        const exists = (name: string): Promise<boolean> => access(join(rootPath, name)).then(() => true, () => false)
+        return (await Promise.all([exists('_bmad'), exists('.agents')])).some(Boolean)
+      } catch { return null }
+    })
     ipcMain.handle('madness:window', (event, action: unknown): boolean => {
       if (!window || window.isDestroyed() || event.sender !== window.webContents) return false
       if (action === 'minimize') window.minimize()

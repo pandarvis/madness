@@ -227,8 +227,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   // Ask once per project and after each initialization outcome whether BMad is missing, so the beginner sees one clear first step.
   const [bmadAbsent,setBmadAbsent]=useState<Record<string,boolean>>({})
   const initializationOutcome=initializationState?.operations.map(op=>op.attemptId+':'+op.result.outcome).join('|')??''
-  useEffect(()=>{const id=page==='project'?project?.id:undefined;if(!id)return;let alive=true
-    void window.madnessBmadContext.observeInitialization(id).then(v=>{if(alive)setBmadAbsent(c=>({...c,[id]:v?.status==='absent'}))}).catch(()=>undefined)
+  useEffect(()=>{const id=page==='project'?project?.id:undefined;const probe=(window as unknown as {madnessProjectProbe?:{bmadPresent(id:string):Promise<boolean|null>}}).madnessProjectProbe;if(!id||!probe)return;let alive=true
+    void probe.bmadPresent(id).then(present=>{if(alive)setBmadAbsent(c=>({...c,[id]:present===false}))}).catch(()=>undefined)
     return ()=>{alive=false}},[page,project?.id,initializationOutcome])
   const absentHere=page==='project'&&!!project&&bmadAbsent[project.id]===true&&!initializationState?.operations.some(op=>['preparing','checking','applying','verifying','ready'].includes(op.phase))
   const [agentConsultation,setAgentConsultation]=useState<AgentConsultation|null>(null)

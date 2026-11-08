@@ -11,3 +11,7 @@ const shapes = {
 export function TopbarIcon({ name }: { name: keyof typeof shapes }): ReactNode {
   return <svg className="topbar-icon" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{shapes[name]}</svg>
 }
+
+export function NavigationIcon({ collapsed }: { collapsed: boolean }): ReactNode {
+  return <svg className="topbar-icon navigation-icon" data-collapsed={collapsed} aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" /><rect className="navigation-icon-bar" x="6" y="6" width="3.5" height="12" rx="1" stroke="none" /></svg>
+}

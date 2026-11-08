@@ -41,7 +41,7 @@ import { initialConnectionState } from '../../contracts/connection.ts'
 import type { ConnectionState, ConnectionBridge } from '../../contracts/connection.ts'
 import { MessageMarkdown } from './MessageMarkdown.tsx'
 import { ProjectsHub } from './ProjectsHub.tsx'
-import { TopbarIcon } from './TopbarIcon.tsx'
+import { NavigationIcon, TopbarIcon } from './TopbarIcon.tsx'
 import { ProviderIsland, readNextProvider, saveNextProvider, type ProviderId } from './ProviderIsland.tsx'
 import { initialDialogueState } from '../../contracts/dialogue.ts'
 import type { DialogueMessage, DialogueState, WorkflowRecord } from '../../contracts/dialogue.ts'
@@ -640,8 +640,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>{ui.skip_to_content}</a>
     <header className="topbar" onMouseLeave={()=>setTooltipsDismissed(false)} onFocusCapture={()=>setTooltipsDismissed(false)}>
       <div className="breadcrumb">
-        <button className="toolbar-toggle command-control desktop-menu" type="button" aria-label={collapsed ? ui.expand_navigation : ui.collapse_navigation} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><TopbarIcon name="panel" /></button>
-        <button className="toolbar-toggle command-control mobile-menu" type="button" ref={drawerTrigger} aria-label={ui.open_navigation} aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><TopbarIcon name="panel" /><span className="command-tooltip" aria-hidden="true">{ui.open_navigation}</span></button>
+        <button className="toolbar-toggle command-control desktop-menu" type="button" aria-label={collapsed ? ui.expand_navigation : ui.collapse_navigation} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><NavigationIcon collapsed={collapsed} /></button>
+        <button className="toolbar-toggle command-control mobile-menu" type="button" ref={drawerTrigger} aria-label={ui.open_navigation} aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><NavigationIcon collapsed /><span className="command-tooltip" aria-hidden="true">{ui.open_navigation}</span></button>
         <span className="app-title" title={page === 'project' && project ? project.name : fr.home}><span className="app-mad">Mad</span><span className="app-ness">ness</span>{page === 'project' && project && <span className="app-project"> — {project.name}</span>}</span>
       </div>
       <div className="topbar-actions">

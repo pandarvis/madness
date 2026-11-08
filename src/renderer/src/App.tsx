@@ -23,7 +23,7 @@ import {agentPresentation} from './agentPresentation.ts'
 import {AgentPortrait} from './AgentPortrait.tsx'
 import {AgentInfoPanel} from './AgentInfoPanel.tsx'
 import madnessMark from '../../../resources/branding/madness-64.png'
-import { WindowControls } from './WindowControls.tsx'
+import {WindowCaptionPlates} from './WindowCaptionPlates.tsx'
 import type {AgentConsultation} from './AgentInfoPanel.tsx'
 import {NetworkHelp} from './NetworkHelp.tsx'
 import {WorkOverview} from './WorkOverview.tsx'
@@ -184,7 +184,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [nextProvider, setNextProvider] = useState<ProviderId>(readNextProvider)
   const [devMode, setDevMode] = useState(()=>{try{return localStorage.getItem('madness.dev-mode')==='1'}catch{return false}})
   function changeDevMode(on:boolean):void{setDevMode(on);try{if(on)localStorage.setItem('madness.dev-mode','1');else localStorage.removeItem('madness.dev-mode')}catch{/* session-only choice */}}
-  function replaySplash():void{try{sessionStorage.setItem('madness.replay-splash','1')}catch{return}void (window as unknown as {madnessWindow?:{command(action:'reload'):Promise<boolean>}}).madnessWindow?.command('reload')}
+  function replaySplash():void{try{sessionStorage.setItem('madness.replay-splash','1')}catch{return}void (window as unknown as {madnessWindow?:{reload():Promise<void>}}).madnessWindow?.reload()}
   const [connectionPending, setConnectionPending] = useState(false)
   const [connectionBridgeError, setConnectionBridgeError] = useState(false)
   const connectionTrigger = useRef<HTMLButtonElement>(null)
@@ -649,8 +649,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         <ProviderIsland active={nextProvider} codex={connection.status==='verified'?'verified':connection.accountStored?'stored':'none'} onChoose={id=>{setNextProvider(id);saveNextProvider(id);if(id==='codex'&&!connection.accountStored)openConnection()}}/>
         <button className={'toolbar-toggle command-control codex-trigger settings-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel + (language==='fr'?' · Réglages':' · Settings')} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><TopbarIcon name="settings" /><span className="command-tooltip" aria-hidden="true">{language==='fr'?'Réglages':'Settings'}</span></button>
       </div>
-      <WindowControls />
     </header>
+    <WindowCaptionPlates />
     {connectionOpen && <section id="codex-connection-panel" className="connection-panel" role="dialog" aria-modal="false" aria-labelledby="codex-connection-title" ref={connectionPanel}>
       <p className="settings-eyebrow small muted">{language==='fr'?'Réglages':'Settings'}</p><div className="connection-heading"><h2 id="codex-connection-title" ref={connectionHeading} tabIndex={-1}>{ui.codex_connection}</h2><button type="button" aria-label={ui.close_codex_connection} onClick={closeConnection}><Icon name="close" /></button></div>
       <p className={'connection-state ' + (connection.status === 'verified' ? 'is-verified' : '')} role="status">{fr.connectionStatus[connection.status]}</p>
@@ -687,7 +687,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         <main id="main" tabIndex={-1}>
           <div className="main-inner">
             {error && <div className="error-message" role="alert"><strong>{ui.the_operation_did_not_complete}</strong><p>{error}</p>{!state && <button className="secondary" onClick={() => void load()} disabled={pending}>{ui.reread_local_context}</button>}</div>}
-            {state&&(page==='home'||!project?<div className="page-intro atelier-header"><span className="atelier-glow" aria-hidden="true"/><div><h1 ref={heading} tabIndex={-1}>{ui.your_projects_in_one_place}</h1><p>{ui.find_a_folder_and_prepare_your_next_work}</p></div></div>:<><div className="project-head"><div className="atelier-header project-banner"><span className="atelier-glow" aria-hidden="true"/><div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><button className="toolbar-toggle command-control context-trigger" type="button" ref={contextTrigger} aria-label={ui.project_context} aria-expanded={contextOpen} aria-controls="project-context-panel" aria-haspopup="dialog" onFocus={()=>setTooltipsDismissed(false)} onMouseLeave={()=>setTooltipsDismissed(false)} onClick={()=>{if(contextOpen)closeContext();else{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(true)}}}><Icon name="panel"/><span className="command-tooltip" aria-hidden="true">{ui.project_context}</span></button></div>
+            {state&&(page==='home'||!project?<div className="page-intro atelier-header" data-working={dialogueBusy}><span className="atelier-glow" aria-hidden="true"/><div><h1 ref={heading} tabIndex={-1}>{ui.your_projects_in_one_place}</h1><p>{ui.find_a_folder_and_prepare_your_next_work}</p></div></div>:<><div className="project-head" data-working={dialogueBusy&&dialogueHere}><div className="atelier-header project-banner"><span className="atelier-glow" aria-hidden="true"/><div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><button className="toolbar-toggle command-control context-trigger" type="button" ref={contextTrigger} aria-label={ui.project_context} aria-expanded={contextOpen} aria-controls="project-context-panel" aria-haspopup="dialog" onFocus={()=>setTooltipsDismissed(false)} onMouseLeave={()=>setTooltipsDismissed(false)} onClick={()=>{if(contextOpen)closeContext();else{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(true)}}}><Icon name="panel"/><span className="command-tooltip" aria-hidden="true">{ui.project_context}</span></button></div>
               {!absentHere&&<InitiativeSelector key={project.id} projectId={project.id} project={initiativeContext} accept={acceptBmadContext} onOpen={()=>{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(false)}} priority={!!planConfirmation.current?.open||!!drawer.current?.open} conflict={initiativeConflict} onDismissConflict={()=>setInitiativeConflict(false)}/>}
               {conversation&&<p className="context-note">{ui.initiative_captured_by_this_exchange} {conversation.context.initiativeId??ui.not_identified}</p>}
               </div>

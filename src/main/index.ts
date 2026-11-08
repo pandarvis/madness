@@ -502,7 +502,7 @@ else {
       icon: app.isPackaged ? join(process.resourcesPath, 'madness.ico') : join(app.getAppPath(), 'resources/branding/madness.ico'),
       width: 1320, height: 860, minWidth: 520, minHeight: 520, show: false,
       title: 'Madness', backgroundColor: nativeColors(appearance.theme).color, autoHideMenuBar: true,
-      titleBarStyle: 'hidden',
+      titleBarStyle: 'hidden', titleBarOverlay: nativeCaptionColors(appearance.theme),
       webPreferences: { preload: join(__dirname, '../preload/index.js'), additionalArguments: ['--madness-language=' + language.language, '--madness-language-warning=' + (language.warning ?? 'none'), '--madness-theme=' + appearance.theme, '--madness-appearance-warning=' + (appearance.warning ?? 'none'), ...(process.argv.includes('--madness-splash-demo') ? ['--madness-splash-demo'] : [])], contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, allowRunningInsecureContent: false, webviewTag: false, spellcheck: false }
     })
     window.on('focus',()=>{contextCoordinator.reconcile();helpCoordinator.reconcile();progressCoordinator.reconcile();catalogCoordinator.reconcile()})
@@ -512,7 +512,6 @@ else {
     window.webContents.on('will-attach-webview', (event) => event.preventDefault())
     // Open maximized; automated runs (remote debugging) keep the sizes they set themselves.
     window.once('ready-to-show', () => { if (!app.commandLine.hasSwitch('remote-debugging-port')) window?.maximize(); window?.show() })
-    // Caption buttons are drawn by the renderer since 2026-11-07: Madness owns their plates and hover.
     // Read-only presence check for the first-step card: no helper process, no local tools lock.
     ipcMain.handle('madness:bmad-present', async (event, projectId: unknown): Promise<boolean | null> => {
       if (!window || window.isDestroyed() || event.sender !== window.webContents || typeof projectId !== 'string' || !application) return null
@@ -523,17 +522,8 @@ else {
         return (await Promise.all([exists('_bmad'), exists('.agents')])).some(Boolean)
       } catch { return null }
     })
-    ipcMain.handle('madness:window', (event, action: unknown): boolean => {
-      if (!window || window.isDestroyed() || event.sender !== window.webContents) return false
-      if (action === 'minimize') window.minimize()
-      else if (action === 'toggle-maximize') { if (window.isMaximized()) window.unmaximize(); else window.maximize() }
-      else if (action === 'close') window.close()
-      else if (action === 'reload') window.webContents.reload()
-      else if (action !== 'state') return false
-      return window.isMaximized()
-    })
-    const sendWindowState = (): void => { if (window && !window.isDestroyed()) window.webContents.send('madness:window-state', window.isMaximized()) }
-    window.on('maximize', sendWindowState); window.on('unmaximize', sendWindowState)
+    nativeTheme.on('updated', () => { if (window && !window.isDestroyed()) window.setTitleBarOverlay(nativeCaptionColors(appearance.theme)) })
+    ipcMain.handle('madness:reload', (event): void => { if (window && !window.isDestroyed() && event.sender === window.webContents) window.webContents.reload() })
     window.on('closed', () => { window = null })
     await window.loadURL(rendererUrl)
   }).catch(() => {

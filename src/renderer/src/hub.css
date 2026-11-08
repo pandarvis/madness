@@ -26,7 +26,7 @@
 .topbar .app-project { margin-inline-start: 8px; overflow: hidden; text-overflow: ellipsis }
 .hub-open { align-items: stretch; justify-content: flex-start; font-family: 'Oxanium','Segoe UI',sans-serif; font-weight: 450 }
 .hub-open > * { text-align: left }
-.navigation-icon-bar { fill: var(--accent); transform: translateX(8.5px); transition: transform .26s cubic-bezier(.3,.9,.3,1.2) }
+.navigation-icon-bar { fill: var(--accent); transform: translateX(8.5px); transition: transform .26s cubic-bezier(.16,1,.3,1) }
 .navigation-icon[data-collapsed='true'] .navigation-icon-bar { transform: none }
 @media (prefers-reduced-motion: reduce) { .navigation-icon-bar { transition: none } }
 main, .conversation-messages, .connection-panel, .context-panel, .graph-legend, .sidebar { scrollbar-width: thin; scrollbar-color: var(--control-line) transparent }

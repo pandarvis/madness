@@ -22,8 +22,8 @@ export function InitiativeContext({project,includeRevision=true}:{project:BmadCo
  const validity=project?selectionValidity(project):'unset'
  return <><dt>{ui.bmad_diagnostic}</dt><dd>{project?.observation?contextDiagnostics(ui)[project.observation.status]:ui.bmad_profile_not_observed}</dd><dt>{ui.madness_selection}</dt><dd>{project?.selection?.initiativeId??ui.no_initiative_selected}{validity==='missing'?ui.initiative_missing:validity==='root-changed'?ui.root_replaced_or_unverified:''}{project?.storage==='failed'||project?.storage==='unreadable'?ui.session_only:''}</dd><dt>{ui.active_in_bmad}</dt><dd>{project?.observation?.activeInitiative??ui.unknown_or_missing}{project?.observation&&project.observation.activeStatus!=='valid'?' — '+({absent:ui.missing,invalid:ui.invalid,unknown:ui.unknown,valid:''}[project.observation.activeStatus]):''}</dd>{includeRevision&&<><dt>{ui.context_revision}</dt><dd><code>{project?.observation?.revision??ui.not_observed}</code></dd></>}</>
 }
-// BMad's convention: other folders with a same-named document (brief-x, architecture-x) are not initiatives.
-const isInitiativeFolder=(name:string):boolean=>name.startsWith('initiative-')
+// Other BMad folders with a same-named document (brief-x, architecture-x) are not initiatives.
+const isInitiativeFolder=(name:string):boolean=>!/^(brief|architecture|ux|prd|research|market|domain)-/.test(name)
 export const initiativeLabel=(id:string):string=>id.replace(/^initiative-/,'')
 export function InitiativeSelector({projectId,project,accept,onOpen,priority=false,conflict=false,onDismissConflict,bmadReady=false,locked=false}:{projectId:string;project:BmadContextProject|undefined;accept:(s:BmadContextState)=>void;onOpen:()=>void;priority?:boolean;conflict?:boolean;onDismissConflict:()=>void;bmadReady?:boolean;locked?:boolean}):ReactNode{
  const {ui,language}=useLocale()
@@ -36,13 +36,14 @@ export function InitiativeSelector({projectId,project,accept,onOpen,priority=fal
  const different=!!selected&&!!active&&selected!==active
  const canChooseActive=project?.observation?.activeStatus==='valid'&&!!active
  const [newName,setNewName]=useState('')
- const observedOnce=useRef<string|null>(null),followed=useRef<string|null>(null),followRetries=useRef(0)
+ const observedOnce=useRef<string|null>(null),followed=useRef<string|null>(null),followRetries=useRef(0),lockedNow=useRef(locked)
+ lockedNow.current=locked
  const initiatives=project?.observation?.initiatives.filter(i=>isInitiativeFolder(i.name))??[],initiativeCount=initiatives.filter(i=>i.id!==null).length
  // A project shows its initiative as soon as it opens, without waiting for the dialog.
  useEffect(()=>{if(!bmadReady||locked||observedOnce.current===projectId||!window.madnessBmadContext)return
   // Another tool can hold the local runtime for a few seconds at opening: try again instead of giving up.
   let cancelled=false,tries=0,timer:ReturnType<typeof setTimeout>
-  const attempt=():void=>{observedOnce.current=projectId;const retry=():void=>{if(cancelled)return;if(tries++<6)timer=setTimeout(attempt,2500);else observedOnce.current=null}
+  const attempt=():void=>{if(lockedNow.current){observedOnce.current=null;return}observedOnce.current=projectId;const retry=():void=>{if(cancelled)return;if(tries++<6)timer=setTimeout(attempt,2500);else observedOnce.current=null}
    void window.madnessBmadContext.observe(projectId).then(next=>{accept(next);if(next.projects.find(p=>p.projectId===projectId)?.status==='error')retry()}).catch(retry)}
   timer=setTimeout(attempt,400)
   return()=>{cancelled=true;clearTimeout(timer)}},[projectId,bmadReady,locked])

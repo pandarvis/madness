@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process'
+import { execFile, spawn } from 'node:child_process'
 import { releaseVersion } from '../release-version.ts'
 import type {OwnedRun} from './owned-run.ts'
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
@@ -130,6 +130,11 @@ export async function runProbeProtocol(rpc: ProbeRpc, cwd: string, timeout = 450
     else { if (event.params?.turn?.status !== 'completed' || event.params?.turn?.error || !matched) throw connectionFailure('PROBE_FAILED'); return true }
   }
 }
+async function killTree(child: ChildProcessWithoutNullStreams): Promise<void> {
+  if (process.platform !== 'win32' || !child.pid) { child.kill('SIGTERM'); return }
+  const pid = child.pid
+  await new Promise<void>(resolve => execFile('taskkill', ['/T', '/F', '/PID', String(pid)], { windowsHide: true, timeout: 3000 }, error => { if (error) child.kill('SIGTERM'); resolve() }))
+}
 export async function stopNative(child: ChildProcessWithoutNullStreams): Promise<boolean> {
   if ((child.exitCode !== null || child.signalCode !== null) && child.stdout.destroyed && child.stderr.destroyed) return true
   let closed = false
@@ -144,8 +149,11 @@ export async function stopNative(child: ChildProcessWithoutNullStreams): Promise
   }
   try {
     child.stdin.end(); await wait(1500)
-    if (!closed && child.exitCode === null && child.signalCode === null) child.kill('SIGTERM')
-    await wait(4000)
+    // Helpers started by Codex inherit its pipes: only killing the whole tree lets 'close' arrive.
+    if (!closed && child.exitCode === null && child.signalCode === null) await killTree(child)
+    await wait(3000)
+    // The process itself is gone and only an orphan still holds the pipes: the stop is proven, release them.
+    if (!closed && (child.exitCode !== null || child.signalCode !== null)) { child.stdin.destroy(); child.stdout.destroy(); child.stderr.destroy(); await wait(1000) }
     if (!closed) { child.stdin.destroy(); child.stdout.destroy(); child.stderr.destroy(); child.unref() }
     return closed
   } finally { child.off('close', observe) }

@@ -65,7 +65,7 @@ test('arrêt natif attend la fermeture observable du processus possédé', async
   assert.ok(native.exitCode !== null || native.signalCode !== null)
 })
 
-test('arrêt natif confirme close et les flux après terminaison par signal', { timeout: 15000 }, async (t) => {
+test('arrêt natif confirme close et les flux après terminaison forcée', { timeout: 15000 }, async (t) => {
   assert.ok(probe)
   const native = spawn(process.execPath, ['-e', 'process.stdin.resume(); process.stdin.on("end",()=>{}); setInterval(()=>{},1000); process.stdout.write("READY\\n")'], { windowsHide: true, shell: false, stdio: ['pipe', 'pipe', 'pipe'] })
   let closeObserved = false
@@ -76,8 +76,7 @@ test('arrêt natif confirme close et les flux après terminaison par signal', { 
   assert.match(ready.toString(), /READY/)
   assert.equal(await probe.stopNative(native), true)
   assert.equal(closeObserved, true)
-  assert.equal(native.exitCode, null)
-  assert.equal(native.signalCode, 'SIGTERM')
+  assert.ok(native.exitCode !== null || native.signalCode !== null)
   assert.equal(native.stdout.destroyed, true)
   assert.equal(native.stderr.destroyed, true)
 })

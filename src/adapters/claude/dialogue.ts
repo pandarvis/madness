@@ -117,7 +117,7 @@ export function parseClaudeResult(stdout:string,sessionId:string):string {
 
 const isNetworkError=(text:string):boolean=>/\b(?:ENOTFOUND|EAI_AGAIN|ECONNRESET|ECONNREFUSED|ETIMEDOUT|ERR_NETWORK)\b/i.test(text)
 
-const agenticTools='Read,Write,Edit,Glob,Grep,Bash'
+const agenticTools='Read,Write,Edit,Glob,Grep,Bash,Agent'
 const agenticCommands=['uv run *','node *','npm *','npx *','git *','ls *','mkdir *','cat *','echo *','cd *','pwd','test *','wc *','grep *','find *','sed -n *','head *','tail *'].map(command=>'Bash('+command+')')
 const agenticTimeout=25*60*1000
 const agentNames:Record<string,string>={'bmad-agent-analyst':'Mary','bmad-agent-pm':'John','bmad-agent-architect':'Winston','bmad-agent-ux-designer':'Sally','bmad-agent-po':'Sofia','bmad-agent-dev':'Amelia','bmad':'BMad'}

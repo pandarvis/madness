@@ -44,7 +44,7 @@ export async function readProjectPlan(root: string): Promise<ProjectPlan> {
   const output = await outputRoot(root), all = await folders(output), initiative = await activeInitiative(root) ?? all.find(name => name.startsWith('initiative-')) ?? null
   const document = initiative ? await optional(join(output, initiative, initiative + '.md')) ?? '' : ''
   const body = document.replace(/^---[\s\S]*?---/, '').trim()
-  const architecture = all.some(name => name.startsWith('architecture-'))
+  const architecture = [...all, ...(initiative ? await folders(join(output, initiative)) : [])].some(name => name.startsWith('architecture-'))
   const stories: PlannedStory[] = []
   let epics = false
   if (initiative) {

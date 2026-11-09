@@ -120,6 +120,7 @@ export class AutopilotCoordinator {
         if (attempt >= MAX_TEST_ATTEMPTS) { this.patchStep(id, stepId, { status: 'failed' }); this.update(id, { status: 'paused', pauseReason: 'tests', detail: 'Les tests restent en échec après ' + MAX_TEST_ATTEMPTS + ' tentatives sur « ' + first.title + ' ».' }); return false }
         prompt = 'Les tests du projet échouent. Corrige sans changer leur intention, puis commite. Sortie : ' + tests.output.slice(-6000) + ' ' + AUTONOMY
       }
+      if (phase) await this.assertPhaseProduced(phase.id, root, first.title)
       this.patchStep(id, stepId, { status: 'done', durationMs: first.durationMs + Date.now() - started })
       if (stepId === 'epics') await this.addStories(id, root)
       return true
@@ -133,6 +134,12 @@ export class AutopilotCoordinator {
       } else this.update(id, { status: 'paused', pauseReason: 'failure', detail: message.slice(0, 500) })
       return false
     }
+  }
+  /** An agent saying it is done proves nothing: the document has to exist. */
+  private async assertPhaseProduced(phase: typeof PHASES[number]['id'], root: string, title: string): Promise<void> {
+    if (phase === 'ux') return
+    const plan = await this.deps.plan(root)
+    if (!plan[phase]) throw Error('La phase « ' + title + ' » n’a produit aucun document.')
   }
   private async addStories(id: string, root: string): Promise<void> {
     const plan = await this.deps.plan(root), run = this.run(id)!, known = new Set(run.steps.map(step => step.id))

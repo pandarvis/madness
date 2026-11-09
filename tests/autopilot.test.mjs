@@ -5,7 +5,6 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { AutopilotCoordinator, isQuotaFailure } from '../src/core/autopilot.ts'
 import { orderStories, parseTomlTables, readProjectPlan } from '../src/adapters/autopilot/project-plan.ts'
-import { readCodexEvents } from '../src/adapters/codex/agent-turn.ts'
 
 const stories = [{ epic: 'epic-a', epicTitle: 'A', storyId: 1, title: 'Une', built: false }, { epic: 'epic-a', epicTitle: 'A', storyId: 2, title: 'Deux', built: false }]
 function harness({ tests = async () => null, turn, plan } = {}) {
@@ -13,7 +12,7 @@ function harness({ tests = async () => null, turn, plan } = {}) {
   const coordinator = new AutopilotCoordinator({
     store: { read: async () => [], write: async () => {} }, project: async () => ({ name: 'p', rootPath: 'C:/p' }),
     runner: () => async input => { calls.push(input); return turn ? turn(input, calls.length) : { text: 'ok', sessionRef: 's' + calls.length, tokens: 10 } },
-    ensureInitiative: async () => {}, plan: plan ?? (async () => ({ requirements: false, architecture: false, epics: calls.some(c => c.text.includes('Découpe')), stories: calls.some(c => c.text.includes('Découpe')) ? stories : [], initiative: 'initiative-p' })),
+    ensureInitiative: async () => {}, plan: plan ?? (async () => ({ requirements: calls.some(c => c.text.includes('Rédige')), architecture: calls.some(c => c.text.includes('Conçois')), epics: calls.some(c => c.text.includes('Découpe')), stories: calls.some(c => c.text.includes('Découpe')) ? stories : [], initiative: 'initiative-p' })),
     tests, now: () => new Date('2026-11-09T10:00:00Z') })
   const command = (type, extra = {}) => coordinator.execute({ contractVersion: 1, correlationId: 'c-' + Math.random().toString(16).slice(2), type, projectId: 'p1', ...extra })
   const until = async status => { for (let i = 0; i < 500; i++) { const run = coordinator.read().runs[0]; if (run?.status === status) return run; await new Promise(r => setTimeout(r, 2)) } assert.fail('never reached ' + status + ': ' + coordinator.read().runs[0]?.status + ' ' + coordinator.read().runs[0]?.detail) }
@@ -30,6 +29,11 @@ test('go runs every phase then each story, and sums tokens', async () => {
   const h = harness(); await ready(h); await h.command('start'); const run = await h.until('done')
   assert.deepEqual(h.calls.slice(1).map(c => c.skill), ['bmad-agent-po', 'bmad-agent-ux-designer', 'bmad-agent-architect', 'bmad-agent-po', 'bmad-agent-dev', 'bmad-agent-dev'])
   assert.deepEqual(run.steps.filter(s => s.kind === 'story').map(s => [s.storyId, s.status, s.tokens]), [[1, 'done', 10], [2, 'done', 10]])
+})
+test('a phase that produced nothing pauses instead of counting as done', async () => {
+  const h = harness({ plan: async () => ({ requirements: false, architecture: false, epics: false, stories: [], initiative: 'i' }) })
+  await ready(h); await h.command('start'); const run = await h.until('paused')
+  assert.equal(run.pauseReason, 'failure'); assert.match(run.detail, /Exigences/); assert.equal(run.steps[0].status, 'failed')
 })
 test('red tests go back to the same session, and pause after three attempts', async () => {
   const h = harness({ tests: async () => ({ ok: false, output: 'boom' }), plan: existing(stories.slice(0, 1)) })
@@ -49,11 +53,9 @@ test('existing work is skipped, and an interrupted run comes back paused', async
   const restored = new AutopilotCoordinator({ store: { read: async () => [{ ...run, status: 'running', pauseReason: null, recap: 'x', steps: [{ ...run.steps[0], status: 'running' }] }], write: async () => {} } })
   await restored.restore(); assert.equal(restored.read().runs[0].pauseReason, 'interrupted'); assert.equal(restored.read().runs[0].steps[0].status, 'pending')
 })
-test('quota wording, story order and Codex events', () => {
+test('quota wording and story order', () => {
   assert.equal(isQuotaFailure('You have hit your usage limit'), true); assert.equal(isQuotaFailure('syntax error'), false)
   assert.deepEqual(orderStories([{ id: 2, after: [1] }, { id: 3, after: [] }, { id: 1, after: [3] }]), [3, 1, 2])
-  const out = ['noise', JSON.stringify({ type: 'thread.started', thread_id: 't1' }), JSON.stringify({ type: 'item.completed', item: { type: 'agent_message', text: 'fini' } }), JSON.stringify({ type: 'turn.completed', usage: { input_tokens: 100, cached_input_tokens: 40, output_tokens: 5 } })].join('\n')
-  assert.deepEqual(readCodexEvents(out), { text: 'fini', threadId: 't1', tokens: 65, failure: null })
 })
 test('the plan is read from BMad tickets and built plans', async t => {
   const root = await mkdtemp(join(tmpdir(), 'madness-plan-')); t.after(() => rm(root, { recursive: true, force: true }))

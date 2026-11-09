@@ -3,7 +3,7 @@ import { isCorrelationId, isRecord } from './index.ts'
 export const AUTOPILOT_COMMAND_CHANNEL = 'madness:autopilot:command:v1'
 export const AUTOPILOT_EVENT_CHANNEL = 'madness:autopilot:event:v1'
 
-export type AutopilotProvider = 'claude-code' | 'codex'
+export type AutopilotProvider = 'claude-code'
 export type AutopilotStepStatus = 'pending' | 'running' | 'done' | 'skipped' | 'failed'
 export type AutopilotStep = {
   id: string; kind: 'phase' | 'story'; title: string; epic: string | null; epicTitle: string | null; storyId: number | null
@@ -35,7 +35,7 @@ export function isAutopilotCommand(value: unknown): value is AutopilotCommand {
   if (!isRecord(value) || value.contractVersion !== 1 || !isCorrelationId(value.correlationId)) return false
   const base = ['contractVersion', 'correlationId', 'type']
   if (value.type === 'read') return exact(value, base)
-  if (value.type === 'prepare') return exact(value, [...base, 'projectId', 'provider']) && identifier(value.projectId) && (value.provider === 'claude-code' || value.provider === 'codex')
+  if (value.type === 'prepare') return exact(value, [...base, 'projectId', 'provider']) && identifier(value.projectId) && value.provider === 'claude-code'
   return ['start', 'resume', 'stop', 'dismiss'].includes(String(value.type)) && exact(value, [...base, 'projectId']) && identifier(value.projectId)
 }
 export function isAutopilotState(value: unknown): value is AutopilotState {

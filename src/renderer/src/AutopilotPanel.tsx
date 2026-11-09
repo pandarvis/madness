@@ -31,7 +31,7 @@ export function AutopilotPanel({ projectId, provider, run, blocked }: { projectI
   const statusLabels: Record<string, string> = { pending: fr ? 'à faire' : 'to do', running: fr ? 'en cours' : 'running', done: fr ? 'fait' : 'done', skipped: fr ? 'déjà là' : 'existing', failed: fr ? 'échec' : 'failed' }
   const pauses: Record<string, string> = fr ? { interrupted: 'Madness a été fermé pendant le travail.', quota: 'Limite de l’abonnement atteinte : reprise automatique prévue.', tests: 'Les tests restent en échec.', failure: 'L’agent s’est arrêté sur une erreur.' } : { interrupted: 'Madness was closed during the work.', quota: 'Subscription limit reached: automatic resume planned.', tests: 'Tests keep failing.', failure: 'The agent stopped on an error.' }
   if (!run || run.status === 'stopped' && !run.steps.some(step => step.status === 'done')) return <section className="autopilot autopilot-idle" aria-label={fr ? 'Pilote automatique' : 'Autopilot'}>
-    <div><h3>{fr ? 'Pilote automatique' : 'Autopilot'}</h3><p>{fr ? 'Une fois l’idéation faite, Madness résume le projet puis construit tout seul les epics.' : 'Once ideation is done, Madness recaps the project and builds the epics on its own.'}</p></div>
+    <div><h3>{fr ? 'Pilote automatique' : 'Autopilot'}</h3><p>{fr ? 'Une fois l’idéation faite, Madness résume le projet puis construit tout seul les epics, avec Claude Code.' : 'Once ideation is done, Madness recaps the project and builds the epics on its own.'}</p></div>
     <button type="button" className="primary" disabled={blocked} onClick={() => void bridge.prepare(projectId, provider)}>{fr ? 'Préparer le lancement' : 'Prepare launch'}</button>
   </section>
   const phases = counted(run.steps.filter(step => step.kind === 'phase')), stories = run.steps.filter(step => step.kind === 'story')
@@ -40,7 +40,6 @@ export function AutopilotPanel({ projectId, provider, run, blocked }: { projectI
   const head = run.status === 'preparing' ? (fr ? 'Madness prépare le récapitulatif…' : 'Madness is preparing the recap…') : run.status === 'ready' ? (fr ? 'Récapitulatif' : 'Recap') : run.status === 'running' ? (fr ? 'En chantier' : 'Building') : run.status === 'paused' ? (fr ? 'En pause' : 'Paused') : run.status === 'done' ? (fr ? 'Prêt à essayer' : 'Ready to try') : (fr ? 'Arrêté' : 'Stopped')
   const row = (step: AutopilotStep): ReactNode => <tr key={step.id} className={'autopilot-' + step.status}><th scope="row">{step.title}</th><td>{statusLabels[step.status]}</td><td>{step.durationMs ? duration(step.durationMs) : '—'}</td><td>{step.tokens ? tokens(step.tokens, locale) : '—'}</td></tr>
   return <section className={'autopilot' + (building ? ' autopilot-building' : '')} aria-label={fr ? 'Pilote automatique' : 'Autopilot'}>
-    {building && <div className="autopilot-banner" aria-hidden="true" />}
     <div className="autopilot-head"><div><h3>{head}</h3><p role="status">{active ? active.title : run.steps.length ? done + ' / ' + run.steps.length + (fr ? ' étapes' : ' steps') : ''}{run.steps.length ? ' · ' + tokens(total(run.steps, 'tokens'), locale) + ' tokens · ' + duration(total(run.steps, 'durationMs')) : ''}</p></div>
       <div className="autopilot-actions">
         {run.status === 'ready' && <button type="button" className="primary" onClick={() => void bridge.start(projectId)}>{fr ? 'Go' : 'Go'}</button>}

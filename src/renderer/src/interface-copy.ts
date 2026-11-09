@@ -284,6 +284,14 @@ export const interfaceCopy = {
   "fr": "La vérification envoie un court message témoin et consomme votre forfait ChatGPT. Les limites de ce forfait s’appliquent.",
   "en": "Checking sends a short test message and uses your ChatGPT plan. Its limits apply."
  },
+ "new_initiative_placeholder": {
+  "fr": "Nom du nouveau chantier",
+  "en": "New workstream name"
+ },
+ "create_initiative": {
+  "fr": "Créer",
+  "en": "Create"
+ },
  "continue_with_chatgpt": {
   "fr": "Continuer avec ChatGPT",
   "en": "Continue with ChatGPT"

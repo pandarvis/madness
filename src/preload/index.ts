@@ -1,3 +1,5 @@
+import {AUTOPILOT_COMMAND_CHANNEL,AUTOPILOT_EVENT_CHANNEL,isAutopilotState} from '../contracts/autopilot.ts'
+import type {AutopilotBridge,AutopilotState} from '../contracts/autopilot.ts'
 import { contextBridge, ipcRenderer } from 'electron'
 import { COMMAND_CHANNEL, EVENT_CHANNEL, isDomainEvent, isReply } from '../contracts/index.ts'
 import type { Command, MadnessBridge, Reply } from '../contracts/index.ts'
@@ -117,7 +119,7 @@ const bmadContextBridge:BmadContextBridge={observeInitialization:async projectId
     !('correlationId' in reply)||reply.correlationId!==correlationId||!('observation' in reply)||
     !isBmadConfigurationObservation(reply.observation)||reply.observation.projectId!==projectId)throw Error('INVALID_INITIALIZATION_OBSERVATION')
  return reply.observation
-},read:()=>contextRequest({type:'read'}),observe:projectId=>contextRequest({type:'observe',projectId}),choose:(projectId,initiativeId,revision)=>contextRequest({type:'choose',projectId,initiativeId,revision}),retrySave:projectId=>contextRequest({type:'retry-save',projectId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isBmadContextState(value))listener(value)};ipcRenderer.on(BMAD_CONTEXT_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(BMAD_CONTEXT_EVENT_CHANNEL,receive)}}
+},read:()=>contextRequest({type:'read'}),observe:projectId=>contextRequest({type:'observe',projectId}),choose:(projectId,initiativeId,revision)=>contextRequest({type:'choose',projectId,initiativeId,revision}),createInitiative:(projectId,title)=>contextRequest({type:'create-initiative',projectId,title}),retrySave:projectId=>contextRequest({type:'retry-save',projectId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isBmadContextState(value))listener(value)};ipcRenderer.on(BMAD_CONTEXT_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(BMAD_CONTEXT_EVENT_CHANNEL,receive)}}
 contextBridge.exposeInMainWorld('madnessBmadContext',Object.freeze(bmadContextBridge))
 
 import {BMAD_PROGRESS_COMMAND_CHANNEL,BMAD_PROGRESS_EVENT_CHANNEL,isBmadProgressState} from '../contracts/bmad-progress.ts'
@@ -193,5 +195,8 @@ const initializationBridge:InitializationBridge={
 }
 contextBridge.exposeInMainWorld('madnessBmadInitialization',Object.freeze(initializationBridge))
 
+const autopilotRequest=async(payload:Record<string,unknown>):Promise<AutopilotState>=>{const correlationId=crypto.randomUUID();const reply=await ipcRenderer.invoke(AUTOPILOT_COMMAND_CHANNEL,{...payload,contractVersion:1,correlationId}) as {state?:unknown};if(!isAutopilotState(reply?.state))throw new Error('INVALID_AUTOPILOT_REPLY');return reply.state}
+const autopilotBridge:AutopilotBridge={read:()=>autopilotRequest({type:'read'}),prepare:(projectId,provider)=>autopilotRequest({type:'prepare',projectId,provider}),start:projectId=>autopilotRequest({type:'start',projectId}),resume:projectId=>autopilotRequest({type:'resume',projectId}),stop:projectId=>autopilotRequest({type:'stop',projectId}),dismiss:projectId=>autopilotRequest({type:'dismiss',projectId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isAutopilotState(value))listener(value)};ipcRenderer.on(AUTOPILOT_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(AUTOPILOT_EVENT_CHANNEL,receive)}}
+contextBridge.exposeInMainWorld('madnessAutopilot',Object.freeze(autopilotBridge))
 contextBridge.exposeInMainWorld('madnessWindow', Object.freeze({ reload: (): Promise<void> => ipcRenderer.invoke('madness:reload') }))
 contextBridge.exposeInMainWorld('madnessProjectProbe', Object.freeze({ bmadPresent: (projectId: string): Promise<boolean | null> => ipcRenderer.invoke('madness:bmad-present', projectId) }))

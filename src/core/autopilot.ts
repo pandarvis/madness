@@ -1,0 +1,164 @@
+import { initialAutopilotState, isAutopilotCommand } from '../contracts/autopilot.ts'
+import type { AutopilotCommand, AutopilotProvider, AutopilotRun, AutopilotState, AutopilotStep } from '../contracts/autopilot.ts'
+
+export type AgentTurnInput = { root: string; skill: string; text: string; sessionRef: string | null; signal: AbortSignal; projectId: string }
+export type AgentTurnResult = { text: string; sessionRef: string; tokens: number }
+export type AgentRunner = (input: AgentTurnInput) => Promise<AgentTurnResult>
+export type PlannedStory = { epic: string; epicTitle: string; storyId: number; title: string; built: boolean }
+export type ProjectPlan = { requirements: boolean; architecture: boolean; epics: boolean; stories: PlannedStory[]; initiative: string | null }
+export type TestResult = { ok: boolean; output: string }
+
+type Dependencies = {
+  store: { read(): Promise<AutopilotRun[]>; write(runs: AutopilotRun[]): Promise<void> }
+  project(projectId: string): Promise<{ name: string; rootPath: string }>
+  runner(provider: AutopilotProvider): AgentRunner
+  ensureInitiative(root: string, projectName: string): Promise<void>
+  plan(root: string): Promise<ProjectPlan>
+  tests(root: string, signal: AbortSignal): Promise<TestResult | null>
+  now(): Date
+  notify?(title: string, body: string): void
+}
+
+const MAX_TEST_ATTEMPTS = 3
+const QUOTA_RETRY_MS = 30 * 60 * 1000
+const AUTONOMY = 'Travaille en autonomie : personne ne peut te répondre. Ne pose aucune question, tranche toi-même et valide les étapes humaines à la place de l’utilisateur. Note chaque décision importante prise à sa place dans le fichier decisions-autopilote.md du dossier de l’initiative active. Commite ton travail. Termine par un résumé de trois lignes maximum.'
+const PHASES: readonly { id: 'requirements' | 'ux' | 'architecture' | 'epics'; title: string; skill: string; text: string }[] = [
+  { id: 'requirements', title: 'Exigences', skill: 'bmad-agent-po', text: 'Rédige les exigences de l’initiative active à partir du brief et de l’idéation déjà présents dans le projet.' },
+  { id: 'ux', title: 'Expérience utilisateur', skill: 'bmad-agent-ux-designer', text: 'Définis l’expérience utilisateur à partir des exigences. Si le projet n’a pas d’interface, ne produis rien et dis-le en une phrase.' },
+  { id: 'architecture', title: 'Architecture', skill: 'bmad-agent-architect', text: 'Conçois l’architecture à partir des exigences.' },
+  { id: 'epics', title: 'Epics et stories', skill: 'bmad-agent-po', text: 'Découpe les exigences en epics et en stories prêtes à construire, avec leurs fichiers tickets.toml.' },
+]
+const storyPrompt = (step: AutopilotStep): string => 'Implémente la story ' + step.storyId + ' « ' + step.title + ' » de l’epic ' + step.epic + ' (dossier tickets de l’initiative active). Utilise la compétence bmad-build en suivant son déroulé complet, y compris la revue indépendante par sous-agents et la correction de ses constats.'
+export const isQuotaFailure = (message: string): boolean => /usage limit|rate.?limit|quota|limit reached|too many requests|\b429\b/i.test(message)
+
+const emptyStep = (partial: Pick<AutopilotStep, 'id' | 'kind' | 'title' | 'skill'> & Partial<AutopilotStep>): AutopilotStep => ({ epic: null, epicTitle: null, storyId: null, status: 'pending', startedAt: null, durationMs: 0, tokens: 0, attempts: 0, summary: null, ...partial })
+const storyStep = (story: PlannedStory): AutopilotStep => emptyStep({ id: story.epic + '#' + story.storyId, kind: 'story', title: story.title, skill: 'bmad-agent-dev', epic: story.epic, epicTitle: story.epicTitle, storyId: story.storyId, status: story.built ? 'skipped' : 'pending' })
+
+/** One engine per project: runs never share a session, so several projects build at the same time. */
+export class AutopilotCoordinator {
+  private state: AutopilotState = initialAutopilotState()
+  private listeners = new Set<(state: AutopilotState) => void>()
+  private controllers = new Map<string, AbortController>()
+  private timers = new Map<string, ReturnType<typeof setTimeout>>()
+  private work = new Map<string, Promise<void>>()
+  private writes: Promise<unknown> = Promise.resolve()
+  private closing = false
+  private deps: Dependencies
+  constructor(deps: Dependencies) { this.deps = deps }
+
+  async restore(): Promise<void> {
+    const runs = await this.deps.store.read()
+    this.state = { ...this.state, runs: runs.map(run => ['running', 'preparing'].includes(run.status) ? { ...run, status: run.recap || run.status === 'running' ? 'paused' as const : 'stopped' as const, pauseReason: 'interrupted' as const, steps: run.steps.map(step => step.status === 'running' ? { ...step, status: 'pending' as const } : step) } : run) }
+    this.emit()
+    for (const run of this.state.runs) if (run.pauseReason === 'quota' && run.resumeAt) this.scheduleResume(run.projectId, run.resumeAt)
+  }
+  read(): AutopilotState { return structuredClone(this.state) }
+  subscribe(listener: (state: AutopilotState) => void): () => void { this.listeners.add(listener); return () => this.listeners.delete(listener) }
+  isBusy(projectId: string): boolean { return this.run(projectId)?.status === 'running' || this.run(projectId)?.status === 'preparing' }
+
+  async execute(input: unknown): Promise<AutopilotState> {
+    if (!isAutopilotCommand(input) || this.closing) return this.read()
+    if (input.type !== 'read') this.dispatch(input)
+    return this.read()
+  }
+  private dispatch(input: Exclude<AutopilotCommand, { type: 'read' }>): void {
+    const id = input.projectId, run = this.run(id)
+    if (input.type === 'stop') { this.stop(id); return }
+    if (input.type === 'dismiss') { if (!this.isBusy(id)) { this.state = { ...this.state, runs: this.state.runs.filter(item => item.projectId !== id) }; this.emit() } return }
+    if (this.isBusy(id)) return
+    if (input.type === 'prepare') { this.spawn(id, () => this.prepare(id, input.provider)); return }
+    if (input.type === 'start' && run?.status === 'ready' || input.type === 'resume' && run && ['paused', 'stopped'].includes(run.status)) { this.clearResume(id); this.update(id, { status: 'running', pauseReason: null, detail: null, resumeAt: null, startedAt: run.startedAt ?? this.stamp() }); this.spawn(id, () => this.loop(id)) }
+  }
+  private spawn(id: string, job: (signal: AbortSignal) => Promise<void>): void {
+    const controller = new AbortController(); this.controllers.set(id, controller)
+    const task = job(controller.signal).catch(error => { this.update(id, { status: 'paused', pauseReason: 'failure', detail: error instanceof Error ? error.message.slice(0, 500) : 'Erreur inconnue' }) }).finally(() => { if (this.controllers.get(id) === controller) this.controllers.delete(id); this.work.delete(id) })
+    this.work.set(id, task)
+  }
+  private stop(id: string): void {
+    this.clearResume(id); this.controllers.get(id)?.abort()
+    const run = this.run(id); if (run && ['running', 'preparing', 'paused'].includes(run.status)) this.update(id, { status: 'stopped', pauseReason: null, resumeAt: null, steps: run.steps.map(step => step.status === 'running' ? { ...step, status: 'pending' } : step) })
+  }
+
+  private async prepare(id: string, provider: AutopilotProvider): Promise<void> {
+    // Registered first so that a failure below is visible on the project instead of being lost.
+    this.replace({ schemaVersion: 1, projectId: id, provider, status: 'preparing', pauseReason: null, detail: null, recap: null, steps: [], startedAt: null, updatedAt: this.stamp(), resumeAt: null })
+    const signal = this.controllers.get(id)!.signal, project = await this.deps.project(id)
+    await this.deps.ensureInitiative(project.rootPath, project.name)
+    const turn = await this.deps.runner(provider)({ root: project.rootPath, projectId: id, skill: 'bmad-agent-analyst', sessionRef: null, signal, text: 'Sans rien modifier, résume ce projet en cinq lignes à partir du brief et des documents existants, puis indique la prochaine étape du plan automatique. Ne pose aucune question.' })
+    const plan = await this.deps.plan(project.rootPath)
+    const steps = PHASES.map(phase => emptyStep({ id: phase.id, kind: 'phase', title: phase.title, skill: phase.skill, status: plan.epics || phase.id === 'requirements' && plan.requirements || phase.id === 'architecture' && plan.architecture ? 'skipped' : 'pending' }))
+    this.update(id, { status: 'ready', recap: turn.text, steps: [...steps, ...plan.stories.map(storyStep)] })
+  }
+
+  private async loop(id: string): Promise<void> {
+    const signal = this.controllers.get(id)!.signal
+    const project = await this.deps.project(id)
+    for (;;) {
+      if (signal.aborted || this.closing) return
+      const run = this.run(id)!, step = run.steps.find(item => item.status === 'pending')
+      if (!step) { this.finish(id, project.name); return }
+      if (!await this.perform(id, step.id, project.rootPath, signal)) return
+    }
+  }
+  private finish(id: string, name: string): void {
+    this.update(id, { status: 'done', detail: null })
+    this.deps.notify?.('Madness', name + ' est prêt à essayer.')
+  }
+  private async perform(id: string, stepId: string, root: string, signal: AbortSignal): Promise<boolean> {
+    const run = this.run(id)!, runner = this.deps.runner(run.provider), started = Date.now()
+    const phase = PHASES.find(item => item.id === stepId), first = this.step(id, stepId)
+    this.patchStep(id, stepId, { status: 'running', startedAt: first.startedAt ?? this.stamp(), attempts: 0 })
+    let sessionRef: string | null = null, prompt = (phase ? phase.text : storyPrompt(first)) + ' ' + AUTONOMY
+    try {
+      for (let attempt = 1; ; attempt++) {
+        const turn = await runner({ root, projectId: id, skill: first.skill, text: prompt, sessionRef, signal }); sessionRef = turn.sessionRef
+        const current = this.step(id, stepId)
+        this.patchStep(id, stepId, { attempts: attempt, tokens: current.tokens + turn.tokens, durationMs: first.durationMs + Date.now() - started, summary: turn.text.slice(0, 2000) })
+        if (first.kind === 'phase') break
+        const tests = await this.deps.tests(root, signal)
+        if (!tests || tests.ok) break
+        if (attempt >= MAX_TEST_ATTEMPTS) { this.patchStep(id, stepId, { status: 'failed' }); this.update(id, { status: 'paused', pauseReason: 'tests', detail: 'Les tests restent en échec après ' + MAX_TEST_ATTEMPTS + ' tentatives sur « ' + first.title + ' ».' }); return false }
+        prompt = 'Les tests du projet échouent. Corrige sans changer leur intention, puis commite. Sortie : ' + tests.output.slice(-6000) + ' ' + AUTONOMY
+      }
+      this.patchStep(id, stepId, { status: 'done', durationMs: first.durationMs + Date.now() - started })
+      if (stepId === 'epics') await this.addStories(id, root)
+      return true
+    } catch (error) {
+      this.patchStep(id, stepId, { status: signal.aborted ? 'pending' : 'failed', durationMs: first.durationMs + Date.now() - started })
+      if (signal.aborted) return false
+      const message = error instanceof Error ? error.message : 'Erreur inconnue'
+      if (isQuotaFailure(message)) {
+        const resumeAt = new Date(this.deps.now().getTime() + QUOTA_RETRY_MS).toISOString()
+        this.patchStep(id, stepId, { status: 'pending' }); this.update(id, { status: 'paused', pauseReason: 'quota', detail: 'Limite de l’abonnement atteinte.', resumeAt }); this.scheduleResume(id, resumeAt)
+      } else this.update(id, { status: 'paused', pauseReason: 'failure', detail: message.slice(0, 500) })
+      return false
+    }
+  }
+  private async addStories(id: string, root: string): Promise<void> {
+    const plan = await this.deps.plan(root), run = this.run(id)!, known = new Set(run.steps.map(step => step.id))
+    this.update(id, { steps: [...run.steps, ...plan.stories.map(storyStep).filter(step => !known.has(step.id))] })
+    if (!plan.stories.length) throw Error('La phase de découpage n’a produit aucune story.')
+  }
+  private scheduleResume(id: string, at: string): void {
+    this.clearResume(id)
+    this.timers.set(id, setTimeout(() => { const run = this.run(id); if (run?.status === 'paused' && run.pauseReason === 'quota') this.dispatch({ contractVersion: 1, correlationId: 'autopilot-quota-resume', type: 'resume', projectId: id }) }, Math.max(1000, Date.parse(at) - this.deps.now().getTime())))
+  }
+  private clearResume(id: string): void { const timer = this.timers.get(id); if (timer) clearTimeout(timer); this.timers.delete(id) }
+  async shutdown(): Promise<void> {
+    this.closing = true
+    for (const timer of this.timers.values()) clearTimeout(timer)
+    for (const controller of this.controllers.values()) controller.abort()
+    await Promise.allSettled(this.work.values())
+    this.state = { ...this.state, runs: this.state.runs.map(run => run.status === 'running' ? { ...run, status: 'paused', pauseReason: 'interrupted', steps: run.steps.map(step => step.status === 'running' ? { ...step, status: 'pending' } : step) } : run) }
+    await this.persist()
+  }
+
+  private run(id: string): AutopilotRun | undefined { return this.state.runs.find(run => run.projectId === id) }
+  private step(id: string, stepId: string): AutopilotStep { return this.run(id)!.steps.find(step => step.id === stepId)! }
+  private stamp(): string { return this.deps.now().toISOString() }
+  private replace(run: AutopilotRun): void { this.state = { ...this.state, runs: [...this.state.runs.filter(item => item.projectId !== run.projectId), run] }; this.emit() }
+  private update(id: string, change: Partial<AutopilotRun>): void { const run = this.run(id); if (run) this.replace({ ...run, ...change, updatedAt: this.stamp() }) }
+  private patchStep(id: string, stepId: string, change: Partial<AutopilotStep>): void { const run = this.run(id); if (run) this.update(id, { steps: run.steps.map(step => step.id === stepId ? { ...step, ...change } : step) }) }
+  private emit(): void { this.state = { ...this.state, sequence: this.state.sequence + 1 }; void this.persist(); for (const listener of this.listeners) try { listener(this.read()) } catch { /* A failing listener must not stop the engine. */ } }
+  private persist(): Promise<unknown> { const runs = structuredClone(this.state.runs); this.writes = this.writes.then(() => this.deps.store.write(runs)).catch(() => undefined); return this.writes }
+}

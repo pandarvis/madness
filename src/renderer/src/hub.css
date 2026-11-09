@@ -30,3 +30,7 @@
 .navigation-icon[data-collapsed='true'] .navigation-icon-bar { transform: none }
 @media (prefers-reduced-motion: reduce) { .navigation-icon-bar { transition: none } }
 main, .conversation-messages, .connection-panel, .context-panel, .graph-legend, .sidebar { scrollbar-width: thin; scrollbar-color: var(--control-line) transparent }
+
+.hub-initiative { font-weight: 500; color: var(--muted); font-size: 18px }
+
+.hub-building .hub-open { position: relative; overflow: hidden; border-color: var(--success-text) }

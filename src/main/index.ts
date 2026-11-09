@@ -38,9 +38,15 @@ import {RecoveryStore} from '../adapters/persistence/recovery-store.ts'
 import {OwnedRun} from '../adapters/codex/owned-run.ts'
 import {openClaudeDialogue} from '../adapters/claude/dialogue.ts'
 import {configureBundledRuntime} from '../adapters/bmad/runtime.ts'
+import {createInitiative,writeActiveInitiative} from '../adapters/bmad/active-initiative.ts'
 import {checkForUpdates} from './updates.ts'
+import {AutopilotCoordinator} from '../core/autopilot.ts'
+import {AutopilotStore,ensureActiveInitiative,readProjectPlan,runProjectTests} from '../adapters/autopilot/project-plan.ts'
+import {claudeAgentTurn} from '../adapters/claude/dialogue.ts'
+import {codexAgentTurn} from '../adapters/codex/agent-turn.ts'
+import {AUTOPILOT_COMMAND_CHANNEL,AUTOPILOT_EVENT_CHANNEL,isAutopilotCommand,isAutopilotState,initialAutopilotState} from '../contracts/autopilot.ts'
 import {inspectApprovalFiles} from '../adapters/codex/file-proposals.ts'
-import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, protocol, net, session, Menu, safeStorage, shell } from 'electron'
+import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, Notification, protocol, net, session, Menu, safeStorage, shell } from 'electron'
 import { realpath, stat, access, mkdir } from 'node:fs/promises'
 import { constants } from 'node:fs'
 import { basename, isAbsolute, join, resolve, sep } from 'node:path'
@@ -209,13 +215,18 @@ else {
     application.lifecycle.register({id:'bmad-help',context:emptyContext(),stop:async()=>{await helpCoordinator.shutdown();return helpAdapter.shutdown()}})
     ipcMain.handle(HELP_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isHelpCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:{...initialHelpState(),error:'INVALID_COMMAND'}}
+      await afterContextReads((input as {type?:unknown}).type)
       const state=await helpCoordinator.execute(input)
       if(!isHelpState(state))throw Error('INVALID_HELP_STATE')
       return {contractVersion:1,correlationId:input.correlationId,state}
     })
     helpCoordinator.subscribe(state=>{if(isHelpState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(HELP_EVENT_CHANNEL,state)})
+    // A running agent captured the current BMad configuration: changing it would end that session.
+    // The initiative read at project opening holds the local tools for a few seconds: actions wait for it instead of failing.
+    const afterContextReads=async(kind:unknown):Promise<void>=>{if(!['read','stop','observe-stop','cancel'].includes(String(kind)))await contextCoordinator.settled()}
+    const assertNoLiveDialogue=():void=>{if(['starting','running','waiting-question','waiting-approval','ready','stopping'].includes(dialogueCoordinator?.read().status??'idle'))throw Object.assign(Error('BUSY'),{code:'BUSY'})}
     const contextAdapter=new BmadContextAdapter(helpAdapter)
-    const contextCoordinator=new BmadContextCoordinator({application,observation,projectIds:async()=>{if(!application)throw Error('APP_CLOSING');const reply=await application.execute({contractVersion:1,correlationId:'bmad-context-restore',type:'read-state'});if(!reply.ok)throw Error(reply.error.code);return reply.value.state.projects.map(project=>project.id)},observeConsultation:(id,root,signal)=>contextAdapter.consult(id,root,signal),store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal)})
+    const contextCoordinator=new BmadContextCoordinator({application,observation,projectIds:async()=>{if(!application)throw Error('APP_CLOSING');const reply=await application.execute({contractVersion:1,correlationId:'bmad-context-restore',type:'read-state'});if(!reply.ok)throw Error(reply.error.code);return reply.value.state.projects.map(project=>project.id)},observeConsultation:(id,root,signal)=>contextAdapter.consult(id,root,signal),store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal),writeActive:async(root,initiativeId)=>{assertNoLiveDialogue();await writeActiveInitiative(root,initiativeId)},createInitiative:async(root,title)=>{assertNoLiveDialogue();return createInitiative(root,title)}})
     application.lifecycle.register({id:'bmad-context',context:emptyContext(),stop:async()=>{await contextCoordinator.shutdown();return 'stopped'}})
     const initializationHost=new BmadInitializationHost(join(app.isPackaged?process.resourcesPath:join(app.getAppPath(),'resources'),'bmad-init','payload-v1.json.gz'))
     const captureInitialization=async(id:string,signal:AbortSignal)=>{
@@ -389,6 +400,7 @@ else {
     application.lifecycle.register({id:'bmad-progress',context:emptyContext(),stop:async()=>{await progressCoordinator.shutdown();return 'stopped'}})
     ipcMain.handle(BMAD_PROGRESS_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadProgressCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadProgressState()}
+      await afterContextReads((input as {type?:unknown}).type)
       const state=await progressCoordinator.execute(input)
       if(!isBmadProgressState(state))throw Error('INVALID_PROGRESS_STATE')
       return {contractVersion:1,correlationId:input.correlationId,state}
@@ -399,6 +411,7 @@ else {
     application.lifecycle.register({id:'bmad-catalog',context:emptyContext(),stop:async()=>{await catalogCoordinator.shutdown();return 'stopped'}})
     ipcMain.handle(BMAD_CATALOG_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadCatalogCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadCatalogState()}
+      await afterContextReads((input as {type?:unknown}).type)
       const state=await catalogCoordinator.execute(input)
       if(!isBmadCatalogState(state))throw Error('INVALID_CATALOG_STATE')
       return {contractVersion:1,correlationId:input.correlationId,state}
@@ -446,6 +459,7 @@ else {
     application.lifecycle.register({id:'catalog-launch',context:emptyContext(),stop:async()=>{await catalogLaunch.shutdown();return 'stopped'}})
     ipcMain.handle(CATALOG_LAUNCH_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isCatalogLaunchCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialCatalogLaunchState()}
+      await afterContextReads((input as {type?:unknown}).type)
       const state=await catalogLaunch.execute(input);if(!isCatalogLaunchState(state))throw Error('INVALID_CATALOG_LAUNCH_STATE')
       return {contractVersion:1,correlationId:input.correlationId,state}
     })
@@ -475,10 +489,30 @@ else {
       open: (profile, signal, activity,assertContext) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun,helpAdapter,assertContext,qualification:ownQualification, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
+    const autopilot=new AutopilotCoordinator({
+      store:new AutopilotStore(join(app.getPath('userData'),'autopilot-v1.json')),
+      project:async id=>{const project=await application!.dialogueProject(id);return {name:basename(project.rootPath),rootPath:project.rootPath}},
+      runner:provider=>provider==='codex'
+        ?input=>codexAgentTurn({appData:app.getPath('appData'),root:join(app.getPath('userData'),'autopilot-codex'),realHome:app.getPath('home'),environment:process.env,accessToken:signal=>connection!.currentAccessToken(signal)},input)
+        :input=>claudeAgentTurn({home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),environment:process.env},input),
+      ensureInitiative:ensureActiveInitiative,plan:readProjectPlan,tests:runProjectTests,now:()=>new Date(),
+      notify:(title,body)=>{if(Notification.isSupported())new Notification({title,body}).show()}
+    })
+    await autopilot.restore()
+    application.lifecycle.register({id:'autopilot',context:emptyContext(),stop:async()=>{await autopilot.shutdown();return 'stopped'}})
+    autopilot.subscribe(state=>{if(window&&!window.isDestroyed()&&window.webContents&&!window.webContents.isDestroyed())window.webContents.send(AUTOPILOT_EVENT_CHANNEL,state)})
+    ipcMain.handle(AUTOPILOT_COMMAND_CHANNEL,async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isAutopilotCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialAutopilotState()}
+      const state=await autopilot.execute(input);if(!isAutopilotState(state))throw Error('INVALID_AUTOPILOT_STATE')
+      return {contractVersion:1,correlationId:input.correlationId,state}
+    })
     ipcMain.handle(DIALOGUE_COMMAND_CHANNEL, async (event, input: unknown) => {
       const rejected = (code: 'UNTRUSTED_CALLER' | 'INVALID_COMMAND') => ({ contractVersion: 1, correlationId: 'rejected-request', state: { ...initialDialogueState(), status: 'error', errorCode: code } })
       if (!window || !isTrustedCaller(event, { webContents: window.webContents, mainFrame: window.webContents.mainFrame }, rendererUrl)) return rejected('UNTRUSTED_CALLER')
       if (!isDialogueCommand(input)) return rejected('INVALID_COMMAND')
+      // Two agents writing in the same repository would overwrite each other.
+      if ('projectId' in input && typeof input.projectId === 'string' && autopilot.isBusy(input.projectId) && /^launch/.test(input.type)) return { contractVersion: 1, correlationId: input.correlationId, state: { ...dialogueCoordinator!.read(), errorCode: 'BUSY' as const } }
+      await afterContextReads(input.type)
       const state = await dialogueCoordinator!.execute(input)
       if (!isDialogueState(state)) return rejected('INVALID_COMMAND')
       return { contractVersion: 1, correlationId: input.correlationId, state }
@@ -488,6 +522,7 @@ else {
       const rejected = (code: 'UNTRUSTED_CALLER' | 'INVALID_COMMAND') => ({ contractVersion: 1, correlationId: 'rejected-request', state: { ...initialConnectionState(), status: 'error', errorCode: code } })
       if (!window || !isTrustedCaller(event, { webContents: window.webContents, mainFrame: window.webContents.mainFrame }, rendererUrl)) return rejected('UNTRUSTED_CALLER')
       if (!isConnectionCommand(input)) return rejected('INVALID_COMMAND')
+      if (input.action === 'connect' || input.action === 'verify') await afterContextReads(input.action)
       const state = await connection!.command(input.action)
       if (!isConnectionState(state)) return rejected('INVALID_COMMAND')
       return { contractVersion: 1, correlationId: input.correlationId, state }

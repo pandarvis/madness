@@ -2,6 +2,8 @@ import type { ReactNode } from 'react'
 import type { Conversation } from '../../contracts/index.ts'
 import type { DialogueState } from '../../contracts/dialogue.ts'
 import { useLocale } from './Locale.tsx'
+import type { AutopilotState } from '../../contracts/autopilot.ts'
+import { autopilotBuilding, currentStep } from './AutopilotPanel.tsx'
 import './hub.css'
 
 type Project = { id: string; name: string; rootPath: string }
@@ -18,8 +20,8 @@ function excerpt(conversation: Conversation | undefined): string | null {
 }
 
 /** Home overview: every known project and, live, what its agent is doing right now. */
-export function ProjectsHub({ projects, conversations, dialogue, graphRunning, statusText, onOpen, pending }: {
-  projects: readonly Project[]; conversations: readonly Conversation[]; dialogue: DialogueState
+export function ProjectsHub({ projects, conversations, dialogue, initiative, autopilot, graphRunning, statusText, onOpen, pending }: {
+  projects: readonly Project[]; conversations: readonly Conversation[]; dialogue: DialogueState; initiative: (projectId: string) => string | null; autopilot: AutopilotState
   graphRunning: (projectId: string) => boolean; statusText: (status: DialogueState['status']) => string
   onOpen: (projectId: string) => void; pending: boolean
 }): ReactNode {
@@ -27,6 +29,10 @@ export function ProjectsHub({ projects, conversations, dialogue, graphRunning, s
   const fr = language === 'fr'
   const agent = (AGENTS[dialogue.invocation ?? ''] ?? (fr ? 'Agent' : 'Agent')) + (dialogue.context.providerId === 'claude-code' ? ' · Claude Code' : ' · Codex')
   const activity = (project: Project): Activity => {
+    const pilot = autopilot.runs.find(run => run.projectId === project.id)
+    if (autopilotBuilding(pilot)) return { tone: 'working', label: fr ? 'En chantier' : 'Building', detail: currentStep(pilot)?.title ?? (fr ? 'Préparation' : 'Preparing') }
+    if (pilot?.status === 'paused') return { tone: 'waiting', label: fr ? 'Chantier en pause' : 'Build paused', detail: pilot.detail }
+    if (pilot?.status === 'done') return { tone: 'waiting', label: fr ? 'Prêt à essayer' : 'Ready to try', detail: null }
     if (dialogue.context.projectId === project.id) {
       if (dialogue.status === 'waiting-question' || dialogue.status === 'waiting-approval') return { tone: 'waiting', label: fr ? 'Attend ta réponse' : 'Waiting for you', detail: agent }
       if (WORKING.includes(dialogue.status)) return { tone: 'working', label: fr ? 'Agent au travail' : 'Agent working', detail: agent + ' · ' + statusText(dialogue.status) }
@@ -43,9 +49,10 @@ export function ProjectsHub({ projects, conversations, dialogue, graphRunning, s
     <div className="hub-head"><h2 id="projects-hub-title">{fr ? 'Gestion de projet' : 'Project management'}</h2>
       <p className="hub-summary" role="status">{working === 0 ? (fr ? 'Aucun agent en cours' : 'No agent running') : working === 1 ? (fr ? '1 projet actif' : '1 active project') : working + (fr ? ' projets actifs' : ' active projects')}</p></div>
     <ul className="hub-grid">
-      {rows.map(({ project, now, last }) => <li key={project.id} className={'hub-card hub-' + now.tone} data-hub-project={project.id}>
+      {rows.map(({ project, now, last }) => <li key={project.id} className={'hub-card hub-' + now.tone + (autopilotBuilding(autopilot.runs.find(run => run.projectId === project.id)) ? ' hub-building' : '')} data-hub-project={project.id}>
         <button type="button" className="hub-open" disabled={pending} aria-label={(fr ? 'Aller au projet ' : 'Go to project ') + project.name + ' : ' + now.label} onClick={() => onOpen(project.id)}>
-          <span className="hub-name">{project.name}</span>
+          {autopilotBuilding(autopilot.runs.find(run => run.projectId === project.id)) && <span className="hub-banner" aria-hidden="true" />}
+          <span className="hub-name">{project.name}{initiative(project.id) && <span className="hub-initiative"> › {initiative(project.id)}</span>}</span>
           <span className="hub-state"><span className="hub-dot" aria-hidden="true" />{now.label}</span>
           {now.detail && <span className="hub-detail">{now.detail}</span>}
           <span className="hub-last">{excerpt(last) ?? (fr ? 'Aucun échange pour l’instant' : 'No exchange yet')}</span>

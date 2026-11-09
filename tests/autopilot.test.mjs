@@ -7,12 +7,13 @@ import { AutopilotCoordinator, isQuotaFailure } from '../src/core/autopilot.ts'
 import { orderStories, parseTomlTables, readProjectPlan } from '../src/adapters/autopilot/project-plan.ts'
 
 const stories = [{ epic: 'epic-a', epicTitle: 'A', storyId: 1, title: 'Une', built: false }, { epic: 'epic-a', epicTitle: 'A', storyId: 2, title: 'Deux', built: false }]
-function harness({ tests = async () => null, turn, plan } = {}) {
+function harness({ tests = async () => null, turn, plan, neverBuilt = false } = {}) {
   const calls = []
+  const withBuilt = source => async () => { const value = await source(); return { ...value, stories: value.stories.map(story => ({ ...story, built: story.built || !neverBuilt && calls.some(call => call.text.includes('la story ' + story.storyId + ' ')) })) } }
   const coordinator = new AutopilotCoordinator({
     store: { read: async () => [], write: async () => {} }, project: async () => ({ name: 'p', rootPath: 'C:/p' }),
     runner: () => async input => { calls.push(input); return turn ? turn(input, calls.length) : { text: 'ok', sessionRef: 's' + calls.length, tokens: 10 } },
-    ensureInitiative: async () => {}, plan: plan ?? (async () => ({ requirements: calls.some(c => c.text.includes('Rédige')), architecture: calls.some(c => c.text.includes('Conçois')), epics: calls.some(c => c.text.includes('Découpe')), stories: calls.some(c => c.text.includes('Découpe')) ? stories : [], initiative: 'initiative-p' })),
+    ensureInitiative: async () => {}, plan: withBuilt(plan ?? (async () => ({ requirements: calls.some(c => c.text.includes('Rédige')), architecture: calls.some(c => c.text.includes('Conçois')), epics: calls.some(c => c.text.includes('Découpe')), stories: calls.some(c => c.text.includes('Découpe')) ? stories : [], initiative: 'initiative-p' }))),
     tests, now: () => new Date('2026-11-09T10:00:00Z') })
   const command = (type, extra = {}) => coordinator.execute({ contractVersion: 1, correlationId: 'c-' + Math.random().toString(16).slice(2), type, projectId: 'p1', ...extra })
   const until = async status => { for (let i = 0; i < 500; i++) { const run = coordinator.read().runs[0]; if (run?.status === status) return run; await new Promise(r => setTimeout(r, 2)) } assert.fail('never reached ' + status + ': ' + coordinator.read().runs[0]?.status + ' ' + coordinator.read().runs[0]?.detail) }
@@ -53,6 +54,48 @@ test('existing work is skipped, and an interrupted run comes back paused', async
   const restored = new AutopilotCoordinator({ store: { read: async () => [{ ...run, status: 'running', pauseReason: null, recap: 'x', steps: [{ ...run.steps[0], status: 'running' }] }], write: async () => {} } })
   await restored.restore(); assert.equal(restored.read().runs[0].pauseReason, 'interrupted'); assert.equal(restored.read().runs[0].steps[0].status, 'pending')
 })
+test('resume retries a failed step instead of skipping it', async () => {
+  let fail = true
+  const h = harness({ tests: async () => fail ? { ok: false, output: 'x' } : { ok: true, output: '' }, plan: existing(stories.slice(0, 1)) })
+  await ready(h); await h.command('start'); await h.until('paused'); fail = false
+  await h.command('resume'); const run = await h.until('done')
+  assert.equal(run.steps.at(-1).status, 'done')
+})
+test('a failed preparation goes back to launch with its reason, and never reports done', async () => {
+  const h = harness({ turn: () => { throw Error('boom') } })
+  await h.command('prepare', { provider: 'claude-code' }); const run = await h.until('stopped')
+  assert.equal(run.detail, 'boom'); assert.equal(run.steps.length, 0)
+})
+test('finishing without any story pauses instead of announcing ready to try', async () => {
+  const h = harness({ plan: existing([]) })
+  await ready(h); await h.command('start'); const run = await h.until('paused')
+  assert.match(run.detail, /Aucune story/)
+})
+test('a run cut off by its action limit continues in the same session', async () => {
+  const h = harness({ plan: existing(stories.slice(0, 1)), turn: (i, n) => ({ text: 't', sessionRef: 's', tokens: 1, incomplete: n === 2 }) })
+  await ready(h); await h.command('start'); await h.until('done')
+  assert.equal(h.calls.length, 3); assert.match(h.calls[2].text, /Continue exactement/); assert.equal(h.calls[2].sessionRef, 's')
+})
+test('a story not marked built is sent back, then pauses', async () => {
+  const h = harness({ neverBuilt: true, plan: existing(stories.slice(0, 1)), tests: async () => ({ ok: true, output: '' }) })
+  await ready(h); await h.command('start'); const run = await h.until('paused')
+  assert.match(run.detail, /marquée construite/); assert.equal(h.calls.length, 4)
+})
+test('stop during a turn cannot be overwritten, and no second run starts meanwhile', async () => {
+  let release; const gate = new Promise(r => { release = r })
+  const h = harness({ plan: existing(stories.slice(0, 1)), turn: async (i, n) => { if (n > 1) await gate; return { text: 't', sessionRef: 's', tokens: 1 } } })
+  await ready(h); await h.command('start')
+  for (let i = 0; i < 100 && h.calls.length < 2; i++) await new Promise(r => setTimeout(r, 2))
+  await h.command('stop'); await h.command('resume')
+  assert.equal(h.coordinator.read().runs[0].status, 'stopped'); assert.equal(h.calls.length, 2)
+  release(); await new Promise(r => setTimeout(r, 20))
+  assert.equal(h.coordinator.read().runs[0].status, 'stopped'); assert.equal(h.coordinator.read().runs[0].steps.at(-1).status, 'pending')
+})
+test('an open conversation holds the go button', async () => {
+  const h = harness({ plan: existing(stories.slice(0, 1)) }); h.coordinator.deps.canRun = () => false
+  await ready(h); await h.command('start')
+  assert.equal(h.coordinator.read().runs[0].status, 'ready'); assert.match(h.coordinator.read().runs[0].detail, /conversation/)
+})
 test('quota wording and story order', () => {
   assert.equal(isQuotaFailure('You have hit your usage limit'), true); assert.equal(isQuotaFailure('syntax error'), false)
   assert.deepEqual(orderStories([{ id: 2, after: [1] }, { id: 3, after: [] }, { id: 1, after: [3] }]), [3, 1, 2])
@@ -60,7 +103,7 @@ test('quota wording and story order', () => {
 test('the plan is read from BMad tickets and built plans', async t => {
   const root = await mkdtemp(join(tmpdir(), 'madness-plan-')); t.after(() => rm(root, { recursive: true, force: true }))
   const init = join(root, '_bmad-output/initiative-x'), epic = join(init, 'tickets/epic-a/tickets')
-  await mkdir(epic, { recursive: true }); await mkdir(join(root, '_bmad-output/architecture-x')); await mkdir(join(root, '_bmad/custom'), { recursive: true })
+  await mkdir(epic, { recursive: true }); await mkdir(join(root, '_bmad-output/architecture-x')); await writeFile(join(root, '_bmad-output/architecture-x/architecture-x.md'), '# A'); await mkdir(join(root, '_bmad/custom'), { recursive: true })
   await writeFile(join(root, '_bmad/custom/config.user.toml'), '[core]\nactive_initiative = "initiative-x"\n')
   await writeFile(join(init, 'initiative-x.md'), '---\ntype: initiative\n---\n\n## R1\n')
   await writeFile(join(init, 'tickets/tickets.toml'), '[[epic]]\nid = 1\nslug = "epic-a"\ntitle = "Epic A"\n')

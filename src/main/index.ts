@@ -223,9 +223,9 @@ else {
     // A running agent captured the current BMad configuration: changing it would end that session.
     // The initiative read at project opening holds the local tools for a few seconds: actions wait for it instead of failing.
     const afterContextReads=async(kind:unknown):Promise<void>=>{if(!['read','stop','observe-stop','cancel'].includes(String(kind)))await contextCoordinator.settled()}
-    const assertNoLiveDialogue=():void=>{if(['starting','running','waiting-question','waiting-approval','ready','stopping'].includes(dialogueCoordinator?.read().status??'idle'))throw Object.assign(Error('BUSY'),{code:'BUSY'})}
+    const assertNoLiveDialogue=(root:string):void=>{if(autopilot.isBusyAt(root)||['starting','running','waiting-question','waiting-approval','ready','stopping'].includes(dialogueCoordinator?.read().status??'idle'))throw Object.assign(Error('BUSY'),{code:'BUSY'})}
     const contextAdapter=new BmadContextAdapter(helpAdapter)
-    const contextCoordinator=new BmadContextCoordinator({application,observation,projectIds:async()=>{if(!application)throw Error('APP_CLOSING');const reply=await application.execute({contractVersion:1,correlationId:'bmad-context-restore',type:'read-state'});if(!reply.ok)throw Error(reply.error.code);return reply.value.state.projects.map(project=>project.id)},observeConsultation:(id,root,signal)=>contextAdapter.consult(id,root,signal),store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal),writeActive:async(root,initiativeId)=>{assertNoLiveDialogue();await writeActiveInitiative(root,initiativeId)},createInitiative:async(root,title)=>{assertNoLiveDialogue();return createInitiative(root,title)}})
+    const contextCoordinator=new BmadContextCoordinator({application,observation,projectIds:async()=>{if(!application)throw Error('APP_CLOSING');const reply=await application.execute({contractVersion:1,correlationId:'bmad-context-restore',type:'read-state'});if(!reply.ok)throw Error(reply.error.code);return reply.value.state.projects.map(project=>project.id)},observeConsultation:(id,root,signal)=>contextAdapter.consult(id,root,signal),store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal),writeActive:async(root,initiativeId)=>{assertNoLiveDialogue(root);await writeActiveInitiative(root,initiativeId)},createInitiative:async(root,title)=>{assertNoLiveDialogue(root);return createInitiative(root,title)}})
     application.lifecycle.register({id:'bmad-context',context:emptyContext(),stop:async()=>{await contextCoordinator.shutdown();return 'stopped'}})
     const initializationHost=new BmadInitializationHost(join(app.isPackaged?process.resourcesPath:join(app.getAppPath(),'resources'),'bmad-init','payload-v1.json.gz'))
     const captureInitialization=async(id:string,signal:AbortSignal)=>{
@@ -494,6 +494,7 @@ else {
       // Claude Code only: Codex's Windows sandbox blocks BMad, and it must not run without one.
       runner:()=>input=>claudeAgentTurn({home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),environment:process.env},input),
       ensureInitiative:ensureActiveInitiative,plan:readProjectPlan,tests:runProjectTests,now:()=>new Date(),
+      canRun:id=>{const dialogue=dialogueCoordinator?.read();return !(dialogue&&dialogue.context.projectId===id&&['qualifying','starting','running','waiting-question','waiting-approval','ready','stopping'].includes(dialogue.status))},
       notify:(title,body)=>{if(Notification.isSupported())new Notification({title,body}).show()}
     })
     await autopilot.restore()

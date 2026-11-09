@@ -2,7 +2,7 @@ import { initialAutopilotState, isAutopilotCommand } from '../contracts/autopilo
 import type { AutopilotCommand, AutopilotProvider, AutopilotRun, AutopilotState, AutopilotStep } from '../contracts/autopilot.ts'
 
 export type AgentTurnInput = { root: string; skill: string; text: string; sessionRef: string | null; signal: AbortSignal; projectId: string }
-export type AgentTurnResult = { text: string; sessionRef: string; tokens: number }
+export type AgentTurnResult = { text: string; sessionRef: string; tokens: number; incomplete?: boolean }
 export type AgentRunner = (input: AgentTurnInput) => Promise<AgentTurnResult>
 export type PlannedStory = { epic: string; epicTitle: string; storyId: number; title: string; built: boolean }
 export type ProjectPlan = { requirements: boolean; architecture: boolean; epics: boolean; stories: PlannedStory[]; initiative: string | null }
@@ -16,6 +16,7 @@ type Dependencies = {
   plan(root: string): Promise<ProjectPlan>
   tests(root: string, signal: AbortSignal): Promise<TestResult | null>
   now(): Date
+  canRun?(projectId: string): boolean
   notify?(title: string, body: string): void
 }
 
@@ -29,7 +30,7 @@ const PHASES: readonly { id: 'requirements' | 'ux' | 'architecture' | 'epics'; t
   { id: 'epics', title: 'Epics et stories', skill: 'bmad-agent-po', text: 'Découpe les exigences en epics et en stories prêtes à construire, avec leurs fichiers tickets.toml.' },
 ]
 const storyPrompt = (step: AutopilotStep): string => 'Implémente la story ' + step.storyId + ' « ' + step.title + ' » de l’epic ' + step.epic + ' (dossier tickets de l’initiative active). Utilise la compétence bmad-build en suivant son déroulé complet, y compris la revue indépendante par sous-agents et la correction de ses constats.'
-export const isQuotaFailure = (message: string): boolean => /usage limit|rate.?limit|quota|limit reached|too many requests|\b429\b/i.test(message)
+export const isQuotaFailure = (message: string): boolean => /hit your .*limit|usage limit|rate.?limit|quota|limit reached|too many requests|\b429\b/i.test(message)
 
 const emptyStep = (partial: Pick<AutopilotStep, 'id' | 'kind' | 'title' | 'skill'> & Partial<AutopilotStep>): AutopilotStep => ({ epic: null, epicTitle: null, storyId: null, status: 'pending', startedAt: null, durationMs: 0, tokens: 0, attempts: 0, summary: null, ...partial })
 const storyStep = (story: PlannedStory): AutopilotStep => emptyStep({ id: story.epic + '#' + story.storyId, kind: 'story', title: story.title, skill: 'bmad-agent-dev', epic: story.epic, epicTitle: story.epicTitle, storyId: story.storyId, status: story.built ? 'skipped' : 'pending' })
@@ -41,6 +42,7 @@ export class AutopilotCoordinator {
   private controllers = new Map<string, AbortController>()
   private timers = new Map<string, ReturnType<typeof setTimeout>>()
   private work = new Map<string, Promise<void>>()
+  private roots = new Map<string, string>()
   private writes: Promise<unknown> = Promise.resolve()
   private closing = false
   private deps: Dependencies
@@ -54,7 +56,8 @@ export class AutopilotCoordinator {
   }
   read(): AutopilotState { return structuredClone(this.state) }
   subscribe(listener: (state: AutopilotState) => void): () => void { this.listeners.add(listener); return () => this.listeners.delete(listener) }
-  isBusy(projectId: string): boolean { return this.run(projectId)?.status === 'running' || this.run(projectId)?.status === 'preparing' }
+  isBusy(projectId: string): boolean { return this.work.has(projectId) || this.run(projectId)?.status === 'running' || this.run(projectId)?.status === 'preparing' }
+  isBusyAt(rootPath: string): boolean { return [...this.roots].some(([id, root]) => root === rootPath && this.isBusy(id)) }
 
   async execute(input: unknown): Promise<AutopilotState> {
     if (!isAutopilotCommand(input) || this.closing) return this.read()
@@ -67,11 +70,21 @@ export class AutopilotCoordinator {
     if (input.type === 'dismiss') { if (!this.isBusy(id)) { this.state = { ...this.state, runs: this.state.runs.filter(item => item.projectId !== id) }; this.emit() } return }
     if (this.isBusy(id)) return
     if (input.type === 'prepare') { this.spawn(id, () => this.prepare(id, input.provider)); return }
-    if (input.type === 'start' && run?.status === 'ready' || input.type === 'resume' && run && ['paused', 'stopped'].includes(run.status)) { this.clearResume(id); this.update(id, { status: 'running', pauseReason: null, detail: null, resumeAt: null, startedAt: run.startedAt ?? this.stamp() }); this.spawn(id, () => this.loop(id)) }
+    if (input.type === 'start' && run?.status === 'ready' || input.type === 'resume' && run && ['paused', 'stopped'].includes(run.status)) {
+      // Two agents in one repository would overwrite each other: an open conversation on this project has priority.
+      if (this.deps.canRun && !this.deps.canRun(id)) { this.update(id, { detail: 'Une conversation avec un agent est ouverte sur ce projet : arrête-la d’abord.' }); return }
+      this.clearResume(id); this.update(id, { status: 'running', pauseReason: null, detail: null, resumeAt: null, startedAt: run.startedAt ?? this.stamp(), steps: run.steps.map(step => step.status === 'failed' ? { ...step, status: 'pending' } : step) }); this.spawn(id, () => this.loop(id))
+    }
   }
   private spawn(id: string, job: (signal: AbortSignal) => Promise<void>): void {
     const controller = new AbortController(); this.controllers.set(id, controller)
-    const task = job(controller.signal).catch(error => { this.update(id, { status: 'paused', pauseReason: 'failure', detail: error instanceof Error ? error.message.slice(0, 500) : 'Erreur inconnue' }) }).finally(() => { if (this.controllers.get(id) === controller) this.controllers.delete(id); this.work.delete(id) })
+    const task: Promise<void> = job(controller.signal).catch(error => {
+      if (controller.signal.aborted) return
+      const message = error instanceof Error ? error.message.slice(0, 500) : 'Erreur inconnue'
+      // Without a plan there is nothing to resume: back to the launch button, with the reason.
+      if (this.run(id)?.status === 'preparing') this.update(id, { status: 'stopped', pauseReason: null, detail: message })
+      else this.update(id, { status: 'paused', pauseReason: 'failure', detail: message })
+    }).finally(() => { if (this.controllers.get(id) === controller) this.controllers.delete(id); if (this.work.get(id) === task) this.work.delete(id); this.emit() })
     this.work.set(id, task)
   }
   private stop(id: string): void {
@@ -83,9 +96,11 @@ export class AutopilotCoordinator {
     // Registered first so that a failure below is visible on the project instead of being lost.
     this.replace({ schemaVersion: 1, projectId: id, provider, status: 'preparing', pauseReason: null, detail: null, recap: null, steps: [], startedAt: null, updatedAt: this.stamp(), resumeAt: null })
     const signal = this.controllers.get(id)!.signal, project = await this.deps.project(id)
+    this.roots.set(id, project.rootPath)
     await this.deps.ensureInitiative(project.rootPath, project.name)
     const turn = await this.deps.runner(provider)({ root: project.rootPath, projectId: id, skill: 'bmad-agent-analyst', sessionRef: null, signal, text: 'Sans rien modifier, résume ce projet en cinq lignes à partir du brief et des documents existants, puis indique la prochaine étape du plan automatique. Ne pose aucune question.' })
     const plan = await this.deps.plan(project.rootPath)
+    if (signal.aborted) return
     const steps = PHASES.map(phase => emptyStep({ id: phase.id, kind: 'phase', title: phase.title, skill: phase.skill, status: plan.epics || phase.id === 'requirements' && plan.requirements || phase.id === 'architecture' && plan.architecture ? 'skipped' : 'pending' }))
     this.update(id, { status: 'ready', recap: turn.text, steps: [...steps, ...plan.stories.map(storyStep)] })
   }
@@ -93,10 +108,16 @@ export class AutopilotCoordinator {
   private async loop(id: string): Promise<void> {
     const signal = this.controllers.get(id)!.signal
     const project = await this.deps.project(id)
+    this.roots.set(id, project.rootPath)
     for (;;) {
       if (signal.aborted || this.closing) return
       const run = this.run(id)!, step = run.steps.find(item => item.status === 'pending')
-      if (!step) { this.finish(id, project.name); return }
+      if (!step) {
+        // Finishing requires something built: stories must exist, and none may have failed.
+        const stories = run.steps.filter(item => item.kind === 'story')
+        if (!stories.length || run.steps.some(item => item.status === 'failed')) { this.update(id, { status: 'paused', pauseReason: 'failure', detail: 'Aucune story à construire : le découpage n’a rien produit d’exploitable.' }); return }
+        this.finish(id, project.name); return
+      }
       if (!await this.perform(id, step.id, project.rootPath, signal)) return
     }
   }
@@ -114,15 +135,26 @@ export class AutopilotCoordinator {
         const turn = await runner({ root, projectId: id, skill: first.skill, text: prompt, sessionRef, signal }); sessionRef = turn.sessionRef
         const current = this.step(id, stepId)
         this.patchStep(id, stepId, { attempts: attempt, tokens: current.tokens + turn.tokens, durationMs: first.durationMs + Date.now() - started, summary: turn.text.slice(0, 2000) })
+        if (signal.aborted) { this.patchStep(id, stepId, { status: 'pending' }); return false }
+        if (turn.incomplete) {
+          if (attempt >= MAX_TEST_ATTEMPTS) { this.patchStep(id, stepId, { status: 'failed' }); this.update(id, { status: 'paused', pauseReason: 'failure', detail: 'L’agent a atteint sa limite d’actions sur « ' + first.title + ' ».' }); return false }
+          prompt = 'Continue exactement là où tu t’es arrêté. ' + AUTONOMY; continue
+        }
         if (first.kind === 'phase') break
         const tests = await this.deps.tests(root, signal)
-        if (!tests || tests.ok) break
+        if (signal.aborted) { this.patchStep(id, stepId, { status: 'pending' }); return false }
+        if (!tests || tests.ok) {
+          const planned = (await this.deps.plan(root)).stories.find(story => story.epic === first.epic && story.storyId === first.storyId)
+          if (!planned || planned.built) break
+          if (attempt >= MAX_TEST_ATTEMPTS) { this.patchStep(id, stepId, { status: 'failed' }); this.update(id, { status: 'paused', pauseReason: 'failure', detail: 'La story « ' + first.title + ' » n’est pas marquée construite dans son plan.' }); return false }
+          prompt = 'La story n’est pas marquée construite dans son plan BMad. Termine son déroulé jusqu’au statut built, puis commite. ' + AUTONOMY; continue
+        }
         if (attempt >= MAX_TEST_ATTEMPTS) { this.patchStep(id, stepId, { status: 'failed' }); this.update(id, { status: 'paused', pauseReason: 'tests', detail: 'Les tests restent en échec après ' + MAX_TEST_ATTEMPTS + ' tentatives sur « ' + first.title + ' ».' }); return false }
         prompt = 'Les tests du projet échouent. Corrige sans changer leur intention, puis commite. Sortie : ' + tests.output.slice(-6000) + ' ' + AUTONOMY
       }
       if (phase) await this.assertPhaseProduced(phase.id, root, first.title)
-      this.patchStep(id, stepId, { status: 'done', durationMs: first.durationMs + Date.now() - started })
       if (stepId === 'epics') await this.addStories(id, root)
+      this.patchStep(id, stepId, { status: 'done', durationMs: first.durationMs + Date.now() - started })
       return true
     } catch (error) {
       this.patchStep(id, stepId, { status: signal.aborted ? 'pending' : 'failed', durationMs: first.durationMs + Date.now() - started })
@@ -148,7 +180,7 @@ export class AutopilotCoordinator {
   }
   private scheduleResume(id: string, at: string): void {
     this.clearResume(id)
-    this.timers.set(id, setTimeout(() => { const run = this.run(id); if (run?.status === 'paused' && run.pauseReason === 'quota') this.dispatch({ contractVersion: 1, correlationId: 'autopilot-quota-resume', type: 'resume', projectId: id }) }, Math.max(1000, Date.parse(at) - this.deps.now().getTime())))
+    this.timers.set(id, setTimeout(() => { const run = this.run(id); if (run?.status !== 'paused' || run.pauseReason !== 'quota') return; if (this.deps.canRun && !this.deps.canRun(id)) { this.scheduleResume(id, new Date(this.deps.now().getTime() + 300000).toISOString()); return } this.dispatch({ contractVersion: 1, correlationId: 'autopilot-quota-resume', type: 'resume', projectId: id }) }, Math.max(1000, Date.parse(at) - this.deps.now().getTime())))
   }
   private clearResume(id: string): void { const timer = this.timers.get(id); if (timer) clearTimeout(timer); this.timers.delete(id) }
   async shutdown(): Promise<void> {

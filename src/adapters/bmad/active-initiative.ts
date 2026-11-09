@@ -14,7 +14,7 @@ export function withActiveInitiative(source: string, name: string): string {
   const lines = source.length ? source.split(/\r?\n/) : []
   const header = lines.findIndex(line => /^\s*\[core\]\s*(#.*)?$/.test(line))
   if (header < 0) return (source.length ? source.replace(/(\r?\n)*$/, '') + newline + newline : '') + '[core]' + newline + setting + newline
-  let end = lines.findIndex((line, index) => index > header && /^\s*\[/.test(line))
+  let end = lines.findIndex((line, index) => index > header && /^\s*\[[A-Za-z_]/.test(line))
   if (end < 0) end = lines.length
   const existing = lines.findIndex((line, index) => index > header && index < end && /^\s*active_initiative\s*=/.test(line))
   if (existing >= 0) lines[existing] = setting; else lines.splice(header + 1, 0, setting)

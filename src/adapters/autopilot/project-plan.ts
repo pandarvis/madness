@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process'
 import { mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises'
-import { dirname, join } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
 import type { AutopilotRun } from '../../contracts/autopilot.ts'
 import type { PlannedStory, ProjectPlan, TestResult } from '../../core/autopilot.ts'
 import { createInitiative, writeActiveInitiative } from '../bmad/active-initiative.ts'
@@ -35,7 +35,7 @@ export function orderStories(entries: { id: number; after: number[] }[]): number
 async function outputRoot(root: string): Promise<string> {
   let value = '{project-root}/_bmad-output'
   for (const layer of ['_bmad/config.toml', '_bmad/custom/config.toml', '_bmad/custom/config.user.toml']) { const match = /^\s*output_folder\s*=\s*"([^"]+)"/m.exec(await optional(join(root, layer)) ?? ''); if (match) value = match[1] }
-  return value.replace('{project-root}', root)
+  return resolve(root, value.replace('{project-root}', root))
 }
 async function activeInitiative(root: string): Promise<string | null> {
   return /^\s*active_initiative\s*=\s*"([^"]+)"/m.exec(await optional(join(root, '_bmad/custom/config.user.toml')) ?? '')?.[1] ?? null
@@ -44,7 +44,10 @@ export async function readProjectPlan(root: string): Promise<ProjectPlan> {
   const output = await outputRoot(root), all = await folders(output), initiative = await activeInitiative(root) ?? all.find(name => name.startsWith('initiative-')) ?? null
   const document = initiative ? await optional(join(output, initiative, initiative + '.md')) ?? '' : ''
   const body = document.replace(/^---[\s\S]*?---/, '').trim()
-  const architecture = [...all, ...(initiative ? await folders(join(output, initiative)) : [])].some(name => name.startsWith('architecture-'))
+  // Inside the active initiative when there is one: a folder from another initiative says nothing about this one.
+  const scope = initiative ? join(output, initiative) : output
+  let architecture = false
+  for (const base of [scope, output]) for (const name of (await folders(base)).filter(item => item.startsWith('architecture-'))) if ((await files(join(base, name))).some(file => file.endsWith('.md'))) architecture = true
   const stories: PlannedStory[] = []
   let epics = false
   if (initiative) {
@@ -81,7 +84,7 @@ export async function runProjectTests(root: string, signal: AbortSignal, timeout
     let output = ''; const collect = (chunk: Buffer): void => { output = (output + chunk.toString()).slice(-20000) }
     child.stdout.on('data', collect); child.stderr.on('data', collect)
     const kill = (): void => { if (child.pid) spawn('taskkill', ['/T', '/F', '/PID', String(child.pid)], { windowsHide: true, stdio: 'ignore' }) }
-    const timer = setTimeout(kill, timeoutMs); signal.addEventListener('abort', kill, { once: true })
+    const timer = setTimeout(kill, timeoutMs); signal.addEventListener('abort', kill, { once: true }); if (signal.aborted) kill()
     child.once('error', () => { clearTimeout(timer); resolve({ ok: false, output }) })
     child.once('close', code => { clearTimeout(timer); signal.removeEventListener('abort', kill); resolve({ ok: code === 0, output }) })
   })

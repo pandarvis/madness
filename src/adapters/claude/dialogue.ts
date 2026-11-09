@@ -381,7 +381,8 @@ export async function claudeAgentTurn(options:Pick<Options,'home'|'appData'|'loc
     const child=spawn(executable,agenticArgs(sessionId,resume),{cwd:input.root,env:agenticEnvironment(options.environment),shell:false,windowsHide:true,stdio:['pipe','pipe','pipe']})
     let stdout='',stderr='';child.stdout.on('data',chunk=>{stdout+=chunk});child.stderr.on('data',chunk=>{stderr=(stderr+chunk).slice(-4000)})
     const kill=():void=>{if(child.pid)spawn('taskkill',['/T','/F','/PID',String(child.pid)],{windowsHide:true,stdio:'ignore'})}
-    const timer=setTimeout(kill,timeoutMs);input.signal.addEventListener('abort',kill,{once:true})
+    const timer=setTimeout(kill,timeoutMs);input.signal.addEventListener('abort',kill,{once:true});if(input.signal.aborted)kill()
+    child.stdin.on('error',()=>undefined)
     child.once('error',reject)
     child.once('close',()=>{
       clearTimeout(timer);input.signal.removeEventListener('abort',kill)
@@ -389,7 +390,7 @@ export async function claudeAgentTurn(options:Pick<Options,'home'|'appData'|'loc
       if(!isRecord(value)||typeof value.session_id!=='string')return reject(Error('Réponse de Claude Code illisible.'))
       if(value.is_error===true&&value.subtype!=='error_max_turns')return reject(Error(typeof value.result==='string'?value.result.slice(0,500):'Claude Code a échoué.'))
       const usage=isRecord(value.usage)?value.usage:{},count=(key:string):number=>typeof usage[key]==='number'?usage[key]:0
-      resolve({text:typeof value.result==='string'&&value.result.trim()?value.result:'Limite d’actions atteinte pour ce tour.',sessionRef:value.session_id,tokens:count('input_tokens')+count('cache_creation_input_tokens')+count('output_tokens')})
+      resolve({text:typeof value.result==='string'&&value.result.trim()?value.result:'Limite d’actions atteinte pour ce tour.',sessionRef:value.session_id,tokens:count('input_tokens')+count('cache_creation_input_tokens')+count('output_tokens'),incomplete:value.subtype==='error_max_turns'})
     })
     child.stdin.end(resume?input.text:buildAgenticPrompt(input.skill,input.text,[]))
   })

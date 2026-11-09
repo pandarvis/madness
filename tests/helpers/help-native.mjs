@@ -14,13 +14,13 @@ export async function runHelpSourcesCase(source){
   const resources=resolve('resources/bmad-help'),runtime=join(root,'python'),snapshot=join(root,'resources')
   await mkdir(join(runtime,'Lib/site-packages'),{recursive:true});await mkdir(snapshot)
   const manifest=JSON.parse(await readFile(join(resources,'runtime.json'),'utf8'))
-  const origin=join(process.env.USERPROFILE,'.cache/codex-runtimes/codex-primary-runtime/dependencies/python')
+  const origin=resolve('resources/graphify/assembly/runtime')
   let index=0
   await Promise.all(Array.from({length:16},async()=>{while(index<manifest.files.length){const file=manifest.files[index++],raw=await readFile(join(origin,file.name));if(createHash('sha256').update(raw).digest('hex')!==file.sha256)throw Error('Original runtime mismatch');const target=join(runtime,file.name);await mkdir(dirname(target),{recursive:true});await writeFile(target,raw,{flag:'wx'})}}))
   const modules={}
   for(const [name,pin] of Object.entries(helpResourcePins)){const raw=await readFile(join(resources,name));if(createHash('sha256').update(raw).digest('hex')!==pin)throw Error('Resource pin mismatch');await writeFile(join(snapshot,name),raw);if(name.endsWith('.py')&&name!=='bootstrap.py')modules[name.slice(0,-3)]=pin}
   await writeFile(join(snapshot,'cases.py'),source);modules.cases=createHash('sha256').update(source).digest('hex')
-  const pwsh=join(process.env.USERPROFILE,'.dotnet/tools/.store/powershell/7.5.4/powershell/7.5.4/tools/net9.0/any/win/pwsh.exe'),uv=join(process.env.USERPROFILE,'scoop/apps/uv/0.13.0/uv.exe')
+  const pwsh=join(process.env.USERPROFILE,'.dotnet/tools/.store/powershell/7.5.4/powershell/7.5.4/tools/net9.0/any/win/pwsh.exe'),uv=resolve('resources/runtime-tools/uv.exe')
   const bootstrap=await readFile(join(snapshot,'bootstrap.py'),'utf8')
   const args=['run','--offline','--no-project','--no-config','--no-cache','--python',join(runtime,'python.exe'),'--',join(runtime,'python.exe'),'-I','-S','-B','-c',bootstrap,snapshot,snapshot,JSON.stringify(modules),'cases',root]
   const preflight=["$guards=[Collections.Generic.List[string]]::new()"]

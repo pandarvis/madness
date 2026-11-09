@@ -10,6 +10,8 @@ asar: true
 extraResources:
   - from: resources/graphify
     to: graphify
+  - from: resources/runtime-tools
+    to: runtime-tools
   - from: resources/branding/madness.ico
     to: madness.ico
   - from: resources/bmad-help
@@ -19,6 +21,11 @@ extraResources:
   - from: resources/bmad-script-runner.py
     to: bmad-script-runner.py
 npmRebuild: false
+publish:
+  provider: github
+  owner: pandarvis
+  repo: madness
+  releaseType: release
 win:
   icon: resources/branding/madness.ico
   executableName: Madness

@@ -8,10 +8,10 @@ import { join, dirname, resolve } from 'node:path'
 import { qualifyBmadProfile, resolveBmad } from '../src/adapters/bmad/profile.ts'
 import { runForgeScript } from '../src/adapters/bmad/forge.ts'
 const runtime = await import('../src/adapters/bmad/runtime.ts').catch(() => null)
-test('le runtime choisi est hors projet et une copie binaire altérée ne peut pas être exécutée', async () => {
+test('le runtime vient de Madness et une copie binaire altérée ne peut pas être exécutée', async () => {
   assert.ok(runtime, 'Le runtime externe qualifié doit exister')
   const trusted = await runtime.bmadRuntime()
-  assert.equal(trusted.python.includes('C:\\Sources\\madness'), false)
+  assert.equal(trusted.python, join(await realpath(resolve('resources/graphify/assembly/runtime')), 'python.exe'))
   assert.equal(trusted.python.includes('.venv'), false)
   const root = await mkdtemp(join(tmpdir(), 'madness-runtime-'))
   try { await writeFile(join(root, 'uv.exe'), 'changed'); await assert.rejects(runtime.verifyRuntimeFile(join(root, 'uv.exe'), '0'.repeat(64)), { code: 'RESOLVER_FAILED' }) }
@@ -20,21 +20,19 @@ test('le runtime choisi est hors projet et une copie binaire altérée ne peut p
 
 
 test('legacy runtime PEM guard rejects altered or missing copied CA data before Mary or Forge can start UV',async()=>{
- const beforeUser=process.env.USERPROFILE
- assert.ok(beforeUser)
  const fixture=await realpath(await mkdtemp(join(tmpdir(),'madness-runtime-pem-')))
- const python=join(fixture,'.cache/codex-runtimes/codex-primary-runtime/dependencies/python')
- const uv=join(fixture,'scoop/apps/uv/current/uv.exe')
+ const python=join(fixture,'graphify/assembly/runtime')
+ const uv=join(fixture,'runtime-tools/uv.exe')
  const manifest=JSON.parse(await readFile(resolve('resources/bmad-help/runtime.json'),'utf8'))
- const origin=join(beforeUser,'.cache/codex-runtimes/codex-primary-runtime/dependencies/python')
+ const origin=resolve('resources/graphify/assembly/runtime')
  const sha=bytes=>createHash('sha256').update(bytes).digest('hex')
  let interception,spawned=0
  try{
   assert.equal(manifest.files.length,735)
   let index=0
   await Promise.all(Array.from({length:16},async()=>{while(index<manifest.files.length){const entry=manifest.files[index++],raw=await readFile(join(origin,entry.name));assert.equal(sha(raw),entry.sha256,'source runtime changed: '+entry.name);const target=join(python,entry.name);await mkdir(dirname(target),{recursive:true});await writeFile(target,raw,{flag:'wx'})}}))
-  const uvBytes=await readFile(join(beforeUser,'scoop/apps/uv/current/uv.exe'));assert.equal(sha(uvBytes),'2bfbe53d3cc95799e98fa08323b04844fc01d4f8c87dd5c00089e43f6554f162');await mkdir(dirname(uv),{recursive:true});await writeFile(uv,uvBytes,{flag:'wx'})
-  process.env.USERPROFILE=fixture
+  const uvBytes=await readFile(resolve('resources/runtime-tools/uv.exe'));assert.equal(sha(uvBytes),'2bfbe53d3cc95799e98fa08323b04844fc01d4f8c87dd5c00089e43f6554f162');await mkdir(dirname(uv),{recursive:true});await writeFile(uv,uvBytes,{flag:'wx'})
+  runtime.configureBundledRuntime(fixture)
   assert.equal(await runtime.runtimeTreeFingerprint(python),'819d83d34e77ad70a198d831e518fa9b398c3a244aa4af77fd8a8934c3821b92')
   assert.equal((await runtime.bmadRuntime(resolve('.'))).python,join(python,'python.exe'))
   const profile=await qualifyBmadProfile(resolve('.')),signal=new AbortController().signal
@@ -57,7 +55,7 @@ test('legacy runtime PEM guard rejects altered or missing copied CA data before 
   assert.equal(spawned,0)
  }finally{
   interception?.mock.restore();syncBuiltinESMExports()
-  if(beforeUser===undefined)delete process.env.USERPROFILE;else process.env.USERPROFILE=beforeUser
+  runtime.configureBundledRuntime(resolve('resources'))
   await rm(fixture,{recursive:true,force:true,maxRetries:3})
  }
 })

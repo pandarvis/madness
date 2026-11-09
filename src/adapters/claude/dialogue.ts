@@ -3,7 +3,7 @@ import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import {createHash,randomUUID} from 'node:crypto'
 import {createReadStream} from 'node:fs'
 import {lstat,mkdtemp,realpath,rmdir} from 'node:fs/promises'
-import {dirname,isAbsolute,join,relative,sep} from 'node:path'
+import {delimiter,dirname,isAbsolute,join,relative,sep} from 'node:path'
 import {TextDecoder} from 'node:util'
 import {dialogueError,dialogueFailure} from '../../contracts/dialogue.ts'
 import {isRecord,MAX_DRAFT_LENGTH} from '../../contracts/index.ts'
@@ -11,6 +11,7 @@ import {contextId} from '../../contracts/bmad-context.ts'
 import type {CapturedBmadContext} from '../../contracts/bmad-context.ts'
 import type {BmadProfile,DialogueSession} from '../../core/ports.ts'
 import {assertBmadProfile,readBmadFile} from '../bmad/profile.ts'
+import {bundledRuntimePaths} from '../bmad/runtime.ts'
 import type {OwnedRun} from '../codex/owned-run.ts'
 import {stopNative} from '../codex/probe.ts'
 
@@ -128,7 +129,9 @@ export function agenticArgs(sessionId:string,resume:boolean):string[] {
 export function agenticEnvironment(source:NodeJS.ProcessEnv):NodeJS.ProcessEnv {
   // Keeps the user's PATH for uv, npm and git, but never an API key that would switch billing away from the plan.
   const env=Object.fromEntries(Object.entries(source).filter(([key])=>!/^(ANTHROPIC_|CLAUDE_CODE_USE_|ELECTRON_|NODE_OPTIONS$)/i.test(key)))
-  return {...env,DISABLE_AUTOUPDATER:'1'}
+  // Appended last: the user's own uv and Python win, Madness only fills the gap so BMad scripts always run.
+  const bundled=bundledRuntimePaths(),pathKey=Object.keys(env).find(key=>key.toUpperCase()==='PATH')??'PATH'
+  return {...env,[pathKey]:[env[pathKey],dirname(bundled.uv),bundled.python].filter(Boolean).join(delimiter),DISABLE_AUTOUPDATER:'1'}
 }
 export function buildAgenticPrompt(skill:string,text:string|null,history:readonly {role:'user'|'assistant';text:string}[]):string {
   return [

@@ -37,6 +37,8 @@ import {ApprovalStore} from '../adapters/persistence/approval-store.ts'
 import {RecoveryStore} from '../adapters/persistence/recovery-store.ts'
 import {OwnedRun} from '../adapters/codex/owned-run.ts'
 import {openClaudeDialogue} from '../adapters/claude/dialogue.ts'
+import {configureBundledRuntime} from '../adapters/bmad/runtime.ts'
+import {checkForUpdates} from './updates.ts'
 import {inspectApprovalFiles} from '../adapters/codex/file-proposals.ts'
 import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, protocol, net, session, Menu, safeStorage, shell } from 'electron'
 import { realpath, stat, access, mkdir } from 'node:fs/promises'
@@ -192,6 +194,9 @@ else {
     const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),claudeOwner.status(),helperOwner.status(),graphOwner.status(),qualificationOwner.status()])).every(s=>s==='stopped')&&!initialization?.hasUnconfirmedStop()?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await catalogQualification?.stopQualification();await Promise.all([helperOwner.cancel().catch(()=>{}),graphOwner.cancel().catch(()=>{})]);const states=await Promise.all([ownedRun.observeStop(),claudeOwner.observeStop(),helperOwner.observeStop(),graphOwner.observeStop(),qualificationOwner.observeStop()]);if(states.every(s=>s==='stopped')&&!initialization?.hasUnconfirmedStop()&&await graphCoordinator.reconcileNativeStop(await graphOwner.stopProof())){admission.clearBlock();return 'stopped'}return 'unknown'}}
     if(await recovery.status()!=='stopped')admission.block()
     const markGraphStopUnknown=():void=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()}
+    configureBundledRuntime(app.isPackaged?process.resourcesPath:join(app.getAppPath(),'resources'))
+    // Test profiles must stay offline and must never replace the build under test.
+    if(app.isPackaged&&!process.env.MADNESS_DATA_HOME)checkForUpdates()
     const graphAdapter=new GraphifyAdapter({root:join(app.getPath('userData'),'graph-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'graphify'):join(app.getAppPath(),'resources/graphify'),owner:graphOwner,admission,admit:async()=>{if(connection?.hasOperation())throw Error('BUSY');if(await recovery.status()!=='stopped'){admission.block();throw Error('STOP_UNCONFIRMED')}},onUnknown:markGraphStopUnknown})
     const helpAdapter=new BmadHelpAdapter({root:join(app.getPath('userData'),'bmad-help-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'bmad-help'):join(app.getAppPath(),'resources/bmad-help'),owner:helperOwner,admission,onUnknown:()=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()},admit:async internal=>{
       if(await graphOwner.status()!=='stopped'){admission.block();throw Object.assign(Error('STOP_UNCONFIRMED'),{code:'STOP_UNCONFIRMED'})}

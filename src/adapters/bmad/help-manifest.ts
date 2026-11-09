@@ -7,7 +7,7 @@ export const helpResourcePins = {
   "capture.py": "ea6965f0578b223fda14f5d38f5c09d7cf2ea94b8d0dc275493e5acbf42ced54",
   "config_utils.py": "989410c4009b908121bbb0fe551a2d7db29f89385d0688cda5cbfc162a5511a1",
   "knowledge.py": "62ec53ecd5696dfdb919aa6de8321e8605866243129385b8750dab40de55f2cd",
-  "launcher.ps1": "a4722f06adad45b8939cf80b7c58e6d277bf1a5434ab2be6725436eb5fa9b356",
+  "launcher.ps1": "e88f8b9be9bb1428f0d3b47a5da6bfde2ec625509b67561ef9f3e98732ff96b8",
   "preflight.ps1": "a4ae45d67353e5e7261d98f75a8f04e0e422af8c75be24ef5dd079c0c64bdd7b",
   "resolve_config.py": "de612645d546001e1dd3f5af69de6559afe4733bbb54ea40429715e94324a762",
   "runtime_guard.py": "ed9232d19baed8eb2c61aab47ac0d9f40b6e26a5750a29e9942abf80efdecafe",

@@ -56,7 +56,7 @@ export async function readBmadFile(profile: BmadProfile, path: string): Promise<
 /** Aucun shell et aucune commande fournie par le modèle : seulement les deux entrées BMad vérifiées. */
 export async function resolveBmad(profile: BmadProfile, kind: 'agent' | 'config', signal: AbortSignal): Promise<string> {
   await assertBmadProfile(profile); signal.throwIfAborted()
-  const { uv, python } = await bmadRuntime(profile.rootPath)
+  const { uv, python } = await bmadRuntime()
   signal.throwIfAborted()
   const script = join(profile.rootPath, '_bmad/scripts', kind === 'agent' ? 'resolve_customization.py' : 'resolve_config.py')
   // -I retire cwd et script-dir de sys.path. Charger uniquement les trois dépendances épinglées

@@ -49,6 +49,10 @@ test('catalogue seul et modèle défaut invisible ne suffisent pas', async () =>
   const rpc = rpcServer((message, emit) => { if (message.id) emit({ id: message.id, result: message.method === 'model/list' ? { data: [{ model: 'hidden', isDefault: true, hidden: true }] } : {} }) })
   await assert.rejects(probe.runProbeProtocol(rpc, 'empty-work', 300), { code: 'PROBE_FAILED' })
 })
+test('le témoin coupe la synchronisation des plugins, dont le git garderait les flux ouverts après l’arrêt', () => {
+  assert.ok(probe.probeSettings.includes('features.plugins=false'))
+  assert.ok(probe.probeSettings.includes('features.apps=false'))
+})
 test('arrêt natif attend la fermeture observable du processus possédé', async (t) => {
   assert.ok(probe)
   const native = spawn(process.execPath, ['-e', 'process.stdin.resume(); process.stdin.on("end",()=>process.exit(0))'], { windowsHide: true, shell: false, stdio: ['pipe', 'pipe', 'pipe'] })

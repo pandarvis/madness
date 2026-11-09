@@ -502,6 +502,7 @@ else {
     autopilot.subscribe(state=>{if(window&&!window.isDestroyed()&&window.webContents&&!window.webContents.isDestroyed())window.webContents.send(AUTOPILOT_EVENT_CHANNEL,state)})
     ipcMain.handle(AUTOPILOT_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isAutopilotCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialAutopilotState()}
+      if(input.type==='open')await shell.openPath((await application!.dialogueProject(input.projectId)).rootPath)
       const state=await autopilot.execute(input);if(!isAutopilotState(state))throw Error('INVALID_AUTOPILOT_STATE')
       return {contractVersion:1,correlationId:input.correlationId,state}
     })

@@ -34,3 +34,8 @@ main, .conversation-messages, .connection-panel, .context-panel, .graph-legend, 
 .hub-initiative { font-weight: 500; color: var(--muted); font-size: 18px }
 
 .hub-building .hub-open { position: relative; overflow: hidden; border-color: var(--success-text) }
+
+.hub-ready .hub-dot { background: var(--success-text) }
+.hub-ready .hub-state { color: var(--success-text) }
+
+.library-more > summary { cursor: pointer; color: var(--muted); padding-block: 6px }

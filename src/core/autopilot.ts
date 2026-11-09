@@ -61,10 +61,10 @@ export class AutopilotCoordinator {
 
   async execute(input: unknown): Promise<AutopilotState> {
     if (!isAutopilotCommand(input) || this.closing) return this.read()
-    if (input.type !== 'read') this.dispatch(input)
+    if (input.type !== 'read' && input.type !== 'open') this.dispatch(input)
     return this.read()
   }
-  private dispatch(input: Exclude<AutopilotCommand, { type: 'read' }>): void {
+  private dispatch(input: Exclude<AutopilotCommand, { type: 'read' | 'open' }>): void {
     const id = input.projectId, run = this.run(id)
     if (input.type === 'stop') { this.stop(id); return }
     if (input.type === 'dismiss') { if (!this.isBusy(id)) { this.state = { ...this.state, runs: this.state.runs.filter(item => item.projectId !== id) }; this.emit() } return }

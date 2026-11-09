@@ -27,6 +27,8 @@ const total = (steps: AutopilotStep[], key: 'durationMs' | 'tokens'): number => 
 /** Project-level autopilot: recap and go, live progress, then tokens and time per epic and story. */
 export function AutopilotPanel({ projectId, provider, run, blocked, onPrepare }: { projectId: string; provider: AutopilotProvider; run: AutopilotRun | undefined; blocked: boolean; onPrepare?: () => void }): ReactNode {
   const { language } = useLocale(), fr = language === 'fr', locale = fr ? 'fr-FR' : 'en-GB', bridge = window.madnessAutopilot
+  const [confirming, setConfirming] = useState(false)
+  useEffect(() => { if (!confirming) return; const timer = setTimeout(() => setConfirming(false), 4000); return () => clearTimeout(timer) }, [confirming])
   if (!bridge) return null
   const statusLabels: Record<string, string> = { pending: fr ? 'à faire' : 'to do', running: fr ? 'en cours' : 'running', done: fr ? 'fait' : 'done', skipped: fr ? 'déjà là' : 'existing', failed: fr ? 'échec' : 'failed' }
   const pauses: Record<string, string> = fr ? { interrupted: 'Madness a été fermé pendant le travail.', quota: 'Limite de l’abonnement atteinte : reprise automatique prévue.', tests: 'Les tests restent en échec.', failure: 'L’agent s’est arrêté sur une erreur.' } : { interrupted: 'Madness was closed during the work.', quota: 'Subscription limit reached: automatic resume planned.', tests: 'Tests keep failing.', failure: 'The agent stopped on an error.' }
@@ -38,14 +40,16 @@ export function AutopilotPanel({ projectId, provider, run, blocked, onPrepare }:
   const epics = [...new Set(stories.map(step => step.epic))].map(epic => ({ epic, steps: stories.filter(step => step.epic === epic) }))
   const active = currentStep(run), building = autopilotBuilding(run), done = run.steps.filter(step => step.status === 'done' || step.status === 'skipped').length
   const head = run.status === 'preparing' ? (fr ? 'Madness prépare le récapitulatif…' : 'Madness is preparing the recap…') : run.status === 'ready' ? (fr ? 'Récapitulatif' : 'Recap') : run.status === 'running' ? (fr ? 'En chantier' : 'Building') : run.status === 'paused' ? (fr ? 'En pause' : 'Paused') : run.status === 'done' ? (fr ? 'Prêt à essayer' : 'Ready to try') : (fr ? 'Arrêté' : 'Stopped')
-  const row = (step: AutopilotStep): ReactNode => <tr key={step.id} className={'autopilot-' + step.status}><th scope="row">{step.title}</th><td>{statusLabels[step.status]}</td><td>{step.durationMs ? duration(step.durationMs) : '—'}</td><td>{step.tokens ? tokens(step.tokens, locale) : '—'}</td></tr>
+  const heaviest = Math.max(1, ...run.steps.map(step => step.tokens))
+  const row = (step: AutopilotStep): ReactNode => <tr key={step.id} className={'autopilot-' + step.status}><th scope="row">{step.title}</th><td>{statusLabels[step.status]}</td><td>{step.durationMs ? duration(step.durationMs) : '—'}</td><td><span className="autopilot-weight"><span className="autopilot-bar" style={{ width: Math.round(step.tokens / heaviest * 70) + 'px' }} aria-hidden="true" /><span>{step.tokens ? tokens(step.tokens, locale) : '—'}</span></span></td></tr>
   return <section className={'autopilot' + (building ? ' autopilot-building' : '')} aria-label={fr ? 'Pilote automatique' : 'Autopilot'}>
     <div className="autopilot-head"><div><h3>{head}</h3><p role="status">{active ? active.title : run.steps.length ? done + ' / ' + run.steps.length + (fr ? ' étapes' : ' steps') : ''}{run.steps.length ? ' · ' + tokens(total(run.steps, 'tokens'), locale) + ' tokens · ' + duration(total(run.steps, 'durationMs')) : ''}</p></div>
       <div className="autopilot-actions">
         {run.status === 'ready' && <button type="button" className="primary" onClick={() => void bridge.start(projectId)}>{fr ? 'Go' : 'Go'}</button>}
         {(run.status === 'paused' || run.status === 'stopped') && <button type="button" className="primary" onClick={() => void bridge.resume(projectId)}>{fr ? 'Reprendre' : 'Resume'}</button>}
         {(building || run.status === 'paused') && <button type="button" className="secondary" onClick={() => void bridge.stop(projectId)}>{fr ? 'Arrêter' : 'Stop'}</button>}
-        {!building && <button type="button" className="text-button" onClick={() => void bridge.dismiss(projectId)}>{fr ? 'Effacer' : 'Clear'}</button>}
+        {run.status === 'done' && <button type="button" className="primary" onClick={() => void bridge.open(projectId)}>{fr ? 'Ouvrir le dossier' : 'Open folder'}</button>}
+        {!building && <button type="button" className="text-button" onClick={() => { if (confirming) void bridge.dismiss(projectId); else setConfirming(true) }}>{confirming ? (fr ? 'Confirmer l’effacement' : 'Confirm clear') : (fr ? 'Effacer' : 'Clear')}</button>}
       </div></div>
     {run.status === 'paused' && <p className="autopilot-pause" role="alert">{run.pauseReason ? pauses[run.pauseReason] : ''} {run.detail}{run.resumeAt ? ' ' + new Date(run.resumeAt).toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' }) : ''}</p>}
     {run.recap && run.status === 'ready' && <div className="autopilot-recap"><MessageMarkdown text={run.recap} /></div>}

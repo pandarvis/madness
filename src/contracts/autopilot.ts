@@ -17,7 +17,7 @@ export type AutopilotRun = {
 }
 export type AutopilotState = { contractVersion: 1; sequence: number; runs: AutopilotRun[] }
 export type AutopilotCommand = { contractVersion: 1; correlationId: string } & (
-  { type: 'read' } | { type: 'prepare'; projectId: string; provider: AutopilotProvider } | { type: 'start' | 'resume' | 'stop' | 'dismiss'; projectId: string })
+  { type: 'read' } | { type: 'prepare'; projectId: string; provider: AutopilotProvider } | { type: 'start' | 'resume' | 'stop' | 'dismiss' | 'open'; projectId: string })
 export interface AutopilotBridge {
   read(): Promise<AutopilotState>
   prepare(projectId: string, provider: AutopilotProvider): Promise<AutopilotState>
@@ -25,6 +25,7 @@ export interface AutopilotBridge {
   resume(projectId: string): Promise<AutopilotState>
   stop(projectId: string): Promise<AutopilotState>
   dismiss(projectId: string): Promise<AutopilotState>
+  open(projectId: string): Promise<AutopilotState>
   onChanged(listener: (state: AutopilotState) => void): () => void
 }
 
@@ -36,7 +37,7 @@ export function isAutopilotCommand(value: unknown): value is AutopilotCommand {
   const base = ['contractVersion', 'correlationId', 'type']
   if (value.type === 'read') return exact(value, base)
   if (value.type === 'prepare') return exact(value, [...base, 'projectId', 'provider']) && identifier(value.projectId) && value.provider === 'claude-code'
-  return ['start', 'resume', 'stop', 'dismiss'].includes(String(value.type)) && exact(value, [...base, 'projectId']) && identifier(value.projectId)
+  return ['start', 'resume', 'stop', 'dismiss', 'open'].includes(String(value.type)) && exact(value, [...base, 'projectId']) && identifier(value.projectId)
 }
 export function isAutopilotState(value: unknown): value is AutopilotState {
   return isRecord(value) && value.contractVersion === 1 && Number.isSafeInteger(value.sequence) && Array.isArray(value.runs)

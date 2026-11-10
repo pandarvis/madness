@@ -17,6 +17,7 @@ type Dependencies = {
   tests(root: string, signal: AbortSignal): Promise<TestResult | null>
   now(): Date
   canRun?(projectId: string): boolean
+  commit?(root: string, message: string): Promise<void>
   notify?(title: string, body: string): void
 }
 
@@ -43,6 +44,7 @@ export class AutopilotCoordinator {
   private timers = new Map<string, ReturnType<typeof setTimeout>>()
   private work = new Map<string, Promise<void>>()
   private roots = new Map<string, string>()
+  private authRetries = new Set<string>()
   private writes: Promise<unknown> = Promise.resolve()
   private closing = false
   private deps: Dependencies
@@ -154,12 +156,16 @@ export class AutopilotCoordinator {
       }
       if (phase) await this.assertPhaseProduced(phase.id, root, first.title)
       if (stepId === 'epics') await this.addStories(id, root)
+      // Codex's sandbox keeps .git read-only: Madness records each finished step itself.
+      await this.deps.commit?.(root, first.title + ' (pilote Madness)')
       this.patchStep(id, stepId, { status: 'done', durationMs: first.durationMs + Date.now() - started })
       return true
     } catch (error) {
       this.patchStep(id, stepId, { status: signal.aborted ? 'pending' : 'failed', durationMs: first.durationMs + Date.now() - started })
       if (signal.aborted) return false
       const message = error instanceof Error ? error.message : 'Erreur inconnue'
+      // An access token that expired during a long run: the next attempt starts with a fresh one.
+      if (/401|token is expired/i.test(message) && !this.authRetries.has(id + stepId)) { this.authRetries.add(id + stepId); this.patchStep(id, stepId, { status: 'pending' }); return true }
       if (isQuotaFailure(message)) {
         const resumeAt = new Date(this.deps.now().getTime() + QUOTA_RETRY_MS).toISOString()
         this.patchStep(id, stepId, { status: 'pending' }); this.update(id, { status: 'paused', pauseReason: 'quota', detail: 'Limite de l’abonnement atteinte.', resumeAt }); this.scheduleResume(id, resumeAt)

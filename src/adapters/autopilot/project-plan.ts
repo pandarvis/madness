@@ -96,3 +96,16 @@ export class AutopilotStore {
   async read(): Promise<AutopilotRun[]> { try { const value: unknown = JSON.parse(await readFile(this.path, 'utf8')); return Array.isArray(value) ? value as AutopilotRun[] : [] } catch { return [] } }
   async write(runs: AutopilotRun[]): Promise<void> { await mkdir(dirname(this.path), { recursive: true }); const temporary = this.path + '.tmp'; await writeFile(temporary, JSON.stringify(runs)); await rename(temporary, this.path) }
 }
+
+const git = (root: string, args: string[]): Promise<{ code: number | null; out: string }> => new Promise(resolve => {
+  const child = spawn('git', args, { cwd: root, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] })
+  let out = ''; child.stdout.on('data', chunk => { out += chunk }); child.stderr.resume()
+  child.once('error', () => resolve({ code: 1, out: '' })); child.once('close', code => resolve({ code, out }))
+})
+/** Commits whatever the step left uncommitted; nothing happens outside a git repository or on a clean tree. */
+export async function commitStep(root: string, message: string): Promise<void> {
+  const status = await git(root, ['status', '--porcelain'])
+  if (status.code !== 0 || !status.out.trim()) return
+  await git(root, ['add', '-A'])
+  await git(root, ['commit', '-q', '-m', message])
+}

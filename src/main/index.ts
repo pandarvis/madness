@@ -41,8 +41,9 @@ import {configureBundledRuntime} from '../adapters/bmad/runtime.ts'
 import {createInitiative,writeActiveInitiative} from '../adapters/bmad/active-initiative.ts'
 import {checkForUpdates} from './updates.ts'
 import {AutopilotCoordinator} from '../core/autopilot.ts'
-import {AutopilotStore,ensureActiveInitiative,readProjectPlan,runProjectTests} from '../adapters/autopilot/project-plan.ts'
+import {AutopilotStore,commitStep,ensureActiveInitiative,readProjectPlan,runProjectTests} from '../adapters/autopilot/project-plan.ts'
 import {claudeAgentTurn} from '../adapters/claude/dialogue.ts'
+import {codexAgentTurn} from '../adapters/codex/agent-turn.ts'
 import {AUTOPILOT_COMMAND_CHANNEL,AUTOPILOT_EVENT_CHANNEL,isAutopilotCommand,isAutopilotState,initialAutopilotState} from '../contracts/autopilot.ts'
 import {inspectApprovalFiles} from '../adapters/codex/file-proposals.ts'
 import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, Notification, protocol, net, session, Menu, safeStorage, shell } from 'electron'
@@ -491,9 +492,10 @@ else {
     const autopilot=new AutopilotCoordinator({
       store:new AutopilotStore(join(app.getPath('userData'),'autopilot-v1.json')),
       project:async id=>{const project=await application!.dialogueProject(id);return {name:basename(project.rootPath),rootPath:project.rootPath}},
-      // Claude Code only: Codex's Windows sandbox blocks BMad, and it must not run without one.
-      runner:()=>input=>claudeAgentTurn({home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),environment:process.env},input),
-      ensureInitiative:ensureActiveInitiative,plan:readProjectPlan,tests:runProjectTests,now:()=>new Date(),
+      runner:provider=>provider==='codex'
+        ?input=>codexAgentTurn({appData:app.getPath('appData'),root:join(app.getPath('userData'),'autopilot-codex'),realHome:app.getPath('home'),environment:process.env,accessToken:signal=>connection!.currentAccessToken(signal)},input)
+        :input=>claudeAgentTurn({home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),environment:process.env},input),
+      ensureInitiative:ensureActiveInitiative,plan:readProjectPlan,tests:runProjectTests,now:()=>new Date(),commit:commitStep,
       canRun:id=>{const dialogue=dialogueCoordinator?.read();return !(dialogue&&dialogue.context.projectId===id&&['qualifying','starting','running','waiting-question','waiting-approval','ready','stopping'].includes(dialogue.status))},
       notify:(title,body)=>{if(Notification.isSupported())new Notification({title,body}).show()}
     })

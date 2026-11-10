@@ -69,9 +69,9 @@ export async function runClaudeProbe(executable:string,args:string[],settings:Na
     await recordClose(owner,runId,!child||closed,onUnknown)
   }
 }
-const version='2.1.318 (Claude Code)'
+const version='2.1.322 (Claude Code)'
 // Image Windows x64 signée et observée pendant la qualification de la CLI personnelle.
-const qualifiedSha256='b9aa5b08dc2cc46ea77d334dce792d1b8fdbb3a43bb290efdebdc905b1181082'
+const qualifiedSha256='345996b4bdbae21d817f750fae2f34cbf8d81224a5444c78136091d121beb298'
 const maxOutput=512*1024
 const safetyArgs=['--restricted','--safe-mode']
 const utf8=new TextDecoder('utf-8',{fatal:true})
@@ -123,8 +123,10 @@ const agenticTools='Read,Write,Edit,Glob,Grep,Bash,Agent'
 const agenticCommands=['uv run *','node *','npm *','npx *','git *','ls *','mkdir *','cat *','echo *','cd *','pwd','test *','wc *','grep *','find *','sed -n *','head *','tail *'].map(command=>'Bash('+command+')')
 const agenticTimeout=25*60*1000
 const agentNames:Record<string,string>={'bmad-agent-analyst':'Mary','bmad-agent-pm':'John','bmad-agent-architect':'Winston','bmad-agent-ux-designer':'Sally','bmad-agent-po':'Sofia','bmad-agent-dev':'Amelia','bmad':'BMad'}
+// Kévin's choice (2026-11-10): BMad agents run on Opus 5.5.
+export const BMAD_CLAUDE_MODEL='claude-opus-5-5'
 export function agenticArgs(sessionId:string,resume:boolean):string[] {
-  return ['--safe-mode','--print','--input-format','text','--output-format','json','--tools',agenticTools,'--permission-mode','acceptEdits','--allowedTools',...agenticCommands,
+  return ['--safe-mode','--model',BMAD_CLAUDE_MODEL,'--print','--input-format','text','--output-format','json','--tools',agenticTools,'--permission-mode','acceptEdits','--allowedTools',...agenticCommands,
     '--strict-mcp-config','--mcp-config','{"mcpServers":{}}','--disable-slash-commands','--no-chrome','--max-turns','90','--settings','{"disableAllHooks":true}',resume?'--resume':'--session-id',sessionId]
 }
 export function agenticEnvironment(source:NodeJS.ProcessEnv):NodeJS.ProcessEnv {
@@ -227,7 +229,7 @@ const binaryStamp=(path:string)=>lstat(path,{bigint:true})
 
 async function verifyBinary(executable:string,signal:AbortSignal) {
   const original=await binaryStamp(executable)
-  if(!original.isFile()||original.size!==342408352n)throw dialogueFailure('CLAUDE_PROFILE_UNSUPPORTED')
+  if(!original.isFile()||original.size!==346496160n)throw dialogueFailure('CLAUDE_PROFILE_UNSUPPORTED')
   const hash=createHash('sha256')
   for await (const chunk of createReadStream(executable,{signal}))hash.update(chunk)
   if(hash.digest('hex')!==qualifiedSha256||!sameBinary(original,await binaryStamp(executable)))throw dialogueFailure('CLAUDE_PROFILE_UNSUPPORTED')

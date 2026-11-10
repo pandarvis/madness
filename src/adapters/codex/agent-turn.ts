@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process'
-import { access, mkdir, readFile, readdir } from 'node:fs/promises'
+import { access, mkdir, readFile, readdir, stat } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { delimiter, dirname, join } from 'node:path'
 import type { AgentTurnInput, AgentTurnResult } from '../../core/autopilot.ts'
@@ -58,18 +58,58 @@ export function readCodexEvents(stdout: string): { text: string; threadId: strin
   }
   return { text, threadId, tokens, failure }
 }
+function uvSettings(folder: string): string[] {
+  const python = join(bundledRuntimePaths().python, 'python.exe')
+  return ['UV_PYTHON=' + python, 'UV_PYTHON_PREFERENCE=only-system', 'UV_CACHE_DIR=' + join(folder, 'cache'), 'UV_PYTHON_INSTALL_DIR=' + join(folder, 'python'), 'UV_TOOL_DIR=' + join(folder, 'tools')].map(pair => { const [key, ...value] = pair.split('='); return 'shell_environment_policy.set.' + key + '=' + JSON.stringify(value.join('=')) })
+}
 /** Tools that the user's own Codex setup may enable and that an unattended BMad run must not reach. */
 const QUIET = ['web_search="disabled"', 'features.apps=false', 'features.plugins=false', 'features.image_generation=false', 'features.browser_use=false', 'features.browser_use_external=false', 'features.in_app_browser=false', 'features.computer_use=false', 'mcp_servers={}']
 /** The user's own Codex sign-in, kept by Codex in ~/.codex: Codex renews it, and its ChatGPT access allows sub-agents. */
 export async function hasOwnCodexLogin(realHome: string): Promise<boolean> { return access(join(realHome, '.codex', 'auth.json')).then(() => true, () => false) }
+// Kévin's choice (2026-11-10): BMad runs on GPT-6.1 Sol when his Codex offers it, else on Codex's recommended model.
+export const PREFERRED_CODEX_MODEL = 'gpt-6.1-sol'
+let ownModel: { value: string; until: number } | null = null
+/** The model Codex itself recommends for this account: a model pinned in an old config.toml can be refused for ChatGPT accounts. */
+async function defaultModel(executable: string, env: NodeJS.ProcessEnv, cwd: string): Promise<string | null> {
+  if (ownModel && ownModel.until > Date.now()) return ownModel.value
+  const value = await new Promise<string | null>(resolve => {
+    const child = spawn(executable, ['app-server', '--listen', 'stdio://'], { cwd, env, shell: false, windowsHide: true, stdio: ['pipe', 'pipe', 'ignore'] })
+    let buffer = '', done = false
+    const finish = (model: string | null): void => { if (done) return; done = true; clearTimeout(timer); child.stdin.end(); if (child.pid) spawn('taskkill', ['/T', '/F', '/PID', String(child.pid)], { windowsHide: true, stdio: 'ignore' }); resolve(model) }
+    const timer = setTimeout(() => finish(null), 20000)
+    child.once('error', () => finish(null)); child.stdin.on('error', () => undefined)
+    child.stdout.setEncoding('utf8').on('data', chunk => {
+      buffer += chunk
+      for (let end = buffer.indexOf('\n'); end >= 0; end = buffer.indexOf('\n')) {
+        const line = buffer.slice(0, end); buffer = buffer.slice(end + 1)
+        try { const message = JSON.parse(line) as { id?: number; result?: { data?: { model?: unknown; isDefault?: unknown; hidden?: unknown }[] } }; if (message.id === 2) { const listed = message.result?.data ?? [], model = (listed.find(item => item.model === PREFERRED_CODEX_MODEL) ?? listed.find(item => item.isDefault === true && item.hidden === false))?.model; finish(typeof model === 'string' && /^[a-zA-Z0-9._:/-]{1,100}$/.test(model) ? model : null) } } catch { /* not a protocol line */ }
+      }
+    })
+    child.stdin.write(JSON.stringify({ id: 1, method: 'initialize', params: { clientInfo: { name: 'madness', title: 'Madness', version: '1' } } }) + '\n')
+    child.stdin.write(JSON.stringify({ method: 'initialized', params: {} }) + '\n')
+    child.stdin.write(JSON.stringify({ id: 2, method: 'model/list', params: {} }) + '\n')
+  })
+  if (value) ownModel = { value, until: Date.now() + 3600000 }
+  return value
+}
+/** The Codex shipped with the user's Codex app: newest version, current models, and the sandbox its app already set up. */
+async function appCodex(localAppData: string): Promise<string | null> {
+  const base = join(localAppData, 'OpenAI', 'Codex', 'bin')
+  let best: { path: string; time: number } | null = null
+  for (const name of await readdir(base).catch(() => [] as string[])) { const path = join(base, name, 'codex.exe'); const info = await stat(path).catch(() => null); if (info?.isFile() && (!best || info.mtimeMs > best.time)) best = { path, time: info.mtimeMs } }
+  return best?.path ?? null
+}
 async function codexOwnLoginTurn(options: Options, input: AgentTurnInput): Promise<AgentTurnResult> {
-  const executable = await findNativeExecutable(options.appData)
+  const executable = await appCodex(join(options.realHome, 'AppData', 'Local')) ?? await findNativeExecutable(options.appData)
   await prerenderSkills(input.root, input.signal)
   const resume = input.sessionRef !== null
-  // Same sandbox as the user's Codex app (its own [windows] setting); only the unattended policy and the quiet tools are forced.
-  const settings = ['approval_policy="never"', 'sandbox_mode="workspace-write"', 'sandbox_workspace_write.network_access=true', ...QUIET]
-  const args = ['exec', ...(resume ? ['resume'] : []), '--json', '--skip-git-repo-check', ...settings.flatMap(value => ['-c', value]), ...(resume ? [input.sessionRef!] : []), '-']
   const environment = Object.fromEntries(Object.entries(options.environment).filter(([key]) => !/^(CODEX_HOME|OPENAI_API_KEY|ACCESS_TOKEN|ELECTRON_|NODE_OPTIONS$)/i.test(key)))
+  // Same sandbox as the user's Codex app (its own [windows] setting); only the unattended policy and the quiet tools are forced.
+  const model = await defaultModel(executable, environment, input.root)
+  const settings = ['approval_policy="never"', 'sandbox_mode="workspace-write"', 'sandbox_workspace_write.network_access=true', ...(model ? ['model=' + JSON.stringify(model)] : []), ...QUIET,
+    // The sandbox user cannot read the user's own uv folders (AppData): BMad's scripts use Madness's Python and a cache Madness owns.
+    ...uvSettings(join(options.root, 'uv')), 'sandbox_workspace_write.writable_roots=' + JSON.stringify([join(options.root, 'uv')])]
+  const args = ['exec', ...(resume ? ['resume'] : []), '--json', '--skip-git-repo-check', ...settings.flatMap(value => ['-c', value]), ...(resume ? [input.sessionRef!] : []), '-']
   return runCodex(executable, args, withBundledTools(environment), resume ? input.text : buildAgenticPrompt(input.skill, input.text, []), options, input)
 }
 export async function codexAgentTurn(options: Options, input: AgentTurnInput): Promise<AgentTurnResult> {

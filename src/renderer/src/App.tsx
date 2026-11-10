@@ -1,3 +1,4 @@
+import {ModelPicker,modelLabel,useModels} from './ModelPicker.tsx'
 import {InitializationEntryPoint,InitializationPanel,useInitialization} from './InitializationPanel.tsx'
 import type {InitializationArrival} from './InitializationPanel.tsx'
 import {formatNumber,formatCount} from './locale-format.ts'
@@ -203,6 +204,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const project = state?.projects.find((p) => p.id === displayedProjectId)
   const initiativeContext=bmadContext.projects.find(p=>p.projectId===project?.id)
   const [showProjectDetail,setShowProjectDetail]=useState(false)
+  const [models,setModel,loadModels]=useModels()
   const autopilot=useAutopilot(),autopilotHere=autopilot.runs.find(run=>run.projectId===project?.id)
   const catalogSelectionChanged=!!catalogPreparation&&(initiativeContext?.selection?.revision??null)!==catalogPreparation.selectionRevision
   const fileScope=tab==='graphe'?JSON.stringify([project?.id,project?.rootPath,'corpus']):JSON.stringify([project?.id,project?.rootPath,initiativeContext?.selection?.rootIdentity,initiativeContext?.selection?.initiativeId])
@@ -676,7 +678,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       </div>
       <div className="topbar-actions">
         <button className="toolbar-toggle command-control open-project" type="button" aria-label={fr.open} onClick={open} disabled={pending || !state}><TopbarIcon name="folder" /><span className="command-tooltip" aria-hidden="true">{fr.open}</span></button>
-        <ProviderIsland active={nextProvider} codex={connection.status==='verified'?'verified':connection.accountStored?'stored':'none'} onChoose={id=>{setNextProvider(id);saveNextProvider(id);if(id==='codex'&&!connection.accountStored)openConnection()}}/>
+        <ProviderIsland models={{'claude-code':modelLabel(models,'claude-code'),codex:modelLabel(models,'codex')}} active={nextProvider} codex={connection.status==='verified'?'verified':connection.accountStored?'stored':'none'} onChoose={id=>{setNextProvider(id);saveNextProvider(id);if(id==='codex'&&!connection.accountStored)openConnection()}}/>
         <button className={'toolbar-toggle command-control codex-trigger settings-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel + (language==='fr'?' · Réglages':' · Settings')} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><TopbarIcon name="settings" /><span className="command-tooltip" aria-hidden="true">{language==='fr'?'Réglages':'Settings'}</span></button>
       </div>
     </header>
@@ -702,6 +704,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       </div>
       <div className="connection-scope"><p>{ui.this_checks_the_local_connection_to_your_plan_a_bmad_session_laun}</p><button className="text-button" type="button" onClick={() => void connectionAction('manageUsage')} disabled={connectionPending}>{ui.manage_usage_in_chatgpt}</button></div>
       <div className="settings-section"><h3>{language==='fr'?'Langue':'Language'}</h3><LanguageControl/></div>
+      <ModelPicker state={models} set={setModel} load={loadModels} />
       <div className="settings-section"><h3>Claude Code</h3><p className="small">{language==='fr'?'Madness utilise la CLI officielle Claude Code et la connexion que vous y avez déjà faite. Elles sont vérifiées à chaque lancement ; aucun secret n’est stocké par Madness. Prérequis : Claude Code 2.1.322 (npm install -g @anthropic-ai/claude-code@2.1.322) et une connexion faite avec « claude auth login ».':'Madness uses the official Claude Code CLI and the sign-in you already made there. Both are checked at each launch; Madness stores no secret. Requires Claude Code 2.1.322 (npm install -g @anthropic-ai/claude-code@2.1.322) and a sign-in made with “claude auth login”.'}</p></div>
       <div className="settings-section"><h3>GitHub Copilot</h3><p className="small">{language==='fr'?'Bientôt disponible.':'Coming soon.'}</p></div>
       <div className="settings-section"><h3>{language==='fr'?'Mode développeur':'Developer mode'}</h3><label className="approval-mode"><input type="checkbox" checked={devMode} onChange={event=>changeDevMode(event.target.checked)}/>{language==='fr'?'Afficher les outils de développement':'Show development tools'}</label>{devMode&&<div className="dialogue-actions"><button className="secondary" type="button" onClick={replaySplash} disabled={sessionPresent||dialogueBusy}>{language==='fr'?'Rejouer l’écran de chargement':'Replay the loading screen'}</button></div>}</div>

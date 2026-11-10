@@ -81,6 +81,7 @@ type Options={
   owner:OwnedRun; admit():()=>void; assertRecovery():Promise<void>; onUnknown():void
   history?:readonly {role:'user'|'assistant';text:string}[]
   agentic?:{skill:string}
+  model?:string
 }
 
 export function claudeArgs(sessionId:string):string[] {
@@ -125,8 +126,8 @@ const agenticTimeout=25*60*1000
 const agentNames:Record<string,string>={'bmad-agent-analyst':'Mary','bmad-agent-pm':'John','bmad-agent-architect':'Winston','bmad-agent-ux-designer':'Sally','bmad-agent-po':'Sofia','bmad-agent-dev':'Amelia','bmad':'BMad'}
 // Kévin's choice (2026-11-10): BMad agents run on Opus 5.5.
 export const BMAD_CLAUDE_MODEL='claude-opus-5-5'
-export function agenticArgs(sessionId:string,resume:boolean):string[] {
-  return ['--safe-mode','--model',BMAD_CLAUDE_MODEL,'--print','--input-format','text','--output-format','json','--tools',agenticTools,'--permission-mode','acceptEdits','--allowedTools',...agenticCommands,
+export function agenticArgs(sessionId:string,resume:boolean,model:string=BMAD_CLAUDE_MODEL):string[] {
+  return ['--safe-mode','--model',model,'--print','--input-format','text','--output-format','json','--tools',agenticTools,'--permission-mode','acceptEdits','--allowedTools',...agenticCommands,
     '--strict-mcp-config','--mcp-config','{"mcpServers":{}}','--disable-slash-commands','--no-chrome','--max-turns','90','--settings','{"disableAllHooks":true}',resume?'--resume':'--session-id',sessionId]
 }
 export function agenticEnvironment(source:NodeJS.ProcessEnv):NodeJS.ProcessEnv {
@@ -301,7 +302,7 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
         const abort=():void=>{interrupted=true;child?.kill()}
         try{
           signal.throwIfAborted()
-          const process=spawn(executable,agentic?agenticArgs(sessionId,resume):claudeArgs(sessionId),{...(agentic?{cwd:profile.rootPath,env:agenticEnvironment(options.environment),shell:false,windowsHide:true}:settings),stdio:['pipe','pipe','pipe']})
+          const process=spawn(executable,agentic?agenticArgs(sessionId,resume,options.model):claudeArgs(sessionId),{...(agentic?{cwd:profile.rootPath,env:agenticEnvironment(options.environment),shell:false,windowsHide:true}:settings),stdio:['pipe','pipe','pipe']})
           child=process
           let bytes=0,streamError=false
           const stdout:Buffer[]=[],stderr:Buffer[]=[]
@@ -375,12 +376,12 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
 }
 
 /** One autonomous agent turn, outside the single interactive dialogue: autopilot runs in parallel across projects. */
-export async function claudeAgentTurn(options:Pick<Options,'home'|'appData'|'localAppData'|'environment'>,input:AgentTurnInput,timeoutMs=45*60*1000):Promise<AgentTurnResult> {
+export async function claudeAgentTurn(options:Pick<Options,'home'|'appData'|'localAppData'|'environment'|'model'>,input:AgentTurnInput,timeoutMs=45*60*1000):Promise<AgentTurnResult> {
   const executable=await resolveExecutable(options as Options,input.signal)
   await verifyBinary(executable,input.signal)
   const resume=input.sessionRef!==null,sessionId=input.sessionRef??randomUUID()
   return new Promise((resolve,reject)=>{
-    const child=spawn(executable,agenticArgs(sessionId,resume),{cwd:input.root,env:agenticEnvironment(options.environment),shell:false,windowsHide:true,stdio:['pipe','pipe','pipe']})
+    const child=spawn(executable,agenticArgs(sessionId,resume,options.model),{cwd:input.root,env:agenticEnvironment(options.environment),shell:false,windowsHide:true,stdio:['pipe','pipe','pipe']})
     let stdout='',stderr='';child.stdout.on('data',chunk=>{stdout+=chunk});child.stderr.on('data',chunk=>{stderr=(stderr+chunk).slice(-4000)})
     const kill=():void=>{if(child.pid)spawn('taskkill',['/T','/F','/PID',String(child.pid)],{windowsHide:true,stdio:'ignore'})}
     const timer=setTimeout(kill,timeoutMs);input.signal.addEventListener('abort',kill,{once:true});if(input.signal.aborted)kill()

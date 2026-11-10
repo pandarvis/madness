@@ -43,7 +43,8 @@ import {checkForUpdates} from './updates.ts'
 import {AutopilotCoordinator} from '../core/autopilot.ts'
 import {AutopilotStore,commitStep,ensureActiveInitiative,readProjectPlan,runProjectTests} from '../adapters/autopilot/project-plan.ts'
 import {claudeAgentTurn} from '../adapters/claude/dialogue.ts'
-import {codexAgentTurn} from '../adapters/codex/agent-turn.ts'
+import {codexAgentTurn,listOwnCodexModels,PREFERRED_CODEX_MODEL} from '../adapters/codex/agent-turn.ts'
+import {CLAUDE_MODELS,ModelStore} from '../adapters/models.ts'
 import {AUTOPILOT_COMMAND_CHANNEL,AUTOPILOT_EVENT_CHANNEL,isAutopilotCommand,isAutopilotState,initialAutopilotState} from '../contracts/autopilot.ts'
 import {inspectApprovalFiles} from '../adapters/codex/file-proposals.ts'
 import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, Notification, protocol, net, session, Menu, safeStorage, shell } from 'electron'
@@ -479,7 +480,7 @@ else {
       qualifyForge:(root,signal)=>ownQualification(()=>qualifyNativeForge(root,signal)),
       qualify:(root,signal)=>ownQualification(()=>qualifyMary(root,signal)),
       qualifyClaude:async(root,signal)=>{signal.throwIfAborted();return qualifyBmadProfile(root)},
-      openClaude:(profile,captured,signal,assertContext,history,agentic)=>openClaudeDialogue(profile,captured,signal,assertContext,{history,agentic,
+      openClaude:async(profile,captured,signal,assertContext,history,agentic)=>openClaudeDialogue(profile,captured,signal,assertContext,{history,agentic,model:(await models.read()).claude,
         home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),
         temp:app.getPath('temp'),environment:process.env,owner:claudeOwner,
         admit:()=>admission.enter('provider'),
@@ -489,12 +490,20 @@ else {
       open: (profile, signal, activity,assertContext) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun,helpAdapter,assertContext,qualification:ownQualification, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
+    const models=new ModelStore(join(app.getPath('userData'),'models-v1.json'))
+    ipcMain.handle('madness:models',async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
+      const request=(input&&typeof input==='object'?input:{}) as {action?:unknown;provider?:unknown;model?:unknown}
+      if(request.action==='set'&&(request.provider==='claude-code'||request.provider==='codex')&&(request.model===null||typeof request.model==='string'))await models.set(request.provider,request.model as string|null)
+      const codex=request.action==='list'?await listOwnCodexModels({realHome:app.getPath('home'),appData:app.getPath('appData'),environment:process.env}):undefined
+      return {choice:await models.read(),claude:CLAUDE_MODELS,preferredCodex:PREFERRED_CODEX_MODEL,...(codex?{codex}:{})}
+    })
     const autopilot=new AutopilotCoordinator({
       store:new AutopilotStore(join(app.getPath('userData'),'autopilot-v1.json')),
       project:async id=>{const project=await application!.dialogueProject(id);return {name:basename(project.rootPath),rootPath:project.rootPath}},
       runner:provider=>provider==='codex'
-        ?input=>codexAgentTurn({appData:app.getPath('appData'),root:join(app.getPath('userData'),'autopilot-codex'),realHome:app.getPath('home'),environment:process.env,accessToken:signal=>connection!.currentAccessToken(signal)},input)
-        :input=>claudeAgentTurn({home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),environment:process.env},input),
+        ?async input=>codexAgentTurn({model:(await models.read()).codex,appData:app.getPath('appData'),root:join(app.getPath('userData'),'autopilot-codex'),realHome:app.getPath('home'),environment:process.env,accessToken:signal=>connection!.currentAccessToken(signal)},input)
+        :async input=>claudeAgentTurn({model:(await models.read()).claude,home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),environment:process.env},input),
       ensureInitiative:ensureActiveInitiative,plan:readProjectPlan,tests:runProjectTests,now:()=>new Date(),commit:commitStep,
       canRun:id=>{const dialogue=dialogueCoordinator?.read();return !(dialogue&&dialogue.context.projectId===id&&['qualifying','starting','running','waiting-question','waiting-approval','ready','stopping'].includes(dialogue.status))},
       notify:(title,body)=>{if(Notification.isSupported())new Notification({title,body}).show()}

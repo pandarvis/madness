@@ -21,7 +21,7 @@ function Mark({ id }: { id: ProviderId }): ReactNode {
   return <img className={'provider-mark provider-' + id} src={id === 'codex' ? chatgptMark : id === 'claude-code' ? claudeMark : copilotMark} alt="" />
 }
 
-export function ProviderIsland({ active, codex, onChoose }: { active: ProviderId; codex: CodexReadiness; onChoose: (id: ProviderId) => void }): ReactNode {
+export function ProviderIsland({ active, codex, onChoose, models }: { active: ProviderId; codex: CodexReadiness; onChoose: (id: ProviderId) => void; models?: Partial<Record<ProviderId, string | null>> }): ReactNode {
   const { language } = useLocale()
   const fr = language === 'fr'
   const names: Record<ProviderId, string> = { codex: 'Codex', 'claude-code': 'Claude Code', 'github-copilot': 'GitHub Copilot' }
@@ -40,7 +40,7 @@ export function ProviderIsland({ active, codex, onChoose }: { active: ProviderId
       {(['claude-code', 'codex', 'github-copilot'] as const).map(id => {
         const s = state(id), soon = id === 'github-copilot'
         return <button key={id} type="button" className={'provider-option' + (id === active ? ' is-active' : '')} aria-pressed={id === active} disabled={soon} onClick={() => onChoose(id)}>
-          <Mark id={id} /><span className="provider-option-text"><span className="provider-name">{names[id]}</span><span className="provider-state">{s.text}</span></span>{s.tone === 'warn' && <span className="provider-dot provider-warn" aria-hidden="true" />}
+          <Mark id={id} /><span className="provider-option-text"><span className="provider-name">{names[id]}</span><span className="provider-state">{models?.[id] ? models[id] + ' · ' + s.text : s.text}</span></span>{s.tone === 'warn' && <span className="provider-dot provider-warn" aria-hidden="true" />}
         </button>
       })}
     </div>

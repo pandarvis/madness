@@ -30,10 +30,10 @@ const nativePayloadDigest=(value:unknown):string=>createHash('sha256').update(JS
 const receiptClockDomain='monotone-'+randomUUID()
 type TurnObservation={threadId:string;turnId:string|null;observer:TurnInstrumentation;terminals:Set<string>}
 type Message = { id?: string | number; method?: string; params?: any; result?: any; error?: unknown }
-/** Le reçu raw expérimental n’est qualifié que sur ce binaire 0.167.0. */
+/** Le reçu raw expérimental n’est qualifié que sur ce binaire 0.144.6 (Codex 0.167 ne propose plus de fichiers en lecture seule : il écrit le patch en texte). */
 export async function assertQuestionRuntime(executable:string):Promise<void>{
   const actual=createHash('sha256').update(await readFile(executable)).digest('hex')
-  if(actual!=='edfdd48f8b458af0906e507b4cb05217b326c3d6e515e9f024e05e3b8d650f70')throw dialogueFailure('PROFILE_UNRECOGNIZED')
+  if(actual!=='4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7')throw dialogueFailure('PROFILE_UNRECOGNIZED')
 }
 /** RPC de dialogue séparé du témoin : valide et refuse les demandes natives avant projection. */
 export class DialogueRpc {

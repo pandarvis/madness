@@ -159,7 +159,7 @@ Le programme et son installateur restent non signés ; l’icône Electron par d
 
 ## Questions natives et brouillons liés — story 1.5
 
-Le profil expérimental est borné au vrai binaire Codex 0.167.0, SHA-256 `edfdd48f8b458af0906e507b4cb05217b326c3d6e515e9f024e05e3b8d650f70`. Une autre empreinte est refusée avant acquisition du compte. `features.default_mode_request_user_input=true` et `experimentalRawEvents=true` ne concernent que le processus isolé de dialogue. Aucun réglage global n’est modifié.
+Le profil expérimental est borné au vrai binaire Codex 0.144.6, SHA-256 `4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7`. Une autre empreinte est refusée avant acquisition du compte. `features.default_mode_request_user_input=true` et `experimentalRawEvents=true` ne concernent que le processus isolé de dialogue. Aucun réglage global n’est modifié.
 
 `item/tool/requestUserInput` est normalisé en une demande locale immuable : projet, initiative, conversation, connexion, demande de lancement, tour et identité attestée ou inconnue. Les IDs RPC, thread, tour, appel et champs natifs restent dans le connecteur. Le profil accepte un à trois champs non secrets, choix réels ou texte libre ; aucun choix par défaut. Une demande secrète, incohérente ou concurrente arrête le tour sans réponse automatique.
 

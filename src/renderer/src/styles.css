@@ -459,3 +459,8 @@ button { border-radius: 4px }
 .new-project input { min-height: 38px; padding: 4px 10px; background: var(--surface); color: var(--text); border: 1px solid var(--control-line); font: 16px Barlow, 'Segoe UI', sans-serif }
 .new-project-place { margin: 0; color: var(--muted); font-size: 14px }
 .new-project-actions { display: flex; gap: 10px; align-items: center }
+.madness-voice { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 4px; color: var(--muted); font-size: 14px }
+.madness-voice img { border-radius: 3px }
+.madness-voice strong { color: var(--accent); font-family: 'Barlow Condensed', 'Segoe UI', sans-serif; font-size: 16px }
+.journey-next .madness-voice { display: flex }
+.autopilot-recap .madness-voice { display: flex; margin-bottom: 8px }

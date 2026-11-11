@@ -4,6 +4,7 @@ import { initialAutopilotState } from '../../contracts/autopilot.ts'
 import type { AutopilotProvider, AutopilotRun, AutopilotState, AutopilotStep } from '../../contracts/autopilot.ts'
 import { useLocale } from './Locale.tsx'
 import { MessageMarkdown } from './MessageMarkdown.tsx'
+import { MadnessVoice } from './MadnessVoice.tsx'
 import './autopilot.css'
 
 export function useAutopilot(): AutopilotState {
@@ -53,7 +54,7 @@ export function AutopilotPanel({ projectId, provider, run, blocked, onPrepare }:
         {!building && <button type="button" className="text-button" onClick={() => { if (confirming) void bridge.dismiss(projectId); else setConfirming(true) }}>{confirming ? (fr ? 'Confirmer l’effacement' : 'Confirm clear') : (fr ? 'Effacer' : 'Clear')}</button>}
       </div></div>
     {run.status === 'paused' && <p className="autopilot-pause" role="alert">{run.pauseReason ? pauses[run.pauseReason] : ''} {run.detail}{run.resumeAt ? ' ' + new Date(run.resumeAt).toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' }) : ''}</p>}
-    {run.recap && run.status === 'ready' && <div className="autopilot-recap"><MessageMarkdown text={run.recap} /></div>}
+    {run.recap && run.status === 'ready' && <div className="autopilot-recap"><MadnessVoice>{fr ? 'voici ce que je vais construire' : 'here is what I will build'}</MadnessVoice><MessageMarkdown text={run.recap} /></div>}
     {run.steps.length > 0 && showTable && <div className="autopilot-table"><table><thead><tr><th scope="col">{fr ? 'Étape' : 'Step'}</th><th scope="col">{fr ? 'État' : 'State'}</th><th scope="col">{fr ? 'Temps' : 'Time'}</th><th scope="col">Tokens</th></tr></thead>
       {phases.length > 0 && <tbody>{phases.map(row)}</tbody>}
       {epics.map(group => <tbody key={group.epic}><tr className="autopilot-epic"><th scope="rowgroup">{group.steps[0].epicTitle}</th><td /><td>{duration(total(group.steps, 'durationMs'))}</td><td>{tokens(total(group.steps, 'tokens'), locale)}</td></tr>{group.steps.map(row)}</tbody>)}

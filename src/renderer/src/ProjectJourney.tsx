@@ -5,6 +5,7 @@ import { useLocale } from './Locale.tsx'
 import { autopilotBuilding, currentStep } from './AutopilotPanel.tsx'
 import './journey.css'
 import { ProjectUsage } from './ProjectUsage.tsx'
+import { MadnessVoice } from './MadnessVoice.tsx'
 
 type Step = { id: 'brief' | 'requirements' | 'ux' | 'architecture' | 'epics' | 'stories'; done: boolean; document: string | null; detail: string | null }
 const JOURNEY_OF: Record<string, Step['id']> = { 'bmad-product-brief': 'brief', 'bmad-prfaq': 'brief', 'bmad-brainstorming': 'brief', 'bmad-forge-idea': 'brief', 'bmad-agent-analyst': 'brief', 'bmad-prd': 'requirements', 'bmad-agent-pm': 'requirements', 'bmad-ux': 'ux', 'bmad-agent-ux-designer': 'ux', 'bmad-architecture': 'architecture', 'bmad-agent-architect': 'architecture', 'bmad-agent-po': 'epics' }
@@ -28,13 +29,13 @@ export function ProjectJourney({ projectId, run, busy, onIdeation, onPrepare }: 
   const advice = run?.recommendation
   const bridge = window.madnessAutopilot
   const next: Next = !steps ? null
-    : autopilotBuilding(run) ? { title: fr ? 'Laisser le pilote finir' : 'Let the autopilot finish', hint: fr ? 'Madness te préviendra quand ce sera prêt à essayer. Rien à faire d’ici là.' : 'Madness will tell you when it is ready to try.', label: fr ? 'Arrêter le chantier' : 'Stop', act: () => void bridge?.stop(projectId) }
+    : autopilotBuilding(run) ? { title: fr ? 'Laisser le pilote finir' : 'Let the autopilot finish', hint: fr ? 'Je te préviens quand ce sera prêt à essayer. Rien à faire d’ici là.' : 'Madness will tell you when it is ready to try.', label: fr ? 'Arrêter le chantier' : 'Stop', act: () => void bridge?.stop(projectId) }
     : run?.status === 'ready' ? { title: fr ? 'Valider le récap et lancer' : 'Approve the recap and go', hint: fr ? 'Le récapitulatif est prêt juste au-dessus.' : 'The recap is ready above.', label: 'Go', act: () => void bridge?.start(projectId) }
     : run?.status === 'paused' && run.pauseReason === 'guidance' && advice ? { title: (advice.agent ? advice.agent + ' a besoin de toi' : 'Madness a besoin de toi'), hint: (advice.question ?? advice.why), label: fr ? 'Répondre dans la conversation' : 'Answer in the conversation', act: onIdeation }
     : run?.status === 'paused' || run?.status === 'stopped' && run.steps.some(step => step.status === 'done') ? { title: fr ? 'Reprendre le chantier' : 'Resume the build', hint: run.detail ?? (fr ? 'Le chantier attend que tu le relances.' : 'The build is waiting.'), label: fr ? 'Reprendre' : 'Resume', act: () => void bridge?.resume(projectId) }
     : run?.status === 'done' ? { title: fr ? 'Essayer le projet' : 'Try the project', hint: advice?.question ? (fr ? 'Tout est construit et commité. Ensuite : ' : 'Everything is built and committed. Next: ') + advice.question : fr ? 'Tout est construit et commité.' : 'Everything is built and committed.', label: fr ? 'Ouvrir le dossier' : 'Open folder', act: () => void bridge?.open(projectId) }
-    : !steps[0].done ? { title: fr ? 'Par où commencer ?' : 'Where to start?', hint: fr ? 'Décris ton idée à Mary pour en tirer le brief, ou donne à Madness la spec que tu as déjà.' : 'Describe your idea to Mary, or give Madness the spec you already have.', label: fr ? 'Parler à Mary' : 'Talk to Mary', act: onIdeation }
-    : { title: fr ? 'Résumer et lancer le projet' : 'Recap and launch', hint: fr ? 'Le brief est là : Madness résume le projet, puis construit les étapes suivantes tout seul après ton go.' : 'Madness recaps, then builds the next steps after your go.', label: fr ? 'Résumer et lancer' : 'Recap and launch', act: onPrepare }
+    : !steps[0].done ? { title: fr ? 'Par où commencer ?' : 'Where to start?', hint: fr ? 'Décris ton idée à Mary pour en tirer le brief, ou donne-moi la spec que tu as déjà.' : 'Describe your idea to Mary, or give Madness the spec you already have.', label: fr ? 'Parler à Mary' : 'Talk to Mary', act: onIdeation }
+    : { title: fr ? 'Résumer et lancer le projet' : 'Recap and launch', hint: fr ? 'Le brief est là : je résume le projet, puis j’enchaîne la suite tout seul après ton go.' : 'Madness recaps, then builds the next steps after your go.', label: fr ? 'Résumer et lancer' : 'Recap and launch', act: onPrepare }
   return <>
     <section className="journey" aria-labelledby="journey-title">
       <h2 id="journey-title" className="journey-label">{fr ? 'Où en est le projet' : 'Where the project stands'}</h2>
@@ -48,7 +49,7 @@ export function ProjectJourney({ projectId, run, busy, onIdeation, onPrepare }: 
       })}</ol>
     </section>
     {next && <section className="journey-next" aria-labelledby="journey-next-title">
-      <div><h2 id="journey-next-title">{next.title}</h2><p>{next.hint}</p></div>
+      <div><MadnessVoice /><h2 id="journey-next-title">{next.title}</h2><p>{next.hint}</p></div>
       <div className="journey-next-actions">{steps && !steps[0].done && !run && <button type="button" className="secondary" aria-expanded={specOpen} onClick={() => setSpecOpen(value => !value)}>{fr ? 'J’ai déjà une spec' : 'I already have a spec'}</button>}<button type="button" className="primary" disabled={busy && !autopilotBuilding(run)} onClick={next.act}>{next.label}</button></div>
     </section>}
     {specOpen && steps && !steps[0].done && <section className="journey-spec" aria-label={fr ? 'Importer une spec' : 'Import a spec'}>

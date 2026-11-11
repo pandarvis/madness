@@ -11,7 +11,10 @@ function glyphs(text: string): ReactNode[] {
 
 // Small safe subset for agent replies: builds React nodes only, never HTML from model text.
 function inline(text: string): ReactNode[] {
-  return text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean).map((part, index) => {
+  return text.split(/(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)\s]+\))/g).filter(Boolean).map((part, index) => {
+    // Links point at local BMad files: show their label, keep the path as a tooltip.
+    const link = /^\[([^\]]+)\]\(([^)\s]+)\)$/.exec(part)
+    if (link) return <span key={index} className="message-link" title={link[2]}>{glyphs(link[1]!)}</span>
     if (part.startsWith('**') && part.endsWith('**') && part.length > 4) return <strong key={index}>{glyphs(part.slice(2, -2))}</strong>
     if (part.startsWith('`') && part.endsWith('`') && part.length > 2) return <code key={index}>{part.slice(1, -1).replace(PERSONA_MARK, '')}</code>
     return <Fragment key={index}>{glyphs(part)}</Fragment>

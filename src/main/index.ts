@@ -43,6 +43,7 @@ import {checkForUpdates} from './updates.ts'
 import {AutopilotCoordinator} from '../core/autopilot.ts'
 import {AutopilotStore,commitStep,ensureActiveInitiative,readJourney,readProjectPlan,runProjectTests} from '../adapters/autopilot/project-plan.ts'
 import {claudeAgentTurn} from '../adapters/claude/dialogue.ts'
+import {openAgentDialogue} from '../adapters/agent-dialogue.ts'
 import {codexAgentTurn,listOwnCodexModels,PREFERRED_CODEX_MODEL} from '../adapters/codex/agent-turn.ts'
 import {CLAUDE_MODELS,ModelStore} from '../adapters/models.ts'
 import {AUTOPILOT_COMMAND_CHANNEL,AUTOPILOT_EVENT_CHANNEL,isAutopilotCommand,isAutopilotState,initialAutopilotState} from '../contracts/autopilot.ts'
@@ -480,6 +481,7 @@ else {
       qualifyForge:(root,signal)=>ownQualification(()=>qualifyNativeForge(root,signal)),
       qualify:(root,signal)=>ownQualification(()=>qualifyMary(root,signal)),
       qualifyClaude:async(root,signal)=>{signal.throwIfAborted();return qualifyBmadProfile(root)},
+      openAgent:options=>openAgentDialogue({...options,run:async input=>codexAgentTurn({model:(await models.read()).codex,appData:app.getPath('appData'),root:join(app.getPath('userData'),'autopilot-codex'),realHome:app.getPath('home'),environment:process.env,accessToken:signal=>connection!.currentAccessToken(signal)},input)}),
       openClaude:async(profile,captured,signal,assertContext,history,agentic)=>openClaudeDialogue(profile,captured,signal,assertContext,{history,agentic,model:(await models.read()).claude,
         home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),
         temp:app.getPath('temp'),environment:process.env,owner:claudeOwner,

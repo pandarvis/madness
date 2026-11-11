@@ -20,7 +20,7 @@ import type {RunRecoveryPort} from './ports.ts'
 import type {ApprovalFile} from '../contracts/approvals.ts'
 import {INSPECTION_MAX_AGE_MS} from '../contracts/recovery.ts'
 import type {FileInspection} from '../contracts/recovery.ts'
-type Dependencies = { metrics?:UsMetricsCoordinator;application: Application;catalogLaunch?:BmadCatalogLaunchCoordinator;contexts?:BmadContextCoordinator;help?:BmadHelpCoordinator;recovery?:RunRecoveryPort;inspectApproval?(rootPath:string,files:ApprovalFile[]):Promise<FileInspection>; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyClaude?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; openClaude?(profile:BmadProfile, captured:CapturedBmadContext, signal:AbortSignal, assertContext:(submit?:()=>void)=>Promise<void>, history?:readonly {role:'user'|'assistant';text:string}[], agentic?:{skill:string}):Promise<DialogueSession>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, assertContext?:()=>Promise<void>): Promise<DialogueSession> }
+type Dependencies = { metrics?:UsMetricsCoordinator;application: Application;catalogLaunch?:BmadCatalogLaunchCoordinator;contexts?:BmadContextCoordinator;help?:BmadHelpCoordinator;recovery?:RunRecoveryPort;inspectApproval?(rootPath:string,files:ApprovalFile[]):Promise<FileInspection>; workflows?: WorkflowPort;questions?:QuestionPort;approvals?:ApprovalPort; copyText?(value: string): Promise<void>; qualify(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyForge?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>; qualifyClaude?(rootPath: string, signal: AbortSignal): Promise<BmadProfile>;openAgent?(options:{root:string;projectId:string;skill:string;initiativeId:string|null;signal:AbortSignal;submit:(start:()=>void)=>Promise<void>}):DialogueSession; openClaude?(profile:BmadProfile, captured:CapturedBmadContext, signal:AbortSignal, assertContext:(submit?:()=>void)=>Promise<void>, history?:readonly {role:'user'|'assistant';text:string}[], agentic?:{skill:string}):Promise<DialogueSession>; open(profile: BmadProfile, signal: AbortSignal, activity: (text: string) => void, assertContext?:()=>Promise<void>): Promise<DialogueSession> }
 /** Une seule session native possédée. Les travaux longs ne monopolisent jamais la queue disque. */
 export class DialogueCoordinator {
   private state = initialDialogueState()
@@ -28,6 +28,8 @@ export class DialogueCoordinator {
   private active: Promise<void> | null = null
   private controller: AbortController | null = null
   private session: DialogueSession | null = null
+  // A Codex agent conversation runs native turns like Claude Code's: no app-server metrics or receipts.
+  private localAgent = false
   private stopControl: Pick<DialogueSession,'stop'> | null = null
   private closing = false
   private blocked = false
@@ -83,7 +85,7 @@ export class DialogueCoordinator {
       if(input.type!=='launch-forge')this.qualifiedForge=null
       this.catalog=null
       this.controller = new AbortController()
-      this.update({ status: 'qualifying', context: { ...initialDialogueState().context, projectId: input.projectId, providerId:input.type==='launch-claude'?'claude-code':null }, mode:input.type==='launch'?(input.mode??'read-only'):'read-only',invocation:input.type==='launch-help'?'$bmad':input.type.endsWith('forge')?'$bmad-forge-idea':'$bmad-agent-analyst', acknowledged: false, errorCode: null, profile: input.type==='launch-forge'?this.state.profile:null, activities: [], turn:null })
+      this.update({ status: 'qualifying', context: { ...initialDialogueState().context, projectId: input.projectId, providerId:input.type==='launch-claude'?(input.provider==='codex'?'codex':'claude-code'):null }, mode:input.type==='launch'?(input.mode??'read-only'):'read-only',invocation:input.type==='launch-help'?'$bmad':input.type.endsWith('forge')?'$bmad-forge-idea':'$bmad-agent-analyst', acknowledged: false, errorCode: null, profile: input.type==='launch-forge'?this.state.profile:null, activities: [], turn:null })
       this.schedule(() => this.launch(input))
     }
     return this.read()
@@ -244,6 +246,7 @@ export class DialogueCoordinator {
       if(this.state.workflows.length>=MAX_WORKFLOWS)throw dialogueFailure('OUTPUT_REFUSED')
     }
     const claude = input.type === 'launch-claude'
+    this.localAgent = claude
     if(claude)await this.currentProject(input.projectId)
     const project = await this.deps.application.dialogueProject(input.projectId)
     const qualify=claude?this.deps.qualifyClaude:input.type.endsWith('forge')?this.deps.qualifyForge:this.deps.qualify
@@ -292,7 +295,11 @@ export class DialogueCoordinator {
         for(const message of resumed.messages){const turn=/^turn-(\d+)/.exec(message.id);if(turn)this.turnSequence=Math.max(this.turnSequence,Number(turn[1]))}
       }
       const agentic=input.type==='launch-claude'&&input.writes&&input.agent?{skill:input.agent}:undefined
-      this.session=await this.deps.openClaude(profile,captured,controller.signal,agentic?async(submit?:()=>void)=>{if(submit)return this.deps.application.dialogueSubmit(project.id,controller.signal,submit)}:assertClaudeContext,resumed?.messages.map((m:{role:'user'|'assistant';text:string})=>({role:m.role,text:m.text})),agentic)
+      // A Codex conversation with an agent other than Mary runs like the autopilot: native Codex turns, resumed.
+      if(input.type==='launch-claude'&&input.provider==='codex'){
+        if(!agentic||!this.deps.openAgent)throw dialogueFailure('UNSUPPORTED_INTERACTION')
+        this.session=this.deps.openAgent({root:project.rootPath,projectId:project.id,skill:agentic.skill,initiativeId:captured.initiativeId,signal:controller.signal,submit:start=>this.deps.application.dialogueSubmit(project.id,controller.signal,start)})
+      } else this.session=await this.deps.openClaude(profile,captured,controller.signal,agentic?async(submit?:()=>void)=>{if(submit)return this.deps.application.dialogueSubmit(project.id,controller.signal,submit)}:assertClaudeContext,resumed?.messages.map((m:{role:'user'|'assistant';text:string})=>({role:m.role,text:m.text})),agentic)
       // An agent that may write changes BMad state on purpose: the captured context cannot stay frozen.
       if(agentic){this.capturedContext=null;this.update({invocation:('$'+agentic.skill) as DialogueState['invocation']})}
     } else this.session = await this.deps.open(profile, controller.signal, this.activity,assertContext)
@@ -301,7 +308,7 @@ export class DialogueCoordinator {
     this.controller!.signal.throwIfAborted()
     await this.assertCaptured()
     if(this.capturedContext&&this.session.context.initiativeId!==this.capturedContext.initiativeId)throw dialogueFailure('PROFILE_CHANGED')
-    const conversation = await this.deps.application.dialoguePersist(project.id, resumed?.id??null, value => { value.lastKnownActivity = 'running' }, {...this.session.context,providerId:claude?'claude-code':'codex'},input.correlationId)
+    const conversation = await this.deps.application.dialoguePersist(project.id, resumed?.id??null, value => { value.lastKnownActivity = 'running' }, {...this.session.context,providerId:claude&&input.provider!=='codex'?'claude-code':'codex'},input.correlationId)
     this.update({ context: conversation.context })
     if(this.catalog){await this.catalog.assertFresh();await this.deps.catalogLaunch!.begin(this.catalog.preparation,conversation.context,input.correlationId);await this.catalog.assertFresh()}
     if(this.session.help){if(!this.deps.help)throw dialogueFailure('STORAGE_WRITE_FAILED');await this.deps.help.begin(this.session.help.bundle,conversation.context);this.session.help.bind(r=>this.deps.help!.tool(conversation.id,r))}
@@ -323,7 +330,7 @@ export class DialogueCoordinator {
     const controller=this.controller,ownsTurn=():boolean=>this.controller===controller
     const context=structuredClone(this.state.context),{ projectId, conversationId } = context
     if (!projectId || !conversationId || !this.session) throw dialogueFailure('CONTEXT_MISMATCH')
-    const claude=context.providerId==='claude-code'
+    const claude=context.providerId==='claude-code'||this.localAgent
     // Recontrôler aussi après l'ouverture (OAuth/préparation peuvent avoir pris du temps).
     await this.assertCaptured()
     await this.freshInspections(projectId,this.state.mode==='file-approval'||this.state.invocation==='$bmad-forge-idea')

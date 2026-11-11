@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process'
 import { mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises'
-import { dirname, join, resolve } from 'node:path'
+import { dirname, join, resolve, sep } from 'node:path'
 import type { AutopilotRun } from '../../contracts/autopilot.ts'
 import type { PlannedStory, ProjectPlan, TestResult } from '../../core/autopilot.ts'
 import { createInitiative, writeActiveInitiative } from '../bmad/active-initiative.ts'
@@ -108,4 +108,29 @@ export async function commitStep(root: string, message: string): Promise<void> {
   if (status.code !== 0 || !status.out.trim()) return
   await git(root, ['add', '-A'])
   await git(root, ['commit', '-q', '-m', message])
+}
+
+export type JourneyStep = { id: 'brief' | 'requirements' | 'ux' | 'architecture' | 'epics' | 'stories'; done: boolean; document: string | null; detail: string | null }
+/** The BMad steps a project has gone through, with the document each one produced (paths relative to the project). */
+export async function readJourney(root: string): Promise<JourneyStep[]> {
+  const output = await outputRoot(root), plan = await readProjectPlan(root), all = await folders(output)
+  const scope = plan.initiative ? join(output, plan.initiative) : output, scoped = plan.initiative ? await folders(scope) : []
+  const relative = (path: string | null): string | null => path ? path.slice(root.length + 1).split(sep).join('/') : null
+  const firstDocument = async (base: string, prefix: string, prefer: string[] = []): Promise<string | null> => {
+    for (const [folder, names] of [[scope, scoped], [output, all]] as const) for (const name of names.filter(item => item.startsWith(prefix))) {
+      const documents = (await files(join(folder, name))).filter(file => file.endsWith('.md')); if (!documents.length) continue
+      return join(folder, name, prefer.find(file => documents.includes(file)) ?? documents.find(file => file.startsWith(name)) ?? documents[0])
+    }
+    return null
+  }
+  const brief = await firstDocument(output, 'brief-'), ux = await firstDocument(scope, 'ux-', ['DESIGN.md', 'EXPERIENCE.md']), architecture = await firstDocument(scope, 'architecture-')
+  const built = plan.stories.filter(story => story.built).length
+  return [
+    { id: 'brief', done: !!brief, document: relative(brief), detail: null },
+    { id: 'requirements', done: plan.requirements, document: plan.initiative && plan.requirements ? relative(join(output, plan.initiative, plan.initiative + '.md')) : null, detail: null },
+    { id: 'ux', done: !!ux, document: relative(ux), detail: null },
+    { id: 'architecture', done: plan.architecture, document: relative(architecture), detail: null },
+    { id: 'epics', done: plan.epics, document: plan.epics && plan.initiative ? relative(join(output, plan.initiative, 'tickets', 'tickets.toml')) : null, detail: null },
+    { id: 'stories', done: plan.stories.length > 0 && built === plan.stories.length, document: null, detail: plan.stories.length ? built + ' / ' + plan.stories.length : null },
+  ]
 }

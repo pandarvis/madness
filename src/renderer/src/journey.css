@@ -1,0 +1,15 @@
+.journey { margin-bottom: 18px; padding: 14px 16px; background: var(--panel); border: 1px solid var(--control-line) }
+.journey-label { margin: 0 0 10px; font: 600 13px Barlow, 'Segoe UI', sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.journey-steps { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none }
+.journey-step { min-width: 0; padding: 12px 10px 4px; border-top: 4px solid var(--line) }
+.journey-step h3 { margin: 0; font-family: 'Barlow Condensed', 'Segoe UI', sans-serif; font-size: 19px }
+.journey-step p { margin: 2px 0 0; font-size: 14px; color: var(--muted) }
+.journey-doc { display: block; max-width: 100%; margin-top: 4px; padding: 0; overflow: hidden; background: none; border: 0; color: var(--link); font: 13px Barlow, 'Segoe UI', sans-serif; text-align: left; text-decoration: underline; text-underline-offset: 3px; text-overflow: ellipsis; white-space: nowrap; cursor: pointer }
+.journey-doc:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px }
+.journey-done { border-color: var(--success-text) } .journey-done p { color: var(--success-text) }
+.journey-now { border-color: var(--accent) } .journey-now p { color: var(--accent) }
+.journey-next { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 14px; padding: 14px 18px; background: var(--accent-soft); border: 1px solid var(--accent) }
+.journey-next h2 { margin: 0; font-family: 'Barlow Condensed', 'Segoe UI', sans-serif; font-size: 22px }
+.journey-next p { margin: 2px 0 0; color: var(--muted) }
+.journey-toggles { display: flex; flex-wrap: wrap; gap: 18px; margin-block: 4px 14px }
+@media (max-width: 760px) { .journey-steps { grid-template-columns: repeat(3, minmax(0, 1fr)) } }

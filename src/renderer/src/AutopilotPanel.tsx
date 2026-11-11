@@ -27,7 +27,7 @@ const total = (steps: AutopilotStep[], key: 'durationMs' | 'tokens'): number => 
 /** Project-level autopilot: recap and go, live progress, then tokens and time per epic and story. */
 export function AutopilotPanel({ projectId, provider, run, blocked, onPrepare }: { projectId: string; provider: AutopilotProvider; run: AutopilotRun | undefined; blocked: boolean; onPrepare?: () => void }): ReactNode {
   const { language } = useLocale(), fr = language === 'fr', locale = fr ? 'fr-FR' : 'en-GB', bridge = window.madnessAutopilot
-  const [confirming, setConfirming] = useState(false)
+  const [confirming, setConfirming] = useState(false), [showTable, setShowTable] = useState(false)
   useEffect(() => { if (!confirming) return; const timer = setTimeout(() => setConfirming(false), 4000); return () => clearTimeout(timer) }, [confirming])
   if (!bridge) return null
   const statusLabels: Record<string, string> = { pending: fr ? 'à faire' : 'to do', running: fr ? 'en cours' : 'running', done: fr ? 'fait' : 'done', skipped: fr ? 'déjà là' : 'existing', failed: fr ? 'échec' : 'failed' }
@@ -49,12 +49,12 @@ export function AutopilotPanel({ projectId, provider, run, blocked, onPrepare }:
         {run.status === 'ready' && <button type="button" className="primary" onClick={() => void bridge.start(projectId)}>{fr ? 'Go' : 'Go'}</button>}
         {(run.status === 'paused' || run.status === 'stopped') && <button type="button" className="primary" onClick={() => void bridge.resume(projectId)}>{fr ? 'Reprendre' : 'Resume'}</button>}
         {(building || run.status === 'paused') && <button type="button" className="secondary" onClick={() => void bridge.stop(projectId)}>{fr ? 'Arrêter' : 'Stop'}</button>}
-        {run.status === 'done' && <button type="button" className="primary" onClick={() => void bridge.open(projectId)}>{fr ? 'Ouvrir le dossier' : 'Open folder'}</button>}
+        {run.steps.length > 0 && <button type="button" className="secondary" aria-expanded={showTable} onClick={() => setShowTable(value => !value)}>{showTable ? (fr ? 'Masquer le détail' : 'Hide details') : (fr ? 'Détail par étape' : 'Per-step details')}</button>}
         {!building && <button type="button" className="text-button" onClick={() => { if (confirming) void bridge.dismiss(projectId); else setConfirming(true) }}>{confirming ? (fr ? 'Confirmer l’effacement' : 'Confirm clear') : (fr ? 'Effacer' : 'Clear')}</button>}
       </div></div>
     {run.status === 'paused' && <p className="autopilot-pause" role="alert">{run.pauseReason ? pauses[run.pauseReason] : ''} {run.detail}{run.resumeAt ? ' ' + new Date(run.resumeAt).toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' }) : ''}</p>}
     {run.recap && run.status === 'ready' && <div className="autopilot-recap"><MessageMarkdown text={run.recap} /></div>}
-    {run.steps.length > 0 && <div className="autopilot-table"><table><thead><tr><th scope="col">{fr ? 'Étape' : 'Step'}</th><th scope="col">{fr ? 'État' : 'State'}</th><th scope="col">{fr ? 'Temps' : 'Time'}</th><th scope="col">Tokens</th></tr></thead>
+    {run.steps.length > 0 && showTable && <div className="autopilot-table"><table><thead><tr><th scope="col">{fr ? 'Étape' : 'Step'}</th><th scope="col">{fr ? 'État' : 'State'}</th><th scope="col">{fr ? 'Temps' : 'Time'}</th><th scope="col">Tokens</th></tr></thead>
       {phases.length > 0 && <tbody>{phases.map(row)}</tbody>}
       {epics.map(group => <tbody key={group.epic}><tr className="autopilot-epic"><th scope="rowgroup">{group.steps[0].epicTitle}</th><td /><td>{duration(total(group.steps, 'durationMs'))}</td><td>{tokens(total(group.steps, 'tokens'), locale)}</td></tr>{group.steps.map(row)}</tbody>)}
     </table></div>}

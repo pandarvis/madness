@@ -41,7 +41,7 @@ import {configureBundledRuntime} from '../adapters/bmad/runtime.ts'
 import {createInitiative,writeActiveInitiative} from '../adapters/bmad/active-initiative.ts'
 import {checkForUpdates} from './updates.ts'
 import {AutopilotCoordinator} from '../core/autopilot.ts'
-import {AutopilotStore,commitStep,ensureActiveInitiative,readProjectPlan,runProjectTests} from '../adapters/autopilot/project-plan.ts'
+import {AutopilotStore,commitStep,ensureActiveInitiative,readJourney,readProjectPlan,runProjectTests} from '../adapters/autopilot/project-plan.ts'
 import {claudeAgentTurn} from '../adapters/claude/dialogue.ts'
 import {codexAgentTurn,listOwnCodexModels,PREFERRED_CODEX_MODEL} from '../adapters/codex/agent-turn.ts'
 import {CLAUDE_MODELS,ModelStore} from '../adapters/models.ts'
@@ -490,6 +490,14 @@ else {
       open: (profile, signal, activity,assertContext) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun,helpAdapter,assertContext,qualification:ownQualification, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
+    ipcMain.handle('madness:journey',async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
+      const request=(input&&typeof input==='object'?input:{}) as {projectId?:unknown;open?:unknown}
+      if(typeof request.projectId!=='string')throw Error('INVALID_COMMAND')
+      const root=(await application!.dialogueProject(request.projectId)).rootPath
+      if(typeof request.open==='string'){const target=resolve(root,request.open);if(!target.toLowerCase().startsWith(root.toLowerCase()+sep))throw Error('INVALID_COMMAND');await shell.openPath(target);return null}
+      return readJourney(root)
+    })
     const models=new ModelStore(join(app.getPath('userData'),'models-v1.json'))
     ipcMain.handle('madness:models',async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')

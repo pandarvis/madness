@@ -6,7 +6,7 @@ export type Decision = { done: boolean; skill: string; agent: string | null; why
 // bmad-build-auto needs its own git branch, and the agents' sandbox keeps .git read-only: Madness commits after each step instead.
 const NEVER = /^(bmad|bmod-.*|bmad-customize|bmad-eval|bmad-toolsmith|bmad-agent-toolsmith|bmad-walkthrough|bmad-build-auto)$/
 
-export function decisionPrompt(skills: readonly string[], history: readonly string[]): string {
+export function decisionPrompt(skills: readonly string[], history: readonly string[], rules: readonly string[] = []): string {
   return [
     'Question de Madness, l’orchestrateur qui pilote ce projet BMad. Tu ne modifies AUCUN fichier.',
     'Analyse l’état réel du projet (documents de _bmad-output, tickets, code, tests) et choisis la prochaine action en suivant l’aide des modules installés.',
@@ -17,6 +17,7 @@ export function decisionPrompt(skills: readonly string[], history: readonly stri
     'Mets "done" à true quand le livrable fonctionne et qu’il ne reste rien d’utile à faire pour les agents ; indique alors dans "skill" et "userQuestion" ce que l’utilisateur devrait faire ensuite, s’il y a lieu.',
     'Compétences disponibles : ' + skills.filter(skill => !NEVER.test(skill)).join(', ') + '.',
     history.length ? 'Déjà fait par le pilote dans ce chantier :\n' + history.map(line => '- ' + line).join('\n') : '',
+    rules.length ? 'Règles imposées par les kits du projet, à faire respecter :\n' + rules.map(rule => '- ' + rule).join('\n') + '\nAvant de déclarer le chantier terminé, assure-toi qu’une relecture de conformité (bmad-review) les a vérifiées.' : '',
     'Réponds UNIQUEMENT par un bloc ```json contenant :',
     '{"done": false, "skill": "bmad-…", "agent": "prénom de l’agent ou null", "why": "une phrase en français", "autonomous": true, "userQuestion": null}',
   ].filter(Boolean).join('\n')

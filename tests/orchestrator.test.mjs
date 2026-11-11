@@ -36,3 +36,10 @@ test('the prompt lists only choosable skills and what was done', () => {
   assert.equal(changesCode('bmad-build'), true)
   assert.equal(changesCode('bmad-prd'), false)
 })
+
+test('imposed kit rules reach the conductor', () => {
+  const prompt = decisionPrompt(['bmad-build'], [], ['Aucune couleur en dur. (kit Acme)'])
+  assert.match(prompt, /Règles imposées par les kits du projet[^\n]*\n- Aucune couleur en dur\. \(kit Acme\)/)
+  assert.match(prompt, /conformité/)
+  assert.doesNotMatch(decisionPrompt(['bmad-build'], []), /Règles imposées/)
+})

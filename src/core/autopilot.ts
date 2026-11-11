@@ -25,6 +25,8 @@ type Dependencies = {
   notify?(title: string, body: string): void
   /** Installed BMad skills, for the conductor's choices. */
   skills?(root: string): Promise<string[]>
+  /** Rules the project's kits impose, for the conductor. */
+  kitRules?(root: string): Promise<string[]>
   /** Every turn's cost, kept per initiative even after the run is cleared. */
   usage?(entries: UsageEntry[]): void
 }
@@ -231,7 +233,7 @@ export class AutopilotCoordinator {
     let tokens = 0, sessionRef: string | null = null
     try {
       for (let attempt = 1; attempt <= 2; attempt++) {
-        const turn = await runner({ root, projectId: id, skill: 'bmad', text: attempt === 1 ? decisionPrompt(skills, history) : 'Ta réponse ne contenait pas de décision lisible. Réponds uniquement par le bloc json demandé, avec une compétence de la liste.', sessionRef, signal })
+        const turn = await runner({ root, projectId: id, skill: 'bmad', text: attempt === 1 ? decisionPrompt(skills, history, await this.deps.kitRules?.(root).catch(() => []) ?? []) : 'Ta réponse ne contenait pas de décision lisible. Réponds uniquement par le bloc json demandé, avec une compétence de la liste.', sessionRef, signal })
         sessionRef = turn.sessionRef; tokens += turn.tokens
         if (signal.aborted) { this.dropStep(id, stepId); return null }
         const decision = parseDecision(turn.text, skills)

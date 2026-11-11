@@ -46,6 +46,10 @@ import {claudeAgentTurn} from '../adapters/claude/dialogue.ts'
 import {openAgentDialogue} from '../adapters/agent-dialogue.ts'
 import {UsageStore} from '../adapters/usage-store.ts'
 import {createProjectFolder,NewProjectPlace} from '../adapters/new-project.ts'
+import {KitSources,scanSource} from '../adapters/kits/library.ts'
+import {activateKit,activeKits,deactivateKit,kitCopy,readKit} from '../adapters/kits/project.ts'
+import {draftManifest} from '../adapters/kits/draft.ts'
+import {parseKitManifest} from '../core/kits/manifest.ts'
 // A project Madness just created: the next folder choice opens it without a picker.
 let createdProject:string|null=null
 import {summarizeUsage} from '../core/usage.ts'
@@ -58,7 +62,7 @@ import {CLAUDE_MODELS,ModelStore} from '../adapters/models.ts'
 import {AUTOPILOT_COMMAND_CHANNEL,AUTOPILOT_EVENT_CHANNEL,isAutopilotCommand,isAutopilotState,initialAutopilotState} from '../contracts/autopilot.ts'
 import {inspectApprovalFiles} from '../adapters/codex/file-proposals.ts'
 import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, Notification, protocol, net, session, Menu, safeStorage, shell } from 'electron'
-import { realpath, stat, access, mkdir } from 'node:fs/promises'
+import { realpath, stat, access, mkdir, writeFile as writeTextFile } from 'node:fs/promises'
 import { constants } from 'node:fs'
 import { basename, isAbsolute, join, resolve, sep } from 'node:path'
 import { randomUUID } from 'node:crypto'
@@ -512,6 +516,31 @@ else {
       createdProject=await createProjectFolder(await projectPlace.read(),request.name)
       return {root:createdProject}
     })
+    const kitSources=new KitSources(join(app.getPath('userData'),'kit-sources-v1.json'))
+    let lastDraftFolder:string|null=null
+    ipcMain.handle('madness:kits',async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
+      const request=(input&&typeof input==='object'?input:{}) as {action?:unknown;projectId?:unknown;folder?:unknown;id?:unknown;name?:unknown;text?:unknown}
+      const library=async()=>Promise.all((await kitSources.list()).map(async source=>({source,kits:await scanSource(source)})))
+      // A folder the page names must be a kit Madness found itself, never an arbitrary path.
+      const knownFolder=async(folder:unknown):Promise<string>=>{const all=(await library()).flatMap(group=>group.kits.map(kit=>kit.folder));if(typeof folder!=='string'||!all.includes(folder))throw Error('INVALID_COMMAND');return folder}
+      switch(request.action){
+        case 'library':return library()
+        case 'add-source':{const chosen=await dialog.showOpenDialog(window,{title:'Ajouter une source de kits',properties:['openDirectory']});if(!chosen.canceled&&chosen.filePaths[0])await kitSources.add(chosen.filePaths[0]);return library()}
+        case 'remove-source':{if(typeof request.folder==='string')await kitSources.remove(request.folder);return library()}
+        case 'draft':{const chosen=await dialog.showOpenDialog(window,{title:'Dossier de références à transformer en kit',properties:['openDirectory']});if(chosen.canceled||!chosen.filePaths[0])return null;lastDraftFolder=chosen.filePaths[0];return {folder:lastDraftFolder,text:await draftManifest(lastDraftFolder,typeof request.name==='string'&&request.name.trim()?request.name.trim():basename(lastDraftFolder))}}
+        case 'save-draft':{
+          if(typeof request.folder!=='string'||request.folder!==lastDraftFolder||typeof request.text!=='string'||request.text.length>200_000)throw Error('INVALID_COMMAND')
+          const parsed=parseKitManifest(request.text);if(!parsed.ok)return {ok:false,errors:parsed.errors}
+          await writeTextFile(join(request.folder,'madness-kit.toml'),request.text);await kitSources.add(request.folder);lastDraftFolder=null;return {ok:true}
+        }
+      }
+      if(typeof request.projectId!=='string')throw Error('INVALID_COMMAND')
+      const root=(await application!.dialogueProject(request.projectId)).rootPath
+      if(request.action==='activate')await activateKit(root,await knownFolder(request.folder))
+      if(request.action==='deactivate'&&typeof request.id==='string')await deactivateKit(root,request.id)
+      return activeKits(root)
+    })
     ipcMain.handle('madness:usage',async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
       const projectId=(input&&typeof input==='object'?(input as {projectId?:unknown}).projectId:undefined)
@@ -551,7 +580,8 @@ else {
       runner:provider=>provider==='codex'
         ?async input=>codexAgentTurn({model:(await models.read()).codex,appData:app.getPath('appData'),root:join(app.getPath('userData'),'autopilot-codex'),realHome:app.getPath('home'),environment:process.env,accessToken:signal=>connection!.currentAccessToken(signal)},input)
         :async input=>claudeAgentTurn({model:(await models.read()).claude,home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),environment:process.env},input),
-      ensureInitiative:ensureActiveInitiative,plan:readProjectPlan,tests:runProjectTests,skills:installedSkills,usage:entries=>void usageStore().append(entries),now:()=>new Date(),commit:commitStep,
+      ensureInitiative:ensureActiveInitiative,plan:readProjectPlan,tests:runProjectTests,skills:installedSkills,
+      kitRules:async root=>(await Promise.all((await activeKits(root)).map(async entry=>(await readKit(kitCopy(root,entry.id))).kit))).flatMap(kit=>kit.rules.filter(rule=>rule.level==='impose').map(rule=>rule.text+' (kit '+kit.name+')')),usage:entries=>void usageStore().append(entries),now:()=>new Date(),commit:commitStep,
       canRun:id=>{const dialogue=dialogueCoordinator?.read();return !(dialogue&&dialogue.context.projectId===id&&['qualifying','starting','running','waiting-question','waiting-approval','ready','stopping'].includes(dialogue.status))},
       notify:(title,body)=>{if(Notification.isSupported())new Notification({title,body}).show()}
     })

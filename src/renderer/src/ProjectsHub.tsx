@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { Conversation } from '../../contracts/index.ts'
 import type { DialogueState } from '../../contracts/dialogue.ts'
@@ -20,13 +21,16 @@ function excerpt(conversation: Conversation | undefined): string | null {
 }
 
 /** Home overview: every known project and, live, what its agent is doing right now. */
-export function ProjectsHub({ projects, conversations, dialogue, initiative, autopilot, graphRunning, statusText, onOpen, pending }: {
+export function ProjectsHub({ projects, conversations, dialogue, initiative, autopilot, graphRunning, statusText, onOpen, pending, onForget }: {
   projects: readonly Project[]; conversations: readonly Conversation[]; dialogue: DialogueState; initiative: (projectId: string) => string | null; autopilot: AutopilotState
   graphRunning: (projectId: string) => boolean; statusText: (status: DialogueState['status']) => string
-  onOpen: (projectId: string) => void; pending: boolean
+  onOpen: (projectId: string) => void; pending: boolean; onForget?: (projectId: string) => void
 }): ReactNode {
   const { language } = useLocale()
   const fr = language === 'fr'
+  // Two clicks to forget a project, the second within a few seconds.
+  const [confirming, setConfirming] = useState<string | null>(null)
+  useEffect(() => { if (!confirming) return; const timer = setTimeout(() => setConfirming(null), 4000); return () => clearTimeout(timer) }, [confirming])
   const agent = (AGENTS[dialogue.invocation ?? ''] ?? (fr ? 'Agent' : 'Agent')) + (dialogue.context.providerId === 'claude-code' ? ' · Claude Code' : ' · Codex')
   const progress = (run: AutopilotRun | undefined): string => {
     if (!run?.steps.length) return ''
@@ -62,6 +66,7 @@ export function ProjectsHub({ projects, conversations, dialogue, initiative, aut
           {now.detail && <span className="hub-detail">{now.detail}</span>}
           <span className="hub-last">{excerpt(last) ?? (fr ? 'Aucun échange pour l’instant' : 'No exchange yet')}</span>
         </button>
+        {onForget && now.tone !== 'working' && <button type="button" className="text-button hub-forget" disabled={pending} title={fr ? 'Retire le projet de Madness, sans toucher à son dossier' : 'Removes the project from Madness, its folder stays'} onClick={() => { if (confirming === project.id) { setConfirming(null); onForget(project.id) } else setConfirming(project.id) }}>{confirming === project.id ? (fr ? 'Confirmer : retirer de Madness' : 'Confirm: remove from Madness') : (fr ? 'Retirer de Madness' : 'Remove from Madness')}</button>}
       </li>)}
     </ul>
   </section>

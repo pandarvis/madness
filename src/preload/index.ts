@@ -52,6 +52,7 @@ const bridge: MadnessBridge = {
   readState: () => request({ type: 'read-state' }),
   chooseDirectory: () => request({ type: 'choose-directory' }),
   selectProject: (projectId) => request({ type: 'select-project', projectId }),
+  forgetProject: (projectId) => request({ type: 'forget-project', projectId }),
   saveDraft: (projectId, text) => request({ type: 'save-draft', projectId, text }),
   setNavigation: (collapsed) => request({ type: 'set-navigation', collapsed }),
   onStateChanged: (listener) => {

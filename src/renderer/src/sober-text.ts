@@ -6,6 +6,17 @@ const SIGNS: Record<string, string> = {
   '➡': '→', '⬅': '←', '⬆': '↑', '⬇': '↓', '👉': '→', '🔜': '→',
   '⭐': '★', '🌟': '★', '🔴': '●', '🟠': '●', '🟡': '●', '🟢': '●', '🔵': '●', '⚪': '○', '⚫': '●',
 }
+// BMad persona emojis (roster.toml) become a marker that the renderer draws as Madness's own glyph.
+export type Persona = 'analyst' | 'pm' | 'po' | 'ux' | 'architect' | 'dev' | 'toolsmith'
+const PERSONAS: Record<string, Persona> = { '📊': 'analyst', '📋': 'pm', '🎯': 'po', '🎨': 'ux', '🏗': 'architect', '💻': 'dev', '⚒': 'toolsmith' }
+export const PERSONA_BY_NAME: Record<string, Persona> = { Mary: 'analyst', John: 'pm', Sofia: 'po', Sally: 'ux', Winston: 'architect', Amelia: 'dev', Smithy: 'toolsmith' }
+export const PERSONA_MARK = /\uE000(\w+)\uE001/g
+const mark = (persona: Persona): string => '\uE000' + persona + '\uE001'
+// The persona that opens a reply (Mary starts every message with 📊), if any.
+export function leadingPersona(text: string): Persona | null {
+  const first = /^\s*(\p{Extended_Pictographic})/u.exec(text)?.[1]
+  return first ? PERSONAS[first] ?? null : null
+}
 // A whole emoji: base pictograph with optional variation selector, skin tone and ZWJ-joined parts,
 // keycaps (1️⃣), and flags (pairs of regional indicators).
 const EMOJI = /(?:[0-9#*]️?⃣|[\u{1F1E6}-\u{1F1FF}]{2}|\p{Extended_Pictographic}️?[\u{1F3FB}-\u{1F3FF}]?(?:‍\p{Extended_Pictographic}️?[\u{1F3FB}-\u{1F3FF}]?)*)/gu
@@ -16,6 +27,8 @@ export function soberText(text: string): string {
   return text.replace(EMOJI, match => {
     const base = match.replace(/[️‍\u{1F3FB}-\u{1F3FF}]/gu, '')
     if (TEXT_SYMBOLS.has(base)) return base
+    const persona = PERSONAS[base]
+    if (persona) return mark(persona)
     return SIGNS[[...base][0] ?? ''] ?? (match.length && /^[0-9#*]/.test(match) ? match[0] + '.' : '\u0000')
   })
     // A dropped emoji leaves no double space and no space at the start of a line or before punctuation.

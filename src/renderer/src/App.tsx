@@ -24,6 +24,7 @@ import {ProjectResume,useBmadProgress} from './ProjectResume.tsx'
 import {HelpPanel,HelpReceiptPanel,useBmadHelp} from './HelpPanel.tsx'
 import {agentPresentation} from './agentPresentation.ts'
 import {AgentPortrait} from './AgentPortrait.tsx'
+import {leadingPersona} from './sober-text.ts'
 import {AgentInfoPanel} from './AgentInfoPanel.tsx'
 import madnessMark from '../../../resources/branding/madness-64.png'
 import {WindowCaptionPlates} from './WindowCaptionPlates.tsx'
@@ -62,7 +63,7 @@ function MessageArticle({message,projection,providerId,onConsult}:{message:Conve
   const phase=projection?.phase==='streaming'?fr.conversation.streaming:projection?.phase==='complete'?fr.conversation.complete:projection?.phase==='interrupted'?fr.conversation.partial:fr.conversation.unknownPhase
   const storage=projection?.storage==='pending'||projection?.storage==='failed'?fr.conversation.notStored:fr.conversation.stored
   return <article data-message-id={message.id} className={'dialogue-message '+message.role}>
-    <div className="message-author">{message.role==='assistant'&&(agent&&projection?<button className="agent-portrait-trigger" type="button" aria-label={ui.details_for+agent.name} onClick={event=>onConsult(projection,event.currentTarget)}><AgentPortrait agent={agent}/></button>:<AgentPortrait/>)}<h3>{message.role==='user'?ui.you:providerId==='claude-code'?(identity?.kind==='attested'&&identity.name!=='Claude Code'?identity.name:'Mary')+' · Claude Code':name+' · Codex'}</h3>{message.role==='assistant'&&agent&&projection&&<button className="agent-info-link text-button" type="button" aria-label={ui.details_for+agent.name+' · message '+message.id} onClick={event=>onConsult(projection,event.currentTarget)}>{ui.agent_details}</button>}</div>
+    <div className="message-author">{message.role==='assistant'&&(agent&&projection?<button className="agent-portrait-trigger" type="button" aria-label={ui.details_for+agent.name} onClick={event=>onConsult(projection,event.currentTarget)}><AgentPortrait agent={agent}/></button>:<AgentPortrait persona={leadingPersona(message.text)}/>)}<h3>{message.role==='user'?ui.you:providerId==='claude-code'?(identity?.kind==='attested'&&identity.name!=='Claude Code'?identity.name:'Mary')+' · Claude Code':name+' · Codex'}</h3>{message.role==='assistant'&&agent&&projection&&<button className="agent-info-link text-button" type="button" aria-label={ui.details_for+agent.name+' · message '+message.id} onClick={event=>onConsult(projection,event.currentTarget)}>{ui.agent_details}</button>}</div>
     {message.role==='assistant'&&<p className={'message-state '+(projection?.storage==='failed'?'message-storage-failed ':'')+(projection&&(projection.phase!=='complete'||projection.storage==='failed')?'is-notable':'')}>{projection?phase+' · '+storage:fr.conversation.historical}</p>}
     {message.role==='user'&&/^\$bmad[\w-]*(\n|$)/.test(message.text)?<div className="message-text message-start">{language==='fr'?'Démarrage de l’agent':'Agent started'}</div>:message.role==='assistant'?<div className="message-text"><MessageMarkdown text={message.text}/></div>:<div className="message-text">{message.text}</div>}
     {message.role==='assistant'&&identity?.kind==='attested'&&<p className="message-provenance">{ui.attested_identity_source} <code>{identity.source}</code></p>}

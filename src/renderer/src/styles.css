@@ -445,3 +445,6 @@ button { border-radius: 4px }
 @media (max-height: 700px) { .sidebar::after { display: none } .atelier-header { min-height: 0; padding-block: 12px; background-image: none } .agent-bust { height: 180px } }
 @media (min-width: 721px) { .nav-compact .sidebar::after { display: none } .nav-compact .sidebar-bottom { display: none } }
 @media (prefers-reduced-motion: reduce) { .agent-info-panel { animation: none } }
+.agent-portrait.has-glyph { color: var(--accent) }
+.agent-portrait.has-glyph svg { width: 26px; height: 26px }
+.persona-glyph { display: inline-block; width: 1.1em; height: 1.1em; margin-right: .3em; vertical-align: -.2em; color: var(--accent) }

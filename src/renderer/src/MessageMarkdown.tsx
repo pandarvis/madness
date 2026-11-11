@@ -1,13 +1,20 @@
 import { Fragment } from 'react'
 import type { ReactNode } from 'react'
-import { soberText } from './sober-text.ts'
+import { PERSONA_MARK, soberText } from './sober-text.ts'
+import type { Persona } from './sober-text.ts'
+import { PersonaGlyph } from './PersonaGlyph.tsx'
+
+// Persona markers left by soberText become Madness's own glyphs.
+function glyphs(text: string): ReactNode[] {
+  return text.split(PERSONA_MARK).map((part, index) => index % 2 ? <PersonaGlyph key={index} persona={part as Persona} className="persona-glyph" /> : part).filter(part => part !== '')
+}
 
 // Small safe subset for agent replies: builds React nodes only, never HTML from model text.
 function inline(text: string): ReactNode[] {
   return text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean).map((part, index) => {
-    if (part.startsWith('**') && part.endsWith('**') && part.length > 4) return <strong key={index}>{part.slice(2, -2)}</strong>
-    if (part.startsWith('`') && part.endsWith('`') && part.length > 2) return <code key={index}>{part.slice(1, -1)}</code>
-    return <Fragment key={index}>{part}</Fragment>
+    if (part.startsWith('**') && part.endsWith('**') && part.length > 4) return <strong key={index}>{glyphs(part.slice(2, -2))}</strong>
+    if (part.startsWith('`') && part.endsWith('`') && part.length > 2) return <code key={index}>{part.slice(1, -1).replace(PERSONA_MARK, '')}</code>
+    return <Fragment key={index}>{glyphs(part)}</Fragment>
   })
 }
 
@@ -36,7 +43,8 @@ function blocks(text: string): Block[] {
 }
 
 export function MessageMarkdown({ text }: { text: string }): ReactNode {
-  return blocks(soberText(text)).map((block, index) => {
+  // The persona that opens a reply is already shown by the author's portrait.
+  return blocks(soberText(text).replace(/^\s*\w+\s*/, '')).map((block, index) => {
     if (block.kind === 'rule') return <hr key={index} />
     if (block.kind === 'heading') return <p key={index} className="message-heading"><strong>{inline(block.text)}</strong></p>
     if (block.kind === 'list') {

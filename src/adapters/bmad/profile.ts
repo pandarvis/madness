@@ -8,6 +8,7 @@ import { isRecord } from '../../contracts/index.ts'
 import type { BmadProfile } from '../../core/ports.ts'
 import { stopNative } from '../codex/probe.ts'
 import { bmadRuntime } from './runtime.ts'
+import { removeManagedBlock } from '../kits/overrides.ts'
 /** Profil pilote figé de l’installation du 24 octobre. Toute mise à jour demande une requalification. */
 const fingerprints: Record<string, string> = {
   '.agents/skills/bmad-agent-analyst/SKILL.md': '6484b18e36a2c5c40bfdaa3c820b7251dad20b97624dd7d43cc629cd33d61e2a',
@@ -33,13 +34,26 @@ async function trustedFile(root: string, path: string, limit = 262144): Promise<
   if (!info.isFile() || info.size > limit) throw dialogueFailure('PROFILE_UNRECOGNIZED')
   return readFile(absolute)
 }
+/** A Mary override Madness wrote for the project's kits: nothing else in it but comments and blank lines. */
+export function onlyMadnessBlock(text: string): boolean {
+  if (!text.includes('# madness:kits:begin')) return false
+  try { return removeManagedBlock(text).split(/\r?\n/).every(line => !line.trim() || line.trim().startsWith('#')) } catch { return false }
+}
+
 export async function qualifyBmadProfile(rootPath: string): Promise<BmadProfile> {
   let root: string
   try { root = await realpath(rootPath) } catch { throw dialogueFailure('PROFILE_ABSENT') }
   const hashes: string[] = [];let skillBytes=0
   try {
     for (const path of PROFILE_FILES) { const captured=await trustedFile(root,path);if(path==='.agents/skills/bmad-agent-analyst/SKILL.md')skillBytes=captured.length;const actual = hash(captured); if (actual !== fingerprints[path]) throw dialogueFailure('PROFILE_CHANGED'); hashes.push(path + ':' + actual) }
-    for (const layer of optionalLayers) { try { await lstat(join(root, layer)); throw dialogueFailure('PROFILE_UNRECOGNIZED') } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error } }
+    // Hand-written Mary overrides stay refused; the one Madness writes for kits is accepted and fingerprinted.
+    for (const layer of optionalLayers) {
+      let content: Buffer | null = null
+      try { content = await trustedFile(root, layer, 262144) } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error }
+      if (!content) continue
+      if (!onlyMadnessBlock(content.toString('utf8'))) throw dialogueFailure('PROFILE_UNRECOGNIZED')
+      hashes.push(layer + ':' + hash(content))
+    }
     const config = await trustedFile(root, '_bmad/config.toml', 32768)
     hashes.push('_bmad/config.toml:' + hash(config))
     for (const layer of configLayers) { try { hashes.push(layer + ':' + hash(await trustedFile(root, layer, 32768))) } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; hashes.push(layer + ':absent') } }

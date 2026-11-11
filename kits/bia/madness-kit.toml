@@ -1,0 +1,138 @@
+[kit]
+id = "bia"
+name = "Socle BIA"
+version = "1.0.0"
+description = "Architecture .NET et Angular, génération BIAToolKit et migrations pour les projets BIA."
+format = 1
+
+[[piece]]
+kind = "docs"
+title = "Versions et références BIA"
+path = "guides/versions.md"
+level = "consulte"
+for = ["architect", "ux", "dev", "review"]
+
+[[piece]]
+kind = "docs"
+title = "Architecture .NET et conventions CRUD BIA"
+path = "guides/dotnet.md"
+level = "consulte"
+for = ["architect", "dev", "review"]
+
+[[piece]]
+kind = "docs"
+title = "Fonctionnalités et composants Angular BIA"
+path = "guides/angular.md"
+level = "consulte"
+for = ["ux", "architect", "dev", "review"]
+
+[[piece]]
+kind = "docs"
+title = "Génération de fonctionnalités avec BIAToolKit"
+path = "guides/generation.md"
+level = "consulte"
+for = ["architect", "dev", "review"]
+
+[[piece]]
+kind = "docs"
+title = "Migration entre versions BIA"
+path = "guides/migration.md"
+level = "consulte"
+for = ["architect", "po", "dev", "review"]
+
+# Les références Git sont déclarées pour les versions de Madness qui les prendront en charge.
+[[piece]]
+kind = "reference"
+title = "BIA Demo 7.0.5"
+source = "git+https://github.com/BIATeam/BIADemo.git"
+ref = "a022993de462b9daeedf6f32d3b12054c9ce3735"
+level = "consulte"
+for = ["ux", "architect", "dev", "review"]
+
+[[piece]]
+kind = "reference"
+title = "BIA Template 7.0.5"
+source = "git+https://github.com/BIATeam/BIATemplate.git"
+ref = "955d75afc615e06c735f35b4295c585c2204c454"
+level = "consulte"
+for = ["architect", "dev", "review"]
+
+[[piece]]
+kind = "reference"
+title = "BIAToolKit"
+source = "git+https://github.com/BIATeam/BIAToolKit.git"
+ref = "c8952de2b4bb0bb18a94e37742fcd4dd1ceea42a"
+level = "consulte"
+for = ["architect", "dev", "review"]
+
+[[rule]]
+id = "version-cible"
+text = "Relève FrameworkVersion dans le fichier Bia/Constants.cs, les cibles .NET des projets et les dépendances de chaque front Angular avant de choisir un exemple ou un générateur BIA."
+level = "impose"
+for = ["architect", "dev", "review"]
+
+[[rule]]
+id = "conserver-la-stack"
+text = "Conserve les versions BIA, .NET, Angular et la bibliothèque UI du projet pour une évolution fonctionnelle ordinaire."
+level = "impose"
+for = ["architect", "dev", "review"]
+
+[[rule]]
+id = "nouveau-projet-bia"
+text = "Pour un nouveau projet BIA, fixe la version du template et les options du socle dans BIAToolKit avant de construire les fonctionnalités métier."
+level = "impose"
+for = ["architect", "dev", "review"]
+
+[[rule]]
+id = "couches-dotnet"
+text = "Pour un CRUD BIA, place le contrat d’échange dans Domain.Dto, l’entité et son mapper dans Domain, le service dans Application et le contrôleur dans Presentation.Api, selon les couches du projet."
+level = "impose"
+for = ["architect", "dev", "review"]
+
+[[rule]]
+id = "permissions-crud"
+text = "Pour une opération protégée, raccorde les permissions selon les conventions du projet côté API et dans le front qui expose l’action."
+level = "impose"
+for = ["architect", "dev", "review"]
+
+[[rule]]
+id = "structure-angular"
+text = "Structure un nouveau CRUD Angular comme une fonctionnalité voisine de la même version BIA et réutilise ses composants, services et mécanismes d’état communs."
+level = "impose"
+for = ["ux", "dev", "review"]
+
+[[rule]]
+id = "libelles-angular"
+text = "Ajoute les nouveaux libellés métier aux ressources de traduction de l’application pour les langues qu’elle prend en charge."
+level = "impose"
+for = ["ux", "dev", "review"]
+
+[[rule]]
+id = "generateur-compatible"
+text = "Pour une génération DTO, Option ou CRUD, sélectionne le modèle BIAToolKit compatible avec le framework cible et vérifie l’entité, le domaine et, si applicable, le front avant la génération."
+level = "impose"
+for = ["architect", "dev", "review"]
+
+[[rule]]
+id = "diff-generation"
+text = "Après génération ou régénération, contrôle le diff des fichiers et métadonnées .bia pour vérifier les insertions, les permissions et la préservation des personnalisations."
+level = "impose"
+for = ["dev", "review"]
+
+[[rule]]
+id = "references-migration"
+text = "Pour une migration, épingle les versions de départ et d’arrivée de BIA Template et compare leurs variantes à fonctionnalités équivalentes avant de transposer le diff au projet."
+level = "impose"
+for = ["architect", "po", "dev", "review"]
+
+[[rule]]
+id = "personnalisations-migration"
+text = "Résous les rejets de migration en conservant les personnalisations métier et les inscriptions IoC du projet dans les points d’extension prévus par la version cible."
+level = "impose"
+for = ["architect", "dev", "review"]
+
+[[rule]]
+id = "verifications-bia"
+text = "Pour chaque couche modifiée, exécute les compilations et tests ciblés prévus par le projet et consigne les résultats ainsi que les vérifications reportées."
+level = "impose"
+for = ["po", "dev", "review"]

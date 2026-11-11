@@ -41,9 +41,15 @@ import {configureBundledRuntime} from '../adapters/bmad/runtime.ts'
 import {createInitiative,writeActiveInitiative} from '../adapters/bmad/active-initiative.ts'
 import {checkForUpdates} from './updates.ts'
 import {AutopilotCoordinator} from '../core/autopilot.ts'
-import {AutopilotStore,commitStep,ensureActiveInitiative,readJourney,readProjectPlan,runProjectTests} from '../adapters/autopilot/project-plan.ts'
+import {AutopilotStore,commitStep,ensureActiveInitiative,importSpec,installedSkills,readJourney,readProjectPlan,runProjectTests} from '../adapters/autopilot/project-plan.ts'
 import {claudeAgentTurn} from '../adapters/claude/dialogue.ts'
 import {openAgentDialogue} from '../adapters/agent-dialogue.ts'
+import {UsageStore} from '../adapters/usage-store.ts'
+import {summarizeUsage} from '../core/usage.ts'
+// Tokens and time of every agent turn, per project and initiative (autopilot, decisions, conversations).
+let usageInstance:UsageStore|null=null
+const usageStore=():UsageStore=>usageInstance??=new UsageStore(join(app.getPath('userData'),'usage-v1.jsonl'))
+const conversationUsage=(root:string,projectId:string,skill:string)=>(tokens:number,ms:number):void=>{void readProjectPlan(root).then(plan=>usageStore().append([{projectId,initiative:plan.initiative,kind:'conversation',at:new Date().toISOString(),tokens,ms,title:skill}])).catch(()=>undefined)}
 import {codexAgentTurn,listOwnCodexModels,PREFERRED_CODEX_MODEL} from '../adapters/codex/agent-turn.ts'
 import {CLAUDE_MODELS,ModelStore} from '../adapters/models.ts'
 import {AUTOPILOT_COMMAND_CHANNEL,AUTOPILOT_EVENT_CHANNEL,isAutopilotCommand,isAutopilotState,initialAutopilotState} from '../contracts/autopilot.ts'
@@ -481,8 +487,8 @@ else {
       qualifyForge:(root,signal)=>ownQualification(()=>qualifyNativeForge(root,signal)),
       qualify:(root,signal)=>ownQualification(()=>qualifyMary(root,signal)),
       qualifyClaude:async(root,signal)=>{signal.throwIfAborted();return qualifyBmadProfile(root)},
-      openAgent:options=>openAgentDialogue({...options,run:async input=>codexAgentTurn({model:(await models.read()).codex,appData:app.getPath('appData'),root:join(app.getPath('userData'),'autopilot-codex'),realHome:app.getPath('home'),environment:process.env,accessToken:signal=>connection!.currentAccessToken(signal)},input)}),
-      openClaude:async(profile,captured,signal,assertContext,history,agentic)=>openClaudeDialogue(profile,captured,signal,assertContext,{history,agentic,model:(await models.read()).claude,
+      openAgent:options=>openAgentDialogue({...options,onUsage:conversationUsage(options.root,options.projectId,options.skill),run:async input=>codexAgentTurn({model:(await models.read()).codex,appData:app.getPath('appData'),root:join(app.getPath('userData'),'autopilot-codex'),realHome:app.getPath('home'),environment:process.env,accessToken:signal=>connection!.currentAccessToken(signal)},input)}),
+      openClaude:async(profile,captured,signal,assertContext,history,agentic)=>openClaudeDialogue(profile,captured,signal,assertContext,{history,agentic,model:(await models.read()).claude,...(agentic?.projectId?{onUsage:conversationUsage(profile.rootPath,agentic.projectId,agentic.skill)}:{}),
         home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),
         temp:app.getPath('temp'),environment:process.env,owner:claudeOwner,
         admit:()=>admission.enter('provider'),
@@ -492,12 +498,29 @@ else {
       open: (profile, signal, activity,assertContext) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun,helpAdapter,assertContext,qualification:ownQualification, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
+    ipcMain.handle('madness:usage',async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
+      const projectId=(input&&typeof input==='object'?(input as {projectId?:unknown}).projectId:undefined)
+      if(typeof projectId!=='string')throw Error('INVALID_COMMAND')
+      return summarizeUsage(await usageStore().read(),projectId)
+    })
     ipcMain.handle('madness:journey',async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
       const request=(input&&typeof input==='object'?input:{}) as {projectId?:unknown;open?:unknown}
       if(typeof request.projectId!=='string')throw Error('INVALID_COMMAND')
       const root=(await application!.dialogueProject(request.projectId)).rootPath
       if(typeof request.open==='string'){const target=resolve(root,request.open);if(!target.toLowerCase().startsWith(root.toLowerCase()+sep))throw Error('INVALID_COMMAND');await shell.openPath(target);return null}
+      // A spec the user already has: pasted text, or a file picked here (never a path sent by the page).
+      const spec=(request as {spec?:unknown}).spec
+      if(spec==='pick'){
+        const picked=await dialog.showOpenDialog(window,{title:'Choisir la spec du projet',properties:['openFile'],filters:[{name:'Spec',extensions:['md','markdown','txt','html','htm','pdf','docx']}]})
+        if(picked.canceled||!picked.filePaths[0])return readJourney(root)
+        await importSpec(root,basename(root),{name:basename(picked.filePaths[0]),source:picked.filePaths[0]});return readJourney(root)
+      }
+      if(spec&&typeof spec==='object'&&typeof (spec as {text?:unknown}).text==='string'){
+        const text=(spec as {text:string}).text;if(!text.trim()||text.length>2_000_000)throw Error('INVALID_COMMAND')
+        await importSpec(root,basename(root),{name:'spec.md',text});return readJourney(root)
+      }
       return readJourney(root)
     })
     const models=new ModelStore(join(app.getPath('userData'),'models-v1.json'))
@@ -514,7 +537,7 @@ else {
       runner:provider=>provider==='codex'
         ?async input=>codexAgentTurn({model:(await models.read()).codex,appData:app.getPath('appData'),root:join(app.getPath('userData'),'autopilot-codex'),realHome:app.getPath('home'),environment:process.env,accessToken:signal=>connection!.currentAccessToken(signal)},input)
         :async input=>claudeAgentTurn({model:(await models.read()).claude,home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),environment:process.env},input),
-      ensureInitiative:ensureActiveInitiative,plan:readProjectPlan,tests:runProjectTests,now:()=>new Date(),commit:commitStep,
+      ensureInitiative:ensureActiveInitiative,plan:readProjectPlan,tests:runProjectTests,skills:installedSkills,usage:entries=>void usageStore().append(entries),now:()=>new Date(),commit:commitStep,
       canRun:id=>{const dialogue=dialogueCoordinator?.read();return !(dialogue&&dialogue.context.projectId===id&&['qualifying','starting','running','waiting-question','waiting-approval','ready','stopping'].includes(dialogue.status))},
       notify:(title,body)=>{if(Notification.isSupported())new Notification({title,body}).show()}
     })

@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process'
-import { mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises'
+import { copyFile, mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve, sep } from 'node:path'
 import type { AutopilotRun } from '../../contracts/autopilot.ts'
 import type { PlannedStory, ProjectPlan, TestResult } from '../../core/autopilot.ts'
@@ -76,11 +76,9 @@ export async function ensureActiveInitiative(root: string, projectName: string):
 
 /** Runs the project's own `npm test` when it has one; a project without tests is not blocked. */
 export async function runProjectTests(root: string, signal: AbortSignal, timeoutMs = 300000): Promise<TestResult | null> {
-  const manifest = await optional(join(root, 'package.json')); if (!manifest) return null
-  let scripts: unknown; try { scripts = (JSON.parse(manifest) as { scripts?: unknown }).scripts } catch { return null }
-  if (!scripts || typeof scripts !== 'object' || !('test' in scripts) || /no test specified/.test(String((scripts as Record<string, unknown>).test))) return null
+  const command = await testCommand(root); if (!command) return null
   return new Promise(resolve => {
-    const child = spawn(process.env.ComSpec ?? 'cmd.exe', ['/d', '/s', '/c', 'npm test'], { cwd: root, env: process.env, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] })
+    const child = spawn(process.env.ComSpec ?? 'cmd.exe', ['/d', '/s', '/c', command], { cwd: root, env: process.env, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] })
     let output = ''; const collect = (chunk: Buffer): void => { output = (output + chunk.toString()).slice(-20000) }
     child.stdout.on('data', collect); child.stderr.on('data', collect)
     const kill = (): void => { if (child.pid) spawn('taskkill', ['/T', '/F', '/PID', String(child.pid)], { windowsHide: true, stdio: 'ignore' }) }
@@ -88,6 +86,18 @@ export async function runProjectTests(root: string, signal: AbortSignal, timeout
     child.once('error', () => { clearTimeout(timer); resolve({ ok: false, output }) })
     child.once('close', code => { clearTimeout(timer); signal.removeEventListener('abort', kill); resolve({ ok: code === 0, output }) })
   })
+}
+
+/** The project's own npm test; without one, Node's built-in runner when the project has test files. */
+export async function testCommand(root: string): Promise<string | null> {
+  const manifest = await optional(join(root, 'package.json'))
+  if (manifest) {
+    let scripts: unknown; try { scripts = (JSON.parse(manifest) as { scripts?: unknown }).scripts } catch { scripts = null }
+    if (scripts && typeof scripts === 'object' && 'test' in scripts && !/no test specified/.test(String((scripts as Record<string, unknown>).test))) return 'npm test'
+  }
+  const pattern = /\.test\.(c|m)?js$/
+  const found = (await files(root)).some(file => pattern.test(file)) || (await files(join(root, 'test'))).some(file => pattern.test(file)) || (await files(join(root, 'tests'))).some(file => pattern.test(file))
+  return found ? 'node --test' : null
 }
 
 export class AutopilotStore {
@@ -123,7 +133,8 @@ export async function readJourney(root: string): Promise<JourneyStep[]> {
     }
     return null
   }
-  const brief = await firstDocument(output, 'brief-'), ux = await firstDocument(scope, 'ux-', ['DESIGN.md', 'EXPERIENCE.md']), architecture = await firstDocument(scope, 'architecture-')
+  // A spec the user brought stands in for the brief: the project starts from it.
+  const brief = await firstDocument(output, 'brief-') ?? await specDocument(root, scope), ux = await firstDocument(scope, 'ux-', ['DESIGN.md', 'EXPERIENCE.md']), architecture = await firstDocument(scope, 'architecture-')
   const built = plan.stories.filter(story => story.built).length
   return [
     { id: 'brief', done: !!brief, document: relative(brief), detail: null },
@@ -133,4 +144,27 @@ export async function readJourney(root: string): Promise<JourneyStep[]> {
     { id: 'epics', done: plan.epics, document: plan.epics && plan.initiative ? relative(join(output, plan.initiative, 'tickets', 'tickets.toml')) : null, detail: null },
     { id: 'stories', done: plan.stories.length > 0 && built === plan.stories.length, document: null, detail: plan.stories.length ? built + ' / ' + plan.stories.length : null },
   ]
+}
+
+/** The BMad skills installed in the project, for the conductor's choices. */
+export async function installedSkills(root: string): Promise<string[]> {
+  try { return (await readdir(join(root, '.agents', 'skills'), { withFileTypes: true })).filter(entry => entry.isDirectory()).map(entry => entry.name).sort() } catch { return [] }
+}
+
+/** A spec the user already has becomes the project's source: kept in the active initiative, where the agents look. */
+export async function importSpec(root: string, projectName: string, spec: { name: string; text?: string; source?: string }): Promise<string> {
+  await ensureActiveInitiative(root, projectName)
+  const initiative = await activeInitiative(root), folder = join(await outputRoot(root), ...(initiative ? [initiative] : []), 'sources')
+  await mkdir(folder, { recursive: true })
+  // HTML specs are common (single-page specs generated as a SPA): agents read them as they are.
+  const extension = /\.(md|markdown|txt|html|htm|pdf|docx)$/i.exec(spec.name)?.[1]?.toLowerCase() ?? 'md'
+  const slug = spec.name.replace(/\.[^.]+$/, '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 50) || 'spec'
+  const target = join(folder, 'spec-' + slug + '.' + (extension === 'markdown' ? 'md' : extension === 'htm' ? 'html' : extension))
+  if (spec.source) await copyFile(spec.source, target)
+  else await writeFile(target, spec.text ?? '', 'utf8')
+  return target.slice(root.length + 1).split(sep).join('/')
+}
+async function specDocument(root: string, scope: string): Promise<string | null> {
+  const found = (await files(join(scope, 'sources'))).find(file => file.startsWith('spec-'))
+  return found ? join(scope, 'sources', found) : null
 }

@@ -13,6 +13,8 @@ type Options = {
   signal: AbortSignal
   /** Starts the turn inside the dialogue's own submit step, so state and native work stay in step. */
   submit: (start: () => void) => Promise<void>
+  /** Each turn's cost, for the usage ledger. */
+  onUsage?(tokens: number, ms: number): void
 }
 
 /** A conversation with any BMad agent through Codex: the same native runs as the autopilot, resumed turn after turn. */
@@ -25,12 +27,14 @@ export function openAgentDialogue(options: Options): DialogueSession {
     async turn(text, accepted, observe) {
       if (text === null) throw dialogueFailure('UNSUPPORTED_INTERACTION')
       local.signal.throwIfAborted()
+      const started = Date.now()
       await options.submit(() => { running = options.run({ root: options.root, skill: options.skill, text, sessionRef, signal: local.signal, projectId: options.projectId }) })
       if (!running) throw dialogueFailure('PROVIDER_FAILED')
       await accepted()
       const result: AgentTurnResult = await (running as Promise<AgentTurnResult>).catch(() => { throw dialogueFailure('PROVIDER_FAILED') })
       running = null
       sessionRef = result.sessionRef
+      options.onUsage?.(result.tokens, Date.now() - started)
       observe?.({ id: 'codex-agent-result-' + crypto.randomUUID(), order: 1, text: result.text, completed: !result.incomplete, identity: { kind: 'attested', name: names[options.skill] ?? 'Codex', source: 'codex' } })
       return result.text
     },

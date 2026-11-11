@@ -80,8 +80,10 @@ type Options={
   home:string; appData:string; localAppData:string; temp:string; environment:NodeJS.ProcessEnv;
   owner:OwnedRun; admit():()=>void; assertRecovery():Promise<void>; onUnknown():void
   history?:readonly {role:'user'|'assistant';text:string}[]
-  agentic?:{skill:string}
+  agentic?:{skill:string;projectId?:string}
   model?:string
+  /** Each agentic turn's cost, for the usage ledger. */
+  onUsage?(tokens:number,ms:number):void
 }
 
 export function claudeArgs(sessionId:string):string[] {
@@ -146,14 +148,16 @@ export function buildAgenticPrompt(skill:string,text:string|null,history:readonl
     text===null?'':(history.length?followUp(history,text):'\n## User message\n\n'+text)
   ].join('\n')
 }
-export function parseAgenticResult(stdout:string):{text:string;sessionId:string} {
+export function parseAgenticResult(stdout:string):{text:string;sessionId:string;tokens:number} {
   let value:unknown
   try{value=JSON.parse(stdout)}catch{throw dialogueFailure('CLAUDE_FAILED')}
   if(!isRecord(value)||value.type!=='result'||typeof value.session_id!=='string')throw dialogueFailure('CLAUDE_FAILED')
   if(value.is_error===true&&typeof value.result==='string'&&isNetworkError(value.result))throw dialogueFailure('CLAUDE_NETWORK_UNAVAILABLE')
-  if(value.subtype==='error_max_turns')return {text:'Le tour a atteint sa limite d’actions avant de se terminer. Écris « continue » pour reprendre.',sessionId:value.session_id}
+  const usage=isRecord(value.usage)?value.usage:{},count=(key:string):number=>typeof usage[key]==='number'?usage[key]:0
+  const tokens=count('input_tokens')+count('cache_creation_input_tokens')+count('output_tokens')
+  if(value.subtype==='error_max_turns')return {text:'Le tour a atteint sa limite d’actions avant de se terminer. Écris « continue » pour reprendre.',sessionId:value.session_id,tokens}
   if(value.is_error===true||typeof value.result!=='string'||!value.result.trim())throw dialogueFailure('CLAUDE_FAILED')
-  return {text:value.result.slice(0,MAX_DRAFT_LENGTH),sessionId:value.session_id}
+  return {text:value.result.slice(0,MAX_DRAFT_LENGTH),sessionId:value.session_id,tokens}
 }
 
 export function followUp(history:readonly {role:'user'|'assistant';text:string}[],text:string):string {
@@ -295,7 +299,7 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
         // La CLI attend son entrée pendant un délai court. Terminer la lecture BMad avant son démarrage.
         await assertContext()
         signal.throwIfAborted()
-        const runId=await options.owner.begin()
+        const runId=await options.owner.begin(),turnStarted=Date.now()
         const sessionId=agentSession??randomUUID()
         let child:ChildProcessWithoutNullStreams|undefined,closed=false,overflow=false,interrupted=false
         let timer:ReturnType<typeof setTimeout>|undefined
@@ -347,7 +351,7 @@ export async function openClaudeDialogue(profile:BmadProfile,captured:CapturedBm
             if(interrupted||overflow||streamError)throw dialogueFailure('CLAUDE_FAILED')
             if(code!==0&&isNetworkError(Buffer.concat(stderr).toString('utf8')))throw dialogueFailure('CLAUDE_NETWORK_UNAVAILABLE')
             const parsedAgent=agentic?parseAgenticResult(utf8.decode(Buffer.concat(stdout))):null
-            if(parsedAgent)agentSession=parsedAgent.sessionId
+            if(parsedAgent){agentSession=parsedAgent.sessionId;options.onUsage?.(parsedAgent.tokens,Date.now()-turnStarted)}
             const answer=parsedAgent?parsedAgent.text:parseClaudeResult(utf8.decode(Buffer.concat(stdout)),sessionId)
             if(code!==0)throw dialogueFailure('CLAUDE_FAILED')
             if(text!==null)history.push({role:'user',text})

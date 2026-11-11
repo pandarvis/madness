@@ -6,14 +6,21 @@ export const AUTOPILOT_EVENT_CHANNEL = 'madness:autopilot:event:v1'
 export type AutopilotProvider = 'claude-code' | 'codex'
 export type AutopilotStepStatus = 'pending' | 'running' | 'done' | 'skipped' | 'failed'
 export type AutopilotStep = {
-  id: string; kind: 'phase' | 'story'; title: string; epic: string | null; epicTitle: string | null; storyId: number | null
+  // phase and story: the fixed plan; decision: Madness asking BMad what comes next; action: the skill BMad chose.
+  id: string; kind: 'phase' | 'story' | 'decision' | 'action'; title: string; epic: string | null; epicTitle: string | null; storyId: number | null
   skill: string; status: AutopilotStepStatus; startedAt: string | null; durationMs: number; tokens: number; attempts: number; summary: string | null
+  instruction?: string
 }
 export type AutopilotStatus = 'preparing' | 'ready' | 'running' | 'paused' | 'stopped' | 'done'
-export type AutopilotPauseReason = 'interrupted' | 'quota' | 'tests' | 'failure'
+export type AutopilotPauseReason = 'interrupted' | 'quota' | 'tests' | 'failure' | 'guidance'
+/** What BMad recommends next when it needs the user, or after delivery. */
+export type AutopilotRecommendation = { skill: string; agent: string | null; why: string; question: string | null }
 export type AutopilotRun = {
   schemaVersion: 1; projectId: string; provider: AutopilotProvider; status: AutopilotStatus; pauseReason: AutopilotPauseReason | null
   detail: string | null; recap: string | null; steps: AutopilotStep[]; startedAt: string | null; updatedAt: string; resumeAt: string | null
+  recommendation?: AutopilotRecommendation | null
+  /** The BMad initiative this run builds: its costs are kept under it. */
+  initiative?: string | null
 }
 export type AutopilotState = { contractVersion: 1; sequence: number; runs: AutopilotRun[] }
 export type AutopilotCommand = { contractVersion: 1; correlationId: string } & (

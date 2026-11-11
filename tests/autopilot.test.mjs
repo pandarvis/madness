@@ -8,13 +8,17 @@ import { orderStories, parseTomlTables, readProjectPlan } from '../src/adapters/
 import { readCodexEvents } from '../src/adapters/codex/agent-turn.ts'
 
 const stories = [{ epic: 'epic-a', epicTitle: 'A', storyId: 1, title: 'Une', built: false }, { epic: 'epic-a', epicTitle: 'A', storyId: 2, title: 'Deux', built: false }]
-function harness({ tests = async () => null, turn, plan, neverBuilt = false } = {}) {
+// The conductor's answers: by default BMad says the project is delivered.
+const decided = value => ({ text: 'Analyse.\n```json\n' + JSON.stringify(value) + '\n```', sessionRef: 'd', tokens: 5 })
+const delivered = () => ({ done: true, skill: '', why: 'Livré.', autonomous: true, userQuestion: null })
+function harness({ tests = async () => null, turn, plan, neverBuilt = false, decide = delivered } = {}) {
   const calls = []
   const withBuilt = source => async () => { const value = await source(); return { ...value, stories: value.stories.map(story => ({ ...story, built: story.built || !neverBuilt && calls.some(call => call.text.includes('la story ' + story.storyId + ' ')) })) } }
   const coordinator = new AutopilotCoordinator({
     store: { read: async () => [], write: async () => {} }, project: async () => ({ name: 'p', rootPath: 'C:/p' }),
-    runner: () => async input => { calls.push(input); return turn ? turn(input, calls.length) : { text: 'ok', sessionRef: 's' + calls.length, tokens: 10 } },
-    ensureInitiative: async () => {}, plan: withBuilt(plan ?? (async () => ({ requirements: calls.some(c => c.text.includes('Rédige')), architecture: calls.some(c => c.text.includes('Conçois')), epics: calls.some(c => c.text.includes('Découpe')), stories: calls.some(c => c.text.includes('Découpe')) ? stories : [], initiative: 'initiative-p' }))),
+    runner: () => async input => { calls.push(input); if (input.skill === 'bmad' && !turn?.decisions) return decided(decide(calls)); return turn ? turn(input, calls.length) : { text: 'ok', sessionRef: 's' + calls.length, tokens: 10 } },
+    skills: async () => ['bmad', 'bmad-prd', 'bmad-agent-po', 'bmad-build', 'bmad-code-review'],
+    ensureInitiative: async () => {}, plan: withBuilt(plan ?? (async () => ({ requirements: calls.some(c => c.text.includes('Rédige')), architecture: calls.some(c => c.text.includes('Conçois')), epics: calls.some(c => c.skill === 'bmad-agent-po'), stories: calls.some(c => c.skill === 'bmad-agent-po') ? stories : [], initiative: 'initiative-p' }))),
     tests, now: () => new Date('2026-11-09T10:00:00Z') })
   const command = (type, extra = {}) => coordinator.execute({ contractVersion: 1, correlationId: 'c-' + Math.random().toString(16).slice(2), type, projectId: 'p1', ...extra })
   const until = async status => { for (let i = 0; i < 500; i++) { const run = coordinator.read().runs[0]; if (run?.status === status) return run; await new Promise(r => setTimeout(r, 2)) } assert.fail('never reached ' + status + ': ' + coordinator.read().runs[0]?.status + ' ' + coordinator.read().runs[0]?.detail) }
@@ -27,10 +31,35 @@ test('recap comes first and nothing is built before go', async () => {
   const h = harness(); const run = await ready(h)
   assert.equal(run.recap, 'ok'); assert.equal(h.calls.length, 1); assert.equal(h.calls[0].skill, 'bmad-agent-analyst')
 })
-test('go runs every phase then each story, and sums tokens', async () => {
-  const h = harness(); await ready(h); await h.command('start'); const run = await h.until('done')
-  assert.deepEqual(h.calls.slice(1).map(c => c.skill), ['bmad-agent-po', 'bmad-agent-ux-designer', 'bmad-agent-architect', 'bmad-agent-po', 'bmad-agent-dev', 'bmad-agent-dev'])
+test('go follows BMad: each chosen skill runs, new stories build before the next choice, tokens add up', async () => {
+  const script = [{ skill: 'bmad-prd', agent: 'John', why: 'Écrire le PRD.', autonomous: true }, { skill: 'bmad-agent-po', agent: 'Sofia', why: 'Découper.', autonomous: true }, { done: true, skill: '', why: 'Livré.', autonomous: true }]
+  const h = harness({ decide: calls => script[calls.filter(c => c.skill === 'bmad').length - 1] }); await ready(h); await h.command('start'); const run = await h.until('done')
+  assert.deepEqual(h.calls.slice(1).map(c => c.skill), ['bmad', 'bmad-prd', 'bmad', 'bmad-agent-po', 'bmad-agent-dev', 'bmad-agent-dev', 'bmad'])
+  assert.match(h.calls[2].text, /bmad-prd pour ceci : Écrire le PRD/)
+  assert.deepEqual(run.steps.map(s => [s.kind, s.title]), [['decision', 'Madness choisit : PRD'], ['action', 'PRD'], ['decision', 'Madness choisit : Epics et stories'], ['action', 'Epics et stories'], ['story', 'Une'], ['story', 'Deux'], ['decision', 'Madness : chantier terminé']])
   assert.deepEqual(run.steps.filter(s => s.kind === 'story').map(s => [s.storyId, s.status, s.tokens]), [[1, 'done', 10], [2, 'done', 10]])
+  assert.equal(run.steps[0].tokens, 5)
+})
+test('when BMad needs the user, the pilot hands over with the question, and resume asks again', async () => {
+  let ask = true
+  const h = harness({ decide: () => ask ? { skill: 'bmad-prd', agent: 'John', why: 'Choix produit.', autonomous: false, userQuestion: 'Quel public ?' } : delivered() })
+  await ready(h); await h.command('start'); const run = await h.until('paused')
+  assert.equal(run.pauseReason, 'guidance'); assert.equal(run.detail, 'Quel public ?'); assert.deepEqual(run.recommendation, { skill: 'bmad-prd', agent: 'John', why: 'Choix produit.', question: 'Quel public ?' })
+  ask = false; await h.command('resume'); const done = await h.until('done')
+  assert.equal(done.recommendation, null)
+})
+test('a delivered project keeps what the user should do next', async () => {
+  const h = harness({ decide: () => ({ done: true, skill: 'bmad-walkthrough', agent: null, why: 'Tout est construit.', autonomous: false, userQuestion: 'Joue la recette dans ton navigateur.' }) })
+  await ready(h); await h.command('start'); const run = await h.until('done')
+  assert.equal(run.recommendation.question, 'Joue la recette dans ton navigateur.')
+})
+test('an unreadable or looping conductor pauses instead of guessing', async () => {
+  const h = harness({ decide: () => ({ skill: 'bmad-inconnu', why: 'x' }) })
+  await ready(h); await h.command('start'); const run = await h.until('paused')
+  assert.match(run.detail, /prochaine action exploitable/); assert.equal(h.calls.filter(c => c.skill === 'bmad').length, 2)
+  const loop = harness({ decide: () => ({ skill: 'bmad-code-review', why: 'Revoir.', autonomous: true }) })
+  await ready(loop); await loop.command('start'); const stuck = await loop.until('paused')
+  assert.match(stuck.detail, /sans que le projet avance/); assert.equal(loop.calls.filter(c => c.skill === 'bmad-code-review').length, 2)
 })
 test('red tests go back to the same session, and pause after three attempts', async () => {
   const h = harness({ tests: async () => ({ ok: false, output: 'boom' }), plan: existing(stories.slice(0, 1)) })
@@ -46,7 +75,7 @@ test('a subscription limit pauses and plans a resume; stop cancels it', async ()
 test('existing work is skipped, and an interrupted run comes back paused', async () => {
   const h = harness({ plan: existing([{ ...stories[0], built: true }, stories[1]]) })
   await ready(h); await h.command('start'); const run = await h.until('done')
-  assert.equal(run.steps.filter(s => s.status === 'skipped').length, 5); assert.equal(h.calls.length, 2)
+  assert.equal(run.steps.filter(s => s.status === 'skipped').length, 1); assert.equal(h.calls.length, 3)
   const restored = new AutopilotCoordinator({ store: { read: async () => [{ ...run, status: 'running', pauseReason: null, recap: 'x', steps: [{ ...run.steps[0], status: 'running' }] }], write: async () => {} } })
   await restored.restore(); assert.equal(restored.read().runs[0].pauseReason, 'interrupted'); assert.equal(restored.read().runs[0].steps[0].status, 'pending')
 })
@@ -62,15 +91,10 @@ test('a failed preparation goes back to launch with its reason, and never report
   await h.command('prepare', { provider: 'claude-code' }); const run = await h.until('stopped')
   assert.equal(run.detail, 'boom'); assert.equal(run.steps.length, 0)
 })
-test('finishing without any story pauses instead of announcing ready to try', async () => {
-  const h = harness({ plan: existing([]) })
-  await ready(h); await h.command('start'); const run = await h.until('paused')
-  assert.match(run.detail, /Aucune story/)
-})
 test('a run cut off by its action limit continues in the same session', async () => {
   const h = harness({ plan: existing(stories.slice(0, 1)), turn: (i, n) => ({ text: 't', sessionRef: 's', tokens: 1, incomplete: n === 2 }) })
   await ready(h); await h.command('start'); await h.until('done')
-  assert.equal(h.calls.length, 3); assert.match(h.calls[2].text, /Continue exactement/); assert.equal(h.calls[2].sessionRef, 's')
+  assert.equal(h.calls.length, 4); assert.match(h.calls[2].text, /Continue exactement/); assert.equal(h.calls[2].sessionRef, 's')
 })
 test('a story not marked built is sent back, then pauses', async () => {
   const h = harness({ neverBuilt: true, plan: existing(stories.slice(0, 1)), tests: async () => ({ ok: true, output: '' }) })
@@ -109,4 +133,16 @@ test('the plan is read from BMad tickets and built plans', async t => {
   await writeFile(join(epic, 'story-une-plan.md'), "---\nticket: '1'\nstatus: 'built'\n---\n")
   assert.equal(parseTomlTables('[[a]]\nx = 1\n[[b]]\ny = 2\n', 'a').length, 1)
   assert.deepEqual(await readProjectPlan(root), { requirements: true, architecture: true, epics: true, initiative: 'initiative-x', stories: [{ epic: 'epic-a', epicTitle: 'Epic A', storyId: 1, title: 'Une', built: true }, { epic: 'epic-a', epicTitle: 'Epic A', storyId: 2, title: 'Deux', built: false }] })
+})
+test('every turn is counted under the initiative: decisions apart, a direct build shared between the stories it built', async () => {
+  const usage = []; let built = false
+  const script = [{ skill: 'bmad-build', agent: 'Amelia', why: 'Construire directement.', autonomous: true }, delivered()]
+  const h = harness({ decide: calls => script[calls.filter(c => c.skill === 'bmad').length - 1], plan: async () => ({ requirements: false, architecture: false, epics: built, stories: built ? stories.map(s => ({ ...s, built: true })) : [], initiative: 'initiative-p' }),
+    turn: input => { if (input.skill === 'bmad-build') built = true; return { text: 'ok', sessionRef: 's', tokens: 11 } } })
+  h.coordinator.deps.usage = entries => usage.push(...entries)
+  h.coordinator.deps.runner = () => async input => { h.calls.push(input); if (input.skill === 'bmad') return { text: '```json\n' + JSON.stringify(script[h.calls.filter(c => c.skill === 'bmad').length - 1]) + '\n```', sessionRef: 'd', tokens: 5 }; if (input.skill === 'bmad-build') built = true; return { text: 'ok', sessionRef: 's', tokens: 11 } }
+  await ready(h); await h.command('start'); await h.until('done')
+  assert.ok(usage.every(e => e.initiative === 'initiative-p' && e.projectId === 'p1'))
+  assert.deepEqual(usage.filter(e => e.kind === 'story').map(e => [e.storyId, e.tokens]), [[1, 6], [2, 5]])
+  assert.equal(usage.filter(e => e.kind === 'decision').reduce((sum, e) => sum + e.tokens, 0), 11 + 5 + 5)
 })

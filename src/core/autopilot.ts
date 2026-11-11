@@ -1,3 +1,7 @@
+import { decisionPrompt, parseDecision, actionLabel, changesCode } from './orchestrator.ts'
+import type { Decision } from './orchestrator.ts'
+import { splitAcross } from './usage.ts'
+import type { UsageEntry } from './usage.ts'
 import { initialAutopilotState, isAutopilotCommand } from '../contracts/autopilot.ts'
 import type { AutopilotCommand, AutopilotProvider, AutopilotRun, AutopilotState, AutopilotStep } from '../contracts/autopilot.ts'
 
@@ -19,10 +23,16 @@ type Dependencies = {
   canRun?(projectId: string): boolean
   commit?(root: string, message: string): Promise<void>
   notify?(title: string, body: string): void
+  /** Installed BMad skills, for the conductor's choices. */
+  skills?(root: string): Promise<string[]>
+  /** Every turn's cost, kept per initiative even after the run is cleared. */
+  usage?(entries: UsageEntry[]): void
 }
 
 const MAX_TEST_ATTEMPTS = 3
 const QUOTA_RETRY_MS = 30 * 60 * 1000
+// A conductor that keeps choosing without finishing is stuck: hand the project back.
+const MAX_DECISIONS = 24
 const AUTONOMY = 'Travaille en autonomie : personne ne peut te répondre. Ne pose aucune question, tranche toi-même et valide les étapes humaines à la place de l’utilisateur. Note chaque décision importante prise à sa place dans le fichier decisions-autopilote.md du dossier de l’initiative active. Commite ton travail. Termine par un résumé de trois lignes maximum.'
 const PHASES: readonly { id: 'requirements' | 'ux' | 'architecture' | 'epics'; title: string; skill: string; text: string }[] = [
   { id: 'requirements', title: 'Exigences', skill: 'bmad-agent-po', text: 'Rédige les exigences de l’initiative active à partir du brief et de l’idéation déjà présents dans le projet.' },
@@ -100,11 +110,12 @@ export class AutopilotCoordinator {
     const signal = this.controllers.get(id)!.signal, project = await this.deps.project(id)
     this.roots.set(id, project.rootPath)
     await this.deps.ensureInitiative(project.rootPath, project.name)
-    const turn = await this.deps.runner(provider)({ root: project.rootPath, projectId: id, skill: 'bmad-agent-analyst', sessionRef: null, signal, text: 'Sans rien modifier, résume ce projet en cinq lignes à partir du brief et des documents existants, puis indique la prochaine étape du plan automatique. Ne pose aucune question.' })
+    const turn = await this.deps.runner(provider)({ root: project.rootPath, projectId: id, skill: 'bmad-agent-analyst', sessionRef: null, signal, text: 'Sans rien modifier, résume ce projet en cinq lignes à partir du brief, de la spec et des documents existants, puis indique la prochaine étape du plan automatique. Ne pose aucune question.' })
     const plan = await this.deps.plan(project.rootPath)
     if (signal.aborted) return
-    const steps = PHASES.map(phase => emptyStep({ id: phase.id, kind: 'phase', title: phase.title, skill: phase.skill, status: plan.epics || phase.id === 'requirements' && plan.requirements || phase.id === 'architecture' && plan.architecture ? 'skipped' : 'pending' }))
-    this.update(id, { status: 'ready', recap: turn.text, steps: [...steps, ...plan.stories.map(storyStep)] })
+    // No fixed pipeline: stories already planned build first, then Madness asks BMad what comes next.
+    this.update(id, { status: 'ready', recap: turn.text, recommendation: null, initiative: plan.initiative, steps: plan.stories.map(storyStep) })
+    this.record(id, { kind: 'decision', tokens: turn.tokens, ms: 0, title: 'Récapitulatif' })
   }
 
   private async loop(id: string): Promise<void> {
@@ -114,27 +125,37 @@ export class AutopilotCoordinator {
     for (;;) {
       if (signal.aborted || this.closing) return
       const run = this.run(id)!, step = run.steps.find(item => item.status === 'pending')
-      if (!step) {
-        // Finishing requires something built: stories must exist, and none may have failed.
-        const stories = run.steps.filter(item => item.kind === 'story')
-        if (!stories.length || run.steps.some(item => item.status === 'failed')) { this.update(id, { status: 'paused', pauseReason: 'failure', detail: 'Aucune story à construire : le découpage n’a rien produit d’exploitable.' }); return }
-        this.finish(id, project.name); return
+      if (step) { if (!await this.perform(id, step.id, project.rootPath, signal)) return; continue }
+      if (run.steps.filter(item => item.kind === 'decision').length >= MAX_DECISIONS) { this.update(id, { status: 'paused', pauseReason: 'failure', detail: 'Madness a enchaîné ' + MAX_DECISIONS + ' décisions sans terminer : le chantier a besoin d’un regard humain.' }); return }
+      const decision = await this.decide(id, project.rootPath, signal)
+      if (!decision) return
+      if (decision.done) { this.finish(id, project.name, decision); return }
+      if (!decision.autonomous) {
+        this.update(id, { status: 'paused', pauseReason: 'guidance', detail: decision.question, recommendation: { skill: decision.skill, agent: decision.agent, why: decision.why, question: decision.question } })
+        this.deps.notify?.('Madness', project.name + ' : ' + (decision.agent ?? 'un agent') + ' a besoin de toi.')
+        return
       }
-      if (!await this.perform(id, step.id, project.rootPath, signal)) return
+      // The same choice three times in a row without the project moving: stop instead of looping.
+      const actions = run.steps.filter(item => item.kind === 'action').slice(-2)
+      if (actions.length === 2 && actions.every(item => item.skill === decision.skill)) { this.update(id, { status: 'paused', pauseReason: 'failure', detail: 'BMad recommande encore « ' + actionLabel(decision.skill) + ' » sans que le projet avance.' }); return }
+      const current = this.run(id)!, number = current.steps.filter(item => item.kind === 'action').length + 1
+      this.update(id, { recommendation: null, steps: [...current.steps, emptyStep({ id: 'action-' + number, kind: 'action', title: actionLabel(decision.skill), skill: decision.skill, summary: decision.why, instruction: 'Applique la compétence ' + decision.skill + ' pour ceci : ' + decision.why })] })
     }
   }
-  private finish(id: string, name: string): void {
-    this.update(id, { status: 'done', detail: null })
+  private finish(id: string, name: string, decision?: Decision): void {
+    this.update(id, { status: 'done', detail: null, recommendation: decision && (decision.question || decision.skill) ? { skill: decision.skill, agent: decision.agent, why: decision.why, question: decision.question } : null })
     this.deps.notify?.('Madness', name + ' est prêt à essayer.')
   }
   private async perform(id: string, stepId: string, root: string, signal: AbortSignal): Promise<boolean> {
     const run = this.run(id)!, runner = this.deps.runner(run.provider), started = Date.now()
     const phase = PHASES.find(item => item.id === stepId), first = this.step(id, stepId)
     this.patchStep(id, stepId, { status: 'running', startedAt: first.startedAt ?? this.stamp(), attempts: 0 })
-    let sessionRef: string | null = null, prompt = (phase ? phase.text : storyPrompt(first)) + ' ' + AUTONOMY
+    let spent = 0
+    const builtBefore = first.kind === 'action' ? new Set((await this.deps.plan(root)).stories.filter(story => story.built).map(story => story.epic + '#' + story.storyId)) : null
+    let sessionRef: string | null = null, prompt = (phase ? phase.text : first.kind === 'action' ? first.instruction ?? first.summary ?? '' : storyPrompt(first)) + ' ' + AUTONOMY
     try {
       for (let attempt = 1; ; attempt++) {
-        const turn = await runner({ root, projectId: id, skill: first.skill, text: prompt, sessionRef, signal }); sessionRef = turn.sessionRef
+        const turn = await runner({ root, projectId: id, skill: first.skill, text: prompt, sessionRef, signal }); sessionRef = turn.sessionRef; spent += turn.tokens
         const current = this.step(id, stepId)
         this.patchStep(id, stepId, { attempts: attempt, tokens: current.tokens + turn.tokens, durationMs: first.durationMs + Date.now() - started, summary: turn.text.slice(0, 2000) })
         if (signal.aborted) { this.patchStep(id, stepId, { status: 'pending' }); return false }
@@ -142,10 +163,11 @@ export class AutopilotCoordinator {
           if (attempt >= MAX_TEST_ATTEMPTS) { this.patchStep(id, stepId, { status: 'failed' }); this.update(id, { status: 'paused', pauseReason: 'failure', detail: 'L’agent a atteint sa limite d’actions sur « ' + first.title + ' ».' }); return false }
           prompt = 'Continue exactement là où tu t’es arrêté. ' + AUTONOMY; continue
         }
-        if (first.kind === 'phase') break
+        if (first.kind === 'phase' || first.kind === 'action' && !changesCode(first.skill)) break
         const tests = await this.deps.tests(root, signal)
         if (signal.aborted) { this.patchStep(id, stepId, { status: 'pending' }); return false }
         if (!tests || tests.ok) {
+          if (first.kind === 'action') break
           const planned = (await this.deps.plan(root)).stories.find(story => story.epic === first.epic && story.storyId === first.storyId)
           if (!planned || planned.built) break
           if (attempt >= MAX_TEST_ATTEMPTS) { this.patchStep(id, stepId, { status: 'failed' }); this.update(id, { status: 'paused', pauseReason: 'failure', detail: 'La story « ' + first.title + ' » n’est pas marquée construite dans son plan.' }); return false }
@@ -156,6 +178,8 @@ export class AutopilotCoordinator {
       }
       if (phase) await this.assertPhaseProduced(phase.id, root, first.title)
       if (stepId === 'epics') await this.addStories(id, root)
+      // A slicing or planning action may have written new tickets: their stories build before the next decision.
+      if (first.kind === 'action') await this.addStories(id, root, false)
       // Codex's sandbox keeps .git read-only: Madness records each finished step itself.
       await this.deps.commit?.(root, first.title + ' (pilote Madness)')
       this.patchStep(id, stepId, { status: 'done', durationMs: first.durationMs + Date.now() - started })
@@ -171,19 +195,67 @@ export class AutopilotCoordinator {
         this.patchStep(id, stepId, { status: 'pending' }); this.update(id, { status: 'paused', pauseReason: 'quota', detail: 'Limite de l’abonnement atteinte.', resumeAt }); this.scheduleResume(id, resumeAt)
       } else this.update(id, { status: 'paused', pauseReason: 'failure', detail: message.slice(0, 500) })
       return false
+    } finally {
+      const ms = Date.now() - started
+      if (spent || ms > 1000) {
+        if (first.kind === 'story') this.record(id, { kind: 'story', tokens: spent, ms, title: first.title, epic: first.epic, epicTitle: first.epicTitle, storyId: first.storyId })
+        else if (first.kind === 'action' && builtBefore) {
+          // A build chosen by BMad outside the tickets loop: its cost goes to the stories it actually built.
+          const built = (await this.deps.plan(root).catch(() => ({ stories: [] as PlannedStory[] }))).stories.filter(story => story.built && !builtBefore.has(story.epic + '#' + story.storyId))
+          this.recordAll(id, splitAcross({ projectId: id, initiative: this.run(id)?.initiative ?? null, kind: 'action', at: this.stamp(), tokens: spent, ms, title: first.title }, built))
+        } else this.record(id, { kind: 'action', tokens: spent, ms, title: first.title })
+      }
     }
   }
+  private record(id: string, entry: Omit<UsageEntry, 'projectId' | 'initiative' | 'at'>): void {
+    this.recordAll(id, [{ ...entry, projectId: id, initiative: this.run(id)?.initiative ?? null, at: this.stamp() }])
+  }
+  private recordAll(id: string, entries: UsageEntry[]): void { try { this.deps.usage?.(entries) } catch { /* Counting never stops a build. */ } }
   /** An agent saying it is done proves nothing: the document has to exist. */
   private async assertPhaseProduced(phase: typeof PHASES[number]['id'], root: string, title: string): Promise<void> {
     if (phase === 'ux') return
     const plan = await this.deps.plan(root)
     if (!plan[phase]) throw Error('La phase « ' + title + ' » n’a produit aucun document.')
   }
-  private async addStories(id: string, root: string): Promise<void> {
+  private async addStories(id: string, root: string, required = true): Promise<void> {
     const plan = await this.deps.plan(root), run = this.run(id)!, known = new Set(run.steps.map(step => step.id))
-    this.update(id, { steps: [...run.steps, ...plan.stories.map(storyStep).filter(step => !known.has(step.id))] })
-    if (!plan.stories.length) throw Error('La phase de découpage n’a produit aucune story.')
+    this.update(id, { steps: [...run.steps, ...plan.stories.map(storyStep).filter(step => !known.has(step.id) && step.status === 'pending')] })
+    if (required && !plan.stories.length) throw Error('La phase de découpage n’a produit aucune story.')
   }
+  /** Madness asks BMad's own help skill what the project needs next. Counted like any step: it costs time and tokens. */
+  private async decide(id: string, root: string, signal: AbortSignal): Promise<Decision | null> {
+    const run = this.run(id)!, runner = this.deps.runner(run.provider), started = Date.now(), stepId = 'decision-' + (run.steps.filter(step => step.kind === 'decision').length + 1)
+    const skills = await this.deps.skills?.(root) ?? []
+    const history = run.steps.filter(step => step.status === 'done' && step.kind !== 'decision').map(step => step.title + (step.summary ? ' : ' + step.summary.replace(/\s+/g, ' ').slice(0, 200) : ''))
+    this.update(id, { steps: [...run.steps, emptyStep({ id: stepId, kind: 'decision', title: 'Madness choisit la suite', skill: 'bmad', status: 'running', startedAt: this.stamp() })] })
+    let tokens = 0, sessionRef: string | null = null
+    try {
+      for (let attempt = 1; attempt <= 2; attempt++) {
+        const turn = await runner({ root, projectId: id, skill: 'bmad', text: attempt === 1 ? decisionPrompt(skills, history) : 'Ta réponse ne contenait pas de décision lisible. Réponds uniquement par le bloc json demandé, avec une compétence de la liste.', sessionRef, signal })
+        sessionRef = turn.sessionRef; tokens += turn.tokens
+        if (signal.aborted) { this.dropStep(id, stepId); return null }
+        const decision = parseDecision(turn.text, skills)
+        if (decision) {
+          this.patchStep(id, stepId, { status: 'done', title: decision.done ? 'Madness : chantier terminé' : 'Madness choisit : ' + actionLabel(decision.skill), summary: decision.why, tokens, attempts: attempt, durationMs: Date.now() - started })
+          this.record(id, { kind: 'decision', tokens, ms: Date.now() - started, title: 'Décision' })
+          return decision
+        }
+      }
+      this.patchStep(id, stepId, { status: 'failed', tokens, durationMs: Date.now() - started })
+      this.update(id, { status: 'paused', pauseReason: 'failure', detail: 'BMad n’a pas donné de prochaine action exploitable.' })
+      return null
+    } catch (error) {
+      if (signal.aborted) { this.dropStep(id, stepId); return null }
+      this.patchStep(id, stepId, { status: 'failed', tokens, durationMs: Date.now() - started })
+      const message = error instanceof Error ? error.message : 'Erreur inconnue'
+      if (isQuotaFailure(message)) {
+        const resumeAt = new Date(this.deps.now().getTime() + QUOTA_RETRY_MS).toISOString()
+        this.dropStep(id, stepId); this.update(id, { status: 'paused', pauseReason: 'quota', detail: 'Limite de l’abonnement atteinte.', resumeAt }); this.scheduleResume(id, resumeAt)
+      } else this.update(id, { status: 'paused', pauseReason: 'failure', detail: message.slice(0, 500) })
+      return null
+    }
+  }
+  private dropStep(id: string, stepId: string): void { const run = this.run(id); if (run) this.update(id, { steps: run.steps.filter(step => step.id !== stepId) }) }
   private scheduleResume(id: string, at: string): void {
     this.clearResume(id)
     this.timers.set(id, setTimeout(() => { const run = this.run(id); if (run?.status !== 'paused' || run.pauseReason !== 'quota') return; if (this.deps.canRun && !this.deps.canRun(id)) { this.scheduleResume(id, new Date(this.deps.now().getTime() + 300000).toISOString()); return } this.dispatch({ contractVersion: 1, correlationId: 'autopilot-quota-resume', type: 'resume', projectId: id }) }, Math.max(1000, Date.parse(at) - this.deps.now().getTime())))

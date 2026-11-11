@@ -450,3 +450,6 @@ button { border-radius: 4px }
 .persona-glyph { display: inline-block; width: 1.1em; height: 1.1em; margin-right: .3em; vertical-align: -.2em; color: var(--accent) }
 .author-glyph { display: inline-block; width: 18px; height: 18px; margin-right: 7px; vertical-align: -3px }
 .message-link { text-decoration: underline; text-decoration-color: var(--muted); text-underline-offset: 3px }
+.conversation-tech { margin-top: 8px }
+.conversation-tech > summary { color: var(--muted) }
+.conversation-tech > :not(summary) { margin-top: 10px }

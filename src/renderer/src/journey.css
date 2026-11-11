@@ -13,3 +13,17 @@
 .journey-next p { margin: 2px 0 0; color: var(--muted) }
 .journey-toggles { display: flex; flex-wrap: wrap; gap: 18px; margin-block: 4px 14px }
 @media (max-width: 760px) { .journey-steps { grid-template-columns: repeat(3, minmax(0, 1fr)) } }
+.journey-next-actions { display: flex; flex-wrap: wrap; gap: 10px }
+.journey-spec { margin-bottom: 14px; padding: 14px 18px; background: var(--panel); border: 1px solid var(--control-line) }
+.journey-spec p { margin: 0 0 10px; color: var(--muted) }
+.journey-spec textarea { width: 100%; box-sizing: border-box; margin-bottom: 10px; padding: 8px 10px; background: var(--surface); color: var(--text); border: 1px solid var(--control-line); font: 15px Barlow, 'Segoe UI', sans-serif; resize: vertical }
+.usage { margin-bottom: 18px; padding: 14px 16px; background: var(--panel); border: 1px solid var(--control-line) }
+.usage-initiative + .usage-initiative { margin-top: 8px }
+.usage-initiative summary { display: flex; justify-content: space-between; gap: 12px; cursor: pointer; font: 600 17px 'Barlow Condensed', 'Segoe UI', sans-serif }
+.usage-total { color: var(--muted); font: 15px Barlow, 'Segoe UI', sans-serif }
+.usage table { width: 100%; margin-top: 8px; border-collapse: collapse; font-size: 14px }
+.usage th, .usage td { padding: 4px 8px; text-align: left; border-bottom: 1px solid var(--line) }
+.usage td { text-align: right; white-space: nowrap; color: var(--muted) }
+.usage thead th:not(:first-child) { text-align: right }
+.usage-epic th { font-weight: 650 }
+.usage tbody tr:not(.usage-epic) th { padding-left: 20px; font-weight: 400 }

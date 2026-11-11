@@ -27,6 +27,7 @@ import {AgentPortrait} from './AgentPortrait.tsx'
 import {leadingPersona,PERSONA_BY_NAME} from './sober-text.ts'
 import {PersonaGlyph} from './PersonaGlyph.tsx'
 import {agentForStage} from './agent-routing.ts'
+import {NewProject} from './NewProject.tsx'
 import type {JourneyStep} from './agent-routing.ts'
 import {AgentInfoPanel} from './AgentInfoPanel.tsx'
 import madnessMark from '../../../resources/branding/madness-64.png'
@@ -327,6 +328,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     closeFile(false)
     setAgentConsultation({message:structuredClone(message),trigger,viewConversationId:conversation?.id??null})
   }
+  useEffect(()=>{if(installNext.current&&absentHere){installNext.current=false;const trigger=document.querySelector<HTMLElement>('.bmad-absent-card button')??document.body;openInitialization(trigger,null,true)}})
   // Re-read where the project stands whenever the conversation may pick up: opening, tab change, turn end.
   useEffect(()=>{
     const bridge=(window as unknown as {madnessJourney?:{read(id:string):Promise<JourneyStep[]>}}).madnessJourney
@@ -619,6 +621,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     requestAnimationFrame(()=>{if(!navigationCurrent({token,projectId:id},navigationToken.current,currentProjectId.current))return;const main=document.getElementById('main');if(main)main.scrollTop=value?.top??0})
   }
   function home(): void { remember();const token=++navigationToken.current;setPending(false);setFocusTarget(null);setPage('home'); closeDrawer(); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) }
+  const installNext=useRef(false)
+  function createdProject():void{installNext.current=true;open()}
   function open(): void {
     // The native picker hands focus back to the trigger, which would keep its tooltip open.
     if (document.activeElement instanceof HTMLElement && document.activeElement.closest('.topbar')) document.activeElement.blur()
@@ -764,12 +768,13 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
             {page==='project'&&project&&(tab==='parcours'&&showDetails||initializationState?.operations.some(op=>['preparing','checking','applying','verifying','ready'].includes(op.phase)))
               ?<InitializationEntryPoint state={initializationState} onOpen={openInitialization}/>:null}
             {workReturn&&<button type="button" className="text-button return-to-work" onClick={returnToWork}>{ui.return_to_work} {state?.projects.find(p=>p.id===workReturn.projectId)?.name??ui.project_unavailable}</button>}
+            {state&&page==='home'&&state.projects.length>0&&<div className="hub-create"><NewProject onCreated={createdProject} disabled={pending}/></div>}
             {state&&page==='home'&&state.projects.length>0&&<ProjectsHub projects={state.projects} conversations={state.conversations} dialogue={dialogue} autopilot={autopilot} initiative={id=>{const selected=bmadContext.projects.find(p=>p.projectId===id)?.selection;return selected?initiativeLabel(selected.initiativeId):null}} graphRunning={id=>{const a=graphState.projects.find(p=>p.scope.projectId===id)?.activity;return graphState.preparing===id||a?.phase==='running'||a?.phase==='stop-requested'}} statusText={status=>fr.dialogueStatus[status]} onOpen={select} pending={pending}/>}
             {overview&&!((page==='project'&&(tab==='conversation'||tab==='parcours'&&!showDetails)||page==='home'&&(state?.projects.length??0)>0)&&overview.entries.length===0)&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} compact={page==='project'&&(tab==='conversation'||tab==='catalogue'||tab==='graphe')} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} onNavigate={target=>void navigateOverview(target)} onConnection={openConnection}/>}
             {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<details className="recovery-details global-recovery"><summary>{ui.global_recovery_details}</summary><section id="overview-session-recovery" tabIndex={-1} aria-label={ui.global_recovery}><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section></details>}
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>{ui.restore_your_workspace}</h1><p>{pending ? ui.reading_local_context : ui.local_context_unavailable_use_the_message_above_to_retry}</p></section> : page === 'home' || !project ? <>
 
-              {state.projects.length === 0 ? <section className="welcome"><h2>{ui.start_with_a_folder}</h2><p>{ui.open_a_local_project_to_keep_its_context_and_prepare_a_draft_the_}</p><p className="reason"><strong>{ui.why_now}</strong> {ui.madness_needs_to_know_which_project_your_input_belongs_to}</p><div className="welcome-actions"><button className="primary" type="button" onClick={open} disabled={pending || !state}><Icon name="folder" />{fr.open}</button></div></section> : <>{autopilot.runs.length>0?<details className="library-more"><summary>{language==='fr'?'Détails par projet':'Details per project'}</summary><ProjectLibrary mark={name=><ProjectMark name={name}/>} entries={projectLibrary(state,bmadContext,progressState,helpState,overview!)} onSelect={select} onNavigate={target=>void navigateOverview(target)} pending={pending}/></details>:<ProjectLibrary mark={name=><ProjectMark name={name}/>} entries={projectLibrary(state,bmadContext,progressState,helpState,overview!)} onSelect={select} onNavigate={target=>void navigateOverview(target)} pending={pending}/>}</>}
+              {state.projects.length === 0 ? <section className="welcome"><h2>{ui.start_with_a_folder}</h2><p>{ui.open_a_local_project_to_keep_its_context_and_prepare_a_draft_the_}</p><p className="reason"><strong>{ui.why_now}</strong> {ui.madness_needs_to_know_which_project_your_input_belongs_to}</p><div className="welcome-actions"><NewProject onCreated={createdProject} disabled={pending || !state}/><button className="secondary" type="button" onClick={open} disabled={pending || !state}><Icon name="folder" />{fr.open}</button></div></section> : <>{autopilot.runs.length>0?<details className="library-more"><summary>{language==='fr'?'Détails par projet':'Details per project'}</summary><ProjectLibrary mark={name=><ProjectMark name={name}/>} entries={projectLibrary(state,bmadContext,progressState,helpState,overview!)} onSelect={select} onNavigate={target=>void navigateOverview(target)} pending={pending}/></details>:<ProjectLibrary mark={name=><ProjectMark name={name}/>} entries={projectLibrary(state,bmadContext,progressState,helpState,overview!)} onSelect={select} onNavigate={target=>void navigateOverview(target)} pending={pending}/>}</>}
 
               <div className="home-note"><h2>{ui.connect_your_account_from_the_codex_logo}</h2><p>{fr.codexReason} {ui.read_bmad_evidence_in_journey_without_a_connection_view_the_local}</p></div>
             </> : <>

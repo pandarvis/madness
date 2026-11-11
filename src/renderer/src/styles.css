@@ -453,3 +453,9 @@ button { border-radius: 4px }
 .conversation-tech { margin-top: 8px }
 .conversation-tech > summary { color: var(--muted) }
 .conversation-tech > :not(summary) { margin-top: 10px }
+.hub-create { display: flex; justify-content: flex-end; margin-bottom: 12px }
+.new-project { display: grid; gap: 10px; max-width: 640px; margin: 0 0 16px auto; padding: 14px 18px; background: var(--panel); border: 1px solid var(--control-line) }
+.new-project label { display: grid; gap: 6px; font-weight: 600 }
+.new-project input { min-height: 38px; padding: 4px 10px; background: var(--surface); color: var(--text); border: 1px solid var(--control-line); font: 16px Barlow, 'Segoe UI', sans-serif }
+.new-project-place { margin: 0; color: var(--muted); font-size: 14px }
+.new-project-actions { display: flex; gap: 10px; align-items: center }

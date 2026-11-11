@@ -45,6 +45,9 @@ import {AutopilotStore,commitStep,ensureActiveInitiative,importSpec,installedSki
 import {claudeAgentTurn} from '../adapters/claude/dialogue.ts'
 import {openAgentDialogue} from '../adapters/agent-dialogue.ts'
 import {UsageStore} from '../adapters/usage-store.ts'
+import {createProjectFolder,NewProjectPlace} from '../adapters/new-project.ts'
+// A project Madness just created: the next folder choice opens it without a picker.
+let createdProject:string|null=null
 import {summarizeUsage} from '../core/usage.ts'
 // Tokens and time of every agent turn, per project and initiative (autopilot, decisions, conversations).
 let usageInstance:UsageStore|null=null
@@ -132,6 +135,7 @@ else {
       newId: randomUUID,
       now: () => new Date().toISOString(),
       chooseDirectory: async () => {
+        if (createdProject) { const rootPath = await realpath(createdProject); createdProject = null; return { rootPath, name: basename(rootPath) || rootPath } }
         if (!window) return null
         const chosen = await dialog.showOpenDialog(window, { title: language.language === 'en' ? 'Open a project' : 'Ouvrir un projet', properties: ['openDirectory', 'dontAddToRecent'] })
         if (chosen.canceled || chosen.filePaths.length !== 1) return null
@@ -498,6 +502,16 @@ else {
       open: (profile, signal, activity,assertContext) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun,helpAdapter,assertContext,qualification:ownQualification, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
+    const projectPlace=new NewProjectPlace(join(app.getPath('userData'),'new-project-v1.json'),join(app.getPath('documents'),'Madness'))
+    ipcMain.handle('madness:new-project',async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
+      const request=(input&&typeof input==='object'?input:{}) as {name?:unknown;place?:unknown}
+      if(request.place==='read')return {parent:await projectPlace.read()}
+      if(request.place==='pick'){const chosen=await dialog.showOpenDialog(window,{title:'Où créer les nouveaux projets',properties:['openDirectory','createDirectory']});if(!chosen.canceled&&chosen.filePaths[0])await projectPlace.write(chosen.filePaths[0]);return {parent:await projectPlace.read()}}
+      if(typeof request.name!=='string'||!request.name.trim()||request.name.length>80)throw Error('INVALID_COMMAND')
+      createdProject=await createProjectFolder(await projectPlace.read(),request.name)
+      return {root:createdProject}
+    })
     ipcMain.handle('madness:usage',async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
       const projectId=(input&&typeof input==='object'?(input as {projectId?:unknown}).projectId:undefined)

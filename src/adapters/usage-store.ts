@@ -5,7 +5,8 @@ import type { UsageEntry } from '../core/usage.ts'
 /** Append-only usage ledger (one JSON line per entry): survives cleared runs and app restarts. */
 export class UsageStore {
   private writes: Promise<unknown> = Promise.resolve()
-  constructor(private readonly path: string) {}
+  private readonly path: string
+  constructor(path: string) { this.path = path }
   append(entries: readonly UsageEntry[]): Promise<unknown> {
     if (!entries.length) return this.writes
     const lines = entries.map(entry => JSON.stringify(entry) + '\n').join('')

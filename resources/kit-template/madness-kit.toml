@@ -1,0 +1,65 @@
+# Modèle de kit Madness (format 1).
+# Pose ce fichier à la racine du dossier qui contient tes références d'équipe.
+# Vérifie-le avec : node scripts/madness-kit.mjs check <dossier>
+
+[kit]
+id = "mon-socle"              # minuscules, chiffres et tirets ; ne change plus ensuite
+name = "Mon socle"            # nom affiché dans Madness
+version = "1.0.0"             # version sémantique : chaque projet garde la sienne jusqu'à sa mise à jour
+description = "Framework, charte et vocabulaire de l'équipe"
+format = 1
+
+# Une pièce = un type, un contenu, un niveau, des destinataires.
+#   kind  : docs | glossary | rules | assets  (pris en charge)
+#           skill | starter | reference | mcp (acceptés, pris en charge dans une prochaine version)
+#   path  : chemin relatif au kit ; « * » dans un dossier, « ** » à travers les dossiers
+#   level : "impose" (les agents doivent s'y conformer, la revue le vérifie) ou "consulte" (contexte)
+#   for   : rôles destinataires : analyst, pm, ux, architect, po, dev, review, all
+
+[[piece]]
+kind = "docs"
+title = "Charte graphique"
+path = "charte/*.md"
+level = "impose"
+for = ["ux", "dev", "review"]
+
+[[piece]]
+kind = "glossary"
+title = "Vocabulaire métier"
+path = "glossaire.md"
+level = "impose"
+for = ["all"]
+
+[[piece]]
+kind = "docs"
+title = "Conventions de code"
+path = "conventions/*.md"
+level = "impose"
+for = ["dev", "review"]
+
+[[piece]]
+kind = "docs"
+title = "Architecture de référence"
+path = "architecture.md"
+level = "consulte"
+for = ["architect", "dev"]
+
+# Une règle = une phrase courte et vérifiable.
+[[rule]]
+id = "palette"
+text = "Aucune couleur en dur : uniquement les jetons définis dans la charte."
+level = "impose"
+for = ["ux", "dev", "review"]
+
+# Pièces des prochaines versions de Madness (déjà acceptées par le format) :
+# [[piece]]
+# kind = "starter"            # projet de démarrage cloné par « Nouveau projet »
+# source = "git+https://git.exemple.fr/socle/demo.git"
+# ref = "v3.2.0"
+#
+# [[piece]]
+# kind = "mcp"                # serveur MCP proposé aux agents destinataires
+# name = "catalogue-composants"
+# command = "npx"
+# args = ["-y", "@exemple/design-mcp@2"]
+# for = ["ux", "dev"]

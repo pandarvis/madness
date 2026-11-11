@@ -37,9 +37,32 @@ import {ApprovalStore} from '../adapters/persistence/approval-store.ts'
 import {RecoveryStore} from '../adapters/persistence/recovery-store.ts'
 import {OwnedRun} from '../adapters/codex/owned-run.ts'
 import {openClaudeDialogue} from '../adapters/claude/dialogue.ts'
+import {configureBundledRuntime} from '../adapters/bmad/runtime.ts'
+import {createInitiative,writeActiveInitiative} from '../adapters/bmad/active-initiative.ts'
+import {checkForUpdates} from './updates.ts'
+import {AutopilotCoordinator} from '../core/autopilot.ts'
+import {AutopilotStore,commitStep,ensureActiveInitiative,importSpec,installedSkills,readJourney,readProjectPlan,runProjectTests} from '../adapters/autopilot/project-plan.ts'
+import {claudeAgentTurn} from '../adapters/claude/dialogue.ts'
+import {openAgentDialogue} from '../adapters/agent-dialogue.ts'
+import {UsageStore} from '../adapters/usage-store.ts'
+import {createProjectFolder,NewProjectPlace} from '../adapters/new-project.ts'
+import {KitSources,scanSource} from '../adapters/kits/library.ts'
+import {activateKit,activeKits,deactivateKit,kitCopy,readKit} from '../adapters/kits/project.ts'
+import {draftManifest} from '../adapters/kits/draft.ts'
+import {parseKitManifest} from '../core/kits/manifest.ts'
+// A project Madness just created: the next folder choice opens it without a picker.
+let createdProject:string|null=null
+import {summarizeUsage} from '../core/usage.ts'
+// Tokens and time of every agent turn, per project and initiative (autopilot, decisions, conversations).
+let usageInstance:UsageStore|null=null
+const usageStore=():UsageStore=>usageInstance??=new UsageStore(join(app.getPath('userData'),'usage-v1.jsonl'))
+const conversationUsage=(root:string,projectId:string,skill:string)=>(tokens:number,ms:number):void=>{void readProjectPlan(root).then(plan=>usageStore().append([{projectId,initiative:plan.initiative,kind:'conversation',at:new Date().toISOString(),tokens,ms,title:skill}])).catch(()=>undefined)}
+import {codexAgentTurn,hasOwnCodexLogin,listOwnCodexModels,PREFERRED_CODEX_MODEL} from '../adapters/codex/agent-turn.ts'
+import {CLAUDE_MODELS,ModelStore} from '../adapters/models.ts'
+import {AUTOPILOT_COMMAND_CHANNEL,AUTOPILOT_EVENT_CHANNEL,isAutopilotCommand,isAutopilotState,initialAutopilotState} from '../contracts/autopilot.ts'
 import {inspectApprovalFiles} from '../adapters/codex/file-proposals.ts'
-import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, protocol, net, session, Menu, safeStorage, shell } from 'electron'
-import { realpath, stat, access, mkdir } from 'node:fs/promises'
+import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, Notification, protocol, net, session, Menu, safeStorage, shell } from 'electron'
+import { realpath, stat, access, mkdir, writeFile as writeTextFile } from 'node:fs/promises'
 import { constants } from 'node:fs'
 import { basename, isAbsolute, join, resolve, sep } from 'node:path'
 import { randomUUID } from 'node:crypto'
@@ -90,7 +113,8 @@ if (!app.requestSingleInstanceLock()) app.quit()
 else {
   app.on('second-instance', () => { window?.restore(); window?.focus() })
   app.whenReady().then(async () => {
-    app.setAppUserModelId('fr.madness.desktop')
+    // A test window run from the sources is a separate app for Windows: its own taskbar entry, with its own icon.
+    app.setAppUserModelId(app.isPackaged?'fr.madness.desktop':'fr.madness.desktop.dev')
     Menu.setApplicationMenu(null)
     const rendererRoot = resolve(__dirname, '../renderer')
     protocol.handle('madness', async (request) => {
@@ -116,6 +140,7 @@ else {
       newId: randomUUID,
       now: () => new Date().toISOString(),
       chooseDirectory: async () => {
+        if (createdProject) { const rootPath = await realpath(createdProject); createdProject = null; return { rootPath, name: basename(rootPath) || rootPath } }
         if (!window) return null
         const chosen = await dialog.showOpenDialog(window, { title: language.language === 'en' ? 'Open a project' : 'Ouvrir un projet', properties: ['openDirectory', 'dontAddToRecent'] })
         if (chosen.canceled || chosen.filePaths.length !== 1) return null
@@ -127,6 +152,8 @@ else {
     })
     const appearanceStore = new AppearanceStore(join(app.getPath('userData'), 'appearance-v1.json'))
     let appearance = await appearanceStore.restore()
+    // Dark only since the 2026-11-07 owner decision: a stored light choice is kept on disk but no longer applied.
+    appearance = { ...appearance, theme: 'dark' }
     let appearanceQueue: Promise<unknown> = Promise.resolve()
     const nativeColors = (theme: Theme): { color: string; symbolColor: string; height: number } => ({ color: theme === 'dark' ? '#20343C' : '#E8DDC8', symbolColor: theme === 'dark' ? '#F1EBE6' : '#24211E', height: 56 })
     const nativeCaptionColors = (theme: Theme): { color: string; symbolColor: string; height: number } => ({ ...nativeColors(theme), color: nativeTheme.shouldUseHighContrastColors ? nativeColors(theme).color : '#00000000' })
@@ -143,7 +170,7 @@ else {
           const next: AppearanceState = await appearanceStore.save(input.theme)
           appearance = next
           nativeTheme.themeSource = next.theme
-          if (window && !window.isDestroyed()) { window.setBackgroundColor(nativeColors(next.theme).color); window.setTitleBarOverlay(nativeCaptionColors(next.theme)) }
+          if (window && !window.isDestroyed()) { window.setBackgroundColor(nativeColors(next.theme).color) }
         }
         return { contractVersion: 1, correlationId: input.correlationId, ok: true, state: appearance }
       })
@@ -190,6 +217,9 @@ else {
     const recovery={status:async():Promise<'stopped'|'unknown'>=>{try{return (await Promise.all([ownedRun.status(),claudeOwner.status(),helperOwner.status(),graphOwner.status(),qualificationOwner.status()])).every(s=>s==='stopped')&&!initialization?.hasUnconfirmedStop()?'stopped':'unknown'}catch{return 'unknown'}},observeStop:async():Promise<'stopped'|'unknown'>=>{await catalogQualification?.stopQualification();await Promise.all([helperOwner.cancel().catch(()=>{}),graphOwner.cancel().catch(()=>{})]);const states=await Promise.all([ownedRun.observeStop(),claudeOwner.observeStop(),helperOwner.observeStop(),graphOwner.observeStop(),qualificationOwner.observeStop()]);if(states.every(s=>s==='stopped')&&!initialization?.hasUnconfirmedStop()&&await graphCoordinator.reconcileNativeStop(await graphOwner.stopProof())){admission.clearBlock();return 'stopped'}return 'unknown'}}
     if(await recovery.status()!=='stopped')admission.block()
     const markGraphStopUnknown=():void=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()}
+    configureBundledRuntime(app.isPackaged?process.resourcesPath:join(app.getAppPath(),'resources'))
+    // Test profiles must stay offline and must never replace the build under test.
+    if(app.isPackaged&&!process.env.MADNESS_DATA_HOME)checkForUpdates()
     const graphAdapter=new GraphifyAdapter({root:join(app.getPath('userData'),'graph-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'graphify'):join(app.getAppPath(),'resources/graphify'),owner:graphOwner,admission,admit:async()=>{if(connection?.hasOperation())throw Error('BUSY');if(await recovery.status()!=='stopped'){admission.block();throw Error('STOP_UNCONFIRMED')}},onUnknown:markGraphStopUnknown})
     const helpAdapter=new BmadHelpAdapter({root:join(app.getPath('userData'),'bmad-help-runs-v1'),resources:app.isPackaged?join(process.resourcesPath,'bmad-help'):join(app.getAppPath(),'resources/bmad-help'),owner:helperOwner,admission,onUnknown:()=>{admission.block();dialogueCoordinator?.markRecoveryUnknown();connection?.markRecoveryUnknown()},admit:async internal=>{
       if(await graphOwner.status()!=='stopped'){admission.block();throw Object.assign(Error('STOP_UNCONFIRMED'),{code:'STOP_UNCONFIRMED'})}
@@ -202,13 +232,18 @@ else {
     application.lifecycle.register({id:'bmad-help',context:emptyContext(),stop:async()=>{await helpCoordinator.shutdown();return helpAdapter.shutdown()}})
     ipcMain.handle(HELP_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isHelpCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:{...initialHelpState(),error:'INVALID_COMMAND'}}
+      await afterContextReads((input as {type?:unknown}).type)
       const state=await helpCoordinator.execute(input)
       if(!isHelpState(state))throw Error('INVALID_HELP_STATE')
       return {contractVersion:1,correlationId:input.correlationId,state}
     })
     helpCoordinator.subscribe(state=>{if(isHelpState(state)&&window&&!window.isDestroyed()&&window.webContents.mainFrame.url===rendererUrl)window.webContents.send(HELP_EVENT_CHANNEL,state)})
+    // A running agent captured the current BMad configuration: changing it would end that session.
+    // The initiative read at project opening holds the local tools for a few seconds: actions wait for it instead of failing.
+    const afterContextReads=async(kind:unknown):Promise<void>=>{if(!['read','stop','observe-stop','cancel'].includes(String(kind)))await contextCoordinator.settled()}
+    const assertNoLiveDialogue=(root:string):void=>{if(autopilot.isBusyAt(root)||['starting','running','waiting-question','waiting-approval','ready','stopping'].includes(dialogueCoordinator?.read().status??'idle'))throw Object.assign(Error('BUSY'),{code:'BUSY'})}
     const contextAdapter=new BmadContextAdapter(helpAdapter)
-    const contextCoordinator=new BmadContextCoordinator({application,observation,projectIds:async()=>{if(!application)throw Error('APP_CLOSING');const reply=await application.execute({contractVersion:1,correlationId:'bmad-context-restore',type:'read-state'});if(!reply.ok)throw Error(reply.error.code);return reply.value.state.projects.map(project=>project.id)},observeConsultation:(id,root,signal)=>contextAdapter.consult(id,root,signal),store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal)})
+    const contextCoordinator=new BmadContextCoordinator({application,observation,projectIds:async()=>{if(!application)throw Error('APP_CLOSING');const reply=await application.execute({contractVersion:1,correlationId:'bmad-context-restore',type:'read-state'});if(!reply.ok)throw Error(reply.error.code);return reply.value.state.projects.map(project=>project.id)},observeConsultation:(id,root,signal)=>contextAdapter.consult(id,root,signal),store:new BmadContextStore(join(app.getPath('userData'),'bmad-context-v1')),observe:(id,root,signal)=>contextAdapter.observe(id,root,signal),observeConfiguration:(id,root,signal)=>contextAdapter.observeConfiguration(id,root,signal),writeActive:async(root,initiativeId)=>{assertNoLiveDialogue(root);await writeActiveInitiative(root,initiativeId)},createInitiative:async(root,title)=>{assertNoLiveDialogue(root);return createInitiative(root,title)}})
     application.lifecycle.register({id:'bmad-context',context:emptyContext(),stop:async()=>{await contextCoordinator.shutdown();return 'stopped'}})
     const initializationHost=new BmadInitializationHost(join(app.isPackaged?process.resourcesPath:join(app.getAppPath(),'resources'),'bmad-init','payload-v1.json.gz'))
     const captureInitialization=async(id:string,signal:AbortSignal)=>{
@@ -382,6 +417,7 @@ else {
     application.lifecycle.register({id:'bmad-progress',context:emptyContext(),stop:async()=>{await progressCoordinator.shutdown();return 'stopped'}})
     ipcMain.handle(BMAD_PROGRESS_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadProgressCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadProgressState()}
+      await afterContextReads((input as {type?:unknown}).type)
       const state=await progressCoordinator.execute(input)
       if(!isBmadProgressState(state))throw Error('INVALID_PROGRESS_STATE')
       return {contractVersion:1,correlationId:input.correlationId,state}
@@ -392,6 +428,7 @@ else {
     application.lifecycle.register({id:'bmad-catalog',context:emptyContext(),stop:async()=>{await catalogCoordinator.shutdown();return 'stopped'}})
     ipcMain.handle(BMAD_CATALOG_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isBmadCatalogCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialBmadCatalogState()}
+      await afterContextReads((input as {type?:unknown}).type)
       const state=await catalogCoordinator.execute(input)
       if(!isBmadCatalogState(state))throw Error('INVALID_CATALOG_STATE')
       return {contractVersion:1,correlationId:input.correlationId,state}
@@ -439,6 +476,7 @@ else {
     application.lifecycle.register({id:'catalog-launch',context:emptyContext(),stop:async()=>{await catalogLaunch.shutdown();return 'stopped'}})
     ipcMain.handle(CATALOG_LAUNCH_COMMAND_CHANNEL,async(event,input:unknown)=>{
       if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isCatalogLaunchCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialCatalogLaunchState()}
+      await afterContextReads((input as {type?:unknown}).type)
       const state=await catalogLaunch.execute(input);if(!isCatalogLaunchState(state))throw Error('INVALID_CATALOG_LAUNCH_STATE')
       return {contractVersion:1,correlationId:input.correlationId,state}
     })
@@ -458,7 +496,8 @@ else {
       qualifyForge:(root,signal)=>ownQualification(()=>qualifyNativeForge(root,signal)),
       qualify:(root,signal)=>ownQualification(()=>qualifyMary(root,signal)),
       qualifyClaude:async(root,signal)=>{signal.throwIfAborted();return qualifyBmadProfile(root)},
-      openClaude:(profile,captured,signal,assertContext)=>openClaudeDialogue(profile,captured,signal,assertContext,{
+      openAgent:options=>openAgentDialogue({...options,onUsage:conversationUsage(options.root,options.projectId,options.skill),run:async input=>codexAgentTurn({model:(await models.read()).codex,appData:app.getPath('appData'),root:join(app.getPath('userData'),'autopilot-codex'),realHome:app.getPath('home'),environment:process.env,accessToken:signal=>connection!.currentAccessToken(signal)},input)}),
+      openClaude:async(profile,captured,signal,assertContext,history,agentic)=>openClaudeDialogue(profile,captured,signal,assertContext,{history,agentic,model:(await models.read()).claude,...(agentic?.projectId?{onUsage:conversationUsage(profile.rootPath,agentic.projectId,agentic.skill)}:{}),
         home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),
         temp:app.getPath('temp'),environment:process.env,owner:claudeOwner,
         admit:()=>admission.enter('provider'),
@@ -468,10 +507,101 @@ else {
       open: (profile, signal, activity,assertContext) => openCodexDialogue(profile, signal, activity, connection!, { root: join(connectionRoot, 'dialogues'), appData: app.getPath('appData'), repository: app.getAppPath(),dataRoot:app.getPath('userData'),ownedRun,helpAdapter,assertContext,qualification:ownQualification, environment: process.env, runner:app.isPackaged?join(process.resourcesPath,'bmad-script-runner.py'):join(app.getAppPath(),'resources/bmad-script-runner.py') })
     })
     application.lifecycle.register({ id: 'bmad-dialogue', context: { ...emptyContext(), providerId: 'codex' }, stop: () => dialogueCoordinator!.shutdown() })
+    const projectPlace=new NewProjectPlace(join(app.getPath('userData'),'new-project-v1.json'),join(app.getPath('documents'),'Madness'))
+    ipcMain.handle('madness:new-project',async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
+      const request=(input&&typeof input==='object'?input:{}) as {name?:unknown;place?:unknown}
+      if(request.place==='read')return {parent:await projectPlace.read()}
+      if(request.place==='pick'){const chosen=await dialog.showOpenDialog(window,{title:'Où créer les nouveaux projets',properties:['openDirectory','createDirectory']});if(!chosen.canceled&&chosen.filePaths[0])await projectPlace.write(chosen.filePaths[0]);return {parent:await projectPlace.read()}}
+      if(typeof request.name!=='string'||!request.name.trim()||request.name.length>80)throw Error('INVALID_COMMAND')
+      createdProject=await createProjectFolder(await projectPlace.read(),request.name)
+      return {root:createdProject}
+    })
+    const kitSources=new KitSources(join(app.getPath('userData'),'kit-sources-v1.json'))
+    let lastDraftFolder:string|null=null
+    ipcMain.handle('madness:kits',async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
+      const request=(input&&typeof input==='object'?input:{}) as {action?:unknown;projectId?:unknown;folder?:unknown;id?:unknown;name?:unknown;text?:unknown}
+      const library=async()=>Promise.all((await kitSources.list()).map(async source=>({source,kits:await scanSource(source)})))
+      // A folder the page names must be a kit Madness found itself, never an arbitrary path.
+      const knownFolder=async(folder:unknown):Promise<string>=>{const all=(await library()).flatMap(group=>group.kits.map(kit=>kit.folder));if(typeof folder!=='string'||!all.includes(folder))throw Error('INVALID_COMMAND');return folder}
+      switch(request.action){
+        case 'library':return library()
+        case 'add-source':{const chosen=await dialog.showOpenDialog(window,{title:'Ajouter une source de kits',properties:['openDirectory']});if(!chosen.canceled&&chosen.filePaths[0])await kitSources.add(chosen.filePaths[0]);return library()}
+        case 'remove-source':{if(typeof request.folder==='string')await kitSources.remove(request.folder);return library()}
+        case 'draft':{const chosen=await dialog.showOpenDialog(window,{title:'Dossier de références à transformer en kit',properties:['openDirectory']});if(chosen.canceled||!chosen.filePaths[0])return null;lastDraftFolder=chosen.filePaths[0];return {folder:lastDraftFolder,text:await draftManifest(lastDraftFolder,typeof request.name==='string'&&request.name.trim()?request.name.trim():basename(lastDraftFolder))}}
+        case 'save-draft':{
+          if(typeof request.folder!=='string'||request.folder!==lastDraftFolder||typeof request.text!=='string'||request.text.length>200_000)throw Error('INVALID_COMMAND')
+          const parsed=parseKitManifest(request.text);if(!parsed.ok)return {ok:false,errors:parsed.errors}
+          await writeTextFile(join(request.folder,'madness-kit.toml'),request.text);await kitSources.add(request.folder);lastDraftFolder=null;return {ok:true}
+        }
+      }
+      if(typeof request.projectId!=='string')throw Error('INVALID_COMMAND')
+      const root=(await application!.dialogueProject(request.projectId)).rootPath
+      if(request.action==='activate')await activateKit(root,await knownFolder(request.folder))
+      if(request.action==='deactivate'&&typeof request.id==='string')await deactivateKit(root,request.id)
+      return activeKits(root)
+    })
+    ipcMain.handle('madness:usage',async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
+      const projectId=(input&&typeof input==='object'?(input as {projectId?:unknown}).projectId:undefined)
+      if(typeof projectId!=='string')throw Error('INVALID_COMMAND')
+      return summarizeUsage(await usageStore().read(),projectId)
+    })
+    ipcMain.handle('madness:journey',async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
+      const request=(input&&typeof input==='object'?input:{}) as {projectId?:unknown;open?:unknown}
+      if(typeof request.projectId!=='string')throw Error('INVALID_COMMAND')
+      const root=(await application!.dialogueProject(request.projectId)).rootPath
+      if(typeof request.open==='string'){const target=resolve(root,request.open);if(!target.toLowerCase().startsWith(root.toLowerCase()+sep))throw Error('INVALID_COMMAND');await shell.openPath(target);return null}
+      // A spec the user already has: pasted text, or a file picked here (never a path sent by the page).
+      const spec=(request as {spec?:unknown}).spec
+      if(spec==='pick'){
+        const picked=await dialog.showOpenDialog(window,{title:'Choisir la spec du projet',properties:['openFile'],filters:[{name:'Spec',extensions:['md','markdown','txt','html','htm','pdf','docx']}]})
+        if(picked.canceled||!picked.filePaths[0])return readJourney(root)
+        await importSpec(root,basename(root),{name:basename(picked.filePaths[0]),source:picked.filePaths[0]});return readJourney(root)
+      }
+      if(spec&&typeof spec==='object'&&typeof (spec as {text?:unknown}).text==='string'){
+        const text=(spec as {text:string}).text;if(!text.trim()||text.length>2_000_000)throw Error('INVALID_COMMAND')
+        await importSpec(root,basename(root),{name:'spec.md',text});return readJourney(root)
+      }
+      return readJourney(root)
+    })
+    const models=new ModelStore(join(app.getPath('userData'),'models-v1.json'))
+    ipcMain.handle('madness:models',async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl))throw Error('UNTRUSTED_CALLER')
+      const request=(input&&typeof input==='object'?input:{}) as {action?:unknown;provider?:unknown;model?:unknown}
+      if(request.action==='set'&&(request.provider==='claude-code'||request.provider==='codex')&&(request.model===null||typeof request.model==='string'))await models.set(request.provider,request.model as string|null)
+      const codex=request.action==='list'?await listOwnCodexModels({realHome:app.getPath('home'),appData:app.getPath('appData'),environment:process.env}):undefined
+      return {choice:await models.read(),claude:CLAUDE_MODELS,preferredCodex:PREFERRED_CODEX_MODEL,ownCodexLogin:await hasOwnCodexLogin(app.getPath('home')),...(codex?{codex}:{})}
+    })
+    const autopilot=new AutopilotCoordinator({
+      store:new AutopilotStore(join(app.getPath('userData'),'autopilot-v1.json')),
+      project:async id=>{const project=await application!.dialogueProject(id);return {name:basename(project.rootPath),rootPath:project.rootPath}},
+      runner:provider=>provider==='codex'
+        ?async input=>codexAgentTurn({model:(await models.read()).codex,appData:app.getPath('appData'),root:join(app.getPath('userData'),'autopilot-codex'),realHome:app.getPath('home'),environment:process.env,accessToken:signal=>connection!.currentAccessToken(signal)},input)
+        :async input=>claudeAgentTurn({model:(await models.read()).claude,home:app.getPath('home'),appData:app.getPath('appData'),localAppData:join(app.getPath('home'),'AppData','Local'),environment:process.env},input),
+      ensureInitiative:ensureActiveInitiative,plan:readProjectPlan,tests:runProjectTests,skills:installedSkills,
+      kitRules:async root=>(await Promise.all((await activeKits(root)).map(async entry=>(await readKit(kitCopy(root,entry.id))).kit))).flatMap(kit=>kit.rules.filter(rule=>rule.level==='impose').map(rule=>rule.text+' (kit '+kit.name+')')),usage:entries=>void usageStore().append(entries),now:()=>new Date(),commit:commitStep,
+      canRun:id=>{const dialogue=dialogueCoordinator?.read();return !(dialogue&&dialogue.context.projectId===id&&['qualifying','starting','running','waiting-question','waiting-approval','ready','stopping'].includes(dialogue.status))},
+      notify:(title,body)=>{if(Notification.isSupported())new Notification({title,body}).show()}
+    })
+    await autopilot.restore()
+    application.lifecycle.register({id:'autopilot',context:emptyContext(),stop:async()=>{await autopilot.shutdown();return 'stopped'}})
+    autopilot.subscribe(state=>{if(window&&!window.isDestroyed()&&window.webContents&&!window.webContents.isDestroyed())window.webContents.send(AUTOPILOT_EVENT_CHANNEL,state)})
+    ipcMain.handle(AUTOPILOT_COMMAND_CHANNEL,async(event,input:unknown)=>{
+      if(!window||!isTrustedCaller(event,{webContents:window.webContents,mainFrame:window.webContents.mainFrame},rendererUrl)||!isAutopilotCommand(input))return {contractVersion:1,correlationId:'rejected-request',state:initialAutopilotState()}
+      if(input.type==='open')await shell.openPath((await application!.dialogueProject(input.projectId)).rootPath)
+      const state=await autopilot.execute(input);if(!isAutopilotState(state))throw Error('INVALID_AUTOPILOT_STATE')
+      return {contractVersion:1,correlationId:input.correlationId,state}
+    })
     ipcMain.handle(DIALOGUE_COMMAND_CHANNEL, async (event, input: unknown) => {
       const rejected = (code: 'UNTRUSTED_CALLER' | 'INVALID_COMMAND') => ({ contractVersion: 1, correlationId: 'rejected-request', state: { ...initialDialogueState(), status: 'error', errorCode: code } })
       if (!window || !isTrustedCaller(event, { webContents: window.webContents, mainFrame: window.webContents.mainFrame }, rendererUrl)) return rejected('UNTRUSTED_CALLER')
       if (!isDialogueCommand(input)) return rejected('INVALID_COMMAND')
+      // Two agents writing in the same repository would overwrite each other.
+      if ('projectId' in input && typeof input.projectId === 'string' && autopilot.isBusy(input.projectId) && /^launch/.test(input.type)) return { contractVersion: 1, correlationId: input.correlationId, state: { ...dialogueCoordinator!.read(), errorCode: 'BUSY' as const } }
+      await afterContextReads(input.type)
       const state = await dialogueCoordinator!.execute(input)
       if (!isDialogueState(state)) return rejected('INVALID_COMMAND')
       return { contractVersion: 1, correlationId: input.correlationId, state }
@@ -481,6 +611,7 @@ else {
       const rejected = (code: 'UNTRUSTED_CALLER' | 'INVALID_COMMAND') => ({ contractVersion: 1, correlationId: 'rejected-request', state: { ...initialConnectionState(), status: 'error', errorCode: code } })
       if (!window || !isTrustedCaller(event, { webContents: window.webContents, mainFrame: window.webContents.mainFrame }, rendererUrl)) return rejected('UNTRUSTED_CALLER')
       if (!isConnectionCommand(input)) return rejected('INVALID_COMMAND')
+      if (input.action === 'connect' || input.action === 'verify') await afterContextReads(input.action)
       const state = await connection!.command(input.action)
       if (!isConnectionState(state)) return rejected('INVALID_COMMAND')
       return { contractVersion: 1, correlationId: input.correlationId, state }
@@ -508,8 +639,20 @@ else {
     window.webContents.on('will-navigate', (event) => event.preventDefault())
     window.webContents.on('will-redirect', (event) => event.preventDefault())
     window.webContents.on('will-attach-webview', (event) => event.preventDefault())
-    window.once('ready-to-show', () => window?.show())
+    // Open maximized; automated runs (remote debugging) keep the sizes they set themselves.
+    window.once('ready-to-show', () => { if (!app.commandLine.hasSwitch('remote-debugging-port')) window?.maximize(); window?.show() })
+    // Read-only presence check for the first-step card: no helper process, no local tools lock.
+    ipcMain.handle('madness:bmad-present', async (event, projectId: unknown): Promise<boolean | null> => {
+      if (!window || window.isDestroyed() || event.sender !== window.webContents || typeof projectId !== 'string' || !application) return null
+      try {
+        const { rootPath } = await application.dialogueProject(projectId)
+        const exists = (name: string): Promise<boolean> => access(join(rootPath, name)).then(() => true, () => false)
+        if (!await exists('.')) return null
+        return (await Promise.all([exists('_bmad'), exists('.agents')])).some(Boolean)
+      } catch { return null }
+    })
     nativeTheme.on('updated', () => { if (window && !window.isDestroyed()) window.setTitleBarOverlay(nativeCaptionColors(appearance.theme)) })
+    ipcMain.handle('madness:reload', (event): void => { if (window && !window.isDestroyed() && event.sender === window.webContents) window.webContents.reload() })
     window.on('closed', () => { window = null })
     await window.loadURL(rendererUrl)
   }).catch(() => {

@@ -64,6 +64,16 @@ export class Application {
         break
       }
       case 'set-navigation': next.preferences.navigationCollapsed = command.collapsed; break
+      // Forgetting a project drops what Madness keeps about it, never the folder itself.
+      case 'forget-project': {
+        projectId = command.projectId
+        if (!next.projects.some((p) => p.id === projectId)) return failure('PROJECT_NOT_FOUND', command.correlationId, projectId)
+        next.projects = next.projects.filter((p) => p.id !== projectId)
+        next.drafts = next.drafts.filter((d) => d.projectId !== projectId)
+        next.conversations = next.conversations.filter((c) => c.context.projectId !== projectId)
+        if (next.activeProjectId === projectId) next.activeProjectId = null
+        break
+      }
     }
     next.revision++
     if (!isSnapshot(next)) return failure('INVALID_COMMAND', command.correlationId, projectId)

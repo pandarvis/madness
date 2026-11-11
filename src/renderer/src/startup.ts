@@ -6,7 +6,10 @@ const fill = document.getElementById('startup-fill')!
 const errorPanel = document.getElementById('startup-error')!
 const errorMessage = document.getElementById('startup-message')!
 const fallback = document.getElementById('startup-fallback')!
-const demo = window.madnessSplashDemo === true
+function consumeReplay(): boolean {
+  try { const asked = sessionStorage.getItem('madness.replay-splash') === '1'; sessionStorage.removeItem('madness.replay-splash'); return asked } catch { return false }
+}
+const demo = window.madnessSplashDemo === true || consumeReplay()
 let language = window.madnessLanguage?.initial.language ?? 'fr'
 let settled = false
 let watchdog: ReturnType<typeof setTimeout> | undefined

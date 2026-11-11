@@ -56,12 +56,12 @@ test('les deltas corrélés sont projetés après acquittement, réconciliés pa
  }finally{rpc.dispose()}
 })
 
-test('une identité attestée dans un tour ne réattribue pas les tours suivants sans nouvelle preuve',async()=>{
+test('une identité attestée au lancement reste affichée sur les tours suivants de la session',async()=>{
  const s=server(),rpc=new native.DialogueRpc(s.child,new AbortController().signal,300),updates=[]
  try{
   const session=await native.startDialogueProtocol(rpc,{cwd:'C:/isolated',profile:{rootPath:'C:/project',skillPath:'Mary'},signal:new AbortController().signal,activity:()=>{},resolve:async kind=>JSON.stringify(kind==='agent'?{agent:{name:'Mary'}}:{}),read:async()=>''},500)
   await session.turn(null,async()=>{},m=>updates.push(m));assert.equal(updates.at(-1).identity.name,'Mary')
-  await session.turn('Quitter le rôle',async()=>{},m=>updates.push(m));assert.deepEqual(updates.at(-1).identity,{kind:'unknown'})
+  await session.turn('Suite',async()=>{},m=>updates.push(m));assert.equal(updates.at(-1).identity.name,'Mary')
  }finally{rpc.dispose()}
 })
 

@@ -1,3 +1,4 @@
+import {bundledRuntimePaths} from './runtime.ts'
 import type {StoryAuthority,StoryEvidence} from '../../core/us-metrics.ts'
 import type {FileAuthority} from '../../core/project-files.ts'
 import {realpath as nativeRealpath} from 'node:fs'
@@ -71,7 +72,8 @@ export class BmadHelpAdapter{
    await writeFile(join(folder,'request.json'),JSON.stringify({...request,folder:data}),{flag:'wx'})
    await writeFile(join(folder,'pins.json'),JSON.stringify(helpResourcePins),{flag:'wx'})
    const runtimeFolder=join(await directory(this.options.root),this.runtimeId)
-   const script="$RuntimeFolder='"+runtimeFolder.replaceAll("'","''")+"'\n$TaskFolder='"+folder.replaceAll("'","''")+"'\n$Generation='"+generation+"'\n"+new TextDecoder('utf-8',{fatal:true}).decode(await safe(join(folder,'resources/launcher.ps1')))
+   const bundled=bundledRuntimePaths(),quoted=(value:string):string=>"'"+value.replaceAll("'","''")+"'"
+   const script="$RuntimeOrigin="+quoted(bundled.python)+"\n$UvPath="+quoted(bundled.uv)+"\n$RuntimeFolder='"+runtimeFolder.replaceAll("'","''")+"'\n$TaskFolder='"+folder.replaceAll("'","''")+"'\n$Generation='"+generation+"'\n"+new TextDecoder('utf-8',{fatal:true}).decode(await safe(join(folder,'resources/launcher.ps1')))
    const child=spawn(pwsh,['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')],{windowsHide:true,shell:false,stdio:['ignore','ignore','pipe']})
    spawned=child.pid!==undefined
    let errors=0;child.stderr.on('data',b=>{errors+=b.length})

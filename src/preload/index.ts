@@ -1,3 +1,5 @@
+import {AUTOPILOT_COMMAND_CHANNEL,AUTOPILOT_EVENT_CHANNEL,isAutopilotState} from '../contracts/autopilot.ts'
+import type {AutopilotBridge,AutopilotState} from '../contracts/autopilot.ts'
 import { contextBridge, ipcRenderer } from 'electron'
 import { COMMAND_CHANNEL, EVENT_CHANNEL, isDomainEvent, isReply } from '../contracts/index.ts'
 import type { Command, MadnessBridge, Reply } from '../contracts/index.ts'
@@ -50,6 +52,7 @@ const bridge: MadnessBridge = {
   readState: () => request({ type: 'read-state' }),
   chooseDirectory: () => request({ type: 'choose-directory' }),
   selectProject: (projectId) => request({ type: 'select-project', projectId }),
+  forgetProject: (projectId) => request({ type: 'forget-project', projectId }),
   saveDraft: (projectId, text) => request({ type: 'save-draft', projectId, text }),
   setNavigation: (collapsed) => request({ type: 'set-navigation', collapsed }),
   onStateChanged: (listener) => {
@@ -83,7 +86,7 @@ const dialogueRequest = async (payload: Omit<DialogueCommand, 'contractVersion' 
   if (reply.correlationId !== correlationId && (reply.correlationId !== 'rejected-request' || !['INVALID_COMMAND', 'UNTRUSTED_CALLER'].includes(reply.state.errorCode ?? ''))) throw new Error('UNRELATED_DIALOGUE_REPLY')
   return reply.state
 }
-const dialogueBridge: DialogueBridge = {sendMeasured:(projectId,conversationId,text,requestId,choiceRef)=>dialogueRequest({type:'send',projectId,conversationId,text,metricsChoice:choiceRef},requestId),launchMeasured:(type,projectId,requestId,choiceRef,preparationId,mode)=>dialogueRequest({type,projectId,metricsChoice:choiceRef,...(type==='launch-catalog'?{preparationId}:type==='launch'&&mode?{mode}:{})},requestId),adjustMeasured:(approvalId,requestId,choiceRef)=>dialogueRequest({type:'send-adjustment',approvalId,metricsChoice:choiceRef},requestId),launchCatalog:(projectId,preparationId)=>dialogueRequest({type:'launch-catalog',projectId,preparationId},preparationId),launchHelp:projectId=>dialogueRequest({type:'launch-help',projectId}),launchClaude:projectId=>dialogueRequest({type:'launch-claude',projectId}),
+const dialogueBridge: DialogueBridge = {sendMeasured:(projectId,conversationId,text,requestId,choiceRef)=>dialogueRequest({type:'send',projectId,conversationId,text,metricsChoice:choiceRef},requestId),launchMeasured:(type,projectId,requestId,choiceRef,preparationId,mode)=>dialogueRequest({type,projectId,metricsChoice:choiceRef,...(type==='launch-catalog'?{preparationId}:type==='launch'&&mode?{mode}:{})},requestId),adjustMeasured:(approvalId,requestId,choiceRef)=>dialogueRequest({type:'send-adjustment',approvalId,metricsChoice:choiceRef},requestId),launchCatalog:(projectId,preparationId)=>dialogueRequest({type:'launch-catalog',projectId,preparationId},preparationId),launchHelp:projectId=>dialogueRequest({type:'launch-help',projectId}),launchClaude:(projectId,text,conversationId,agent,writes,provider)=>dialogueRequest({type:'launch-claude',projectId,...(text===undefined?{}:{text}),...(conversationId===undefined?{}:{conversationId}),...(agent===undefined?{}:{agent}),...(writes===undefined?{}:{writes}),...(provider===undefined?{}:{provider})}),
   inspectApproval:approvalId=>dialogueRequest({type:'inspect-approval',approvalId}),observeStop:()=>dialogueRequest({type:'observe-stop'}),
   saveApproval:(approvalId,adjustment)=>dialogueRequest({type:'save-approval',approvalId,adjustment}),decideApproval:(approvalId,decision)=>dialogueRequest({type:'decide-approval',approvalId,decision}),sendAdjustment:approvalId=>dialogueRequest({type:'send-adjustment',approvalId}),
   saveQuestion:(questionId,values)=>dialogueRequest({type:'save-question',questionId,values}),answerQuestion:(questionId,values)=>dialogueRequest({type:'answer-question',questionId,values}),
@@ -117,7 +120,7 @@ const bmadContextBridge:BmadContextBridge={observeInitialization:async projectId
     !('correlationId' in reply)||reply.correlationId!==correlationId||!('observation' in reply)||
     !isBmadConfigurationObservation(reply.observation)||reply.observation.projectId!==projectId)throw Error('INVALID_INITIALIZATION_OBSERVATION')
  return reply.observation
-},read:()=>contextRequest({type:'read'}),observe:projectId=>contextRequest({type:'observe',projectId}),choose:(projectId,initiativeId,revision)=>contextRequest({type:'choose',projectId,initiativeId,revision}),retrySave:projectId=>contextRequest({type:'retry-save',projectId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isBmadContextState(value))listener(value)};ipcRenderer.on(BMAD_CONTEXT_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(BMAD_CONTEXT_EVENT_CHANNEL,receive)}}
+},read:()=>contextRequest({type:'read'}),observe:projectId=>contextRequest({type:'observe',projectId}),choose:(projectId,initiativeId,revision)=>contextRequest({type:'choose',projectId,initiativeId,revision}),createInitiative:(projectId,title)=>contextRequest({type:'create-initiative',projectId,title}),retrySave:projectId=>contextRequest({type:'retry-save',projectId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isBmadContextState(value))listener(value)};ipcRenderer.on(BMAD_CONTEXT_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(BMAD_CONTEXT_EVENT_CHANNEL,receive)}}
 contextBridge.exposeInMainWorld('madnessBmadContext',Object.freeze(bmadContextBridge))
 
 import {BMAD_PROGRESS_COMMAND_CHANNEL,BMAD_PROGRESS_EVENT_CHANNEL,isBmadProgressState} from '../contracts/bmad-progress.ts'
@@ -192,3 +195,14 @@ const initializationBridge:InitializationBridge={
  }
 }
 contextBridge.exposeInMainWorld('madnessBmadInitialization',Object.freeze(initializationBridge))
+
+const autopilotRequest=async(payload:Record<string,unknown>):Promise<AutopilotState>=>{const correlationId=crypto.randomUUID();const reply=await ipcRenderer.invoke(AUTOPILOT_COMMAND_CHANNEL,{...payload,contractVersion:1,correlationId}) as {state?:unknown};if(!isAutopilotState(reply?.state))throw new Error('INVALID_AUTOPILOT_REPLY');return reply.state}
+const autopilotBridge:AutopilotBridge={read:()=>autopilotRequest({type:'read'}),prepare:(projectId,provider)=>autopilotRequest({type:'prepare',projectId,provider}),start:projectId=>autopilotRequest({type:'start',projectId}),resume:projectId=>autopilotRequest({type:'resume',projectId}),stop:projectId=>autopilotRequest({type:'stop',projectId}),dismiss:projectId=>autopilotRequest({type:'dismiss',projectId}),open:projectId=>autopilotRequest({type:'open',projectId}),onChanged:listener=>{const receive=(_event:Electron.IpcRendererEvent,value:unknown):void=>{if(isAutopilotState(value))listener(value)};ipcRenderer.on(AUTOPILOT_EVENT_CHANNEL,receive);return()=>ipcRenderer.removeListener(AUTOPILOT_EVENT_CHANNEL,receive)}}
+contextBridge.exposeInMainWorld('madnessNewProject',Object.freeze({place:()=>ipcRenderer.invoke('madness:new-project',{place:'read'}),pickPlace:()=>ipcRenderer.invoke('madness:new-project',{place:'pick'}),create:(name:string)=>ipcRenderer.invoke('madness:new-project',{name})}))
+contextBridge.exposeInMainWorld('madnessKits',Object.freeze({library:()=>ipcRenderer.invoke('madness:kits',{action:'library'}),addSource:()=>ipcRenderer.invoke('madness:kits',{action:'add-source'}),removeSource:(folder:string)=>ipcRenderer.invoke('madness:kits',{action:'remove-source',folder}),draft:(name:string)=>ipcRenderer.invoke('madness:kits',{action:'draft',name}),saveDraft:(folder:string,text:string)=>ipcRenderer.invoke('madness:kits',{action:'save-draft',folder,text}),project:(projectId:string)=>ipcRenderer.invoke('madness:kits',{projectId}),activate:(projectId:string,folder:string)=>ipcRenderer.invoke('madness:kits',{action:'activate',projectId,folder}),deactivate:(projectId:string,id:string)=>ipcRenderer.invoke('madness:kits',{action:'deactivate',projectId,id})}))
+contextBridge.exposeInMainWorld('madnessUsage',Object.freeze({read:(projectId:string)=>ipcRenderer.invoke('madness:usage',{projectId})}))
+contextBridge.exposeInMainWorld('madnessJourney',Object.freeze({read:(projectId:string)=>ipcRenderer.invoke('madness:journey',{projectId}),open:(projectId:string,path:string)=>ipcRenderer.invoke('madness:journey',{projectId,open:path}),pickSpec:(projectId:string)=>ipcRenderer.invoke('madness:journey',{projectId,spec:'pick'}),pasteSpec:(projectId:string,text:string)=>ipcRenderer.invoke('madness:journey',{projectId,spec:{text}})}))
+contextBridge.exposeInMainWorld('madnessModels',Object.freeze({read:()=>ipcRenderer.invoke('madness:models',{action:'read'}),list:()=>ipcRenderer.invoke('madness:models',{action:'list'}),set:(provider:'claude-code'|'codex',model:string|null)=>ipcRenderer.invoke('madness:models',{action:'set',provider,model})}))
+contextBridge.exposeInMainWorld('madnessAutopilot',Object.freeze(autopilotBridge))
+contextBridge.exposeInMainWorld('madnessWindow', Object.freeze({ reload: (): Promise<void> => ipcRenderer.invoke('madness:reload') }))
+contextBridge.exposeInMainWorld('madnessProjectProbe', Object.freeze({ bmadPresent: (projectId: string): Promise<boolean | null> => ipcRenderer.invoke('madness:bmad-present', projectId) }))

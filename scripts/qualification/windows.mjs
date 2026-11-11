@@ -117,7 +117,8 @@ async function globalActions(page) {
   assert.ok(area.width > 0 && area.width < area.viewport, 'La zone des contrôles Windows reste réservée')
   assert.equal(Math.round(bounds.x), Math.round(area.x)); assert.equal(Math.round(bounds.y), Math.round(area.y))
   assert.equal(Math.round(bounds.width), Math.round(area.width)); assert.equal(Math.round(bounds.height), Math.round(area.height))
-  assert.equal(await header.evaluate(element => getComputedStyle(element).getPropertyValue('app-region')), 'drag')
+  // The bar itself is no-drag since the navigation fix; its breadcrumb filler carries the move area.
+  assert.equal(await header.evaluate(element => [...element.querySelectorAll('*')].some(e => getComputedStyle(e).getPropertyValue('app-region') === 'drag')), true, 'La barre garde une emprise de déplacement')
   for (const button of await header.getByRole('button').all()) {
     if (!await button.isVisible()) continue
     const control = await button.boundingBox()

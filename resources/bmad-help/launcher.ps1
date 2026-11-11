@@ -23,7 +23,7 @@ try {
   [void][IO.Directory]::CreateDirectory($runtime)
   [void][IO.Directory]::CreateDirectory((Join-Path $runtime 'Lib/site-packages'))
   [void][IO.Directory]::CreateDirectory((Join-Path $cache 'tmp'))
-  $origin=Join-Path $env:USERPROFILE '.cache/codex-runtimes/codex-primary-runtime/dependencies/python'
+  $origin=$RuntimeOrigin
   Assert-BmadChain $origin
   $checkedParents=[Collections.Generic.HashSet[string]]::new()
   foreach($entry in $manifest.files){
@@ -42,7 +42,7 @@ try {
   # This entire closed inventory is checked BEFORE THE FIRST UV instruction.
   Assert-BmadClosedRuntime $runtime $manifest.files
   $phases.runtime_guard_ms=$phaseClock.ElapsedMilliseconds;$phaseClock.Restart()
-  $uv=Join-Path $env:USERPROFILE 'scoop/apps/uv/0.13.0/uv.exe'
+  $uv=$UvPath
   Assert-BmadChain $uv
   if((Get-FileHash -LiteralPath $uv).Hash.ToLowerInvariant() -cne $manifest.uvSha256){throw 'UV_CHANGED'}
   if(Test-Path -LiteralPath (Join-Path $TaskFolder 'cancel')){throw 'CANCELLED_BEFORE_UV'}

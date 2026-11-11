@@ -49,3 +49,11 @@ title = "Dialoguer avec Claude Code sur son abonnement"
 description = "Depuis Madness sous Windows, détecter la CLI Claude Code officielle et la connexion personnelle existante, lancer une conversation BMad explicitement avec Claude et retrouver sa réponse et sa provenance. Intégrer le nouveau logo du fournisseur à partir d’un actif officiel autorisé."
 covers = ["R34"]
 after = [{ epic = 1, needs = "1.11 : base locale, cycle de vie des processus, identité de conversation et persistance" }, { epic = 2, needs = "2.3 : identité de contexte projet ; 2.14 : variantes de langue et de thème pour le choix du fournisseur" }]
+
+[[epic]]
+id = 7
+slug = "epic-connecteur-github-copilot"
+title = "Dialoguer avec GitHub Copilot sur son abonnement"
+description = "Depuis Madness sous Windows, détecter l’outil officiel GitHub Copilot et la connexion personnelle existante, lancer une conversation BMad explicitement avec Copilot et retrouver sa réponse et sa provenance. Activer Copilot dans la dynamic island du fournisseur livrée en 6.2."
+covers = ["R35"]
+after = [{ epic = 6, needs = "6.2 : dynamic island du fournisseur et onglet Réglages" }]

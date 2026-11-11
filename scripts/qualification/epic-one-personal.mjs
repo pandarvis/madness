@@ -158,7 +158,7 @@ function preserve(initial,oldDialogue,current,dialogue){
  check(isDeepStrictEqual(current.preferences,initial.preferences),'PRIVATE_PREFERENCE_CHANGED')
 }
 async function restoreSelection(session,initial){const current=await session.state();if(current.activeProjectId!==initial.activeProjectId){check(initial.activeProjectId!==null,'INITIAL_SELECTION_UNRESTORABLE');const r=await session.page.evaluate(id=>window.madness.selectProject(id),initial.activeProjectId);check(r.ok,'SELECTION_RESTORE_REFUSED')}}
-async function send(session,text){await session.page.locator('#draft').fill(text);await session.page.getByRole('button',{name:'Envoyer à Mary',exact:true}).click()}
+async function send(session,text){await session.page.locator('#draft').fill(text);await session.page.getByRole('button',{name:'Envoyer',exact:true}).click()}
 
 async function firstForgeDiagnostic(session,initial,initialDialogue,report,pass){
  report.limits.push('Diagnostic de la première activation Forge uniquement : aucun tour de suivi, aucune conclusion G1 ni archivage automatique du témoin.')

@@ -46,7 +46,7 @@ async function inputs(root: string,capture?:(source:NonNullable<BmadProfile['cat
 }
 export async function runForgeScript(profile: BmadProfile, script: 'workflow'|'config'|'personas'|'memlog', args: string[], signal: AbortSignal, runner=resolve('resources/bmad-script-runner.py'),assertContext?:()=>Promise<void>,onStarted?:()=>void): Promise<string> {
   signal.throwIfAborted()
-  const runtime=await bmadRuntime(profile.rootPath)
+  const runtime=await bmadRuntime()
   signal.throwIfAborted()
   const target=script==='personas'?join(profile.rootPath,'.agents/skills/bmad-forge-idea/scripts/resolve_personas.py'):join(profile.rootPath,'_bmad/scripts',script==='workflow'?'resolve_customization.py':script==='config'?'resolve_config.py':'memlog.py')
   const env={...Object.fromEntries(Object.entries(process.env).filter(([key])=>['SYSTEMROOT','WINDIR','TEMP','TMP','PATH'].includes(key.toUpperCase()))),UV_CACHE_DIR:join(tmpdir(),'madness-uv-cache')}
@@ -159,7 +159,7 @@ export class ForgeHost {
   constructor(profile:BmadProfile,signal:AbortSignal,runner?:string,assertContext?:()=>Promise<void>){if(!profile.forge)throw dialogueFailure('PROFILE_UNRECOGNIZED');this.profile=profile;this.signal=signal;this.runner=runner;this.assertContext=assertContext}
   bind(observer:NonNullable<ForgeHost['observer']>):void{this.observer=observer}
   async assert():Promise<void>{this.signal.throwIfAborted();if(this.blocked)throw dialogueFailure('EFFECT_UNKNOWN');if(await inputs(this.profile.rootPath)!==this.profile.fingerprint)throw dialogueFailure('PROFILE_CHANGED')}
-  async assertForTurn():Promise<void>{await this.assert();await bmadRuntime(this.profile.rootPath);this.signal.throwIfAborted()}
+  async assertForTurn():Promise<void>{await this.assert();await bmadRuntime();this.signal.throwIfAborted()}
   async read(path:string):Promise<string>{await this.assert();const full=resolve(this.profile.rootPath,path),p=relative(this.profile.rootPath,full).replaceAll('\\','/');if(!Object.hasOwn(FORGE_MANIFEST,p)&&!['_bmad/config.toml','_bmad/custom/config.toml','_bmad/custom/config.user.toml'].includes(p))throw dialogueFailure('UNSUPPORTED_INTERACTION');return decode(await bytes(this.profile.rootPath,full))}
   private async file(path:string):Promise<Buffer>{const data=await bytes(this.profile.rootPath,path);if(!this.known.has(path)||this.known.get(path)!==hash(data))throw dialogueFailure('OUTPUT_CONFLICT');return data}
   private async ownedWorkspace():Promise<void>{

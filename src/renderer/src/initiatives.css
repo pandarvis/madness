@@ -40,3 +40,14 @@
  .initiative-dialog-body { padding: 4px 16px 16px; }
  .initiative-actions > button { flex: 1 1 100%; }
 }
+
+.initiative-create { display: flex; gap: 8px; margin-block: 10px }
+.initiative-create input { flex: 1; min-width: 0; min-height: 38px; padding: 4px 10px; background: var(--panel); color: var(--text); border: 1px solid var(--control-line) }
+
+.initiative-kind { color: var(--muted); font-weight: 500; margin-right: 2px }
+.initiative-dialog .initiative-dialog-body .initiative-intro { margin-block: 12px 4px; color: var(--muted) }
+.initiative-dialog .initiative-dialog-body > p[role="status"]:empty { display: none }
+.initiative-section { margin: 22px 0 4px; font: 600 13px Barlow, 'Segoe UI', sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.initiative-dialog .initiative-list { margin-block: 14px 0 }
+.initiative-dialog .initiative-list li + li { margin-top: 8px }
+.initiative-dialog .initiative-evidence { margin: 18px 0 0; color: var(--muted) }

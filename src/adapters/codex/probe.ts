@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process'
+import { execFile, spawn } from 'node:child_process'
 import { releaseVersion } from '../release-version.ts'
 import type {OwnedRun} from './owned-run.ts'
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
@@ -9,6 +9,8 @@ import { connectionError, connectionFailure } from '../../contracts/connection.t
 import type { Credentials } from './vault.ts'
 const marker = 'MADNESS_CODEX_OK'
 const provider = 'openai_chatgpt_plan'
+// Plugins stay off: their background git clone inherits the app-server pipes and delays close past the stop deadline.
+export const probeSettings = ['cli_auth_credentials_store="file"', 'model_provider="openai_chatgpt_plan"', 'model_providers.openai_chatgpt_plan.name="ChatGPT plan"', 'model_providers.openai_chatgpt_plan.base_url="https://api.openai.com/v1"', 'model_providers.openai_chatgpt_plan.env_key="ACCESS_TOKEN"', 'model_providers.openai_chatgpt_plan.wire_api="responses"', 'model_providers.openai_chatgpt_plan.requires_openai_auth=false', 'model_providers.openai_chatgpt_plan.supports_websockets=false', 'model_providers.openai_chatgpt_plan.request_max_retries=0', 'model_providers.openai_chatgpt_plan.stream_max_retries=0', 'web_search="disabled"', 'features.shell_tool=false', 'features.multi_agent=false', 'features.apps=false', 'features.plugins=false', 'mcp_servers={}', 'shell_environment_policy.inherit="none"']
 export function probeEnvironment(source: NodeJS.ProcessEnv, isolated: string, token?: string): NodeJS.ProcessEnv {
   if (source.NODE_TLS_REJECT_UNAUTHORIZED === '0') throw connectionFailure('NETWORK_UNAVAILABLE')
   const allow = ['PATH', 'SYSTEMROOT', 'WINDIR', 'COMSPEC', 'PATHEXT', 'TEMP', 'TMP', 'HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'NO_PROXY', 'SSL_CERT_FILE', 'SSL_CERT_DIR']
@@ -128,6 +130,11 @@ export async function runProbeProtocol(rpc: ProbeRpc, cwd: string, timeout = 450
     else { if (event.params?.turn?.status !== 'completed' || event.params?.turn?.error || !matched) throw connectionFailure('PROBE_FAILED'); return true }
   }
 }
+async function killTree(child: ChildProcessWithoutNullStreams): Promise<void> {
+  if (process.platform !== 'win32' || !child.pid) { child.kill('SIGTERM'); return }
+  const pid = child.pid
+  await new Promise<void>(resolve => execFile('taskkill', ['/T', '/F', '/PID', String(pid)], { windowsHide: true, timeout: 3000 }, error => { if (error) child.kill('SIGTERM'); resolve() }))
+}
 export async function stopNative(child: ChildProcessWithoutNullStreams): Promise<boolean> {
   if ((child.exitCode !== null || child.signalCode !== null) && child.stdout.destroyed && child.stderr.destroyed) return true
   let closed = false
@@ -142,8 +149,11 @@ export async function stopNative(child: ChildProcessWithoutNullStreams): Promise
   }
   try {
     child.stdin.end(); await wait(1500)
-    if (!closed && child.exitCode === null && child.signalCode === null) child.kill('SIGTERM')
-    await wait(4000)
+    // Helpers started by Codex inherit its pipes: only killing the whole tree lets 'close' arrive.
+    if (!closed && child.exitCode === null && child.signalCode === null) await killTree(child)
+    await wait(3000)
+    // The process itself is gone and only an orphan still holds the pipes: the stop is proven, release them.
+    if (!closed && (child.exitCode !== null || child.signalCode !== null)) { child.stdin.destroy(); child.stdout.destroy(); child.stderr.destroy(); await wait(1000) }
     if (!closed) { child.stdin.destroy(); child.stdout.destroy(); child.stderr.destroy(); child.unref() }
     return closed
   } finally { child.off('close', observe) }
@@ -182,9 +192,8 @@ export async function probeCodex(credentials: Credentials, signal: AbortSignal, 
     await mkdir(work); await mkdir(join(isolated, 'codex-home'), { recursive: true })
     const version = await nativeVersion(executable, probeEnvironment(options.environment, isolated), work, signal,options.ownedRun)
     signal.throwIfAborted()
-    const settings = ['cli_auth_credentials_store="file"', 'model_provider="openai_chatgpt_plan"', 'model_providers.openai_chatgpt_plan.name="ChatGPT plan"', 'model_providers.openai_chatgpt_plan.base_url="https://api.openai.com/v1"', 'model_providers.openai_chatgpt_plan.env_key="ACCESS_TOKEN"', 'model_providers.openai_chatgpt_plan.wire_api="responses"', 'model_providers.openai_chatgpt_plan.requires_openai_auth=false', 'model_providers.openai_chatgpt_plan.supports_websockets=false', 'model_providers.openai_chatgpt_plan.request_max_retries=0', 'model_providers.openai_chatgpt_plan.stream_max_retries=0', 'web_search="disabled"', 'features.shell_tool=false', 'features.multi_agent=false', 'mcp_servers={}', 'shell_environment_policy.inherit="none"']
     runId=await options.ownedRun?.begin();signal.throwIfAborted()
-    child = spawn(executable, ['app-server', '--listen', 'stdio://', ...settings.flatMap((setting) => ['-c', setting])], { cwd: work, env: probeEnvironment(options.environment, isolated, credentials.accessToken), shell: false, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] })
+    child = spawn(executable, ['app-server', '--listen', 'stdio://', ...probeSettings.flatMap((setting) => ['-c', setting])], { cwd: work, env: probeEnvironment(options.environment, isolated, credentials.accessToken), shell: false, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] })
     rpc = new ProbeRpc(child, signal)
     if(runId)await options.ownedRun!.capture(runId,child.pid!,executable)
     await runProbeProtocol(rpc, work)

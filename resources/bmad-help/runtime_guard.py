@@ -10,7 +10,7 @@ from pathlib import Path
 import stat
 import sys
 
-TREE_PIN = 'f0a980c65dfb91e4a7fc3e49d92786ccf5636dd270f2d049738fd4df57298de8'
+TREE_PIN = '3c364f9aad0ec866671b03347f7d8e02533ccae8e8d773bc1f2825f91e7579c3'
 UV_PIN = '2bfbe53d3cc95799e98fa08323b04844fc01d4f8c87dd5c00089e43f6554f162'
 NAMES = ['python.exe','python3.dll','python312.dll','vcruntime140.dll','vcruntime140_1.dll','DLLs','Lib']
 

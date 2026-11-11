@@ -1,6 +1,6 @@
 /** Exact resources; source2340 verified, provisioning-only35 omitted, shipped2305 closed. */
 export const graphResourcePins={
-  "assembly.json": "e2155b1cd240cdf9e4b4722a7158ebdba2e648e84c503f4264b60c945bce62c0",
+  "assembly.json": "cf7e3a249e46daa6b0f98eba408dc09177a48936dc0746eb2f335d5306ae336c",
   "CPython-LICENSE.txt": "886a0ead2d89030ee62dbff52b04e47ab91998341295bb9c56fb952b4e081c7a",
   "requirements.lock": "2d7e9297b933eba90bc9b09b91e451d9fa0a823d0f42a5924a06d2de182a7da9",
   "NOTICES.md": "f15d4c431a870544d08022b4376d30b9a12a7de36d83b1a338c9c9b0590da780",

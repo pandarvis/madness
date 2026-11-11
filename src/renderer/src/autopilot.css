@@ -1,0 +1,28 @@
+.autopilot { position: relative; display: grid; gap: 12px; margin-bottom: 18px; padding: 14px 16px; background: var(--panel); border: 1px solid var(--control-line); overflow: hidden }
+.autopilot-idle { grid-template-columns: minmax(0, 1fr) auto; align-items: center }
+.autopilot h3 { margin: 0; font-family: 'Barlow Condensed', 'Segoe UI', sans-serif; font-size: 20px; font-weight: 700 }
+.autopilot p { margin: 2px 0 0; color: var(--muted) }
+.autopilot-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px }
+.autopilot-actions { display: flex; align-items: center; gap: 8px }
+.autopilot-pause { color: var(--waiting-text) }
+.autopilot-recap { max-width: 900px }
+.autopilot-table { overflow-x: auto }
+.autopilot table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums }
+.autopilot th, .autopilot td { padding: 5px 10px; text-align: left; font-weight: 450; border-bottom: 1px solid var(--control-line) }
+.autopilot thead th { color: var(--muted); font-size: 13px }
+.autopilot td:nth-child(n+3), .autopilot thead th:nth-child(n+3) { text-align: right; white-space: nowrap }
+.autopilot-epic th, .autopilot-epic td { font-weight: 650; padding-top: 12px }
+.autopilot-running th { color: var(--success-text) }
+.autopilot-failed th { color: var(--waiting-text) }
+.autopilot-skipped th, .autopilot-skipped td { color: var(--muted) }
+/* Wider than its parent and moved by exactly one 40px tile: compositor-only, so no repaint and no seam. */
+.hub-banner { position: absolute; inset: 0 -40px auto 0; height: 4px; background-image: linear-gradient(135deg, var(--accent, #e39a76) 25%, transparent 25% 50%, var(--accent, #e39a76) 50% 75%, transparent 75%); background-size: 40px 40px; will-change: transform; animation: work-march 1.6s linear infinite }
+@media (prefers-reduced-motion: reduce) { .hub-banner { animation: none } }
+
+.autopilot-table { max-width: 920px }
+.autopilot-done td:nth-child(2) { color: var(--success-text) }
+.autopilot-epic th, .autopilot-epic td { background: var(--control-surface, rgba(255, 255, 255, .04)) }
+.autopilot-weight { display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px; min-width: 150px }
+.autopilot-weight > span:last-child { min-width: 58px; text-align: right }
+.autopilot-bar { display: block; flex: 0 0 auto; max-width: 70px; height: 5px; background: var(--accent, #e39a76) }
+.autopilot-weight { position: relative }

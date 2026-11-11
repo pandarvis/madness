@@ -14,7 +14,7 @@ const execute=promisify(execFile),quote=s=>"'"+s.replaceAll("'","''")+"'"
 const repository=resolve(dirname(fileURLToPath(import.meta.url)),'../../../../..')
 const qualification=dirname(fileURLToPath(import.meta.url)),sha=b=>createHash('sha256').update(b).digest('hex')
 const pwsh=join(process.env.USERPROFILE,'.dotnet/tools/.store/powershell/7.5.4/powershell/7.5.4/tools/net9.0/any/win/pwsh.exe')
-const origin=join(process.env.USERPROFILE,'.cache/codex-runtimes/codex-primary-runtime/dependencies/python')
+const origin=resolve('resources/graphify/assembly/runtime')
 export async function copyRuntime(root,resources=join(repository,'resources/bmad-help')){
  const raw=await readFile(join(resources,'runtime.json')),manifest=JSON.parse(raw)
  if(manifest.files.length!==735)throw Error('RUNTIME_CORPUS_CHANGED')

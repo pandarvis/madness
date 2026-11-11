@@ -284,6 +284,14 @@ export const interfaceCopy = {
   "fr": "La vérification envoie un court message témoin et consomme votre forfait ChatGPT. Les limites de ce forfait s’appliquent.",
   "en": "Checking sends a short test message and uses your ChatGPT plan. Its limits apply."
  },
+ "new_initiative_placeholder": {
+  "fr": "Nom de la nouvelle initiative",
+  "en": "New initiative name"
+ },
+ "create_initiative": {
+  "fr": "Créer",
+  "en": "Create"
+ },
  "continue_with_chatgpt": {
   "fr": "Continuer avec ChatGPT",
   "en": "Continue with ChatGPT"
@@ -397,12 +405,12 @@ export const interfaceCopy = {
   "en": "Madness needs to know which project your input belongs to."
  },
  "connect_your_account_from_the_codex_logo": {
-  "fr": "Connectez votre compte depuis le logo Codex",
-  "en": "Connect your account from the Codex logo"
+  "fr": "Choisissez votre IA en haut à droite",
+  "en": "Choose your AI at the top right"
  },
  "read_bmad_evidence_in_journey_without_a_connection_view_the_local": {
-  "fr": "Les preuves BMad se lisent dans Parcours, sans connexion. Le graphe local du code se consulte dans l’onglet Graphe. L’initialisation reste à venir.",
-  "en": "Read BMad evidence in Journey without a connection. View the local code graph in the Graph tab. Initialization is still to come."
+  "fr": "Les preuves BMad se lisent dans Parcours, sans connexion. Le graphe local du code se consulte dans l’onglet Graphe. Un dossier sans BMad peut être initialisé depuis Parcours.",
+  "en": "Read BMad evidence in Journey without a connection. View the local code graph in the Graph tab. A folder without BMad can be initialized from Journey."
  },
  "prepare_an_exchange_with_mary_to_clarify_your_project_or_with_for": {
   "fr": "Préparez un échange avec Mary pour préciser votre projet, ou avec Forge pour éprouver une nouvelle idée. Qualification et lancement restent explicites.",
@@ -549,8 +557,8 @@ export const interfaceCopy = {
   "en": " · awaiting send acknowledgement"
  },
  "turn_complete_next_action_your_response_turn_completion_does_not_": {
-  "fr": " · tour terminé, prochaine action : votre réponse. La fin du tour ne valide aucun livrable.",
-  "en": " · turn complete, next action: your response. Turn completion does not validate deliverables."
+  "fr": " · La fin du tour ne valide aucun livrable.",
+  "en": " · Turn completion does not validate deliverables."
  },
  "no_saved_exchange": {
   "fr": "Aucun échange enregistré",

@@ -1,0 +1,10 @@
+.graph-drawing { position: relative }
+.graph-canvas { position: absolute; inset: 0 }
+.graph-canvas-wait { position: absolute; inset: 50% 0 auto; margin: 0; text-align: center; color: var(--muted) }
+.graph-legend { position: absolute; top: 8px; left: 8px; z-index: 2; display: flex; flex-direction: column; gap: 2px; max-height: calc(100% - 16px); max-width: 240px; overflow-y: auto; padding: 6px; border-radius: 4px; background: #191817d9 }
+.graph-legend-item { display: flex; align-items: center; gap: 8px; min-height: 28px; padding: 2px 8px; border: 0; background: transparent; color: var(--text); font-size: 13px; text-align: left; cursor: pointer }
+.graph-legend-item:hover { background: var(--hover) }
+.graph-legend-item[aria-pressed='false'] { opacity: .45; text-decoration: line-through }
+.graph-legend-dot { width: 11px; height: 11px; flex: none; border-radius: 50% }
+.graph-legend-size { margin-inline-start: auto; color: var(--muted) }
+.graph-panel .graph-exploration ul, .graph-panel .graph-results ul { max-height: none; overflow: visible }

@@ -7,7 +7,7 @@ export type GraphIdentity = GraphScope & {analysisId:string; sourceRevision:stri
 export type GraphSource = {relativePath:string; sha256:string; lineCount:number|null; kind:'file'|'link'|'unknown'}
 export type GraphLine = {status:'known'; value:number}|{status:'unknown'; reason:'absent'|'unrecognized'}
 export type GraphReference = {status:'known'; relativePath:string; line:GraphLine}|{status:'unknown'; reason:'absent'|'unrecognized'}
-export type GraphNode = {id:string; label:string; kind:string; reference:GraphReference}
+export type GraphNode = {id:string; label:string; kind:string; reference:GraphReference; community?:number}
 export type GraphRelation = {id:string; source:string; target:string; kind:string; directionSource:'explicit-markers'|'source-target'; confidence:'EXTRACTED'|'INFERRED'|'AMBIGUOUS'; score:number|null; reference:GraphReference}
 export type GraphSnapshot = {
  schemaVersion:1; identity:GraphIdentity
@@ -172,7 +172,8 @@ function snapshot(input:unknown,path:string):void{
  corpus(v.sources,path+'.sources')
  const sources=new Map((v.sources as GraphSource[]).map(s=>[s.relativePath,s]))
  array(v.nodes,path+'.nodes',(input,path)=>{
-  const n=record(input,['id','label','kind','reference'],path)
+  const n=record(input,input&&typeof input==='object'&&Object.hasOwn(input,'community')?['id','label','kind','reference','community']:['id','label','kind','reference'],path)
+  if(Object.hasOwn(n,'community')&&(!Number.isSafeInteger(n.community)||(n.community as number)<0))refuse('INVALID_SHAPE',path+'.community')
   for(const key of ['id','label','kind'])text(n[key],path+'.'+key)
   reference(n.reference,path+'.reference',sources)
  })

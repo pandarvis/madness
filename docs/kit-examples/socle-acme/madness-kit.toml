@@ -1,0 +1,26 @@
+# Proposé par Madness à partir du dossier : ajuste les niveaux (impose / consulte) et les rôles.
+[kit]
+id = "socle-acme"
+name = "Socle Acme"
+version = "0.1.0"
+format = 1
+
+[[piece]]
+kind = "docs"
+title = "charte"
+path = "charte/*"
+level = "impose"
+for = ["ux", "dev", "review"]
+
+[[piece]]
+kind = "glossary"
+title = "glossaire"
+path = "glossaire.md"
+level = "impose"
+for = ["all"]
+
+[[rule]]
+id = "palette"
+text = "Aucune couleur en dur : uniquement les jetons de la charte Acme."
+level = "impose"
+for = ["ux", "dev", "review"]

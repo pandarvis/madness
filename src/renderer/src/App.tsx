@@ -1,3 +1,5 @@
+import {ProjectJourney} from './ProjectJourney.tsx'
+import {ModelPicker,modelLabel,useModels} from './ModelPicker.tsx'
 import {InitializationEntryPoint,InitializationPanel,useInitialization} from './InitializationPanel.tsx'
 import type {InitializationArrival} from './InitializationPanel.tsx'
 import {formatNumber,formatCount} from './locale-format.ts'
@@ -16,11 +18,19 @@ import {FilePreview,FilesContext,restoreFileConsultationFocus,useProjectFiles} f
 import type {FileConsultation} from './FilePreview.tsx'
 import {CatalogPanel,useBmadCatalog} from './CatalogPanel.tsx'
 import type {CatalogView} from './CatalogPanel.tsx'
-import {InitiativeSelector,InitiativeContext,useBmadContext} from './InitiativeSelector.tsx'
+import {InitiativeSelector,InitiativeContext,initiativeLabel,useBmadContext} from './InitiativeSelector.tsx'
+import {AutopilotPanel,autopilotBuilding,useAutopilot} from './AutopilotPanel.tsx'
 import {ProjectResume,useBmadProgress} from './ProjectResume.tsx'
 import {HelpPanel,HelpReceiptPanel,useBmadHelp} from './HelpPanel.tsx'
 import {agentPresentation} from './agentPresentation.ts'
 import {AgentPortrait} from './AgentPortrait.tsx'
+import {leadingPersona,PERSONA_BY_NAME} from './sober-text.ts'
+import {PersonaGlyph} from './PersonaGlyph.tsx'
+import {agentForStage} from './agent-routing.ts'
+import {NewProject} from './NewProject.tsx'
+import {KitSources} from './KitSources.tsx'
+import {MadnessVoice} from './MadnessVoice.tsx'
+import type {JourneyStep} from './agent-routing.ts'
 import {AgentInfoPanel} from './AgentInfoPanel.tsx'
 import madnessMark from '../../../resources/branding/madness-64.png'
 import {WindowCaptionPlates} from './WindowCaptionPlates.tsx'
@@ -39,7 +49,10 @@ import { MAX_DRAFT_LENGTH } from '../../contracts/index.ts'
 import { fr,metricsLabels } from './strings.ts'
 import { initialConnectionState } from '../../contracts/connection.ts'
 import type { ConnectionState, ConnectionBridge } from '../../contracts/connection.ts'
-import chatgptMark from './assets/chatgpt-mark.svg'
+import { MessageMarkdown } from './MessageMarkdown.tsx'
+import { ProjectsHub } from './ProjectsHub.tsx'
+import { NavigationIcon, TopbarIcon } from './TopbarIcon.tsx'
+import { ProviderIsland, readNextProvider, saveNextProvider, type ProviderId } from './ProviderIsland.tsx'
 import { initialDialogueState } from '../../contracts/dialogue.ts'
 import type { DialogueMessage, DialogueState, WorkflowRecord } from '../../contracts/dialogue.ts'
 import type { AppearanceState } from '../../contracts/appearance.ts'
@@ -53,15 +66,18 @@ function MessageArticle({message,projection,providerId,onConsult}:{message:Conve
   const identity=projection?.identity
   const agent=agentPresentation(identity,language)
   const name=identity?.kind==='attested'?identity.name:fr.conversation.unknownAgent
+  // Next to a known agent's portrait, its glyph tags the name; without a portrait the avatar already shows it.
+  const persona=message.role==='assistant'&&identity?.kind==='attested'?PERSONA_BY_NAME[identity.name]:undefined
   const phase=projection?.phase==='streaming'?fr.conversation.streaming:projection?.phase==='complete'?fr.conversation.complete:projection?.phase==='interrupted'?fr.conversation.partial:fr.conversation.unknownPhase
   const storage=projection?.storage==='pending'||projection?.storage==='failed'?fr.conversation.notStored:fr.conversation.stored
   return <article data-message-id={message.id} className={'dialogue-message '+message.role}>
-    <div className="message-author">{message.role==='assistant'&&(agent&&projection?<button className="agent-portrait-trigger" type="button" aria-label={ui.details_for+agent.name} onClick={event=>onConsult(projection,event.currentTarget)}><AgentPortrait agent={agent}/></button>:<AgentPortrait/>)}<h3>{message.role==='user'?ui.you:providerId==='claude-code'?'Claude Code':name+' · Codex'}</h3>{message.role==='assistant'&&agent&&projection&&<button className="agent-info-link text-button" type="button" aria-label={ui.details_for+agent.name+' · message '+message.id} onClick={event=>onConsult(projection,event.currentTarget)}>{ui.agent_details}</button>}</div>
-    {message.role==='assistant'&&<p className={'message-state '+(projection?.storage==='failed'?'message-storage-failed':'')}>{projection?phase+' · '+storage:fr.conversation.historical}</p>}
-    <div className="message-text">{message.text}</div>
+    <div className="message-author">{message.role==='assistant'&&(agent&&projection?<button className="agent-portrait-trigger" type="button" aria-label={ui.details_for+agent.name} onClick={event=>onConsult(projection,event.currentTarget)}><AgentPortrait agent={agent}/></button>:<AgentPortrait persona={leadingPersona(message.text)??(identity?.kind==='attested'?PERSONA_BY_NAME[identity.name]:undefined)}/>)}<h3>{persona&&<PersonaGlyph persona={persona} className="author-glyph"/>}{message.role==='user'?ui.you:providerId==='claude-code'?(identity?.kind==='attested'&&identity.name!=='Claude Code'?identity.name:'Mary')+' · Claude Code':name+' · Codex'}</h3>{message.role==='assistant'&&agent&&projection&&<button className="agent-info-link text-button" type="button" aria-label={ui.details_for+agent.name+' · message '+message.id} onClick={event=>onConsult(projection,event.currentTarget)}>{ui.agent_details}</button>}</div>
+    {message.role==='assistant'&&<p className={'message-state '+(projection?.storage==='failed'?'message-storage-failed ':'')+(projection&&(projection.phase!=='complete'||projection.storage==='failed')?'is-notable':'')}>{projection?phase+' · '+storage:fr.conversation.historical}</p>}
+    {message.role==='user'&&/^\$bmad[\w-]*(\n|$)/.test(message.text)?<div className="message-text message-start">{language==='fr'?'Démarrage de l’agent':'Agent started'}</div>:message.role==='assistant'?<div className="message-text"><MessageMarkdown text={message.text} keepLead={identity?.kind==='attested'&&identity.name==='Table ronde'}/></div>:<div className="message-text">{message.text}</div>}
     {message.role==='assistant'&&identity?.kind==='attested'&&<p className="message-provenance">{ui.attested_identity_source} <code>{identity.source}</code></p>}
   </article>
 }
+const BMAD_AGENTS:readonly (readonly [string,string,string])[]=[['bmad-agent-analyst','Mary','analyse'],['bmad-agent-pm','John','produit'],['bmad-agent-ux-designer','Sally','UX'],['bmad-agent-architect','Winston','architecture'],['bmad-agent-po','Sofia','stories'],['bmad-agent-dev','Amelia','code'],['bmad-party-mode','Table ronde','toute l’équipe']]
 type ReadingPosition={top:number;follow:boolean}
 function ConversationMessages({conversation,projections,positions,onConsult}:{conversation:Conversation;projections:DialogueMessage[];positions:Map<string,ReadingPosition>;onConsult:(message:DialogueMessage,trigger:HTMLButtonElement)=>void}):ReactNode {
  const {ui}=useLocale()
@@ -87,8 +103,8 @@ function ProjectMark({ name }: { name: string }): ReactNode {
   return <span className="project-mark" aria-hidden="true"><span>{letters ? letters.toUpperCase() : <Icon name="folder" />}</span></span>
 }
 
-function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message' | 'arrow' | 'refresh' | 'external' | 'logout' | 'copy' | 'sun' | 'moon' }): ReactNode {
-  const paths = { home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z', folder: 'M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z', panel: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM9 3v18m6-13-3 4 3 4', close: 'm6 6 12 12M6 18 18 6', message: 'M4 4h16v12H9l-5 4V4Z', arrow: 'M5 12h14m-5-5 5 5-5 5', refresh: 'M20 7v5h-5M20 12a8 8 0 1 0-2 5', external: 'M14 4h6v6m0-6-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5', logout: 'M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4m4-12 4 4-4 4m-4-4h12',copy:'M9 9h12v12H9V9ZM5 15H3V3h12v2',sun:'M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5',moon:'M20.5 13.1A8.5 8.5 0 0 1 10.9 3.5a8.5 8.5 0 1 0 9.6 9.6Z' }
+function Icon({ name }: { name: 'home' | 'folder' | 'panel' | 'close' | 'message' | 'arrow' | 'refresh' | 'external' | 'logout' | 'copy' | 'sun' | 'moon' | 'settings' }): ReactNode {
+  const paths = { settings: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm8.5 4-.1-1.3 2-1.6-2-3.4-2.4.9a8 8 0 0 0-2.2-1.3L15.4 3h-3.8l-.4 2.3A8 8 0 0 0 9 6.6l-2.4-.9-2 3.4 2 1.6L6.5 12l.1 1.3-2 1.6 2 3.4 2.4-.9a8 8 0 0 0 2.2 1.3l.4 2.3h3.8l.4-2.3a8 8 0 0 0 2.2-1.3l2.4.9 2-3.4-2-1.6Z', home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z', folder: 'M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z', panel: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM9 3v18m6-13-3 4 3 4', close: 'm6 6 12 12M6 18 18 6', message: 'M4 4h16v12H9l-5 4V4Z', arrow: 'M5 12h14m-5-5 5 5-5 5', refresh: 'M20 7v5h-5M20 12a8 8 0 1 0-2 5', external: 'M14 4h6v6m0-6-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5', logout: 'M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4m4-12 4 4-4 4m-4-4h12',copy:'M9 9h12v12H9V9ZM5 15H3V3h12v2',sun:'M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5',moon:'M20.5 13.1A8.5 8.5 0 0 1 10.9 3.5a8.5 8.5 0 1 0 9.6 9.6Z' }
   const cutPaths = { home: 'M3 10 12 3l9 7v9l-2 2h-5v-7h-4v7H5l-2-2Z', folder: 'M3 8V4h7l3 3h8v12l-2 2H3Zm0 2h18', panel: 'M5 3h14l2 2v14l-2 2H3V5Zm4 0v18m7-13-4 4 4 4', sun: 'M16 9v6l-4 2-4-2V9l4-2ZM12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2', moon: 'M20 14a8 8 0 0 1-10-10l-5 3-2 5 2 6 5 3 6-1Z' }
   const face = { home: 'M3 10 12 3l9 7v9l-2 2h-5v-7h-4v7H5l-2-2Z', folder: 'M3 10h18v9l-2 2H3Z', panel: 'M5 3h4v18H3V5Z', sun: 'M16 9v6l-4 2-4-2V9l4-2Z', moon: 'M20 14a8 8 0 0 1-10-10l-5 3-2 5 2 6 5 3 6-1Z' }
   const key = name in cutPaths ? name as keyof typeof cutPaths : null
@@ -158,7 +174,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const [appearanceBridgeError, setAppearanceBridgeError] = useState<'read' | 'change' | null>(appearanceReadFailed ? 'read' : null)
   const appearanceBusy = useRef(false)
   const themeLabel = appearance.theme === 'dark' ? ui.switch_to_light_theme : ui.switch_to_dark_theme
-  useEffect(() => { document.documentElement.dataset.theme = appearance.theme }, [appearance.theme])
+  useEffect(() => { document.documentElement.dataset.theme = 'dark' }, [])
   async function toggleTheme(): Promise<void> {
     if (appearanceBusy.current) return
     const theme = appearance.theme === 'dark' ? 'light' : 'dark'
@@ -176,6 +192,18 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const heading = useRef<HTMLHeadingElement>(null)
   const [connection, setConnection] = useState<ConnectionState>(initialConnectionState)
   const [connectionOpen, setConnectionOpen] = useState(false)
+  const composerField=useRef<HTMLTextAreaElement>(null)
+  // 'auto': Madness hands the conversation to the agent that owns the project's current BMad step.
+  const [agentChoice,setAgentChoice]=useState(()=>{try{return localStorage.getItem('madness.agent-choice')??'auto'}catch{return 'auto'}})
+  const [stageAgent,setStageAgent]=useState('bmad-agent-analyst')
+  const bmadAgent=agentChoice==='auto'?stageAgent:agentChoice
+  const [allowWrites,setAllowWrites]=useState(()=>{try{return localStorage.getItem('madness.allow-writes')==='1'}catch{return false}})
+  const switchAfterStop=useRef<{projectId:string;text:string}|null>(null)
+  const pendingSend=useRef<string|null>(null),restoreText=useRef<{projectId:string;text:string}|null>(null)
+  const [nextProvider, setNextProvider] = useState<ProviderId>(readNextProvider)
+  const [devMode, setDevMode] = useState(()=>{try{return localStorage.getItem('madness.dev-mode')==='1'}catch{return false}})
+  function changeDevMode(on:boolean):void{setDevMode(on);try{if(on)localStorage.setItem('madness.dev-mode','1');else localStorage.removeItem('madness.dev-mode')}catch{/* session-only choice */}}
+  function replaySplash():void{try{sessionStorage.setItem('madness.replay-splash','1')}catch{return}void (window as unknown as {madnessWindow?:{reload():Promise<void>}}).madnessWindow?.reload()}
   const [connectionPending, setConnectionPending] = useState(false)
   const [connectionBridgeError, setConnectionBridgeError] = useState(false)
   const connectionTrigger = useRef<HTMLButtonElement>(null)
@@ -188,6 +216,10 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const connectionLabel = ui.codex_connection_2 + fr.connectionStatus[connection.status]
   const project = state?.projects.find((p) => p.id === displayedProjectId)
   const initiativeContext=bmadContext.projects.find(p=>p.projectId===project?.id)
+  // Parcours shows the project's stage and one next step; the rest waits behind these two toggles.
+  const [showOther,setShowOther]=useState(false),[showDetails,setShowDetails]=useState(false)
+  const [models,setModel,loadModels]=useModels()
+  const autopilot=useAutopilot(),autopilotHere=autopilot.runs.find(run=>run.projectId===project?.id)
   const catalogSelectionChanged=!!catalogPreparation&&(initiativeContext?.selection?.revision??null)!==catalogPreparation.selectionRevision
   const fileScope=tab==='graphe'?JSON.stringify([project?.id,project?.rootPath,'corpus']):JSON.stringify([project?.id,project?.rootPath,initiativeContext?.selection?.rootIdentity,initiativeContext?.selection?.initiativeId])
   const fileConsultation=page==='project'?fileViews[fileScope]:undefined
@@ -201,6 +233,14 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const saved = state?.drafts.find((d) => d.projectId === project?.id)
   const text = project ? texts[project.id] ?? saved?.text ?? '' : ''
   const dirty = text !== (saved?.text ?? '')
+  useLayoutEffect(()=>{const field=composerField.current;if(!field)return;field.style.height='auto';field.style.height=Math.min(180,field.scrollHeight)+'px'},[text,tab,project?.id])
+  // The text in progress is simply kept: no draft concept for the user.
+  useEffect(()=>{
+    if(!project||!dirty)return
+    const projectId=project.id,value=text,timer=setTimeout(()=>{void window.madness.saveDraft(projectId,value).then(reply=>accept(reply)).catch(()=>undefined)},700)
+    return ()=>clearTimeout(timer)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[project?.id,text,dirty])
   const [dialogue, setDialogue] = useState<DialogueState>(initialDialogueState)
   const [dialoguePending, setDialoguePending] = useState(false)
   const [dialogueBridgeError, setDialogueBridgeError] = useState(false)
@@ -222,6 +262,13 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const initializationOpen=page==='project'&&!!initializationArrival&&
     initializationArrival.projectId===project?.id&&initializationArrival.tab===tab
   const [initializationState,acceptInitialization]=useInitialization(page==='project'?project?.id:undefined)
+  // Ask once per project and after each initialization outcome whether BMad is missing, so the beginner sees one clear first step.
+  const [bmadAbsent,setBmadAbsent]=useState<Record<string,boolean>>({})
+  const initializationOutcome=initializationState?.operations.map(op=>op.attemptId+':'+op.result.outcome).join('|')??''
+  useEffect(()=>{const id=page==='project'?project?.id:undefined;const probe=(window as unknown as {madnessProjectProbe?:{bmadPresent(id:string):Promise<boolean|null>}}).madnessProjectProbe;if(!id||!probe)return;let alive=true
+    void probe.bmadPresent(id).then(present=>{if(alive)setBmadAbsent(c=>({...c,[id]:present===false}))}).catch(()=>undefined)
+    return ()=>{alive=false}},[page,project?.id,initializationOutcome])
+  const absentHere=page==='project'&&!!project&&bmadAbsent[project.id]===true&&!initializationState?.operations.some(op=>['preparing','checking','applying','verifying','ready'].includes(op.phase))
   const [agentConsultation,setAgentConsultation]=useState<AgentConsultation|null>(null)
   const agentFocusReturn=useRef<HTMLElement|null>(null)
   const contextTrigger=useRef<HTMLButtonElement>(null)
@@ -263,9 +310,9 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   const historicalApprovals=conversationApprovals.filter(a=>!currentRequest('approval',a.id))
   const nativeAwaiting=dialogueConversationHere&&['waiting-question','waiting-approval'].includes(dialogue.status)
   const claudeSession=dialogue.context.providerId==='claude-code'
-  const canReply = !claudeSession && dialogueConversationHere && dialogue.status === 'ready'
+  const canReply = dialogueConversationHere && dialogue.status === 'ready'
   const workflow=dialogue.workflows.find(w=>w.conversationId===conversation?.id)
-  const recipient=dialogue.invocation==='$bmad'?'BMad':dialogue.invocation==='$bmad-forge-idea'?'Forge':'Mary'
+  const recipient=dialogue.invocation==='$bmad'?'BMad':dialogue.invocation==='$bmad-forge-idea'?'Forge':BMAD_AGENTS.find(([id])=>'$'+id===dialogue.invocation)?.[1]??'Mary'
   const activeQuestion=dialogue.questions.find(q=>overview?.entries.some(e=>e.target.kind==='question'&&e.target.id===q.id)&&sameContext(q.context,dialogue.context))
   const activeApproval=dialogue.approvals.find(a=>overview?.entries.some(e=>e.target.kind==='approval'&&e.target.id===a.id)&&sameContext(a.context,dialogue.context))
   const displayedRecipient=activeApproval?(activeApproval.identity.kind==='attested'?activeApproval.identity.name:fr.conversation.unknownAgent):activeQuestion?questionRecipient(activeQuestion,fr.conversation.unknownAgent):recipient
@@ -283,6 +330,19 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     closeFile(false)
     setAgentConsultation({message:structuredClone(message),trigger,viewConversationId:conversation?.id??null})
   }
+  useEffect(()=>{if(installNext.current&&absentHere){installNext.current=false;const trigger=document.querySelector<HTMLElement>('.bmad-absent-card button')??document.body;openInitialization(trigger,null,true)}})
+  // Re-read where the project stands whenever the conversation may pick up: opening, tab change, turn end.
+  useEffect(()=>{
+    const bridge=(window as unknown as {madnessJourney?:{read(id:string):Promise<JourneyStep[]>}}).madnessJourney
+    if(!project||!bridge)return
+    let alive=true
+    // When the pilot hands over, the agent it named answers; otherwise the owner of the current step.
+    const advice=autopilotHere?.status==='paused'&&autopilotHere.pauseReason==='guidance'?autopilotHere.recommendation:null
+    const named=advice?.agent?BMAD_AGENTS.find(([,name])=>name===advice.agent)?.[0]:undefined
+    if(named){setStageAgent(named);return}
+    void bridge.read(project.id).then(steps=>{if(alive)setStageAgent(agentForStage(steps))}).catch(()=>undefined)
+    return()=>{alive=false}
+  },[project?.id,tab,dialogue.status,autopilotHere?.status,autopilotHere?.recommendation?.agent])
   useEffect(()=>{
     if(!agentConsultation)return
     const source=dialogue.messages.find(message=>message.id===agentConsultation.message.id&&sameContext(message.context,agentConsultation.message.context))
@@ -419,19 +479,19 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     void window.madnessDialogue.read().then(acceptDialogue).catch(() => setDialogueBridgeError(true))
     return unsubscribe
   }, [])
-  async function dialogueAction(action: 'qualify' | 'launch' | 'stop' | 'observeStop' | 'qualifyForge' | 'launchForge' | 'launchHelp' | 'launchClaude'): Promise<void> {
+  async function dialogueAction(action: 'qualify' | 'launch' | 'stop' | 'observeStop' | 'qualifyForge' | 'launchForge' | 'launchHelp' | 'launchClaude', claude?: {text:string;conversationId?:string;agent?:string;writes?:boolean;provider?:'codex'}): Promise<void> {
     if (dialoguePending||dialogueActionLock.current) return
     const projectId = project?.id
     if (action !== 'stop' && action !== 'observeStop' && !projectId) return
     const codexLaunch=action==='launch'||action==='launchForge'||action==='launchHelp'
     const launching=codexLaunch||action==='launchClaude'
     if((action==='launchForge'||action==='launchHelp')&&initiativeContext?.observation?.activeInitiative&&initiativeContext.selection?.initiativeId!==initiativeContext.observation.activeInitiative){setInitiativeConflict(true);return}
-    const launch=launching?{token:++navigationToken.current,projectId:projectId!,previousConversationId:dialogue.context.conversationId,sequence:dialogue.sequence}:null
+    const launch=launching?{token:++navigationToken.current,projectId:projectId!,previousConversationId:claude?.conversationId?null:dialogue.context.conversationId,sequence:dialogue.sequence}:null
     if(launch){pendingLaunch.current=launch;setFocusTarget(null)}
     dialogueActionLock.current=true;setDialoguePending(true)
     try { const chosen=codexLaunch?await metricChoices.resolve(action,projectId!,null,null,action==='launch'?{type:'launch',mode:maryMode}:action==='launchForge'?{type:'launch-forge'}:{type:'launch-help'}):null
       if(chosen&&launch)Object.assign(launch,{requestId:chosen.requestId})
-      const next = chosen?await window.madnessDialogue.launchMeasured(action==='launchForge'?'launch-forge':action==='launchHelp'?'launch-help':'launch',projectId!,chosen.requestId,chosen.choiceRef,undefined,maryMode):action === 'stop'||action==='observeStop' ? await window.madnessDialogue[action]() : action==='launch'?await window.madnessDialogue.launch(projectId!,maryMode):await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false) }
+      const next = action==='launchClaude'&&claude?await window.madnessDialogue.launchClaude(projectId!,claude.text,claude.conversationId,claude.agent,claude.writes,claude.provider):chosen?await window.madnessDialogue.launchMeasured(action==='launchForge'?'launch-forge':action==='launchHelp'?'launch-help':'launch',projectId!,chosen.requestId,chosen.choiceRef,undefined,maryMode):action === 'stop'||action==='observeStop' ? await window.madnessDialogue[action]() : action==='launch'?await window.madnessDialogue.launch(projectId!,maryMode):await window.madnessDialogue[action](projectId!); acceptDialogue(next); setDialogueBridgeError(false) }
     catch(e) { if(launch&&pendingLaunch.current===launch)pendingLaunch.current=null;if(!(e instanceof Error&&e.message==='METRIC_CHOICE_REFUSED'))setDialogueBridgeError(true) }
     finally { dialogueActionLock.current=false;setDialoguePending(false) }
   }
@@ -445,6 +505,71 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   async function copyWorkflow(conversationId:string,target:'invocation'|'workspace'):Promise<DialogueState>{
     const next=await window.madnessDialogue.copyWorkflow(conversationId,target);acceptDialogue(next);return next
   }
+  useEffect(()=>{
+    const restore=restoreText.current
+    if(restore&&dialogue.errorCode){restoreText.current=null;setTexts(current=>current[restore.projectId]?current:{...current,[restore.projectId]:restore.text})}
+    else if(restore&&dialogue.acknowledged)restoreText.current=null
+    if(pendingSend.current&&dialogue.errorCode)pendingSend.current=null
+    if(pendingSend.current&&canReply&&project?.id===pendingSend.current){pendingSend.current=null;void sendToMary()}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[dialogue.errorCode,dialogue.acknowledged,canReply])
+  useEffect(()=>{
+    const next=switchAfterStop.current
+    if(!next||sessionPresent||dialogueBusy||dialoguePending)return
+    switchAfterStop.current=null
+    restoreText.current=next
+    setTexts(current=>({...current,[next.projectId]:''}))
+    followSession(next.projectId)
+    if(nextProvider==='codex'&&bmadAgent==='bmad-agent-analyst'&&!models?.ownCodexLogin){restoreText.current=null;setTexts(current=>({...current,[next.projectId]:next.text}));pendingSend.current=next.projectId;void dialogueAction('launch');return}
+    void dialogueAction('launchClaude',{text:next.text,agent:bmadAgent,writes:true,...(nextProvider==='codex'?{provider:'codex' as const}:{})})
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[sessionPresent,dialogueBusy,dialoguePending])
+  // A new agent session opens its own conversation: stop pinning the previous one.
+  function followSession(projectId:string):void{setConversationSelections(current=>{const next={...current};delete next[projectId];return next})}
+  function clearComposer(projectId:string,sent:string):void{
+    setTexts(current=>current[projectId]===sent?{...current,[projectId]:''}:current)
+    void window.madness.saveDraft(projectId,'').then(reply=>accept(reply)).catch(()=>undefined)
+  }
+  // One action for the composer: reply in the live session, or start one with this message.
+  // The end of ideation: the open conversation closes, the recap starts, and the user lands where the Go button is.
+  async function preparePilot(): Promise<void> {
+    if(!project||!window.madnessAutopilot)return
+    const projectId=project.id
+    if(dialogueHere&&sessionPresent)await dialogueAction('stop')
+    await window.madnessAutopilot.prepare(projectId,nextProvider==='codex'?'codex':'claude-code')
+    setTab('parcours')
+  }
+  async function sendMessage(): Promise<void> {
+    if(!project||!text.trim()||sending.current)return
+    // Any agent other than Mary works in full BMad mode: it writes its own documents.
+    // With the user's own Codex login, Mary too runs on the agents' engine: no separate Madness sign-in needed.
+    const codexAgent=nextProvider==='codex'&&(bmadAgent!=='bmad-agent-analyst'||!!models?.ownCodexLogin)
+    const agentic=nextProvider==='claude-code'&&(allowWrites||bmadAgent!=='bmad-agent-analyst')
+    const wanted=nextProvider==='claude-code'&&!agentic?'$bmad-agent-analyst':'$'+bmadAgent
+    // Another agent was picked while one is live: close it, then open the chosen one with this message.
+    if(canReply&&(dialogue.invocation!==wanted||dialogue.context.providerId!==nextProvider)){switchAfterStop.current={projectId:project.id,text};await dialogueAction('stop');return}
+    if(canReply)return sendToMary()
+    if(sessionPresent||dialogueBusy||dialoguePending||dialogue.status==='unknown')return
+    const projectId=project.id,captured=text
+    if(codexAgent){
+      restoreText.current={projectId,text:captured}
+      setTexts(current=>({...current,[projectId]:''}))
+      followSession(projectId)
+      await dialogueAction('launchClaude',{text:captured,agent:bmadAgent,writes:true,provider:'codex'})
+      return
+    }
+    if(nextProvider==='codex'){
+      if(!connection.accountStored||connection.needsPlanAcknowledgement){openConnection();return}
+      pendingSend.current=projectId
+      await dialogueAction('launch')
+      return
+    }
+    const resume=!agentic&&conversation?.context.providerId==='claude-code'?conversation.id:undefined
+    restoreText.current={projectId,text:captured}
+    setTexts(current=>({...current,[projectId]:''}))
+    if(agentic)followSession(projectId)
+    await dialogueAction('launchClaude',{text:captured,...(resume?{conversationId:resume}:{}),...(agentic?{agent:bmadAgent,writes:true}:{})})
+  }
   async function sendToMary(): Promise<void> {
     if (!project || !conversation || !canReply || !text.trim() || sending.current) return
     const projectId = project.id, conversationId = conversation.id, captured = text
@@ -452,7 +577,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     try {
       const savedReply = await window.madness.saveDraft(projectId, captured)
       if (!accept(savedReply)) return
-      const chosen=await metricChoices.resolve('send',projectId,conversationId,captured,{type:'send'});acceptDialogue(chosen?await window.madnessDialogue.sendMeasured(projectId,conversationId,captured,chosen.requestId,chosen.choiceRef):await window.madnessDialogue.send(projectId, conversationId, captured)); setDialogueBridgeError(false)
+      const chosen=await metricChoices.resolve('send',projectId,conversationId,captured,{type:'send'});const sent=chosen?await window.madnessDialogue.sendMeasured(projectId,conversationId,captured,chosen.requestId,chosen.choiceRef):await window.madnessDialogue.send(projectId, conversationId, captured);acceptDialogue(sent); setDialogueBridgeError(false);if(!sent.errorCode)clearComposer(projectId,captured)
     } catch(e) { if(!(e instanceof Error&&e.message==='METRIC_CHOICE_REFUSED'))setDialogueBridgeError(true) }
     finally { sending.current = false; setDialoguePending(false) }
   }
@@ -499,7 +624,11 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     requestAnimationFrame(()=>{if(!navigationCurrent({token,projectId:id},navigationToken.current,currentProjectId.current))return;const main=document.getElementById('main');if(main)main.scrollTop=value?.top??0})
   }
   function home(): void { remember();const token=++navigationToken.current;setPending(false);setFocusTarget(null);setPage('home'); closeDrawer(); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) }
+  const installNext=useRef(false)
+  function createdProject():void{installNext.current=true;open()}
   function open(): void {
+    // The native picker hands focus back to the trigger, which would keep its tooltip open.
+    if (document.activeElement instanceof HTMLElement && document.activeElement.closest('.topbar')) document.activeElement.blur()
     remember();const token=++navigationToken.current;setFocusTarget(null);setWorkReturn(null)
     closeDrawer()
     void run(() => window.madness.chooseDirectory(), (reply) => {
@@ -507,6 +636,10 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       if (reply.value.effect === 'cancelled') setNotice(l=>l.ui.opening_cancelled_no_project_added)
       else { setDisplayedProjectId(reply.value.state.activeProjectId);setTab('parcours');setPage('project'); setNotice(l=>l.ui.folder_context_saved_locally); setTimeout(() => {if(token===navigationToken.current)heading.current?.focus()}, 0) }
     })
+  }
+  function forget(projectId: string): void {
+    void window.madnessAutopilot?.dismiss(projectId)
+    void run(() => window.madness.forgetProject(projectId), reply => { if (reply.ok) setNotice(language === 'fr' ? 'Projet retiré de Madness. Son dossier est intact : rouvre-le pour le retrouver.' : 'Project removed from Madness. Its folder is untouched.') })
   }
   function select(projectId: string): void {
     remember();const token=++navigationToken.current;setFocusTarget(null);setWorkReturn(null)
@@ -564,10 +697,10 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   function returnFromGraph():void{if(!project)return;const target=graphReturns.current.get(project.id);if(!target||target.rootPath!==project.rootPath||target.initiative!==(initiativeContext?.selection?.initiativeId??null)||target.conversationId!==(conversation?.id??null)){setNotice(l=>l.ui.exact_return_unavailable_work_context_changed);heading.current?.focus();return}const token=++navigationToken.current,id=project.id;setFocusTarget(null);setPending(false);setTab(target.tab);requestAnimationFrame(()=>{if(!navigationCurrent({token,projectId:id},navigationToken.current,currentProjectId.current))return;const input=target.inputId?document.getElementById(target.inputId):null,element=target.trigger?.isConnected?target.trigger:input??document.getElementById('tab-'+target.tab)??heading.current;element?.focus({preventScroll:true});if((input instanceof HTMLTextAreaElement||input instanceof HTMLInputElement)&&target.start!==null&&target.end!==null)input.setSelectionRange(target.start,target.end);const main=document.getElementById('main');if(main)main.scrollTop=target.top})}
 
   function prepareExchange():void {if(!project)return;const token=++navigationToken.current;setFocusTarget(null);setPending(false);setTab('parcours');setPreparationFocus({token,projectId:project.id})}
-  function openInitialization(trigger:HTMLElement,attemptId:string|null):void {
+  function openInitialization(trigger:HTMLElement,attemptId:string|null,autoPrepare=false):void {
     if(page!=='project'||!project||currentProjectId.current!==project.id)return
     closeAgentInfo(false);setConnectionOpen(false)
-    setInitializationArrival({projectId:project.id,attemptId,trigger,tab});setContextOpen(true)
+    setInitializationArrival({projectId:project.id,attemptId,trigger,tab,autoPrepare});setContextOpen(true)
   }
   function closeContext():void {
     const trigger=initializationOpen?initializationArrival?.trigger:null
@@ -585,19 +718,23 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>{ui.skip_to_content}</a>
     <header className="topbar" onMouseLeave={()=>setTooltipsDismissed(false)} onFocusCapture={()=>setTooltipsDismissed(false)}>
       <div className="breadcrumb">
-        <button className="toolbar-toggle command-control desktop-menu" type="button" aria-label={collapsed ? ui.expand_navigation : ui.collapse_navigation} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><Icon name="panel" /></button>
-        <button className="toolbar-toggle command-control mobile-menu" type="button" ref={drawerTrigger} aria-label={ui.open_navigation} aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><Icon name="panel" /><span className="command-tooltip" aria-hidden="true">{ui.open_navigation}</span></button>
-        <span title={page === 'project' && project ? project.name : fr.home}>{page === 'project' && project ? project.name : fr.home}</span>
+        <button className="toolbar-toggle command-control desktop-menu" type="button" aria-label={collapsed ? ui.expand_navigation : ui.collapse_navigation} aria-expanded={!collapsed} aria-controls="project-navigation" onClick={toggleNavigation} aria-disabled={pending || !state}><NavigationIcon collapsed={collapsed} /></button>
+        <button className="toolbar-toggle command-control mobile-menu" type="button" ref={drawerTrigger} aria-label={ui.open_navigation} aria-haspopup="dialog" aria-controls="navigation-drawer" onClick={() => drawer.current?.showModal()}><NavigationIcon collapsed /><span className="command-tooltip" aria-hidden="true">{ui.open_navigation}</span></button>
+        <span className="app-title" title={page === 'project' && project ? project.name : fr.home}><span className="app-mad">Mad</span><span className="app-ness">ness</span>{page === 'project' && project && <span className="app-project"> — {project.name}{initiativeContext?.selection&&<> › {initiativeLabel(initiativeContext.selection.initiativeId)}</>}</span>}</span>
       </div>
       <div className="topbar-actions">
-        <button className="toolbar-toggle command-control open-project" type="button" aria-label={fr.open} onClick={open} disabled={pending || !state}><Icon name="folder" /><span className="command-tooltip" aria-hidden="true">{fr.open}</span></button>
-        <LanguageControl/><button className="toolbar-toggle command-control theme-toggle" type="button" aria-label={themeLabel} aria-disabled={appearancePending} onClick={() => void toggleTheme()}><Icon name={appearance.theme === 'dark' ? 'sun' : 'moon'} /><span className="command-tooltip" aria-hidden="true">{themeLabel}</span></button>
-        <button className={'codex-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel} title={connectionLabel} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><img src={chatgptMark} alt="" /><span className="connection-tooltip" aria-hidden="true">{connectionLabel}</span></button>
+        <button className="toolbar-toggle command-control open-project" type="button" aria-label={fr.open} onClick={open} disabled={pending || !state}><TopbarIcon name="folder" /><span className="command-tooltip" aria-hidden="true">{fr.open}</span></button>
+        <ProviderIsland models={{'claude-code':modelLabel(models,'claude-code'),codex:modelLabel(models,'codex')}} active={nextProvider} codex={models?.ownCodexLogin?'own':connection.status==='verified'?'verified':connection.accountStored?'stored':'none'} onChoose={id=>{setNextProvider(id);saveNextProvider(id);if(id==='codex'&&!models?.ownCodexLogin&&!connection.accountStored)openConnection()}}/>
+        <button className={'toolbar-toggle command-control codex-trigger settings-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel + (language==='fr'?' · Réglages':' · Settings')} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><TopbarIcon name="settings" /><span className="command-tooltip" aria-hidden="true">{language==='fr'?'Réglages':'Settings'}</span></button>
       </div>
     </header>
     <WindowCaptionPlates />
     {connectionOpen && <section id="codex-connection-panel" className="connection-panel" role="dialog" aria-modal="false" aria-labelledby="codex-connection-title" ref={connectionPanel}>
-      <div className="connection-heading"><h2 id="codex-connection-title" ref={connectionHeading} tabIndex={-1}>{ui.codex_connection}</h2><button type="button" aria-label={ui.close_codex_connection} onClick={closeConnection}><Icon name="close" /></button></div>
+      <div className="connection-heading"><h2 id="codex-connection-title" ref={connectionHeading} tabIndex={-1}>{language==='fr'?'Réglages':'Settings'}</h2><button type="button" aria-label={ui.close_codex_connection} onClick={closeConnection}><Icon name="close" /></button></div>
+      <ModelPicker state={models} set={setModel} load={loadModels} />
+      <KitSources />
+      {/* Connections live in the provider island; Madness's own ChatGPT sign-in only shows when the Codex app's login is missing. */}
+      {models&&!models.ownCodexLogin&&<div className="settings-section settings-connections"><h3>{language==='fr'?'Connexion Codex':'Codex connection'}</h3><p className="small">{language==='fr'?'Aucune connexion de l’application Codex n’est détectée sur ce PC : connecte-toi dans l’application Codex, ou utilise la connexion propre à Madness.':'No Codex app login found on this PC: sign in in the Codex app, or use Madness’s own connection.'}</p>
       <p className={'connection-state ' + (connection.status === 'verified' ? 'is-verified' : '')} role="status">{fr.connectionStatus[connection.status]}</p>
       {connection.status === 'verified' ? <p>{ui.a_codex_check_turn_succeeded_and_its_process_stopped}{connection.verifiedAt && <> {ui.verified_at} {new Date(connection.verifiedAt).toLocaleString(locale)}.</>}{connection.cliVersion && <> Codex {connection.cliVersion}.</>}</p> : connection.accountStored ? <p>{ui.your_account_is_saved_in_the_encrypted_windows_vault_it_still_nee}</p> : <p>{ui.connect_your_chatgpt_account_in_the_windows_browser_madness_keeps}</p>}
       {connection.status === 'authorizing' && <p>{ui.complete_authorization_in_your_browser_waiting_expires_after_ten_}</p>}
@@ -616,42 +753,51 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         </>}
       </div>
       <div className="connection-scope"><p>{ui.this_checks_the_local_connection_to_your_plan_a_bmad_session_laun}</p><button className="text-button" type="button" onClick={() => void connectionAction('manageUsage')} disabled={connectionPending}>{ui.manage_usage_in_chatgpt}</button></div>
+      </div>}
+      <div className="settings-section"><h3>{language==='fr'?'Langue':'Language'}</h3><LanguageControl/></div>
+      <div className="settings-section"><h3>GitHub Copilot</h3><p className="small">{language==='fr'?'Bientôt disponible.':'Coming soon.'}</p></div>
+      <div className="settings-section"><h3>{language==='fr'?'Mode développeur':'Developer mode'}</h3><label className="approval-mode"><input type="checkbox" checked={devMode} onChange={event=>changeDevMode(event.target.checked)}/>{language==='fr'?'Afficher les outils de développement':'Show development tools'}</label>{devMode&&<div className="dialogue-actions"><button className="secondary" type="button" onClick={replaySplash} disabled={sessionPresent||dialogueBusy}>{language==='fr'?'Rejouer l’écran de chargement':'Replay the loading screen'}</button></div>}</div>
     </section>}
     <div className="app-body">
     <aside className="sidebar" aria-label={ui.main_navigation} onMouseLeave={() => setTooltipsDismissed(false)} onFocusCapture={() => setTooltipsDismissed(false)}>
-      <div className="brand"><span className="brand-label">{fr.app}</span></div>
       <nav id="project-navigation" aria-label={ui.projects}>{navigation}</nav>
       <div className="rail-signature" aria-hidden="true"><img src={madnessMark} alt="" width="28" height="28" /></div>
-      <p className="sidebar-bottom nav-label">{ui.local_data}<br />{ui.english_theme} {appearance.theme==='dark'?(language==='fr'?'sombre':'dark'):(language==='fr'?'clair':'light')}</p>
+      <p className="sidebar-bottom nav-label">{ui.local_data}</p>
     </aside>
     <div className="workspace">
       <div className="workspace-body">
         <main id="main" tabIndex={-1}>
           <div className="main-inner">
             {error && <div className="error-message" role="alert"><strong>{ui.the_operation_did_not_complete}</strong><p>{error}</p>{!state && <button className="secondary" onClick={() => void load()} disabled={pending}>{ui.reread_local_context}</button>}</div>}
-            {state&&(page==='home'||!project?<div className="page-intro atelier-header"><div><h1 ref={heading} tabIndex={-1}>{ui.your_projects_in_one_place}</h1><p>{ui.find_a_folder_and_prepare_your_next_work}</p></div></div>:<><div className="atelier-header project-banner"><div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><button className="toolbar-toggle command-control context-trigger" type="button" ref={contextTrigger} aria-label={ui.project_context} aria-expanded={contextOpen} aria-controls="project-context-panel" aria-haspopup="dialog" onFocus={()=>setTooltipsDismissed(false)} onMouseLeave={()=>setTooltipsDismissed(false)} onClick={()=>{if(contextOpen)closeContext();else{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(true)}}}><Icon name="panel"/><span className="command-tooltip" aria-hidden="true">{ui.project_context}</span></button></div>
-              <InitiativeSelector key={project.id} projectId={project.id} project={initiativeContext} accept={acceptBmadContext} onOpen={()=>{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(false)}} priority={!!planConfirmation.current?.open||!!drawer.current?.open} conflict={initiativeConflict} onDismissConflict={()=>setInitiativeConflict(false)}/>
+            {state&&(page==='home'||!project?<div className="page-intro atelier-header" data-working={dialogueBusy}><span className="atelier-glow" aria-hidden="true"/><div><h1 ref={heading} tabIndex={-1}>{ui.your_projects_in_one_place}</h1><p>{ui.find_a_folder_and_prepare_your_next_work}</p></div></div>:<><div className="project-head" data-working={dialogueBusy&&dialogueHere||autopilotBuilding(autopilotHere)}><div className="atelier-header project-banner"><span className="atelier-glow" aria-hidden="true"/><div className="project-heading"><h1 ref={heading} tabIndex={-1}>{project.name}</h1><button className="toolbar-toggle command-control context-trigger" type="button" ref={contextTrigger} aria-label={ui.project_context} aria-expanded={contextOpen} aria-controls="project-context-panel" aria-haspopup="dialog" onFocus={()=>setTooltipsDismissed(false)} onMouseLeave={()=>setTooltipsDismissed(false)} onClick={()=>{if(contextOpen)closeContext();else{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(true)}}}><Icon name="panel"/><span className="command-tooltip" aria-hidden="true">{ui.project_context}</span></button></div>
+              {!absentHere&&<InitiativeSelector key={project.id} projectId={project.id} project={initiativeContext} accept={acceptBmadContext} onOpen={()=>{closeAgentInfo(false);setConnectionOpen(false);setContextOpen(false)}} priority={!!planConfirmation.current?.open||!!drawer.current?.open} conflict={initiativeConflict} onDismissConflict={()=>setInitiativeConflict(false)} bmadReady={bmadAbsent[project.id]===false} locked={sessionPresent||dialogueBusy||autopilotBuilding(autopilotHere)}/>}
               {conversation&&<p className="context-note">{ui.initiative_captured_by_this_exchange} {conversation.context.initiativeId??ui.not_identified}</p>}
               </div>
-              <div className="project-tabs" role="tablist" aria-label={ui.project_views}>{(['parcours','conversation','catalogue','graphe'] as const).map((item,index,tabs)=><button key={item} id={'tab-'+item} type="button" role="tab" aria-selected={tab===item} aria-controls={'panel-'+item} tabIndex={tab===item?0:-1} onClick={()=>chooseTab(item)} onKeyDown={event=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:tabs.length-1))%tabs.length;document.getElementById('tab-'+tabs[next])?.focus()}}}>{item==='parcours'?ui.journey:item==='conversation'?'Conversation':item==='catalogue'?ui.all_possibilities:ui.graph}</button>)}</div>
+              <div className="project-tabs" role="tablist" aria-label={ui.project_views}>{(['parcours','conversation','catalogue','graphe'] as const).map((item,index,tabs)=><button key={item} id={'tab-'+item} type="button" role="tab" aria-selected={tab===item} aria-controls={'panel-'+item} tabIndex={tab===item?0:-1} onClick={()=>chooseTab(item)} onKeyDown={event=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:tabs.length-1))%tabs.length;document.getElementById('tab-'+tabs[next])?.focus()}}}>{item==='parcours'?ui.journey:item==='conversation'?'Conversation':item==='catalogue'?ui.all_possibilities:ui.graph}</button>)}</div></div>
 </>)}
-            {page==='project'&&project&&(tab==='parcours'||initializationState?.operations.length)
+            {page==='project'&&project&&(tab==='parcours'&&showDetails||initializationState?.operations.some(op=>['preparing','checking','applying','verifying','ready'].includes(op.phase)))
               ?<InitializationEntryPoint state={initializationState} onOpen={openInitialization}/>:null}
             {workReturn&&<button type="button" className="text-button return-to-work" onClick={returnToWork}>{ui.return_to_work} {state?.projects.find(p=>p.id===workReturn.projectId)?.name??ui.project_unavailable}</button>}
-            {overview&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} compact={page==='project'&&(tab==='conversation'||tab==='catalogue'||tab==='graphe')} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} onNavigate={target=>void navigateOverview(target)} onConnection={openConnection}/>}
+            {state&&page==='home'&&state.projects.length>0&&<div className="hub-create"><NewProject onCreated={createdProject} disabled={pending}/></div>}
+            {state&&page==='home'&&state.projects.length>0&&<ProjectsHub onForget={forget} projects={state.projects} conversations={state.conversations} dialogue={dialogue} autopilot={autopilot} initiative={id=>{const selected=bmadContext.projects.find(p=>p.projectId===id)?.selection;return selected?initiativeLabel(selected.initiativeId):null}} graphRunning={id=>{const a=graphState.projects.find(p=>p.scope.projectId===id)?.activity;return graphState.preparing===id||a?.phase==='running'||a?.phase==='stop-requested'}} statusText={status=>fr.dialogueStatus[status]} onOpen={select} pending={pending}/>}
+            {overview&&!((page==='project'&&(tab==='conversation'||tab==='parcours'&&!showDetails)||page==='home'&&(state?.projects.length??0)>0)&&overview.entries.length===0)&&<WorkOverview overview={overview} projectId={page==='project'?project?.id??null:null} compact={page==='project'&&(tab==='conversation'||tab==='catalogue'||tab==='graphe')} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} onNavigate={target=>void navigateOverview(target)} onConnection={openConnection}/>}
             {dialogue.context.projectId===null&&(dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode)&&<details className="recovery-details global-recovery"><summary>{ui.global_recovery_details}</summary><section id="overview-session-recovery" tabIndex={-1} aria-label={ui.global_recovery}><RecoveryPanel state={dialogue} projectId={null} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={()=>{}} onPrepare={()=>{}}/>{dialogue.errorCode&&<p className="connection-error">{fr.dialogueErrors[dialogue.errorCode]}</p>}{dialogue.errorCode==='NETWORK_UNAVAILABLE'&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}</section></details>}
             {!state ? <section className="empty-state"><h1 ref={heading} tabIndex={-1}>{ui.restore_your_workspace}</h1><p>{pending ? ui.reading_local_context : ui.local_context_unavailable_use_the_message_above_to_retry}</p></section> : page === 'home' || !project ? <>
 
-              {state.projects.length === 0 ? <section className="welcome"><h2>{ui.start_with_a_folder}</h2><p>{ui.open_a_local_project_to_keep_its_context_and_prepare_a_draft_the_}</p><p className="reason"><strong>{ui.why_now}</strong> {ui.madness_needs_to_know_which_project_your_input_belongs_to}</p></section> : <ProjectLibrary mark={name=><ProjectMark name={name}/>} entries={projectLibrary(state,bmadContext,progressState,helpState,overview!)} onSelect={select} onNavigate={target=>void navigateOverview(target)} pending={pending}/>}
+              {state.projects.length === 0 ? <section className="welcome"><h2>{ui.start_with_a_folder}</h2><p>{ui.open_a_local_project_to_keep_its_context_and_prepare_a_draft_the_}</p><p className="reason"><strong>{ui.why_now}</strong> {ui.madness_needs_to_know_which_project_your_input_belongs_to}</p><div className="welcome-actions"><NewProject onCreated={createdProject} disabled={pending || !state}/><button className="secondary" type="button" onClick={open} disabled={pending || !state}><Icon name="folder" />{fr.open}</button></div></section> : <>{autopilot.runs.length>0?<details className="library-more"><summary>{language==='fr'?'Détails par projet':'Details per project'}</summary><ProjectLibrary mark={name=><ProjectMark name={name}/>} entries={projectLibrary(state,bmadContext,progressState,helpState,overview!)} onSelect={select} onNavigate={target=>void navigateOverview(target)} pending={pending}/></details>:<ProjectLibrary mark={name=><ProjectMark name={name}/>} entries={projectLibrary(state,bmadContext,progressState,helpState,overview!)} onSelect={select} onNavigate={target=>void navigateOverview(target)} pending={pending}/>}</>}
 
               <div className="home-note"><h2>{ui.connect_your_account_from_the_codex_logo}</h2><p>{fr.codexReason} {ui.read_bmad_evidence_in_journey_without_a_connection_view_the_local}</p></div>
             </> : <>
               <section id={'panel-' + tab} role="tabpanel" aria-labelledby={'tab-' + tab}>
                 {tab==='graphe'&&<GraphPanel language={language} key={project.id+':'+project.rootPath} projectId={project.id} rootPath={project.rootPath} workspace={graphState} accept={acceptGraph} views={graphViews.current} preparationStopState={graphPreparationStop} active={tab==='graphe'} onReturn={returnFromGraph} returnLabel={graphReturns.current.get(project.id)?.tab==='conversation'?'Conversation':graphReturns.current.get(project.id)?.tab==='catalogue'?ui.all_possibilities:ui.journey}/>}
                 <div hidden={tab!=='catalogue'}><CatalogPanel key={project.id} projectId={project.id} rootPath={project.rootPath} value={catalogState.projects.find(p=>p.projectId===project.id)} accept={acceptCatalog} views={catalogViews.current} active={tab==='catalogue'} onPrepared={(p,next)=>{if(currentProjectId.current!==p.projectId)return;acceptCatalogLaunch(next);const destination={token:++navigationToken.current,projectId:p.projectId};setConversationSelections(current=>({...current,[p.projectId]:conversation?.id??''}));setCatalogPreparation(p);setTab('conversation');requestAnimationFrame(()=>{if(navigationCurrent(destination,navigationToken.current,currentProjectId.current))document.getElementById('catalog-launch-heading')?.focus()})}} onRefused={code=>{if(currentProjectId.current===project.id&&code==='CONTEXT_MISMATCH')setInitiativeConflict(true)}}/></div>
-                <div hidden={tab!=='parcours'}><ProjectResume active={tab==='parcours'} rootPath={project.rootPath} projectId={project.id} context={initiativeContext} value={progressState.projects.find(p=>p.projectId===project.id)} overview={overview} accept={acceptProgress} onNavigate={target=>void navigateOverview(target)} onChoose={()=>document.querySelector<HTMLButtonElement>('.initiative-trigger')?.click()} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'}/></div>
-                {tab==='parcours'&&<HelpPanel metricChoice={metricChoices.slot('launchHelp',dialoguePending||dialogueBusy||sessionPresent)} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} state={helpState} onChanged={acceptHelp} onOpen={record=>void navigateOverview({kind:'conversation',context:record.context,id:'bmad-receipt-'+record.conversationId})} onObserveStop={()=>void dialogueAction('observeStop')} projectId={project.id} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} allowed={connection.accountStored&&!connection.needsPlanAcknowledgement&&!connectionBusy&&!dialogueBridgeError} onLaunch={()=>void dialogueAction('launchHelp')}/>}
-                {tab === 'parcours' && <div className="exchange-preparation"><p className="preparation-intro">{ui.prepare_an_exchange_with_mary_to_clarify_your_project_or_with_for}</p><section className="forge-launch" aria-labelledby="forge-title">
+                {tab==='parcours'&&absentHere&&<section className="bmad-absent-card" aria-labelledby="bmad-absent-title"><h2 id="bmad-absent-title">{language==='fr'?'Ce dossier n’utilise pas encore BMad':'This folder does not use BMad yet'}</h2><p>{language==='fr'?'Madness peut l’installer pour vous : vous verrez la liste exacte des fichiers ajoutés avant de confirmer, et rien d’existant n’est modifié.':'Madness can install it for you: you will see the exact list of added files before confirming, and nothing existing is modified.'}</p><button className="primary" type="button" onClick={event=>openInitialization(event.currentTarget,null,true)}>{language==='fr'?'Initialiser BMad':'Initialize BMad'}</button></section>}
+                {tab==='parcours'&&!absentHere&&autopilotHere&&<AutopilotPanel projectId={project.id} provider={nextProvider==='codex'?'codex':'claude-code'} run={autopilotHere} blocked={dialogueBusy||dialoguePending} onPrepare={()=>void preparePilot()}/>}
+                {tab==='parcours'&&!absentHere&&<ProjectJourney projectId={project.id} run={autopilotHere} busy={dialogueBusy||dialoguePending} onIdeation={()=>setTab('conversation')} onPrepare={()=>void preparePilot()}/>}
+                {tab==='parcours'&&!absentHere&&<div className="journey-toggles"><button type="button" className="text-button" aria-expanded={showOther} onClick={()=>setShowOther(value=>!value)}>{(showOther?'▾ ':'▸ ')+(language==='fr'?'Autres actions':'Other actions')}</button><button type="button" className="text-button" aria-expanded={showDetails} onClick={()=>setShowDetails(value=>!value)}>{(showDetails?'▾ ':'▸ ')+(language==='fr'?'Détails techniques':'Technical details')}</button></div>}
+                <div hidden={tab!=='parcours'||absentHere||!showDetails}><ProjectResume active={tab==='parcours'} rootPath={project.rootPath} projectId={project.id} context={initiativeContext} value={progressState.projects.find(p=>p.projectId===project.id)} overview={overview} accept={acceptProgress} onNavigate={target=>void navigateOverview(target)} onChoose={()=>document.querySelector<HTMLButtonElement>('.initiative-trigger')?.click()} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'}/></div>
+                {tab==='parcours'&&!absentHere&&showOther&&<HelpPanel metricChoice={metricChoices.slot('launchHelp',dialoguePending||dialogueBusy||sessionPresent)} stopUnconfirmed={dialogue.recovery.stop==='unconfirmed'||dialogue.errorCode==='STOP_UNCONFIRMED'} state={helpState} onChanged={acceptHelp} onOpen={record=>void navigateOverview({kind:'conversation',context:record.context,id:'bmad-receipt-'+record.conversationId})} onObserveStop={()=>void dialogueAction('observeStop')} projectId={project.id} busy={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'} allowed={connection.accountStored&&!connection.needsPlanAcknowledgement&&!connectionBusy&&!dialogueBridgeError} onLaunch={()=>void dialogueAction('launchHelp')}/>}
+                {tab === 'parcours' && !absentHere && showOther && <div className="exchange-preparation"><p className="preparation-intro">{ui.prepare_an_exchange_with_mary_to_clarify_your_project_or_with_for}</p><section className="forge-launch" aria-labelledby="forge-title">
                   <div className="dialogue-heading"><h2 id="forge-title">{ui.test_an_idea}</h2>{dialogueHere&&dialogue.invocation==='$bmad-forge-idea'&&<span className="badge" role="status">Forge · {displayedDialogueStatus}</span>}</div>
                   <p>{ui.forge_tests_a_new_idea_from_several_viewpoints_then_saves_a_journ}</p>
                   <button className="secondary" type="button" aria-expanded={forgePreparation} aria-controls="forge-preparation" onClick={()=>setForgePreparation(v=>!v)}>{ui.prepare_forge}</button>
@@ -664,7 +810,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                     {forgePrerequisite&&<p id="forge-launch-prerequisite" className="small">{fr.dialoguePrerequisites[forgePrerequisite]}{' '}{forgePrerequisite==='account'?<button className="text-button" type="button" onClick={openConnection}>{ui.open_codex_panel}</button>:<button className="text-button" type="button" onClick={()=>planConfirmation.current?.showModal()}>{ui.read_plan_reminder_again}</button>}</p>}
                   </div>}
                 </section>
-                <div className="dialogue-launch" aria-labelledby="mary-title">
+                {nextProvider==='claude-code'?<div className="dialogue-launch" aria-labelledby="mary-title"><div className="dialogue-heading"><h2 id="mary-title" tabIndex={-1}>Mary <span>{language==='fr'?'Analyste BMad · Claude Code':'BMad analyst · Claude Code'}</span></h2></div><p><code>$bmad-agent-analyst</code></p><p className="small" id="claude-mary-scope">{ui.claude_launch_scope}</p><div className="dialogue-actions"><button id="mary-launch" className="primary" type="button" aria-describedby="claude-mary-scope" onClick={()=>void dialogueAction('launchClaude')} disabled={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'||connectionBusy||dialogueBridgeError}><Icon name="message" />{ui.launch_mary_with_claude_code}</button></div></div>:<div className="dialogue-launch" aria-labelledby="mary-title">
                   <div className="dialogue-heading"><h2 id="mary-title" tabIndex={-1}>Mary <span>{ui.bmad_analyst_codex}</span></h2>{dialogueHere&&dialogue.invocation==='$bmad-agent-analyst' && <span className="badge" role="status">Mary · {displayedDialogueStatus}</span>}</div>
                   <p><code>$bmad-agent-analyst</code></p>
                   <p>{ui.launch_checks_actual_bmad_files_then_requests_mary_s_welcome_each}</p>
@@ -678,15 +824,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   </div>
                   {!connection.accountStored && <p className="small">{fr.dialoguePrerequisites.account}</p>}
                   {connection.needsPlanAcknowledgement && <p className="small">{fr.dialoguePrerequisites.plan}</p>}
-                </div>
                 </div>}
-
-                {tab==='conversation'&&<div className="dialogue-launch" aria-labelledby="claude-launch-title">
-                  <h2 id="claude-launch-title">Claude Code</h2>
-                  <p className="small" id="claude-launch-scope">{ui.claude_launch_scope}</p>
-                  <div className="dialogue-actions">
-                    <button id="claude-launch" className="secondary" type="button" aria-describedby="claude-launch-scope" onClick={()=>void dialogueAction('launchClaude')} disabled={dialoguePending||dialogueBusy||sessionPresent||dialogue.status==='unknown'||connectionBusy||dialogueBridgeError}><Icon name="message"/>{ui.launch_mary_with_claude_code}</button>
-                  </div>
                 </div>}
 
                 {((dialogueHere&&dialogue.errorCode==='NETWORK_UNAVAILABLE')||dialogue.errorCode==='NETWORK_UNAVAILABLE'&&dialogue.context.projectId===null)&&<NetworkHelp connection={connection} onChanged={acceptConnection}/>}
@@ -699,33 +837,35 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
                   {dialogueHere && dialogue.profile && <details className="dialogue-proof"><summary>{ui.bmad_profile_checked}</summary><p><code>{dialogue.profile.skillPath}</code></p><p className="small">{ui.fingerprint} <code>{dialogue.profile.fingerprint}</code></p></details>}
                 </section>}
 
-                {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label={ui.bmad_exchanges}><h2 id="conversation-heading" tabIndex={-1}>Conversation{conversation.context.providerId==='claude-code'?' · Claude Code':''} <code className="conversation-reference">{conversation.id}</code></h2>
-                  {!canReply && !dialogueBusy && <p className="history-note">{ui.history_retained_no_engine_restarts_an_explicit_launch_opens_a_ne}</p>}
+                {tab === 'conversation' && (conversation ? <div className="conversation-history" aria-label={ui.bmad_exchanges}><div className="chat-bar"><h2 id="conversation-heading" tabIndex={-1}>{(dialogueConversationHere&&BMAD_AGENTS.find(([id])=>'$'+id===dialogue.invocation)?.[1])||'Mary'}{conversation.context.providerId==='claude-code'?' · Claude Code':' · Codex'}</h2><details className="chat-details"><summary>{language==='fr'?'Détails':'Details'}</summary><p className="small"><code className="conversation-reference">{conversation.id}</code></p>{!canReply && !dialogueBusy && <p className="history-note">{ui.history_retained_no_engine_restarts_an_explicit_launch_opens_a_ne}</p>}</details></div>
 
                   {conversationQuestions.filter(q=>currentRequest('question',q.id)).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}
                   {conversationApprovals.filter(a=>currentRequest('approval',a.id)).map(approvalPanel)}
                   <ConversationMessages key={conversation.id} conversation={conversation} projections={dialogue.messages??[]} positions={readingPositions.current} onConsult={consultAgent}/>
 
 
-                  {dialogueConversationHere && <p className="turn-status" role="status">{displayedRecipient} · {claudeSession&&dialogue.turn?.phase==='completed'&&dialogue.status==='stopped'?ui.claude_turn_saved:displayedDialogueStatus}{dialogue.status === 'running' && !activeQuestion && !activeApproval && (dialogue.acknowledged ? ui.send_acknowledged_and_saved : ui.awaiting_send_acknowledgement)}{dialogue.status === 'ready' && ui.turn_complete_next_action_your_response_turn_completion_does_not_}</p>}
-                </div> : <div className="conversation-empty"><h2>{ui.no_saved_exchange}</h2><p>{ui.an_explicit_launch_opens_a_session_without_sending_your_draft}</p></div>)}
+                  {dialogueConversationHere && dialogue.status!=='ready' && <p className="turn-status" role="status">{displayedRecipient} · {claudeSession&&dialogue.turn?.phase==='completed'&&dialogue.status==='stopped'?ui.claude_turn_saved:displayedDialogueStatus}{dialogue.status === 'running' && !activeQuestion && !activeApproval && (dialogue.acknowledged ? ui.send_acknowledged_and_saved : ui.awaiting_send_acknowledgement)}</p>}
+                </div> : <div className="conversation-empty"><h2>{language==='fr'?'Parlez à Mary':'Talk to Mary'}</h2><p>{language==='fr'?'Écrivez votre premier message ci-dessous pour démarrer.':'Write your first message below to start.'}</p></div>)}
 
-                {tab==='conversation'&&<form className="composer" onSubmit={(event) => { event.preventDefault(); const projectId = project.id; const value = text; void run(() => window.madness.saveDraft(projectId, value), () => setNotice(l=>l.words.saved)) }}>
-                  <label htmlFor="draft">{nativeAwaiting?ui.free_draft_for_this_project:canReply || !claudeSession && dialogueConversationHere && sessionPresent ? ui.your_response_to+recipient : ui.draft_for + project.name}</label>
-                  <textarea id="draft" value={text} onChange={(event) => setTexts((current) => ({ ...current, [project.id]: event.target.value }))} maxLength={MAX_DRAFT_LENGTH} aria-describedby="draft-status draft-limit" placeholder={ui.note_what_you_want_to_resume_in_this_project} />
-                  {canReply&&metricChoices.slot('send',dialoguePending)}
-                  <div className="composer-bottom"><p id="draft-status">{dirty ? fr.unsaved : saved ? fr.saved : fr.noDraft}</p><div className="composer-actions"><button className="secondary" type="submit" disabled={pending || !dirty}>{pending ? fr.saving : fr.save}</button>{!claudeSession && dialogueConversationHere && sessionPresent && <button className="primary" type="button" onClick={() => void sendToMary()} disabled={!canReply || dialoguePending || !text.trim()}><Icon name="arrow" />{ui.send_to} {recipient}</button>}</div></div>
-                  <p className="small muted" id="draft-limit">{nativeAwaiting?ui.answer_or_decide_in_the_correlated_request_form_when_active_this_:canReply ? ui.only_send_to+recipient+ui.transmits_this_text_the_draft_is_saved_before_sending_and_remains : ui.input_kept_locally_no_automatic_send} {ui.label_100_000_characters_maximum}</p>
+                {tab==='conversation'&&<form className="composer chat-composer" onSubmit={event=>{event.preventDefault();void sendMessage()}}>
+                  <label htmlFor="draft" className="chat-label">{language==='fr'?'Votre message':'Your message'}</label>
+                  <textarea id="draft" ref={composerField} rows={1} value={text} onChange={(event) => setTexts((current) => ({ ...current, [project.id]: event.target.value }))} onKeyDown={event=>{if(event.key==='Enter'&&!event.shiftKey&&!event.nativeEvent.isComposing){event.preventDefault();void sendMessage()}}} maxLength={MAX_DRAFT_LENGTH} aria-describedby="draft-status" placeholder={bmadAgent==='bmad-party-mode'?(language==='fr'?'Écrivez à la table ronde…':'Write to the round table…'):(language==='fr'?'Écrivez à ':'Write to ')+(BMAD_AGENTS.find(([id])=>id===bmadAgent)?.[1]??'Mary')+'…'} />
+                  <div className="chat-agent"><label>{language==='fr'?'Agent':'Agent'} <select value={agentChoice} onChange={event=>{setAgentChoice(event.target.value);try{localStorage.setItem('madness.agent-choice',event.target.value)}catch{/* session-only */}}}><option value="auto">{(language==='fr'?'Automatique · ':'Automatic · ')+(BMAD_AGENTS.find(([id])=>id===stageAgent)?.[1]??'Mary')}</option>{BMAD_AGENTS.map(([id,name,role])=><option key={id} value={id}>{name} · {role}</option>)}</select></label>{agentChoice==='auto'&&<MadnessVoice>{language==='fr'?'passe la parole à '+(BMAD_AGENTS.find(([id])=>id===bmadAgent)?.[1]??'Mary')+(autopilotHere?.status==='paused'&&autopilotHere.pauseReason==='guidance'?', qui a besoin de toi':', selon l’étape du projet'):'hands over to '+(BMAD_AGENTS.find(([id])=>id===bmadAgent)?.[1]??'Mary')}</MadnessVoice>}{bmadAgent==='bmad-party-mode'?<span>{language==='fr'?'Plusieurs agents débattent ensemble, chacun avec son icône.':'Several agents debate together, each with its glyph.'}</span>:bmadAgent!=='bmad-agent-analyst'?<span>{language==='fr'?'Cet agent écrit ses documents directement dans le projet.':'This agent writes its documents straight into the project.'}</span>:nextProvider==='claude-code'&&<label className="chat-writes"><input type="checkbox" checked={allowWrites} onChange={event=>{setAllowWrites(event.target.checked);try{if(event.target.checked)localStorage.setItem('madness.allow-writes','1');else localStorage.removeItem('madness.allow-writes')}catch{/* session-only */}}}/>{language==='fr'?'Autoriser l’agent à modifier ce projet et lancer des commandes':'Let the agent change this project and run commands'}</label>}</div>
+                  <div className="composer-bottom"><p id="draft-status">{nativeAwaiting?ui.answer_or_decide_in_the_correlated_request_form_when_active_this_:dialogueBusy||(dialogueHere&&sessionPresent&&!canReply)?(language==='fr'?'Mary travaille…':'Mary is working…'):sessionPresent&&!dialogueHere?(language==='fr'?'Une autre conversation est en cours.':'Another conversation is running.'):(language==='fr'?'Entrée pour envoyer · Maj+Entrée pour aller à la ligne':'Enter to send · Shift+Enter for a new line')}</p><div className="composer-actions">{!autopilotHere&&conversation&&conversation.messages.length>1&&<button type="button" className="secondary" disabled={dialogueBusy||dialoguePending} onClick={()=>void preparePilot()}>{language==='fr'?'Résumer et lancer le projet':'Recap and launch'}</button>}<button className="primary chat-send" type="submit" aria-label={language==='fr'?'Envoyer':'Send'} title={language==='fr'?'Envoyer':'Send'} disabled={!text.trim()||dialoguePending||dialogueBusy||(sessionPresent&&!canReply)||dialogue.status==='unknown'||dialogueBridgeError}><Icon name="arrow" /></button></div></div>
                 </form>}
                 {tab==='conversation'&&catalogPreparation?.projectId===project.id&&(catalogLaunch.preparation?.id===catalogPreparation.id||catalogLaunch.status==='error')&&<CatalogLaunchPanel metricChoice={metricChoices.slot('catalog',dialoguePending||dialogueBusy)} preparation={catalogPreparation} busy={dialoguePending||dialogueBusy||catalogLaunch.status==='launching'} stale={catalogSelectionChanged||catalogLaunch.status!=='prepared'||catalogState.projects.find(p=>p.projectId===project.id)?.freshness!=='current'||catalogState.projects.find(p=>p.projectId===project.id)?.snapshot?.revision!==catalogPreparation.snapshot.revision||catalogState.projects.find(p=>p.projectId===project.id)?.generation!==catalogPreparation.generation} selectionChanged={catalogSelectionChanged} error={catalogLaunch.error} onLaunch={()=>void launchFromCatalog()} onCancel={cancelCatalog}/>}
                 {tab==='conversation'&&conversation&&<CatalogOrigin record={catalogLaunch.records.find(r=>r.conversationId===conversation.id&&sameContext(r.context,conversation.context))} onRetry={id=>void window.madnessCatalogLaunch.retrySave(id).then(acceptCatalogLaunch).catch(()=>setNotice(l=>l.ui.origin_could_not_be_saved_no_new_send))}/>}
                 {tab==='conversation'&&<button className="text-button prepare-exchange" type="button" onClick={prepareExchange}>{ui.prepare_an_exchange}</button>}
                 {(dialogue.recovery.stop==='unconfirmed'||dialogue.approvals.some(a=>a.context.projectId===project.id&&a.decision==='accept'&&(['unknown','pending'].includes(a.effect)||a.storage!=='stored')))&&<details className="recovery-details"><summary>{ui.recovery_and_inspection_details}</summary><div id={dialogue.context.projectId!==null?"overview-session-recovery":undefined} tabIndex={-1}><RecoveryPanel state={dialogue} projectId={project.id} busy={dialoguePending||dialogueBusy} sessionPresent={sessionPresent} onObserveStop={()=>void dialogueAction('observeStop')} onInspect={id=>void inspectApproval(id)} onPrepare={prepareExchange}/></div></details>}
-                {tab==='conversation'&&(historicalQuestions.length>0||historicalApprovals.length>0)&&<details className="request-history"><summary>{ui.retained_requests_inactive}{formatNumber(historicalQuestions.length+historicalApprovals.length,language)})</summary>{historicalQuestions.map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{historicalApprovals.map(approvalPanel)}</details>}
                   {tab==='conversation'&&conversation&&projectConversations.length > 1 && <details className="previous-conversations"><summary>{ui.previous_conversations}{formatNumber(projectConversations.length-1,language)})</summary>{projectConversations.filter(c => c.id !== conversation.id).map(c => <section key={c.id} aria-label={ui.historical_conversation}>{c.context.providerId==='claude-code'&&<p className="small">Claude Code</p>}<CatalogOrigin record={catalogLaunch.records.find(r=>r.conversationId===c.id&&sameContext(r.context,c.context))} onRetry={id=>void window.madnessCatalogLaunch.retrySave(id).then(acceptCatalogLaunch).catch(()=>{})}/><HelpReceiptPanel record={helpState.records.find(r=>r.conversationId===c.id)} onChanged={acceptHelp}/><ConversationMessages key={c.id} conversation={c} projections={dialogue.messages??[]} positions={readingPositions.current} onConsult={consultAgent}/>{dialogue.questions.filter(q=>q.context.conversationId===c.id).map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{dialogue.approvals.filter(a=>a.context.conversationId===c.id).map(approvalPanel)}{dialogue.workflows.filter(w=>w.conversationId===c.id).map(w=><WorkflowResult key={w.conversationId} workflow={w} onCopy={copyWorkflow}/>)}</section>)}</details>}
                 {tab==='conversation'&&conversation&&<HelpReceiptPanel record={helpState.records.find(r=>r.conversationId===conversation.id)} onChanged={acceptHelp}/>}
+                {/* Everything technical about the exchange sits in one place, folded: old requests, activity, US attribution. */}
+                {tab==='conversation'&&(canReply||historicalQuestions.length>0||historicalApprovals.length>0||(dialogueHere&&dialogue.activities.length>0))&&<details className="conversation-tech"><summary>{language==='fr'?'Détails techniques':'Technical details'}</summary>
+                  {canReply&&metricChoices.slot('send',dialoguePending)}
+                  {(historicalQuestions.length>0||historicalApprovals.length>0)&&<details className="request-history"><summary>{ui.retained_requests_inactive}{formatNumber(historicalQuestions.length+historicalApprovals.length,language)})</summary>{historicalQuestions.map(q=><QuestionPanel key={q.id} question={q} respondable={respondable('question',q.id)} values={questionDrafts[q.id]??q.values} projectName={project.name} compactContext onChange={values=>changeQuestion(q,values)} onSend={()=>void answerQuestion(q)} bridgeFailed={questionFailures[q.id]??false}/>)}{historicalApprovals.map(approvalPanel)}</details>}
+                  {dialogueHere&&dialogue.activities.length>0&&<details className="dialogue-activity"><summary>{ui.dialogue_activity}{formatNumber(dialogue.activities.length,language)})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{presentProductText('activity',entry,language)}</li>)}</ol></details>}
+                </details>}
                 {workflow&&<WorkflowResult key={workflow.conversationId} workflow={workflow} onCopy={copyWorkflow}/>}
-                {dialogueHere && dialogue.activities.length > 0 && <details className="dialogue-activity"><summary>{ui.dialogue_activity}{formatNumber(dialogue.activities.length,language)})</summary><ol>{dialogue.activities.map((entry, index) => <li key={index}>{presentProductText('activity',entry,language)}</li>)}</ol></details>}
               </section>
             </>}
             {preferenceUnsaved && <p className="preference-note">{ui.navigation_choice_applies_to_this_session_persistence_not_confirm}</p>}
@@ -739,7 +879,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       </div>
     </div>
     </div>
-        {contextOpen && (!initializationArrival||initializationOpen) && page === 'project' && project && <section id="project-context-panel" className={initializationOpen?"context-panel initialization-context":"context-panel"} role="dialog" aria-modal="false" aria-labelledby="project-context-title"><div className="connection-heading"><h2 id="project-context-title" ref={contextHeading} tabIndex={-1}>{ui.project_context}</h2><button type="button" aria-label={ui.close_project_context} onClick={closeContext}><Icon name="close"/></button></div><p>{ui.source_folder_chosen_through_windows}</p><dl><dt>{ui.canonical_folder}</dt><dd><code>{project.rootPath}</code></dd><dt>{ui.selected_conversation}</dt><dd><code>{conversation?.id??ui.none_2}</code></dd><InitiativeContext project={initiativeContext}/><dt>{ui.initiative_captured_by_the_conversation}</dt><dd>{conversation?conversation.context.initiativeId??ui.not_identified_2:ui.no_selected_conversation}</dd><dt>{ui.persistence}</dt><dd>{ui.exchanges_observations_and_draft_in_madness_local_data}</dd><dt>{ui.activity}</dt><dd>{dialogueHere ? displayedDialogueStatus : ui.no_active_agent_in_this_project}</dd><dt>{ui.provider}</dt><dd>{(conversation?.context.providerId??(dialogueHere?dialogue.context.providerId:null))==='claude-code'?'Claude Code':ui.codex_madness_owned_connection}</dd><dt>{ui.project_files}</dt><dd>{workflow?ui.writes_limited_to_the_captured_new_forge_session:ui.mary_read_only_by_default_file_mode_with_approval_must_be_enabled}</dd></dl>
+        {contextOpen && (!initializationArrival||initializationOpen) && page === 'project' && project && <section id="project-context-panel" className={initializationOpen?"context-panel initialization-context":"context-panel"} role="dialog" aria-modal="false" aria-labelledby="project-context-title"><div className="connection-heading"><h2 id="project-context-title" ref={contextHeading} tabIndex={-1}>{ui.project_context}</h2><button type="button" aria-label={ui.close_project_context} onClick={closeContext}><Icon name="close"/></button></div><p>{ui.source_folder_chosen_through_windows}</p><dl><dt>{ui.canonical_folder}</dt><dd><code>{project.rootPath}</code></dd><dt>{ui.selected_conversation}</dt><dd><code>{conversation?.id??ui.none_2}</code></dd><InitiativeContext project={initiativeContext}/><dt>{ui.initiative_captured_by_the_conversation}</dt><dd>{conversation?conversation.context.initiativeId??ui.not_identified_2:ui.no_selected_conversation}</dd><dt>{ui.persistence}</dt><dd>{ui.exchanges_observations_and_draft_in_madness_local_data}</dd><dt>{ui.activity}</dt><dd>{dialogueHere ? displayedDialogueStatus : ui.no_active_agent_in_this_project}</dd><dt>{ui.provider}</dt><dd>{(conversation?.context.providerId??(dialogueHere?dialogue.context.providerId:nextProvider))==='claude-code'?'Claude Code':ui.codex_madness_owned_connection}</dd><dt>{ui.project_files}</dt><dd>{workflow?ui.writes_limited_to_the_captured_new_forge_session:ui.mary_read_only_by_default_file_mode_with_approval_must_be_enabled}</dd></dl>
          {initializationOpen&&initializationArrival?<InitializationPanel key={project.id} projectId={project.id} rootPath={project.rootPath} arrival={initializationArrival}
            state={initializationState} accept={acceptInitialization} onClose={closeContext}/>
            :<InitializationEntryPoint state={null} onOpen={openInitialization}/>}

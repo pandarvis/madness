@@ -1,8 +1,8 @@
 import { createHash } from 'node:crypto'
 import { lstat, readFile, readdir, realpath } from 'node:fs/promises'
-import { isAbsolute, join, relative, resolve, sep } from 'node:path'
+import { join, resolve } from 'node:path'
 import { dialogueFailure } from '../../contracts/dialogue.ts'
-const runtimeFingerprint = 'eaffa289643c1f9f91e7f32a23d06025988ee7e2b7efc0a12298a0997e626e40'
+const runtimeFingerprint = '819d83d34e77ad70a198d831e518fa9b398c3a244aa4af77fd8a8934c3821b92'
 // La politique historique omet les .pem : ce réglage TLS est vérifié séparément.
 const rejectedCaFingerprint = 'c916ce1b14ed8ca69e9b5c9fab22799a900dd610d6d4ec9b1347f4fd48e53718'
 const uvFingerprint = '2bfbe53d3cc95799e98fa08323b04844fc01d4f8c87dd5c00089e43f6554f162'
@@ -17,13 +17,15 @@ export async function runtimeTreeFingerprint(root: string): Promise<string> {
   for (const name of ['python.exe', 'python3.dll', 'python312.dll', 'vcruntime140.dll', 'vcruntime140_1.dll', 'DLLs', 'Lib']) await visit(join(root, name), name)
   return digest.digest('hex')
 }
-/** Le projet sélectionné ne fournit aucun exécutable ni module Python. -E -s -S excluent site et PYTHON*. */
-export async function bmadRuntime(projectRoot?: string): Promise<{ uv: string; python: string }> {
-  const user = process.env.USERPROFILE
-  if (!user || !isAbsolute(user)) throw dialogueFailure('RESOLVER_FAILED')
-  const root = await realpath(join(user, '.cache/codex-runtimes/codex-primary-runtime/dependencies/python'))
-  const uv = await realpath(join(user, 'scoop/apps/uv/current/uv.exe'))
-  if (projectRoot) for (const path of [root, uv]) { const distance = relative(resolve(projectRoot), path); if (!distance || !isAbsolute(distance) && distance !== '..' && !distance.startsWith('..' + sep)) throw dialogueFailure('RESOLVER_FAILED') }
+let bundledResources = resolve('resources')
+/** Packaged builds keep their resources elsewhere than the working directory. */
+export function configureBundledRuntime(resources: string): void { bundledResources = resources }
+export function bundledRuntimePaths(): { python: string; uv: string } { return { python: join(bundledResources, 'graphify/assembly/runtime'), uv: join(bundledResources, 'runtime-tools/uv.exe') } }
+/** Python et uv viennent de Madness, jamais du projet ni de Codex. -E -s -S excluent site et PYTHON*. */
+export async function bmadRuntime(): Promise<{ uv: string; python: string }> {
+  const bundled = bundledRuntimePaths()
+  let root: string, uv: string
+  try { root = await realpath(bundled.python); uv = await realpath(bundled.uv) } catch { throw dialogueFailure('RESOLVER_FAILED') }
   await verifyRuntimeFile(uv, uvFingerprint)
   try { await verifyRuntimeFile(join(root, 'Lib/codex-rejected-cas.pem'), rejectedCaFingerprint) } catch { throw dialogueFailure('RESOLVER_FAILED') }
   if (await runtimeTreeFingerprint(root) !== runtimeFingerprint) throw dialogueFailure('RESOLVER_FAILED')

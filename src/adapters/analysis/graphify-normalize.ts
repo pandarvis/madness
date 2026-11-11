@@ -27,7 +27,7 @@ export function normalizeGraphify(bytes:Buffer,context:NormalizationContext):Gra
   if(value!==null&&(!Number.isSafeInteger(value)||value<1||source.lineCount===null||value>source.lineCount))throw Error('INVALID_LINE')
   return {status:'known',relativePath:p,line:value!==null?{status:'known',value}:{status:'unknown',reason:raw===undefined||raw===null||raw===''?'absent':'unrecognized'}}
  }
- const nodes=n.nodes.map((v:any)=>({id:text(v.id),label:text(v.label??v.id),kind:text(v.type??v.file_type??'unknown'),reference:reference(v,true)})),ids=new Set(nodes.map((v:any)=>v.id))
+ const nodes=n.nodes.map((v:any)=>({id:text(v.id),label:text(v.label??v.id),kind:text(v.type??v.file_type??'unknown'),reference:reference(v,true),...(Number.isSafeInteger(v.community)&&v.community>=0?{community:v.community}:{})})),ids=new Set(nodes.map((v:any)=>v.id))
  const relations=n.links.map((v:any,i:number)=>{
   const explicit=Object.hasOwn(v,'_src')||Object.hasOwn(v,'_tgt');if(explicit&&(!Object.hasOwn(v,'_src')||!Object.hasOwn(v,'_tgt')))throw Error('PARTIAL_DIRECTION')
   const nativeSource=text(v.source),nativeTarget=text(v.target)

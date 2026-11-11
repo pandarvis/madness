@@ -100,6 +100,8 @@ Une personne qui découvre BMad accomplit les trois parcours réels « Ouvrir et
 
 - R34 (contexte § Capabilities and Constraints et décision du 6 novembre 2026 ci-dessous) : Sur le poste personnel, choisir Claude Code comme fournisseur d’une nouvelle conversation Madness, avec la CLI officielle déjà connectée par le porteur. Lancer et observer un échange BMad attribué au projet et au fournisseur, avec état et capacités explicites. Identifier le fournisseur dans l’interface par son nom et son nouveau logo lorsque l’actif officiel et les droits d’usage sont établis.
 
+- R35 (décision du porteur du 7 novembre 2026, essai libre du paquet 0.2.23) : Sur le poste personnel, choisir GitHub Copilot comme fournisseur d’une nouvelle conversation Madness, avec la connexion officielle du porteur. Jusqu’à sa qualification, Copilot reste visible mais indisponible (« bientôt ») dans le choix du fournisseur.
+
 ## Constraints
 
 - C1 (brief § Priorité : l’expérience utilisateur ; contexte § Product Principles) : L'expérience utilisateur est le premier critère d'arbitrage du périmètre, de l'architecture et des interactions ; les décisions doivent préserver compréhension, guidage et contrôle par un développeur qui découvre BMad.

@@ -30,7 +30,7 @@ const nativePayloadDigest=(value:unknown):string=>createHash('sha256').update(JS
 const receiptClockDomain='monotone-'+randomUUID()
 type TurnObservation={threadId:string;turnId:string|null;observer:TurnInstrumentation;terminals:Set<string>}
 type Message = { id?: string | number; method?: string; params?: any; result?: any; error?: unknown }
-/** Le reçu raw expérimental n’est qualifié que sur ce binaire 0.144.6. */
+/** Le reçu raw expérimental n’est qualifié que sur ce binaire 0.144.6 : avec 0.167 l’accord d’une proposition de fichier échoue (PROVIDER_FAILED). */
 export async function assertQuestionRuntime(executable:string):Promise<void>{
   const actual=createHash('sha256').update(await readFile(executable)).digest('hex')
   if(actual!=='4b76ded066d0239115ca97473d010c92072bc5c5550a45dd7cbebe1e9eb956a7')throw dialogueFailure('PROFILE_UNRECOGNIZED')
@@ -294,7 +294,7 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
         if(operation==='config'&&!resolved.has('knowledge'))throw dialogueFailure('UNSUPPORTED_INTERACTION')
         output=await options.help.resolve(operation)
       }else if(p.tool==='bmad_help_read'&&exact(['reference'])&&typeof args.reference==='string'&&resolved.has('config')){
-        operation='read';reference=args.reference;output=await options.help.read(reference)
+        operation='read';reference=args.reference;try{output=await options.help.read(reference)}catch(error){if(options.signal.aborted||dialogueError(error,'UNSUPPORTED_INTERACTION')==='STOP_UNCONFIRMED')throw error;return {success:false,contentItems:[{type:'inputText',text:'Référence inconnue. Utilise uniquement les identifiants listés dans provenance.'}]}}
       }else throw dialogueFailure('UNSUPPORTED_INTERACTION')
       helpReceipt={threadId,turnId:turnId!,callId:p.callId,operation,reference,sha256:createHash('sha256').update(output).digest('hex'),raw:output}
       if(operation==='read'&&reference==='required-context'&&!validHelpContextText(output,options.help.bundle))throw dialogueFailure('PROVIDER_FAILED')
@@ -322,7 +322,7 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
       if(kind==='agent'){
         try{const value:unknown=JSON.parse(output);if(isRecord(value)&&isRecord(value.agent)&&value.agent.name==='Mary')identity={kind:'attested',name:'Mary',source:'bmad_resolve(agent)'}}catch{/* Une prose ou un JSON absent n’atteste aucune identité. */}
       }
-    } else if (p.tool === 'bmad_read_file' && Object.keys(args).length === 1 && typeof args.path === 'string' && args.path.length <= 32767) { options.activity('Lecture d’un fichier du profil BMad qualifié'); output = await options.read(args.path) }
+    } else if (p.tool === 'bmad_read_file' && Object.keys(args).length === 1 && typeof args.path === 'string' && args.path.length <= 32767) { options.activity('Lecture d’un fichier du profil BMad qualifié'); try { output = await options.read(args.path.replaceAll('{skill-root}',dirname(options.profile.skillPath)).replaceAll('{project-root}',options.profile.rootPath)) } catch (error) { if (options.signal.aborted || dialogueError(error,'UNSUPPORTED_INTERACTION') === 'STOP_UNCONFIRMED') throw error; return { success:false, contentItems:[{type:'inputText',text:'Fichier non autorisé ou introuvable. Utilise un chemin du profil BMad.'}] } } }
     else throw dialogueFailure('UNSUPPORTED_INTERACTION')
     options.signal.throwIfAborted()
     const contentItems=[{type:'inputText',text:output}]
@@ -334,8 +334,6 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
   })
   return { turn: async (text, accepted, observe,onQuestion,onApproval,instrumentation) => {
     if (busy) throw dialogueFailure('BUSY'); busy = true
-    // Le chargement observé d’un rôle n’atteste pas une réponse future après une sortie de rôle.
-    identity={kind:'unknown'}
     questionObserver=onQuestion;approvalObserver=onApproval;announcements.clear();announcementWaiters.clear()
     let release!: () => void; gate = new Promise(resolve => { release = resolve })
     try {
@@ -384,7 +382,8 @@ export async function startDialogueProtocol(rpc: DialogueRpc, options: ProtocolO
           await rpc.drainRequests();await Promise.all(helpTransmissions)
           if(first&&options.help&&(!resolved.has('knowledge')||!resolved.has('config')||![...options.help.requiredReferences(),'inventories'].every(id=>resolved.has('read:'+id))))throw dialogueFailure('PROVIDER_FAILED')
           if (p.turn.status !== 'completed' || p.turn.error || !messages.size || [...messages.values()].some(m=>!m.completed) || first && !options.help && (!resolved.has(options.forge?'workflow':'agent') || !resolved.has('config') || !!options.forge&&!resolved.has('check-sessions'))) throw dialogueFailure('PROVIDER_FAILED')
-          const text=[...messages.values()].map(m=>m.text).join('\n\n');if(!text.trim()||text.length>MAX_DRAFT_LENGTH)throw dialogueFailure('PROVIDER_FAILED')
+          // A model may legitimately say nothing after an answered question: the session stays usable.
+          const joined=[...messages.values()].map(m=>m.text).join('\n\n'),text=joined.trim()?joined:'(L’agent n’a rien ajouté.)';if(text.length>MAX_DRAFT_LENGTH)throw dialogueFailure('PROVIDER_FAILED')
           first = false; turnId = null; return text
         }
         if (p?.turnId !== turnId) continue

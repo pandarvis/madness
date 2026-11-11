@@ -17,6 +17,7 @@ export type Command = Envelope & (
   | { type: 'read-state' }
   | { type: 'choose-directory' }
   | { type: 'select-project'; projectId: string }
+  | { type: 'forget-project'; projectId: string }
   | { type: 'save-draft'; projectId: string; text: string }
   | { type: 'set-navigation'; collapsed: boolean }
 )
@@ -27,6 +28,8 @@ export interface MadnessBridge {
   readState(): Promise<Reply>
   chooseDirectory(): Promise<Reply>
   selectProject(projectId: string): Promise<Reply>
+  /** Removes the project from Madness only: its folder on disk is never touched. */
+  forgetProject(projectId: string): Promise<Reply>
   saveDraft(projectId: string, text: string): Promise<Reply>
   setNavigation(collapsed: boolean): Promise<Reply>
   onStateChanged(listener: (event: DomainEvent) => void): () => void
@@ -44,7 +47,7 @@ export function isCommand(value: unknown): value is Command {
   const base = ['contractVersion', 'correlationId', 'type']
   switch (value.type) {
     case 'read-state': case 'choose-directory': return exact(value, base)
-    case 'select-project': return exact(value, [...base, 'projectId']) && id(value.projectId)
+    case 'select-project': case 'forget-project': return exact(value, [...base, 'projectId']) && id(value.projectId)
     case 'save-draft': return exact(value, [...base, 'projectId', 'text']) && id(value.projectId) && typeof value.text === 'string' && value.text.length <= MAX_DRAFT_LENGTH
     case 'set-navigation': return exact(value, [...base, 'collapsed']) && typeof value.collapsed === 'boolean'
     default: return false

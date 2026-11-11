@@ -288,7 +288,7 @@ Terracotta d’action et bleu de repérage accompagnent des neutres chauds ; le 
 - **Display** : marque d’atelier ; nom d’agent court en cartouche, variante `agent-name`.
 - **Headline** : titre général à 36 px ; titres de contexte adaptés par surface. Dans Conversation, le bandeau garde 24 px en dialogue ordinaire et passe à 25 px sous 721 px. Les titres de section généraux sont à 28 px ; l’aide prend 30 px.
 - **Title** : sous-titres généraux à 22 px, demandes natives autour de 22 px, en-tête de fiche et connexion à 25 px, sous-titres d’aide à 23 px.
-- **Command** : Barlow Condensed Bold à 19 px, interligne 1,2 ; la consultation de fiche depuis un message utilise 17 px. Les onglets sont à 21 px, y compris dans Conversation, avec variante à 20 px sous 721 px et hauteur minimale de 44 px.
+- **Command** : Barlow Condensed Bold à 19 px, interligne 1,2 ; la consultation de fiche depuis un message utilise 17 px. Les onglets sont à 16 px dans l’en-tête de projet commun, à la même position sur toutes les vues d’un projet, avec variante à 20 px sous 721 px et hauteur minimale de 44 px.
 - **Body** : paragraphes à 16 px, interligne 1,6 ; messages et saisie à 16 px. Le message assistant conserve l’interligne 1,8 de son panneau spécifique. Paragraphes bornés à 70 ch et messages à 72 ch dans un article de 75 ch maximum.
 - **Label** : métadonnées, état, source, légendes, aide et info-bulles à 14 px ; la portée de connexion et l’aide réseau conservent cette taille. Les badges factuels hérités gardent leur taille compacte distincte.
 - **Message author** : nom court à 19 px, variante utilisateur à 17 px. Les définitions de rôle de la fiche emploient 19 px et leurs descriptions 16 px.

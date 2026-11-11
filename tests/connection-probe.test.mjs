@@ -49,6 +49,10 @@ test('catalogue seul et modèle défaut invisible ne suffisent pas', async () =>
   const rpc = rpcServer((message, emit) => { if (message.id) emit({ id: message.id, result: message.method === 'model/list' ? { data: [{ model: 'hidden', isDefault: true, hidden: true }] } : {} }) })
   await assert.rejects(probe.runProbeProtocol(rpc, 'empty-work', 300), { code: 'PROBE_FAILED' })
 })
+test('le témoin coupe la synchronisation des plugins, dont le git garderait les flux ouverts après l’arrêt', () => {
+  assert.ok(probe.probeSettings.includes('features.plugins=false'))
+  assert.ok(probe.probeSettings.includes('features.apps=false'))
+})
 test('arrêt natif attend la fermeture observable du processus possédé', async (t) => {
   assert.ok(probe)
   const native = spawn(process.execPath, ['-e', 'process.stdin.resume(); process.stdin.on("end",()=>process.exit(0))'], { windowsHide: true, shell: false, stdio: ['pipe', 'pipe', 'pipe'] })
@@ -61,7 +65,7 @@ test('arrêt natif attend la fermeture observable du processus possédé', async
   assert.ok(native.exitCode !== null || native.signalCode !== null)
 })
 
-test('arrêt natif confirme close et les flux après terminaison par signal', { timeout: 15000 }, async (t) => {
+test('arrêt natif confirme close et les flux après terminaison forcée', { timeout: 15000 }, async (t) => {
   assert.ok(probe)
   const native = spawn(process.execPath, ['-e', 'process.stdin.resume(); process.stdin.on("end",()=>{}); setInterval(()=>{},1000); process.stdout.write("READY\\n")'], { windowsHide: true, shell: false, stdio: ['pipe', 'pipe', 'pipe'] })
   let closeObserved = false
@@ -72,8 +76,7 @@ test('arrêt natif confirme close et les flux après terminaison par signal', { 
   assert.match(ready.toString(), /READY/)
   assert.equal(await probe.stopNative(native), true)
   assert.equal(closeObserved, true)
-  assert.equal(native.exitCode, null)
-  assert.equal(native.signalCode, 'SIGTERM')
+  assert.ok(native.exitCode !== null || native.signalCode !== null)
   assert.equal(native.stdout.destroyed, true)
   assert.equal(native.stderr.destroyed, true)
 })

@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import type { ReactNode } from 'react'
+import { soberText } from './sober-text.ts'
 
 // Small safe subset for agent replies: builds React nodes only, never HTML from model text.
 function inline(text: string): ReactNode[] {
@@ -35,7 +36,7 @@ function blocks(text: string): Block[] {
 }
 
 export function MessageMarkdown({ text }: { text: string }): ReactNode {
-  return blocks(text).map((block, index) => {
+  return blocks(soberText(text)).map((block, index) => {
     if (block.kind === 'rule') return <hr key={index} />
     if (block.kind === 'heading') return <p key={index} className="message-heading"><strong>{inline(block.text)}</strong></p>
     if (block.kind === 'list') {

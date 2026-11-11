@@ -464,3 +464,11 @@ button { border-radius: 4px }
 .madness-voice strong { color: var(--accent); font-family: 'Barlow Condensed', 'Segoe UI', sans-serif; font-size: 16px }
 .journey-next .madness-voice { display: flex }
 .autopilot-recap .madness-voice { display: flex; margin-bottom: 8px }
+.kit-sources { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line) }
+.kit-sources h3 { margin: 0 0 4px; font-family: 'Barlow Condensed', 'Segoe UI', sans-serif; font-size: 20px }
+.kit-source-path { margin: 10px 0 2px; overflow-wrap: anywhere }
+.kit-sources ul { margin: 4px 0 8px; padding-left: 18px }
+.kit-notice { display: block }
+.kit-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px }
+.kit-draft { margin-top: 12px }
+.kit-draft textarea { width: 100%; box-sizing: border-box; margin: 6px 0; padding: 8px; font: 13px Consolas, monospace; background: var(--surface); color: var(--text); border: 1px solid var(--control-line); resize: vertical }

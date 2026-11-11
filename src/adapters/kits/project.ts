@@ -7,7 +7,8 @@ import type { Kit } from '../../core/kits/manifest.ts'
 import { translateKits } from '../../core/kits/translate.ts'
 import { applyManagedBlock } from './overrides.ts'
 
-export type ActiveKit = { id: string; name: string; version: string; source: string; hash: string }
+import type { ActiveKit } from '../../contracts/kits.ts'
+export type { ActiveKit }
 const lockPath = (root: string): string => join(root, '_bmad', 'kits.lock.toml')
 export const kitCopy = (root: string, id: string): string => join(root, '_bmad', 'kits', id)
 const COPIED = ['docs', 'glossary', 'rules', 'assets']

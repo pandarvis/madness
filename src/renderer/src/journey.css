@@ -27,3 +27,6 @@
 .usage thead th:not(:first-child) { text-align: right }
 .usage-epic th { font-weight: 650 }
 .usage tbody tr:not(.usage-epic) th { padding-left: 20px; font-weight: 400 }
+.project-kits { margin-bottom: 18px; padding: 14px 16px; background: var(--panel); border: 1px solid var(--control-line) }
+.project-kits ul { list-style: none; margin: 0; padding: 0 }
+.project-kits li + li { margin-top: 6px }

@@ -6,6 +6,7 @@ import { autopilotBuilding, currentStep } from './AutopilotPanel.tsx'
 import './journey.css'
 import { ProjectUsage } from './ProjectUsage.tsx'
 import { MadnessVoice } from './MadnessVoice.tsx'
+import { ProjectKits } from './ProjectKits.tsx'
 
 type Step = { id: 'brief' | 'requirements' | 'ux' | 'architecture' | 'epics' | 'stories'; done: boolean; document: string | null; detail: string | null }
 const JOURNEY_OF: Record<string, Step['id']> = { 'bmad-product-brief': 'brief', 'bmad-prfaq': 'brief', 'bmad-brainstorming': 'brief', 'bmad-forge-idea': 'brief', 'bmad-agent-analyst': 'brief', 'bmad-prd': 'requirements', 'bmad-agent-pm': 'requirements', 'bmad-ux': 'ux', 'bmad-agent-ux-designer': 'ux', 'bmad-architecture': 'architecture', 'bmad-agent-architect': 'architecture', 'bmad-agent-po': 'epics' }
@@ -58,5 +59,6 @@ export function ProjectJourney({ projectId, run, busy, onIdeation, onPrepare }: 
       <div className="journey-next-actions"><button type="button" className="secondary" disabled={specBusy} onClick={() => importSpec(journeyBridge().pickSpec(projectId))}>{fr ? 'Choisir un fichier…' : 'Choose a file…'}</button><button type="button" className="primary" disabled={specBusy || !specText.trim()} onClick={() => importSpec(journeyBridge().pasteSpec(projectId, specText))}>{fr ? 'Utiliser ce texte' : 'Use this text'}</button></div>
     </section>}
     <ProjectUsage projectId={projectId} refresh={run?.updatedAt} />
+    <ProjectKits projectId={projectId} />
   </>
 }

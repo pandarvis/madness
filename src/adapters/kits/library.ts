@@ -1,9 +1,9 @@
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { parseKitManifest } from '../../core/kits/manifest.ts'
-import type { Kit } from '../../core/kits/manifest.ts'
 
-export type FoundKit = { folder: string; ok: true; kit: Kit; notices: string[] } | { folder: string; ok: false; errors: string[] }
+import type { FoundKit } from '../../contracts/kits.ts'
+export type { FoundKit }
 
 /** Kits in a source: a manifest at its root, or one per folder under kits/. */
 export async function scanSource(source: string): Promise<FoundKit[]> {

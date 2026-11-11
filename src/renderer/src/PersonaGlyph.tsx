@@ -18,6 +18,8 @@ const DRAWINGS: Record<Persona, ReactNode> = {
   dev: <><rect x="3" y="4" width="18" height="13" rx="1.5" /><path d="M9 8.5 6.5 10.75 9 13" /><path d="m15 8.5 2.5 2.25L15 13" /><path d="m12.9 8-1.8 5.5" /><path d="M12 17v3.5" /><path d="M8.5 20.5h7" /></>,
   // Smithy, toolsmith: hammer over an anvil.
   toolsmith: <><path d="M3.5 11.5h15v1.5a2.5 2.5 0 0 1-2.5 2.5H8.5a5 5 0 0 1-5-4Z" /><path d="M10 15.5V18" /><path d="M14 15.5V18" /><path d="M7.5 20.5h9l-1.2-2.5H8.7Z" /><path d="m15.4 2.6 3.9 3.9-1.8 1.8-3.9-3.9Z" /><path d="m15.3 6.5-3.6 3.6" /></>,
+  // Party mode, the round table: a table with seats around it.
+  party: <><circle cx="12" cy="12" r="4.5" /><circle cx="12" cy="3.8" r="1.6" /><circle cx="12" cy="20.2" r="1.6" /><circle cx="3.8" cy="12" r="1.6" /><circle cx="20.2" cy="12" r="1.6" /><circle cx="6.2" cy="6.2" r="1.6" /><circle cx="17.8" cy="17.8" r="1.6" /><circle cx="17.8" cy="6.2" r="1.6" /><circle cx="6.2" cy="17.8" r="1.6" /></>,
 }
 
 export function PersonaGlyph({ persona, className }: { persona: Persona; className?: string }): ReactNode {

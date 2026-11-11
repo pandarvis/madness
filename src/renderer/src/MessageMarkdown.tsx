@@ -45,9 +45,10 @@ function blocks(text: string): Block[] {
   return result.filter(block => block.kind !== 'paragraph' || block.lines.length > 0)
 }
 
-export function MessageMarkdown({ text }: { text: string }): ReactNode {
-  // The persona that opens a reply is already shown by the author's portrait.
-  return blocks(soberText(text).replace(/^\s*\w+\s*/, '')).map((block, index) => {
+export function MessageMarkdown({ text, keepLead = false }: { text: string; keepLead?: boolean }): ReactNode {
+  const sober = soberText(text)
+  // The persona that opens a reply is already shown by the author's portrait; a round table keeps each speaker's.
+  return blocks(keepLead ? sober : sober.replace(/^\s*\uE000\w+\uE001\s*/, '')).map((block, index) => {
     if (block.kind === 'rule') return <hr key={index} />
     if (block.kind === 'heading') return <p key={index} className="message-heading"><strong>{inline(block.text)}</strong></p>
     if (block.kind === 'list') {

@@ -7,9 +7,9 @@ const SIGNS: Record<string, string> = {
   '⭐': '★', '🌟': '★', '🔴': '●', '🟠': '●', '🟡': '●', '🟢': '●', '🔵': '●', '⚪': '○', '⚫': '●',
 }
 // BMad persona emojis (roster.toml) become a marker that the renderer draws as Madness's own glyph.
-export type Persona = 'analyst' | 'pm' | 'po' | 'ux' | 'architect' | 'dev' | 'toolsmith'
+export type Persona = 'analyst' | 'pm' | 'po' | 'ux' | 'architect' | 'dev' | 'toolsmith' | 'party'
 const PERSONAS: Record<string, Persona> = { '📊': 'analyst', '📋': 'pm', '🎯': 'po', '🎨': 'ux', '🏗': 'architect', '💻': 'dev', '⚒': 'toolsmith' }
-export const PERSONA_BY_NAME: Record<string, Persona> = { Mary: 'analyst', John: 'pm', Sofia: 'po', Sally: 'ux', Winston: 'architect', Amelia: 'dev', Smithy: 'toolsmith' }
+export const PERSONA_BY_NAME: Record<string, Persona> = { Mary: 'analyst', John: 'pm', Sofia: 'po', Sally: 'ux', Winston: 'architect', Amelia: 'dev', Smithy: 'toolsmith', 'Table ronde': 'party' }
 export const PERSONA_MARK = /\uE000(\w+)\uE001/g
 const mark = (persona: Persona): string => '\uE000' + persona + '\uE001'
 // The persona that opens a reply (Mary starts every message with 📊), if any.

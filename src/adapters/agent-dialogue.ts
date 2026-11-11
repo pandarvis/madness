@@ -2,7 +2,7 @@ import type { DialogueSession } from '../core/ports.ts'
 import type { AgentRunner, AgentTurnResult } from '../core/autopilot.ts'
 import { dialogueFailure } from '../contracts/dialogue.ts'
 
-const names: Record<string, string> = { 'bmad-agent-analyst': 'Mary', 'bmad-agent-pm': 'John', 'bmad-agent-architect': 'Winston', 'bmad-agent-ux-designer': 'Sally', 'bmad-agent-po': 'Sofia', 'bmad-agent-dev': 'Amelia' }
+const names: Record<string, string> = { 'bmad-agent-analyst': 'Mary', 'bmad-agent-pm': 'John', 'bmad-agent-architect': 'Winston', 'bmad-agent-ux-designer': 'Sally', 'bmad-agent-po': 'Sofia', 'bmad-agent-dev': 'Amelia', 'bmad-party-mode': 'Table ronde' }
 
 type Options = {
   run: AgentRunner

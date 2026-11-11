@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import { useLocale } from './Locale.tsx'
 
 type Option = { id: string; label: string }
-export type ModelsState = { choice: { claude: string; codex: string | null }; claude: Option[]; preferredCodex: string; codex?: Option[] }
+export type ModelsState = { choice: { claude: string; codex: string | null }; claude: Option[]; preferredCodex: string; codex?: Option[]; ownCodexLogin?: boolean }
 type Bridge = { read(): Promise<ModelsState>; list(): Promise<ModelsState>; set(provider: 'claude-code' | 'codex', model: string | null): Promise<ModelsState> }
 const bridge = (): Bridge | undefined => (window as unknown as { madnessModels?: Bridge }).madnessModels
 

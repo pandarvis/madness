@@ -5,7 +5,7 @@ import copilotMark from './assets/githubcopilot.svg?no-inline'
 import { useLocale } from './Locale.tsx'
 
 export type ProviderId = 'codex' | 'claude-code' | 'github-copilot'
-export type CodexReadiness = 'verified' | 'stored' | 'none'
+export type CodexReadiness = 'own' | 'verified' | 'stored' | 'none'
 
 const STORAGE_KEY = 'madness.next-provider'
 
@@ -26,8 +26,8 @@ export function ProviderIsland({ active, codex, onChoose, models }: { active: Pr
   const fr = language === 'fr'
   const names: Record<ProviderId, string> = { codex: 'Codex', 'claude-code': 'Claude Code', 'github-copilot': 'GitHub Copilot' }
   const state = (id: ProviderId): { text: string; tone: 'ok' | 'warn' | 'off' } => {
-    if (id === 'codex') return codex === 'verified' ? { text: fr ? 'connecté' : 'connected', tone: 'ok' } : codex === 'stored' ? { text: fr ? 'à vérifier' : 'to verify', tone: 'warn' } : { text: fr ? 'non configuré' : 'not set up', tone: 'off' }
-    if (id === 'claude-code') return { text: fr ? 'vérifié au lancement' : 'checked at launch', tone: 'ok' }
+    if (id === 'codex') return codex === 'own' ? { text: fr ? 'ta connexion habituelle' : 'your usual login', tone: 'ok' } : codex === 'verified' ? { text: fr ? 'connecté' : 'connected', tone: 'ok' } : codex === 'stored' ? { text: fr ? 'à vérifier' : 'to verify', tone: 'warn' } : { text: fr ? 'non configuré' : 'not set up', tone: 'off' }
+    if (id === 'claude-code') return { text: fr ? 'ta connexion Claude Code' : 'your Claude Code login', tone: 'ok' }
     return { text: fr ? 'bientôt' : 'coming soon', tone: 'off' }
   }
   const current = state(active)
@@ -39,7 +39,7 @@ export function ProviderIsland({ active, codex, onChoose, models }: { active: Pr
     <div className="provider-options" role="group" aria-label={fr ? 'Choisir le fournisseur du prochain échange' : 'Choose the next exchange provider'}>
       {(['claude-code', 'codex', 'github-copilot'] as const).map(id => {
         const s = state(id), soon = id === 'github-copilot'
-        return <button key={id} type="button" className={'provider-option' + (id === active ? ' is-active' : '')} aria-pressed={id === active} disabled={soon} onClick={() => onChoose(id)}>
+        return <button key={id} type="button" title={id === 'claude-code' ? (fr ? 'Utilise la CLI Claude Code 2.1.322 et la connexion faite avec « claude auth login »' : 'Uses the Claude Code CLI 2.1.322 and its « claude auth login »') : id === 'codex' && codex === 'own' ? (fr ? 'Utilise la connexion de ton application Codex' : 'Uses your Codex app login') : undefined} className={'provider-option' + (id === active ? ' is-active' : '')} aria-pressed={id === active} disabled={soon} onClick={() => onChoose(id)}>
           <Mark id={id} /><span className="provider-option-text"><span className="provider-name">{names[id]}</span><span className="provider-state">{models?.[id] ? models[id] + ' · ' + s.text : s.text}</span></span>{s.tone === 'warn' && <span className="provider-dot provider-warn" aria-hidden="true" />}
         </button>
       })}

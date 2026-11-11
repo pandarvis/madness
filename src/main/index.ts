@@ -57,7 +57,7 @@ import {summarizeUsage} from '../core/usage.ts'
 let usageInstance:UsageStore|null=null
 const usageStore=():UsageStore=>usageInstance??=new UsageStore(join(app.getPath('userData'),'usage-v1.jsonl'))
 const conversationUsage=(root:string,projectId:string,skill:string)=>(tokens:number,ms:number):void=>{void readProjectPlan(root).then(plan=>usageStore().append([{projectId,initiative:plan.initiative,kind:'conversation',at:new Date().toISOString(),tokens,ms,title:skill}])).catch(()=>undefined)}
-import {codexAgentTurn,listOwnCodexModels,PREFERRED_CODEX_MODEL} from '../adapters/codex/agent-turn.ts'
+import {codexAgentTurn,hasOwnCodexLogin,listOwnCodexModels,PREFERRED_CODEX_MODEL} from '../adapters/codex/agent-turn.ts'
 import {CLAUDE_MODELS,ModelStore} from '../adapters/models.ts'
 import {AUTOPILOT_COMMAND_CHANNEL,AUTOPILOT_EVENT_CHANNEL,isAutopilotCommand,isAutopilotState,initialAutopilotState} from '../contracts/autopilot.ts'
 import {inspectApprovalFiles} from '../adapters/codex/file-proposals.ts'
@@ -113,7 +113,8 @@ if (!app.requestSingleInstanceLock()) app.quit()
 else {
   app.on('second-instance', () => { window?.restore(); window?.focus() })
   app.whenReady().then(async () => {
-    app.setAppUserModelId('fr.madness.desktop')
+    // A test window run from the sources is a separate app for Windows: its own taskbar entry, with its own icon.
+    app.setAppUserModelId(app.isPackaged?'fr.madness.desktop':'fr.madness.desktop.dev')
     Menu.setApplicationMenu(null)
     const rendererRoot = resolve(__dirname, '../renderer')
     protocol.handle('madness', async (request) => {
@@ -572,7 +573,7 @@ else {
       const request=(input&&typeof input==='object'?input:{}) as {action?:unknown;provider?:unknown;model?:unknown}
       if(request.action==='set'&&(request.provider==='claude-code'||request.provider==='codex')&&(request.model===null||typeof request.model==='string'))await models.set(request.provider,request.model as string|null)
       const codex=request.action==='list'?await listOwnCodexModels({realHome:app.getPath('home'),appData:app.getPath('appData'),environment:process.env}):undefined
-      return {choice:await models.read(),claude:CLAUDE_MODELS,preferredCodex:PREFERRED_CODEX_MODEL,...(codex?{codex}:{})}
+      return {choice:await models.read(),claude:CLAUDE_MODELS,preferredCodex:PREFERRED_CODEX_MODEL,ownCodexLogin:await hasOwnCodexLogin(app.getPath('home')),...(codex?{codex}:{})}
     })
     const autopilot=new AutopilotCoordinator({
       store:new AutopilotStore(join(app.getPath('userData'),'autopilot-v1.json')),

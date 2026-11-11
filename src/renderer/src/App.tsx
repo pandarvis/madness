@@ -520,7 +520,7 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
     restoreText.current=next
     setTexts(current=>({...current,[next.projectId]:''}))
     followSession(next.projectId)
-    if(nextProvider==='codex'&&bmadAgent==='bmad-agent-analyst'){restoreText.current=null;setTexts(current=>({...current,[next.projectId]:next.text}));pendingSend.current=next.projectId;void dialogueAction('launch');return}
+    if(nextProvider==='codex'&&bmadAgent==='bmad-agent-analyst'&&!models?.ownCodexLogin){restoreText.current=null;setTexts(current=>({...current,[next.projectId]:next.text}));pendingSend.current=next.projectId;void dialogueAction('launch');return}
     void dialogueAction('launchClaude',{text:next.text,agent:bmadAgent,writes:true,...(nextProvider==='codex'?{provider:'codex' as const}:{})})
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[sessionPresent,dialogueBusy,dialoguePending])
@@ -542,7 +542,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
   async function sendMessage(): Promise<void> {
     if(!project||!text.trim()||sending.current)return
     // Any agent other than Mary works in full BMad mode: it writes its own documents.
-    const codexAgent=nextProvider==='codex'&&bmadAgent!=='bmad-agent-analyst'
+    // With the user's own Codex login, Mary too runs on the agents' engine: no separate Madness sign-in needed.
+    const codexAgent=nextProvider==='codex'&&(bmadAgent!=='bmad-agent-analyst'||!!models?.ownCodexLogin)
     const agentic=nextProvider==='claude-code'&&(allowWrites||bmadAgent!=='bmad-agent-analyst')
     const wanted=nextProvider==='claude-code'&&!agentic?'$bmad-agent-analyst':'$'+bmadAgent
     // Another agent was picked while one is live: close it, then open the chosen one with this message.
@@ -719,13 +720,17 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
       </div>
       <div className="topbar-actions">
         <button className="toolbar-toggle command-control open-project" type="button" aria-label={fr.open} onClick={open} disabled={pending || !state}><TopbarIcon name="folder" /><span className="command-tooltip" aria-hidden="true">{fr.open}</span></button>
-        <ProviderIsland models={{'claude-code':modelLabel(models,'claude-code'),codex:modelLabel(models,'codex')}} active={nextProvider} codex={connection.status==='verified'?'verified':connection.accountStored?'stored':'none'} onChoose={id=>{setNextProvider(id);saveNextProvider(id);if(id==='codex'&&!connection.accountStored)openConnection()}}/>
+        <ProviderIsland models={{'claude-code':modelLabel(models,'claude-code'),codex:modelLabel(models,'codex')}} active={nextProvider} codex={models?.ownCodexLogin?'own':connection.status==='verified'?'verified':connection.accountStored?'stored':'none'} onChoose={id=>{setNextProvider(id);saveNextProvider(id);if(id==='codex'&&!models?.ownCodexLogin&&!connection.accountStored)openConnection()}}/>
         <button className={'toolbar-toggle command-control codex-trigger settings-trigger ' + (connection.status === 'verified' ? 'codex-verified' : '')} type="button" ref={connectionTrigger} aria-label={connectionLabel + (language==='fr'?' · Réglages':' · Settings')} aria-expanded={connectionOpen} aria-controls="codex-connection-panel" aria-haspopup="dialog" onClick={() => { if (connectionOpen) closeConnection(); else openConnection() }}><TopbarIcon name="settings" /><span className="command-tooltip" aria-hidden="true">{language==='fr'?'Réglages':'Settings'}</span></button>
       </div>
     </header>
     <WindowCaptionPlates />
     {connectionOpen && <section id="codex-connection-panel" className="connection-panel" role="dialog" aria-modal="false" aria-labelledby="codex-connection-title" ref={connectionPanel}>
-      <p className="settings-eyebrow small muted">{language==='fr'?'Réglages':'Settings'}</p><div className="connection-heading"><h2 id="codex-connection-title" ref={connectionHeading} tabIndex={-1}>{ui.codex_connection}</h2><button type="button" aria-label={ui.close_codex_connection} onClick={closeConnection}><Icon name="close" /></button></div>
+      <div className="connection-heading"><h2 id="codex-connection-title" ref={connectionHeading} tabIndex={-1}>{language==='fr'?'Réglages':'Settings'}</h2><button type="button" aria-label={ui.close_codex_connection} onClick={closeConnection}><Icon name="close" /></button></div>
+      <ModelPicker state={models} set={setModel} load={loadModels} />
+      <KitSources />
+      {/* Connections live in the provider island; Madness's own ChatGPT sign-in only shows when the Codex app's login is missing. */}
+      {models&&!models.ownCodexLogin&&<div className="settings-section settings-connections"><h3>{language==='fr'?'Connexion Codex':'Codex connection'}</h3><p className="small">{language==='fr'?'Aucune connexion de l’application Codex n’est détectée sur ce PC : connecte-toi dans l’application Codex, ou utilise la connexion propre à Madness.':'No Codex app login found on this PC: sign in in the Codex app, or use Madness’s own connection.'}</p>
       <p className={'connection-state ' + (connection.status === 'verified' ? 'is-verified' : '')} role="status">{fr.connectionStatus[connection.status]}</p>
       {connection.status === 'verified' ? <p>{ui.a_codex_check_turn_succeeded_and_its_process_stopped}{connection.verifiedAt && <> {ui.verified_at} {new Date(connection.verifiedAt).toLocaleString(locale)}.</>}{connection.cliVersion && <> Codex {connection.cliVersion}.</>}</p> : connection.accountStored ? <p>{ui.your_account_is_saved_in_the_encrypted_windows_vault_it_still_nee}</p> : <p>{ui.connect_your_chatgpt_account_in_the_windows_browser_madness_keeps}</p>}
       {connection.status === 'authorizing' && <p>{ui.complete_authorization_in_your_browser_waiting_expires_after_ten_}</p>}
@@ -744,10 +749,8 @@ export function App({ initialAppearance = window.madnessAppearance.initial, appe
         </>}
       </div>
       <div className="connection-scope"><p>{ui.this_checks_the_local_connection_to_your_plan_a_bmad_session_laun}</p><button className="text-button" type="button" onClick={() => void connectionAction('manageUsage')} disabled={connectionPending}>{ui.manage_usage_in_chatgpt}</button></div>
+      </div>}
       <div className="settings-section"><h3>{language==='fr'?'Langue':'Language'}</h3><LanguageControl/></div>
-      <ModelPicker state={models} set={setModel} load={loadModels} />
-      <KitSources />
-      <div className="settings-section"><h3>Claude Code</h3><p className="small">{language==='fr'?'Madness utilise la CLI officielle Claude Code et la connexion que vous y avez déjà faite. Elles sont vérifiées à chaque lancement ; aucun secret n’est stocké par Madness. Prérequis : Claude Code 2.1.322 (npm install -g @anthropic-ai/claude-code@2.1.322) et une connexion faite avec « claude auth login ».':'Madness uses the official Claude Code CLI and the sign-in you already made there. Both are checked at each launch; Madness stores no secret. Requires Claude Code 2.1.322 (npm install -g @anthropic-ai/claude-code@2.1.322) and a sign-in made with “claude auth login”.'}</p></div>
       <div className="settings-section"><h3>GitHub Copilot</h3><p className="small">{language==='fr'?'Bientôt disponible.':'Coming soon.'}</p></div>
       <div className="settings-section"><h3>{language==='fr'?'Mode développeur':'Developer mode'}</h3><label className="approval-mode"><input type="checkbox" checked={devMode} onChange={event=>changeDevMode(event.target.checked)}/>{language==='fr'?'Afficher les outils de développement':'Show development tools'}</label>{devMode&&<div className="dialogue-actions"><button className="secondary" type="button" onClick={replaySplash} disabled={sessionPresent||dialogueBusy}>{language==='fr'?'Rejouer l’écran de chargement':'Replay the loading screen'}</button></div>}</div>
     </section>}

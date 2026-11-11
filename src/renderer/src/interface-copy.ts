@@ -285,8 +285,8 @@ export const interfaceCopy = {
   "en": "Checking sends a short test message and uses your ChatGPT plan. Its limits apply."
  },
  "new_initiative_placeholder": {
-  "fr": "Nom du nouveau chantier",
-  "en": "New workstream name"
+  "fr": "Nom de la nouvelle initiative",
+  "en": "New initiative name"
  },
  "create_initiative": {
   "fr": "Créer",

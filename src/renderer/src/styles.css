@@ -352,8 +352,8 @@ button { border-radius: 4px }
 .atelier-header::after { content: ''; position: absolute; right: 8px; bottom: 8px; width: 26px; height: 1px; background: #e49b7a; transform: rotate(-45deg); pointer-events: none }
 .atelier-header h1 { max-width: 28ch; text-shadow: 0 2px 6px #10181980 }
 .atelier-header .context-note, .atelier-header p { color: #e0d0bd }
-.atelier-header .context-trigger { color: #f4eadc; background: #20343c; border: 1px solid #8b9b9b; align-self: flex-start }
-.atelier-header .context-trigger:hover { background: #294652 }
+.atelier-header .context-trigger { color: #f4eadc; background: transparent; border: 0; align-self: flex-start }
+.atelier-header .context-trigger:hover::after { --control-face: var(--hover) }
 .atelier-header .context-trigger:focus-visible { outline-color: #9dc7e1 }
 .page-intro { align-items: center; margin-bottom: 26px }
 .page-intro p { margin-top: 8px }
